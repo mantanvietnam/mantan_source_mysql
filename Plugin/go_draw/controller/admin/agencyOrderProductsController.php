@@ -140,14 +140,14 @@ function addAgencyOrderProductAdmin($input)
 
             
         } else {
-            return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin.php');
+            return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin');
         }
 
 
         setVariable('data', $order);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin.php');
+        return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin');
     }
 }
 

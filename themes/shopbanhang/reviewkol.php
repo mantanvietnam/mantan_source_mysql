@@ -21,9 +21,9 @@ $settinghom = setting();
         <div class="container">
             <div class="tab-menu">
                 <ul class="nav nav-tabs">
-                    <li><a class="nav-link active" href="nhan_xet_tu_kol">Nhận xét từ các KOL, KOC</a></li>
-                    <li><a class="nav-link" href="khach_hang_dap_hop">Khách hàng đập hộp</a></li>
-                    <li><a class="nav-link" href="review_san_pham">Review sản phẩm</a></li>
+                    <li><a class="nav-link active" href="nhan-xet-tu-kol">Nhận xét từ các KOL, KOC</a></li>
+                    <li><a class="nav-link" href="khach-hang-dap-hop">Khách hàng đập hộp</a></li>
+                    <li><a class="nav-link" href="review-san-pham">Review sản phẩm</a></li>
                 </ul>
             </div>
 
@@ -55,7 +55,13 @@ $settinghom = setting();
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <?php echo $item->description ?>
+                                            <?php
+                                                if(!empty($item->description)){
+                                                    echo $item->description;
+                                                }elseif(!empty($item->youtube)){
+                                                    echo '<iframe width="320" height="300" src="https://www.youtube.com/embed/'.$item->youtube.'?si=UGeHLtr6Tqz9uZXq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                                }
+                                             ?>
                                         </div>
                                       </div>
                                     </div>
@@ -96,7 +102,7 @@ $settinghom = setting();
                         <div class="list-video">
                             <div class="container-fluid">
                                 <div class="row row-video-1">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-1">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 combo-1">
                                         <div class="title-review-product">
                                             <p><?php echo $setting['name_product1'] ?></p>
                                             <div class="double-line-1"></div>
@@ -150,7 +156,7 @@ $settinghom = setting();
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-2">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 combo-2">
                                         <div class="title-review-product">
                                             <p><?php echo $setting['name_product2'] ?></p>
                                             <div class="double-line-2"></div>
@@ -208,7 +214,7 @@ $settinghom = setting();
                                 </div>
 
                                 <div class="row row-video-2">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-3">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 combo-3">
                                         <div class="title-review-product">
                                             <p><?php echo $setting['name_product3'] ?></p>
                                             <div class="double-line-1"></div>
@@ -262,7 +268,7 @@ $settinghom = setting();
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-4">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 combo-4">
                                         <div class="title-review-product">
                                             <p><?php echo $setting['name_product4'] ?></p>
                                             <div class="double-line-2"></div>
@@ -331,7 +337,13 @@ $settinghom = setting();
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                       <?php echo $setting['embedded11'] ?>
+                                       <?php
+                                            if(!empty($setting['embedded11'])){
+                                                echo $setting['embedded11'];
+                                            }elseif(!empty($setting['youtube_11'])){
+                                                echo '<iframe width="320" height="300" src="https://www.youtube.com/embed/'.$setting['youtube_11'].'?si=UGeHLtr6Tqz9uZXq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                            }
+                                        ?>
                                     </div>
                                   </div>
                                 </div>
@@ -346,7 +358,13 @@ $settinghom = setting();
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <?php echo $setting['embedded12'] ?>
+                                        <?php
+                                            if(!empty($setting['embedded12'])){
+                                                echo $setting['embedded12'];
+                                            }elseif(!empty($setting['youtube_12'])){
+                                                echo '<iframe width="320" height="300" src="https://www.youtube.com/embed/'.$setting['youtube_12'].'?si=UGeHLtr6Tqz9uZXq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                            }
+                                        ?>
                                     </div>
                                   </div>
                                 </div>
@@ -362,7 +380,13 @@ $settinghom = setting();
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <?php echo $setting['embedded21'] ?>
+                                        <?php
+                                            if(!empty($setting['embedded21'])){
+                                                echo $setting['embedded21'];
+                                            }elseif(!empty($setting['youtube_21'])){
+                                                echo '<iframe width="320" height="300" src="https://www.youtube.com/embed/'.$setting['youtube_21'].'?si=UGeHLtr6Tqz9uZXq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                            }
+                                        ?>
                                     </div>
                                   </div>
                                 </div>
@@ -377,7 +401,13 @@ $settinghom = setting();
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <?php echo $setting['embedded22'] ?>
+                                        <?php
+                                            if(!empty($setting['embedded22'])){
+                                                echo $setting['embedded22'];
+                                            }elseif(!empty($setting['youtube_22'])){
+                                                echo '<iframe width="320" height="300" src="https://www.youtube.com/embed/'.$setting['youtube_22'].'?si=UGeHLtr6Tqz9uZXq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                            }
+                                        ?>
                                     </div>
                                   </div>
                                 </div>
@@ -393,7 +423,13 @@ $settinghom = setting();
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <?php echo $setting['embedded31'] ?>
+                                        <?php
+                                            if(!empty($setting['embedded31'])){
+                                                echo $setting['embedded31'];
+                                            }elseif(!empty($setting['youtube_31'])){
+                                                echo '<iframe width="320" height="300" src="https://www.youtube.com/embed/'.$setting['youtube_31'].'?si=UGeHLtr6Tqz9uZXq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                            }
+                                        ?>
                                     </div>
                                   </div>
                                 </div>
@@ -405,7 +441,13 @@ $settinghom = setting();
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
                                     <div class="modal-body">
-                                        <?php echo $setting['embedded32'] ?>
+                                        <?php
+                                            if(!empty($setting['embedded32'])){
+                                                echo $setting['embedded32'];
+                                            }elseif(!empty($setting['youtube_32'])){
+                                                echo '<iframe width="320" height="300" src="https://www.youtube.com/embed/'.$setting['youtube_32'].'?si=UGeHLtr6Tqz9uZXq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                            }
+                                        ?>
                                     </div>
                                   </div>
                                 </div>
@@ -421,7 +463,13 @@ $settinghom = setting();
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <?php echo $setting['embedded41'] ?>
+                                            <?php
+                                            if(!empty($setting['embedded41'])){
+                                                echo $setting['embedded41'];
+                                            }elseif(!empty($setting['youtube_41'])){
+                                                echo '<iframe width="320" height="300" src="https://www.youtube.com/embed/'.$setting['youtube_41'].'?si=UGeHLtr6Tqz9uZXq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                            }
+                                        ?>
                                         </div>
                                     </div>
                                 </div>
@@ -436,7 +484,13 @@ $settinghom = setting();
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <?php echo $setting['embedded42'] ?>
+                                            <?php
+                                            if(!empty($setting['embedded42'])){
+                                                echo $setting['embedded42'];
+                                            }elseif(!empty($setting['youtube_42'])){
+                                                echo '<iframe width="320" height="300" src="https://www.youtube.com/embed/'.$setting['youtube_42'].'?si=UGeHLtr6Tqz9uZXq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                            }
+                                        ?>
                                         </div>
                                     </div>
                                 </div>

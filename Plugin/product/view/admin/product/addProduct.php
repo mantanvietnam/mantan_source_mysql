@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/product-view-admin-product-listProduct.php">Sản phẩm</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/product-view-admin-product-listProduct">Sản phẩm</a> /</span>
     Thông tin sản phẩm
   </h4>
 
@@ -158,11 +158,11 @@
                               <input type="text" class="form-control" name="pricepro_discount" id="pricepro_discount" value="<?php echo @$data->pricepro_discount; ?>" />
                             </div>
                              <div class="mb-3">
-                              <label class="form-label">Số lượng ban đầu</label>
-                              <input type="number" class="form-control phone-mask" name="number_like" id="number_like" value="<?php echo (int) @$data->number_like;?>" />
+                              <label class="form-label">Giá flash sale </label>
+                              <input type="number" class="form-control phone-mask" name="price_flash" id="price_flash" value="<?php echo (int) @$data->price_flash;?>" />
                             </div> 
                             <div class="mb-3">
-                              <label class="form-label">Số lượng còn trong kho</label>
+                              <label class="form-label">Số lượng </label>
                               <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
                             </div>
                             

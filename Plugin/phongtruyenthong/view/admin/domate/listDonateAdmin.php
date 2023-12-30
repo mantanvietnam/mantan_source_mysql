@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Quyên góp</h4>
   
-  <p><a href="/plugins/admin/phongtruyenthong-view-admin-domate-addDonateAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/phongtruyenthong-view-admin-domate-addDonateAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -96,12 +96,12 @@
                         
                         <td>'.number_format($item->donate).'đ</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/phongtruyenthong-view-admin-domate-addDonateAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/phongtruyenthong-view-admin-domate-addDonateAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/phongtruyenthong-view-admin-domate-deleteDonateAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/phongtruyenthong-view-admin-domate-deleteDonateAdmin/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

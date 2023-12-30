@@ -116,6 +116,7 @@ function addLink($input)
 
 	        	if(empty($checkLink)){
 	        		if($infoUser->coin >= $price_link || !empty($data->id)){
+			        	if(empty($dataSend['goto'])) $dataSend['goto'] = 'https://app.zoomcheap.com/wait';
 			        	
 			        	// tạo dữ liệu save link
 				        $data->title = $dataSend['title'];

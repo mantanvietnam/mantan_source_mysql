@@ -216,7 +216,7 @@
                               <p><label>Số dư tài khoản:</label> <?php echo number_format($items->member->account_balance); ?>  VNĐ</p>
                               <p><label>Số Ecoin nạp:</label> <?php echo number_format($items->total); ?>  VNĐ</p>
                               
-                                <a class="btn btn-primary" onclick="return confirm(\'Bạn có chắc chắn muốn sử lý giao dịch này không?\');" href="/plugins/admin/ezpics_admin-view-admin-transaction-confirmReceiptMoneyEzpics.php/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển Ecoin  ">Xác nhận nạp Ecoin cho khách</a>
+                                <a class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn muốn sử lý giao dịch này không?');" href="/plugins/admin/ezpics_admin-view-admin-transaction-confirmReceiptMoneyEzpics/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển Ecoin  ">Xác nhận nạp Ecoin cho khách</a>
                             </div>
                              
                               

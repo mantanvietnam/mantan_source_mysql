@@ -168,12 +168,12 @@ function addDesignRegistrationAdmin($input)
                  sendEmailunsuccessfuldesigner($member->email, $member->name,$dataSend['content']);
             }
     		
-    		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin.php?status=2');
+    		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin?status=2');
 
     		  
         }
     }else{
-        return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin.php');
+        return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin');
     }
 
     setVariable('data', $data);
@@ -195,7 +195,7 @@ function deleteDesignRegistrationAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin.php?status=3');
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin?status=3');
 }
 
 function listOrderProductAdmin($input){
@@ -319,7 +319,7 @@ function addOrderProductAdmin($input){
 		}
 		$modelmember->save($data);
 
-		return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin.php?status=2');
+		return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin?status=2');
 
 		  
     }
@@ -341,7 +341,7 @@ function deleteOrderProductAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listOrderProductAdmin.php?status=3');
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listOrderProductAdmin?status=3');
 }
 
 function listBaddesignAdmin($input){
@@ -475,7 +475,7 @@ function addBaddesignAdmin($input){
         }
         $modelmember->save($data);
 
-        return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin.php?status=2');
+        return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin?status=2');
 
           
     }
@@ -497,6 +497,6 @@ function deleteBaddesignAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listBaddesignAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listBaddesignAdmin?status=3');
 }
 ?>

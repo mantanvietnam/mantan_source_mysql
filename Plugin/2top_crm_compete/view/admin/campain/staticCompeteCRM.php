@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM.php">Chiến dịch thi đua</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM">Chiến dịch thi đua</a> /</span>
     Thống kê thi đua
   </h4>
   
@@ -31,7 +31,7 @@
                           '.$customers[$idCustomer]->phone.'<br/>
                           '.$customers[$idCustomer]->email.'
                         </td>
-                        <td><a href="/plugins/admin/2top_crm_compete-view-admin-report-listReportCRM.php/?id_customer='.$idCustomer.'">'.number_format($point).'</a></td>
+                        <td><a href="/plugins/admin/2top_crm_compete-view-admin-report-listReportCRM/?id_customer='.$idCustomer.'">'.number_format($point).'</a></td>
                       </tr>';
               }
             }else{

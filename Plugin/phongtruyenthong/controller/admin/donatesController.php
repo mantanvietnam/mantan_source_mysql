@@ -181,6 +181,6 @@ function deleteDonateAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/phongtruyenthong-view-admin-domate-listDonateAdmin.php');
+	return $controller->redirect('/plugins/admin/phongtruyenthong-view-admin-domate-listDonateAdmin');
 }
 ?>

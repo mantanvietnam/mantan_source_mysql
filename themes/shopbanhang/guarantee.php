@@ -18,8 +18,8 @@
             <div class="container">
 
                 <ul class="nav nav-tabs">
-                     <li class="active" ><a href="chinh_sach_bao_mat" class="active" >Chính sách bảo hành</a></li>
-                    <li><a href="huong_dan_kich_hoat_bao_hanh">Hướng dẫn kích hoạt bảo hành</a></li>
+                    <li class="active"><a href="chinh-sach-bao-hanh" class="active">Chính sách bảo hành</a></li>
+                    <li ><a href="huong-dan-kich-hoat-bao-hanh" >Hướng dẫn kích hoạt bảo hành</a></li>
                 </ul>
 
                 <div class="tab-content">

@@ -2,7 +2,7 @@
 	$menus= array();
 	$menus[0]['title']= 'All SEO';
     $menus[0]['sub'][0]= array(	'title'=>'Cài đặt SEO',
-    							'url'=>'/plugins/admin/all_seo-settingAllSEO.php',
+    							'url'=>'/plugins/admin/all_seo-settingAllSEO',
     							'classIcon'=>'bx bxs-data',
     							'permission'=>'settingAllSEO'
     						);

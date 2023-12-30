@@ -63,7 +63,7 @@
                                         <?php
                                         if(!empty($listData)){
                                             foreach($listData as $key => $item){ 
-                                                $type = 'Chưa thanh toán';
+                                                  $type = '<span style="color: red">Chưa thanh toán</span>';
                                                 if($item->status==1){
                                                     $type = 'Đã thanh toán';
                                                 }elseif($item->status==2){
@@ -126,7 +126,7 @@
             $promotion = $items->promotion.'%';
         }
 
-        $type = 'Chưa thanh toán';
+          $type = '<span style="color: red">Chưa thanh toán</span>';
         if($items->status==1){
             $type = 'Đã thanh toán';
         }elseif($items->status==2){
@@ -146,7 +146,7 @@
         </div>
         <div class="modal-footer" style="display: block;">
             <p><label>ID:</label> <?php echo $items->id ?></p>
-            <p><label>Tiên khách hàng:</label> <?php echo $items->full_name ?></p>
+            <p><label>Tên khách hàng:</label> <?php echo $items->full_name ?></p>
             <p><label>Điện thoại:</label> <?php echo $items->customer->phone ?></p>
             <p><label>Email:</label> <?php echo $items->customer->email ?></p>
             <p> Chưa giảm giá: <?php echo number_format(@$items->total) ?>đ <br/>
@@ -262,7 +262,7 @@
                             <p> Chưa giảm giá: <?php echo number_format(@$items->total) ?>đ <br/>
                                 Giảm giá: <?php echo $promotion ?><br/>
                                 Tổng cộng: <?php echo number_format(@$items->total_pay) ?>đ<br/>
-                                Trạng thái: <?php echo $type ?></td></p>
+                                Trạng thái: <?php echo $type ?></p>
                             <label class="form-label">Hình thức thanh toán </label>
                                 <select name="type_collection_bill" class="form-select color-dropdown" required>
                                   <option value="">Chọn hình thức thanh toán</option>
@@ -278,7 +278,6 @@
                                   ?>
                                   <option value="cong_no">Nợ </option>
                                 </select>
-                            </span>
                         </div>
                     </div>
                 </div>

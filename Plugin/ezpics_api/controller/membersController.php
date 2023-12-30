@@ -98,6 +98,7 @@ function saveRegisterMemberAPI($input)
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->otp = rand(100000,999999);
 					$data->token = createToken();
+					$data->token_web = createToken();
 					$data->ecoin = 99;
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
@@ -220,7 +221,13 @@ function checkLoginMemberAPI($input)
 				}
 				$checkPhone->last_login = date('Y-m-d H:i:s');
 				$checkPhone->number_login += 1;
-				$checkPhone->token = createToken();
+
+				if(!empty($dataSend['type_device']) && $dataSend['type_device']=='web'){
+					$checkPhone->token_web = createToken();
+				}else{
+					$checkPhone->token = createToken();
+				}
+				
 
 				if(!empty($dataSend['token_device'])){
 					$checkPhone->token_device = @$dataSend['token_device'];
@@ -283,7 +290,12 @@ function checkLoginFacebookAPI($input)
 
 			if(!empty($checkPhone)){
 				if($checkPhone->status == 1){
-					$checkPhone->token = createToken();
+					if(!empty($dataSend['type_device']) && $dataSend['type_device']=='web'){
+						$checkPhone->token_web = createToken();
+					}else{
+						$checkPhone->token = createToken();
+					}
+
 					$checkPhone->last_login = date('Y-m-d H:i:s');
 					$checkPhone->id_facebook = @$dataSend['id_facebook'];
 
@@ -318,6 +330,7 @@ function checkLoginFacebookAPI($input)
 				$data->status = 1; //1: kích hoạt, 0: khóa
 				$data->type = 0; // 0: người dùng, 1: designer
 				$data->token = createToken();
+				$data->token_web = createToken();
 				$data->created_at = date('Y-m-d H:i:s');
 				$data->last_login = date('Y-m-d H:i:s');
 				$data->token_device = @$dataSend['token_device'];
@@ -386,7 +399,12 @@ function checkLoginGoogleAPI($input)
 
 			if(!empty($checkPhone)){
 				if($checkPhone->status == 1){
-					$checkPhone->token = createToken();
+					if(!empty($dataSend['type_device']) && $dataSend['type_device']=='web'){
+						$checkPhone->token_web = createToken();
+					}else{
+						$checkPhone->token = createToken();
+					}
+					
 					$checkPhone->last_login = date('Y-m-d H:i:s');
 					
 					if(!empty($dataSend['token_device'])){
@@ -421,6 +439,7 @@ function checkLoginGoogleAPI($input)
 				$data->status = 1; //1: kích hoạt, 0: khóa
 				$data->type = 0; // 0: người dùng, 1: designer
 				$data->token = createToken();
+				$data->token_web = createToken();
 				$data->created_at = date('Y-m-d H:i:s');
 				$data->last_login = date('Y-m-d H:i:s');
 				$data->token_device = @$dataSend['token_device'];
@@ -489,7 +508,12 @@ function checkLoginAppleAPI($input)
 
 			if(!empty($checkPhone)){
 				if($checkPhone->status == 1){
-					$checkPhone->token = createToken();
+					if(!empty($dataSend['type_device']) && $dataSend['type_device']=='web'){
+						$checkPhone->token_web = createToken();
+					}else{
+						$checkPhone->token = createToken();
+					}
+					
 					$checkPhone->last_login = date('Y-m-d H:i:s');
 					
 					if(!empty($dataSend['token_device'])){
@@ -524,6 +548,7 @@ function checkLoginAppleAPI($input)
 				$data->status = 1; //1: kích hoạt, 0: khóa
 				$data->type = 0; // 0: người dùng, 1: designer
 				$data->token = createToken();
+				$data->token_web = createToken();
 				$data->created_at = date('Y-m-d H:i:s');
 				$data->last_login = date('Y-m-d H:i:s');
 				$data->token_device = @$dataSend['token_device'];
@@ -575,10 +600,15 @@ function logoutMemberAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
-				$checkPhone->token = '';
+				if(!empty($dataSend['type_device']) && $dataSend['type_device']=='web'){
+					$checkPhone->token_web = '';
+				}else{
+					$checkPhone->token = '';
+				}
+
 				$checkPhone->token_device = null;
 				$modelMember->save($checkPhone);
 
@@ -698,7 +728,7 @@ function getInfoMemberAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				$checkdeadlinepro = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1,'id'=>$checkPhone->id))->first();
@@ -755,6 +785,7 @@ function getInfoUserAPI($input)
 			if(!empty($checkPhone)){
 				unset($checkPhone->password);
 				unset($checkPhone->token);
+				unset($checkPhone->token_web);
 				unset($checkPhone->token_device);
 				unset($checkPhone->id_facebook);
 				unset($checkPhone->last_login);
@@ -874,11 +905,12 @@ function lockAccountAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				$checkPhone->status = 0;
 				$checkPhone->token = '';
+				$checkPhone->token_web = '';
 				$modelMember->save($checkPhone);
 				
 				$return = array('code'=>0);
@@ -916,13 +948,14 @@ function saveChangePassAPI($input)
 			&& !empty($dataSend['passAgain'])
 
 		){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				if($checkPhone->password == md5($dataSend['passOld']) ){
 					if($dataSend['passNew'] == $dataSend['passAgain']){
 						$checkPhone->password = md5($dataSend['passNew']);
 						$checkPhone->token = '';
+						$checkPhone->token_web = '';
 
 						$modelMember->save($checkPhone);
 
@@ -966,7 +999,7 @@ function saveInfoUserAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
@@ -1116,7 +1149,9 @@ function saveNewPassAPI($input)
 					if($dataSend['passNew'] == $dataSend['passAgain']){
 						$checkPhone->password = md5($dataSend['passNew']);
 						$checkPhone->otp = null;
+
 						$checkPhone->token = createToken();
+						$checkPhone->token_web = createToken();
 
 						$modelMember->save($checkPhone);
 
@@ -1189,7 +1224,7 @@ function updateLastLoginAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 
@@ -1429,7 +1464,8 @@ function acceptMemberAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		$checkPhone = $modelMember->find()->where(array('otp'=>(int)$dataSend['otp'],'token'=>$dataSend['token']))->first();
+		$checkPhone = $modelMember->find()->where(array('otp'=>(int)$dataSend['otp'], 'OR' => [['token'=>$dataSend['token']], ['token_web'=>$dataSend['token']]]))->first();
+
 		if(!empty($checkPhone)){
 			$checkPhone->otp = null;
 

@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin.php">Kho mẫu thiết kế</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin">Kho mẫu thiết kế</a> /</span>
     Thông tin kho mẫu thiết kế
   </h4>
   <!-- Basic Layout -->

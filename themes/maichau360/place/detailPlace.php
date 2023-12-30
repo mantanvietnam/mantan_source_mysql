@@ -50,9 +50,9 @@ global $urlThemeActive;
                                  $infoUser = $session->read('infoUser');
                                     if(!empty($infoUser)){
                                 if(empty(getLike($infoUser['id'],$data->id,'danh_lam'))){?>
-                            <div class="button-like">
+                            <!-- <div class="button-like">
                                 <button type="button" onclick="addlike()"><i class="fa-regular fa-heart"></i>Yêu thích</button>
-                            </div>
+                            </div> -->
                                 <?php }else{
                                   
                                  ?>
@@ -157,11 +157,11 @@ global $urlThemeActive;
                 <div class="map-iframe">
                     <?php if(!empty($data->latitude) & !empty($data->longitude)){ 
                      echo'<div class="map-btn">
-                        <a target="_blank" href="https://www.google.com/maps/dir/'.$data->latitude.',+'.$data->longitude.'/">Xem chỉ đường</a>    
+                        <a target="_blank" href="https://www.google.com/maps/dir/'.$data->latitude.',+'.$data->longitude.'/">Xem chỉ đường</a>   </div>
                     <div id="map_HS"></div>';
 
                      }else{ 
-                               echo'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59569.358618264!2d105.78571485795389!3d21.069270504194773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aae54053e2d5%3A0x2d72b1d7c422234b!2zVMOieSBI4buTLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1680656977802!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> ';
+                               echo'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126550.56754330949!2d104.92489967144137!3d20.679955282517525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3133f645315ccf35%3A0x5197e8a870126f79!2zTWFpIENow6J1LCBIw7JhIELDrG5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1703474584380!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
                      } ?>
                 </div>
             </div>
@@ -253,61 +253,7 @@ global $urlThemeActive;
             </div>
         </section>
 <?php } ?>
-<?php  $comment= getComment($data->id,'danh_lam'); 
-        if(!empty($comment)){ ?>
-        <section id="place-post-comment">
-            <div class="container">
-                <div class="row">
-                    <div class="title-post-comment">
-                        <p>Tất cả các bài đánh giá </p>
-                    </div>
-                <?php
-                    foreach($comment as $key => $value){
-                   //     debug($value);
-                    $custom =  getCustomer($value->idcustomer);
-                
-                     if(!empty($custom)){
-                ?>
-                    <div class="post-comment">
-                        <div class="post-comment-content">
-                            <div class="information-people">
-                                <div class="information-people-img">
-                                    <img src="<?php echo $custom->avatar ?>"
-                                        alt="">
-                                </div>
-                                <div class="information-people-box">
-                                    <div class="information-people-name">
-                                        <span><?php echo $custom->full_name ?></span>
-                                    </div>
-                                    <div class="information-people-hour">
-                                        <span><?php echo date("d/m/Y H:i:s",$value->created); ?></span>
-                                    </div>
-                                </div>
-                            </div>
 
-        
-                        </div>
-
-                        <div class="post-comment-content-text">
-                            <?php echo $value->comment ?>
-                        </div>
-                         <?php  if(@$infoUser['id']==@$value->idcustomer){ ?>
-                         <div class="post-comment-content-text">
-                            <a href="javascript:void(0);" onclick="deteleComment(<?php echo $value->id ?>)">xóa</a>
-                        </div>
-                    <?php } ?>
-
-                    </div>
-                   
-
-                     <?php }} ?>             
-                    
-                </div>
-            </div>
-        </section>
-    <?php }  ?>
-
-    </main>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>

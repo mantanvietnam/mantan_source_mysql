@@ -58,20 +58,22 @@ class PluginsController extends AppController{
 
 	            // include controller của plugin
 	            $url = str_replace('-', '/', $url);
+	            $url = str_replace('.php', '', $url);
+	            
 	            $plugin= explode('/', $url);
 				
 				$count= count($plugin)-1;
 	            $plugin= explode('.', $plugin[$count]);
 	            if(function_exists($plugin[0]))
 	            {
-	            	$input= array('fileProcess'=>$url,'request'=>$this->request);
+	            	$input= array('fileProcess'=>$url.'.php','request'=>$this->request);
 		            $plugin[0]($input);
 		            
-	            }elseif(!file_exists(__DIR__.'/../../plugins/'.$url) && !file_exists(__DIR__.'/../../themes/'.$url)){
+	            }elseif(!file_exists(__DIR__.'/../../plugins/'.$url.'.php') && !file_exists(__DIR__.'/../../themes/'.$url.'.php')){
 			        $this->redirect('/admins');
 		        }
 
-		        $this->set('urlFileProcess', $url);
+		        $this->set('urlFileProcess', $url.'.php');
 	        }else{
 	            return $this->redirect('/admins/login');
 	        }

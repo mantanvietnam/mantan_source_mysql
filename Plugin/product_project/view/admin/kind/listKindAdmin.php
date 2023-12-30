@@ -115,10 +115,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/product_projects-view-admin-kind-listKindAdmin.php';
+            window.location = '/plugins/admin/product_projects-view-admin-kind-listKindAdmin';
           })
           .fail(function() {
-            window.location = '/plugins/admin/product_projects-view-admin-kind-listKindAdmin.php';
+            window.location = '/plugins/admin/product_projects-view-admin-kind-listKindAdmin';
           });
       }
     }

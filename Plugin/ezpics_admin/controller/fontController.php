@@ -130,10 +130,10 @@ function addFontAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-font-addFontAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-font-addFontAdmin?status=2');
             }else{
               
-                return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-font-addFontAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-font-addFontAdmin?status=1');
             }
             
         }else{
@@ -158,6 +158,6 @@ function deleteFontAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-font-addFontAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-font-addFontAdmin?status=3');
 }
 ?>

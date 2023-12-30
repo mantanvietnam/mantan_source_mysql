@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-notification-addNotificationAdmin.php">Thông báo sản phẩm mới</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-notification-addNotificationAdmin">Thông báo sản phẩm mới</a> /</span>
     Tạo thông báo
   </h4>
 

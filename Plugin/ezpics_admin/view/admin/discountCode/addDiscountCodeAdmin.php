@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-discountCode-listDiscountCodeAdmin.php">Mã giảm giá</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-discountCode-listDiscountCodeAdmin">Mã giảm giá</a> /</span>
     Thông tin mã giảm giá
   </h4>
   <!-- Basic Layout -->

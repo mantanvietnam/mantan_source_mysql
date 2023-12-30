@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light"><a href="/plugins/admin/excgo-view-admin-province-listProvinceAdmin.php">Khu vực</a> /</span>
+        <span class="text-muted fw-light"><a href="/plugins/admin/excgo-view-admin-province-listProvinceAdmin">Khu vực</a> /</span>
         Thông tin khu vực
     </h4>
     <!-- Basic Layout -->
@@ -48,7 +48,7 @@
                               </select>
                             <?php endif; ?>
                         </div>
-                        <p><a href="<?php echo '/plugins/admin/excgo-view-admin-province-addProvinceAdmin.php?parent_id=' . @$data->id ?>" class="btn btn-primary">
+                        <p><a href="<?php echo '/plugins/admin/excgo-view-admin-province-addProvinceAdmin?parent_id=' . @$data->id ?>" class="btn btn-primary">
                           <i class='bx bx-plus'></i> Thêm khu vực con
                         </a></p>
                     </div>

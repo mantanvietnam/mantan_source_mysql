@@ -2,13 +2,13 @@
 $menus= array();
 $menus[0]['title']= 'Sản phẩm';
 $menus[0]['sub'][0]= array(	'title'=>'Sản phẩm',
-							'url'=>'/plugins/admin/product-view-admin-product-listProduct.php',
+							'url'=>'/plugins/admin/product-view-admin-product-listProduct',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listProduct'
 						);
 
 $menus[0]['sub'][1]= array(	'title'=>'Đơn hàng',
-							'url'=>'/plugins/admin/product-view-admin-order-listOrderAdmin.php',
+							'url'=>'/plugins/admin/product-view-admin-order-listOrderAdmin',
 							'classIcon'=>'bx bx-cart-add',
 							'permission'=>'listOrderAdmin'
 						);
@@ -18,29 +18,29 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
 							'classIcon'=>'bx bx-cog',
 							'permission'=>'settingsProducts',
 							'sub'=> array(  array('title'=>'Danh mục sản phẩm',
-												'url'=>'/plugins/admin/product-view-admin-category-listCategoryProduct.php',
+												'url'=>'/plugins/admin/product-view-admin-category-listCategoryProduct',
 												'classIcon'=>'bx bx-category',
 												'permission'=>'listCategoryProduct',
 											),
                       array('title'=>'Nhà sản xuất',
-                          'url'=>'/plugins/admin/product-view-admin-manufacturer-listManufacturerProduct.php',
+                          'url'=>'/plugins/admin/product-view-admin-manufacturer-listManufacturerProduct',
                           'classIcon'=>'bx bx-category',
                           'permission'=>'listManufacturerProduct',
                       ),
                      /* array('title'=>'Gửi thông báo',
-                          'url'=>'/plugins/admin/product-view-admin-smaxbot-settingSmaxbotAdmin.php',
+                          'url'=>'/plugins/admin/product-view-admin-smaxbot-settingSmaxbotAdmin',
                           'classIcon'=>'bx bx-category',
                           'permission'=>'settingSmaxbotAdmin',
                       ),*/
                       array('title'=>'Mã giảm giá ',
-                          'url'=>'/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin.php',
+                          'url'=>'/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin',
                           'classIcon'=>'bx bx-category',
                           'permission'=>'listDiscountCodeAdmin',
                       ),
 									)
 						);
 $menus[0]['sub'][11]= array( 'title'=>'Review sản phẩm',
-              'url'=>'/plugins/admin/product-view-admin-product-listReview.php',
+              'url'=>'/plugins/admin/product-view-admin-product-listReview',
               'classIcon'=>'bx bx-cart-add',
               'permission'=>'listReview'
             );
@@ -149,7 +149,7 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
     Địa chỉ: '.$address.'<br/>
     Chú ý: '.nl2br($note).'<br/><br/> <p>
 
-    <h4 class="text-align"> đơn hàng </h4>
+    <h4 class="text-align"> Chi tiết đơn hàng </h4>
     <table class="table table-bordered" style=" width: 85%;">
     <thead>
     <tr>
@@ -166,7 +166,15 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
 
         $content .= '<tr>
         <td scope="row"> <img src="'.$item->image.'" width="100" alt=""></td>
-        <td>'.$item->title.'</td>
+        <td>'.$item->title.'<br/>';
+        if(!empty($item->present)){
+          $content .='Quà tặng<br/>';
+          foreach($item->present as $k => $value){
+            $content .= $value->title.'
+            <img src="'.$value->image.'" width="80" alt=""><br/>';
+          }
+        }
+        $content .='</td>
         <td>'.number_format($item->price).'đ</td>
         <td>'.number_format($item->numberOrder).'</td>
         <td>'.number_format($item->price*$item->numberOrder).'</td>
@@ -292,7 +300,7 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
     Địa chỉ: '.$address.'<br/>
     Chú ý: '.nl2br($note).'<br/><br/> <p>
 
-    <h4 class="text-align"> đơn hàng </h4>
+    <h4 class="text-align">Chi tiết đơn hàng</h4>
     <table class="table table-bordered" style=" width: 85%;">
     <thead>
     <tr>
@@ -309,7 +317,15 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
 
         $content .= '<tr>
         <td scope="row"> <img src="'.$item->image.'" width="100" alt=""></td>
-        <td>'.$item->title.'</td>
+        <td>'.$item->title.'<br/>';
+        if(!empty($item->present)){
+          $content .='<strong>Quà tặng</strong><br/>';
+          foreach($item->present as $k => $value){
+            $content .= $value->title.'
+            <img src="'.$value->image.'" width="80" alt=""><br/>';
+          }
+        }
+        $content .='</td>
         <td>'.number_format($item->price).'đ</td>
         <td>'.number_format($item->numberOrder).'</td>
         <td>'.number_format($item->price*$item->numberOrder).'</td>

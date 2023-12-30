@@ -2,14 +2,14 @@
 $menus= array();
 $menus[0]['title']= 'Keys';
 $menus[0]['sub'][0]= array(	'title'=>'Danh sách key',
-							'url'=>'/plugins/admin/keys-view-admin-key-listKey.php',
+							'url'=>'/plugins/admin/keys-view-admin-key-listKey',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listKey'
 						);
 
 
 $menus[0]['sub'][1]= array('title'=>'Loại key',
-							'url'=>'/plugins/admin/keys-view-admin-category-listCategoryKey.php',
+							'url'=>'/plugins/admin/keys-view-admin-category-listCategoryKey',
 							'classIcon'=>'bx bx-category',
 							'permission'=>'listCategoryKey',
 						);

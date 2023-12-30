@@ -322,6 +322,8 @@ strong {
 
 #section-menu {
     margin-bottom: 30px;
+    position: relative;
+    z-index: 999;
 }
 
 #section-menu .container-fluid {
@@ -330,7 +332,7 @@ strong {
 
 #section-menu .nav-link {
     padding: 0;
-    margin-right: 30px;
+    margin-right: 18px;
     font-size: 20px;
     text-transform: uppercase;
     color: #6d6f71;
@@ -349,7 +351,7 @@ strong {
 /* Sửa */
 
 #section-menu .btn-group {
-    margin-right: 30px !important;
+    margin-right: 18px !important;
     transform: translateY(1px);
 }
 
@@ -391,6 +393,7 @@ strong {
     top: 165% !important;
     right: 0;
     min-width: 250px;
+    z-index: 99999;
 }
 
 #section-menu .navbar-header-menu .dropdown-item {
@@ -1941,6 +1944,15 @@ strong {
     #section-our-partner .list-partner .partner-item2 .partner-logo {
         width: 61px;
     }
+
+    /*  */
+    #section-menu .btn-group{
+        width: 100%;
+    }
+
+    #section-menu .button-down-menu{
+        margin-left: auto;
+    }
 }
 
 @media (max-width: 500px) {
@@ -1950,9 +1962,22 @@ strong {
     #section-logo-home .logo-home-box .logo-home-item .logo-home-2 {
         width: 80px;
     }
+
+    #section-menu .navbar-collapse .me-auto{
+        align-items: start;
+        gap: 8px
+    }
+
+    #section-menu .btn-group{
+        /* margin-bottom: 20px; */
+    }
+
+    #section-menu .nav-link{
+        margin-bottom: 0;
+    }
 }
 
-@media (max-width: 426px) {
+@media (max-width: 480px) {
     /* home */
     #section-keydate .keydate-right {
         padding-left: 12px;
@@ -2179,12 +2204,12 @@ strong {
         padding-right: 20px;
     }
     #section-menu .button-down-menu {
-        padding-top: 19px;
+        /* padding-top: 19px;
         padding-left: 20px !important;
         padding-bottom: 30px;
-        padding-right: 20px;
+        padding-right: 20px; */
     }
     #section-menu .nav-item:last-child .nav-link {
-        margin-top: 20px;
+        margin-bottom: 20px;
     }
 }

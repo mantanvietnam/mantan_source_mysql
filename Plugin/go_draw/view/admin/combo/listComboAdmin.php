@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Combo</h4>
-    <p><a href="/plugins/admin/go_draw-view-admin-combo-viewDetailComboAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+    <p><a href="/plugins/admin/go_draw-view-admin-combo-viewDetailComboAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
     <!-- Form Search -->
     <form method="get" action="">
@@ -64,7 +64,7 @@
                             $status = '
                   <a class="btn btn-success"  title="" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn khóa combo này không?\');"
-                    href="/plugins/admin/go_draw-view-admin-combo-updateStatusComboAdmin.php/?id=' . $item->id . '&status=0"
+                    href="/plugins/admin/go_draw-view-admin-combo-updateStatusComboAdmin/?id=' . $item->id . '&status=0"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Đã kích hoạt ';
@@ -72,7 +72,7 @@
                             $status = '
                   <a class=" btn btn-danger"  title="" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt combo này không?\');" 
-                    href="/plugins/admin/go_draw-view-admin-combo-updateStatusComboAdmin.php/?id=' . $item->id . '&status=1"
+                    href="/plugins/admin/go_draw-view-admin-combo-updateStatusComboAdmin/?id=' . $item->id . '&status=1"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Đã khóa ';
@@ -88,7 +88,7 @@
                         <td> 
                         <p align="center">
                         <a class="btn btn-primary" 
-                          href="/plugins/admin/go_draw-view-admin-combo-viewDetailComboAdmin.php/?id=' . $item->id . '"
+                          href="/plugins/admin/go_draw-view-admin-combo-viewDetailComboAdmin/?id=' . $item->id . '"
                         >
                           <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                         </a>

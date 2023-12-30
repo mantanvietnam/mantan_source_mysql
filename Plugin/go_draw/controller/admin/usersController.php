@@ -74,7 +74,7 @@ function updateStatusUserAdmin($input)
         }
     }
 
-    return $controller->redirect('/plugins/admin/go_draw-view-admin-user-listUserAdmin.php');
+    return $controller->redirect('/plugins/admin/go_draw-view-admin-user-listUserAdmin');
 }
 
 function viewUserDetailAdmin($input)

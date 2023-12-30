@@ -2,13 +2,13 @@
 $menus= array();
 $menus[0]['title']= '2Top CRM';
 $menus[0]['sub'][0]= array(	'title'=>'Khách hàng',
-							'url'=>'/plugins/admin/2top_crm-view-admin-customer-listCustomerCRM.php',
+							'url'=>'/plugins/admin/2top_crm-view-admin-customer-listCustomerCRM',
 							'classIcon'=>'bx bxs-user-detail',
 							'permission'=>'listCustomerCRM'
 						);
 
 $menus[0]['sub'][1]= array( 'title'=>'Hướng dẫn APIs',
-                            'url'=>'/plugins/admin/2top_crm-view-admin-guide-guideCustomerAPIsCRM.php',
+                            'url'=>'/plugins/admin/2top_crm-view-admin-guide-guideCustomerAPIsCRM',
                             'classIcon'=>'bx bx-support',
                             'permission'=>'guideCustomerAPIsCRM'
                         );
@@ -18,7 +18,7 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
 							'classIcon'=>'bx bx-cog',
 							'permission'=>'settingsEzpics',
 							'sub'=> array(array('title'=>'Chủ đề',
-												'url'=>'/plugins/admin/ezpics-view-admin-category-listCategoryEzpics.php',
+												'url'=>'/plugins/admin/ezpics-view-admin-category-listCategoryEzpics',
 												'classIcon'=>'bx bx-category',
 												'permission'=>'listCategoryEzpics',
 											)

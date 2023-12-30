@@ -119,6 +119,6 @@ function deletePriceAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/zoomcheap-view-admin-price-listPriceAdmin.php');
+	return $controller->redirect('/plugins/admin/zoomcheap-view-admin-price-listPriceAdmin');
 }
 ?>

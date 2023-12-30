@@ -25,7 +25,10 @@ function cart($input)
 
 				foreach($id_product as $k => $item){
 					$presentf = $modelProduct->find()->where(['code'=>$item])->first();
-					$presentf->numberOrder = $product->numberOrder;
+					if (!empty($product->numberOrder)) {
+						$presentf->numberOrder = $product->numberOrder;
+					}
+					
 					if(!empty($presentf)){
 						$present[] = $presentf;
 					}
@@ -41,7 +44,7 @@ function cart($input)
                // debug($id_prodiscount);
 				foreach($id_prodiscount as $item){
 					$presentf = $modelProduct->find()->where(['code'=>$item, 'quantity >'=>0])->first();
-					$presentf->numberOrder = $product->$numberOrder;
+					// $presentf->numberOrder = $product->numberOrder;
                      // debug($presentf);
 					if(!empty($presentf)){
 
@@ -106,11 +109,17 @@ function addProductToCart($input)
 	global $session;
 	global $controller;
 
+	$setting = setting();
+
 	$modelProduct = $controller->loadModel('Products');
 
 	if(!empty($_REQUEST['id_product'])){
 		if(empty($_REQUEST['quantity'])) $_REQUEST['quantity'] = 1;
 		$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
+
+		if($setting['targetTime']>time() && @$product->flash_sale==1 && !empty($product->price_flash)){
+			$product->price = $product->price_flash;
+		}
 
 		$list_product = $session->read('product_order');
 
@@ -248,7 +257,7 @@ function createOrder($input)
 
 			$modelOrder->save($data);
 
-// tạo chi tiết đơn hàng
+			// tạo chi tiết đơn hàng
 			foreach($list_product as $product){
 				$dataDetail = $modelOrderDetail->newEmptyEntity();
 
@@ -259,7 +268,7 @@ function createOrder($input)
 				$modelOrderDetail->save($dataDetail);
 			}
 
-// gửi thông báo cho admin qua Smax bot
+			// gửi thông báo cho admin qua Smax bot
 			if(function_exists('sendNotificationAdmin')){
 				$settingSmaxBotProduct = $modelOptions->find()->where(['key_word' => 'settingSmaxBotProduct'])->first();
 				if(!empty($settingSmaxBotProduct->value)){
@@ -404,7 +413,7 @@ function checkproductAll(){
 
 	if(!empty($_REQUEST['status'])){
 
-//$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
+	//$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
 
 		$list_product = $session->read('product_order');
 
@@ -543,8 +552,7 @@ function pay($input){
 		$dataSend = $input['request']->getData();
 		/*debug($dataSend);
 		debug($pay);
-		die();
-*/
+		die();*/
 		if(empty($dataSend['id_address']) && !empty($infoUser)){
 			$address = $modelAddress->newEmptyEntity();
 			$address->address_name = $dataSend['address'];
@@ -586,6 +594,20 @@ function pay($input){
 		$listproduct = array();
 		foreach($list_product as $product){
 			if(@$product->statuscart='true'){
+				$present = array();
+				if(!empty(@$product->id_product)){
+					$id_product = explode(',', @$product->id_product);
+
+					foreach($id_product as $k => $item){
+						$presentf = $modelProduct->find()->where(['code'=>$item])->first();
+						$presentf->numberOrder = $product->numberOrder;
+						if(!empty($presentf)){
+							$present[] = $presentf;
+						}
+					}
+				}
+				$product->present = $present;
+
 				$listproduct[] = $product;
 				$dataDetail = $modelOrderDetail->newEmptyEntity();
 
@@ -612,6 +634,13 @@ function pay($input){
 		// gửi cho admin
 		getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
 		$session->write('product_order', []);
+
+		
+			 getOrderLarkSuite($data->id);
+		
+
+
+
 		return $controller->redirect('/completeOrder?id='.$data->id);
 	}
 
@@ -713,10 +742,10 @@ function detailOrder(){
 				setVariable('order', $order);
 				setVariable('detail_order', $detail_order);
 			}else{
-				return $controller->redirect('/listOrder.php');
+				return $controller->redirect('/listOrder');
 			}
 		}else{
-			return $controller->redirect('/listOrder.php');
+			return $controller->redirect('/listOrder');
 		}
 	}else{
 		$controller->redirect('/');
@@ -767,33 +796,45 @@ function discount($input){
     }
      
    $category[$key]=$data;
-}*/
+	}*/
 
-foreach($categoryDiscountCode as $key => $item){
-	$data = array();
-	$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
-	$data['name'] = $item;
-	if(!empty($discountCode) && !empty($infoUser)){
-		foreach(@$discountCode as $k => $value){
-			if(!empty($value->id_customers)){
+	foreach($categoryDiscountCode as $key => $item){
+		$data = array();
+		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
+		$data['name'] = $item;
+		if(!empty($discountCode) && !empty($infoUser)){
+			foreach(@$discountCode as $k => $value){
+				if(!empty($value->id_customers)){
 
-				$id_customer = explode(',', $value->id_customers);
-				if( in_array($infoUser->id, $id_customer)){
+					$id_customer = explode(',', $value->id_customers);
+					if( in_array($infoUser->id, $id_customer)){
+						$data['discountCode'][$k] = $value;
+					}
+				}else{
 					$data['discountCode'][$k] = $value;
 				}
-			}else{
-				$data['discountCode'][$k] = $value;
 			}
 		}
+
+		$category[$key]=$data;
 	}
-
-	$category[$key]=$data;
-}
-setVariable('data', $category);
-}else{
-	return $controller->redirect('/cart');
+	setVariable('data', $category);
+	}else{
+		return $controller->redirect('/cart');
+	}
 }
 
+function getOrderAPI($input){
+	 
+    global $isRequestPost;
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		return getOrderLarkSuite($dataSend['id']);
+	}
+	
 
+
+	
 }
 ?>

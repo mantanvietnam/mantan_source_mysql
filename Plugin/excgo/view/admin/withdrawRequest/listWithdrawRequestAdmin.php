@@ -77,7 +77,7 @@
                             $status = '
                   <a class=" btn btn-success"  title="Hoàn thành" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn hoàn thành yêu cầu này không?\');" 
-                    href="/plugins/admin/excgo-view-admin-withdrawRequest-updateStatusWithdrawRequestAdmin.php/?id=' . $item->id . '&status=1"
+                    href="/plugins/admin/excgo-view-admin-withdrawRequest-updateStatusWithdrawRequestAdmin/?id=' . $item->id . '&status=1"
                   >
                            <i class="bx bx-check-circle me-1" style="font-size: 22px;"></i>
                   </a>';
@@ -88,7 +88,7 @@
                         <td align="center"><img src="<?php echo $item->Users['avatar']; ?>" width="100" /></td>
                         <td>
                             <a class="text-decoration-none"
-                               href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=" . $item->Users['id'] ?>"
+                               href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=" . $item->Users['id'] ?>"
                             >
                                 <?php echo $item->Users['name']; ?>
                             </a>

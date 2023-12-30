@@ -2,22 +2,22 @@
 $menus= array();
 $menus[0]['title']= 'Cài đặt giao diện';
 $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
-                            'url'=>'/plugins/admin/shopbanhang-admin-settingHomeTheme.php',
+                            'url'=>'/plugins/admin/shopbanhang-admin-settingHomeTheme',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingHomeTheme'
                         );
-$menus[0]['sub'][1]= array( 'title'=>'Cài đặt chính sách bảo mật',
-                            'url'=>'/plugins/admin/shopbanhang-admin-sttingGuaranteeTheme.php',
+$menus[0]['sub'][1]= array( 'title'=>'Cài đặt chính sách bảo hành',
+                            'url'=>'/plugins/admin/shopbanhang-admin-sttingGuaranteeTheme',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'sttingGuaranteeTheme'
                         );
 $menus[0]['sub'][2]= array( 'title'=>'Cài đặt trang Review',
-                            'url'=>'/plugins/admin/shopbanhang-admin-sttingReviewTheme.php',
+                            'url'=>'/plugins/admin/shopbanhang-admin-sttingReviewTheme',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'sttingReviewTheme'
                         );
 $menus[0]['sub'][3]= array( 'title'=>'Cài đặt trang About us',
-                            'url'=>'/plugins/admin/shopbanhang-admin-settingAboutusTheme.php',
+                            'url'=>'/plugins/admin/shopbanhang-admin-settingAboutusTheme',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingAboutuTheme'
                         );

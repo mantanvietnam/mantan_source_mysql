@@ -18,8 +18,8 @@
             <div class="container">
 
                 <ul class="nav nav-tabs">
-                    <li><a href="chinh_sach_bao_mat" >Chính sách bảo hành</a></li>
-                    <li class="active"><a href="huong_dan_kich_hoat_bao_hanh" class="active">Hướng dẫn kích hoạt bảo hành</a></li>
+                    <li><a href="chinh-sach-bao-hanh" >Chính sách bảo hành</a></li>
+                    <li class="active"><a href="huong-dan-kich-hoat-bao-hanh" class="active">Hướng dẫn kích hoạt bảo hành</a></li>
                     <!-- <li><a data-bs-toggle="tab" href="#search-polity">Tra cứu bảo hành</a></li> -->
                 </ul>
 

@@ -1476,8 +1476,13 @@ function addUserService($input){
 
                 $UserService = $modelUserserviceHistories->newEmptyEntity();
                 $UserService->id_member = $user->id_member;
-                $UserService->id_staff = $user->id;
+                if(!empty($_GET['id_staff'])){
+                    $UserService->id_staff = $_GET['id_staff']; 
+                }else{
+                    $UserService->id_staff = $user->id;
+                }
                 $UserService->id_order_details = $_GET['id'];
+                $UserService->id_order = $OrderDetails->id_order;
                 $UserService->id_spa =$session->read('id_spa');
                 $UserService->id_services =$_GET['id_service'];
                 $UserService->created_at =date('Y-m-d H:i:s');
@@ -1495,7 +1500,12 @@ function addUserService($input){
                 $UserService = $modelUserserviceHistories->newEmptyEntity();
                 $UserService->id_member = $user->id_member;
                 $UserService->id_order_details = $_GET['id'];
-                $UserService->id_staff = $user->id;
+                $UserService->id_order =  $OrderDetails->id_order;
+                if(!empty($_GET['id_staff'])){
+                    $UserService->id_staff = $_GET['id_staff']; 
+                }else{
+                    $UserService->id_staff = $user->id;
+                }
                 $UserService->id_spa =$session->read('id_spa');
                 $UserService->id_services =$_GET['id_service'];
                 $UserService->created_at =date('Y-m-d H:i:s');
@@ -1534,7 +1544,11 @@ function addUserService($input){
 
                 $agency->id_member = @$user->id_member;
                 $agency->id_spa = $session->read('id_spa');
-                $agency->id_staff = $user->id;
+                if(!empty($_GET['id_staff'])){
+                    $agency->id_staff = $_GET['id_staff']; 
+                }else{
+                    $agency->id_staff = $user->id;
+                }
                 $agency->id_service = $_GET['id_service'];
                 $agency->id_user_service =  @$UserService->id;
                 $agency->money = $money;
@@ -1573,7 +1587,8 @@ function paymentOrders($input){
         $modelBill = $controller->loadModel('Bills');
         $modelDebts = $controller->loadModel('Debts');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
-
+        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+        $modelBed = $controller->loadModel('Beds');
 
         if(!empty($_GET['id'])){
             $order = $modelOrder->get($_GET['id']); 
@@ -1629,7 +1644,22 @@ function paymentOrders($input){
                 }
             }
         }
-        return $controller->redirect('/listOrderService');
+        if(@$_GET['type']=="checkout"){
+            $dataSend = $input['request']->getData();
+            $data = $modelUserserviceHistories->get($_GET['id_Userservice']);
+            $data->note =@$dataSend['note'];
+            $data->status = 2;
+            $modelUserserviceHistories->save($data);
+           
+            $datebed = $modelBed->get($_GET['id_bed']);
+            $datebed->status = 1;
+            $modelBed->save($datebed);
+
+            return $controller->redirect('/printInfoOrder?id='.$_GET['id'].'&type=checkout');
+        }else{
+            return $controller->redirect('/printInfoOrder?id='.$_GET['id']);
+        }
+        
     }else{
         return $controller->redirect('/');
     }

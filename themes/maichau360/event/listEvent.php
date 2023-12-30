@@ -38,12 +38,17 @@ global $urlThemeActive;
             </div>
             <div class="news-search">
                 <div class="news-search-input">
-                    <input type="text" placeholder="Tìm kiếm tin tức và sự kiện...">
+                    <form>
+                        <input type="text" name="name" value="<?php echo @$_GET['name'] ?>" placeholder="Tìm kiếm tin tức và sự kiện">
                     <div class="news-search-btn">
-                        <a href="">
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                        <button type="submit">
+                             <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                           
                         </a>
                     </div>
+                    </form>
+                    
                 </div>
             </div>
         </div>
@@ -53,8 +58,8 @@ global $urlThemeActive;
     <section id="su-kien-list-event">
         <!-- <div class="background" style="background-image: url('<?= $urlThemeActive ?>/assets/lou_img/su-kien-list-event.png')"> -->
             <section class="section-heading section-heading-event">
-                <h3 class="text-uppercase text-center">Tin tức và sự kiện</h3>
-                <p class="text-center">Những Tin tức - Sự kiện Văn hoá, Du lịch tỉnh Mai Châu</p>
+                <h3 class="text-uppercase text-center" >Tin tức và sự kiện</h3>
+                <p class="text-center" style="margin-top: 10px">Những Tin tức - Sự kiện Văn hoá, Du lịch tỉnh Mai Châu</p>
             </section>
             <div class="container">
                 <div class="row g-3">

@@ -243,7 +243,7 @@ function deleleCommentAdmin($input){
 
            $modelComments->delete($data);
              }
-        return $controller->redirect('/plugins/admin/like_comment-admin-listCommentAdmin.php?status=3');
+        return $controller->redirect('/plugins/admin/like_comment-admin-listCommentAdmin?status=3');
         
 }
 
@@ -452,9 +452,9 @@ function replyCommentAdmin($input){
         $data->updated_at = time();
         $modelComment->save($data);
 
-         return $controller->redirect('/plugins/admin/like_comment-admin-listCommentAdmin.php?status=2');
+         return $controller->redirect('/plugins/admin/like_comment-admin-listCommentAdmin?status=2');
     }else{
-        return $controller->redirect('/plugins/admin/like_comment-admin-listCommentAdmin.php?status=4');
+        return $controller->redirect('/plugins/admin/like_comment-admin-listCommentAdmin?status=4');
     }
 }
 

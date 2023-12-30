@@ -98,39 +98,84 @@
       </div>
     </div> 
 
-   <!--  <div class="col-md-4 col-lg-4 order-2 mb-4">
+     <div class="col-md-5 col-lg-5 order-2 mb-4">
       <div class="card h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
-          <h5 class="card-title m-0 me-2">Mẫu bán nhiều nhất</h5>
+          <h5 class="card-title m-0 me-2">Khách đặt lịch hẹn</h5>
         </div>
         <div class="card-body">
-          <ul class="p-0 m-0">
+          <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>Thời gian</th>
+              <th>Khách hàng</th>
+              <th>Dịch vụ</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
             <?php 
-            if(!empty($listTopSell)){
-              foreach ($listTopSell as $key => $value) {
-                echo '<li class="d-flex mb-4 pb-1">
-                        <div class="avatar flex-shrink-0 me-3">
-                          <img src="'.$value->image.'" class="rounded" />
-                        </div>
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <h6 class="mb-1">'.$value->name.'</h6>
-                          </div>
-                          <div class="user-progress d-flex align-items-center gap-1">
-                            <h6 class="mb-0">'.number_format($value->sold).'</h6>
-                            <span class="text-muted">lần</span>
-                          </div>
-                        </div>
-                      </li>';
+              if(!empty($listBooking)){
+                foreach ($listBooking as $item) {
+                  $arr = explode(',', @$item->type);
+                  $type = [];
+                  if(!empty($item->type1)){
+                    $type[] = 'Lịch tư vấn';
+                  }
+
+                  if(!empty($item->type2)){
+                    $type[] = 'Lịch chăm sóc';
+                  }
+
+                  if(!empty($item->type3)){
+                    $type[] = 'Lịch liệu trình';
+                  }
+
+                  if(!empty($item->type4)){
+                    $type[] = 'Lịch điều trị';
+                  }
+
+                  if($item->status==0){
+                    $status= 'Chưa xác nhận';
+                  }elseif($item->status==1){
+                    $status= 'Xác nhận';
+                  }elseif($item->status==2){
+                    $status= 'Không đến';
+                  }elseif($item->status==3){
+                    $status= 'Đã đến';
+                  }elseif($item->status==4){
+                    $status= 'Hủy lịch';
+                  }
+
+                  $repeat_book = [date("d/m/Y H:i", $item->time_book)];
+                  if(!empty($item->repeat_book)){
+                    $time_book = $item->time_book;
+                    for($i=1;$i<$item->apt_times;$i++){
+                      $time_book += $item->apt_step*24*60*60;
+                      $repeat_book[] = date("d/m/Y H:i", $time_book);
+                    }
+                  }
+
+                  echo '<tr>
+                          <td>'.implode('<br/>', $repeat_book).'</td>
+                          <td>'.$item->name.'<br/>
+                              '.$item->phone.'
+                            </td>
+                          <td>'.$item->Services['name'].'</td>
+                          <td>'.$status.'</td>
+                        </tr>';
+                }
+              }else{
+                echo '<tr>
+                        <td colspan="10" align="center">Chưa có lịch hẹn</td>
+                      </tr>';
               }
-            }else{
-              echo 'Chưa có mẫu thiết kế được đăng bán';
-            }
             ?>
-          </ul>
+          </tbody>
+        </table>
         </div>
       </div>
-    </div> -->
+    </div> 
     <!--/ Transactions -->
   </div>
 </div>

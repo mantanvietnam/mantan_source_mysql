@@ -32,7 +32,7 @@ $key_transaction = 'ezpics';
 $menus= array();
 $menus[0]['title']= 'Ezpics';
 $menus[0]['sub'][6]= array('title'=>'Cài đặt Font chữ',
-                            'url'=>'/plugins/admin/ezpics_api-view-admin-font-listFontAdmin.php',
+                            'url'=>'/plugins/admin/ezpics_api-view-admin-font-listFontAdmin',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingsEzpics',
                         );
@@ -52,6 +52,25 @@ function createToken($length=30)
 {
     $chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return substr(str_shuffle($chars), 0, $length).time();
+}
+
+function getMemberByToken($token='')
+{
+    global $controller;
+
+    $modelMember = $controller->loadModel('Members');
+    $checkData = [];
+
+    if(!empty($token)){
+        $conditions = [ 'OR' => [
+                                    ['token'=>$token],
+                                    ['token_web'=>$token]
+                                ]
+                        ];
+        $checkData = $modelMember->find()->where($conditions)->first();
+    }
+
+    return $checkData;
 }
 
 function removeBackground($link_image_local='',$create_new= false)
@@ -1144,7 +1163,7 @@ function zipImage($urlLocalFile='')
     }
 }
 
-function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='', $color='')
+function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='', $color='', $backgroundUpload= '')
 {
     global $controller;
 
@@ -1179,6 +1198,10 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
                 $dataFile->created_at = date('Y-m-d H:i:s');
 
                 $modelManagerFile->save($dataFile);
+            }
+        }else{
+            if(!empty($backgroundUpload)){
+                $thumb = $backgroundUpload;
             }
         }
 
@@ -1315,37 +1338,37 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
 function getSizeProduct()
 {
     return [
-            ['name'=>'Bài thuyết trình (16:9)','width'=>1920,'height'=>1080, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1920-1080.png'],
+            ['name'=>'Bài thuyết trình (16:9)','width'=>1920,'height'=>1080, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1920-1080.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/presentation.svg'],
             
-            ['name'=>'Bài thuyết trình (9:16)','width'=>1080,'height'=>1920, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1080-1920.png'],
+            ['name'=>'Bài thuyết trình (9:16)','width'=>1080,'height'=>1920, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1080-1920.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/presentation.svg'],
             
-            ['name'=>'Logo','width'=>500,'height'=>500, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/500-500.png'],
+            ['name'=>'Logo','width'=>500,'height'=>500, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/500-500.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/image.svg'],
             
-            ['name'=>'Poster (dọc)','width'=>4960,'height'=>7015, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/4960-7015.png'],
+            ['name'=>'Poster (dọc)','width'=>4960,'height'=>7015, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/4960-7015.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/poster.svg'],
             
-            ['name'=>'Bài đăng Instagram (vuông)','width'=>1080,'height'=>1080, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1080-1080.png'],
+            ['name'=>'Bài đăng Instagram (vuông)','width'=>1080,'height'=>1080, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1080-1080.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/instagram.svg'],
             
-            ['name'=>'Bài đăng Facebook (ngang)','width'=>940,'height'=>788, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/940-788.png'],
+            ['name'=>'Bài đăng Facebook (ngang)','width'=>940,'height'=>788, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/940-788.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/facebook.svg'],
 
-            ['name'=>'Avatar Facebook','width'=>761,'height'=>761, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/761-761.png'],
+            ['name'=>'Avatar Facebook','width'=>761,'height'=>761, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/761-761.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/facebook.svg'],
             
-            ['name'=>'Ảnh bìa Facebook','width'=>1640,'height'=>924, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1640-924.png'],
+            ['name'=>'Ảnh bìa Facebook','width'=>1640,'height'=>924, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1640-924.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/facebook.svg'],
             
-            ['name'=>'Ảnh thumbnail video Youtube','width'=>1280,'height'=>720, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1280-720.png'],
+            ['name'=>'Ảnh thumbnail video Youtube','width'=>1280,'height'=>720, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1280-720.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/youtube.svg'],
             
-            ['name'=>'Hình nền máy tính','width'=>1920,'height'=>1080, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1920-1080.png'],
+            ['name'=>'Hình nền máy tính','width'=>1920,'height'=>1080, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1920-1080.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/image.svg'],
             
-            ['name'=>'A0 (dọc)','width'=>3179,'height'=>4494, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/3179-4494.png'],
+            ['name'=>'A0 (dọc)','width'=>3179,'height'=>4494, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/3179-4494.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/docs.svg'],
             
-            ['name'=>'A1 (dọc)','width'=>2245,'height'=>3179, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/2245-3179.png'],
+            ['name'=>'A1 (dọc)','width'=>2245,'height'=>3179, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/2245-3179.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/docs.svg'],
             
-            ['name'=>'A2 (dọc)','width'=>1587,'height'=>2245, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1587-2245.png'],
+            ['name'=>'A2 (dọc)','width'=>1587,'height'=>2245, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1587-2245.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/docs.svg'],
             
-            ['name'=>'A3 (dọc)','width'=>1123,'height'=>1587, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1123-1587.png'],
+            ['name'=>'A3 (dọc)','width'=>1123,'height'=>1587, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1123-1587.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/docs.svg'],
             
-            ['name'=>'A4 (dọc)','width'=>794,'height'=>1123, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/794-1123.png'],
+            ['name'=>'A4 (dọc)','width'=>794,'height'=>1123, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/794-1123.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/docs.svg'],
             
-            ['name'=>'A5 (dọc)','width'=>559,'height'=>794, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/559-794.png'],
+            ['name'=>'A5 (dọc)','width'=>559,'height'=>794, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/559-794.png', 'icon'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-product/docs.svg'],
         ];
 }
 

@@ -206,6 +206,6 @@ function deleteFeedback($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/product_feedback-view-admin-feedback-listFeedback.php');
+	return $controller->redirect('/plugins/admin/product_feedback-view-admin-feedback-listFeedback');
 }
 ?>

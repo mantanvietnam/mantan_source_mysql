@@ -159,7 +159,7 @@ function deleteCompeteCRM($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM.php');
+	return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM');
 }
 
 function staticCompeteCRM($input)
@@ -198,10 +198,10 @@ function staticCompeteCRM($input)
             setVariable('customers', $customers);
             setVariable('data', $data);
         }else{
-            return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM.php');
+            return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM');
         }
     }else{
-        return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM.php');
+        return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM');
     }
 }
 ?>

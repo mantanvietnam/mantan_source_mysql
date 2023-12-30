@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/zoomcheap-view-admin-price-listPriceAdmin.php">Cài đặt giá</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/zoomcheap-view-admin-price-listPriceAdmin">Cài đặt giá</a> /</span>
     Thông tin Cài đặt giá
   </h4>
   <!-- Basic Layout -->

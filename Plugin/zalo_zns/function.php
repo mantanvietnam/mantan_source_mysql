@@ -2,7 +2,7 @@
 $menus= array();
 $menus[0]['title']= 'Zalo ZNS';
 $menus[0]['sub'][1]= array('title'=>'Zalo OA',
-                            'url'=>'/plugins/admin/zalo_zns-view-admin-listZaloOAAdmin.php',
+                            'url'=>'/plugins/admin/zalo_zns-view-admin-listZaloOAAdmin',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'listZaloOAAdmin',
                         );

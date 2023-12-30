@@ -407,6 +407,7 @@ $sqlInstallDatabase .="CREATE TABLE `userservice_histories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_member` int(11) NOT NULL,
   `id_order_details` int(11) NOT NULL,
+  `id_order` int(11) NOT NULL,
   `id_spa` int(11) DEFAULT NULL,
   `id_services` int(11) NOT NULL,
   `id_staff` int(11) DEFAULT NULL,

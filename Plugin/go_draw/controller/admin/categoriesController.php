@@ -96,5 +96,5 @@ function deleteCategoryAdmin($input)
         }
     }
 
-    return $controller->redirect('/plugins/admin/go_draw-view-admin-category-listCategoryAdmin.php');
+    return $controller->redirect('/plugins/admin/go_draw-view-admin-category-listCategoryAdmin');
 }

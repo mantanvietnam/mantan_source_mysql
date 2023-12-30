@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Lịch sử nhập kho</h4>
-    <p><a href="/plugins/admin/go_draw-view-admin-warehouse_histories-addProductWarehouseAdmin.php/?product_id=<?php if(!empty($_GET['product_id'])) echo $_GET['product_id'];?>" class="btn btn-primary"><i class='bx bx-plus'></i> Tạo phiếu nhập kho mới</a></p>
+    <p><a href="/plugins/admin/go_draw-view-admin-warehouse_histories-addProductWarehouseAdmin/?product_id=<?php if(!empty($_GET['product_id'])) echo $_GET['product_id'];?>" class="btn btn-primary"><i class='bx bx-plus'></i> Tạo phiếu nhập kho mới</a></p>
 
     <!-- Form Search -->
     <form method="get" action="">

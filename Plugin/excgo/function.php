@@ -5,31 +5,31 @@ $menus[0]['title'] = 'Exc-go';
 
 $menus[1]['sub'][0] = array(
     'title' => 'Danh sách thành viên',
-    'url' => '/plugins/admin/excgo-view-admin-user-listUserAdmin.php',
+    'url' => '/plugins/admin/excgo-view-admin-user-listUserAdmin',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listUserAdmin',
 );
 
 $menus[2]['sub'][0] = array('title' => 'Danh sách khu vực',
-    'url' => '/plugins/admin/excgo-view-admin-province-listProvinceAdmin.php',
+    'url' => '/plugins/admin/excgo-view-admin-province-listProvinceAdmin',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listProvinceAdmin',
 );
 
 $menus[3]['sub'][0] = array('title' => 'Danh sách cuốc xe',
-    'url' => '/plugins/admin/excgo-view-admin-booking-listBookingAdmin.php',
+    'url' => '/plugins/admin/excgo-view-admin-booking-listBookingAdmin',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listBookingAdmin',
 );
 
 $menus[4]['sub'][0] = array('title' => 'Yêu cầu nâng cấp tài khoản',
-    'url' => '/plugins/admin/excgo-view-admin-upgradeRequest-listUpgradeRequestToDriverAdmin.php',
+    'url' => '/plugins/admin/excgo-view-admin-upgradeRequest-listUpgradeRequestToDriverAdmin',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listUpgradeRequestToDriverAdmin',
 );
 
 $menus[5]['sub'][0] = array('title' => 'Yêu cầu rút tiền',
-    'url' => '/plugins/admin/excgo-view-admin-withdrawRequest-listWithdrawRequestAdmin.php',
+    'url' => '/plugins/admin/excgo-view-admin-withdrawRequest-listWithdrawRequestAdmin',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listWithdrawRequestAdmin',
 );
@@ -829,7 +829,7 @@ global $transactionKey;
 $transactionKey = 'EXCGO';
 
 global $urlTransaction;
-$urlTransaction = 'https://img.vietqr.io/image/TPB-06931228686-compact2.png?';
+$urlTransaction = 'https://img.vietqr.io/image/TPB-26689898989-compact2.png?';
 
 global $defaultAvatar;
 $defaultAvatar = 'https://apis.exc-go.vn/plugins/excgo/view/image/default-avatar.png';

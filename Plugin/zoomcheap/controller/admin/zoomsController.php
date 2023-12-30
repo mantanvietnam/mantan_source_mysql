@@ -161,6 +161,6 @@ function deleteZoom($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/zoomcheap-view-admin-zoom-listAccountZoomAdmin.php');
+	return $controller->redirect('/plugins/admin/zoomcheap-view-admin-zoom-listAccountZoomAdmin');
 }
 ?>

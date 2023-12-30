@@ -362,9 +362,9 @@ function lockProductAdmin($input)
 	}
 
 	if(!empty($_GET['page'])){
-		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php?page='.$_GET['page']);
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin?page='.$_GET['page']);
 	}else{
-		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin');
 	}
 
 	
@@ -396,7 +396,7 @@ function deleteProductAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin');
 }
 
 function addTrendProductAdmin($input)
@@ -414,16 +414,16 @@ function addTrendProductAdmin($input)
          		$modelProducts->save($data);
 
          		if(!empty($_GET['page'])){
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin.php?mess='.$_GET['status'].'&page='.$_GET['page']);
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin?mess='.$_GET['status'].'&page='.$_GET['page']);
 				}else{
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin.php?mess='.$_GET['status']);
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin?mess='.$_GET['status']);
 				}
         	}
         }else{
         	if(!empty($_GET['page'])){
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin.php?mess=2page='.$_GET['page']);
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin?mess=2page='.$_GET['page']);
 				}else{
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin.php?mess=2');
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin?mess=2');
 				}
         }
 	}	
@@ -612,7 +612,7 @@ function updateProductAdmin($input)
 		        	}
 		        }
 
-		        return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
+		        return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin');
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập tên mẫu thiết kế</p>';
 		    }

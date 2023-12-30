@@ -216,6 +216,7 @@ function listBookCalendar($input){
 			            'Books.apt_step',
 			            'Services.name',
 			            'Members.name',
+			            'Members.id',
 			            'Beds.name',
 			        ])
 	    			->join([
@@ -263,7 +264,7 @@ function listBookCalendar($input){
         
         if(!empty($listRoom)){
             foreach($listRoom as $key => $item){
-                $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa')))->all()->toList();
+                $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'), 'status'=>1))->all()->toList();
             }
         }
 
@@ -432,4 +433,79 @@ function deleteBook($input){
     }
 }
 
+
+function checkinbetBook($input){
+	global $controller;
+	global $isRequestPost;
+    global $modelCategories;
+	global $metaTitleMantan;
+	global $session;
+
+    $metaTitleMantan = 'Thông tin lịch hẹn';
+
+	$modelCustomer = $controller->loadModel('Customers');
+	$modelBook = $controller->loadModel('Books');
+	$modelService = $controller->loadModel('Services');
+	$modelMembers = $controller->loadModel('Members');
+	$modelService = $controller->loadModel('Services');
+    $modelOrder = $controller->loadModel('Orders');
+    $modelOrderDetail = $controller->loadModel('OrderDetails');
+	$modelSpa = $controller->loadModel('Spas');
+    $modelAgency = $controller->loadModel('Agencys');
+	$modelRoom = $controller->loadModel('Rooms');
+    $modelBed = $controller->loadModel('Beds');
+	
+	if(!empty(checkLoginManager('checkinbetBook', 'calendar'))){
+		$infoUser = $session->read('infoUser');
+
+		if ($isRequestPost) {
+	        $dataSend = $input['request']->getData();
+	        $book = $modelBook->get($dataSend['id_book']);
+	        $book->status = 3;
+	        $book->id_staff = (int )$dataSend['idStaff'];
+	        
+	        $customer = $modelCustomer->get($book->id_customer);
+	        $service= $modelService->get($book->id_service);
+	        $modelBook->save($book);
+
+	        // tạo đơn hàng 
+	        $order = $modelOrder->newEmptyEntity();
+	        $order->id_member = $infoUser->id_member;
+	        $order->id_spa =$infoUser->id_spa;
+	        $order->id_staff =@$dataSend['idStaff'];
+	        $order->id_customer =@$book->id_customer;
+	        $order->full_name = @$customer->name;
+	        $order->id_bed =@$dataSend['id_bed'];
+	        $order->note =@$dataSend['note'];
+	        $order->created_at =date('Y-m-d H:i:s');
+	        $order->updated_at =date('Y-m-d H:i:s');
+	   		$order->status =0;
+	       	//$order->promotion =@$dataSend['promotion'];
+	       	$order->total =@$service->price;
+	       	$order->total_pay =@$service->price;
+	       	$order->type_order =3;
+	       	$order->type ='service';
+		    $order->time = time();
+
+		    $modelOrder->save($order);
+
+		    $detail = $modelOrderDetail->newEmptyEntity();
+
+	        $detail->id_member = $infoUser->id_member;
+	        $detail->id_order = $order->id;
+	        $detail->id_product = $book->id_service;
+	        $detail->price = (int) $service->price;
+	        $detail->quantity = 1;
+	        $detail->type = 'service';
+
+	        $modelOrderDetail->save($detail);
+	         
+	        return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product.'&id_staff='.@$dataSend['idStaff']);
+
+	    }
+
+	}else{
+		return $controller->redirect('/');
+	}
+}
 ?>

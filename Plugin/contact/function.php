@@ -3,7 +3,7 @@
 $menus = array();
 $menus[0]['title'] = 'Liên hệ';
 $menus[0]['sub'][0] = array('title' => 'Danh sách liên hệ',
-                            'url'=>'/plugins/admin/contact-views-admin-listContactAdmin.php',
+                            'url'=>'/plugins/admin/contact-views-admin-listContactAdmin',
                             'classIcon' => 'menu-icon tf-icons bx bxs-data',
                             'permission'=>'listContactAdmin'
 );

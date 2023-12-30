@@ -2,7 +2,7 @@
   <h4 class="fw-bold py-3 mb-4">Thông tin tỉnh thành</h4>
   <h4 class="fw-bold py-3 mb-4"></h4>
   <!-- Form Search -->
-  <p><a href="/plugins/admin/excgo-view-admin-province-addProvinceAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/excgo-view-admin-province-addProvinceAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <form method="get" action="">
     <div class="card mb-4">
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
@@ -59,7 +59,7 @@
                     $status = '
                   <a class="btn btn-success"  title="Khóa tỉnh" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn Khóa tỉnh này không?\');" 
-                    href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin.php/?id=' . $item->id . '&status=0"
+                    href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin/?id=' . $item->id . '&status=0"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Đã Kích hoạt ';
@@ -67,7 +67,7 @@
                     $status = '
                   <a class=" btn btn-danger"  title="Kích hoạt tỉnh" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt tỉnh này không?\');" 
-                    href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin.php/?id=' . $item->id . '&status=1"
+                    href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin/?id=' . $item->id . '&status=1"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Đã khóa ';
@@ -79,7 +79,7 @@
                         <td>' . $item->bsx . '</td>
                         <td><p align="center">
                         <a class="btn btn-primary" 
-                          href="/plugins/admin/excgo-view-admin-province-addProvinceAdmin.php/?id=' . $item->id . '"
+                          href="/plugins/admin/excgo-view-admin-province-addProvinceAdmin/?id=' . $item->id . '"
                         >
                           <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                         </a>

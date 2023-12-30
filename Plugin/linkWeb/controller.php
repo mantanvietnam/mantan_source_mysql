@@ -120,9 +120,9 @@ function addLinkWebCategoryAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
             if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin?status=1');
             }
             
         }else{
@@ -148,7 +148,7 @@ function deleteLinkWebCategoryAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin?status=3');
 }
 
 /*Liên kết LinkWeb */
@@ -279,9 +279,9 @@ function addLinkWebAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
             if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/linkWeb-admin-listLinkWebAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/linkWeb-admin-listLinkWebAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/linkWeb-admin-listLinkWebAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/linkWeb-admin-listLinkWebAdmin?status=1');
             }
         }else{
             $mess= '<p class="text-danger">Bạn chưa nhập tên </p>';
@@ -307,6 +307,6 @@ function deleteLinkWebAdmin($input){
         }
     }
 
-    return $controller->redirect('plugins/admin/linkWeb-admin-listLinkWebAdmin.php?status=3');
+    return $controller->redirect('plugins/admin/linkWeb-admin-listLinkWebAdmin?status=3');
 }
 ?>

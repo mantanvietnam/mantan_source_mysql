@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/plugins/ezpics_admin/view/admin/css/ezpics_admin.css" />
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Người dùng</h4>
-  <p><a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -134,12 +134,12 @@
                   }
 
                   $status = '<span style="color: #60bc2f;">Kích hoạt</span> <br/>
-                   <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
+                   <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin/?id='.$item->id.'&status=1">
                               <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   if($item->status==0){
                     $status = '<span style="color: red;">Khóa</span> <br/>
-                   <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=2">
+                   <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin/?id='.$item->id.'&status=2">
                               <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   }
@@ -154,13 +154,13 @@
                             Đăng ký: '.date('H:i d/m/Y', strtotime($item->created_at)).'<br/>
                             Đăng nhập lần cuối lúc: '.date('H:i d/m/Y', strtotime(@$item->last_login)).'<br/>
                             '.$pro.'<br/><br/>
-                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
+                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager/?type=plus&id='.$item->id.'">
                              Cộng tiền 
                             </a>
-                            <a class="btn btn-danger" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=minus&id='.$item->id.'">
+                            <a class="btn btn-danger" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager/?type=minus&id='.$item->id.'">
                              Trừ tiền 
                             </a>
-                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addEcoinManager.php/?type=plus&id='.$item->id.'">
+                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addEcoinManager/?type=plus&id='.$item->id.'">
                              Cộng Ecoin 
                             </a>
                           </td>
@@ -174,7 +174,7 @@
                           </td>
                           <td>'.$type.'</td>
                            <td align="center">
-                            <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
+                            <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                             </a>
                           </td>
@@ -226,12 +226,12 @@
                   }
 
                   $status = '
-                   <a class=" btn btn-danger"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
+                   <a class=" btn btn-danger"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin/?id='.$item->id.'&status=1">
                               <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                             </a><br/> Kích hoạt ';
                   if($item->status==0){
                     $status = '
-                   <a class="btn btn-success"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=2">
+                   <a class="btn btn-success"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin/?id='.$item->id.'&status=2">
                               <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                             </a><br/>Khóa ';
                   }
@@ -258,16 +258,16 @@
                           <p><b>Loại tài khoản: </b>'.$type.'</p>
                          
                           <p align="center">
-                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
+                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager/?type=plus&id='.$item->id.'">
                               <i class="bx bx-shield-plus me-1" style="font-size: 22px;"></i>
                             </a>
                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-danger" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=minus&id='.$item->id.'">
+                            <a class="btn btn-danger" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager/?type=minus&id='.$item->id.'">
                               <i class="bx bx-shield-minus me-1" style="font-size: 22px;"></i>
                             </a>
                           </p>
                            <p align="center">
-                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
+                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                             </a>
                              &nbsp;&nbsp;&nbsp;&nbsp;
@@ -341,7 +341,7 @@
                                   aria-label="Close"
                                 ></button>
                               </div>
-                             <form action="/plugins/admin/ezpics_admin-view-admin-member-memberBuyProAdmin.php" method="GET">
+                             <form action="/plugins/admin/ezpics_admin-view-admin-member-memberBuyProAdmin" method="GET">
                                <div class="modal-footer">
                                 <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
                                 <input type="hidden" value="0"  name="status">
@@ -379,7 +379,7 @@
                                   aria-label="Close"
                                 ></button>
                               </div>
-                             <form action="/plugins/admin/ezpics_admin-view-admin-member-memberExtendProAdmin.php" method="GET">
+                             <form action="/plugins/admin/ezpics_admin-view-admin-member-memberExtendProAdmin" method="GET">
                                <div class="modal-footer">
                                 <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
                                 <input type="hidden" value="0"  name="status">
@@ -412,7 +412,7 @@
                                 <h5 class="modal-title" id="exampleModalLabel1">bạn muốn hạ tài khoản Pro ID: <?php echo $items->id; ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
-                             <a class="btn btn-danger" href="/plugins/admin/ezpics_admin-view-admin-member-memberDownProAdmin.php/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" style=" width: 110px; margin: 20px; ">Xác nhận</a>
+                             <a class="btn btn-danger" href="/plugins/admin/ezpics_admin-view-admin-member-memberDownProAdmin/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" style=" width: 110px; margin: 20px; ">Xác nhận</a>
                               
                             </div>
                           </div>

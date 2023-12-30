@@ -63,7 +63,7 @@
                                             <?php
                                                 if(!empty($listData)){
                                                     foreach($listData as $key => $item){ 
-                                                        $type = 'Chưa thanh toán';
+                                                        $type = '<span style="color: red">Chưa thanh toán</span>';
                                                         if($item->status==1){
                                                             $type = 'Đã thanh toán';
                                                         }elseif($item->status==2){

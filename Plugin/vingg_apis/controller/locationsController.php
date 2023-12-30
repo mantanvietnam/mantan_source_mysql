@@ -131,6 +131,6 @@ function deleteLocation($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/vingg_apis-view-admin-location-listLocation.php');
+	return $controller->redirect('/plugins/admin/vingg_apis-view-admin-location-listLocation');
 }
 ?>

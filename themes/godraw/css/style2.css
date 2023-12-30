@@ -1,3 +1,5 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap'); */
+
 @font-face {
     font-family: "Vollkorn";
     src: url("/themes/godraw/fonts/Vollkorn-Regular.ttf") format("truetype");
@@ -21,6 +23,56 @@
     font-style: normal;
     font-display: swap;
 }
+
+
+.arrow {
+    position: absolute;
+    /* top: 50%; */
+    left: 17px;
+    transform: translate(-50%, -50%);
+    transform: rotate(90deg);
+    cursor: pointer;
+    scale: 0.5;
+
+}
+
+.arrow span {
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-top: 5px solid white;
+    border-left: 5px solid white;
+    transform: rotate(45deg);
+    margin: -10px;
+    animation: animate 2s infinite;
+}
+
+.arrow span:nth-child(2) {
+    animation-delay: -0.2s;
+}
+
+.arrow span:nth-child(3) {
+    animation-delay: -0.4s;
+}
+
+
+/*  */
+
+@keyframes animate {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) translate(20px, 20px);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) translate(20px, 20px);
+    }
+}
+
+/*  */
 .logo-foter ul li a{
     color: #fff !important;
 }
@@ -394,14 +446,26 @@ img.khung-tranh {
     align-items: center;
     text-transform: uppercase;
     transition: all 0.3s linear;
-    color: #EC2024 !important
+    color: #EC2024 !important;
+    position: relative;
 }
 
 .button-login-red a {
     color: #EC2024;
     font-size: 20px;
     font-weight: bold;
+    animation: scaleText 2s infinite alternate;
+
 }
+
+@keyframes scaleText {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.1);
+    }
+  }
 
 .button-login-red a:hover {
     /* background-color: #a30b0e; */
@@ -476,25 +540,9 @@ img.khung-tranh {
     right: 0;
 }
 
-.footer-page {
-    /* display: block !important; */
-}
 
-.content-footer .social ul li img {
-    width: 33px;
-}
 
-.content-footer .social {
-    padding-left: 0;
-    padding-right: 35px
-}
 
-.box-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
 
 .item-slide-relative {
     /* position: relative; */
@@ -880,6 +928,11 @@ header {
 
 .item-showroom .avr {
     flex: 0 0 82px;
+}
+
+.item-showroom .avr img{
+    height: 56px !important;
+    object-fit: cover;
 }
 
 .title-search-home .title span{
@@ -1285,7 +1338,28 @@ header {
     cursor: pointer;
 }
 
+/* Footer css*/
+.footer-page {
+    /* display: block !important; */
+}
 
+.content-footer .social ul li img {
+    width: 33px;
+}
+
+.content-footer .social {
+    padding-left: 0;
+    padding-right: 35px
+}
+
+.box-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/*  */
 
 @media(min-width: 1440px) and (max-width: 1920px) {
     
@@ -1315,6 +1389,9 @@ header {
 }
 
 @media (max-width: 431px) {
+    .item-showroom ul li{
+        font-size: 12px;
+    }
 
     .sevices-ft-list-name {
         height: 27px;
@@ -1544,7 +1621,31 @@ header {
 }
 
 @media(max-width: 500px) {
+    .button-login-red{
+        width: 175px;
+    }
 
+    .head-form h3 {
+        font-size: 15px;
+    }
+
+    #slide-home-shop  {
+        justify-content: start;
+        padding-top: 70px;
+    }
+
+    .arrow span{
+        width: 16px;
+        height: 17px;
+        margin: 0;
+    }
+
+    .arrow {
+        left: -5px;
+        top: 3px
+    }
+
+    
 
 
     .iconmarket i {
@@ -2051,6 +2152,9 @@ header {
         top: 0;
         bottom: 667px;
     } */
+    .button-login-red a {
+        font-size: 15px;
+    }
 }
 
 @media(max-width: 390px) {
@@ -2078,10 +2182,10 @@ header {
         justify-content: start;
     }
 
-    #slide-home-shop>div.fp-overflow>section>div{
+    /* #slide-home-shop>div.fp-overflow>section>div{
         padding-bottom: 30px;
         padding-top: 60px;
-    }
+    } */
 
 
     .sevices-title{
@@ -2120,9 +2224,9 @@ header {
     .slider-hot-nav .slick-dots {
         bottom: -15px;
     }
-    #slide-home-shop>div.fp-overflow>section>div {
+    /* #slide-home-shop>div.fp-overflow>section>div {
         padding-bottom: 30px;
-    }
+    } */
 
     .sevices-ft-text p {
         font-size: 11px;
@@ -2157,7 +2261,7 @@ header {
     }
 
     .sevices-title {
-        font-size: 14px;
+        font-size: 22px;
         padding-top: 0;
     }
 
@@ -2209,7 +2313,7 @@ header {
         padding-right: 0;
     }
     .list-showroom {
-        height: 32vh;
+        height: 40vh;
     }
     .box-gallery .view-all {
         position: absolute;
@@ -2217,6 +2321,8 @@ header {
         right: 9px;
         z-index: 9;
     }
+
+  
 }    
 
 @media only screen and (min-width:480px) {
@@ -2257,7 +2363,7 @@ header {
         padding-right: 0;
     }
     .list-showroom {
-        height: 32vh;
+        height: 40vh;
     }
     .box-gallery .view-all {
         position: absolute;

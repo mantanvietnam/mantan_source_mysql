@@ -4,7 +4,7 @@ $menus= array();
 $menus[0]['title']= 'Dự án';
 
 $menus[0]['sub'][0]= array('title'=>'Thông tin Dự án',
-                            'url'=>'/plugins/admin/product_project-view-admin-product_project-listProductProjectAdmin.php',
+                            'url'=>'/plugins/admin/product_project-view-admin-product_project-listProductProjectAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listProductProjectAdmin',
                         );
@@ -14,7 +14,7 @@ $menus[0]['sub'][1]= array('title'=>'Cài đặt',
 							'classIcon'=>'bx bx-cog',
 							'permission'=>'settingsProducts',
 							'sub'=> array(  array('title'=>'Danh mục Loại dự án',
-												'url'=>'/plugins/admin/product_project-view-admin-kind-listKindAdmin.php',
+												'url'=>'/plugins/admin/product_project-view-admin-kind-listKindAdmin',
 												'classIcon'=>'bx bx-category',
 												'permission'=>'listKindAdmin',
 											),

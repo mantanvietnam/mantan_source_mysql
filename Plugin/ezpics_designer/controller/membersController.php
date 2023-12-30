@@ -43,8 +43,8 @@ function login($input)
 	    				if($info_customer->status == 1){
 
 	    					// nếu chưa có token
-			    			if(empty($info_customer->token)){
-			    				$info_customer->token = createToken(25);
+			    			if(empty($info_customer->token_web)){
+			    				$info_customer->token_web = createToken(25);
 			    			}
 
 			    			$info_customer->last_login = date('Y-m-d H:i:s');
@@ -196,6 +196,7 @@ function changePass($input)
 					if($user->password == md5($dataSend['passOld'])){
 						$user->password = md5($dataSend['passNew']);
 						$user->token = createToken(25);
+						$user->token_web = createToken(25);
 
 						$modelMembers->save($user);
 
@@ -277,11 +278,12 @@ function forgotPass($input){
 		$checkMember = $modelMembers->find()->where($conditions)->first();
 
 		if(!empty($checkMember)){
-			$pass = time();
-			$checkMember->token = @$pass;
+			$otp = rand(100000,999999);
+			$checkMember->otp = $otp;
 			
 			$modelMembers->save($checkMember);
-			sendEmailnewpassword($checkMember->email, $checkMember->name, $pass);
+			
+			sendEmailnewpassword($checkMember->email, $checkMember->name, $otp);
 			$session->write('phone', $checkMember->phone);
 			
 			return $controller->redirect('/confirm');
@@ -307,24 +309,27 @@ function confirm($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		$conditions = array();
-		$conditions = array('phone'=>@$phone, 'token'=>$dataSend['code']);
-	    		$data = $modelMembers->find()->where($conditions)->first();
-	    		if(!empty($data)){
-	    				if($dataSend['pass'] == $dataSend['passAgain']){
-	    				$data->password = md5($dataSend['pass']);
+		
+		$conditions = array('phone'=>@$phone, 'otp'=>$dataSend['code']);
+		
+		$data = $modelMembers->find()->where($conditions)->first();
+		
+		if(!empty($data)){
+			if($dataSend['pass'] == $dataSend['passAgain']){
+				$data->password = md5($dataSend['pass']);
+				$data->otp = '';
 
-	    				$modelMembers->save($data);
-	    				$session->destroy();
-			    			
-						return $controller->redirect('/login');		
+				$modelMembers->save($data);
+				$session->destroy();
+	    			
+				return $controller->redirect('/login');		
 
-	    			}else{
-	    				$mess= '<p class="text-danger">Mật khẩu xác nhập mới bạn không đúng</p>';
-	    			}
-	    		}else{
-	    			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
-	    		}
+			}else{
+				$mess= '<p class="text-danger">Mật khẩu xác nhập mới bạn không đúng</p>';
+			}
+		}else{
+			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
+		}
 	    setVariable('mess', $mess);
 	}
 
@@ -389,6 +394,7 @@ function register($input)
 					$data->status = 1; //1: kích hoạt, 0: khóa
 					$data->type = 0; // 0: người dùng, 1: designer
 					$data->token = createToken();
+					$data->token_web = createToken();
 					$data->commission = 70;
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
@@ -513,6 +519,7 @@ function ggCallback($input)
 					$checkUser->status = 1; //1: kích hoạt, 0: khóa
 					$checkUser->type = 0; // 0: người dùng, 1: designer
 					$checkUser->token = createToken(25);
+					$checkUser->token_web = createToken(25);
 					$checkUser->created_at = date('Y-m-d H:i:s');
 					$checkUser->last_login = date('Y-m-d H:i:s');
 					$checkUser->token_device = '';
@@ -533,6 +540,7 @@ function ggCallback($input)
 		    			}
 
 		    			$checkUser->last_login = date('Y-m-d H:i:s');
+		    			$checkUser->token_web = createToken(25);
 
 		    			$modelMembers->save($checkUser);
 
@@ -699,7 +707,7 @@ function loginAdmin(){
 
 	$modelMembers = $controller->loadModel('Members');
     	$mess = '';
-	    $conditions = array('phone'=>$_GET['phone'], 'token'=>$_GET['token']);
+	    $conditions = array('phone'=>$_GET['phone'], 'OR'=>[['token'=>$_GET['token']],['token_web'=>$_GET['token']]]);
 	    $info_customer = $modelMembers->find()->where($conditions)->first();
 
 	    if($info_customer){
@@ -713,6 +721,11 @@ function loginAdmin(){
 				if(empty($info_customer->token)){
 					$info_customer->token = createToken(25);
 				}
+
+				if(empty($info_customer->token_web)){
+					$info_customer->token_web = createToken(25);
+				}
+
 	   			$info_customer->last_login = date('Y-m-d H:i:s');
 	   			$modelMembers->save($info_customer);
 	   			$session->write('CheckAuthentication', true);

@@ -98,10 +98,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/ezpics_admin-view-admin-ingredient-listCategoryIngredientEzpics.php';
+            window.location = '/plugins/admin/ezpics_admin-view-admin-ingredient-listCategoryIngredientEzpics';
           })
           .fail(function() {
-            window.location = '/plugins/admin/ezpics_admin-view-admin-ingredient-listCategoryIngredientEzpics.php';
+            window.location = '/plugins/admin/ezpics_admin-view-admin-ingredient-listCategoryIngredientEzpics';
           });
       }
     }

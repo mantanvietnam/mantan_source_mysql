@@ -95,5 +95,5 @@ function delete_subscribe($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/subscribe-view-admin-list_subscribe.php');
+    return $controller->redirect('/plugins/admin/subscribe-view-admin-list_subscribe');
 }

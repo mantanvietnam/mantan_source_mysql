@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Quản lý khóa</h4>
-  <p><a href="/plugins/admin/keys-view-admin-key-addKey.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/keys-view-admin-key-addKey" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -97,19 +97,19 @@
                           <td>'.$item->status.'</td>
                           
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn làm mới không?\');" href="/plugins/admin/keys-view-admin-key-refreshKey.php/?id='.$item->id.'">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn làm mới không?\');" href="/plugins/admin/keys-view-admin-key-refreshKey/?id='.$item->id.'">
                               <i class="bx bx-refresh me-1"></i>
                             </a>
                           </td>
 
                           <td align="center">
-                            <a class="dropdown-item" href="/plugins/admin/keys-view-admin-key-addKey.php/?id='.$item->id.'">
+                            <a class="dropdown-item" href="/plugins/admin/keys-view-admin-key-addKey/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
 
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/keys-view-admin-key-deleteKey.php/?id='.$item->id.'">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/keys-view-admin-key-deleteKey/?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>

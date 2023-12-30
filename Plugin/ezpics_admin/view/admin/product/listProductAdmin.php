@@ -126,7 +126,7 @@
                   }elseif($item->status==1){
                     $status = '<span class="text-primary">Chờ duyệt</span>
                     <br>
-                     <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
+                     <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
                       <br/>
                       <br/>
                        <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Từ chối" data-bs-toggle="modal"
@@ -157,7 +157,7 @@
                             
                           </td>
                           <td>'.$thumbnail.'</td>
-                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn rounded-pill btn-icon btn-outline-secondary" href="/plugins/admin/ezpics_admin-view-admin-product-updateProductAdmin.php?id='.$item->id.'" ><i class="bx bx-edit-alt me-1"></i></a></td>
+                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn rounded-pill btn-icon btn-outline-secondary" href="/plugins/admin/ezpics_admin-view-admin-product-updateProductAdmin?id='.$item->id.'" ><i class="bx bx-edit-alt me-1"></i></a></td>
                           <td>
                             Sell: '.number_format($item->sold).'<br/>
                             View: '.number_format($item->views).'<br/>
@@ -169,7 +169,7 @@
                           </td>
                           <td style="text-align: center;">'.$status.'</td>
                           <td align="center">
-                            <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'">
+                            <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin/?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
@@ -202,7 +202,7 @@
                   }elseif($item->status==1){
                     $s = '<span class="text-primary">Chờ duyệt</span>';
                   
-                    $status = ' <a class="btn btn btn-success" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt">Duyệt</a>
+                    $status = ' <a class="btn btn btn-success" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt">Duyệt</a>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                        <a class="btn btn-danger" title="Từ chối" data-bs-toggle="modal"
                             data-bs-target="#basicModal'.$item->id.'" style="color: white;">Từ chối</a>';
@@ -245,7 +245,7 @@
                           </p>
                           <p ><b>Trạng thái:</b> '.$s.'</p>
                           <p style="text-align: center;"> '.$status.'&nbsp;&nbsp;&nbsp;&nbsp;'.@$linkopenapp.'  &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'" style=" margin: 20px; ">
+                            <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin/?id='.$item->id.'" style=" margin: 20px; ">
                              xóa
                             </a>
                           </p>
@@ -325,7 +325,7 @@
                                   aria-label="Close"
                                 ></button>
                               </div>
-                             <form action="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php" method="GET">
+                             <form action="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin" method="GET">
                                <div class="modal-footer">
                                 <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
                                 <input type="hidden" value="0"  name="status">
@@ -347,7 +347,7 @@
                                 <h5 class="modal-title" id="exampleModalLabel1">Sửa thông tin mẫu thiết kế: <?php echo $items->id; ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                               </div>
-                             <form action="/plugins/admin/ezpics_admin-view-admin-product-updateProductAdmin.php" method="GET">
+                             <form action="/plugins/admin/ezpics_admin-view-admin-product-updateProductAdmin" method="GET">
                                <div class="modal-footer">
                                 <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
                                 <input type="hidden" value="0"  name="status">

@@ -74,7 +74,7 @@ function deleteContact($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/contact-views-admin-listContactAdmin.php');
+    return $controller->redirect('/plugins/admin/contact-views-admin-listContactAdmin');
 }
 
 ?>

@@ -94,7 +94,7 @@
                                             <td align="center">'.$status.'</td>
                                             <td align="center">
                                               <a class="btn btn-primary" 
-                                                href="/plugins/admin/go_draw-view-admin-agency_order_back_stores-viewAgencyBackProductAdmin.php/?id='.$item->id .'"
+                                                href="/plugins/admin/go_draw-view-admin-agency_order_back_stores-viewAgencyBackProductAdmin/?id='.$item->id .'"
                                               >
                                                 <i class="bx bx-edit-alt me-1"></i>
                                               </a>

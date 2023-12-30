@@ -128,5 +128,5 @@ function deleteZaloOAAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/zalo_zns-view-admin-listZaloOAAdmin.php');
+	return $controller->redirect('/plugins/admin/zalo_zns-view-admin-listZaloOAAdmin');
 }

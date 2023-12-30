@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/phongtruyenthong-view-admin-school-infoSchoolAdmin.php">Trường học</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/phongtruyenthong-view-admin-school-infoSchoolAdmin">Trường học</a> /</span>
     Thông tin trường học
   </h4>
 

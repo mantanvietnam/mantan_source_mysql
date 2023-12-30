@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Người dùng</h4>
-  <p><a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -101,12 +101,12 @@
                 }
 
                 $status = 'Kích hoạt <br/>
-                 <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
+                 <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin/?id='.$item->id.'&status=1">
                             <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                           </a>';
                 if($item->status==0){
                   $status = 'Khóa <br/>
-                 <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=2">
+                 <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin/?id='.$item->id.'&status=2">
                             <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                           </a>';
                 }
@@ -124,7 +124,7 @@
                        
                         
                          <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/databot_spa-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/databot_spa-view-admin-member-addMemberAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                           </a>
                         </td>

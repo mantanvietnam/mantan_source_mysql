@@ -13,7 +13,7 @@ function addContentAPI($input){
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['content']) && !empty($dataSend['idProduct'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				$checkProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct']))->first();
@@ -64,7 +64,7 @@ function listContentAPI($input){
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				$dataContent = $modelContent->find()->where(array('user_id'=>$checkPhone->id))->all()->toList();
@@ -118,7 +118,7 @@ function getContentAPI($input){
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				$data = $modelContent->find()->where(array('user_id'=>$checkPhone->id, 'id'=>$dataSend['id']))->first();
@@ -166,7 +166,7 @@ function  deleteContentAPI($input){
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				$data = $modelContent->find()->where(array('user_id'=>$checkPhone->id, 'id'=>$dataSend['id']))->first();
@@ -211,7 +211,7 @@ function  updateContentAPI($input){
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				$data = $modelContent->find()->where(array('user_id'=>$checkPhone->id, 'id'=>$dataSend['id']))->first();

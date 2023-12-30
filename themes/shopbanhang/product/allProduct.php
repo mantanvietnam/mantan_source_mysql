@@ -185,9 +185,19 @@ $slide_home= slide_home($setting['id_slide']);
                                 foreach ($list_product as $product) {
 
                                 	$link = '/san-pham/'.$product->slug.'.html';
-                                	 $giam = 0;
-                                    if(!empty($product->price_old) && !empty($product->price)){
-                                        $giam = 100 - 100*$product->price/$product->price_old;
+                                     $giam = 0;
+                                    $price = $product->price;
+                                    if($setting['targetTime']>time() && @$product->flash_sale==1){
+                                        if(!empty($product->price_old) && !empty($product->price_flash)){
+                                            $giam = 100 - 100*$product->price_flash/$product->price_old;
+                                            $price = @$product->price_flash;
+
+                                        }
+                                    }else{
+                                        if(!empty($product->price_old) && !empty($product->price)){
+                                            $giam = 100 - (100*($product->price/$product->price_old));
+                                            
+                                        }
                                     }
 
                                      $ban = 0;
@@ -212,7 +222,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
         
                                         <div class="product-price">
-                                            <p><?php echo number_format($product->price) ?>đ</p>
+                                            <p><?php echo number_format($price) ?>đ</p>
                                         </div>
         
                                         <div class="product-discount">

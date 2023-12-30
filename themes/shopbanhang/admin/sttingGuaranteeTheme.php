@@ -1,6 +1,6 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">	 Theme - chích sách bảo mật Setting</h4>
+    <h4 class="fw-bold py-3 mb-4">	 Theme - chính sách bảo hành Setting</h4>
 
     <!-- Basic Layout -->
     <p><?php echo @$mess;?></p>

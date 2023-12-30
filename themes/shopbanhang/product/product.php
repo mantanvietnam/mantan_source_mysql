@@ -111,8 +111,9 @@
 
                         <div class="rate-left-text">
                             <?php if(!empty($product->point) && !empty($product->evaluatecount)){ ?>
-                                <span><a href="#section-product-detail-rate"><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) </a> |   <span class="margin-product"><?php echo $product->sold ?>&nbsp;&nbsp;đã bán</span> </span>
-                            <?php }else{ echo '<p><span>(0)</span></p>'; } ?>
+                                <span><a href="#section-product-detail-rate"><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) </a> |    
+                            <?php }else{ echo '<span>(0)</span>'; } ?>
+                            <span class="margin-product"><?php echo $product->sold ?>&nbsp;&nbsp;đã bán</span></span>
                         </div>
                     </div>
 
@@ -139,10 +140,23 @@
                 <?php } ?>
                 <div class="product-detail-info-price">
                     <div class="product-detail-info-price-left">
+                        
+                        <?php $giam = 0;
+                            $price = $product->price;
+                            if($setting['targetTime']>time() && @$product->flash_sale==1){
+                                if(!empty($product->price_old) && !empty($product->price_flash)){
+                                    $giam = $product->price_old -$product->price_flash;
+                                    $price = @$product->price_flash;
+                                }
+                            }else{
+                                if(!empty($product->price_old) && !empty($product->price)){
+                                    $giam = $product->price_old-$product->price;
+                                            
+                                }
+                            } ?>
                         <div class="price-left-real">
-                            <p><?php echo number_format($product->price); ?>đ</p>
+                            <p><?php echo number_format($price ); ?>đ</p>
                         </div>
-
                         <div class="price-left-sale">
                             <del><?php if($product->price_old>$product->price){  echo number_format($product->price_old); ?>đ
                              <?php } ?></del>
@@ -150,8 +164,13 @@
                      </div>
 
                      <div class="product-detail-info-price-right">
-                        <?php if($product->price_old>$product->price){ ?>
-                            <span>(Bạn đã tiết kiệm  <?php echo number_format($product->price_old-$product->price); ?>đ)</span>
+                        <?php 
+                            
+
+                        if($product->price_old>$product->price){
+
+                         ?>
+                            <span>(Bạn đã tiết kiệm  <?php echo number_format($giam); ?>đ)</span>
                         <?php } ?>
                     </div>
                 </div>

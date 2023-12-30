@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/product_feedback-view-admin-feedback-listFeedback.php">Đánh giá</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/product_feedback-view-admin-feedback-listFeedback">Đánh giá</a> /</span>
     Thông tin đánh giá
   </h4>
 

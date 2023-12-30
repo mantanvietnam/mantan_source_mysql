@@ -229,15 +229,15 @@
                   <?php 
                   if(!empty($links)){
                     foreach ($links as $link) {
-                      echo '<li data-id="'.$link->id.'" data-idparent="'.$link->id_parent.'"><i class="bx bx-edit" onclick="editLink('.$link->id.',\''.$link->name.'\',\''.$link->link.'\',\''.$link->description.'\',\''.$link->id_parent.'\',\''.$link->weighty.'\');"></i> '.$link->name.'</li>';
+                      echo '<li data-id="'.$link->id.'" data-idparent="'.$link->id_parent.'"><i class="bx bx-edit" onclick="editLink('.$link->id.',\''.$link->name.'\',\''.$link->link.'\',\''.$link->description.'\',\''.$link->id_parent.'\',\''.$link->weighty.'\');"></i> <a target="_blank" href="'.$link->link.'">'.$link->name.'</a></li>';
 
                       if(!empty($link->sub)){
                         foreach ($link->sub as $sub) {
-                          echo '<li data-id="'.$sub->id.'" data-idparent="'.$sub->id_parent.'">&nbsp;&nbsp;&nbsp;&nbsp;<i class="bx bx-edit" onclick="editLink('.$sub->id.',\''.$sub->name.'\',\''.$sub->link.'\',\''.$sub->description.'\',\''.$sub->id_parent.'\',\''.$sub->weighty.'\');"></i> '.$sub->name.'</li>';
+                          echo '<li data-id="'.$sub->id.'" data-idparent="'.$sub->id_parent.'">&nbsp;&nbsp;&nbsp;&nbsp;<i class="bx bx-edit" onclick="editLink('.$sub->id.',\''.$sub->name.'\',\''.$sub->link.'\',\''.$sub->description.'\',\''.$sub->id_parent.'\',\''.$sub->weighty.'\');"></i> <a target="_blank" href="'.$sub->link.'">'.$sub->name.'</a></li>';
 
                           if(!empty($sub->sub)){
                             foreach ($sub->sub as $itemsub) {
-                              echo '<li data-id="'.$itemsub->id.'" data-idparent="'.$itemsub->id_parent.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bx bx-edit" onclick="editLink('.$itemsub->id.',\''.$itemsub->name.'\',\''.$itemsub->link.'\',\''.$itemsub->description.'\',\''.$itemsub->id_parent.'\',\''.$itemsub->weighty.'\');"></i>'.$itemsub->name.'</li>';
+                              echo '<li data-id="'.$itemsub->id.'" data-idparent="'.$itemsub->id_parent.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bx bx-edit" onclick="editLink('.$itemsub->id.',\''.$itemsub->name.'\',\''.$itemsub->link.'\',\''.$itemsub->description.'\',\''.$itemsub->id_parent.'\',\''.$itemsub->weighty.'\');"></i> <a target="_blank" href="'.$itemsub->link.'">'.$itemsub->name.'</a></li>';
                             }
                           }
                         }

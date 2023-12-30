@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Sản phẩm</h4>
-    <p><a href="/plugins/admin/go_draw-view-admin-product-addProductAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+    <p><a href="/plugins/admin/go_draw-view-admin-product-addProductAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
     <!-- Form Search -->
     <form method="get" action="">
@@ -114,18 +114,18 @@
                         <td>'.number_format($item->price).'đ</td>
                         <td>'.number_format($item->amount_in_stock).'</td>
                         <td align="center">
-                          <a class="btn btn-warning" href="/plugins/admin/go_draw-view-admin-warehouse_histories-historyProductWarehouseAdmin.php/?product_id='.$item->id.'">
+                          <a class="btn btn-warning" href="/plugins/admin/go_draw-view-admin-warehouse_histories-historyProductWarehouseAdmin/?product_id='.$item->id.'">
 
                             <i class="bx bx-home me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="btn btn-primary" href="/plugins/admin/go_draw-view-admin-product-addProductAdmin.php/?id='.$item->id.'">
+                          <a class="btn btn-primary" href="/plugins/admin/go_draw-view-admin-product-addProductAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/go_draw-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'">
+                          <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/go_draw-view-admin-product-deleteProductAdmin/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

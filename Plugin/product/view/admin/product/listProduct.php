@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Sản phẩm</h4>
-  <p><a href="/plugins/admin/product-view-admin-product-addProduct.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
-  &ensp;&ensp; <a href="/plugins/admin/product-view-admin-product-ListQuestion.php?id_product=0" class="btn btn-primary"><i class='bx bx-plus'></i> câu hỏi chung</a></p>
+  <p><a href="/plugins/admin/product-view-admin-product-addProduct" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
+  &ensp;&ensp; <a href="/plugins/admin/product-view-admin-product-ListQuestion?id_product=0" class="btn btn-primary"><i class='bx bx-plus'></i> câu hỏi chung</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -121,33 +121,32 @@
                 }
                 $flash_sale = '';
                 if(@$item->flash_sale==1){
-                  $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc bỏ Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale.php/?id='.$item->id.'&flash_sale=0"><i class="bx bx-check-square"></i></a>';
+                  $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc bỏ Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale/?id='.$item->id.'&flash_sale=0"><i class="bx bx-check-square"></i></a>';
                 }else{
-                  $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc áp Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale.php/?id='.$item->id.'&flash_sale=1"><i class="bx bxs-check-square"></i></a>';
+                  $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc áp Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale/?id='.$item->id.'&flash_sale=1"><i class="bx bxs-check-square"></i></a>';
                 }
                 echo '<tr>
                         <td>'.$item->code.'</td>
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$category_name.'</td>
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
-                        <td> Sl ban đầu:'.$item->number_like.'<br/>
-                              Sl còn:'.$item->quantity.'<br/>
+                        <td> Sl còn:'.$item->quantity.'<br/>
                             SL đã bán:'.$item->sold.'<br/>
                         </td>
                         <td>'.$item->status.'</td>
                         <td align="center">
                         câu hỏi<br/>
-                        <a class="dropdown-item"  href="/plugins/admin/product-view-admin-product-ListQuestion.php/?id_product='.$item->id.'"><i class="bx bxs-message-dots"></i></a><br/>
+                        <a class="dropdown-item"  href="/plugins/admin/product-view-admin-product-ListQuestion/?id_product='.$item->id.'"><i class="bx bxs-message-dots"></i></a><br/>
                         đánh giá <br/>
-                        <a class="dropdown-item"  href="/plugins/admin/product-view-admin-evaluate-listEvaluate.php/?id_product='.$item->id.'"><i class="bx bxs-comment-detail"></i></a></td>
+                        <a class="dropdown-item"  href="/plugins/admin/product-view-admin-evaluate-listEvaluate/?id_product='.$item->id.'"><i class="bx bxs-comment-detail"></i></a></td>
                         <td align="center">'.$flash_sale.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/product-view-admin-product-addProduct.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/product-view-admin-product-addProduct/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/product-view-admin-product-deleteProduct.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/product-view-admin-product-deleteProduct/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

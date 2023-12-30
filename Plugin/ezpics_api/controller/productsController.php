@@ -374,7 +374,7 @@ function deleteProductAPI($input)
 	$return = array('code'=>1);
 
 	if(!empty($dataSend['id']) && !empty($dataSend['token'])){
-		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		$infoUser = getMemberByToken($dataSend['token']);
 		$data = $modelProduct->find()->where(['id'=>(int) $dataSend['id']])->first();
 
 		if(!empty($data) && !empty($infoUser) && $data->user_id == $infoUser->id){
@@ -414,18 +414,33 @@ function createProductAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['name']) && !empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
-				$type = !empty($dataSend['type'])?$dataSend['type']:'user_create';
+				if($dataSend['type'] == 'user_series'){
+					$type = 'user_series';
+				}else{
+					if($infoUser->type == 1){
+						$type = 'user_create';
+					}else{
+						$type = 'user_edit';
+					}
+				}
+				
 				$name = $dataSend['name'];
+				$background = @$dataSend['background'];
 				$price = (int) @$dataSend['price'];
 				$sale_price = (int) @$dataSend['sale_price'];
 				$category_id = (int) @$dataSend['category_id'];
 				$color = @$dataSend['color'];
-				$warehouse =  explode(',', @$dataSend['warehouse_id']);
 
-	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id, $warehouse, $color);
+				$warehouse = [];
+				if(!empty($dataSend['warehouse_id'])){
+					$warehouse =  explode(',', @$dataSend['warehouse_id']);
+				}
+				
+
+	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id, $warehouse, $color, $background);
 	        }else{
 	        	$return = array('code'=>3,
 							'messages'=>array(array('text'=>'Không tồn tại tài khoản người dùng'))
@@ -464,7 +479,7 @@ function updateProductAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['idProduct']) && !empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$product =  $modelProduct->find()->where(array('id'=>$dataSend['idProduct'],'user_id'=>$infoUser->id))->first();
@@ -608,7 +623,7 @@ function buyProductAPI($input)
 			$product = $modelProduct->find()->where(['id'=>(int) $dataSend['id']])->first();
 
 			if(!empty($product)){
-				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+				$infoUser = getMemberByToken($dataSend['token']);
 				if(!empty($infoUser)){
 					$infoUserSell = $modelMember->find()->where(array('id'=>$product->user_id))->first();
 
@@ -982,7 +997,7 @@ function getMyProductAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$conditions = array('user_id'=>$infoUser->id);
@@ -1027,7 +1042,7 @@ function getMyProductFavoriteAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$conditions = array('member_id'=>$infoUser->id);
@@ -1078,7 +1093,7 @@ function saveFavoriteProductAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['product_id'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$product = $modelProduct->find()->where(['id'=>(int) $dataSend['product_id']])->first();
@@ -1138,7 +1153,7 @@ function deleteFavoriteProductAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['product_id'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$product = $modelProduct->find()->where(['id'=>(int) $dataSend['product_id']])->first();
@@ -1193,7 +1208,7 @@ function checkFavoriteProductAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['product_id'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$product = $modelProduct->find()->where(['id'=>(int) $dataSend['product_id']])->first();
@@ -1226,7 +1241,7 @@ function getIdProductCloneAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['product_id'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$product = $modelProduct->find()->where(['id'=>(int) $dataSend['product_id']])->first();
@@ -1260,7 +1275,7 @@ function getMyProductSeriesAPI($input)
 
 
 		if(!empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$conditions = array('user_id'=>$infoUser->id, 'type'=>'user_series');
@@ -1481,86 +1496,92 @@ function updateInfoProductAPI($input)
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        $user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-        if(!empty($user)){
-	        $pro = $modelProduct->find()->where(array('id'=>$dataSend['id'], 'user_id'=>$user->id))->first();
+        
+        if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+	        $user = getMemberByToken($dataSend['token']);
+	        
+	        if(!empty($user)){
+		        $pro = $modelProduct->find()->where(array('id'=>$dataSend['id'], 'user_id'=>$user->id))->first();
 
-	        if (empty($pro)) {
-	            return ['code'=>4, 'mess' => 'Sản phẩm của bạn đã bị xóa khỏi hệ thống']; 
-	        }else{
-	            if(!empty($dataSend['field']) && isset($dataSend['value'])){
-	                switch ($dataSend['field']) {
-	                    case 'category_id':
-	                        $pro->category_id = (int) $dataSend['value'];
-	                        break;
-	                    
-	                    case 'price':
-	                        $pro->price = (int) str_replace(',','',$dataSend['value']);
-	                        break;
-	                    
-	                    case 'sale_price':
-	                        $pro->sale_price = (int) str_replace(',','',$dataSend['value']);
-	                        break;
-	                    
-	                    case 'name':
-	                        $pro->name = $dataSend['value'];
+		        if (empty($pro)) {
+		            return ['code'=>4, 'mess' => 'Sản phẩm của bạn đã bị xóa khỏi hệ thống']; 
+		        }else{
+		            if(!empty($dataSend['field']) && isset($dataSend['value'])){
+		                switch ($dataSend['field']) {
+		                    case 'category_id':
+		                        $pro->category_id = (int) $dataSend['value'];
+		                        break;
+		                    
+		                    case 'price':
+		                        $pro->price = (int) str_replace(',','',$dataSend['value']);
+		                        break;
+		                    
+		                    case 'sale_price':
+		                        $pro->sale_price = (int) str_replace(',','',$dataSend['value']);
+		                        break;
+		                    
+		                    case 'name':
+		                        $pro->name = $dataSend['value'];
 
-	                        // tạo slug
-	                        $slug = createSlugMantan($dataSend['value']);
-	                        $slugNew = $slug;
-	                        $number = 0;
+		                        // tạo slug
+		                        $slug = createSlugMantan($dataSend['value']);
+		                        $slugNew = $slug;
+		                        $number = 0;
 
-	                        if(empty($pro->slug) || $pro->slug!=$slugNew){
-	                            do{
-	                                $conditions = array('slug'=>$slugNew);
-	                                $listData = $modelProduct->find()->where($conditions)->all()->toList();
+		                        if(empty($pro->slug) || $pro->slug!=$slugNew){
+		                            do{
+		                                $conditions = array('slug'=>$slugNew);
+		                                $listData = $modelProduct->find()->where($conditions)->all()->toList();
 
-	                                if(!empty($listData)){
-	                                    $number++;
-	                                    $slugNew = $slug.'-'.$number;
-	                                }
-	                            }while (!empty($listData));
-	                        }
+		                                if(!empty($listData)){
+		                                    $number++;
+		                                    $slugNew = $slug.'-'.$number;
+		                                }
+		                            }while (!empty($listData));
+		                        }
 
-	                        $pro->slug = $slugNew;
+		                        $pro->slug = $slugNew;
 
-	                        break;
+		                        break;
 
-	                    case 'status':
-	                        $pro->status = (int) $dataSend['value'];
-	                        if($pro->status == 1){
-	                            sendNotificationAdmin('6479b6f4b4a51d8bb38fc547');
-	                            $warehouseProducts = $modelWarehouseProducts->find()->where(['product_id'=>$pro->id])->all()->toList();
-	                            if(!empty($warehouseProducts)){
-	                                foreach($warehouseProducts as $keywp => $product){
-	                                    $Warehouses = $modelWarehouses->find()->where(['id'=>$product->warehouse_id])->first();
-	                                    $warehouseUser = $modelWarehouseUsers->find()->where(['warehouse_id'=>$Warehouses->id])->all()->toList();
-	                                    foreach($warehouseUser as $keyus => $item){
-	                                        $user = $modelMember->find()->where(['id'=>$item->user_id])->first();
-	                                        $dataSendNotification= array('product_id'=>$pro->id, 'title'=>'Thông báo có mẫu thiết kế mới trong kho ','time'=>date('H:i d/m/Y'),'content'=>'Kho mẫu thiết kế "'.$Warehouses->name.'" có mẫu mới là "'.$pro->name.'"!','action'=>'productNewWarehouseNotification');
-	                                        if(!empty($user->token_device)){
-	                                            sendNotification($dataSendNotification, $user->token_device);
-	                                        }
-	                                    }
-	                                }
-	                            }
+		                    case 'status':
+		                        $pro->status = (int) $dataSend['value'];
+		                        if($pro->status == 1){
+		                            sendNotificationAdmin('6479b6f4b4a51d8bb38fc547');
+		                            $warehouseProducts = $modelWarehouseProducts->find()->where(['product_id'=>$pro->id])->all()->toList();
+		                            if(!empty($warehouseProducts)){
+		                                foreach($warehouseProducts as $keywp => $product){
+		                                    $Warehouses = $modelWarehouses->find()->where(['id'=>$product->warehouse_id])->first();
+		                                    $warehouseUser = $modelWarehouseUsers->find()->where(['warehouse_id'=>$Warehouses->id])->all()->toList();
+		                                    foreach($warehouseUser as $keyus => $item){
+		                                        $user = $modelMember->find()->where(['id'=>$item->user_id])->first();
+		                                        $dataSendNotification= array('product_id'=>$pro->id, 'title'=>'Thông báo có mẫu thiết kế mới trong kho ','time'=>date('H:i d/m/Y'),'content'=>'Kho mẫu thiết kế "'.$Warehouses->name.'" có mẫu mới là "'.$pro->name.'"!','action'=>'productNewWarehouseNotification');
+		                                        if(!empty($user->token_device)){
+		                                            sendNotification($dataSendNotification, $user->token_device);
+		                                        }
+		                                    }
+		                                }
+		                            }
 
-	                        }
-	                    	break;
-	                    default:
-   						return ['code' => 5, 'mess' => 'field không tồn tại'];
-	                }
+		                        }
+		                    	break;
+		                    default:
+	   						return ['code' => 5, 'mess' => 'field không tồn tại'];
+		                }
 
-	                $modelProduct->save($pro);
+		                $modelProduct->save($pro);
 
-	                return ['code' => 1, 'mess' => 'Bạn sửa thông tin thành công ' ];
-	            }else{
-	                return ['code' => 3, 'mess' => 'Không được để trống dữ liệu']; 
-	            }
-	        } 
-	    }else{
-	        return ['code' => 2, 'mess' => 'Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn'];
-	    }
+		                return ['code' => 1, 'mess' => 'Bạn sửa thông tin thành công ' ];
+		            }else{
+		                return ['code' => 3, 'mess' => 'Không được để trống dữ liệu']; 
+		            }
+		        } 
+		    }else{
+		        return ['code' => 2, 'mess' => 'Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn'];
+		    }
+		}else{
+			return ['code' => 0, 'mess' => 'Gửi thiếu dữ liệu'];
+		}
     } 
 }
 

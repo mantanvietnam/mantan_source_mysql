@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">2TOP CRM - THI ĐUA</h4>
-  <p><a href="/plugins/admin/2top_crm_compete-view-admin-campain-addCompeteCRM.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/2top_crm_compete-view-admin-campain-addCompeteCRM" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Chiến dịch thi đua</h5>
@@ -28,23 +28,23 @@
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td><a href="/compete/'.$item->slug.'.html">'.$item->title.'</a></td>
                         <td>'.date('d/m/Y', $item->date_start).' đến '.date('d/m/Y', $item->date_end).'</td>
-                        <td><a href="/plugins/admin/2top_crm_compete-view-admin-target-listTargetCRM.php/?id_compete='.$item->id.'">'.$item->target.' mục tiêu</a></td>
+                        <td><a href="/plugins/admin/2top_crm_compete-view-admin-target-listTargetCRM/?id_compete='.$item->id.'">'.$item->target.' mục tiêu</a></td>
                         <td>'.$item->status.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/2top_crm_compete-view-admin-campain-staticCompeteCRM.php?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/2top_crm_compete-view-admin-campain-staticCompeteCRM?id='.$item->id.'">
                             <i class="bx bx-bar-chart-alt me-1"></i>
                           </a>
                         </td>
 
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/2top_crm_compete-view-admin-campain-addCompeteCRM.php?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/2top_crm_compete-view-admin-campain-addCompeteCRM?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
 
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_compete-view-admin-campain-deleteCompeteCRM.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_compete-view-admin-campain-deleteCompeteCRM/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

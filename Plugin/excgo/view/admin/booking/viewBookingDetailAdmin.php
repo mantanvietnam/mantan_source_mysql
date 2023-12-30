@@ -2,7 +2,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light"><a href="/plugins/admin/excgo-view-admin-booking-listBookingAdmin.php">Cuốc xe</a> /</span>
+        <span class="text-muted fw-light"><a href="/plugins/admin/excgo-view-admin-booking-listBookingAdmin">Cuốc xe</a> /</span>
         Thông tin cuốc xe
     </h4>
     <!-- Basic Layout -->
@@ -35,7 +35,7 @@
                         <div class="col-md-6 mb-3 ">
                             <label class="form-label">Người đăng</label>
                             <a class="d-block"
-                                href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=" . @$data->PostedUsers['id'] ?>">
+                                href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=" . @$data->PostedUsers['id'] ?>">
                                 <?php echo @$data->PostedUsers['name'] ?>
                             </a>
                         </div>
@@ -43,7 +43,7 @@
                         <div class="col-md-6 mb-3 ">
                             <label class="form-label">Người nhận</label>
                             <a class="d-block"
-                                href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=" . @$data->ReceivedUsers['id'] ?>">
+                                href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=" . @$data->ReceivedUsers['id'] ?>">
                                 <?php echo @$data->ReceivedUsers['name'] ?>
                             </a>
                         </div>

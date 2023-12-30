@@ -11,7 +11,7 @@ $infoUser = $session->read('infoUser');
             <div class="container">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-12">
                     <div class="logo-footer">
-                        <img src="<?php echo $urlThemeActive ?>asset/image/logophong.png" alt="">
+                        <img src="<?php echo @$setting['image_logo'] ?>" alt="">
                     </div>
                 </div>
         
@@ -24,7 +24,8 @@ $infoUser = $session->read('infoUser');
                             <div class="footer-info-list">
                                 <div class="footer-info-item">
                                     <p><?php echo $setting['address'] ?></p>
-                                    <p>ĐT:<span class="blue-text"><?php echo $setting['phone'] ?></span>-Fax:<span class="blue-text"><?php echo $setting['fax'] ?></span></p>
+                                    <p>ĐT:<span class="blue-text"><?php echo $setting['phone'] ?></span>
+                                        <!-- -Fax:<span class="blue-text"><?php echo $setting['fax'] ?></span></p> -->
                                 </div>
 
                                 <div class="footer-info-item">
@@ -36,6 +37,10 @@ $infoUser = $session->read('infoUser');
                                     <p>Tổng đài hỗ trợ (08:00-17:00)</p>  
                                     <p>Gọi mua: <span class="blue-text"><?php echo $setting['call_buy'] ?></span></p>  
                                     <p>Hỗ trợ: <span class="blue-text"><?php echo $setting['complain'] ?></span></p>
+                                </div>
+
+                                <div class="footer-info-item">
+                                    <a href="//www.dmca.com/Protection/Status.aspx?ID=8d5e8353-1592-4e74-9995-353ca496214d" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca_protected_16_120.png?ID=8d5e8353-1592-4e74-9995-353ca496214d"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
                                 </div>
                             </div>
                         </div>
@@ -106,12 +111,14 @@ $infoUser = $session->read('infoUser');
                                         <input type="email" name="emailSubscribe" id="emailSubscribe" class="form-control" placeholder="Nhập email của bạn" required>
                                         <button onclick="addSubscribe()" class="btn btn-primary">Đăng ký</button>
                                     </div>
+
                             </div>
                         </section>
                     </div>
                 </div>
             </div>
         </section>
+
     </footer>
 
     <!-- Đăng nhập -->

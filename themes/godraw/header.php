@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <!-- <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/update.css"> -->
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
@@ -277,9 +278,15 @@
                             <div class="head-form">
                                 <h3>ĐĂNG NHẬP</h3>
 
-                                <p class="button-login-red">
+                                <div class="button-login-red">
+                                    <div class="arrow">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+
                                     <a href="/login" class="">*ĐẠI LÝ ĐĂNG NHẬP</a>
-                                </p>
+                                </div>
                             </div>
                             <div class="list-form-item">
                                 <form action="/loginUser" method="POST">
@@ -360,7 +367,7 @@
                                         </div>
                                     </div>
                                     <div class="item item-submit text-center">
-                                        <input type="submit" class="btn_field" value="ĐĂNG KÝ">
+                                        <input type="button" class="btn_field" value="ĐĂNG KÝ" onclick="this.form.submit(); this.disabled=true; this.value='Loading ...';">
                                     </div>
                                 </form>
                             </div>

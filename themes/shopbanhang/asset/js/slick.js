@@ -252,7 +252,7 @@ $(document).ready(function() {
         // nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'>></button>",
 
         responsive: [{
-            breakpoint: 768,
+            breakpoint: 821,
             settings: {
                 arrows: false,
                 slidesToShow: 3

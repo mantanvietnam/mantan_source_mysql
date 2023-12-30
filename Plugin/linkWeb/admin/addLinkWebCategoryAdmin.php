@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin.php">Nhóm liên kết</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin">Nhóm liên kết</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";

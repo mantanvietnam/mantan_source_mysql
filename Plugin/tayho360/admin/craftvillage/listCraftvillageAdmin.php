@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin điểm đến làng nghề</h4>
-  <p><a href="/plugins/admin/tayho360-admin-craftvillage-addCraftvillageAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/tayho360-admin-craftvillage-addCraftvillageAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <form action="" method="GET">
            <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
@@ -46,12 +46,12 @@
                         <td> '.$item->address.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="tayho360-admin-craftvillage-addCraftvillageAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="tayho360-admin-craftvillage-addCraftvillageAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-craftvillage-deleteCraftvillageAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-craftvillage-deleteCraftvillageAdmin/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

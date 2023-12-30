@@ -91,7 +91,7 @@
 
 								<div class="item-frm justify-content-center">
 									<div class="item-submit">
-										<input type="submit" value="ĐĂNG KÝ" class="btn_filed">
+										<input type="button" value="ĐĂNG KÝ" class="btn_filed" onclick="this.form.submit(); this.disabled=true; this.value='Loading ...';">
 									</div>
 								</div>
 							</form>

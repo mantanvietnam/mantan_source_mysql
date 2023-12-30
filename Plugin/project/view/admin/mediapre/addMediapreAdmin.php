@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/project-view-admin-mediapre-listMediapreAdmin.php">Library</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/project-view-admin-mediapre-listMediapreAdmin">Library</a> /</span>
     Thông tin Library
   </h4>
   <!-- Basic Layout -->

@@ -189,7 +189,7 @@ function deleteProductProjectAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/product_project-view-admin-product_project-listProductProjectAdmin.php');
+	return $controller->redirect('/plugins/admin/product_project-view-admin-product_project-listProductProjectAdmin');
 }
 
 ?>

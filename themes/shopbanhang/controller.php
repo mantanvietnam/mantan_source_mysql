@@ -172,30 +172,38 @@ function sttingReviewTheme($input){
                         'name_video_11' => @$dataSend['name_video_11'],
                         'imagevideo11' => @$dataSend['imagevideo11'],
                         'embedded11' => @$dataSend['embedded11'],
+                        'youtube_11' => @$dataSend['youtube_11'],
                         'name_video_12' => @$dataSend['name_video_12'],
                         'imagevideo12' => @$dataSend['imagevideo12'],
                         'embedded12' => @$dataSend['embedded12'],
+                        'youtube_12' => @$dataSend['youtube_12'],
                         'name_product2' => @$dataSend['name_product2'],
                         'name_video_21' => @$dataSend['name_video_21'],
                         'imagevideo21' => @$dataSend['imagevideo21'],
                         'embedded21' => @$dataSend['embedded21'],
+                        'youtube_21' => @$dataSend['youtube_21'],
                         'name_video_22' => @$dataSend['name_video_22'],
                         'imagevideo22' => @$dataSend['imagevideo22'],
                         'embedded22' => @$dataSend['embedded22'],
+                        'youtube_22' => @$dataSend['youtube_22'],
                         'name_product3' => @$dataSend['name_product3'],
                         'name_video_31' => @$dataSend['name_video_31'],
                         'imagevideo31' => @$dataSend['imagevideo31'],
                         'embedded31' => @$dataSend['embedded31'],
+                        'youtube_31' => @$dataSend['youtube_31'],
                         'name_video_32' => @$dataSend['name_video_32'],
                         'imagevideo32' => @$dataSend['imagevideo32'],
                         'embedded32' => @$dataSend['embedded32'],
+                        'youtube_32' => @$dataSend['youtube_32'],
                         'name_product4' => @$dataSend['name_product4'],
                         'name_video_41' => @$dataSend['name_video_41'],
                         'imagevideo41' => @$dataSend['imagevideo41'],
                         'embedded41' => @$dataSend['embedded41'],
+                        'youtube_41' => @$dataSend['youtube_41'],
                         'name_video_42' => @$dataSend['name_video_42'],
                         'imagevideo42' => @$dataSend['imagevideo42'],
                         'embedded42' => @$dataSend['embedded42'],
+                        'youtube_42' => @$dataSend['youtube_42'],
                         
                     );
 
@@ -331,7 +339,7 @@ function indexTheme($input){
     $slide_home = $modelAlbums->find()->where(['id'=>(int)$data_value['id_slide']])->first();
 
     if(!empty($slide_home)){
-        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->all()->toList();
+        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->order(['id'=>'desc'])->all()->toList();
     }
 
      $news = $modelAlbums->find()->where(['id'=>(int)$data_value['id_bc']])->first();

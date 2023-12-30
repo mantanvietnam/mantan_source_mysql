@@ -1,7 +1,7 @@
 <?php global $type_ingredient; ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin thư viện ảnh</h4>
- <p><a href="/plugins/admin/ezpics_admin-view-admin-ingredient-addIngredientAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+ <p><a href="/plugins/admin/ezpics_admin-view-admin-ingredient-addIngredientAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <form action="" method="GET">
            <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
@@ -64,12 +64,12 @@
                         <td>'.$item->categories->name.'</td>
                         <td>'.$status.'</td>
                          <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-ingredient-addIngredientAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-ingredient-addIngredientAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-ingredient-deleteIngredientAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-ingredient-deleteIngredientAdmin/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

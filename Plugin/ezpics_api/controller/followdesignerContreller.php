@@ -13,8 +13,7 @@ function addFollowDesignerAPI($input){
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['idDesigner'])){
-			$checkUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-
+			$checkUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkUser)){
 				$checkDesigner = $modelMember->find()->where(array('id'=>$dataSend['idDesigner'], 'type'=>1))->first();
@@ -75,8 +74,7 @@ function deleteFollowDesignerAPI($input){
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['idDesigner'])){
-			$checkUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-
+			$checkUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkUser)){
 				$checkFollowDesigne = $modelFollowDesigner->find()->where(array('designer_id'=>$dataSend['idDesigner'], 'user_id'=>$checkUser->id))->first();
@@ -123,8 +121,7 @@ function checkFollowDesignerAPI($input){
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['idDesigner'])){
-			$checkUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-
+			$checkUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkUser)){
 				$checkFollowDesigne = $modelFollowDesigner->find()->where(array('designer_id'=>$dataSend['idDesigner'], 'user_id'=>$checkUser->id))->first();
@@ -170,8 +167,7 @@ function listFollowDesignerAPI($input){
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-
+			$checkUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkUser)){
 				$checkFollowDesigne = $modelFollowDesigner->find()->where(array( 'user_id'=>$checkUser->id))->all();

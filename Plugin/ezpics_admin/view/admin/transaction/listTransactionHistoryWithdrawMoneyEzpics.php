@@ -96,7 +96,7 @@
                           
                           <td>
                             '.$item->member->name.'<br/>
-                            <a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->member->id.'">'.$item->member->phone.'</a><br/>
+                            <a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin/?id='.$item->member->id.'">'.$item->member->phone.'</a><br/>
                             '.$item->member->email.'<br/>
                             Số dư '.number_format($item->member->account_balance).' đ<br/>
                             Số bán: '.number_format($item->member->sellingMoney).' đ
@@ -143,7 +143,7 @@
                           
                           <p><b>Người dùng:</b><br/>
                             '.$item->member->name.'<br/>
-                            <a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->member->id.'">'.$item->member->phone.'</a><br/>
+                            <a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin/?id='.$item->member->id.'">'.$item->member->phone.'</a><br/>
                             '.$item->member->email.'<br/>
                             Số dữ '.number_format($item->member->account_balance).' đ<br/>
                             Số bán: '.number_format($item->member->sellingMoney).' đ
@@ -234,7 +234,7 @@
                               <p><label>Số được phép rút:</label> <?php echo number_format($items->member->sellingMoney); ?>  VNĐ</p>
                               <p><label>Số tiền rút:</label> <?php echo number_format($items->total); ?>  VNĐ</p>
                               <?php if ($items->member->sellingMoney >= $items->total){ ?>
-                                <a class="btn btn-primary" onclick="return confirm(\'Bạn có chắc chắn muốn sử lý giao dịch này không?\');" href="/plugins/admin/ezpics_admin-view-admin-transaction-transactioncMoneyEzpics.php/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển tiền  ">Xác nhận chuyển tiền</a>
+                                <a class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn muốn sử lý giao dịch này không?');" href="/plugins/admin/ezpics_admin-view-admin-transaction-transactioncMoneyEzpics/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển tiền  ">Xác nhận chuyển tiền</a>
                               <?php }else{
                                       echo '<p class="text-danger">Tài khoản này không đủ tiền để rút!</p>';
                                 } ?>

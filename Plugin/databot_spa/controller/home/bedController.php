@@ -412,6 +412,8 @@ function checkoutBed($input){
                 $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
             }
 
+            $data->order = $modelOrder->find()->where(array('id'=>$data->id_order))->first();
+
            
 
         }
@@ -434,6 +436,8 @@ function checkoutBed($input){
 
             return $controller->redirect('/listRoomBed');
         }
+
+
 
         setVariable('data', $data);
         setVariable('mess', @$mess);

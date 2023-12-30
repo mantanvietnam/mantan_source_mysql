@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Mã QR thông minh</h4>
-  <p><a href="/plugins/admin/smartqr-view-admin-smartqr-addQR.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/smartqr-view-admin-smartqr-addQR" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách mã QR</h5>
@@ -29,16 +29,16 @@
                           <a href="/qrcode/'.$item->code.'" target="_blank"><img src="/qrcode/'.$item->code.'/?type=code" width="100" /></a> <br/>
                           <a href="/r/'.$item->code.'" target="_blank">'.$item->code.'</a>
                         </td>
-                        <td><a href="/plugins/admin/smartqr-view-admin-smartqr-staticQR.php/?id='.$item->id.'">'.number_format($item->number_scan).'</a></td>
+                        <td><a href="/plugins/admin/smartqr-view-admin-smartqr-staticQR/?id='.$item->id.'">'.number_format($item->number_scan).'</a></td>
                         <td>'.$item->status.'</td>
                         <td>'.$item->id_member.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/smartqr-view-admin-smartqr-addQR.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/smartqr-view-admin-smartqr-addQR/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/smartqr-view-admin-smartqr-deleteQR.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/smartqr-view-admin-smartqr-deleteQR/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

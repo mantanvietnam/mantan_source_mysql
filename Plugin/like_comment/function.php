@@ -1,8 +1,8 @@
 <?php
 	$menus= array();
 	$menus[0]['title']= 'Like comment';
-   $menus[0]['sub'][0]= array('title'=>'Danh sách bình luận','classIcon'=>'bx bx-list-ul','url'=>'/plugins/admin/like_comment-admin-listCommentAdmin.php','permission'=>'listCommentAdmin',);
-    // $menus[0]['sub'][1]= array('title'=>'Nhóm liên kết','classIcon'=>'fa-users','url'=>'/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin.php','permission'=>'groupLinkWeb',);
+   $menus[0]['sub'][0]= array('title'=>'Danh sách bình luận','classIcon'=>'bx bx-list-ul','url'=>'/plugins/admin/like_comment-admin-listCommentAdmin','permission'=>'listCommentAdmin',);
+    // $menus[0]['sub'][1]= array('title'=>'Nhóm liên kết','classIcon'=>'fa-users','url'=>'/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin','permission'=>'groupLinkWeb',);
     
     addMenuAdminMantan($menus); 
 
