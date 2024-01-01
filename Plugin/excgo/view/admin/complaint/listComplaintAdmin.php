@@ -61,6 +61,7 @@
                     <th>ID</th>
                     <th>Avatar</th>
                     <th>Người gửi</th>
+                    <th>Người bị khiếu nại</th>
                     <th>Nội dung</th>
                     <th>Trạng thái</th>
                 </tr>
@@ -88,7 +89,7 @@
                         }
 
                         echo '<tr>
-                        <td align="center">' . $item->id . $item->status .'</td>
+                        <td align="center">' . $item->id .'</td>
                         <td align="center"><img src="' . $item->Users['avatar'] . '" width="100" /></td>
                         <td>
                           ' . $item->Users['name'] . '
@@ -96,6 +97,13 @@
                           ' . $item->Users['phone_number'] . ' 
                           </br>
                           ' . $item->Users['email'] . ' 
+                        </td>
+                        <td>
+                          ' . $item->ComplainedUsers['name'] . '
+                          </br>
+                          ' . $item->ComplainedUsers['phone_number'] . ' 
+                          </br>
+                          ' . $item->ComplainedUsers['email'] . ' 
                         </td>
                         <td>
                           ' . $item->content . '

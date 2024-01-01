@@ -38,6 +38,8 @@ function createComplaintApi($input): array
             }
             $complaintModel->save($newComplaint);
 
+            sendEmailComplaint($currentUser->name, $newComplaint->id);
+
             return apiResponse(0, 'Tạo khiếu nại thành công');
         }
 

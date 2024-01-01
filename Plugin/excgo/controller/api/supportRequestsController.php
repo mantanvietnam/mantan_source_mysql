@@ -26,6 +26,8 @@ function createSupportRequestApi($input): array
             $newRequest->content = $dataSend['content'];
             $requestModel->save($newRequest);
 
+            sendEmailSupportRequest($currentUser->name, $newRequest->id);
+
             return apiResponse(0, 'Gửi yêu cầu thành công');
         }
 

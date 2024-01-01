@@ -14,7 +14,7 @@ function listComplaintAdmin($input)
     if ($page < 1) $page = 1;
 
     if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
-        $conditions['Complaints,id'] = $_GET['id'];
+        $conditions['Complaints.id'] = (int) $_GET['id'];
     }
 
     if (!empty($_GET['name'])) {
@@ -29,7 +29,7 @@ function listComplaintAdmin($input)
         $conditions['Users.email'] = $_GET['email'];
     }
 
-    if (isset($_GET['status'])) {
+    if (isset($_GET['status']) && $_GET['status'] != '') {
         $conditions['Complaints.status'] = $_GET['status'];
     }
 
@@ -42,6 +42,14 @@ function listComplaintAdmin($input)
                 'type' => 'LEFT',
                 'conditions' => [
                     'Complaints.posted_by = Users.id',
+                ],
+            ],
+            [
+                'table' => 'users',
+                'alias' => 'ComplainedUsers',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'Complaints.complained_driver_id = ComplainedUsers.id',
                 ],
             ],
             [
@@ -68,6 +76,11 @@ function listComplaintAdmin($input)
             'Users.phone_number',
             'Users.email',
             'Users.avatar',
+            'ComplainedUsers.id',
+            'ComplainedUsers.name',
+            'ComplainedUsers.phone_number',
+            'ComplainedUsers.email',
+            'ComplainedUsers.avatar',
             'Bookings.name',
             'Bookings.description',
         ])->limit($limit)
