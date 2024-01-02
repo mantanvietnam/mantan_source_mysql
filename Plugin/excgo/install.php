@@ -19,10 +19,12 @@ $sqlInstallDatabase .= 'CREATE TABLE `bookings` (
   `destination_province_id` int(11) DEFAULT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `introduce_fee` int(11) NOT NULL,
+  `deposit` INT NOT NULL DEFAULT 0 COMMENT "Tiền cọc"
   `price` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
   `received_at` timestamp NULL DEFAULT NULL,
+  `completed_at` TIMESTAMP NULL DEFAULT NULL,
   `canceled_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;';
@@ -99,6 +101,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`booking_fees` (
   `id` int NOT NULL AUTO_INCREMENT,
   `received_fee` int NOT NULL,
   `service_fee` int NOT NULL,
+  `deposit` INT NOT NULL DEFAULT 0 COMMENT "Tiền cọc"
   `booking_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
@@ -146,6 +149,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`complaints` (
     `booking_id` int NOT NULL,
     `complained_driver_id` int NOT NULL,
     `content` text NOT NULL,
+    `status` tinyint NOT NULL default 0,
     `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
     `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
     PRIMARY KEY (`id`)
@@ -204,6 +208,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`canceled_booking_requests` (
     `id` INT NOT NULL AUTO_INCREMENT , 
     `booking_id` INT NOT NULL , 
     `user_id` INT NOT NULL ,
+    `request_id` INT NULL ,
     `status` TINYINT NOT NULL DEFAULT 0 , 
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 

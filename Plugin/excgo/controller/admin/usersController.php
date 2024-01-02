@@ -164,8 +164,12 @@ function listUpgradeRequestToDriverAdmin($input)
     $modelDriverRequest = $controller->loadModel('DriverRequests');
     $modelUser = $controller->loadModel('Users');
 
+    $requestConditions = [];
+    if (isset($_GET['status']) && is_numeric($_GET['status'])) {
+        $requestConditions['status'] = $_GET['status'];
+    }
     $listUserRequest = $modelDriverRequest->find()
-        ->where(['status' => 0])
+        ->where($requestConditions)
         ->all();
 
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
@@ -196,10 +200,6 @@ function listUpgradeRequestToDriverAdmin($input)
 
         if (isset($_GET['type']) && $_GET['type'] !== '' && is_numeric($_GET['type'])) {
             $conditions['type'] = $_GET['type'];
-        }
-
-        if (isset($_GET['status']) && $_GET['status'] !== '' && is_numeric($_GET['status'])) {
-            $conditions['status'] = $_GET['status'];
         }
 
         $listData = $modelUser->find()
@@ -334,6 +334,7 @@ function listWithdrawRequestAdmin($input)
         ])->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['WithdrawRequests.created_at' => 'DESC'])
         ->all()
         ->toList();
     $totalRequest = $query->where($conditions)->count();
@@ -416,6 +417,7 @@ function updateUserCoinAdmin($input)
     global $metaTitleMantan;
 
     $userModel = $controller->loadModel('Users');
+    $notificationModel = $controller->loadModel('Notifications');
     $transactionModel = $controller->loadModel('Transactions');
     $metaTitleMantan = 'Thông tin người dùng';
     $mess = '';
@@ -440,6 +442,15 @@ function updateUserCoinAdmin($input)
 
                     $userModel->save($user);
                     $transactionModel->save($newTransaction);
+
+                    $title = 'Tài khoản của bạn dã được cộng coin';
+                    $content = "Tài khoản của bạn dã được cộng $newTransaction->amount coin bởi admin";
+                    $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'plusCoinSuccess'
+                    );
                 } else if ($_GET['type'] === 'minus') {
                     $user->total_coin -= $dataSend['coin'];
                     $newTransaction->user_id = $user->id;
@@ -450,6 +461,25 @@ function updateUserCoinAdmin($input)
 
                     $userModel->save($user);
                     $transactionModel->save($newTransaction);
+
+                    $title = 'Tài khoản của bạn dã bị trừ coin';
+                    $content = "Tài khoản của bạn dã bị trừ $newTransaction->amount coin bởi admin";
+                    $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'minusCoinSuccess'
+                    );
+                }
+
+                // Gửi thông báo tới người dùng
+                if (!empty($newTransaction)) {
+                    $newNotification = $notificationModel->newEmptyEntity();
+                    $newNotification->user_id = $user->id;
+                    $newNotification->title = $title;
+                    $newNotification->content = $content;
+                    $notificationModel->save($newNotification);
+                    sendNotification($dataSendNotification ?? [], $user->device_token);
                 }
 
                 $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';

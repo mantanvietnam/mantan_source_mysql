@@ -77,6 +77,10 @@ function addProvinceAdmin($input)
     $metaTitleMantan = 'Thông tin khu vực';
     $provinceModel = $controller->loadModel('Provinces');
     $mess = '';
+
+    if (!empty($_GET['parent_id'])) {
+        $parent = $provinceModel->find()->where(['id' => (int)$_GET['parent_id']])->first();
+    }
     $listProvince = $provinceModel->find()
         ->where([
             'status' => 1,
@@ -107,5 +111,6 @@ function addProvinceAdmin($input)
 
     setVariable('data', $data);
     setVariable('listProvince', $listProvince);
+    setVariable('parent', $parent ?? null);
     setVariable('mess', $mess);
 }

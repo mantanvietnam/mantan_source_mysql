@@ -33,14 +33,20 @@
                     <div class="row">
                         <div class="col-md-8 mb-3 ">
                             <label class="form-label" for="departure_province_id">Khu vực cha (*)</label>
-                            <select name="parent_id" id="parent_id" class="form-select color-dropdown">
-                                <option value="" selected>Không có</option>
-                                <?php foreach ($listProvince ?? [] as $province): ?>
-                                    <option value="<?php echo $province->id ?>"
-                                        <?php if(@$data->parent_id == $province->id || @$_GET['parent_id'] == $province->id) echo 'selected';?>
-                                    ><?php echo $province->name ?></option>
-                                <?php endforeach ?>
-                            </select>
+                            <?php if (!empty($parent)): ?>
+                                <select name="parent_id" id="parent_id" class="form-select color-dropdown" disabled>
+                                  <option value="<?php echo $parent->id ?>" selected><?php echo $parent->name ?? ''; ?></option>
+                                </select>
+                            <?php else: ?>
+                              <select name="parent_id" id="parent_id" class="form-select color-dropdown">
+                                  <option value="" selected>Không có</option>
+                                  <?php foreach ($listProvince ?? [] as $province): ?>
+                                      <option value="<?php echo $province->id ?>"
+                                          <?php if(@$data->parent_id == $province->id || @$_GET['parent_id'] == $province->id) echo 'selected';?>
+                                      ><?php echo $province->name ?></option>
+                                  <?php endforeach ?>
+                              </select>
+                            <?php endif; ?>
                         </div>
                         <p><a href="<?php echo '/plugins/admin/excgo-view-admin-province-addProvinceAdmin?parent_id=' . @$data->id ?>" class="btn btn-primary">
                           <i class='bx bx-plus'></i> Thêm khu vực con

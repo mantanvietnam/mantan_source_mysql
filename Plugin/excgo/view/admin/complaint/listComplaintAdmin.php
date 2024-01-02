@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Danh sách yêu cầu</h4>
+    <h4 class="fw-bold py-3 mb-4">Danh sách khiếu nại</h4>
     <!-- Form Search -->
     <form method="get" action="">
         <div class="card mb-4">
@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <label class="form-label">Tên thành viên</label>
+                        <label class="form-label">Tên người khiếu nại</label>
                         <input type="text" class="form-control" name="name"
                                value="<?php if (!empty($_GET['name'])) echo $_GET['name']; ?>">
                     </div>
@@ -60,9 +60,9 @@
                 <tr class="">
                     <th>ID</th>
                     <th>Avatar</th>
-                    <th>Họ và tên</th>
-                    <th>Thông tin</th>
-                    <th>Chi tiết</th>
+                    <th>Người gửi</th>
+                    <th>Người bị khiếu nại</th>
+                    <th>Nội dung</th>
                     <th>Trạng thái</th>
                 </tr>
                 </thead>
@@ -72,46 +72,42 @@
                     foreach ($listData as $item) {
                         if ($item->status == 1) {
                             $status = '
-                  <a class="btn btn-success"  title="Khóa tài khoản" 
-                    onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');"
-                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=0"
+                  <a class="btn btn-success"
+                    onclick="return confirm(\'Bạn có chắc chắn muốn cập nhật trạng thái thành chưa giải quyết?\');"
+                    href="/plugins/admin/excgo-view-admin-complaint-updateStatusComplaintAdmin.php/?id=' . $item->id . '&status=0"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
-                  </a><br/>Đã kích hoạt ';
+                  </a><br/>Đã giải quết ';
                         } else {
                             $status = '
-                  <a class=" btn btn-danger"  title="Kích hoạt tài khoản" 
-                    onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt người dùng không?\');" 
-                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=1"
+                  <a class=" btn btn-danger" 
+                    onclick="return confirm(\'Bạn có chắc chắn muốn cập nhật trạng thái thành đã giải quyết?\');" 
+                    href="/plugins/admin/excgo-view-admin-complaint-updateStatusComplaintAdmin.php/?id=' . $item->id . '&status=1"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
-                  </a><br/> Đã khóa ';
+                  </a><br/> Chưa giải quyết ';
                         }
 
                         echo '<tr>
-                        <td align="center">' . $item->id . '</td>
-                        <td align="center"><img src="' . $item->avatar . '" width="100" /></td>
+                        <td align="center">' . $item->id .'</td>
+                        <td align="center"><img src="' . $item->Users['avatar'] . '" width="100" /></td>
                         <td>
-                          ' . $item->name . '
+                          ' . $item->Users['name'] . '
                           </br>
-                          ' . $item->phone_number . ' 
+                          ' . $item->Users['phone_number'] . ' 
                           </br>
-                          ' . $item->email . ' 
+                          ' . $item->Users['email'] . ' 
                         </td>
                         <td>
-                          Số dư: ' . number_format($item->total_coin) . ' đ
-                          <br>
-                          Địa chỉ: ' . $item->address . '
+                          ' . $item->ComplainedUsers['name'] . '
+                          </br>
+                          ' . $item->ComplainedUsers['phone_number'] . ' 
+                          </br>
+                          ' . $item->ComplainedUsers['email'] . ' 
                         </td>
-                        <td> 
-                        <p align="center">
-                        <a class="btn btn-primary" 
-                          href="/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=' . $item->id . '"
-                        >
-                          <i class="bx bx-show-alt me-1" style="font-size: 22px;"></i>
-                        </a>
-                        </p>
-
+                        <td>
+                          ' . $item->content . '
+                        </td>
                         <td align="center">' . $status . '</td>
                         
                       </td>

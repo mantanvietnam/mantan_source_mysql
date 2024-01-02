@@ -139,3 +139,41 @@ function deleteAllNotificationsApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function deleteNotificationApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $notificationModel = $controller->loadModel('Notifications');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if (empty($dataSend['id'])) {
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+
+            $notification = $notificationModel->find()->where(['id' => $dataSend['id']])->first();
+
+            if ($notification->user_id != $currentUser->id) {
+                return apiResponse(3, 'Bạn không có quyền xóa thông báo này');
+            }
+
+            $result = $notificationModel->delete($notification);
+
+            return apiResponse(0, 'Xóa thông báo thành công', $result);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
