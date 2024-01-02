@@ -8,12 +8,12 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 
-	config.filebrowserBrowseUrl = '/ckfinder/ckfinder.html';
-	config.filebrowserImageBrowseUrl = '/ckfinder/ckfinder.html?type=Images';
-	config.filebrowserFlashBrowseUrl = '/ckfinder/ckfinder.html?type=Flash';
-	config.filebrowserUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
-	config.filebrowserImageUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
-	config.filebrowserFlashUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
+	config.filebrowserBrowseUrl = '/webroot/ckfinder/ckfinder.html';
+	config.filebrowserImageBrowseUrl = '/webroot/ckfinder/ckfinder.html?type=Images';
+	config.filebrowserFlashBrowseUrl = '/webroot/ckfinder/ckfinder.html?type=Flash';
+	config.filebrowserUploadUrl = '/webroot/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
+	config.filebrowserImageUploadUrl = '/webroot/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
+	config.filebrowserFlashUploadUrl = '/webroot/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
 
 	//config.extraPlugins = 'video,html5video,widget,widgetselection,clipboard,lineutils';
 

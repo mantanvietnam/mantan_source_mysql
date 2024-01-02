@@ -991,7 +991,7 @@ function getMyProductAPI($input)
 
 	$modelProduct = $controller->loadModel('Products');
 	$modelMember = $controller->loadModel('Members');
-	$return = array('listData'=>[]);
+	$return = array('listData'=>[],'code'=>0);
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
@@ -1019,7 +1019,7 @@ function getMyProductAPI($input)
 					}
 				}
 
-				$return = array('listData'=>$listData);
+				$return = array('listData'=>$listData,'code'=>1);
 			}
 		}
 	}
@@ -1036,7 +1036,7 @@ function getMyProductFavoriteAPI($input)
 	$modelProduct = $controller->loadModel('Products');
 	$modelMember = $controller->loadModel('Members');
 	$modelProductFavorite = $controller->loadModel('ProductFavorite');
-	$return = array('listData'=>[]);
+	$return = array('listData'=>[],'code'=>0);
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
@@ -1070,7 +1070,7 @@ function getMyProductFavoriteAPI($input)
 					}
 				}
 
-				$return = array('listData'=>$listProduct);
+				$return = array('listData'=>$listProduct,'code'=>1);
 			}
 		}
 	}
