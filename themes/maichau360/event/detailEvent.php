@@ -237,7 +237,7 @@ global $urlThemeActive;
     .slick-slide img {
         width: 100% !important;
         object-fit: cover;
-        height: 500px !important
+        /* height: 500px !important */
     }
 </style>
 <?php
