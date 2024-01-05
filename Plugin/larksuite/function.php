@@ -64,9 +64,11 @@ function getOrderLarkSuite($id){
                 unset($order->note_user);
                 unset($order->note_admin);
                 $info = ''; 
+                $str = "*";
                 $order->shipp = 35000;
                 if(!empty($infoOrder)){
                     foreach($infoOrder as $key => $item){
+                        $info .= "{";
                         $product = $modelProduct->find()->where(['id'=>$item->id_product])->first();
                         $info .= $product->title.' Số lượng: '.$item->quantity.' Đơn giá: '.number_format($item->price).'đ ' ;
                         if(!empty(@$product->id_product)){
@@ -81,7 +83,7 @@ function getOrderLarkSuite($id){
                             }
                             $info .= ")";
                         }
-                        $info .= "; ";
+                        $info .= "}".str_repeat($str, $key+1);
                             $item->name = $product->title;
                             $infoOrder[$key] = $item;
 
@@ -101,6 +103,7 @@ function getOrderLarkSuite($id){
                     
                     
                      $order->infoOrder = $info;
+                     // $order->utm_source = 'web';
                     
                 }
                 $dataO = array('fields'=>$order);
@@ -109,7 +112,7 @@ function getOrderLarkSuite($id){
                 $list= sendDataConnectMantan('https://open.larksuite.com/open-apis/bitable/v1/apps/'.$static['base_id'].'/tables/'.$static['table_id'].'/records', $dataO,$headers, 'raw');
 
             $list= str_replace('ï»¿', '', utf8_encode($list));
-            $list= json_decode($list, true);
+             $list= json_decode($list, true);
   
     
 
