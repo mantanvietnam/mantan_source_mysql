@@ -39,8 +39,13 @@ $infoUser = $session->read('infoUser');
                                     <p>Hỗ trợ: <span class="blue-text"><?php echo $setting['complain'] ?></span></p>
                                 </div>
 
-                                <div class="footer-info-item">
-                                    <a href="//www.dmca.com/Protection/Status.aspx?ID=8d5e8353-1592-4e74-9995-353ca496214d" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca_protected_16_120.png?ID=8d5e8353-1592-4e74-9995-353ca496214d"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+                                <div class="footer-info-item row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6 ">
+                                        <a href="//www.dmca.com/Protection/Status.aspx?ID=8d5e8353-1592-4e74-9995-353ca496214d" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca_protected_16_120.png?ID=8d5e8353-1592-4e74-9995-353ca496214d"  alt="DMCA.com Protection Status"  style="width: 100%;" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+                                    </div>
+                                     <div class="col-lg-6 col-md-6 col-sm-6 col-6 ">
+                                        <a href='http://online.gov.vn/Home/WebDetails/112243'><img alt='' title='' src='https://bumas.vn/upload/admin/files/01.png' style="width: 100%;"/></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -509,6 +514,14 @@ $infoUser = $session->read('infoUser');
             </div>
         </div>
 
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+
+  ttq.load('CMBVCGBC77UFQ8DF2C1G');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
     <script type="text/javascript">
         
 
