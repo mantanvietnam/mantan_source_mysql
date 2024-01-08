@@ -1756,9 +1756,19 @@ strong {
     #section-menu .nav-link {
         font-size: 13px !important;
     }
+    #section-logo-home .logo-home-box .logo-home-item .logo-home-img {
+        margin-right: 10px;
+    }
 }
 
-@media only screen and (max-width: 1200px) {}
+@media only screen and (max-width: 1100px) {
+    #section-logo-home .logo-home-box .logo-home-item .logo-home-img {
+        margin-right: 10px;
+    }
+    #section-menu .search-menu {
+        width: 165px;
+    }
+}
 
 @media (max-width: 769px) {
     .container {
