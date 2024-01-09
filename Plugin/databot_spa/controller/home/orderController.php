@@ -705,189 +705,172 @@ function orderService($input){
 
        if(!empty($dataSend['time'])){   
 
-        $time = explode(' ', $dataSend['time']);
-        $date = explode('/', $time[0]);
-        $hour = explode(':', $time[1]);
-        $order->time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
-    }else{
-        $order->time = time();
-    }
+            $time = explode(' ', $dataSend['time']);
+            $date = explode('/', $time[0]);
+            $hour = explode(':', $time[1]);
+            $order->time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+        }else{
+            $order->time = time();
+        }
 
-    $modelOrder->save($order);
-            // tạo chi tiêt dơn hàng 
-    $money = 0;
-    foreach($dataSend['idHangHoa'] as $key => $value){
-        $detail = $modelOrderDetails->newEmptyEntity();
+        $modelOrder->save($order);
+                // tạo chi tiêt dơn hàng 
+        $money = 0;
+        foreach($dataSend['idHangHoa'] as $key => $value){
+            $detail = $modelOrderDetails->newEmptyEntity();
 
-        $detail->id_member = $infoUser->id_member;
-        $detail->id_order = $order->id;
-        $detail->id_product = $value;
-        $detail->price = (int) $dataSend['money'][$key];
-        $detail->quantity = (int) $dataSend['soluong'][$key];
-        $detail->type = $dataSend['type'][$key];
+            $detail->id_member = $infoUser->id_member;
+            $detail->id_order = $order->id;
+            $detail->id_product = $value;
+            $detail->price = (int) $dataSend['money'][$key];
+            $detail->quantity = (int) $dataSend['soluong'][$key];
+            $detail->type = $dataSend['type'][$key];
 
-        $modelOrderDetails->save($detail);
+            $modelOrderDetails->save($detail);
 
-        $checkService = $modelService->find()->where(array('id'=>$value))->first();
-        
-        if(!empty($checkService)){
-            if(!empty($checkService->commission_affiliate_fix)){
-                $money += $checkService->commission_affiliate_fix*$detail->quantity;
-            }elseif(!empty($checkService->commission_affiliate_percent)){
-                $money += (((int)$checkService->commission_affiliate_percent / 100)*$detail->price)*(int)$detail->quantity;
+            $checkService = $modelService->find()->where(array('id'=>$value))->first();
+            
+            if(!empty($checkService)){
+                if(!empty($checkService->commission_affiliate_fix)){
+                    $money += $checkService->commission_affiliate_fix*$detail->quantity;
+                }elseif(!empty($checkService->commission_affiliate_percent)){
+                    $money += (((int)$checkService->commission_affiliate_percent / 100)*$detail->price)*(int)$detail->quantity;
+                }
             }
         }
-    }
 
-    if($money>0){
-        $agency = $modelAgency->newEmptyEntity();
+        if($money>0){
+            $agency = $modelAgency->newEmptyEntity();
 
-        $agency->id_member = @$infoUser->id_member;
-        $agency->id_spa = $session->read('id_spa');
-        $agency->id_staff = $infoUser->id;
-        $agency->id_service = 0;
-        $agency->money = $money;
-        $agency->created_at = date('Y-m-d H:i:s');
-        $agency->note = '';
-        $agency->id_order_detail = 0;
-        $agency->status = 0;
-        $agency->id_order = $order->id;
-        $agency->type = 'sale';
+            $agency->id_member = @$infoUser->id_member;
+            $agency->id_spa = $session->read('id_spa');
+            $agency->id_staff = $infoUser->id;
+            $agency->id_service = 0;
+            $agency->money = $money;
+            $agency->created_at = date('Y-m-d H:i:s');
+            $agency->note = '';
+            $agency->id_order_detail = 0;
+            $agency->status = 0;
+            $agency->id_order = $order->id;
+            $agency->type = 'sale';
 
-        $modelAgency->save($agency);
-    }
+            $modelAgency->save($agency);
+        }
 
             //sử lý phần thanh toán 
-    if($dataSend['typeOrder']==1){
+        if($dataSend['typeOrder']==1){
 
-        if($dataSend['type_collection_bill']=='cong_no'){
-            $debt =$modelDebts->newEmptyEntity();
-            
-                    // tạo dữ liệu save
-            $debt->id_member = @$infoUser->id_member;
-            $debt->id_spa = $session->read('id_spa');
-            $debt->id_staff = $data->id_staff;
-            $debt->total =  $data->total_pay;
-            $debt->note =  'Bán hàng ID đơn hàng là '.$data->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
-                    $debt->type = 0; //0: Thu, 1: chi
-                    $debt->created_at = date('Y-m-d H:i:s');
-                    $debt->updated_at = date('Y-m-d H:i:s');
-                    $debt->id_order = $order->id;
-                    $debt->id_customer = (int)@$dataSend['id_customer'];
-                    $debt->full_name = @$dataSend['full_name'];
-                    $debt->time = time();
-                    
-                    $modelDebts->save($debt);
-                }else{
-                    // lưu bill
-                    $bill = $modelBill->newEmptyEntity();
-                    $bill->id_member = @$infoUser->id_member;
-                    $bill->id_spa = $session->read('id_spa');
-                    $bill->id_staff = (int)@$dataSend['id_staff'];
-                    $bill->total = (int)@$dataSend['totalPays'];
-                    $bill->note = 'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
-                    $bill->type = 0; //0: Thu, 1: chi
-                    $bill->id_order = $order->id;
-                    $bill->created_at = date('Y-m-d H:i:s');
-                    $bill->updated_at = date('Y-m-d H:i:s');
-                    $bill->type_collection_bill = @$dataSend['type_collection_bill'];
-                    $bill->id_customer = (int)@$dataSend['id_customer'];
-                    $bill->full_name = @$dataSend['full_name'];
-                    if(empty($dataSend['card'])){
-                        $bill->type_card = 0;
-                    }else{
-                        $bill->type_card = 1;
-                    }
-                    
-                    $bill->moneyCustomerPay = @$dataSend['moneyCustomerPay'];
-
-                    if(!empty($dataSend['time'])){
-                        $time = explode(' ', $dataSend['time']);
-                        $date = explode('/', $time[0]);
-                        $hour = explode(':', $time[1]);
-                        $bill->time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
-                    }else{
-                        $bill->time = time();
-                    }
-                    
-                    $modelBill->save($bill);
-
-                    if(!empty($dataSend['card'])){
-                        $Prepaycards = $modelCustomerPrepaycards->get($dataSend['card']);
-                        $Prepaycards->total -= $bill->total;
-                        $modelCustomerPrepaycards->save($Prepaycards);
-                    }
-
-                }
+            if($dataSend['type_collection_bill']=='cong_no'){
+                $debt =$modelDebts->newEmptyEntity();
                 
+                        // tạo dữ liệu save
+                $debt->id_member = @$infoUser->id_member;
+                $debt->id_spa = $session->read('id_spa');
+                $debt->id_staff = $data->id_staff;
+                $debt->total =  $data->total_pay;
+                $debt->note =  'Bán hàng ID đơn hàng là '.$data->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
+                $debt->type = 0; //0: Thu, 1: chi
+                $debt->created_at = date('Y-m-d H:i:s');
+                $debt->updated_at = date('Y-m-d H:i:s');
+                $debt->id_order = $order->id;
+                $debt->id_customer = (int)@$dataSend['id_customer'];
+                $debt->full_name = @$dataSend['full_name'];
+                $debt->time = time();
+                        
+                $modelDebts->save($debt);
+            }else{
+                        // lưu bill
+                $bill = $modelBill->newEmptyEntity();
+                $bill->id_member = @$infoUser->id_member;
+                $bill->id_spa = $session->read('id_spa');
+                $bill->id_staff = (int)@$dataSend['id_staff'];
+                $bill->total = (int)@$dataSend['totalPays'];
+                $bill->note = 'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$infoUser->name.', thời gian '.date('Y-m-d H:i:s');
+                $bill->type = 0; //0: Thu, 1: chi
+                $bill->id_order = $order->id;
+                $bill->created_at = date('Y-m-d H:i:s');
+                $bill->updated_at = date('Y-m-d H:i:s');
+                $bill->type_collection_bill = @$dataSend['type_collection_bill'];
+                $bill->id_customer = (int)@$dataSend['id_customer'];
+                $bill->full_name = @$dataSend['full_name'];
+                if(empty($dataSend['card'])){
+                    $bill->type_card = 0;
+                }else{
+                    $bill->type_card = 1;
+                }
+                        
+                $bill->moneyCustomerPay = @$dataSend['moneyCustomerPay'];
 
-                // trừ số lượng trong kho 
-                if(!empty($dataSend['id_warehouse'])){
-                    foreach($dataSend['idHangHoa'] as $key => $value){
-                        // sản phẩm 
-                        if($dataSend['type'][$key] == 'product'){
+                if(!empty($dataSend['time'])){
+                    $time = explode(' ', $dataSend['time']);
+                    $date = explode('/', $time[0]);
+                    $hour = explode(':', $time[1]);
+                    $bill->time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+                }else{
+                    $bill->time = time();
+                }
+                        
+                $modelBill->save($bill);
 
-                            $WarehouseProductDetail =   $modelWarehouseProductDetails->find()->where(array('id_product'=>$value, 'inventory_quantity >='=>$dataSend['soluong'][$key],'id_warehouse'=>$dataSend['id_warehouse'] ))->first();
+                if(!empty($dataSend['card'])){
+                    $Prepaycards = $modelCustomerPrepaycards->get($dataSend['card']);
+                    $Prepaycards->total -= $bill->total;
+                    $modelCustomerPrepaycards->save($Prepaycards);
+                }
+            }
+                    
 
-                            $WarehouseProductDetail->inventory_quantity -= $dataSend['soluong'][$key];
+            // trừ số lượng trong kho 
+            if(!empty($dataSend['id_warehouse'])){
+                foreach($dataSend['idHangHoa'] as $key => $value){
+                    // sản phẩm 
+                    if($dataSend['type'][$key] == 'product'){
 
-                            $modelWarehouseProductDetails->save($WarehouseProductDetail);
+                        $WarehouseProductDetail =   $modelWarehouseProductDetails->find()->where(array('id_product'=>$value, 'inventory_quantity >='=>$dataSend['soluong'][$key],'id_warehouse'=>$dataSend['id_warehouse'] ))->first();
 
-                            $product = $modelProduct->get($value);
-                            $product->quantity -= $dataSend['soluong'][$key];
-                            $modelProduct->save($product);
+                        $WarehouseProductDetail->inventory_quantity -= $dataSend['soluong'][$key];
+
+                        $modelWarehouseProductDetails->save($WarehouseProductDetail);
+
+                        $product = $modelProduct->get($value);
+                        $product->quantity -= $dataSend['soluong'][$key];
+                        $modelProduct->save($product);
 
 
-                        }elseif($dataSend['type'][$key] == 'combo'){
-                            // sử lý trử số lương trong kho ở sản phẩm trong combo
-                            $combo = $modelCombo->get($value);
-                            if(!empty($combo->product)){
-                                $combo_product = json_decode($combo->product);
-                                foreach($combo_product as $idProduct => $quantityPro){
-                                    $WarehouseProductDetail =   $modelWarehouseProductDetails->find()->where(array('id_product'=>$idProduct, 'inventory_quantity >='=>$quantityPro*$dataSend['soluong'][$key],'id_warehouse'=>$dataSend['id_warehouse'] ))->first();
+                    }elseif($dataSend['type'][$key] == 'combo'){
+                        // sử lý trử số lương trong kho ở sản phẩm trong combo
+                        $combo = $modelCombo->get($value);
+                        if(!empty($combo->product)){
+                            $combo_product = json_decode($combo->product);
+                            foreach($combo_product as $idProduct => $quantityPro){
+                                $WarehouseProductDetail =   $modelWarehouseProductDetails->find()->where(array('id_product'=>$idProduct, 'inventory_quantity >='=>$quantityPro*$dataSend['soluong'][$key],'id_warehouse'=>$dataSend['id_warehouse'] ))->first();
 
-                                    $WarehouseProductDetail->inventory_quantity -= $quantityPro*$dataSend['soluong'][$key];
+                                $WarehouseProductDetail->inventory_quantity -= $quantityPro*$dataSend['soluong'][$key];
 
-                                    $modelWarehouseProductDetails->save($WarehouseProductDetail);
+                                $modelWarehouseProductDetails->save($WarehouseProductDetail);
 
-                                    $product = $modelProduct->get($idProduct);
-                                    $product->quantity -= $quantityPro*$dataSend['soluong'][$key];
-                                    $modelProduct->save($product);
+                                $product = $modelProduct->get($idProduct);
+                                $product->quantity -= $quantityPro*$dataSend['soluong'][$key];
+                                $modelProduct->save($product);
 
-                                }
                             }
                         }
-
                     }
+
                 }
-
-                return $controller->redirect('/printInfoOrder?id='.$order->id);
-            }elseif($dataSend['typeOrder']==3){
-
-                return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product);
-                /* $Order = $modelOrder->find()->where(array('id_bed'=>$dataSend['id_bed'], 'status'=>2))->first();
-                $bed = $modelBed->find()->where(array('id'=>$dataSend['id_bed'], 'status'=>2))->first();
-                if(empty($Order) && empty($bed)){
-                    $dataOrder = $modelOrder->get($order->id);
-
-                    $dataOrder->check_in = time();
-                    $dataOrder->status = 2;
-
-                    $modelOrder->save($dataOrder);
-
-                    $dataBed = $modelBed->get($dataOrder->id_bed);
-                    $dataBed->status = 2;
-
-                    $modelBed->save($dataBed);
-
-                    return $controller->redirect('/listRoomBed');
-                }else{
-                    return $controller->redirect('/listOrder?mess=conkhach');
-                }*/
-            }else{
-                return $controller->redirect('/order?mess=1');
-                
             }
+
+            return $controller->redirect('/printInfoOrder?id='.$order->id);
+        
+        }elseif($dataSend['typeOrder']==3){
+
+
+                    return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product);
+                  
+                }else{
+                    return $controller->redirect('/order?mess=1');
+                    
+                }
             
         }
 
@@ -1444,9 +1427,12 @@ function addUserService($input){
     global $isRequestPost;
     global $session;
 
+
+
     $metaTitleMantan = 'Nhận khách làm dịch vụ';
 
     if(!empty(checkLoginManager('addUserService','product'))){
+
         $user = $session->read('infoUser');
 
         $modelCombo = $controller->loadModel('Combos');
@@ -1522,7 +1508,7 @@ function addUserService($input){
 
                     $modelBed->save($dataBed);
 
-                    return $controller->redirect('/listRoomBed');
+                   
                 }else{
                     return $controller->redirect('/listOrder?mess=conkhach');
                 }
@@ -1531,13 +1517,15 @@ function addUserService($input){
             $money = 0;
             $checkService = $modelService->find()->where(array('id'=>$_GET['id_service']))->first();
                  
-                if(!empty($checkService)){
-                    if(!empty($checkService->commission_staff_fix)){
-                        $money += $checkService->commission_staff_fix;
-                    }elseif(!empty($checkService->commission_staff_percent)){
-                        $money += ((int)$checkService->commission_staff_percent / 100)*$checkService->price;
-                    }
+            if(!empty($checkService)){
+                if(!empty($checkService->commission_staff_fix)){
+                    $money += $checkService->commission_staff_fix;
+                }elseif(!empty($checkService->commission_staff_percent)){
+                    $money += ((int)$checkService->commission_staff_percent / 100)*$checkService->price;
                 }
+            }
+
+        
 
             if($money>0){
                 $agency = $modelAgency->newEmptyEntity();
@@ -1562,8 +1550,10 @@ function addUserService($input){
                 $modelAgency->save($agency);
             }
 
-             return $controller->redirect('/listOrderService');
-         }
+               
+
+            return $controller->redirect('/listRoomBed');
+        }
     }else{
         return $controller->redirect('/');
     }
