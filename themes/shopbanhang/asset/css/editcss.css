@@ -1616,10 +1616,6 @@ background: #555;
 
 @media(min-width: 445px){
     
- 
-
-  
-    
     #section-breadcrumb{
         margin-top: 137px;
     }
@@ -2101,6 +2097,8 @@ background: #555;
 }
 
 @media(max-width: 445px) {
+   
+
     .title-share-link{
         margin-top: 30px;
     }
@@ -2657,7 +2655,7 @@ background: #555;
         font-size: 11px;
     }
     .cart-product-number .qty-input{
-        width: 96%;
+        width: 100%;
     }
     
 
@@ -3059,6 +3057,22 @@ background: #555;
 
 /* respon màn mobile giỏ hàng */
 @media (max-width: 480px) {
+
+    /*  */
+    .list-procerdure li {
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+
+    .list-procerdure li:last-child span{
+        width: auto;
+    }
+
+    .product-mobile-quantity-btn button{
+        
+    }
+    /*  */
+    
     .modal-video-comment video{
         max-height: 485px;
     }
@@ -3140,7 +3154,7 @@ background: #555;
     position: fixed;
     bottom: 0;
     z-index: 99;
-    height: 93px;
+    height: 106px;
     background-color: #fff;
     left: 0;
     right: 0;
