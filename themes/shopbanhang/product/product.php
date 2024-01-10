@@ -547,14 +547,15 @@
 
              <?php if(!empty($product->evaluate)){
               foreach($product->evaluate as $item) {
-                  if(!empty($item['image'])){
+                  if(!empty($item['link'])){
                     ?>
                     <div class="pro-review-item">
                         <div class="pro-review-img">
-                           <a target="_blank" href="<?php echo $item['link'] ?>"><img src="<?php echo $item['image'] ?>" alt=""></a>
+                          <!--  <a target="_blank" href="<?php echo $item['link'] ?>"><img src="<?php echo $item['image'] ?>" alt=""></a>
                            <div class="pro-review-link">
                             <a target="_blank" href="<?php echo $item['link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt=""></a>
-                        </div>
+                        </div> -->
+                         <iframe width="360" height="215" src="https://www.youtube.com/embed/<?php echo ltrim($item['link'],"https://www.youtube.com/shorts/") ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
             <?php }}} ?>
