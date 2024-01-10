@@ -555,7 +555,7 @@
                            <div class="pro-review-link">
                             <a target="_blank" href="<?php echo $item['link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt=""></a>
                         </div> -->
-                         <iframe width="360" height="215" src="https://www.youtube.com/embed/<?php echo ltrim($item['link'],"https://www.youtube.com/shorts/") ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                         <iframe width="315" height="560" src="https://www.youtube.com/embed/<?php echo ltrim($item['link'],"https://www.youtube.com/shorts/") ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
             <?php }}} ?>
