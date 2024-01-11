@@ -205,7 +205,7 @@ $infoUser = $session->read('infoUser');
                                               $client->setClientId($google_clientId);
                                               $client->setClientSecret($google_clientSecret);
                                               $client->setRedirectUri($google_redirectURL);
-                                              $client->setApplicationName('Đăng nhập Ezpics');
+                                              $client->setApplicationName('Đăng nhập bumas');
                                               //$client->setApprovalPrompt('force');
 
                                               $client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
