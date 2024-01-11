@@ -3058,7 +3058,7 @@ background: #555;
 /* respon màn mobile giỏ hàng */
 @media (max-width: 480px) {
 
-    /*  */
+    /* bo sung 11/1 */
     .list-procerdure li {
         display: grid;
         grid-template-columns: auto auto;
@@ -3070,6 +3070,10 @@ background: #555;
 
     .product-mobile-quantity-btn button{
         
+    }
+
+    .product-detail-info-price-left .price-left-sale del{
+        line-height: 1.5;
     }
     /*  */
     
@@ -3132,6 +3136,13 @@ background: #555;
     .pro-review-img{
         padding: 0 5px;
         height: 297px;
+    }
+
+    .pro-review-img iframe{
+        height: 100%;
+        width: 100%;
+        position: relative;
+        z-index: -1;
     }
 
     .cart-button-buy input{ 

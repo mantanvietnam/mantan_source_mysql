@@ -24,7 +24,7 @@ $settinghom = setting();
                 <ul class="nav nav-tabs">
                     <li><a class="nav-link" href="nhan-xet-tu-kol">Nhận xét từ các KOL, KOC</a></li>
                     <li><a class="nav-link" href="khach-hang-dap-hop">Khách hàng đập hộp</a></li>
-                    <li><a class="nav-link active" href="review-san-pham">Review sản phẩm</a></li>
+                    <li><a class="nav-link active" href="review-san-pham">Feedback khách hàng</a></li>
                 </ul>
             </div>
 

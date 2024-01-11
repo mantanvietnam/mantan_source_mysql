@@ -105,8 +105,11 @@ $(document).on('click', function (e) {
 if (!$(e.target).closest('#modalemailSubscribe .modal-content').length && $('#modalemailSubscribe').is(":visible")) {
     // Ẩn modal bằng ID của modal
     location.reload(); // hoặc location.reload(true);
-
 }
+
+$("#modalemailSubscribe .btn-close").click(function(){
+    location.reload(); // hoặc location.reload(true);
+});
 
   
 
