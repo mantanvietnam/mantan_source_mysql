@@ -1535,6 +1535,16 @@ background: #555;
     scale: 1.1;
 } */
 
+.btn-image-user{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    display: none;
+}
+
 @media (min-width: 900px){
     .slide-rate-image .slick-track{
         
@@ -1744,6 +1754,22 @@ background: #555;
 
     #section-cateogry-product .product-item{
         width: 33%;
+    }
+
+    .double-line-1 {
+        display: none;
+    }
+
+    .double-line-2 {
+        display: none;
+    }
+
+    .combo-1{
+        margin-bottom: 85px;
+    }
+
+    .combo-3{
+        margin-bottom: 85px;
     }
 }
 /* 
@@ -2125,6 +2151,13 @@ background: #555;
 }
 
 @media(max-width: 445px) {
+    .btn-image-user{
+        display: block;
+    }
+
+    .qty-input{
+        display: flex;
+    }
    
 
     .title-share-link{
@@ -3177,7 +3210,7 @@ background: #555;
         height: 100%;
         width: 100%;
         position: relative;
-        z-index: -1;
+        z-index: 1;
     }
 
     .cart-button-buy input{ 
@@ -3248,6 +3281,10 @@ background: #555;
 
 /* Mobile footer sản phẩm */
 @media (max-width: 475px){
+    .rate-left-text{
+        transform: translateY(-2px)
+    }
+
     .edit-user-photo .d-flex{
         height: 80px !important;
         width: 80px !important;
@@ -3408,7 +3445,7 @@ background: #555;
     }
     
     .product-slide-right .slick-arrow {
-        background-color: rgb(126, 120, 120, 0.2);
+        /* background-color: rgb(126, 120, 120, 0.2); */
         z-index: 1;
         font-size: 19px;
         color: rgb(126, 120, 120);

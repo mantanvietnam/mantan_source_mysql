@@ -155,10 +155,10 @@
                                 }
                             } ?>
                         <div class="price-left-real">
-                            <p><?php echo number_format($price ); ?>đ</p>
+                            <p><?php echo number_format($price , 0, ',', '.'); ?>đ</p>
                         </div>
                         <div class="price-left-sale">
-                            <del><?php if($product->price_old>$product->price){  echo number_format($product->price_old); ?>đ
+                            <del><?php if($product->price_old>$product->price){  echo number_format($product->price_old , 0, ',', '.'); ?>đ
                              <?php } ?></del>
                          </div>
                      </div>
@@ -555,7 +555,7 @@
                            <div class="pro-review-link">
                             <a target="_blank" href="<?php echo $item['link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt=""></a>
                         </div> -->
-                         <iframe width="315" height="560" src="https://www.youtube.com/embed/<?php echo ltrim($item['link'],"https://www.youtube.com/shorts/") ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                         <iframe width="100%" height="560" src="https://www.youtube.com/embed/<?php echo ltrim($item['link'],"https://www.youtube.com/shorts/") ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
             <?php }}} ?>
@@ -819,7 +819,7 @@
                                         <div class="modal-login">
                                          <div class="modal fade" id="exampleModal<?php  echo $key.'-'.$k; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
-
+                                                <button type="button" class="btn-image-user" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-x"></i></button>
                                                <img src="<?php echo $image;?>" alt="" style="width: 100%; height: auto;">
 
                                            </div>
