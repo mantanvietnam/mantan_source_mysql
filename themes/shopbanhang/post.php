@@ -94,7 +94,7 @@ $Category = getByIdCategory($post->idCategory);
             </div>
         </section>
 
-        <div id="policy" class="page-view">
+        <div id="policy" class="page-view section-post-policy">
             <div class="container">
 
                 <!-- <ul class="nav nav-tabs">
