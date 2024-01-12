@@ -145,23 +145,23 @@ function getProductsWarehousesAPI($input){
 
 		$tota = count($totalData);
 
-			if(!empty($listData)){
-				if(!empty($dataSend['page'])){
-					$return = array('code'=>1,
-								'data'=> $listData,
-								'totalData'=>$tota,
-						 		'mess'=>'Bạn lấy data thành công',
-						);
-				}else{
-					$return = array('code'=>1,
-								'data'=> $totalData,
-								'totalData'=>$tota,
-						 		'mess'=>'Bạn lấy data thành công',
-						);
-				}
+		if(!empty($listData)){
+			if(!empty($dataSend['page'])){
+				$return = array('code'=>1,
+							'data'=> $listData,
+							'totalData'=>$tota,
+					 		'mess'=>'Bạn lấy data thành công',
+					);
 			}else{
-				$return = array('code'=>2, 'mess'=>'Kho này không tồn tại');
+				$return = array('code'=>1,
+							'data'=> $totalData,
+							'totalData'=>$tota,
+					 		'mess'=>'Bạn lấy data thành công',
+					);
 			}
+		}else{
+			$return = array('code'=>2, 'mess'=>'Kho không có mẫu thiết kế');
+		}
 	
 	}
 	return $return;

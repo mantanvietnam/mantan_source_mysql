@@ -216,13 +216,19 @@ function listLayerAPI($input){
 					 			);
 
 				}else{
-					$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
+					if(empty($dataMembr->id)){
+						$return = array('code'=>-3, 'mess'=>'Sai token');
+					}elseif(empty($dataProduct->user_id)){
+						$return = array('code'=>-4, 'mess'=>'Mẫu thiết kế không thuộc về ai');
+					}else{
+						$return = array('code'=>-5, 'mess'=>'Mẫu thiết kế không phải của bạn');
+					}
 				}
 			}else{
-				$return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
+				$return = array('code'=>-2, 'mess'=>'Sản phẩm này không dùng');
 			}
 		}else{
-			$return = array('code'=>0, 'mess'=>'Gửi thiếu dữ liệu');
+			$return = array('code'=>-1, 'mess'=>'Gửi thiếu dữ liệu');
 		}
 	}
 	return $return;
