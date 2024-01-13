@@ -1521,7 +1521,7 @@ background: #555;
     list-style-position: inside;
 }
 
-.section-post-policy h3{
+.section-post-policy .detail-policy h3{
     font-weight: 300;
 }
 
@@ -1615,6 +1615,10 @@ background: #555;
     .product-slide-left-item{
          width: 100% !important;
     }
+
+    .title-review-product p{
+        width: 100%;
+    }
 }
 
 
@@ -1648,6 +1652,10 @@ background: #555;
 @media(min-width: 500px) and (max-width: 1025px){
     .modal-forgotpass .modal-dialog{
         max-width: 66% !important;
+    }
+
+    .title-review-product p{
+        width: 100%;
     }
 }
 
@@ -2389,7 +2397,7 @@ background: #555;
     }
 
     .banner-home-item img{
-        height: 138px;
+        height: 157px;
     }
 
     .advertisement-home-inner .container{

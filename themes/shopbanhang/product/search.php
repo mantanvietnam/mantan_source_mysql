@@ -51,7 +51,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 <div class="product-select-box">
                                     <div class="product-select-item product-select-left">
                                         <div class="heading-check">
-                                            <span>Khuyễn mãi</span>
+                                            <span>Khuyến mãi</span>
                                         </div>
                                         <div class="form-check ">
                                             <input class="form-check-input" type="checkbox" id="sela" onclick="actioncheckbox(<?php  if(!empty($_GET['sela'])){ echo '1'; }else{ echo '0'; } ?>)"  name="sela" id="inlineCheckbox1" <?php  if(!empty($_GET['sela'])){ echo 'checked'; } ?> value="sela">

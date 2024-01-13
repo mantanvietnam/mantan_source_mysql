@@ -4462,7 +4462,7 @@ tbody {
         grid-template-rows: repeat(2, 1fr);
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         grid-gap: 10px;
-        padding-left: 40px;
+        padding-left: 36px;
     }
     .best-sale-price {
         font-size: 16px;

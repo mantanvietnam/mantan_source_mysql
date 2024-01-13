@@ -55,7 +55,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 <div class="product-select-box">
                                     <div class="product-select-item product-select-left">
                                         <div class="heading-check">
-                                            <span>Khuyễn mãi</span>
+                                            <span>Khuyến mãi</span>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox"  onchange="actioncheckbox(this);"    name="sela" id="inlineCheckbox1" value="sela">
