@@ -1537,12 +1537,16 @@ background: #555;
 
 .btn-image-user{
     position: absolute;
-    top: 0;
+    top: 95px;
     right: 10px;
     color: #fff;
     background: transparent;
     border: none;
-    display: none;
+    /* display: none; */
+}
+
+.modal-dialog-user{
+    max-width: 500px !important;
 }
 
 @media (min-width: 900px){
