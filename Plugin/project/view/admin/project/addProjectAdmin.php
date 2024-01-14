@@ -54,10 +54,7 @@
                     <input required type="text" class="form-control phone-mask" name="slug_drive" id="slug_drive" value="<?php echo @$data->slug_drive;?>" />
                   </div>
 
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label">Mô tả ngắn</label>
-                    <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
-                  </div>
+                  
 
                   <div class="mb-3 col-md-6">
                     <div class="mb-3">
@@ -74,6 +71,22 @@
                         <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
                       </select>
                     </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">ID anh</label>
+                    <input required type="text" class="form-control phone-mask" name="id_photo" id="id_photo" value="<?php echo @$data->id_photo;?>" />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">ID Vieo</label>
+                    <input required type="text" class="form-control phone-mask" name="id_video" id="id_video" value="<?php echo @$data->id_video;?>" />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">ID danh mục Tin tức</label>
+                    <input required type="text" class="form-control phone-mask" name="id_post" id="id_post" value="<?php echo @$data->id_post;?>" />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">Mô tả ngắn</label>
+                    <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                   </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>

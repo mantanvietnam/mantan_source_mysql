@@ -104,6 +104,7 @@ function addProjectAdmin($input)
             $data->title = $dataSend['title'];
             $data->image = $dataSend['image'];
             $data->slug_drive = $dataSend['slug_drive'];
+            $data->slug = createSlugMantan($dataSend['title']);
             $data->status = $dataSend['status'];
             $data->description= $dataSend['description'];
             $data->name_project= $dataSend['name_project'];
@@ -112,6 +113,9 @@ function addProjectAdmin($input)
             $data->implementing_agency= $dataSend['implementing_agency'];
             $data->donor= $dataSend['donor'];
             $data->investment= $dataSend['investment'];
+            $data->id_photo= $dataSend['id_photo'];
+            $data->id_video= $dataSend['id_video'];
+            $data->id_post= $dataSend['id_post'];
             $modelProjects->save($data);     
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';

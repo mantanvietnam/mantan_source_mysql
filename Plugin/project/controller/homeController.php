@@ -531,5 +531,39 @@ function warmteam($input){
     setVariable('data', $data);
 }
 
+function ourproject($input){
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $modelPosts;
+    global $controller;
+    global $settingThemes;
+    global $modelOptions;
+
+    $modelProjects = $controller->loadModel('Projects');
+    $modelProjects = $controller->loadModel('Projects');
+
+    if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=>$_GET['id']);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('slug'=>$slug);
+        }
+
+        $data = $modelProjects->find()->where($conditions)->first();
+
+        $listPhoto = $modelAlbuminfos->find()->where(['id_album'=>@$data->id_photo])->all()->toList();
+        $listVideo = $modelAlbuminfos->find()->where(['id_album'=>@$data->id_video])->all()->toList();
+        $listPosts = $modelPosts->find()->where(['idCategory'=>@$data->id_post])->all()->toList();
+
+        setVariable('data', $data);
+        setVariable('listPhoto', $listPhoto);
+        setVariable('listVideo', $listVideo);
+        setVariable('listPosts', $listPosts);
+
+    }else{
+        return $controller->redirect('/');
+    }
+}
 
 ?>

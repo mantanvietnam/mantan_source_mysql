@@ -12,6 +12,7 @@
 	$routesPlugin['opportunities']= 'project/view/home/opportunities.php';
 	$routesPlugin['warmteam']= 'project/view/home/warmteam.php';
 	$routesPlugin['warmfacility']= 'project/view/home/warmfacility.php';
+	$routesPlugin['ourproject']= 'project/view/home/ourproject.php';
 
 
 ?>
