@@ -8,17 +8,22 @@
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
-          <div class="col-md-4">
+          <div class="col-md-1">
+            <label class="form-label">ID</label>
+            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+          </div>
+
+          <div class="col-md-5">
             <label class="form-label">Tên khu vực</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label class="form-label">Biển số xe</label>
             <input type="text" class="form-control" name="bsx" value="<?php if(!empty($_GET['bsx'])) echo $_GET['bsx'];?>">
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="">Tất cả</option>

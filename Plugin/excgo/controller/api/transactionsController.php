@@ -227,3 +227,68 @@ function createWithdrawRequestApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function getListBookingTransaction($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $bookingModel = $controller->loadModel('Bookings');
+    $transactionModel = $controller->loadModel('Transactions');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+        $conditions = ['Bookings.received_by' => $currentUser->id];
+        $order = ['Bookings.created_at' => 'DESC'];
+        $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 10;
+        $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
+
+        if (!empty($dataSend['from_date'])) {
+            $startTime = DateTime::createFromFormat('d/m/Y', $dataSend['from_date']);
+            $conditions[] = ['Bookings.created_at >=' => $startTime];
+        }
+
+        if (!empty($dataSend['to_date'])) {
+            $finishTime = DateTime::createFromFormat('d/m/Y', $dataSend['to_date']);
+            $conditions[] = ['Bookings.created_at <=' => $finishTime];
+        }
+
+        if (!empty($dataSend['name'])) {
+            $conditions[] = ['Bookings.name LIKE' => '%' . $dataSend['name'] . '%'];
+        }
+
+        $listBooking = $bookingModel->find()
+            ->limit($limit)
+            ->page($page)
+            ->where($conditions)
+            ->order($order)
+            ->all()
+            ->toList();
+        $total = $bookingModel->find()->where($conditions)->order($order)->count();
+        $paginationMeta = createPaginationMetaData($total, $limit, $page);
+
+
+        foreach ($listBooking as &$item) {
+            $listTransaction = $transactionModel->find()
+                ->where(['booking_id' => $item['id']])
+                ->all()
+                ->toList();
+
+            $item['transactions'] = $listTransaction;
+        }
+
+        return apiResponse(0, 'Lấy danh sách giao dịch thành công', $listBooking, $paginationMeta);
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}

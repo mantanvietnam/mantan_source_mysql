@@ -55,9 +55,63 @@
 
                     <button type="submit" class="btn btn-primary">Lưu</button>
                     <?= $this->Form->end() ?>
+
+                    <br><br>
+                    <h5>Danh sách khu vực con</h5>
+                    <?php if (!empty($listChildProvince)): ?>
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr class="">
+                              <th>ID</th>
+                              <th>Tên tỉnh</th>
+                              <th>Biển số xe</th>
+                              <th>Chi tiết</th>
+                              <th>Trạng thái</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          <?php foreach ($listChildProvince as $child): ?>
+                              <?php
+                              if ($child->status == 1) {
+                                  $status = '
+                                <a class="btn btn-success"  title="Khóa tỉnh" 
+                                  onclick="return confirm(\'Bạn có chắc chắn muốn Khóa tỉnh này không?\');" 
+                                  href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin/?id=' . $child->id . '&status=0"
+                                >
+                                         <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                                </a><br/>Đã Kích hoạt ';
+                              } else {
+                                  $status = '
+                                <a class=" btn btn-danger"  title="Kích hoạt tỉnh" 
+                                  onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt tỉnh này không?\');" 
+                                  href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin/?id=' . $child->id . '&status=1"
+                                >
+                                         <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                                </a><br/> Đã khóa ';
+                              }
+                              ?>
+                            <tr>
+                              <td><?php echo $child->id  ?></td>
+                              <td><?php echo $child->name  ?></td>
+                              <td><?php echo $child->bsx  ?></td>
+                              <td><p align="center">
+                                  <a class="btn btn-primary"
+                                     href="<?php echo "/plugins/admin/excgo-view-admin-province-addProvinceAdmin/?id=$child->id" ?>"
+                                  >
+                                    <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                                  </a>
+                                </p></td>
+                              <td align="center"><?php echo $status ?></td>
+                            </tr>
+                          <?php endforeach; ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    <?php endif; ?>
+
                 </div>
             </div>
         </div>
-
     </div>
 </div><?php

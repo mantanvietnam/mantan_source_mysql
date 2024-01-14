@@ -77,27 +77,27 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="departure">Địa chỉ đi (*)</label>
-                            <input required type="text" class="form-control" name="departure" id="departure" value="<?php echo @$data->departure;?>" />
+                            <label class="form-label" for="departure">Địa chỉ đi</label>
+                            <input type="text" class="form-control" name="departure" id="departure" value="<?php echo @$data->departure;?>" />
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="destination">Địa chỉ đến (*)</label>
-                            <input required type="text" class="form-control" name="destination" id="destination" value="<?php echo @$data->destination;?>" />
+                            <label class="form-label" for="destination">Địa chỉ đến</label>
+                            <input type="text" class="form-control" name="destination" id="destination" value="<?php echo @$data->destination;?>" />
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="start_time">Thời gian đi (*)</label>
-                            <input required type="text" class="form-control datetimepicker" name="start_time" id="start_time"
-                                   value="<?php echo date('H:i d/m/Y', strtotime(@$data->start_time));?>" />
+                            <label class="form-label" for="start_time">Thời gian đi</label>
+                            <input type="text" class="form-control datetimepicker" name="start_time" id="start_time"
+                                   value="<?php echo $data->start_time ? date('H:i d/m/Y', strtotime($data->start_time)): '';?>" />
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="finish_time">Thời gian đến (*)</label>
-                            <input required type="text" class="form-control datetimepicker" name="finish_time" id="finish_time"
-                                   value="<?php echo date('H:i d/m/Y', strtotime(@$data->finish_time));?>" />
+                            <label class="form-label" for="finish_time">Thời gian đến</label>
+                            <input type="text" class="form-control datetimepicker" name="finish_time" id="finish_time"
+                                   value="<?php echo $data->finish_time ? date('H:i d/m/Y', strtotime($data->finish_time)) : '';?>" />
                         </div>
                     </div>
 

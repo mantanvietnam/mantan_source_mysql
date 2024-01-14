@@ -116,7 +116,10 @@ function getBookingListApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
         $conditions = [];
-        $order = ['Bookings.updated_at' => 'DESC'];
+        $order = [
+            'Bookings.status = 0' => 'DESC',
+            'Bookings.updated_at' => 'DESC'
+        ];
         $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
         $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
         if ($page < 1) $page = 1;
@@ -198,7 +201,6 @@ function receiveBookingApi($input): array
     global $controller;
     global $transactionType;
     global $isRequestPost;
-    global $serviceFee;
     global $bookingStatus;
     global $bookingType;
 
@@ -208,6 +210,7 @@ function receiveBookingApi($input): array
     $modelTransaction = $controller->loadModel('Transactions');
     $modelNotification = $controller->loadModel('Notifications');
     $userBookingModel = $controller->loadModel('UserBookings');
+    $serviceFee = getServiceFee();
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -253,6 +256,7 @@ function receiveBookingApi($input): array
                 $booking->received_by = $currentUser->id;
                 $booking->status = $bookingStatus['received'];
                 $booking->received_at = date('Y-m-d H:i:s');
+                $booking->updated_at = date('Y-m-d H:i:s');
                 $modelBooking->save($booking);
 
                 // Lưu lại lịch sử nhận cuốc
@@ -290,8 +294,11 @@ function receiveBookingApi($input): array
                 $receiveTransaction->user_id = $currentUser->id;
                 $receiveTransaction->amount = $receivedFee;
                 $receiveTransaction->type = $transactionType['subtract'];
+                $receiveTransaction->booking_id = $booking->id;
                 $receiveTransaction->name = "Thanh toán cuốc xe #$booking->id thành công";
                 $receiveTransaction->description = '-' . number_format($receivedFee) . ' EXC-xu';
+                $receiveTransaction->created_at = date('Y-m-d H:i:s');
+                $receiveTransaction->updated_at = date('Y-m-d H:i:s');
                 $modelTransaction->save($receiveTransaction);
 
                 // Giao dịch trừ phí sàn
@@ -300,8 +307,11 @@ function receiveBookingApi($input): array
                     $serviceTransaction->user_id = $currentUser->id;
                     $serviceTransaction->amount = $serviceFee;
                     $serviceTransaction->type = $transactionType['subtract'];
+                    $serviceTransaction->booking_id = $booking->id;
                     $serviceTransaction->name = "Thanh toán phí sàn khi nhận cuốc xe #$booking->id thành công";
                     $serviceTransaction->description = '-' . number_format($serviceFee) . ' EXC-xu';
+                    $serviceTransaction->created_at = date('Y-m-d H:i:s');
+                    $serviceTransaction->updated_at = date('Y-m-d H:i:s');
                     $modelTransaction->save($serviceTransaction);
                 }
 
@@ -310,8 +320,11 @@ function receiveBookingApi($input): array
                     $depositTransaction->user_id = $currentUser->id;
                     $depositTransaction->amount = $deposit;
                     $depositTransaction->type = $transactionType['subtract'];
+                    $depositTransaction->booking_id = $booking->id;
                     $depositTransaction->name = "Thanh toán tiền cọc khi nhận cuốc xe #$booking->id thành công";
                     $depositTransaction->description = '-' . number_format($deposit) . ' EXC-xu';
+                    $depositTransaction->created_at = date('Y-m-d H:i:s');
+                    $depositTransaction->updated_at = date('Y-m-d H:i:s');
                     $modelTransaction->save($depositTransaction);
                 }
 
@@ -323,6 +336,8 @@ function receiveBookingApi($input): array
                 $notification->user_id = $postedUser->id;
                 $notification->title = $title;
                 $notification->content = $content;
+                $notification->created_at = date('Y-m-d H:i:s');
+                $notification->updated_at = date('Y-m-d H:i:s');
                 $modelNotification->save($notification);
 
                 if ($postedUser->device_token) {
@@ -332,10 +347,10 @@ function receiveBookingApi($input): array
                         'content' => $content,
                         'action' => 'receiveBookingSuccess'
                     );
-                    $res = sendNotification($dataSendNotification, $postedUser->device_token);
+                    sendNotification($dataSendNotification, $postedUser->device_token);
                 }
 
-                return apiResponse(0, 'Nhận cuốc xe thành công', $res);
+                return apiResponse(0, 'Nhận cuốc xe thành công');
             }
 
             return apiResponse(2, 'Gửi thiếu dữ liệu');
@@ -388,6 +403,8 @@ function cancelReceiveBookingApi($input): array
                 $canceledBooking->booking_id = $booking->id;
                 $canceledBooking->user_id = $currentUser->id;
                 $canceledBooking->status = 0;
+                $canceledBooking->created_at = date('Y-m-d H:i:s');
+                $canceledBooking->updated_at = date('Y-m-d H:i:s');
                 $canceledBookingModel->save($canceledBooking);
 
                 // Thông báo cho người đăng cuốc xe
@@ -399,6 +416,8 @@ function cancelReceiveBookingApi($input): array
                 $notification->request_id = $canceledBooking->id;
                 $notification->title = $title;
                 $notification->content = $content;
+                $notification->created_at = date('Y-m-d H:i:s');
+                $notification->updated_at = date('Y-m-d H:i:s');
                 $modelNotification->save($notification);
 
                 if ($postedUser->device_token) {
@@ -479,6 +498,7 @@ function acceptCanceledBookingApi($input): array
             $booking->received_by = null;
             $booking->status = $bookingStatus['unreceived'];
             $booking->received_at = null;
+            $booking->updated_at = date('Y-m-d H:i:s');
             $bookingModel->save($booking);
             $modelBookingFee->delete($bookingFee);
 
@@ -518,6 +538,8 @@ function acceptCanceledBookingApi($input): array
             $notification->user_id = $cancelUser->id;
             $notification->title = $title;
             $notification->content = $content;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
             $modelNotification->save($notification);
 
             if ($cancelUser->device_token) {
@@ -586,6 +608,8 @@ function rejectCanceledBookingApi($input): array
             $notification->user_id = $cancelUser->id;
             $notification->title = $title;
             $notification->content = $content;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
             $modelNotification->save($notification);
 
             if ($cancelUser->device_token) {
@@ -645,6 +669,7 @@ function completeBookingApi($input): array
 
                 $booking->status = $bookingStatus['completed'];
                 $booking->completed_at = date('Y-m-d H:i:s');
+                $booking->updated_at = date('Y-m-d H:i:s');
                 $modelBooking->save($booking);
 
                 // Lưu lịch sử đăng cuốc xe và nhận cuốc xe
@@ -676,6 +701,8 @@ function completeBookingApi($input): array
                 $notification->user_id = $postedUser->id;
                 $notification->title = $title;
                 $notification->content = $content;
+                $notification->created_at = date('Y-m-d H:i:s');
+                $notification->updated_at = date('Y-m-d H:i:s');
                 $modelNotification->save($notification);
 
                 if ($postedUser->device_token) {
@@ -726,12 +753,13 @@ function checkFinishedBookingApi($input): array
             $bookingFee = $modelBookingFee->find()
                 ->where(['booking_id' => $booking->id])
                 ->first();
+
             $postedUser = $modelUser->find()
                 ->where(['id' => $booking->posted_by])
                 ->first();
             $postedUser->total_coin += $bookingFee->received_fee;
             $booking->status = $bookingStatus['paid'];
-            $bookingFee->staus = $bookingFeeStatus['paid'];
+            $bookingFee->status = $bookingFeeStatus['paid'];
 
             $modelUser->save($postedUser);
             $modelBooking->save($booking);
@@ -803,6 +831,7 @@ function checkFinishedBookingApi($input): array
                 }
             }
 
+            $modelBookingFee->save($bookingFee);
         }
 
         return apiResponse(0, 'Thanh toán phí thành công', $bookingList->toList());
@@ -845,7 +874,7 @@ function getMyBookingListApi($input): array
                 $from = DateTime::createFromFormat('d/m/Y', $dataSend['from_date']);
                 $to = DateTime::createFromFormat('d/m/Y', $dataSend['to_date']);
                 $fromDate = $from->format('Y-m-d');
-                $toDate = $to->format('Y-m-d');
+                $toDate = $to->format('Y-m-d') . ' 23:59:59';
                 $interval = $from->diff($to);
                 $numberOfDays = $interval->days;
             } else {
@@ -924,9 +953,6 @@ function getMyBookingListApi($input): array
                 $order['Bookings.created_at'] = 'DESC';
             }
 
-            $filterStatus = $dataSend['status'] ?? 0;
-            $conditions['UserBookings.status'] = $filterStatus;
-
             $listData = $query->select([
                     'UserBookings.id',
                     'UserBookings.status',
@@ -971,7 +997,6 @@ function getMyBookingListApi($input): array
             $totalBookings = $query->where($conditions)->count();
             $paginationMeta = createPaginationMetaData($totalBookings, $limit, $page);
 
-            unset($conditions['UserBookings.status']);
             $statsData = $userBookingModel->find()
                 ->where($conditions)
                 ->all();
@@ -1361,6 +1386,8 @@ function createBookingDealApi($input): array
             $newDeal->introduce_fee = $dataSend['introduce_fee'];
             $newDeal->price = ceil((int) $dataSend['introduce_fee'] * $booking->price / 100);
             $newDeal->status = 1;
+            $newDeal->created_at = date('Y-m-d H:i:s');
+            $newDeal->updated_at = date('Y-m-d H:i:s');
             $bookingDealModel->save($newDeal);
 
             // Thông báo cho người đăng cuốc xe
@@ -1371,6 +1398,8 @@ function createBookingDealApi($input): array
             $notification->user_id = $postedUser->id;
             $notification->title = $title;
             $notification->content = $content;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
             $modelNotification->save($notification);
 
             if ($postedUser->device_token) {
@@ -1459,7 +1488,6 @@ function acceptBookingDealApi($input): array
     global $controller, $bookingType;
     global $isRequestPost;
     global $bookingStatus;
-    global $serviceFee;
     global $transactionType;
 
     $bookingDealModel = $controller->loadModel('BookingDeals');
@@ -1469,6 +1497,7 @@ function acceptBookingDealApi($input): array
     $bookingFeeModel = $controller->loadModel('BookingFees');
     $modelTransaction = $controller->loadModel('Transactions');
     $modelNotification = $controller->loadModel('Notifications');
+    $serviceFee = getServiceFee();
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -1565,6 +1594,7 @@ function acceptBookingDealApi($input): array
             $receiveTransaction->user_id = $receivedUser->id;
             $receiveTransaction->amount = $deal->price;
             $receiveTransaction->type = $transactionType['subtract'];
+            $receiveTransaction->booking_id = $booking->id;
             $receiveTransaction->name = "Thanh toán cuốc xe #$booking->id thành công";
             $receiveTransaction->description = '-' . number_format($deal->price) . ' EXC-xu';
             $modelTransaction->save($receiveTransaction);
@@ -1575,6 +1605,7 @@ function acceptBookingDealApi($input): array
                 $serviceTransaction->user_id = $receivedUser->id;
                 $serviceTransaction->amount = $serviceFee;
                 $serviceTransaction->type = $transactionType['subtract'];
+                $serviceTransaction->booking_id = $booking->id;
                 $serviceTransaction->name = "Thanh toán phí sàn khi nhận cuốc xe #$booking->id thành công";
                 $serviceTransaction->description = '-' . number_format($serviceFee) . ' EXC-xu';
                 $modelTransaction->save($serviceTransaction);
@@ -1587,6 +1618,8 @@ function acceptBookingDealApi($input): array
             $notification->user_id = $receivedUser->id;
             $notification->title = $title;
             $notification->content = $content;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
             $modelNotification->save($notification);
 
             if ($receivedUser->device_token) {
