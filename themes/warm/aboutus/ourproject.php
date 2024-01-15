@@ -4,7 +4,7 @@
     global $modelAlbuminfos;
 ?>
 <?php getHeader();
-   // debug($listPhoto);
+    
 ?>
   <main>
         <section id="section-home-banner" class="section-logo-header">
@@ -206,11 +206,11 @@
                             echo '<div class="news-press-item">
                                 <div class="news-press-item-inner">
                                     <div class="news-item-img">
-                                        <a href="/'.@$item->slug.'.html"><img src="'.@$item->image.'" alt=""></a>
+                                        <a target="_blank" href="'.@$item->link.'"><img src="'.@$item->image.'" alt=""></a>
                                     </div>
             
                                     <div class="news-item-content">
-                                        <a href="/'.@$item->slug.'.html">'.@$item->title.'</a>
+                                        <a target="_blank" href="'.@$item->link.'">'.@$item->name.'</a>
                                     </div>
                                 </div>
                             </div>';
