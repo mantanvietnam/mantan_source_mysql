@@ -553,6 +553,7 @@ function ourproject($input){
         $data = $modelProjects->find()->where($conditions)->first();
 
         $listPhoto = $modelAlbuminfos->find()->where(['id_album'=>@$data->id_photo])->all()->toList();
+        $Photo = $modelAlbums->find()->where(['id'=>@$data->id_photo])->first();
         $listVideo = $modelAlbuminfos->find()->where(['id_album'=>@$data->id_video])->all()->toList();
         $listPosts =array();
         if(!empty($data->id_post)){
@@ -579,6 +580,7 @@ function ourproject($input){
 
         setVariable('data', $data);
         setVariable('listPhoto', $listPhoto);
+        setVariable('Photo', $Photo);
         setVariable('listVideo', $listVideo);
         setVariable('listPosts', $listPosts);
         setVariable('listPosts2', $listPosts2);

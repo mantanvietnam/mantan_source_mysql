@@ -4,7 +4,6 @@
     global $modelAlbuminfos;
 ?>
 <?php getHeader();
-    
 ?>
   <main>
         <section id="section-home-banner" class="section-logo-header">
@@ -121,7 +120,7 @@
                                     <div class="ourproject-top-left-title">
                                         <p>PROJECT PHOTO</p>
                                         <div class="ourproject-top-left-link">
-                                            <a href="<?php echo $item->link ?>">GO TO PHOTO GALLERY</a>
+                                            <a href="<?php echo $Photo->author ?>">GO TO PHOTO GALLERY</a>
                                         </div>
                                     </div>
                                     <div class="ourproject-top-left-bot">
