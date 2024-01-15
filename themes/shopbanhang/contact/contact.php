@@ -19,7 +19,7 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-contact">
             <div class="container">
                 <div class="contact-title">
-                    <h1>Liên hệ với Bumas</h1>
+                    <h1>Liên hệ với BUMAS</h1>
                 </div>
 
                 <div class="contact-description">

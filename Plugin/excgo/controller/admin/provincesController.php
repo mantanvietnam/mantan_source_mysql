@@ -7,10 +7,14 @@ function listProvinceAdmin($input)
     $metaTitleMantan = 'Danh sách tỉnh thành';
     $modelProvinces = $controller->loadModel('Provinces');
 
-    $conditions = array();
+    $conditions = ['parent_id' => 0];
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
     if ($page < 1) $page = 1;
+
+    if (!empty($_GET['id'])) {
+        $conditions['id'] = (int) $_GET['id'];
+    }
 
     if (!empty($_GET['name'])) {
         $conditions['name LIKE'] = '%' . $_GET['name'] . '%';
@@ -90,6 +94,11 @@ function addProvinceAdmin($input)
 
     if (!empty($_GET['id'])) {
         $data = $provinceModel->find()->where(['id' => $_GET['id']])->first();
+
+        $listChildProvince = $provinceModel->find()
+            ->where(['parent_id' => $_GET['id']])
+            ->all()
+            ->toList();
     } else {
         $data = $provinceModel->newEmptyEntity();
     }
@@ -99,7 +108,7 @@ function addProvinceAdmin($input)
 
         if (!empty($dataSend['name'])) {
             $data->name = $dataSend['name'];
-            $data->parent_id = $dataSend['parent_id'] ?? 0;
+            $data->parent_id = !empty($dataSend['parent_id']) ? $dataSend['parent_id'] : 0;
             $data->status = (int) $dataSend['status'] ?? 1;
             $provinceModel->save($data);
 
@@ -111,6 +120,7 @@ function addProvinceAdmin($input)
 
     setVariable('data', $data);
     setVariable('listProvince', $listProvince);
+    setVariable('listChildProvince', $listChildProvince ?? []);
     setVariable('parent', $parent ?? null);
     setVariable('mess', $mess);
 }

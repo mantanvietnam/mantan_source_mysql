@@ -46,6 +46,12 @@ $menus[7]['sub'][0] = array('title' => 'Yêu cầu hỗ trợ',
     'permission' => 'listWithdrawRequestAdmin',
 );
 
+$menus[7]['sub'][0] = array('title' => 'Cài đặt phí sàn',
+    'url' => '/plugins/admin/excgo-view-admin-config-configServiceFeeAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'configServiceFeeAdmin',
+);
+
 addMenuAdminMantan($menus);
 
 global $keyFirebase;
@@ -232,7 +238,7 @@ function sendEmailAddMoney($email = '', $name = '', $coin= '')
     }
 }
 
-function sendEmailWithdrawRequest($userName = '', $requestId = '', $email = 'exc.info@gmail.com')
+function sendEmailWithdrawRequest($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
     if(!empty($email)){
         $to[]= trim($email);
@@ -310,7 +316,7 @@ function sendEmailWithdrawRequest($userName = '', $requestId = '', $email = 'exc
     }
 }
 
-function sendEmailUpgradeToDriver($userName = '', $requestId = '', $email = 'exc.info@gmail.com')
+function sendEmailUpgradeToDriver($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
     if(!empty($email)){
         $to[]= trim($email);
@@ -388,7 +394,7 @@ function sendEmailUpgradeToDriver($userName = '', $requestId = '', $email = 'exc
     }
 }
 
-function sendEmailSupportRequest($userName = '', $requestId = '', $email = 'exc.info@gmail.com')
+function sendEmailSupportRequest($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
     if(!empty($email)) {
         $to[] = trim($email);
@@ -432,7 +438,7 @@ function sendEmailSupportRequest($userName = '', $requestId = '', $email = 'exc.
             <div class="bao">
                 <div class="nd">
                     <div class="head">
-                        <span>Yêu cầu nâng cấp tài khoản</span>
+                        <span>Yêu cầu hỗ trợ</span>
                     </div>
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào Admin!</em> <br>
@@ -466,7 +472,7 @@ function sendEmailSupportRequest($userName = '', $requestId = '', $email = 'exc.
     }
 }
 
-function sendEmailComplaint($userName = '', $requestId = '', $email = 'exc.info@gmail.com')
+function sendEmailComplaint($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
     if(!empty($email)) {
         $to[] = trim($email);
@@ -510,7 +516,7 @@ function sendEmailComplaint($userName = '', $requestId = '', $email = 'exc.info@
             <div class="bao">
                 <div class="nd">
                     <div class="head">
-                        <span>Yêu cầu nâng cấp tài khoản</span>
+                        <span>Yêu cầu khiếu nại</span>
                     </div>
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào Admin!</em> <br>
@@ -919,6 +925,15 @@ function getDetailBooking($id)
     return $booking;
 }
 
+function getServiceFee()
+{
+    global $controller;
+    $modelOption = $controller->loadModel('Options');
+    $config = $modelOption->find()->where(['key_word' => 'service_fee'])->first();
+
+    return json_decode($config->value ?? '', true)['price'] ?? 0;
+}
+
 global $bookingStatus;
 $bookingStatus = [
     'unreceived' => 0,
@@ -939,9 +954,6 @@ $bookingFeeStatus = [
     'unpaid' => 0,
     'paid' => 1,
 ];
-
-global $serviceFee;
-$serviceFee = 0;
 
 global $imageType;
 $imageType = [

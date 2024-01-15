@@ -287,7 +287,7 @@ $infoUser = $session->read('infoUser');
                                             <i class="fa-brands fa-facebook" style="color: #0D6EFD"></i><a href="">Tiếp tục với Facebook</a>
                                         </div>
                                         <div class="login-social-item">
-                                            <i class="fa-brands fa-google" style="color: red"></i><a href="">Tiếp tục với Google</a>
+                                            <i class="fa-brands fa-google" style="color: red"></i><a href="<?php echo filter_var($authUrl, FILTER_SANITIZE_URL) ?>">Tiếp tục với Google</a>
                                         </div>
                                         <!-- <div class="login-social-item">
                                             <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
