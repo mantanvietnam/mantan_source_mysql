@@ -61,7 +61,7 @@
                                     <div class="facility-content-item">
                                         <h3>Donors:  </h3>
                                         <p><?php echo @$data->donor ?></p>
-                                    </div>donor
+                                    </div>
 
                                     <div class="facility-content-item">
                                         <h3>Total investment cost: </h3>
@@ -163,7 +163,7 @@
         <!-- Project's news -->
         <section id="section-press-releases" class="ourproject-news">
             <div class="title-section">
-                <h1>Project's news</h1>
+                <h1>Project news</h1>
                 <div class="title-divide-section"></div>
             </div>
 
@@ -194,7 +194,7 @@
         <!-- Project's press releases -->
          <section id="section-press-releases" class="ourproject-news">
             <div class="title-section">
-                <h1>Project's press releases</h1>
+                <h1>Project press releases</h1>
                 <div class="title-divide-section"></div>
             </div>
 
