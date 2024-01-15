@@ -116,6 +116,8 @@ function addProjectAdmin($input)
             $data->id_photo= $dataSend['id_photo'];
             $data->id_video= $dataSend['id_video'];
             $data->id_post= $dataSend['id_post'];
+            $data->id_post2= $dataSend['id_post2'];
+            $data->banner= $dataSend['banner'];
             $modelProjects->save($data);     
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';

@@ -4,7 +4,7 @@
     global $modelAlbuminfos;
 ?>
 <?php getHeader();
-   //debug($listPosts);
+   // debug($listPhoto);
 ?>
   <main>
         <section id="section-home-banner" class="section-logo-header">
@@ -26,8 +26,8 @@
             </div>
 
             <duv class="facility-background">
-                <div class="facility-background-inner" sytle="background-image: url(<?php echo @$data->image ?>)">
-                    <div class="facility-background" style="background-image: url(<?php echo @$data->image ?>);"></div>
+                <div class="facility-background-inner" sytle="background-image: url(<?php echo @$data->banner ?>)">
+                    <div class="facility-background" style="background-image: url(<?php echo @$data->banner ?>);"></div>
                     <div class="facility-overlay ourproject-overlay"></div>
                     <div class="facility-overlay-right ourproject-overlayright"></div>
                     <div class="container">
@@ -121,7 +121,7 @@
                                     <div class="ourproject-top-left-title">
                                         <p>PROJECT PHOTO</p>
                                         <div class="ourproject-top-left-link">
-                                            <a href="">GO TO PHOTO GALLERY</a>
+                                            <a href="<?php echo $item->link ?>">GO TO PHOTO GALLERY</a>
                                         </div>
                                     </div>
                                     <div class="ourproject-top-left-bot">
@@ -189,9 +189,10 @@
                 </div>
             </div>
         </section>
-    <?php } ?>
+    <?php } 
+         if(!empty($listPosts2)){ ?>
         <!-- Project's press releases -->
-       <!--  <section id="section-press-releases" class="ourproject-news">
+         <section id="section-press-releases" class="ourproject-news">
             <div class="title-section">
                 <h1>Project's press releases</h1>
                 <div class="title-divide-section"></div>
@@ -200,58 +201,25 @@
             <div class="news-press">
                 <div class="news-press-inner">
                     <div class="news-press-slide">
-                        <div class="news-press-item">
-                            <div class="news-press-item-inner">
-                                <div class="news-item-img">
-                                    <a href=""><img src="../asset/img/news-1.png" alt=""></a>
+                        
+                        <?php foreach($listPosts2 as $key => $item){ 
+                            echo '<div class="news-press-item">
+                                <div class="news-press-item-inner">
+                                    <div class="news-item-img">
+                                        <a href="/'.@$item->slug.'.html"><img src="'.@$item->image.'" alt=""></a>
+                                    </div>
+            
+                                    <div class="news-item-content">
+                                        <a href="/'.@$item->slug.'.html">'.@$item->title.'</a>
+                                    </div>
                                 </div>
-        
-                                <div class="news-item-content">
-                                    <a href="">Workshop “Hoi An coastline management strategy for sustainability”</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="news-press-item">
-                            <div class="news-press-item-inner">
-                                <div class="news-item-img">
-                                    <a href=""><img src="../asset/img/news-1.png" alt=""></a>
-                                </div>
-        
-                                <div class="news-item-content">
-                                    <a href="">Vinh Long Provincial People's Committee and AFD's meeting on “Flood, salt intrusion and river erosion protection” project in Vinh Long province</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!- 3 
-                        <div class="news-press-item">
-                            <div class="news-press-item-inner">
-                                <div class="news-item-img">
-                                    <a href=""><img src="../asset/img/news-1.png" alt=""></a>
-                                </div>
-        
-                                <div class="news-item-content">
-                                    <a href="">Kick-off mission “Flood, salt intrusion and river erosion protection” project in Vinh Long province</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!- 4 
-                        <div class="news-press-item">
-                            <div class="news-press-item-inner">
-                                <div class="news-item-img">
-                                    <a href=""><img src="../asset/img/news-1.png" alt=""></a>
-                                </div>
-        
-                                <div class="news-item-content">
-                                    <a href="">Technical assistance component kickoff workshop of the “Multi-disaster management in Nam Rom river basin, Dien Bien province” project</a>
-                                </div>
-                            </div>
-                        </div>
+                            </div>';
+                        }?>
                     </div>
                 </div>
             </div>
         </section>
-         -->
+        <?php } ?>
     </main>
 
 <?php getFooter();?>

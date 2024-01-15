@@ -53,9 +53,6 @@
                     <label class="form-label">Đường dẫn</label>
                     <input required type="text" class="form-control phone-mask" name="slug_drive" id="slug_drive" value="<?php echo @$data->slug_drive;?>" />
                   </div>
-
-                  
-
                   <div class="mb-3 col-md-6">
                     <div class="mb-3">
                       <label class="form-label">Hình minh họa</label>
@@ -73,16 +70,27 @@
                     </div>
                   </div>
                   <div class="mb-3 col-md-6">
-                    <label class="form-label">ID anh</label>
+                    <label class="form-label">ID ảnh</label>
                     <input required type="text" class="form-control phone-mask" name="id_photo" id="id_photo" value="<?php echo @$data->id_photo;?>" />
                   </div>
                   <div class="mb-3 col-md-6">
                     <label class="form-label">ID Vieo</label>
                     <input required type="text" class="form-control phone-mask" name="id_video" id="id_video" value="<?php echo @$data->id_video;?>" />
                   </div>
+                  
                   <div class="mb-3 col-md-6">
-                    <label class="form-label">ID danh mục Tin tức</label>
+                    <label class="form-label">ID Tin tức 1</label>
                     <input required type="text" class="form-control phone-mask" name="id_post" id="id_post" value="<?php echo @$data->id_post;?>" />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">ID Tin tức 2</label>
+                    <input required type="text" class="form-control phone-mask" name="id_post2" id="id_post2" value="<?php echo @$data->id_post2;?>" />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <div class="mb-3">
+                      <label class="form-label">Hình banner</label>
+                      <?php showUploadFile('banner','banner',@$data->banner,1);?>
+                    </div>
                   </div>
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Mô tả ngắn</label>

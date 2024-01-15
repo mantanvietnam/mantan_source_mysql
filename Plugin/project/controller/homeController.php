@@ -554,12 +554,25 @@ function ourproject($input){
 
         $listPhoto = $modelAlbuminfos->find()->where(['id_album'=>@$data->id_photo])->all()->toList();
         $listVideo = $modelAlbuminfos->find()->where(['id_album'=>@$data->id_video])->all()->toList();
-        $listPosts = $modelPosts->find()->where(['idCategory'=>@$data->id_post])->all()->toList();
+        $listPosts =array();
+        if(!empty($data->id_post)){
+            $id_post = explode(',', @$data->id_post);
+            foreach($id_post as $key => $item)
+            $listPosts[$key] = $modelPosts->find()->where(['id'=>@$item])->first();
+        }
+       
+        $listPosts2 =array();
+        if(!empty($data->id_post2)){
+            $id_post2 = explode(',', @$data->id_post2);
+            foreach($id_post2 as $k => $item)
+            $listPosts2[$k] = $modelPosts->find()->where(['id'=>@$item])->first();
+        }
 
         setVariable('data', $data);
         setVariable('listPhoto', $listPhoto);
         setVariable('listVideo', $listVideo);
         setVariable('listPosts', $listPosts);
+        setVariable('listPosts2', $listPosts2);
 
     }else{
         return $controller->redirect('/');
