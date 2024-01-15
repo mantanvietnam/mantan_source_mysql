@@ -1757,3 +1757,71 @@
     padding-top: 0;
     padding-bottom: 33px;
 }
+
+.ourproject-news .slick-arrow{
+    color: #ff4c00;
+    border-color: #ff4c00;
+}
+
+.section-photo-collection .slick-arrow{
+    display: none !important;
+}
+
+.section-photo-ourproject .slick-arrow{
+    display: block !important;
+}
+
+.section-photo-ourproject .ourproject-top .slick-arrow{
+    display: block !important;
+    bottom: -50px;
+    background-color: transparent;
+    color: #fff;
+    border-color: transparent;
+}
+
+.section-photo-ourproject .ourproject-top .slick-next{
+    right: 28%;
+}
+
+.section-photo-ourproject .ourproject-top .slick-prev{
+    
+    left: 63%;
+}
+
+@media (max-width: 500px) {
+    .slide-ourproject-video-item iframe {
+        height: auto;
+    }
+
+    .slide-ourproject-video-item{
+        height: auto !important;
+    }
+
+    .slide-ourproject-video-inner{
+        height: auto;
+    }
+
+    .ourproject-top-right-inner{
+        height: 253px;
+    }
+
+    .ourproject-top-left .ourproject-top-left-bot p {
+        margin-top: 34px;
+    }
+
+    .ourproject-top {
+        margin-bottom: 10px;
+    }
+
+    .ourproject-top-left .ourproject-top-left-bot p{
+        margin-bottom: 15px;
+    }
+
+    .ourproject-news .news-press{
+        margin-bottom: 0;
+    }
+
+    .section-photo-ourproject .slick-arrow{
+        display: none !important;
+    }
+}

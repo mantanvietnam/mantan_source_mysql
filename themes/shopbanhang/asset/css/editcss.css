@@ -1537,11 +1537,12 @@ background: #555;
 
 .btn-image-user{
     position: absolute;
-    top: 95px;
-    right: 10px;
+    top: -26px;
+    right: 0px;
     color: #fff;
     background: transparent;
     border: none;
+    padding: 0;
     /* display: none; */
 }
 
@@ -1665,6 +1666,9 @@ background: #555;
 
 
 @media(min-width: 445px){
+    .detail-file label {
+        width: 150px;
+    }
     
     #section-breadcrumb{
         margin-top: 137px;
@@ -2163,6 +2167,18 @@ background: #555;
 }
 
 @media(max-width: 445px) {
+    .modal-dialog-user .img-user-product{
+        position: relative;
+    }
+
+    .img-user-product{
+        position: absolute;
+    }
+
+    .product-detail-rate-image .modal img{
+        width: 334px;
+    }
+
     .btn-image-user{
         display: block;
     }
@@ -2401,7 +2417,7 @@ background: #555;
     }
 
     .banner-home-item img{
-        height: 157px;
+        height: 217px;
     }
 
     .advertisement-home-inner .container{
@@ -3458,6 +3474,7 @@ background: #555;
     
     .product-slide-right .slick-arrow {
         /* background-color: rgb(126, 120, 120, 0.2); */
+        background-color: transparent;
         z-index: 1;
         font-size: 19px;
         color: rgb(126, 120, 120);

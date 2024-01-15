@@ -819,8 +819,10 @@
                                         <div class="modal-login">
                                          <div class="modal fade" id="exampleModal<?php  echo $key.'-'.$k; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered modal-dialog-user">
-                                                <button type="button" class="btn-image-user" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-x"></i></button>
-                                               <img src="<?php echo $image;?>" alt="" style="width: 100%; height: auto;">
+                                                <div class="img-user-product">
+                                                    <button type="button" class="btn-image-user" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                                                    <img src="<?php echo $image;?>" alt="" style="width: 100%; height: auto;">
+                                                </div>
 
                                            </div>
                                        </div>
@@ -913,9 +915,11 @@
 
                                         <div class="modal-login">
                                          <div class="modal fade" id="example<?php  echo $k; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-
-                                               <img src="<?php echo $item ?>" alt="" style="width: 100%; height: auto;">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-user">
+                                                <div class="img-user-product">
+                                                    <button type="button" class="btn-image-user" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                                                    <img src="<?php echo $item ?>" alt="" style="width: 100%; height: auto;">
+                                                </div>
 
                                            </div>
                                        </div>

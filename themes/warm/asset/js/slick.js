@@ -196,11 +196,11 @@ $('.list-partner').slick({
       slidesToScroll: 1,
       arrows:true,
       prevArrow:
-      `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-chevron-left"></i></button>`,
+      `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-caret-left"></i></button>`,
       nextArrow:
-      `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
+      `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-caret-right"></i></button>`,
       asNavFor: '.photo-slide-bottom',
-      arrows:false,
+      // arrows:false,
   
     
     });
