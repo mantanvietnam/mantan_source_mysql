@@ -38,11 +38,13 @@ getHeader();
                                         <label for="hoTen">Họ và tên</label>
                                         <label for="soDienThoai"><?php echo $info->full_name ?></label>
                                     </div>
+                                    <?php if(empty($info->id_google)){ ?>
                                     <div class="item-detail">
                                         <label for="soDienThoai">Số điện thoại</label>
                                         <label for="soDienThoai"><?php echo $info->phone ?></label>
                                         
                                     </div>
+                                <?php } ?>
                                     <div class="item-detail">
                                         <label for="email">Email</label>
                                         <label for="soDienThoai"><?php echo $info->email ?></label>

@@ -13,7 +13,7 @@ $menus[0]['sub'][1]= array('title'=>'Thông tin Library',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listLibraryAdmin',
                         );
-$menus[0]['sub'][2]= array('title'=>'Thông tin Mediapre',
+$menus[0]['sub'][2]= array('title'=>'Thông tin Mediapress',
                             'url'=>'/plugins/admin/project-view-admin-mediapre-listMediapreAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listMediapreAdmin',

@@ -540,7 +540,7 @@ function ourproject($input){
     global $modelOptions;
 
     $modelProjects = $controller->loadModel('Projects');
-    $modelProjects = $controller->loadModel('Projects');
+    $modelMediapre = $controller->loadModel('mediapres');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -557,15 +557,24 @@ function ourproject($input){
         $listPosts =array();
         if(!empty($data->id_post)){
             $id_post = explode(',', @$data->id_post);
-            foreach($id_post as $key => $item)
-            $listPosts[$key] = $modelPosts->find()->where(['id'=>@$item])->first();
+            foreach($id_post as $key => $item){
+                $Posts = $modelPosts->find()->where(['id'=>@$item])->first();
+                 if(!empty($Posts)){
+                    $listPosts[$key] = $Posts;
+                }
+            }
         }
        
         $listPosts2 =array();
         if(!empty($data->id_post2)){
             $id_post2 = explode(',', @$data->id_post2);
-            foreach($id_post2 as $k => $item)
-            $listPosts2[$k] = $modelPosts->find()->where(['id'=>@$item])->first();
+            foreach($id_post2 as $k => $item){
+            $Mediapre = $modelMediapre->find()->where(['id'=>@$item])->first();
+                if(!empty($Mediapre)){
+                    $listPosts2[$k] = $Mediapre;
+                }
+            }
+            
         }
 
         setVariable('data', $data);
