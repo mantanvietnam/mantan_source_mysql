@@ -1601,6 +1601,7 @@
 	margin-bottom: 30px;
 	font-weight: bold;
 	line-height: 1;
+    text-transform: uppercase;
 }
 
 .facility-background-box-2{
@@ -1686,11 +1687,11 @@
 }
 
 .ourproject-overlay{
-	background-color: rgb(39,62,104, 0.7) !important;
+	background-color: rgb(39,62,104, 0.9) !important;
 }
 
 .ourproject-overlayright{
-	background-color: rgb(39,62,104, 0.7) !important;
+	background-color: rgb(39,62,104, 0.9) !important;
 
 }
 

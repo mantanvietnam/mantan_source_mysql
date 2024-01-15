@@ -2167,6 +2167,10 @@ background: #555;
 }
 
 @media(max-width: 445px) {
+    .detail-file label:nth-child(2){
+        width: 50%;
+    }
+
     .modal-dialog-user .img-user-product{
         position: relative;
     }
