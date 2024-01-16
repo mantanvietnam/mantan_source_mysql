@@ -120,7 +120,7 @@
                                     <div class="ourproject-top-left-title">
                                         <p>PROJECT PHOTO</p>
                                         <div class="ourproject-top-left-link">
-                                            <a href="<?php echo $Photo->author ?>">GO TO PHOTO GALLERY</a>
+                                            <a href="/projectPhoto/<?php echo $Photo->slug.'-'.$Photo->id ?>.html">GO TO PHOTO GALLERY</a>
                                         </div>
                                     </div>
                                     <div class="ourproject-top-left-bot">
