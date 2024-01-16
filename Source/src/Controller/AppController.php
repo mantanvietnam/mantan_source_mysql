@@ -49,6 +49,7 @@ class AppController extends Controller
         global $session;
         global $modelOptions;
         global $modelCategories;
+        global $modelCategoryConnects;
         
         global $modelPosts;
         global $modelMenus;
@@ -81,6 +82,7 @@ class AppController extends Controller
         // load model hệ thống
         $modelOptions = $this->loadModel('Options');
         $modelCategories = $this->loadModel('Categories');
+        $modelCategoryConnects = $this->loadModel('CategoryConnects');
         $modelPosts = $this->loadModel('Posts');
         $modelMenus = $this->loadModel('Menus');
         $modelAlbums = $this->loadModel('Albums');

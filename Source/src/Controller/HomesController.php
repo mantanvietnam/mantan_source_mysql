@@ -177,6 +177,7 @@ class HomesController extends AppController{
         global $metaDescriptionMantan;
         global $urlCurrent;
         global $modelCategories;
+        global $modelCategoryConnects;
         global $infoSite;
         global $isCategory;
         global $categoryDetail;
@@ -186,7 +187,7 @@ class HomesController extends AppController{
         $modelPosts = $this->Posts;
 
         $slug= $_SERVER['REQUEST_URI'];
-        $conditions = ['type'=>'post'];
+        $conditions = ['Posts.type'=>'post'];
         $category = $modelCategories->newEmptyEntity();
 
         if(!empty($slug)){
@@ -199,7 +200,8 @@ class HomesController extends AppController{
             $category = $modelCategories->find()->where($conditionsCate)->first();
 
             if(!empty($category)){
-                $conditions['idCategory'] = $category->id;
+                $conditions['CategoryConnects.id_category'] = $category->id;
+                $conditions['CategoryConnects.keyword'] = 'post';
             }else{
                 $category = $modelCategories->newEmptyEntity();
             }
@@ -208,10 +210,22 @@ class HomesController extends AppController{
         $limit = (!empty($infoSite['number_post']))?$infoSite['number_post']:12;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
+        $join = [
+                    [
+                        'table' => 'category_connects',
+                        'alias' => 'CategoryConnects',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Posts.id = CategoryConnects.id_parent',
+                        ],
+                    ]
+                ];
 
-        $listData = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+        $select = ['Posts.id', 'Posts.title', 'Posts.keyword', 'Posts.pin', 'Posts.author', 'Posts.image', 'Posts.description', 'Posts.content', 'Posts.slug', 'Posts.time', 'Posts.view', 'Posts.type'];
 
-        $totalData = $modelPosts->find()->where($conditions)->all()->toList();
+        $listData = $modelPosts->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->order(['Posts.id' => 'DESC'])->all()->toList();
+
+        $totalData = $modelPosts->find()->join($join)->where($conditions)->all()->toList();
         $totalData = count($totalData);
 
         $balance = $totalData % $limit;

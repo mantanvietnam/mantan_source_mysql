@@ -174,6 +174,19 @@ CREATE TABLE `slugs` (
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `category_connects`
+--
+
+CREATE TABLE `category_connects` (
+  `id` int(11) NOT NULL,
+  `keyword` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `id_parent` int(11) NOT NULL,
+  `id_category` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `videos`
 --
 
@@ -243,6 +256,12 @@ ALTER TABLE `slugs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `category_connects`
+--
+ALTER TABLE `category_connects`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `videos`
 --
 ALTER TABLE `videos`
@@ -280,6 +299,12 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `category_connects`
+--
+ALTER TABLE `category_connects`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

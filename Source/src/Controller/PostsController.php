@@ -78,8 +78,42 @@ class PostsController extends AppController{
 	        $urlPage = $urlPage . '?page=';
 	    }
 
-	    $conditions = array('type' => 'post');
-    	$listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+	    // lấy danh sách danh mục
+        $conditions = array('type' => 'post');
+    	$listCategory = $modelCategories->find()->where($conditions)->order(['parent'=>'asc', 'id'=>'asc'])->all()->toList();
+
+    	$categories = [];
+    	if(!empty($listCategory)){
+    		foreach ($listCategory as $key => $value) {
+    			if($value->parent == 0){
+    				$categories[$value->id]['name'] = $value->name;
+    			}else{
+    				foreach ($categories as $key1 => $value1) {
+    					if($key1 == $value->parent){
+    						$categories[$key1]['sub'][$value->id]['name'] = $value->name;
+    					}elseif(!empty($categories[$key1]['sub'])){
+    						foreach ($categories[$key1]['sub'] as $key2 => $value2) {
+    							if($key2 == $value->parent){
+		    						$categories[$key1]['sub'][$key2]['sub'][$value->id]['name'] = $value->name;
+		    					}elseif(!empty($categories[$key1]['sub'][$key2]['sub'])){
+		    						foreach ($categories[$key1]['sub'][$key2]['sub'] as $key3 => $value3) {
+		    							if($key3 == $value->parent){
+				    						$categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$value->id]['name'] = $value->name;
+				    					}elseif(!empty($categories[$key1]['sub'][$key2]['sub'][$key3]['sub'])){
+				    						foreach ($categories[$key1]['sub'][$key2]['sub'][$key3]['sub'] as $key4 => $value4) {
+				    							if($key4 == $value->parent){
+						    						$categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$key4]['sub'][$value->id]['name'] = $value->name;
+						    					}
+				    						}
+				    					}
+		    						}
+		    					}
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
 
 	    $this->set('page', $page);
 	    $this->set('totalPage', $totalPage);
@@ -88,19 +122,31 @@ class PostsController extends AppController{
 	    $this->set('urlPage', $urlPage);
 
         $this->set('listData', $listData);
-        $this->set('listCategory', $listCategory);
+        $this->set('listCategory', $categories);
 	}
 
 	public function add(){
 		$modelPosts = $this->Posts;
 		$modelSlugs = $this->loadModel('Slugs');
 		$modelCategories = $this->loadModel('Categories');
+		$modelCategoryConnects = $this->loadModel('CategoryConnects');
 		
 		$mess = '';
 
 		// lấy data edit
 	    if(!empty($_GET['id'])){
-	        $infoPost = $modelPosts->get( (int) $_GET['id']);
+	        $infoPost = $modelPosts->find()->where(['id'=>(int) $_GET['id']])->first();
+
+	        if(!empty($infoPost)){
+	        	$categories = $modelCategoryConnects->find()->where(['keyword'=>'post', 'id_parent'=>(int) $_GET['id']])->all()->toList();
+	        	$infoPost->categories = [];
+
+	        	if(!empty($categories)){
+	        		foreach ($categories as $key => $value) {
+	        			$infoPost->categories[] = $value->id_category;
+	        		}
+	        	}
+	    	}
 	    }else{
 	        $infoPost = $modelPosts->newEmptyEntity();
 	    }
@@ -119,7 +165,7 @@ class PostsController extends AppController{
 	            }
 
 	            if(empty($dataSend['idCategory'])){
-	            	$dataSend['idCategory'] = 0;
+	            	$dataSend['idCategory'] = [];
 	            }
 
 	            // tạo dữ liệu save
@@ -128,7 +174,7 @@ class PostsController extends AppController{
 	            $infoPost->pin = (int) $dataSend['pin'];
 	            $infoPost->time = $time;
 	            $infoPost->image = $dataSend['image'];
-	            $infoPost->idCategory = (int) $dataSend['idCategory'];
+	            $infoPost->idCategory = (int) @$dataSend['idCategory'][0];
 	            $infoPost->keyword = $dataSend['keyword'];
 	            $infoPost->description = $dataSend['description'];
 	            $infoPost->content = $dataSend['content'];
@@ -160,18 +206,70 @@ class PostsController extends AppController{
 	            $infoPost->slug = $slugNew;
 
 	            $modelPosts->save($infoPost);
+
+	            // tạo dữ liệu bảng chuyên mục
+	            $modelCategoryConnects->deleteAll(['id_parent'=>$infoPost->id]);
+
+	            if(!empty($dataSend['idCategory'])){
+	            	foreach ($dataSend['idCategory'] as $idCategory) {
+	            		$categoryConnects = $modelCategoryConnects->newEmptyEntity();
+
+		        		$categoryConnects->keyword = 'post';
+		        		$categoryConnects->id_parent = $infoPost->id;
+		        		$categoryConnects->id_category = $idCategory;
+
+		        		$modelCategoryConnects->save($categoryConnects);
+	            	}
+	            }
+
+	            $infoPost->categories = $dataSend['idCategory'];
+
 	            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	        }else{
 	        	$mess= '<p class="text-danger">Nhập thiếu dữ liệu</p>';
 	        }
         }
 
+        // lấy danh sách danh mục
         $conditions = array('type' => 'post');
-    	$listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+    	$listCategory = $modelCategories->find()->where($conditions)->order(['parent'=>'asc', 'id'=>'asc'])->all()->toList();
+
+    	$categories = [];
+    	if(!empty($listCategory)){
+    		foreach ($listCategory as $key => $value) {
+    			if($value->parent == 0){
+    				$categories[$value->id]['name'] = $value->name;
+    			}else{
+    				foreach ($categories as $key1 => $value1) {
+    					if($key1 == $value->parent){
+    						$categories[$key1]['sub'][$value->id]['name'] = $value->name;
+    					}elseif(!empty($categories[$key1]['sub'])){
+    						foreach ($categories[$key1]['sub'] as $key2 => $value2) {
+    							if($key2 == $value->parent){
+		    						$categories[$key1]['sub'][$key2]['sub'][$value->id]['name'] = $value->name;
+		    					}elseif(!empty($categories[$key1]['sub'][$key2]['sub'])){
+		    						foreach ($categories[$key1]['sub'][$key2]['sub'] as $key3 => $value3) {
+		    							if($key3 == $value->parent){
+				    						$categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$value->id]['name'] = $value->name;
+				    					}elseif(!empty($categories[$key1]['sub'][$key2]['sub'][$key3]['sub'])){
+				    						foreach ($categories[$key1]['sub'][$key2]['sub'][$key3]['sub'] as $key4 => $value4) {
+				    							if($key4 == $value->parent){
+						    						$categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$key4]['sub'][$value->id]['name'] = $value->name;
+						    					}
+				    						}
+				    					}
+		    						}
+		    					}
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
 
         $this->set('infoPost', $infoPost);
         $this->set('mess', $mess);
-        $this->set('listCategory', $listCategory);
+        $this->set('listCategory', $categories);
 	}
 
 	public function delete(){

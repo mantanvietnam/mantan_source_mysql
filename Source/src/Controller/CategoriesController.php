@@ -74,9 +74,72 @@ class CategoriesController extends AppController{
         }
 
         $conditions = array('type' => 'post');
-        $category_post = $modelCategories->find()->where($conditions)->all()->toList();
+        $category_post = $modelCategories->find()->where($conditions)->order(['parent'=>'asc', 'id'=>'asc'])->all()->toList();
 
-        $this->set('category_post', $category_post);
+        $categories = [];
+        if(!empty($category_post)){
+            foreach ($category_post as $key => $value) {
+                if($value->parent == 0){
+                    $categories[$value->id]['name'] = $value->name;
+                    $categories[$value->id]['parent'] = $value->parent;
+                    $categories[$value->id]['image'] = $value->image;
+                    $categories[$value->id]['keyword'] = $value->keyword;
+                    $categories[$value->id]['description'] = $value->description;
+                    $categories[$value->id]['type'] = $value->type;
+                    $categories[$value->id]['slug'] = $value->slug;
+                }else{
+                    foreach ($categories as $key1 => $value1) {
+                        if($key1 == $value->parent){
+                            $categories[$key1]['sub'][$value->id]['name'] = $value->name;
+                            $categories[$key1]['sub'][$value->id]['parent'] = $value->parent;
+                            $categories[$key1]['sub'][$value->id]['image'] = $value->image;
+                            $categories[$key1]['sub'][$value->id]['keyword'] = $value->keyword;
+                            $categories[$key1]['sub'][$value->id]['description'] = $value->description;
+                            $categories[$key1]['sub'][$value->id]['type'] = $value->type;
+                            $categories[$key1]['sub'][$value->id]['slug'] = $value->slug;
+                        }elseif(!empty($categories[$key1]['sub'])){
+                            foreach ($categories[$key1]['sub'] as $key2 => $value2) {
+                                if($key2 == $value->parent){
+                                    $categories[$key1]['sub'][$key2]['sub'][$value->id]['name'] = $value->name;
+                                    $categories[$key1]['sub'][$key2]['sub'][$value->id]['parent'] = $value->parent;
+                                    $categories[$key1]['sub'][$key2]['sub'][$value->id]['image'] = $value->image;
+                                    $categories[$key1]['sub'][$key2]['sub'][$value->id]['keyword'] = $value->keyword;
+                                    $categories[$key1]['sub'][$key2]['sub'][$value->id]['description'] = $value->description;
+                                    $categories[$key1]['sub'][$key2]['sub'][$value->id]['type'] = $value->type;
+                                    $categories[$key1]['sub'][$key2]['sub'][$value->id]['slug'] = $value->slug;
+                                }elseif(!empty($categories[$key1]['sub'][$key2]['sub'])){
+                                    foreach ($categories[$key1]['sub'][$key2]['sub'] as $key3 => $value3) {
+                                        if($key3 == $value->parent){
+                                            $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$value->id]['name'] = $value->name;
+                                            $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$value->id]['parent'] = $value->parent;
+                                            $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$value->id]['image'] = $value->image;
+                                            $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$value->id]['keyword'] = $value->keyword;
+                                            $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$value->id]['description'] = $value->description;
+                                            $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$value->id]['type'] = $value->type;
+                                            $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$value->id]['slug'] = $value->slug;
+                                        }elseif(!empty($categories[$key1]['sub'][$key2]['sub'][$key3]['sub'])){
+                                            foreach ($categories[$key1]['sub'][$key2]['sub'][$key3]['sub'] as $key4 => $value4) {
+                                                if($key4 == $value->parent){
+                                                    $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$key4]['sub'][$value->id]['name'] = $value->name;
+                                                    $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$key4]['sub'][$value->id]['parent'] = $value->parent;
+                                                    $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$key4]['sub'][$value->id]['image'] = $value->image;
+                                                    $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$key4]['sub'][$value->id]['keyword'] = $value->keyword;
+                                                    $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$key4]['sub'][$value->id]['description'] = $value->description;
+                                                    $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$key4]['sub'][$value->id]['type'] = $value->type;
+                                                    $categories[$key1]['sub'][$key2]['sub'][$key3]['sub'][$key4]['sub'][$value->id]['slug'] = $value->slug;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $this->set('category_post', $categories);
     }
 
     public function album(){
