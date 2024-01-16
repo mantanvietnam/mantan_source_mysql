@@ -1543,7 +1543,7 @@ background: #555;
     background: transparent;
     border: none;
     padding: 0;
-    /* display: none; */
+    display: none;
 }
 
 .modal-dialog-user{

@@ -1750,7 +1750,7 @@
 .ourproject-top-right-inner img{
     width: 100%;
     height: 100%;
-    object-fit: cover;;
+    /* object-fit: cover; */
 }
 
 .ourproject-news .news-press{
@@ -1764,7 +1764,7 @@
     border-color: #ff4c00;
 }
 
-.section-photo-collection .slick-arrow{
+.section-photo-collection .photo-top .slick-arrow{
     display: none !important;
 }
 
