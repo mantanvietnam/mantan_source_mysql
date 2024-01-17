@@ -42,33 +42,101 @@
                     </select>
                   </div>
                 </div>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-6">
-                <div class="mb-3 col-12 col-sm-12 col-md-12">
-                  <label class="form-label">Chuyên mục *</label>
-                  <select name="idCategory" class="form-select" required>
-                    <option value="">Chọn chuyên mục</option>
-                    <?php 
-                      if(!empty($listCategory)){
-                        foreach ($listCategory as $key => $value) {
-                          if(empty($infoPost->id_category) || $infoPost->id_category!=$value->id){
-                            echo '<option value="'.$value->id.'">'.$value->name.'</option>';
-                          }else{
-                            echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
-                          }
-                        }
-                      }
-                    ?>
-                  </select>
-                </div>
 
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
                   <label class="form-label">Tác giả</label>
                   <input type="text" class="form-control" name="author" value="<?php echo @$infoPost->author;?>" />
                 </div>
+              </div>
 
-                
+              <div class="col-12 col-sm-12 col-md-6">
+                <div class="mb-3 col-12 col-sm-12 col-md-12">
+                  <label class="form-label">Chuyên mục *</label>
+                  <ul class="list-unstyled" style="height: 255px;overflow-y: auto;">
+                      <?php 
+                      if(!empty($listCategory)){
+                          foreach ($listCategory as $key => $value) {
+                              $checked = '';
+                              if(!empty($infoPost->categories) && in_array($key, $infoPost->categories)){
+                                  $checked = 'checked';
+                              }
+
+                              echo '<li><input id="idCategory'.$key.'" type="checkbox" value="'.$key.'" name="idCategory[]" '.$checked.'> <label for="idCategory'.$key.'">'.$value['name'].'</label>';
+
+                                  if(!empty($value['sub'])){
+                                      echo '<ul class="ml-3 list_unstyle">';
+                                      
+                                      foreach ($value['sub'] as $key1 => $value1) {
+                                          $checked = '';
+                                          if(!empty($infoPost->categories) && in_array($key1, $infoPost->categories)){
+                                              $checked = 'checked';
+                                          }
+
+                                          echo '<li><input id="idCategory'.$key1.'" type="checkbox" value="'.$key1.'" name="idCategory[]" '.$checked.'> <label for="idCategory'.$key1.'">'.$value1['name'].'</label>';
+
+                                              if(!empty($value1['sub'])){
+                                                  echo '<ul class="ml-6 list_unstyle">';
+                                                  
+                                                  foreach ($value1['sub'] as $key2 => $value2) {
+                                                      $checked = '';
+                                                      if(!empty($infoPost->categories) && in_array($key2, $infoPost->categories)){
+                                                          $checked = 'checked';
+                                                      }
+
+                                                      echo '<li><input id="idCategory'.$key2.'" type="checkbox" value="'.$key2.'" name="idCategory[]" '.$checked.'> <label for="idCategory'.$key2.'">'.$value2['name'].'</label>';
+
+                                                          if(!empty($value2['sub'])){
+                                                              echo '<ul class="ml-9 list_unstyle">';
+                                                              
+                                                              foreach ($value2['sub'] as $key3 => $value3) {
+                                                                  $checked = '';
+                                                                  if(!empty($infoPost->categories) && in_array($key3, $infoPost->categories)){
+                                                                      $checked = 'checked';
+                                                                  }
+
+                                                                  echo '<li><input id="idCategory'.$key3.'" type="checkbox" value="'.$key3.'" name="idCategory[]" '.$checked.'> <label for="idCategory'.$key3.'">'.$value3['name'].'</label>';
+
+                                                                      if(!empty($value3['sub'])){
+                                                                          echo '<ul class="ml-9 list_unstyle">';
+                                                                          
+                                                                          foreach ($value3['sub'] as $key4 => $value4) {
+                                                                              $checked = '';
+                                                                              if(!empty($infoPost->categories) && in_array($key4, $infoPost->categories)){
+                                                                                  $checked = 'checked';
+                                                                              }
+
+                                                                              echo '<li><input id="idCategory'.$key4.'" type="checkbox" value="'.$key4.'" name="idCategory[]" '.$checked.'> <label for="idCategory'.$key4.'">'.$value4['name'].'</label>';
+
+                                                                              echo '</li>';
+                                                                          }
+
+                                                                          echo '</ul>';
+                                                                      }
+
+                                                                  echo '</li>';
+                                                              }
+
+                                                              echo '</ul>';
+                                                          }
+
+                                                      echo '</li>';
+                                                  }
+
+                                                  echo '</ul>';
+                                              }
+
+                                          echo '</li>';
+                                      }
+
+                                      echo '</ul>';
+                                  }
+                              
+                              echo '</li>';
+                          }
+                      }
+                      ?>
+                  </ul>
+                </div>
 
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-message">Mô tả ngắn</label>

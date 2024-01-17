@@ -27,13 +27,66 @@
                 $category = [];
                 if(!empty($listCategory)){
                   foreach ($listCategory as $key => $value) {
-                    if(empty($_GET['idCategory']) || $_GET['idCategory']!=$value->id){
-                      echo '<option value="'.$value->id.'" >'.$value->name.'</option>';
-                    }else{
-                      echo '<option selected value="'.$value->id.'" >'.$value->name.'</option>';
+                    $selected = '';
+                    if(!empty($_GET['idCategory']) && $_GET['idCategory']==$key){
+                      $selected = 'selected';
                     }
 
-                    $category[$value->id] = $value->name;
+                    echo '<option '.$selected.' value="'.$key.'" >'.$value['name'].'</option>';
+
+                    $category[$key] = $value['name'];
+
+                    if(!empty($value['sub'])){
+                      foreach ($value['sub'] as $key1 => $value1) {
+                        $selected = '';
+                        if(!empty($_GET['idCategory']) && $_GET['idCategory']==$key1){
+                          $selected = 'selected';
+                        }
+
+                        echo '<option '.$selected.' value="'.$key1.'" >&nbsp;&nbsp;&nbsp;'.$value1['name'].'</option>';
+
+                        $category[$key1] = $value1['name'];
+
+                        if(!empty($value1['sub'])){
+                          foreach ($value1['sub'] as $key2 => $value2) {
+                            $selected = '';
+                            if(!empty($_GET['idCategory']) && $_GET['idCategory']==$key2){
+                              $selected = 'selected';
+                            }
+
+                            echo '<option '.$selected.' value="'.$key2.'" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$value2['name'].'</option>';
+
+                            $category[$key2] = $value2['name'];
+
+                            if(!empty($value2['sub'])){
+                              foreach ($value2['sub'] as $key3 => $value3) {
+                                $selected = '';
+                                if(!empty($_GET['idCategory']) && $_GET['idCategory']==$key3){
+                                  $selected = 'selected';
+                                }
+
+                                echo '<option '.$selected.' value="'.$key3.'" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$value3['name'].'</option>';
+
+                                $category[$key3] = $value3['name'];
+
+                                if(!empty($value3['sub'])){
+                                  foreach ($value3['sub'] as $key4 => $value4) {
+                                    $selected = '';
+                                    if(!empty($_GET['idCategory']) && $_GET['idCategory']==$key4){
+                                      $selected = 'selected';
+                                    }
+
+                                    echo '<option '.$selected.' value="'.$key4.'" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$value4['name'].'</option>';
+
+                                    $category[$key4] = $value4['name'];
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               ?>

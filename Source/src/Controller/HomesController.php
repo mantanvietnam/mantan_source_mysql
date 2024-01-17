@@ -217,6 +217,7 @@ class HomesController extends AppController{
                         'type' => 'LEFT',
                         'conditions' => [
                             'Posts.id = CategoryConnects.id_parent',
+                            'CategoryConnects.keyword = "post"',
                         ],
                     ]
                 ];
@@ -344,12 +345,13 @@ class HomesController extends AppController{
         global $metaDescriptionMantan;
         global $urlCurrent;
         global $modelCategories;
+        global $modelCategoryConnects;
         global $infoSite;
 
         $modelAlbums = $this->loadModel('Albums');
 
         $slug= $_SERVER['REQUEST_URI'];
-        $conditions = ['type'=>'post'];
+        $conditions = [];
         $category = $modelCategories->newEmptyEntity();
 
         if(!empty($slug)){
@@ -362,7 +364,8 @@ class HomesController extends AppController{
             $category = $modelCategories->find()->where($conditions)->first();
 
             if(!empty($category)){
-                $conditions = array('id_category'=>$category->id);
+                $conditions['CategoryConnects.id_category'] = $category->id;
+                $conditions['CategoryConnects.keyword'] = 'album';
             }else{
                 $category = $modelCategories->newEmptyEntity();
             }
@@ -371,10 +374,23 @@ class HomesController extends AppController{
         $limit = (!empty($infoSite['number_post']))?$infoSite['number_post']:12;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
+        $join = [
+                    [
+                        'table' => 'category_connects',
+                        'alias' => 'CategoryConnects',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Albums.id = CategoryConnects.id_parent',
+                            'CategoryConnects.keyword = "album"',
+                        ],
+                    ]
+                ];
 
-        $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+        $select = ['Albums.id', 'Albums.title', 'Albums.id_category', 'Albums.image', 'Albums.time_create', 'Albums.status', 'Albums.slug', 'Albums.author', 'Albums.description'];
 
-        $totalData = $modelAlbums->find()->where($conditions)->all()->toList();
+        $listData = $modelAlbums->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->order(['Albums.id' => 'DESC'])->all()->toList();
+
+        $totalData = $modelAlbums->find()->join($join)->where($conditions)->all()->toList();
         $totalData = count($totalData);
 
         $balance = $totalData % $limit;
@@ -487,12 +503,13 @@ class HomesController extends AppController{
         global $metaDescriptionMantan;
         global $urlCurrent;
         global $modelCategories;
+        global $modelCategoryConnects;
         global $infoSite;
 
         $modelVideos = $this->loadModel('Videos');
 
         $slug= $_SERVER['REQUEST_URI'];
-        $conditions = ['type'=>'post'];
+        $conditions = [];
         $category = $modelCategories->newEmptyEntity();
 
         if(!empty($slug)){
@@ -505,7 +522,8 @@ class HomesController extends AppController{
             $category = $modelCategories->find()->where($conditions)->first();
 
             if(!empty($category)){
-                $conditions = array('id_category'=>$category->id);
+                $conditions['CategoryConnects.id_category'] = $category->id;
+                $conditions['CategoryConnects.keyword'] = 'video';
             }else{
                 $category = $modelCategories->newEmptyEntity();
             }
@@ -514,10 +532,23 @@ class HomesController extends AppController{
         $limit = (!empty($infoSite['number_post']))?$infoSite['number_post']:12;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
+        $join = [
+                    [
+                        'table' => 'category_connects',
+                        'alias' => 'CategoryConnects',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Videos.id = CategoryConnects.id_parent',
+                            'CategoryConnects.keyword = "video"',
+                        ],
+                    ]
+                ];
 
-        $listData = $modelVideos->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+        $select = ['Videos.id', 'Videos.title', 'Videos.id_category', 'Videos.image', 'Videos.time_create', 'Videos.status', 'Videos.slug', 'Videos.author', 'Videos.description', 'Videos.youtube_code'];
 
-        $totalData = $modelVideos->find()->where($conditions)->all()->toList();
+        $listData = $modelVideos->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->order(['Videos.id' => 'DESC'])->all()->toList();
+
+        $totalData = $modelVideos->find()->join($join)->where($conditions)->all()->toList();
         $totalData = count($totalData);
 
         $balance = $totalData % $limit;

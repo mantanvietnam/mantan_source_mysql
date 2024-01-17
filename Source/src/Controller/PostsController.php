@@ -208,7 +208,7 @@ class PostsController extends AppController{
 	            $modelPosts->save($infoPost);
 
 	            // tạo dữ liệu bảng chuyên mục
-	            $modelCategoryConnects->deleteAll(['id_parent'=>$infoPost->id]);
+	            $modelCategoryConnects->deleteAll(['id_parent'=>$infoPost->id, 'keyword'=>'post']);
 
 	            if(!empty($dataSend['idCategory'])){
 	            	foreach ($dataSend['idCategory'] as $idCategory) {
