@@ -713,6 +713,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <div class="row">
                                 <div class="col-12 modal-right">
                                     <div class="or-login">
+                                        <div class="icon-notification">
+                                            <img src="<?php echo $urlThemeActive ?>asset/image/notificationicon.png" alt="">
+                                        </div>
+
                                         <div class="forgot-text-title">
                                              Chưa có khuyến mãi 
                                         </div>

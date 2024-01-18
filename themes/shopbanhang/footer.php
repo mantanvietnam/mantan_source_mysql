@@ -499,11 +499,13 @@ $infoUser = $session->read('infoUser');
                             <div class="row">
                                 <div class="col-12 modal-right">
                                     <div class="or-login">
+                                        <div class="icon-notification">
+                                            <img src="<?php echo $urlThemeActive ?>asset/image/notificationicon.png" alt="">
+                                        </div>
+
                                         <div class="forgot-text-title" id="messSubscribe">
                                             
                                         </div>
-                                      
-
                                     </div>
                                     
                                 </div>

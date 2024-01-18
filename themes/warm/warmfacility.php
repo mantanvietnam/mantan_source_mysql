@@ -28,7 +28,8 @@
 
             <div class="title-section-sub">
                 <div class="container">
-                    The WARM Facility aims to strengthen the resilience of populations and economic activities to natural risks to water, by supporting provinces and cities to become more resilient to climate change and natural disasters and promoting integrated management of water resources and coastal areas.
+                    <!-- The WARM Facility aims to strengthen the resilience of populations and economic activities to natural risks to water, by supporting provinces and cities to become more resilient to climate change and natural disasters and promoting integrated management of water resources and coastal areas. -->
+                    The WARM Facility aims to strengthen the resilience of populations and economic activities to water-related climatic hazards, by supporting provinces and cities to become more resilient to climate change and natural disasters and promoting integrated management of water resources and coastal areas.
                 </div>
             </div>
 
@@ -106,7 +107,9 @@
                             <li>Component 1. <strong>Project Preparation Support.</strong> Through this component, the WARM funds are used to structure the demand of local authorities and enhance the quality of the preparatory studies for projects that could emerge and that would meet the objectives of the Facility. It ensures that local authorities and relevant Vietnamese partners maximize the environmental and social impacts of the projects prepared and succeed in obtaining financing for significant water and natural resources management projects.  </li>
                             <li>Component 2. <strong>Project Implementation Support.</strong> This component will help to increase capacity for the local partners/authorities to achieve the highest result from implementing </li>
                             <li>Component 3. <strong>Investments</strong> using AFD’s loans and Vietnamese authorities to finance  the investments in infrastructure for several projects with local authorities in the fields of integrated coastal zone management, integrated water resources management and natural disasters and climatic hazards prevention in vulnerable territories, including cities); </li>
-                            <li>Component 4. <strong>Policy dialogue, cross-cutting issues and capitalization</strong> to support policy or strategic dialogue, to improve the knowledge in the thematic sectors concerned by the Facility, to ensure the communication and the visibility of the projects funded and to improve coordination and accountability.</li>
+                            <!-- <li>Component 4. <strong>Policy dialogue, cross-cutting issues and capitalization</strong> to support policy or strategic dialogue, to improve the knowledge in the thematic sectors concerned by the Facility, to ensure the communication and the visibility of the projects funded and to improve coordination and accountability.</li> -->
+                            
+                            <li>Component 4. <strong>Sectoral Policy dialogue, cross-cutting issues and capitalization</strong> to support policy or strategic dialogue, to improve the knowledge in the thematic sectors concerned by the Facility, to ensure the communication and the visibility of the projects funded and to improve coordination and accountability.</li>
 
                         </ul>
                     </div>
@@ -145,7 +148,7 @@
                             <ul>
                                 <li>Improve the resilience of communities and their livelihoods in areas vulnerable to climate change.</li>
                                 <li>Reinforce integrated management of water-resources in river basins, coastal zones and urban areas.</li>
-                                <li>Support policy dialogue and strategic dialogue related to water and natural resources management.</li>
+                                <li>Support sectoral policy and strategic dialogue related to water and natural resources management.</li>
                                 
                             </ul>
                         </div>

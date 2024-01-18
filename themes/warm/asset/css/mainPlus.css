@@ -867,6 +867,7 @@
     background-color: transparent;
     margin-right: 17px;
     text-transform: uppercase;
+    cursor: unset;
 }
 
 .media-press-button {
