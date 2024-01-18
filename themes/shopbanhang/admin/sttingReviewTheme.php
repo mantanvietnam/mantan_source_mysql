@@ -174,5 +174,3 @@
       </div>
     <?= $this->Form->end() ?>
   </div>
-
-  text-welcome
