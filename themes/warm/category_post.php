@@ -93,7 +93,7 @@
                 <!-- upcoming -->
                 <section id="section-event">
             <div class="container">
-                <div class="row">
+                <div class="event-item-box d-flex">
                     <div class="event-item event-item-1">
                         <div class="event-meta">
                             <span>Project launching workshop </span>
@@ -118,7 +118,7 @@
                         </div>
 
                         <div class="event-date">
-                            <span>22 February 2024   </span>
+                            <span>23 February 2024   </span>
                         </div>
                     </div>
 
@@ -136,7 +136,7 @@
                         <div class="event-title">
                             <h2>UPCOMING 
                                 <br>
-                                EVENT</h2>
+                                EVENTS</h2>
                         </div>
                     </div>
                 </div>
