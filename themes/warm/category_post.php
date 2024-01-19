@@ -90,6 +90,59 @@
             </div>
         </section>
 
+                <!-- upcoming -->
+                <section id="section-event">
+            <div class="container">
+                <div class="row">
+                    <div class="event-item event-item-1">
+                        <div class="event-meta">
+                            <span>Project launching workshop </span>
+                        </div>
+
+                        <div class="event-name">
+                            <h3>Central coastal urban development: Building green growth and resilience to climate change in Dong Ha city, Quang Tri province</h3>
+                        </div>
+
+                        <div class="event-date">
+                            <span>22 February 2024   </span>
+                        </div>
+                    </div>
+
+                    <div class="event-item event-item-2">
+                        <div class="event-meta">
+                            <span>Project launching workshop </span>
+                        </div>
+
+                        <div class="event-name">
+                            <h3>Coastal sustainable and preventive protection in Quang Nam province</h3>
+                        </div>
+
+                        <div class="event-date">
+                            <span>22 February 2024   </span>
+                        </div>
+                    </div>
+
+                    <div class="event-item event-item-3">
+                        <div class="row row-event-item">
+                            <div class="col-lg-4 event-title-1">
+                            </div>
+
+                            <div class="col-lg-4 event-title-2">
+                            </div>
+
+                            <div class="col-lg-4 event-title-3">
+                            </div>
+                        </div>
+                        <div class="event-title">
+                            <h2>UPCOMING 
+                                <br>
+                                EVENT</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- news facility -->
         <section id="section-news-facility" class="section-news-ribbon">
             <div class="section-news-facility-inner">

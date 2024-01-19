@@ -1873,3 +1873,102 @@
     text-align: center;
     font-weight: bold;
 }
+
+
+/* Bo sung */
+#section-event{
+    margin-top: 95px;
+}
+
+#section-event .event-item{
+    flex: 0 0 auto;
+}
+
+#section-event .event-item-1{
+    width: 28%;
+    background-color: #0978B9;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    padding-left: 30px;
+
+}
+
+#section-event .event-item-2{
+    width: 28%;
+    background-color: #00abdd;
+    padding-left: 30px;
+
+
+}
+
+#section-event .event-item-3{
+    width: 44%;
+}
+
+#section-event .event-item .event-meta{
+    margin-top: 34px;
+    margin-bottom: 25px;
+}
+
+#section-event .event-item .event-meta span{
+    font-size: 15px;
+    color: #fff;
+    text-transform: uppercase;
+    background-color: #99C84A;
+    padding: 9px 12px;
+    border-radius: 30px;
+}
+
+
+#section-event .event-item .event-name h3{
+    font-size: 19px;
+    font-weight: bold;
+    line-height: 1.2;
+    color :#fff;
+    height: 96px;
+}
+
+.event-title-1{
+    background-color: #5BC4E2;
+}
+
+.event-title-2{
+    background-color: #97D5E7;
+}
+
+.event-title-3{
+    background-color: #CCEAF3;
+}
+
+.event-item{
+    padding-right: 30px;
+
+}
+
+.event-title{
+    position: absolute;
+    bottom: 0;
+    left: 40px;
+}
+
+.event-title h2{
+    color: #fff;
+    font-size: 77px;
+    font-weight: bold;
+}
+
+.event-item-3{
+    position: relative;
+}
+
+.row-event-item{
+    height: 100%;
+}
+
+.event-date{
+    text-transform: uppercase;
+    font-size: 15px;
+    color: #fff;
+    margin-top: 13px;
+    margin-bottom: 19px;
+}
