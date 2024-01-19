@@ -89,26 +89,35 @@
                 </div>
             </div>
         </section>
+        <?php $listEvent = getEvent();
+            if(!empty($listEvent)){
+         ?>
 
                 <!-- upcoming -->
                 <section id="section-event">
             <div class="container">
                 <div class="event-item-box d-flex">
-                    <div class="event-item event-item-1">
+                    <?php foreach($listEvent as $key => $item){
+                        $class = 'event-item-1';
+                        if($key==1){
+                             $class = 'event-item-2';
+                        }
+                    echo '<div class="event-item '.$class.'">
                         <div class="event-meta">
-                            <span>Project launching workshop </span>
+                            <span>'.$item->name.'</span>
                         </div>
 
                         <div class="event-name">
-                            <h3>Central coastal urban development: Building green growth and resilience to climate change in Dong Ha city, Quang Tri province</h3>
+                            <h3>'.$item->content.'</h3>
                         </div>
 
                         <div class="event-date">
-                            <span>22 February 2024   </span>
+                            <span>'.date('d/m/Y', $item->time_create).'</span>
                         </div>
-                    </div>
+                    </div>';
+                 } ?>
 
-                    <div class="event-item event-item-2">
+                    <!-- <div class="event-item event-item-2">
                         <div class="event-meta">
                             <span>Project launching workshop </span>
                         </div>
@@ -120,7 +129,7 @@
                         <div class="event-date">
                             <span>23 February 2024   </span>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="event-item event-item-3">
                         <div class="row row-event-item">
@@ -142,6 +151,7 @@
                 </div>
             </div>
         </section>
+    <?php } ?>
 
         <!-- news facility -->
         <section id="section-news-facility" class="section-news-ribbon">

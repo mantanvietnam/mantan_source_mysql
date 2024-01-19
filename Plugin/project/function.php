@@ -40,7 +40,27 @@ $menus[0]['sub'][6]= array('title'=>'Thông tin Warm Team ',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'sttingWarmteamAdmin',
                         );
+$menus[0]['sub'][6]= array('title'=>'Thông tin Event',
+                            'url'=>'/plugins/admin/project-view-admin-event-listEventAdmin',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listEventAdmin',
+                        );
 addMenuAdminMantan($menus);
 
+function getEvent(){
+   global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategories;
 
+    $metaTitleMantan = 'Danh sách Event';
+
+    $modelEvent = $controller->loadModel('Events');
+
+    $month = getdate()['mon'];
+    $year = getdate()['year'];
+
+    
+    return $modelEvent->find()->limit(2)->page(1)->where(array('moth' => $month))->all()->toList(); 
+}
 ?>

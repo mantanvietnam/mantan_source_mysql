@@ -705,4 +705,147 @@ function sttingWarmteamAdmin($input){
     setVariable('setting', $data_value);
     setVariable('mess', $mess);
 }
+
+function listEventAdmin($input)
+{
+    
+    global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategories;
+
+    $metaTitleMantan = 'Danh sách Event';
+
+    $modelEvent = $controller->loadModel('Events');
+
+    $conditions = array();
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'asc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+
+    if(!empty($_GET['moth'])){
+        $conditions['moth'] = $_GET['moth'];
+        
+    }
+    
+    $listData = $modelEvent->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+
+
+    // phân trang
+    $totalData = $modelEvent->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
+    setVariable('listData', $listData);
+
+}
+
+function addEventAdmin($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thông tin Event';
+
+    $modelEvent = $controller->loadModel('Events');
+    $mess= '';
+
+    // lấy data edit
+    if(!empty($_GET['id'])){
+        $data = $modelEvent->get( (int) $_GET['id']);
+    }else{
+        $data = $modelEvent->newEmptyEntity();
+    }
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['name'])){
+
+            $today= getdate();
+            $datePost = explode('/', $dataSend['time_create']);
+                
+            if(!empty($datePost))
+            {
+                $time= mktime($today['hours'], $today['minutes'], $today['seconds'], $datePost[1], $datePost[0], $datePost[2]);
+            }
+            // tạo dữ liệu save
+            $data->name = $dataSend['name'];
+            $data->moth = (int)$dataSend['moth'];
+            $data->time_create = (int)@$time;
+            $data->content =@$dataSend['content'];
+            $data->year =(int) @$dataSend['year'];
+            $modelEvent->save($data);     
+
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+        }else{
+            $mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin/p>';
+        }
+    }
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+
+function deleteEventAdmin($input){
+    global $controller;
+
+    $modelEvent = $controller->loadModel('Events');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelEvent->get($_GET['id']);
+        
+        if($data){
+            $modelEvent->delete($data);
+            deleteSlugURL($data->slug);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/project-view-admin-event-listEventAdmin');
+}
 ?>
