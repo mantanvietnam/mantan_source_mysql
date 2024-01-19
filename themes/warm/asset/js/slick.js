@@ -239,7 +239,7 @@ $('.list-partner').slick({
     $('.news-press-slide').slick({
       infinite: true,
       slidesToShow: 3,
-      slidesToScroll: 1,
+      slidesToScroll: 3,
       arrows:true,
       prevArrow:
       `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-chevron-left"></i></button>`,

@@ -91,7 +91,7 @@
         </section>
 
         <!-- news facility -->
-        <section id="section-news-facility">
+        <section id="section-news-facility" class="section-news-ribbon">
             <div class="section-news-facility-inner">
                 <div class="container">
                     <div class="news-title-section-cate">

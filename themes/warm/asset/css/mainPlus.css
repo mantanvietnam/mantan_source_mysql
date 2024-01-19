@@ -597,7 +597,7 @@
 }
 
 .news-right-button-news {
-    margin-top: 30px;
+    margin-top: 10px;
     display: flex;
     align-items: center;
 }
@@ -1616,6 +1616,8 @@
 	border: none;
 	border-radius: 5px;
 	padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .facility-content-item-button button a{
@@ -1826,4 +1828,48 @@
     .section-photo-ourproject .slick-arrow{
         display: none !important;
     }
+}
+
+/* Bổ sung */
+#navbarSupportedContent > ul > li:nth-child(1) > ul > li:nth-child(2) > ul{
+    right: -184px;
+}
+
+#navbarSupportedContent .btn-group:hover > .dropdown-menu{
+    display: block;
+}
+
+.photo-slide-bottom-item.slick-current img{
+    border: 2px solid #fff;
+}
+
+.section-photo-ourproject .photo-slide-bottom-item.slick-current img{
+    border: 2px solid #075481;
+}
+
+.hidden{
+    display: none;
+}
+
+.news-item-img{
+    position: relative;
+    overflow: hidden;
+}
+
+.section-news-ribbon .news-slide-item:first-child .news-item-img:before {
+    position: absolute;
+    content: "NEW";
+    bottom: -67px;
+    right: -25px;
+    background-color: #ff6347;
+    color: #fff;
+    padding: 8px 16px;
+    transform: rotate(-45deg);
+    transform-origin: 0 0;
+    box-shadow: 0px 4px 31px 12px rgba(0, 0, 0);
+    font-size: 14px;
+    width: 90px;
+    height: 68px;
+    text-align: center;
+    font-weight: bold;
 }

@@ -72,10 +72,41 @@
                 </div>
 
                 <div class="button-loadmore">
-                    <button id="loadMoreBtn">Load more</button>
+                    <button id="loadMoreBtn" onclick="loadMore()">Load more</button>
                 </div>
             </div>
         </section>
     </main>
+    
 
+    <script>
+        // Ẩn phần tử
+        var listContainer = document.querySelector('#section-opportunities .row');
+        var items = listContainer.querySelectorAll('.opportunity-box');
+        var isExpanded = false;
+
+        // Ẩn tất cả phần tử trừ 3 phần tử đầu tiên
+        for (var i = 3; i < items.length; i++) {
+        items[i].classList.add('hidden');
+        }
+
+        function loadMore() {
+        if (!isExpanded) {
+            // Loại bỏ lớp 'hidden' từ tất cả các phần tử nếu chúng đã được ẩn
+            items.forEach(function (item) {
+            item.classList.remove('hidden');
+            });
+            isExpanded = true;
+            // document.getElementById('loadMoreBtn').textContent = 'Rút gọn';
+        } else {
+            // Ẩn bớt các phần tử sau 3 phần tử đầu tiên
+            for (var i = 3; i < items.length; i++) {
+            items[i].classList.add('hidden');
+            }
+            isExpanded = false;
+            // document.getElementById('loadMoreBtn').textContent = 'Xem thêm';
+        }
+    }
+
+    </script>
 <?php getFooter();?>

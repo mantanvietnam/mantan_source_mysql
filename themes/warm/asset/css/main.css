@@ -351,6 +351,7 @@ strong {
 /* Sửa */
 
 #section-menu .btn-group {
+    padding: 17px 0;
     margin-right: 18px !important;
     transform: translateY(1px);
 }
@@ -389,11 +390,12 @@ strong {
     margin-top: 25px
 }
 
-#section-menu .navbar-header-menu .dropdown-menu[data-bs-popper] {
-    top: 165% !important;
+#section-menu .navbar-header-menu .btn-group > .dropdown-menu {
+    top: 50px !important;
     right: 0;
     min-width: 250px;
     z-index: 99999;
+    left: 0;
 }
 
 #section-menu .navbar-header-menu .dropdown-item {
