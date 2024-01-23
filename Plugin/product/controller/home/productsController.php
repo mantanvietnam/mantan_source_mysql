@@ -85,7 +85,7 @@ function product($input)
             $product->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$product->id])->all()->toList());
 
 
-            $DiscountCode = $modelDiscountCodes->find()->where([])->all()->toList();
+            $DiscountCode = $modelDiscountCodes->find()->where(['status'=>1])->all()->toList();
             $CodeDiscount = array();
             foreach($DiscountCode as $key => $item){
                 if(!empty($item->id_product)){
@@ -458,7 +458,7 @@ function sela($input)
             }
         }
     }
-    $DiscountCode = $modelDiscountCode->find()->limit(3)->where(array())->order($order)->all()->toList();
+    $DiscountCode = $modelDiscountCode->find()->limit(3)->where(array('status'=>1))->order($order)->all()->toList();
 
     // phân trang
     $totalData = $modelProduct->find()->where($conditions)->all()->toList();

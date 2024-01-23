@@ -441,12 +441,13 @@ $price_total = 0;
                                 <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                             <div class="cart-code-discount-right">
                                 <div class="title-code-enter">
-                                    Mã giảm giá
+                                    Mã giảm giá  <span style="color: #0d6efd;font-size: 12px;font-family: inherit;" id="addcode"></span>
                                 </div>
 
                                 <div class="enter-code-discount">
                                     <input type="text" name="discountCode" id="discountCode" placeholder="Nhập mã giảm giá tại đây">
                                     <a onclick="searchDiscountCodeReservedAPI()">Áp dụng</a>
+                                   
                                 </div>
 
                               
@@ -530,9 +531,7 @@ $price_total = 0;
                             
                                 <!-- Giá voucher-->
                                 <div class="cart-price-code-discount">
-                                    <div class="cart-price-item" id="discountPrice1">
-                                        
-                                    </div>
+                                    <div class="cart-price-item" id="discountPrice1"></div>
                                     <input type="hidden"  name="discount_price1" value="" id="discount_price1">
                                     <input type="hidden"  name="maximum_price_reduction1" value="" id="maximum_price_reduction1">
                                     <input type="hidden"  name="discount1" value="" id="discount1">
@@ -542,9 +541,7 @@ $price_total = 0;
                                 </div>
 
                                 <div class="cart-price-code-discount">
-                                    <div class="cart-price-item" id="discountPrice2">
-                                        
-                                    </div>
+                                    <div class="cart-price-item" id="discountPrice2"></div>
                                     <input type="hidden"  name="discount_price2" value="" id="discount_price2">
                                     <input type="hidden"  name="maximum_price_reduction2" value="" id="maximum_price_reduction2">
                                     <input type="hidden"  name="discount2" value="" id="discount2">
@@ -554,9 +551,7 @@ $price_total = 0;
                                 </div>
 
                                 <div class="cart-price-code-discount">
-                                    <div class="cart-price-item" id="discountPrice3">
-                                        
-                                    </div>
+                                    <div class="cart-price-item" id="discountPrice3"></div>
                                     <input type="hidden"  name="discount_price3" value="" id="discount_price3">
                                     <input type="hidden"  name="maximum_price_reduction3" value="" id="maximum_price_reduction3">
                                     <input type="hidden"  name="discount3" value="" id="discount3">
@@ -566,9 +561,7 @@ $price_total = 0;
                                 </div>
 
                                 <div class="cart-price-code-discount">
-                                    <div class="cart-price-item" id="discountPrice4">
-                                        
-                                    </div>
+                                    <div class="cart-price-item" id="discountPrice4"></div>
                                     <input type="hidden"  name="discount_price4" value="" id="discount_price4">
                                     <input type="hidden"  name="maximum_price_reduction4" value="" id="maximum_price_reduction4">
                                     <input type="hidden"  name="discount4" value="" id="discount4">
@@ -1183,11 +1176,49 @@ $(document).ready(function() {
                             html +='<div class="cart-price-sum-discount-price"> - '+discount+'</div>'
                              $('#discountPrice4').html(html);
 
+                             $('#addcode').html('Áp mã giảm giá thành công');
+
                             tinhtien();
 
+                       }else{
+                            document.getElementById("code4").value = 0;
+                           document.getElementById("discount_price4").value = 0;
+                           document.getElementById("maximum_price_reduction4").value = 0;
+                           document.getElementById("discount4").value = 0;
+                           document.getElementById("applicable_price4").value = 0;
+                            var discount = new Intl.NumberFormat().format(discount);
+                            html +='<div class="cart-price-sum-discount-title"> </div>'
+                            html +='<div class="cart-price-sum-discount-price"> </div>'
+                             $('#discountPrice4').html(html);
+                            $('#addcode').html('');
+                            tinhtien();
                        }
-                    }
-                } 
+                    }else{
+                            document.getElementById("code4").value = 0;
+                           document.getElementById("discount_price4").value = 0;
+                           document.getElementById("maximum_price_reduction4").value = 0;
+                           document.getElementById("discount4").value = 0;
+                           document.getElementById("applicable_price4").value = 0;
+                            var discount = new Intl.NumberFormat().format(discount);
+                            html +='<div class="cart-price-sum-discount-title"> </div>'
+                            html +='<div class="cart-price-sum-discount-price"> </div>'
+                             $('#discountPrice4').html(html);
+                            $('#addcode').html('');
+                            tinhtien();
+                       }
+                }else{
+                            document.getElementById("code4").value = 0;
+                           document.getElementById("discount_price4").value = 0;
+                           document.getElementById("maximum_price_reduction4").value = 0;
+                           document.getElementById("discount4").value = 0;
+                           document.getElementById("applicable_price4").value = 0;
+                            var discount = new Intl.NumberFormat().format(discount);
+                            html +='<div class="cart-price-sum-discount-title"> </div>'
+                            html +='<div class="cart-price-sum-discount-price"> </div>'
+                             $('#discountPrice4').html(html);
+                            $('#addcode').html('');
+                            tinhtien();
+                       } 
                
             });
         
