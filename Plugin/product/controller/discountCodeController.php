@@ -114,6 +114,7 @@ function addDiscountCodeAdmin($input)
         if(!empty($dataSend['name'])){
             // tạo dữ liệu save
             $data->name = @$dataSend['name'];
+            $data->status = @$dataSend['status'];
             $data->code = strtoupper(@$dataSend['code']);
             $data->discount = @$dataSend['discount'];
             $data->maximum_price_reduction = @$dataSend['maximum_price_reduction'];

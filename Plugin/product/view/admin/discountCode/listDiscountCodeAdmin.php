@@ -47,6 +47,7 @@
             <th>số lần</th>
             <th>Ngày Hết hạn</th>
             <th>nội dung</th>
+            <th>Trạng thái</th>
             <th>sữa</th>
             <th>Xóa</th>
           </tr>
@@ -64,6 +65,10 @@
                 }else{
                    $discount = $item->discount.'%';
                 }
+                $status = 'Ẩn';
+                if($item->status==1){
+                  $status = 'Hiển thị';
+                }
 
                 echo '<tr>
                         <td>'.$item->id.'</td>
@@ -74,6 +79,7 @@
                         <td>'.@$item->number_user.'</td>
                         <td>'.$data.'</td>
                         <td>'.@$item->note.'</td>
+                        <td>'.@$status.'</td>
                          <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/product-view-admin-discountCode-addDiscountCodeAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

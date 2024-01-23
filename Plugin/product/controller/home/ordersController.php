@@ -66,7 +66,7 @@ function cart($input)
 
 	foreach($categoryDiscountCode as $key => $item){
 		$data = array();
-		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
+		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key, 'status'=>1))->all()->toList(); 
 		$data['name'] = $item;
 		if(!empty($discountCode)){
 			foreach(@$discountCode as $k => $value){
@@ -344,11 +344,13 @@ function addDiscountCode($input){
 	$pay['code1'] = @$_GET['code1'];
 	$pay['code2'] = @$_GET['code2'];
 	$pay['code3'] = @$_GET['code3'];
+	$pay['code4'] = @$_GET['code4'];
 	$pay['totalPays'] = @$_GET['totalPays'];
 	$pay['discount_price'] = @$_GET['discount_price'];
 	$pay['discount_price1'] = @$_GET['discount_price1'];
 	$pay['discount_price2'] = @$_GET['discount_price2'];
 	$pay['discount_price3'] = @$_GET['discount_price3'];
+	$pay['discount_price4'] = @$_GET['discount_price4'];
 	$pay['total'] = @$_GET['total'];
 
 	$session->write('pay', $pay);
@@ -582,9 +584,11 @@ function pay($input){
 		$discount = array( 'code1' => @$pay['code1'],
 			'code2' => @$pay['code2'],
 			'code3' => @$pay['code3'],
+			'code4' => @$pay['code4'],
 			'discount_price1' => @$pay['discount_price1'],
 			'discount_price2' => @$pay['discount_price2'],
 			'discount_price3' => @$pay['discount_price3'],
+			'discount_price4' => @$pay['discount_price4'],
 		);
 		$data->discount = json_encode($discount);
 
@@ -800,7 +804,7 @@ function discount($input){
 
 	foreach($categoryDiscountCode as $key => $item){
 		$data = array();
-		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
+		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key,'status'=>1))->all()->toList(); 
 		$data['name'] = $item;
 		if(!empty($discountCode) && !empty($infoUser)){
 			foreach(@$discountCode as $k => $value){
@@ -833,8 +837,43 @@ function getOrderAPI($input){
 		return getOrderLarkSuite($dataSend['id']);
 	}
 	
-
-
-	
 }
+function searchDiscountCodeReservedAPI($input){
+	global $controller;
+	global $urlCurrent;
+	global $modelCategories;
+	global $metaTitleMantan;
+	global $session;
+
+	$return= array();
+	$return = array('code'=>0);
+
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+	}
+	$conditions = array();
+	if(!empty($_GET['code'])){
+		$conditions['code'] = $_GET['code'];
+		$conditions['status'] = 0;
+
+		$data = $modelDiscountCode->find()->where($conditions)->first();
+
+		if(!empty($data->id_customer) && !empty($infoUser)){
+			$id_customer = explode(',', $data->id_customer);
+			if(in_array($infoUser->id, $id_customer)){
+				$data['discountCode'] = $data;
+			}
+		}
+		if(!empty($data)){
+			return array('code'=>1, 'data'=>$data);
+		}else{
+			$return = array('code'=>0);
+		}
+	}else{
+		$return = array('code'=>0);
+	}
+
+	return $return;
+}	
 ?>

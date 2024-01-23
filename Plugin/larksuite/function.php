@@ -99,6 +99,9 @@ function getOrderLarkSuite($id){
                     if(!empty($pay['code3']) && !empty($pay['discount_price3'])){                   
                         $discount .= $pay['code3'].':'.$pay['discount_price3'].'; ';
                     }
+                    if(!empty($pay['code4']) && !empty($pay['discount_price4'])){                   
+                        $discount .= $pay['code4'].':'.$pay['discount_price4'].'; ';
+                    }
                     $order->discount = $discount;
                     
                     

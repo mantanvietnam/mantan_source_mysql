@@ -80,6 +80,13 @@
                   </div>
                   </div>';  
                 }
+                 if(!empty($pay['code4']) && !empty($pay['discount_price4'])){
+                  echo '              <div class="cart-price-code-discount">
+                  <div class="cart-price-item">
+                  <div class="cart-price-item-title"> '. $pay['code4'] .': -'.number_format($pay['discount_price4']).'đ
+                  </div>
+                  </div>';  
+                }
                 echo '   
                 Thành tiền: '.number_format($order->total).'đ<br/>
                 </td>

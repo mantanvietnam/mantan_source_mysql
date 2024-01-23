@@ -207,6 +207,13 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
       </div>
       </div>';  
     }
+     if(!empty($discountCode['code4']) && !empty($discountCode['discount_price4'])){
+      $content .=  '              <div class="cart-price-code-discount">
+      <div class="cart-price-item">
+      <div class="cart-price-item-title"> '. $discountCode['code4'] .': -'.number_format($discountCode['discount_price4']).'đ
+      </div>
+      </div>';  
+    }
     $content .=  ' Thành tiền: '.number_format($order->total).'đ<br/>
     </td></tr>
     </tbody>
@@ -355,6 +362,13 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
       $content .=  '              <div class="cart-price-code-discount">
       <div class="cart-price-item">
       <div class="cart-price-item-title"> '. $discountCode['code3'] .': -'.number_format($discountCode['discount_price3']).'đ
+      </div>
+      </div>';  
+    }
+     if(!empty($discountCode['code4']) && !empty($discountCode['discount_price4'])){
+      $content .=  '              <div class="cart-price-code-discount">
+      <div class="cart-price-item">
+      <div class="cart-price-item-title"> '. $discountCode['code4'] .': -'.number_format($discountCode['discount_price4']).'đ
       </div>
       </div>';  
     }

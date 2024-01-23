@@ -159,6 +159,19 @@ $infoUser = $session->read('infoUser');
                                     </div>
                                 </div>
                             <?php } ?>
+                            <?php if(!empty($pay['code4']) && !empty($pay['discount_price4'])){ ?>
+                                <div class="cart-price-code-discount">
+                                    <div class="cart-price-item">
+                                        <div class="cart-price-item-title">
+                                            <?php echo $pay['code4']; ?>    
+                                        </div>
+    
+                                        <div class="cart-price-item-price">
+                                            -<?php echo number_format($pay['discount_price4']); ?>đ
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
                                 <!-- Giá tổng chiết khẩu -->
                                  <div class="cart-price-total">
                                     <div class="cart-price-item">
@@ -167,7 +180,7 @@ $infoUser = $session->read('infoUser');
                                         </div>
     
                                         <div class="cart-price-item-price">
-                                            <?php echo number_format( (int) @$pay['discount_price3']+ (int) @$pay['discount_price1']+ (int) @$pay['discount_price2']); ?>đ
+                                            <?php echo number_format( (int) @$pay['discount_price3']+ (int) @$pay['discount_price1']+ (int) @$pay['discount_price2'] +(int) @$pay['discount_price4']); ?>đ
                                         </div>
                                     </div>
                                 </div>

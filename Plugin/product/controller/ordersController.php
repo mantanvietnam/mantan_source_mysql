@@ -79,6 +79,9 @@ function listOrderAdmin($input)
                     if(!empty($pay['code3']) && !empty($pay['discount_price3'])){
                         $discount .=  $pay['code3'] .': -'.number_format($pay['discount_price3']).'đ';
                     }
+                    if(!empty($pay['code4']) && !empty($pay['discount_price4'])){
+                        $discount .=  $pay['code4'] .': -'.number_format($pay['discount_price4']).'đ';
+                    }
                 }
                 $status= '';
                 if($value->status=='new'){ 

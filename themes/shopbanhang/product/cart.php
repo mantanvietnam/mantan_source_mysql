@@ -446,7 +446,7 @@ $price_total = 0;
 
                                 <div class="enter-code-discount">
                                     <input type="text" name="discountCode" id="discountCode" placeholder="Nhập mã giảm giá tại đây">
-                                    <a onclick="searchDiscountCodeAPI()">Áp dụng</a>
+                                    <a onclick="searchDiscountCodeReservedAPI()">Áp dụng</a>
                                 </div>
 
                               
@@ -562,6 +562,18 @@ $price_total = 0;
                                     <input type="hidden"  name="discount3" value="" id="discount3">
                                     <input type="hidden"  name="code3" value="" id="code3">
                                     <input type="hidden"  name="applicable_price3" value="" id="applicable_price3">
+                                    
+                                </div>
+
+                                <div class="cart-price-code-discount">
+                                    <div class="cart-price-item" id="discountPrice4">
+                                        
+                                    </div>
+                                    <input type="hidden"  name="discount_price4" value="" id="discount_price4">
+                                    <input type="hidden"  name="maximum_price_reduction4" value="" id="maximum_price_reduction4">
+                                    <input type="hidden"  name="discount4" value="" id="discount4">
+                                    <input type="hidden"  name="code4" value="" id="code4">
+                                    <input type="hidden"  name="applicable_price4" value="" id="applicable_price4">
                                     
                                 </div>
 
@@ -880,10 +892,12 @@ $(document).ready(function() {
             var discount1 = 0;
             var discount2 = 0;
             var discount3 = 0;
+            var discount4 = 0;
 
             var maximum_price_reduction1 = 0;
             var maximum_price_reduction2 = 0;
             var maximum_price_reduction3 = 0;
+            var maximum_price_reduction4 = 0;
             /*discount1= parseInt($('#discount_price1').val());
             discount2= parseInt($('#discount_price2').val());
             discount3= parseInt($('#discount_price3').val());*/
@@ -891,18 +905,22 @@ $(document).ready(function() {
             discount1= parseInt($('#discount1').val());
             discount2= parseInt($('#discount2').val());
             discount3= parseInt($('#discount3').val());
+            discount4= parseInt($('#discount4').val());
 
             var code1 = $('#code1').val();
             var code2 = $('#code2').val();
             var code3 = $('#code3').val();
+            var code4 = $('#code4').val();
 
             var applicable_price1 = parseInt($('#applicable_price1').val());
             var applicable_price2 = parseInt($('#applicable_price2').val());
             var applicable_price3 = parseInt($('#applicable_price3').val());
+            var applicable_price4 = parseInt($('#applicable_price4').val());
            
             maximum_price_reduction1 = parseInt($('#maximum_price_reduction1').val());
             maximum_price_reduction2 = parseInt($('#maximum_price_reduction2').val());
             maximum_price_reduction3 = parseInt($('#maximum_price_reduction3').val());
+            maximum_price_reduction4 = parseInt($('#maximum_price_reduction4').val());
             
             if(applicable_price1<=price_total){
                 if(applicable_price1>0){
@@ -963,6 +981,25 @@ $(document).ready(function() {
                 var d3 = 0;
             } 
 
+             if(applicable_price4<=price_total && applicable_price4>0){
+                if(applicable_price4>0){
+                    if(discount4>100){
+                         var d4 = discount4;
+                    }else{
+                        var d4 =(discount4 / 100) * price_total;
+                    }
+                    if(maximum_price_reduction4>0){
+                        if(d4>maximum_price_reduction4 ){
+                            d4 = maximum_price_reduction4;
+                        }
+                    }
+                }else{
+                    var d4 = 0;
+                }
+            }else{
+                var d4 = 0;
+            }
+
             var  html1 = '';
             document.getElementById("code1").value = code1;
             document.getElementById("discount_price1").value = d1;
@@ -1002,12 +1039,25 @@ $(document).ready(function() {
                 html3 = '';
             }
             $('#discountPrice3').html(html3);
+
+             var  html4  = '';
+            document.getElementById("code4").value = code4;
+            document.getElementById("discount_price4").value = d4;
+            document.getElementById("discount4").value = discount4;
+            var di4 = new Intl.NumberFormat().format(d4);
+            if(d4>0){
+                html4 +='<div class="cart-price-sum-discount-title">'+code4+'</div>';
+                html4 +='<div class="cart-price-sum-discount-price"> - '+di4+'</div>';
+            }else{
+                html4 = '';
+            }
+            $('#discountPrice4').html(html4);
            
 
-            price_total = price_total +35000 - d1 - d2 - d3 ;
+            price_total = price_total +35000 - d1 - d2 - d3 -d4;
 
 
-             var totalck = new Intl.NumberFormat().format(d1 + d2 + d3);
+             var totalck = new Intl.NumberFormat().format(d1 + d2 + d3 + d4);
              $('#totalck').html(totalck+'đ');
              $('#totalck_1').html(totalck+'đ');
             var total = new Intl.NumberFormat().format(price_total);
@@ -1032,6 +1082,8 @@ $(document).ready(function() {
             $(this).prop('checked', false); 
           }
         });
+
+
 
         var w = $('#checkcode'+key+'-'+k).val();
         var s = document.getElementById('checkcode'+key+'-'+k).checked;
@@ -1086,6 +1138,59 @@ $(document).ready(function() {
             document.getElementById("maximum_price_reduction"+key).value = 0;
             tinhtien();
         }
+        
+        
+    }
+
+     function searchDiscountCodeReservedAPI()
+    {
+        var code  = $('#discountCode').val();
+        console.log(code);
+      
+            let totalPays = $('#totalPays').val();
+            $.ajax({
+                method: "GET",
+                url: "/apis/searchDiscountCodeReservedAPI/?code="+code,
+            })
+            .done(function(msg) {
+                if(msg.code==1){
+                    
+                    
+                    if(msg.data.applicable_price<=totalPays){
+                        const specifiedTime = new Date(msg.data.deadline_at);
+                        const currentTime = new Date();
+                        var html ='';
+                      if(specifiedTime > currentTime) {
+                         
+                            if(msg.data.discount>100){
+                                var discount = msg.data.discount;
+                            }else{
+                               var discount =(msg.data.discount / 100) * totalPays;
+                            }
+                            if(msg.data.maximum_price_reduction!=null){
+                                if(discount>msg.data.maximum_price_reduction ){
+                                    discount = msg.data.maximum_price_reduction;
+                                }
+                            }
+                            console.log(msg);
+                           document.getElementById("code4").value = msg.data.code;
+                           document.getElementById("discount_price4").value = discount;
+                           document.getElementById("maximum_price_reduction4").value = msg.data.maximum_price_reduction;
+                           document.getElementById("discount4").value = msg.data.discount;
+                           document.getElementById("applicable_price4").value = msg.data.applicable_price;
+                            var discount = new Intl.NumberFormat().format(discount);
+                            html +='<div class="cart-price-sum-discount-title">'+msg.data.code+'</div>'
+                            html +='<div class="cart-price-sum-discount-price"> - '+discount+'</div>'
+                             $('#discountPrice4').html(html);
+
+                            tinhtien();
+
+                       }
+                    }
+                } 
+               
+            });
+        
         
         
     }

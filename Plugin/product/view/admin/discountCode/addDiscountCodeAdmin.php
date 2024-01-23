@@ -32,6 +32,15 @@
                     <label class="form-label" for="basic-default-phone">Giá tối thiểu được áp dụng </label>
                     <input  type="number" class="form-control phone-mask" name="applicable_price" id="applicable_price" value="<?php echo @$data->applicable_price;?>" />
                   </div>
+                  <div class="mb-3">
+                    <label class="form-label">Trạng thái</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="status" id="status">
+                        <option value="1" <?php if($data->status=='1') echo 'selected'; ?> >Hiển thị</option>
+                        <option value="0" <?php if($data->status=='0') echo 'selected'; ?> >Ẩn</option>
+                      </select>
+                    </div>
+                  </div>
                    <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Danh mục(*)</label>
                     <select class="form-select form-select" id="category" required  name="category" aria-label=".form-select-sm example">
