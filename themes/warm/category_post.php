@@ -112,7 +112,7 @@
                         </div>
 
                         <div class="event-date">
-                            <span>'.date('d/m/Y', $item->time_create).'</span>
+                            <span>'.date('d F Y', $item->time_create).'</span>
                         </div>
                     </div>';
                  } ?>
