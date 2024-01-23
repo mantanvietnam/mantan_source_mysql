@@ -239,7 +239,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
-                                            <p><?php echo $product->sold ?>  Đã bán</p>
+                                            <p><?php echo @$product->sold_virtual ?>  Đã bán</p>
                                             <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
                                         </div>
                                     </div>

@@ -188,10 +188,8 @@ function addProduct($input)
             $data->id_product = @$dataSend['id_product'];
             $data->idpro_discount = @$dataSend['idpro_discount'];
             $data->pricepro_discount = @$dataSend['pricepro_discount'];
+            $data->sold_virtual = @$dataSend['sold_virtual'];
 
-
-
-             
 	        // tạo slug
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;

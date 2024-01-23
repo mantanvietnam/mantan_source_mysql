@@ -131,7 +131,8 @@
                         <td>'.$category_name.'</td>
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
                         <td> Sl còn:'.$item->quantity.'<br/>
-                            SL đã bán:'.$item->sold.'<br/>
+                            SL đã bán :'.$item->sold.'<br/>
+                            SL bán ảo:'.$item->sold_virtual.'<br/>
                         </td>
                         <td>'.$item->status.'</td>
                         <td align="center">

@@ -165,7 +165,10 @@
                               <label class="form-label">Số lượng </label>
                               <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
                             </div>
-                            
+                            <div class="mb-3">
+                              <label class="form-label">Số lượng bán ảo</label>
+                              <input type="text" class="form-control phone-mask" name="sold_virtual" id="sold_virtual" value="<?php echo (int) @$data->sold_virtual;?>" />
+                            </div>
                             
                             <div class="mb-3">
                               <label class="form-label">Mã sản phẩm ưu đãi</label>
