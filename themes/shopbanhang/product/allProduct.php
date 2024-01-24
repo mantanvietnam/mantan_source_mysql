@@ -235,7 +235,7 @@ $slide_home= slide_home($setting['id_slide']);
                                      <?php if (!empty($product->flash_sale)){ ?>
                                     <div class="progress-box">
                                         <div class="product-progress">
-                                            <div class="text-progress">Sản phẩm <?php echo $product->sold ?> Đã bán</div>
+                                            <div class="text-progress">Sản phẩm <?php echo $product->sold_virtual ?> Đã bán</div>
                                             <div class="sale-progress-val" style="width: <?php echo $ban; ?>%"></div>
                                         </div>
                                     </div>

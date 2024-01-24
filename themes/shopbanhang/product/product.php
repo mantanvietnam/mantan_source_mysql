@@ -703,7 +703,7 @@
 
                         <div class="progress-box">
                             <div class="product-progress">
-                                <div class="text-progress">Sản phẩm <?php echo $item->sold; ?> Đã bán</div>
+                                <div class="text-progress">Sản phẩm <?php echo $item->sold_virtual; ?> Đã bán</div>
                                 <div class="sale-progress-val" style="width: <?php echo $ban; ?>%"></div>
                             </div>
                         </div>
