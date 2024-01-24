@@ -48,6 +48,11 @@
                       </select>
                     </div>
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Mã màu QR</label>
+                    <input type="text" class="form-control phone-mask" name="color_foreground" id="color_foreground" value="<?php if(!empty($data->color_foreground)){ echo $data->color_foreground;}else{ echo '0,0,0';}?>" />
+                  </div> 
                 </div>
 
                 <div class="col-md-6">
@@ -70,6 +75,11 @@
                     <label class="form-label" for="basic-default-fullname">Logo</label>
                     <?php showUploadFile('logo','logo',@$data->logo,0);?>
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Mã màu nền</label>
+                    <input type="text" class="form-control phone-mask" name="color_background" id="color_background" value="<?php if(!empty($data->color_background)){ echo $data->color_background;}else{ echo '255,255,255';}?>" />
+                  </div> 
                 </div>
                 
               </div>

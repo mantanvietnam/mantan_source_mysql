@@ -8,11 +8,14 @@ use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
 use Endroid\QrCode\Label\Font\NotoSans;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Color\Color;
 
 $content = (!empty($data->code))?'https://smartqr.vn/r/'.$data->code:'https://smartqr.vn';
 $logoURL = @$data->logo;
 $label = (!empty($_GET['label']))?$_GET['label']:'';
 $size = (!empty($_GET['size']))?$_GET['size']:1000;
+$colorForeground = (!empty($data->color_foreground))?explode(',', $data->color_foreground):[0,0,0];
+$colorBackground = (!empty($data->color_background))?explode(',', $data->color_background):[255, 255, 255];
 
 $result = Builder::create()
     ->writer(new PngWriter())
@@ -23,6 +26,8 @@ $result = Builder::create()
     ->size($size)
     ->margin(10)
     ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
+    ->foregroundColor(new Color($colorForeground[0], $colorForeground[1], $colorForeground[2]))
+    ->backgroundColor(new Color($colorBackground[0], $colorBackground[1], $colorBackground[2]))
     ->logoPath($logoURL)
     ->labelText($label)
     ->labelFont(new NotoSans(20))

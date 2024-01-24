@@ -100,6 +100,9 @@ if(isset($_SERVER['HTTPS'])){
 else{
     $protocol = 'http';
 }
+
+$protocol = 'https';
+
 $urlHomes = $protocol . "://" . @$_SERVER['HTTP_HOST'].'/';
 
 $variableGlobal= array('hookMenuAdminMantan', 'hookMenusAppearanceMantan', 'tmpVariable', 'themeActive', 'isRequestPost', 'modelCategories', 'modelOptions', 'urlCurrent', 'urlHomes', 'urlThemeActive', 'metaTitleMantan', 'metaKeywordsMantan', 'metaDescriptionMantan', 'routesPlugin', 'routesTheme', 'session', 'infoSite', 'contactSite', 'smtpSite', 'csrfToken', 'modelPosts', 'modelMenus', 'modelAlbums', 'modelAlbuminfos', 'modelVideos', 'modelCategoryConnects', 'metaImageMantan', 'isHome', 'isCategory', 'isPost', 'isPage', 'isPlugin', 'isMobile', 'isTable', 'isDesktop');

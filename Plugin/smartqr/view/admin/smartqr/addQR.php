@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/smartqr-view-admin-smartqr-listQR">Mã QR</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/smartqr-view-admin-smartqr-listQR.php">Mã QR</a> /</span>
     Thông tin mã QR
   </h4>
 
@@ -73,6 +73,16 @@
                     <label class="form-label" for="basic-default-fullname">Logo</label>
                     <?php showUploadFile('logo','logo',@$data->logo,0);?>
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Mã màu QR</label>
+                    <input type="text" class="form-control phone-mask" name="color_foreground" id="color_foreground" value="<?php if(!empty($data->color_foreground)){ echo $data->color_foreground;}else{ echo '0,0,0';}?>" />
+                  </div> 
+
+                  <div class="mb-3">
+                    <label class="form-label">Mã màu nền</label>
+                    <input type="text" class="form-control phone-mask" name="color_background" id="color_background" value="<?php if(!empty($data->color_background)){ echo $data->color_background;}else{ echo '255,255,255';}?>" />
+                  </div> 
                 </div>
                 
               </div>

@@ -117,11 +117,11 @@ function fixUrlImage($input)
 	*/
 	
 	/*
-	$listData = $modelManagerFile->find()->all()->toList();
+	$listData = $modelManagerFile->find()->where(['link LIKE'=>'%http:%'])->all()->toList();
 
 	foreach ($listData as $key => $value) {
 		if(!empty($value->link)){
-			$value->link = str_replace('https://mobile.ezpics.vn/public/remove/', 'https://apis.ezpics.vn/upload/admin/images/data/remove/', $value->link);
+			$value->link = str_replace('http:', 'https:', $value->link);
 		}
 
 		$modelManagerFile->save($value);
@@ -129,21 +129,20 @@ function fixUrlImage($input)
 	*/
 	
 	/*
-	$listData = $modelProductDetails->find()->all()->toList();
+	$listData = $modelProductDetails->find()->where(['content LIKE'=>'%http:%'])->all()->toList();
 
 	foreach ($listData as $key => $value) {
-		$value->content = str_replace('https:\/\/mobile.ezpics.vn\/public', 'https://apis.ezpics.vn/upload/admin/images', $value->content);
+		$value->content = str_replace('http:', 'https:', $value->content);
 
 		$modelProductDetails->save($value);
 	}
 	*/
 	
 	/*
-	$listData = $modelProducts->find()->all()->toList();
+	$listData = $modelProducts->find()->where(['thumbnail LIKE'=>'%http:%'])->all()->toList();
 
 	foreach ($listData as $key => $value) {
-		$value->image = str_replace('https://mobile.ezpics.vn/public/data/', 'https://apis.ezpics.vn/upload/admin/images/data/', $value->image);
-		$value->thumn = str_replace('https://mobile.ezpics.vn/public/data/', 'https://apis.ezpics.vn/upload/admin/images/data/', $value->thumn);
+		$value->thumbnail = str_replace('http:', 'https:', $value->thumbnail);
 
 		$modelProducts->save($value);
 	}

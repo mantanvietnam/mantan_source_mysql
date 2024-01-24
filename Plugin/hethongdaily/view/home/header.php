@@ -142,7 +142,55 @@
               </a>
             </li>
 
+            <!-- Template -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Đào tạo</span></li>
+            <!-- Cards -->
+            <li class="menu-item">
+              <a href="/sendMessZaloOA" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-send' ></i> 
+                <div data-i18n="Tempaltes">Cài đặt bài học</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="/setttingZaloOA" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-cog' ></i> 
+                <div data-i18n="Tempaltes">Cài đặt bài thi</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="/listPosition" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-crown' ></i> 
+                <div data-i18n="Tempaltes">Kết quả thi hệ thống</div>
+              </a>
+            </li>
+
             <?php }?>
+
+            <!-- Template -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Đào tạo</span></li>
+            <!-- Cards -->
+            <li class="menu-item">
+              <a href="/sendMessZaloOA" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-send' ></i> 
+                <div data-i18n="Tempaltes">Video bài học</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="/setttingZaloOA" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-cog' ></i> 
+                <div data-i18n="Tempaltes">Làm bài thi</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="/listPosition" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-crown' ></i> 
+                <div data-i18n="Tempaltes">Kết quả thi</div>
+              </a>
+            </li>
 
             <!-- Template -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Tài khoản</span></li>

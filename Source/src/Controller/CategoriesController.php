@@ -49,7 +49,8 @@ class CategoriesController extends AppController{
             $slugNew = $slug;
             $number = 0;
 
-            if(empty($infoCategory->slug) || $infoCategory->slug!=$slugNew){
+            $checkSlug = $modelSlugs->find()->where(['slug'=>$slugNew])->first();
+            if(empty($infoCategory->slug) || $infoCategory->slug!=$slugNew || empty($checkSlug)){
                 do{
                     $conditions = array('slug'=>$slugNew);
                     $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
@@ -169,7 +170,8 @@ class CategoriesController extends AppController{
             $slugNew = $slug;
             $number = 0;
             
-            if(empty($infoCategory->slug) || $infoCategory->slug!=$slugNew){
+            $checkSlug = $modelSlugs->find()->where(['slug'=>$slugNew])->first();
+            if(empty($infoCategory->slug) || $infoCategory->slug!=$slugNew || empty($checkSlug)){
                 do{
                     $conditions = array('slug'=>$slugNew);
                     $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
@@ -289,7 +291,8 @@ class CategoriesController extends AppController{
             $slugNew = $slug;
             $number = 0;
             
-            if(empty($infoCategory->slug) || $infoCategory->slug!=$slugNew){
+            $checkSlug = $modelSlugs->find()->where(['slug'=>$slugNew])->first();
+            if(empty($infoCategory->slug) || $infoCategory->slug!=$slugNew || empty($checkSlug)){
                 do{
                     $conditions = array('slug'=>$slugNew);
                     $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();

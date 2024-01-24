@@ -20,22 +20,39 @@ function addNotificationProductAPI($input){
 		$condition['id'] = $_GET['idproduct'];
 	}
 
-	if(!empty($_GET['title'])){
-		$title = $_GET['title'];
-	}else{
-		$title = 'Mẫu thiết kế đẹp dành riêng cho bạn';
-	}
-
-	if(!empty($_GET['content'])){
-		$content = $_GET['content'];
-	}else{
-		$content = 'Đây là mẫu thiết kế Ezpics lựa chọn dành riêng cho bạn ngày hôm nay. Bấm để xem chi tiết';
-	}
-
 
 	$product = $modelProduct->find()->where(@$condition)->order('RAND()')->first();
 
 	if(!empty($product)){
+		if(!empty($_GET['title'])){
+			$title = $_GET['title'];
+		}else{
+			$title = $product->name;
+		}
+
+		if(!empty($_GET['content'])){
+			$content = $_GET['content'];
+		}else{
+			$content = [];
+			$content[] = 'Bạn đã xem mẫu thiết kế này chưa? Đây là mẫu thiết kế mới nhất của ngày hôm nay đấy';
+			$content[] = 'Mẫu thiết kế này đang giảm giá sốc từ '.number_format($product->price).'đ giờ chỉ còn '.number_format($product->sale_price).'đ, bạn có muốn xem không?';
+			$content[] = 'Gửi bạn mẫu thiết kế được xem nhiều nhất ngày hôm nay';
+			$content[] = 'Hôm nay bạn đã đăng bài chưa? Nếu chưa thì thử dùng ảnh này để đăng nhé';
+			$content[] = 'Hôm nay bạn đã đăng bài chưa? Nếu chưa thì thử dùng ảnh này để đăng nhé';
+			$content[] = 'Tôi có một mẫu thiết kế rất đặc biệt, tôi muốn bạn nhìn thấy nó ngay bây giờ';
+			$content[] = 'Hôm nay tôi đã thiết kế ra một bức ảnh rất đẹp và muốn chia sẻ với bạn';
+			$content[] = 'Bức ảnh này giúp tôi bán được hơn 1.000 đơn hàng, bạn có muốn xem nó không?';
+			$content[] = 'Không thể tin nổi tôi đã chụp được khoảnh khắc này, bạn phải xem ngay';
+			$content[] = 'Có một sự kiện lớn đã xảy ra, và tôi muốn bạn là người đầu tiên biết';
+			$content[] = 'Ảnh này đẹp quá, tôi không thể giữ bí mật nổi';
+			$content[] = 'Đang có điều gì đó đặc biệt trong bức ảnh này, bạn đoán được không?';
+			$content[] = 'Không ngờ tôi có thể tạo ra được bức hình như thế này, tôi cần phải chia sẻ ngay với bạn';
+			$content[] = 'Nếu bạn muốn biết điều mới nhất của tôi, hãy xem ảnh này trước nhé';
+			$content[] = 'Có lẽ đây là bức ảnh tốt nhất tôi từng thiết kế, bạn không nên bỏ qua';
+
+			$content = $content[array_rand($content)];
+		}
+
 	    $conditions = array();
 	    $conditions['token_device IS NOT'] = null;
 
@@ -51,7 +68,7 @@ function addNotificationProductAPI($input){
 			$token_device = [];
 
 	        foreach ($listMembers as $key => $value) {
-	            if(!empty($value->token_device)){
+	            if(!empty($value->token_device && !in_array($value->token_device, $token_device))){
 	            	$token_device[] = $value->token_device;
                     $number++;
 	            }

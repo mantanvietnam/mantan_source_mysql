@@ -16,6 +16,22 @@ function listQR($input)
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
     $order = array('id'=>'desc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+
+    if(!empty($_GET['status'])){
+        $conditions['status'] = $_GET['status'];
+    }
+
+    if(!empty($_GET['title'])){
+        $conditions['title LIKE'] = '%'.$_GET['title'].'%';
+    }
+
+    if(!empty($_GET['id_member'])){
+        $conditions['id_member'] = (int) $_GET['id_member'];
+    }
     
     $listData = $modelSmartqr->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
@@ -129,6 +145,8 @@ function addQR($input)
             $data->status = $dataSend['status'];
             $data->logo = $dataSend['logo'];
             $data->id_member = $dataSend['id_member'];
+            $data->color_foreground = $dataSend['color_foreground'];
+            $data->color_background = $dataSend['color_background'];
 
 	        $modelSmartqr->save($data);
 
@@ -309,6 +327,8 @@ function editMyQR($input)
                         $data->type = $dataSend['type'];
                         $data->status = $dataSend['status'];
                         $data->logo = $dataSend['logo'];
+                        $data->color_foreground = $dataSend['color_foreground'];
+                        $data->color_background = $dataSend['color_background'];
 
                         $modelSmartqr->save($data);
 

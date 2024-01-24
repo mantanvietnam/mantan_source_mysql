@@ -185,7 +185,9 @@ class PostsController extends AppController{
 	            $slugNew = $slug;
 	            $number = 0;
 
-	            if(empty($infoPost->slug) || $infoPost->slug!=$slugNew){
+	            $checkSlug = $modelSlugs->find()->where(['slug'=>$slugNew])->first();
+
+	            if(empty($infoPost->slug) || $infoPost->slug!=$slugNew || empty($checkSlug) ){
 		            do{
 		            	$conditions = array('slug'=>$slugNew);
 	        			$listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
@@ -198,6 +200,7 @@ class PostsController extends AppController{
 		        
 		            // lưu url slug
 		            saveSlugURL($slugNew, 'homes', 'info_page');
+		            
 		            if(!empty($infoPost->slug)){
 		            	deleteSlugURL($infoPost->slug);
 		            }
