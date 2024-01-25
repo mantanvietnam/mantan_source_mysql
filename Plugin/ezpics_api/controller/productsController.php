@@ -1588,4 +1588,43 @@ function updateInfoProductAPI($input)
 function getMainColorAPI(){
 	return getColor();
 }
+
+function listProductSeriesAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $metaTitleMantan;
+	global $metaKeywordsMantan;
+	global $metaDescriptionMantan;
+	global $metaImageMantan;
+
+	$modelProduct = $controller->loadModel('Products');
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$conditions = array('status'=>1, 'type'=>'user_series');
+		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:20;
+		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+		$order = array('id'=>'desc');
+		
+			$data = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+
+			if(!empty($data)){
+
+				$return = array('code'=>1,
+							'data' => $data,
+					'mess'=>'Bạn lấy data thành công');
+			}else{
+				$return = array('code'=>3,
+					'mess'=>'Không có data');
+			}
+		
+	}
+
+
+	return $return;
+}
 ?>
