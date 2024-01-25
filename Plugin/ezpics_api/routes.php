@@ -194,4 +194,5 @@
 	$routesPlugin['saveImageProductAPI']= 'ezpics_api/view/saveImageProductAPI.php';	
 	$routesPlugin['listStyleTextAPI']= 'ezpics_api/view/listStyleTextAPI.php';	
 	$routesPlugin['getStyleTextAPI']= 'ezpics_api/view/getStyleTextAPI.php';	
+	$routesPlugin['listProductSeriesAPI']= 'ezpics_api/view/listProductSeriesAPI.php';	
 ?>
