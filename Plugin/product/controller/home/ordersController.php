@@ -597,7 +597,7 @@ function pay($input){
 		// tạo chi tiết đơn hàng
 		$listproduct = array();
 		foreach($list_product as $product){
-			if(@$product->statuscart='true'){
+			if(@$product->statuscart=='true'){
 				$present = array();
 				if(!empty(@$product->id_product)){
 					$id_product = explode(',', @$product->id_product);
