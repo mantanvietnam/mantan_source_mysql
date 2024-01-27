@@ -439,6 +439,8 @@ function updateUserCoinAdmin($input)
                     $newTransaction->type = $transactionType['add'];
                     $newTransaction->name = 'Admin cộng coin cho người dùng';
                     $newTransaction->description = $dataSend['note'];
+                    $newTransaction->created_at = date('Y-m-d H:i:s');
+                    $newTransaction->updated_at = date('Y-m-d H:i:s');
 
                     $userModel->save($user);
                     $transactionModel->save($newTransaction);
@@ -458,6 +460,8 @@ function updateUserCoinAdmin($input)
                     $newTransaction->type = $transactionType['subtract'];
                     $newTransaction->name = 'Admin trừ coin của người dùng';
                     $newTransaction->description = $dataSend['note'];
+                    $newTransaction->created_at = date('Y-m-d H:i:s');
+                    $newTransaction->updated_at = date('Y-m-d H:i:s');
 
                     $userModel->save($user);
                     $transactionModel->save($newTransaction);

@@ -62,6 +62,7 @@
                     <th>Avatar</th>
                     <th>Người gửi</th>
                     <th>Người bị khiếu nại</th>
+                    <th>Cuốc xe bị kiện</th>
                     <th>Nội dung</th>
                     <th>Trạng thái</th>
                 </tr>
@@ -87,6 +88,10 @@
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Chưa giải quyết ';
                         }
+                        $booking = '
+                        <a href="/plugins/admin/excgo-view-admin-booking-viewBookingDetailAdmin/?id=' . $item->booking_id . '">
+                                ' . $item->booking_id . '
+                        </a>';
 
                         echo '<tr>
                         <td align="center">' . $item->id .'</td>
@@ -104,6 +109,9 @@
                           ' . $item->ComplainedUsers['phone_number'] . ' 
                           </br>
                           ' . $item->ComplainedUsers['email'] . ' 
+                        </td>
+                        <td>
+                          ' . $booking . '
                         </td>
                         <td>
                           ' . $item->content . '

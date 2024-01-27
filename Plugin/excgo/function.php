@@ -617,7 +617,7 @@ function sendNotification($data, $target)
     $fields['priority'] = 'high';
     $fields['content_available'] = true;
 
-    $fields['notification'] = ['title' => $data['title'], 'body' => $data['content']];
+    $fields['notification'] = ['title' => $data['title'], 'body' => $data['content'], 'sound' => 'default'];
 
     if (is_array($target)) {
         $fields['registration_ids'] = $target;
