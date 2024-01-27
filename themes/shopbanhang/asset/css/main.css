@@ -2871,7 +2871,7 @@ strong {
 }
 
 .qty-input {
-    border: 1px solid #939598;
+    /* border: 1px solid #939598; */
     font-size: 14px;
 
 }
@@ -3394,14 +3394,17 @@ strong {
 }
 
 .cart-product-number .qty-input {
-    justify-content: space-between;
+    /* justify-content: space-between; */
     display: flex;
-    width: 50%;
+    /* width: 50%; */
 }
 
 .cart-product-number .qty-input input {
     font-size: 13px;
     font-weight: 200;
+    border-bottom: 1px solid #939598;
+    border-top: 1px solid #939598;
+
 }
 
 .cart-product-total {

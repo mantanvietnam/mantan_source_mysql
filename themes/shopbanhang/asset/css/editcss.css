@@ -677,15 +677,15 @@ header{
 }
 
 .qty-count-minus{
-    border:1px solid transparent !important ;
+    /* border:1px solid transparent !important ; */
 
-    border-right: 1px solid #939598 !important;
+    /* border-right: 1px solid #939598 !important; */
 }
 
 .qty-count-add{
-    border:1px solid transparent !important;
+    /* border:1px solid transparent !important; */
 
-    border-left: 1px solid #939598 !important;
+    /* border-left: 1px solid #939598 !important; */
 }
 
 /* Profile */
@@ -2644,7 +2644,7 @@ background: #555;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-right: 15px;
+        /* padding-right: 15px; */
     }
 
     .qty-count-minus{
