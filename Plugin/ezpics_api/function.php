@@ -770,12 +770,33 @@ function getLayerProductForEdit($idProduct=0)
             $pro->status == 1;
         }
 
-        if(!empty($pro->productDetail) && count($pro->productDetail)) {
-            $list_layer = array();
-            $choose_tab = array();
-            $movelayer = array('<div class="thumb-checklayer"><img src="'.$pro->thumn.'" class="img-fluid w-100 img-thumn" alt=""></div>');
-            $key = 1;
-            $list_layer_check = array();
+        /*
+        if(empty($pro->productDetail)){
+            $newLayer = $modelProductDetail->newEmptyEntity();  
+
+            $newLayer->products_id = $pro->id;
+            $newLayer->name = 'Layer 1';
+
+            $content = getLayer(1, 'text', '', 80, 0, 'Layer 1');
+            $newLayer->content = json_encode($content);
+            $newLayer->created_at = date('Y-m-d H:i:s');
+            $newLayer->sort = 1;
+            
+            
+            $modelProductDetail->save($newLayer);
+
+            $pro->productDetail = $modelProductDetail->find()->where(array('products_id'=>$pro->id))->order(['sort' => 'ASC'])->all()->toList();
+        }
+        */
+
+        
+        $list_layer = array();
+        $choose_tab = array();
+        $movelayer = array('<div class="thumb-checklayer"><img src="'.$pro->thumn.'" class="img-fluid w-100 img-thumn" alt=""></div>');
+        $key = 1;
+        $list_layer_check = array();
+        
+        if(!empty($pro->productDetail)){
             foreach($pro->productDetail as $k => $item){
                 //$item->content = str_replace('\"', '"', $item->content);
                 $layer = json_decode(trim($item->content,'"')); 
@@ -1067,18 +1088,18 @@ function getLayerProductForEdit($idProduct=0)
 
                 $pro->productDetail[$k]->content = json_encode($layer);
             }
+
             krsort($list_layer_check);
-
-            $category = $modelCategories->find()->where(array('id'=>$pro->category_id))->first();
-
-            if(empty($category)){
-                $category = $modelCategories->newEmptyEntity();
-            }
-            
-            return ['type'=>$pro->type,'category'=> $category, 'data' => $pro, 'movelayer' => implode('',$movelayer), 'layer' => $list_layer, 'list_layer_check' => implode('',$list_layer_check)];
-        }else{
-            return ['error' => ['Sản phẩm chưa xây dựng các Layer']]; 
         }
+
+        $category = $modelCategories->find()->where(array('id'=>$pro->category_id))->first();
+
+        if(empty($category)){
+            $category = $modelCategories->newEmptyEntity();
+        }
+        
+        return ['code'=>1,'type'=>$pro->type,'category'=> $category, 'data' => $pro, 'movelayer' => implode('',$movelayer), 'layer' => $list_layer, 'list_layer_check' => implode('',$list_layer_check)];
+        
     }else{
         return ['error' => ['Có lỗi trong quá trình xử lý. Vui lòng thử lại sau']]; 
     }
@@ -1290,6 +1311,8 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
 
         // tạo layer mặc định đầu tiên
         $sizeBackground = getimagesize($thumb);
+        
+        /*
         $newLayer = $modelProductDetail->newEmptyEntity();  
 
         $newLayer->products_id = $newproduct->id;
@@ -1302,7 +1325,7 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         
         
         $modelProductDetail->save($newLayer);
-
+        */
        
         if(!empty($warehouse)){
             $conditions = ['product_id'=>$newproduct->id, ];

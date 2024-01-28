@@ -9,22 +9,31 @@ function listLessonCRM($input)
     $metaTitleMantan = 'Danh sách bài học';
 
 	$modelLesson = $controller->loadModel('Lessons');
+    $modelCourses = $controller->loadModel('Courses');
+    $modelTests = $controller->loadModel('Tests');
 
 	$conditions = array();
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
     $order = array('id'=>'desc');
+
+    if(!empty($_GET['id_course'])){
+        $conditions['id_course'] = (int) $_GET['id_course'];
+    }
     
     $listData = $modelLesson->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     if(!empty($listData)){
     	foreach ($listData as $key => $value) {
-    		if(empty($category[$value->id_category])){
-    			$category[$value->id_category] = $modelCategories->get( (int) $value->id_category);
-    		}
+    		if(!empty($value->id_course) && empty($category[$value->id_course])){
+                $category[$value->id_course] = $modelCourses->find()->where(['id' => (int) $value->id_course])->first();
+            }
     		
-    		$listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
+    		$listData[$key]->name_course = (!empty($category[$value->id_course]->title))?$category[$value->id_course]->title:'';
+
+            $tests = $modelTests->find()->where(['id_lesson'=>$value->id])->all()->toList();
+            $listData[$key]->number_test = count($tests);
     	}
     }
 
@@ -80,6 +89,8 @@ function addLessonCRM($input)
 
 	$modelLesson = $controller->loadModel('Lessons');
 	$modelSlugs = $controller->loadModel('Slugs');
+    $modelCourses = $controller->loadModel('Courses');
+
 	$mess= '';
 
 	// lấy data edit
@@ -96,7 +107,7 @@ function addLessonCRM($input)
 	        // tạo dữ liệu save
 	        $data->title = $dataSend['title'];
 	        $data->content = $dataSend['content'];
-	        $data->id_category = $dataSend['id_category'];
+	        $data->id_course = $dataSend['id_course'];
 	        $data->image = $dataSend['image'];
 	        $data->status = $dataSend['status'];
 	        $data->description = $dataSend['description'];
@@ -131,8 +142,7 @@ function addLessonCRM($input)
 	    }
     }
 
-    $conditions = array('type' => '2top_crm_training');
-    $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+    $listCategory = $modelCourses->find()->where()->order(['id'=>'desc'])->all()->toList();
 
     setVariable('data', $data);
     setVariable('mess', $mess);
@@ -149,11 +159,9 @@ function deleteLessonCRM($input){
 		
 		if($data){
          	$modelLesson->delete($data);
-
-         	deleteSlugURL($data->slug);
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM');
+	return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM.php');
 }
 ?>

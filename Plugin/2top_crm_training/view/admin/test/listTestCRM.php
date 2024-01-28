@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">2TOP CRM - BÀI THI</h4>
-  <p><a href="/plugins/admin/2top_crm_training-view-admin-test-addTestCRM" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/2top_crm_training-view-admin-test-addTestCRM.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Bài thi</h5>
@@ -37,15 +37,15 @@
                         <td>'.$item->id.'</td>
                         <td><a href="/test/'.$item->slug.'.html">'.$item->title.'</a></td>
                         <td>'.$time_test.'</td>
-                        <td><a href="/plugins/admin/2top_crm_training-view-admin-question-listQuestionCRM/?id_test='.$item->id.'">'.$item->question.' câu hỏi</a></td>
+                        <td><a href="/plugins/admin/2top_crm_training-view-admin-question-listQuestionCRM.php/?id_test='.$item->id.'">'.$item->question.' câu hỏi</a></td>
                         <td>'.$item->status.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/2top_crm_training-view-admin-test-addTestCRM/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/2top_crm_training-view-admin-test-addTestCRM.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_training-view-admin-test-deleteTestCRM/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_training-view-admin-test-deleteTestCRM.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

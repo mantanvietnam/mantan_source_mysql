@@ -1,31 +1,38 @@
 <?php 
 $menus= array();
 $menus[0]['title']= 'Đào tạo';
-$menus[0]['sub'][0]= array(	'title'=>'Bài học',
-							'url'=>'/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM.php',
+
+$menus[0]['sub'][]= array(	'title'=>'Khóa học',
+							'url'=>'/plugins/admin/2top_crm_training-view-admin-course-listCourseCRM.php',
 							'classIcon'=>'bx bxs-graduation',
+							'permission'=>'listCourseCRM'
+						);
+
+$menus[0]['sub'][]= array(	'title'=>'Bài học',
+							'url'=>'/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM.php',
+							'classIcon'=>'bx bx-list-ul',
 							'permission'=>'listLessonCRM'
 						);
 
-$menus[0]['sub'][1]= array(	'title'=>'Bài thi',
+$menus[0]['sub'][]= array(	'title'=>'Bài thi',
 							'url'=>'/plugins/admin/2top_crm_training-view-admin-test-listTestCRM.php',
 							'classIcon'=>'bx bx-timer',
 							'permission'=>'listTestCRM'
 						);
 
-$menus[0]['sub'][2]= array(	'title'=>'Câu hỏi',
+$menus[0]['sub'][]= array(	'title'=>'Câu hỏi',
 							'url'=>'/plugins/admin/2top_crm_training-view-admin-question-listQuestionCRM.php',
 							'classIcon'=>'bx bx-question-mark',
 							'permission'=>'listQuestionCRM'
 						);
 
-$menus[0]['sub'][3]= array(	'title'=>'Lịch sử thi',
+$menus[0]['sub'][]= array(	'title'=>'Lịch sử thi',
 							'url'=>'/plugins/admin/2top_crm_training-view-admin-history-listHistoryTestCRM.php',
 							'classIcon'=>'bx bx-history',
 							'permission'=>'listHistoryTestCRM'
 						);
 
-$menus[0]['sub'][4]= array('title'=>'Cài đặt',
+$menus[0]['sub'][]= array('title'=>'Cài đặt',
 							'url'=>'/',
 							'classIcon'=>'bx bx-cog',
 							'permission'=>'settings2TopCRMTraining',
@@ -42,7 +49,7 @@ $menus[0]['sub'][4]= array('title'=>'Cài đặt',
 									)
 						);
 
-$menus[0]['sub'][5]= array( 'title'=>'Hướng dẫn APIs',
+$menus[0]['sub'][]= array( 'title'=>'Hướng dẫn APIs',
                             'url'=>'/plugins/admin/2top_crm_training-view-admin-guide-guideTrainingAPIsCRM.php',
                             'classIcon'=>'bx bx-support',
                             'permission'=>'guideTrainingAPIsCRM'

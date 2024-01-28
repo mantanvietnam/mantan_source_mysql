@@ -184,14 +184,17 @@ function listLayerAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		if(!empty($dataSend['idproduct']) && !empty($dataSend['token'])){
+		if(!empty($dataSend['idproduct'])){
 			$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct']))->first();
 
 			if(!empty($dataProduct)){
 				// lấy tk người dùng 
-				$dataMembr = getMemberByToken($dataSend['token']);
+				if(!empty($dataSend['token'])){
+					$dataMembr = getMemberByToken($dataSend['token']);
+				}
 
-				if (!empty($dataMembr->id) && !empty($dataProduct->user_id) && $dataMembr->id == $dataProduct->user_id) {
+				if ($dataProduct->type == 'user_series' || (!empty($dataMembr->id) && !empty($dataProduct->user_id) && $dataMembr->id == $dataProduct->user_id)) 
+				{
 					$layers = getLayerProductForEdit($dataSend['idproduct']);
 					  
 					unset($layers['movelayer']);
@@ -209,11 +212,18 @@ function listLayerAPI($input){
 					 	$layers['data']['productDetail']= $productDetail;
 					}
 
+					return $layers;
 
+					if(empty($layers['data'])) $layers['data'] = [];
+
+
+					
 					$return = array('code'=>1,
 									'data'=> $layers['data'],
 					 				'mess'=>'Bạn lấy data thành công',
 					 			);
+					
+					
 
 				}else{
 					if(empty($dataMembr->id)){

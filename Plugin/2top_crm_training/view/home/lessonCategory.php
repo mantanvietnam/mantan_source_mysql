@@ -1,1 +1,0 @@
-<?php getFileTheme('2top_crm_training/lessonCategory.php'); ?>

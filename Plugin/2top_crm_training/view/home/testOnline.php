@@ -44,7 +44,9 @@
 	<div class="container">
   		<div class="row">
   			<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-  				<img src="<?php echo $setting_value['logo'];?>" style="max-width: 200px;" />
+  				<!--
+  				<img src="<?php //echo $setting_value['logo'];?>" style="max-width: 200px;" />
+  				-->
   				<h1 class="text-center"><?php echo $data->title;?></h1>
   				<p class="text-center">
   					Thời gian thi: 
@@ -122,7 +124,7 @@
 	  						}else{
 	  							echo '<p class="text-center">Bạn đã trả lời đúng <b>'.$total_true.'</b> trên tổng số <b>'.$number_question.'</b> câu hỏi. Đạt <b class="text-danger">'.$point.'</b> điểm</p>';
 
-	  							echo '<p class="text-center mb-5"><button onclick="$(\'#return_test\').show();" type="button" class="btn btn-primary"><i class="fa-regular fa-eye"></i> XEM KẾT QUẢ</button></p>';
+	  							echo '<p class="text-center mb-5"><button onclick="$(\'#return_test\').show();" type="button" class="btn btn-primary"><i class="fa-regular fa-eye"></i> XEM KẾT QUẢ</button> <a class="btn btn-danger" href="/courses"><i class="fa-solid fa-right-from-bracket"></i> QUAY LẠI</a></p>';
 
 	  							echo '<div id="return_test" style="display: none;">';
 	  							$number = 0;

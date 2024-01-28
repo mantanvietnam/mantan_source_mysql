@@ -35,7 +35,7 @@
           <p><b>id_test</b>: ID bài kiểm tra</p>
           <p><b>idMessenger</b>: ID messenger của người thi</p>
           <p><b>id_customer</b>: ID của người thi trong hệ thống CRM</p>
-          <p><b>Chú ý: </b> vào <a href="/plugins/admin/2top_crm_training-view-admin-setting-settingTrainingCRM">đây</a> để cài đặt bot trước</p>
+          <p><b>Chú ý: </b> vào <a href="/plugins/admin/2top_crm_training-view-admin-setting-settingTrainingCRM.php">đây</a> để cài đặt bot trước</p>
 
           <p class="text-danger">Dữ liệu nhận về</p>
           <p><b>point_true</b>: số câu trả lời đúng</p>

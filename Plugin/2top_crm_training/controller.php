@@ -1,4 +1,5 @@
 <?php 
+include_once('controller/coursesController.php'); // khóa học
 include_once('controller/lessonsController.php'); // bài học
 include_once('controller/categoriesController.php'); // danh mục
 include_once('controller/testsController.php'); // bài kiểm tra

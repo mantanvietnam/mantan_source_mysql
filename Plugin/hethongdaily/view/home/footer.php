@@ -57,6 +57,7 @@
 
     <!-- Main JS -->
     <script src="/plugins/hethongdaily/view/home/assets/js/main.js"></script>
+    <script src="/plugins/hethongdaily/view/home/assets/js/training.js"></script>
 
     <!-- Page JS -->
     <script src="/plugins/hethongdaily/view/home/assets/js/dashboards-analytics.js"></script>

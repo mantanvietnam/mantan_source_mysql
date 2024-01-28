@@ -4,11 +4,12 @@ function testOnline($input)
     global $controller;
     global $isRequestPost;
     global $modelOptions;
+    global $session;
 
     $modelTests = $controller->loadModel('Tests');
     $modelQuestions = $controller->loadModel('Questions');
     $modelHistoryTests = $controller->loadModel('Historytests');
-    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomers = $controller->loadModel('Members');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -69,6 +70,14 @@ function testOnline($input)
                 // lưu lịch sử thi
                 if(!empty($_GET['id_customer'])){
                     $info_customer = $modelCustomers->get($_GET['id_customer']);
+                }
+
+                if(empty($info_customer)){
+                    if(!empty($session->read('infoUser'))){
+                        $info_customer = $modelCustomers->get($session->read('infoUser')->id);
+
+                        $_GET['id_customer'] = @$info_customer->id;
+                    }
                 }
 
                 if(empty($info_customer)){
@@ -133,7 +142,8 @@ function testOnline($input)
     }
 }
 
-function lessonCategory($input)
+// danh sách các khóa học cùng chủ đề
+function training($input)
 {
     global $controller;
     global $isRequestPost;
@@ -142,6 +152,7 @@ function lessonCategory($input)
     global $urlCurrent;
 
     $modelLesson = $controller->loadModel('Lessons');
+    $modelCourses = $controller->loadModel('Courses');
 
     $category = $modelCategories->newEmptyEntity();
 
@@ -166,10 +177,10 @@ function lessonCategory($input)
 	if($page<1) $page = 1;
     $order = array('id'=>'desc');
     
-    $listData = $modelLesson->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     // phân trang
-    $totalData = $modelLesson->find()->where($conditions)->all()->toList();
+    $totalData = $modelCourses->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -206,7 +217,7 @@ function lessonCategory($input)
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
     
-    setVariable('listLessons', $listData);
+    setVariable('listData', $listData);
     setVariable('category', $category);
 }
 
@@ -283,6 +294,9 @@ function lesson($input)
     global $modelCategories;
     global $urlCurrent;
     global $session;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thông tin bài học';
 
     if(!empty($session->read('infoUser'))){
         $modelLesson = $controller->loadModel('Lessons');
@@ -300,6 +314,8 @@ function lesson($input)
         $data = $modelLesson->find()->where($conditions)->first();
 
         if(!empty($data)){
+            $metaTitleMantan = $data->title;
+
             // tăng lượt xem
             $data->view ++;
             $modelLesson->save($data);
@@ -327,5 +343,160 @@ function lesson($input)
     }else{
         return $controller->redirect('/login');
     }
+}
+
+function course($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thông tin khóa học';
+
+    if(!empty($session->read('infoUser'))){
+        $modelLesson = $controller->loadModel('Lessons');
+        $modelCourses = $controller->loadModel('Courses');
+
+        if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+            if(!empty($_GET['id'])){
+                $conditions = array('id'=>$_GET['id']);
+            }else{
+                $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+                $conditions = array('slug'=>$slug);
+            }
+        }
+
+        $data = $modelCourses->find()->where($conditions)->first();
+
+        if(!empty($data)){
+            $metaTitleMantan = $data->title;
+
+            $category = $modelCategories->find()->where(['id' => (int) $data->id_category])->first();
+            
+            $data->name_category = @$category->name;
+
+            // tăng lượt xem
+            $data->view ++;
+            $modelCourses->save($data);
+
+            $conditions = array('id !='=>$data->id);
+            $limit = 4;
+            $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+            if($page<1) $page = 1;
+            $order = array('id'=>'desc');
+            
+            $otherData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+            if(!empty($otherData)){
+                $category = [];
+
+                foreach ($otherData as $key => $value) {
+                    if(!empty($value->id_category) && empty($category[$value->id_category])){
+                        $category[$value->id_category] = $modelCategories->find()->where(['id' => (int) $value->id_category])->first();
+                    }
+                    
+                    $otherData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
+
+                    $lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
+                    $otherData[$key]->number_lesson = count($lessons);
+                }
+            }
+
+            // lấy số bài học
+            $conditions = array('id_course'=>$data->id);
+            $order = array('id'=>'desc');
+
+            $lesson = $modelLesson->find()->where($conditions)->order($order)->all()->toList();
+
+            setVariable('data', $data);
+            setVariable('otherData', $otherData);
+            setVariable('lesson', $lesson);
+        }else{
+            return $controller->redirect('/');
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+// danh sách khóa học
+function courses($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách khóa học';
+
+    $modelLesson = $controller->loadModel('Lessons');
+    $modelCourses = $controller->loadModel('Courses');
+
+    $conditions= array();
+    $limit = 12;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+    
+    $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            if(!empty($value->id_category) && empty($category[$value->id_category])){
+                $category[$value->id_category] = $modelCategories->find()->where(['id' => (int) $value->id_category])->first();
+            }
+            
+            $listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
+
+            $lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
+            $listData[$key]->number_lesson = count($lessons);
+        }
+    }
+    
+    // phân trang
+    $totalData = $modelCourses->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    
+    setVariable('listData', $listData);
 }
 ?>

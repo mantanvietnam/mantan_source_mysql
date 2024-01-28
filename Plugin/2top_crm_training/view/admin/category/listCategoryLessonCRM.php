@@ -115,10 +115,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/2top_crm_training-view-admin-category-listCategoryLessonCRM';
+            window.location = '/plugins/admin/2top_crm_training-view-admin-category-listCategoryLessonCRM.php';
           })
           .fail(function() {
-            window.location = '/plugins/admin/2top_crm_training-view-admin-category-listCategoryLessonCRM';
+            window.location = '/plugins/admin/2top_crm_training-view-admin-category-listCategoryLessonCRM.php';
           });
       }
     }

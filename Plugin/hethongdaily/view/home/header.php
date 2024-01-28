@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="/plugins/hethongdaily/view/home/assets/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="/plugins/hethongdaily/view/home/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="/plugins/hethongdaily/view/home/assets/css/demo.css" />
+    <link rel="stylesheet" href="/plugins/hethongdaily/view/home/assets/css/training.css" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="/plugins/hethongdaily/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -78,8 +79,11 @@
     <script language="javascript" src="/ckeditor/ckeditor.js" type="text/javascript"></script>
 
     <!-- Core JS -->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/plugins/hethongdaily/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
 
   <body>
@@ -142,53 +146,22 @@
               </a>
             </li>
 
-            <!-- Template -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Đào tạo</span></li>
-            <!-- Cards -->
-            <li class="menu-item">
-              <a href="/sendMessZaloOA" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-send' ></i> 
-                <div data-i18n="Tempaltes">Cài đặt bài học</div>
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="/setttingZaloOA" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-cog' ></i> 
-                <div data-i18n="Tempaltes">Cài đặt bài thi</div>
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="/listPosition" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-crown' ></i> 
-                <div data-i18n="Tempaltes">Kết quả thi hệ thống</div>
-              </a>
-            </li>
-
             <?php }?>
 
             <!-- Template -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Đào tạo</span></li>
             <!-- Cards -->
             <li class="menu-item">
-              <a href="/sendMessZaloOA" class="menu-link">
+              <a href="/courses" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-send' ></i> 
-                <div data-i18n="Tempaltes">Video bài học</div>
+                <div data-i18n="Tempaltes">Khóa học</div>
               </a>
             </li>
 
             <li class="menu-item">
-              <a href="/setttingZaloOA" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-cog' ></i> 
-                <div data-i18n="Tempaltes">Làm bài thi</div>
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="/listPosition" class="menu-link">
+              <a href="/history_test" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-crown' ></i> 
-                <div data-i18n="Tempaltes">Kết quả thi</div>
+                <div data-i18n="Tempaltes">Lịch sử thi</div>
               </a>
             </li>
 
