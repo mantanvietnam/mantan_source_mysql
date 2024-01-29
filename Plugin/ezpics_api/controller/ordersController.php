@@ -1019,7 +1019,7 @@ function checkDeadlineProAllMember($input){
 				
 				
 				// gửi thông báo về app
-	            $dataSendNotification= array('title'=>'Tài khoản của bạn dã hiết hạn Pro','time'=>date('H:i d/m/Y'),'content'=> 'Tài khoản của bạn đã hiết hạn Pro','action'=>'addMoneySuccess');
+	            $dataSendNotification= array('title'=>'Tài khoản của bạn dã hết hạn PRO','time'=>date('H:i d/m/Y'),'content'=> 'Tài khoản của bạn đã hết hạn PRO, vui lòng gia hạn để tiếp tục sử dụng các chức năng nâng cao của EZPICS','action'=>'addMoneySuccess');
 
 
 	            if(!empty($user->token_device)){
