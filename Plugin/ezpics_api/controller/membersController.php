@@ -1529,4 +1529,38 @@ function resendOtpAPI($input){
 	}
 	return $return;
 }
+function listUserGetAffsource($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$checkUser = getMemberByToken($dataSend['token']);
+		if(!empty($checkUser)){
+			$data = $modelMember->find()->where(array('affsource'=>$checkUser->id))->all()->toList();
+			if(!empty($data)){
+				$return = array('code'=>1,
+								'data'=>$data,
+								'messages'=>'lấy data thành công'
+								);
+			}else{
+				$return = array('code'=>2,
+									'messages'=>'không có data'
+								);
+			}
+		}else{
+				$return = array('code'=>3,
+									'messages'=>'Tài khoản không tồn tại hoặc sai token'
+								);
+			}
+
+	}
+	return $return;
+}
 ?>
