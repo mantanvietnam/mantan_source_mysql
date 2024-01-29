@@ -195,4 +195,5 @@
 	$routesPlugin['listStyleTextAPI']= 'ezpics_api/view/listStyleTextAPI.php';	
 	$routesPlugin['getStyleTextAPI']= 'ezpics_api/view/getStyleTextAPI.php';	
 	$routesPlugin['listProductSeriesAPI']= 'ezpics_api/view/listProductSeriesAPI.php';	
+	$routesPlugin['listUserGetAffsource']= 'ezpics_api/view/listUserGetAffsource.php';	
 ?>
