@@ -1,0 +1,32 @@
+header{
+    .navbar-header{
+        background-color: transparent;
+        transition: all 0.4s ease-in-out;
+        z-index: 999999;
+        &.scroll-header{
+            .nav-link{
+                color: #000 !important;
+            }
+        }
+        .navbar-brand{
+            .image-header{
+                width: 88px;
+            }
+        }
+
+        .nav-item{
+            .nav-link{
+                color: #000;
+                font-size: 15px;
+                font-weight: 600;
+                padding: 15px;
+                &.active{
+                    color: #ff4a57 !important;
+                }
+                &:hover{
+                    color: #ff4a57 !important;
+                }
+            }
+        }
+    }
+}
