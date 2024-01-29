@@ -260,6 +260,7 @@ strong {
 #section-topbar .row-topbar .topbar-right {
     display: flex;
     justify-content: end;
+    align-items: center;
 }
 
 #section-topbar .row-topbar .topbar-right .topbar-letter {

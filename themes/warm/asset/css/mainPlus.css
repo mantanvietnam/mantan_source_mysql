@@ -2151,3 +2151,11 @@
     border-color: #464343;
 
 }
+
+.topbar-link-newsletter a{
+    background-color: #ee5818;
+    color: #fff;
+    border-radius: 5px;
+    padding:4px 10px;
+    padding-top: 0px;
+}
