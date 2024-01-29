@@ -195,30 +195,34 @@ function checkLoginMemberAPI($input)
                     sendNotification($dataSendNotification, $checkPhone->token_device);
 				}
 
-				$objectTime =$checkPhone->last_login->toDateTimeString();
-				if($objectTime <= date('Y-m-d 00:00:00')){
-					$checkPhone->ecoin += 5;
+				if(!empty($checkPhone->last_login)){
+					$objectTime = $checkPhone->last_login->toDateTimeString();
+					
+					if($objectTime <= date('Y-m-d 00:00:00')){
+						$checkPhone->ecoin += 5;
 
-					$ecoin = $modelTransactionEcoins->newEmptyEntity();
+						$ecoin = $modelTransactionEcoins->newEmptyEntity();
 
-					$ecoin->member_id = $checkPhone->id;
-					$ecoin->ecoin = 5;
-					$ecoin->note = 'Cộng Ecoin đăng nhập';
-					$ecoin->status = 1;
-					$ecoin->type =1;
-					$ecoin->created_at =date('Y-m-d 00:00:00');
-					$ecoin->updated_at =date('Y-m-d 00:00:00');
+						$ecoin->member_id = $checkPhone->id;
+						$ecoin->ecoin = 5;
+						$ecoin->note = 'Cộng Ecoin đăng nhập';
+						$ecoin->status = 1;
+						$ecoin->type =1;
+						$ecoin->created_at =date('Y-m-d 00:00:00');
+						$ecoin->updated_at =date('Y-m-d 00:00:00');
 
-					$modelTransactionEcoins->save($ecoin);
+						$modelTransactionEcoins->save($ecoin);
 
-					// gửi thông báo công ecoin
-			        $dataSendNotificationEcoin= array('title'=>'Cộng thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng Ecoin khi bạn đăng nhập lần đâu tiên trong ngày với số ecoin là 5 ecoin','action'=>'addMoneySuccess');
+						// gửi thông báo công ecoin
+				        $dataSendNotificationEcoin= array('title'=>'Cộng thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng Ecoin khi bạn đăng nhập lần đâu tiên trong ngày với số ecoin là 5 ecoin','action'=>'addMoneySuccess');
 
-			        if(!empty($checkPhone->token_device)){
-			            sendNotification($dataSendNotificationEcoin, $checkPhone->token_device);
-			        }
+				        if(!empty($checkPhone->token_device)){
+				            sendNotification($dataSendNotificationEcoin, $checkPhone->token_device);
+				        }
 
+					}
 				}
+
 				$checkPhone->last_login = date('Y-m-d H:i:s');
 				$checkPhone->number_login += 1;
 
@@ -229,7 +233,7 @@ function checkLoginMemberAPI($input)
 				}
 				
 
-				if(!empty($dataSend['token_device'])){
+				if(!empty($dataSend['token_device']) && $dataSend['token_device']!='web'){
 					$checkPhone->token_device = @$dataSend['token_device'];
 				}
 				
