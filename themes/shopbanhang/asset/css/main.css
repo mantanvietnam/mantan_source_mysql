@@ -2868,14 +2868,27 @@ strong {
     border: 1px solid #939598;
     background-color: transparent;
     font-size: 17px;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+
 }
 
 .qty-input {
-    /* border: 1px solid #939598; */
+    border: 1px solid #939598;
     font-size: 14px;
-
+    border-left-color:transparent ;
+    border-right-color:transparent ;
 }
 
+.cart-product-number .qty-input{
+    border: 1px solid transparent;
+}
+
+
+.cart-product-number .qty-input button{
+    border-bottom-color: #939598;
+    border-top-color: #939598;
+}
 
 /* Button cuối */
 .icon-phone-bottom{

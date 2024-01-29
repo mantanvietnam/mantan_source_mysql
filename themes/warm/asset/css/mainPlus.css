@@ -1999,5 +1999,155 @@
         border-radius: 0;
     }
 
+}
+
+/* Bổ sung */
+.newsletter-title h1{
+    color: #ee5818;
+    text-transform: uppercase;
+}
+
+.newsletter-title .title-divide-section{
+    background-color: #ee5818;
+}
+
+.description-form{
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.label-arrcodion select{
+    background-color: #657955;
+    color: #fff;
+    width: 100%;
+    padding:8px 6px;
+    border-radius: 5px;
+}
+
+.label-arrcodion select:focus-visible{
+    border-color: transparent;
+    outline: transparent;
+}
+
+.label-arrcodion p{
+    background-color: #657955;
+    padding:11px 10px;
+    color: #fff;
+    white-space: nowrap;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius:5px ;
+    padding-bottom: 14px;
+}
+
+.label-arrcodion {
+    margin-bottom: 24px;
+}
+
+.label-arrcodion-input{
+    display: flex;
+
+}
+
+.label-dropdown{
+    margin-bottom: 0;
+}
+
+#section-newsletter-bot{
+    background-color: #ebeee9;
+    padding-bottom: 100px;
+    padding-top: 48px;
+    position: relative;
+}
+
+.box-profile-item-bottom ul{
+    display: grid;
+    grid-template-columns: auto auto;
+
+}
+
+.box-profile-item-bottom li{
+    /* width: 50px; */
+}
+
+.box-profile{
+    border: 1px solid #657955;
+    padding: 46px 52px;
+    padding-bottom: 75px;
+    background-color: #fff;
+}
+
+.box-profile-item-bottom{
+    margin-top: 50px;
+}
+
+.box-profile-item label{
+    color: #657955;
+}
+
+.box-profile-item li{
+    margin-bottom: 24px;
+}
+
+.box-profile-item span{
+    font-size: 22px;
+    margin-bottom: 34px;
+    font-weight: bold;
+    display: block;
+}
+
+.textnote-form{
+    margin-top: 31px;
+    margin-bottom: 27px;
+}
+
+.button-newsletter button{
+    background-color: #ee5818;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 12px 22px;
+    border-radius: 5px;
+    border: none;
+}
+
+.button-newsletter{
+    padding-left: 32px;
+    margin-top: 13px;
+}
+
+.newsletter-bot-content{
+    font-size: 17px;
+    line-height: 1.4;
+}
+
+.newsletter-bot-content span{
+    color: #ee5818;
+}
+
+.background-backnewsletter{
+    position: absolute;
+    height: 100px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ebeee9;
+    z-index: -1;
+}
+
+#section-form-newsletter{
+    position: relative;
+}
+
+.form-control:focus{
+    box-shadow: none;
+    border-color: #344815;
+}
+
+#section-form-newsletter .form-control{
+    border-radius: 5px;
+    border-bottom-left-radius:0 ;
+    border-top-left-radius:0 ;
+    border-color: #464343;
 
 }

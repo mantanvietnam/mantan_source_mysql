@@ -2640,7 +2640,7 @@ background: #555;
 
     
     .qty-input button {
-        border: 1px solid transparent;
+        /* border: 1px solid transparent; */
         display: flex;
         justify-content: center;
         align-items: center;
