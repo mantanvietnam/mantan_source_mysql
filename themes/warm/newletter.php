@@ -80,20 +80,20 @@
                                         <ul>
                                             <li>
                                                 <input id="selectAll" type="checkbox">
-                                                <label for='selectAll'><strong>All subjects </strong>(in this case you don't need to check the other boxes)</label>
+                                                <label for='selectAll' class="text-italic"><strong>All subjects </strong>(in this case you don't need to check the other boxes)</label>
                                             </li>
                                             <li>
-                                                <input id="check1" type="checkbox" name="quocgia" value="check1" />
-                                                <label for="check1">Resilience of cities and territories to climate change and natural hazards </label>
+                                                <input id="check1a" type="checkbox" name="quocgia" value="check1a" />
+                                                <label for="check1a">Resilience of cities and territories to climate change and natural hazards </label>
                                             </li>
                                             <li>
-                                                <input id="check2" type="checkbox" name="quocgia" value="check2" />
-                                                <label for="check2">Integrated coastal zone management </label>
+                                                <input id="check2a" type="checkbox" name="quocgia" value="check2a" />
+                                                <label for="check2a">Integrated coastal zone management </label>
                                             </li>
 
                                             <li>
-                                                <input id="check2" type="checkbox" name="quocgia" value="check2" />
-                                                <label for="check2">Water resource management </label>
+                                                <input id="check3a" type="checkbox" name="quocgia" value="check3a" />
+                                                <label for="check3a">Water resource management </label>
                                             </li>
                                         </ul>
                                     </div>
@@ -102,11 +102,12 @@
                                         <div class="title-box-profile">
                                             <span>Your regions of interest</span>
                                         </div>
+                                        <div class="all-region">
+                                            <input id="selectAll" type="checkbox">
+                                            <label for='selectAll' class="text-italic"><strong>All regions</strong> (in this case you don't need to check the other boxes)</label>
+                                        </div>
                                         <ul>
-                                            <li>
-                                                <input id="selectAll" type="checkbox">
-                                                <label for='selectAll'><strong>All regions</strong> (in this case you don't need to check the other boxes)</label>
-                                            </li>
+                                            
                                             <li>
                                                 <input id="check1" type="checkbox" name="quocgia" value="check1" />
                                                 <label for="check1">Dien Bien</label>
@@ -116,26 +117,26 @@
                                                 <label for="check2">Son La</label>
                                             </li>
                                             <li>
-                                                <input id="selectAll" type="checkbox">
-                                                <label for='selectAll'>Quang Tri</label>
+                                                <input id="check3" type="checkbox" name="quocgia" value="check3">
+                                                <label for='check3'>Quang Tri</label>
                                             </li>
                                             <li>
-                                                <input id="check1" type="checkbox" name="quocgia" value="check1" />
-                                                <label for="check1">Quang Nam</label>
+                                                <input id="check4" type="checkbox" name="quocgia" value="check4" />
+                                                <label for="check4">Quang Nam</label>
                                             </li>
                                             <li>
-                                                <input id="check2" type="checkbox" name="quocgia" value="check2" />
-                                                <label for="check2">Ninh Thuan</label>
-                                            </li>
-
-                                            <li>
-                                                <input id="check2" type="checkbox" name="quocgia" value="check2" />
-                                                <label for="check2">Vinh Long</label>
+                                                <input id="check5" type="checkbox" name="quocgia" value="check5" />
+                                                <label for="check5">Ninh Thuan</label>
                                             </li>
 
                                             <li>
-                                                <input id="check2" type="checkbox" name="quocgia" value="check2" />
-                                                <label for="check2">Quang Tri</label>
+                                                <input id="check6" type="checkbox" name="quocgia" value="check6" />
+                                                <label for="check6">Vinh Long</label>
+                                            </li>
+
+                                            <li>
+                                                <input id="check7" type="checkbox" name="quocgia" value="check7" />
+                                                <label for="check7">Quang Tri</label>
                                             </li>
 
                                             <li>
