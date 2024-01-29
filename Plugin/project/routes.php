@@ -14,6 +14,7 @@
 	$routesPlugin['warmfacility']= 'project/view/home/warmfacility.php';
 	$routesPlugin['ourproject']= 'project/view/home/ourproject.php';
 	$routesPlugin['current-tender-calls']= 'project/view/home/past.php';
+	$routesPlugin['newletter']= 'project/view/home/newletter.php';
 
 	
 ?>
