@@ -8,7 +8,7 @@ function listHistoryTestCRM($input)
     $metaTitleMantan = 'Lịch sử thi';
 
 	$modelHistoryTests = $controller->loadModel('Historytests');
-    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomers = $controller->loadModel('Members');
     $modelTests = $controller->loadModel('Tests');
 
 	$conditions = array();

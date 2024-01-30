@@ -75,6 +75,11 @@
                   </div>
 
                   <div class="mb-3">
+                    <label class="form-label">Số điểm tối thiểu để đạt (*)</label>
+                    <input required type="text" class="form-control" placeholder="" name="point_min" id="point_min" value="<?php echo @$data->point_min;?>" />
+                  </div>
+
+                  <div class="mb-3">
                     <label class="form-label">Thời gian kết thúc thi (*)</label>
                     <input required type="text" class="form-control datetimepicker" placeholder="" name="time_end" id="time_end" value="<?php if(!empty($data->time_end)) echo date('H:i d/m/Y', $data->time_end);?>" />
                   </div>

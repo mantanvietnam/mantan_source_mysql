@@ -24,12 +24,18 @@
                 <th>Số câu đúng</th>
                 <th>Số câu hỏi</th>
                 <th>Thời gian thi</th>
+                <th>Kết quả</th>
               </tr>
             </thead>
             <tbody>
               <?php 
                 if(!empty($listData)){
                   foreach ($listData as $item) {
+                    $status = '<span class="text-danger">Trượt</span>';
+
+                    if($item->status == 'pass'){
+                      $status = '<span class="text-success">Đỗ</span>';
+                    }
 
                     echo '<tr>
                             <td>'.$item->id.'</td>
@@ -38,6 +44,7 @@
                             <td>'.$item->total_true.'</td>
                             <td>'.$item->number_question.'</td>
                             <td>'.date('H:i d/m/Y', $item->time_start).'</td>
+                            <td>'.$status.'</td>
                             
                           </tr>';
                   }

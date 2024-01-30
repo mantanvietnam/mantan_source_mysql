@@ -110,6 +110,12 @@ function testOnline($input)
                     $history->time_start = @$dataSend['time_start'];
                     $history->time_end = time();
 
+                    if($point >= $data->point_min){
+                        $history->status = 'pass';
+                    }else{
+                        $history->status = 'fail';
+                    }
+
                     $modelHistoryTests->save($history);
                 }
 

@@ -47,6 +47,7 @@
             <th>Người thi</th>
             <th>Số điểm</th>
             <th>Thời gian thi</th>
+            <th>Kết quả</th>
             <th>Xóa</th>
           </tr>
         </thead>
@@ -67,6 +68,13 @@
                   $name_parent = 'CEO '.$item->customer->name_parent.'<br/>';
                 }
 
+                $status = '<span class="text-danger">Trượt</span>';
+
+                if($item->status == 'pass'){
+                  $status = '<span class="text-success">Đỗ</span>';
+                }
+
+
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>'.$item->name_test.'</td>
@@ -80,6 +88,7 @@
                         </td>
                         <td>'.$item->point.'</td>
                         <td>'.date('H:i', $item->time_start).' đến '.date('H:i', $item->time_end).'</td>
+                        <td>'.$status.'</td>
                         
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_training-view-admin-history-deleteHistoryTestCRM.php/?id='.$item->id.'">

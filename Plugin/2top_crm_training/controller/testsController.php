@@ -116,6 +116,7 @@ function addTestCRM($input)
             $data->id_lesson = (int) $dataSend['id_lesson'];
 	        $data->time_test = $dataSend['time_test'];
 	        $data->status = $dataSend['status'];
+            $data->point_min = $dataSend['point_min'];
 
 	        // tạo slug
             $slug = createSlugMantan($dataSend['title']);
