@@ -7,11 +7,11 @@
 <?php
 function thongbao($status, $msg)
 {
-    return die('<script type="text/javascript">Swal.fire("Thông Báo", "'.$msg.'", "'.$status.'"); setTimeout(function(){ location.href = "/newletter" },2000); </script>');
+    return die('<script type="text/javascript">Swal.fire("Announcement", "'.$msg.'", "'.$status.'"); setTimeout(function(){ location.href = "/newletter" },2000); </script>');
 }
 function bao($status, $msg)
 {
-    return die('<script type="text/javascript">Swal.fire("Thông Báo", "'.$msg.'", "'.$status.'"); setTimeout(function(){ location.href = "/thanks" },2000); </script>');
+    return die('<script type="text/javascript">Swal.fire("Announcement", "'.$msg.'", "'.$status.'"); setTimeout(function(){ location.href = "/thanks" },2000); </script>');
 }
 if(isset($_POST['submit']))
 {
@@ -22,7 +22,7 @@ if(isset($_POST['submit']))
     $captcha    = $_POST['g-recaptcha-response'];
     if(!$email)
     {
-        thongbao('error', "Vui lòng nhập đầy đủ thông tin");
+        thongbao('error', "Please insert required information");
     }else{
         $secret = '6LdPg2ApAAAAALqNXXeicrG3tNpaS2ELQYDZHaCI'; //Thay thế bằng mã Secret Key của bạn
         $verify_response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$captcha);
@@ -30,12 +30,11 @@ if(isset($_POST['submit']))
         if($response_data->success){
             $dataPost= array('email'=>$email);
             $listData= sendDataConnectMantan('http://warm.creatio.vn/apis/addSubscribeAPI', $dataPost);
-            // bao('success', "Bạn đã đăng ký thành công");
+            bao('success', "You have successfully subscribed to our newsletter");
              echo header("refresh: 0; url = http://warm.creatio.vn/thanks");
             exit();
         }else{
-            thongbao('error', "Bạn chưa xác minh repcatcha thành công");
-            
+            thongbao('error', "Please insert required information");
         }
         
     }
@@ -47,7 +46,7 @@ if(isset($_POST['submit']))
                 <div class="logo-banner-box">
                     <div class="container">
                         <div class="logo-warm">
-                            <img src="<?php echo $urlThemeActive;?>/asset/img/WARM-horz-EN-_1_.jpg" alt="">
+                            <a href="/"><img src="<?php echo $urlThemeActive;?>/asset/img/WARM-horz-EN-_1_.jpg" alt=""></a>
                         </div>
                     </div>
                 </div>
@@ -199,14 +198,9 @@ if(isset($_POST['submit']))
                                             </div>
 
                                             <strong class="title-capcha">Captcha confirmation</strong>
-                                            <dir class="">
-                                                
-                                                
+                                        
+                                            <div class="captcha-area">
                                                 <span>Please validate the Captcha to validate your registration</span>
-
-                                            <div class="m-5 captcha-area">
-                                                <h4>Captcha confirmation</h4>
-                                                <p>Please validate the Captcha to validate your registration</p>
 
                                                 <div class="g-recaptcha" data-sitekey="6LdPg2ApAAAAAPQbAJJr43jcCYla93FQbXgfTq3o"></div>
                                             </div>

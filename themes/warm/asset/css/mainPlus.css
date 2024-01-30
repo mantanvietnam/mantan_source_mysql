@@ -2225,7 +2225,7 @@
 
 /*   PHẦN MÃ CAPTCHA    */
 
-.captcha-area h4 {
+/* .captcha-area h4 {
     font-size: 22px;
     line-height: 28px;
     margin: 0 0 12px 0;
@@ -2242,4 +2242,20 @@
 
 .captcha-area {
     margin: 35px 0px 25px 32px !important;
+} */
+
+.box-profile .title-capcha{
+    display: block;
+    font-size: 22px;
+    margin-bottom: 14px;
+    margin-top: 26px;
+}
+
+.box-profile .captcha-area span{
+    display: block;
+    margin-bottom: 30px;
+}
+
+.captcha-area{
+    padding-left: 32px
 }
