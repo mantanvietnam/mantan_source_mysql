@@ -15,6 +15,7 @@
 	$routesPlugin['ourproject']= 'project/view/home/ourproject.php';
 	$routesPlugin['current-tender-calls']= 'project/view/home/past.php';
 	$routesPlugin['newletter']= 'project/view/home/newletter.php';
+	$routesPlugin['thanks']= 'project/view/home/thanks.php';
 
 	
 ?>

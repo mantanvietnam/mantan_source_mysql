@@ -1,5 +1,43 @@
 <?php getHeader();?>  
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+          <script src='https://www.google.com/recaptcha/api.js' async defer ></script>
 
+<?php
+function thongbao($status, $msg)
+{
+    return die('<script type="text/javascript">Swal.fire("Thông Báo", "'.$msg.'", "'.$status.'"); setTimeout(function(){ location.href = "/newletter" },2000); </script>');
+}
+function bao($status, $msg)
+{
+    return die('<script type="text/javascript">Swal.fire("Thông Báo", "'.$msg.'", "'.$status.'"); setTimeout(function(){ location.href = "/thanks" },2000); </script>');
+}
+if(isset($_POST['submit']))
+{
+
+    global $controller;
+    
+    $email = $_POST['email'];
+    $captcha    = $_POST['g-recaptcha-response'];
+    if(!$email)
+    {
+        thongbao('error', "Vui lòng nhập đầy đủ thông tin");
+    }else{
+        $secret = '6LdPg2ApAAAAALqNXXeicrG3tNpaS2ELQYDZHaCI'; //Thay thế bằng mã Secret Key của bạn
+        $verify_response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$captcha);
+        $response_data = json_decode($verify_response);
+        if($response_data->success){
+            $dataPost= array('email'=>$email);
+            $listData= sendDataConnectMantan('http://warm.creatio.vn/apis/addSubscribeAPI', $dataPost);
+            bao('success', "Bạn đã đăng ký thành công");
+        }else{
+            thongbao('error', "Bạn chưa xác minh repcatcha thành công");
+        }
+        
+    }
+}
+?>
     <main>
         <section id="section-home-banner" class="section-logo-header">
             <div class="home-banner">
@@ -30,7 +68,8 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
-                        <form action="">
+                        <form class="wrFormResgis" action="" method="post" name="">
+                            <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                             <div class="box-form">
                                 <div class="description-form">
                                     <p>Help us to get to know you better and send you information that interests you, by answering the questions below.</p>
@@ -42,7 +81,7 @@
 
                                 <div class="label-arrcodion label-arrcodion-input">
                                     <p>Email address *</p>
-                                    <input type="email" class="form-control" placeholder="" aria-describedby="basic-addon1">
+                                    <input type="email" class="form-control" name="email" placeholder="" aria-describedby="basic-addon1">
 
                                 </div>
 
@@ -157,9 +196,11 @@
                                                     </li>
                                                 </ul>
                                             </div>
-
+                                            <dir class="m-5">
+                                                <div class="g-recaptcha" data-sitekey="6LdPg2ApAAAAAPQbAJJr43jcCYla93FQbXgfTq3o"></div>
+                                            </dir>
                                             <div class="button-newsletter">
-                                                <button type="submit">SUBSCRIBE</button>
+                                                <button type="submit" name="submit">SUBSCRIBE</button>
                                             </div>
                                         </div>
                                     
