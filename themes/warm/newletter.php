@@ -178,7 +178,7 @@
                             We also collect data on the way you use our newsletter (email opening rate, clicks, etc.), to help us apply our rules on data storage time (we delete your data after 12 months’ inactivity) and for statistical purposes. 
                             <br>
                             <br> 
-                            Under the terms laid out in the applicable regulations, you may access data concerning you or ask that they be deleted. You also have the right to oppose, rectify or limit the processing of your data, as well as the right to data portability. In order to exercise these rights, or if you have any questions regarding the processing of your data, you may contact the AFD’s Data Protection Officer (DPO) by email: <span>informatique.libertes@afd.fr</span>.If, after having contacted the DPO and received their answer, you feel that your rights have not been respected, you may lay a complaint with the CNIL.
+                            Under the terms laid out in the applicable regulations, you may access data concerning you or ask that they be deleted. You also have the right to oppose, rectify or limit the processing of your data, as well as the right to data portability. In order to exercise these rights, or if you have any questions regarding the processing of your data, you may contact the AFD’s Data Protection Officer (DPO) by email: <span>informatique.libertes@afd.fr</span> .If, after having contacted the DPO and received their answer, you feel that your rights have not been respected, you may lay a complaint with the CNIL.
                             <br>
                             <br>
                             <span>More informations about the processing of personnal data.</span>
@@ -272,6 +272,9 @@
         fetch("https://restcountries.com/v3.1/all")
         .then(response => response.json())
         .then(data => {
+            // Sắp xếp danh sách theo tên quốc gia (common name)
+            data.sort((a, b) => a.name.common.localeCompare(b.name.common));
+
             // Thêm các option vào select
             data.forEach(country => {
             var option = document.createElement("option");
