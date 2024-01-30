@@ -30,9 +30,12 @@ if(isset($_POST['submit']))
         if($response_data->success){
             $dataPost= array('email'=>$email);
             $listData= sendDataConnectMantan('http://warm.creatio.vn/apis/addSubscribeAPI', $dataPost);
-            bao('success', "Bạn đã đăng ký thành công");
+            // bao('success', "Bạn đã đăng ký thành công");
+             echo header("refresh: 0; url = http://warm.creatio.vn/thanks");
+            exit();
         }else{
             thongbao('error', "Bạn chưa xác minh repcatcha thành công");
+            
         }
         
     }
@@ -194,13 +197,19 @@ if(isset($_POST['submit']))
                                                     </li>
                                                 </ul>
                                             </div>
+
                                             <strong class="title-capcha">Captcha confirmation</strong>
                                             <dir class="">
                                                 
                                                 
                                                 <span>Please validate the Captcha to validate your registration</span>
+
+                                            <div class="m-5 captcha-area">
+                                                <h4>Captcha confirmation</h4>
+                                                <p>Please validate the Captcha to validate your registration</p>
+
                                                 <div class="g-recaptcha" data-sitekey="6LdPg2ApAAAAAPQbAJJr43jcCYla93FQbXgfTq3o"></div>
-                                            </dir>
+                                            </div>
                                             <div class="button-newsletter">
                                                 <button type="submit" name="submit">SUBSCRIBE</button>
                                             </div>

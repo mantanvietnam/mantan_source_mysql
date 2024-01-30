@@ -2221,3 +2221,25 @@
     color: #FFF;
     background-color: #DA291C;
 }
+
+
+/*   PHẦN MÃ CAPTCHA    */
+
+.captcha-area h4 {
+    font-size: 22px;
+    line-height: 28px;
+    margin: 0 0 12px 0;
+    font-weight: bold;
+}
+
+.captcha-area p {
+    background-color: transparent !important;
+    color: #212529;
+    padding: 0 !important;
+    margin-top: 14px;
+    margin-bottom: 44px;
+}
+
+.captcha-area {
+    margin: 35px 0px 25px 32px !important;
+}
