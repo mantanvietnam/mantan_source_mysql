@@ -502,24 +502,26 @@ function addProductWarehouse($input){
             $total = 0;
 
             foreach($dataSend['idHangHoa'] as $key => $value){
-                $total += (int)$dataSend['price'][$key]* (int)$dataSend['soluong'][$key];
-                $product = $modelWarehouseProductDetails->newEmptyEntity();
+                $pro = $modelProducts->find()->where(['id'=>(int) $value])->first();
 
-                $product->id_member = $user->id_member;
-                $product->id_warehouse_product = $dataWP->id;
-                $product->id_warehouse = $dataWP->id_warehouse;
-                $product->id_product = $value;
-                $product->impor_price = (int) $dataSend['price'][$key];
-                $product->quantity = (int) $dataSend['soluong'][$key];
-                $product->inventory_quantity = (int) $dataSend['soluong'][$key];
-                $product->created_at =  date('Y-m-d H:i:s');
+                if(!empty($pro)){
+                    $total += (int)$dataSend['price'][$key]* (int)$dataSend['soluong'][$key];
+                    $product = $modelWarehouseProductDetails->newEmptyEntity();
 
-                $modelWarehouseProductDetails->save($product);
+                    $product->id_member = $user->id_member;
+                    $product->id_warehouse_product = $dataWP->id;
+                    $product->id_warehouse = $dataWP->id_warehouse;
+                    $product->id_product = $value;
+                    $product->impor_price = (int) $dataSend['price'][$key];
+                    $product->quantity = (int) $dataSend['soluong'][$key];
+                    $product->inventory_quantity = (int) $dataSend['soluong'][$key];
+                    $product->created_at =  date('Y-m-d H:i:s');
 
-                $pro = $modelProducts->get($value);
-                $pro->quantity += (int)$dataSend['soluong'][$key]; 
-                $modelProducts->save($pro);
+                    $modelWarehouseProductDetails->save($product);
 
+                    $pro->quantity += (int)$dataSend['soluong'][$key]; 
+                    $modelProducts->save($pro);
+                }
             }
             
 
@@ -672,13 +674,15 @@ function importHistorytWarehouse($input){
                 }
 
                 $product = $modelWarehouseProductDetails->find()->where($conditionDetailed)->all()->toList();
+                
                 if(!empty($product)){
                     foreach($product as $k => $value){
                         $product[$k]->prod = $modelProducts->find()->where(array('id'=>$value->id_product))->first();
-
                     }
-                    $listData[$key]->product = $product;
 
+                    $listData[$key]->product = $product;
+                }else{
+                    $listData[$key]->product = [];
                 }
             }
         }

@@ -131,7 +131,10 @@ function createRequestAddMoney($input)
 	if(!empty(checkLoginManager('createRequestAddMoney', 'zalo'))){
 	    $metaTitleMantan = 'Yêu cầu nạp tiền';
 
+	    $modelMember = $controller->loadModel('Members');
+
 	    $boss_spa = $modelMember->find()->where(['id'=>$session->read('infoUser')->id_member])->first();
+	    
 	    setVariable('boss_spa', $boss_spa);
 	}else{
 		return $controller->redirect('/');

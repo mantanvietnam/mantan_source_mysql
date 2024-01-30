@@ -90,6 +90,7 @@ function testOnline($input)
                 }
 
                 if(!empty($_GET['id_customer'])){
+                    /*
                     $conditionsHistory['id_customer'] = (int) $_GET['id_customer'];
                     $conditionsHistory['id_test'] = (int) $data->id;
                     
@@ -97,6 +98,9 @@ function testOnline($input)
                     if(empty($history)){
                         $history = $modelHistoryTests->newEmptyEntity();
                     }
+                    */
+
+                    $history = $modelHistoryTests->newEmptyEntity();
 
                     $history->id_customer = @$_GET['id_customer'];
                     $history->id_test = $data->id;

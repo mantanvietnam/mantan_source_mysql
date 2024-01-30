@@ -36,7 +36,7 @@ function login($input)
 					if($info_customer->type == 0){
 						$info_member = $modelMembers->find()->where(array('id'=>$info_customer->id_member, 'type'=>1))->first();
 
-				    	// lấy tình trạng tài khoản của nhân viên theo chủ spa
+						// lấy tình trạng tài khoản của nhân viên theo chủ spa
 						$info_customer->dateline_at = $info_member->dateline_at;
 						$info_customer->status = $info_member->status;
 						$info_customer->module = json_decode($info_member->module, true);
@@ -48,16 +48,27 @@ function login($input)
 	    				// nếu tài khoản không bị khóa
 						if($info_customer->status == 1){
 							$info_customer->last_login = date('Y-m-d H:i:s');
-
+							
+							if(is_array($info_customer->module)){
+								$info_customer->module = json_encode($info_customer->module);
+							}
+							
 							$modelMembers->save($info_customer);
 
+							if(is_string($info_customer->module)){
+								$info_customer->module = json_decode($info_customer->module, true);
+							}
+							
 			    			// nếu là chủ spa
 							if($info_customer->type == 1){
 								$info_customer->id_member = $info_customer->id;
-								$info_customer->module = json_decode($info_customer->module, true);
+
+								if(is_string($info_customer->module)){
+									$info_customer->module = json_decode($info_customer->module, true);
+								}
 							}
 
-							if(!empty($info_customer->permission)){
+							if(!empty($info_customer->permission) && is_string($info_customer->permission)){
 								$info_customer->list_permission = json_decode($info_customer->permission,true);
 							}
 

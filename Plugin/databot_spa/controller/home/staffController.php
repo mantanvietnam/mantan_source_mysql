@@ -434,7 +434,7 @@ function deteleGroupStaff($input){
 	
 	if(!empty(checkLoginManager('deteleGroupStaff', 'staff'))){
         $infoUser = $session->read('infoUser');
-        $modelMembers = $modelMember->loadModel('Members');
+        $modelMembers = $controller->loadModel('Members');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
