@@ -194,9 +194,11 @@ if(isset($_POST['submit']))
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <dir class="m-5">
+                                            <div class="m-5 captcha-area">
+                                                <h4>Captcha confirmation</h4>
+                                                <p>Please validate the Captcha to validate your registration</p>
                                                 <div class="g-recaptcha" data-sitekey="6LdPg2ApAAAAAPQbAJJr43jcCYla93FQbXgfTq3o"></div>
-                                            </dir>
+                                            </div>
                                             <div class="button-newsletter">
                                                 <button type="submit" name="submit">SUBSCRIBE</button>
                                             </div>
