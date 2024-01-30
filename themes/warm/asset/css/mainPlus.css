@@ -2158,6 +2158,22 @@
     padding-top: 0px;
 }
 
+.box-profile dir{
+    padding-left: 32px !important
+}
+
+.box-profile .title-capcha{
+    display: block;
+    font-size: 22px;
+    margin-bottom: 14px;
+    margin-top: 26px;
+}
+
+.box-profile dir span{
+    display: block;
+    margin-bottom: 30px;
+}
+
 
 /*Bổ sung trang cảm ơn*/
 

@@ -194,7 +194,11 @@ if(isset($_POST['submit']))
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <dir class="m-5">
+                                            <strong class="title-capcha">Captcha confirmation</strong>
+                                            <dir class="">
+                                                
+                                                
+                                                <span>Please validate the Captcha to validate your registration</span>
                                                 <div class="g-recaptcha" data-sitekey="6LdPg2ApAAAAAPQbAJJr43jcCYla93FQbXgfTq3o"></div>
                                             </dir>
                                             <div class="button-newsletter">
