@@ -65,6 +65,16 @@
                 </div>
 
                 <?php 
+                if(!empty($tests)){
+                  echo '<div class="row mb-3">
+                          <div class="col-lg-12 text-center">
+                            <a class="btn btn-danger" href="/test/'.$tests[0]->slug.'.html">LÀM BÀI THI</a>
+                          </div>
+                        </div>';
+                }
+                ?>
+
+                <?php 
                 if(!empty($data->content)){
                   echo '<div class="video-learning-detail">
                             <div class="container">

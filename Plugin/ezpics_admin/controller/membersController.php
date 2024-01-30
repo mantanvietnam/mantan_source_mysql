@@ -66,7 +66,7 @@ function listMemberAdmin($input)
     $totalDatatoday = count($totalDatatoday);
 
     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
-    	$listData = $modelMembers->find()->where($conditions)->order($order)->all()->toList();
+    	$listData = $modelMembers->find()->where($conditions)->limit(1000)->page($page)->order($order)->all()->toList();
 
     	$titleExcel = 	[
 							['name'=>'Họ tên', 'type'=>'text', 'width'=>25],

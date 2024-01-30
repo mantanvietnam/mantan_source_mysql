@@ -18,14 +18,14 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Bài học (*)</label>
+                    <label class="form-label">Khóa học</label>
                     <div class="input-group input-group-merge">
-                      <select required class="form-select" name="id_lesson" id="id_lesson">
-                        <option value="">Chọn bài học</option>
+                      <select class="form-select" name="id_course" id="id_course" onchange="selectCourse();">
+                        <option value="0">Chọn khóa học</option>
                         <?php 
-                        if(!empty($listLesson)){
-                          foreach ($listLesson as $key => $item) {
-                            if(empty($data->id_lesson) || $data->id_lesson!=$item->id){
+                        if(!empty($listCourse)){
+                          foreach ($listCourse as $key => $item) {
+                            if(empty($data->id_course) || $data->id_course!=$item->id){
                               echo '<option value="'.$item->id.'">'.$item->title.'</option>';
                             }else{
                               echo '<option selected value="'.$item->id.'">'.$item->title.'</option>';
@@ -33,6 +33,15 @@
                           }
                         }
                         ?>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Bài học</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="id_lesson" id="id_lesson">
+                        <option value="0">Chọn bài học</option>
                       </select>
                     </div>
                   </div>
@@ -87,3 +96,36 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+  var id_lesson_default = '<?php echo @$data->id_lesson;?>';
+
+  function selectCourse()
+  {
+    var id_course = $('#id_course').val();
+    var lessonSelect = '<option value="0">Chọn bài học</option>';
+    var selectStyle;
+
+    if(id_course!='0'){
+      $.ajax({
+        method: "POST",
+        url: "/apis/getLessonsAPI",
+        data: { id_course: id_course }
+      })
+      .done(function( msg ) {
+        Object.keys(msg).forEach(function(key) {
+          selectStyle = '';
+          if(msg[key].id == id_lesson_default) selectStyle = 'selected';
+
+          lessonSelect += '<option '+selectStyle+' value="'+msg[key].id+'">'+msg[key].title+'</option>';
+        });
+
+        $('#id_lesson').html(lessonSelect);
+      }); 
+    }else{
+      $('#id_lesson').html(lessonSelect);
+    }
+  }
+
+  selectCourse();
+</script>

@@ -10,6 +10,7 @@ function listTestCRM($input)
 	$modelLesson = $controller->loadModel('Lessons');
     $modelTests = $controller->loadModel('Tests');
     $modelQuestions = $controller->loadModel('Questions');
+    $modelCourses = $controller->loadModel('Courses');
 
 	$conditions = array();
 	$limit = 20;
@@ -93,6 +94,8 @@ function addTestCRM($input)
 	$modelLesson = $controller->loadModel('Lessons');
 	$modelSlugs = $controller->loadModel('Slugs');
     $modelTests = $controller->loadModel('Tests');
+    $modelCourses = $controller->loadModel('Courses');
+
 	$mess= '';
 
 	// lấy data edit
@@ -109,7 +112,8 @@ function addTestCRM($input)
 	        // tạo dữ liệu save
 	        $data->title = $dataSend['title'];
 	        $data->description = $dataSend['description'];
-	        $data->id_lesson = $dataSend['id_lesson'];
+	        $data->id_course = (int) $dataSend['id_course'];
+            $data->id_lesson = (int) $dataSend['id_lesson'];
 	        $data->time_test = $dataSend['time_test'];
 	        $data->status = $dataSend['status'];
 
@@ -173,11 +177,11 @@ function addTestCRM($input)
     }
 
     $conditions = array();
-    $listLesson = $modelLesson->find()->where($conditions)->all()->toList();
+    $listCourse = $modelCourses->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
 
     setVariable('data', $data);
     setVariable('mess', $mess);
-    setVariable('listLesson', $listLesson);
+    setVariable('listCourse', $listCourse);
 }
 
 function deleteTestCRM($input){

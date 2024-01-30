@@ -159,7 +159,7 @@
             </li>
 
             <li class="menu-item">
-              <a href="/history_test" class="menu-link">
+              <a href="/history-test" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-crown' ></i> 
                 <div data-i18n="Tempaltes">Lịch sử thi</div>
               </a>

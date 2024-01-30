@@ -8,4 +8,7 @@
 	$routesPlugin['lesson']= '2top_crm_training/view/home/lesson.php';
 	$routesPlugin['test']= '2top_crm_training/view/home/testOnline.php';
 	$routesPlugin['search-lesson']= '2top_crm_training/view/home/searchLesson.php';
+	$routesPlugin['history-test']= '2top_crm_training/view/home/historyTest.php';
+
+	$routesPlugin['getLessonsAPI']= '2top_crm_training/view/api/getLessonsAPI.php';
 ?>

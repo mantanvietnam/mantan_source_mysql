@@ -360,6 +360,7 @@ function course($input)
     if(!empty($session->read('infoUser'))){
         $modelLesson = $controller->loadModel('Lessons');
         $modelCourses = $controller->loadModel('Courses');
+        $modelTests = $controller->loadModel('Tests');
 
         if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
             if(!empty($_GET['id'])){
@@ -412,9 +413,16 @@ function course($input)
 
             $lesson = $modelLesson->find()->where($conditions)->order($order)->all()->toList();
 
+            // lấy số bài thi
+            $conditions = array('id_course'=>$data->id, 'id_lesson'=>0);
+            $order = array('id'=>'desc');
+
+            $tests = $modelTests->find()->where($conditions)->order($order)->all()->toList();
+
             setVariable('data', $data);
             setVariable('otherData', $otherData);
             setVariable('lesson', $lesson);
+            setVariable('tests', $tests);
         }else{
             return $controller->redirect('/');
         }
@@ -498,5 +506,107 @@ function courses($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+}
+
+function getLessonsAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+
+    $modelLesson = $controller->loadModel('Lessons');
+
+    $return = [];
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['id_course'])){
+            $conditions = array('id_course'=> (int) $dataSend['id_course']);
+            $order = array('id'=>'desc');
+
+            $return = $modelLesson->find()->where($conditions)->order($order)->all()->toList();
+        }
+    }
+
+    return $return;
+}
+
+function historyTest($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+
+        $metaTitleMantan = 'Lịch sử thi';
+
+        $modelHistoryTests = $controller->loadModel('Historytests');
+        $modelTests = $controller->loadModel('Tests');
+
+        $conditions= array('id_customer'=>$session->read('infoUser')->id);
+        $limit = 12;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+        
+        $listData = $modelHistoryTests->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                if(!empty($value->id_test) && empty($category[$value->id_test])){
+                    $category[$value->id_test] = $modelTests->find()->where(['id' => (int) $value->id_test])->first();
+                }
+                
+                $listData[$key]->name_test = (!empty($category[$value->id_test]->title))?$category[$value->id_test]->title:'';
+            }
+        }
+        
+        // phân trang
+        $totalData = $modelHistoryTests->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        
+        setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 ?>
