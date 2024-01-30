@@ -29,6 +29,7 @@
 
             <div class="container">
                 <div class="row justify-content-center">
+                    <form action="">
                     <div class="col-lg-9">
                         <div class="description-form">
                             <p>Help us to get to know you better and send you information that interests you, by answering the questions below.</p>
@@ -71,7 +72,7 @@
                         </div>
 
                         <div class="label-dropdown label-arrcodion">
-                            <form action="">
+                            
                                 <div class="box-profile">
                                     <div class="box-profile-item">
                                         <div class="title-box-profile">
@@ -160,9 +161,10 @@
                                         <button type="submit">SUBSCRIBE</button>
                                     </div>
                                 </div>
-                            </form>
+                            
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </section> 
