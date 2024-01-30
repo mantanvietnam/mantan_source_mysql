@@ -1,6 +1,6 @@
 <?php getHeader();?>  
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"> -->
           <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
           <script src='https://www.google.com/recaptcha/api.js' async defer ></script>
 
@@ -82,9 +82,7 @@ if(isset($_POST['submit']))
                                 <div class="label-arrcodion label-arrcodion-input">
                                     <p>Email address *</p>
                                     <input type="email" class="form-control" name="email" placeholder="" aria-describedby="basic-addon1">
-
                                 </div>
-
                                 <div class="label-arrcodion">
                                     <select id="countrySelect">
                                         <option value="">Your country *</option>
