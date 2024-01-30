@@ -30,9 +30,12 @@ if(isset($_POST['submit']))
         if($response_data->success){
             $dataPost= array('email'=>$email);
             $listData= sendDataConnectMantan('http://warm.creatio.vn/apis/addSubscribeAPI', $dataPost);
-            bao('success', "Bạn đã đăng ký thành công");
+            // bao('success', "Bạn đã đăng ký thành công");
+             echo header("refresh: 0; url = http://warm.creatio.vn/thanks");
+            exit();
         }else{
             thongbao('error', "Bạn chưa xác minh repcatcha thành công");
+            
         }
         
     }
