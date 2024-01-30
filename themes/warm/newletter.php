@@ -29,142 +29,144 @@
 
             <div class="container">
                 <div class="row justify-content-center">
-                    <form action="">
                     <div class="col-lg-9">
-                        <div class="description-form">
-                            <p>Help us to get to know you better and send you information that interests you, by answering the questions below.</p>
-                        </div>
-
-                        <div class="textnote-form">
-                            <span>* indicates required</span>
-                        </div>
-
-                        <div class="label-arrcodion label-arrcodion-input">
-                            <p>Email address *</p>
-                            <input type="email" class="form-control" placeholder="" aria-describedby="basic-addon1">
-
-                        </div>
-
-                        <div class="label-arrcodion">
-                            <select id="countrySelect">
-                                <option value="">Your country *</option>
-                            </select>
-                        </div>
-
-                        <div class="label-arrcodion">
-                            <select name="calc_shipping_provinces">
-                                <option value="">Your province (if Vietnam)  *</option>
-                            </select>
-                        </div>
-
-                        <div class="label-arrcodion">
-                            <select name="option-job">
-                                <option value="">Your profile *</option>
-                                <option value="Etablissement public (Ministère, collectivités locales…)">Public institution (ministry, local authorities …)</option>
-                                <option value="Banque ou agence de développement">Bank / Development agency</option>
-                                <option value="Organisation internationale">International organization</option><option value="ONG">NGO / Association</option>
-                                <option value="Institut de Recherche">Research institute</option><option value="Multinationale">Multinational company</option>
-                                <option value="TPE / PME">Very Small Enterprise/ Small and Medium Enterprise</option>
-                                <option value="Start-up">Startup</option><option value="Entrepreneur">Entrepreneur</option>
-                                <option value="Etudiant">Student</option>
-                                <option value="Autre">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="label-dropdown label-arrcodion">
-                            
-                                <div class="box-profile">
-                                    <div class="box-profile-item">
-                                        <div class="title-box-profile">
-                                            <span>Your areas of interest</span>
-                                        </div>
-                                        <ul>
-                                            <li>
-                                                <input id="selectAll" type="checkbox">
-                                                <label for='selectAll' class="text-italic"><strong>All subjects </strong>(in this case you don't need to check the other boxes)</label>
-                                            </li>
-                                            <li>
-                                                <input id="check1a" type="checkbox" name="quocgia" value="check1a" />
-                                                <label for="check1a">Resilience of cities and territories to climate change and natural hazards </label>
-                                            </li>
-                                            <li>
-                                                <input id="check2a" type="checkbox" name="quocgia" value="check2a" />
-                                                <label for="check2a">Integrated coastal zone management </label>
-                                            </li>
-
-                                            <li>
-                                                <input id="check3a" type="checkbox" name="quocgia" value="check3a" />
-                                                <label for="check3a">Water resource management </label>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="box-profile-item box-profile-item-bottom">
-                                        <div class="title-box-profile">
-                                            <span>Your regions of interest</span>
-                                        </div>
-                                        <div class="all-region">
-                                            <input id="selectAll" type="checkbox">
-                                            <label for='selectAll' class="text-italic"><strong>All regions</strong> (in this case you don't need to check the other boxes)</label>
-                                        </div>
-                                        <ul>
-                                            
-                                            <li>
-                                                <input id="check1" type="checkbox" name="quocgia" value="check1" />
-                                                <label for="check1">Dien Bien</label>
-                                            </li>
-                                            <li>
-                                                <input id="check2" type="checkbox" name="quocgia" value="check2" />
-                                                <label for="check2">Son La</label>
-                                            </li>
-                                            <li>
-                                                <input id="check3" type="checkbox" name="quocgia" value="check3">
-                                                <label for='check3'>Quang Tri</label>
-                                            </li>
-                                            <li>
-                                                <input id="check4" type="checkbox" name="quocgia" value="check4" />
-                                                <label for="check4">Quang Nam</label>
-                                            </li>
-                                            <li>
-                                                <input id="check5" type="checkbox" name="quocgia" value="check5" />
-                                                <label for="check5">Ninh Thuan</label>
-                                            </li>
-
-                                            <li>
-                                                <input id="check6" type="checkbox" name="quocgia" value="check6" />
-                                                <label for="check6">Vinh Long</label>
-                                            </li>
-
-                                            <li>
-                                                <input id="check7" type="checkbox" name="quocgia" value="check7" />
-                                                <label for="check7">Quang Tri</label>
-                                            </li>
-
-                                            <li>
-                                                <input id="check2" type="checkbox" name="quocgia" value="check2" />
-                                                <label for="check2">Hau Giang</label>
-                                            </li>
-
-                                            <li>
-                                                <input id="check2" type="checkbox" name="quocgia" value="check2" />
-                                                <label for="check2">Quang Nam</label>
-                                            </li>
-
-                                            <li>
-                                                <input id="check2" type="checkbox" name="quocgia" value="check2" />
-                                                <label for="check2">Ca Mau</label>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="button-newsletter">
-                                        <button type="submit">SUBSCRIBE</button>
-                                    </div>
+                        <form action="">
+                            <div class="box-form">
+                                <div class="description-form">
+                                    <p>Help us to get to know you better and send you information that interests you, by answering the questions below.</p>
                                 </div>
-                            
-                        </div>
+
+                                <div class="textnote-form">
+                                    <span>* indicates required</span>
+                                </div>
+
+                                <div class="label-arrcodion label-arrcodion-input">
+                                    <p>Email address *</p>
+                                    <input type="email" class="form-control" placeholder="" aria-describedby="basic-addon1">
+
+                                </div>
+
+                                <div class="label-arrcodion">
+                                    <select id="countrySelect">
+                                        <option value="">Your country *</option>
+                                    </select>
+                                </div>
+
+                                <div class="label-arrcodion">
+                                    <select name="calc_shipping_provinces">
+                                        <option value="">Your province (if Vietnam)  *</option>
+                                    </select>
+                                </div>
+
+                                <div class="label-arrcodion">
+                                    <select name="option-job">
+                                        <option value="">Your profile *</option>
+                                        <option value="Etablissement public (Ministère, collectivités locales…)">Public institution (ministry, local authorities …)</option>
+                                        <option value="Banque ou agence de développement">Bank / Development agency</option>
+                                        <option value="Organisation internationale">International organization</option><option value="ONG">NGO / Association</option>
+                                        <option value="Institut de Recherche">Research institute</option><option value="Multinationale">Multinational company</option>
+                                        <option value="TPE / PME">Very Small Enterprise/ Small and Medium Enterprise</option>
+                                        <option value="Start-up">Startup</option><option value="Entrepreneur">Entrepreneur</option>
+                                        <option value="Etudiant">Student</option>
+                                        <option value="Autre">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="label-dropdown label-arrcodion">
+                                    
+                                        <div class="box-profile">
+                                            <div class="box-profile-item">
+                                                <div class="title-box-profile">
+                                                    <span>Your areas of interest</span>
+                                                </div>
+                                                <ul>
+                                                    <li>
+                                                        <input id="selectAll" type="checkbox">
+                                                        <label for='selectAll' class="text-italic"><strong>All subjects </strong>(in this case you don't need to check the other boxes)</label>
+                                                    </li>
+                                                    <li>
+                                                        <input id="check1a" type="checkbox" name="quocgia" value="check1a" />
+                                                        <label for="check1a">Resilience of cities and territories to climate change and natural hazards </label>
+                                                    </li>
+                                                    <li>
+                                                        <input id="check2a" type="checkbox" name="quocgia" value="check2a" />
+                                                        <label for="check2a">Integrated coastal zone management </label>
+                                                    </li>
+
+                                                    <li>
+                                                        <input id="check3a" type="checkbox" name="quocgia" value="check3a" />
+                                                        <label for="check3a">Water resource management </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="box-profile-item box-profile-item-bottom">
+                                                <div class="title-box-profile">
+                                                    <span>Your regions of interest</span>
+                                                </div>
+                                                <div class="all-region">
+                                                    <input id="selectAll" type="checkbox">
+                                                    <label for='selectAll' class="text-italic"><strong>All regions</strong> (in this case you don't need to check the other boxes)</label>
+                                                </div>
+                                                <ul>
+                                                    
+                                                    <li>
+                                                        <input id="check1" type="checkbox" name="quocgia" value="check1" />
+                                                        <label for="check1">Dien Bien</label>
+                                                    </li>
+                                                    <li>
+                                                        <input id="check2" type="checkbox" name="quocgia" value="check2" />
+                                                        <label for="check2">Son La</label>
+                                                    </li>
+                                                    <li>
+                                                        <input id="check3" type="checkbox" name="quocgia" value="check3">
+                                                        <label for='check3'>Quang Tri</label>
+                                                    </li>
+                                                    <li>
+                                                        <input id="check4" type="checkbox" name="quocgia" value="check4" />
+                                                        <label for="check4">Quang Nam</label>
+                                                    </li>
+                                                    <li>
+                                                        <input id="check5" type="checkbox" name="quocgia" value="check5" />
+                                                        <label for="check5">Ninh Thuan</label>
+                                                    </li>
+
+                                                    <li>
+                                                        <input id="check6" type="checkbox" name="quocgia" value="check6" />
+                                                        <label for="check6">Vinh Long</label>
+                                                    </li>
+
+                                                    <li>
+                                                        <input id="check7" type="checkbox" name="quocgia" value="check7" />
+                                                        <label for="check7">Quang Tri</label>
+                                                    </li>
+
+                                                    <li>
+                                                        <input id="check2" type="checkbox" name="quocgia" value="check2" />
+                                                        <label for="check2">Hau Giang</label>
+                                                    </li>
+
+                                                    <li>
+                                                        <input id="check2" type="checkbox" name="quocgia" value="check2" />
+                                                        <label for="check2">Quang Nam</label>
+                                                    </li>
+
+                                                    <li>
+                                                        <input id="check2" type="checkbox" name="quocgia" value="check2" />
+                                                        <label for="check2">Ca Mau</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="button-newsletter">
+                                                <button type="submit">SUBSCRIBE</button>
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </section> 
