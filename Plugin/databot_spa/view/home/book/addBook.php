@@ -29,7 +29,7 @@
                     </div>
                     <div class="mb-3 form-group col-md-6">
                          <label class="form-label" for="basic-default-fullname">Ngày đặt:</label>
-                        <input type="text" name="time_book" class="form-control hasDatepicker datetimepicker" id="time_book" value="<?php echo (!empty($data['time_book']))?  date("d/m/Y H:i", @$data['time_book']) : " " ?>">
+                        <input type="text" name="time_book" class="form-control hasDatepicker datetimepicker" id="time_book"  min="<?php echo date('d/m/Y H:i'); ?>" value="<?php echo (!empty($data['time_book']))?  date("d/m/Y H:i", @$data['time_book']) : " " ?>">
                     </div>
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
@@ -176,6 +176,12 @@
   }
 
   repeatBook();
+
+  $('#time_book').datetimepicker({
+    // timepicker : false,
+    // format : 'd/m/Y H:i',
+    minDate : '<?php echo date('d/m/Y H:i'); ?>'
+});
 </script>
 <script type="text/javascript">
     $(function() {

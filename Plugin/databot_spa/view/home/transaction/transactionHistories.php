@@ -148,7 +148,7 @@
       </div>
       <form enctype="multipart/form-data" method="get" action="/createRequestAddMoney">
         <div class="modal-footer">
-          <input type="text" value="" class="form-control" name="coin" placeholder="Nhập số đầy đủ số 0" id="coin">
+          <input type="text" value="" class="form-control" name="coin" placeholder="Nhập số đầy đủ số" id="coin">
         
           <button type="submit" class="btn btn-primary">Tạo yêu cầu tiền</button>
         </div>

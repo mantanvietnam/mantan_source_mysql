@@ -1,4 +1,4 @@
-<?php 
+    <?php 
 function listBed($input){
     global $isRequestPost;
     global $modelCategories;
@@ -334,8 +334,11 @@ function checkoutBed($input){
         if(!empty($_GET['idBed'])){
             $data = $modelUserserviceHistories->find()->where(array('id_bed'=>$_GET['idBed'], 'status'=>1))->first();
 
-
-            $data->bed = $modelBed->get($data->id_bed);
+            if(!empty($data->id_bed)){
+                $data->bed = $modelBed->get($data->id_bed);
+            }else{
+                return $controller->redirect('/listRoomBed');
+            }
           
 
             $data->service = $modelService->find()->where(array('id'=>$data->id_services))->first();

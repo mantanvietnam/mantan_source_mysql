@@ -435,7 +435,7 @@ function listPayableDebt($input){
 	    if(@$_GET['mess']=='paymentDone'){
 	    	$mess = '<p class="text-success">Bạn thành toán công nợ thành công</p>';
 	    }elseif(@$_GET['mess']=='paymentError'){
-	    	$mess = '<p class="text-success">Bạn Số tiền thanh toán nhỏ hơn nợ</p>';
+	    	$mess = '<p class="text-success">Số tiền thanh toán nhỏ hơn nợ</p>';
 	    }
 
 	    $conditionsStaff['OR'] = [ 

@@ -321,7 +321,7 @@
       </div>
    </div>
    <div class="modal-footer">
-    <button type="submit" class="btn btn-primary" data-action="create"><i class="bx bx-save"></i> Check ins</button>
+    <button type="submit" class="btn btn-primary" data-action="create"><i class="bx bx-save"></i> Check in</button>
    </div>
   </form>
   </div>

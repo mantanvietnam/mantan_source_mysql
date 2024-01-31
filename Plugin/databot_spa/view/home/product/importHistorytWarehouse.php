@@ -77,7 +77,7 @@
                                                 <th colspan="4">thông tin sản phẩn </th>
                                             </tr>
                                             <tr>
-                                                <th >Sản phẩn</th>
+                                                <th >Sản phẩm</th>
                                                 <th >Giá nhập</th>
                                                 <th >Số lượng ban đầu</th>
                                                 <th >Số lượng tồn kho</th>

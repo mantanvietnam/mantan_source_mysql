@@ -147,8 +147,8 @@
         <div class="modal-footer" style="display: block;">
             <p><label>ID:</label> <?php echo $items->id ?></p>
             <p><label>Tên khách hàng:</label> <?php echo $items->full_name ?></p>
-            <p><label>Điện thoại:</label> <?php echo $items->customer->phone ?></p>
-            <p><label>Email:</label> <?php echo $items->customer->email ?></p>
+            <p><label>Điện thoại:</label> <?php echo @$items->customer->phone ?></p>
+            <p><label>Email:</label> <?php echo @$items->customer->email ?></p>
             <p> Chưa giảm giá: <?php echo number_format(@$items->total) ?>đ <br/>
                 Giảm giá: <?php echo $promotion ?><br/>
                 Tổng cộng: <?php echo number_format(@$items->total_pay) ?>đ<br/>

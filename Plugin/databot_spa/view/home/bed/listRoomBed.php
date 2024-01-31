@@ -206,7 +206,7 @@ rel='stylesheet' type='text/css'>
                 "view": {name: "Xem thông tin giường", icon: "view"},
                 "cancel": {name: "Hủy check-in", icon: "delete"},
                 "sep1": "---------",
-                "listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
+                //"listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
                 "edit": {name: "Sửa cài đặt giường", icon: "edit"},
             }
         });
@@ -241,7 +241,7 @@ rel='stylesheet' type='text/css'>
             },
             items: {
                 "checkinBed": {name: "Nhận khách mới", icon: "add"},
-                "listOrder": {name: "Danh sách khách chờ", icon: "paste"},
+                //"listOrder": {name: "Danh sách khách chờ", icon: "paste"},
                 "sep1": "---------",
                 "editBed": {name: "Sửa cài đặt giường", icon: "edit"},
                 "deleteBed": {name: "Xóa giường", icon: "delete"},
@@ -297,7 +297,7 @@ rel='stylesheet' type='text/css'>
                 "cancel": {name: "Hủy check-in", icon: "delete"},
                 "view": {name: "Xem thông tin giường", icon: "view"},
                 "sep1": "---------",
-                "listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
+               // "listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
                 "edit": {name: "Sửa cài đặt giường", icon: "edit"},
             }
         });
@@ -333,7 +333,7 @@ rel='stylesheet' type='text/css'>
             },
             items: {
                 "checkinBed": {name: "Nhận khách mới", icon: "add"},
-                "listOrder": {name: "Danh sách khách chờ", icon: "paste"},
+               // "listOrder": {name: "Danh sách khách chờ", icon: "paste"},
                 "sep1": "---------",
                 "editBed": {name: "Sửa cài đặt giường", icon: "edit"},
                 "deleteBed": {name: "Xóa giường", icon: "delete"},

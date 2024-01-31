@@ -98,6 +98,8 @@
                                     $delete= '';
                                     if($i > 1){
                                         $delete= '<a onclick="deleteTr('.$i.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
+                                    }else{
+                                        $delete= '<a id="a_product" style="display: none;" onclick="deleteTr('.$i.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
                                     }
                                     echo '  <tr class="gradeX" id="tr-'.$i.'">
                                                 <td>
@@ -162,6 +164,8 @@
                                     $delete= '';
                                     if($i > 1){
                                         $delete= '<a onclick="deleteService('.$i.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
+                                    }else{
+                                        $delete= '<a id="a_service" style="display: none;" onclick="deleteService('.$i.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
                                     }
                                     echo '  <tr class="gradeX" id="trService-'.$i.'">
                                                 <td>
@@ -240,11 +244,22 @@
 
         $('#idHangHoa-'+row+' option:selected').removeAttr('selected');
         $('#soluong-'+row).val('');
+         if(row>1){
+            document.getElementById("a_product").style.display = 'block';
+
+        }
+
     }
+
 
     function deleteTr(i)
     {
+        row--;
         $('#tr-'+i).remove();
+        if(row==1){
+            document.getElementById("a_product").style.display = 'none';
+
+        }
     }
 </script>
 
@@ -258,11 +273,21 @@
 
         $('#idService-'+rows+' option:selected').removeAttr('selected');
         $('#soluong-'+rows).val('');
+
+        if(rows>1){
+            document.getElementById("a_service").style.display = 'block';
+
+        }
     }
 
     function deleteService(i)
     {
+        rows--;
         $('#trService-'+i).remove();
+         if(rows==1){
+            document.getElementById("a_service").style.display = 'none';
+
+        }
     }
 </script>
 <?php include(__DIR__.'/../footer.php'); ?> 

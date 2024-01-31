@@ -172,5 +172,12 @@
             checkboxes[i].checked = source.checked;
     }
 }
-</script>
+
+
+  $('#birthday').datetimepicker({
+    timepicker : false,
+    format : 'd/m/Y',
+    maxDate  : '<?php echo date('d/m/Y'); ?>'
+});
+  </script>
 <?php include(__DIR__.'/../footer.php'); ?>
