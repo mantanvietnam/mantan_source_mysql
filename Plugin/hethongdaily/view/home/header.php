@@ -91,12 +91,12 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-
+        
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="/" class="app-brand-link">
               <span class="app-brand-logo demo">
-                <img src="<?php echo $session->read('infoUser')->info_system->image;?>" width="50">
+                <img src="<?php echo @$session->read('infoUser')->info_system->image;?>" width="50">
               </span>
               <span class="app-brand-text demo menu-text fw-bolder ms-2"><?php echo strtoupper($session->read('infoUser')->info_system->name);?></span>
             </a>
@@ -162,6 +162,23 @@
               <a href="/history-test" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-crown' ></i> 
                 <div data-i18n="Tempaltes">Lịch sử thi</div>
+              </a>
+            </li>
+
+            <!-- Template -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Kinh doanh</span></li>
+            <!-- Cards -->
+            <li class="menu-item">
+              <a href="/order-customer" class="menu-link">
+                <i class='menu-icon tf-icons bx bxs-user-plus' ></i> 
+                <div data-i18n="Tempaltes">Đơn hàng lẻ</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="/order-agency" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-list-ol' ></i> 
+                <div data-i18n="Tempaltes">Đơn đại lý</div>
               </a>
             </li>
 

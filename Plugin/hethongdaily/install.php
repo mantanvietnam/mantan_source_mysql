@@ -25,8 +25,18 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `id_position` int(11) NOT NULL DEFAULT 0,
   `create_agency` VARCHAR(255) NOT NULL DEFAULT 'active',
   `coin` INT NOT NULL DEFAULT '0',
+  `twitter` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `tiktok` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `youtube` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `web` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `linkedin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+
+
 
 $sqlInstallDatabase .= "CREATE TABLE `zalos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

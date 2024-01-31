@@ -399,5 +399,12 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
   }
 }
 
-?> 
+function getAllProductActive()
+{
+  global $controller;
+  
+  $modelProduct = $controller->loadModel('Products');
 
+  return $modelProduct->find()->where(['status'=>'active'])->order(['id_category'=>'asc'])->all()->toList();
+}
+?> 

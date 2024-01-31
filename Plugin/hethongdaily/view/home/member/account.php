@@ -39,6 +39,21 @@
                     <label class="form-label" for="basic-default-phone">Ngày sinh</label>
                     <input autocomplete="off" type="text" class="form-control datepicker" name="birthday" id="name" value="<?php echo @$user->birthday;?>" />
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Trang Twitter</label>
+                    <input type="text" class="form-control phone-mask" name="twitter" id="twitter" value="<?php echo @$user->twitter;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Kênh Tiktok</label>
+                    <input type="text" class="form-control phone-mask" name="tiktok" id="tiktok" value="<?php echo @$user->tiktok;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Kênh Youtube</label>
+                    <input type="text" class="form-control phone-mask" name="youtube" id="youtube" value="<?php echo @$user->youtube;?>" />
+                  </div>
                 </div>
                 
                 <div class="col-md-6">
@@ -53,10 +68,38 @@
                   </div>
 
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Trang Website</label>
+                    <input type="text" class="form-control phone-mask" name="web" id="web" value="<?php echo @$user->web;?>" />
+                  </div>
+
+                  <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Trang Facebook</label>
                     <input type="text" class="form-control phone-mask" name="facebook" id="facebook" value="<?php echo @$user->facebook;?>" />
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Trang Instagram</label>
+                    <input type="text" class="form-control phone-mask" name="instagram" id="instagram" value="<?php echo @$user->instagram;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Trang Linkedin</label>
+                    <input type="text" class="form-control phone-mask" name="linkedin" id="linkedin" value="<?php echo @$user->linkedin;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Trang Zalo</label>
+                    <input type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$user->zalo;?>" />
+                  </div>
                 </div>
+
+                <div class="col-md-12">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Giới thiệu bản thân</label>
+                    <?php showEditorInput('description', 'description', @$user->description);?>
+                  </div>
+                </div>
+
               </div>
 
               <button type="submit" class="btn btn-primary">Lưu</button> 

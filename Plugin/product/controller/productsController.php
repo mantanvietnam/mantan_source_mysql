@@ -318,7 +318,7 @@ function listQuestion($input){
 
     $metaTitleMantan = 'Danh sách câu hỏi thường gặp';
 
-    $modelQuestion = $controller->loadModel('Questions');
+    $modelQuestion = $controller->loadModel('QuestionProducts');
 
     if(!isset($_GET['id_product'])){
         return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct');
@@ -406,7 +406,7 @@ function addQuestion($input){
     $metaTitleMantan = 'Thông tin lịch trình';
 
 
-    $modelQuestion = $controller->loadModel('Questions');
+    $modelQuestion = $controller->loadModel('QuestionProducts');
     $mess= '';
 
     // lấy data edit
@@ -450,7 +450,7 @@ function addQuestion($input){
 
 function deleteQuestion($input){
     global $controller;
-    $modelQuestion = $controller->loadModel('Questions');
+    $modelQuestion = $controller->loadModel('QuestionProducts');
     if(!empty($_GET['id'])){
         $data = $modelQuestion->get($_GET['id']);
         

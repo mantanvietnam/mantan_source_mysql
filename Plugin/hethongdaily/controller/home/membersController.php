@@ -126,6 +126,7 @@ function account($input)
 	global $controller;
 	global $metaTitleMantan;
 	global $isRequestPost;
+	global $modelCategories;
 
 	$metaTitleMantan = 'Đổi thông tin tài khoản';
 
@@ -146,8 +147,18 @@ function account($input)
 				$user->address = $dataSend['address'];
 				$user->birthday = $dataSend['birthday'];
 				$user->facebook = $dataSend['facebook'];
+				$user->twitter = $dataSend['twitter'];
+				$user->tiktok = $dataSend['tiktok'];
+				$user->youtube = $dataSend['youtube'];
+				$user->web = $dataSend['web'];
+				$user->instagram = $dataSend['instagram'];
+				$user->linkedin = $dataSend['linkedin'];
+				$user->description = $dataSend['description'];
+				$user->zalo = $dataSend['zalo'];
 
 				$modelMembers->save($user);
+
+				$user->info_system = $modelCategories->get($user->id_system);
 
 				$session->write('infoUser', $user);
 
@@ -553,8 +564,15 @@ function info($input)
 
 		if(!empty($info)){
 			$position = $modelCategories->find()->where(array('id'=>$info->id_position))->first();
+			$system = $modelCategories->find()->where(array('id'=>$info->id_system ))->first();
 				
 			$info->name_position = @$position->name;
+			$info->name_system = @$system->name;
+			$info->image_system = @$system->image;
+
+			if(function_exists('getAllProductActive')){
+				setVariable('allProduct', getAllProductActive());
+			}
 		
 			setVariable('info', $info);
 		}else{

@@ -15,7 +15,7 @@ function product($input)
     $metaTitleMantan = 'Chi tiết sản phẩm';
 
     $modelProduct = $controller->loadModel('Products');
-    $modelQuestion = $controller->loadModel('Questions');
+    $modelQuestion = $controller->loadModel('QuestionProducts');
     $modelDiscountCodes = $controller->loadModel('DiscountCodes');
     $modelEvaluate = $controller->loadModel('Evaluates');
     $modelView = $controller->loadModel('Views');
