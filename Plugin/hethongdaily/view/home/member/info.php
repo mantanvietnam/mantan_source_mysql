@@ -174,7 +174,7 @@
                             </div> 
 
                             <div class="d-flex flex-row justify-content-center align-items-center mt-3"> 
-                                <span class="number"><?php echo number_format(rand(1000,99999));?><span class="follow"> người theo dõi</span></span> 
+                                <span class="number"><?php echo number_format($info->view);?><span class="follow"> lượt xem</span></span> 
                             </div> 
 
                             <div class=" d-flex mt-2"> 
@@ -310,113 +310,37 @@
             <div class="tab-pane fade" id="products">
                 <div class="container p-3 d-flex justify-content-center">
                     <div class="card p-4"> 
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr>
-                                  <th colspan="4">Sức khỏe</th>
-                                </tr>
-                                <tr onclick="checkbox(1);">
-                                    <th>
-                                        <input type="checkbox" name="" id="checkbox1">
-                                    </th>
-                                    <td width="80">
-                                        <img src="https://apis.ezpics.vn/upload/admin/images/686/thumb_product_25877.png" class="img-thumbnail">
-                                    </td>
-                                    <td>Trà thảo dược</td>
-                                    <td>
-                                        100.000đ<br/>
-                                        <del class="small">150.000đ</del>
-                                    </td>
-                                </tr>
-                                <tr onclick="checkbox(2);">
-                                    <th>
-                                        <input type="checkbox" name="" id="checkbox2">
-                                    </th>
-                                    <td width="80">
-                                        <img src="https://apis.ezpics.vn/upload/admin/images/686/thumb_product_25877.png" class="img-thumbnail">
-                                    </td>
-                                    <td>Trà thảo dược</td>
-                                    <td>
-                                        100.000đ<br/>
-                                        <del class="small">150.000đ</del>
-                                    </td>
-                                </tr><tr onclick="checkbox(3);">
-                                    <th>
-                                        <input type="checkbox" name="" id="checkbox3">
-                                    </th>
-                                    <td width="80">
-                                        <img src="https://apis.ezpics.vn/upload/admin/images/686/thumb_product_25877.png" class="img-thumbnail">
-                                    </td>
-                                    <td>Trà thảo dược</td>
-                                    <td>
-                                        100.000đ<br/>
-                                        <del class="small">150.000đ</del>
-                                    </td>
-                                </tr><tr onclick="checkbox(1);">
-                                    <th>
-                                        <input type="checkbox" name="" id="checkbox1">
-                                    </th>
-                                    <td width="80">
-                                        <img src="https://apis.ezpics.vn/upload/admin/images/686/thumb_product_25877.png" class="img-thumbnail">
-                                    </td>
-                                    <td>Trà thảo dược</td>
-                                    <td>
-                                        100.000đ<br/>
-                                        <del class="small">150.000đ</del>
-                                    </td>
-                                </tr><tr onclick="checkbox(1);">
-                                    <th>
-                                        <input type="checkbox" name="" id="checkbox1">
-                                    </th>
-                                    <td width="80">
-                                        <img src="https://apis.ezpics.vn/upload/admin/images/686/thumb_product_25877.png" class="img-thumbnail">
-                                    </td>
-                                    <td>Trà thảo dược</td>
-                                    <td>
-                                        100.000đ<br/>
-                                        <del class="small">150.000đ</del>
-                                    </td>
-                                </tr><tr onclick="checkbox(1);">
-                                    <th>
-                                        <input type="checkbox" name="" id="checkbox1">
-                                    </th>
-                                    <td width="80">
-                                        <img src="https://apis.ezpics.vn/upload/admin/images/686/thumb_product_25877.png" class="img-thumbnail">
-                                    </td>
-                                    <td>Trà thảo dược</td>
-                                    <td>
-                                        100.000đ<br/>
-                                        <del class="small">150.000đ</del>
-                                    </td>
-                                </tr><tr onclick="checkbox(1);">
-                                    <th>
-                                        <input type="checkbox" name="" id="checkbox1">
-                                    </th>
-                                    <td width="80">
-                                        <img src="https://apis.ezpics.vn/upload/admin/images/686/thumb_product_25877.png" class="img-thumbnail">
-                                    </td>
-                                    <td>Trà thảo dược</td>
-                                    <td>
-                                        100.000đ<br/>
-                                        <del class="small">150.000đ</del>
-                                    </td>
-                                </tr><tr onclick="checkbox(1);">
-                                    <th>
-                                        <input type="checkbox" name="" id="checkbox1">
-                                    </th>
-                                    <td width="80">
-                                        <img src="https://apis.ezpics.vn/upload/admin/images/686/thumb_product_25877.png" class="img-thumbnail">
-                                    </td>
-                                    <td>Trà thảo dược</td>
-                                    <td>
-                                        100.000đ<br/>
-                                        <del class="small">150.000đ</del>
-                                    </td>
-                                </tr>
-                                
-                            </tbody>
-                        </table>
-                            
+                        <?php 
+                        if(!empty($listProduct)){
+                            echo '<table class="table table-bordered"><tbody>';
+                            foreach ($listProduct as $item) {
+                                echo '  <tr>
+                                          <th colspan="4">'.$item['category']->name.'</th>
+                                        </tr>';
+
+                                if(!empty($item['product'])){
+                                    foreach ($item['product'] as $product) {
+                                        echo '  <tr onclick="checkbox('.$product->id.');">
+                                                    <th>
+                                                        <input type="checkbox" name="" id="checkbox'.$product->id.'">
+                                                    </th>
+                                                    <td width="80">
+                                                        <img src="'.$product->image.'" class="img-thumbnail">
+                                                    </td>
+                                                    <td>'.$product->title.'</td>
+                                                    <td>
+                                                        '.$product->price.'<br/>
+                                                        <del class="small">'.$product->price_old.'</del>
+                                                    </td>
+                                                </tr>';
+                                    }
+                                }
+                            }
+                            echo '</tbody></table>';
+                        }else{
+                            echo '<p class="text-danger">Chưa có sản phẩm bán</p>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

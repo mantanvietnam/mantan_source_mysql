@@ -32,6 +32,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `linkedin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `view` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 

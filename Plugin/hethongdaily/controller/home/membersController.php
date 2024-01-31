@@ -563,6 +563,11 @@ function info($input)
 		$info = $modelMembers->find()->where(['id'=>(int) $_GET['id'], 'status'=>'active', 'verify'=>'active'])->first();
 
 		if(!empty($info)){
+			// tăng lượt xem
+			$info->view ++;
+			$modelMembers->save($info);
+			$info->view += 1000;
+
 			$position = $modelCategories->find()->where(array('id'=>$info->id_position))->first();
 			$system = $modelCategories->find()->where(array('id'=>$info->id_system ))->first();
 				
@@ -571,7 +576,23 @@ function info($input)
 			$info->image_system = @$system->image;
 
 			if(function_exists('getAllProductActive')){
-				setVariable('allProduct', getAllProductActive());
+				$allProduct = getAllProductActive();
+				$allCategoryProduct = getAllCategoryProduct();
+				$listProduct = [];
+
+				if(!empty($allCategoryProduct)){
+					foreach ($allCategoryProduct as $category) {
+						$listProduct[$category->id]['category'] = $category;
+					}
+				}
+
+				if(!empty($allCategoryProduct)){
+					foreach ($allCategoryProduct as $product) {
+						$listProduct[$category->id]['product'][$product->id] = $product;
+					}
+				}
+
+				setVariable('listProduct', $listProduct);
 			}
 		
 			setVariable('info', $info);
