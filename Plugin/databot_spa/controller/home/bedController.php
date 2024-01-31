@@ -280,13 +280,14 @@ function cancelBed($input){
        if($isRequestPost){
             $dataSend = $input['request']->getData();
 
-            $data = $modelOrder->find()->where(array('id_bed'=>$dataSend['idBed'], 'status'=>2))->first();
-
+           /* $data = $modelOrder->find()->where(array('id_bed'=>$dataSend['idBed'], 'status'=>2))->first();
+            debug($data);
+            die;
             $data->status = 3;
             $data->note = @$data->note.', Nội dung hủy là: '.@$dataSend['note'];
-            $modelOrder->save($data);
+            $modelOrder->save($data);*/
 
-            $datebed = $modelBed->get($data->id_bed);
+            $datebed = $modelBed->get($dataSend['idBed']);
             $datebed->status = 1;
             $modelBed->save($datebed);
 

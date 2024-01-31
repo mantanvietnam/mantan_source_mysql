@@ -280,11 +280,11 @@
       <label><b>Thông tin check in</b></label>
       <div class="row">
         <div class="col-md-5 mb-3">
-          <input type="hidden" name="id_book" id="id_book" value="">
+          <input type="hidden" name="id_book"  id="id_book" value="">
           
        
           <label class="form-label">Nhân viên phụ trách</label>
-          <select class="form-select" name="idStaff" id="idStaff">
+          <select class="form-select" required="" name="idStaff" id="idStaff">
             <option value="">Chọn nhân viên</option>
             <?php 
             if(!empty($listStaffs)){

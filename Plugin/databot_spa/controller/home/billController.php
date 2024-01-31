@@ -87,6 +87,7 @@ function listCollectionBill($input){
 				}
 			}
 
+			
 			export_excel($titleExcel, $dataExcel, 'phieu-thu-'.date('d-m-Y'));
 	    }else{
 	    	$listData = $modelBill->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();

@@ -38,7 +38,7 @@
             </div>
 
             <div class="me-2">
-              <p class="mb-1">Số Cobom: <strong><?php echo @$totalOrderCombo; ?></strong><span class="text-muted"> đơn</span></p>
+              <p class="mb-1">Số Combo: <strong><?php echo @$totalOrderCombo; ?></strong><span class="text-muted"> đơn</span></p>
             </div>
 
             <div class="me-2">

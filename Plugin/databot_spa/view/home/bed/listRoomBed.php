@@ -517,20 +517,19 @@ rel='stylesheet' type='text/css'>
         var note = $('#noteCancelRoom').val();
         var idBed = $('#idBedCancel').val();
 
-        console.log(note);
-        console.log(idBed);
+               
 
-        if (note != '') {
+        if(note != ''){
             $.ajax({
                 type: "POST",
                 url: urlCancel,
                 data: {idBed: idBed, note: note}
-            }).done(function (msg) {
+            }).done(function(msg){
                 console.log(msg);
 
-                window.location= '/listRoomBed?status=cancelRoomDone';
+                // window.location= '/listRoomBed?status=cancelRoomDone';
             })
-            .fail(function () {
+            .fail(function (){
 
 
             });

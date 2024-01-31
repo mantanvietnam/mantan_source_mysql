@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/css/bootstrap.min.css?time=<?php echo time(); ?>"/>
         <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/css/bootstrap-theme.min.css?time=<?php echo time(); ?>"/>     
         <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/css/style.css?time=<?php echo time(); ?>"/>     
+        <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/css/print.css?time=<?php echo time(); ?>"/>     
              
         <script type="text/javascript" src="/plugins/databot_spa/view/home/assets/js/bootstrap.min.js?time=<?php echo time(); ?>"></script>
         <script src="/plugins/databot_spa/view/home/assets/vendor/js/bootstrap.js?time=<?php echo time(); ?>"></script>
@@ -24,12 +25,12 @@
                     display: none;
             }
 
-            .text-center h2{
+            /*.text-center h2{
                 text-transform: uppercase;
                 font-family: sans-serif;
                 font-weight: 600;
                 padding: 16px;
-            }
+            }*/
         </style>
     </head>
     <body>
