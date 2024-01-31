@@ -1866,6 +1866,24 @@
     font-weight: bold;
 }
 
+.section-news-ribbon2 .news-slide-item[data-slick-index="0"] .news-item-img::before{
+    position: absolute;
+    content: "NEW";
+    bottom: -67px;
+    right: -25px;
+    background-color: #ff6347;
+    color: #fff;
+    padding: 8px 16px;
+    transform: rotate(-45deg);
+    transform-origin: 0 0;
+    box-shadow: 0px 4px 31px 12px rgba(0, 0, 0);
+    font-size: 14px;
+    width: 90px;
+    height: 68px;
+    text-align: center;
+    font-weight: bold;
+}
+
 
 /* Bo sung */
 

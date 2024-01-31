@@ -194,7 +194,7 @@
 
 
         <!-- news project -->
-        <section id="section-news-facility" class="section-news-project">
+        <section id="section-news-facility" class="section-news-project section-news-ribbon2">
             <div class="section-news-facility-inner">
                 <div class="container">
                     <div class="news-title-section-cate">
