@@ -126,6 +126,6 @@ function deleteQuestionCRM($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-question-listQuestionCRM.php');
+	return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-question-listQuestionCRM');
 }
 ?>

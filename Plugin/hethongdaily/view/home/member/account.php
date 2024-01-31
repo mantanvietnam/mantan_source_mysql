@@ -54,6 +54,13 @@
                     <label class="form-label" for="basic-default-phone">Kênh Youtube</label>
                     <input type="text" class="form-control phone-mask" name="youtube" id="youtube" value="<?php echo @$user->youtube;?>" />
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Trang Linkedin</label>
+                    <input type="text" class="form-control phone-mask" name="linkedin" id="linkedin" value="<?php echo @$user->linkedin;?>" />
+                  </div>
+
+                  
                 </div>
                 
                 <div class="col-md-6">
@@ -83,13 +90,13 @@
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Trang Linkedin</label>
-                    <input type="text" class="form-control phone-mask" name="linkedin" id="linkedin" value="<?php echo @$user->linkedin;?>" />
+                    <label class="form-label" for="basic-default-phone">Trang Zalo</label>
+                    <input type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$user->zalo;?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Trang Zalo</label>
-                    <input type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$user->zalo;?>" />
+                    <label class="form-label" for="basic-default-phone">Mã QR của bạn</label><br/>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://id.drvcos.com/info/?id=<?php echo @$user->id;?>" width="100">
                   </div>
                 </div>
 

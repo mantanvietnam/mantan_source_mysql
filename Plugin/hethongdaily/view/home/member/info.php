@@ -55,12 +55,6 @@
                 transform: scale(1.5)
             }
 
-            .btn {
-                height: 140px;
-                width: 140px;
-                border-radius: 50%
-            }
-
             .name {
                 font-size: 22px;
                 font-weight: bold
@@ -148,6 +142,13 @@
             .social .des{
                 color: #fff;
                 font-size: 12px;
+            }
+
+            input {
+              text-align: center; /* Căn giữa theo chiều ngang */
+              line-height: normal; /* Đảm bảo chiều cao hàng văn bản bình thường */
+              padding: 5px; /* Tăng giảm khoảng cách nếu cần thiết */
+              box-sizing: border-box; /* Bao gồm cả độ dày của đường biên và padding trong kích thước tổng cộng */
             }
         </style>                            
     </head>
@@ -237,7 +238,7 @@
                             </div>
                             <?php }?>
 
-                            <?php if(!empty($info->web)){ ?>
+                            
                             <div class="row social mb-3">
                                 <div class="col-3">
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Circle-icons-global.svg/1024px-Circle-icons-global.svg.png" width="100%">
@@ -248,7 +249,6 @@
                                     <span class="des">Tư vấn, chăm sóc khách hàng</span>
                                 </div>
                             </div>
-                            <?php }?>
 
                             <?php if(!empty($info->instagram)){ ?>
                             <div class="row social mb-3">
@@ -320,18 +320,19 @@
 
                                 if(!empty($item['product'])){
                                     foreach ($item['product'] as $product) {
-                                        echo '  <tr onclick="checkbox('.$product->id.');">
-                                                    <th>
-                                                        <input type="checkbox" name="" id="checkbox'.$product->id.'">
-                                                    </th>
-                                                    <td width="80">
-                                                        <img src="'.$product->image.'" class="img-thumbnail">
+                                        echo '  <tr>
+                                                    <td align="center">
+                                                        <input type="checkbox" name="id_product[]" id="checkbox'.$product->id.'"><br/><br/>
+                                                        <span>+</span><br/>
+                                                        <input type="text" value="1" min="1" name="" style="width: 20px;height: 20px;" />
+                                                        <span>-</span>
                                                     </td>
-                                                    <td>'.$product->title.'</td>
-                                                    <td>
-                                                        '.$product->price.'<br/>
-                                                        <del class="small">'.$product->price_old.'</del>
+                                                    <td width="80" align="center" onclick="checkbox('.$product->id.');">
+                                                        <img src="'.$product->image.'" class="img-thumbnail"><br/>
+                                                        <span class="text-danger">'.number_format($product->price).'đ</span><br/>
+                                                        <del class="small">'.number_format($product->price_old).'đ</del>
                                                     </td>
+                                                    <td onclick="checkbox('.$product->id.');">'.$product->title.'</td>
                                                 </tr>';
                                     }
                                 }
@@ -341,6 +342,8 @@
                             echo '<p class="text-danger">Chưa có sản phẩm bán</p>';
                         }
                         ?>
+
+                        <button type="button" class="btn btn-danger" onclick="checkSelectProduct();">ĐẶT MUA HÀNG</button>
                     </div>
                 </div>
             </div>
@@ -405,7 +408,7 @@
                 newLink.download = nameFile + ".vcf";
                 newLink.textContent = contact.name;
                 newLink.href = url;
-                  
+                
                 newLink.click();
             }
         </script>
@@ -434,6 +437,25 @@
 
                 // Xóa lựa chọn
                 window.getSelection().removeAllRanges();
+            }
+
+            function checkSelectProduct()
+            {
+                var checkboxes = document.getElementsByName('id_product[]');
+                var checkTick = false;
+
+                for (var i = 0; i < checkboxes.length; i++) {
+                    // Kiểm tra xem checkbox có được chọn không
+                    if (checkboxes[i].checked) {
+                        checkTick = true;
+                    }
+                }
+
+                if(!checkTick){
+                    alert('Bạn cần chọn sản phẩm muốn mua thì mới có thể đặt hàng');
+                }else{
+                    alert('Tạo đơn hàng thành công');
+                }
             }
         </script>
     </body>

@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">2TOP CRM - KHÓA HỌC</h4>
-  <p><a href="/plugins/admin/2top_crm_training-view-admin-course-addCourseCRM.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/2top_crm_training-view-admin-course-addCourseCRM" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Khóa học</h5>
@@ -27,15 +27,15 @@
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$item->name_category.'</td>
                         <td>'.$item->title.'</td>
-                        <td><a href="/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM.php/?id_course='.$item->id.'">'.number_format($item->number_lesson).' bài học</a></td>
+                        <td><a href="/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM/?id_course='.$item->id.'">'.number_format($item->number_lesson).' bài học</a></td>
                         <td>'.$item->status.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/2top_crm_training-view-admin-course-addCourseCRM.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/2top_crm_training-view-admin-course-addCourseCRM/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_training-view-admin-course-deleteCourseCRM.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_training-view-admin-course-deleteCourseCRM/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
