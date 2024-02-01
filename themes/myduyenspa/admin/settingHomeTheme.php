@@ -54,11 +54,7 @@
             <div class="card-body tab-content ">
               <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
                 <div class="row">
-                <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                      <h3 class="mb-0 form-label">KHỐI ĐẦU</h3>
-                    </div>
-                  </div>
+                
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                     <label class="form-label" for="basic-default-fullname">Logo</label>
                      <?php showUploadFile('logo','logo',@$data['logo'],0);?>
@@ -67,7 +63,7 @@
                     <label class="form-label" for="basic-default-fullname">Ảnh nều khối đầu</label>
                      <?php showUploadFile('video','video', @$data['video'],2);?>
                   </div>
-                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8">
+                  <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <label class="form-label" for="basic-default-fullname">Nội dung tiêu đề </label>
                     <?php showEditorInput('textSlide', 'textSlide', @$data['textSlide']);?>
                   </div>
@@ -75,11 +71,7 @@
               </div>
               <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
                 <div class="row">
-                  <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                      <h3 class="mb-0 form-label">KHỐI GIỚI THIỆU</h3>
-                    </div>
-                  </div>
+                  
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                     <label class="form-label" for="basic-default-fullname">Ảnh chân dung </label>
                     <?php   showUploadFile('avatar','avatar',@$data['avatar'],2);?>
@@ -108,11 +100,7 @@
               </div>
               <div class="tab-pane fade" id="navs-top-rule" role="tabpanel">
                 <div class="row">
-                  <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                      <h3 class="mb-0 form-label">KHỐI KHÓA ĐÀO TẠO</h3>
-                    </div>
-                  </div>
+                  
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                     <label class="form-label" for="basic-default-fullname">Ảnh minh họa khóa 1</label>
                     <?php showUploadFile('imageLearn1','imageLearn1',@$data['imageLearn1'],3);?>
@@ -141,11 +129,7 @@
               </div>
               <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">
                 <div class="row">
-                  <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                      <h3 class="mb-0 form-label">CHƯƠNG TRÌNH ĐÃ TỔ CHỨC</h3>
-                    </div>
-                  </div>
+                  
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                     <label class="form-label" for="basic-default-fullname">Ảnh minh họa chương trình 1</label>
                     <?php showUploadFile('imageProgram1','imageProgram1',@$data['imageProgram1'],6);?>
@@ -180,11 +164,7 @@
               </div>
               <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
                 <div class="row">
-                  <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                      <h3 class="mb-0 form-label">SỐ LIỆU THỐNG KÊ</h3>
-                    </div>
-                  </div>
+                  
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                        <label class="form-label" for="basic-default-fullname">Ảnh nền</label>
                       <?php showUploadFile('imageStatic','imageStatic',@$data['imageStatic'],9);?>
@@ -217,11 +197,7 @@
               </div>
               <div class="tab-pane fade row" id="navs-top-evaluate" role="tabpanel">
                 <div class="row">
-                  <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                      <h3 class="mb-0 form-label">LIÊN HỆ</h3>
-                    </div>
-                  </div>
+                  
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                       <label class="form-label" for="basic-default-fullname">Mã nhúng bản đồ</label>
                       <textarea style="width: 100%;" rows="5" name="map"><?php echo @htmlspecialchars_decode($data['map']);?></textarea>
