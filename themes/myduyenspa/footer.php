@@ -20,7 +20,7 @@
 				
 			</div>
 			<br/>
-			<p><center>Website được xây dựng bởi <a href="http://manmoweb.com/" title="Công cụ tạo web tự động">Unix Team</a></center></p>
+			<p><center>Website được xây dựng bởi <a href="https://2top.vn/" title="Công cụ tạo web tự động">Phoenix Tech</a></center></p>
 			
 		</section>
 
