@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/2top_crm_training-view-admin-test-listTestCRM.php">Bài thi</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/2top_crm_training-view-admin-test-listTestCRM">Bài thi</a> /</span>
     Thông tin bài thi
   </h4>
 

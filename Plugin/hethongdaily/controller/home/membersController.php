@@ -150,7 +150,7 @@ function account($input)
 				$user->twitter = $dataSend['twitter'];
 				$user->tiktok = $dataSend['tiktok'];
 				$user->youtube = $dataSend['youtube'];
-				$user->web = $dataSend['web'];
+				$user->web = (!empty($dataSend['web']))?$dataSend['web']:$urlHomes.'/info/?id='.$user->id;
 				$user->instagram = $dataSend['instagram'];
 				$user->linkedin = $dataSend['linkedin'];
 				$user->description = $dataSend['description'];
@@ -586,9 +586,9 @@ function info($input)
 					}
 				}
 
-				if(!empty($allCategoryProduct)){
-					foreach ($allCategoryProduct as $product) {
-						$listProduct[$category->id]['product'][$product->id] = $product;
+				if(!empty($allProduct)){
+					foreach ($allProduct as $product) {
+						$listProduct[$product->id_category]['product'][$product->id] = $product;
 					}
 				}
 

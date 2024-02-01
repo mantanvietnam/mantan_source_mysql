@@ -124,6 +124,6 @@ function deleteHistoryTestCRM($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-history-listHistoryTestCRM.php');
+    return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-history-listHistoryTestCRM');
 }
 ?>
