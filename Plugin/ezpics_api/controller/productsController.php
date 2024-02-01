@@ -8,7 +8,7 @@ function getNewProductAPI($input)
 	$modelProduct = $controller->loadModel('Products');
 	$dataSend = $input['request']->getData();
 
-	$conditions = array('status'=>2, 'type'=>'user_create');
+	$conditions = array('status'=>2, 'type'=>'user_create', 'display'=>1);
 	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:8;
 	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	$order = array('id'=>'desc');
@@ -38,7 +38,7 @@ function searchProductAPI($input)
 
 	$dataSend = $input['request']->getData();
 
-	$conditions = array('status'=>2, 'type'=>'user_create');
+	$conditions = array('status'=>2, 'type'=>'user_create', 'display'=>1);
 	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
 	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	$order = array('id'=>'desc');
@@ -134,7 +134,7 @@ function getProductByCategoryAPI($input)
 	$listProduct = [];
 
 	if(!empty($dataSend['category_id'])){
-		$conditions = array('status'=>2, 'type'=>'user_create','category_id'=>(int) $dataSend['category_id']);
+		$conditions = array('status'=>2, 'type'=>'user_create','category_id'=>(int) $dataSend['category_id'], 'display'=>1);
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array('id'=>'desc');
@@ -186,7 +186,7 @@ function getProductAllCategoryAPI($input)
 			// lấy tất cả sản phẩm trong danh mục
 			$dataSend = $input['request']->getData();
 
-			$conditions = array('status'=>2, 'category_id'=>$category->id, 'type'=>'user_create');
+			$conditions = array('status'=>2, 'category_id'=>$category->id, 'type'=>'user_create', 'display'=>1);
 			$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
 			$page = 1;
 			$order = array('id'=>'desc');
@@ -231,7 +231,7 @@ function getTrendProductAPI($input)
 
 	$dataSend = $input['request']->getData();
 
-	$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")), 'type'=>'user_create', 'status'=>2);
+	$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")), 'type'=>'user_create', 'status'=>2, 'display'=>1);
 	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	$order = array('views'=>'desc', 'favorites'=>'desc', 'id'=>'desc');
@@ -264,7 +264,7 @@ function listTrendProductAPI($input)
 
 	$dataSend = $input['request']->getData();
 
-	$conditions = array('trend' =>1, 'type'=>'user_create', 'status'=>2);
+	$conditions = array('trend' =>1, 'type'=>'user_create', 'status'=>2, 'display'=>1);
 	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	$order = array('views'=>'desc', 'favorites'=>'desc', 'id'=>'desc');
@@ -325,7 +325,7 @@ function getInfoProductAPI($input)
 					$data->link_share = $data->image;
 				}
 
-				$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id, 'type'=>'user_create', 'status'=>2];
+				$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id, 'type'=>'user_create', 'status'=>2, 'display'=>1];
 				$limit= 12;
 				$page= 1;
 				$order = array();
@@ -504,6 +504,11 @@ function updateProductAPI($input)
 					if(isset($dataSend['status']) && @$dataSend['status']<2){
 
 						$product->status = (int) @$dataSend['status'];
+					}
+
+					if(isset($dataSend['display'])){
+
+						$product->display = (int) @$dataSend['display'];
 					}
 
 					if(!empty($dataSend['description'])){
@@ -690,6 +695,7 @@ function buyProductAPI($input)
 		                    $newproduct->category_id = $product->category_id;
 		                    $newproduct->width = $product->width;
 		                    $newproduct->height = $product->height;
+		                    $newproduct->display = 1;
 
 		                    $modelProduct->save($newproduct);
 
@@ -793,6 +799,7 @@ function buyProductAPI($input)
 			                    $newproduct->category_id = $product->category_id;
 			                    $newproduct->width = $product->width;
 			                    $newproduct->height = $product->height;
+			                    $newproduct->display = 1;
 
 			                    $modelProduct->save($newproduct);
 
@@ -930,6 +937,7 @@ function buyProductAPI($input)
 			                    $newproduct->category_id = $product->category_id;
 			                    $newproduct->width = $product->width;
 			                    $newproduct->height = $product->height;
+			                    $newproduct->display = 1;
 
 			                    $modelProduct->save($newproduct);
 
@@ -1511,6 +1519,10 @@ function updateInfoProductAPI($input)
 		                    case 'category_id':
 		                        $pro->category_id = (int) $dataSend['value'];
 		                        break;
+
+		                    case 'display':
+		                        $pro->display = (int) $dataSend['value'];
+		                        break;
 		                    
 		                    case 'price':
 		                        $pro->price = (int) str_replace(',','',$dataSend['value']);
@@ -1604,7 +1616,7 @@ function listProductSeriesAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		$conditions = array('status'=>1, 'type'=>'user_series');
+		$conditions = array('status'=>1, 'type'=>'user_series', 'display'=>1);
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:20;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array('id'=>'desc');

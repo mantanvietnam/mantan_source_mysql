@@ -15,7 +15,7 @@ function getListWarehousesAPI($input){
 		$dataSend = $input['request']->getData();
 
 			// lấy kho 
-			$data = $modelWarehouses->find()->where(array('user_id'=>$dataSend['idDesigner'],'status'=>1, 'deadline_at >='=> date('Y-m-d H:i:s')))->all()->toList();
+			$data = $modelWarehouses->find()->where(array('user_id'=>$dataSend['idDesigner'],'status'=>1, 'display'=>1, 'deadline_at >='=> date('Y-m-d H:i:s')))->all()->toList();
 			if(!empty($data)){
 				$listData = array();
 				foreach($data as $key => $item){
@@ -51,14 +51,14 @@ function searchWarehousesAPI($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		$conditions = array('status'=>1, 'number_product >'=>0);
+		$conditions = array('status'=>1, 'number_product >'=>0, 'display'=>1, 'deadline_at >='=> date('Y-m-d H:i:s'));
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:20;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array('id'=>'desc');
 		if(!empty($dataSend['name'])){
 			$conditions['name LIKE']= '%'.$dataSend['name'].'%';
 		}
-		$conditions['number_product >'] = 0;
+		//$conditions['number_product >'] = 0;
 
 			// lấy kho 
 			$data = $modelWarehouses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
@@ -794,7 +794,7 @@ function notificationWarehousesAPI($input){
 
 					$member =	$modelMember->get($item->user_id);
 					$Warehouses =	$modelWarehouses->get($item->warehouse_id);
-					$dataSendNotification= array('warehouse_id'=>$item->warehouse_id, 'title'=>'Thông báo hết hạn kho ','time'=>date('H:i d/m/Y'),'content'=>'Kho mẫu thiết kế "'.$Warehouses->name.'" sắp hết hạn. Thời hạn sử dụng của kho mẫu thiết kế sẽ kết thúc vào ngày '.date('d-m-Y', strtotime($item->deadline_at)),'action'=>'extendWarehouseSendNotification');
+					$dataSendNotification= array('warehouse_id'=>$item->warehouse_id, 'title'=>'Thông báo hết hạn bộ sưu tập ','time'=>date('H:i d/m/Y'),'content'=>'Bộ sưu tập mẫu thiết kế "'.$Warehouses->name.'" sắp hết hạn. Thời hạn sử dụng của bộ sưu tập mẫu thiết kế sẽ kết thúc vào ngày '.date('d-m-Y', strtotime($item->deadline_at)),'action'=>'extendWarehouseSendNotification');
 					
 					if(!empty($member->token_device)){
 						sendNotification($dataSendNotification, $member->token_device);

@@ -67,7 +67,7 @@ function listMemberAdmin($input)
 
     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
     	$listData = $modelMembers->find()->where($conditions)->limit(1000)->page($page)->order($order)->all()->toList();
-
+        
     	$titleExcel = 	[
 							['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
 							['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
