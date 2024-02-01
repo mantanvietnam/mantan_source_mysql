@@ -39,7 +39,7 @@
 				<div class="col-md-4">
 					<h3>Địa chỉ</h3>
 					<p>
-						<b>SPA:</b> <?php echo @$setting['nameThamMy']; ?><br>
+						<?php echo @$setting['nameThamMy']; ?><br>
 						<b>Điện thoại CSKH:</b> <?php echo @$setting['hotline']; ?> <br>
 						<b>Email CSKH:</b> <?php echo @$setting['linkMail']; ?><br>
 						<b>Địa chỉ:</b> <?php echo @$setting['address']; ?>
