@@ -7,8 +7,8 @@
 				<li class="list-inline-item"><a href="/">Trang chủ</a></li>
 				<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
 				<li class="list-inline-item"><a href="/tin-tuc.html">Tin tức</a></li>
-				<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
-				<li class="list-inline-item"><?php echo $post->title; ?></li>
+				<!-- <li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li> -->
+				<!-- s<li class="list-inline-item"><?php echo $post->title; ?></li> -->
 			</ul>
 		</div>
 		<div class="container">
