@@ -501,7 +501,7 @@ video {
     width: 60% !important;
   }
   .textnhanxet h3{
-    text-align: center;
+    /*text-align: center;*/
     font-size: 18px;
   }
 }
@@ -516,7 +516,7 @@ video {
     right: 0px;
   }
   .feedBack img{
-    width: 100% !important;
+    width: 80% !important;
   }
   .textnhanxet h3{
     margin-top: 0px;
@@ -531,9 +531,13 @@ video {
   .banner_main {
     height: 235px;
   }
-   .chuongtrinh h1 , .baiviet h1 {
+   .chuongtrinh h1 , .baiviet h1, .textfooter h1, .vemyduyen h1{
     font-size: 25px;
   }
+  .textSlide span {
+    font-size: 14px !important;
+}
+
 }
 @media screen and (max-width:375px) and (min-width:320px){
   .text {
@@ -548,13 +552,16 @@ video {
   .banner_main {
     height: 235px;
   }
-  .chuongtrinh h1 , .baiviet h1 {
+  .chuongtrinh h1 , .baiviet h1, .textfooter h1, .vemyduyen h1{
     font-size: 17px;
   }
+  .textSlide span {
+    font-size: 14px !important;
+}
 }
 @media screen and (max-width:320px){
   .section h1,h3{
-   text-align: center;
+   /*text-align: center;*/
     
   }
   .song1{
@@ -668,5 +675,8 @@ a, path {
 }
 
 .feedBack_row{
+  margin-bottom: 30px;
+}
+.thumbnail_baiviet{
   margin-bottom: 30px;
 }
