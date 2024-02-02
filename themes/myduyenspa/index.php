@@ -180,7 +180,7 @@
 						if(!empty($feedBack)){
 							foreach($feedBack as $item){
 								echo '<div class="col-md-6">
-										<div class="row">
+										<div class="row feedBack_row">
 											<div class="col-md-4 text-center feedBack">
 												<img src="'.$item->avatar.'" style="width:100%;" alt="">
 											</div>
@@ -249,7 +249,7 @@
 						if(!empty($listDataNew)){
 							foreach($listDataNew as $item){
 								
-								echo '<div class="col-md-4">
+								echo '<div class="col-md-4 thumbnail_baiviet">
 										<div class = "thumbnail">
 											<img src = "'.@$item->image.'" alt ="" style="width:100%;">
 										</div>

@@ -30,7 +30,7 @@ function sendEmailPostNew($title, $link){
 
 	    $cc = array();
 	    $bcc = array();
-	    $subject = '[WARM] You received 1 new post from warm';
+	    $subject = ' You received 1 new post ';
 
 	    $content='<!DOCTYPE html>
 	    <html lang="en">
@@ -72,7 +72,7 @@ function sendEmailPostNew($title, $link){
 	    <div class="bao">
 	    <div class="nd">
 	    <div class="main" style=" font-size: 16px;">
-	    <h2 style=" text-align: center; font-size: 27px; ">You received 1 new post from warm</h2>
+	    <h2 style=" text-align: center; font-size: 27px; ">You received 1 new post </h2>
 	    
 	    <p>Title: '.$title.'</p>
 	    <p>Link: <a href="'.$link.'">'.$link.'</a></p>
@@ -81,13 +81,7 @@ function sendEmailPostNew($title, $link){
 	    
 	    <br>
 	    Trân trọng ./
-	    <div style="white: 50%">
-	    <br/><img src="http://warm.creatio.vn/themes/warm//asset/img/WARM-horz-EN-_1_.jpg" style="width: 200px;" alt="" jslog="138226; u014N:xr6bB; 53:WzAsMF0."> <br/>
-	    <strong>DELEGATION OF THE EUROPEAN UNION TO VIETNAM</strong> <br/>
-	    <a href="http://warm.creatio.vn/">http://warm.creatio.vn/</a> <br/>
-	    Địa chỉ:24th floor, West wing, Lotte Center Hanoi 54 Lieu Giai street, Ba Dinh district, Hanoi, Vietnam <br/>
-	    Điện thoại :84 (0)24 3941 0099 <br/>
-	    </div>
+	   
 	    </div>
 
 

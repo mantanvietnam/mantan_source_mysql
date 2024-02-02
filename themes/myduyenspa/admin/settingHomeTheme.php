@@ -142,7 +142,7 @@
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                     <label class="form-label" for="basic-default-fullname">Ảnh minh họa chương trình 2</label>
-                    <?php showUploadFile('imageProgram2','imageProgram2',@$data['imageProgram'],7);?>
+                    <?php showUploadFile('imageProgram2','imageProgram2',@$data['imageProgram2'],7);?>
                     <label class="form-label" for="basic-default-fullname">Thời gian chương trình 1</label>
                     <input class="form-control" type="text" name="timeProgram2" value="<?php echo @$data['timeProgram2'];?>" />
                     <label class="form-label" for="basic-default-fullname">Tiêu đề chương trình 2</label>

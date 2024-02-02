@@ -516,7 +516,7 @@ video {
     right: 0px;
   }
   .feedBack img{
-    width: 120% !important;
+    width: 100% !important;
   }
   .textnhanxet h3{
     margin-top: 0px;
@@ -531,6 +531,9 @@ video {
   .banner_main {
     height: 235px;
   }
+   .chuongtrinh h1 , .baiviet h1 {
+    font-size: 25px;
+  }
 }
 @media screen and (max-width:375px) and (min-width:320px){
   .text {
@@ -544,6 +547,9 @@ video {
   }
   .banner_main {
     height: 235px;
+  }
+  .chuongtrinh h1 , .baiviet h1 {
+    font-size: 17px;
   }
 }
 @media screen and (max-width:320px){
@@ -649,6 +655,7 @@ a, path {
   overflow: hidden;
   white-space: nowrap; 
   text-overflow: ellipsis;
+  margin: 15px 0px 7px;
 }
 
 .section5 p{
@@ -658,4 +665,8 @@ a, path {
 }
 .textnhanxet{
   text-align: justify;
+}
+
+.feedBack_row{
+  margin-bottom: 30px;
 }

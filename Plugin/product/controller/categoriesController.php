@@ -19,8 +19,8 @@ function listCategoryProduct($input){
         // tạo dữ liệu save
         $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
         $infoCategory->parent = 0;
-        $infoCategory->image = $dataSend['image'];
-        $infoCategory->status = $dataSend['status'];
+        $infoCategory->image = @$dataSend['image'];
+        $infoCategory->status = @$dataSend['status'];
         $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
         $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
         $infoCategory->type = 'category_product';
