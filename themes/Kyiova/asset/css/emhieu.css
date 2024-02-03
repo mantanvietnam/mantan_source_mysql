@@ -734,6 +734,7 @@
     justify-content: space-between;
     margin-bottom: 40px;
     white-space: nowrap;
+    align-items: center;
 }
 
 .money-of-produce .produce-total .total P {
@@ -761,6 +762,7 @@
     border: none;
     font-size: 19px;
     font-weight: 600;
+    margin-bottom: 30px;
 }
 
 .money-of-produce .produce-total button:hover {
@@ -882,6 +884,295 @@
     display: flex;
 }
 
+
+/*    Trang THANH TOÁN    */
+
+#section-payment {
+    padding: 85px 0;
+}
+
+#section-payment h3 {
+    margin-bottom: 37px;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    display: block;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #dadada;
+}
+
+.info-customer h4 {
+    font-size: 26px;
+    font-weight: 500;
+    text-transform: uppercase;
+    display: block;
+    padding-bottom: 20px;
+}
+
+.info-customer {
+    padding: 0 15px;
+}
+
+.info-customer label {
+    display: grid;
+    padding: 10px 0;
+    font-weight: 500;
+}
+
+.info-customer .form div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-customer .form div label {
+    width: 50%;
+    margin-right: 30px;
+}
+
+.info-customer .form div label:last-child {
+    margin-right: 0px;
+}
+
+.info-customer label input {
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    outline: none;
+    padding: 5px 10px;
+}
+
+.info-customer .form select {
+    border: 1px solid #ddd;
+    outline: none;
+    padding: 5px 10px;
+    height: 38px;
+}
+
+.info-customer .form textarea {
+    border: 1px solid #ddd;
+    outline: none;
+    padding: 5px 10px;
+}
+
+.your-order {
+    padding: 30px;
+    border: 1px solid #ddd;
+}
+
+.your-order .money-of-produce .produce-total .total {
+    margin-bottom: 15px !important;
+}
+
+.your-order .accordion-button::after {
+    content: none;
+}
+
+.your-order .accordion-button {
+    background-color: #fff;
+    outline: none;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.your-order .accordion-button input {
+    margin-right: 6px;
+}
+
+.accordion-button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.payment-methods {
+    margin-bottom: 15px;
+}
+
+.payment-methods .accordion-button:not(.collapsed) {
+    box-shadow: none;
+}
+
+.payment-methods .accordion-body {
+    padding-top: 0;
+    padding-left: 30px;
+}
+
+.your-order .money-of-produce .produce-total {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.your-order .money-of-produce .produce-total p {
+    font-size: 15px;
+    /* margin-top: 30px; */
+    text-align: justify;
+    align-items: center;
+}
+
+#section-payment .your-order h3 {
+    font-size: 26px;
+}
+
+.money .produce-name span {
+    font-weight: 500;
+}
+
+.money .produce-name i {
+    font-size: 12px;
+}
+
+.navbar-nav .nav-item .cart-search {
+    display: flex;
+}
+
+
+/*    Button CUỘN LÊN ĐẦU TRANG    */
+
+#scrollToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #228B22;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 999;
+    border-radius: 50%;
+    padding-top: 17px;
+    padding-bottom: 11px;
+    padding-right: 20px;
+    padding-left: 20px;
+    transition: all 0.3s linear;
+    border: 1px solid #fff;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #186318;
+    transition: all 0.3s linear;
+}
+
+
+/*    3 button chat ỏ trang chủ    */
+
+#contact-group {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    z-index: 999;
+}
+
+#contact-group button {
+    border: none;
+    background: #125c9e;
+    border-radius: 20px;
+    padding: 6px 20px;
+    color: #fff;
+    display: block;
+    margin-bottom: 8px;
+}
+
+#contact-group button:first-child {
+    background-color: #8eb22b;
+}
+
+#contact-group button:last-child {
+    background-color: #dd9932;
+}
+
+
+/*    Trang XÁC NHẬN ĐƠN HÀNG    */
+
+.table-ord thead {
+    border-bottom: 2px solid #c7c7c7;
+    margin-bottom: 10px;
+}
+
+.table-ord thead th {
+    font-weight: 600;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.table-ord tbody td {
+    font-weight: 600;
+}
+
+.table-ord .payment-method td:last-child,
+.table-ord .note td:last-child {
+    font-weight: 400;
+}
+
+.table-ord .production td:last-child {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.table-ord .production td span {
+    font-weight: 500;
+}
+
+.table-ord .production a {
+    color: #212529;
+    font-weight: 400;
+}
+
+.table-ord thead th:last-child {
+    float: right;
+}
+
+.table-ord tr td {
+    vertical-align: middle;
+}
+
+.table-ord tr td:last-child {
+    float: right;
+}
+
+.table-ord tr {
+    border-bottom: 1px solid #dedede;
+}
+
+.end-order {
+    padding: 20px;
+    background-color: #eeeeee;
+    box-shadow: 3px 3px 3px 0px #dbdbdb;
+}
+
+.end-order li {
+    padding-left: 15px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.end-order p {
+    color: #228B22;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.end-order li span {
+    font-weight: 600;
+}
+
+#section-detail-order h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+#section-detail-order h3 {
+    font-size: 32px;
+    margin-bottom: 50px;
+}
+
+#section-detail-order {
+    padding: 85px 0;
+}
+
 @media (max-width: 1024px) {
     #about-us-content .container-padding {
         padding: 0px 50px;
@@ -951,6 +1242,47 @@
     #section-cart .cart {
         padding-right: 0px;
         border: none;
+    }
+    .your-order {
+        margin-top: 50px;
+    }
+    .info-customer {
+        padding: 0;
+    }
+    .end-order {
+        margin-top: 50px;
+    }
+    #section-video .video-slide .slick-arrow,
+    #section-category-product .category-product-slide .slick-arrow,
+    #section-blog .blog-list .slick-arrow,
+    .product-new-slide .slick-arrow {
+        width: 45px;
+        height: 45px;
+        border: 1px solid;
+    }
+    #section-video .video-slide .slick-next {
+        right: 0px;
+    }
+    #section-video .video-slide .slick-prev {
+        left: 0px;
+    }
+    #section-category-product .category-product-slide .slick-arrow {
+        top: 41%;
+    }
+    #section-category-product .category-product-slide .slick-next {
+        right: -10px;
+    }
+    #section-category-product .category-product-slide .slick-prev {
+        left: -10px;
+    }
+    .product-new-slide .slick-next {
+        right: 10px;
+    }
+    .product-new-slide .slick-prev {
+        left: 10px;
+    }
+    #section-blog .blog-list .slick-arrow {
+        top: 49%;
     }
 }
 
@@ -1054,6 +1386,35 @@
     .produce-other h4 {
         font-size: 26px;
     }
+    .info-customer .form div label {
+        width: 100%;
+        margin-right: 0px;
+    }
+    .info-customer .form div {
+        display: block;
+    }
+    #section-payment h3 {
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: 40px;
+        padding-bottom: 24px;
+    }
+    .info-customer h4 {
+        text-align: center;
+        font-size: 22px;
+    }
+    #section-payment .your-order h3 {
+        font-size: 22px;
+    }
+    .money-of-produce .produce-total .total span {
+        font-size: 20px;
+    }
+    #section-category-product .category-product-slide .slick-next {
+        right: 0px;
+    }
+    #section-category-product .category-product-slide .slick-prev {
+        left: 0px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -1081,6 +1442,15 @@
     }
     .produce-other h4 {
         font-size: 26px;
+    }
+    .your-order {
+        padding: 0px;
+        border: none;
+    }
+    #section-payment .your-order h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        padding-bottom: 20px;
     }
 }
 
