@@ -5,12 +5,9 @@ global $session;
 $infoUser = $session->read('infoUser'); 
 
 $setting = setting();
-
-$slide_home= slide_home($setting['id_slide']);
-//debug($list_product);
 $price_total = 0;
 
-debug($list_product);
+
 
 ?>
 
@@ -118,7 +115,7 @@ debug($list_product);
                                         <div class="produce-other-name">
                                              <a href="/san-pham/<?php echo  $value->slug ?>.html"><?php echo  $value->title ?></a>
                                         </div>
-                                        <p>><?php echo number_format(@$value->price); ?> ₫</p>
+                                        <p><?php echo number_format(@$value->price); ?> ₫</p>
                                         <button onclick="addProduct(<?php echo $value->id; ?>,'true')">Thêm vào giỏ hàng</button>
                                     </div>
                                 </div>

@@ -173,7 +173,33 @@ function indexTheme($input){
 
 }
 
+function detailAlbum($input){
+     global $modelAlbums;
+    global $modelAlbuminfos;
+    global $controller; 
+    if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=>$_GET['id']);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('slug'=>$slug);
+        }
 
+        $album = $modelAlbums->find()->where($conditions)->first();
+
+        if(!empty($album)){
+            $listData = $modelAlbuminfos->find()->where(array('id_album'=>$album->id))->all()->toList();
+            setVariable('listData',$listData);
+        }else{
+            return $controller->redirect('/');
+        }
+
+
+    }else{
+        return $controller->redirect('/');
+    }
+
+}
 
 
  ?>

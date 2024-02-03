@@ -138,7 +138,7 @@ global $urlThemeActive;
                             foreach($listAlbum as $key => $item){
                                 echo '<div class="col-lg-3 col-md-12">
                             <div class="album-item">
-                                <a href="detailAlbum/'.@$item->slug.'.html">
+                                <a href="thu-vien-anh/'.@$item->slug.'.html">
                                     <img src="'.@$item->image.'" alt="">
                                 </a>
                             </div>
@@ -256,14 +256,14 @@ global $urlThemeActive;
                     <div class="product-hot-item">
                         <div class="product-hot-item-inner">
                             <div class="product-hot-image">
-                                <a href="/product/'.@$item->slug.'html">
+                                <a href="/san-pham/'.@$item->slug.'.html">
                                     <img src="'.@$item->image.'" alt="">
                                 </a>
                             </div>
 
                             <div class="product-hot-detail">
                                 <div class="product-hot-name">
-                                    <a href="/product/'.@$item->slug.'html">'.@$item->title.'</a>
+                                    <a href="/san-pham/'.@$item->slug.'.html">'.@$item->title.'</a>
                                 </div>
 
                                 <div class="product-hot-price">
@@ -271,7 +271,7 @@ global $urlThemeActive;
                                 </div>
 
                                 <div class="product-hot-addcart">
-                                    <a href="/product/'.@$item->slug.'html">Thêm vào giỏ hàng</a>
+                                    <a href="/san-pham/'.@$item->slug.'.html">Thêm vào giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -300,14 +300,14 @@ global $urlThemeActive;
                     <div class="col-lg-4 col-md-12 product-hot-item">
                         <div class="product-hot-item-inner">
                             <div class="product-hot-image">
-                                <a href="/product/'.@$item->slug.'html">
+                                <a href="/san-pham/'.@$item->slug.'.html">
                                     <img src="'.@$item->image.'" alt="">
                                 </a>
                             </div>
 
                             <div class="product-hot-detail">
                                 <div class="product-hot-name">
-                                    <a href="/product/'.@$item->slug.'html">'.@$item->title.'</a>
+                                    <a href="/san-pham/'.@$item->slug.'.html">'.@$item->title.'</a>
                                 </div>
 
                                 <div class="product-hot-price">
@@ -315,7 +315,7 @@ global $urlThemeActive;
                                 </div>
 
                                 <div class="product-hot-addcart">
-                                     <a href="/product/'.@$item->slug.'html">Thêm vào giỏ hàng</a>
+                                     <a href="/san-pham/'.@$item->slug.'.html">Thêm vào giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
