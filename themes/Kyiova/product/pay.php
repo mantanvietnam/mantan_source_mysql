@@ -10,281 +10,138 @@ $infoUser = $session->read('infoUser');
    	
 ?>
  <main>
-        <section id="section-order">
+    <form action="" method="post">
+        <section id="section-payment">
             <div class="container">
+                <h3>Thanh toán</h3>
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-12 order-left">
-                        <div class="order-left-inner">
-                            <div class="title-order-left">
-                                Thông tin đơn hàng
-                            </div>
+                    <div class="col-lg-7 col-12">
 
-                            <div class="product-order-list">
-                                <?php foreach($list_product as $item){
+                        <div class="info-customer">
+                            <h4>
+                                Thông tin thanh toán
+                            </h4>
+                            <div class="form">
+                                <label for="">Họ và tên *
+                                    <input type="text" name="full_name" required>
+                                    <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
+                                </label>
+                                <div>
+                                    <label for="">Số điện thoại *
+                                        <input type="tel" name="phone"  required>
+                                    </label>
+                                    <label for="">Địa chỉ email *
+                                        <input type="email" name="email" required>
+                                    </label>
+                                </div>
+                                <!-- <label for="">Tỉnh / thành phố *
+                                    <select name="city" required>
+                                        <option value="city1">Hà Nội</option>
+                                        <option value="city2">TP. Hồ Chí Minh</option>
+                                        <option value="city3">Đà Nẵng</option>
+                                        <option value="city4">Hải Phòng</option>
+                                    </select>
+                                </label>
+                                <div>
+                                    <label for="">Quận / huyện *
+                                        <select name="district" required>
+                                            <option value="district1">Hà Nội</option>
+                                            <option value="district2">TP. Hồ Chí Minh</option>
+                                            <option value="district3">Đà Nẵng</option>
+                                            <option value="district4">Hải Phòng</option>
+                                        </select>
+                                    </label>
+
+                                    <label for="">Phường / xã *
+                                        <select name="ward" required>
+                                            <option value="ward1">Hà Nội</option>
+                                            <option value="ward2">TP. Hồ Chí Minh</option>
+                                            <option value="ward3">Đà Nẵng</option>
+                                            <option value="ward4">Hải Phòng</option>
+                                        </select>
+                                    </label>
+                                </div> -->
+                                <label for="">Địa chỉ *
+                                    <input type="text" name="address" required>
+                                </label>
+                                <label for="">Ghi chú đơn hàng (tuỳ chọn)
+                                    <textarea name="note_user" id="" cols="30" rows="4" placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn.">
+
+                                    </textarea>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-12">
+                        <div class="your-order">
+                            <div class="money">
+                                <h3>ĐƠN HÀNG CỦA BẠN</h3>
+                                <div class="money-of-produce">
+                                    <?php foreach($list_product as $item){
                                     if(@$item->statuscart=='true'){
                                  ?>
-                                <div class="product-order-item">
-                                    <div class="product-order-image">
-                                        <div class="product-order-image-inner">
-                                            <img src="<?php echo $item->image ?>" alt="">
+                                    <div class="item-produce">
+                                        <div class="produce-name">
+                                            <?php echo $item->title ?> <span><i class="fa-solid fa-xmark"></i><?php echo $item->numberOrder ?></span>
+                                        </div>
+                                        <div class="produce-price">
+                                            <?php echo number_format($item->price*$item->numberOrder); ?> đ
                                         </div>
                                     </div>
-
-                                    <div class="product-order-detail">
-                                        <div class="product-order-name">
-                                            <?php echo $item->title ?>
-                                        </div>
-
-                                        <div class="product-order-price product-order-flex">
-                                            <div class="product-order-left-text">
-                                                Giá
-                                            </div>
-
-                                            <div class="product-order-left-number">
-                                                <?php echo number_format($item->price); ?>đ
-                                            </div>
-                                        </div>
-
-                                        <div class="product-order-number product-order-flex">
-                                            <div class="product-order-left-text">
-                                                Số lượng
-                                            </div>
-
-                                            <div class="product-order-left-number">
-                                                <?php echo $item->numberOrder ?>
-                                            </div>
-                                        </div>
-
-                                        <!-- <div class="product-order-delete">
-                                            <div class="product-order-left-text">
-                                                <a href=""><i class="fa-regular fa-trash-can"></i> Xóa</a>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div>
-                            <?php }} ?>
-                                
-                            </div>
-
-                            <!-- Danh sách quà tặng  -->
-                            <div class="product-order-gift-list">
-                                <div class="product-order-gift-item">
+                                    <?php }} ?>
                                     
-                                    <?php   if(!empty($list_product)){
-                                foreach ($list_product as $key => $value) { 
-                                     if(!empty($value->present)){
-                                    foreach($value->present as $item){ ?>
-                                    <div class="product-order-gift-box-inner">
-                                        <div class="product-order-gift-img">
-                                            <div class="product-order-gift-img-inner">
-                                                <img src="<?php echo @$item->image ?>" alt="">
+
+                                    <div class="produce-total">
+                                        <div class="total">
+                                            <p>Tổng:</p><span><?php echo number_format($pay['total']); ?> đ</span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="payment-methods">
+                                        <div class="accordion" id="accordionPanelsStayOpenExample">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                                        <input type="radio" name="payment" value="1" checked="checked" placeholder="Server" aria-label="Server">Chuyển khoản ngân hàng
+                                                </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                                                    <div class="accordion-body">
+                                                        <p>Thực hiện thanh toán vào ngay tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng Mã đơn hàng của bạn trong phần Nội dung thanh toán. Đơn hàng sẽ đươc giao sau khi tiền đã chuyển.</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="product-order-detail">
-                                            <div class="product-order-name">
-                                                <?php echo $item->title ?>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                    
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                                       <input type="radio" name="payment" value="2" checked="checked" placeholder="Server" aria-label="Server">Trả tiền mặt khi nhận hàng
+                                                </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                                                    <div class="accordion-body">
+                                                        <p>Trả tiền mặt khi giao hàng</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="cart-product-gift-number">
-                                                <span>Số lượng: <?php echo @$item->numberOrder ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php }}}} ?>
-                                    
-                                </div>  
-                            </div>
 
-                            <!-- Giá tiền  -->
-                            <div class="cart-total-box">
-                                <!-- Giá sản phẩm -->
-                                <div class="cart-price-item">
-                                    <div class="cart-price-item-title">
-                                        Giá 
+                                        </div>
                                     </div>
 
-                                    <div class="cart-price-item-price">
-                                        <?php echo number_format($pay['totalPays']); ?>đ
-                                    </div>
-                                </div>
-                                <div class="cart-price-item">
-                                    <div class="cart-price-item-title">
-                                        Giá vận chuyển
-                                    </div>
-
-                                    <div class="cart-price-item-price">
-                                        35.000đ
-                                    </div>
-                                </div>
-
-                            
-                                <!-- Giá voucher-->
-                                <?php if(!empty($pay['code1']) && !empty($pay['discount_price1'])){ ?>
-                                <div class="cart-price-code-discount">
-                                    <div class="cart-price-item">
-                                        <div class="cart-price-item-title">
-                                            <?php echo $pay['code1']; ?>	
-                                        </div>
-    
-                                        <div class="cart-price-item-price">
-                                            -<?php echo number_format($pay['discount_price1']); ?>đ
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                             <!-- Giá voucher-->
-                                <?php if(!empty($pay['code2']) && !empty($pay['discount_price2'])){ ?>
-                                <div class="cart-price-code-discount">
-                                    <div class="cart-price-item">
-                                        <div class="cart-price-item-title">
-                                            <?php echo $pay['code2']; ?>    
-                                        </div>
-    
-                                        <div class="cart-price-item-price">
-                                            -<?php echo number_format($pay['discount_price2']); ?>đ
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                             <!-- Giá voucher-->
-                                <?php if(!empty($pay['code3']) && !empty($pay['discount_price3'])){ ?>
-                                <div class="cart-price-code-discount">
-                                    <div class="cart-price-item">
-                                        <div class="cart-price-item-title">
-                                            <?php echo $pay['code3']; ?>    
-                                        </div>
-    
-                                        <div class="cart-price-item-price">
-                                            -<?php echo number_format($pay['discount_price3']); ?>đ
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                            <?php if(!empty($pay['code4']) && !empty($pay['discount_price4'])){ ?>
-                                <div class="cart-price-code-discount">
-                                    <div class="cart-price-item">
-                                        <div class="cart-price-item-title">
-                                            <?php echo $pay['code4']; ?>    
-                                        </div>
-    
-                                        <div class="cart-price-item-price">
-                                            -<?php echo number_format($pay['discount_price4']); ?>đ
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                                <!-- Giá tổng chiết khẩu -->
-                                 <div class="cart-price-total">
-                                    <div class="cart-price-item">
-                                        <div class="cart-price-item-title">
-                                           Tổng chiết khấu   
-                                        </div>
-    
-                                        <div class="cart-price-item-price">
-                                            <?php echo number_format( (int) @$pay['discount_price3']+ (int) @$pay['discount_price1']+ (int) @$pay['discount_price2'] +(int) @$pay['discount_price4']); ?>đ
-                                        </div>
-                                    </div>
-                                </div>
-                                 <!-- Thành tiền -->
-                                 <div class="cart-price-total">
-                                    <div class="cart-price-total-item">
-                                        <div class="cart-price-total-title">
-                                            Thành tiền
-                                        </div>
-    
-                                        <div class="cart-price-total-price">
-                                            <?php echo number_format($pay['total']); ?>đ
-                                        </div>
+                                    <div class="produce-total">
+                                        <button class="payment-btn">Tiến hành thanh toán</button>
+                                        <p>Thông tin cá nhân của bạn sẽ được sử dụng để xử lý đơn hàng, tăng trải nghiệm sử dụng website, và cho các mục đích cụ thể khác đã được mô tả trong chính sách riêng tư của chúng tôi.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-lg-8 co-md-8 col-sm-12 col-12 order-right">
-                        <form action="" method="post">
-                            <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
-                            <div class="order-right-info">
-                                <div class="order-right-title-input">
-                                    <div class="number-form-input">1</div>
-                                    <div class="title-form-input">
-                                        Thông tin người nhận
-                                    </div>
-                                </div>
-
-                                <div class="order-right-group-input">
-                                    <div class="input-group mb-3">
-                                        <input oninvalid="this.setCustomValidity('Nhập đầy đủ đầy thông tin')" oninput="setCustomValidity('')" type="text" class="form-control input-required" required="" name="full_name" value="<?php echo @$infoUser->full_name ?>" placeholder="Họ và tên (*)" aria-label="Username">
-                                        <input oninvalid="this.setCustomValidity('Nhập đầy đủ đầy thông tin')" oninput="setCustomValidity('')" type="text" class="form-control input-required" required="" name="phone" value="<?php echo @$infoUser->phone ?>" placeholder="Điện thoại (*)" aria-label="Server">
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                        <input type="email" class="form-control" name="email" value="<?php echo @$infoUser->email ?>" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="order-right-info">
-                                <div class="order-right-title-input">
-                                    <div class="number-form-input">2</div>
-                                    <div class="title-form-input">
-                                        Địa chỉ nhận hàng
-                                    </div>
-                                </div>
-                                
-                                <div class="order-right-group-input">
-                                    <div class="input-group mb-3">
-                                        <input oninvalid="this.setCustomValidity('Nhập đầy đủ đầy thông tin')" oninput="setCustomValidity('')" type="text" id="address" name="address"  required="" class="form-control" placeholder="Nhập địa chỉ (*)" aria-label="Amount (to the nearest dollar)">
-                                         <input type="hidden" id="id_customer" name="id_address" class="form-control" placeholder="Username" aria-label="Username">
-                                    </div>
-
-                                    
-                                </div>
-                            </div>
-
-                            <div class="order-right-info">
-                                <div class="order-right-title-input">
-                                    <div class="number-form-input">3</div>
-                                    <div class="title-form-input">
-                                        Phương thức thanh toán
-                                    </div>
-                                </div>
-                                
-                                <div class="order-right-group-input">
-                                   
-                                    <div class="input-group mb-3">
-                                        <!-- <input type="radio" name="payment" value="1"  required="" placeholder="Username" aria-label="Username">
-                                        <label>Thanh toán chuyển khoản</label> -->
-                                        <input type="radio" name="payment" value="2" checked="checked" placeholder="Server" aria-label="Server">
-                                        <label>Nhận hàng rồi thanh toán </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="order-right-info">
-                                <div class="order-right-title-input">
-                                    <div class="number-form-input">4</div>
-                                    <div class="title-form-input">
-                                        Nội dung chú ý
-                                    </div>
-                                </div>
-                                
-                                <div class="order-right-group-input">
-                                   
-                                    <div class="input-group mb-3">
-                                        <textarea class="form-control" name="note_user"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                            <div class="order-right-group-button">
-                                <button type="submit" class="btn btn-primary">Đặt hàng</button>
-
-                                <a href="/gio-hang" > <button type="button" class="btn btn-primary">Quay lại</button></a>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             </div>
         </section>
+    </form>
     </main>
 
      <script>

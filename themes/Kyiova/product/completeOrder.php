@@ -5,91 +5,82 @@ global $urlThemeActive;
 $setting = setting();
 
 $slide_home= slide_home($setting['id_slide']);
-
 ?>
-  <main>
-        <section id="section-complete">
+ <main>
+        <section id="section-detail-order">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 complete-box">
-                        <div class="icon-button-check">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/checkbutton.png" alt="">
-                        </div>
+                    <h3>Thanh toán</h3>
+                    <div class="col-lg-7 col-12">
+                        <h4>Chi tiết đơn hàng</h4>
+                        <table class="table table-ord">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sản phẩm</th>
+                                    <th scope="col">Tổng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if(!empty($data->order)){
+                                    foreach($data->order as $key => $item){ 
+                                        echo '<tr class="production">
+                                                    <td><a href="/san-pham/'.$item->product->slug.'.html">'.$item->product->title.'<span>× '.$item->quantity.'</span></a></td>
+                                                    <td>'.number_format($item->quantity*$item->product->price).' ₫</td>
+                                                </tr>';
+                            }}?>
+                               
 
-                        <div class="complete-heading">
-                            <h1>Đặt hàng thành công</h1>
-                        </div>
+                                <tr class="payment-method">
+                                    <td>Phương thức thanh toán:</td>
+                                    <td>
+                                        <?php 
+                                            if($data->payment==1){
+                                                echo 'Chuyển khoản ngân hàng';
+                                            }else{
+                                                 echo 'Trả tiền mặt khi nhận hàng';
+                                            }
 
-                        <div class="complete-text">
-                            <!-- <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore </p> -->
-                        </div>
+                                         ?>
+                                    </td>
+                                </tr>
 
-                        <div class="complete-info-box">
-                            <div class="complete-info-box-detail">
-                                <div class="complete-info-heading">
-                                    Thông tin đơn hàng
-                                </div>
+                                <tr class="total-price">
+                                    <td>Tổng cộng:</td>
+                                    <td><?php echo number_format(@$data->money) ?> ₫</td>
+                                </tr>
 
-                                <div class="complete-info-detail">
-                                    <div class="container">
-                                        <div class="row item-complete-info-detail">
-                                            <div class="col-md-4">
-                                                <span>Người nhận</span>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p><?php echo $data->full_name ?></p>
-                                            </div>
-                                        </div>
+                                <tr class="note">
+                                    <td>Lưu ý:</td>
+                                    <td><?php echo @$data->note_user ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                                        <div class="row item-complete-info-detail">
-                                            <div class="col-md-4">
-                                                <span>Số điện thoại</span>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p><?php echo $data->phone ?></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row item-complete-info-detail" style=" line-height: 18px; ">
-                                            <div class="col-md-4">
-                                                <span>Địa chỉ</span>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p><?php echo $data->address ?></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row item-complete-info-detail">
-                                            <div class="col-md-4">
-                                                <span>Tổng tiền</span>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p><?php echo number_format($data->total); ?>đ</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row item-complete-info-detail item-complete-info-detail-end ">
-                                            <div class="col-md-4">
-                                                <span>Phương thức thanh toán</span>
-                                            </div>
-                                            <div class="col-md-8">
-                                            	<?php if (@$data->payment==2){ ?>
-                                            		<p>Nhận hàng rồi thanh toán</p>
-                                            	<?php }else{?>
-                                                <p>Chuyển khoản</p>
-                                            <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-lg-5 col-12">
+                        <div class="end-order">
+                            <p>Cảm ơn bạn. Đơn hàng của bạn đã được nhận.</p>
+                            <ul>
+                                <li>Mã đơn hàng: <span><?php echo @$data->note_user ?></span></li>
+                                <li>Ngày: <span><?php echo date('d/m/Y',@$data->create_at) ?></span></li>
+                                <li>Tổng cộng: <span><?php echo number_format(@$data->money) ?> ₫</span></li>
+                                <li>Phương thức thanh toán: 
+                                    <span>
+                                        <?php 
+                                            if($data->payment==1){
+                                                echo 'Chuyển khoản ngân hàng';
+                                            }else{
+                                                 echo 'Trả tiền mặt khi nhận hàng';
+                                            }?>
+                                             
+                                        </span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
         </section>
-
     </main>
 <?php
 getFooter();?>

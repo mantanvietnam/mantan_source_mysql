@@ -29,6 +29,7 @@ $price_total = 0;
 </style>
 
  <main>
+    <form action="/addDiscountCode"  method="get">
 
         <section id="section-cart">
             <div class="container">
@@ -162,7 +163,7 @@ $price_total = 0;
                                         <input type="hidden" name="totalPays" id="totalPays" value="<?php echo $price_total ?>">
                                          <input type="hidden" value="<?php echo $price_total+ @$ship; ?>" name="total" id=total>
                                     </div>
-                                    <button>Tiến hành thanh toán</button>
+                                    <button type="submit">Tiến hành thanh toán</button>
                                 </div>
                             </div>
 
@@ -173,7 +174,7 @@ $price_total = 0;
             </div>
 
         </section>
-
+    </form>
     </main> 
 
   
