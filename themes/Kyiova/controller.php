@@ -60,6 +60,7 @@ function settingHomeTheme($input){
                         'link_page' => @$dataSend['link_page'],
                         'business_certificates' => @$dataSend['business_certificates'],
                         'represent' => @$dataSend['represent'],
+                        'image_qc' => @$dataSend['image_qc'],
                         
 
                     );
