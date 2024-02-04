@@ -117,3 +117,41 @@ function closeOverlay() {
     // Loại bỏ lớp chống cuộn từ body
     document.body.classList.remove('scroll-lock');
 }
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var accordionButtons = document.querySelectorAll('.accordion-button');
+
+    accordionButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var radioButton = button.querySelector('input[type="radio"]');
+
+            var allRadioButtons = document.querySelectorAll('.accordion-button input[type="radio"]');
+
+            allRadioButtons.forEach(function(radio) {
+                radio.checked = false;
+            });
+            radioButton.checked = true;
+        });
+    });
+});
+
+
+/*    Button CUỘN LÊN ĐẦU TRANG    */
+document.addEventListener('DOMContentLoaded', function() {
+    var scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+    window.addEventListener('scroll', function() {
+        if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
+            scrollToTopBtn.style.display = 'block';
+        } else {
+            scrollToTopBtn.style.display = 'none';
+        }
+    });
+});
+
+function scrollToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}

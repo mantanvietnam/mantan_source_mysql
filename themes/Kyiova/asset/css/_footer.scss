@@ -7,6 +7,9 @@ footer{
         margin-top: 50px;
         padding: 49px 0;
         .footer-item{
+            @media (max-width: 450px) {
+                margin-top: 20px;
+            }
             .footer-logo{
                 width: 180px;
             }
@@ -17,11 +20,18 @@ footer{
                     margin-bottom: 20px;
                 }
             }
-    
+
+          
             .footer-menu-title{
                 h3{
                     font-size: 23px;
                     margin-bottom: 20px;
+                }
+
+                @media (max-width: 450px) {
+                    h3{
+                        font-size: 18px !important;
+                    }
                 }
             }
     
@@ -77,3 +87,5 @@ footer{
         }
     }
 }
+
+

@@ -236,6 +236,13 @@ b {
   background-color: #fff;
   border: none;
 }
+@media (max-width: 450px) {
+  #section-banner .banner-slide .slick-dots {
+    position: absolute;
+    bottom: 56px;
+    left: 50%;
+  }
+}
 #section-banner .banner-slide .slick-list {
   height: 100%;
 }
@@ -245,6 +252,17 @@ b {
 #section-banner .banner-slide .slick-list .slick-track .banner-slide-item {
   height: 100%;
 }
+@media (max-width: 450px) {
+  #section-banner #section-banner {
+    padding-bottom: 20px;
+  }
+  #section-banner #section-banner .slick-dots {
+    position: absolute;
+    bottom: 56px;
+    left: 50%;
+  }
+}
+
 #section-service .service-list .service-item {
   text-align: center;
 }
@@ -507,7 +525,6 @@ b {
   padding: 5px 10px;
 }
 #section-category-product .category-product-slide .category-product-item .category-product-item-inner {
-  border: 1px solid #8e9094;
   transition: all 0.3s linear;
   box-shadow: 2px 0px 8px 0px #888888;
 }
@@ -545,7 +562,6 @@ b {
 }
 
 #section-product-hot .product-hot-item .product-hot-item-inner {
-  border: 1px solid #b6b2b2;
   margin-bottom: 30px;
   transition: all 0.3s linear;
   box-shadow: 2px 0px 8px 0px #888888;
@@ -642,6 +658,12 @@ b {
   font-weight: 900;
   margin-bottom: 15px;
 }
+@media (max-width: 450px) {
+  #section-register .section-home-background .register-title h3 {
+    font-size: 25px;
+    line-height: 1.2;
+  }
+}
 #section-register .section-home-background .register-subtitle {
   margin-bottom: 22px;
 }
@@ -735,6 +757,11 @@ footer #section-footer {
   margin-top: 50px;
   padding: 49px 0;
 }
+@media (max-width: 450px) {
+  footer #section-footer .footer-item {
+    margin-top: 20px;
+  }
+}
 footer #section-footer .footer-item .footer-logo {
   width: 180px;
 }
@@ -745,6 +772,11 @@ footer #section-footer .footer-item .footer-title h3 {
 footer #section-footer .footer-item .footer-menu-title h3 {
   font-size: 23px;
   margin-bottom: 20px;
+}
+@media (max-width: 450px) {
+  footer #section-footer .footer-item .footer-menu-title h3 {
+    font-size: 18px !important;
+  }
 }
 footer #section-footer .footer-item .footer-subtitle p {
   font-size: 25px;
@@ -1044,7 +1076,6 @@ footer #section-footer-bottom p {
   border-color: #228B22;
 }
 #section-category-product-page .product-hot-item .product-hot-item-inner {
-  border: 1px solid #b6b2b2;
   margin-bottom: 30px;
   transition: all 0.3s linear;
   box-shadow: 2px 0px 8px 0px #888888;
