@@ -61,7 +61,7 @@ $slide_home= slide_home($setting['id_slide']);
                         <div class="end-order">
                             <p>Cảm ơn bạn. Đơn hàng của bạn đã được nhận.</p>
                             <ul>
-                                <li>Mã đơn hàng: <span><?php echo @$data->note_user ?></span></li>
+                                <li>Mã đơn hàng: <span><?php echo @$data->id ?></span></li>
                                 <li>Ngày: <span><?php echo date('d/m/Y',@$data->create_at) ?></span></li>
                                 <li>Tổng cộng: <span><?php echo number_format(@$data->money) ?> ₫</span></li>
                                 <li>Phương thức thanh toán: 
