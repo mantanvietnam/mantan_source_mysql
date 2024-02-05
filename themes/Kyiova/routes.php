@@ -12,6 +12,6 @@
 
    // việt hóa
    $routesTheme['thu-vien-anh'] = 'Kyiova/detailAlbum.php';
-   $routesTheme['cau-chuyen-kyiove'] = 'Kyiova/aboutUs.php';
+   $routesTheme['cau-chuyen-kyiova'] = 'Kyiova/aboutUs.php';
    // $routesTheme['tin-tuc'] = 'shopbanhang/news.php';
 ?>
