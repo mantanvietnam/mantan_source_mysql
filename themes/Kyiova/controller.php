@@ -241,6 +241,7 @@ function detailAlbum($input){
         if(!empty($album)){
             $listData = $modelAlbuminfos->find()->where(array('id_album'=>$album->id))->all()->toList();
             setVariable('listData',$listData);
+            setVariable('album',$album);
         }else{
             return $controller->redirect('/');
         }

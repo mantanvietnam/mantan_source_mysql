@@ -61,9 +61,9 @@
                                                 <h4> <?php echo number_format($product->price); ?> ₫</h4>
                                             </div>
                                             <div class="quantity-input">
-                                                <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                                                <button class="quantity-btn" onclick="minusQuantity()">-</button>
                                                 <input type="text" id="quantity_buy" class="product-qty" type="text" name="quantity_buy"  value="1" readonly>
-                                                <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                                                <button class="quantity-btn" onclick="plusQuantity()">+</button>
                                             </div>
                                             <div class="produce-btn">
                                                 <button  onclick="addProductCart(<?php echo $product->id;?>,'true')">Thêm vào giỏ hàng</button>
@@ -253,6 +253,20 @@
                 setTimeout(changeCSS, 3000);*/
              }
         });
+    }
+    function plusQuantity()
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+        quantity++;
+        $('#quantity_buy').val(quantity);
+    }
+
+    function minusQuantity()
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+        quantity--;
+        if(quantity<1) quantity=1;
+        $('#quantity_buy').val(quantity);
     }
 </script>
 
