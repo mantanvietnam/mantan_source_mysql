@@ -39,9 +39,9 @@ $price_total = 0;
                 <?php if(empty($list_product)){ ?>
                 <div class="no-produce">
 
-                    <!-- <img src="<?php echo $urlThemeActive ?>\asset\image\emptycart.png" alt=""> -->
+                    <img src="<?php echo $urlThemeActive ?>\asset\image\emptycart.png" alt="">
 
-                    <img src="<?php echo  $urlThemeActive ?>/asset/image/FAQs.gif" alt="">
+                    <!-- <img src="<?php echo  $urlThemeActive ?>/asset/image/FAQs.gif" alt=""> -->
 
                     <p>Bạn chưa có sản phẩm nào trong cửa hàng !</p>
                     <a href="/">Quay lại trang sản phẩm</a>

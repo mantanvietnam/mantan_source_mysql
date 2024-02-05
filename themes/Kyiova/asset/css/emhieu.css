@@ -772,7 +772,7 @@
 
 .no-produce {
     text-align: center;
-    display: none;
+    display: block;
 }
 
 .no-produce p {
@@ -1179,6 +1179,9 @@
 #section-product-hot .product-hot-item .product-hot-item-inner {
     border: none;
 }
+.page-blog-sidebar {
+    margin-top: 50px;
+}
 
 footer #section-footer .footer-item .footer-logo {
     width: 100%;
@@ -1318,9 +1321,30 @@ footer #section-footer .footer-item .footer-logo {
     #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-image {
         height: 260px;
     }
+    header .topbar .topbar-box .topbar-right {
+        display: none !important;
+    }
+    .page-blog-sidebar .sidebar-listpost .sidebar-post-item .col-post-title {
+        padding-left: 15px;
+    } 
+    #section-post .post-title h1 {
+        font-size: 28px !important;
+        line-height: 1.2 !important;
+    }
+
 }
 
 @media (max-width: 500px) {
+    .page-blog-sidebar .sidebar-post-image {
+        height: 200px;
+        margin-bottom: 10px;
+    }
+
+    #section-page-blog .page-blog-list .page-blog-item .page-blog-title h3 a {
+        margin-top: 10px;
+    }
+
+   
     .product-new-slide .slick-arrow {
         top: 42%;
     }

@@ -32,13 +32,13 @@ global $urlThemeActive;
                         foreach ($listPosts as $item) {
                            echo '<div class="page-blog-item">
                                 <div class="row">
-                                    <div class="col-lg-4 page-blog-image">
+                                    <div class="col-lg-4 col-md-4 col-12 page-blog-image">
                                         <div class="page-blog-image-inner">
                                             <a href=""><img src="'.$item->image.'" alt=""></a>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-8 col-md-8 col-12">
                                         <div class="page-blog-detail">
                                             <div class="page-blog-title">
                                                 <h3><a href="/'.@$item->slug.'.html">'.@$item->title.' </a></h3>
@@ -113,13 +113,13 @@ global $urlThemeActive;
                                     foreach(getPostPin() as $key => $item){
                                         echo '<div class="sidebar-post-item">
                                     <div class="row">
-                                        <div class="col-5 col-post-image">
+                                        <div class="col-lg-5 col-md-3 col-sm-5 col-post-image">
                                             <div class="sidebar-post-image">
                                                 <img src="'.@$item->image.'" alt="">
                                             </div>
                                         </div>
 
-                                        <div class="col-7 col-post-title">
+                                        <div class="col-lg-7 col-md-9 col-sm-7 col-post-title">
                                             <div class="sidebar-post-title">
                                                 <a href="/'.@$item->slug.'.html">'.@$item->title.'</a>  
                                             </div>
