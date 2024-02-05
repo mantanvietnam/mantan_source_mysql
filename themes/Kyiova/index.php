@@ -3,7 +3,8 @@ getHeader();
 global $urlThemeActive;
 
 ?>
-<main>
+
+   <main>
 
         <section id="section-search">
             <div class="overlay" id="overlay">
@@ -424,5 +425,89 @@ global $urlThemeActive;
         });
     }
 </script>
-<?php
-getFooter();?>
+
+    <footer>
+        <secrion id="section-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+                        <div class="footer-item">
+                            <div class="footer-logo">
+                                <img src="<?php echo $urlThemeActive ?>/asset/image/logoheader.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12">
+                        <div class="footer-item">
+                            <div class="footer-title">
+                                <h3>ZIKII SHINELAB</h3>
+                            </div>
+
+                            <div class="footer-subtitle">
+                                <p>Nhập khẩu và phân phối bởi Công ty cổ phần thương mại quốc tế HT NATURAL</p>
+                            </div>
+
+                            <div class="footer-list">
+                                <ul>
+                                    <li>Địa chỉ: <strong>thôn Phúc Am - xã Duyên Thái - Huyện Thường Tín - TP Hà Nội</strong></li>
+                                    <li>Điện thoại: <strong>0965089489</strong></li>
+                                    <li>Email: <a href="mailto:zikiivietnam@gmail.com">zikiivietnam@gmail.com</a></li>
+                                    <li>Website: <a href="">ZIKII.VN</a></li>
+                                    <li>Fanpage Facebook: <a href="">ZIKII Tổng Chạm Tay Bay Nám</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-12">
+                        <div class="footer-item">
+                            <div class="footer-menu-title">
+                                <h3>DANH MỤC SẢN PHẨM</h3>
+                            </div>
+
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="">Hướng dẫn đặt hàng</a></li>
+                                    <li><a href="">Hướng dẫn thanh toán</a></li>
+                                    <li><a href="">Điều khoản và trách nhiệm</a></li>
+                                    <li><a href="">Đổi trả và bảo hành</a></li>
+                                    <li><a href="">Tuyển dụng</a></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-footer-info">
+                    <div class="container">
+                        <p>Giấy chứng nhận kinh doanh số 0109975371 do Sở Kế hoạch và Đầu tư Hà Nội cấp ngày .../.../....</p>
+                        <p>Người đại diện theo pháp luật: Lê Thị Ánh Tuyết.</p>
+                        <p>Email: zikiivietnam@gmail.com, Điện thoại: 0965089489</p>
+                    </div>
+                </div>
+            </div>
+        </secrion>
+
+
+
+        <section id="section-footer-bottom">
+            <p>Copyright 2024 © Zikii Việt Nam</p>
+        </section>
+
+        <!-- Magnific Popup core JS file -->
+        <script src="asset/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
+
+        <script src="<?php echo $urlThemeActive ?>/asset/js/slick.js"></script>
+        <script src="<?php echo $urlThemeActive ?>/asset/js/emhieu.js"></script>
+    </footer>
+</body>
+
+</html>

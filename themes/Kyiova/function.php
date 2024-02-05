@@ -49,16 +49,6 @@ function getByIdCategory($id){
     return $Categories;
 }
 
-function checkFlasl(){
-
-    global $controller; 
-    $modelProduct = $controller->loadModel('Products');
-
-    $product_flasl = $modelProduct->find()->limit(4)->where(['flash_sale'=>1,'status'=>'active'])->all()->toList();
-
-    return $product_flasl;
-}
-
 function getCategorieProduct(){
     global $modelCategories;
     $conditionCategorieProduct = array('type' => 'category_product','status'=>'active');
