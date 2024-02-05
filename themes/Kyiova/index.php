@@ -217,7 +217,7 @@ global $urlThemeActive;
                 <div class="category-product-slide" data-aos="fade-left">
                     <?php if(!empty($listCategorieProduct)){
                         foreach($listCategorieProduct as $key => $item){
-                            echo '<div class="category-product-item">
+                echo '<div class="category-product-item">
                         <div class="category-product-item-inner">
                             <a href="/category/'.$item->slug.'.html">
                                 <div class="category-product-image">
