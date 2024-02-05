@@ -81,15 +81,15 @@ $setting = setting();?>
         </section>
 
         <!-- Magnific Popup core JS file -->
-        <script src="asset/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <script src="<?php echo $urlThemeActive ?>asset/magnific-popup/jquery.magnific-popup.min.js"></script>
 
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <script>
             AOS.init();
         </script>
 
-        <script src="<?php echo $urlThemeActive ?>/asset/js/slick.js"></script>
-        <script src="<?php echo $urlThemeActive ?>/asset/js/emhieu.js"></script>
+        <script src="<?php echo $urlThemeActive ?>asset/js/slick.js"></script>
+        <script src="<?php echo $urlThemeActive ?>asset/js/emhieu.js"></script>
     </footer>
 </body>
 
