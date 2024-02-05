@@ -74,7 +74,19 @@ $setting = setting();?>
             </div>
         </secrion>
 
+        <section id="section-search">
+            <div class="overlay" id="overlay">
+                <button type="button" class="close-btn" onclick="closeOverlay()"><i class="fa-solid fa-xmark"></i></button>
 
+                <div class="overlay-content">
+
+                    <form class="search-form">
+                        <input type="text" class="search-input" placeholder="Nhập từ khóa">
+                        <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+            </div>
+        </section>
 
         <section id="section-footer-bottom">
             <p>Copyright 2024 © Zikii Việt Nam</p>
