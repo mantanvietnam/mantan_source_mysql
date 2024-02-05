@@ -117,7 +117,7 @@ $setting = setting();?>
                         </ul>
                     </div>
                     <div class="menu-cart">
-                        <a href="">
+                        <a href="/gio-hang">
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
 

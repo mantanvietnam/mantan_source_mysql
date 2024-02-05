@@ -67,16 +67,31 @@ $setting = setting();?>
                 <div class="section-footer-info">
                     <div class="container">
                         <p><?php echo @$setting['business_certificates'] ?></p>
-                        <p>Người đại diện theo pháp luật: <?php echo @$setting['represent'] ?>.</p>
+                        <p>Người đại diện theo pháp luật: <?php echo @$setting['represent'] ?></p>
                         <p>Email: <?php echo @$setting['email_footer'] ?>, Điện thoại: <?php echo @$setting['phone_footer'] ?></p>
                     </div>
                 </div>
             </div>
         </secrion>
+        <section id="section-search">
+            <div class="overlay" id="overlay" style="display: none;">
+                <button type="button" class="close-btn" onclick="closeOverlay()"><i class="fa-solid fa-xmark"></i></button>
 
+<<<<<<< Updated upstream
         <section id="section-search">
             <div class="overlay" id="overlay">
                 <button type="button" class="close-btn" onclick="closeOverlay()"><i class="fa-solid fa-xmark"></i></button>
+=======
+                <div class="overlay-content">
+
+                    <form onsubmit="" action="/search-product" method="get" id="myForm" class="form-custom">
+                        <input type="text" class="search-input"  name="key" placeholder="Nhập từ khóa">
+                        <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+>>>>>>> Stashed changes
 
                 <div class="overlay-content">
 
@@ -89,7 +104,7 @@ $setting = setting();?>
         </section>
 
         <section id="section-footer-bottom">
-            <p>Copyright 2024 © Zikii Việt Nam</p>
+            <p><?php echo @$setting['textfooter'] ?></p>
         </section>
 
         <!-- Magnific Popup core JS file -->
