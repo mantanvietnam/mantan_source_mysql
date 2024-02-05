@@ -115,10 +115,18 @@ $setting = setting();?>
                                              <?php } ?>
                                         </ul>
                                     </li>
+                                    
                                     <?php }}} ?>
+
+                                    <li class="nav-item">
+                                        <div class="cart-search">
+                                            <a class="nav-link" href="/gio-hang"><i class="fa-solid fa-cart-shopping"></i></a>
+                                            <a class="nav-link search-btn"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                        </div>
+                                    </li>
                         </ul>
                     </div>
-                    <div class="menu-cart">
+                    <!-- <div class="menu-cart">
                         <a href="/gio-hang">
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
@@ -126,7 +134,7 @@ $setting = setting();?>
                         <a href="#" class="search-btn">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
             </nav>
         </div>
