@@ -772,7 +772,7 @@
 
 .no-produce {
     text-align: center;
-    display: none;
+    /* display: none; */
 }
 
 .no-produce p {

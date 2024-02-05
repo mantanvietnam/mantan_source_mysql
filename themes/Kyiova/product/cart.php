@@ -40,7 +40,7 @@ $price_total = 0;
                 <div class="no-produce">
                     <img src="../Kyiova/asset/image/FAQs.gif" alt="">
                     <p>Bạn chưa có sản phẩm nào trong cửa hàng !</p>
-                    <a href="">Quay lại trang sản phẩm</a>
+                    <a href="/">Quay lại trang sản phẩm</a>
                 </div>
 
             <?php }else{ ?>
