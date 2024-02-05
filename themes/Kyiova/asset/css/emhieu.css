@@ -1328,13 +1328,25 @@ footer #section-footer .footer-item .footer-logo {
         padding-left: 15px;
     } 
     #section-post .post-title h1 {
-        font-size: 28px !important;
-        line-height: 1.2 !important;
+        font-size: 28px;
+        line-height: 1.2;
+    }
+    #section-post .post-date {
+        margin-bottom: 10px;
     }
 
 }
 
 @media (max-width: 500px) {
+    #section-produce .page-blog-sidebar .sidebar-post-image {
+        height: 80px;
+    }
+
+    #section-post .post-title h1 {
+        font-size: 26px;
+        line-height: 1.2;
+    }
+
     .page-blog-sidebar .sidebar-post-image {
         height: 200px;
         margin-bottom: 10px;
