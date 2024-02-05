@@ -3,10 +3,6 @@ getHeader();
 global $urlThemeActive;
 
 $setting = setting();?>
-
-?>
-
-
     <main>
         <section id="contact-us">
             <div class="container">

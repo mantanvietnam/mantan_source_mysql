@@ -1173,6 +1173,21 @@
     padding: 85px 0;
 }
 
+
+/*      Sửa CSS KYIOVA      */
+
+#section-product-hot .product-hot-item .product-hot-item-inner {
+    border: none;
+}
+
+footer #section-footer .footer-item .footer-logo {
+    width: 100%;
+}
+
+#section-category-product .category-product-slide .category-product-item .category-product-item-inner {
+    border: none;
+}
+
 @media (max-width: 1024px) {
     #about-us-content .container-padding {
         padding: 0px 50px;

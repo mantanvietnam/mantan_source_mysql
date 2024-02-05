@@ -85,7 +85,7 @@ $setting = setting();?>
         <div class="navbar-header" id="menu-top">
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <div class="image-header">
                             <img src="<?php echo @$setting['image_logo'] ?>" alt="">
                         </div>
