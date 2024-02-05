@@ -61,7 +61,7 @@ function settingHomeTheme($input){
                         'business_certificates' => @$dataSend['business_certificates'],
                         'represent' => @$dataSend['represent'],
                         'image_qc' => @$dataSend['image_qc'],
-                        
+                        'textfooter'=>@$dataSend['textfooter'],
 
                     );
 
@@ -84,7 +84,59 @@ function settingHomeTheme($input){
     setVariable('mess', $mess);
 }
 
+function settingAboutUs($input){
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
 
+    $metaTitleMantan = 'Cài đặt giao diện trang chủ ';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingAboutUs');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['targetTime'])){
+            $time = explode(' ', $dataSend['targetTime']);
+            $date = explode('/', $time[1]);
+            $hour = explode(':', $time[0]);
+            $targetTime = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+        }
+
+        $value = array( 'image_banner' => @$dataSend['image_banner'],
+                        'titel' => @$dataSend['titel'],
+                        'content' => @$dataSend['content'],
+                        'image1' => @$dataSend['image1'],
+                        'content1' => @$dataSend['content1'],
+                        'image2' => @$dataSend['image2'],
+                        'content2' => @$dataSend['content2'],
+                        'image3' => @$dataSend['image3'],
+                        
+
+                    );
+
+    
+
+        $data->key_word = 'settingAboutUs';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
 
 function indexTheme($input){
     global $modelAlbums;
@@ -132,7 +184,6 @@ function indexTheme($input){
     if(!empty($listCategorieProduct)){
         foreach ($listCategorieProduct as $key => $value) {
             $products = $modelCategorieProduct->find()->where(array('id_category'=>$value->id))->all()->toList();
-;
             $listCategorieProduct[$key]->number_product = count($products);
            // $totalProductSell += count($products);
         }
@@ -201,5 +252,18 @@ function detailAlbum($input){
 
 }
 
+function aboutUs($input){
+     global $modelOptions;
 
+      $conditions = array('key_word' => 'settingAboutUs');
+    $data = $modelOptions->find()->where($conditions)->first();    
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('data', $data_value);
+
+}
  ?>

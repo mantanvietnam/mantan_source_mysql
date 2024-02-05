@@ -6,7 +6,11 @@ $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingHomeTheme'
                         );
-
+$menus[0]['sub'][1]= array( 'title'=>'Cài đặt câu chuyện',
+                            'url'=>'/plugins/admin/Kyiova-admin-settingAboutUs',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'settingAboutUs'
+                        );
 
 
 addMenuAdminMantan($menus);

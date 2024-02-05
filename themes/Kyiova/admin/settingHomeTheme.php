@@ -175,6 +175,10 @@
                   <label class="form-label" for="basic-default-fullname">ảnh quảng cáo trang sản phẩn</label>
                    <?php showUploadFile('image_qc','image_qc', @$setting['image_qc'],2);?>
                 </div>
+                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">text chân trang</label>
+                  <input type="text" class="form-control" name="textfooter" value="<?php echo @$setting['textfooter'];?>" />
+                </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <button type="submit" class="btn btn-primary" style="width:75px; height: 35px;">Lưu</button>
               </div>

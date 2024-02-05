@@ -12,8 +12,8 @@ global $urlThemeActive;
 
                 <div class="overlay-content">
 
-                    <form class="search-form">
-                        <input type="text" class="search-input" placeholder="Nhập từ khóa">
+                    <form onsubmit="" action="/search-product" method="get" id="myForm" class="form-custom">
+                        <input type="text" name="key" class="search-input" name="key" placeholder="Nhập từ khóa">
                         <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>

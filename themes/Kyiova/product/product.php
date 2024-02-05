@@ -13,7 +13,7 @@
  <main>
         <section id="section-produce">
             <div class="container">
-                <p class="bgr"><a href="">Trang chủ</a> / <a href="">Sản phẩm</a> / Tên sản phẩm</p>
+                <p class="bgr"><a href="">Trang chủ</a> / <a href="">Sản phẩm</a> / <?php echo $product->title; ?></p>
 
                 <div class="row">
                     <div class="col-lg-9 col-12">
@@ -69,13 +69,56 @@
                                                 <button  onclick="addProductCart(<?php echo $product->id;?>,'true')">Thêm vào giỏ hàng</button>
                                             </div>
                                             <div class="produce-contact">
-                                                <ul>
-                                                    <li><a href=""><i class="fa-brands fa-facebook-f face"></i></a></li>
+                                               <ul>
+                                                <li>
+                                                    <a target="_blank" href="mailto:info@godraw.vn?subject=<?php echo $product->title;?>&body=Link trang: <?php echo $product->slug;?>" class="text-white">
+                                                        <i class="fa-regular fa-envelope"></i>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a target="_blank" href="https://pinterest.com/pin/create/button/?url=<?php echo urlencode('https://kyiova.vn/'.$product->slug.'.html');?>" class="text-white">
+                                                        <i class="fa-brands fa-pinterest"></i>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode('https://kyiova.vn/'.$product->slug.'.html');?>" class="text-white">
+                                                        <i class="fa-brands fa-linkedin"></i>
+                                                    </a>
+                                                </li>
+                                                
+                                                
+                                                <li>
+                                                    <a target="_blank" class="text-white" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode('https://kyiova.vn/'.$product->slug.'.html');?>" target="_blank" rel="noopener">
+                                                        <i class="fa-brands fa-facebook"></i>
+                                                    </a>
+                                                </li>
+                                                
+                                                <li>
+                                                    <a target="_blank"  class="text-white" href="http://twitter.com/share?url=<?php echo urlencode('https://kyiova.vn/'.$product->slug.'.html');?>" target="_blank">
+                                                        <i class="fa-brands fa-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                
+                                                <li>
+                                                    <a  target="_blank" class="text-white" href="https://telegram.me/share/url?url=<?php echo urlencode('https://kyiova.vn/'.$product->slug.'.html');?>" target="_blank">
+                                                        <i class="fa-brands fa-telegram"></i>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a target="_blank"  class="text-white" href="https://tumblr.com/widgets/share/tool?canonicalUrl=<?php echo urlencode('https://kyiova.vn/'.$product->slug.'.html');?>" target="_blank">
+                                                        <i class="fa-brands fa-tumblr"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                                  <!--   <li><a href=""><i class="fa-brands fa-facebook-f face"></i></a></li>
                                                     <li><a href=""><i class="fa-brands fa-x-twitter twit"></i></a></li>
                                                     <li><a href=""><i class="fa-brands fa-pinterest-p pint"></i></a></li>
                                                     <li><a href=""><i class="fa-regular fa-envelope mail"></i></a></li>
                                                     <li><a href=""><i class="fa-brands fa-linkedin-in link"></i></a></li>
-                                                </ul>
+                                                </ul> -->
                                             </div>
                                         </div>
 
