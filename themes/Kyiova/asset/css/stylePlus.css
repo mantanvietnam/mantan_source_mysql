@@ -5,3 +5,7 @@
 .post-image img{
     height: auto;
 }
+
+#section-blog-other .blog-item .blog-detail .blog-title h4{
+    line-height: 1.3;
+}

@@ -38,7 +38,7 @@ $price_total = 0;
                 <!-- Section khi giỏ hàng khi không có sản phẩm -->
                 <?php if(empty($list_product)){ ?>
                 <div class="no-produce">
-                    <img src="../Kyiova/asset/image/FAQs.gif" alt="">
+                    <img src="<?php echo $urlThemeActive ?>\asset\image\emptycart.png" alt="">
                     <p>Bạn chưa có sản phẩm nào trong cửa hàng !</p>
                     <a href="/">Quay lại trang sản phẩm</a>
                 </div>
