@@ -73,15 +73,14 @@ $setting = setting();?>
                 </div>
             </div>
         </secrion>
-        <section id="section-search">
-            <div class="overlay" id="overlay" style="display: none;">
-                <button type="button" class="close-btn" onclick="closeOverlay()"><i class="fa-solid fa-xmark"></i></button>
+        <section id="section-footer-bottom">
+            <p><?php echo @$setting['textfooter'] ?></p>
+        </section>
 
-<<<<<<< Updated upstream
+
         <section id="section-search">
             <div class="overlay" id="overlay">
                 <button type="button" class="close-btn" onclick="closeOverlay()"><i class="fa-solid fa-xmark"></i></button>
-=======
                 <div class="overlay-content">
 
                     <form onsubmit="" action="/search-product" method="get" id="myForm" class="form-custom">
@@ -91,28 +90,16 @@ $setting = setting();?>
                 </div>
             </div>
         </section>
->>>>>>> Stashed changes
-
-                <div class="overlay-content">
-
-                    <form class="search-form">
-                        <input type="text" class="search-input" placeholder="Nhập từ khóa">
-                        <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <section id="section-footer-bottom">
-            <p><?php echo @$setting['textfooter'] ?></p>
-        </section>
 
         <!-- Magnific Popup core JS file -->
         <script src="<?php echo $urlThemeActive ?>asset/magnific-popup/jquery.magnific-popup.min.js"></script>
 
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <script>
-            AOS.init();
+            AOS.init({
+            // ... các tùy chọn khác
+            disable: 'mobile', 
+            });
         </script>
 
         <script src="<?php echo $urlThemeActive ?>asset/js/slick.js"></script>
