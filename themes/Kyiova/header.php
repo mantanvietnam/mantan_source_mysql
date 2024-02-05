@@ -19,7 +19,7 @@ $setting = setting();?>
     <link rel="stylesheet" href="<?php echo $urlThemeActive ?>/asset/css/stylePlus.css">
 
     <!-- Magnific Popup core CSS file -->
-    <link rel="stylesheet" href="asset/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive ?>asset/magnific-popup/magnific-popup.css">
 
     <!-- Aos -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />

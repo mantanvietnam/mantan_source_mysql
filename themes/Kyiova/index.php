@@ -180,7 +180,7 @@ global $urlThemeActive;
         </section>
 
         <section id="section-home-contact" class="section-padding">
-            <div class="section-home-background" style="background-image: url(./asset/image/Nui-Phu-Si-BG.jpg);">
+            <div class="section-home-background" style="background-image: url(<?php echo $urlThemeActive ?>/asset/image/Nui-Phu-Si-BG.jpg);">
                 <div class="section-home-overlay"></div>
                 <div class="container">
                     <div class="row align-items-center">
