@@ -21,7 +21,7 @@ global $urlThemeActive;
         </section> -->
 
 
-        <section id="section-banner" style="padding-bottom: 70px" data-aos="zoom-out-up">
+        <section id="section-banner" style="padding-bottom: 70px" data-aos="fade-up">
             <div class="banner-slide">
               <!--   <div class="banner-slide-item">
                     <img src="./asset/image/bg1.jpg" alt="">
@@ -38,7 +38,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-service" class="section-padding" data-aos="zoom-out-up">
+        <section id="section-service" class="section-padding" data-aos="fade-up">
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title">
@@ -124,7 +124,7 @@ global $urlThemeActive;
                 </div>
             </div>
         </section>
-        <section id="section-album" class="section-padding" data-aos="zoom-in">
+        <section id="section-album" class="section-padding" data-aos="fade-up">
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title">
@@ -137,7 +137,7 @@ global $urlThemeActive;
                     <div class="row">
                         <?php if(!empty($listAlbum)){
                             foreach($listAlbum as $key => $item){
-                                echo '<div class="col-lg-3 col-md-12">
+                                echo '<div class="col-lg-3 col-md-6 col-6">
                             <div class="album-item">
                                 <a href="thu-vien-anh/'.@$item->slug.'.html">
                                     <img src="'.@$item->image.'" alt="">
@@ -155,7 +155,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-video" class="section-padding" data-aos="zoom-in">
+        <section id="section-video" class="section-padding" data-aos="fade-up">
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title">
@@ -179,7 +179,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-home-contact" class="section-padding">
+        <section id="section-home-contact" class="section-padding" data-aos="fade-up">
             <div class="section-home-background" style="background-image: url(<?php echo $urlThemeActive ?>/asset/image/Nui-Phu-Si-BG.jpg);">
                 <div class="section-home-overlay"></div>
                 <div class="container">
@@ -206,7 +206,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-category-product" class="section-padding" data-aos="fade-left">
+        <section id="section-category-product" class="section-padding" data-aos="fade-up">
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title" >
@@ -242,7 +242,7 @@ global $urlThemeActive;
         </section>
 
         <!-- Sản phẩm mới nhất -->
-        <section id="section-product-hot" class="section-padding" data-aos="zoom-out-up">
+        <section id="section-product-hot" class="section-padding" data-aos="fade-up">
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title" >
@@ -286,7 +286,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-product-hot" class="section-padding" data-aos="zoom-in">
+        <section id="section-product-hot" class="section-padding" data-aos="fade-up">
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title" >
@@ -294,7 +294,7 @@ global $urlThemeActive;
                         <div class="title-divide-section"></div>
                     </h2>
                 </div>
-                <div class="row" data-aos="zoom-out-up">
+                <div class="row">
                      <?php if(!empty($listproduct2)){
                         foreach($listproduct2 as $key => $item){
                             echo '
@@ -329,7 +329,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-register" class="section-padding">
+        <section id="section-register" class="section-padding" data-aos="fade-up">
             <div class="section-home-background" style="background-image: url(<?php echo $urlThemeActive ?>/asset/image/Nui-Phu-Si-BG.jpg);">
                 <div class="section-home-overlay"></div>
                 <div class="container">
@@ -340,12 +340,12 @@ global $urlThemeActive;
                         <span><?php echo @$setting['content6']; ?></span>
                     </div>
                     <div class="register-button-group">
-                        <div class="register-button-item" data-aos="zoom-out">
+                        <div class="register-button-item" data-aos="zoom-in">
                             <a href="<?php echo @$setting['link1']; ?>">Đăng ký tư vấn</a>
                         </div>
 
-                        <div class="register-button-item" data-aos="zoom-out">
-                            <a href="<?php echo @$setting['phone']; ?>">HOTLINE: <?php echo @$setting['phone']; ?> </a>
+                        <div class="register-button-item" data-aos="zoom-in">
+                            <a href="tel:<?php echo @$setting['phone']; ?>">HOTLINE: <?php echo @$setting['phone']; ?> </a>
                         </div>
                     </div>
                 </div>
@@ -353,7 +353,7 @@ global $urlThemeActive;
 
         </section>
 
-        <section id="section-blog" class="section-padding" data-aos="zoom-in">
+        <section id="section-blog" class="section-padding" data-aos="fade-up">
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title" >
@@ -362,7 +362,7 @@ global $urlThemeActive;
                     </h2>
                 </div>
 
-                <div class="blog-list" data-aos="zoom-out-right">
+                <div class="blog-list">
                     
                     <?php if(!empty($listDataPost)){
                         foreach($listDataPost as $key => $item){

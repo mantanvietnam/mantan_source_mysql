@@ -76,7 +76,9 @@ $setting = setting();?>
         <section id="section-footer-bottom">
             <p><?php echo @$setting['textfooter'] ?></p>
         </section>
-
+        <section id="scroll-top">
+            <button id="scrollToTopBtn" onclick="scrollToTop()"><i class="fa-solid fa-angles-up fa-bounce"></i></button>
+        </section>
 
         <section id="section-search">
             <div class="overlay" id="overlay">

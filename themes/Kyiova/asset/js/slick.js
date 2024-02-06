@@ -7,8 +7,8 @@ $('.video-slide').slick({
     responsive: [{
         breakpoint: 1024,
         settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
+            slidesToShow: 2,
+            slidesToScroll: 2,
         }
     },
     {
@@ -38,8 +38,8 @@ $('.blog-list').slick({
     responsive: [{
             breakpoint: 1024,
             settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
+                slidesToShow: 2,
+                slidesToScroll: 2,
             }
         },
         {
@@ -70,8 +70,8 @@ $('.category-product-slide').slick({
     responsive: [{
             breakpoint: 1024,
             settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
+                slidesToShow: 2,
+                slidesToScroll: 2,
             }
         },
         {
@@ -111,16 +111,3 @@ $('.product-new-slide').slick({
     
 });
 
-
-// Fixed Menu
-var scrollPage = document.getElementById("menu-top");
-
-window.onscroll = function() {
-    if (window.pageYOffset > 80 || document.documentElement.scrollTop > 80) {
-        scrollPage.style.position = "fixed";
-
-
-    } else {
-        scrollPage.style.position = "relative";
-    }
-}

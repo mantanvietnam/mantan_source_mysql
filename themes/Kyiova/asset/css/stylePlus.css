@@ -12,9 +12,10 @@
 
 #pagination-page .page-item.active .page-link{
     background-color: #228B22;
+    border-color: #228B22;
     
 }
 
-#pagination-page .page-item.active .page-link i{
+#pagination-page .page-item .page-link i{
     color: #228B22
 }
