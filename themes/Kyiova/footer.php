@@ -101,6 +101,7 @@ $setting = setting();?>
             disable: 'mobile', 
             });
         </script>
+        <script src="<?php echo $urlThemeActive ?>asset/js/main.js"></script>
 
         <script src="<?php echo $urlThemeActive ?>asset/js/slick.js"></script>
         <script src="<?php echo $urlThemeActive ?>asset/js/emhieu.js"></script>

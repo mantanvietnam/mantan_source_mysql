@@ -6,7 +6,7 @@ global $urlThemeActive;
 
    <main>
 
-        <section id="section-search">
+        <!-- <section id="section-search">
             <div class="overlay" id="overlay">
                 <button type="button" class="close-btn" onclick="closeOverlay()"><i class="fa-solid fa-xmark"></i></button>
 
@@ -18,10 +18,10 @@ global $urlThemeActive;
                     </form>
                 </div>
             </div>
-        </section>
+        </section> -->
 
 
-        <section id="section-banner" style="padding-bottom: 70px">
+        <section id="section-banner" style="padding-bottom: 70px" data-aos="zoom-out-up">
             <div class="banner-slide">
               <!--   <div class="banner-slide-item">
                     <img src="./asset/image/bg1.jpg" alt="">
@@ -38,16 +38,16 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-service" class="section-padding">
+        <section id="section-service" class="section-padding" data-aos="zoom-out-up">
             <div class="container">
                 <div class="title-box">
-                    <h2 class="section-title" data-aos="zoom-in">
+                    <h2 class="section-title">
                         <span>TẠI SAO BẠN NÊN CHỌN Chúng tôi ?</span>
                         <div class="title-divide-section"></div>
                     </h2>
                 </div>
 
-                <div class="service-list" data-aos="zoom-out-up">
+                <div class="service-list">
                     <div class="row">
                         <div class="col-lg-3 col-md-12">
                             <div class="service-item">
@@ -124,16 +124,16 @@ global $urlThemeActive;
                 </div>
             </div>
         </section>
-        <section id="section-album" class="section-padding">
+        <section id="section-album" class="section-padding" data-aos="zoom-in">
             <div class="container">
                 <div class="title-box">
-                    <h2 class="section-title" data-aos="zoom-in">
+                    <h2 class="section-title">
                         <span>Thư viện ảnh</span>
                         <div class="title-divide-section"></div>
                     </h2>
                 </div>
 
-                <div class="album-list" data-aos="fade-right">
+                <div class="album-list">
                     <div class="row">
                         <?php if(!empty($listAlbum)){
                             foreach($listAlbum as $key => $item){
@@ -155,10 +155,10 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-video" class="section-padding">
+        <section id="section-video" class="section-padding" data-aos="zoom-in">
             <div class="container">
                 <div class="title-box">
-                    <h2 class="section-title" data-aos="zoom-in">
+                    <h2 class="section-title">
                         <span>Video</span>
                         <div class="title-divide-section"></div>
                     </h2>
@@ -206,15 +206,15 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-category-product" class="section-padding">
+        <section id="section-category-product" class="section-padding" data-aos="fade-left">
             <div class="container">
                 <div class="title-box">
-                    <h2 class="section-title" data-aos="zoom-in">
+                    <h2 class="section-title" >
                         <span>Danh mục sản phẩm</span>
                         <div class="title-divide-section"></div>
                     </h2>
                 </div>
-                <div class="category-product-slide" data-aos="fade-left">
+                <div class="category-product-slide" >
                     <?php if(!empty($listCategorieProduct)){
                         foreach($listCategorieProduct as $key => $item){
                 echo '<div class="category-product-item">
@@ -242,15 +242,15 @@ global $urlThemeActive;
         </section>
 
         <!-- Sản phẩm mới nhất -->
-        <section id="section-product-hot" class="section-padding">
+        <section id="section-product-hot" class="section-padding" data-aos="zoom-out-up">
             <div class="container">
                 <div class="title-box">
-                    <h2 class="section-title" data-aos="zoom-in">
+                    <h2 class="section-title" >
                         <span><?php echo @$setting['titel_category_product1']; ?></span>
                         <div class="title-divide-section"></div>
                     </h2>
                 </div>
-                <div class="product-new-slide" data-aos="zoom-out-up">
+                <div class="product-new-slide" >
                     <?php if(!empty($listproduct1)){
                         foreach($listproduct1 as $key => $item){
                             echo '
@@ -286,10 +286,10 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-product-hot" class="section-padding">
+        <section id="section-product-hot" class="section-padding" data-aos="zoom-in">
             <div class="container">
                 <div class="title-box">
-                    <h2 class="section-title" data-aos="zoom-in">
+                    <h2 class="section-title" >
                         <span><?php echo @$setting['titel_category_product2']; ?></span>
                         <div class="title-divide-section"></div>
                     </h2>
@@ -353,10 +353,10 @@ global $urlThemeActive;
 
         </section>
 
-        <section id="section-blog" class="section-padding">
+        <section id="section-blog" class="section-padding" data-aos="zoom-in">
             <div class="container">
                 <div class="title-box">
-                    <h2 class="section-title" data-aos="zoom-in">
+                    <h2 class="section-title" >
                         <span> TIN TỨC</span>
                         <div class="title-divide-section"></div>
                     </h2>

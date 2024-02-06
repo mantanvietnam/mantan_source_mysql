@@ -9,3 +9,12 @@
 #section-blog-other .blog-item .blog-detail .blog-title h4{
     line-height: 1.3;
 }
+
+#pagination-page .page-item.active .page-link{
+    background-color: #228B22;
+    
+}
+
+#pagination-page .page-item.active .page-link i{
+    color: #228B22
+}
