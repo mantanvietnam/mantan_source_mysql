@@ -504,12 +504,20 @@ video {
     /*text-align: center;*/
     font-size: 18px;
   }
+
+  .texttillte h1{
+    font-size: 25px;
+  }
+
+  .content_myduyen h1{
+    font-size: 40px;
+  }
 }
 @media screen and (max-width:768px) and (min-width:375px){
   
   .img_myduyen img{
     height: auto !important;
-    width: 97% !important;
+    /* width: 100% !important; */
   }
   .texttilltecon{
     bottom: 20%;

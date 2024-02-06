@@ -19,3 +19,11 @@
 #pagination-page .page-item .page-link i{
     color: #228B22
 }
+
+#section-register .section-home-background .register-button-group .register-button-item:last-child:hover{
+    background-color: rgb(228, 55, 55);
+}
+
+header .navbar-header .nav-item .nav-link:hover{
+    color: #097009 !important;
+}
