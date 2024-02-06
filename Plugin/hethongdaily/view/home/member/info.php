@@ -6,7 +6,7 @@
         <title><?php echo $info->name;?></title>
         <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet'>
         <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
-        <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link rel="icon" type="image/x-icon" href="<?php echo $info->image_system;?>" />
         <?php mantan_header();?>
         <style>
@@ -37,6 +37,7 @@
 
             a {
                 color: #fff;
+                text-decoration: none;
             }
 
             .card {
@@ -144,11 +145,11 @@
                 font-size: 12px;
             }
 
-            input {
-              text-align: center; /* Căn giữa theo chiều ngang */
-              line-height: normal; /* Đảm bảo chiều cao hàng văn bản bình thường */
-              padding: 5px; /* Tăng giảm khoảng cách nếu cần thiết */
-              box-sizing: border-box; /* Bao gồm cả độ dày của đường biên và padding trong kích thước tổng cộng */
+            .numberProduct {
+              width: 20px;
+              height: 20px;
+              font-size: 10px;
+              text-align: center;
             }
         </style>                            
     </head>
@@ -187,106 +188,121 @@
                             </div> 
 
                             <?php if(!empty($info->facebook)){ ?>
-                            <div class="row social mb-3">
-                                <div class="col-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/facebook.svg" height="32" width="32"></image></svg>
-                                </div>
+                            <a target="_blank" href="<?php echo $info->facebook;?>">
+                                <div class="row social mb-3">
+                                    <div class="col-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/facebook.svg" height="32" width="32"></image></svg>
+                                    </div>
 
-                                <div class="col-9 text-center">
-                                    <span class="title">Trang Facebook</span><br/>
-                                    <span class="des">Kết bạn với tôi nhé</span>
+                                    <div class="col-9 text-center">
+                                        <span class="title">Trang Facebook</span><br/>
+                                        <span class="des">Kết bạn với tôi nhé</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                             <?php }?>
 
                             <?php if(!empty($info->zalo)){ ?>
-                            <div class="row social mb-3">
-                                <div class="col-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/zalo.svg" height="32" width="32"></image></svg>
-                                </div>
+                            <a target="_blank" href="<?php echo $info->zalo;?>">
+                                <div class="row social mb-3">
+                                    <div class="col-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/zalo.svg" height="32" width="32"></image></svg>
+                                    </div>
 
-                                <div class="col-9 text-center">
-                                    <span class="title">Trang Zalo</span><br/>
-                                    <span class="des">Thông tin cá nhân</span>
+                                    <div class="col-9 text-center">
+                                        <span class="title">Trang Zalo</span><br/>
+                                        <span class="des">Thông tin cá nhân</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                             <?php }?>
 
                             <?php if(!empty($info->tiktok)){ ?>
-                            <div class="row social mb-3">
-                                <div class="col-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/tiktok.svg" height="32" width="32"></image></svg>
-                                </div>
+                            <a target="_blank" href="<?php echo $info->tiktok;?>">
+                                <div class="row social mb-3">
+                                    <div class="col-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/tiktok.svg" height="32" width="32"></image></svg>
+                                    </div>
 
-                                <div class="col-9 text-center">
-                                    <span class="title">Kênh TikTok</span><br/>
-                                    <span class="des">Bạn đã bấm theo dõi tôi chưa?</span>
+                                    <div class="col-9 text-center">
+                                        <span class="title">Kênh TikTok</span><br/>
+                                        <span class="des">Bạn đã bấm theo dõi tôi chưa?</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                             <?php }?>
 
                             <?php if(!empty($info->youtube)){ ?>
-                            <div class="row social mb-3">
-                                <div class="col-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/youtube.svg" height="32" width="32"></image></svg>
-                                </div>
+                            <a target="_blank" href="<?php echo $info->youtube;?>">
+                                <div class="row social mb-3">
+                                    <div class="col-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/youtube.svg" height="32" width="32"></image></svg>
+                                    </div>
 
-                                <div class="col-9 text-center">
-                                    <span class="title">Kênh Youtube</span><br/>
-                                    <span class="des">Kênh chia sẻ kiến thức chuyên sâu</span>
+                                    <div class="col-9 text-center">
+                                        <span class="title">Kênh Youtube</span><br/>
+                                        <span class="des">Kênh chia sẻ kiến thức chuyên sâu</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                             <?php }?>
 
-                            
-                            <div class="row social mb-3">
-                                <div class="col-3">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Circle-icons-global.svg/1024px-Circle-icons-global.svg.png" width="100%">
-                                </div>
+                            <a target="_blank" href="<?php echo $info->web;?>">
+                                <div class="row social mb-3">
+                                    <div class="col-3">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Circle-icons-global.svg/1024px-Circle-icons-global.svg.png" width="100%">
+                                    </div>
 
-                                <div class="col-9 text-center">
-                                    <span class="title">Trang website</span><br/>
-                                    <span class="des">Tư vấn, chăm sóc khách hàng</span>
+                                    <div class="col-9 text-center">
+                                        <span class="title">Trang website</span><br/>
+                                        <span class="des">Tư vấn, chăm sóc khách hàng</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
 
                             <?php if(!empty($info->instagram)){ ?>
-                            <div class="row social mb-3">
-                                <div class="col-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/instagram.svg" height="32" width="32"></image></svg>
-                                </div>
+                            <a target="_blank" href="<?php echo $info->instagram;?>">
+                                <div class="row social mb-3">
+                                    <div class="col-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/instagram.svg" height="32" width="32"></image></svg>
+                                    </div>
 
-                                <div class="col-9 text-center">
-                                    <span class="title">Trang Instagram</span><br/>
-                                    <span class="des">Hãy xem những bức ảnh của tôi</span>
+                                    <div class="col-9 text-center">
+                                        <span class="title">Trang Instagram</span><br/>
+                                        <span class="des">Hãy xem những bức ảnh của tôi</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                             <?php }?>
 
                             <?php if(!empty($info->linkedin)){ ?>
-                            <div class="row social mb-3">
-                                <div class="col-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/linkedin.svg" height="32" width="32"></image></svg>
-                                </div>
+                            <a target="_blank" href="<?php echo $info->linkedin;?>">
+                                <div class="row social mb-3">
+                                    <div class="col-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/linkedin.svg" height="32" width="32"></image></svg>
+                                    </div>
 
-                                <div class="col-9 text-center">
-                                    <span class="title">Trang Linkedin</span><br/>
-                                    <span class="des">Kết nối công việc</span>
+                                    <div class="col-9 text-center">
+                                        <span class="title">Trang Linkedin</span><br/>
+                                        <span class="des">Kết nối công việc</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                             <?php }?>
 
                             <?php if(!empty($info->twitter)){ ?>
-                            <div class="row social mb-3">
-                                <div class="col-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/twitter.svg" height="32" width="32"></image></svg>
-                                </div>
+                            <a target="_blank" href="<?php echo $info->twitter;?>">
+                                <div class="row social mb-3">
+                                    <div class="col-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/twitter.svg" height="32" width="32"></image></svg>
+                                    </div>
 
-                                <div class="col-9 text-center">
-                                    <span class="title">Trang Twitter</span><br/>
-                                    <span class="des">Chia sẻ quan điểm cá nhân</span>
+                                    <div class="col-9 text-center">
+                                        <span class="title">Trang Twitter</span><br/>
+                                        <span class="des">Chia sẻ quan điểm cá nhân</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                             <?php }?>
 
                             <!--
@@ -322,10 +338,10 @@
                                     foreach ($item['product'] as $product) {
                                         echo '  <tr>
                                                     <td align="center">
-                                                        <input type="checkbox" name="id_product[]" id="checkbox'.$product->id.'"><br/><br/>
-                                                        <span>+</span><br/>
-                                                        <input type="text" value="1" min="1" name="" style="width: 20px;height: 20px;" />
-                                                        <span>-</span>
+                                                        <input data-idProduct="'.$product->id.'" type="checkbox" name="id_product[]" id="checkbox'.$product->id.'"><br/><br/>
+                                                        <span onclick="plusProduct('.$product->id.');">+</span><br/>
+                                                        <input class="numberProduct" readonly type="text" id="numberProduct'.$product->id.'" value="1" min="1" name="" />
+                                                        <span onclick="minusProduct('.$product->id.');">-</span>
                                                     </td>
                                                     <td width="80" align="center" onclick="checkbox('.$product->id.');">
                                                         <img src="'.$product->image.'" class="img-thumbnail"><br/>
@@ -347,6 +363,31 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Tab đặt hàng -->
+            <div class="tab-pane fade" id="order">
+                <div class="container p-3 d-flex justify-content-center">
+                    <div class="card p-4"> 
+                        <div class="mb-3">
+                          <label for="full_name" class="form-label">Họ tên (*)</label>
+                          <input type="text" class="form-control" id="full_name" name="full_name" value="" required />
+                        </div>
+                        <div class="mb-3">
+                          <label for="phone" class="form-label">Số điện thoại (*)</label>
+                          <input type="text" class="form-control" id="phone" name="phone" value="" required />
+                        </div>
+                        <div class="mb-3">
+                          <label for="phone" class="form-label">Địa chỉ nhận hàng</label>
+                          <input type="text" class="form-control" id="address" name="address" value="" />
+                        </div>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-danger" onclick="createOrder();" >TẠO ĐƠN HÀNG</button>
+                        </div>
+                        <div id="list_cart"></div>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Tabs navigation -->
@@ -357,10 +398,13 @@
             <li class="nav-item">
                 <a class="nav-link" id="product-tab" data-toggle="tab" href="#products">Sản phẩm</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="order-tab" data-toggle="tab" href="#order">Đặt hàng</a>
+            </li>
+
         </ul>
 
         <!-- Bootstrap JS, Popper.js, and jQuery -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
             
@@ -375,7 +419,15 @@
             var heightContent = window.innerHeight - $('#myTabs').height() - 20;
 
             $('.tab-pane').height(heightContent);
-        </script>     
+        </script>    
+
+        <script>
+            $(document).ready(function(){
+                // Ẩn tab "Mua hàng"
+                $('#order-tab').hide();
+            });
+        </script>
+ 
 
         <script>
             function saveToPhonebook() {
@@ -414,6 +466,26 @@
         </script>
         
         <script type="text/javascript">
+            var list_product =  {};
+            var crf = '<?php echo $csrfToken;?>';
+            <?php 
+                if(!empty($listProduct)){
+                    foreach ($listProduct as $item) {
+                        if(!empty($item['product'])){
+                            foreach ($item['product'] as $product) {
+                                echo '  list_product["p'.$product->id.'"] = {};
+                                        list_product["p'.$product->id.'"]["id"] = '.(int) $product->id.';
+                                        list_product["p'.$product->id.'"]["title"] = "'.$product->title.'";
+                                        list_product["p'.$product->id.'"]["price"] = '.(int) $product->price.';
+                                        list_product["p'.$product->id.'"]["number"] = 0;
+                                        list_product["p'.$product->id.'"]["buy"] = 0;
+                                ';
+                            }
+                        }
+                    }
+                }
+            ?>
+
             function copyText() {
                 // Lấy phần tử cần copy
                 var textElement = document.getElementById("myPhone");
@@ -443,19 +515,100 @@
             {
                 var checkboxes = document.getElementsByName('id_product[]');
                 var checkTick = false;
+                var id_product_check, list_cart;
+                var total_money = 0;
 
                 for (var i = 0; i < checkboxes.length; i++) {
                     // Kiểm tra xem checkbox có được chọn không
                     if (checkboxes[i].checked) {
                         checkTick = true;
+
+                        id_product_check = checkboxes[i].getAttribute("data-idProduct");
+
+                        list_product['p'+id_product_check].buy = 1;
+                        list_product['p'+id_product_check].number = parseInt($('#numberProduct'+id_product_check).val());
                     }
                 }
 
                 if(!checkTick){
                     alert('Bạn cần chọn sản phẩm muốn mua thì mới có thể đặt hàng');
                 }else{
-                    alert('Tạo đơn hàng thành công');
+                    $('#list_cart').html('');
+                    $('#full_name').val('');
+                    $('#phone').val('');
+                    $('#address').val('');
+
+                    list_cart = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>SL</th><th>Giá</th></tr></thead><tbody>';
+                    for (var key in list_product) {
+                        if (list_product.hasOwnProperty(key)) {
+                            if(list_product[key].buy == 1){
+                                list_cart += '<tr><td>'+list_product[key].title+'</td><td align="center">'+list_product[key].number+'</td><td>'+formatNumberWithCommas(list_product[key].price)+'đ</td></tr>';
+
+                                total_money += list_product[key].price*list_product[key].number;
+                            }
+                        }
+                    }
+                    
+                    list_cart += '</tbody></table> <p><b>Tổng tiền: </b>'+formatNumberWithCommas(total_money)+'đ</p>';
+
+                    $('#list_cart').html(list_cart);
+
+                    $('.nav-tabs a[href="#order"]').tab('show');
                 }
+            }
+
+            function plusProduct(id)
+            {
+                var number = parseInt($('#numberProduct'+id).val());
+                number ++;
+                $('#numberProduct'+id).val(number);
+            }
+
+            function minusProduct(id)
+            {
+                var number = parseInt($('#numberProduct'+id).val());
+                number --;
+                if(number<1) number = 1;
+                $('#numberProduct'+id).val(number);
+            }
+
+            function formatNumberWithCommas(number) {
+                // Sử dụng toLocaleString để thực hiện định dạng số với dấu phẩy
+                return number.toLocaleString('en-US');
+            }
+
+            function createOrder()
+            {
+                var full_name = $('#full_name').val();
+                var phone = $('#phone').val();
+                var address = $('#address').val();
+
+                if(full_name != '' && phone != ''){
+                    $.ajax({
+                      method: "POST",
+                      url: "/pay",
+                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf }
+                    })
+                    .done(function( msg ) {
+                        $('.nav-tabs a[href="#info"]').tab('show');
+
+                        alert('Tạo đơn hàng thành công');
+                    });
+                }else{
+                    alert('Bạn không được để trống trường Họ tên và Số điện thoại');
+                }
+            }
+
+            function addProducToCart(idProduct, number)
+            {
+                $.ajax({
+                  method: "POST",
+                  url: "/addProductToCart",
+                  data: { id_product: idProduct, quantity: number, status: true, _csrfToken: crf }
+                })
+                .done(function( msg ) {
+                    
+                });
             }
         </script>
     </body>

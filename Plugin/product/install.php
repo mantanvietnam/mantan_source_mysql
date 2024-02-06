@@ -23,6 +23,8 @@ $sqlInstallDatabase .="CREATE TABLE `reviews` ( `id` INT NOT NULL AUTO_INCREMENT
 
 $sqlInstallDatabase .="CREATE TABLE `categorie_products` ( `id` INT NOT NULL AUTO_INCREMENT , `id_category` INT NOT NULL , `id_product` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `address` ( `id` INT NOT NULL AUTO_INCREMENT , `address_name` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `id_customer` INT NOT NULL DEFAULT '0' , `address_type` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+
 $sqlDeleteDatabase .= "DROP TABLE products; ";
 $sqlDeleteDatabase .= "DROP TABLE orders; ";
 $sqlDeleteDatabase .= "DROP TABLE order_details; ";
@@ -31,6 +33,7 @@ $sqlDeleteDatabase .= "DROP TABLE evaluates; ";
 $sqlDeleteDatabase .= "DROP TABLE views; ";
 $sqlDeleteDatabase .= "DROP TABLE reviews; ";
 $sqlDeleteDatabase .= "DROP TABLE categorie_products; ";
+$sqlDeleteDatabase .= "DROP TABLE address; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_product'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='manufacturer_product'; ";

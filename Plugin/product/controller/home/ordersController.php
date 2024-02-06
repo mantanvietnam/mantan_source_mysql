@@ -128,7 +128,7 @@ function addProductToCart($input)
 				$list_product[$product->id]->numberOrder += (int) $_REQUEST['quantity'];
 
 			}else{
-				$product->statuscart=$_REQUEST['status'];
+				$product->statuscart=$_REQUEST['status']; // true hoặc false
 				$product->numberOrder = (int) $_REQUEST['quantity'];
 				$list_product[$product->id] = $product;
 			}

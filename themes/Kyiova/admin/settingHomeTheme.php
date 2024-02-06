@@ -47,7 +47,7 @@
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                   <label class="form-label" for="basic-default-fullname">icon 1</label>
                    <input type="text" class="form-control" name="icon1" value="<?php echo @$setting['icon1'];?>" />
-                   <label class="form-label" for="basic-default-fullname">tiên đề 1</label>
+                   <label class="form-label" for="basic-default-fullname">tiêu đề 1</label>
                    <input type="text" class="form-control" name="titel1" value="<?php echo @$setting['titel1'];?>" />
                    <label class="form-label" for="basic-default-fullname">nội dung  1</label>
                    <input type="text" class="form-control" name="content1" value="<?php echo @$setting['content1'];?>" />
@@ -55,7 +55,7 @@
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                   <label class="form-label" for="basic-default-fullname">icon 2</label>
                    <input type="text" class="form-control" name="icon2" value="<?php echo @$setting['icon2'];?>" />
-                   <label class="form-label" for="basic-default-fullname">tiên đề 2</label>
+                   <label class="form-label" for="basic-default-fullname">tiêu đề 2</label>
                    <input type="text" class="form-control" name="titel2" value="<?php echo @$setting['titel2'];?>" />
                    <label class="form-label" for="basic-default-fullname">nội dung  2</label>
                    <input type="text" class="form-control" name="content2" value="<?php echo @$setting['content2'];?>" />
@@ -63,7 +63,7 @@
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                   <label class="form-label" for="basic-default-fullname">icon 3</label>
                    <input type="text" class="form-control" name="icon3" value="<?php echo @$setting['icon3'];?>" />
-                   <label class="form-label" for="basic-default-fullname">tiên đề 3</label>
+                   <label class="form-label" for="basic-default-fullname">tiêu đề 3</label>
                    <input type="text" class="form-control" name="titel3" value="<?php echo @$setting['titel3'];?>" />
                    <label class="form-label" for="basic-default-fullname">nội dung  3</label>
                    <input type="text" class="form-control" name="content3" value="<?php echo @$setting['content3'];?>" />
@@ -71,7 +71,7 @@
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                   <label class="form-label" for="basic-default-fullname">icon 4</label>
                    <input type="text" class="form-control" name="icon4" value="<?php echo @$setting['icon4'];?>" />
-                   <label class="form-label" for="basic-default-fullname">tiên đề 4</label>
+                   <label class="form-label" for="basic-default-fullname">tiêu đề 4</label>
                    <input type="text" class="form-control" name="titel4" value="<?php echo @$setting['titel4'];?>" />
                    <label class="form-label" for="basic-default-fullname">nội dung  4</label>
                    <input type="text" class="form-control" name="content4" value="<?php echo @$setting['content4'];?>" />

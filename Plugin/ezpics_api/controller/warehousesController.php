@@ -621,7 +621,7 @@ function  getInfoWarehouseAPI($input){
 		$dataSend = $input['request']->getData();
 
 			// lấy kho 
-			$data = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'],'status'=>1))->first();
+			$data = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse']))->first();
 			if(!empty($data)){
 					$data->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$data->slug.'-'.$data->id.'.html';
 					$data->ecoin = $data->price/1000;

@@ -25,13 +25,13 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `id_position` int(11) NOT NULL DEFAULT 0,
   `create_agency` VARCHAR(255) NOT NULL DEFAULT 'active',
   `coin` INT NOT NULL DEFAULT '0',
-  `twitter` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `tiktok` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `youtube` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `web` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `linkedin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `twitter` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
+  `tiktok` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
+  `youtube` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
+  `web` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
+  `linkedin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
+  `description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
+  `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
   `view` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
@@ -53,7 +53,7 @@ $sqlInstallDatabase .= "CREATE TABLE `zalos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
-$sqlInstallDatabase .= "CREATE TABLE `transaction_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `id_member` INT NOT NULL , `coin` INT NOT NULL , `type` VARCHAR(255) NOT NULL , `note` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `create_at` INT NOT NULL , `id_system` INT NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB; "
+$sqlInstallDatabase .= "CREATE TABLE `transaction_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `id_member` INT NOT NULL , `coin` INT NOT NULL , `type` VARCHAR(255) NOT NULL , `note` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `create_at` INT NOT NULL , `id_system` INT NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
