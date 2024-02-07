@@ -6,6 +6,7 @@
 
   <!-- Form Search -->
   <form method="get" action="">
+    <input type="hidden" name="page" value="<?php echo @$_GET['page'];?>">
     <div class="card mb-4">
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
