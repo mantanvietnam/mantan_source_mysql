@@ -1,0 +1,27 @@
+.numb-text{
+    color: #f1c40f !important; 
+}
+.name-text{
+    color: #f1c40f !important; 
+}
+
+@media (max-width: 767px) {
+.avarta-old-step .avarta {
+    width: 84%;
+    margin: auto;
+}
+}
+
+@media (max-width: 767px){
+.avarta-old-step .avarta {
+    width: 84%;
+    margin: auto;
+}
+}
+
+@media (max-width:414px) {
+    .numb-text {
+         font-size: 38px;
+         top: 140px;
+    }
+}

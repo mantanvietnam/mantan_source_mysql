@@ -1,0 +1,1 @@
+<?php getFileTheme('matmathanhcong/result.php'); ?>
