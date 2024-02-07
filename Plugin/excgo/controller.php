@@ -7,6 +7,7 @@ include_once('controller/admin/bookingsController.php'); // Tài xế
 include_once('controller/admin/complaintController.php'); // Khiếu nại
 include_once('controller/admin/supportController.php'); // Yêu cầu hỗ trợ
 include_once('controller/admin/configController.php'); // Phí sàn
+include_once('controller/admin/transactionControllers.php'); // Phí sàn
 
 // Api
 include_once('controller/api/provincesController.php'); // Tỉnh thành
@@ -18,3 +19,4 @@ include_once('controller/api/complaintsController.php'); // Khiếu nại
 include_once('controller/api/notificationsController.php'); // Khiếu nại
 include_once('controller/api/supportRequestsController.php'); // Trợ giúp
 include_once('controller/api/postsController.php'); // Bài đăng
+include_once('controller/api/bookmarksController.php'); // Nhóm quan tâm

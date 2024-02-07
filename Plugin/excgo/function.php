@@ -47,6 +47,12 @@ $menus[7]['sub'][0] = array('title' => 'Yêu cầu hỗ trợ',
 );
 
 $menus[7]['sub'][0] = array('title' => 'Cài đặt phí sàn',
+    'url' => '/plugins/admin/excgo-view-admin-transaction-listTransactionAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listTransactionAdmin',
+);
+
+$menus[8]['sub'][0] = array('title' => 'Cài đặt phí sàn',
     'url' => '/plugins/admin/excgo-view-admin-config-configServiceFeeAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'configServiceFeeAdmin',
@@ -810,6 +816,8 @@ function processAddMoney($money, $phoneNumber): string
                 $newTransaction->type = $transactionType['add'];
                 $newTransaction->name = 'Nạp EXC-xu thành công';
                 $newTransaction->description = '+' . number_format($money) . ' EXC-xu';
+                $newTransaction->created_at = date('Y-m-d H:i:s');
+                $newTransaction->updated_at = date('Y-m-d H:i:s');
                 $modelTransaction->save($newTransaction);
 
                 if ($user->email && $user->name) {
@@ -827,6 +835,8 @@ function processAddMoney($money, $phoneNumber): string
                     $newNotification = $modelNotification->newEmptyEntity();
                     $newNotification->user_id = $user->id;
                     $newNotification->content = 'Nạp thành công '.number_format($money).'đ vào tài khoản ' . $user->phone_number;
+                    $newNotification->created_at = date('Y-m-d H:i:s');
+                    $newNotification->updated_at = date('Y-m-d H:i:s');
                     $modelNotification->save($newNotification);
                     sendNotification($dataSendNotification, $user->device_token);
                 }
@@ -941,6 +951,7 @@ $bookingStatus = [
     'canceled' => 2,
     'completed' => 3,
     'paid' => 4,
+    'confirmed' => 5,
 ];
 
 global $bookingType;
