@@ -100,7 +100,7 @@ function resultvip($input)
                     $data->phone = $dataSend['customer_phone'];
                     $data->email = $dataSend['customer_email'];
                     $data->address = $dataSend['customer_address'];
-                    $data->affiliate_phone = @$session->read('aff');
+                    $data->affiliate_phone = (!empty($session->read('aff')) && $session->read('aff')!=$dataSend['customer_phone'])?$session->read('aff'):'';
                     $data->link_download = @$infoFull['Result'];
                     $data->status_pay = 'wait';
 
@@ -112,14 +112,13 @@ function resultvip($input)
                     // gửi Zalo đơn hàng
                     $urlZNS = 'https://quantri.databot.vn/sendZNS309784';
                     $dataZNS = ['phone'=> $data->phone,
-                                'name' => $data->name,
+                                'customer_name' => $data->name,
                                 'order_code' => 'MMTC-'.$data->id,
-                                'order_status' => 'Chờ xử lý',
                                 'payment_status' => 'Chờ thanh toán',
-                                'order_products' => 'Bản luận giải đầy đủ Mật Mã Thành Công',
-                                'order_created_name' => 'Trần Toản',
-                                'order_cost' => number_format($price_full),
-                                'order_created_phone' => '081.656.0000'
+                                'product_name' => 'Bản luận giải đầy đủ Mật Mã Thành Công',
+                                'author' => 'Trần Toản',
+                                'cost' => $price_full,
+                                'note' => 'Link giới thiệu https://matmathanhcong.vn/?aff='.$data->phone
                                 ];
 
                     $mesZNS = sendDataConnectMantan($urlZNS, $dataZNS);
