@@ -109,7 +109,8 @@ function addProductToCart($input)
 	global $session;
 	global $controller;
 
-	$setting = setting();
+	//$setting = setting();
+	$setting['targetTime'] = time();
 
 	$modelProduct = $controller->loadModel('Products');
 
@@ -511,13 +512,16 @@ function pay($input){
 	$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
 
 	$pay = (!empty($session->read('pay')))?$session->read('pay'):[];
-
-
+	$money = 0;
+	$product_name = [];
 
 	if(!empty($list_product)){
 
 		foreach($list_product as $key => $product){
 			$present = array();
+			$money += $product->numberOrder * $product->price;
+			$product_name[] = $product->title;
+			
 			if($product->quantity+1>$product->numberOrder){
 				if(!empty($product->id_product) && @$product->statuscart=='true'){
 					$id_product = explode(',', @$product->id_product);
@@ -529,6 +533,7 @@ function pay($input){
 							$present[] = $presentf;
 						}
 					}
+
 				}
 				$list_product[$key]->present = $present;
 			}else{
@@ -539,8 +544,12 @@ function pay($input){
 		return $controller->redirect('/cart');
 	}
 
-
-	$discountCode = $modelDiscountCode->find()->where(array('code'=>$pay['discountCode']))->first(); 
+	if(!empty($pay['discountCode'])){
+		$discountCode = $modelDiscountCode->find()->where(array('code'=>$pay['discountCode']))->first(); 
+	}else{
+		$discountCode = $modelDiscountCode->newEmptyEntity();
+	}
+	
 
 	// SẢN PHẨM NGẪU NHIÊN
 	$conditions = array();
@@ -552,9 +561,7 @@ function pay($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		/*debug($dataSend);
-		debug($pay);
-		die();*/
+		
 		if(empty($dataSend['id_address']) && !empty($infoUser)){
 			$address = $modelAddress->newEmptyEntity();
 			$address->address_name = $dataSend['address'];
@@ -576,10 +583,17 @@ function pay($input){
 		$data->note_admin = '';
 		$data->status = 'new';
 		$data->create_at = time();
+		$data->id_agency = (int) @$dataSend['id_agency'];
 
 
-		$data->money = $pay['totalPays'];
-		$data->total = $pay['total'];
+		
+		$data->total = (int) @$pay['total'];
+
+		if(!empty($pay['totalPays'])){
+			$data->money = (int) $pay['totalPays'];
+		}else{
+			$data->money = (int) $money;
+		}
 
 		$discount = array( 'code1' => @$pay['code1'],
 			'code2' => @$pay['code2'],
@@ -633,17 +647,27 @@ function pay($input){
 		}
 
 		// gửi cho khách 
-		getContentEmailOrderSuccess(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
+		if(!empty($dataSend['email'])){
+			getContentEmailOrderSuccess(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
+		}
 
 		// gửi cho admin
 		getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
+		
 		$session->write('product_order', []);
 
-		
-			 getOrderLarkSuite($data->id);
-		
+		if(function_exists('getOrderLarkSuite')){
+			getOrderLarkSuite($data->id);
+		}
 
+		if(function_exists('sendZNSDataBot')){
+			$product_name = implode(',', $product_name);
+			$product_name = substr($product_name, 0, 100);
+			$agency = @$dataSend['name_agency'];
+			$name_system = @$dataSend['name_system'];
 
+			sendZNSDataBot($data, $product_name, $name_system, $agency);
+		}
 
 		return $controller->redirect('/completeOrder?id='.$data->id);
 	}

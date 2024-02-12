@@ -7,7 +7,7 @@ global $ftp_username_upload_image;
 global $ftp_password_upload_image;
 global $ftp_password_upload_image;
 global $price_warehouses;
-$ftp_server_upload_image = "171.244.16.76";
+$ftp_server_upload_image = "171.244.16.96";
 $ftp_username_upload_image = "ezpics";
 $ftp_password_upload_image = "uImzVeNYgF";
 
@@ -31,7 +31,7 @@ $ftp_password_upload_image = "sIu6v%OHwfmKxcx-";
 
 
 $urlsCreateImage = [
-                    'http://171.244.16.76:3000/convert',
+                    //'http://171.244.16.76:3000/convert',
                     'http://14.225.53.136:3000/convert',
                     'http://14.225.53.107:3000/convert',
                     ];

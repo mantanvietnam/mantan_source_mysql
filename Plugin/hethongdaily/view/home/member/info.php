@@ -3,12 +3,21 @@
     <head>
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <title><?php echo $info->name;?></title>
+        
         <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet'>
         <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link rel="icon" type="image/x-icon" href="<?php echo $info->image_system;?>" />
-        <?php mantan_header();?>
+        <?php 
+            mantan_header();
+
+            if(function_exists('showSeoHome')) showSeoHome();
+        ?>
+
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    
         <style>
             ::-webkit-scrollbar {
                       width: 8px;
@@ -343,13 +352,43 @@
                                                         <input class="numberProduct" readonly type="text" id="numberProduct'.$product->id.'" value="1" min="1" name="" />
                                                         <span onclick="minusProduct('.$product->id.');">-</span>
                                                     </td>
-                                                    <td width="80" align="center" onclick="checkbox('.$product->id.');">
-                                                        <img src="'.$product->image.'" class="img-thumbnail"><br/>
-                                                        <span class="text-danger">'.number_format($product->price).'đ</span><br/>
-                                                        <del class="small">'.number_format($product->price_old).'đ</del>
-                                                    </td>
+                                                    <td width="80" align="center">
+                                                        <img data-toggle="modal" data-target="#slideProduct'.$product->id.'Modal" src="'.$product->image.'" class="img-thumbnail"><br/>
+                                                        <span class="text-danger">'.number_format($product->price).'đ</span><br/>';
+                                                        if(!empty($product->price_old)){
+                                                            echo '<del class="small">'.number_format($product->price_old).'đ</del>';
+                                                        }
+                                        echo        '</td>
                                                     <td onclick="checkbox('.$product->id.');">'.$product->title.'</td>
                                                 </tr>';
+
+                                        echo '  <div class="modal fade" id="slideProduct'.$product->id.'Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">'.$product->title.'</h5>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                        <div class="slider">
+                                                            <div><img width="100%" src="'.$product->image.'" alt="'.$product->title.'"></div>';
+
+                                                            $images = json_decode($product->images, true);
+
+                                                            if(!empty($images)){
+                                                                foreach ($images as $image) {
+                                                                    if(!empty($image)){
+                                                                        echo '<div><img width="100%" src="'.$image.'" alt=""></div>';
+                                                                    }
+                                                                }
+                                                            }
+                                        echo            '</div>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>';
                                     }
                                 }
                             }
@@ -381,12 +420,17 @@
                           <input type="text" class="form-control" id="address" name="address" value="" />
                         </div>
                         <div class="mb-3">
-                            <button type="button" class="btn btn-danger" onclick="createOrder();" >TẠO ĐƠN HÀNG</button>
+                            <button type="button" class="btn btn-danger" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button>
                         </div>
                         <div id="list_cart"></div>
                         
                     </div>
                 </div>
+            </div>
+
+            <!-- Tab trang cá nhân -->
+            <div class="tab-pane fade" id="about">
+                <iframe allowfullscreen="" width="100%" height="100%" title="main360" src="<?php echo $info->web;?>"></iframe>
             </div>
         </div>
 
@@ -399,9 +443,11 @@
                 <a class="nav-link" id="product-tab" data-toggle="tab" href="#products">Sản phẩm</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" id="about-tab" data-toggle="tab" href="#about">Trang cá nhân</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" id="order-tab" data-toggle="tab" href="#order">Đặt hàng</a>
             </li>
-
         </ul>
 
         <!-- Bootstrap JS, Popper.js, and jQuery -->
@@ -468,6 +514,10 @@
         <script type="text/javascript">
             var list_product =  {};
             var crf = '<?php echo $csrfToken;?>';
+            var id_agency = '<?php echo (int) @$_GET['id'];?>';
+            var name_agency = '<?php echo $info->name;?>';
+            var name_system = '<?php echo $info->name_system;?>';
+
             <?php 
                 if(!empty($listProduct)){
                     foreach ($listProduct as $item) {
@@ -533,27 +583,36 @@
                 if(!checkTick){
                     alert('Bạn cần chọn sản phẩm muốn mua thì mới có thể đặt hàng');
                 }else{
-                    $('#list_cart').html('');
-                    $('#full_name').val('');
-                    $('#phone').val('');
-                    $('#address').val('');
+                    $.ajax({
+                      method: "GET",
+                      url: "/clearCart",
+                      data: {}
+                    })
+                    .done(function( msg ) {
+                       $('#list_cart').html('');
+                        $('#full_name').val('');
+                        $('#phone').val('');
+                        $('#address').val('');
 
-                    list_cart = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>SL</th><th>Giá</th></tr></thead><tbody>';
-                    for (var key in list_product) {
-                        if (list_product.hasOwnProperty(key)) {
-                            if(list_product[key].buy == 1){
-                                list_cart += '<tr><td>'+list_product[key].title+'</td><td align="center">'+list_product[key].number+'</td><td>'+formatNumberWithCommas(list_product[key].price)+'đ</td></tr>';
+                        list_cart = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>SL</th><th>Giá</th></tr></thead><tbody>';
+                        for (var key in list_product) {
+                            if (list_product.hasOwnProperty(key)) {
+                                if(list_product[key].buy == 1){
+                                    list_cart += '<tr><td>'+list_product[key].title+'</td><td align="center">'+list_product[key].number+'</td><td>'+formatNumberWithCommas(list_product[key].price)+'đ</td></tr>';
 
-                                total_money += list_product[key].price*list_product[key].number;
+                                    total_money += list_product[key].price*list_product[key].number;
+
+                                    addProducToCart(list_product[key].id, list_product[key].number);
+                                }
                             }
                         }
-                    }
-                    
-                    list_cart += '</tbody></table> <p><b>Tổng tiền: </b>'+formatNumberWithCommas(total_money)+'đ</p>';
+                        
+                        list_cart += '</tbody></table> <p><b>Tổng tiền: </b>'+formatNumberWithCommas(total_money)+'đ</p>';
 
-                    $('#list_cart').html(list_cart);
+                        $('#list_cart').html(list_cart);
 
-                    $('.nav-tabs a[href="#order"]').tab('show');
+                        $('.nav-tabs a[href="#order"]').tab('show'); 
+                    });
                 }
             }
 
@@ -583,13 +642,17 @@
                 var phone = $('#phone').val();
                 var address = $('#address').val();
 
+                $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
+
                 if(full_name != '' && phone != ''){
                     $.ajax({
                       method: "POST",
                       url: "/pay",
-                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf }
+                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf, id_agency:id_agency, name_agency:name_agency, name_system:name_system }
                     })
                     .done(function( msg ) {
+                        $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
+
                         $('.nav-tabs a[href="#info"]').tab('show');
 
                         alert('Tạo đơn hàng thành công');
@@ -603,13 +666,28 @@
             {
                 $.ajax({
                   method: "POST",
-                  url: "/addProductToCart",
+                  url: "/apis/addProductToCart",
                   data: { id_product: idProduct, quantity: number, status: true, _csrfToken: crf }
                 })
                 .done(function( msg ) {
                     
                 });
             }
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        
+        <script>
+            $(document).ready(function(){
+              $('.slider').slick({
+                autoplay: true,
+                autoplaySpeed: 2000, // Adjust the speed as needed
+                dots: true,
+                arrows: false,
+                slidesToShow: 1, // Show one slide at a time
+                slidesToScroll: 1 // Scroll one slide at a time
+              });
+            });
         </script>
     </body>
 </html>

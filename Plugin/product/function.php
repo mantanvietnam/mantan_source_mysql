@@ -99,7 +99,7 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
 
     $cc = array();
     $bcc = array();
-    $subject = '[BUMAS] Bạn đặt hàng trên web BUMAS thành công ';
+    $subject = 'Bạn đặt hàng thành công ';
 
     $content='<!DOCTYPE html>
     <html lang="en">
@@ -182,8 +182,8 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
       } 
     }
     $content .=  '<tr>  <td colspan="10">
-    Tổng tiền: '.number_format($order->money).'đ<br/>
-    Giá vận chuyển : 30.000đ<br/>';
+    Tổng tiền: '.number_format($order->money).'đ<br/>';
+
     if(!empty($discountCode['code1']) && !empty($discountCode['discount_price1'])){
       $content .=  '            <div class="cart-price-code-discount">
       <div class="cart-price-item">
@@ -220,15 +220,7 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
     </table>
     <br>
     Trân trọng ./
-    <div style="white: 50%">
-    <br/><img src="https://bumas.2top.vn/themes/shopbanhang/asset/image/logophong.png" alt="" jslog="138226; u014N:xr6bB; 53:WzAsMF0."> <br/>
-    <strong>© 2023 Công Ty TNHH BUMAS</strong> <br/>
-    <a href="https://bumas.vn">https://bumas.vn/</a> <br/>
-    Địa chỉ: Tòa nhà Diamond Complex, Ô 20-21 Lô A, Khu Đô thị mới Đại Kim, Hoàng Mai, Hà Nội 100000, Việt Nam <br/>
-    Điện thoại : 090.7174.789, <br/>
-    Email: info@bumas.vn <br/>
-
-    </div>
+    
     </div>
 
 
@@ -244,19 +236,31 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
 
 function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note='',$listTypeMoney=array(),$discountCode=array(), $order=array()){
   global $modelOptions;
-   $conditions = array('key_word' => 'contact_site');
-    $data = $modelOptions->find()->where($conditions)->first();
+  global $controller;
 
-    if(!empty($data->value)){
-        $data_value = json_decode($data->value, true);
-    }
+  $conditions = array('key_word' => 'contact_site');
+  $data = $modelOptions->find()->where($conditions)->first();
+
+  if(!empty($data->value)){
+    $data_value = json_decode($data->value, true);
+  }
 
   if(!empty($data_value['email'])){
     $to[]= trim($data_value['email']);
-
     $cc = array();
     $bcc = array();
-    $subject = '[BUMAS] Xác thực hàng mới ';
+
+    if(!empty($order->id_agency)){
+      $modelMembers = $controller->loadModel('Members');
+
+      $infoAgency = $modelMembers->find()->where(['id'=> (int) $order->id_agency])->first();
+
+      if(!empty($infoAgency->email)){
+        $bcc[]= trim($infoAgency->email);
+      }
+    }
+
+    $subject = 'Xác thực đơn hàng mới '.$order->id;
 
     $content='<!DOCTYPE html>
     <html lang="en">
@@ -299,9 +303,9 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
     <div class="nd">
     <div class="main" style=" font-size: 16px;">
     <h2 style=" text-align: center; font-size: 27px; ">Thông tin đơn hàng </h2>
-    <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào BUMAS </em> 
+    <em style="    margin: 10px 0 10px;display: inline-block;">Có đơn hàng mới trên website </em> 
     <p>
-    tên khách hàng: '.$fullName.'<br/>
+    Tên khách hàng: '.$fullName.'<br/>
     Email: '.$email.'<br/>
     Điện thoại: '.$phone.'<br/>
     Địa chỉ: '.$address.'<br/>
@@ -340,8 +344,8 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
       } 
     }
     $content .=  '<tr>  <td colspan="10">
-    Tổng tiền: '.number_format($order->money).'đ<br/>
-     Giá vận chuyển : 30.000đ<br/>';
+    Tổng tiền: '.number_format($order->money).'đ<br/>';
+
     if(!empty($discountCode['code1']) && !empty($discountCode['discount_price1'])){
       $content .=  '            <div class="cart-price-code-discount">
       <div class="cart-price-item">
@@ -378,15 +382,7 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
     </table>
     <br>
     Trân trọng ./
-    <div style="white: 50%">
-    <br/><img src="https://bumas.2top.vn/themes/shopbanhang/asset/image/logophong.png" alt="" jslog="138226; u014N:xr6bB; 53:WzAsMF0."> <br/>
-    <strong>© 2023 Công Ty TNHH BUMAS</strong> <br/>
-    <a href="https://bumas.vn">https://bumas.vn/</a> <br/>
-    Địa chỉ: Tòa nhà Diamond Complex, Ô 20-21 Lô A, Khu Đô thị mới Đại Kim, Hoàng Mai, Hà Nội 100000, Việt Nam <br/>
-    Điện thoại : 090.7174.789, <br/>
-    Email: info@bumas.vn <br/>
-
-    </div>
+    
     </div>
 
 

@@ -33,6 +33,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
   `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
   `view` INT NOT NULL DEFAULT '0',
+  `banner` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 

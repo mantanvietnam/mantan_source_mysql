@@ -31,6 +31,11 @@
                   </div>
 
                   <div class="mb-3">
+                    <label class="form-label">Ảnh banner chia sẻ</label>
+                    <?php showUploadFile('banner','banner',@$user->banner,1);?>
+                  </div>
+
+                  <div class="mb-3">
                     <label class="form-label">Email (*)</label>
                     <input required type="text" class="form-control phone-mask" name="email" id="email" value="<?php echo @$user->email;?>"/>
                   </div>

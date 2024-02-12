@@ -155,6 +155,7 @@ function account($input)
 				$user->linkedin = $dataSend['linkedin'];
 				$user->description = $dataSend['description'];
 				$user->zalo = $dataSend['zalo'];
+				$user->banner = $dataSend['banner'];
 
 				$modelMembers->save($user);
 
@@ -554,6 +555,8 @@ function info($input)
 	global $isRequestPost;
 	global $modelCategories;
     global $metaTitleMantan;
+    global $metaImageMantan;
+    global $metaDescriptionMantan;
     global $session;
     global $urlHomes;
 
@@ -563,6 +566,10 @@ function info($input)
 		$info = $modelMembers->find()->where(['id'=>(int) $_GET['id'], 'status'=>'active', 'verify'=>'active'])->first();
 
 		if(!empty($info)){
+			$metaTitleMantan = $info->name;
+			$metaImageMantan = (!empty($info->banner))?$info->banner:$info->avatar;
+			$metaDescriptionMantan = strip_tags($info->description);
+
 			// tăng lượt xem
 			$info->view ++;
 			$modelMembers->save($info);

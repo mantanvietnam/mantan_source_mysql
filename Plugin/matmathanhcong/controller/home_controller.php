@@ -59,6 +59,10 @@ function resultvip($input)
     global $bank_name;
     global $price_full;
     global $key_banking;
+    global $idBot;
+    global $tokenBot;
+    global $idBlockConfirm;
+    global $idBlockDownload;
 
     $modelRequestExports = $controller->loadModel('RequestExports');
 
@@ -66,69 +70,146 @@ function resultvip($input)
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['customer_name']) && !empty($dataSend['customer_birthdate']) && !empty($dataSend['customer_phone']) && !empty($dataSend['customer_email']) && !empty($dataSend['customer_address'])){
-            
-            $data = $modelRequestExports->newEmptyEntity();
+            // chuẩn hóa dữ liệu
+            $dataSend['customer_birthdate'] = str_replace(array('.','-',',',' '), '/', $dataSend['customer_birthdate']);
+            $dataSend['customer_phone']= str_replace(array(' ','.','-'), '', @$dataSend['customer_phone']);
+            $dataSend['customer_phone'] = str_replace('+84','0',$dataSend['customer_phone']);
 
-            if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-                $avatar = uploadImage(1, 'avatar');
+            // kiểm tra đã đăng ký chưa
+            $checkDataExits = $modelRequestExports->find()->where(['phone'=>$dataSend['customer_phone']])->first();
 
-                if(!empty($avatar['linkOnline'])){
-                    // lấy link tải bản full
-                    $dataSend['customer_birthdate'] = str_replace(array('.','-',',',' '), '/', $dataSend['customer_birthdate']);
-                    $dataSend['customer_phone']= str_replace(array(' ','.','-'), '', @$dataSend['customer_phone']);
-                    $dataSend['customer_phone'] = str_replace('+84','0',$dataSend['customer_phone']);
+            if(empty($checkDataExits)){
+                $data = $modelRequestExports->newEmptyEntity();
 
-                    $url = 'https://quantri.matmathanhcong.vn/api/Calculate/GetLinkByModelApi';
+                if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                    $avatar = uploadImage(1, 'avatar');
 
-                    $dataPush = [   'customer_name' => $dataSend['customer_name'],
-                                    'customer_birthdate' => $dataSend['customer_birthdate'],
-                                    'customer_phone' => $dataSend['customer_phone'],
-                                    'customer_email' => $dataSend['customer_email'],
-                                    'customer_address' => $dataSend['customer_address'],
-                                    'user_avatar' => $avatar['linkOnline'],
-                                    'customer_avatar' => $avatar['linkOnline'],
-                                ];
+                    if(!empty($avatar['linkOnline'])){
+                        // lấy link tải bản full
+                        $url = 'https://quantri.matmathanhcong.vn/api/Calculate/GetLinkByModelApi';
 
-                    $infoFull = sendDataConnectMantan($url, $dataPush);
-                    $infoFull = json_decode($infoFull, true);
+                        $dataPush = [   'customer_name' => $dataSend['customer_name'],
+                                        'customer_birthdate' => $dataSend['customer_birthdate'],
+                                        'customer_phone' => $dataSend['customer_phone'],
+                                        'customer_email' => $dataSend['customer_email'],
+                                        'customer_address' => $dataSend['customer_address'],
+                                        'user_avatar' => $avatar['linkOnline'],
+                                        'customer_avatar' => $avatar['linkOnline'],
+                                    ];
 
+                        $infoFull = sendDataConnectMantan($url, $dataPush);
+                        $infoFull = json_decode($infoFull, true);
 
-                    // lưu database
-                    $data->avatar = $avatar['linkOnline'];
-                    $data->name = $dataSend['customer_name'];
-                    $data->birthday = $dataSend['customer_birthdate'];
-                    $data->phone = $dataSend['customer_phone'];
-                    $data->email = $dataSend['customer_email'];
-                    $data->address = $dataSend['customer_address'];
-                    $data->affiliate_phone = (!empty($session->read('aff')) && $session->read('aff')!=$dataSend['customer_phone'])?$session->read('aff'):'';
-                    $data->link_download = @$infoFull['Result'];
-                    $data->status_pay = 'wait';
+                        // lưu database
+                        $data->avatar = $avatar['linkOnline'];
+                        $data->name = $dataSend['customer_name'];
+                        $data->birthday = $dataSend['customer_birthdate'];
+                        $data->phone = $dataSend['customer_phone'];
+                        $data->email = $dataSend['customer_email'];
+                        $data->address = $dataSend['customer_address'];
+                        $data->idMessenger = @$dataSend['idMessenger'];
+                        $data->affiliate_phone = (!empty($session->read('aff')) && $session->read('aff')!=$dataSend['customer_phone'])?$session->read('aff'):'';
+                        $data->link_download = @$infoFull['Result'];
+                        $data->status_pay = 'wait';
 
-                    $modelRequestExports->save($data);
+                        $modelRequestExports->save($data);
 
-                    // tạo link thanh toán
-                    $linkQR = 'https://img.vietqr.io/image/TPB-'.$bank_number.'-compact2.png?amount='.$price_full.'&addInfo='.$data->id.'%20'.$key_banking.'&accountName='.$bank_name;
+                        // tạo link thanh toán
+                        $linkQR = 'https://img.vietqr.io/image/TPB-'.$bank_number.'-compact2.png?amount='.$price_full.'&addInfo='.$data->id.'%20'.$key_banking.'&accountName='.$bank_name;
 
-                    // gửi Zalo đơn hàng
-                    $urlZNS = 'https://quantri.databot.vn/sendZNS309784';
-                    $dataZNS = ['phone'=> $data->phone,
-                                'customer_name' => $data->name,
-                                'order_code' => 'MMTC-'.$data->id,
-                                'payment_status' => 'Chờ thanh toán',
-                                'product_name' => 'Bản luận giải đầy đủ Mật Mã Thành Công',
-                                'author' => 'Trần Toản',
-                                'cost' => $price_full,
-                                'note' => 'Link giới thiệu https://matmathanhcong.vn/?aff='.$data->phone
-                                ];
+                        // gửi Zalo đơn hàng
+                        $urlZNS = 'https://quantri.databot.vn/sendZNS309784';
+                        $dataZNS = ['phone'=> $data->phone,
+                                    'customer_name' => $data->name,
+                                    'order_code' => 'MMTC-'.$data->id,
+                                    'payment_status' => 'Chờ thanh toán',
+                                    'product_name' => 'Bản luận giải đầy đủ Mật Mã Thành Công',
+                                    'author' => 'Trần Toản',
+                                    'cost' => $price_full,
+                                    'note' => 'Link giới thiệu https://matmathanhcong.vn/?aff='.$data->phone
+                                    ];
 
-                    $mesZNS = sendDataConnectMantan($urlZNS, $dataZNS);
+                        $mesZNS = sendDataConnectMantan($urlZNS, $dataZNS);
 
-                    setVariable('linkQR', $linkQR);
+                        // kiểm tra người giới thiệu
+                        if(!empty($session->read('aff'))){
+                            $checkNumberOrder = $modelRequestExports->find()->where(['affiliate_phone'=>$session->read('aff')])->all()->toList();
+                           
+                            if(count($checkNumberOrder) >= 3){
+                                $info_aff = $modelRequestExports->find()->where(['phone'=>$session->read('aff'), 'status_pay'=>'wait'])->first();
+                                
+                                if(!empty($info_aff)){
+                                    $info_aff->status_pay = 'done';
+                                    $modelRequestExports->save($info_aff);
+
+                                    // gửi email
+                                    if(!empty($info_aff->email)){
+                                        sendEmailLinkFull($info_aff->email, $info_aff->name, $info_aff->link_download);
+                                    }
+
+                                    // gửi FB
+                                    if(!empty($info_aff->idMessenger)){
+                                        $attributesSmax = [];
+                                        $attributesSmax['linkDownloadMMTC']= $info_aff->link_download;
+                                        
+                                        $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$dataSend['idMessenger'].'/send?bot_token='.$tokenBot.'&block_id='.$idBlockDownload.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
+                                        
+                                        $returnSmax= sendDataConnectMantan($urlSmax, $attributesSmax);
+                                    }
+                                }
+                            }
+                        }
+
+                        // gửi tin nhắn Messenger
+                        if(!empty($dataSend['idMessenger'])){
+                            if(!empty($idBot)
+                                && !empty($tokenBot)
+                                && !empty($idBlockConfirm)
+                            ) {
+                                $attributesSmax = [];
+                                $attributesSmax['linkQRBankingMMTC']= $linkQR;
+                                //$attributesSmax['linkAffMMTC']= 'https://matmathanhcong.vn/?aff='.$data->phone;
+                                $attributesSmax['linkAffMMTC']= 'https://m.me/100405719654447?ref=Dang-ky-Mat-ma-thanh-cong-affiliate.'.$data->phone;
+                                $attributesSmax['phone']= $data->phone;
+                                
+                                $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$dataSend['idMessenger'].'/send?bot_token='.$tokenBot.'&block_id='.$idBlockConfirm.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
+                                
+                                $returnSmax= sendDataConnectMantan($urlSmax, $attributesSmax);
+                            }
+
+                            echo '<h1>Vui lòng đóng cửa sổ trình duyệt và quay lại khung chat</h1>';die;
+                        }
+
+                        setVariable('linkQR', $linkQR);
+                    }else{
+                        return $controller->redirect('/?error=uploadAvatarFail');
+                    }
                 }else{
-                    return $controller->redirect('/?error=uploadAvatarFail');
+                    return $controller->redirect('/?error=emptyAvatar');
                 }
             }else{
-                return $controller->redirect('/?error=emptyAvatar');
+                // tạo link thanh toán
+                $linkQR = 'https://img.vietqr.io/image/TPB-'.$bank_number.'-compact2.png?amount='.$price_full.'&addInfo='.$checkDataExits->id.'%20'.$key_banking.'&accountName='.$bank_name;
+
+                // gửi tin nhắn Messenger
+                if(!empty($dataSend['idMessenger'])){
+                    if(!empty($idBot)
+                        && !empty($tokenBot)
+                        && !empty($idBlockConfirm)
+                    ) {
+                        $attributesSmax = [];
+                        $attributesSmax['linkQRBankingMMTC']= $linkQR;
+                        //$attributesSmax['linkAffMMTC']= 'https://matmathanhcong.vn/?aff='.$data->phone;
+                        $attributesSmax['linkAffMMTC']= 'https://m.me/100405719654447?ref=Dang-ky-Mat-ma-thanh-cong-affiliate.'.$checkDataExits->phone;
+                        $attributesSmax['phone']= $checkDataExits->phone;
+                        
+                        $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$dataSend['idMessenger'].'/send?bot_token='.$tokenBot.'&block_id='.$idBlockConfirm.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
+                        
+                        $returnSmax= sendDataConnectMantan($urlSmax, $attributesSmax);
+                    }
+
+                    echo '<h1>Vui lòng đóng cửa sổ trình duyệt và quay lại khung chat</h1>';die;
+                }
             }
         }else{
             return $controller->redirect('/?error=empty');

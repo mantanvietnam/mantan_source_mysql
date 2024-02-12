@@ -742,7 +742,7 @@ function createImageSeries($input)
 	global $ftp_username_upload_image;
 	global $ftp_password_upload_image;
 	global $response;
-
+	
 	$modelProduct = $controller->loadModel('Products');
 	$modelProductDetail = $controller->loadModel('ProductDetails');
 
@@ -767,6 +767,7 @@ function createImageSeries($input)
         			$content = json_decode($layer->content, true);
 
         			if(!empty($content['variable'])){
+        				
         				if(!empty($_REQUEST[$content['variable']])){
         					if(!empty($content['typeShowTextVariable'])){
         						if($content['typeShowTextVariable'] == 'upper'){
@@ -839,6 +840,7 @@ function createImageSeries($input)
         	
         	// dùng tool xuất ảnh tự code
 			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
+			
 			$dataImage = sendDataConnectMantan($url);
 
 	        // dùng siterelic api

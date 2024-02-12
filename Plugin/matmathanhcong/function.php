@@ -14,6 +14,16 @@ global $price_full;
 global $bank_number;
 global $bank_name;
 global $key_banking;
+global $idBot;
+global $tokenBot;
+global $idBlockConfirm;
+global $idBlockDownload;
+
+$idBot = '63edf5c2642152d701d5739b';
+$tokenBot = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWRmNWMyNjQyMTUyZDcwMWQ1NzM5YiIsIm5hbWUiOiJCTEFOSyBCT1QgLSBDb3B5IiwiaWF0IjoxNjc2NTM5MzMwLCJleHAiOjE5OTE4OTkzMzB9.6GeoT8QLvvUvyzBJ_zeyLlMq4iAXhHnV2UtjVJhUR9M';
+$idBlockConfirm = '65c50e2f287c4a2b9722030c';
+$idBlockDownload = '65c5f0a246761a8554da9468';
+
 
 $price_full = 500000;
 $key_banking = 'MMTC';
@@ -54,6 +64,10 @@ function ketquapheptinhcong($str)
 function process_send_link($order_id = 0)
 {
     global $controller;
+    global $idBot;
+    global $tokenBot;
+    global $idBlockConfirm;
+    global $idBlockDownload;
 
     $modelRequestExports = $controller->loadModel('RequestExports');
 
@@ -77,8 +91,19 @@ function process_send_link($order_id = 0)
                     $info_aff->status_pay = 'done';
                     $modelRequestExports->save($info_aff);
 
+                    // gửi email
                     if(!empty($info_aff->email)){
                         sendEmailLinkFull($info_aff->email, $info_aff->name, $info_aff->link_download);
+                    }
+
+                    // gửi FB
+                    if(!empty($info_aff->idMessenger)){
+                        $attributesSmax = [];
+                        $attributesSmax['linkDownloadMMTC']= $info_aff->link_download;
+                        
+                        $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$dataSend['idMessenger'].'/send?bot_token='.$tokenBot.'&block_id='.$idBlockDownload.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
+                        
+                        $returnSmax= sendDataConnectMantan($urlSmax, $attributesSmax);
                     }
                 }
             }

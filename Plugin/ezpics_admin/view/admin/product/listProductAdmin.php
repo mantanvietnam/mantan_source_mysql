@@ -114,7 +114,7 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                   $linkopenapp = '';
+                   $linkopenapp = $item->link_open_app.'<br/>';
                   $type = '<span class="text-danger">Mẫu sao chép</span>';
                   if($item->type=='user_create'){
                     $type = '<span class="text-success">Mẫu gốc</span>';
