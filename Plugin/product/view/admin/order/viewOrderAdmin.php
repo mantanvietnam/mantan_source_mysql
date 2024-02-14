@@ -22,7 +22,19 @@
             $total = 0;
             // debug($order);
             $pay = json_decode($order->discount, true);
-             // debug($pay);
+            
+            $status= '<span style="color: red;">Chưa xác định</span>';
+            if($order->status=='new'){ 
+             $status= '<span style="color: #00aeee;">Đơn mới</span>';
+            }elseif($order->status=='browser'){
+             $status= '<span style="color: #0333f6;">Đã duyệt</span>';
+            }elseif($order->status=='delivery'){
+             $status= '<span style="color: #7503f6;">Đang giao</span>';
+            }elseif($order->status=='done'){
+             $status= '<span style="color: #00ee4b;">Đã xong</span>';
+            }elseif($order->status=='cancel'){
+             $status= '<span style="color: red;">Đã hủy</span>';
+            }
 
             foreach ($detail_order as $item) {
               $price_buy = $item->product->price * $item->quantity;
@@ -89,6 +101,7 @@
                 }
                 echo '   
                 Thành tiền: '.number_format($order->total).'đ<br/>
+                Trạng thái: '.$status.'<br/>
                 </td>
 
 

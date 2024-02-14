@@ -24,7 +24,19 @@
             $total = 0;
             // debug($order);
             $pay = json_decode($order->discount, true);
-             // debug($pay);
+            
+            $status= '<span style="color: red;">Chưa xác định</span>';
+            if($order->status=='new'){ 
+             $status= '<span style="color: #00aeee;">Đơn mới</span>';
+            }elseif($order->status=='browser'){
+             $status= '<span style="color: #0333f6;">Đã duyệt</span>';
+            }elseif($order->status=='delivery'){
+             $status= '<span style="color: #7503f6;">Đang giao</span>';
+            }elseif($order->status=='done'){
+             $status= '<span style="color: #00ee4b;">Đã xong</span>';
+            }elseif($order->status=='cancel'){
+             $status= '<span style="color: red;">Đã hủy</span>';
+            }
 
             foreach ($detail_order as $item) {
               $price_buy = $item->product->price * $item->quantity;
@@ -43,18 +55,21 @@
             echo '<tr>
             <tr><td colspan="10">Quà tặng</td><tr>
             <tr>';
-            foreach ($detail_order as $item) {
-              if(!empty($item->product->present)){
-                foreach ($item->product->present as $present) {
-                  echo '<tr>
-                  <td>'.$present->id.'</td>
-                  <td><img src="'.$present->image.'" width="80" /></td>
-                  <td>'.$present->title.'</td>
-                  <td>'.$present->numberOrder.'</td>
-                  <td>0đ</td>
-                  <td>0đ</td>
-                  </tr>';
-                }}}
+              foreach ($detail_order as $item) {
+                if(!empty($item->product->present)){
+                  foreach ($item->product->present as $present) 
+                  {
+                    echo '<tr>
+                    <td>'.$present->id.'</td>
+                    <td><img src="'.$present->image.'" width="80" /></td>
+                    <td>'.$present->title.'</td>
+                    <td>'.$present->numberOrder.'</td>
+                    <td>0đ</td>
+                    <td>0đ</td>
+                    </tr>';
+                  }
+                }
+              }
 
                 echo '   <tr>
                 <td colspan="10">
@@ -91,6 +106,7 @@
                 }
                 echo '   
                 Thành tiền: '.number_format($order->total).'đ<br/>
+                Trạng thái: '.$status.'<br/>
                 </td>
 
 
@@ -106,15 +122,15 @@
 
           <div class="row m-5 ">
             <?php if($order->status=='new'){ ?>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=browser&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn duyệt đơn hàng này không?')" class="btn btn-primary ">Duyệt</a></div>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">Hủy</a></div>
+              <div class="col-md-3"><a href="/updateStatusOrderAgency?status=browser&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn duyệt đơn hàng này không?')" class="btn btn-primary ">Duyệt</a></div>
+              <div class="col-md-3"><a href="/updateStatusOrderAgency?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">Hủy</a></div>
             <?php }elseif($order->status=='browser'){ ?>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=delivery&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn giao hàng đơn hàng này không?');" class="btn btn-primary">Giao hàng </a></div>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">Hủy</a></div>
+              <div class="col-md-3"><a href="/updateStatusOrderAgency?status=delivery&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn giao hàng đơn hàng này không?');" class="btn btn-primary">Giao hàng </a></div>
+              <div class="col-md-3"><a href="/updateStatusOrderAgency?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">Hủy</a></div>
 
             <?php }elseif($order->status=='delivery'){ ?>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=done&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn hoàng thành đơn này?');" class="btn btn-primary">đã xong</a></div>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">hủy</a></div>
+              <div class="col-md-3"><a href="/updateStatusOrderAgency?status=done&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn hoàng thành đơn này?');" class="btn btn-primary">đã xong</a></div>
+              <div class="col-md-3"><a href="/updateStatusOrderAgency?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">hủy</a></div>
             <?php }elseif($order->status=='done'){
               echo '<div class="col-md-3">Đã xong</div>';
             } elseif($order->status=='cancel'){

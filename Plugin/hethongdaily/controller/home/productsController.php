@@ -273,4 +273,32 @@ function viewOrderCustomerAgency($input)
         return $controller->redirect('/login');
     }
 }
+
+function updateStatusOrderAgency($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Chi tiết đơn hàng';
+
+        $modelOrder = $controller->loadModel('Orders');
+
+        if(!empty($_GET['id'])){
+            $order = $modelOrder->find()->where(['id_agency'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id'] ])->first();
+
+            if(!empty($order)){
+                $order->status = $_GET['status'];
+
+                $modelOrder->save($order);
+
+                return $controller->redirect('/viewOrderCustomerAgency/?id='.$_GET['id']);
+            }
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>
