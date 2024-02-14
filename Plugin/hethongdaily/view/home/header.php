@@ -169,7 +169,7 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Kinh doanh</span></li>
             <!-- Cards -->
             <li class="menu-item">
-              <a href="/order-customer" class="menu-link">
+              <a href="/orderCustomerAgency" class="menu-link">
                 <i class='menu-icon tf-icons bx bxs-user-plus' ></i> 
                 <div data-i18n="Tempaltes">Đơn hàng lẻ</div>
               </a>

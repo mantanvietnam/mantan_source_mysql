@@ -66,9 +66,10 @@
           <tr class="">
             <th width="5%">ID</th>
             <th width="20%">Thông tin giao hàng</th>
-            <th width="35%" style=" padding: 0; "><table  class="table table-bordered" >
+            <th width="35%" style=" padding: 0; ">
+              <table  class="table table-borderless" >
               <thead>
-                <th colspan="3">thông tin đơn hàng</th> 
+                <th colspan="3" class="text-center">thông tin đơn hàng</th> 
                 <tr>
                   <th width="50%">Sản phẩn</th>
                   <th width="30%">Giá bán</th>
@@ -108,7 +109,8 @@
              '.$item->address.'<br/>
              '.$item->email.'
              </td>
-             <td width="35%" style=" padding: 0;display: contents; "><table  class="table table-bordered">
+             <td width="35%" style=" padding: 0;display: contents; ">
+             <table  class="table table-borderless">
               <tbody>';
              if(!empty($item->detail_order)){ 
               foreach($item->detail_order as $k => $value){

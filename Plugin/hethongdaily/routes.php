@@ -32,4 +32,6 @@
 	$routesPlugin['info']= 'hethongdaily/view/home/member/info.php';
 
 	// đơn hàng đại lý
-	$routesPlugin['order-customer']= 'hethongdaily/view/home/product/orderCustomerAgency.php';
+	$routesPlugin['orderCustomerAgency']= 'hethongdaily/view/home/product/orderCustomerAgency.php';
+	$routesPlugin['viewOrderCustomerAgency']= 'hethongdaily/view/home/product/viewOrderCustomerAgency.php';
+	$routesPlugin['deleteOrderCustomerAgency']= 'hethongdaily/view/home/product/deleteOrderCustomerAgency.php';

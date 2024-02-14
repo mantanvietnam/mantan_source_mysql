@@ -623,14 +623,16 @@ function pay($input){
 		$data->create_at = time();
 		$data->id_agency = (int) @$dataSend['id_agency'];
 
-
-		
-		$data->total = (int) @$pay['total'];
-
 		if(!empty($pay['totalPays'])){
 			$data->money = (int) $pay['totalPays'];
 		}else{
 			$data->money = (int) $money;
+		}
+
+		if(!empty($pay['total'])){
+			$data->total = (int) $pay['total'];
+		}else{
+			$data->total = (int) $money;
 		}
 
 		$discount = array( 'code1' => @$pay['code1'],

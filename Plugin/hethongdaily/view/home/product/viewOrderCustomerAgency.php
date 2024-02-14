@@ -1,3 +1,5 @@
+<?php include(__DIR__.'/../header.php'); ?>
+
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Chi tiết đơn hàng</h4>
 
@@ -118,7 +120,6 @@
             } elseif($order->status=='cancel'){
               echo '<div class="col-md-3">Đã hủy</div>';
             } ?>
-            <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-listOrderAdmin" class="btn btn-primary">Quay lại</a></div>
           </div>
 
 
@@ -126,3 +127,5 @@
       </div>
       <!--/ Responsive Table -->
     </div>
+
+<?php include(__DIR__.'/../footer.php'); ?>

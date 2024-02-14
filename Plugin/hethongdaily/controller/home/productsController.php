@@ -5,6 +5,7 @@ function orderCustomerAgency($input)
     global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
+    global $session;
 
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'Danh sách đơn hàng';
@@ -127,14 +128,17 @@ function orderCustomerAgency($input)
         }else{
             $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         }
+
         if(!empty($listData)){
             foreach($listData as $key => $item){
                 $detail_order = $modelOrderDetail->find()->where(['id_order'=>$item->id])->all()->toList();
+                
                 if(!empty($detail_order)){
                     foreach ($detail_order as $k => $value) {
                         $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
                         if(!empty($product)){
                             $detail_order[$k]->product = $product->title;
+                            $detail_order[$k]->price = $product->price;
                         }
                     }
 
@@ -182,6 +186,89 @@ function orderCustomerAgency($input)
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteOrderCustomerAgency($input)
+{
+    global $controller;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetail = $controller->loadModel('OrderDetails');
+        
+        if(!empty($_GET['id'])){
+            $data = $modelOrder->find()->where(['id_agency'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id']])->first();
+            
+            if($data){
+                $modelOrder->delete($data);
+                $modelOrderDetail->deleteAll(['id_order'=>$data->id]);
+            }
+        }
+
+        return $controller->redirect('/orderCustomerAgency');
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function viewOrderCustomerAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Chi tiết đơn hàng';
+
+        $modelProduct = $controller->loadModel('Products');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetail = $controller->loadModel('OrderDetails');
+
+        if(!empty($_GET['id'])){
+            $order = $modelOrder->find()->where(['id'=>(int) $_GET['id'], 'id_agency'=>$session->read('infoUser')->id ])->first();
+
+            if(!empty($order)){
+                $detail_order = $modelOrderDetail->find()->where(['id_order'=>$order->id])->all()->toList();
+
+                if(!empty($detail_order)){
+                    foreach ($detail_order as $key => $value) {
+                        $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
+                        
+
+                        $present = array();
+
+                        if(!empty($product->id_product) ){
+                            $id_product = explode(',', @$product->id_product);
+                            foreach($id_product as $item){
+                                $presentf = $modelProduct->find()->where(['code'=>$item])->first();
+                                $presentf->numberOrder = $value->quantity;
+                                if(!empty($presentf)){
+                                    $present[] = $presentf;
+                                }
+                            }
+                            
+                        }
+                        $product->present = $present;
+                        $detail_order[$key]->product = $product;
+                    }
+                }
+
+                // debug($detail_order);die;
+
+                setVariable('order', $order);
+                setVariable('detail_order', $detail_order);
+            }else{
+                return $controller->redirect('/orderCustomerAgency');
+            }
+        }else{
+            return $controller->redirect('/orderCustomerAgency');
+        }
     }else{
         return $controller->redirect('/login');
     }
