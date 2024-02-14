@@ -507,6 +507,8 @@ function pay($input){
 	$modelAddress = $controller->loadModel('Address');
 	$modelOrder = $controller->loadModel('Orders');
 	$modelOrderDetail = $controller->loadModel('OrderDetails');
+	$modelCustomers = $controller->loadModel('Customers');
+
 	$metaTitleMantan = 'Thanh toán';
 
 	$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
@@ -561,6 +563,42 @@ function pay($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
+
+		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+		if(empty($infoUser)){
+			if(!empty($dataSend['full_name']) && !empty($dataSend['phone'])){
+				$infoUser = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
+				
+				if(empty($infoUser)){
+					$infoUser = $modelCustomers->newEmptyEntity();
+					
+					$infoUser->full_name = $dataSend['full_name'];
+					$infoUser->phone = $dataSend['phone'];
+					$infoUser->email = (string) @$dataSend['email'];
+					$infoUser->address = (string) @$dataSend['address'];
+					$infoUser->sex = (int) @$dataSend['sex'];
+					$infoUser->id_city = (int) @$dataSend['id_city'];
+					$infoUser->id_parent = (int) @$dataSend['id_agency'];
+					$infoUser->id_messenger = (string) @$dataSend['id_messenger'];
+					$infoUser->avatar = (string) @$dataSend['avatar'];
+					$infoUser->status = 'active';
+					$infoUser->pass = md5($dataSend['phone']);
+					$infoUser->birthday_date = (int) @$dataSend['birthday_date'];
+					$infoUser->birthday_month = (int) @$dataSend['birthday_month'];
+					$infoUser->birthday_year = (int) @$dataSend['birthday_year'];
+
+					$modelCustomers->save($infoUser);
+				}else{
+					$infoUser->full_name = $dataSend['full_name'];
+					$infoUser->address = (string) @$dataSend['address'];
+					$infoUser->id_parent = (int) @$dataSend['id_agency'];
+
+					$modelCustomers->save($infoUser);
+				}
+			}
+		}
 		
 		if(empty($dataSend['id_address']) && !empty($infoUser)){
 			$address = $modelAddress->newEmptyEntity();

@@ -16,7 +16,7 @@ $menus[0]['sub'][1]= array(	'title'=>'Hệ thống',
 
 addMenuAdminMantan($menus);
 
-function sendEmailnewpassword($email='', $fullName='', $pass= '')
+function sendEmailNewPassword($email='', $fullName='', $pass= '')
 {
 	global $urlHomes;
 

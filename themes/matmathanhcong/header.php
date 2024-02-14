@@ -230,11 +230,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-phone">Ngày sinh dạng ngày/tháng/năm</label>
-                                    <input required type="text" class="form-control phone-mask datepicker" name="customer_birthdate" id="customer_birthdate" value="" placeholder="Ví dụ: 17/09/1989" />
+                                    <input required type="text" class="form-control phone-mask datepicker" name="customer_birthdate" id="customer_birthdate" value="<?php if(!empty($_GET['day'])) echo $_GET['day'].'/'.$_GET['month'].'/'.$_GET['year'];?>" placeholder="Ví dụ: 17/09/1989" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-phone">Điện thoại</label>
-                                    <input required type="text" class="form-control phone-mask" name="customer_phone" id="customer_phone" value="<?php if(!empty($_GET['day'])) echo $_GET['day'].'/'.$_GET['month'].'/'.$_GET['year'];?>" />
+                                    <input required type="text" class="form-control phone-mask" name="customer_phone" id="customer_phone" value="" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-phone">Email</label>

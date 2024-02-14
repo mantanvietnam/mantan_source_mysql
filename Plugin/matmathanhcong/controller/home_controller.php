@@ -210,6 +210,8 @@ function resultvip($input)
 
                     echo '<h1>Vui lòng đóng cửa sổ trình duyệt và quay lại khung chat</h1>';die;
                 }
+
+                setVariable('linkQR', $linkQR);
             }
         }else{
             return $controller->redirect('/?error=empty');

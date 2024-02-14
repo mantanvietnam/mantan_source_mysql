@@ -292,7 +292,7 @@ function forgotpassword($input){
 			$checkCustomer->token = md5($pass);
 			
 			$modelCustomer->save($checkCustomer);
-			sendEmailnewpassword($checkCustomer->email, $checkCustomer->full_name, $pass);
+			sendEmailNewPass($checkCustomer->email, $checkCustomer->full_name, $pass);
 			$session->write('email', $checkCustomer->email);
 			return $controller->redirect('/confirm');
 

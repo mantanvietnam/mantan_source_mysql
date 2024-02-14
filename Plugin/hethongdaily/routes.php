@@ -30,3 +30,6 @@
 
 	// thông tin đại lý
 	$routesPlugin['info']= 'hethongdaily/view/home/member/info.php';
+
+	// đơn hàng đại lý
+	$routesPlugin['order-customer']= 'hethongdaily/view/home/product/orderCustomerAgency.php';

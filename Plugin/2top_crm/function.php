@@ -230,7 +230,7 @@ function getCustomer($id){
         return $data;
 }
 
-function sendEmailnewpassword($email='', $fullName='', $pass= '')
+function sendEmailNewPass($email='', $fullName='', $pass= '')
 {
     $to = array();
 
