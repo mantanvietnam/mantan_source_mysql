@@ -561,6 +561,7 @@ function info($input)
     global $urlHomes;
 
     $modelMembers = $controller->loadModel('Members');
+    $session->write('infoUser', []);
 
 	if(!empty($_GET['id'])){
 		$info = $modelMembers->find()->where(['id'=>(int) $_GET['id'], 'status'=>'active', 'verify'=>'active'])->first();

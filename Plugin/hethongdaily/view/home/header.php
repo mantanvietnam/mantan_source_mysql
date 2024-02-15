@@ -176,9 +176,9 @@
             </li>
 
             <li class="menu-item">
-              <a href="/order-agency" class="menu-link">
+              <a href="/listCustomerAgency" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-list-ol' ></i> 
-                <div data-i18n="Tempaltes">Đơn đại lý</div>
+                <div data-i18n="Tempaltes">Khách hàng</div>
               </a>
             </li>
 

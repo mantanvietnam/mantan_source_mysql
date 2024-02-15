@@ -502,6 +502,7 @@ function pay($input){
 
 
 	$infoUser = $session->read('infoUser');
+	
 	$modelProduct = $controller->loadModel('Products');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$modelAddress = $controller->loadModel('Address');

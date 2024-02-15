@@ -9,5 +9,4 @@ include('model/views.php');
 include('model/reviews.php');
 include('model/categorie_product.php');
 include('model/address.php');
-include('model/customers.php');
 ?>

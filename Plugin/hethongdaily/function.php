@@ -8,7 +8,13 @@ $menus[0]['sub'][0]= array(	'title'=>'Đại lý',
 							'permission'=>'listMemberAdmin'
 						);
 
-$menus[0]['sub'][1]= array(	'title'=>'Hệ thống',
+$menus[0]['sub'][]= array( 'title'=>'Khách hàng',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-customer-listCustomerAdmin',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listCustomerAdmin'
+                        );
+
+$menus[0]['sub'][]= array(	'title'=>'Hệ thống',
 							'url'=>'/plugins/admin/hethongdaily-view-admin-system-listSystemAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listSystemAdmin'
