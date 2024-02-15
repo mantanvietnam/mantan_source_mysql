@@ -171,7 +171,7 @@ function categoryPostTheme($input)
 
     // Tin tức nổi bật
     $conditions = array('idCategory'=>"1");
-    $order = array('id'=>'desc');
+    $order = array('id'=>'asc');
 
     $highligh_post = $modelPosts->find()->where($conditions)->order($order)->all()->toList();
 

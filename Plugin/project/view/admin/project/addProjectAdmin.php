@@ -51,7 +51,7 @@
 
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Đường dẫn</label>
-                    <input required type="text" class="form-control phone-mask" name="slug_drive" id="slug_drive" value="<?php echo @$data->slug_drive;?>" />
+                    <input type="text" class="form-control phone-mask" name="slug_drive" id="slug_drive" value="<?php echo @$data->slug_drive;?>" />
                   </div>
                   <div class="mb-3 col-md-6">
                     <div class="mb-3">

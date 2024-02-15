@@ -68,9 +68,16 @@
                                     </div>
 
                                     <div class="facility-content-item-button">
-                                        <button>
-                                            <a target="_blank" href="<?php echo @$data->slug_drive ?>">Download Factsheet</a>
-                                        </button>
+                                        
+                                            <?php 
+                                                if(!empty($data->slug_drive)){
+                                                echo '<button>
+                                                        <a target="_blank" href=" '.$data->slug_drive.' ">Download Factsheet</a>
+                                                    </button>';
+                                                }
+
+                                            ?>
+                                 
                                     </div>
                                 </div>
                             </div>
