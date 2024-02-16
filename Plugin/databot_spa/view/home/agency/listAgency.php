@@ -16,8 +16,21 @@
 
           <div class="col-md-3">
             <label class="form-label">nhân viên</label>
-             <input  type="text" class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$_GET['full_name'];?>" />
-              <input type="hidden" name="id_staff"  id="id_staff" value="<?php echo (int) @$_GET['id_staff'];?>">
+             
+              <select name="id_staff" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php 
+              if(!empty($listStaffs)){
+                foreach ($listStaffs as $key => $value) {
+                  if(empty($_GET['id_staff']) || $_GET['id_staff']!=$value->id){
+                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                  }else{
+                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                  }
+                }
+              }
+              ?>
+            </select>
           </div>
           <div class="col-md-2">
             <label class="form-label">Tạo từ ngày</label>
@@ -210,6 +223,7 @@
             search: function() {
                 // custom minLength
                 var term = extractLast( this.value );
+                console.log(term);
                 if ( term.length < 2 ) {
                     return false;
                 }
@@ -230,7 +244,7 @@
           
                 return false;
 
-                tinhtien();
+                
             }
         });
     });
