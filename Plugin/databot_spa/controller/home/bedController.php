@@ -273,19 +273,18 @@ function cancelBed($input){
         $modelBed = $controller->loadModel('Beds');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
-
+        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
         
         $user = $session->read('infoUser');
          $return = array('code'=>0);
        if($isRequestPost){
             $dataSend = $input['request']->getData();
 
-           /* $data = $modelOrder->find()->where(array('id_bed'=>$dataSend['idBed'], 'status'=>2))->first();
-            debug($data);
-            die;
+            $data = $modelUserserviceHistories->find()->where(array('id_bed'=>$dataSend['idBed'], 'status'=>1))->first();
+            
             $data->status = 3;
-            $data->note = @$data->note.', Nội dung hủy là: '.@$dataSend['note'];
-            $modelOrder->save($data);*/
+            // /$data->note = @$data->note.', Nội dung hủy là: '.@$dataSend['note'];
+            $modelUserserviceHistories->save($data);
 
             $datebed = $modelBed->get($dataSend['idBed']);
             $datebed->status = 1;

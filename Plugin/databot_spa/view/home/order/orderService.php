@@ -257,7 +257,7 @@
                                         <li class="total-bh">
                                             <p>Nhân viên phụ trách</p>
                                             <p>
-                                                <select  name="id_Staff" id="id_Staff"  class="form-select color-dropdown">
+                                                <select  name="id_staff" id="id_staff"  class="form-select color-dropdown">
                                                         <option value="">Chọn nhân viên</option>
                                                      <?php if(!empty($listStaffs)){
                                                         foreach ($listStaffs as $Staff) {

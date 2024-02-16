@@ -526,7 +526,7 @@ rel='stylesheet' type='text/css'>
                 data: {idBed: idBed, note: note}
             }).done(function(msg){
                 console.log(msg);
-
+                location.reload();
                 // window.location= '/listRoomBed?status=cancelRoomDone';
             })
             .fail(function (){

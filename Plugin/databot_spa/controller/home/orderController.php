@@ -83,7 +83,7 @@ function orderProduct($input){
     $order = $modelOrder->newEmptyEntity();
     $order->id_member = $infoUser->id_member;
     $order->id_spa =$infoUser->id_spa;
-    $order->id_staff =@$dataSend['id_Staff'];
+    $order->id_staff =(int)@$dataSend['id_staff'];
     $order->id_customer =@$dataSend['id_customer'];
     $order->full_name = @$dataSend['full_name'];
     $order->id_bed =@$dataSend['id_bed'];
@@ -396,7 +396,7 @@ function orderCombo($input){
             $order = $modelOrder->newEmptyEntity();
             $order->id_member = $infoUser->id_member;
             $order->id_spa =$infoUser->id_spa;
-            $order->id_staff =@$dataSend['id_Staff'];
+            $order->id_staff =(int)@$dataSend['id_staff'];
             $order->id_customer =@$dataSend['id_customer'];
             $order->full_name = @$dataSend['full_name'];
             $order->id_bed =@$dataSend['id_bed'];
@@ -685,7 +685,7 @@ function orderService($input){
         $order = $modelOrder->newEmptyEntity();
         $order->id_member = $infoUser->id_member;
         $order->id_spa =$infoUser->id_spa;
-        $order->id_staff =@$dataSend['id_Staff'];
+        $order->id_staff =(int)@$dataSend['id_staff'];
         $order->id_customer =@$dataSend['id_customer'];
         $order->full_name = @$dataSend['full_name'];
         $order->id_bed =@$dataSend['id_bed'];
@@ -1455,6 +1455,8 @@ function addUserService($input){
             $OrderDetails = $modelOrderDetails->get($_GET['id']);
             $Order = $modelOrder->get($OrderDetails->id_order);
 
+            
+
             if(empty($_GET['id_bed'])){
                 $OrderDetails->number_uses +=1;
 
@@ -1474,9 +1476,8 @@ function addUserService($input){
                 $UserService->created_at =date('Y-m-d H:i:s');
                 $UserService->note =@$_GET['note'];
                 $UserService->id_customer = $Order->id_customer;
-                $UserService->id_customer = $Order->id_customer;
                 $UserService->status = 0;
-
+            
                  $modelUserserviceHistories->save($UserService);
             }else{
                 $OrderDetails->number_uses +=1;
@@ -1499,6 +1500,7 @@ function addUserService($input){
                 $UserService->id_bed = $_GET['id_bed'];
                 $UserService->id_customer = $Order->id_customer;
                 $UserService->status = 1;
+
                 $modelUserserviceHistories->save($UserService);
 
                 $bed = $modelBed->find()->where(array('id'=>$_GET['id_bed'], 'status'=>2))->first();
