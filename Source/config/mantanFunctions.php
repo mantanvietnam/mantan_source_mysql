@@ -821,6 +821,51 @@ function getMenusDefault($id=0)
 
 	                                    $links[$key2]->sub[$value->id_parent]->sub[$value->id] = $value;
 	                                    $check_parent = true;
+	                                }else{
+	                                    if(!empty($value2->sub)){
+	                                        foreach ($value2->sub as $key3 => $value3) {
+	                                            if(!empty($value3->sub[$value->id_parent])){
+	                                                if(empty($links[$key2]->sub[$key3]->sub[$value->id_parent]->sub)){
+	                                                    $links[$key2]->sub[$key3]->sub[$value->id_parent]->sub = [];
+	                                                }
+
+	                                                $links[$key2]->sub[$key3]->sub[$value->id_parent]->sub[$value->id] = $value;
+	                                                $check_parent = true;
+	                                            }else{
+	                                                if(!empty($value3->sub)){
+	                                                    foreach ($value3->sub as $key4 => $value4) {
+	                                                        if(!empty($value4->sub[$value->id_parent])){
+	                                                            if(empty($links[$key2]->sub[$key3]->sub[$key4]->sub[$value->id_parent]->sub)){
+	                                                                $links[$key2]->sub[$key3]->sub[$key4]->sub[$value->id_parent]->sub = [];
+	                                                            }
+
+	                                                            $links[$key2]->sub[$key3]->sub[$key4]->sub[$value->id_parent]->sub[$value->id] = $value;
+	                                                            $check_parent = true;
+	                                                        }else{
+	                                                            if(!empty($value4->sub)){
+	                                                                foreach ($value4->sub as $key5 => $value5) {
+	                                                                    if(!empty($value5->sub[$value->id_parent])){
+	                                                                        if(empty($links[$key2]->sub[$key3]->sub[$key4]->sub[$key5]->sub[$value->id_parent]->sub)){
+	                                                                            $links[$key2]->sub[$key3]->sub[$key4]->sub[$key5]->sub[$value->id_parent]->sub = [];
+	                                                                        }
+
+	                                                                        $links[$key2]->sub[$key3]->sub[$key4]->sub[$key5]->sub[$value->id_parent]->sub[$value->id] = $value;
+	                                                                        $check_parent = true;
+	                                                                    }else{
+	                                                                        if(!empty($value5->sub)){
+	                                                                            foreach ($value5->sub as $key6 => $value6) {
+	                                                                                // code...
+	                                                                            }
+	                                                                        }
+	                                                                    }
+	                                                                }
+	                                                            }
+	                                                        }
+	                                                    }
+	                                                }
+	                                            }
+	                                        }
+	                                    }
 	                                }
 	                            }
 	                        }

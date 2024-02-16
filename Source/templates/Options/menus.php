@@ -238,6 +238,26 @@
                           if(!empty($sub->sub)){
                             foreach ($sub->sub as $itemsub) {
                               echo '<li data-id="'.$itemsub->id.'" data-idparent="'.$itemsub->id_parent.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bx bx-edit" onclick="editLink('.$itemsub->id.',\''.$itemsub->name.'\',\''.$itemsub->link.'\',\''.$itemsub->description.'\',\''.$itemsub->id_parent.'\',\''.$itemsub->weighty.'\');"></i> <a target="_blank" href="'.$itemsub->link.'">'.$itemsub->name.'</a></li>';
+                            
+                              if(!empty($itemsub->sub)){
+                                foreach ($itemsub->sub as $item2sub) {
+                                  echo '<li data-id="'.$item2sub->id.'" data-idparent="'.$item2sub->id_parent.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bx bx-edit" onclick="editLink('.$item2sub->id.',\''.$item2sub->name.'\',\''.$item2sub->link.'\',\''.$item2sub->description.'\',\''.$item2sub->id_parent.'\',\''.$item2sub->weighty.'\');"></i> <a target="_blank" href="'.$item2sub->link.'">'.$item2sub->name.'</a></li>';
+                                
+                                  if(!empty($item2sub->sub)){
+                                    foreach ($item2sub->sub as $item3sub) {
+                                      echo '<li data-id="'.$item3sub->id.'" data-idparent="'.$item3sub->id_parent.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bx bx-edit" onclick="editLink('.$item3sub->id.',\''.$item3sub->name.'\',\''.$item3sub->link.'\',\''.$item3sub->description.'\',\''.$item3sub->id_parent.'\',\''.$item3sub->weighty.'\');"></i> <a target="_blank" href="'.$item3sub->link.'">'.$item3sub->name.'</a></li>';
+                                    
+                                      if(!empty($item3sub->sub)){
+                                        foreach ($item3sub->sub as $item4sub) {
+                                          echo '<li data-id="'.$item4sub->id.'" data-idparent="'.$item4sub->id_parent.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bx bx-edit" onclick="editLink('.$item4sub->id.',\''.$item4sub->name.'\',\''.$item4sub->link.'\',\''.$item4sub->description.'\',\''.$item4sub->id_parent.'\',\''.$item4sub->weighty.'\');"></i> <a target="_blank" href="'.$item4sub->link.'">'.$item4sub->name.'</a></li>';
+                                        
+
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
                             }
                           }
                         }
@@ -428,6 +448,34 @@ function slist (target) {
                           foreach ($sub->sub as $itemsub) {
                             if($itemsub->weighty > $weightyMax) $weightyMax = $itemsub->weighty;
                             echo '<option value="'.$itemsub->id.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$itemsub->name.'</option>';
+
+                            if(!empty($itemsub->sub)){
+                              foreach ($itemsub->sub as $item1sub) {
+                                if($item1sub->weighty > $weightyMax) $weightyMax = $item1sub->weighty;
+                                echo '<option value="'.$item1sub->id.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$item1sub->name.'</option>';
+
+                                if(!empty($item1sub->sub)){
+                                  foreach ($item1sub->sub as $item2sub) {
+                                    if($item2sub->weighty > $weightyMax) $weightyMax = $item2sub->weighty;
+                                    echo '<option value="'.$item2sub->id.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$item2sub->name.'</option>';
+
+                                    if(!empty($item2sub->sub)){
+                                      foreach ($item2sub->sub as $item3sub) {
+                                        if($item3sub->weighty > $weightyMax) $weightyMax = $item3sub->weighty;
+                                        echo '<option value="'.$item3sub->id.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$item3sub->name.'</option>';
+
+                                        if(!empty($item3sub->sub)){
+                                          foreach ($item3sub->sub as $item4sub) {
+                                            if($item4sub->weighty > $weightyMax) $weightyMax = $item4sub->weighty;
+                                            echo '<option value="'.$item4sub->id.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$item4sub->name.'</option>';
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
                           }
                         }
                       }
