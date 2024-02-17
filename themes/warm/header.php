@@ -147,18 +147,24 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                                                     echo'<ul class="submenu dropdown-menu">';
                                                     foreach($sub->sub as $sub_child){
                                                         echo'
-                                                        <li><a class="dropdown-item" href="'.$sub_child->link.'">'.$sub_child->name.'</a></li>';
-                                                        
+                                                        <li><a class="dropdown-item" href="'.$sub_child->link.'">'.$sub_child->name.'</a>';
+                                                        if(!empty($sub_child->sub)){
+                                                        echo'<ul class="subchildmenu dropdown-menu">';
+                                                            foreach($sub_child->sub as $subchild){
+                                                                echo'   <li><a class="dropdown-item" href="'.$subchild->link.'">'.$subchild->name.'</a></li>';
+                                                            }
+                                                        echo'</ul>';
+
+                                                        }
+                                                        echo' </li>';
                                                     }
                                                     echo'</ul>';
                                                 }
 
-                                                echo'
-                                                </li>';
+                                                echo'</li>';
                                             }; 
                                             
-                                    echo'
-                                        </ul>
+                                    echo'</ul>
                                     </li>';
                                     }
                                     else{
