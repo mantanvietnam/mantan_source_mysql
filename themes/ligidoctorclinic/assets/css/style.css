@@ -2912,3 +2912,8 @@ textarea {
 .box-fix-tool-bar-contact {
     display: none;
 }
+
+.navbar-nav{
+    display: contents;
+    color: #00771b;
+}

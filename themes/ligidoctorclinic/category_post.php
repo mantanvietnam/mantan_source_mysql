@@ -8,14 +8,14 @@
 			<?php echo $category['name'] ?>
 		</h1>
 		<div class="row">
-			<?php if(!empty($listNotices)) {
-				foreach ($listNotices as $key => $value) { ?>
+			 <?php if (!empty($listPosts)) {
+                        foreach ($listPosts as $item) { ?>
 				<div class="col-6 col-sm-6 col-md-4 item-notice">
-					<a href="<?php echo @getUrlNotice($value['Notice']['id']) ?>">
-	  					<img src="<?php echo @$value['Notice']['image'] ?>" alt="">
-		  				<p class="title-item-notice"><?php echo @$value['Notice']['title'] ?></p>
+					<a href="/<?php echo @$item->slug ?>.html">
+	  					<img src="<?php echo @$item->image ?>" alt="">
+		  				<p class="title-item-notice"><?php echo @$item->title; ?></p>
 	  				</a>
-	  				<p><a class="item-notice-show-more" href="<?php echo @getUrlNotice($value['Notice']['id']) ?>">Xem thêm <i class="fas fa-long-arrow-alt-right"></i></a></p>
+	  				<p><a class="item-notice-show-more" href="/<?php echo @$item->slug ?>.html">Xem thêm <i class="fas fa-long-arrow-alt-right"></i></a></p>
 				</div>
 				<?php
 				}

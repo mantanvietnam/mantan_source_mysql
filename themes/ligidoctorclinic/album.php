@@ -6,19 +6,18 @@
 </style>
 
 <link rel="stylesheet" href="<?php echo $urlThemeActive;?>assets/lib/cube/unite-gallery.css">
-
 <div class="container" >
-	<h1 class="title-cate">Hình ảnh feedback của khách hàng</h1>
+	<h1 class="title-cate"><?php echo $album->title; ?></h1>
 	<div class="container wr-feedback">
 		<div id="gallery" style="display:none;">
 			<?php
 			$dem =0;
-			if (isset($infoAlbum['Album']['img'])) {
-				foreach ($infoAlbum['Album']['img'] as $img) {
+			if (!empty($album->listImages)) {
+				foreach($album->listImages as $img) {
 					$dem ++;
 					?>
-					<a href="<?php echo $img['src']; ?>" >
-						<img src="<?php echo $img['src']; ?>" alt="img"  style="display:none" >
+					<a href="<?php echo $img->image; ?>" >
+						<img src="<?php echo $img->image; ?>" alt="img"  style="display:none" >
 					</a>
 				<?php }
 			}?>

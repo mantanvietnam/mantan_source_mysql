@@ -64,45 +64,68 @@
     setVariable('mess', $mess);
 }
 
+function indexTheme()
+    {
+      global $modelAlbums;
+    global $modelAlbuminfos;
+      global $modelOptions;
+      global $modelNotices;
+      global $modelPosts;
+      global $controller;
 
+    global $modelCategories;
+    $modelProduct = $controller->loadModel('Products');
 
+    $modelCategorieProduct = $controller->loadModel('CategorieProducts');
 
+       $conditions = array('key_word' => 'settingHomeTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
 
-	function indexTheme()
-	{
-		global $modelAlbum;
-		global $modelOption;
-		global $modelNotice;
-		global $themeSetting;
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
 
-		global $urlHomes;
-		global $urlNow;
-		global $contactSite;
+    $order = array('id'=>'desc');
 
-		$conditions = array();
-		$listNoticeNew = $modelNotice->getOtherNotice(array((int)  $themeSetting['Option']['value']['idCateNotice']),10);
+    $album = $modelAlbums->find()->where(array('id'=>@$data_value['id_album']))->first();
 
-		$listBestSellingProduct= getTopBestSellingProduct(8);
-		$listNewProduct= getListProduct(8);
-		$listCategory= getListCategory();
+        if(!empty($album)){
+            $album->data = $modelAlbuminfos->find()->where(array('id_album'=>$album->id))->all()->toList();
+        }
 
+    $listService= $modelPosts->find()->limit(10)->where(array('idCategory'=>@$data_value['id_service']))->order($order)->all()->toList();
 
-		
-		
+    $conditionCategorieProduct = array('type' => 'category_product','status'=>'active');
+    $categorieProduct = $modelCategories->find()->limit(3)->where($conditionCategorieProduct)->all()->toList();
 
-		setVariable('listNoticeNew',$listNoticeNew);
-		setVariable('listBestSellingProduct',$listBestSellingProduct);
-		setVariable('listNewProduct',$listNewProduct);
-		setVariable('listCategory',$listCategory);
-		
-		
+    if(!empty($categorieProduct)){
+        foreach($categorieProduct as $key => $item){
+            $category_product = $modelCategorieProduct->find()->where(array('id_category'=>$item->id))->all()->toList();
+            $product = array();
+            if(!empty($category_product)){
+                foreach($category_product as $kc => $value){
+                    $pro = $modelProduct->find()->where(array('id'=>@$value->id_product))->first();  
+                    if(!empty($pro)){
+                       $product[] = $pro;
+                    }
+                }
+            }
+            $categorieProduct[$key]->product = $product;
+        }
+    }
 
-		// debug($listCategory);
+    $listpost= $modelPosts->find()->limit(10)->where(array('idCategory'=>@$data_value['id_post']))->order($order)->all()->toList();
 
+   
 
-		// setVariable('albumSlide',$albumSlide);
+    setVariable('setting', $data_value);
+    setVariable('listService', $listService);
+    setVariable('album',$album);
+    setVariable('categorieProduct',$categorieProduct);
+    setVariable('listpost',$listpost);
 
-	}
+    }
 
 	
 	
