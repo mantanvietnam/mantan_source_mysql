@@ -22,7 +22,7 @@
         <section id="section-opportunities">
             <div class="container">
                 <div class="title-section">
-                    <h1>International</h1>
+                    <h1>OPPORTUNITIES</h1>
                     <div class="title-divide-section"></div>
                 </div>
     
@@ -41,11 +41,11 @@
                         <div class="opportunity-box-inner">
                             <div class="opportunity-text">
                                 <div class="opportunity-date">
-                                    <p><?php echo date('d F Y', $item->time_create); ?></p>
+                                    <p><?php echo date('F Y', $item->time_create); ?></p>
                                 </div>
     
                                 <div class="opportunity-title">
-                                    <p>Request for Quotations: </p>
+                                    <p>TERM OF REFERENCE:  </p>
                                 </div>
     
     
