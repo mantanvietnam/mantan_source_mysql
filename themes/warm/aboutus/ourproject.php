@@ -71,11 +71,10 @@
                                         
                                             <?php 
                                                 if(!empty($data->slug_drive)){
-                                                echo '<button>
-                                                        <a target="_blank" href=" '.$data->slug_drive.' ">Download Factsheet</a>
-                                                    </button>';
+                                                    echo '<button>
+                                                            <a target="_blank" href="'.$data->slug_drive.'">Download Factsheet</a>
+                                                        </button>';
                                                 }
-
                                             ?>
                                  
                                     </div>

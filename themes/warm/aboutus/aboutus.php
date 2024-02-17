@@ -133,7 +133,13 @@
                                             </div>
                                         </div>
                                         <div class="opportunity-button">
-                                            <a href="<?php echo $item->slug_drive ?>"><img src="<?php echo $urlThemeActive;?>/asset/img/down-arrow_2989995.svg" alt=""></a>
+                                            <?php 
+                                            if(!empty($item->slug_drive)){
+                                            ?>
+                                                <a href="<?php echo $item->slug_drive ?>"><img src="<?php echo $urlThemeActive;?>/asset/img/down-arrow_2989995.svg" alt=""></a>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
