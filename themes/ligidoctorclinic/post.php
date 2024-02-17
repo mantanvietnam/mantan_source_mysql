@@ -1,9 +1,10 @@
 <?php
 getHeader();
+$setting = setting();
 global $themeSetting;
 ?>
 	<div class="container-fluid set-pd-0 banner">
-		<img src="<?php echo @$themeSetting['Option']['value']['bannerGT'] ?>" alt="">
+		<img src="<?php echo @$setting['banner1'] ?>" alt="">
 	</div>
 
 	<div class="container">

@@ -25,4 +25,10 @@ function setting(){
     }
     return $data_value;
 }
+
+function getCategorieProduct(){
+    global $modelCategories;
+    $conditionCategorieProduct = array('type' => 'category_product','status'=>'active');
+    return  $modelCategories->find()->where($conditionCategorieProduct)->all()->toList();
+}
 ?>
