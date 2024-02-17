@@ -148,6 +148,14 @@ function addMemberAdmin($input)
 				$data->birthday =  $dataSend['birthday'];
 				$data->facebook =  $dataSend['facebook'];
 				$data->verify =  $dataSend['verify'];
+                $data->linkedin = $dataSend['linkedin'];
+                $data->web = $dataSend['web'];
+                $data->instagram = $dataSend['instagram'];
+                $data->zalo = $dataSend['zalo'];
+                $data->twitter = $dataSend['twitter'];
+                $data->tiktok = $dataSend['tiktok'];
+                $data->youtube = $dataSend['youtube'];
+                $data->description = $dataSend['description'];
 
 				if(empty($_GET['id'])){
 					if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
@@ -178,4 +186,20 @@ function addMemberAdmin($input)
     setVariable('data', $data);
     setVariable('mess', $mess);
     setVariable('listSystem', $listSystem);
+}
+
+function deleteMemberAdmin($input){
+    global $controller;
+
+    $modelMembers = $controller->loadModel('Members');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelMembers->get($_GET['id']);
+        
+        if($data){
+            $modelMembers->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct');
 }

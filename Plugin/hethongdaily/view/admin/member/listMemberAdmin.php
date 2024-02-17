@@ -87,6 +87,7 @@
                 <th>Đại lý</th>
                 <th>Trạng thái</th>
                 <th>Sửa</th>
+                <th>Xóa</th>
               </tr>
             </thead>
             <tbody>
@@ -107,9 +108,16 @@
                               '.$item->email.'<br/>
                             </td>
                             <td>'.$item->status.'</td>
+                            
                             <td align="center">
                               <a class="dropdown-item" href="/plugins/admin/hethongdaily-view-admin-member-addMemberAdmin/?id='.$item->id.'">
                                 <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                              </a>
+                            </td>
+
+                            <td align="center">
+                              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/hethongdaily-view-admin-member-deleteMemberAdmin/?id='.$item->id.'">
+                                <i class="bx bx-trash me-1"></i>
                               </a>
                             </td>
                             

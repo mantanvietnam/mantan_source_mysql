@@ -377,6 +377,14 @@ function addMember($input)
 					$data->facebook = $dataSend['facebook'];
 					$data->create_agency = $dataSend['create_agency'];
 					$data->id_position = (int) $dataSend['id_position'];
+					$data->linkedin = $dataSend['linkedin'];
+					$data->web = $dataSend['web'];
+					$data->instagram = $dataSend['instagram'];
+					$data->zalo = $dataSend['zalo'];
+					$data->twitter = $dataSend['twitter'];
+					$data->tiktok = $dataSend['tiktok'];
+					$data->youtube = $dataSend['youtube'];
+					$data->description = $dataSend['description'];
 					
 
 					if(empty($_GET['id'])){
