@@ -41,7 +41,7 @@
 	$routesPlugin['requestCodeForgotPasswordAPI']= 'ezpics_api/view/requestCodeForgotPasswordAPI.php';
 	$routesPlugin['saveNewPassAPI']= 'ezpics_api/view/saveNewPassAPI.php';
 
-	// product
+	// product 
 	$routesPlugin['getNewProductAPI']= 'ezpics_api/view/getNewProductAPI.php';
 	$routesPlugin['getTrendProductAPI']= 'ezpics_api/view/getTrendProductAPI.php';
 	$routesPlugin['getMyProductAPI']= 'ezpics_api/view/getMyProductAPI.php';
@@ -54,6 +54,7 @@
 	$routesPlugin['getSizeProductAPI']= 'ezpics_api/view/getSizeProductAPI.php';
 	$routesPlugin['listTrendProductAPI']= 'ezpics_api/view/listTrendProductAPI.php';
 	$routesPlugin['updateProductAPI']= 'ezpics_api/view/updateProductAPI.php';
+	$routesPlugin['clonedProductAPI']= 'ezpics_api/view/clonedProductAPI.php';
 	
 	// sửa thiết kế 
 	$routesPlugin['edit-design']= 'ezpics_api/view/home/editDesign.php';

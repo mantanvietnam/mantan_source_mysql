@@ -602,9 +602,6 @@ function updateProductAPI($input)
 	return 	$return;
 }
 
-
-
-
 function buyProductAPI($input)
 {
 	global $isRequestPost;
@@ -1638,5 +1635,101 @@ function listProductSeriesAPI($input)
 
 
 	return $return;
+}
+
+function clonedProductAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelMember = $controller->loadModel('Members');
+	$dataSend = $input['request']->getData();
+	
+	$return = array('code'=>0,
+		'messages'=>array(array('text'=>''))
+	);
+	
+	if($isRequestPost){
+		if(!empty($dataSend['id']) && !empty($dataSend['token'])){
+			$infoUser = getMemberByToken($dataSend['token']);
+
+			if(!empty($infoUser)){
+				
+				$product = $modelProduct->find()->where(['id'=>(int) $dataSend['id'],'user_id'=>(int)$infoUser->id])->first();
+				if(!empty($product)){
+
+			                    // tạo mẫu thiết kế mới
+					$newproduct = $modelProduct->newEmptyEntity();
+
+					$newproduct->name ='Nhân bản ('.$product->name.')';
+					$newproduct->slug = $product->slug;
+					$newproduct->price =  $product->price;
+					$newproduct->sale_price = 0;
+					$newproduct->content = $product->content;
+			                    //$newproduct->desc = $product->desc;
+					$newproduct->sale = $product->sale;
+					$newproduct->related_packages = $product->related_packages;
+					$newproduct->status = 0;
+					$newproduct->type = $product->type;
+					$newproduct->sold = 0;
+					$newproduct->image = $product->image;
+					$newproduct->thumn = $product->thumn;
+					$newproduct->thumbnail = '';
+					$newproduct->user_id = $product->user_id;
+					$newproduct->product_id = $product->id;
+					$newproduct->note_admin = $product->note_admin;
+					$newproduct->created_at = date('Y-m-d H:i:s');
+					$newproduct->views = $product->views;
+					$newproduct->favorites = $product->favorites;
+					$newproduct->category_id = $product->category_id;
+					$newproduct->width = $product->width;
+					$newproduct->height = $product->height;
+					$newproduct->display = $product->display;
+
+					$modelProduct->save($newproduct);
+
+			                    // sao chép layer
+					$detail = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+					if(!empty($detail)){
+						foreach($detail as $d){
+							$newLayer = $modelProductDetail->newEmptyEntity();	
+
+							$newLayer->products_id = $newproduct->id;
+							$newLayer->name = $d->name;
+							$newLayer->content = $d->content;
+							$newLayer->sort = $d->sort;
+
+							$newLayer->created_at = date('Y-m-d H:i:s');
+
+							$modelProductDetail->save($newLayer);
+						}
+					}
+
+					$return = array('code'=>1,
+						'data'=> $newproduct,
+						'messages'=>array(array('text'=>'Bạn nhân bản Mẫu thiết kế thành công'))
+					);
+
+				}else{
+					$return = array('code'=>4,
+						'messages'=>array(array('text'=>'Mẫu thiết kế bán không tồn tại!'))	
+					);
+				}	
+			}else{
+				$return = array('code'=>3,
+					'messages'=>array(array('text'=>'Bạn chưa đằng nhập!'))
+				);
+			}
+		}else{
+			$return = array('code'=>2,
+				'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+			);
+		}
+	}
+	return 	$return;
 }
 ?>
