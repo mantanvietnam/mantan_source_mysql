@@ -127,6 +127,7 @@ function account($input)
 	global $metaTitleMantan;
 	global $isRequestPost;
 	global $modelCategories;
+	global $urlHomes;
 
 	$metaTitleMantan = 'Đổi thông tin tài khoản';
 
