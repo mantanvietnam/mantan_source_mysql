@@ -1,0 +1,12 @@
+*.log
+.idea
+.DS_store
+node_modules
+cache/*
+dist/*
+
+# Jekyll
+_site
+.sass-cache
+.jekyll-metadata
+docs/vendor

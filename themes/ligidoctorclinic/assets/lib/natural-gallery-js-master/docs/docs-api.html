@@ -1,0 +1,326 @@
+---
+layout: default
+---
+
+{% include photoswipe.html %} {% include icons.html %}
+
+<div class="padding-v markdown">
+
+    <div class="row">
+        <div class="container-1000px">
+            {% include brand.html %}
+            <h1>Api and events</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container-1000px">
+            <h2 id="interactions">Interactions</h2>
+            <p>Each item of the gallery can have two interactions: </p>
+            <ul>
+                <li>Link or activation: if image has a link or if <a href="docs-api.html#activable">options.activable</a> is set to true</li>
+                <li>Lightbox zoom when gallery has option.lightbox set to true</li>
+            </ul>
+            <p>If only one of those interactions is available, the whole image and/or button has the same hover effect and the same click
+               action.</p>
+            <p>If both are available, hover and click is distinct between image and button.</p>
+            <p>Depending on the situation, the zoomable element may be different. That's why to customize the zoom effect you need bellow
+               css selectors.</p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="container-1000px">
+            <h2>Public API</h2>
+            <table>
+                <tr>
+                    <th>Property / Getter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Docs</th>
+                </tr>
+                <tr>
+                    <td>setItems(models[])</td>
+                    <td>void</td>
+                    <td>Resets the collection and inits a new one</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>addItems(models[])</td>
+                    <td>void</td>
+                    <td>Add items to current collection</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>addEventListener(string, fn)</td>
+                    <td></td>
+                    <td>Subscribe to gallery events</td>
+                    <td><a href="#events">Docs</a></td>
+                </tr>
+                <tr>
+                    <td>clear()</td>
+                    <td>void</td>
+                    <td>Empty the gallery and emits a pagination event</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>collectionLength</td>
+                    <td>number</td>
+                    <td>Size of full collection (including not yet displayed items)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>visibleCollectionLength</td>
+                    <td>number</td>
+                    <td>Size of collection visible in the DOM</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>selectVisibleItems()</td>
+                    <td>void</td>
+                    <td>Select all items visible in the DOM</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>unselectAllItems()</td>
+                    <td>void</td>
+                    <td>Unselect all selected items</td>
+                    <td></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row" id="events">
+        <div class="container-1000px">
+            <h2>Events</h2>
+            <p>The gallery emits some events that allows you to implement rich interactions. You can listen to them as follow: </p>
+        </div>
+
+{% highlight javascript %}
+
+var elementRef = document.getElementById('gallery');
+
+// The gallery accepts a literal as second argument for options
+var gallery = new NaturalGallery.Natural(elementRef, options);
+
+// Recommended: listen to gallery returned object
+gallery.addEventListener(eventName, function(ev) {
+    // Access to data provided by gallery in event by calling detail attribute
+    var eventData = ev.detail;
+});
+
+{% endhighlight %}
+
+        <div class="container-1000px">
+            <h3>Events summary</h3>
+            <table>
+                <tr>
+                    <th>Event name</th>
+                    <th>Description</th>
+                    <th>Data format</th>
+                    <th>Docs</th>
+                </tr>
+                <tr>
+                    <td>pagination</td>
+                    <td>Emitted when the gallery is ready to get the next items. Contains the limits of list for next items.</td>
+                    <td>{% highlight javascript %}{offset: number, limit: number}{% endhighlight %}</td>
+                    <td><a href="#pagination">Docs</a></td>
+                </tr>
+                <tr>
+                    <td>activate</td>
+                    <td>Emitted when an item has been clicked</td>
+                    <td>{% highlight javascript %}{model: Object, clickEvent: MouseEvent}{% endhighlight %}</td>
+                    <td><a href="#activable">Docs</a></td>
+                </tr>
+                <tr>
+                    <td>select</td>
+                    <td>Emitted when an item is (un)selected. Contains the list of selected models</td>
+                    <td>{% highlight javascript %}model[]{% endhighlight %}</td>
+                    <td><a href="#select">Docs</a></td>
+                </tr>
+                <tr>
+                    <td>zoom</td>
+                    <td>Notifies the item and PhotoSwipe object when it's opened.</td>
+                    <td>{% highlight javascript %}{item: Object, photoswipe: PhotoSwipeObject}{% endhighlight %}</td>
+                    <td><a href="#zoom">Docs </a></td>
+                </tr>
+                <tr>
+                    <td>item-added-to-dom</td>
+                    <td>Emitted when the item has been added to DOM as empty rectangle, but image has not been lazy loaded yet</td>
+                    <td>{% highlight javascript %}model{% endhighlight %}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>item-displayed</td>
+                    <td>Emitted when the image has lazy loaded and is visible</td>
+                    <td>{% highlight javascript %}model{% endhighlight %}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container-1000px">
+            <h3 id="pagination">pagination</h3>
+            <p>The gallery tells you what it needs !</p>
+            <p>It uses the options to estimate the number of items to display in the viewport and then notifies you.</p>
+            <p>This option is only useful if your gallery is binded with a server. The pagination events allows you to display a big collection by chunks. And it computes the chunks for you.</p>
+            <p>The event contains a start index and a number of items that are required by the gallery to work smoothly.</p>
+            <p>After each item is displayed into the DOM, the gallery asks an equivalent amount of items to add in the end of the collection. It behaves like a buffer to provide a fluid scrolling without interruptions due to server loading next query.</p>
+            <p>This cause the following scenario: </p>
+            <ol>
+                <li>The gallery init and uses configuration to estimate the number of items to display. For example: 3 rows can be visible, and it estimates a total of 20 items.</li>
+                <li>The gallery emits a pagination event {offset: 0, limit: 20}</li>
+                <li>When received, the items are added to the DOM, but due to the variable nature of image formats (for Natural and Masonry), all items may not be added. Those who are not go to a buffer.</li>
+                <li>To fill the 3 rows the gallery add 15 items to the dom and then emits a new pagination event {offset: 20, limit: 15}.</li>
+                <li>Those new 15 items are not added to DOM because user has not scrolled yet. They all go to the buffer and the gallery don't emits any new pagination event.</li>
+                <li>The user scrolls slowly, 5 new items are added to next row. The gallery will emit a pagination event with {offset:35, limit: 5} and so on.</li>
+            </ol>
+            <p>If the user scrolls faster, the pagination event is debounced to prevent you to spam your server. After a short inactivity
+               (500ms) a new pagination event is emitted. It groups the offset and limits that would be produced by multiple
+               notifications.</p>
+            <p>Due to the variable ratios of items in Natural and Masonry formats, the pagination is only an estimation. Each row can have a
+               different number of images. For that reason the builtin pagination event is not compatible with a pagination of type PageSize
+               and PageIndex.</p>
+
+        </div>
+
+{% highlight javascript %}
+gallery.addEventListener('pagination', function(ev) {
+    console.log(ev.detail); // {offset: 0, limit: 23}
+});
+{% endhighlight %}
+
+    </div>
+
+    <div class="row">
+        <div class="container-1000px">
+            <h3 id="activable">activate</h3>
+            <p>Emits when an item has been clicked for something else than opening the lightbox.</p>
+
+            <p>If the lightbox option is set to true, there are two scenarios where the activate event is emitted :</p>
+            <ul>
+                <li>If items have a link, a button appears in place of the "raw" label. Clicking on the button emits an activate event.</li>
+                <li>If items don't have a link, but the gallery option.activable is set to true, the label becomes a button and a click on it emits an activate event.</li>
+            </ul>
+            <p>If the lightbox option is set to false, these two scenarios stay valid, but the whole image area is considered as the button and emits the activate event.</p>
+        </div>
+
+{% highlight javascript %}
+gallery.addEventListener('activate', function(ev) {
+    console.log(ev.detail); // {model: Object, clickEvent: MouseEvent}
+
+    // Prevents to redirect to destination page in case clicked element is an <a href />
+    ev.detail.clickEvent.preventDefault();
+});
+{% endhighlight %}
+    </div>
+
+    <div class="row">
+        <div class="container-1000px">
+            <h3 id="select">select</h3>
+            <p>Emits a notification with an array that contains the list of the currently selected items.</p>
+            <p>Items in the list are the same as those provided as input.</p>
+        </div>
+
+{% highlight javascript %}
+gallery.addEventListener('select', function(ev) {
+    console.log(ev.detail); // [Model1, Model2, Model3]
+});
+{% endhighlight %}
+
+    </div>
+    <div class="row">
+        <div class="container-1000px">
+            <h3 id="zoom">zoom</h3>
+            <p>Emits a notification with the target item and PhotoSwipe object when the lightbox is opened after a click.</p>
+            <p>See more about <a href="http://photoswipe.com/documentation/api.html">PhotoSwipe API</a>.</p>
+        </div>
+
+{% highlight javascript %}
+gallery.addEventListener('zoom', function(ev) {
+    console.log(ev.detail); // {item: Object, photoswipe: PhotoSwipeObject}
+});
+{% endhighlight %}
+
+    </div>
+
+    <div class="row">
+        <div class="container-1000px">
+            <h2 id="test-events">Test events by yourself</h2>
+            <p>Open your console and click everywhere !</p>
+            <p>Bellow there are 4 differently configured galleries, with one item each. That's why :</p>
+            <ul>
+                <li>Select event only contains a single item</li>
+                <li>Only the first pagination event from the first gallery is emitted. If you want to test pagination in infinite scroll condition, <a href="natural.html">check the full collections pages</a>.</li>
+            </ul>
+        </div>
+        <div class="container-1000px layout-row small-gap" id="demo-events">
+            <div style="width: 50%;" id="gallery-api-1"></div>
+            <div style="width: 50%;" id="gallery-api-2"></div>
+        </div>
+        <div class="container-1000px layout-row small-gap">
+            <div style="width: 50%;" id="gallery-api-3"></div>
+            <div style="width: 50%;" id="gallery-api-4"></div>
+        </div>
+        <script>
+            window.addEventListener('load', function() {
+                var photoswipeRef = document.getElementsByClassName('pswp')[0];
+
+                var galleryApi1Ref = document.getElementById('gallery-api-1');
+                var galleryApi1 = new NaturalGallery.Square(galleryApi1Ref, {gap:20, itemsPerRow: 1, showLabels: 'always', lightbox: false, selectable: true}, photoswipeRef);
+                galleryApi1.init();
+                var imagesZoom1 = {% include sample.json %}.slice(0, 1);
+                imagesZoom1[0].title = 'Image link and no lightbox = whole image click should emit activate event';
+                imagesZoom1[0].link = '#demo-events';
+                galleryApi1.setItems(imagesZoom1);
+
+                var galleryApi2Ref = document.getElementById('gallery-api-2');
+                var galleryApi2 = new NaturalGallery.Square(galleryApi2Ref, {gap:20, itemsPerRow: 1, showLabels: 'always', lightbox: true, selectable: true}, photoswipeRef);
+                galleryApi2.init();
+                var imagesZoom2 = {% include sample.json %}.slice(0, 1);
+                imagesZoom2[0].title = 'Image link and  lightbox = button click should emit activate, image click should emit zoom';
+                imagesZoom2[0].link = '#demo-events';
+                galleryApi2.setItems(imagesZoom2);
+
+                var galleryApi3Ref = document.getElementById('gallery-api-3');
+                var galleryApi3 = new NaturalGallery.Square(galleryApi3Ref, {gap:20, itemsPerRow: 1, showLabels: 'always', lightbox: false, activable: true, selectable: true}, photoswipeRef);
+                galleryApi3.init();
+                var imagesZoom3 = {% include sample.json %}.slice(0, 1);
+                imagesZoom3[0].title = 'Without image link and no lightbox, but option.activable = true';
+                galleryApi3.setItems(imagesZoom3);
+
+                var galleryApi4Ref = document.getElementById('gallery-api-4');
+                var galleryApi4 = new NaturalGallery.Square(galleryApi4Ref, {gap:20, itemsPerRow: 1, showLabels: 'always', lightbox: true, activable: true, selectable: true}, photoswipeRef);
+                galleryApi4.init();
+                var imagesZoom4 = {% include sample.json %}.slice(0, 1);
+                imagesZoom4[0].title = 'Without image link but with lightbox and option.activable = true';
+                galleryApi4.setItems(imagesZoom4);
+
+                galleryApi1.addEventListener('pagination', function(ev) {console.log('pagination', ev.detail)});
+
+                galleryApi1.addEventListener('activate', function(ev) {console.log('activate', ev.detail); ev.detail.clickEvent.preventDefault()});
+                galleryApi1.addEventListener('zoom', function(ev) {console.log('zoom', ev.detail)});
+                galleryApi1.addEventListener('select', function(ev) {console.log('select', ev.detail)});
+
+                galleryApi2.addEventListener('activate', function(ev) {console.log('activate', ev.detail); ev.detail.clickEvent.preventDefault()});
+                galleryApi2.addEventListener('zoom', function(ev) {console.log('zoom', ev.detail)});
+                galleryApi2.addEventListener('select', function(ev) {console.log('select', ev.detail)});
+
+                galleryApi3.addEventListener('activate', function(ev) {console.log('activate', ev.detail); ev.detail.clickEvent.preventDefault()});
+                galleryApi3.addEventListener('zoom', function(ev) {console.log('zoom', ev.detail)});
+                galleryApi3.addEventListener('select', function(ev) {console.log('select', ev.detail)});
+
+                galleryApi4.addEventListener('activate', function(ev) {console.log('activate', ev.detail); ev.detail.clickEvent.preventDefault()});
+                galleryApi4.addEventListener('zoom', function(ev) {console.log('zoom', ev.detail)});
+                galleryApi4.addEventListener('select', function(ev) {console.log('select', ev.detail)});
+            });
+        </script>
+
+    </div>
+
+
+</div>

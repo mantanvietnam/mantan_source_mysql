@@ -1,0 +1,93 @@
+{
+    "name": "@ecodev/natural-gallery-js",
+    "version": "8.0.1",
+    "description": "A lazy load, infinite scroll, natural and masonry layout gallery",
+    "author": "Samuel Baptista <samuel.baptista@ecodev.ch>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/ecodev/natural-gallery-js"
+    },
+    "bugs": {
+        "url": "https://github.com/Ecodev/natural-gallery-js/issues"
+    },
+    "homepage": "https://github.com/Ecodev/natural-gallery-js#readme",
+    "type": "module",
+    "exports": "./natural-gallery-esm.js",
+    "es2015": "./natural-gallery-esm.js",
+    "browser": "./natural-gallery.js",
+    "typings": "./index.d.ts",
+    "engines": {
+        "node": "^14.13.1 || >=16.0.0"
+    },
+    "scripts": {
+        "dev": "concurrently --kill-others \"webpack --watch\" \"DOCS=1 webpack --watch\" \"yarn run dev-docs\"",
+        "dev-docs": "cd docs; bundle install; bundle exec jekyll serve --livereload",
+        "build-lib": "webpack; DOCS=1 webpack",
+        "release": "yarn build-lib; cd dist; yarn publish --access public",
+        "test": "jest --runInBand --detectOpenHandles",
+        "llink": "cd dist && (yarn unlink ; yarn link)",
+        "serve": "node testing/server.js",
+        "lint": "eslint ."
+    },
+    "keywords": [
+        "gallery",
+        "image",
+        "images",
+        "slideshow",
+        "lightbox",
+        "zoom",
+        "list",
+        "autoload",
+        "lazyload",
+        "infinite",
+        "scroll",
+        "infinite scroll"
+    ],
+    "dependencies": {
+        "lodash-es": "^4.17.21"
+    },
+    "peerDependencies": {
+        "photoswipe": "^4.1.3",
+        "@types/photoswipe": "^4.1.1"
+    },
+    "devDependencies": {
+        "@types/expect-puppeteer": "^4.4.5",
+        "@types/jest": "^26.0.23",
+        "@types/jest-environment-puppeteer": "^4.4.1",
+        "@types/lodash-es": "^4.17.4",
+        "@types/photoswipe": "^4.1.1",
+        "@types/puppeteer": "^5.4.3",
+        "@typescript-eslint/eslint-plugin": "^4.23.0",
+        "@typescript-eslint/parser": "^4.23.0",
+        "autoprefixer": "^10.2.5",
+        "concurrently": "^6.1.0",
+        "copy-webpack-plugin": "^8.1.1",
+        "css-loader": "^5.2.4",
+        "css-minimizer-webpack-plugin": "^2.0.0",
+        "domino": "^2.1.6",
+        "eslint": "^7.26.0",
+        "eslint-plugin-jsdoc": "^34.0.2",
+        "express": "^4.17.1",
+        "file-loader": "^6.2.0",
+        "identity-obj-proxy": "^3.0.0",
+        "image-webpack-loader": "^7.0.1",
+        "jest": "^26.6.3",
+        "jest-puppeteer": "^5.0.3",
+        "mini-css-extract-plugin": "^1.6.0",
+        "node-sass": "^6.0.0",
+        "photoswipe": "^4.1.3",
+        "postcss": "^8.2.15",
+        "postcss-loader": "^5.2.0",
+        "puppeteer": "^9.1.1",
+        "sass-loader": "^11.1.0",
+        "source-map-loader": "^2.0.1",
+        "terser-webpack-plugin": "^5.1.1",
+        "ts-jest": "^26.5.6",
+        "ts-loader": "^9.1.2",
+        "typescript": "~4.2.4",
+        "webpack": "^5.37.0",
+        "webpack-cli": "^4.7.0",
+        "webpack-dev-middleware": "^4.2.0"
+    }
+}

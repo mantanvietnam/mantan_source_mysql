@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>jQuery Justified Plugin Example</title>
+      <!-- Custom Style -->
+      <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+      <link href="dist/css/justified.css" rel="stylesheet">
+      <style>
+      h1 { margin:150px auto 50px auto; text-align:center;}
+      </style>
+    </head>
+    
+    <body>
+    <div id="jquery-script-menu">
+<div class="jquery-script-center">
+<ul>
+<li><a href="http://www.jqueryscript.net/gallery/jQuery-Plugin-For-Responsive-Justified-Image-Gallery-Justified.html">Download This Plugin</a></li>
+<li><a href="http://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
+</ul>
+<div class="jquery-script-ads"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+        <h1>jQuery Justified Plugin Example</h1>
+      <div id="grid-container">
+        <a href="" class="grid-item" ><img src="https://unsplash.it/1200/853?random"></a>
+        <a href="" class="grid-item" ><img src="https://unsplash.it/800/600?random"></a>
+        <a href="" class="grid-item" ><img src="https://unsplash.it/1800/1200?random"></a>
+        <img class="grid-item" src="https://unsplash.it/600/880?random">
+        <img class="grid-item" src="https://unsplash.it/1200/600?random">
+        <img class="grid-item" src="https://unsplash.it/1200/800?random">
+        <img class="grid-item" src="https://unsplash.it/800/1200?random">
+        <img class="grid-item" src="https://unsplash.it/800/1600?random">
+        <img class="grid-item" src="https://unsplash.it/600/1200?random">
+        <img class="grid-item" src="https://unsplash.it/800/450?random">
+        <img class="grid-item" src="https://unsplash.it/1000/800?random">
+        <img class="grid-item" src="https://unsplash.it/1000/650?random">
+        <img class="grid-item" src="https://unsplash.it/650/600?random">
+      </div>
+      
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+      <script src="imagesloaded.pkgd.min.js"></script>
+      <script src="dist/js/justified.min.js"></script>
+      <script>
+        var parameters = {
+          gridContainer: '#grid-container',
+          gridItems: '.grid-item',
+          enableImagesLoaded: true
+        };
+        var grid = new justifiedGrid(parameters);
+		$('body').imagesLoaded( function() {
+   grid.initGrid();
+});
+       
+      </script>
+    </body><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</html>

@@ -1,0 +1,125 @@
+---
+layout: default
+---
+
+<div class="padding-v markdown">
+
+    <div class="row">
+        <div class="container-1000px">
+            {% include brand.html %}
+            <h1>Getting started</h1>
+        </div>
+    </div>
+
+    <div class="row" id="assets">
+        <div class="container-1000px">
+            <h2>1. Include basic assets</h2>
+            <p>The minimal imports below don't include dependencies. The zoom in lightbox for example requires PhotoSwipe and needs either
+               to be included by yourself or by including the full version of natural gallery assets.
+               See the <a href="docs-options.html#lightbox">lighbox section</a> for more details.
+            </p>
+        </div>
+
+{% highlight html %}
+<link rel="stylesheet" href="assets/natural-gallery-js/natural-gallery.css">
+<link rel="stylesheet" href="assets/natural-gallery-js/themes/natural.css">
+<script src="assets/natural-gallery-js/natural-gallery.js" defer></script>
+{% endhighlight %}
+    </div>
+
+    <div class="row">
+        <div class="container-1000px">
+            <h2>2. Include placeholder markup</h2>
+            <p>The minimal HTML below doesn't include the lightbox template.
+               See the <a href="docs-options.html#lightbox">lighbox section</a> for more details.
+            </p>
+        </div>
+
+        {% highlight html %}
+            <div id="body" style="overflow:auto; min-height:100%; height:100%;">
+                <div id="gallery"></div>
+            </div>
+        {% endhighlight %}
+    </div>
+
+    <div class="row">
+        <div class="container-1000px">
+            <h2>3. Code initialisation</h2>
+            <p>In vanilla javascript (ES5) be sure to execute gallery initialization after the page is ready and assets are loaded.</p>
+        </div>
+
+{% highlight javascript %}
+window.addEventListener('load', function() {
+
+    // Get reference of gallery container
+    var elementRef = document.getElementById('gallery');
+
+    // Init gallery according to wanted format
+    var gallery = new NaturalGallery.Natural(elementRef); // or
+    var gallery = new NaturalGallery.Masonry(elementRef); // or
+    var gallery = new NaturalGallery.Square(elementRef); // or
+    var gallery = new NaturalGallery.ResponsiveSquare(elementRef);
+
+    // Init the gallery
+    gallery.init();
+})
+{% endhighlight %}
+    </div>
+
+
+    <div class="row">
+        <div class="container-1000px">
+            <h2>4. Add images</h2>
+            <p>All galleries share some options, but they have specific options too. You can find them on their dedicated page.</p>
+        </div>
+
+{% highlight javascript %}
+
+// Convert your format into natural-gallery's format.
+var items = [
+     {
+        thumbnailSrc: string, // link to thumbnail image
+        enlargedSrc: string, // link to enlarged image
+        enlargedWidth: number,
+        enlargedHeight: number,
+        title: string, // Title for the label or button
+        link: string, // Link, transforms label into button
+        linkTarget: string // _blank | _top | _self | _parent
+        color: string // HEX color for background before image display
+        backgroundPosition: string // Any value compatible with css background-position. Default: center
+        backgroundSize: string // Any value compatible with css background-size. Default : cover
+    }
+];
+
+// Set the entire collection
+gallery.setItems(items);
+
+// Increment an existing collection.
+gallery.addItems(itemsSet1); // the first call as the same effect as setItems()
+gallery.addItems(itemsSet2);
+gallery.addItems(itemsSet3);
+{% endhighlight %}
+
+    </div>
+
+    <div class="row">
+        <div class="container-1000px">
+            <h2>Enjoy</h2>
+            <p>You can continue with
+                <a class="button raised" href="docs-options.html" style="position:relative;top:5px">
+                    {%- include icons/options.svg -%} options
+                </a>
+               ,
+                <a class="button raised" href="docs-api.html" style="position:relative;top:5px">
+                    {%- include icons/code.svg -%} api
+                </a>
+                and
+                <a class="button raised" href="docs-api.html" style="position:relative;top:5px">
+                    {%- include icons/brush.svg -%} theming
+                </a>
+               .
+            </p>
+        </div>
+    </div>
+
+</div>

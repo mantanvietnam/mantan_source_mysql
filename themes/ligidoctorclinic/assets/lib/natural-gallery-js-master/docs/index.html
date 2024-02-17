@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<script>
+    var options = {
+        rowHeight: 400,
+        lightbox: true,
+        ratioLimit: {
+            min: .5,
+            max: 2
+        }
+    };
+
+    function getGallery(galleryElement, photoswipeElement, scrollableElement) {
+        return new NaturalGallery.Natural(galleryElement, options, photoswipeElement, scrollableElement)
+    }
+
+</script>
+
+<script src="assets/main.js" defer></script>
+
+{%- include gallery.html -%}

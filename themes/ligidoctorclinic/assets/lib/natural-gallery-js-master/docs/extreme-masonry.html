@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<script>
+    var options = {
+        columnWidth: 300,
+        gap: 5,
+        lightbox: true,
+        ratioLimit: {
+            min: .5,
+            max: 2
+        }
+    };
+
+    function getGallery(galleryElement, photoswipeElement, scrollableElement) {
+        return new NaturalGallery.Masonry(galleryElement, options, photoswipeElement, scrollableElement)
+    }
+
+</script>
+
+<script src="assets/main-extreme.js" defer></script>
+
+{%- include gallery.html -%}

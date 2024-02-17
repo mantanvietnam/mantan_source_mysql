@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+
+    {%- include head.html -%}
+
+    <body class="layout-column">
+
+        <div id="loadingBar"></div>
+
+        <div class="flex layout-row stretch">
+            {%- include menu.html -%}
+            <main aria-label="Content" class="flex" id="body">
+                {{ content }}
+            </main>
+        </div>
+
+    </body>
+
+</html>

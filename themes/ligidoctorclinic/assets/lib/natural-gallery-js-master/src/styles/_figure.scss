@@ -1,0 +1,117 @@
+.natural-gallery-js {
+
+    .figure {
+        left: 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        float: left;
+        overflow: hidden;
+        margin: 0;
+        transition: 1s background-color;
+
+        &:hover {
+            .title.hover, .title.hover, .selectBtn {
+                transform: translateY(0%);
+            }
+        }
+
+        &.zoomable, .zoomable {
+            cursor: zoom-in;
+        }
+
+        &.activable, .activable {
+            cursor: pointer;
+        }
+
+        &.loaded > .image {
+            opacity: 1;
+            transition: 1s ease-out opacity, 1s ease-out transform, .2s ease-out margin;
+        }
+
+        &.selected {
+            .selectBtn {
+                transform: translateY(0%);
+                top: 0;
+                left: 0;
+            }
+        }
+
+        &.zoomable:hover .image,
+        .image.zoomable:hover {
+            transform: rotate(1deg) scale(1.2);
+        }
+
+        .image {
+            display: block;
+            position: relative;
+            margin: 0;
+            width: auto;
+            height: auto;
+            flex: 1;
+            z-index: 100;
+            opacity: 0;
+            background-repeat: no-repeat;
+            background-position: center center;
+            transition: .2s ease all;
+        }
+
+        .selectBtn {
+            position: absolute;
+            z-index: 991;
+            top: 0;
+            left: 0;
+            padding: 10px;
+            width: 48px;
+            height: 48px;
+            transition: .2s ease all;
+            transform: translateY(calc(-100% - 15px));
+            color: rgba(255, 255, 255, 0.9);
+            fill: currentColor;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.6);
+            svg {
+                width: 28px;
+            }
+        }
+
+        .title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1100;
+            background: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            line-height: 1.7em;
+            font-weight: normal;
+            padding: 10px;
+            transition: .2s ease all;
+            overflow: hidden;
+            white-space: normal;
+
+            // Status : Mouse out
+            &.hover {
+                padding: 10px;
+                // + the margin of &[href]
+                transform: translateY(calc(100% + 12px));
+            }
+        }
+
+        .link {
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .button {
+            display: block;
+            margin: 10px;
+            padding: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+        }
+    }
+}
