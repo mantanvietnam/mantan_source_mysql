@@ -623,13 +623,13 @@ function addOpportunitiesAdmin($input)
 
         if(!empty($dataSend['name'])){
 
-            $today= getdate();
+           /* $today= getdate();
             $datePost = explode('/', $dataSend['time_create']);
                 
             if(!empty($datePost))
             {
                 $time= mktime($today['hours'], $today['minutes'], $today['seconds'], $datePost[1], $datePost[0], $datePost[2]);
-            }
+            }*/
             // tạo dữ liệu save
             $data->name = $dataSend['name'];
             $data->image = $dataSend['image'];
@@ -808,13 +808,13 @@ function addEventAdmin($input)
 
         if(!empty($dataSend['name'])){
 
-            $today= getdate();
+            /*$today= getdate();
             $datePost = explode('/', $dataSend['time_create']);
                 
             if(!empty($datePost))
             {
                 $time= mktime($today['hours'], $today['minutes'], $today['seconds'], $datePost[1], $datePost[0], $datePost[2]);
-            }
+            }*/
             // tạo dữ liệu save
             $data->name = $dataSend['name'];
             $data->moth = (int)$dataSend['moth'];
