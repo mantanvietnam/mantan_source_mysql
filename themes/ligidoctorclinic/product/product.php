@@ -3,28 +3,28 @@ global $urlHomes;
 ?>
 	<div class="container content-detail-product">
 		<div class="path path-detail-product">
-			<a href="/">Trang chủ</a> / <a href="<?php echo $urlHomes ?>allProduct">Cửa hàng</a> / <span><?php echo @$tmpVariable['data']['Product']['title'] ?></span>
+			<a href="/">Trang chủ</a> / <a href="/allProduct">Cửa hàng</a> / <span><?php echo @$product->title; ?></span>
 		</div>
 		<div class="row row-mobile-reverse">
 			<div class="col-12 col-sm-12 col-md-12 col-lg-6">
-				<h1 class="title-product-detail"><?php echo @$tmpVariable['data']['Product']['title'] ?></h1>
-				<div class="star-product">
+				<h1 class="title-product-detail"><?php echo @$product->title; ?></h1>
+				<!-- <div class="star-product">
 					<img src="<?php echo $urlThemeActive ?>assets/images/StarProduct.png" alt="">
 					<img src="<?php echo $urlThemeActive ?>assets/images/StarProduct.png" alt="">
 					<img src="<?php echo $urlThemeActive ?>assets/images/StarProduct.png" alt="">
 					<img src="<?php echo $urlThemeActive ?>assets/images/StarProduct.png" alt="">
 					<img src="<?php echo $urlThemeActive ?>assets/images/StarProduct.png" alt="">
-				</div>
+				</div> -->
 				<div class="price-product-detail">
-					<?php echo @number_format($tmpVariable['data']['Product']['price'],0,',','.'); ?><span> VNĐ</span>
+					<?php echo @number_format(@$product->price); ?><span> VNĐ</span>
 				</div>
 				<div class="quanlity">
 					<div class="box-quanlyti">
-						<span onclick="decreaseCount(event,this)">-</span>
-						<input type="number" min="1" value="1" id="numberOrder">
-						<span onclick="increaseCount(event,this)">+</span>
+						<span onclick="minusQuantity()">-</span>
+						<input type="quantity_buy" min="1" value="1" id="quantity_buy">
+						<span onclick="plusQuantity()">+</span>
 					</div>
-					<button type="button" onclick="addToCart(this,'<?php echo @$tmpVariable['data']['Product']['id'] ?>','numberOrder')">Thêm vào giỏ hàng <span class="messAdd">Đã thêm vào giỏ</span></button>
+					<button type="button" onclick="addProductCart(<?php echo $product->id;?>,'true')">Thêm vào giỏ hàng <span class="messAdd">Đã thêm vào giỏ</span></button>
 				</div>
 				<div class="wr-info-product">
 					<div class="nav nav-tabs " role="tablist">
@@ -34,34 +34,54 @@ global $urlHomes;
 					</div>
 					<div class="tab-content" role="tablist">
 						<div id="tab-description" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tab-description1">
-							<?php echo @$tmpVariable['data']['Product']['description'] ?>
+							<?php echo @$product->description; ?>
 						</div>
 						<div id="tab-info" class="tab-pane fade" role="tabpanel" aria-labelledby="tab-info1">
-							<?php echo @$tmpVariable['data']['Product']['info'] ?>
+							<?php echo @$product->info; ?>
 						</div>
-						<div id="tab-uses" class="tab-pane fade" role="tabpanel" aria-labelledby="tab-uses1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error ducimus laboriosam, fuga, repellendus quo voluptatum saepe adipisci! Esse excepturi aspernatur qui, at, vero deserunt, molestiae, ad magnam non ipsa expedita.
+						<div id="tab-uses" class="tab-pane fade" role="tabpanel" aria-labelledby="tab-uses1"><?php echo @$product->specification; ?>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-12 col-sm-12 col-md-12 col-lg-6">
 				<div class="main-carousel main-carousel-detail" data-flickity='{"imagesLoaded": true, "cellAlign": "left", "contain": true, "pageDots": false, "prevNextButtons": false }'>
-					<?php foreach ($tmpVariable['data']['Product']['images'] as $key => $value) { ?>
-					<div class="carousel-cell carousel-cell-detail" data-fancybox="gallery" data-src="<?php echo @$value ?>">
+					<div class="carousel-cell carousel-cell-detail" data-fancybox="gallery" data-src="<?php echo @$product->image ?>">
 					  	<div class="box-bd-product">
-							<img src="<?php echo @$value ?>" alt="">
+							<img src="<?php echo @$product->image ?>" alt="">
 						</div>
 					 </div>
+                                            
+                                            <?php if(!empty($product->images)){
+                                              foreach($product->images as $item) {
+                                                  if(!empty($item)){
+                                                    echo '<div class="carousel-cell carousel-cell-detail" data-fancybox="gallery" data-src="'.@$item.'">
+														  	<div class="box-bd-product">
+																<img src="'.@$item.'" alt="">
+															</div>
+														 </div>';
+                                                    }}}
+                                                ?>
+
+
+					<?php foreach ($tmpVariable['data']['Product']['images'] as $key => $value) { ?>
+					
 					<?php
 					} ?>
 				</div>
 				<div class="carousel carousel-nav nav-main-carousel-detail"
 				  data-flickity='{ "asNavFor": ".main-carousel-detail", "contain": true, "pageDots": false, "prevNextButtons": false }'>
-				  	<?php foreach ($tmpVariable['data']['Product']['images'] as $key => $value) { ?>
 				  	<div class="carousel-cell">
-						<img src="<?php echo @$value ?>" alt="">
+						<img src="<?php echo @$product->image ?>" alt="">
 				  	</div>
-				  	<?php
+
+				  	<?php if(!empty($product->images)){
+                                foreach($product->images as $item) {
+                                    if(!empty($item)){
+                                       echo '<div class="carousel-cell">
+												<img src="'.$item.'" alt="">
+				  							</div>';
+				  }}
 				  	} ?>
 				</div>
 			</div>
@@ -90,6 +110,53 @@ global $urlHomes;
 			?>
 		</div>
 	</div>
+<script type="text/javascript">
+     function addProductCart(idProduct, status){
+        let quantity = parseInt($('#quantity_buy').val());
+        // console.log(quantity);
+        // console.log(idProduct);
+        // console.log(status);
+
+        $.ajax({
+            method: "GET",
+            url: "/apis/addProductToCart/?id_product="+idProduct+"&quantity="+quantity+"&status=true"
+        })
+        .done(function( msg ) {
+            console.log(msg);
+
+            // document.getElementById("count").innerHTML = msg.count;
+             if(status=='true'){
+                 window.location = '/gio-hang';
+             }else{
+               /* document.getElementById("myElement").style.display = 'block';
+
+                var myElement = document.getElementById('myElement');
+
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    myElement.style.display = 'none';
+                }
+
+                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                setTimeout(changeCSS, 3000);*/
+             }
+        });
+    }
+    function plusQuantity()
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+        quantity++;
+        $('#quantity_buy').val(quantity);
+    }
+
+    function minusQuantity()
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+        quantity--;
+        if(quantity<1) quantity=1;
+        $('#quantity_buy').val(quantity);
+    }
+</script>
 
 <?php getFooter();
 ?>

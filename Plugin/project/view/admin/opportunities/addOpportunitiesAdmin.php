@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/project-view-admin-opportunities-listOpportunitiesAdmin">Library</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/project-view-admin-opportunities-listOpportunitiesAdmin">Opportunities</a> /</span>
     Thông tin Opportunities
   </h4>
   <!-- Basic Layout -->
@@ -29,9 +29,9 @@
 
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Thời gian đăng *</label>
-                    <input type="text" class="form-control datepicker" name="time_create" value="<?php if(empty($data->time_create)) $data->time_create = time();echo date('d/m/Y', $data->time_create);?>" required />
+                    <input type="text" class="form-control " name="time_create" value="<?php echo  @$data->time_create  ;?>" required />
                   </div>
-
+                  <!-- datepicker -->
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">

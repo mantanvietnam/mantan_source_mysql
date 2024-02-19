@@ -635,7 +635,7 @@ function addOpportunitiesAdmin($input)
             $data->image = $dataSend['image'];
             $data->link = $dataSend['link'];
             $data->description = $dataSend['description'];
-            $data->time_create= (int)$time;
+            $data->time_create= $dataSend['time_create'];
             $data->status=(int) $dataSend['status'];
             $data->type='opportunities';
             $data->slug= createSlugMantan($dataSend['name']);
@@ -955,22 +955,24 @@ function addInternationalAdmin($input)
 
         if(!empty($dataSend['name'])){
 
-            $today= getdate();
-            $datePost = explode('/', $dataSend['time_create']);
+            // $today= getdate();
+            // $datePost = explode('/', $dataSend['time_create']);
                 
-            if(!empty($datePost))
-            {
-                $time= mktime($today['hours'], $today['minutes'], $today['seconds'], $datePost[1], $datePost[0], $datePost[2]);
-            }
+            // if(!empty($datePost))
+            // {
+            //     $time= mktime($today['hours'], $today['minutes'], $today['seconds'], $datePost[1], $datePost[0], $datePost[2]);
+            // }
             // tạo dữ liệu save
             $data->name = $dataSend['name'];
             $data->image = $dataSend['image'];
             $data->link = $dataSend['link'];
             $data->description = $dataSend['description'];
-            $data->time_create= (int)$time;
+            $data->time_create= $dataSend['time_create'];
             $data->status=(int) $dataSend['status'];
             $data->slug= createSlugMantan($dataSend['name']);
             $data->type = 'international';
+        
+
             $modelOpportunities->save($data);     
 
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';

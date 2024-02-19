@@ -1,5 +1,13 @@
 <?php global $urlThemeActive;
-$setting = setting();?>
+$setting = setting();
+ if(!empty($session->read('product_order'))){
+    $cart = count($session->read('product_order')); 
+
+global $urlCurrent;
+
+
+ }
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -12,6 +20,7 @@ $setting = setting();?>
 	<link rel="stylesheet" href="<?php echo $urlThemeActive ?>assets/lib/fontawesome-free-5.15.1-web/css/all.css">
 	<link rel="stylesheet" href="<?php echo $urlThemeActive ?>assets/lib/grid-gallery-master/css/grid-gallery.css">	
 	<link rel="stylesheet" href="<?php echo $urlThemeActive ?>assets/lib/natural-gallery-js-master/css/grid-gallery.css">	
+	<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 
 	<link rel="stylesheet" href="<?php echo $urlThemeActive ?>assets/css/reset.css">
 	<link rel="stylesheet" href="<?php echo $urlThemeActive ?>assets/css/style.css">
@@ -25,9 +34,10 @@ $setting = setting();?>
 				<i class="fas fa-bars"></i>
 			</button>
 			<div class="wr-search">
-				<form class="formSearch" action="/search" method="GET">
+				<form class="formSearch" action="/search-product" method="GET">
 					<input type="text" name="key" placeholder="Tìm kiếm sản phẩm">
 					<i class="fas fa-search"></i>
+					<input type="submit" style="display:none" name="">
 				</form>
 			</div>
 			<div class="wr-logo">
@@ -41,7 +51,7 @@ $setting = setting();?>
 					<span>Hotline: <strong class="so_dien_thoai"><?php echo @$setting['hotline'] ?></strong></span>
 				</div>
 				<div class="box-icon-cart box-posi">
-					<span class="clsFlexCenterMid count-number-order count-number-order-pc"></span>
+					<span class="clsFlexCenterMid count-number-order count-number-order-pc"><?php echo $cart ?></span>
 					<img src="<?php echo $urlThemeActive ?>assets/images/iconCart.png" alt="">
 					<div class="wr-alert-add">
 						<div class="box-alert-add">
@@ -68,9 +78,10 @@ $setting = setting();?>
 					<i class="fas fa-bars"></i>
 				</button>
 				<div class="wr-search">
-					<form class="formSearch" action="/search" method="GET">
+					<form class="formSearch" action="/search-product" method="GET">
 						<input type="text" name="key" placeholder="Tìm kiếm sản phẩm">
 						<i class="fas fa-search"></i>
+						<input type="submit" style="display:none" name="">
 					</form>
 				</div>
 				<div class="wr-logo">
@@ -84,7 +95,7 @@ $setting = setting();?>
 						<span>Hotline: <strong class="so_dien_thoai"><?php echo @$setting['hotline'] ?></strong></span>
 					</div>
 					<div class="box-icon-cart">
-						<span class="clsFlexCenterMid count-number-order count-number-order-pc"></span>
+						<span class="clsFlexCenterMid count-number-order count-number-order-pc"><?php echo $cart ?></span>
 						<img src="<?php echo $urlThemeActive ?>/assets/images/iconCart.png" alt="">
 					</div>
 					<!-- <div class="languageFlag">
@@ -155,7 +166,7 @@ $setting = setting();?>
                                     <?php }}} ?>
 				</ul>
 			</div>
-			<form id="formSerchMobile" action="/search" method="GET">
+			<form id="formSerchMobile" action="/search-product" method="GET">
 				<input type="text" placeholder="Tìm kiếm" name="key"><button type="submit"><i class="fas fa-search"></i></button>
 			</form>
 			<div class="wr-info-menu-mobile">

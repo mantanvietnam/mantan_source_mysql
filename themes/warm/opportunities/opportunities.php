@@ -41,7 +41,7 @@
                         <div class="opportunity-box-inner">
                             <div class="opportunity-text">
                                 <div class="opportunity-date">
-                                    <p><?php echo date('d F Y', $item->time_create); ?></p>
+                                    <p><?php echo  $item->time_create; ?></p>
                                 </div>
     
                                 <div class="opportunity-title">
