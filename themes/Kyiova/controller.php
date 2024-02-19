@@ -150,7 +150,6 @@ function indexTheme($input){
     $conditions = array('key_word' => 'settingHomeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
     $modelProduct = $controller->loadModel('Products');
-
     $modelCategorieProduct = $controller->loadModel('CategorieProducts');
 
     
@@ -167,7 +166,7 @@ function indexTheme($input){
         $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->order(['id'=>'desc'])->all()->toList();
     }
 
-    $listAlbum = $modelAlbums->find()->limit(8)->page(1)->where(['id_category'=>(int)@$data_value['id_album']])->all()->toList();
+    $listAlbum = $modelAlbuminfos->find()->limit(8)->page(1)->where(['id_album'=>(int)@$data_value['id_album']])->all()->toList();
     $listVideo = $modelVideos->find()->where(['id_category'=>(int)@$data_value['id_video']])->all()->toList();
 
 

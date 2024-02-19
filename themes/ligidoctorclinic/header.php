@@ -1,5 +1,6 @@
 <?php global $urlThemeActive;
 $setting = setting();
+$cart = 0;
  if(!empty($session->read('product_order'))){
     $cart = count($session->read('product_order')); 
 
@@ -51,6 +52,7 @@ global $urlCurrent;
 					<span>Hotline: <strong class="so_dien_thoai"><?php echo @$setting['hotline'] ?></strong></span>
 				</div>
 				<div class="box-icon-cart box-posi">
+					<a href="/gio-hang">
 					<span class="clsFlexCenterMid count-number-order count-number-order-pc"><?php echo $cart ?></span>
 					<img src="<?php echo $urlThemeActive ?>assets/images/iconCart.png" alt="">
 					<div class="wr-alert-add">
@@ -58,7 +60,7 @@ global $urlCurrent;
 							
 						</div>
 					</div>
-					
+					</a>
 				</div>
 				<!-- <div class="languageFlag">
 					<div class="vietnamese">
@@ -86,7 +88,7 @@ global $urlCurrent;
 				</div>
 				<div class="wr-logo">
 					<div class="box-logo">
-						<a href="/"><img src="<?php echo @$setting['logo'] ?>" alt=""></a>
+						<a href="/"><img src="<?php echo @$setting['image_logo'] ?>" alt=""></a>
 						<!-- <center><?php echo @$themeSetting['Option']['value']['textLogo'] ?></center> -->
 					</div>
 				</div>
@@ -95,8 +97,8 @@ global $urlCurrent;
 						<span>Hotline: <strong class="so_dien_thoai"><?php echo @$setting['hotline'] ?></strong></span>
 					</div>
 					<div class="box-icon-cart">
-						<span class="clsFlexCenterMid count-number-order count-number-order-pc"><?php echo $cart ?></span>
-						<img src="<?php echo $urlThemeActive ?>/assets/images/iconCart.png" alt="">
+						<a href="/gio-hang"><span class="clsFlexCenterMid count-number-order count-number-order-pc"><?php echo @$cart ?></span>
+						<img src="<?php echo $urlThemeActive ?>/assets/images/iconCart.png" alt=""></a>
 					</div>
 					<!-- <div class="languageFlag">
 						<div class="vietnamese">

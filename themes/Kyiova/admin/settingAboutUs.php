@@ -22,7 +22,8 @@
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <label class="form-label" for="basic-default-fullname">Nội dung đầu tiên</label>
-                  <textarea class="form-control" name="content" rows="5"><?php echo @$setting['content'] ?></textarea>
+                  <!-- <textarea class="form-control" name="content" rows="5"><?php echo @$setting['content'] ?></textarea> -->
+                  <?php showEditorInput('content', 'content', @$setting['content']);?>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                   <label class="form-label" for="basic-default-fullname">Ảnh 1</label>
@@ -30,7 +31,8 @@
                 </div>
                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                   <label class="form-label" for="basic-default-fullname">Nội dung 1</label>
-                  <textarea class="form-control" name="content1" rows="5"><?php echo @$setting['content1'] ?></textarea>
+                  <!-- <textarea class="form-control" name="content1" rows="5"><?php echo @$setting['content1'] ?></textarea> -->
+                  <?php showEditorInput('content1', 'content1', @$setting['content1']);?>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                   <label class="form-label" for="basic-default-fullname">Ảnh 2</label>
@@ -38,7 +40,8 @@
                 </div>
                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                   <label class="form-label" for="basic-default-fullname">Nội dung 2</label>
-                  <textarea class="form-control" name="content2" rows="5"><?php echo @$setting['content2'] ?></textarea>
+                  <!-- <textarea class="form-control" name="content2" rows="5"><?php echo @$setting['content2'] ?></textarea> -->
+                  <?php showEditorInput('content2', 'content2', @$setting['content2']);?>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                   <label class="form-label" for="basic-default-fullname">Ảnh 1</label>

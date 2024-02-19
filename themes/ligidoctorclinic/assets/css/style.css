@@ -68,7 +68,7 @@ a:hover {
 }
 
 .set-pd-0 {
-    padding: 0;
+    padding-top: 10px;
 }
 
 .clsFlexCenterMid {
@@ -3289,4 +3289,90 @@ background-color: #00771b;
 
 .navbar-nav .nav-item .cart-search {
     display: flex;
+}
+/*Trang XÁC NHẬN ĐƠN HÀNG*/
+.table-ord thead {
+    border-bottom: 2px solid #c7c7c7;
+    margin-bottom: 10px;
+}
+
+.table-ord thead th {
+    font-weight: 600;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.table-ord tbody td {
+    font-weight: 600;
+}
+
+.table-ord .payment-method td:last-child,
+.table-ord .note td:last-child {
+    font-weight: 400;
+}
+
+.table-ord .production td:last-child {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.table-ord .production td span {
+    font-weight: 500;
+}
+
+.table-ord .production a {
+    color: #212529;
+    font-weight: 400;
+}
+
+.table-ord thead th:last-child {
+    float: right;
+}
+
+.table-ord tr td {
+    vertical-align: middle;
+}
+
+.table-ord tr td:last-child {
+    float: right;
+}
+
+.table-ord tr {
+    border-bottom: 1px solid #dedede;
+}
+
+.end-order {
+    padding: 20px;
+    background-color: #eeeeee;
+    box-shadow: 3px 3px 3px 0px #dbdbdb;
+}
+
+.end-order li {
+    padding-left: 15px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.end-order p {
+    color: #228B22;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.end-order li span {
+    font-weight: 600;
+}
+
+#section-detail-order h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+#section-detail-order h3 {
+    font-size: 32px;
+    margin-bottom: 50px;
+}
+
+#section-detail-order {
+    padding: 85px 0;
 }

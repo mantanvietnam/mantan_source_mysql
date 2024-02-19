@@ -21,7 +21,7 @@ $setting = setting();?>
 					$linkweb = getListLinkWeb(@$setting['id_linkweb']);
 					if(!empty($linkweb)) {
 						foreach ($linkweb as $key => $value) {
-							echo'<p><a href="<?php echo @$value->link ?>">'.@$value->name.'</a></p>';
+							echo'<p><a href="'.@$value->link.'">'.@$value->name.'</a></p>';
 						
 						}
 					} ?>

@@ -3,15 +3,14 @@ getHeader();
 global $urlThemeActive;
 
 $setting = setting();
-
-$slide_home= slide_home($setting['id_slide']);
 ?>
  <main>
         <section id="section-detail-order">
             <div class="container">
+                <h3>Thanh toán</h3>
                 <div class="row">
-                    <h3>Thanh toán</h3>
-                    <div class="col-lg-7 col-12">
+                    
+                    <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-12">
                         <h4>Chi tiết đơn hàng</h4>
                         <table class="table table-ord">
                             <thead>
@@ -57,10 +56,10 @@ $slide_home= slide_home($setting['id_slide']);
                         </table>
                     </div>
 
-                    <div class="col-lg-5 col-12">
+                    <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-12">
                         <div class="end-order">
                             <p>Cảm ơn bạn. Đơn hàng của bạn đã được nhận.</p>
-                            <ul>
+                            <ul style=" list-style: none; ">
                                 <li>Mã đơn hàng: <span><?php echo @$data->id ?></span></li>
                                 <li>Ngày: <span><?php echo date('d/m/Y',@$data->create_at) ?></span></li>
                                 <li>Tổng cộng: <span><?php echo number_format(@$data->money) ?> ₫</span></li>

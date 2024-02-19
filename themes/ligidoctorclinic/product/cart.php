@@ -28,7 +28,10 @@ $price_total = 0;
     }
 </style>
 
- <main>
+ <main  class="container">
+    <div class="path path-cateNotice">
+            <a href="/">TRANG CHỦ</a> / <span >GIỎ HÀNG</span>
+        </div>
     <form action="/addDiscountCode"  method="get">
 
         <section id="section-cart">
@@ -108,25 +111,28 @@ $price_total = 0;
 
                         <div class="produce-other">
                             <h4>Các sản phẩm khác</h4>
-                            <div class="list-produce-other">
-                                <?php if(!empty($new_product)){
+                           
+                <div id="myCarousel" class="carousel my-main-carousel-product">
+                    
+                          <?php if(!empty($new_product)){
                                                     foreach($new_product as $value){
-                                                 ?>
-                                <div class="item-produce-other">
-                                    <div class="produce-other-img">
-                                        <a href="/san-pham/<?php echo  $value->slug ?>.html"><img src="<?php echo $value->image ?>" alt="<?php echo  $value->title ?>"></a>
-                                    </div>
-                                    <div class="produce-other-detail">
-                                        <div class="produce-other-name">
-                                             <a href="/san-pham/<?php echo  $value->slug ?>.html"><?php echo  $value->title ?></a>
-                                        </div>
-                                        <p><?php echo number_format(@$value->price); ?> ₫</p>
-                                        <button onclick="addProduct(<?php echo $value->id; ?>,'true')">Thêm vào giỏ hàng</button>
-                                    </div>
-                                </div>
-                            <?php }} ?>
-                                
-                            </div>
+                                    // debug($value1);
+                                echo '<div class="carousel__slide my-carousel-cell-product">
+                                        <a href="/product/'.@$value->slug.'.html">
+                                            <div class="box-bd-Merchandise">
+                                                <img src="'. $value->image.'" alt="" style="width: 100%;">
+                                            </div>
+                                            <center>'.@$value->title.'</center>
+                                            <center class="price">'.number_format($value->price).' VNĐ</center>
+                                        </a>
+                                        <center class="add-cart"><button class="add-cart-button" type="button" onclick="addProduct('.$value->id.',true)">Thêm vào giỏ hàng</button></center>
+                                    </div>';
+                                }
+                            }
+                        
+                    ?>
+                    
+               </div>
                         </div>
 
                     </div>
@@ -183,7 +189,7 @@ $price_total = 0;
 
   
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() {
     if($(window).width()<1024){
         $('#desktop_view').remove();
@@ -199,9 +205,9 @@ $(document).ready(function() {
     }
 });
 
-</script>
+</script> -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).on('click', function (e) {
 
  <?php foreach($category as $key => $value){
@@ -216,7 +222,7 @@ $(document).ready(function() {
 
 <?php }}} ?>
   });
-</script>
+</script> -->
 
  <script>
         // Sự kiện xảy ra khi người dùng nhấn nút "Back"
@@ -713,6 +719,15 @@ $(document).ready(function() {
 
     }
 </script>
-
+ 
 <?php
 getFooter();?>
+<script>
+    const myCarousel = new Carousel(document.querySelector("#myCarousel"), {
+        Dots: false,
+        infinite: false,
+        center: false,
+        fill: true,
+        slidesPerPage: 1
+    });
+</script>

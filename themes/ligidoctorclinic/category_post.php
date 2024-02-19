@@ -21,45 +21,43 @@
 				}
 			} ?>
 		</div>
-		<?php
-			if ($page > 5) {
-			$startPage = $page - 5;
-			} else {
-				$startPage = 1;
-			}
+		<div  class="page-pagination">
+			<ul class="page-pagination__list">
 
-			if ($totalPage > $page + 5) {
-				$endPage = $page + 5;
-			} else {
-				$endPage = $totalPage;
-			}
+				<?php
+				if (@$totalPage > 0) {
+					if ($page > 5) {
+						$startPage = $page - 5;
+					} else {
+						$startPage = 1;
+					}
 
-			if($totalPage>1){
+					if ($totalPage > $page + 5) {
+						$endPage = $page + 5;
+					} else {
+						$endPage = $totalPage;
+					}
+
+					echo '<li class="page-pagination__item">
+					<a class="page-pagination__link" href="' . $urlPage . '1"><i class="fa fa-arrow-left"></i></a>
+					</li>';
+
+					for ($i = $startPage; $i <= $endPage; $i++) {
+						$active = ($page == $i) ? 'active' : '';
+
+						echo '<li class="page-pagination__item ">
+						<a class="page-pagination__link ' . $active . '" href="' . $urlPage . $i . '">' . $i . '</a>
+						</li>';
+					}
+
+					echo '<li class="page-pagination__item last">
+					<a class="page-pagination__link" href="' . $urlPage . $totalPage . '"
+					><i class="fa fa-arrow-right"></i
+					></a>
+					</li>';
+				}
 				?>
-				<div class="page-pagination">
-					<ul class="page-pagination__list">
-						<li class="page-pagination__item"><a class="page-pagination__link"  href="<?php echo $urlPage . $back ?>"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-						</li>
-						<?php
-						if(($page - 5)>1) { ?>
-							<li class="page-pagination__item"><a class="page-pagination__link"  href="javascript:void(0);">...</a>
-							</li>
-						<?php	
-						} ?>
-						<?php for ($i = $startPage; $i <= $endPage; $i++) { ?>
-							<li class="page-pagination__item"><a class="page-pagination__link <?php echo $i==$page?'active" ':'" href="'.$urlPage.$i.'"' ?>"><?php echo $i; ?></a></li>
-							<?php 
-						} ?>
-						<?php
-						if(($page + 5)<$totalPage) { ?>
-							<li class="page-pagination__item"><a class="page-pagination__link"  href="javascript:void(0);">...</a>
-							</li>
-						<?php	
-						} ?>
-						<li class="page-pagination__item"><a class="page-pagination__link"  href="<?php echo $urlPage . $next ?>"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-						</li>
-					</ul>
-				</div>
-			<?php } ?>
+			</ul>
+		</div>
 	</div>
 <?php getFooter(); ?>
