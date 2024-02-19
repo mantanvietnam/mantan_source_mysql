@@ -101,7 +101,7 @@ h1 {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1295px;
+    max-width: 1295px;
     padding-left: 15px;
     padding-right: 15px;
   }
@@ -712,7 +712,7 @@ b {
   padding: 0 30px;
 }
 .product-new-slide .product-hot-item .product-hot-item-inner .product-hot-image {
-  height: 460px !important;
+  height: 300px !important;
 }
 .product-new-slide .slick-prev {
   position: absolute;

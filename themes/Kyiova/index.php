@@ -146,9 +146,6 @@ global $urlThemeActive;
                         </div>';
                             }
                         } ?>
-                        
-
-                       
                     </div>
                 </div>
 
@@ -179,7 +176,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-home-contact" class="section-padding" data-aos="fade-up">
+        <!-- <section id="section-home-contact" class="section-padding" data-aos="fade-up">
             <div class="section-home-background" style="background-image: url(<?php echo $urlThemeActive ?>/asset/image/Nui-Phu-Si-BG.jpg);">
                 <div class="section-home-overlay"></div>
                 <div class="container">
@@ -194,17 +191,15 @@ global $urlThemeActive;
                         </div>
 
                         <div class="col-lg-5">
-                            <!-- <form action=""> -->
-                                <div class="form-contact-home">
-                                    <input type="text" class="form-control" name="emailSubscribe" id="emailSubscribe"ria-describedby="emailHelp" required>
-                                    <button onclick="addSubscribe()"  type="">Đăng ký</button>
-                                </div>
-                            <!-- </form> -->
+                            <div class="form-contact-home">
+                                <input type="text" class="form-control" name="emailSubscribe" id="emailSubscribe"ria-describedby="emailHelp" required>
+                                <button onclick="addSubscribe()"  type="">Đăng ký</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <section id="section-category-product" class="section-padding" data-aos="fade-up">
             <div class="container">
@@ -246,7 +241,8 @@ global $urlThemeActive;
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title" >
-                        <span><?php echo @$setting['titel_category_product1']; ?></span>
+                        <!-- <span><?php echo @$setting['titel_category_product1']; ?></span> -->
+                        <span>Sản phẩm nổi bật</span>
                         <div class="title-divide-section"></div>
                     </h2>
                 </div>
@@ -286,7 +282,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-product-hot" class="section-padding" data-aos="fade-up">
+        <!-- <section id="section-product-hot" class="section-padding" data-aos="fade-up">
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title" >
@@ -326,6 +322,33 @@ global $urlThemeActive;
             }?>
 
                 </div>
+            </div>
+        </section> -->
+        <section id="section-album" class="section-padding" data-aos="fade-up">
+            <div class="container">
+                <div class="title-box">
+                    <h2 class="section-title">
+                        <span>Thư viện ảnh</span>
+                        <div class="title-divide-section"></div>
+                    </h2>
+                </div>
+
+                <div class="album-list">
+                    <div class="row">
+                        <?php if(!empty($listAlbum)){
+                            foreach($listAlbum as $key => $item){
+                                echo '<div class="col-lg-3 col-md-6 col-6">
+                            <div class="album-item">
+                                <a href="thu-vien-anh/'.@$item->slug.'.html">
+                                    <img src="'.@$item->image.'" alt="">
+                                </a>
+                            </div>
+                        </div>';
+                            }
+                        } ?>
+                    </div>
+                </div>
+
             </div>
         </section>
 

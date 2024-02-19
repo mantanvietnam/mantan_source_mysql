@@ -27,3 +27,26 @@
 header .navbar-header .nav-item .nav-link:hover{
     color: #097009 !important;
 }
+
+@media (max-width: 1264px) and (min-width: 769px){
+    .product-new-slide .slick-next{
+        right: 0;
+    }
+
+    .product-new-slide .slick-prev{
+        left: 0;
+    }
+
+    .product-new-slide .slick-arrow {
+        box-shadow: 0 0 6px 4px #888888
+    }
+
+}
+
+header .navbar-header .nav-item .nav-link{
+    text-transform: uppercase;
+}
+
+header .topbar .topbar-box .topbar-left p{
+    text-transform: uppercase;
+}
