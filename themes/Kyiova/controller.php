@@ -62,6 +62,9 @@ function settingHomeTheme($input){
                         'represent' => @$dataSend['represent'],
                         'image_qc' => @$dataSend['image_qc'],
                         'textfooter'=>@$dataSend['textfooter'],
+                        'insta'=>@$dataSend['insta'],
+                        'youtube'=>@$dataSend['youtube'],
+                        'tiktok'=>@$dataSend['tiktok'],
 
                     );
 

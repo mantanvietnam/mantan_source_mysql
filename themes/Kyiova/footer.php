@@ -64,25 +64,25 @@ $setting = setting();?>
                             <div class="social-list">
                                 <ul class="d-flex">
                                     <li class="social-item">
-                                        <a href="">
+                                        <a target="_blank" href="<?php echo @$setting['page_footer'] ?>">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt="">
                                         </a>
                                     </li>
 
                                     <li class="social-item">
-                                        <a href="">
+                                        <a target="_blank" href="<?php echo @$setting['insta'] ?>">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt="">
                                         </a>
                                     </li>
 
                                     <li class="social-item">
-                                        <a href="">
+                                        <a target="_blank" href="<?php echo @$setting['youtube'] ?>">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt="">
                                         </a>
                                     </li>
 
                                     <li class="social-item">
-                                        <a href="">
+                                        <a target="_blank" href="<?php echo @$setting['tiktok'] ?>">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/tiktok.png" alt="">
                                         </a>
                                     </li>
