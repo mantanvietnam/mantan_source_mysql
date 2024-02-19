@@ -459,6 +459,7 @@ b {
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
+  line-height: 1.4;
 }
 #section-blog .blog-item .blog-detail .blog-title h4:hover {
   color: #228B22;
@@ -588,7 +589,7 @@ b {
 #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-detail {
   text-align: center;
   padding-top: 10px;
-  padding-bottom: 50px;
+  padding-bottom: 34px;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -712,7 +713,7 @@ b {
   padding: 0 30px;
 }
 .product-new-slide .product-hot-item .product-hot-item-inner .product-hot-image {
-  height: 300px !important;
+  height: 410px !important;
 }
 .product-new-slide .slick-prev {
   position: absolute;

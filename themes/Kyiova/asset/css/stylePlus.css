@@ -50,3 +50,10 @@ header .navbar-header .nav-item .nav-link{
 header .topbar .topbar-box .topbar-left p{
     text-transform: uppercase;
 }
+
+.social-item{
+    width: 35px;
+    height: 35px;
+    margin-right: 12px;
+    margin-top: 20px;
+}

@@ -60,6 +60,34 @@ $setting = setting();?>
                                     <li></li>
                                 </ul>
                             </div>
+
+                            <div class="social-list">
+                                <ul class="d-flex">
+                                    <li class="social-item">
+                                        <a href="">
+                                            <img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt="">
+                                        </a>
+                                    </li>
+
+                                    <li class="social-item">
+                                        <a href="">
+                                            <img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt="">
+                                        </a>
+                                    </li>
+
+                                    <li class="social-item">
+                                        <a href="">
+                                            <img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt="">
+                                        </a>
+                                    </li>
+
+                                    <li class="social-item">
+                                        <a href="">
+                                            <img src="<?php echo $urlThemeActive ?>asset/image/tiktok.png" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

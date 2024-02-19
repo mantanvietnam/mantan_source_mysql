@@ -46,7 +46,7 @@
 #about-us-content .about-start p {
     font-size: 16px;
     line-height: 1.4;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 
 #about-us-content .section-detail {
@@ -1365,7 +1365,7 @@ footer #section-footer .footer-item .footer-logo {
     }
     #about-us-content .about-start p {
         font-size: 15px;
-        margin-bottom: 37px;
+        margin-bottom: 10px;
     }
     #about-us-content .about-start h3 {
         text-align: center;
