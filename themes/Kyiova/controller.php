@@ -40,6 +40,7 @@ function settingHomeTheme($input){
                         'icon4' => @$dataSend['icon4'],
                         'titel4' => @$dataSend['titel4'],
                         'content4' => @$dataSend['content4'],
+                        'id_albumdt' => @$dataSend['id_albumdt'],
                         'id_album' => @$dataSend['id_album'],
                         'id_video' => @$dataSend['id_video'],
                         'id_category_product1' => @$dataSend['id_category_product1'],
@@ -169,7 +170,8 @@ function indexTheme($input){
         $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->order(['id'=>'desc'])->all()->toList();
     }
 
-    $listAlbum = $modelAlbuminfos->find()->limit(8)->page(1)->where(['id_album'=>(int)@$data_value['id_album']])->all()->toList();
+    $listAlbum = $modelAlbums->find()->limit(8)->page(1)->where(['id_category'=>(int)@$data_value['id_album']])->all()->toList();
+    $listAlbuminfos = $modelAlbuminfos->find()->limit(8)->page(1)->where(['id_album'=>(int)@$data_value['id_albumdt']])->all()->toList();
     $listVideo = $modelVideos->find()->where(['id_category'=>(int)@$data_value['id_video']])->all()->toList();
 
 
@@ -218,6 +220,7 @@ function indexTheme($input){
     setVariable('setting', $data_value);
     setVariable('slide_home', $slide_home);
     setVariable('listAlbum', $listAlbum);
+    setVariable('listAlbuminfos', $listAlbuminfos);
     setVariable('listVideo', $listVideo);
     setVariable('listproduct1', $listproduct1);
     setVariable('listproduct2', $listproduct2);

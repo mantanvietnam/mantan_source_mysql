@@ -30,7 +30,7 @@ $setting = setting();?>
                                     <li>Điện thoại: <strong><?php echo @$setting['phone_footer'] ?></strong></li>
                                     <li>Email: <a href="mailto:<?php echo @$setting['email_footer'] ?>"><?php echo @$setting['email_footer'] ?></a></li>
                                     <li>Website: <a href=""><?php echo @$setting['web_footer'] ?></a></li>
-                                    <li>Fanpage Facebook: <a href="<?php echo @$setting['title_footer_left'] ?>"><?php echo @$setting['page_footer'] ?></a></li>
+                                    <li>Fanpage Facebook: <a href="<?php echo @$setting['link_page'] ?>"><?php echo @$setting['page_footer'] ?></a></li>
                                 </ul>
                             </div>
 
@@ -64,7 +64,7 @@ $setting = setting();?>
                             <div class="social-list">
                                 <ul class="d-flex">
                                     <li class="social-item">
-                                        <a target="_blank" href="<?php echo @$setting['page_footer'] ?>">
+                                        <a target="_blank" href="<?php echo @$setting['link_page'] ?>">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt="">
                                         </a>
                                     </li>

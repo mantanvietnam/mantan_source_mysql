@@ -328,15 +328,15 @@ global $urlThemeActive;
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title">
-                        <span>Thư viện ảnh</span>
+                        <span>Hình ảnh điều trị</span>
                         <div class="title-divide-section"></div>
                     </h2>
                 </div>
 
                 <div class="album-list">
                     <div class="row">
-                        <?php if(!empty($listAlbum)){
-                            foreach($listAlbum as $key => $item){
+                        <?php if(!empty($listAlbuminfos)){
+                            foreach($listAlbuminfos as $key => $item){
                                 echo '<div class="col-lg-3 col-md-6 col-6">
                             <div class="album-item">
                                 <a href="thu-vien-anh/'.@$item->slug.'.html">
