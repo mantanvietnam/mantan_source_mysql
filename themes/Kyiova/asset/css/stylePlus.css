@@ -28,6 +28,28 @@ header .navbar-header .nav-item .nav-link:hover{
     color: #097009 !important;
 }
 
+#section-banner .slick-prev {
+    position: absolute;
+    left: 10px;
+  }
+#section-banner .slick-next {
+    position: absolute;
+    right: 10px;
+}
+#section-banner .slick-arrow {
+    background-color: #fff;
+    z-index: 1;
+    font-size: 30px;
+    color: #228B22;
+    border-radius: 50%;
+    padding: 0;
+    top: 45%;
+    border: none;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 0 6px 4px #888888
+}
+
 @media (max-width: 1264px) and (min-width: 769px){
     .product-new-slide .slick-next{
         right: 0;
@@ -56,4 +78,23 @@ header .topbar .topbar-box .topbar-left p{
     height: 35px;
     margin-right: 12px;
     margin-top: 20px;
+}
+
+@media (max-width: 450px) {
+    #section-banner .banner-slide {
+      height: auto;
+    }
+}
+
+
+@media (max-width: 1700px) {
+    #section-banner .banner-slide {
+      height: 609px;
+    }
+}
+
+@media (max-width: 1440px) {
+    #section-banner .banner-slide {
+      height: 480px;
+    }
 }

@@ -214,7 +214,8 @@ b {
 }
 
 #section-banner .banner-slide {
-  height: 600px;
+  height: 710px;
+  width: 100%;
 }
 @media (max-width: 450px) {
   #section-banner .banner-slide {
