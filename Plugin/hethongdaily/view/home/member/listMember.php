@@ -177,7 +177,7 @@
 
             var dateCreate = new Date(dataAgency.created_at*1000).toLocaleString();
             var dateDealine = new Date(dataAgency.deadline*1000).toLocaleString();
-            var status, payFees, verify, edit, facebook;
+            var status, payFees, verify, edit;
             var linkProfile = '<?php global $urlHomes; echo $urlHomes;?>info/?id=';
 
             edit = ' <a href="/addMember/?id='+dataAgency.id+'" class="btn btn-danger mb-3">Sửa thông tin</a> <a href="/addMember/?id_father='+dataAgency.id+'" class="btn btn-primary  mb-3">Thêm tuyến dưới</a> ';
@@ -199,11 +199,47 @@
                 verify = '<span class="text-success">Đã xác thực</span>';
             }
 
+            var facebook = '';
             if(dataAgency.facebook != ''){
-                facebook = '<a target="_blank" href="'+dataAgency.facebook+'">Xem Facebook</a>';
+                facebook = ' <a target="_blank" href="'+dataAgency.facebook+'"><i class="bx bxl-facebook-circle"></i></a>';
             }
 
-            infoAgency= '<div id="infoManagerDown showDesktop" style="margin-top: 10px;margin-bottom: 10px;"><h2 class="text-center">Thông tin tài khoản</h2></div><div class="row"><div class="text-right col-md-4 col-sm-4 col-xs-12"><img src="'+dataAgency.avatar+'" class="img-fluid" /></div><div class="text-right col-md-8 col-sm-8 col-xs-12"><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>ID:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.id+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Tên thành viên:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.name+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Chức danh:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.name_position+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Điện thoại:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.phone+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Email:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.email+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Địa chỉ:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.address+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Ngày tạo:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dateCreate+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Xác thực:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+verify+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Ngày sinh:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.birthday+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Facebook:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+facebook+'</div></div><div class="row"><div class="text-right col-md-12 col-sm-12 col-xs-12"><img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='+linkProfile+dataAgency.id+'" width="100"/></div></div>'+status+'</div></div>';
+            var youtube = '';
+            if(dataAgency.youtube != ''){
+                youtube = ' <a target="_blank" href="'+dataAgency.youtube+'"><i class="bx bxl-youtube" ></i></a>';
+            }
+
+            var twitter = '';
+            if(dataAgency.twitter != ''){
+                twitter = ' <a target="_blank" href="'+dataAgency.twitter+'"><i class="bx bxl-twitter" ></i></a>';
+            }
+
+            var tiktok = '';
+            if(dataAgency.tiktok != ''){
+                tiktok = ' <a target="_blank" href="'+dataAgency.tiktok+'"><i class="bx bxl-tiktok" ></i></a>';
+            }
+
+            var web = '';
+            if(dataAgency.web != ''){
+                web = ' <a target="_blank" href="'+dataAgency.web+'"><i class="bx bxl-wordpress" ></i></a>';
+            }
+
+            var instagram = '';
+            if(dataAgency.instagram != ''){
+                instagram = ' <a target="_blank" href="'+dataAgency.instagram+'"><i class="bx bxl-instagram" ></i></a>';
+            }
+
+            var linkedin = '';
+            if(dataAgency.linkedin != ''){
+                linkedin = ' <a target="_blank" href="'+dataAgency.linkedin+'"><i class="bx bxl-linkedin-square" ></i></a>';
+            }
+
+            var zalo = '';
+            if(dataAgency.zalo != ''){
+                zalo = ' <a target="_blank" href="'+dataAgency.zalo+'"><i class="bx bx-alarm-snooze"></i></a>';
+            }
+
+            infoAgency= '<div id="infoManagerDown showDesktop" style="margin-top: 10px;margin-bottom: 10px;"><h2 class="text-center">Thông tin tài khoản</h2></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><img src="'+dataAgency.avatar+'" class="img-fluid" /></div><div class="text-right col-md-9 col-sm-9 col-xs-12"><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>ID:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.id+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Họ tên:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.name+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Chức danh:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.name_position+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Điện thoại:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.phone+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Email:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.email+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Địa chỉ:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.address+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Ngày tạo:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dateCreate+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Xác thực:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+verify+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Ngày sinh:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.birthday+'</div></div><div class="row"><div class="mb-3 col-md-12 col-sm-12 col-xs-12">'+facebook+youtube+twitter+tiktok+web+instagram+linkedin+zalo+'</div></div><div class="row"><div class="text-right col-md-12 col-sm-12 col-xs-12"><img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='+linkProfile+dataAgency.id+'" width="100"/></div></div>'+status+'</div></div>';
             
             $('#infoAgency').html(infoAgency);
 

@@ -25,29 +25,30 @@
                     <input type="hidden" name="idMessenger" value="<?php echo @$_GET['idMessenger'];?>">
                     
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-phone">Chọn ảnh đại diện</label>
+                        <label class="form-label" for="basic-default-phone">Chọn ảnh đại diện (*)</label>
                         
                         <input required value="" type="file" class="form-control phone-mask"  name="avatar" >
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-phone">Họ và Tên</label>
+                        <label class="form-label" for="basic-default-phone">Họ và Tên (*)</label>
                         <input required type="text" class="form-control phone-mask" name="customer_name" id="customer_name" value="<?php echo @$_GET['name'];?>" />
                     </div>
+                    
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-phone">Ngày sinh dạng ngày/tháng/năm</label>
-                        <input required type="text" class="form-control phone-mask datepicker" name="customer_birthdate" id="customer_birthdate" value="" placeholder="Ví dụ: 17/09/1989" />
+                        <label class="form-label" for="basic-default-phone">Điện thoại (*)</label>
+                        <input required type="text" class="form-control phone-mask" name="customer_phone" id="customer_phone" value="" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-phone">Điện thoại</label>
-                        <input required type="text" class="form-control phone-mask" name="customer_phone" id="customer_phone" value="<?php if(!empty($_GET['day'])) echo $_GET['day'].'/'.$_GET['month'].'/'.$_GET['year'];?>" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-default-phone">Email</label>
+                        <label class="form-label" for="basic-default-phone">Email (*)</label>
                         <input required type="text" class="form-control phone-mask" name="customer_email" id="customer_email" value="" />
                     </div>
                     <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Ngày sinh dạng ngày/tháng/năm (*)</label>
+                        <input required type="text" class="form-control phone-mask datepicker" name="customer_birthdate" id="customer_birthdate" value="<?php if(!empty($_GET['day'])) echo $_GET['day'].'/'.$_GET['month'].'/'.$_GET['year'];?>" placeholder="Ví dụ: 17/09/1989" />
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label" for="basic-default-phone">Địa chỉ</label>
-                        <input required type="text" class="form-control phone-mask" name="customer_address" id="customer_address" value="" />
+                        <input type="text" class="form-control phone-mask" name="customer_address" id="customer_address" value="" />
                     </div>
                     <div class="mb-3">
                         <button type="button" id="buttonReg" class="btn btn-primary" onclick="submitForm();">ĐĂNG KÝ</button>
@@ -59,10 +60,19 @@
     <script type="text/javascript">
         function submitForm()
         {
-            $('#buttonReg').html('Đang gửi đăng ký');
-            $('#buttonReg').prop('disabled', true);
+            var customer_name = $('#customer_name').val();
+            var customer_phone = $('#customer_phone').val();
+            var customer_email = $('#customer_email').val();
+            var customer_birthdate = $('#customer_birthdate').val();
 
-            $('#myForm').submit();
+            if(customer_name!='' && customer_phone!='' && customer_email!='' && customer_birthdate!=''){
+                $('#buttonReg').html('Đang gửi đăng ký');
+                $('#buttonReg').prop('disabled', true);
+
+                $('#myForm').submit();
+            }else{
+                alert('Bạn chưa nhập hết các trường thông tin, vui lòng nhập đầy đủ');
+            }
         }
     </script>
     <script type="text/javascript">

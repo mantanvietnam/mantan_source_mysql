@@ -49,6 +49,7 @@ $sqlInstallDatabase .= "CREATE TABLE `orders` (
     `discount` VARCHAR(255) NULL , 
     `id_discount` INT NULL DEFAULT NULL, 
     `id_agency` INT NOT NULL DEFAULT '0', 
+    `id_aff` INT NULL DEFAULT '0',
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .= "CREATE TABLE `order_details` ( 
@@ -100,6 +101,3 @@ $sqlDeleteDatabase .= "DROP TABLE address; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_product'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='manufacturer_product'; ";
 ?>
-
-
-DEFAULT CHARSET=latin1

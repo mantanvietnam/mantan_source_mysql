@@ -38,6 +38,12 @@ function listOrderAdmin($input)
         $conditions['id_user'] = (int) $_GET['id_user'];
     }
 
+    if(!empty($_GET['id_aff'])){
+        $conditions['id_aff'] = (int) $_GET['id_aff'];
+    }
+
+    
+
     if(!empty($_GET['date_start'])){
         $date_start = explode('/', $_GET['date_start']);
         $conditions['create_at >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);

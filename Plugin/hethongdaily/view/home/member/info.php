@@ -337,7 +337,7 @@
                     <div class="card p-4"> 
                         <?php 
                         if(!empty($listProduct)){
-                            echo '<table class="table table-bordered"><tbody>';
+                            echo '<table class="table table-bordered mb-5"><tbody>';
                             foreach ($listProduct as $item) {
                                 echo '  <tr>
                                           <th colspan="4">'.$item['category']->name.'</th>
@@ -398,7 +398,7 @@
                         }
                         ?>
 
-                        <button type="button" class="btn btn-danger" onclick="checkSelectProduct();">ĐẶT MUA HÀNG</button>
+                        <button style="position: sticky ; bottom: 10px;" type="button" class="btn btn-danger" onclick="checkSelectProduct();">ĐẶT MUA HÀNG</button>
                     </div>
                 </div>
             </div>

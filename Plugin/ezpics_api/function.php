@@ -792,7 +792,8 @@ function getLayerProductForEdit($idProduct=0)
         
         $list_layer = array();
         $choose_tab = array();
-        $movelayer = array('<div class="thumb-checklayer"><img src="'.$pro->thumn.'" class="img-fluid w-100 img-thumn" alt=""></div>');
+        $movelayer = array();
+        //$movelayer = array('<div class="thumb-checklayer"><img src="'.$pro->thumn.'" class="img-fluid w-100 img-thumn" alt=""></div>');
         $key = 1;
         $list_layer_check = array();
         
@@ -1063,6 +1064,7 @@ function getLayerProductForEdit($idProduct=0)
                     $layer->postion_y = $layer->postion_top*$heightWindow/100;
                     */
 
+                    /*
                     $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" data-border='.$layer->border.' data-rotate="'.$layer->rotate.'" data-brightness="'.$layer->brightness.'" data-latanh="'.$layer->lat_anh.'" data-giandong="'.$layer->giandong.'" >
                        
                         <div class="list-selection-choose d-none">
@@ -1081,6 +1083,9 @@ function getLayerProductForEdit($idProduct=0)
 
                     </div>
                     ';
+
+                    */
+
                     $key++;
 
                     $list_layer[$item->id] = $layer;

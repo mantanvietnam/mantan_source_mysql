@@ -12,7 +12,7 @@ function listCustomerAdmin($input)
     $modelCustomers = $controller->loadModel('Customers');
     $modelOrders = $controller->loadModel('Orders');
 
-    $conditions = array('id_parent'=>$session->read('infoUser')->id);
+    $conditions = array();
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
