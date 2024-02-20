@@ -17,6 +17,8 @@
 	$routesPlugin['newletter']= 'project/view/home/newletter.php';
 	$routesPlugin['thanks']= 'project/view/home/thanks.php';
 	$routesPlugin['International-tenders-past']= 'project/view/home/international.php';
+	$routesPlugin['International-tenders-current']= 'project/view/home/currentInternational.php';
+	$routesPlugin['local-tenders-current']= 'project/view/home/currentOpportunities.php';
 
 	
 ?>

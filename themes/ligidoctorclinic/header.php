@@ -25,6 +25,7 @@ global $urlCurrent;
 
 	<link rel="stylesheet" href="<?php echo $urlThemeActive ?>assets/css/reset.css">
 	<link rel="stylesheet" href="<?php echo $urlThemeActive ?>assets/css/style.css">
+	<link rel="stylesheet" href="<?php echo $urlThemeActive ?>assets/css/emhieu.css">
 
 	<?php mantan_header(); ?>
 </head>
