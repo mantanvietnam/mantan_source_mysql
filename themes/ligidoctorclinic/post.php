@@ -21,18 +21,18 @@ global $themeSetting;
 			</div>
 		</div>
 		<div class="title-cate title-cate-notice-related">
-			bái viết liên quan
+			bài viết liên quan
 		</div>
 		<div class="main-carousel my-main-carousel-notice-related" data-flickity='{"imagesLoaded": true,"groupCells": "80%","draggable": true,"contain": true,"cellAlign": "left","pageDots":true, "autoPlay": true, "autoPlay": 4000, "pauseAutoPlayOnHover": false, "prevNextButtons": false}'>
 			<?php
 			if (!empty($otherPosts)) {
 				foreach ($otherPosts as $key => $value) { 
 				echo'<div class="carousel-cell my-carousel-cell-notice-related">
-	  				<a href="/'.@$item->slug.'.html">
-	  					<img src="'.@$item->image.'" alt="">
-		  				<p class="title-notice-related">'.@$item->title.'</p>
+	  				<a href="/'.@$value->slug.'.html">
+	  					<img src="'.@$value->image.'" alt="">
+		  				<p class="title-notice-related">'.@$value->title.'</p>
 	  				</a>
-	  				<p><a href="/'.@$item->slug.'.html" class="notice-show-more notice-show-more-related" href="">Xem thêm <i class="fas fa-long-arrow-alt-right"></i></a></p>
+	  				<p><a href="/'.@$value->slug.'.html" class="notice-show-more notice-show-more-related" href="">Xem thêm <i class="fas fa-long-arrow-alt-right"></i></a></p>
 	  			</div>';
 				
 				}

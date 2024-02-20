@@ -122,11 +122,16 @@
                   <label class="form-label" for="basic-default-fullname">Link</label>
                   <input type="text" class="form-control" name="link1" value="<?php echo @$setting['link1'];?>" />
                 </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname"> ID Hình ảnh điều trị</label>
+                  <input type="text" class="form-control" name="id_albumdt" value="<?php echo @$setting['id_albumdt'];?>" />
+                </div>
                <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 form-label">Khối chân trang</h5>
                   </div>
                 </div>
+
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">Tiêu đề chân trang trái</label>
                   <input type="text" class="form-control" name="title_footer_left" value="<?php echo @$setting['title_footer_left'];?>" />
@@ -180,15 +185,15 @@
                   <input type="text" class="form-control" name="textfooter" value="<?php echo @$setting['textfooter'];?>" />
                 </div>
                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                  <label class="form-label" for="basic-default-fullname">link insta</label>
+                  <label class="form-label" for="basic-default-fullname">link zalo</label>
                   <input type="text" class="form-control" name="insta" value="<?php echo @$setting['insta'];?>" />
                 </div>
                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                  <label class="form-label" for="basic-default-fullname">link page</label>
+                  <label class="form-label" for="basic-default-fullname">link youtube</label>
                   <input type="text" class="form-control" name="youtube" value="<?php echo @$setting['youtube'];?>" />
                 </div>
                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                  <label class="form-label" for="basic-default-fullname">link page</label>
+                  <label class="form-label" for="basic-default-fullname">link tiktok</label>
                   <input type="text" class="form-control" name="tiktok" value="<?php echo @$setting['tiktok'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">

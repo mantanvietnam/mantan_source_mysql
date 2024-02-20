@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin Opportunities</h4> 
+  <h4 class="fw-bold py-3 mb-4">Past tender calls / Thông tin Local tenders</h4> 
   <p><a href="/plugins/admin/project-view-admin-opportunities-addOpportunitiesAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
@@ -39,7 +39,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách Opportunities</h5>
+    <h5 class="card-header">Danh sách Local tenders</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
