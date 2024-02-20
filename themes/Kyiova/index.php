@@ -147,11 +147,7 @@ global $urlThemeActive;
 
                                             <div class= "album-detail">
                                                 <div class="album-name">
-                                                    <span>Sự kiện</span>
-                                                </div>
-                            
-                                                <div class="album-number">
-                                                    <span>5 ảnh</span>
+                                                    <a href="">Sự kiện</a>
                                                 </div>
                                             </div>
                                         </div>
