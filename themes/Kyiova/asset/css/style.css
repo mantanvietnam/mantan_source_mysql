@@ -302,7 +302,7 @@ b {
 
 #section-album .album-item {
   height: 195px;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   overflow: hidden;
 }
 #section-album .album-item img {

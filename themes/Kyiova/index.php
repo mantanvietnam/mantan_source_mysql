@@ -137,18 +137,31 @@ global $urlThemeActive;
                     <div class="row">
                         <?php if(!empty($listAlbum)){
                             foreach($listAlbum as $key => $item){
-                                echo '<div class="col-lg-3 col-md-6 col-6">
-                            <div class="album-item">
-                                <a href="thu-vien-anh/'.@$item->slug.'.html">
-                                    <img src="'.@$item->image.'" alt="">
-                                </a>
-                            </div>
-                        </div>';
+                            echo    '<div class="col-lg-3 col-md-6 col-6">
+                                        <div class="album-item-col">
+                                            <div class="album-item">
+                                                <a href="thu-vien-anh/'.@$item->slug.'.html">
+                                                    <img src="'.@$item->image.'" alt="">
+                                                </a>
+                                            </div>
+
+                                            <div class= "album-detail">
+                                                <div class="album-name">
+                                                    <span>Sự kiện</span>
+                                                </div>
+                            
+                                                <div class="album-number">
+                                                    <span>5 ảnh</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>';
                             }
                         } ?>
                     </div>
                 </div>
-
+                
+               
             </div>
         </section>
 

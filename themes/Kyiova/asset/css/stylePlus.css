@@ -80,6 +80,29 @@ header .topbar .topbar-box .topbar-left p{
     margin-top: 20px;
 }
 
+.album-detail{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.album-item-col{
+    box-shadow: 2px 0px 8px 0px #888888
+}
+
+.album-name{
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+}
+
+.album-number{
+    color: #228B22;
+    font-size: 13px;
+}
+
 @media (max-width: 450px) {
     #section-banner .banner-slide {
       height: auto;
