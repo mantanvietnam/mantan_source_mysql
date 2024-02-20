@@ -12,7 +12,7 @@ $setting = setting();?>
 					
 					<!-- <?php echo @$setting['contentFooterIndex'] ?> -->
 					<p class="va_thongtin"><?php echo @$setting['company'] ?></p>
-					<p class="va_dia_chi">Dịa chỉ <?php echo @$setting['address'] ?></p>
+					<p class="va_dia_chi">Địa chỉ <?php echo @$setting['address'] ?></p>
 					<p>Hotline: <a class="so_dien_thoai" ><?php echo @$setting['hotline'] ?></a></p>
 					<p class="va_facebook"><a class="so_dien_thoai" href="<?php echo @$setting['link_facebook']?>" > <?php echo @$setting['facebook']?> </p>
 				</div>

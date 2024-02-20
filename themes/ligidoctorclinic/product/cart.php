@@ -47,7 +47,7 @@ $price_total = 0;
                     <!-- <img src="<?php echo  $urlThemeActive ?>/asset/image/FAQs.gif" alt=""> -->
 
                     <p>Bạn chưa có sản phẩm nào trong cửa hàng !</p>
-                    <a href="/">Quay lại trang sản phẩm</a>
+                    <a href="/cua-hang">Quay lại trang sản phẩm</a>
                 </div>
 
             <?php }else{ ?>
