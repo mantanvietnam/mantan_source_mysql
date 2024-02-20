@@ -71,7 +71,7 @@ $setting = setting();?>
 
                                     <li class="social-item">
                                         <a target="_blank" href="<?php echo @$setting['insta'] ?>">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt="">
+                                            <img src="<?php echo $urlThemeActive ?>asset/image/logozalo.png" alt="">
                                         </a>
                                     </li>
 
