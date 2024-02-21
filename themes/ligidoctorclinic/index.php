@@ -47,22 +47,28 @@ global $urlThemeActive;
 		<div class="text-sevice">
 			<?php echo @$setting['content2'] ?>
 		</div>
-		<div class="main-carousel my-main-carousel" data-flickity='{"imagesLoaded": true,"groupCells": "100%","draggable": true,"contain": true,"cellAlign": "left","pageDots":true, "autoPlay": true, "autoPlay": 4000, "pauseAutoPlayOnHover": false}'>
-  			
-  				<?php
-  				if(!empty($listService)) {
-  					foreach ($listService as $key => $value) { ?>
-  						<div class="carousel-cell my-carousel-cell">
-							<a href="/<?php echo $value->slug ?>.html">
-								<img src="<?php echo $value->image ?>" alt="">
-			  				<center><?php echo $value->title ?></center>
-							</a>
-						</div>
-  					<?php
-  					}
-  				}
-  				?>
+
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="main-carousel my-main-carousel" data-flickity='{"imagesLoaded": true,"groupCells": "100%","draggable": true,"contain": true,"cellAlign": "left","pageDots":true, "autoPlay": true, "autoPlay": 4000, "pauseAutoPlayOnHover": false}'>
+						<?php
+						if(!empty($listService)) {
+							foreach ($listService as $key => $value) { ?>
+								<div class="carousel-cell my-carousel-cell">
+									<a href="/<?php echo $value->slug ?>.html">
+										<img src="<?php echo $value->image ?>" alt="">
+									<center><?php echo $value->title ?></center>
+									</a>
+								</div>
+							<?php
+							}
+						}
+						?>
+				</div>
+			</div>
 		</div>
+		
+		
 	</div>
 
 	<div class="container-fluid set-pd-0 banner">

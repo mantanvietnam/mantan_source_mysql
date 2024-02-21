@@ -9,7 +9,7 @@
 <div class="container" >
 	<h1 class="title-cate"><?php echo $album->title; ?></h1>
 	<div class="container wr-feedback">
-		<div id="gallery" style="display:none;">
+		<div id="gallery">
 			<?php
 			$dem =0;
 			if (!empty($album->listImages)) {
@@ -17,7 +17,7 @@
 					$dem ++;
 					?>
 					<a href="<?php echo $img->image; ?>" >
-						<img src="<?php echo $img->image; ?>" alt="img"  style="display:none" >
+						<img src="<?php echo $img->image; ?>" alt="img">
 					</a>
 				<?php }
 			}?>
@@ -33,7 +33,11 @@
 
 	jQuery(document).ready(function(){
 
-		jQuery("#gallery").unitegallery();
+		jQuery("#gallery").unitegallery({
+			gallery_padding: 10,
+			gallery_space_between_cols: 20,
+    		gallery_space_between_rows: 20,
+		});
 
 	});
 

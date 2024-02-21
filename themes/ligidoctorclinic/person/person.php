@@ -32,7 +32,7 @@ $setting = setting();
 						<div class="item-info-system">
 							<p><img src="<?php echo $urlThemeActive ?>assets/images/contactIconPing.png" alt=""><?php echo @$item->address ?></p>
 							<p class="box-item-contact"><a class="btn-contact" href="<?php echo @$item->facebook ?>">FACEBOOK</a><a class="btn-contact" href="<?php echo @$item->zalo; ?>">ZALO</a></p>
-							<p><a href="" title="">HOTLINE: <?php echo $item->phone ?></a></p>
+							<p><a href="" title=""><i class="fa-solid fa-phone"></i> <?php echo $item->phone ?></a></p>
 						</div>
 					</div>
 				</div>

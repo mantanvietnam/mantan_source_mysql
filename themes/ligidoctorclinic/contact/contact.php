@@ -43,7 +43,8 @@ global $themeSetting;
 			</div>
 			<div class="row">
 				<div class="col-12-col-sm-12 col-md-12">
-					<input name="phone" type="number" placeholder="SỐ ĐIỆN THOẠI">
+					<!-- <input id="phone" name="phone" type="tel" placeholder="SỐ ĐIỆN THOẠI" required> -->
+					<input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="SỐ ĐIỆN THOẠI" required />
 				</div>
 			</div>
 			<div class="row">
@@ -59,3 +60,4 @@ global $themeSetting;
 <?php
 getFooter();
 ?>
+
