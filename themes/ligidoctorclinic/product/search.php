@@ -30,6 +30,7 @@ $setting = setting();
 				<option <?php echo !empty($_GET['price']) && $_GET['price']=='0;100000'?'selected':''; ?>  value="0;100000">0 - 100.000</option>
 				<option <?php echo !empty($_GET['price']) && $_GET['price']=='100001;500000'?'selected':''; ?> value="100001;500000">100.000 - 500.000</option>
 				<option <?php echo !empty($_GET['price']) && $_GET['price']=='500001;1000000'?'selected':''; ?> value="500001;1000000">500.000 - 1.000.000</option>
+				<option <?php echo !empty($_GET['price']) && $_GET['price']=='1000000'?'selected':''; ?> value="1000000">trên 1.000.000</option>
 			</select>
 			<button type="submit">Lọc</button>
 		</form>

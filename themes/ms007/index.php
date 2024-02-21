@@ -1,4 +1,7 @@
-
+<?php
+getHeader();
+global $urlThemeActive;
+?>
 
     <main>
         <section id="section-banner" style="background-image:url(<?php echo $urlThemeActive ?>asset/img/bachgroudbannerl.jpg) ;">
@@ -6,11 +9,11 @@
             <div class="banner-content">
                 <div class="container text-center">
                     <div class="title-banner">
-                        <h2>Hướng dẫn <span>khởi nghiệp KDOL</span></h2>
+                        <h2>Hướng dẫn <span><?php echo @$setting['full_name'] ?></span></h2>
                     </div>
 
                     <div class="description-banner">
-                        <p>Kinh doanh Online là 1 nghề cần phải học. Muốn trở thành 1 kỹ sư, bác sỹ, nhà báo, ca sỹ, diễn viên.. hay bất kể 1 công việc nào bạn cũng đều phải đi học. Vậy nên đừng nghĩ kinh doanh Online không cần học cũng có thể dễ dàng THÀNH CÔNG. Với những công việc khác bạn có thể chỉ cần học trong 3-5 năm. Với kinh doanh online bạn cần phải học cả đời.</p>
+                        <p><?php echo @$setting['content_top1'] ?></p>
                     </div>
 
                     <div class="link-banner">
@@ -400,4 +403,8 @@
         </section>
     </main>
 
+
+<?php
+getFooter();
+?>
   

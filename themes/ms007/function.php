@@ -2,7 +2,7 @@
     $menus= array();
     $menus[0]['title']= 'Cài đặt giao diện';
     $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
-                            'url'=>'/plugins/admin/bioza-admin-settingHomeTheme',
+                            'url'=>'/plugins/admin/ms007-admin-settingHomeTheme',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingHomeTheme'
                         );
