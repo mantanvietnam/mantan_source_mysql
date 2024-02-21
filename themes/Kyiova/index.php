@@ -147,7 +147,7 @@ global $urlThemeActive;
 
                                             <div class= "album-detail">
                                                 <div class="album-name">
-                                                    <a href="">Sự kiện</a>
+                                                    <a href="">'.@$item->title.'</a>
                                                 </div>
                                             </div>
                                         </div>
