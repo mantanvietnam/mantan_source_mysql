@@ -217,6 +217,10 @@
                    <?php showUploadFile('background_5','background_5', @$data['background_5'],6);?>
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <label class="form-label" for="basic-default-fullname">ảnh chân dung</label>
+                   <?php showUploadFile('image_cd','image_cd', @$data['image_cd'],7);?>
+                  </div>
+                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <label class="form-label" for="basic-default-fullname">facebook</label>
                     <input type="text" class="form-control" name="facebook" value="<?php echo @$data['facebook'];?>" />
                   </div>

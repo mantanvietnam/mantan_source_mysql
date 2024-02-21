@@ -60,6 +60,7 @@ function settingHomeTheme($input){
                             'instagram'=> @$dataSend['instagram'],
                             'behance'=> @$dataSend['behance'],
                             'dribbble'=> @$dataSend['dribbble'],
+                            'image_cd'=> @$dataSend['image_cd'],
                             'textfooter'=> @$dataSend['textfooter'],
                             
              );

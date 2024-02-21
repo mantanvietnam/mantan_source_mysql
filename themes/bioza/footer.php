@@ -19,7 +19,7 @@ $setting = setting();
             <div class="row">
                 <div class="col-lg-6 log-md-6 col-sm-12">
                     <div class="contact-img">
-                        <img src="../image/tran-toan.png" alt="">
+                        <img src="<?php echo @$setting['image_cd'];?>" alt="">
                     </div>
                 </div>
 
