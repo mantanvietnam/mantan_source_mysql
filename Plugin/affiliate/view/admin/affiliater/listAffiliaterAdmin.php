@@ -63,7 +63,7 @@
             <th>ID</th>
             <th>Hình ảnh</th>
             <th>Thông tin</th>
-            <th>Đơn hàng</th>
+            <th>Tiếp thị</th>
             <th>Người giới thiệu</th>
             <th>Sửa</th>
             <th>Xóa</th>
@@ -88,7 +88,12 @@
                 <a target="_blank" href="'.$link_aff.'">'.$link_aff.'</a>
               </td>
              
-              <td><a href="/plugins/admin/product-view-admin-order-listOrderAdmin/?id_aff='.$item->id.'">Đã giới thiệu '.number_format($item->number_order).' đơn</a></td>
+              <td>
+                <a href="/plugins/admin/product-view-admin-order-listOrderAdmin/?id_aff='.$item->id.'">Đã bán được '.number_format($item->number_order).' đơn hàng</a>
+                <br/><br/>
+                <a href="/plugins/admin/hethongdaily-view-admin-customer-listCustomerAdmin/?id_aff='.$item->id.'">Đã giới thiệu được '.number_format($item->number_customer).' khách hàng</a>
+
+              </td>
 
               <td>'.@$item->aff->name.' '.@$item->aff->phone.'</td>
 

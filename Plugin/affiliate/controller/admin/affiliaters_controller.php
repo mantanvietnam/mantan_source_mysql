@@ -11,6 +11,7 @@ function listAffiliaterAdmin($input)
 
     $modelAffiliaters = $controller->loadModel('Affiliaters');
     $modelOrders = $controller->loadModel('Orders');
+    $modelCustomers = $controller->loadModel('Customers');
 
     $conditions = array();
     $limit = 20;
@@ -75,8 +76,10 @@ function listAffiliaterAdmin($input)
         if(!empty($listData)){
             foreach ($listData as $key => $value) {
                 $order = $modelOrders->find()->where(['id_aff'=>$value->id])->all()->toList();
+                $customer = $modelCustomers->find()->where(['id_aff'=>$value->id])->all()->toList();
 
                 $listData[$key]->number_order = count($order);
+                $listData[$key]->number_customer = count($customer);
 
                 $listData[$key]->aff = $modelAffiliaters->find()->where(['id_father'=>$value->id])->first();
             }

@@ -38,6 +38,12 @@ function listCustomerAdmin($input)
         $conditions['email'] = $_GET['email'];
     }
 
+    if(!empty($_GET['id_aff'])){
+        $conditions['id_aff'] = $_GET['id_aff'];
+    }
+
+    
+
     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
         $listData = $modelCustomers->find()->where($conditions)->order($order)->all()->toList();
         

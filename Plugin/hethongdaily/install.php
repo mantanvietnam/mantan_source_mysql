@@ -56,7 +56,26 @@ $sqlInstallDatabase .= "CREATE TABLE `zalos` (
 
 $sqlInstallDatabase .= "CREATE TABLE `transaction_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `id_member` INT NOT NULL , `coin` INT NOT NULL , `type` VARCHAR(255) NOT NULL , `note` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `create_at` INT NOT NULL , `id_system` INT NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
-$sqlInstallDatabase .= "CREATE TABLE `customers` ( `id` INT NOT NULL AUTO_INCREMENT , `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , `phone` VARCHAR(255) NOT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , `sex` BOOLEAN NOT NULL , `id_city` TINYINT NOT NULL , `id_messenger` VARCHAR(255) NOT NULL, `avatar` TEXT NOT NULL, `status` VARCHAR(255) NOT NULL , `pass` VARCHAR(255) NOT NULL , `id_parent` INT NOT NULL DEFAULT '0' , `id_level` INT NOT NULL DEFAULT '0' , `birthday_date` INT NOT NULL , `birthday_month` INT NOT NULL , `birthday_year` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+$sqlInstallDatabase .= "CREATE TABLE `customers` ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
+  `phone` VARCHAR(255) NOT NULL , 
+  `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
+  `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
+  `sex` BOOLEAN NOT NULL , 
+  `id_city` TINYINT NOT NULL , 
+  `id_messenger` VARCHAR(255) NOT NULL, 
+  `avatar` TEXT NOT NULL, 
+  `status` VARCHAR(255) NOT NULL , 
+  `pass` VARCHAR(255) NOT NULL , 
+  `id_parent` INT(11) NOT NULL DEFAULT '0' COMMENT 'id member đại lý'
+  `id_level` INT NOT NULL DEFAULT '0' , 
+  `birthday_date` INT NOT NULL , 
+  `birthday_month` INT NOT NULL , 
+  `birthday_year` INT NOT NULL , 
+  `id_aff` INT NOT NULL DEFAULT '0' COMMENT 'id người tiếp thị liên kết',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB; ";
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";

@@ -582,6 +582,7 @@ function pay($input){
 					$infoUser->sex = (int) @$dataSend['sex'];
 					$infoUser->id_city = (int) @$dataSend['id_city'];
 					$infoUser->id_parent = (int) @$dataSend['id_agency'];
+					$infoUser->id_aff = (int) @$dataSend['id_aff'];
 					$infoUser->id_messenger = (string) @$dataSend['id_messenger'];
 					$infoUser->avatar = (string) @$dataSend['avatar'];
 					$infoUser->status = 'active';
@@ -593,8 +594,18 @@ function pay($input){
 					$modelCustomers->save($infoUser);
 				}else{
 					$infoUser->full_name = $dataSend['full_name'];
-					$infoUser->address = (string) @$dataSend['address'];
-					$infoUser->id_parent = (int) @$dataSend['id_agency'];
+
+					if(!empty($dataSend['id_agency'])){
+						$infoUser->id_parent = (int) $dataSend['id_agency'];
+					}
+
+					if(!empty($dataSend['id_aff'])){
+						$infoUser->id_aff = (int) $dataSend['id_aff'];
+					}
+					
+					if(!empty($dataSend['address'])){
+						$infoUser->address = (string) $dataSend['address'];
+					}
 
 					$modelCustomers->save($infoUser);
 				}
@@ -623,6 +634,7 @@ function pay($input){
 		$data->status = 'new';
 		$data->create_at = time();
 		$data->id_agency = (int) @$dataSend['id_agency'];
+		$data->id_aff = (int) @$dataSend['id_aff'];
 
 		// giá trước khi giảm giá
 		if(!empty($pay['totalPays'])){
@@ -716,7 +728,7 @@ function pay($input){
 			sendZNSDataBot($data, $product_name, $name_system, $agency);
 		}
 
-		return $controller->redirect('/completeOrder?id='.$data->id);
+		//return $controller->redirect('/completeOrder?id='.$data->id);
 	}
 
 	setVariable('list_product', $list_product);

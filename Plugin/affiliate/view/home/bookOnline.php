@@ -256,6 +256,7 @@
                             </a>
                             <?php }?>
 
+                            <?php if(!empty($info->web)){ ?>
                             <a target="_blank" href="<?php echo $info->web;?>">
                                 <div class="row social mb-3">
                                     <div class="col-3">
@@ -268,6 +269,7 @@
                                     </div>
                                 </div>
                             </a>
+                            <?php }?>
 
                             <?php if(!empty($info->instagram)){ ?>
                             <a target="_blank" href="<?php echo $info->instagram;?>">
@@ -515,7 +517,7 @@
         <script type="text/javascript">
             var list_product =  {};
             var crf = '<?php echo $csrfToken;?>';
-            var id_agency = '<?php echo (int) @$_GET['id'];?>';
+            var id_agency = '<?php echo $info->id;?>';
             var name_agency = '<?php echo $info->name;?>';
             var name_system = '<?php echo $info->name_system;?>';
 
@@ -649,7 +651,7 @@
                     $.ajax({
                       method: "POST",
                       url: "/pay",
-                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf, id_agency:id_agency, name_agency:name_agency, name_system:name_system }
+                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf, id_aff:id_agency, name_agency:name_agency, name_system:name_system }
                     })
                     .done(function( msg ) {
                         $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');

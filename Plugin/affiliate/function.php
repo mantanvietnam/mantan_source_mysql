@@ -29,25 +29,26 @@ function calculateAffiliate($money=0, $id_order=0)
 {
 	global $session;
 	global $modelOptions;
+	global $controller;
 
 	$modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
 	$modelAffiliaters = $controller->loadModel('Affiliaters');
-
+	
 	if(!empty($session->read('aff_phone')) && $money>0){
 		$checkAff = $modelAffiliaters->find()->where(['phone' => $session->read('aff_phone')])->first();
-
+	
 		if(!empty($checkAff)){
 			$conditions = array('key_word' => 'settingAffiliateAdmin');
 	    	$settingAffiliateAdmin = $modelOptions->find()->where($conditions)->first();
-
+	    
 	    	$setting = array();
 		    if(!empty($settingAffiliateAdmin->value)){
 		        $setting = json_decode($settingAffiliateAdmin->value, true);
 		    }
 
 		    if(!empty($setting['percent1'])){
-		    	$money_back = $setting['percent1'] * $money;
-		    	
+		    	$money_back = $setting['percent1'] * $money / 100;
+		    
 		    	// lưu lịch sử trích hoa hồng
 		    	$saveBack = $modelTransactionAffiliateHistories->newEmptyEntity();
 		    	
@@ -74,6 +75,7 @@ function calculateAffiliateFather($money=0, $id_order=0, $level=1, $id_father=0)
 {
 	global $session;
 	global $modelOptions;
+	global $controller;
 
 	$modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
 	$modelAffiliaters = $controller->loadModel('Affiliaters');
@@ -91,7 +93,7 @@ function calculateAffiliateFather($money=0, $id_order=0, $level=1, $id_father=0)
 		    }
 
 		    if(!empty($setting['percent'.$level])){
-		    	$money_back = $setting['percent'.$level] * $money;
+		    	$money_back = $setting['percent'.$level] * $money / 100;
 		    	
 		    	// lưu lịch sử trích hoa hồng
 		    	$saveBack = $modelTransactionAffiliateHistories->newEmptyEntity();
