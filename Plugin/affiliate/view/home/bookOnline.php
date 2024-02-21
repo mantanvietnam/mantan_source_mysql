@@ -177,7 +177,7 @@
                             
 
                             <span class="name mt-3"><?php echo $info->name;?></span> 
-                            <span class="idd"><?php echo $info->name_position.' '.$info->name_system;?></span> 
+                            <span class="idd"><?php echo $info->name_system;?></span> 
 
                             <div class="d-flex flex-row justify-content-center align-items-center gap-2"> 
                                 <span class="idd1" id="myPhone"><?php echo $info->phone;?></span> 
@@ -313,15 +313,6 @@
                                 </div>
                             </a>
                             <?php }?>
-
-                            <!--
-                            <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> 
-                                <span><i class="fa fa-twitter"></i></span> 
-                                <span><i class="fa fa-facebook-f"></i></span> 
-                                <span><i class="fa fa-instagram"></i></span> 
-                                <span><i class="fa fa-linkedin"></i></span> 
-                            </div> 
-                            -->
 
                             <div class=" px-2 rounded mt-4 date "> 
                                 <span class="join"><?php echo $info->email;?></span> 

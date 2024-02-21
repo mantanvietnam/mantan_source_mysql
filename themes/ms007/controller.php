@@ -103,30 +103,30 @@ function indexTheme(){
 
     $order = array('id'=>'desc');
 
-    $listDataNew= $modelPosts->find()->limit(4)->where(array('type'=>'post'))->order($order)->all()->toList();
+    // $listDataNew= $modelPosts->find()->limit(4)->where(array('type'=>'post'))->order($order)->all()->toList();
 
-    $album_home1 = $modelAlbums->find()->where(['id'=>(int)@$data_value['id_album1']])->first();
+    // $album_home1 = $modelAlbums->find()->where(['id'=>(int)@$data_value['id_album1']])->first();
 
-    if(!empty($album_home1)){
-        $album_home1->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$album_home1->id])->order(['id'=>'desc'])->all()->toList();
-    }
+    // if(!empty($album_home1)){
+    //     $album_home1->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$album_home1->id])->order(['id'=>'desc'])->all()->toList();
+    // }
 
-    $album_home2 = $modelAlbums->find()->where(['id'=>(int)@$data_value['id_album2']])->first();
+    // $album_home2 = $modelAlbums->find()->where(['id'=>(int)@$data_value['id_album2']])->first();
 
-    if(!empty($album_home2)){
-        $album_home2->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$album_home2->id])->order(['id'=>'desc'])->all()->toList();
-    }
+    // if(!empty($album_home2)){
+    //     $album_home2->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$album_home2->id])->order(['id'=>'desc'])->all()->toList();
+    // }
 
-    $category = $modelCategories->find()->where(array('id'=>@$data_value['id_post']))->first();
+    // $category = $modelCategories->find()->where(array('id'=>@$data_value['id_post']))->first();
 
-    $listDataNew= $modelPosts->find()->limit(4)->where(array('idCategory'=>@$data_value['id_post'],'type'=>'post'))->order($order)->all()->toList();
+    // $listDataNew= $modelPosts->find()->limit(4)->where(array('idCategory'=>@$data_value['id_post'],'type'=>'post'))->order($order)->all()->toList();
 
     setVariable('setting', $data_value);
-    setVariable('listDataNew', $listDataNew);
-    setVariable('album_home1', $album_home1);
-    setVariable('album_home2', $album_home2);
-    setVariable('listDataNew', $listDataNew);
-    setVariable('category', $category);
+    // setVariable('listDataNew', $listDataNew);
+    // setVariable('album_home1', $album_home1);
+    // setVariable('album_home2', $album_home2);
+    // setVariable('listDataNew', $listDataNew);
+    // setVariable('category', $category);
 
     }
 ?>

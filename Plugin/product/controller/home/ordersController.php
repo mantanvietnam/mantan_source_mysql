@@ -624,12 +624,14 @@ function pay($input){
 		$data->create_at = time();
 		$data->id_agency = (int) @$dataSend['id_agency'];
 
+		// giá trước khi giảm giá
 		if(!empty($pay['totalPays'])){
 			$data->money = (int) $pay['totalPays'];
 		}else{
 			$data->money = (int) $money;
 		}
 
+		// giá sau giảm giá
 		if(!empty($pay['total'])){
 			$data->total = (int) $pay['total'];
 		}else{
@@ -699,6 +701,10 @@ function pay($input){
 
 		if(function_exists('getOrderLarkSuite')){
 			getOrderLarkSuite($data->id);
+		}
+
+		if(function_exists('calculateAffiliate')){
+			calculateAffiliate($data->total, $data->id);
 		}
 
 		if(function_exists('sendZNSDataBot')){
