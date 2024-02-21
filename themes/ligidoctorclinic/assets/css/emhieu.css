@@ -728,8 +728,8 @@ a:hover {
 .footer {
     margin-top: 60px;
     background: #096561;
-    padding-top: 100px;
-    padding-bottom: 50px;
+    padding-top: 60px;
+    padding-bottom: 18px;
 }
 
 .text-footer {
@@ -1092,7 +1092,7 @@ textarea {
 }
 
 .path-cateNotice {
-    margin-top: 100px;
+    margin-top: 35px;
 }
 
 .item-notice {
@@ -1135,6 +1135,7 @@ textarea {
 .box-img-system {
     position: relative;
     margin-bottom: 20px;
+    height: 436px;
 }
 
 .box-img-system>img {
@@ -1442,7 +1443,8 @@ textarea {
 }
 
 .header-fix .box-logo a>img {
-    width: 120px;
+    width: 100px;
+    padding: 10px 0;
 }
 
 .header-fix .box-hotline {
@@ -1810,11 +1812,497 @@ textarea {
 }
 
 
+/* Bổ sung code */
+
+.box-hotline-fix,
+.box-chat-fix,
+.box-set-order {
+    display: none;
+}
+
+.box-fix-tool-bar-contact {
+    display: none;
+}
+
+.navbar-nav {
+    display: contents;
+    color: #00771b;
+}
+
+.page-item.active .page-link {
+    background-color: #00771b;
+    border-color: #00771b;
+}
+
+.pagination .page-item .page-link {
+    color: #00771b;
+}
+
+.pagination .page-item .active {
+    color: #ffff !important;
+}
+
+
+/*giỏ hàng*/
+
+.cart .table thead th {
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+.cart .table thead {
+    border-bottom: 2px solid #c7c7c7;
+    margin-bottom: 10px;
+}
+
+.cart .table tbody th,
+.cart .table tbody td {
+    vertical-align: middle;
+}
+
+.cart-delete i {
+    font-size: 22px;
+    color: #a4a4a4;
+}
+
+.cart-delete {
+    width: 40px;
+    text-align: center;
+}
+
+.cart-cost {
+    width: 130px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.cart-total-cost {
+    width: 130px;
+    font-weight: 600;
+    color: rgb(192, 36, 36) !important;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.cart-quantity .quantity-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px !important;
+    padding-left: 0px !important;
+}
+
+.cart-quantity {
+    width: 120px;
+}
+
+.cart-quantity .quantity-input input {
+    width: 40px;
+}
+
+.cart-quantity .quantity-btn {
+    cursor: pointer;
+    padding: 1px 10px;
+    font-size: 16px;
+}
+
+.cart-produce-img {
+    width: 130px;
+    height: auto;
+}
+
+.cart-produce-img img {
+    width: 70px;
+}
+
+.item-cart-produce {
+    border-bottom: 1px solid #dedede;
+}
+
+#section-cart h3 {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+#section-cart .cart {
+    padding-right: 30px;
+    padding-bottom: 15px;
+    border-right: 1px solid #dedede;
+}
+
+#section-cart {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+#section-cart .money h3 {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #c7c7c7;
+}
+
+#section-cart .money {
+    padding-top: 15px;
+}
+
+.money-of-produce .item-produce {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px 15px 10px;
+    border-bottom: 1px solid #dedede;
+}
+
+.money-of-produce .item-produce .produce-price {
+    display: flex;
+    justify-content: end;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.money-of-produce .item-produce .produce-name {
+    width: 280px;
+    padding-right: 20px;
+}
+
+.money-of-produce .produce-total .total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    white-space: nowrap;
+    align-items: center;
+}
+
+.money-of-produce .produce-total .total P {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.money-of-produce .produce-total .total span {
+    font-weight: 600;
+    font-size: 22px;
+    color: rgb(192, 36, 36);
+}
+
+.money-of-produce .produce-total {
+    padding: 12px 10px 15px 10px;
+}
+
+.money-of-produce .produce-total button {
+    background-color: #228B22;
+    color: #fff;
+    padding: 10px 10px;
+    border-radius: 5px;
+    transition: all 0.3s linear;
+    width: 100%;
+    border: none;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.money-of-produce .produce-total button:hover {
+    background-color: #186318;
+    transition: all 0.3s linear;
+}
+
+.no-produce {
+    text-align: center;
+    display: block;
+}
+
+.no-produce p {
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.no-produce a {
+    background-color: #228B22;
+    color: #fff;
+    padding: 10px 10px;
+    border-radius: 5px;
+    transition: all 0.3s linear;
+    width: 100%;
+    border: none;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.no-produce img {
+    width: 300px;
+    object-fit: cover;
+}
+
+.quantity-input {
+    display: flex;
+    max-width: 120px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-left: 12px;
+}
+
+.quantity-input input {
+    width: 70px;
+    text-align: center;
+    border: 1px solid #d7d7d7;
+}
+
+.quantity-btn {
+    cursor: pointer;
+    padding: 1px 10px;
+    font-size: 16px;
+    border: 1px solid #d7d7d7;
+}
+
+
+/*    Trang THANH TOÁN    */
+
+#section-payment {
+    padding: 85px 0;
+}
+
+#section-payment h3 {
+    margin-bottom: 37px;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    display: block;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #dadada;
+}
+
+.info-customer h4 {
+    font-size: 26px;
+    font-weight: 500;
+    text-transform: uppercase;
+    display: block;
+    padding-bottom: 20px;
+}
+
+.info-customer {
+    padding: 0 15px;
+}
+
+.info-customer label {
+    display: grid;
+    padding: 10px 0;
+    font-weight: 500;
+}
+
+.info-customer .form div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-customer .form div label {
+    width: 50%;
+    margin-right: 30px;
+}
+
+.info-customer .form div label:last-child {
+    margin-right: 0px;
+}
+
+.info-customer label input {
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    outline: none;
+    padding: 5px 10px;
+}
+
+.info-customer .form select {
+    border: 1px solid #ddd;
+    outline: none;
+    padding: 5px 10px;
+    height: 38px;
+}
+
+.info-customer .form textarea {
+    border: 1px solid #ddd;
+    outline: none;
+    padding: 5px 10px;
+}
+
+.your-order {
+    padding: 30px;
+    border: 1px solid #ddd;
+}
+
+.your-order .money-of-produce .produce-total .total {
+    margin-bottom: 15px !important;
+}
+
+.your-order .accordion-button::after {
+    content: none;
+}
+
+.your-order .accordion-button {
+    background-color: #fff;
+    outline: none;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.your-order .accordion-button input {
+    margin-right: 6px;
+}
+
+.accordion-button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.payment-methods {
+    margin-bottom: 15px;
+}
+
+.payment-methods .accordion-button:not(.collapsed) {
+    box-shadow: none;
+}
+
+.payment-methods .accordion-body {
+    padding-top: 0;
+    padding-left: 30px;
+}
+
+.your-order .money-of-produce .produce-total {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.your-order .money-of-produce .produce-total p {
+    font-size: 15px;
+    /* margin-top: 30px; */
+    text-align: justify;
+    align-items: center;
+}
+
+#section-payment .your-order h3 {
+    font-size: 26px;
+}
+
+.money .produce-name span {
+    font-weight: 500;
+}
+
+.money .produce-name i {
+    font-size: 12px;
+}
+
+.navbar-nav .nav-item .cart-search {
+    display: flex;
+}
+
+
+/*Trang XÁC NHẬN ĐƠN HÀNG*/
+
+.table-ord thead {
+    border-bottom: 2px solid #c7c7c7;
+    margin-bottom: 10px;
+}
+
+.table-ord thead th {
+    font-weight: 600;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.table-ord tbody td {
+    font-weight: 600;
+}
+
+.table-ord .payment-method td:last-child,
+.table-ord .note td:last-child {
+    font-weight: 400;
+}
+
+.table-ord .production td:last-child {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.table-ord .production td span {
+    font-weight: 500;
+}
+
+.table-ord .production a {
+    color: #212529;
+    font-weight: 400;
+}
+
+.table-ord thead th:last-child {
+    float: right;
+}
+
+.table-ord tr td {
+    vertical-align: middle;
+}
+
+.table-ord tr td:last-child {
+    float: right;
+}
+
+.table-ord tr {
+    border-bottom: 1px solid #dedede;
+}
+
+.end-order {
+    padding: 20px;
+    background-color: #eeeeee;
+    box-shadow: 3px 3px 3px 0px #dbdbdb;
+}
+
+.end-order li {
+    padding-left: 15px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.end-order p {
+    color: #228B22;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.end-order li span {
+    font-weight: 600;
+}
+
+#section-detail-order h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+#section-detail-order h3 {
+    font-size: 32px;
+    margin-bottom: 50px;
+}
+
+#section-detail-order {
+    padding: 85px 0;
+}
+
+
 /*     Em Hiếu sửa CSS - 19/02/24     */
 
 .container-fluid.set-pd-0.banner {
     padding-left: 0 !important;
     padding-right: 0 !important;
+}
+
+.wr-content-notice ul li:last-child {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -2194,7 +2682,7 @@ textarea {
         margin-right: 5px;
     }
     .item-title-system {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         margin-bottom: 10px;
     }
     .item-info-system>p {
@@ -2708,7 +3196,7 @@ textarea {
     }
     /* ------ trang danh mục bài viết responsive ------ */
     .title-cate {
-        margin-top: 50px;
+        margin-top: 0;
         margin-bottom: 15px;
     }
     .item-notice {
@@ -2776,7 +3264,7 @@ textarea {
         margin-right: 5px;
     }
     .item-title-system {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     .item-info-system>p {
         font-size: 1.1rem;
@@ -2813,6 +3301,10 @@ textarea {
     #formContact>.row:not(:last-child) {
         margin-bottom: 0px;
     }
+    #formContact input,
+    #formContact textarea {
+        margin-bottom: 15px;
+    }
     /* ------- trang chi tiết bài viết responsive -------- */
     .my-carousel-cell-notice-related {
         width: 50%;
@@ -2836,7 +3328,8 @@ textarea {
         width: 25px;
     }
     .header-fix .box-logo a>img {
-        width: 70px;
+        width: 65px;
+        padding: 10px 0;
     }
     .title-contact {
         font-size: 3rem;
@@ -2912,6 +3405,36 @@ textarea {
     .box-bd-product {
         border: 10px solid #6b8931;
     }
+    .carousel__nav .carousel__button {
+        width: 35px;
+        height: 35px;
+        top: 40%;
+    }
+    #section-cart .cart {
+        padding-right: 0px !important;
+        padding-bottom: 15px;
+        border-right: none !important;
+        overflow: auto;
+    }
+    .info-customer .form div {
+        display: block;
+    }
+    .info-customer .form div label {
+        width: 100%;
+        margin-right: 0;
+    }
+    .money-of-produce .item-produce {
+        padding: 12px 0px 15px 0px;
+    }
+    .info-customer {
+        padding: 0;
+    }
+    .wr-logo-foter {
+        text-align: center;
+    }
+    .wr-content-notice p>img {
+        width: 100% !important;
+    }
 }
 
 @media (max-width: 500px) {
@@ -2925,482 +3448,16 @@ textarea {
     .languageFlag {
         margin-left: 20px;
     }
-}
-
-
-/* Bổ sung code */
-
-.box-hotline-fix,
-.box-chat-fix,
-.box-set-order {
-    display: none;
-}
-
-.box-fix-tool-bar-contact {
-    display: none;
-}
-
-.navbar-nav {
-    display: contents;
-    color: #00771b;
-}
-
-.page-item.active .page-link {
-    background-color: #00771b;
-    border-color: #00771b;
-}
-
-.pagination .page-item .page-link {
-    color: #00771b;
-}
-
-.pagination .page-item .active {
-    color: #ffff !important;
-}
-
-
-/*giỏ hàng*/
-
-.cart .table thead th {
-    text-align: center;
-    font-weight: 600;
-    font-size: 18px;
-    white-space: nowrap;
-}
-
-.cart .table thead {
-    border-bottom: 2px solid #c7c7c7;
-    margin-bottom: 10px;
-}
-
-.cart .table tbody th,
-.cart .table tbody td {
-    vertical-align: middle;
-}
-
-.cart-delete i {
-    font-size: 22px;
-    color: #a4a4a4;
-}
-
-.cart-delete {
-    width: 40px;
-    text-align: center;
-}
-
-.cart-cost {
-    width: 130px;
-    font-weight: 600;
-    text-align: center;
-    white-space: nowrap;
-}
-
-.cart-total-cost {
-    width: 130px;
-    font-weight: 600;
-    color: rgb(192, 36, 36) !important;
-    text-align: center;
-    white-space: nowrap;
-}
-
-.cart-quantity .quantity-input {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0px !important;
-    padding-left: 0px !important;
-}
-
-.cart-quantity {
-    width: 120px;
-}
-
-.cart-quantity .quantity-input input {
-    width: 40px;
-}
-
-.cart-quantity .quantity-btn {
-    cursor: pointer;
-    padding: 1px 10px;
-    font-size: 16px;
-}
-
-.cart-produce-img {
-    width: 130px;
-    height: auto;
-}
-
-.cart-produce-img img {
-    width: 70px;
-}
-
-.item-cart-produce {
-    border-bottom: 1px solid #dedede;
-}
-
-#section-cart h3 {
-    font-size: 32px;
-    font-weight: 500;
-    margin-bottom: 30px;
-}
-
-#section-cart .cart {
-    padding-right: 30px;
-    padding-bottom: 15px;
-    border-right: 1px solid #dedede;
-}
-
-#section-cart {
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-#section-cart .money h3 {
-    font-weight: 600;
-    font-size: 18px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #c7c7c7;
-}
-
-#section-cart .money {
-    padding-top: 15px;
-}
-
-.money-of-produce .item-produce {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 10px 15px 10px;
-    border-bottom: 1px solid #dedede;
-}
-
-.money-of-produce .item-produce .produce-price {
-    display: flex;
-    justify-content: end;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.money-of-produce .item-produce .produce-name {
-    width: 280px;
-    padding-right: 20px;
-}
-
-.money-of-produce .produce-total .total {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
-    white-space: nowrap;
-    align-items: center;
-}
-
-.money-of-produce .produce-total .total P {
-    font-weight: 600;
-    font-size: 18px;
-}
-
-.money-of-produce .produce-total .total span {
-    font-weight: 600;
-    font-size: 22px;
-    color: rgb(192, 36, 36);
-}
-
-.money-of-produce .produce-total {
-    padding: 12px 10px 15px 10px;
-}
-
-.money-of-produce .produce-total button {
-    background-color: #228B22;
-    color: #fff;
-    padding: 10px 10px;
-    border-radius: 5px;
-    transition: all 0.3s linear;
-    width: 100%;
-    border: none;
-    font-size: 19px;
-    font-weight: 600;
-    margin-bottom: 30px;
-}
-
-.money-of-produce .produce-total button:hover {
-    background-color: #186318;
-    transition: all 0.3s linear;
-}
-
-.no-produce {
-    text-align: center;
-    display: block;
-}
-
-.no-produce p {
-    font-size: 20px;
-    margin-bottom: 40px;
-}
-
-.no-produce a {
-    background-color: #228B22;
-    color: #fff;
-    padding: 10px 10px;
-    border-radius: 5px;
-    transition: all 0.3s linear;
-    width: 100%;
-    border: none;
-    font-size: 19px;
-    font-weight: 600;
-}
-
-.no-produce img {
-    width: 300px;
-    object-fit: cover;
-}
-
-.quantity-input {
-    display: flex;
-    max-width: 120px;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 40px;
-    padding-left: 12px;
-}
-
-.quantity-input input {
-    width: 70px;
-    text-align: center;
-    border: 1px solid #d7d7d7;
-}
-
-.quantity-btn {
-    cursor: pointer;
-    padding: 1px 10px;
-    font-size: 16px;
-    border: 1px solid #d7d7d7;
-}
-
-
-/*    Trang THANH TOÁN    */
-
-#section-payment {
-    padding: 85px 0;
-}
-
-#section-payment h3 {
-    margin-bottom: 37px;
-    font-size: 32px;
-    font-weight: 500;
-    text-transform: uppercase;
-    display: block;
-    padding-bottom: 30px;
-    border-bottom: 2px solid #dadada;
-}
-
-.info-customer h4 {
-    font-size: 26px;
-    font-weight: 500;
-    text-transform: uppercase;
-    display: block;
-    padding-bottom: 20px;
-}
-
-.info-customer {
-    padding: 0 15px;
-}
-
-.info-customer label {
-    display: grid;
-    padding: 10px 0;
-    font-weight: 500;
-}
-
-.info-customer .form div {
-    display: flex;
-    justify-content: space-between;
-}
-
-.info-customer .form div label {
-    width: 50%;
-    margin-right: 30px;
-}
-
-.info-customer .form div label:last-child {
-    margin-right: 0px;
-}
-
-.info-customer label input {
-    border: 1px solid #ddd;
-    margin-top: 5px;
-    outline: none;
-    padding: 5px 10px;
-}
-
-.info-customer .form select {
-    border: 1px solid #ddd;
-    outline: none;
-    padding: 5px 10px;
-    height: 38px;
-}
-
-.info-customer .form textarea {
-    border: 1px solid #ddd;
-    outline: none;
-    padding: 5px 10px;
-}
-
-.your-order {
-    padding: 30px;
-    border: 1px solid #ddd;
-}
-
-.your-order .money-of-produce .produce-total .total {
-    margin-bottom: 15px !important;
-}
-
-.your-order .accordion-button::after {
-    content: none;
-}
-
-.your-order .accordion-button {
-    background-color: #fff;
-    outline: none;
-    align-items: center;
-    font-weight: 500;
-    font-size: 16px;
-}
-
-.your-order .accordion-button input {
-    margin-right: 6px;
-}
-
-.accordion-button:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-.payment-methods {
-    margin-bottom: 15px;
-}
-
-.payment-methods .accordion-button:not(.collapsed) {
-    box-shadow: none;
-}
-
-.payment-methods .accordion-body {
-    padding-top: 0;
-    padding-left: 30px;
-}
 
-.your-order .money-of-produce .produce-total {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.your-order .money-of-produce .produce-total p {
-    font-size: 15px;
-    /* margin-top: 30px; */
-    text-align: justify;
-    align-items: center;
-}
-
-#section-payment .your-order h3 {
-    font-size: 26px;
-}
-
-.money .produce-name span {
-    font-weight: 500;
-}
-
-.money .produce-name i {
-    font-size: 12px;
-}
-
-.navbar-nav .nav-item .cart-search {
-    display: flex;
-}
-
-
-/*Trang XÁC NHẬN ĐƠN HÀNG*/
-
-.table-ord thead {
-    border-bottom: 2px solid #c7c7c7;
-    margin-bottom: 10px;
-}
-
-.table-ord thead th {
-    font-weight: 600;
-    white-space: nowrap;
-    vertical-align: middle;
-}
-
-.table-ord tbody td {
-    font-weight: 600;
-}
-
-.table-ord .payment-method td:last-child,
-.table-ord .note td:last-child {
-    font-weight: 400;
-}
-
-.table-ord .production td:last-child {
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.table-ord .production td span {
-    font-weight: 500;
-}
-
-.table-ord .production a {
-    color: #212529;
-    font-weight: 400;
-}
-
-.table-ord thead th:last-child {
-    float: right;
-}
-
-.table-ord tr td {
-    vertical-align: middle;
-}
-
-.table-ord tr td:last-child {
-    float: right;
-}
+    .box-img-system {
+        height: 175px;
+    }
 
-.table-ord tr {
-    border-bottom: 1px solid #dedede;
-}
-
-.end-order {
-    padding: 20px;
-    background-color: #eeeeee;
-    box-shadow: 3px 3px 3px 0px #dbdbdb;
-}
-
-.end-order li {
-    padding-left: 15px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-}
-
-.end-order p {
-    color: #228B22;
-    font-size: 20px;
-    margin-bottom: 15px;
-}
-
-.end-order li span {
-    font-weight: 600;
-}
-
-#section-detail-order h4 {
-    font-size: 20px;
-    margin-bottom: 20px;
-}
 
-#section-detail-order h3 {
-    font-size: 32px;
-    margin-bottom: 50px;
 }
 
-#section-detail-order {
-    padding: 85px 0;
+@media (max-width: 376px){
+    .cate-tap {
+        margin-bottom: 7px;
+    }
 }
