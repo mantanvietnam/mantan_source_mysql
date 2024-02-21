@@ -14,6 +14,7 @@ $setting = setting();?>
 					<p class="va_thongtin"><?php echo @$setting['company'] ?></p>
 					<p class="va_dia_chi">Địa chỉ <?php echo @$setting['address'] ?></p>
 					<p>Hotline: <a class="so_dien_thoai" ><?php echo @$setting['hotline'] ?></a></p>
+					<p>Email: <a class="so_dien_thoai" ><?php echo @$contactSite['email'] ?></a></p>
 					<p class="va_facebook"><a class="so_dien_thoai" href="<?php echo @$setting['link_facebook']?>" > <?php echo @$setting['facebook']?> </p>
 				</div>
 				<div class="col-sm-12 col-md-12 col-lg-3">

@@ -17,7 +17,7 @@ $setting = setting();
 			<?php
 			} ?>
 			<select name="category" id="">
-				<option value="">Danh mục sản phẩm</option>
+				<option value="">Tất cả sản phẩm</option>
 				<?php if(!empty($listCate = getCategorieProduct())) {
 					foreach ($listCate as $key => $value) { ?>
 						<option <?php echo !empty($_GET['category']) && $_GET['category']==$value->id?'selected':''; ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
@@ -27,9 +27,9 @@ $setting = setting();
 			</select>
 			<select name="price" id="">
 				<option value="">Giá sản phẩm</option>
-				<option <?php echo !empty($_GET['price']) && $_GET['price']=='0;100000'?'selected':''; ?>  value="0;100000">0 - 100.000</option>
-				<option <?php echo !empty($_GET['price']) && $_GET['price']=='100001;500000'?'selected':''; ?> value="100001;500000">100.000 - 500.000</option>
-				<option <?php echo !empty($_GET['price']) && $_GET['price']=='500001;1000000'?'selected':''; ?> value="500001;1000000">500.000 - 1.000.000</option>
+				<option <?php echo !empty($_GET['price']) && $_GET['price']=='0;100000'?'selected':''; ?>  value="0;100000">0 VNĐ - 100.000 VNĐ</option>
+				<option <?php echo !empty($_GET['price']) && $_GET['price']=='100001;500000'?'selected':''; ?> value="100001;500000">100.000 VNĐ - 500.000 VNĐ</option>
+				<option <?php echo !empty($_GET['price']) && $_GET['price']=='500001;1000000'?'selected':''; ?> value="500001;1000000">500.000 VNĐ - 1.000.000 VNĐ</option>
 			</select>
 			<button type="submit">Lọc</button>
 		</form>

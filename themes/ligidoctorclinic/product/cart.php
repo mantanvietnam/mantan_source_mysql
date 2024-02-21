@@ -12,9 +12,9 @@ $price_total = 0;
 ?>
 
 <style>
-    .menu-mobile{
+    /* .menu-mobile{
         display: none
-    }
+    } */
 
     .icon-phone-bottom{
         display: block;

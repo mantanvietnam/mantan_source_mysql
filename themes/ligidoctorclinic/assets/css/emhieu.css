@@ -174,7 +174,7 @@ a:hover {
 }
 
 .box-logo a>img {
-    width: 168px;
+    width: 140px;
 }
 
 .box-logo center {
@@ -325,8 +325,8 @@ a:hover {
 /* Menu hader pc */
 
 .wr-menu {
-    margin-top: 45px;
-    margin-bottom: 25px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .box-menu {
@@ -530,6 +530,7 @@ a:hover {
 .my-carousel__slide a>img {
     width: 60%;
     border-radius: 50%;
+    box-shadow: 0px 4px 12px 0px rgb(167, 167, 172);
 }
 
 .my-carousel__slide>center {
@@ -859,7 +860,7 @@ a:hover {
 
 .path {
     font-size: 1.3rem;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     text-transform: uppercase;
 }
 
@@ -1092,7 +1093,7 @@ textarea {
 }
 
 .path-cateNotice {
-    margin-top: 35px;
+    margin-top: 15px;
 }
 
 .item-notice {
@@ -3196,7 +3197,7 @@ textarea {
     }
     /* ------ trang danh mục bài viết responsive ------ */
     .title-cate {
-        margin-top: 0;
+        margin-top: 30px;
         margin-bottom: 15px;
     }
     .item-notice {
@@ -3262,7 +3263,7 @@ textarea {
     .item-title-system img {
         width: 20px;
         margin-right: 5px;
-    }
+    } 
     .item-title-system {
         font-size: 1.1rem;
     }
@@ -3460,4 +3461,9 @@ textarea {
     .cate-tap {
         margin-bottom: 7px;
     }
+}
+
+#myCarousel0 > div > div{
+    justify-content: center;
+    align-items: center;
 }
