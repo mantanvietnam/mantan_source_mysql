@@ -1,0 +1,499 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-family: "Roboto", sans-serif;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 26px;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+p {
+  font-weight: 400;
+  font-size: 15px;
+  color: #333333;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1;
+  font-weight: 600;
+}
+
+.row > * {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 40px;
+  font-weight: 500px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1295px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1295px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+header {
+  background-color: #00163D;
+  z-index: 100;
+}
+header .navbar-header {
+  background-color: transparent;
+  transition: all 0.4s ease-in-out;
+}
+header .navbar-header.scroll-header .nav-link {
+  color: #fff !important;
+  font-size: 16px;
+}
+header .navbar-header .navbar-brand .image-header {
+  width: 72px;
+}
+header .navbar-header .nav-item .nav-link {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 15px;
+}
+header .navbar-header .nav-item .nav-link.active {
+  color: #f99b1c !important;
+}
+header .navbar-header .nav-item .nav-link:hover {
+  color: #f99b1c !important;
+}
+
+.text-yeallow {
+  color: #f99b1c;
+}
+
+h2 {
+  font-size: 52px;
+}
+
+.section-title {
+  margin-bottom: 13px;
+}
+
+#section-banner {
+  padding-top: 183px;
+  padding-bottom: 140px;
+  position: relative;
+}
+#section-banner .banner-overlay {
+  width: 100%;
+  background: #151515;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+#section-banner .banner-content {
+  position: relative;
+  z-index: 10;
+  padding-top: 66px;
+}
+#section-banner .banner-content .title-banner {
+  margin-bottom: 13px;
+}
+#section-banner .banner-content .title-banner h2 {
+  font-size: 56px;
+  color: #fff;
+  font-weight: bold;
+}
+#section-banner .banner-content .title-banner h2 span {
+  color: #f99b1c;
+}
+#section-banner .banner-content .description-banner {
+  margin-bottom: 21px;
+}
+#section-banner .banner-content .description-banner p {
+  font-size: 22px;
+  color: #fff;
+}
+#section-banner .banner-content .link-banner button {
+  background-color: #f99b1c;
+}
+#section-banner .banner-content .link-banner button a {
+  padding: 0 25px;
+  color: #fff;
+  font-size: 21px;
+}
+
+#section-service {
+  margin-top: -100px;
+  position: relative;
+}
+#section-service .col-lg-4 {
+  padding: 0;
+}
+#section-service .col-lg-4 .service-item {
+  text-align: center;
+  padding: 30px 23px 28px 23px;
+  border: 1px solid #fff;
+}
+#section-service .col-lg-4 .service-item .service-title h3 {
+  font-size: 31px;
+  color: #fff;
+  line-height: 1.3;
+}
+#section-service .col-lg-4 .service-item hr {
+  margin: 15px 0;
+  border-width: 0;
+  border-top: 1px solid #fff;
+  opacity: 0.1;
+}
+#section-service .col-lg-4 .service-item .service-content p {
+  color: #fff;
+  font-size: 17px;
+}
+
+#section-introduce {
+  padding-top: 55px;
+}
+#section-introduce .introduce-content .introduce-title h2 {
+  color: #000;
+}
+#section-introduce .introduce-content .introduce-devide {
+  max-width: 45%;
+  background-color: rgb(255, 152, 0);
+  margin: 16px 0;
+  height: 3px;
+}
+#section-introduce .introduce-content .introduce-content {
+  font-size: 22px;
+  color: #282828;
+  line-height: 1.6;
+}
+
+#section-news {
+  background-color: #F3F9FF;
+  padding: 68px 0;
+}
+#section-news .section-title p {
+  font-size: 17px;
+  margin-top: 13px;
+}
+#section-news .news-list .slick-prev {
+  position: absolute;
+  left: -40px;
+}
+#section-news .news-list .slick-next {
+  position: absolute;
+  right: -40px;
+}
+#section-news .news-list .slick-arrow {
+  z-index: 1;
+  background-color: transparent;
+  width: 48px;
+  height: 48px;
+  color: #000;
+  border-radius: 50%;
+  padding: 0;
+  top: 23%;
+  border: none;
+}
+#section-news .news-list .slick-arrow i {
+  font-size: 26px;
+}
+#section-news .news-list .news-item {
+  padding: 10px 15px;
+}
+#section-news .news-list .news-item .new-item-inner {
+  box-shadow: 2px 0 15px -4px #888888;
+}
+#section-news .news-list .news-item .new-item-inner .news-detail {
+  padding: 15px;
+  background-color: #fff;
+}
+#section-news .news-list .news-item .new-item-inner .news-detail .news-title a {
+  font-size: 19px;
+  color: #083177;
+}
+#section-news .news-list .news-item .new-item-inner .news-detail .news-date {
+  font-size: 13px;
+  color: #AFAFAF;
+}
+#section-news .news-list .news-item .new-item-inner .news-detail .news-description {
+  font-size: 15px;
+}
+#section-news .news-list .news-item .new-item-inner .news-detail .news-link a {
+  font-size: 13px;
+  color: #f99b1c;
+  font-style: italic;
+}
+
+#section-start-today {
+  padding: 72px 0;
+  text-align: center;
+}
+#section-start-today .start-today-content {
+  margin-bottom: 21px;
+}
+#section-start-today .start-today-content p {
+  font-size: 22px;
+  line-height: 1.4;
+}
+#section-start-today .start-today-button button {
+  background-color: #f99b1c;
+}
+#section-start-today .start-today-button button a {
+  padding: 0 25px;
+  color: #fff;
+  font-size: 21px;
+}
+#section-start-today .start-today-button button.btn-1 {
+  background-color: #083177;
+}
+
+#section-contact {
+  padding: 68px 0;
+}
+#section-contact .title-form {
+  margin-bottom: 21px;
+}
+#section-contact .title-form h2 {
+  color: #fff;
+}
+#section-contact .title-form p {
+  margin-top: 30px;
+  color: #fff;
+  font-size: 22px;
+}
+#section-contact .form-contact button {
+  width: 100%;
+  background-color: #f99b1c;
+  border-color: transparent;
+}
+
+#section-help {
+  padding: 68px 0;
+}
+#section-help .help-section-title {
+  text-align: center;
+  margin-bottom: 13px;
+  padding-bottom: 30px;
+}
+#section-help .help-section-title h2 {
+  color: #fff;
+  margin-bottom: 13px;
+}
+#section-help .help-section-title p {
+  font-size: 22px;
+  color: #fff;
+}
+#section-help .help-item .help-title {
+  background-color: #f99b1c;
+  text-align: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding: 10px 5px;
+}
+#section-help .help-item .help-title h3 {
+  color: #fff;
+  font-size: 32px;
+}
+#section-help .help-item .help-detail {
+  padding-bottom: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  background-color: #fff;
+}
+#section-help .help-item .help-detail .help-content {
+  padding: 10px;
+  margin-bottom: 21px;
+}
+#section-help .help-item .help-detail .help-content ul li {
+  font-size: 21px;
+  margin-bottom: 10px;
+  background-image: url(/asset/img/check.png);
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position-y: 4px;
+  background-position-x: left;
+  padding-left: 32px;
+}
+#section-help .help-item .help-detail .help-link {
+  text-align: center;
+  margin-bottom: 18px;
+}
+#section-help .help-item .help-detail .help-link button {
+  background-color: #f99b1c;
+}
+#section-help .help-item .help-detail .help-link button a {
+  padding: 0 25px;
+  color: #fff;
+  font-size: 21px;
+}
+
+#section-blog {
+  padding: 68px 0;
+}
+#section-blog .section-title p {
+  font-size: 17px;
+  margin-top: 13px;
+}
+#section-blog .news-list .slick-prev {
+  position: absolute;
+  left: -40px;
+}
+#section-blog .news-list .slick-next {
+  position: absolute;
+  right: -40px;
+}
+#section-blog .news-list .slick-arrow {
+  z-index: 1;
+  background-color: transparent;
+  width: 48px;
+  height: 48px;
+  color: #000;
+  border-radius: 50%;
+  padding: 0;
+  top: 23%;
+  border: none;
+}
+#section-blog .news-list .slick-arrow i {
+  font-size: 26px;
+}
+#section-blog .news-list .news-item {
+  padding: 10px 15px;
+}
+#section-blog .news-list .news-item .new-item-inner {
+  box-shadow: 2px 0 15px -4px #888888;
+}
+#section-blog .news-list .news-item .new-item-inner .news-detail {
+  padding: 15px;
+  background-color: #fff;
+}
+#section-blog .news-list .news-item .new-item-inner .news-detail .news-title a {
+  font-size: 19px;
+  color: #083177;
+}
+#section-blog .news-list .news-item .new-item-inner .news-detail .news-date {
+  font-size: 13px;
+  color: #AFAFAF;
+}
+#section-blog .news-list .news-item .new-item-inner .news-detail .news-description {
+  font-size: 15px;
+}
+#section-blog .news-list .news-item .new-item-inner .news-detail .news-link a {
+  font-size: 13px;
+  color: #f99b1c;
+  font-style: italic;
+}
+
+footer #section-footer {
+  padding: 50px 0;
+  position: relative;
+}
+footer #section-footer .footer-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: #282828;
+  opacity: 0.5;
+}
+footer #section-footer .footer-icon {
+  text-align: center;
+}
+footer #section-footer .footer-icon img {
+  width: 207px;
+}
+footer #section-footer .footer-box {
+  position: relative;
+}
+footer #section-footer .footer-box hr {
+  border-width: 0;
+  border-top: 1px solid #fff;
+  opacity: 0.1;
+  margin: 31px auto;
+  max-width: 50%;
+  position: relative;
+}
+footer #section-footer .footer-box .social-list {
+  display: flex;
+  gap: 36px;
+  justify-content: center;
+}
+footer #section-footer .footer-box .social-list .social-item a img {
+  height: 40px;
+  border-radius: 4px;
+}
+footer #section-footer .footer-box .footer-content p {
+  font-size: 18px;
+  color: #f1f1f1;
+}/*# sourceMappingURL=style.css.map */
