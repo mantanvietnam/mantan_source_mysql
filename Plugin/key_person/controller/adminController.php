@@ -70,13 +70,15 @@ function listPersonAdmin($input)
 
     
 
-    if(!empty($_GET['name'])){
-        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    if(!empty($_GET['full_name'])){
+        $conditions['name LIKE'] = '%'.$_GET['full_name'].'%';
     }
 
-   
+   if(!empty($_GET['phone'])){
+        $conditions['phone'] = $_GET['phone'];
+   }
     if(!empty($_GET['id_category'])){
-        $conditions['cp.id_category'] = (int)$_GET['id_category'];
+        $conditions['id_category'] = (int)$_GET['id_category'];
     }
       
         $listData = $modelPerson->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();

@@ -78,7 +78,7 @@ global $urlThemeActive;
                         <div class="col-lg-6 col-md-12 col">
                             <div class="about-detail">
                                 <div class="content">
-                                    <h2>Emall</h2>
+                                    <h2>Email</h2>
                                     <p><?php echo @$setting['email'];?></p>
                                 </div>
                             </div>

@@ -9,7 +9,7 @@ global $urlThemeActive;
             <div class="banner-content">
                 <div class="container text-center">
                     <div class="title-banner">
-                        <h2>Hướng dẫn <span><?php echo @$setting['full_name'] ?></span></h2>
+                        <h2><?php echo @$setting['full_name'] ?><span><?php echo @$setting['full_name'] ?></span></h2>
                     </div>
 
                     <div class="description-banner">
@@ -18,7 +18,7 @@ global $urlThemeActive;
 
                     <div class="link-banner">
                         <button class="btn">
-                            <a href="">Đăng ký ngay</a>
+                            <a href="<?php echo @$setting['link1'] ?>">Đăng ký ngay</a>
                         </button>
                     </div>
                 </div>
@@ -29,52 +29,44 @@ global $urlThemeActive;
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-12">
-                        <div class="service-item" style="background-image: url(<?php echo $urlThemeActive ?>asset/img/head-banner-blue-1-img.jpeg)">
+                        <div class="service-item" style="background-image: url(<?php echo @$setting['image_hd1'] ?>)">
                             <div class="service-title">
-                                <h3>
-                                    Hướng dẫn
+                                <h3><?php echo @$setting['title_hd1'] ?>
                                     <br>
-                                    <strong class="text-yeallow">khởi nghiệp KDOL</strong>
+                                    <strong class="text-yeallow"><?php echo @$setting['title_hdv1'] ?></strong>
                                 </h3>
                             </div>
                             <hr>
                             <div class="service-content">
-                                <p>Định hướng sản phẩm và bán hàng,
-                                    kiếm 50-100tr/tháng</p>
+                                <p><?php echo @$setting['content_hd1'] ?></p>
                             </div>  
                         </div>                
                     </div>
-
                     <div class="col-lg-4 col-md-12">
-                        <div class="service-item" style="background-image: url(<?php echo $urlThemeActive ?>asset/img/head-banner-blue-1-img.jpeg)">
+                        <div class="service-item" style="background-image: url(<?php echo @$setting['image_hd2'] ?>)">
                             <div class="service-title">
-                                <h3>
-                                    Hướng dẫn
+                                <h3><?php echo @$setting['title_hd2'] ?>
                                     <br>
-                                    <strong class="text-yeallow">khởi nghiệp KDOL</strong>
+                                    <strong class="text-yeallow"><?php echo @$setting['title_hdv2'] ?></strong>
                                 </h3>
                             </div>
                             <hr>
                             <div class="service-content">
-                                <p>Định hướng sản phẩm và bán hàng,
-                                    kiếm 50-100tr/tháng</p>
+                                <p><?php echo @$setting['content_hd2'] ?></p>
                             </div>  
                         </div>                
                     </div>
-
                     <div class="col-lg-4 col-md-12">
-                        <div class="service-item" style="background-image: url(<?php echo $urlThemeActive ?>asset/img/head-banner-blue-1-img.jpeg)">
+                        <div class="service-item" style="background-image: url(<?php echo @$setting['image_hd3'] ?>)">
                             <div class="service-title">
-                                <h3>
-                                    Hướng dẫn
+                                <h3><?php echo @$setting['title_hd3'] ?>
                                     <br>
-                                    <strong class="text-yeallow">khởi nghiệp KDOL</strong>
+                                    <strong class="text-yeallow"><?php echo @$setting['title_hdv3'] ?></strong>
                                 </h3>
                             </div>
                             <hr>
                             <div class="service-content">
-                                <p>Định hướng sản phẩm và bán hàng,
-                                    kiếm 50-100tr/tháng</p>
+                                <p><?php echo @$setting['content_hd3'] ?></p>
                             </div>  
                         </div>                
                     </div>
@@ -90,27 +82,22 @@ global $urlThemeActive;
                             <div class="introduce-title">
                                 <h2>
                                     <span class="text-yeallow">
-                                        Kinh doanh Online
+                                        <?php echo @$setting['title_gt1'] ?>
                                     </span>
                                     <br>
-                                    Cũng là một nghề để học
+                                    <?php echo @$setting['title_gt2'] ?>
                                 </h2>
                             </div>
 
                             <div class="introduce-devide"></div>
 
-                            <div class="introduce-content">
-                                Trên đời này không có công việc nào là dễ dàng, nhàn hạ mà lại có thể nhanh chóng kiếm được nhiều tiền. Mọi hoạt động kiếm tiền đều phải xuất phát từ giá trị thật. Bạn trao giá trị càng lớn thì bạn sẽ nhận lại càng nhiều.
-                                <br>
-                                <br>
-                                Trên đời này có ai thành công mà chưa từng nếm mùi thất bại. Chỉ có bại mà không nản chí, bại mà không bỏ cuộc, bại mà dám đứng lên làm lại thì bạn mới xứng đáng được nếm mùi vị của thành công.
-                            </div>
+                            <div class="introduce-content"><?php echo @$setting['content2'] ?></div>
                         </div>
                     </div>
 
                     <div class="col-lg-5">
                         <div class="produce-img">
-                            <img src="<?php echo $urlThemeActive ?>asset/img/trantoan-20221110165012-gqptt.png" alt="">
+                            <img src="<?php echo @$setting['image_portrait1'] ?>" alt="">
                         </div>
                     </div>
                 </div>
@@ -121,22 +108,22 @@ global $urlThemeActive;
             <div class="container">
                 <div class="section-title">
                     <h2>
-                        Bắt đầu
-                        <span class="text-yeallow">khởi nghiệp KDOL</span>
+                       <?php echo @$setting['title_bd1'] ?>
+                        <span class="text-yeallow"><?php echo @$setting['title_bd2'] ?></span>
                     </h2>
                 </div>
 
                 <div class="start-today-content">
-                    <p>Tôi hứa sẽ giúp bạn định hướng được mục tiêu kinh doanh và bắt đầu kinh doanh Online KDOL ngay từ bây giờ. Còn chờ gì nữa, hãy trở thành một trong những chiến binh xuất chúng trong đội nhóm của chúng tôi.</p>
+                    <p><?php echo @$setting['content_bd'] ?></p>
                 </div>
 
                 <div class="start-today-button">
                     <button class="btn btn-1">
-                        <a href="">Liên hệ với chúng tôi</a>
+                        <a href="<?php echo @$setting['link2'] ?>">Liên hệ với chúng tôi</a>
                     </button>
 
                     <button class="btn">
-                        <a href="">Đăng ký ngay</a>
+                        <a href="<?php echo @$setting['link3'] ?>">Đăng ký ngay</a>
                     </button>
 
    
@@ -149,91 +136,64 @@ global $urlThemeActive;
             <div class="container">
                 <div class="help-section-title">
                     <h2>
-                        Chúng tôi có thể
-                        <span class="text-yeallow">giúp bạn</span>
+                         <?php echo @$setting['title_dv1'] ?>
+                        <span class="text-yeallow">  <?php echo @$setting['title_dvv1'] ?></span>
                     </h2>
 
-                    <p>Tham gia học tập và đội nhóm của CEO Trương Văn Linh để bắt đầu KDOL
-                        và thành công cùng những người đồng đội tuyệt vời</p>
+                    <p  <?php echo @$setting['content_dv'] ?></p>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="help-item">
                             <div class="help-title">
-                                <h3>Hướng dẫn</h3>
+                                <h3>  <?php echo @$setting['service1'] ?></h3>
                             </div>
                             
                             <div class="help-detail">
-                                <div class="help-content">
-                                    <ul>
-                                        <li>Lựa chọn sản phẩm</li>
-                                        <li>Thu nhập từ 50tr-100tr/tháng                                    </li>
-                                        <li>Định hướng phát triển dài hạn                                    </li>
-                                        <li>Lập kế hoạch kinh doanh                                    </li>
-                                        <li>Xác định mục tiêu                                    </li>
-                                    </ul>
-                                </div>
+                                <div class="help-content">  <?php echo @$setting['content_dv1'] ?></div>
     
                                 <div class="help-link">
                                     <button class="btn">
-                                        <a href="">Đăng ký ngay</a>
+                                        <a href="  <?php echo @$setting['linkdv1'] ?>">Đăng ký ngay</a>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-4">
                         <div class="help-item">
                             <div class="help-title">
-                                <h3>Hướng dẫn</h3>
+                                <h3>  <?php echo @$setting['service2'] ?></h3>
                             </div>
                             
                             <div class="help-detail">
-                                <div class="help-content">
-                                    <ul>
-                                        <li>Lựa chọn sản phẩm</li>
-                                        <li>Thu nhập từ 50tr-100tr/tháng                                    </li>
-                                        <li>Định hướng phát triển dài hạn                                    </li>
-                                        <li>Lập kế hoạch kinh doanh                                    </li>
-                                        <li>Xác định mục tiêu                                    </li>
-                                    </ul>
-                                </div>
+                                <div class="help-content">  <?php echo @$setting['content_dv2'] ?></div>
     
                                 <div class="help-link">
                                     <button class="btn">
-                                        <a href="">Đăng ký ngay</a>
+                                        <a href="  <?php echo @$setting['linkdv2'] ?>">Đăng ký ngay</a>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-4">
                         <div class="help-item">
                             <div class="help-title">
-                                <h3>Hướng dẫn</h3>
+                                <h3>  <?php echo @$setting['service3'] ?></h3>
                             </div>
                             
                             <div class="help-detail">
-                                <div class="help-content">
-                                    <ul>
-                                        <li>Lựa chọn sản phẩm</li>
-                                        <li>Thu nhập từ 50tr-100tr/tháng                                    </li>
-                                        <li>Định hướng phát triển dài hạn                                    </li>
-                                        <li>Lập kế hoạch kinh doanh                                    </li>
-                                        <li>Xác định mục tiêu                                    </li>
-                                    </ul>
-                                </div>
+                                <div class="help-content">  <?php echo @$setting['content_dv3'] ?></div>
     
                                 <div class="help-link">
                                     <button class="btn">
-                                        <a href="">Đăng ký ngay</a>
+                                        <a href="  <?php echo @$setting['linkdv3'] ?>">Đăng ký ngay</a>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </div>
         </section>
@@ -242,117 +202,44 @@ global $urlThemeActive;
             <div class="container">
                 <div class="section-title text-center">
                     <h2>
-                        Tin tức 
-                        <span class="text-yeallow">thị trường</span>
+                        <?php echo @$setting['title_tt1'] ?> 
+                        <span class="text-yeallow"><?php echo @$setting['title_ttv1'] ?></span>
                     </h2>
 
-                    <p>Tổng hợp một số kiến thức kinh doanh online hữu ích chúng tôi biên tập dành riêng cho bạn</p>
+                    <p><?php echo @$setting['content_tt'] ?></p>
                 </div>
                 
                 <div class="news-list">
-                    <div class="news-item">
+                   <?php if(!empty($listDataPost)){
+                        foreach($listDataPost as $item){
+                            echo '<div class="news-item">
                         <div class="new-item-inner">
                             <div class="news-image">
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/img/bachgroudbannerl.jpg" alt=""></a>
+                                <a href="/'.$item->slug.'.html"><img src="'.$item->image.'" alt=""></a>
                             </div>
 
                             <div class="news-detail">
                                 <div class="news-title">
-                                    <a href="">20 ý tưởng kinh doanh online hiệu quả không phải ai cũng biết</a>
+                                    <a href="/'.$item->slug.'.html">'.$item->title.'</a>
                                 </div>
     
                                 <div class="news-date">
-                                    <span>11/03/2023</span>
+                                    <span>'.date('d/m/Y',$item->time_create).'</span>
                                 </div>
     
-                                <div class="news-description">
-                                    Những điều cần chú ý nếu muốn kinh doanh online hiệu quả Kinh doanh online tuy là một thị trường tiềm năng nhưng cũng đầy hố to, cạm bẫy. Những điều sau đây sẽ...					
-                                </div>
+                                <div class="news-description">'.$item->description.'</div>
     
                                 <div class="news-link">
-                                    <a href="">Xem chi tiết</a>
+                                    <a href="/'.$item->slug.'.html">Xem chi tiết</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>';
+                        }
+                   } ?>
+                    
 
-                    <div class="news-item">
-                        <div class="new-item-inner">
-                            <div class="news-image">
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/img/bachgroudbannerl.jpg" alt=""></a>
-                            </div>
-
-                            <div class="news-detail">
-                                <div class="news-title">
-                                    <a href="">20 ý tưởng kinh doanh online hiệu quả không phải ai cũng biết</a>
-                                </div>
-    
-                                <div class="news-date">
-                                    <span>11/03/2023</span>
-                                </div>
-    
-                                <div class="news-description">
-                                    Những điều cần chú ý nếu muốn kinh doanh online hiệu quả Kinh doanh online tuy là một thị trường tiềm năng nhưng cũng đầy hố to, cạm bẫy. Những điều sau đây sẽ...					
-                                </div>
-    
-                                <div class="news-link">
-                                    <a href="">Xem chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="news-item">
-                        <div class="new-item-inner">
-                            <div class="news-image">
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/img/bachgroudbannerl.jpg" alt=""></a>
-                            </div>
-
-                            <div class="news-detail">
-                                <div class="news-title">
-                                    <a href="">20 ý tưởng kinh doanh online hiệu quả không phải ai cũng biết</a>
-                                </div>
-    
-                                <div class="news-date">
-                                    <span>11/03/2023</span>
-                                </div>
-    
-                                <div class="news-description">
-                                    Những điều cần chú ý nếu muốn kinh doanh online hiệu quả Kinh doanh online tuy là một thị trường tiềm năng nhưng cũng đầy hố to, cạm bẫy. Những điều sau đây sẽ...					
-                                </div>
-    
-                                <div class="news-link">
-                                    <a href="">Xem chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="news-item">
-                        <div class="new-item-inner">
-                            <div class="news-image">
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/img/bachgroudbannerl.jpg" alt=""></a>
-                            </div>
-
-                            <div class="news-detail">
-                                <div class="news-title">
-                                    <a href="">20 ý tưởng kinh doanh online hiệu quả không phải ai cũng biết</a>
-                                </div>
-    
-                                <div class="news-date">
-                                    <span>11/03/2023</span>
-                                </div>
-    
-                                <div class="news-description">
-                                    Những điều cần chú ý nếu muốn kinh doanh online hiệu quả Kinh doanh online tuy là một thị trường tiềm năng nhưng cũng đầy hố to, cạm bẫy. Những điều sau đây sẽ...					
-                                </div>
-    
-                                <div class="news-link">
-                                    <a href="">Xem chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </section>
@@ -361,18 +248,17 @@ global $urlThemeActive;
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7">
-                        <img src="<?php echo $urlThemeActive ?>asset/img/sach.png" alt="">
+                        <img src="<?php echo @$setting['image_contac'] ?>" alt="">
                     </div>
 
                     <div class="col-lg-5">
                         <div class="title-form">
                             <h2>
-                                Đăng ký
-                                <span class="text-yeallow">khóa học</span>
+                                <?php echo @$setting['title_lh'] ?>
+                                <span class="text-yeallow"><?php echo @$setting['title_lhv'] ?></span>
                             </h2>
 
-                            <p>Đăng ký ngay để nhận quà tặng chúng tôi dành tặng riêng cho bạn.
-                                Đó là ebook <span class="text-yeallow">“Khởi nghiệp kinh doanh Online từ con số 0”.</span> </p>
+                            <p><?php echo @$setting['content_lh'] ?><span class="text-yeallow"><?php echo @$setting['content_lhv'] ?></span> </p>
                         </div>
 
                         <div class="form-contact">

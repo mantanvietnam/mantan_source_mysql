@@ -17,7 +17,7 @@
                       </li>
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
-                          PHẦN GIỚI TIỆU
+                          PHẦN GIỚI THIỆU
                         </button>
                       </li>
                       <li class="nav-item">
@@ -27,7 +27,7 @@
                       </li>
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-specifications" aria-controls="navs-top-info" aria-selected="false">
-                        PHẦN CHÂN TRANH
+                        PHẦN CHÂN TRANG
                         </button>
                       </li>
                       

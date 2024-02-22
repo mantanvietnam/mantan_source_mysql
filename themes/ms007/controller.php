@@ -19,48 +19,58 @@ function settingHomeTheme($input){
                             'background_top'=> @$dataSend['background_top'],
                             'full_name'=> @$dataSend['full_name'],
                             'content_top1'=> @$dataSend['content_top1'],
-                            'content_top2'=> @$dataSend['content_top2'],
-                            'image_Portrait'=> @$dataSend['image_Portrait'],
-                            'code_videoyoutube'=> @$dataSend['code_videoyoutube'],
-                            'speaker_name'=> @$dataSend['speaker_name'],
-                            'image_Portrait2'=> @$dataSend['image_Portrait2'],
-                            'background_2'=> @$dataSend['background_2'],
-                            'content_2'=> @$dataSend['content_2'],
-                            'email'=> @$dataSend['email'],
-                            'phone'=> @$dataSend['phone'],
-                            'address'=> @$dataSend['address'],
-                            'icon1'=> @$dataSend['icon1'],
+                            'title_top'=> @$dataSend['title_top'],
+                            'link1'=> @$dataSend['link1'],
+                            'image_hd1'=> @$dataSend['image_hd1'],
+                            'title_hd1'=> @$dataSend['title_hd1'],
+                            'title_hdv1'=> @$dataSend['title_hdv1'],
+                            'content_hd1'=> @$dataSend['content_hd1'],
+                            'image_hd3'=> @$dataSend['image_hd3'],
+                            'title_hd3'=> @$dataSend['title_hd3'],
+                            'title_hdv3'=> @$dataSend['title_hdv3'],
+                            'content_hd3'=> @$dataSend['content_hd3'],
+                            'image_hd2'=> @$dataSend['image_hd2'],
+                            'title_hd2'=> @$dataSend['title_hd2'],
+                            'title_hdv2'=> @$dataSend['title_hdv2'],
+                            'content_hd2'=> @$dataSend['content_hd2'],
+                            'title_gt1'=> @$dataSend['title_gt1'],
+                            'title_gt2'=> @$dataSend['title_gt2'],
+                            'image_portrait1'=> @$dataSend['image_portrait1'],
+                            'content2'=> @$dataSend['content2'],
+                            'title_bd1'=> @$dataSend['title_bd1'],
+                            'title_bd2'=> @$dataSend['title_bd2'],
+                            'content_bd'=> @$dataSend['content_bd'],
+                            'link2'=> @$dataSend['link2'],
+                            'link3'=> @$dataSend['link3'],
+                            'title_dv1'=> @$dataSend['title_dv1'],
+                            'title_dvv1'=> @$dataSend['title_dvv1'],
+                            'content_dv'=> @$dataSend['content_dv'],
                             'service1'=> @$dataSend['service1'],
-                            'content_service1'=> @$dataSend['content_service1'],
-                            'icon2'=> @$dataSend['icon2'],
+                            'content_dv1'=> @$dataSend['content_dv1'],
+                            'linkdv1'=> @$dataSend['linkdv1'],
                             'service2'=> @$dataSend['service2'],
-                            'content_service2'=> @$dataSend['content_service2'],
-                            'icon3'=> @$dataSend['icon3'],
+                            'content_dv2'=> @$dataSend['content_dv2'],
+                            'linkdv2'=> @$dataSend['linkdv2'],
                             'service3'=> @$dataSend['service3'],
-                            'content_service3'=> @$dataSend['content_service3'],
-                            'icon4'=> @$dataSend['icon4'],
-                            'service4'=> @$dataSend['service4'],
-                            'content_service4'=> @$dataSend['content_service4'],
-                            'icon5'=> @$dataSend['icon5'],
-                            'service5'=> @$dataSend['service5'],
-                            'content_service5'=> @$dataSend['content_service5'],
-                            'icon6'=> @$dataSend['icon6'],
-                            'service6'=> @$dataSend['service6'],
-                            'content_service6'=> @$dataSend['content_service6'],
-                            'background_3'=> @$dataSend['background_3'],
-                            'id_album1'=> @$dataSend['id_album1'],
-                            'id_album2'=> @$dataSend['id_album2'],
-                            'textred'=> @$dataSend['textred'],
-                            'background_4'=> @$dataSend['background_4'],
-                            'textwhite'=> @$dataSend['textwhite'],
+                            'content_dv3'=> @$dataSend['content_dv3'],
+                            'linkdv3'=> @$dataSend['linkdv3'],
+                            'title_tt1'=> @$dataSend['title_tt1'],
+                            'title_ttv1'=> @$dataSend['title_ttv1'],
+                            'content_tt'=> @$dataSend['content_tt'],
                             'id_post'=> @$dataSend['id_post'],
-                            'background_5'=> @$dataSend['background_5'],
+                            'image_post'=> @$dataSend['image_post'],
+                            'title_lh'=> @$dataSend['title_lh'],
+                            'title_lhv'=> @$dataSend['title_lhv'],
+                            'content_lh'=> @$dataSend['content_lh'],
+                            'content_lhv'=> @$dataSend['content_lhv'],
+                            'banner4'=> @$dataSend['banner4'],
                             'facebook'=> @$dataSend['facebook'],
-                            'twitter'=> @$dataSend['twitter'],
-                            'instagram'=> @$dataSend['instagram'],
-                            'behance'=> @$dataSend['behance'],
-                            'dribbble'=> @$dataSend['dribbble'],
+                            'messenger'=> @$dataSend['messenger'],
+                            'tiktok'=> @$dataSend['tiktok'],
+                            'youtube'=> @$dataSend['youtube'],
                             'textfooter'=> @$dataSend['textfooter'],
+                            'image_contac'=> @$dataSend['image_contac'],
+                            
                             
              );
 
@@ -103,30 +113,11 @@ function indexTheme(){
 
     $order = array('id'=>'desc');
 
-    // $listDataNew= $modelPosts->find()->limit(4)->where(array('type'=>'post'))->order($order)->all()->toList();
 
-    // $album_home1 = $modelAlbums->find()->where(['id'=>(int)@$data_value['id_album1']])->first();
-
-    // if(!empty($album_home1)){
-    //     $album_home1->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$album_home1->id])->order(['id'=>'desc'])->all()->toList();
-    // }
-
-    // $album_home2 = $modelAlbums->find()->where(['id'=>(int)@$data_value['id_album2']])->first();
-
-    // if(!empty($album_home2)){
-    //     $album_home2->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$album_home2->id])->order(['id'=>'desc'])->all()->toList();
-    // }
-
-    // $category = $modelCategories->find()->where(array('id'=>@$data_value['id_post']))->first();
-
-    // $listDataNew= $modelPosts->find()->limit(4)->where(array('idCategory'=>@$data_value['id_post'],'type'=>'post'))->order($order)->all()->toList();
+    $listDataPost = $modelPosts->find()->limit(20)->where(array('idCategory'=>(int) $data_value['id_post'],'pin'=>1))->all()->toList();
 
     setVariable('setting', $data_value);
-    // setVariable('listDataNew', $listDataNew);
-    // setVariable('album_home1', $album_home1);
-    // setVariable('album_home2', $album_home2);
-    // setVariable('listDataNew', $listDataNew);
-    // setVariable('category', $category);
+    setVariable('listDataPost', $listDataPost);
 
     }
 ?>
