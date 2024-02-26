@@ -1,248 +1,12 @@
-    <style>
-.tableList{
-    width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse;
-    border-spacing: 0;
-    border-top: 1px solid #bcbcbc;
-    border-left: 1px solid #bcbcbc;
-}
-.tableList td{
-    padding: 5px;
-    border-bottom: 1px solid #bcbcbc;
-    border-right: 1px solid #bcbcbc;
-}
-.card .card-link {
-    display: contents;
-
-}
-
-.card-header i{
-    color: #696cff;
-    float: right;
-}
-.collapse{
-    display: block !important;
-}
-</style>
-  <h4 class="fw-bold py-3 mb-4">Theme - Home Setting</h4>
-
-<script type="text/javascript">
-    
-    function save()
-    {
-        document.listForm.submit();
-    }
-</script>
-<div class="thanhcongcu pull-left">
-
-    <div class="congcu text-center" onclick="save();">
-        <input class="form-control" type="hidden" id="idChange" value="">
-        <span id="save">
-           <button type="" class="btn btn-primary"> Lưu</button>
-        </span>
-       
-    </div>
-</div>
-
-<div class="clear" style="height: 10px;margin-left: 15px;margin-bottom: 15px;" id='status'>
-    <?php
-        echo $mess;
-    ?>
-</div>
-      <?= $this->Form->create(); ?>   
-<div class="taovien">
-
-
-          <div class="card">
-        <table class="tableList">
-            <tr class="card-link card-header" data-toggle="collapse" href="#collapseOne">
-                <td colspan="6" align="center" style="color: red; font-weight: bold;">
-                    <a style="color: red; font-weight: bold; text-decoration: none"  class="pull-left ">KHỐI ĐẦU TRANG</a><span style="color:#3e8ad6" class="glyphicon glyphicon-circle-arrow-down pull-right">
-                    </td>
-                </tr>
-            </table>
-            <div id="collapseOne" class="collapse card_body" data-parent="#accordion">
-                <div class="card-body bodys">
-                   
-            </div>
-        </div>
-    </div>
-
-      <div class="card">
-        <table class="tableList">
-            <tr class="card-link card-header" data-toggle="collapse" href="#collapse2">
-                <td colspan="6" align="center" style="color: red; font-weight: bold;">
-                    <a style="color: red; font-weight: bold; text-decoration: none"  class="pull-left ">KHỐI TẦM NHÌN VÀ SỨ MỆNH</a><span style="color:#3e8ad6" class="glyphicon glyphicon-circle-arrow-down pull-right">
-                    </td>
-                </tr>
-            </table>
-            <div id="collapse2" class="collapse card_body" data-parent="#accordion">
-                <div class="card-body bodys">
-
-            </div>
-        </div>
-    </div>
-
-      <div class="card">
-        <table class="tableList">
-            <tr class="card-link card-header" data-toggle="collapse" href="#collapse3">
-                <td colspan="6" align="center" style="color: red; font-weight: bold;">
-                    <a style="color: red; font-weight: bold; text-decoration: none"  class="pull-left ">NIỀM TỰ HÀO -SỐ LIỆU THỐNG KÊ</a><span style="color:#3e8ad6" class="glyphicon glyphicon-circle-arrow-down pull-right">
-                    </td>
-                </tr>
-            </table>
-            <div id="collapse3" class="collapse card_body" data-parent="#accordion">
-                <div class="card-body bodys">
-                    
-            </div>
-        </div>
-    </div>
-
-      <div class="card">
-        <table class="tableList">
-            <tr class="card-link card-header" data-toggle="collapse" href="#collapse4">
-                <td colspan="6" align="center" style="color: red; font-weight: bold;">
-                    <a style="color: red; font-weight: bold; text-decoration: none"  class="pull-left "></a><span style="color:#3e8ad6" class="glyphicon glyphicon-circle-arrow-down pull-right">
-                    </td>
-                </tr>
-            </table>
-            <div id="collapse4" class="collapse card_body" data-parent="#accordion">
-                <div class="card-body bodys">
-                    <table class="tableList tables">
-
-                        
-
-                </table>
-            </div>
-        </div>
-    </div>
-
-     <div class="card">
-        <table class="tableList">
-            <tr class="card-link card-header" data-toggle="collapse" href="#collapse5">
-                <td colspan="6" align="center" style="color: red; font-weight: bold;">
-                    <a style="color: red; font-weight: bold; text-decoration: none"  class="pull-left ">KHỐI FEEDBACK</a><span style="color:#3e8ad6" class="glyphicon glyphicon-circle-arrow-down pull-right">
-                    </td>
-                </tr>
-            </table>
-            <div id="collapse5" class="collapse card_body" data-parent="#accordion">
-                <div class="card-body bodys">
-                    
-            </div>
-        </div>
-    </div>
-
-      <div class="card">
-        <table class="tableList">
-            <tr class="card-link card-header" data-toggle="collapse" href="#collapse6">
-                <td colspan="6" align="center" style="color: red; font-weight: bold;">
-                    <a style="color: red; font-weight: bold; text-decoration: none"  class="pull-left ">CẢM NHẬN TỪ KHÁCH HÀNG</a><span style="color:#3e8ad6" class="glyphicon glyphicon-circle-arrow-down pull-right">
-                    </td>
-                </tr>
-            </table>
-            <div id="collapse6" class="collapse card_body" data-parent="#accordion">
-                <div class="card-body bodys">
-                   
-            </div>
-        </div>
-    </div>
-
-             <div class="card">
-        <table class="tableList">
-            <tr class="card-link card-header" data-toggle="collapse" href="#collapse7">
-                <td colspan="6" align="center" style="color: red; font-weight: bold;">
-                    <a style="color: red; font-weight: bold; text-decoration: none"  class="pull-left ">TRUYỀN THÔNG VÀ BÁO CHÍ</a><span style="color:#3e8ad6" class="glyphicon glyphicon-circle-arrow-down pull-right">
-                    </td>
-                </tr>
-            </table>
-            <div id="collapse7" class="collapse card_body" data-parent="#accordion">
-                <div class="card-body bodys">
-               
-            </div>
-        </div>
-    </div>
-
-       <div class="card">
-        <table class="tableList">
-            <tr class="card-link card-header" data-toggle="collapse" href="#collapse8">
-                <td colspan="6" align="center" style="color: red; font-weight: bold;">
-                    <a style="color: red; font-weight: bold; text-decoration: none"  class="pull-left ">KHỐI LIÊN HỆ</a><span style="color:#3e8ad6" class="glyphicon glyphicon-circle-arrow-down pull-right">
-                    </td>
-                </tr>
-            </table>
-            <div id="collapse8" class="collapse card_body" data-parent="#accordion">
-                <div class="card-body bodys">
-                    <table class="tableList tables">
-
-                       
-                    <tr>
-                <td>
-                    <label class="form-label" for="basic-default-fullname">Link Facebook</label>
-                    <input class="form-control" type="text" name="facebook" value="<?php echo @$data['facebook'];?>" />
-
-                    <label class="form-label" for="basic-default-fullname">Mã nhúng Messenger Facebook</label>
-                    <textarea style="width: 100%;" rows="5" name="messenger"><?php echo @htmlspecialchars_decode($data['messenger']);?></textarea>
-                </td>
-                <td>
-                    <label class="form-label" for="basic-default-fullname">Link Youtube</label>
-                    <input class="form-control" type="text" name="youtube" value="<?php echo @$data['youtube'];?>" />
-                </td>
-                <td>
-                    <label class="form-label" for="basic-default-fullname">Link Instagram</label>
-                    <input class="form-control" type="text" name="instagram" value="<?php echo @$data['instagram'];?>" />
-                </td>
-            </tr>
-            <tr class="trs"> 
-                <td colspan=""  class="tds">
-                    <label class="form-label" for="basic-default-fullname">SPA</label>
-                    <input  name="nameThamMy" value="<?php echo @$data['nameThamMy'];?>"data-jscolor="">
-                </td>
-                <td colspan=""  class="tds">
-                    <label class="form-label" for="basic-default-fullname">Điện thoại CSKH</label>
-                    <input  name="hotline" value="<?php echo @$data['hotline'];?>"data-jscolor="">
-                </td>
-                <td colspan=""  class="tds">
-                    <label class="form-label" for="basic-default-fullname">Email CSKH</label>
-                    <input  name="linkMail" value="<?php echo @$data['linkMail'];?>"data-jscolor="">
-                </td>
-            </tr>
-            <tr class="trs">
-                <td colspan=""  class="tds">
-                    <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
-                    <input  name="address" value="<?php echo @$data['address'];?>"data-jscolor="">
-                </td>
-            </tr>
-
-                </table>
-            </div>
-        </div>
-    </div>
- </table>
-</div>
-
-<div class="thanhcongcu pull-right">
-
-    <div class="congcu text-center" onclick="save();">
-        <input class="form-control" type="hidden" id="idChange" value="">
-        <span id="save">
-           <button type="" class="btn btn-primary"> Lưu</button>
-        </span>
-       
-    </div>
-</div>
-<?= $this->Form->end() ?>
-
-
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">   Theme - Home Setting</h4>
 
     <!-- Basic Layout -->
     <p><?php echo @$mess;?></p>
     <?= $this->Form->create(); ?>
-      <div class="row">
+      <div class="card-body row">
         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          <div class=" mb-4">
+          <div class="card  mb-4">
             <div class="nav-align-top mb-4">
                     <ul class="nav nav-tabs" role="tablist">
                       <li class="nav-item">
@@ -253,28 +17,28 @@
                      
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-rule" aria-controls="navs-top-info" aria-selected="false">
-                         KHỐI TẦM NHÌN
+                          TẦM NHÌN
                         </button>
                       </li>
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-specifications" aria-controls="navs-top-info" aria-selected="false">
-                        KHỐI THỐNG KÊ
+                         THỐNG KÊ
                         </button>
                       </li>
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-video" aria-controls="navs-top-info" aria-selected="false">
-                        KHỐI VIDEO
+                         VIDEO
                         </button>
                       </li>
                       
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-feedback" aria-controls="navs-top-image" aria-selected="false">
-                         KHỐI FEEDBACK
+                          FEEDBACK
                         </button>
                       </li>
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-evaluate" aria-controls="navs-top-image" aria-selected="false">
-                          KHỐI CẢM NHẬN TỪ KHÁCH
+                           KHÁCH HÀNG
                         </button>
                       </li>
                       <li class="nav-item">
@@ -284,12 +48,12 @@
                       </li>
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-contac" aria-controls="navs-top-image" aria-selected="false">
-                          KHỐI LIÊN HỆ
+                           LIÊN HỆ
                         </button>
                       </li>
             <div class="card-body tab-content ">
                 <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
-                    <div class="row">
+                    <div class="card-body row">
                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <label class="form-label" for="basic-default-fullname">Logo</label>
                             <?php  showUploadFile('logo','logo',@$data['logo'],0);?>
@@ -305,7 +69,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="navs-top-rule" role="tabpanel">
-                    <div class="row">
+                    <div class="card-body row">
                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <label class="form-label" for="basic-default-fullname">Tầm nhìn</label>
                             <input class="form-control" type="text" name="textSlide0" value="<?php echo @$data['textSlide0'];?>" />
@@ -331,7 +95,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">
-                    <div class="row">
+                    <div class="card-body row">
                      
                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                             <label class="form-label" for="basic-default-fullname">Tên đề</label>
@@ -366,7 +130,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="navs-top-video" role="tabpanel">
-                    <div class="row">
+                    <div class="card-body row">
                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <label class="form-label" for="basic-default-fullname">Text video</label>
                             <?php showEditorInput('textvideo','textvideo',@$data['textvideo'],3); ?>
@@ -381,7 +145,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="navs-top-feedback" role="tabpanel">
-                    <div class="row">
+                    <div class="card-body row">
                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <label class="form-label" for="basic-default-fullname">Tiêu đề</label>
                             <input class="form-control" type="text" name="imageLearn0" value="<?php echo htmlspecialchars_decode(@$data['imageLearn0']);?>" />
@@ -410,7 +174,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="navs-top-evaluate" role="tabpanel">
-                    <div class="row">
+                    <div class="card-body row">
                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <label class="form-label" for="basic-default-fullname">Tiêu đề</label>
                             <input class="form-control" type="text" name="video0" value="<?php echo htmlspecialchars_decode(@$data['video0']);?>" />
@@ -430,7 +194,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="navs-top-transmit" role="tabpanel">
-                    <div class="row">
+                    <div class="card-body row">
                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-12 col-lg-12 col-xl-12">
                              <label class="form-label" for="basic-default-fullname">Tiêu đề</label>
                             <input class="form-control" type="text" name="chuyenthongbaochi" value="<?php echo @$data['chuyenthongbaochi'];?>" />
@@ -490,8 +254,40 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="navs-top-contac" role="tabpanel">
-                    <div class="row">
+                    <div class="card-body row">
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <label class="form-label" for="basic-default-fullname">Link Facebook</label>
+                            <input class="form-control" type="text" name="facebook" value="<?php echo @$data['facebook'];?>" />
+                        </div>
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <label class="form-label" for="basic-default-fullname">Mã nhúng Messenger Facebook</label>
+                                <textarea style="width: 100%;" rows="5" name="messenger"><?php echo @htmlspecialchars_decode($data['messenger']);?></textarea>
+                            </div>
+                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <label class="form-label" for="basic-default-fullname">Link Youtube</label>
+                            <input class="form-control" type="text" name="youtube" value="<?php echo @$data['youtube'];?>" />
+                        </div>
 
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <label class="form-label" for="basic-default-fullname">Link Instagram</label>
+                            <input class="form-control" type="text" name="instagram" value="<?php echo @$data['instagram'];?>" />
+                        </div>
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <label class="form-label" for="basic-default-fullname">SPA</label>
+                            <input class="form-control" name="nameThamMy" value="<?php echo @$data['nameThamMy'];?>"data-jscolor="">
+                        </div>
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <label class="form-label" for="basic-default-fullname">Điện thoại CSKH</label>
+                            <input class="form-control" name="hotline" value="<?php echo @$data['hotline'];?>"data-jscolor="">
+                        </div>
+                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <label class="form-label" for="basic-default-fullname">Email CSKH</label>
+                            <input class="form-control" name="linkMail" value="<?php echo @$data['linkMail'];?>"data-jscolor="">
+                        </div>
+                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
+                            <input class="form-control" name="address" value="<?php echo @$data['address'];?>"data-jscolor="">
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
