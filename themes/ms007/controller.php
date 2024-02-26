@@ -68,6 +68,7 @@ function settingHomeTheme($input){
                             'messenger'=> @$dataSend['messenger'],
                             'tiktok'=> @$dataSend['tiktok'],
                             'youtube'=> @$dataSend['youtube'],
+                            'zalo'=> @$dataSend['zalo'],
                             'textfooter'=> @$dataSend['textfooter'],
                             'image_contac'=> @$dataSend['image_contac'],
                             

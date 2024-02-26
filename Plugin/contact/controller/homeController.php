@@ -63,7 +63,7 @@ function contactAPI($input)
 
     $modelContacts = $controller->loadModel('Contacts');
 
-    $mess = '';
+    $return = '';
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -82,9 +82,9 @@ function contactAPI($input)
            /* if(!empty($data_value['email'])){
                 sendEmailContact(@$data_value['email'], @$dataSend['name'],@$dataSend['phone_number'], @$dataSend['content']);
             }*/
-            $mess =  array('code'=>1, 'mess'=>'bạn gửi thành công');
+            $return =  array('code'=>1, 'mess'=>'bạn gửi thành công');
         }else{
-            $mess = array('code'=>0, 'mess'=>'bạn gửi thiếu dữ liệu');
+            $return = array('code'=>0, 'mess'=>'bạn gửi thiếu dữ liệu');
         }
         
     }

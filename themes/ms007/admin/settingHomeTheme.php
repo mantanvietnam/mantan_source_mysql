@@ -253,6 +253,10 @@
                     <input type="text" class="form-control" name="youtube" value="<?php echo @$data['youtube'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <label class="form-label" for="basic-default-fullname">zalo</label>
+                    <input type="text" class="form-control" name="zalo" value="<?php echo @$data['zalo'];?>" />
+                  </div>
+                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <label class="form-label" for="basic-default-fullname">chữ chân trang</label>
                     <input type="text" class="form-control" name="textfooter" value="<?php echo @$data['textfooter'];?>" />
                   </div>
@@ -271,4 +275,3 @@
     <?= $this->Form->end() ?>
 </div>
 
-  text-welcome

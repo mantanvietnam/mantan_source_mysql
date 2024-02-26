@@ -259,28 +259,29 @@ global $urlThemeActive;
                             </h2>
 
                             <p><?php echo @$setting['content_lh'] ?><span class="text-yeallow"><?php echo @$setting['content_lhv'] ?></span> </p>
+                            <p id="success"></p>
                         </div>
 
                         <div class="form-contact">
                             <form>
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Họ và tên">
+                                    <input type="text" class="form-control" id="name" placeholder="Họ và tên">
                                 </div>
 
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                    <input type="email" class="form-control" id="email" placeholder="Email">
                                 </div>
 
                                 <div class="mb-3">
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Số điện thoại">
+                                    <input type="text" class="form-control" id="phone" placeholder="Số điện thoại">
                                 </div>
 
                                 <div class="mb-3">
-                                    <textarea name="" id="" cols="60" rows="10" placeholder="Ghi chú"></textarea>
+                                    <textarea name="" id="massage" cols="60" rows="10" placeholder="Ghi chú"></textarea>
                                 </div>
                                 
         
-                                <button type="submit" class="btn btn-primary">Gửi</button>
+                                <button type="button" onclick="contact()" class="btn btn-primary">Gửi</button>
                             </form>
                         </div>
                     </div>
@@ -289,7 +290,30 @@ global $urlThemeActive;
         </section>
     </main>
 
-
+<script type="text/javascript">
+        function contact(){
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var phone = $('#phone').val();
+            var content = $('#massage').val();
+  console.log(name);
+            $.ajax({
+            method: 'POST',
+             url: "/apis/contactAPI",
+            data: {
+                name: name,
+                phone: phone,  
+                email: email,
+                subject: 'Đăng ký hóa học',
+                content: content,  
+                },
+                success:function(res){
+                  document.getElementById("success").innerHTML = 'bạn đăng ký thành công';
+                  
+                }
+            })
+        }
+    </script>
 <?php
 getFooter();
 ?>
