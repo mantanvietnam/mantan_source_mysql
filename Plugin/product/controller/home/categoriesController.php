@@ -19,7 +19,7 @@ function category($input)
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
-            $conditions = array('id'=>$_GET['id']);
+            $conditions = array('id'=>$_GET['id'], 'status'=>'active');
         }else{
             $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
             $conditions = array('slug'=>$slug, 'type' => 'category_product', 'status'=>'active');

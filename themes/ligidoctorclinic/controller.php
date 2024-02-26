@@ -1,5 +1,5 @@
 <?php
-	function settingHomeTheme($input){
+function settingHomeTheme($input){
     global $modelOptions;
     global $metaTitleMantan;
     global $isRequestPost;
@@ -64,21 +64,20 @@
     setVariable('mess', $mess);
 }
 
-function indexTheme()
-    {
-      global $modelAlbums;
+function indexTheme($input){
+    global $modelAlbums;
     global $modelAlbuminfos;
-      global $modelOptions;
-      global $modelNotices;
-      global $modelPosts;
-      global $controller;
-
+    global $modelOptions;
+    global $modelNotices;
+    global $modelPosts;
+    global $controller;
     global $modelCategories;
+
     $modelProduct = $controller->loadModel('Products');
 
     $modelCategorieProduct = $controller->loadModel('CategorieProducts');
 
-       $conditions = array('key_word' => 'settingHomeTheme');
+    $conditions = array('key_word' => 'settingHomeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
 
     $data_value = array();
@@ -90,9 +89,9 @@ function indexTheme()
 
     $album = $modelAlbums->find()->where(array('id'=>@$data_value['id_album']))->first();
 
-        if(!empty($album)){
-            $album->data = $modelAlbuminfos->find()->where(array('id_album'=>$album->id))->all()->toList();
-        }
+    if(!empty($album)){
+        $album->data = $modelAlbuminfos->find()->where(array('id_album'=>$album->id))->all()->toList();
+    }
 
     $listService= $modelPosts->find()->limit(10)->where(array('idCategory'=>@$data_value['id_service']))->order($order)->all()->toList();
 
@@ -124,9 +123,5 @@ function indexTheme()
     setVariable('album',$album);
     setVariable('categorieProduct',$categorieProduct);
     setVariable('listpost',$listpost);
-
-    }
-
-	
-	
+}
 ?>

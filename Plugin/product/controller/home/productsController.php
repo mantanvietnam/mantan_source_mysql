@@ -34,6 +34,8 @@ function product($input)
         $product = $modelProduct->find()->where($conditions)->first();
 
         if(!empty($product)){
+            $product->view ++;
+            $modelProduct->save($product);
 
             if(!empty($session->read('infoUser'))){
                 $infoUser = $session->read('infoUser');

@@ -2,7 +2,11 @@
 	global $routesPlugin;
 
 	// api
-	$routesPlugin['searchProductAPI']= 'product/searchProductAPI.php';
+	$routesPlugin['searchProductAPI']= 'product/searchProductAPI.php'; // tìm kiếm sản phẩm
+	$routesPlugin['getCategoryProductAPI']= 'product/getCategoryProductAPI.php'; // lấy danh mục sản phẩm
+	$routesPlugin['getProductByCategoryAPI']= 'product/getProductByCategoryAPI.php'; // lấy sản phẩm theo danh mục
+	$routesPlugin['searchEvaluateAPI']= 'product/searchEvaluateAPI.php';
+	$routesPlugin['getInfoProductAPI']= 'product/getInfoProductAPI.php';
 
 	// frontend
 	$routesPlugin['allProduct']= 'product/view/home/allProduct.php';

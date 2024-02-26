@@ -92,7 +92,9 @@ CREATE TABLE `categories` (
   `keyword` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   `type` varchar(255) NOT NULL,
-  `slug` text NOT NULL
+  `slug` text NOT NULL,
+  `status` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `weighty` INT NOT NULL DEFAULT '0',
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

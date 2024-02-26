@@ -408,7 +408,7 @@ function getAllCategoryProduct()
 {
   global $modelCategories;
   
-  $conditions = array('type' => 'category_product');
+  $conditions = array('type' => 'category_product', 'status'=>'active');
   
   return $modelCategories->find()->where($conditions)->all()->toList();
 }
