@@ -7,7 +7,13 @@ $menus[0]['sub'][0]= array(	'title'=>'Thành viên tiếp thị',
 							'permission'=>'listAffiliaterAdmin'
 						);
 
-$menus[0]['sub'][1]= array(	'title'=>'Cài đặt hoa hồng',
+$menus[0]['sub'][]= array(	'title'=>'Lịch sử thanh toán',
+							'url'=>'/plugins/admin/affiliate-view-admin-transaction-listTransactionAffiliaterAdmin',
+							'classIcon'=>'bx bx-transfer',
+							'permission'=>'listTransactionAffiliaterAdmin'
+						);
+
+$menus[0]['sub'][]= array(	'title'=>'Cài đặt hoa hồng',
 							'url'=>'/plugins/admin/affiliate-view-admin-config-settingAffiliateAdmin',
 							'classIcon'=>'bx bx-cog',
 							'permission'=>'settingAffiliateAdmin'

@@ -68,7 +68,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `avatar` TEXT NOT NULL, 
   `status` VARCHAR(255) NOT NULL , 
   `pass` VARCHAR(255) NOT NULL , 
-  `id_parent` INT(11) NOT NULL DEFAULT '0' COMMENT 'id member đại lý'
+  `id_parent` INT(11) NOT NULL DEFAULT '0' COMMENT 'id member đại lý',
   `id_level` INT NOT NULL DEFAULT '0' , 
   `birthday_date` INT NOT NULL , 
   `birthday_month` INT NOT NULL , 

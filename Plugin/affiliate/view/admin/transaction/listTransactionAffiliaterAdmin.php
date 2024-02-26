@@ -1,8 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/affiliate-view-admin-affiliater-listAffiliaterAdmin">Tiếp thị liên kết</a> /</span>
-    Danh sách người tiếp thị
+    <span class="text-muted fw-light"><a href="/plugins/admin/affiliate-view-admin-transaction-listTransactionAffiliaterAdmin">Lịch sử giao dịch</a> /</span>
+    Danh sách giao dịch
   </h4>
 
   <p><a href="/plugins/admin/affiliate-view-admin-affiliater-addAffiliaterAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
@@ -19,23 +19,22 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên khách hàng</label>
-            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+            <label class="form-label">ID người tiếp thị</label>
+            <input type="text" class="form-control" name="id_affiliater" value="<?php if(!empty($_GET['id_affiliater'])) echo $_GET['id_affiliater'];?>">
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Điện thoại</label>
-            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+            <label class="form-label">ID đơn hàng</label>
+            <input type="text" class="form-control" name="id_order" value="<?php if(!empty($_GET['id_order'])) echo $_GET['id_order'];?>">
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">ID người giới thiệu</label>
-            <input type="text" class="form-control" name="id_father" value="<?php if(!empty($_GET['id_father'])) echo $_GET['id_father'];?>">
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="new" <?php if(!empty($_GET['status']) && $_GET['status']=='new') echo 'selected';?> >Chưa thanh toán</option>
+              <option value="done" <?php if(!empty($_GET['status']) && $_GET['status']=='done') echo 'selected';?> >Đã thanh toán</option>
+            </select>
           </div>
           
           <div class="col-md-2">
@@ -55,62 +54,51 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách người giới thiệu</h5>
+    <h5 class="card-header">Danh sách giao dịch</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Hình ảnh</th>
-            <th>Thông tin</th>
-            <th>Tiếp thị</th>
-            <th>Công nợ</th>
-            <th>Người giới thiệu</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
+            <th>Người tiếp thị</th>
+            <th>ID đơn hàng</th>
+            <th>Giá trị đơn hàng</th>
+            <th>Hoa hồng bán</th>
+            <th>Trạng thái</th>
+            <th>Thanh toán</th>
           </tr>
         </thead>
         <tbody>
           <?php 
           if(!empty($listData)){
             foreach ($listData as $item) {
-              $link_aff = $urlHomes.'book-online/?aff='.$item->phone;
+              $status = 'Đã thanh toán';
+              $pay = '';
+
+              if($item->status == 'new'){
+                  $status = 'Chưa thanh toán';
+
+                  $pay = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn đã thanh toán chưa?\');" href="/plugins/admin/affiliate-view-admin-transaction-payTransactionAffiliaterAdmin/?id='.$item->id.'">
+                            <i class="bx bxs-credit-card"></i>
+                          </a>';
+              }
 
               echo '<tr>
               <td>'.$item->id.'</td>
 
-              <td><img src="'.$item->avatar.'" width="80" /></td>
-             
               <td>
-                '.$item->name.'<br/>
-                '.$item->phone.'<br/>
-                '.$item->address.'<br/>
-                '.$item->email.'<br/><br/>
-                <a target="_blank" href="'.$link_aff.'">'.$link_aff.'</a>
+                <a href="/plugins/admin/affiliate-view-admin-affiliater-listAffiliaterAdmin?id='.$item->aff->id.'">'.$item->aff->name.'</a><br/>
+                '.$item->aff->phone.'<br/>
               </td>
              
-              <td>
-                <a href="/plugins/admin/product-view-admin-order-listOrderAdmin/?id_aff='.$item->id.'">Đã bán được '.number_format($item->number_order).' đơn hàng</a>
-                <br/><br/>
-                <a href="/plugins/admin/hethongdaily-view-admin-customer-listCustomerAdmin/?id_aff='.$item->id.'">Đã giới thiệu được '.number_format($item->number_customer).' khách hàng</a>
+              <td><a href="/plugins/admin/product-view-admin-order-listOrderAdmin?id='.$item->id_order.'">'.$item->id_order.'</a></td>
 
-              </td>
+              <td>'.number_format($item->money_total).'đ</td>
+              <td>'.number_format($item->money_back).'đ</td>
+              
+              <td>'.$status.'</td>
 
-              <td><a href="/plugins/admin/affiliate-view-admin-transaction-listTransactionAffiliaterAdmin/?id_affiliater='.$item->id.'">'.number_format($item->money_back).'đ</a></td>
-
-              <td>'.@$item->aff->name.' '.@$item->aff->phone.'</td>
-
-              <td align="center">
-                <a class="dropdown-item" href="/plugins/admin/affiliate-view-admin-affiliater-addAffiliaterAdmin/?id='.$item->id.'">
-                  <i class="bx bx-edit-alt me-1"></i>
-                </a>
-              </td>
-
-              <td align="center">
-                <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/affiliate-view-admin-affiliater-deleteAffiliaterAdmin/?id='.$item->id.'">
-                  <i class="bx bx-trash me-1"></i>
-                </a>
-              </td>
+              <td align="center">'.$pay.'</td>
              </tr>';
            }
          }else{

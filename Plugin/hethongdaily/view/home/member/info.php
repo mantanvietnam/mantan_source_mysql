@@ -420,7 +420,11 @@
                           <input type="text" class="form-control" id="address" name="address" value="" />
                         </div>
                         <div class="mb-3">
-                            <button type="button" class="btn btn-danger" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button>
+                          <label for="phone" class="form-label">Mã giảm giá</label>
+                          <input type="text" class="form-control" id="codeDiscount" name="codeDiscount" value="" />
+                        </div>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-danger" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button> 
                         </div>
                         <div id="list_cart"></div>
                         

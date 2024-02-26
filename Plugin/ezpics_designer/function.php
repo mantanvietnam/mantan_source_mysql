@@ -33,7 +33,7 @@ $ftp_password_upload_image = "sIu6v%OHwfmKxcx-";
 $urlsCreateImage = [
                     //'http://171.244.16.76:3000/convert',
                     'http://14.225.53.136:3000/convert',
-                    'http://14.225.53.107:3000/convert',
+                    //'http://14.225.53.107:3000/convert',
                     ];
 $randIndex = array_rand($urlsCreateImage);
 $urlCreateImage = $urlsCreateImage[$randIndex];
