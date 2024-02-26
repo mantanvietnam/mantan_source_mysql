@@ -6,7 +6,7 @@
     <?= $this->Form->create(); ?>
       <div class="row">
         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          <div class="card mb-4">
+          <div class=" mb-4">
             <div class="nav-align-top mb-4">
                     <ul class="nav nav-tabs" role="tablist">
                       <li class="nav-item">
@@ -151,73 +151,73 @@
                          </div>
                     </div>
                 </div>
-            <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">
-                <div class="row">
-                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <label class="form-label" for="basic-default-fullname">Ảnh nền của báo chí</label>
-                        <?php showUploadFile('imageBgNewpaper','imageBgNewpaper',@$data['imageBgNewpaper'],1); ?>
-                     </div>
-                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8"></div>
-                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <label class="form-label" for="basic-default-fullname">Ảnh minh họa báo chí 1</label>
-                        <?php showUploadFile('imageNewspaper1','imageNewspaper1',@$data['imageNewspaper1'],3);?>
-                        <label class="form-label" for="basic-default-fullname">Tiêu đề báo chí 1</label>
-                        <input class="form-control" type="text" name="titleNewspaper1" value="<?php echo @$data['titleNewspaper1'];?>" />
-                        <label class="form-label" for="basic-default-fullname">Mô tả báo chí 1</label>
-                        <input class="form-control" type="text" name="textNewspaper1" value="<?php echo @$data['textNewspaper1'];?>" />
-                        <label class="form-label" for="basic-default-fullname">Link bài báo 1</label>
-                        <input class="form-control" type="text" name="linkNewspaper1" value="<?php echo @$data['linkNewspaper1'];?>" />
-                   </div>
-                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <label class="form-label" for="basic-default-fullname">Ảnh minh họa báo chí 2</label>
-                        <?php showUploadFile('imageNewspaper2','imageNewspaper2',@$data['imageNewspaper2'],4);?>
-                        <label class="form-label" for="basic-default-fullname">Tiêu đề báo chí 2</label>
-                        <input class="form-control" type="text" name="titleNewspaper2" value="<?php echo @$data['titleNewspaper2'];?>" />
-                        <label class="form-label" for="basic-default-fullname">Mô tả báo chí 2</label>
-                        <input class="form-control" type="text" name="textNewspaper2" value="<?php echo @$data['textNewspaper2'];?>" />
-                        <label class="form-label" for="basic-default-fullname">Link bài báo 2</label>
-                        <input class="form-control" type="text" name="linkNewspaper2" value="<?php echo @$data['linkNewspaper2'];?>" />
-                    </div>
-                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <label class="form-label" for="basic-default-fullname">Ảnh minh họa báo chí 3</label>
-                        <?php  showUploadFile('imageNewspaper3','imageNewspaper3',@$data['imageNewspaper3'],5);?>
-                        <label class="form-label" for="basic-default-fullname">Tiêu đề báo chí 3</label>
-                        <input class="form-control" type="text" name="titleNewspaper3" value="<?php echo @$data['titleNewspaper3'];?>" />
-                        <label class="form-label" for="basic-default-fullname">Mô tả báo chí 3</label>
-                        <input class="form-control" type="text" name="textNewspaper3" value="<?php echo @$data['textNewspaper3'];?>" />
-                        <label class="form-label" for="basic-default-fullname">Link bài báo 3</label>
-                        <input class="form-control" type="text" name="linkNewspaper3" value="<?php echo @$data['linkNewspaper3'];?>" />
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade row" id="navs-top-evaluate" role="tabpanel">
-                <div class="row">
-                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <label class="form-label" for="basic-default-fullname">Mã nhúng bản đồ</label>
-                        <textarea class="form-control" style="width: 100%;" rows="5" name="map"><?php echo @htmlspecialchars_decode($data['map']);?></textarea>
-                     </div>
-                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <label class="form-label" for="basic-default-fullname">Mã nhúng Messenger Facebook</label>
-                        <textarea class="form-control" style="width: 100%;" rows="5" name="messenger"><?php echo @htmlspecialchars_decode($data['messenger']);?></textarea>
-                    </div>
-                   
-                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <label class="form-label" for="basic-default-fullname">Điện thoại CSKH</label>
-                        <input class="form-control" name="hotline" value="<?php echo @$data['hotline'];?>"data-jscolor="">
-                    
-                        <label class="form-label" for="basic-default-fullname">Email CSKH</label>
-                        <input class="form-control"  name="linkMail" value="<?php echo @$data['linkMail'];?>"data-jscolor="">
-                     </div>
-                      <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <label class="form-label" for="basic-default-fullname">SPA</label>
-                        <input class="form-control"  name="nameThamMy" value="<?php echo @$data['nameThamMy'];?>"data-jscolor="">
-                    </div>
-                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
-                        <input class="form-control"  name="address" value="<?php echo @$data['address'];?>"data-jscolor="">
+                <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
+                    <div class="row">
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <label class="form-label" for="basic-default-fullname">Ảnh nền của báo chí</label>
+                            <?php showUploadFile('imageBgNewpaper','imageBgNewpaper',@$data['imageBgNewpaper'],1); ?>
+                         </div>
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8"></div>
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <label class="form-label" for="basic-default-fullname">Ảnh minh họa báo chí 1</label>
+                            <?php showUploadFile('imageNewspaper1','imageNewspaper1',@$data['imageNewspaper1'],3);?>
+                            <label class="form-label" for="basic-default-fullname">Tiêu đề báo chí 1</label>
+                            <input class="form-control" type="text" name="titleNewspaper1" value="<?php echo @$data['titleNewspaper1'];?>" />
+                            <label class="form-label" for="basic-default-fullname">Mô tả báo chí 1</label>
+                            <input class="form-control" type="text" name="textNewspaper1" value="<?php echo @$data['textNewspaper1'];?>" />
+                            <label class="form-label" for="basic-default-fullname">Link bài báo 1</label>
+                            <input class="form-control" type="text" name="linkNewspaper1" value="<?php echo @$data['linkNewspaper1'];?>" />
+                       </div>
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <label class="form-label" for="basic-default-fullname">Ảnh minh họa báo chí 2</label>
+                            <?php showUploadFile('imageNewspaper2','imageNewspaper2',@$data['imageNewspaper2'],4);?>
+                            <label class="form-label" for="basic-default-fullname">Tiêu đề báo chí 2</label>
+                            <input class="form-control" type="text" name="titleNewspaper2" value="<?php echo @$data['titleNewspaper2'];?>" />
+                            <label class="form-label" for="basic-default-fullname">Mô tả báo chí 2</label>
+                            <input class="form-control" type="text" name="textNewspaper2" value="<?php echo @$data['textNewspaper2'];?>" />
+                            <label class="form-label" for="basic-default-fullname">Link bài báo 2</label>
+                            <input class="form-control" type="text" name="linkNewspaper2" value="<?php echo @$data['linkNewspaper2'];?>" />
+                        </div>
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <label class="form-label" for="basic-default-fullname">Ảnh minh họa báo chí 3</label>
+                            <?php  showUploadFile('imageNewspaper3','imageNewspaper3',@$data['imageNewspaper3'],5);?>
+                            <label class="form-label" for="basic-default-fullname">Tiêu đề báo chí 3</label>
+                            <input class="form-control" type="text" name="titleNewspaper3" value="<?php echo @$data['titleNewspaper3'];?>" />
+                            <label class="form-label" for="basic-default-fullname">Mô tả báo chí 3</label>
+                            <input class="form-control" type="text" name="textNewspaper3" value="<?php echo @$data['textNewspaper3'];?>" />
+                            <label class="form-label" for="basic-default-fullname">Link bài báo 3</label>
+                            <input class="form-control" type="text" name="linkNewspaper3" value="<?php echo @$data['linkNewspaper3'];?>" />
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="tab-pane fade row" id="navs-top-evaluate" role="tabpanel">
+                    <div class="row">
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <label class="form-label" for="basic-default-fullname">Mã nhúng bản đồ</label>
+                            <textarea class="form-control" style="width: 100%;" rows="5" name="map"><?php echo @htmlspecialchars_decode($data['map']);?></textarea>
+                         </div>
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <label class="form-label" for="basic-default-fullname">Mã nhúng Messenger Facebook</label>
+                            <textarea class="form-control" style="width: 100%;" rows="5" name="messenger"><?php echo @htmlspecialchars_decode($data['messenger']);?></textarea>
+                        </div>
+                       
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <label class="form-label" for="basic-default-fullname">Điện thoại CSKH</label>
+                            <input class="form-control" name="hotline" value="<?php echo @$data['hotline'];?>"data-jscolor="">
+                        
+                            <label class="form-label" for="basic-default-fullname">Email CSKH</label>
+                            <input class="form-control"  name="linkMail" value="<?php echo @$data['linkMail'];?>"data-jscolor="">
+                         </div>
+                          <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <label class="form-label" for="basic-default-fullname">SPA</label>
+                            <input class="form-control"  name="nameThamMy" value="<?php echo @$data['nameThamMy'];?>"data-jscolor="">
+                        </div>
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
+                            <input class="form-control"  name="address" value="<?php echo @$data['address'];?>"data-jscolor="">
+                        </div>
+                    </div>
+                </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <button type="submit" class="btn btn-primary" style="width:75px; height: 35px;">Lưu</button>
               </div>
