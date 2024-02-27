@@ -1,0 +1,123 @@
+footer{
+    #section-footer-main{
+        padding: 70px 0;
+        background: #6c7fac;
+        position: relative;
+        &::before{
+            content: "";
+            background-color: rgba(245, 84, 34, 0.4);;
+            opacity: 0.4;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .logo-footer{
+            width: 162px;
+            margin: auto;
+
+        }
+
+        .footer-main{
+            position: relative;
+            z-index: 99999;
+            .list-social{
+                margin-top: 20px;
+                ul{
+                    gap: 30px;
+                    li{
+                        i{
+                            font-size: 27px;
+                            color: #fff;
+                            transition: all 0.3s linear;
+                        }
+                        &:hover{
+                            i{
+                                color: #F95353;
+                            }
+                        }
+                    
+                    }
+                }
+            }
+        }
+    }
+
+    #section-footer-bottom{
+        background: #11141b;
+        padding: 20px 0;
+        .footer-bottom{
+        p{
+                color: #fff;
+        }
+        }
+    }
+}
+
+#button {
+    display: inline-block;
+    background-color: #F95353;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 60px;
+    right: 0;
+    transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+#button::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+}
+#button:hover {
+cursor: pointer;
+    background-color: #333;
+}
+#button:active {
+    background-color: #555;
+}
+#button.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Styles for the content section */
+
+.content {
+    width: 77%;
+    margin: 50px auto;
+    font-family: 'Merriweather', serif;
+    font-size: 17px;
+    color: #6c767a;
+    line-height: 1.9;
+}
+
+@media (min-width: 500px) {
+    .content {
+        width: 43%;
+    }
+    #button {
+        margin: 30px;
+    }
+}
+
+.content h1 {
+    margin-bottom: -10px;
+    color: #03a9f4;
+    line-height: 1.5;
+}
+.content h3 {
+    font-style: italic;
+    color: #96a2a7;
+}

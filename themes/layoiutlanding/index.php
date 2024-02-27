@@ -3,7 +3,7 @@ getHeader();
 global $urlThemeActive;
 ?>
 <main>
-        <section id="section-banner">
+        <section id="section-banner" style="background-image:url(<?php echo @$setting['background_top'];?>);">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
@@ -74,7 +74,7 @@ global $urlThemeActive;
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="service-item text-center">
                                 <div class="service-icon">
-                                    <i class="fa-solid fa-heart"></i>
+                                    <i class="<?php echo @$setting['icon_service1'];?>"></i>
                                 </div>
 
                                 <div class="service-title">
@@ -90,7 +90,7 @@ global $urlThemeActive;
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="service-item text-center">
                                 <div class="service-icon">
-                                    <i class="fa-solid fa-heart"></i>
+                                    <i class="<?php echo @$setting['icon_service1'];?>"></i>
                                 </div>
 
                                  <div class="service-title">
@@ -106,7 +106,7 @@ global $urlThemeActive;
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="service-item text-center">
                                 <div class="service-icon">
-                                    <i class="fa-solid fa-heart"></i>
+                                    <i class="<?php echo @$setting['icon_service3'];?>"></i>
                                 </div>
 
                                 <div class="service-title">
