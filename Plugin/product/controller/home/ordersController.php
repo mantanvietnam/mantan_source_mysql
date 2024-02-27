@@ -598,10 +598,8 @@ function pay($input){
 					// lưu lịch sử của khách hàng
 					if(function_exists('createCustomerHistories')){
 						$note_now = 'Khởi tạo dữ liệu người dùng mới khi khách hàng mua hàng của đại lý '.@$dataSend['name_agency'];
-						$time_next = time() + 60*15;
-						$action_next = 'call';
 
-						createCustomerHistories($infoUser->id, $note_now, $infoUser->id_parent, $time_next, $action_next, $infoUser->id_parent);
+						createCustomerHistories($infoUser->id, $note_now, $infoUser->id_parent);
 					}
 				}else{
 					$infoUser->full_name = $dataSend['full_name'];
@@ -629,10 +627,8 @@ function pay($input){
 
 					// lưu lịch sử khách hàng
 					if(function_exists('createCustomerHistories')){
-						$time_next = time() + 60*15;
-						$action_next = 'call';
 
-						createCustomerHistories($infoUser->id, $note_now, $infoUser->id_parent, $time_next, $action_next, $infoUser->id_parent);
+						createCustomerHistories($infoUser->id, $note_now, $infoUser->id_parent);
 					}
 				}
 			}

@@ -233,7 +233,7 @@ function getTreeSystem($id_father, $modelMembers)
     return $listData;
 }
 
-function createCustomerHistories($id_customer=0, $note_now='', $id_staff_now=0, $time_next=0, $action_next='', $id_staff_next=0)
+function createCustomerHistoriesNewOrder($id_customer=0, $note_now='', $id_staff_now=0)
 {
     global $controller;
 
@@ -248,10 +248,20 @@ function createCustomerHistories($id_customer=0, $note_now='', $id_staff_now=0, 
         $customer_histories->note_now = $note_now;
         $customer_histories->action_now = 'create';
         $customer_histories->id_staff_now = $id_staff_now;
+        $customer_histories->status = 'done';
+
+        $modelCustomerHistories->save($customer_histories);
+
+        // hành động tiếp theo
+        $customer_histories = $modelCustomerHistories->newEmptyEntity();
+
+        $customer_histories->id_customer = $id_customer;
         
-        $customer_histories->time_next = $time_next;
-        $customer_histories->action_next = $action_next;
-        $customer_histories->id_staff_next = $id_staff_next;
+        $customer_histories->time_now = time() + 60*15;
+        $customer_histories->note_now = 'Gọi điện xác nhận đơn hàng';
+        $customer_histories->action_now = 'call';
+        $customer_histories->id_staff_now = $id_staff_now;
+        $customer_histories->status = 'new';
 
         $modelCustomerHistories->save($customer_histories);
     }

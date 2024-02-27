@@ -66,10 +66,11 @@
           <tr class="">
             <th>ID</th>
             <th>Khách hàng</th>
-            <th>Đơn hàng</th>
             <th>Trạng thái</th>
             <th>Giới tính</th>
             <th>Ngày sinh</th>
+            <th>Đơn hàng</th>
+            <th>Chăm sóc</th>
           </tr>
         </thead>
         <tbody>
@@ -90,6 +91,17 @@
               if(!empty($item->birthday_date) && !empty($item->birthday_month) && !empty($item->birthday_year)){
                   $birthday = $item->birthday_date.'/'.$item->birthday_month.'/'.$item->birthday_year;
               }
+
+              $history = '';
+              if(!empty($item->history)){
+                $status_history = 'text-danger';
+
+                if($item->history->status == 'done'){
+                  $status_history = 'text-success';
+                }
+
+                $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
+              }
               
               echo '<tr>
               <td>'.$item->id.'</td>
@@ -100,12 +112,19 @@
                 '.$item->address.'<br/>
                 '.$item->email.'
               </td>
-             
-              <td><a href="/orderCustomerAgency/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></td>
-              
               <td>'.$status.'</td>
               <td>'.$sex.'</td>
               <td>'.$birthday.'</td>
+
+              <td><a href="/orderCustomerAgency/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></td>
+
+              <td>
+                '.$history.'
+                <p class="text-center mt-3">
+                  <button type="button" class="btn btn-primary"><i class="bx bx-plus-medical"></i></button> 
+                  <button type="button" class="btn btn-danger"><i class="bx bx-list-ul" ></i></button>
+                </p>
+              </td>
              </tr>';
            }
          }else{

@@ -12,6 +12,7 @@ function listCustomerAgency($input)
 
         $modelCustomers = $controller->loadModel('Customers');
         $modelOrders = $controller->loadModel('Orders');
+        $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
         $conditions = array('id_parent'=>$session->read('infoUser')->id);
         $limit = 20;
@@ -87,9 +88,12 @@ function listCustomerAgency($input)
 
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
+                    // thống kê đơn hàng
                     $order = $modelOrders->find()->where(['id_user'=>$value->id])->all()->toList();
-
                     $listData[$key]->number_order = count($order);
+
+                    // lịch sử chăm sóc
+                    $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id])->order(['id'=>'desc'])->first();
                 }
             }
         }

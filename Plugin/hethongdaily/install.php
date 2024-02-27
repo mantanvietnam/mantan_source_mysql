@@ -77,7 +77,16 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
-$sqlInstallDatabase .= "CREATE TABLE `customer_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `id_customer` INT NOT NULL , `time_now` INT NOT NULL , `note_now` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `action_now` VARCHAR(255) NOT NULL , `id_staff_now` INT NOT NULL , `time_next` INT NULL , `note_next` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , `action_next` VARCHAR(255) NULL , `id_staff_next` INT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+$sqlInstallDatabase .= "CREATE TABLE `customer_histories` ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_customer` INT NOT NULL , 
+  `time_now` INT NOT NULL , 
+  `note_now` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+  `action_now` VARCHAR(255) NOT NULL , 
+  `id_staff_now` INT NOT NULL , 
+  `status` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB; ";
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
