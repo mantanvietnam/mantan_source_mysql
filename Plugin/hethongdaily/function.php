@@ -232,4 +232,29 @@ function getTreeSystem($id_father, $modelMembers)
 
     return $listData;
 }
+
+function createCustomerHistories($id_customer=0, $note_now='', $id_staff_now=0, $time_next=0, $action_next='', $id_staff_next=0)
+{
+    global $controller;
+
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+    if(!empty($id_customer)){
+        $customer_histories = $modelCustomerHistories->newEmptyEntity();
+
+        $customer_histories->id_customer = $id_customer;
+        
+        $customer_histories->time_now = time();
+        $customer_histories->note_now = $note_now;
+        $customer_histories->action_now = 'create';
+        $customer_histories->id_staff_now = $id_staff_now;
+        
+        $customer_histories->time_next = $time_next;
+        $customer_histories->action_next = $action_next;
+        $customer_histories->id_staff_next = $id_staff_next;
+
+        $modelCustomerHistories->save($customer_histories);
+    }
+    
+}
 ?>

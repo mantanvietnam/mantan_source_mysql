@@ -508,7 +508,9 @@ function pay($input){
 	$modelAddress = $controller->loadModel('Address');
 	$modelOrder = $controller->loadModel('Orders');
 	$modelOrderDetail = $controller->loadModel('OrderDetails');
+
 	$modelCustomers = $controller->loadModel('Customers');
+	
 
 	$metaTitleMantan = 'Thanh toán';
 
@@ -581,8 +583,8 @@ function pay($input){
 					$infoUser->address = (string) @$dataSend['address'];
 					$infoUser->sex = (int) @$dataSend['sex'];
 					$infoUser->id_city = (int) @$dataSend['id_city'];
-					$infoUser->id_parent = (int) @$dataSend['id_agency'];
-					$infoUser->id_aff = (int) @$dataSend['id_aff'];
+					$infoUser->id_parent = (int) @$dataSend['id_agency']; // đại lý bán hàng
+					$infoUser->id_aff = (int) @$dataSend['id_aff']; // người tiếp thị liên kết
 					$infoUser->id_messenger = (string) @$dataSend['id_messenger'];
 					$infoUser->avatar = (string) @$dataSend['avatar'];
 					$infoUser->status = 'active';
@@ -592,15 +594,31 @@ function pay($input){
 					$infoUser->birthday_year = (int) @$dataSend['birthday_year'];
 
 					$modelCustomers->save($infoUser);
+
+					// lưu lịch sử của khách hàng
+					if(function_exists('createCustomerHistories')){
+						$note_now = 'Khởi tạo dữ liệu người dùng mới khi khách hàng mua hàng của đại lý '.@$dataSend['name_agency'];
+						$time_next = time() + 60*15;
+						$action_next = 'call';
+
+						createCustomerHistories($infoUser->id, $note_now, $infoUser->id_parent, $time_next, $action_next, $infoUser->id_parent);
+					}
 				}else{
 					$infoUser->full_name = $dataSend['full_name'];
-
+					$note_now = 'Mua đơn hàng mới';
+					
+					// đại lý bán hàng
 					if(!empty($dataSend['id_agency'])){
 						$infoUser->id_parent = (int) $dataSend['id_agency'];
+						
+						$note_now = 'Mua hàng của đại lý '.@$dataSend['name_agency'];
 					}
 
+					// người tiếp thị liên kết
 					if(!empty($dataSend['id_aff'])){
 						$infoUser->id_aff = (int) $dataSend['id_aff'];
+						
+						$note_now = 'Mua hàng của người tiếp thị liên kết '.@$dataSend['name_agency'];
 					}
 					
 					if(!empty($dataSend['address'])){
@@ -608,6 +626,14 @@ function pay($input){
 					}
 
 					$modelCustomers->save($infoUser);
+
+					// lưu lịch sử khách hàng
+					if(function_exists('createCustomerHistories')){
+						$time_next = time() + 60*15;
+						$action_next = 'call';
+
+						createCustomerHistories($infoUser->id, $note_now, $infoUser->id_parent, $time_next, $action_next, $infoUser->id_parent);
+					}
 				}
 			}
 		}
