@@ -1,93 +1,26 @@
-<!DOCTYPE html>
-<html lang="vi">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <!-- Fontawesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-         <!-- Boostrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
-        <link rel="stylesheet" href="./asset/css/style.css">    
-        <!-- Magnific Popup core CSS file -->
-        <link rel="stylesheet" href="asset/magnific-popup/magnific-popup.css">
-    
-        <!-- Aos -->
-        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-       
-        <!-- slick -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-        <script
-            type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
-        ></script>
-
-        <script
-            type="text/javascript"
-            src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-        ></script>
-    </head>
-<body>
-    <header>
-        <div class="navbar-header" id="menu-top">
-            <nav class="navbar navbar-expand-lg" >
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        <div class="image-header">
-                            <!-- <img src="./asset/img/logo-phoenix-camp-copy-20210123115818-20220404114457.png" alt=""> -->
-                        </div>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#section-service">Dịch vụ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#section-library">Thư viện</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#section-blog">Tin tức</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#section-contact">Liên hệ</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
-
+<?php
+getHeader();
+global $urlThemeActive;
+?>
     <main>
         <section id="section-banner">
-            <div class="banner-home" style="background-image: url(./asset/img/bachgroudbannerl.jpg);">
+            <div class="banner-home" style="background-image: url(<?php echo @$setting['background_top'];?>);">
                 <div class="banner-overlay"></div>
                 <div class="banner-content">
                     <div class="container">
                         <div class="content-box">
                             <div class="content-first">
-                                <p>Welcome To UrbanClean</p>
+                                <p><?php echo @$setting['title_top_nho'];?></p>
                             </div>
                             <div class="content-second">
-                                <h1>We Offer <br> Best Cleaing Services</h1>
+                                <h1><?php echo @$setting['title_top_to'];?></h1>
                             </div>
                             <div class="content-third">
-                                <span>We are providing bet cleaning services with 100+ professional expert team . So, we will provided perfect cleaning service.</span>
+                                <span><?php echo @$setting['content_top'];?></span>
                             </div>
 
                             <div class="content-btn">
-                                <a href="">Đăng ký</a>
+                                <a href="<?php echo @$setting['link_top'];?>">Đăng ký</a>
                             </div>
                         </div>
                     </div>
@@ -732,84 +665,6 @@
         </section>
     </main>
 
-    <footer>
-        <div id="section-footer-main">
-            <div class="container">
-                <div class="footer-main">
-                    <div class="logo-footer">
-                        <img src="./asset/img/logo-phoenix.png" alt="">
-                    </div>
-
-                    <div class="list-social">
-                        <ul class="d-flex justify-content-center">
-                            <li>
-                                <a href=""><i class="fa-brands fa-facebook-f"></i></a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fa-brands fa-square-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fa-brands fa-tiktok"></i></a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fa-brands fa-youtube"></i></a>
-                            </li>
-    
-                            <li>
-                                <a href=""><i class="fa-brands fa-linkedin-in"></i></a>
-                            </li>
-    
-                            <li>
-                                <a href=""><i class="fa-brands fa-twitter"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <section id="section-footer-bottom">
-            <div class="container">
-                <div class="footer-bottom text-center">
-                    <p>CopyRight © 2021 Trần Toản | All Rights Reserved</p>
-                </div>
-            </div>
-        </section>
-       
-        <a id="button"></a>
-    </footer>
-
-    <!-- Magnific Popup core JS file -->
-    <script src="asset/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-
-    <script src="./asset/js/slick.js"></script>
-    <script src="./asset/js/main.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('.library-image').magnificPopup({
-                delegate: 'a',
-                type: 'image',
-                tLoading: 'Loading image #%curr%...',
-                mainClass: 'mfp-img-mobile',
-                gallery: {
-                    enabled: true,
-                    navigateByImgClick: true,
-                    preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-                },
-                image: {
-                    tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-                    titleSrc: function(item) {
-                    }
-                }
-            });
-        });
-    </script>
-    
-</body>
-</html>
+<?php
+getFooter();?>
+ 
