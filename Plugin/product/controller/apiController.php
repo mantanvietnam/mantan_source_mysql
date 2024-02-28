@@ -86,8 +86,11 @@ function getProductByCategoryAPI($input)
 {
     global $isRequestPost;
     global $controller;
+    global $modelCategories;
 
     $return = ['totalData'=>0, 'listData'=>[]];
+
+    $modelProduct = $controller->loadModel('Products');
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
@@ -112,6 +115,13 @@ function getProductByCategoryAPI($input)
                         ])
                         ->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+                if(!empty($list_product)){
+                    foreach ($list_product as $key => $value) {
+                        $list_product[$key]->images = json_decode($value->images, true);
+                        $list_product[$key]->evaluate = json_decode($value->evaluate, true);
+                    }
+                }
+
                 $totalData = $modelProduct->find()
                         ->join([
                             'table' => 'categorie_products',
@@ -122,7 +132,7 @@ function getProductByCategoryAPI($input)
                         ->where($conditions)->all()->toList();
             
                 $return['totalData'] = count($totalData);
-                $return['listData'] = count($list_product);
+                $return['listData'] = $list_product;
             }
         }   
     }
@@ -148,8 +158,12 @@ function getInfoProductAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['id'])){
-            $conditions = array('id'=>$dataSend['id'], 'status'=>'active');
+        if(!empty($dataSend['id']) || !empty($dataSend['slug'])){
+            if(!empty($dataSend['id'])){
+                $conditions = array('id'=>$dataSend['id'], 'status'=>'active');
+            }else{
+                $conditions = array('slug'=>$dataSend['slug'], 'status'=>'active');
+            }
 
             $product = $modelProduct->find()->where($conditions)->first();
 

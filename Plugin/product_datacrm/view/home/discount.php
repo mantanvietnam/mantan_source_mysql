@@ -1,0 +1,1 @@
+<?php getFileTheme('customers/discount.php');?>

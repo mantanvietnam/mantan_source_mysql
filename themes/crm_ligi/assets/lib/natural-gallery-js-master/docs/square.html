@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+<script>
+    var options = {
+        itemsPerRow: 4,
+        lightbox: true,
+    };
+
+    function getGallery(galleryElement, photoswipeElement, scrollableElement) {
+        return new NaturalGallery.Square(galleryElement, options, photoswipeElement, scrollableElement)
+    }
+
+</script>
+
+<script src="assets/main.js" defer></script>
+
+{%- include gallery.html -%}

@@ -1,0 +1,271 @@
+---
+layout: default
+---
+
+{% include photoswipe.html %} {% include icons.html %}
+
+<div class="padding-v markdown">
+
+    <div class="row">
+        <div class="container-1000px">
+            {% include brand.html %}
+            <h1>Options</h1>
+        </div>
+
+{% highlight javascript %}
+
+var options = { ... }
+var elementRef = document.getElementById('gallery');
+
+// The gallery accepts a literal as second argument for options
+var gallery = new NaturalGallery.Natural(elementRef, options);
+gallery.init();
+{% endhighlight %}
+
+        <div class="container-1000px">
+            <h3>Natural and Responsive Square options</h3>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    <th>Docs</th>
+                </tr>
+                <tr>
+                    <td>rowHeight</td>
+                    <td>Number</td>
+                    <td>400</td>
+                    <td>Maximum height for each row.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ratioLimit</td>
+                    <td>Number</td>
+                    <td>{min: number, max: number}</td>
+                    <td>Prevents narrow images by forcing the ratio to be in the given limits. <br/>min:1 and max:1 produce squares</td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <h3>Square options</h3>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    <th>Docs</th>
+                </tr>
+                <tr>
+                    <td>itemsPerRow</td>
+                    <td>Number</td>
+                    <td>4</td>
+                    <td>Number of columns for grid.</td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <h3>Masonry options</h3>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    <th>Docs</th>
+                </tr>
+                <tr>
+                    <td>columnWidth</td>
+                    <td>Number</td>
+                    <td>300</td>
+                    <td>Maximum width for each row.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ratioLimit</td>
+                    <td>Number</td>
+                    <td>{min: number, max: number}</td>
+                    <td>Prevents narrow images by forcing the ratio to be in the given limits. <br/>min:1 and max:1 produce squares</td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <h3>Options summary for all galleries</h3>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    <th>Docs</th>
+                </tr>
+                <tr>
+                    <td>gap</td>
+                    <td>Number</td>
+                    <td>3</td>
+                    <td>Number of pixels between items</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>rowsPerPage</td>
+                    <td>Number</td>
+                    <td>0</td>
+                    <td>Number of rows per page when positive. When 0, the infinite scroll is activated.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>showLabels</td>
+                    <td>String</td>
+                    <td>hover</td>
+                    <td>Defines when the item's labels are shown. <br/>Accepts hover, always and never</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>lightbox</td>
+                    <td>Boolean</td>
+                    <td>False</td>
+                    <td>Zoom images on click</td>
+                    <td><a href="#lightbox">Docs</a></td>
+                </tr>
+                <tr>
+                    <td>photoSwipeOptions</td>
+                    <td>Literal</td>
+                    <td>null</td>
+                    <td>Options specific to PhotoSwipe.</td>
+                    <td><a href="http://photoswipe.com/documentation/options.html">Docs</a></td>
+                </tr>
+                <tr>
+                    <td>minRowsAtStart</td>
+                    <td>Number</td>
+                    <td>2</td>
+                    <td>Number of rows to display when gallery initialises</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>selectable</td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                    <td>Whether the gallery accepts or not items to be selectable by user</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>activable</td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                    <td>If images have no link, but label has to be rendered as a button. Should be used with activable event</td>
+                    <td><a href="docs-api.html#activable">Docs</a></td>
+                </tr>
+                <tr>
+                    <td>infiniteScrollOffset</td>
+                    <td>Number</td>
+                    <td>0</td>
+                    <td><p>Number of pixels from the bottom of the gallery to offset the detection of the scroll event.</p>
+                        <p>If negative, the infinite scroll will expand the gallery before the bottom is visible in the viewport.</p>
+                        <p>If positive, the infinite scroll will expand the gallery after the bottom enters the viewport. Be sure to have at least as much space free under the gallery or infinite scroll will never expand.</p>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>backgroundSize</td>
+                    <td>string</td>
+                    <td>cover</td>
+                    <td>
+                        <p>Applies a "background-size" compatible value to images. </p>
+                        <p>
+                            Use "auto" to prevent client side resizing and improve rendering performances.
+                            Resizing big pictures is very CPU and bandwidth consuming.
+                        </p>
+                        <p>If disabled, be sure the image minimum size is bigger than computed size.</p>
+                        <img width="300px" src="/assets/cover.gif">
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>backgroundPosition</td>
+                    <td>string</td>
+                    <td>center</td>
+                    <td>
+                        <p>Applies a "background-position" compatible value to images. For example 0% 100% or top left</p>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="row" id="lightbox">
+
+        <div class="container-1000px">
+            <h2 >Lightbox</h2>
+            <p>If true, opens a PhotoSwipe gallery on zoom event. See <a href="docs-api.html#interactions">interactions</a>  and <a href="https://photoswipe.com">PhotoSwipe</a> for more about those two aspects.</p>
+            <p>In order to use PhotoSwipe, you'll need to add its template to your html and include its assets.</p>
+        </div>
+
+        <div class="container-1000px">
+            <h3>Photoswipe assets</h3>
+            <p>Natural-gallery-js distributed files don't include PhotoSwipe sources. You need to add them by yourself before including natural assets.</p>
+        </div>
+
+{% highlight html %}
+<link rel="stylesheet" href="assets/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="assets/photoswipe/default-skin/default-skin.css">
+<script src="assets/photoswipe/photoswipe.min.js" defer></script>
+<script src="assets/photoswipe/photoswipe-ui-default.min.js" defer></script>
+{% endhighlight %}
+
+        <div class="container-1000px">
+            <h3>Photoswipe template</h3>
+            <p>There is no default template provided by natural-gallery-js, you <strong>have to</strong> add one by yourself.</p>
+            <p>Here's an example of PhotoSwipe template. </p>
+        </div>
+
+{% highlight html %}
+    {% include photoswipe.html %}
+{% endhighlight %}
+
+        <div class="container-1000px">
+            <h3>Photoswipe usage</h3>
+            <p>In this example we select the PhotoSwipe template by class name, and provide reference to gallery constructor as third argument.</p>
+            <p>You can find all the <a href="http://photoswipe.com/documentation/options.html">PhotoSwipe options here</a>. The options "index" and "loop" are ignored because they are manipulated by the gallery itself.</p>
+        </div>
+
+{% highlight javascript %}
+window.addEventListener('load', function() {
+
+    var options = {
+        ...
+        photoSwipeOptions: { ... }
+    };
+
+    // Get reference of gallery container
+    var elementRef = document.getElementById('gallery');
+
+    // Get reference of photoswipe element
+    var photoswipeRef = document.getElementsByClassName('pswp')[0];
+
+    var gallery = new NaturalGallery.Natural(elementRef, options, photoswipeRef);
+    gallery.init();
+}
+{% endhighlight %}
+
+
+        <div class="container-1000px">
+            <div id="gallery-border-radius"></div>
+            <script>
+                window.addEventListener('load', function() {
+                    var galleryRef = document.getElementById('gallery-border-radius');
+                    var photoswipeRef = document.getElementsByClassName('pswp')[0];
+                    var galleryRadius = new NaturalGallery.Square(galleryRef, {gap:20, itemsPerRow:4, showLabels: 'never', lightbox: true}, photoswipeRef);
+                    galleryRadius.init();
+                    galleryRadius.setItems({% include sample.json %});
+                });
+            </script>
+            <p>An error is output to console if lightbox option is set to true but there is no PhotoSwipe reference provided.</p>
+        </div>
+
+    </div>
+
+
+</div>

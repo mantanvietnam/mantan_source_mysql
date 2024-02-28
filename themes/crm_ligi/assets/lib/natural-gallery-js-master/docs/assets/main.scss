@@ -1,0 +1,60 @@
+---
+---
+
+@import 'theme', 'typography', 'base', 'layout', 'monokai', 'menu';
+
+#search {
+    flex: 1;
+    font-size: 18px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+#loadingBar {
+    position: relative;
+    flex: none;
+    height: 6px;
+    background: darken($accent, 20%);
+
+    &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        transition: opacity 1s ease-in;
+        background: $primary;
+        background: -moz-linear-gradient(left, $primary 50%, $accent 150%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, $primary 50%, $accent 150%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, $primary 50%, $accent 150%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    &.loading::after {
+        opacity: 1;
+        transition: none;
+    }
+}
+
+.natural-gallery-js {
+    margin-bottom: $gap;
+    .figure {
+        border-radius: 10px;
+    }
+}
+
+#version {
+    display: inline-block;
+    font-size:.8em;
+    padding: 4px;
+    color: #999999;
+    position: relative;
+    top: -5px;
+    margin-left: 5px;
+}

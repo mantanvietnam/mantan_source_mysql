@@ -1,0 +1,39 @@
+{% include photoswipe.html %} {% include icons.html %}
+
+<div class="row margin-v" id="header">
+    <div class="container-1000px small-gap layout-column">
+        <div class="layout-row align-start">
+            <div class="big-logo">{%- include logo/logo.svg -%}</div>
+            <div class="layout-column">
+                <div class="layout-row wrap">
+                    <h1 class="no-margin">
+                        <span class="txt-primary">Natural Gallery</span>
+                        <span class="txt-accent">JS</span>
+                    </h1>
+                    <div id="version">{{ site.version }}</div>
+                </div>
+                <p>An infinite scroll, multi format, responsive, lazy load, touch and zoomable gallery</p>
+            </div>
+        </div>
+        <div id="searchZone" class="small-gap layout-column">
+            <input type="text" id="search" placeholder="Search for what you like...">
+            <div>
+                Maybe
+                <a class="button raised suggestion" value="cats">🐱 cats</a>
+                ,
+                <a class="button raised suggestion" value="bunny">🐰 bunnies</a>
+                or
+                <a class="button raised suggestion" value="baby animal">🐣 baby animals</a>
+            </div>
+        </div>
+        <div id="rateExpired" class="hide">
+            <h4>Oooops, seems the query rate has expire... you can still admire this awesome milky way collection</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container-90perc">
+        <div id="gallery"></div>
+    </div>
+</div>
