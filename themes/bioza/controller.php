@@ -118,9 +118,9 @@ function indexTheme(){
         $album_home2->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$album_home2->id])->order(['id'=>'desc'])->all()->toList();
     }
 
-    $category = $modelCategories->find()->where(array('id'=>@$data_value['id_post']))->first();
+    $category = $modelCategories->find()->where(array('id'=>(int)@$data_value['id_post']))->first();
 
-    $listDataNew= $modelPosts->find()->limit(4)->where(array('idCategory'=>@$data_value['id_post'],'type'=>'post'))->order($order)->all()->toList();
+    $listDataNew= $modelPosts->find()->limit(4)->where(array('idCategory'=>(int)@$data_value['id_post'],'type'=>'post'))->order($order)->all()->toList();
 
     setVariable('setting', $data_value);
     setVariable('listDataNew', $listDataNew);
