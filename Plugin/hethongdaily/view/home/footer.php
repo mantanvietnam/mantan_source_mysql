@@ -72,6 +72,10 @@
         todayHighlight: true, // Đánh dấu ngày hiện tại
         autoclose: true       // Tự động đóng Datepicker sau khi chọn ngày
       });
+
+      $('.datetimepicker').datetimepicker({
+        format:'H:i d/m/Y'
+      });
     });
     </script>
   </body>

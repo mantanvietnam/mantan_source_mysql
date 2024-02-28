@@ -4,8 +4,10 @@
 
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/orderCustomerAgency">Khách hàng</a> /</span>
-    Danh sách khách hàng
+    Lịch sử chăm sóc khách hàng
   </h4>
+
+  <p><a href="/addCustomerHistoriesAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -19,26 +21,27 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên khách hàng</label>
-            <input type="text" class="form-control" name="full_name" value="<?php if(!empty($_GET['full_name'])) echo $_GET['full_name'];?>">
+            <label class="form-label">ID khách hàng</label>
+            <input type="text" class="form-control" name="id_customer" value="<?php if(!empty($_GET['id_customer'])) echo $_GET['id_customer'];?>">
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Điện thoại</label>
-            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
+            <label class="form-label">Hành động chăm sóc</label>
+            <select name="action_now" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="call" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='call') echo 'selected';?> >Gọi điện</option>
+              <option value="message" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='message') echo 'selected';?> >Nhắn tin</option>
+              <option value="go_meet" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='go_meet') echo 'selected';?> >Đi gặp</option>
+              <option value="online_meeting" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='online_meeting') echo 'selected';?> >Họp online</option>
+            </select>
           </div>
 
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="">Tất cả</option>
-              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
-              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
+              <option value="new" <?php if(!empty($_GET['status']) && $_GET['status']=='new') echo 'selected';?> >Chưa xử lý</option>
+              <option value="done" <?php if(!empty($_GET['status']) && $_GET['status']=='done') echo 'selected';?> >Đã hoàn thành</option>
             </select>
           </div>
           
@@ -59,79 +62,40 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách khách hàng</h5>
+    <h5 class="card-header">Lịch sử chăm sóc khách hàng</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
+            <th>Thời gian</th>
             <th>Khách hàng</th>
+            <th>Nội dung</th>
             <th>Trạng thái</th>
-            <th>Giới tính</th>
-            <th>Ngày sinh</th>
-            <th>Đơn hàng</th>
-            <th>Chăm sóc</th>
-            <th>Sửa</th>
           </tr>
         </thead>
         <tbody>
           <?php 
           if(!empty($listData)){
             foreach ($listData as $item) {
-              $status= 'Khóa';
-              if($item->status=='active'){ 
-                  $status= 'Kích hoạt';
-              }
-
-              $sex= 'Nữ';
-              if($item->sex==1){ 
-                  $sex= 'Nam';
-              }
-
-              $birthday = '';
-              if(!empty($item->birthday_date) && !empty($item->birthday_month) && !empty($item->birthday_year)){
-                  $birthday = $item->birthday_date.'/'.$item->birthday_month.'/'.$item->birthday_year;
-              }
-
-              $history = '';
-              if(!empty($item->history)){
-                $status_history = 'text-danger';
-
-                if($item->history->status == 'done'){
-                  $status_history = 'text-success';
-                }
-
-                $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
+              $status= '<span class="text-danger">Chưa xử lý</span>';
+              if($item->status=='done'){ 
+                  $status= '<span class="text-success">Đã hoàn thành</span>';
               }
               
               echo '<tr>
               <td>'.$item->id.'</td>
+              <td>'.date('H:i d/m/Y', $item->time_now).'</td>
              
               <td>
-                '.$item->full_name.'<br/>
-                '.$item->phone.'<br/>
-                '.$item->address.'<br/>
-                '.$item->email.'
+                <a href="/listCustomerAgency?id='.$item->id_customer.'">'.$item->info_customer->full_name.'</a><br/>
+                '.$item->info_customer->phone.'
               </td>
+              <td>'.$item->note_now.'</td>
+              
               <td>'.$status.'</td>
-              <td>'.$sex.'</td>
-              <td>'.$birthday.'</td>
 
-              <td><a href="/orderCustomerAgency/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></td>
-
-              <td>
-                '.$history.'
-                <p class="text-center mt-3">
-                  <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
-                  <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-danger"><i class="bx bx-list-ul" ></i></a>
-                </p>
-              </td>
-
-              <td width="5%" align="center">
-                <a class="dropdown-item" href="/editCustomerAgency/?id='.$item->id.'">
-                  <i class="bx bx-edit-alt me-1"></i>
-                </a>
-              </td>
+              
              </tr>';
            }
          }else{
