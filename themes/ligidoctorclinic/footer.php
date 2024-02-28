@@ -2,13 +2,16 @@
 $setting = setting();?>
 	<div class="container-fluid set-pd-0 footer">
 		<div class="container">
-			<div class="row">
+			<!-- <div class="row">
 				<div class="offset-lg-1 col-12 col-sm-12 col-md-12 col-lg-10 wr-logo-foter">
 					<img src="<?php echo @$setting['image_logo'] ?>" alt="">
 				</div>
-			</div>
+			</div> -->
 			<div class="row text-footer row-mobile-reverse">
-				<div class="offset-lg-1 col-sm-12 col-md-12 col-lg-7">
+				<div class=" col-12 col-sm-12 col-md-12 col-lg-3 wr-logo-foter">
+					<img src="<?php echo @$setting['image_logo'] ?>" alt="">
+				</div>
+				<div class="col-sm-12 col-md-12 col-lg-7">
 					
 					<!-- <?php echo @$setting['contentFooterIndex'] ?> -->
 					<p class="va_thongtin"><?php echo @$setting['company'] ?></p>
@@ -17,7 +20,7 @@ $setting = setting();?>
 					<p>Email: <a class="so_dien_thoai" ><?php echo @$contactSite['email'] ?></a></p>
 					<p class="va_facebook"><a class="so_dien_thoai" href="<?php echo @$setting['link_facebook']?>" > <?php echo @$setting['facebook']?> </p>
 				</div>
-				<div class="col-sm-12 col-md-12 col-lg-3">
+				<div class="col-sm-12 col-md-12 col-lg-2">
 					<?php 
 					$linkweb = getListLinkWeb(@$setting['id_linkweb']);
 					if(!empty($linkweb)) {
