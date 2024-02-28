@@ -96,14 +96,14 @@ $setting = setting();
         </a>
     </section>
     <script type="text/javascript">
-        contac(){
-            var name = $('#name').val();
-            var email = $('#email').val();
-            var phone = $('#phone').val();
-            var subject = $('#subject').val();
-            var content = $('#massage').val();
+    function contac(){
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var phone = $('#phone').val();
+        var subject = $('#subject').val();
+        var content = $('#massage').val();
 
-            $.ajax({
+        $.ajax({
             method: "POST",
             data: {
                 name: name,
@@ -114,17 +114,17 @@ $setting = setting();
                 },
             url: "/apis/contactAPI"
         }).done(function(msg) {
-                    console.log(msg);
-                    // if(msg.code==1){
-                    //     location.reload();
-                    // }else{
-                    //     var html = '<p class="text-danger">'+msg.messages+'</p>';
-                    //     document.getElementById("messReg").innerHTML = html;
+            console.log(msg);
+            // if(msg.code==1){
+            //     location.reload();
+            // }else{
+            //     var html = '<p class="text-danger">'+msg.messages+'</p>';
+            //     document.getElementById("messReg").innerHTML = html;
 
-                    // }
-                   
-                });
-        }
+            // }
+           
+        });
+    }
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
