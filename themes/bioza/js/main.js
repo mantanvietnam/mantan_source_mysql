@@ -1,20 +1,3 @@
-/* THANH % */
-$(".progress-bar span").each(function() {
-    $(this).animate({
-            width: $(this).attr("data-progress") + "%",
-        },
-        2500
-    );
-    $(this).text($(this).attr("data-progress"));
-});
-$(".progress-bar p").each(function() {
-    $(this).animate({
-            width: $(this).attr("data-progress") + "%",
-        },
-        2500
-    );
-    $(this).text($(this).attr("data-progress") + "%");
-});
 
 
 /* SLICK BRANd */
@@ -42,43 +25,7 @@ $(document).ready(function() {
     });
 });
 
-/* COUNTER */
-function animateNumber(finalNumber, delay, startNumber = 0, callback) {
-    let currentNumber = startNumber
-    const interval = window.setInterval(updateNumber, delay)
 
-    function updateNumber() {
-        if (currentNumber >= finalNumber) {
-            clearInterval(interval)
-        } else {
-            currentNumber++
-            callback(currentNumber)
-        }
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    animateNumber(3, 1, 0, function(number) {
-        const formattedNumber = number.toLocaleString()
-        document.getElementById('counter-1').innerText = formattedNumber
-    })
-
-    animateNumber(98, 1, 0, function(number) {
-        const formattedNumber = number.toLocaleString()
-        document.getElementById('counter-2').innerText = formattedNumber
-    })
-
-    animateNumber(13, 1, 0, function(number) {
-        const formattedNumber = number.toLocaleString()
-        document.getElementById('counter-3').innerText = formattedNumber
-    })
-
-    animateNumber(10, 1, 0, function(number) {
-        const formattedNumber = number.toLocaleString()
-        document.getElementById('counter-4').innerText = formattedNumber
-    })
-
-})
 
 /* SLICK TESTIMONIAL */
 
@@ -114,9 +61,7 @@ modal.onclick = function(event) {
 
 /* SCROLL SCREEN - FIXRD HEADER */
 var scrollPage = document.getElementById("menu-top");
-
 var hideBtn = document.getElementById("scroll-top");
-
 
 window.onscroll = function() {
     if (window.pageYOffset > 120 || document.documentElement.scrollTop > 120) {
@@ -128,9 +73,8 @@ window.onscroll = function() {
     } else {
         scrollPage.style.position = "relative";
         scrollPage.style.backgroundColor = "transparent";
-        scrollPage.style.padding = "0 360px";
+        scrollPage.style.padding = "0 250px";
         hideBtn.style.display = "none";
-
     }
 }
 
