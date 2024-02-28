@@ -67,7 +67,7 @@ global $urlThemeActive;
                         <a href=""><img src="" alt=""></a>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 col-md-12 col">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="about-detail first">
                                 <div class="content">
                                     <h2>Họ và tên</h2>
@@ -75,7 +75,7 @@ global $urlThemeActive;
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 col">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="about-detail">
                                 <div class="content">
                                     <h2>Email</h2>
@@ -83,7 +83,7 @@ global $urlThemeActive;
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 col">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="about-detail">
                                 <div class="content">
                                     <h2>Địa chỉ</h2>
@@ -91,7 +91,7 @@ global $urlThemeActive;
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 col">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="about-detail">
                                 <div class="content">
                                     <h2>Số điện thoại</h2>
