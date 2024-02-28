@@ -96,7 +96,7 @@ $setting = setting();
         </a>
     </section>
     <script type="text/javascript">
-        contac(){
+       function contac(){
             var name = $('#name').val();
             var email = $('#email').val();
             var phone = $('#phone').val();

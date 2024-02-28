@@ -33,7 +33,7 @@ global $urlThemeActive;
                 <div class="row">
                     <div class="col-md-5 col-sm-6 col-xs-12">
                         <div class="introduce-avata" data-aos="fade-right">
-                            <img src="./asset/img/tt1.jpg" alt="">
+                            <img src="<?php echo @$setting['image_avatar'];?>" alt="">
                         </div>
                     </div>
 
@@ -48,64 +48,59 @@ global $urlThemeActive;
                         </div>
                         <div class="introduce-content">
                             <div class="introduce-title">
-                                <h4>Tôi Là Người Dẫn Đường</h4>
+                                <h4><?php echo @$setting['title_2'];?></h4>
                             </div>
                             <div class="introduce-detail">
-                                <p>
-                                    Nhà sáng lập & CEO của Phoenixcamp Academy.<br>
-                                    Là chuyên gia Facebook Marketing Automation, xây dựng hệ thống Marketing tự động cho doanh nghiệp.<br>
-                                    Giảng viên 3 năm kinh nghiệm đào tạo, giảng dạy, tư vấn cho các cá nhân, tổ chức, doanh nghiệp.<br>
-                                </p>
+                                <p><?php echo @$setting['content_1'];?></p>
                             </div>
 
                             <div class="introduce-info">
                                 <div class="introduce-info-item">
                                     <div class="introduce-icon">
-                                        <i class="fa-solid fa-medal"></i>
+                                        <i class="<?php echo @$setting['icon_mn_1'];?>"></i>
                                     </div>
 
                                     <div class="introduce-intro-text">
                                         <div class="introduce-intro-tiitle">
-                                            Our Solutions​
+                                          <?php echo @$setting['title_mn_1'];?>
                                         </div>
 
                                         <div class="introduce-intro-description">
-                                            The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,
+                                           <?php echo @$setting['content_mn_1'];?>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="introduce-info-item">
                                     <div class="introduce-icon">
-                                        <i class="fa-regular fa-clock"></i>
+                                        <i class="<?php echo @$setting['icon_mn_2'];?>"></i>
                                     </div>
 
                                     <div class="introduce-intro-text">
                                         <div class="introduce-intro-tiitle">
-                                            24/7 Support
+                                          <?php echo @$setting['title_mn_2'];?>
                                         </div>
 
                                         <div class="introduce-intro-description">
-                                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.
+                                           <?php echo @$setting['content_mn_2'];?>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="introduce-info-item">
                                     <div class="introduce-icon">
-                                        <i class="fa-solid fa-phone"></i>
+                                        <i class="<?php echo @$setting['icon_mn_3'];?>"></i>
                                     </div>
 
                                     <div class="introduce-intro-text">
                                         <div class="introduce-intro-tiitle">
-                                            Call for Our Services
+                                          <?php echo @$setting['title_mn_3'];?>
                                         </div>
 
                                         <div class="introduce-intro-description">
-                                            1-012-344-687
+                                           <?php echo @$setting['content_mn_3'];?>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
 
                         </div>
@@ -123,7 +118,7 @@ global $urlThemeActive;
                             Dịch vụ
                         </p>
                     </div>
-                    <h3 class="text-center">Dịch vụ của tôi</h3>
+                    <h3 class="text-center"><?php echo @$setting['title_dichvu'] ?></h3>
                     <div class="border-heading"></div>
                 </div>
 
@@ -132,122 +127,118 @@ global $urlThemeActive;
                         <div class="col-lg-4 col-md-6">
                             <div class="service-item">
                                 <div class="service-icon">
-                                    <i class="fa-regular fa-font-awesome"></i>
+                                    <i class="<?php echo @$setting['icon_dichvu_1'] ?>"></i>
                                 </div>
     
                                 <div class="service-name">
-                                    <p>Home Cleaning</p>
+                                    <p><?php echo @$setting['title_dichvu_1'] ?></p>
                                 </div>
     
                                 <div class="service-description">
-                                    <p>Lorem ipsum dolor sit ametaut odiut perspiciatis unde omnis iste quuntur alquam quaerat rsit amet</p>
+                                    <p><?php echo @$setting['content_dichvu_1'] ?></p>
                                 </div>
     
-                                <img  class="img-one" src="./asset/img/service-shape.png" alt="">
-                                <img  class="img-two" src="./asset/img/service-shape1.png" alt="">
+                                <img  class="img-one" src="<?php echo $urlThemeActive ?>/asset/img/service-shape.png" alt="">
+                                <img  class="img-two" src="<?php echo $urlThemeActive ?>/asset/img/service-shape1.png" alt="">
     
                             </div>
                         </div>
-    
                         <div class="col-lg-4 col-md-6">
                             <div class="service-item">
                                 <div class="service-icon">
-                                    <i class="fa-regular fa-font-awesome"></i>
+                                    <i class="<?php echo @$setting['icon_dichvu_2'] ?>"></i>
                                 </div>
     
                                 <div class="service-name">
-                                    <p>Home Cleaning</p>
+                                    <p><?php echo @$setting['title_dichvu_2'] ?></p>
                                 </div>
     
                                 <div class="service-description">
-                                    <p>Lorem ipsum dolor sit ametaut odiut perspiciatis unde omnis iste quuntur alquam quaerat rsit amet</p>
+                                    <p><?php echo @$setting['content_dichvu_2'] ?></p>
                                 </div>
     
-                                <img  class="img-one" src="./asset/img/service-shape.png" alt="">
-                                <img  class="img-two" src="./asset/img/service-shape1.png" alt="">
+                                <img  class="img-one" src="<?php echo $urlThemeActive ?>/asset/img/service-shape.png" alt="">
+                                <img  class="img-two" src="<?php echo $urlThemeActive ?>/asset/img/service-shape1.png" alt="">
     
                             </div>
                         </div>
-    
                         <div class="col-lg-4 col-md-6">
                             <div class="service-item">
                                 <div class="service-icon">
-                                    <i class="fa-regular fa-font-awesome"></i>
+                                    <i class="<?php echo @$setting['icon_dichvu_3'] ?>"></i>
                                 </div>
     
                                 <div class="service-name">
-                                    <p>Home Cleaning</p>
+                                    <p><?php echo @$setting['title_dichvu_3'] ?></p>
                                 </div>
     
                                 <div class="service-description">
-                                    <p>Lorem ipsum dolor sit ametaut odiut perspiciatis unde omnis iste quuntur alquam quaerat rsit amet</p>
+                                    <p><?php echo @$setting['content_dichvu_3'] ?></p>
                                 </div>
     
-                                <img  class="img-one" src="./asset/img/service-shape.png" alt="">
-                                <img  class="img-two" src="./asset/img/service-shape1.png" alt="">
+                                <img  class="img-one" src="<?php echo $urlThemeActive ?>/asset/img/service-shape.png" alt="">
+                                <img  class="img-two" src="<?php echo $urlThemeActive ?>/asset/img/service-shape1.png" alt="">
     
                             </div>
                         </div>
-    
                         <div class="col-lg-4 col-md-6">
                             <div class="service-item">
                                 <div class="service-icon">
-                                    <i class="fa-regular fa-font-awesome"></i>
+                                    <i class="<?php echo @$setting['icon_dichvu_4'] ?>"></i>
                                 </div>
     
                                 <div class="service-name">
-                                    <p>Home Cleaning</p>
+                                    <p><?php echo @$setting['title_dichvu_4'] ?></p>
                                 </div>
     
                                 <div class="service-description">
-                                    <p>Lorem ipsum dolor sit ametaut odiut perspiciatis unde omnis iste quuntur alquam quaerat rsit amet</p>
+                                    <p><?php echo @$setting['content_dichvu_4'] ?></p>
                                 </div>
     
-                                <img  class="img-one" src="./asset/img/service-shape.png" alt="">
-                                <img  class="img-two" src="./asset/img/service-shape1.png" alt="">
+                                <img  class="img-one" src="<?php echo $urlThemeActive ?>/asset/img/service-shape.png" alt="">
+                                <img  class="img-two" src="<?php echo $urlThemeActive ?>/asset/img/service-shape1.png" alt="">
     
                             </div>
                         </div>
-    
                         <div class="col-lg-4 col-md-6">
                             <div class="service-item">
                                 <div class="service-icon">
-                                    <i class="fa-regular fa-font-awesome"></i>
+                                    <i class="<?php echo @$setting['icon_dichvu_5'] ?>"></i>
                                 </div>
     
                                 <div class="service-name">
-                                    <p>Home Cleaning</p>
+                                    <p><?php echo @$setting['title_dichvu_5'] ?></p>
                                 </div>
     
                                 <div class="service-description">
-                                    <p>Lorem ipsum dolor sit ametaut odiut perspiciatis unde omnis iste quuntur alquam quaerat rsit amet</p>
+                                    <p><?php echo @$setting['content_dichvu_5'] ?></p>
                                 </div>
     
-                                <img  class="img-one" src="./asset/img/service-shape.png" alt="">
-                                <img  class="img-two" src="./asset/img/service-shape1.png" alt="">
+                                <img  class="img-one" src="<?php echo $urlThemeActive ?>/asset/img/service-shape.png" alt="">
+                                <img  class="img-two" src="<?php echo $urlThemeActive ?>/asset/img/service-shape1.png" alt="">
     
                             </div>
                         </div>
-    
                         <div class="col-lg-4 col-md-6">
                             <div class="service-item">
                                 <div class="service-icon">
-                                    <i class="fa-regular fa-font-awesome"></i>
+                                    <i class="<?php echo @$setting['icon_dichvu_6'] ?>"></i>
                                 </div>
     
                                 <div class="service-name">
-                                    <p>Home Cleaning</p>
+                                    <p><?php echo @$setting['title_dichvu_6'] ?></p>
                                 </div>
     
                                 <div class="service-description">
-                                    <p>Lorem ipsum dolor sit ametaut odiut perspiciatis unde omnis iste quuntur alquam quaerat rsit amet</p>
+                                    <p><?php echo @$setting['content_dichvu_6'] ?></p>
                                 </div>
     
-                                <img  class="img-one" src="./asset/img/service-shape.png" alt="">
-                                <img  class="img-two" src="./asset/img/service-shape1.png" alt="">
+                                <img  class="img-one" src="<?php echo $urlThemeActive ?>/asset/img/service-shape.png" alt="">
+                                <img  class="img-two" src="<?php echo $urlThemeActive ?>/asset/img/service-shape1.png" alt="">
     
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -262,59 +253,26 @@ global $urlThemeActive;
                             Thư viện
                         </p>
                     </div>
-                    <h3 class="text-center">Thư <span>viện</span></h3>
+                    <h3 class="text-center"><?php echo @$setting['title_album'] ?></h3>
                     <div class="border-heading"></div>
                 </div>
 
                 <div class="library-list" data-aos="zoom-out-left">
                     <div class="row">
-                        <div class="col-md-4 col-sm-6 col-xs-12 library-item">
+                        <?php if(!empty($album_home->imageinfo)){
+                            foreach($album_home->imageinfo as $item){
+                                echo ' <div class="col-md-4 col-sm-6 col-xs-12 library-item">
                             <div class="library-image">
-                                <a href="./asset/img/bachgroudbannerl.jpg">
-                                    <img src="./asset/img/bachgroudbannerl.jpg" alt="">
+                                <a href="'.$item->image.'">
+                                    <img src="'.$item->image.'" alt="">
                                 </a>
                             </div>
-                        </div>
+                        </div>';
+                            }
+                        } ?>
+                       
 
-                        <div class="col-md-4 col-sm-6 col-xs-12 library-item">
-                            <div class="library-image">
-                                <a href="./asset/img/bachgroudbannerl.jpg">
-                                    <img src="./asset/img/bachgroudbannerl.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-12 library-item">
-                            <div class="library-image">
-                                <a href="./asset/img/bachgroudbannerl.jpg">
-                                    <img src="./asset/img/bachgroudbannerl.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-12 library-item">
-                            <div class="library-image">
-                                <a href="./asset/img/bachgroudbannerl.jpg">
-                                    <img src="./asset/img/bachgroudbannerl.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-12 library-item">
-                            <div class="library-image">
-                                <a href="./asset/img/bachgroudbannerl.jpg">
-                                    <img src="./asset/img/bachgroudbannerl.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-12 library-item">
-                            <div class="library-image">
-                                <a href="./asset/img/bachgroudbannerl.jpg">
-                                    <img src="./asset/img/bachgroudbannerl.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -329,27 +287,27 @@ global $urlThemeActive;
                             Đội ngũ
                         </p>
                     </div>
-                    <h3 class="text-center">Đội ngũ của Phoenix</h3>
+                    <h3 class="text-center"><?php echo @$setting['title_doingu'] ?></h3>
                     <div class="border-heading"></div>
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="ourteam-item">
                             <div class="ourteam-img">
-                                <img src="./asset/img/trantoan.jpg" alt="">
+                                <img src="<?php echo @$setting['image_avatar_1'] ?>" alt="">
                                 <ul class="social">
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['facebook_1'] ?>">
                                             <i class="fa-brands fa-facebook-f"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['twitter_1'] ?>">
                                             <i class="fa-brands fa-twitter"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['instagram_1'] ?>">
                                             <i class="fa-brands fa-instagram"></i>
                                         </a>
                                     </li>
@@ -357,29 +315,28 @@ global $urlThemeActive;
                             </div>
 
                             <div class="ourteam-detail">
-                                <p class="ourteam-name">Trần Toản</p>
-                                <p class="ourteam-position">DIỄN GIẢ - NHÀ ĐÀO TẠO</p>
+                                <p class="ourteam-name"><?php echo @$setting['fullname_1'] ?></p>
+                                <p class="ourteam-position"><?php echo @$setting['field_1'] ?></p>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-md-6">
                         <div class="ourteam-item">
                             <div class="ourteam-img">
-                                <img src="./asset/img/trantoan.jpg" alt="">
+                                <img src="<?php echo @$setting['image_avatar_2'] ?>" alt="">
                                 <ul class="social">
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['facebook_2'] ?>">
                                             <i class="fa-brands fa-facebook-f"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['twitter_2'] ?>">
                                             <i class="fa-brands fa-twitter"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['instagram_2'] ?>">
                                             <i class="fa-brands fa-instagram"></i>
                                         </a>
                                     </li>
@@ -387,29 +344,28 @@ global $urlThemeActive;
                             </div>
 
                             <div class="ourteam-detail">
-                                <p class="ourteam-name">Trần Toản</p>
-                                <p class="ourteam-position">DIỄN GIẢ - NHÀ ĐÀO TẠO</p>
+                                <p class="ourteam-name"><?php echo @$setting['fullname_2'] ?></p>
+                                <p class="ourteam-position"><?php echo @$setting['field_2'] ?></p>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-md-6">
                         <div class="ourteam-item">
                             <div class="ourteam-img">
-                                <img src="./asset/img/trantoan.jpg" alt="">
+                                <img src="<?php echo @$setting['image_avatar_3'] ?>" alt="">
                                 <ul class="social">
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['facebook_3'] ?>">
                                             <i class="fa-brands fa-facebook-f"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['twitter_3'] ?>">
                                             <i class="fa-brands fa-twitter"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['instagram_3'] ?>">
                                             <i class="fa-brands fa-instagram"></i>
                                         </a>
                                     </li>
@@ -417,29 +373,28 @@ global $urlThemeActive;
                             </div>
 
                             <div class="ourteam-detail">
-                                <p class="ourteam-name">Trần Toản</p>
-                                <p class="ourteam-position">DIỄN GIẢ - NHÀ ĐÀO TẠO</p>
+                                <p class="ourteam-name"><?php echo @$setting['fullname_3'] ?></p>
+                                <p class="ourteam-position"><?php echo @$setting['field_3'] ?></p>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-md-6">
                         <div class="ourteam-item">
                             <div class="ourteam-img">
-                                <img src="./asset/img/trantoan.jpg" alt="">
+                                <img src="<?php echo @$setting['image_avatar_4'] ?>" alt="">
                                 <ul class="social">
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['facebook_4'] ?>">
                                             <i class="fa-brands fa-facebook-f"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['twitter_4'] ?>">
                                             <i class="fa-brands fa-twitter"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="<?php echo @$setting['instagram_4'] ?>">
                                             <i class="fa-brands fa-instagram"></i>
                                         </a>
                                     </li>
@@ -447,11 +402,12 @@ global $urlThemeActive;
                             </div>
 
                             <div class="ourteam-detail">
-                                <p class="ourteam-name">Trần Toản</p>
-                                <p class="ourteam-position">DIỄN GIẢ - NHÀ ĐÀO TẠO</p>
+                                <p class="ourteam-name"><?php echo @$setting['fullname_4'] ?></p>
+                                <p class="ourteam-position"><?php echo @$setting['field_4'] ?></p>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </section>
@@ -469,12 +425,13 @@ global $urlThemeActive;
                         <h3 class="text-center">Tin tức về chúng tôi</h3>
                         <div class="border-heading"></div>
                     </div>
-
-                    <div class="col-lg-6 col-md-6">
+                    <?php if(!empty($listDataNew)){
+                        foreach($listDataNew as $item){
+                            echo '<div class="col-lg-6 col-md-6">
                         <div class="blog-item">
                             <div class="blog-top">
-                                <a href="">
-                                    <img src="./asset/img/bachgroudbannerl.jpg" alt="">
+                                <a href="/'.@$item->slug.'.html">
+                                    <img src="'.@$item->image.'" alt="">
                                 </a>
                             </div>
 
@@ -482,65 +439,34 @@ global $urlThemeActive;
                                 <div class="blog-meta">
                                     <div class="blog-meta-item">
                                         <i class="fa-regular fa-user"></i>                                        
-                                        <span>by Admin</span>
+                                        <span>'.@$item->author.'</span>
                                     </div>
 
                                     <div class="blog-meta-item">
                                         <i class="fa-regular fa-calendar"></i>
-                                        <span>19 July, 2020</span>
+                                        <span>'.date('d-m-Y',$item->time).'</span>
                                     </div>
                                 </div>
 
                                 <div class="blog-title">
-                                    <a href="">What is Lorem Ipsum?</a>
+                                    <a href="/'.@$item->slug.'.html">'.@$item->title.'</a>
                                 </div>
 
                                 <div class="blog-description">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                                    <p>'.@$item->description.'</p>
                                 </div>
 
                                 <div class="blog-link">
-                                    <a href="">Read more</a>
+                                    <a href="/'.@$item->slug.'.html">Read more</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>';
+                        }
+                    } ?>
+                    
 
-                    <div class="col-lg-6 col-md-6">
-                        <div class="blog-item">
-                            <div class="blog-top">
-                                <a href="">
-                                    <img src="./asset/img/bachgroudbannerl.jpg" alt="">
-                                </a>
-                            </div>
-
-                            <div class="blog-bottom">
-                                <div class="blog-meta">
-                                    <div class="blog-meta-item">
-                                        <i class="fa-regular fa-user"></i>                                        
-                                        <span>by Admin</span>
-                                    </div>
-
-                                    <div class="blog-meta-item">
-                                        <i class="fa-regular fa-calendar"></i>
-                                        <span>19 July, 2020</span>
-                                    </div>
-                                </div>
-
-                                <div class="blog-title">
-                                    <a href="">What is Lorem Ipsum?</a>
-                                </div>
-
-                                <div class="blog-description">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
-                                </div>
-
-                                <div class="blog-link">
-                                    <a href="">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </section>
