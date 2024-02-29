@@ -160,6 +160,10 @@
               font-size: 10px;
               text-align: center;
             }
+
+            .avatar{
+                object-fit: cover;
+            }
         </style>                            
     </head>
     
