@@ -9,31 +9,17 @@ $setting = setting();
             <div class="container">
                 <div class="footer-main">
                     <div class="logo-footer">
-                        <img src="./asset/img/logo-phoenix.png" alt="">
+                        <img src="<?php echo @$setting['logo'];?>" alt="">
                     </div>
 
                     <div class="list-social">
                         <ul class="d-flex justify-content-center">
-                            <li>
-                                <a href=""><i class="fa-brands fa-facebook-f"></i></a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fa-brands fa-square-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fa-brands fa-tiktok"></i></a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fa-brands fa-youtube"></i></a>
-                            </li>
-    
-                            <li>
-                                <a href=""><i class="fa-brands fa-linkedin-in"></i></a>
-                            </li>
-    
-                            <li>
-                                <a href=""><i class="fa-brands fa-twitter"></i></a>
-                            </li>
+                            <li><a href="<?php echo @$setting['facebook'] ?>"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a href="<?php echo @$setting['twitter'] ?>"><i class="fa-brands fa-twitter"></i></a></li>
+                            <li><a href="<?php echo @$setting['instagram'] ?>"><i class="fa-brands fa-instagram"></i></a></li>
+                            <li><a href="<?php echo @$setting['tiktok'] ?>"><i class="fa-brands fa-tiktok"></i></a></li>
+                            <li><a href="<?php echo @$setting['youtube'] ?>"><i class="fa-brands fa-youtube"></i></a></li>
+                            <li><a href="<?php echo @$setting['linkedin'] ?>"><i class="fa-brands fa-linkedin"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -43,7 +29,7 @@ $setting = setting();
         <section id="section-footer-bottom">
             <div class="container">
                 <div class="footer-bottom text-center">
-                    <p>CopyRight © 2021 Trần Toản | All Rights Reserved</p>
+                    <p><?php echo @$setting['textfooter'];?></p>
                 </div>
             </div>
         </section>

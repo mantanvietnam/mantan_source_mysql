@@ -35,8 +35,6 @@
                  ĐỘI NGŨ
               </button>
             </li>
-           
-
            <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-contac" aria-controls="navs-top-image" aria-selected="false">
               MẠNG XÃ HỘI
@@ -252,42 +250,61 @@
             </div>
           </div>
           
-          <div class="tab-pane fade" id="navs-top-evaluate" role="tabpanel">
-            <div class="card-body row ">   
-             
-            </div>
-          </div>
           <div class="tab-pane fade" id="navs-top-contac" role="tabpanel">
             <div class="card-body row ">
-              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">icon 1</label>
+                <input type="text" class="form-control" name="icon_lh_1" value="<?php echo @$data['icon_lh_1'];?>" />
+                <label class="form-label" for="basic-default-fullname">tiêu đề 1</label>
+                <input type="text" class="form-control" name="title_lh_1" value="<?php echo @$data['title_lh_1'];?>" />
+                <label class="form-label" for="basic-default-fullname">nội dung 1</label>
+                <input type="text" class="form-control" name="content_lh_1" value="<?php echo @$data['content_lh_1'];?>" /> 
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">icon 2</label>
+                <input type="text" class="form-control" name="icon_lh_2" value="<?php echo @$data['icon_lh_2'];?>" />
+                <label class="form-label" for="basic-default-fullname">tiêu đề 2</label>
+                <input type="text" class="form-control" name="title_lh_2" value="<?php echo @$data['title_lh_2'];?>" />
+                <label class="form-label" for="basic-default-fullname">nội dung 2</label>
+                <input type="text" class="form-control" name="content_lh_2" value="<?php echo @$data['content_lh_2'];?>" /> 
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">icon 3</label>
+                <input type="text" class="form-control" name="icon_lh_3" value="<?php echo @$data['icon_lh_3'];?>" />
+                <label class="form-label" for="basic-default-fullname">tiêu đề 3</label>
+                <input type="text" class="form-control" name="title_lh_3" value="<?php echo @$data['title_lh_3'];?>" />
+                <label class="form-label" for="basic-default-fullname">nội dung 3</label>
+                <input type="text" class="form-control" name="content_lh_3" value="<?php echo @$data['content_lh_3'];?>" /> 
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">facebook</label>
                 <input type="text" class="form-control" name="facebook" value="<?php echo @$data['facebook'];?>" />
               </div>
-              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">instagram</label>
                 <input type="text" class="form-control" name="instagram" value="<?php echo @$data['instagram'];?>" />
               </div>
-              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">tiktok</label>
                 <input type="text" class="form-control" name="tiktok" value="<?php echo @$data['tiktok'];?>" />
               </div>
-              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">youtube</label>
                 <input type="text" class="form-control" name="youtube" value="<?php echo @$data['youtube'];?>" />
               </div>
-              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">linkedin</label>
                 <input type="text" class="form-control" name="linkedin" value="<?php echo @$data['linkedin'];?>" />
               </div>
-              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">twitter</label>
                 <input type="text" class="form-control" name="twitter" value="<?php echo @$data['twitter'];?>" />
               </div>
-              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <label class="form-label" for="basic-default-fullname">ảnh nền chân trang </label>
-                <?php showUploadFile('background_6','background_6', @$data['background_6'],8);?>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">chữ dưới cùng </label>
+                <input type="text" class="form-control" name="textfooter" value="<?php echo @$data['textfooter'];?>" />
               </div>
-              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">ảnh ở bên phải tin tức </label>
                 <?php showUploadFile('image_Port','image_Port', @$data['image_Port'],9);?>
               </div>

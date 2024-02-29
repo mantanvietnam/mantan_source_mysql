@@ -92,17 +92,19 @@ global $urlHomes;
 			Sản phẩm liên quan
 		</div>
 		<div class="main-carousel main-carousel-related" data-flickity='{"imagesLoaded": true, "cellAlign": "left", "contain": true, "pageDots": false, "prevNextButtons": false }'>
-			<?php if(!empty($tmpVariable['otherData'])){
-				foreach ($tmpVariable['otherData'] as $key => $value) { ?>
+			<?php if(!empty($other_product)) { 
+                foreach($other_product as $item) {
+                    $link = '/san-pham/'.$item->slug.'.html';
+                     ?>
 				<div class="carousel-cell carousel-cell-related">
-					<a href="<?php echo @$urlHomes.'product/'.$value['Product']['slug'].'.html' ?>">
+					<a href="<?php echo @$link ?>">
 						<div class="box-bd-product">
-							<img src="<?php echo @$value['Product']['images'][0] ?>" alt="">
+							<img src="<?php echo $item->image ?>" alt="">
 						</div>
-		  				<center><?php echo @$value['Product']['title'] ?></center>
-		  				<center class="price"><?php echo @number_format($value['Product']['price'],0,',','.'); ?> VNĐ</center>
+		  				<center><?php echo $item->title ?></center>
+		  				<center class="price"><?php echo @number_format($item->price); ?> VNĐ</center>
 					</a>
-	  				<center class="add-cart" ><button data-sku = 'MÃ SP' class="add-cart-button" onclick="addToCart(this, '<?php echo @$value['Product']['id'] ?>')">Thêm vào giỏ hàng <span class="messAdd">Đã thêm vào giỏ</span></button></center>
+	  				<center class="add-cart" ><a data-sku = 'MÃ SP' class="add-cart-button" href="<?php echo @$link ?>">Thêm vào giỏ hàng <span class="messAdd">Đã thêm vào giỏ</span></a></center>
 				</div>
 				<?php
 				}

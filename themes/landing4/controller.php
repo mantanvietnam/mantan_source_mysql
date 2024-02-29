@@ -79,6 +79,23 @@ function settingHomeTheme($input){
                             'facebook_4'=> @$dataSend['facebook_4'],
                             'twitter_4'=> @$dataSend['twitter_4'],
                             'instagram_4'=> @$dataSend['instagram_4'],
+                            'facebook'=> @$dataSend['facebook'],
+                            'instagram'=> @$dataSend['instagram'],
+                            'tiktok'=> @$dataSend['tiktok'],
+                            'youtube'=> @$dataSend['youtube'],
+                            'linkedin'=> @$dataSend['linkedin'],
+                            'twitter'=> @$dataSend['twitter'],
+                            'textfooter'=> @$dataSend['textfooter'],
+                            'image_Port'=> @$dataSend['image_Port'],
+                            'icon_lh_1'=> @$dataSend['icon_lh_1'],
+                            'title_lh_1'=> @$dataSend['title_lh_1'],
+                            'content_lh_1'=> @$dataSend['content_lh_1'],
+                            'icon_lh_2'=> @$dataSend['icon_lh_2'],
+                            'title_lh_2'=> @$dataSend['title_lh_2'],
+                            'content_lh_2'=> @$dataSend['content_lh_2'],
+                            'icon_lh_3'=> @$dataSend['icon_lh_3'],
+                            'title_lh_3'=> @$dataSend['title_lh_3'],
+                            'content_lh_3'=> @$dataSend['content_lh_3'],
                             
              );
 

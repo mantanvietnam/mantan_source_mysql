@@ -488,16 +488,15 @@ global $urlThemeActive;
                         <div class="col-lg-4 contact-info-item">
                             <div class="contact-info-inner">
                                 <div class="contact-info-icon">
-                                    <i class="fa-solid fa-map"></i>
+                                    <i class="<?php echo @$setting['icon_lh_1'] ?>"></i>
                                 </div>
 
                                 <div class="contact-info-name">
-                                    <h4>Office Location</h4>
+                                    <h4><?php echo @$setting['title_lh_1'] ?></h4>
                                 </div>
 
                                 <div class="contact-info-detail">
-                                    <p>250 Main Road #600, Alexandra,
-                                        VA 22314, USA</p>
+                                    <p><?php echo @$setting['content_lh_1'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -505,16 +504,15 @@ global $urlThemeActive;
                         <div class="col-lg-4 contact-info-item">
                             <div class="contact-info-inner">
                                 <div class="contact-info-icon">
-                                    <i class="fa-solid fa-map"></i>
+                                    <i class="<?php echo @$setting['icon_lh_2'] ?>"></i>
                                 </div>
 
                                 <div class="contact-info-name">
-                                    <h4>Office Location</h4>
+                                    <h4><?php echo @$setting['title_lh_2'] ?></h4>
                                 </div>
 
                                 <div class="contact-info-detail">
-                                    <p>250 Main Road #600, Alexandra,
-                                        VA 22314, USA</p>
+                                    <p><?php echo @$setting['content_lh_2'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -522,19 +520,19 @@ global $urlThemeActive;
                         <div class="col-lg-4 contact-info-item">
                             <div class="contact-info-inner">
                                 <div class="contact-info-icon">
-                                    <i class="fa-solid fa-map"></i>
+                                    <i class="<?php echo @$setting['icon_lh_3'] ?>"></i>
                                 </div>
 
                                 <div class="contact-info-name">
-                                    <h4>Office Location</h4>
+                                    <h4><?php echo @$setting['title_lh_3'] ?></h4>
                                 </div>
 
                                 <div class="contact-info-detail">
-                                    <p>250 Main Road #600, Alexandra,
-                                        VA 22314, USA</p>
+                                    <p><?php echo @$setting['content_lh_3'] ?></p>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -548,6 +546,7 @@ global $urlThemeActive;
                         <div class="col-lg-10 col-xl-6">
                             <div class="section-title text-center">
                                 <h3 class="text-center">Gửi thông tin đăng ký</h3>
+                                <div id="messReg" class="text-center"></div>
                             </div>
     
                             <div class="form-contact">
@@ -555,19 +554,24 @@ global $urlThemeActive;
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Họ và tên" required>
+                                                <input type="text" id="name" class="form-control" placeholder="Họ và tên" required>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input type="email" class="form-control" placeholder="Email" required>
+                                                <input type="email" id="email" class="form-control" placeholder="Email" required>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Số điện thoại">
+                                                <input type="text" id="phone" class="form-control" placeholder="Số điện thoại">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <input type="text" id="subject" class="form-control" placeholder="chủ đề">
                                             </div>
                                         </div>
 
@@ -577,7 +581,7 @@ global $urlThemeActive;
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
-                                            <button type="submit" class="default-btn">
+                                            <button type="button" onclick="contac();" class="default-btn">
                                                 Gửi
                                             </button>
                                         </div>
@@ -590,7 +594,35 @@ global $urlThemeActive;
             </div>
         </section>
     </main>
+<script type="text/javascript">
+       function contac(){
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var phone = $('#phone').val();
+            var subject = $('#subject').val();
+            var content = $('#message').val();
 
+            $.ajax({
+            method: "POST",
+            data: {
+                name: name,
+                phone: phone,  
+                email: email,
+                subject: subject,  
+                content: content,  
+                },
+            url: "/apis/contactAPI"
+        }).done(function(msg) {
+                    console.log(msg);
+                   
+                        var html = '<p style="color: white;">'+msg.mess+'</p>';
+                        document.getElementById("messReg").innerHTML = html;
+
+                    // }
+                   
+                });
+        }
+    </script>
 <?php
 getFooter();?>
  
