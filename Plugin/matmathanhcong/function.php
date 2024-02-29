@@ -8,7 +8,7 @@ $menus[0]['sub'][0] = array('title' => 'Đăng ký bản FULL',
                             'permission'=>'requestExportFull'
                         );
 
-$menus[0]['sub'][0] = array('title' => 'Cài đặt API',
+$menus[0]['sub'][1] = array('title' => 'Cài đặt API',
                             'url'=>'/plugins/admin/matmathanhcong-view-admin-settingMMTCAPI',
                             'classIcon' => 'menu-icon tf-icons bx bxs-data',
                             'permission'=>'settingMMTCAPI'
@@ -140,7 +140,7 @@ function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $addr
 
     $categories = getListProductMMTCAPI();
     $token = getTokenMMTCAPI();
-
+    
     if(!empty($token) && !empty($categories[$id_category]['category_id'])){
         if(!empty($name) && !empty($birthdate) && !empty($phone) && !empty($email) && !empty($address) ){
             $birthdate = str_replace('/', '_', $birthdate);
@@ -153,7 +153,7 @@ function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $addr
                             'customer_address' => $address,
                             'customer_avatar' => $avatar,
                             'customer_gender' => $gender,
-                            'user_avatar' => $avatar
+                            'user_avatar' => ''
                         ];
 
             $header = ['Authorization: '.$token, 'Content-Type: application/x-www-form-urlencoded'];
@@ -161,7 +161,7 @@ function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $addr
             $typeSend = 'GET';
 
             $linkFull = sendDataConnectMantan($urlAPI.'/api/GetLink', $dataSend, $header, $typeData, $typeSend);
-           
+            
             if(!empty($linkFull)){
                 return trim($linkFull, '"');
             }
