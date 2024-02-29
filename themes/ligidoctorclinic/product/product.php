@@ -58,10 +58,7 @@ global $urlHomes;
 					?>
 
 
-					<?php foreach ($tmpVariable['data']['Product']['images'] as $key => $value) { ?>
-						
-						<?php
-					} ?>
+					
 				</div>
 				<div class="carousel carousel-nav nav-main-carousel-detail"
 				data-flickity='{ "asNavFor": ".main-carousel-detail", "contain": true, "pageDots": false, "prevNextButtons": false }'>
