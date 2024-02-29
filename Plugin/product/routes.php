@@ -7,6 +7,7 @@
 	$routesPlugin['getProductByCategoryAPI']= 'product/getProductByCategoryAPI.php'; // lấy sản phẩm theo danh mục
 	$routesPlugin['searchEvaluateAPI']= 'product/searchEvaluateAPI.php';
 	$routesPlugin['getInfoProductAPI']= 'product/getInfoProductAPI.php';
+	$routesPlugin['getNewProductAPI']= 'product/getNewProductAPI.php';
 
 	// frontend
 	$routesPlugin['allProduct']= 'product/view/home/allProduct.php';

@@ -140,6 +140,40 @@ function getProductByCategoryAPI($input)
     return $return;
 }
 
+function getNewProductAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $modelCategories;
+
+    $return = [];
+
+    $modelProduct = $controller->loadModel('Products');
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $conditions = array('status'=>'active');
+        $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+        $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+
+        $list_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+        if(!empty($list_product)){
+            foreach ($list_product as $key => $value) {
+                $list_product[$key]->images = json_decode($value->images, true);
+                $list_product[$key]->evaluate = json_decode($value->evaluate, true);
+            }
+        }
+
+        $return= $list_product;
+    }
+
+    return $return;
+}
+
 function getInfoProductAPI($input)
 {
     global $isRequestPost;
@@ -158,11 +192,13 @@ function getInfoProductAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['id']) || !empty($dataSend['slug'])){
+        if(!empty($dataSend['id']) || !empty($dataSend['slug']) || !empty($dataSend['code'])){
             if(!empty($dataSend['id'])){
                 $conditions = array('id'=>$dataSend['id'], 'status'=>'active');
-            }else{
+            }elseif(!empty($dataSend['slug'])){
                 $conditions = array('slug'=>$dataSend['slug'], 'status'=>'active');
+            }elseif(!empty($dataSend['code'])){
+                $conditions = array('code'=>$dataSend['code'], 'status'=>'active');
             }
 
             $product = $modelProduct->find()->where($conditions)->first();
@@ -282,5 +318,10 @@ function getInfoProductAPI($input)
     }
 
     return $return;
+}
+
+function categoryDiscountCodeAPI($input)
+{
+
 }
 ?>

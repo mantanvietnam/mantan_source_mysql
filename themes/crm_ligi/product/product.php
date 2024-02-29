@@ -106,9 +106,6 @@ global $urlHomes;
 <script type="text/javascript">
      function addProductCart(idProduct, status){
         let quantity = parseInt($('#quantity_buy').val());
-        // console.log(quantity);
-        // console.log(idProduct);
-        // console.log(status);
 
         $.ajax({
             method: "GET",

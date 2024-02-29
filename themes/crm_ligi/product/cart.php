@@ -71,31 +71,31 @@ $price_total = 0;
                                         $total = 0;
                             
                                             foreach ($list_product as $key => $value) {
-                                            $link = '/san-pham/'.$value->slug.'.html';
+                                            $link = '/san-pham/'.$value['slug'].'.html';
                                             $total += 1;
-                                            if($value->price_old){
-                                                $price_old = '<del>'.number_format($value->price_old).'₫</del>';
+                                            if($value['price_old']){
+                                                $price_old = '<del>'.number_format($value['price_old']).'₫</del>';
                                             }else{
                                                 $price_old = '';
                                             }
                                             $price_buy  = 0;
-                                            $price_buy = @$value->price * @$value->numberOrder;
-                                            if($value->statuscart=="true"){
+                                            $price_buy = @$value['price'] * @$value['numberOrder'];
+                                            if($value['statuscart']=="true"){
                                                 
                                                 $price_total += $price_buy;
                                             }?>
                                     <tr class="item-cart-produce">
-                                        <th class="cart-delete" scope="row"><a href="/deleteProductCart/?id_product=<?php echo $value->id ?>"><i class="bx bx-trash me-1"></i></a></th>
-                                        <td class="cart-produce-img"><img src="<?php echo $value->image ?>" alt=""></td>
-                                        <td><?php echo $value->title ?></td>
-                                        <td class="cart-cost"><?php echo number_format(@$value->price).'₫ ' ?> đ</td>
+                                        <th class="cart-delete" scope="row"><a href="/deleteProductCart/?id_product=<?php echo $value['id'] ?>"><i class="bx bx-trash me-1"></i></a></th>
+                                        <td class="cart-produce-img"><img src="<?php echo $value['image'] ?>" alt=""></td>
+                                        <td><?php echo $value['title'] ?></td>
+                                        <td class="cart-cost"><?php echo number_format(@$value['price']).'₫ ' ?> đ</td>
                                         <td class="cart-quantity">
                                             <div class="quantity-input" data-quantity="product1">
-                                                <input type="hidden" name="price<?php echo $total ?>" id="price<?php echo $total ?>" value="<?php echo @$value->price ?>">
-                                                <button class="quantity-btn" onclick="minusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" type="button">-</button>
-                                               <input id="quantity_buy<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="addProductCart(<?php echo $total ?>, <?php echo $value->id; ?>)" class="product-qty" type="text" name="quantity_buy" value="<?php echo $value->numberOrder ?>" min="0">
-                                                <input id="statuscart<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="hidden" name="statuscart" value="<?php echo $value->statuscart ?>" min="0">
-                                                <button class="quantity-btn" onclick="plusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" type="button">+</button>
+                                                <input type="hidden" name="price<?php echo $total ?>" id="price<?php echo $total ?>" value="<?php echo @$value['price'] ?>">
+                                                <button class="quantity-btn" onclick="minusQuantity(<?php echo $total ?>, <?php echo $value['id']; ?>)" type="button">-</button>
+                                               <input id="quantity_buy<?php echo $total ?>" min="0" max="<?php echo $value['quantity'] ?>" onclick="addProductCart(<?php echo $total ?>, <?php echo $value['id']; ?>)" class="product-qty" type="text" name="quantity_buy" value="<?php echo $value['numberOrder'] ?>" min="0">
+                                                <input id="statuscart<?php echo $total ?>" min="0" max="<?php echo $value['quantity'] ?>" onclick="tinhtien()" class="product-qty" type="hidden" name="statuscart" value="<?php echo $value['statuscart'] ?>" min="0">
+                                                <button class="quantity-btn" onclick="plusQuantity(<?php echo $total ?>, <?php echo $value['id']; ?>)" type="button">+</button>
                                             </div>
                                         </td>
                                         <td class="cart-total-cost"><p id='price_buy<?php echo $total ?>'><?php echo number_format(@$price_buy); ?> đ</p> </td>
@@ -118,14 +118,14 @@ $price_total = 0;
                                                     foreach($new_product as $value){
                                     // debug($value1);
                                 echo '<div class="carousel__slide my-carousel-cell-product">
-                                        <a href="/product/'.@$value->slug.'.html">
+                                        <a href="/product/'.@$value['slug'].'.html">
                                             <div class="box-bd-Merchandise">
-                                                <img src="'. $value->image.'" alt="" style="width: 100%;">
+                                                <img src="'. $value['image'].'" alt="" style="width: 100%;">
                                             </div>
-                                            <center>'.@$value->title.'</center>
-                                            <center class="price">'.number_format($value->price).' VNĐ</center>
+                                            <center>'.@$value['title'].'</center>
+                                            <center class="price">'.number_format($value['price']).' VNĐ</center>
                                         </a>
-                                        <center class="add-cart"><button class="add-cart-button" type="button" onclick="addProduct('.$value->id.',true)">Thêm vào giỏ hàng</button></center>
+                                        <center class="add-cart"><button class="add-cart-button" type="button" onclick="addProduct('.$value['id'].',true)">Thêm vào giỏ hàng</button></center>
                                     </div>';
                                 }
                             }
@@ -145,19 +145,19 @@ $price_total = 0;
                                         $total = 0;
                                     if(!empty($list_product)){
                                             foreach ($list_product as $key => $value) {
-                                            $link = '/san-pham/'.$value->slug.'.html';
+                                            $link = '/san-pham/'.$value['slug'].'.html';
                                             $total += 1;
-                                            if($value->price_old){
-                                                $price_old = '<del>'.number_format($value->price_old).'₫</del>';
+                                            if($value['price_old']){
+                                                $price_old = '<del>'.number_format($value['price_old']).'₫</del>';
                                             }else{
                                                 $price_old = '';
                                             }
                                             $price_buy  = 0;
-                                            $price_buy = @$value->price * @$value->numberOrder;
+                                            $price_buy = @$value['price'] * @$value['numberOrder'];
                                            
                                         
                                 echo '<div class="item-produce">
-                                    <div class="produce-name">'.$value->title.'</div>
+                                    <div class="produce-name">'.$value['title'].'</div>
                                     <div class="produce-price" id="price_rigth'.$total.'">'.number_format(@$price_buy).'</div>
                                 </div>';
                             }} ?>

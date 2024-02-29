@@ -4,9 +4,10 @@ function cart($input)
 	global $session;
 	global $controller;
 	global $metaTitleMantan;
+	global $urlCRM;
 
-	$modelProduct = $controller->loadModel('Products');
-	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	//$modelProduct = $controller->loadModel('Products');
+	//$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$infoUser = $session->read('infoUser');
 	$metaTitleMantan = 'Giỏ hàng';
 
@@ -20,13 +21,18 @@ function cart($input)
 		foreach($list_product as $key => $product){
 			$present = array();
 
-			if(!empty($product->id_product) && @$product->statuscart=='true'){
-				$id_product = explode(',', @$product->id_product);
+			if(!empty($product['id_product']) && @$product['statuscart']=='true'){
+				$id_product = explode(',', @$product['id_product']);
 
 				foreach($id_product as $k => $item){
-					$presentf = $modelProduct->find()->where(['code'=>$item])->first();
-					if (!empty($product->numberOrder)) {
-						$presentf->numberOrder = $product->numberOrder;
+					//$presentf = $modelProduct->find()->where(['code'=>$item])->first();
+					$info_presentf = sendDataConnectMantan($urlCRM.'/apis/getInfoProductAPI', ['code'=>$item]);
+
+			        $info_presentf = json_decode(trim($info_presentf), true);
+			        $presentf = $info_presentf['product'];
+
+					if (!empty($product['numberOrder'])) {
+						$presentf['numberOrder'] = $product['numberOrder'];
 					}
 					
 					if(!empty($presentf)){
@@ -36,71 +42,43 @@ function cart($input)
 				}
 
 			}
-			$list_product[$key]->present = $present;
+			$list_product[$key]['present'] = $present;
 
 
-			if(!empty($product->idpro_discount) && @$product->statuscart=='true'){
-				$id_prodiscount = explode(',', @$product->idpro_discount);
-               // debug($id_prodiscount);
+			if(!empty($product['idpro_discount']) && @$product['statuscart']=='true'){
+				$id_prodiscount = explode(',', @$product['idpro_discount']);
+               
 				foreach($id_prodiscount as $item){
-					$presentf = $modelProduct->find()->where(['code'=>$item, 'quantity >'=>0])->first();
-					// $presentf->numberOrder = $product->numberOrder;
-                     // debug($presentf);
-					if(!empty($presentf)){
+					//$presentf = $modelProduct->find()->where(['code'=>$item, 'quantity >'=>0])->first();
+					$info_presentf = sendDataConnectMantan($urlCRM.'/apis/getInfoProductAPI', ['code'=>$item]);
 
+			        $info_presentf = json_decode(trim($info_presentf), true);
+			        $presentf = $info_presentf['product'];
+					
+					if(!empty($presentf) && $presentf['quantity']>0){
 						$idprodiscount[] = $presentf;
 					}
 				}
 			}
-			$list_product[$key]->idprodiscount = $idprodiscount;
+			$list_product[$key]['idprodiscount'] = $idprodiscount;
 
-			if(@$product->statuscart=='false'){
+			if(@$product['statuscart']=='false'){
 				$checkproductAll = 'false';
 			}
 
 		}
 	}
-	$categoryDiscountCode = categoryDiscountCode();
-	$category = array();
-
-
-	foreach($categoryDiscountCode as $key => $item){
-		$data = array();
-		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key, 'status'=>1))->all()->toList(); 
-		$data['name'] = $item;
-		if(!empty($discountCode)){
-			foreach(@$discountCode as $k => $value){
-				if(!empty($value->id_customers) ){
-
-					$id_customer = explode(',', $value->id_customers);
-					if( in_array(@$infoUser->id, $id_customer) && !empty($infoUser)){
-						$data['discountCode'][$k] = $value;
-					}
-				}else{
-					$data['discountCode'][$k] = $value;
-				}
-			}
-		}
-
-		$category[$key]=$data;
-	}
+	
 
 	// SẢN PHẨM NGẪU NHIÊN
-	$conditions = array('status' => 'active', 'quantity >'=>0);
-	$limit = 4;
-	$page = 1;
-	$order = array('id'=>'desc');
 
-	$new_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-	if(!empty($idprodiscount)){
-		$idprodiscount = array_unique(@$idprodiscount);
-	}
+	$new_product = sendDataConnectMantan($urlCRM.'/apis/getNewProductAPI');
+
+	$new_product = json_decode(trim($new_product), true);
 
 
 	setVariable('list_product', $list_product);
 	setVariable('new_product', $new_product);
-	setVariable('category', $category);
-	setVariable('prodiscount', @$idprodiscount);
 	setVariable('checkproductAll', $checkproductAll);
 }
 
@@ -108,30 +86,37 @@ function addProductToCart($input)
 {
 	global $session;
 	global $controller;
+	global $urlCRM;
 
 	//$setting = setting();
 	$setting['targetTime'] = time();
 
-	$modelProduct = $controller->loadModel('Products');
+	//$modelProduct = $controller->loadModel('Products');
 
 	if(!empty($_REQUEST['id_product'])){
 		if(empty($_REQUEST['quantity'])) $_REQUEST['quantity'] = 1;
-		$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
+		// $product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
 
-		if($setting['targetTime']>time() && @$product->flash_sale==1 && !empty($product->price_flash)){
-			$product->price = $product->price_flash;
+		$conditions = array('id'=>$_REQUEST['id_product']);
+		$info_product = sendDataConnectMantan($urlCRM.'/apis/getInfoProductAPI', $conditions);
+
+        $info_product = json_decode(trim($info_product), true);
+        $product = $info_product['product'];
+
+		if($setting['targetTime']>time() && @$product['flash_sale']==1 && !empty($product['price_flash'])){
+			$product['price'] = $product['price_flash'];
 		}
 
 		$list_product = $session->read('product_order');
 
 		if(!empty($product)){
-			if(!empty($list_product[$product->id])){
-				$list_product[$product->id]->numberOrder += (int) $_REQUEST['quantity'];
+			if(!empty($list_product[$product['id']])){
+				$list_product[$product['id']]['numberOrder'] += (int) $_REQUEST['quantity'];
 
 			}else{
-				$product->statuscart=$_REQUEST['status']; // true hoặc false
-				$product->numberOrder = (int) $_REQUEST['quantity'];
-				$list_product[$product->id] = $product;
+				$product['statuscart']=$_REQUEST['status']; // true hoặc false
+				$product['numberOrder'] = (int) $_REQUEST['quantity'];
+				$list_product[$product['id']] = $product;
 			}
 			$count =count($list_product);
 			$session->write('product_order', $list_product);
