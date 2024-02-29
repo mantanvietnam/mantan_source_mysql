@@ -277,6 +277,10 @@
                 <input type="text" class="form-control" name="content_lh_3" value="<?php echo @$data['content_lh_3'];?>" /> 
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">ảnh nền form đăng ký </label>
+                <?php showUploadFile('background_4','background_4', @$data['background_4'],8);?>
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">facebook</label>
                 <input type="text" class="form-control" name="facebook" value="<?php echo @$data['facebook'];?>" />
               </div>

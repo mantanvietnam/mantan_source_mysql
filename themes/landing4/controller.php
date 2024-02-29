@@ -96,6 +96,7 @@ function settingHomeTheme($input){
                             'icon_lh_3'=> @$dataSend['icon_lh_3'],
                             'title_lh_3'=> @$dataSend['title_lh_3'],
                             'content_lh_3'=> @$dataSend['content_lh_3'],
+                            'background_4'=> @$dataSend['background_4'],
                             
              );
 

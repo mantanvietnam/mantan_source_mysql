@@ -538,7 +538,7 @@ global $urlThemeActive;
     </div>
 </section>
 
-<section id="section-contact-form" class="section-padding" style="background-image: url(./asset/img/background.jpg);">
+<section id="section-contact-form" class="section-padding" style="background-image: url(<?php echo @$setting['background_4']; ?>);">
     <div class="banner-overlay"></div>
     <div class="contact-form-box">
         <div class="container">
