@@ -492,21 +492,23 @@ function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form',
         'Content-Type: application/json');
 	*/
         
-    if(!empty($data)){
+    if(!empty($data) && $typeSend!='GET'){
    		$stringSend= '';
    		if($typeData=='form'){
    			$stringSend= array();
+	   		
 	   		foreach($data as $key=>$value){
 	   			$stringSend[]= $key.'='.$value;
 	   		}
-	   		
 
 	   		$stringSend= implode('&', $stringSend);
 	   	}elseif($typeData=='raw'){
 	   		$stringSend= json_encode($data);
+	   	}elseif($typeData=='x-www-form-urlencoded'){
+	   		$stringSend= http_build_query($data); // Dữ liệu được chuyển dạng x-www-form-urlencoded
 	   	}
    		
-		$ch = curl_init();
+		$ch = curl_init($url);
 
 		if(strtoupper($typeSend)=='PUT'){
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
@@ -525,12 +527,23 @@ function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form',
 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
+		//for debug only!
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
 		$server_output = curl_exec ($ch);
 
 		curl_close ($ch);
 
 		return $server_output;
     }else{
+    	$stringSend = '';
+    	if(!empty($data)){
+	    	if($typeData=='x-www-form-urlencoded'){
+		   		$stringSend= http_build_query($data); // Dữ liệu được chuyển dạng x-www-form-urlencoded
+		   	}
+	   	}
+
     	// Khởi tạo một phiên cURL
 		$curl = curl_init();
 
@@ -538,6 +551,8 @@ function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form',
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $stringSend);
 
 		// Thực hiện yêu cầu cURL
 		$response = curl_exec($curl);

@@ -288,7 +288,7 @@ global $type_ingredient;
 
 
 $recommenders = 5;
-$ftp_server_upload_image = "171.244.16.76";
+$ftp_server_upload_image = "171.244.16.96";
 $ftp_username_upload_image = "ezpics";
 $ftp_password_upload_image = "uImzVeNYgF";
 

@@ -7,7 +7,7 @@
                             <div class="item-fter">
                                 <h4><?php echo @$settingThemes['name_company'];?></h4>
                                 <div class="desc">
-                                    <?php echo @$settingThemes['des_company'];?>
+                                    <?php echo nl2br(@$settingThemes['des_company']);?>
                                 </div>
                             </div>
                         </div>

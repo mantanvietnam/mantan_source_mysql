@@ -6,7 +6,14 @@ $menus[0]['sub'][0] = array('title' => 'Đăng ký bản FULL',
                             'url'=>'/plugins/admin/matmathanhcong-view-admin-requestExportFull',
                             'classIcon' => 'menu-icon tf-icons bx bxs-data',
                             'permission'=>'requestExportFull'
-);
+                        );
+
+$menus[0]['sub'][0] = array('title' => 'Cài đặt API',
+                            'url'=>'/plugins/admin/matmathanhcong-view-admin-settingMMTCAPI',
+                            'classIcon' => 'menu-icon tf-icons bx bxs-data',
+                            'permission'=>'settingMMTCAPI'
+                        );
+
 addMenuAdminMantan($menus);
 
 
@@ -18,6 +25,26 @@ global $idBot;
 global $tokenBot;
 global $idBlockConfirm;
 global $idBlockDownload;
+global $modelOptions;
+
+global $urlAPI;
+global $userAPI;
+global $passAPI;
+
+$urlAPI = 'https://quanly.matmathanhcong.vn';
+$userAPI = '';
+$passAPI = '';
+$price_full = 0;
+
+$conditions = array('key_word' => 'settingMMTCAPI');
+$settingMMTCAPI = $modelOptions->find()->where($conditions)->first();
+if(!empty($settingMMTCAPI->value)){
+    $data_value = json_decode($settingMMTCAPI->value, true);
+
+    $userAPI = $data_value['userAPI'];
+    $passAPI = $data_value['passAPI'];
+    $price_full = (int) $data_value['price'];
+}
 
 $idBot = '63edf5c2642152d701d5739b';
 $tokenBot = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWRmNWMyNjQyMTUyZDcwMWQ1NzM5YiIsIm5hbWUiOiJCTEFOSyBCT1QgLSBDb3B5IiwiaWF0IjoxNjc2NTM5MzMwLCJleHAiOjE5OTE4OTkzMzB9.6GeoT8QLvvUvyzBJ_zeyLlMq4iAXhHnV2UtjVJhUR9M';
@@ -25,7 +52,7 @@ $idBlockConfirm = '65c50e2f287c4a2b9722030c';
 $idBlockDownload = '65c5f0a246761a8554da9468';
 
 
-$price_full = 500000;
+
 $key_banking = 'MMTC';
 
 $bank_number = '87818938888';
@@ -41,6 +68,114 @@ if(!empty($_GET['aff'])){
 
     $session->write('aff', $_GET['aff']);
 }
+
+function getTokenMMTCAPI()
+{
+    global $urlAPI;
+    global $userAPI;
+    global $passAPI;
+    global $modelOptions;
+
+    $conditions = array('key_word' => 'tokenAPIMMTC');
+    $data = $modelOptions->find()->where($conditions)->first();
+    
+    if(!empty($data->value)){
+        $value = json_decode($data->value, true);
+
+        if($value['deadline'] > time()+86400){
+            return $value['token'];
+        }
+    }
+
+    // lấy token mới
+    $dataSend = ['username'=>$userAPI, 'password'=>$passAPI];
+    $header = ['Content-Type: application/x-www-form-urlencoded'];
+    $typeData = 'x-www-form-urlencoded';
+
+    $token = sendDataConnectMantan($urlAPI.'/api/GetToken', $dataSend, $header, $typeData);
+
+    if(!empty($token)){
+        $token = json_decode(trim($token), true);
+
+        if(!empty($token['access_token'])){
+            if(empty($data)){
+                $data = $modelOptions->newEmptyEntity();
+            }
+
+            $data->key_word = 'tokenAPIMMTC';
+            $data->value = json_encode(['token'=>$token['access_token'], 'deadline'=>time()+30*86400]);
+
+            $modelOptions->save($data);
+
+            return $token['access_token'];
+        }
+    }
+    
+    return '';
+}
+
+function getListProductMMTCAPI()
+{
+    global $urlAPI;
+
+    $token = getTokenMMTCAPI();
+
+    if(!empty($token)){
+        $dataSend = [];
+        $header = ['Authorization: '.$token];
+
+        $listData = sendDataConnectMantan($urlAPI.'/api/GetListProduct', $dataSend, $header);
+
+        if(!empty($listData)){
+            return json_decode($listData, true);
+        }
+    }
+
+    return [];
+}
+
+function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $address='', $avatar='', $gender=1, $id_category = 0)
+{
+    global $urlAPI;
+
+    $categories = getListProductMMTCAPI();
+    $token = getTokenMMTCAPI();
+
+    if(!empty($token) && !empty($categories[$id_category]['category_id'])){
+        if(!empty($name) && !empty($birthdate) && !empty($phone) && !empty($email) && !empty($address) ){
+            $birthdate = str_replace('/', '_', $birthdate);
+
+            $dataSend = [   'category_id' => $categories[$id_category]['category_id'],
+                            'customer_name' => $name,
+                            'customer_birthdate' => $birthdate,
+                            'customer_phone' => $phone,
+                            'customer_email' => $email,
+                            'customer_address' => $address,
+                            'customer_avatar' => $avatar,
+                            'customer_gender' => $gender,
+                            'user_avatar' => $avatar
+                        ];
+
+            $header = ['Authorization: '.$token, 'Content-Type: application/x-www-form-urlencoded'];
+            $typeData = 'x-www-form-urlencoded';
+            $typeSend = 'GET';
+
+            $linkFull = sendDataConnectMantan($urlAPI.'/api/GetLink', $dataSend, $header, $typeData, $typeSend);
+           
+            if(!empty($linkFull)){
+                return trim($linkFull, '"');
+            }
+        }else{
+            return '';
+        }
+    }else{
+        return '';
+    }
+
+    return '';
+}
+
+//getLinkFullMMTCAPI('Trần Ngọc Mạnh', '17/09/1989', '0816560000', 'tranmanhbk179@gmail.com', 'Hà Nội', 'https://matmathanhcong.vn/upload/admin/images/logo-phoenix-1.png', 1);
 
 function ketquapheptinhcong($str)
 {   

@@ -63,6 +63,7 @@ function resultvip($input)
     global $tokenBot;
     global $idBlockConfirm;
     global $idBlockDownload;
+    global $modelOptions;
 
     $modelRequestExports = $controller->loadModel('RequestExports');
 
@@ -86,6 +87,7 @@ function resultvip($input)
 
                     if(!empty($avatar['linkOnline'])){
                         // lấy link tải bản full
+                        /*
                         $url = 'https://quantri.matmathanhcong.vn/api/Calculate/GetLinkByModelApi';
 
                         $dataPush = [   'customer_name' => $dataSend['customer_name'],
@@ -99,6 +101,8 @@ function resultvip($input)
 
                         $infoFull = sendDataConnectMantan($url, $dataPush);
                         $infoFull = json_decode($infoFull, true);
+                        */
+                        $infoFull = getLinkFullMMTCAPI($dataSend['customer_name'], $dataSend['customer_birthdate'], $dataSend['customer_phone'], $dataSend['customer_email'], $dataSend['customer_address'], $avatar['linkOnline'], 1);
 
                         // lưu database
                         $data->avatar = $avatar['linkOnline'];
@@ -109,7 +113,7 @@ function resultvip($input)
                         $data->address = $dataSend['customer_address'];
                         $data->idMessenger = @$dataSend['idMessenger'];
                         $data->affiliate_phone = (!empty($session->read('aff')) && $session->read('aff')!=$dataSend['customer_phone'])?$session->read('aff'):'';
-                        $data->link_download = @$infoFull['Result'];
+                        $data->link_download = @$infoFull;
                         $data->status_pay = 'wait';
 
                         $modelRequestExports->save($data);
@@ -180,7 +184,9 @@ function resultvip($input)
                             echo '<h1>Vui lòng đóng cửa sổ trình duyệt và quay lại khung chat</h1>';die;
                         }
 
+
                         setVariable('linkQR', $linkQR);
+                        setVariable('infoFull', $infoFull);
                     }else{
                         return $controller->redirect('/?error=uploadAvatarFail');
                     }
@@ -212,7 +218,17 @@ function resultvip($input)
                 }
 
                 setVariable('linkQR', $linkQR);
+                setVariable('infoFull', $checkDataExits->link_download);
             }
+
+            $data_value = [];
+            $conditions = array('key_word' => 'settingMMTCAPI');
+            $settingMMTCAPI = $modelOptions->find()->where($conditions)->first();
+            if(!empty($settingMMTCAPI->value)){
+                $data_value = json_decode($settingMMTCAPI->value, true);
+            }
+
+            setVariable('settingMMTCAPI', $data_value);
         }else{
             return $controller->redirect('/?error=empty');
         }

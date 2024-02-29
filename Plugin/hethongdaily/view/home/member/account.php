@@ -101,7 +101,7 @@
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Mã QR của bạn</label><br/>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://id.drvcos.com/info/?id=<?php echo @$user->id;?>" width="100">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'info/?id='.@$user->id;?>" width="100">
                   </div>
                 </div>
 

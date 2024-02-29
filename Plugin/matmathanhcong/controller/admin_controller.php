@@ -76,4 +76,44 @@ function deleteRequestExport($input){
     return $controller->redirect('/plugins/admin/matmathanhcong-view-admin-requestExportFull');
 }
 
+function settingMMTCAPI($input){
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt MMTC API';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingMMTCAPI');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $value = array( 'userAPI' => $dataSend['userAPI'],
+                        'passAPI' => $dataSend['passAPI'],
+                        'price' => $dataSend['price'],
+                        'note_pay' => $dataSend['note_pay'],
+                    );
+
+        $data->key_word = 'settingMMTCAPI';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('data', $data_value);
+    setVariable('mess', $mess);
+}
+
 ?>
