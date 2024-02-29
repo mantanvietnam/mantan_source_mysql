@@ -19,6 +19,14 @@ if(isset($_POST['submit']))
     global $controller;
     
     $email = $_POST['email'];
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $province = $_POST['province'];
+    $central_entity = $_POST['central_entity'];
+    $service = $_POST['service'];
+    $position = $_POST['position'];
+    $phone = $_POST['phone'];
+
     $captcha    = $_POST['g-recaptcha-response'];
     if(!$email)
     {
@@ -28,11 +36,25 @@ if(isset($_POST['submit']))
         $verify_response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$captcha);
         $response_data = json_decode($verify_response);
         if($response_data->success){
-            $dataPost= array('email'=>$email);
-            $listData= sendDataConnectMantan('http://warm.creatio.vn/apis/addSubscribeAPI', $dataPost);
-            bao('success', "You have successfully subscribed to our newsletter");
-             echo header("refresh: 0; url = http://warm.creatio.vn/thanks");
-            exit();
+            if(!empty($email) && !empty($surname) && !empty($name) && !empty($province) && !empty($central_entity) && !empty($service) && !empty($position) && !empty($phone)){
+                    $dataPost= array('email'=>$email,
+                    'surname'=>$surname,
+                    'name'=>$name,
+                    'province'=>$province,
+                    'central_entity'=>$central_entity,
+                    'service'=>$service,
+                    'position'=>$position,
+                    'phone'=>$phone
+                );
+                $listData= sendDataConnectMantan('https://warm.creatio.vn/apis/addSubscribeAPI', $dataPost);
+
+                bao('success', "You have successfully subscribed to our newsletter");
+                  echo header("refresh: 0; url = http://warm.creatio.vn/thanks");
+                exit();
+            }else{
+                thongbao('error', "You entered missing information");
+            }
+            
         }else{
             thongbao('error', "Please insert required information");
         }
@@ -98,7 +120,7 @@ if(isset($_POST['submit']))
 
                                 <div class="label-arrcodion label-arrcodion-input">
                                     <p>Province/District/Central entity *</p>
-                                    <input type="text" class="form-control" name="central" placeholder="" aria-describedby="basic-addon1">
+                                    <input type="text" class="form-control" name="central_entity" placeholder="" aria-describedby="basic-addon1">
                                 </div>
 
                                 <div class="label-arrcodion label-arrcodion-input">
