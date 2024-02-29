@@ -82,10 +82,45 @@ if(isset($_POST['submit']))
                                 </div>
 
                                 <div class="label-arrcodion label-arrcodion-input">
-                                    <p>Email address *</p>
+                                    <p>Name *</p>
+                                    <input type="text" class="form-control" name="name" placeholder="" aria-describedby="basic-addon1">
+                                </div>
+
+                                <div class="label-arrcodion label-arrcodion-input">
+                                    <p>Surname *</p>
+                                    <input type="text" class="form-control" name="surname" placeholder="" aria-describedby="basic-addon1">
+                                </div>
+
+                                <div class="label-arrcodion label-arrcodion-input">
+                                    <p>Province *</p>
+                                    <input type="text" class="form-control" name="province" placeholder="" aria-describedby="basic-addon1">
+                                </div>
+
+                                <div class="label-arrcodion label-arrcodion-input">
+                                    <p>Province/District/Central entity *</p>
+                                    <input type="text" class="form-control" name="central" placeholder="" aria-describedby="basic-addon1">
+                                </div>
+
+                                <div class="label-arrcodion label-arrcodion-input">
+                                    <p>Service *</p>
+                                    <input type="text" class="form-control" name="service" placeholder="" aria-describedby="basic-addon1">
+                                </div>
+
+                                <div class="label-arrcodion label-arrcodion-input">
+                                    <p>Position *</p>
+                                    <input type="text" class="form-control" name="position" placeholder="" aria-describedby="basic-addon1">
+                                </div>
+
+                                <div class="label-arrcodion label-arrcodion-input">
+                                    <p>Email *</p>
                                     <input type="email" class="form-control" name="email" placeholder="" aria-describedby="basic-addon1">
                                 </div>
-                                <div class="label-arrcodion">
+
+                                <div class="label-arrcodion label-arrcodion-input">
+                                    <p>Phone *</p>
+                                    <input type="text" class="form-control" name="phone" placeholder="" aria-describedby="basic-addon1">
+                                </div>
+                                <!-- <div class="label-arrcodion">
                                     <select id="countrySelect">
                                         <option value="">Your country *</option>
                                     </select>
@@ -95,9 +130,9 @@ if(isset($_POST['submit']))
                                     <select name="calc_shipping_provinces">
                                         <option value="">Your province (if Vietnam)  *</option>
                                     </select>
-                                </div>
+                                </div> -->
 
-                                <div class="label-arrcodion">
+                                <!-- <div class="label-arrcodion">
                                     <select name="option-job">
                                         <option value="">Your profile *</option>
                                         <option value="Etablissement public (Ministère, collectivités locales…)">Public institution (ministry, local authorities …)</option>
@@ -109,7 +144,7 @@ if(isset($_POST['submit']))
                                         <option value="Etudiant">Student</option>
                                         <option value="Autre">Other</option>
                                     </select>
-                                </div>
+                                </div> -->
 
                                 <div class="label-dropdown label-arrcodion">
                                     
