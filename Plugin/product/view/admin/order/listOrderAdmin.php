@@ -115,7 +115,7 @@
              if(!empty($item->detail_order)){ 
               foreach($item->detail_order as $k => $value){
                echo '<tr> <td  width="50%">'.$value->product.'</td>
-                <td  width="30%">'.number_format($value->price).'đ</td>
+                <td  width="30%">'.number_format(@$value->price).'đ</td>
                 <td  width="20%">'.$value->quantity.'</td>
               </tr>';
            }} 

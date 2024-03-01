@@ -309,7 +309,7 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
     Email: '.$email.'<br/>
     Điện thoại: '.$phone.'<br/>
     Địa chỉ: '.$address.'<br/>
-    Chú ý: '.nl2br($note).'<br/><br/> <p>
+    Chú ý: '.$note.'<br/><br/> <p>
 
     <h4 class="text-align">Chi tiết đơn hàng</h4>
     <table class="table table-bordered" style=" width: 85%;">

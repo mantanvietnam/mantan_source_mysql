@@ -343,8 +343,9 @@
                         if(!empty($listProduct)){
                             echo '<table class="table table-bordered mb-5"><tbody>';
                             foreach ($listProduct as $item) {
+                                
                                 echo '  <tr>
-                                          <th colspan="4">'.$item['category']->name.'</th>
+                                          <th colspan="4">'.@$item['category']->name.'</th>
                                         </tr>';
 
                                 if(!empty($item['product'])){
