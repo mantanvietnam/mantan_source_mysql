@@ -9,7 +9,7 @@ global $urlThemeActive;
             <div class="banner-content">
                 <div class="container text-center">
                     <div class="title-banner">
-                        <h2><?php echo @$setting['full_name'] ?><span><?php echo @$setting['full_name'] ?></span></h2>
+                        <h2><?php echo @$setting['title_top'] ?><span><?php echo @$setting['full_name'] ?></span></h2>
                     </div>
 
                     <div class="description-banner">

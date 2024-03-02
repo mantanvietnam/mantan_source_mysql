@@ -33,8 +33,10 @@ function getOrderLarkSuite($id){
     global $modelCategories;
     global $metaTitleMantan;
     global $isRequestPost;
+    global $session;
 
      $conditions = array('key_word' => 'lark_suite');
+     $modelUtm = $controller->loadModel('Utms');
     $data = $modelOptions->find()->where($conditions)->first();
     if(!empty($data->value)){
         $static = json_decode(@$data->value, true);
@@ -63,12 +65,13 @@ function getOrderLarkSuite($id){
                 $infoOrder = $modelOrderDetail->find()->where(['id_order'=>$id])->all()->toList();
                 unset($order->note_user);
                 unset($order->note_admin);
+                unset($order->id_utm);
                 $info = ''; 
                 $str = "*";
                 $order->shipp = 35000;
                 if(!empty($infoOrder)){
                     foreach($infoOrder as $key => $item){
-                        $info .= "{";
+                        // $info .= "{";
                         $product = $modelProduct->find()->where(['id'=>$item->id_product])->first();
                         $info .= $product->title.' Số lượng: '.$item->quantity.' Đơn giá: '.number_format($item->price).'đ ' ;
                         if(!empty(@$product->id_product)){
@@ -83,7 +86,8 @@ function getOrderLarkSuite($id){
                             }
                             $info .= ")";
                         }
-                        $info .= "}".str_repeat($str, $key+1);
+                        // $info .= '} \n\t\r '.str_repeat($str, $key+1);
+                            $info .= '<br/>';
                             $item->name = $product->title;
                             $infoOrder[$key] = $item;
 
@@ -107,6 +111,26 @@ function getOrderLarkSuite($id){
                     
                      $order->infoOrder = $info;
                      // $order->utm_source = 'web';
+                      $order->utm_source = '';
+                      $order->utm_campaign = '';
+                      $order->utm_id = '';
+                      $order->utm_term = '';
+                      $order->utm_content = '';
+                      $order->createat = '';
+                     if(!empty($session->read('id_utm'))){
+                        $utm = $modelUtm->find()->where(array('id'=> (int)$session->read('id_utm')))->first();
+                       
+                        if(!empty($utm)){
+                            $order->utm_source = $utm->utm_source;
+                            $order->utm_campaign = $utm->utm_campaign;
+                            $order->utm_id = $utm->utm_id;
+                            $order->utm_term = $utm->utm_term;
+                            $order->utm_content = $utm->utm_content;
+                            $order->createat = $utm->created_at;
+                        }
+                         $session->write('id_utm', '');
+                     }
+
                     
                 }
                 $dataO = array('fields'=>$order);
@@ -129,6 +153,8 @@ function getOrderLarkSuite($id){
     }else{
          $return = array('code'=> 4 , 'mess'=> 'không thành công');
     }
+    // debug($return);
+    // die;
     return $return;   
 }
 

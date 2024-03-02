@@ -11,6 +11,11 @@ global $urlCurrent;
 
 
  }
+if(!empty($session->read('utm'))){
+    geUtm();
+}
+// debug($session->read('id_utm'));
+// die();
     
 ?>
 <!DOCTYPE html>

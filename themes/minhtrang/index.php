@@ -115,61 +115,7 @@
                 </div>
             </div>
         </section>
-
-        <!-- ====CẢM NHẬN==== -->
-        <section class="feeling" >
-            <div class="container">
-                <div class="row" style="padding-bottom: 30px;">
-                    <div class="col-md-12">
-                        <h2><?php echo @$setting['video0']; ?></h2>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="owl-carousel list-feeling owl-theme">
-                            <div class="item">
-                                <iframe width="100%" height="240px" src="https://www.youtube.com/embed/<?php echo @$setting['video1']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                            <div class="item">
-                                <iframe width="100%" height="240px" src="https://www.youtube.com/embed/<?php echo @$setting['video2']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                            <div class="item">
-                                <iframe width="100%" height="240px" src="https://www.youtube.com/embed/<?php echo @$setting['video3']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-          <!-- =====Tin tức ========== -->
-        <section class="section5" id="tintuc">
-            <div class="container">
-                <div class="media">
-                    <h2><?php echo @$setting['baivietmannhat']; ?></h2>
-                </div>
-                <div class="row">
-                    <?php
-                       if(!empty($listDataNew)){
-                            foreach($listDataNew as $item){
-                                echo '<div class="col-md-4">
-                                        <div class = "thumbnail">
-                                            <img src = "'.$item->image.'" alt ="" style="width:100%;">
-                                        </div>
-
-                                        <div class ="item">
-                                            <h5>'.$item->title.'</h5>
-                                            <p>'.$item->description.'</p>
-                                            <a href="/'.$item->slug.'.html" title="">Xem tiếp >></a>
-                                        </div>  
-                                    </div>';
-                            }
-                        }
-                    ?>
-                </div>  
-            </div>
-        </section>
-
-        <!-- ====TRUYỀN THÔNG==== -->
+          <!-- ====TRUYỀN THÔNG==== -->
         <section class="media" id="ketnoi">
             <div class="container">
                 <div class="row">
@@ -239,6 +185,60 @@
                 </div>
             </div>
         </section>
+        <!-- ====CẢM NHẬN==== -->
+        <section class="feeling" >
+            <div class="container">
+                <div class="row" style="padding-bottom: 30px;">
+                    <div class="col-md-12">
+                        <h2><?php echo @$setting['video0']; ?></h2>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="owl-carousel list-feeling owl-theme">
+                            <div class="item">
+                                <iframe width="100%" height="240px" src="https://www.youtube.com/embed/<?php echo @$setting['video1']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="item">
+                                <iframe width="100%" height="240px" src="https://www.youtube.com/embed/<?php echo @$setting['video2']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="item">
+                                <iframe width="100%" height="240px" src="https://www.youtube.com/embed/<?php echo @$setting['video3']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+          <!-- =====Tin tức ========== -->
+        <section class="section5" id="tintuc">
+            <div class="container">
+                <div class="media">
+                    <h2><?php echo @$setting['baivietmannhat']; ?></h2>
+                </div>
+                <div class="row">
+                    <?php
+                       if(!empty($listDataNew)){
+                            foreach($listDataNew as $item){
+                                echo '<div class="col-md-4">
+                                        <div class = "thumbnail">
+                                            <img src = "'.$item->image.'" alt ="" style="width:100%;">
+                                        </div>
+
+                                        <div class ="item">
+                                            <h5>'.$item->title.'</h5>
+                                            <p>'.$item->description.'</p>
+                                            <a href="/'.$item->slug.'.html" title="">Xem tiếp >></a>
+                                        </div>  
+                                    </div>';
+                            }
+                        }
+                    ?>
+                </div>  
+            </div>
+        </section>
+
+      
     </main>
     <a href="" class="backtop">
         <i class="fas fa-arrow-up"></i>

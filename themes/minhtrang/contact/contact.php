@@ -1,6 +1,6 @@
 <?php getHeader();?>
 <?php $setting = setting();?>
-	<section class="contact_main">
+	<section class="contact_main" style="height: 450px;">
 		<!-- <div class="map_main">
 			<?php echo @$themeSettings['Option']['value']['map']; ?>
 		</div> -->
