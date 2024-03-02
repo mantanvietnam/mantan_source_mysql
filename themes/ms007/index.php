@@ -140,7 +140,7 @@ global $urlThemeActive;
                         <span class="text-yeallow">  <?php echo @$setting['title_dvv1'] ?></span>
                     </h2>
 
-                    <p  <?php echo @$setting['content_dv'] ?></p>
+                    <p> <?php echo @$setting['content_dv'] ?></p>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">

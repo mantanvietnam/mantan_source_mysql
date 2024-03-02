@@ -1,0 +1,50 @@
+.help-item .help-detail .help-link button{
+    transition: all 0.5s ease;
+}
+
+.help-item .help-detail .help-link button:hover{
+    background-color: #ec8805 !important;
+}
+
+.banner-content .link-banner button{
+    transition: all 0.5s ease;
+}
+
+.banner-content .link-banner button:hover{
+    background-color: #ec8805 !important;
+
+}
+
+#section-contact .form-contact button{
+    transition: all 0.5s ease;
+}
+
+#section-contact .form-contact button:hover{
+    background-color: #523003 !important;
+
+}
+
+#section-start-today .start-today-button button.btn-1{
+    transition: all 0.5s ease;
+}
+
+
+
+#section-start-today .start-today-button button.btn{
+    transition: all 0.5s ease;
+}
+
+#section-start-today .start-today-button button.btn:hover{
+    background-color: #ec8805 !important;
+}
+
+#section-start-today .start-today-button button.btn-1:hover{
+    background-color: #021536 !important;
+}
+
+.news-image{
+    height: 261px;
+}
+
+
+
