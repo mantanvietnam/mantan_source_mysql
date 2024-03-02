@@ -18,22 +18,53 @@
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/assert/css/style.css">
     
     <?php 
+        global $setting_value;
+
         mantan_header(); 
 
         if(function_exists('showSeoHome')) showSeoHome();
     ?>
 
-    <link rel="icon" type="image/x-icon" href="https://id.phoenixcamp.vn/upload/admin/images/logovuong.png" />
+    <link rel="icon" type="image/x-icon" href="<?php echo @$setting_value['logo'];?>" />
 </head>
 
 <body>
-    <div class="wrapper">
+    <style type="text/css">
+        <?php 
+            if(!empty($setting_value['background_image_1'])){
+                echo '.wrapper{
+                    background-image: url(\''.$setting_value['background_image_1'].'\');
+                }';
+            }
+
+            if(!empty($setting_value['background_image_2'])){
+                echo '.register{
+                    background-image: url(\''.$setting_value['background_image_2'].'\');
+                }';
+            }
+
+            if(!empty($setting_value['background_image_3'])){
+                echo '.footer{
+                    background-image: url(\''.$setting_value['background_image_3'].'\');
+                }';
+            }
+            
+
+            if(!empty($setting_value['background_color'])){
+                echo '.header{
+                    background-color: '.$setting_value['background_color'].';
+                }';
+            }
+        ?>
+    </style>
+
+    <div class="wrapper" >
         <header class="header">
             <nav class="header-top navbar navbar-expand-lg">
                 <div class="container-fluid">
                         <div class="header-logo">
                             <a href="#">
-                                <img class="header-logo-img" src="https://id.phoenixcamp.vn/upload/admin/images/logovuong.png" alt="">
+                                <img class="header-logo-img" src="<?php echo @$setting_value['logo'];?>" alt="">
                             </a>
                         </div>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,21 +98,16 @@
 
         <div class="main">
             <div class="container">
-                <div class="main-nav">
-                    <a href="#">Trang chủ</a>   
-                    <span> > </span>
-                    <span>Tra cứu PHOENIX</span>
-                </div>
-                <div class="main-below">
+                <div class="main-below mt-3">
                     <div class="row">
                         <div class="main-below-left col-lg-6 col-md-6">
-                            <p class="main-below-search">TRA CỨU THÀNH VIÊN PHOENIX</p>
-                            <h1 class="main-below-title">Thành viên chính thức của <br /> PHOENIX</h1>
+                            <p class="main-below-search">TRA CỨU ĐẠI LÝ <?php echo @$setting_value['name_web'];?></p>
+                            <h1 class="main-below-title">Đại lý chính thức của <?php echo @$setting_value['name_web'];?></h1>
                             <input type="text" class="main-below-input" name="" id="phone_member"
                                 placeholder="Nhập số điện thoại viết liền không dấu, ví dụ 0816560000">
                             <br />
                             <button type="button" class="main-below-btn" onclick="seachAgency();">Tra cứu thông tin</button>
-                            <p class="main-below-text-end">*HÃY CHỈ LÀM VIỆC VỚI CÁC PHOENIX CHÍNH THỨC CỦA CHÚNG TÔI ĐỂ ĐƯỢC ĐẢM BẢO CÁC QUYỀN LỢI CAM KẾT VÀ BẢO HÀNH</p>
+                            <p class="main-below-text-end">*HÃY CHỈ LÀM VIỆC VỚI CÁC ĐẠI LÝ CHÍNH THỨC CỦA <?php echo @$setting_value['name_web'];?> ĐỂ ĐƯỢC ĐẢM BẢO CÁC QUYỀN LỢI CAM KẾT VÀ BẢO HÀNH</p>
 
                         </div>
                         <div class="main-below-right col-lg-6 col-md-6">
@@ -89,23 +115,23 @@
                                 <div class="col-6">
                                     <div class="main-below-right-image">
                                         <div class="main-below-right-image-slide" style="margin: 50px 0 20px 0;" >
-                                            <img src="https://phoenixcamp.vn/wp-content/uploads/2021/03/Artboard-5.png" alt="">
+                                            <img src="<?php echo @$setting_value['image_product_1'];?>" alt="">
                                         </div>
                                         <div class="main-below-right-image-slide">
-                                            <img src="https://phoenixcamp.vn/wp-content/uploads/2021/03/Artboard-2.png" alt="">
+                                            <img src="<?php echo @$setting_value['image_product_2'];?>" alt="">
                                         </div>                   
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="main-below-right-image1" >
                                         <div class="main-below-right-image-slide">
-                                            <img src="https://phoenixcamp.vn/wp-content/uploads/2021/03/Artboard-3.png" alt="">
+                                            <img src="<?php echo @$setting_value['image_product_3'];?>" alt="">
                                         </div>
                                         <div class="main-below-right-image-slide">
-                                            <img src="https://phoenixcamp.vn/wp-content/uploads/2021/03/BANNER-MASTERCONTENT.png" alt="">
+                                            <img src="<?php echo @$setting_value['image_product_4'];?>" alt="">
                                         </div>
                                         <div class="main-below-right-image-slide">
-                                            <img src="https://phoenixcamp.vn/wp-content/uploads/2021/02/BANNER-MMA.png" alt="">
+                                            <img src="<?php echo @$setting_value['image_product_5'];?>" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -139,10 +165,10 @@
         <div class="register">
             <div class="container">
                 <div class="register-main">
-                    <h1>ĐĂNG KÝ TRỞ THÀNH THÀNH VIÊN CỦA PHOENIX</h1>
+                    <h1>ĐĂNG KÝ TRỞ THÀNH ĐẠI LÝ CỦA <?php echo @$setting_value['name_web'];?></h1>
                     <p>Chúng tôi khao khát giúp đỡ được hàng triệu người có thể đột phá trong tư duy và lối sống để có một cuộc sống trở nên tốt đẹp, thịnh vượng hơn</p>
                     <div class="register-btn">
-                        <button class="btn-logup" onclick="window.location= 'https://www.facebook.com/trantoanmkt';">
+                        <button class="btn-logup" onclick="window.open('<?php echo @$setting_value['facebook'];?>', '_blank');">
                             <span>ĐĂNG KÝ NGAY </span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
@@ -171,26 +197,26 @@
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12">
                             <div class="header-logo">
                                 <a href="#">
-                                    <img class="header-logo-img" src="https://id.phoenixcamp.vn/upload/admin/images/logovuong.png" alt="">
+                                    <img class="header-logo-img" src="<?php echo @$setting_value['logo'];?>" alt="">
                                 </a>
                             </div>
                             <div class="footer-head-description">
-                                <p>Phoenix Camp Academy là công ty đào tạo & tổ chức các chương trình sự kiện hàng đầu Việt Nam.Chúng tôi liên tục tổ chức các khóa đào tạo về Kinh Doanh, Internet Marketing, Facebook Marketing, về phát triển bản thân, đào tạo các nhà Lãnh Đạo giúp họ có những đội nhóm mạnh mẽ nhiệt huyết và hướng đến xây dựng hệ thống kinh doanh vững bền.</p>
+                                <p><?php echo @$setting_value['content_footer'];?></p>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12" style="margin-top: 40px;">
                             <p class="footer-address-title">CHÚNG TÔI LÀ AI ?</p>
                             <div class="footer-head-address">
                                 <span class="footer-head-address-k">Địa chỉ</span>
-                                <p>21 Lê Văn Lương, Thanh Xuân, Hà Nội</p>
+                                <p><?php echo @$contactSite['address'];?></p>
                             </div>
                             <div class="footer-head-address">
                                 <span class="footer-head-address-k">Hotline</span>
-                                <p>0961 88 55 99</p>
+                                <p><?php echo @$contactSite['phone'];?></p>
                             </div>
                             <div class="footer-head-address">
                                 <span class="footer-head-address-k">Email</span>
-                                <p>info@phoenixcamp.vn</p>
+                                <p><?php echo @$contactSite['email'];?></p>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 menu-about-us" style="margin-top: 40px;">
@@ -216,24 +242,24 @@
 
                 <div class="footer-social">
                     <span>
-                        <a href="#" class="footer-socical-link">
+                        <a href="<?php echo @$setting_value['facebook'];?>" class="footer-socical-link">
                             <i class="fa-brands fa-facebook"></i>
                         </a>
                     </span>
                     <span>
-                        <a href="#" class="footer-socical-link">
+                        <a href="<?php echo @$setting_value['youtube'];?>" class="footer-socical-link">
                             <i class="fa-brands fa-youtube"></i>
                         </a>
                     </span>
                     <span>
-                        <a href="#" class="footer-socical-link">
+                        <a href="https://zalo.me/<?php echo @$contactSite['phone'];?>" class="footer-socical-link">
                             <img src="<?php echo $urlThemeActive;?>/assert/img/download.jpg" alt="">
                         </a>
                     </span>
                 </div>
                 
                 <div class="footer-end">
-                    PHOENIX 2023. All rights reserved.
+                    CRM <?php echo @$setting_value['name_web'];?> 2024 - Thiết kế bởi Phoenix Tech
                     <p></p>
                 </div>
         </footer>
@@ -244,12 +270,12 @@
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Thông tin thành viên PHOENIX</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Thông tin đại lý <?php echo @$setting_value['name_web'];?></h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="modal-note">
-                    LƯU Ý: CHỈ CÁC THÀNH VIÊN ĐƯỢC XÁC NHẬN TẠI ĐÂY MỚI LÀ THÀNH VIÊN CHÍNH THỨC CỦA CỘNG ĐỒNG PHOENIX, HÃY XÁC NHẬN ĐÚNG MẶT THÀNH VIÊN PHOENIX ĐỂ TRÁNH CÁC TRƯỜNG HỢP MẠO DANH.
+                    LƯU Ý: CHỈ CÁC ĐẠI LÝ ĐƯỢC XÁC NHẬN TẠI ĐÂY MỚI LÀ ĐẠI LÝ CHÍNH THỨC CỦA <?php echo @$setting_value['name_web'];?>, HÃY XÁC NHẬN ĐÚNG ĐẠI LÝ <?php echo @$setting_value['name_web'];?> ĐỂ TRÁNH CÁC TRƯỜNG HỢP MẠO DANH.
                 </div>
 
                 <div class="row" id="infoAgency"></div>
