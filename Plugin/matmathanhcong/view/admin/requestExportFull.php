@@ -33,7 +33,11 @@
                         </td>
                         <td>'.$item->affiliate_phone.'</td>
                         <td>'.$item->status_pay.'</td>
-                        <td><a target="_blank" href="'.$item->link_download.'">'.$item->link_download.'</a></td>
+                        <td>
+                          <a target="_blank" href="'.$item->link_download.'">'.$item->link_download.'</a>
+                          <br/>
+                          <a onclick="return confirm(\'Bạn có chắc chắn muốn gửi bản full cho người dùng này không?\');" href="/plugins/admin/matmathanhcong-view-admin-sendFullMMTCAdmin/?id='.$item->id.'" class="btn btn-success">Gửi bản đầy đủ</a>
+                        </td>
 
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/matmathanhcong-view-admin-deleteRequestExport/?id='.$item->id.'">

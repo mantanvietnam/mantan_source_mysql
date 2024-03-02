@@ -76,12 +76,29 @@ function deleteRequestExport($input){
     return $controller->redirect('/plugins/admin/matmathanhcong-view-admin-requestExportFull');
 }
 
+function sendFullMMTCAdmin($input)
+{
+    global $controller;
+
+    $modelRequestExports = $controller->loadModel('RequestExports');
+
+    if(!empty($_GET['id'])){
+        $data = $modelRequestExports->get($_GET['id']);
+        
+        if($data){
+            process_send_link($_GET['id']);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/matmathanhcong-view-admin-requestExportFull');
+}
+
 function settingMMTCAPI($input){
     global $modelOptions;
     global $metaTitleMantan;
     global $isRequestPost;
 
-    $metaTitleMantan = 'Cài đặt MMTC API';
+    $metaTitleMantan = 'Cài đặt MMTC';
     $mess= '';
 
     $conditions = array('key_word' => 'settingMMTCAPI');
@@ -97,6 +114,13 @@ function settingMMTCAPI($input){
                         'passAPI' => $dataSend['passAPI'],
                         'price' => $dataSend['price'],
                         'note_pay' => $dataSend['note_pay'],
+                        'number_bank' => $dataSend['number_bank'],
+                        'account_bank' => $dataSend['account_bank'],
+                        'key_bank' => $dataSend['key_bank'],
+                        'idBot' => $dataSend['idBot'],
+                        'tokenBot' => $dataSend['tokenBot'],
+                        'idBlockConfirm' => $dataSend['idBlockConfirm'],
+                        'idBlockDownload' => $dataSend['idBlockDownload'],
                     );
 
         $data->key_word = 'settingMMTCAPI';

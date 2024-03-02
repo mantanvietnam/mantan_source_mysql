@@ -13,6 +13,7 @@
                         <br/><br/>
                         <p><a style="color: red;font-size: 18px;font-weight: bold;" target="_blank" href="'.$urlHomes.'?aff='.$_POST['customer_phone'].'">'.$urlHomes.'?aff='.$_POST['customer_phone'].'</a></p>
                         <br/><br/>
+                        <p>'.@$settingMMTCAPI['note_pay'].'</p>
                         <h3>Vui lòng quét mã QR để thanh toán phí mua bản giải mã Thần Số Học đầy đủ</h3>
                         <img src="'.$linkQR.'" class="codeQT">';
             }else{

@@ -8,7 +8,7 @@ $menus[0]['sub'][0] = array('title' => 'Đăng ký bản FULL',
                             'permission'=>'requestExportFull'
                         );
 
-$menus[0]['sub'][1] = array('title' => 'Cài đặt API',
+$menus[0]['sub'][1] = array('title' => 'Cài đặt',
                             'url'=>'/plugins/admin/matmathanhcong-view-admin-settingMMTCAPI',
                             'classIcon' => 'menu-icon tf-icons bx bxs-data',
                             'permission'=>'settingMMTCAPI'
@@ -35,28 +35,33 @@ $urlAPI = 'https://quanly.matmathanhcong.vn';
 $userAPI = '';
 $passAPI = '';
 $price_full = 0;
-
-$conditions = array('key_word' => 'settingMMTCAPI');
-$settingMMTCAPI = $modelOptions->find()->where($conditions)->first();
-if(!empty($settingMMTCAPI->value)){
-    $data_value = json_decode($settingMMTCAPI->value, true);
-
-    $userAPI = $data_value['userAPI'];
-    $passAPI = $data_value['passAPI'];
-    $price_full = (int) $data_value['price'];
-}
-
+$bank_number = '87818938888';
+$bank_name = 'Tran Van Toan';
+$key_banking = 'MMTC';
 $idBot = '63edf5c2642152d701d5739b';
 $tokenBot = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWRmNWMyNjQyMTUyZDcwMWQ1NzM5YiIsIm5hbWUiOiJCTEFOSyBCT1QgLSBDb3B5IiwiaWF0IjoxNjc2NTM5MzMwLCJleHAiOjE5OTE4OTkzMzB9.6GeoT8QLvvUvyzBJ_zeyLlMq4iAXhHnV2UtjVJhUR9M';
 $idBlockConfirm = '65c50e2f287c4a2b9722030c';
 $idBlockDownload = '65c5f0a246761a8554da9468';
 
+$conditions = array('key_word' => 'settingMMTCAPI');
+$settingMMTCAPI = $modelOptions->find()->where($conditions)->first();
 
+if(!empty($settingMMTCAPI->value)){
+    $data_value = json_decode($settingMMTCAPI->value, true);
 
-$key_banking = 'MMTC';
+    $userAPI = @$data_value['userAPI'];
+    $passAPI = @$data_value['passAPI'];
+    $price_full = (int) @$data_value['price'];
 
-$bank_number = '87818938888';
-$bank_name = 'Tran Van Toan';
+    $bank_number = @$data_value['number_bank'];
+    $bank_name = @$data_value['account_bank'];
+    $key_banking = @$data_value['key_bank'];
+
+    $idBot = @$data_value['idBot'];
+    $tokenBot = @$data_value['tokenBot'];
+    $idBlockConfirm = @$data_value['idBlockConfirm'];
+    $idBlockDownload = @$data_value['idBlockDownload'];
+}
 
 /*
 $bank_number = '06931228686';
