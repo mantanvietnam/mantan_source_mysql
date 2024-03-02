@@ -103,21 +103,31 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <?php if($session->read('infoUser')->create_agency == 'active'){ ?>
-              <li class="nav-item">
-                <a class="nav-link" href="/listMember">Hệ thống tuyến dưới</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Hệ thống
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                  <a class="dropdown-item" href="/listMember">Tuyến dưới</a>
+                  <a class="dropdown-item" href="/orderMemberAgency">Đơn mua hàng</a>
+                  <a class="dropdown-item" href="/requestProductAgency">Yêu cầu nhập hàng</a>
+                </div>
               </li>
             <?php }?>
 
             <?php if(empty($session->read('infoUser')->id_father)){ ?>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Cài đặt
+                  Zalo OA
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                   <a class="dropdown-item" href="/sendMessZaloOA">Gửi tin Zalo OA</a>
                   <a class="dropdown-item" href="/setttingZaloOA">Cài đặt Zalo OA</a>
+                  <!--
                   <a class="dropdown-item" href="/listPosition">Cài đặt chức danh</a>
+                  -->
                 </div>
               </li>
             <?php }?>

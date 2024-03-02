@@ -2,16 +2,22 @@
 $menus= array();
 $menus[0]['title']= "Hệ thống đại lý";
 
-$menus[0]['sub'][0]= array(	'title'=>'Đại lý',
-							'url'=>'/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin',
-							'classIcon'=>'bx bxs-data',
-							'permission'=>'listMemberAdmin'
-						);
-
-$menus[0]['sub'][]= array( 'title'=>'Khách hàng',
+$menus[0]['sub'][0]= array( 'title'=>'Khách hàng',
                             'url'=>'/plugins/admin/hethongdaily-view-admin-customer-listCustomerAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listCustomerAdmin'
+                        );
+
+$menus[0]['sub'][]= array( 'title'=>'Đại lý',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listMemberAdmin'
+                        );
+
+$menus[0]['sub'][]= array(  'title'=>'Chức danh',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-system-listPositionAdmin',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listPositionAdmin'
                         );
 
 $menus[0]['sub'][]= array(	'title'=>'Hệ thống',
