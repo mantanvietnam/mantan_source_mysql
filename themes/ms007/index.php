@@ -277,7 +277,7 @@ global $urlThemeActive;
                                 </div>
 
                                 <div class="mb-3">
-                                    <textarea name="" id="massage" cols="60" rows="10" placeholder="Ghi chú"></textarea>
+                                    <textarea class="form-control" name="" id="massage" rows="10" placeholder="Ghi chú"></textarea>
                                 </div>
                                 
         

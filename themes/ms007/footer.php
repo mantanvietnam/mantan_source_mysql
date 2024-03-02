@@ -8,7 +8,7 @@ $setting = setting();
             <div class="footer-box">
                 <div class="container">
                     <div class="row text-center justify-content-center">
-                        <div class="col-9">
+                        <div class="col-lg-9">
                             <div class="footer-icon">
                                 <img src="<?php echo @$setting['logo']; ?>" alt="">
                             </div>
