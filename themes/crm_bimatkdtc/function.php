@@ -2,7 +2,7 @@
 $menus= array();
 $menus[0]['title']= 'Cài đặt giao diện';
 $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
-                            'url'=>'/plugins/admin/crm_zikii-admin-settingHomeThemeCRMZikii.php',
+                            'url'=>'/plugins/admin/crm_bimatkdtc-admin-settingHomeThemeCRMZikii.php',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingHomeThemeCRMZikii'
                         );
