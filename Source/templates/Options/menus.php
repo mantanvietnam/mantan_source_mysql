@@ -398,7 +398,7 @@ function slist (target) {
           </div>
           <div class="row">
             <div class="col mb-3">
-              <input type="checkbox" value="" id="menuDefault" name="menuDefault"> Chọn làm mặc định
+              <input type="checkbox" value="1" id="menuDefault" name="menuDefault"> Chọn làm mặc định
             </div>
           </div>
         </div>

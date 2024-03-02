@@ -492,7 +492,7 @@ class OptionsController extends AppController{
                             }
 
                             $menuDefault->key_word = 'menuDefault';
-                            $menuDefault->value = $dataSend['menuDefault'];
+                            $menuDefault->value = $menu->id;
                             $modelOptions->save($menuDefault);
                         }
 
