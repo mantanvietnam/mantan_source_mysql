@@ -1,6 +1,10 @@
 <?php
 	global $routesPlugin;
 
+	// apis
+	$routesPlugin['getListPositionAPI']= 'hethongdaily/view/api/getListPositionAPI.php';
+
+
 	// tài khoản cá nhân
 	$routesPlugin['login']= 'hethongdaily/view/home/member/login.php';
 	$routesPlugin['forgotPass']= 'hethongdaily/view/home/member/forgotPass.php';

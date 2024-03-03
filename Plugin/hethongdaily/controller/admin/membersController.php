@@ -44,6 +44,12 @@ function listMemberAdmin($input)
 	}
 
     $listData = $modelMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $listData[$key]->father = $modelMembers->find()->where(['id'=>$value->id_father])->first();
+        }
+    }
     
 
     $totalData = $modelMembers->find()->where($conditions)->all()->toList();

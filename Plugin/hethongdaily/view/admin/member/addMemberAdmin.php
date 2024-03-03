@@ -20,7 +20,7 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Hệ thống (*)</label>
                     <div class="input-group input-group-merge">
-                      <select name="id_system" class="form-select" required>
+                      <select name="id_system" id="id_system" class="form-select" required onchange="selectSystem();">
                         <option value="">Tất cả</option>
                         <?php 
                         if(!empty($listSystem)){
@@ -84,6 +84,16 @@
                 </div>
 
                 <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-email">Chức danh (*)</label>
+                    <div class="input-group input-group-merge">
+                      <select name="id_position" class="form-select" required id="id_position">
+                        <option value="">Chọn chức danh</option>
+                        <option value="0">Chủ hệ thống</option>
+                      </select>
+                    </div>
+                  </div>
+
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Mật khẩu tài khoản</label>
                     <input type="password" autocomplete="off" class="form-control" placeholder="" name="password" id="password" value="" />
@@ -156,3 +166,34 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+  function selectSystem()
+  {
+    var id_system = $('#id_system').val();
+    var listPosition = '<option value="">Chọn chức danh</option><option value="0">Chủ hệ thống</option>';
+
+    if(id_system != ''){
+      $.ajax({
+        method: "POST",
+        url: "/apis/getListPositionAPI",
+        data: { id_system: id_system}
+      })
+      .done(function( msg ) {
+        if(msg.length > 0){
+          for (var i = 0; i < msg.length; i++) {
+            listPosition += '<option value="'+msg[i].id+'">'+msg[i].name+'</option>';
+          }
+        }
+
+        $('#id_position').html(listPosition); 
+        $('#id_position').val(id_position_default);  
+      });
+    }else{
+      $('#id_position').html(listPosition);
+    }
+  }
+
+  var id_position_default = '<?php echo @$data->id_position?>';
+  selectSystem();
+</script>

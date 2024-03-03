@@ -84,7 +84,8 @@
               <tr class="">
                 <th>ID</th>
                 <th>Ảnh đại diện</th>
-                <th>Đại lý</th>
+                <th>Thông tin đại lý</th>
+                <th>Tuyến trên</th>
                 <th>Trạng thái</th>
                 <th>Sửa</th>
                 <th>Xóa</th>
@@ -95,8 +96,15 @@
                 if(!empty($listData)){
                   foreach ($listData as $item) {
                     $classActive = 'text-danger';
+                    $verify = '<p class="text-danger">Chưa xác thực OTP</p>';
                     if($item->verify ==  'active'){
                       $classActive = 'text-success';
+                      $verify = '<p class="text-success">Đã xác thực OTP</p>';
+                    }
+
+                    $status = '<p class="text-danger">Khóa</p>';
+                    if($item->status ==  'active'){
+                      $status = '<p class="text-success">Kích hoạt</p>';
                     }
 
                     echo '<tr>
@@ -105,9 +113,14 @@
                             <td>
                               <span class="'.$classActive.'">'.$item->name.'</span><br/>
                               '.$item->phone.'<br/>
-                              '.$item->email.'<br/>
+                              '.$item->address.'<br/>
+                              '.$item->email.'
                             </td>
-                            <td>'.$item->status.'</td>
+                            <td>
+                              <a href="/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin/?id='.$item->id_father.'">'.@$item->father->name.'</a><br/>
+                              '.@$item->father->phone.'
+                            </td>
+                            <td>'.$status.$verify.'</td>
                             
                             <td align="center">
                               <a class="dropdown-item" href="/plugins/admin/hethongdaily-view-admin-member-addMemberAdmin/?id='.$item->id.'">

@@ -18,14 +18,9 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Tên bài học (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label">Khóa học</label>
+                    <label class="form-label">Khóa học (*)</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-select" name="id_course" id="id_course">
+                      <select class="form-select" name="id_course" id="id_course" required>
                         <option value="">Chọn khóa học</option>
                         <?php 
                           foreach ($listCategory as $key => $item) {
@@ -38,6 +33,11 @@
                         ?>
                       </select>
                     </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Tên bài học (*)</label>
+                    <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
                   </div>
 
                   <div class="mb-3">
