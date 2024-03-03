@@ -3,6 +3,8 @@
 
 	// apis
 	$routesPlugin['getListPositionAPI']= 'hethongdaily/view/api/getListPositionAPI.php';
+	$routesPlugin['getInfoMemberAPI']= 'hethongdaily/view/api/getInfoMemberAPI.php';
+	$routesPlugin['resendOTPAPI']= 'hethongdaily/view/api/resendOTPAPI.php';
 
 
 	// tài khoản cá nhân
@@ -26,20 +28,21 @@
 	$routesPlugin['sendMessZaloOA']= 'hethongdaily/view/home/zalo/sendMessZaloOA.php';
 
 	// chức danh
-	$routesPlugin['listPosition']= 'hethongdaily/view/home/position/listPosition.php';
-	
-
-	$routesPlugin['getInfoMemberAPI']= 'hethongdaily/view/api/getInfoMemberAPI.php';
-	$routesPlugin['resendOTPAPI']= 'hethongdaily/view/api/resendOTPAPI.php';
+	//$routesPlugin['listPosition']= 'hethongdaily/view/home/position/listPosition.php';
 
 	// thông tin đại lý
 	$routesPlugin['info']= 'hethongdaily/view/home/member/info.php';
 
-	// đơn hàng đại lý
+	// đơn hàng lẻ đại lý
 	$routesPlugin['orderCustomerAgency']= 'hethongdaily/view/home/product/orderCustomerAgency.php';
 	$routesPlugin['viewOrderCustomerAgency']= 'hethongdaily/view/home/product/viewOrderCustomerAgency.php';
 	$routesPlugin['deleteOrderCustomerAgency']= 'hethongdaily/view/home/product/deleteOrderCustomerAgency.php';
 	$routesPlugin['updateStatusOrderAgency']= 'hethongdaily/view/home/product/updateStatusOrderAgency.php';
+
+	// yêu cầu mua hàng
+	$routesPlugin['requestProductAgency']= 'hethongdaily/view/home/order/requestProductAgency.php';
+	$routesPlugin['addRequestProductAgency']= 'hethongdaily/view/home/order/addRequestProductAgency.php';
+	$routesPlugin['orderMemberAgency']= 'hethongdaily/view/home/order/orderMemberAgency.php';
 
 	// khách hàng
 	$routesPlugin['listCustomerAgency']= 'hethongdaily/view/home/customer/listCustomerAgency.php';

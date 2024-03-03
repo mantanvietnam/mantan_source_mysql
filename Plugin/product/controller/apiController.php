@@ -22,7 +22,7 @@ function searchProductAPI($input)
         
         if($listData){
             foreach($listData as $data){
-                $return[]= array('id'=>$data->id,'label'=>$data->title,'value'=>$data->id,'title'=>$data->title);
+                $return[]= array('id'=>$data->id,'label'=>$data->title.' - '.number_format($data->price).'đ','value'=>$data->id,'title'=>$data->title,'price'=>$data->price);
             }
         }else{
         	$return= array(array('id'=>0, 'label'=>'Không tìm được sản phẩm', 'value'=>'', 'title'=>''));

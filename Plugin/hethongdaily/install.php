@@ -88,11 +88,37 @@ $sqlInstallDatabase .= "CREATE TABLE `customer_histories` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
+$sqlInstallDatabase .= "CREATE TABLE `order_members` (
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_member_sell` INT NOT NULL COMMENT 'id đại lý tuyến trên' , 
+  `id_member_buy` INT NOT NULL COMMENT 'id đại lý tuyến dưới đặt mua' , 
+  `note_sell` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ghi chú người bán' , 
+  `note_buy` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ghi chú người mua' , 
+  `status` VARCHAR(100) NOT NULL DEFAULT 'new' , 
+  `create_at` INT NOT NULL , 
+  `money` INT NOT NULL DEFAULT '0' COMMENT 'tổng tiền gốc đơn hàng' , 
+  `total` INT NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu' , 
+  `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán' , 
+  `discount` DOUBLE NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB; ";
+
+$sqlInstallDatabase .= "CREATE TABLE `order_member_details` (
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_product` INT NOT NULL , 
+  `id_order_member` INT NOT NULL , 
+  `quantity` INT NOT NULL , 
+  `price` INT NOT NULL , 
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB; ";
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE customers; ";
 $sqlDeleteDatabase .= "DROP TABLE customer_histories; ";
+$sqlDeleteDatabase .= "DROP TABLE order_members; ";
+$sqlDeleteDatabase .= "DROP TABLE order_member_details; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
