@@ -115,7 +115,7 @@ function indexTheme(){
     $order = array('id'=>'desc');
 
 
-    $listDataPost = $modelPosts->find()->limit(20)->where(array('idCategory'=>(int) $data_value['id_post'],'pin'=>1))->all()->toList();
+    $listDataPost = $modelPosts->find()->where(array('type'=>'post'))->order($order)->all()->toList();
 
     setVariable('setting', $data_value);
     setVariable('listDataPost', $listDataPost);
