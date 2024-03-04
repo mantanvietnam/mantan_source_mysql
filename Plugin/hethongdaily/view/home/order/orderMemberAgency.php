@@ -73,8 +73,9 @@
       <table class="table table-bordered">
         <thead>
           <tr class="">
-            <th width="5%">ID</th>
-            <th width="15%">Thời gian tạo</th>
+            <th width="3%">ID</th>
+            <th width="10%">Thời gian tạo</th>
+            <th width="10%">Đại lý mua</th>
             <th width="35%" style=" padding: 0; ">
               <table  class="table table-borderless" >
                 <thead>
@@ -87,11 +88,11 @@
                 </thead>
               </table>
             </th>
-            <th width="10%">Thành tiền</th>
-            <th width="10%">Thanh toán</th>
+            <th width="10%">Tổng tiền</th>
+            
             <th width="10%">Chiết khấu</th>
             <th width="10%">Trạng thái</th>
-            <th width="5%">Xử lý</th>
+            <th width="12%">Xử lý</th>
           </tr>
         </thead>
         <tbody>
@@ -99,12 +100,22 @@
           if(!empty($listData)){
             foreach ($listData as $item) {
               $status= '';
+              $btnProcess= '';
+              $btnPay= '';
+
+              if($item->status_pay=='wait'){
+                $btnPay= '<br/><br/><a class="btn btn-warning" href="/updateOrderMemberAgency/?id='.$item->id.'&status_pay=done">Thu tiền</a>';
+              }
+              
               if($item->status=='new'){ 
                $status= '<p style="color: #00aeee;">Đơn mới</p>';
+               $btnProcess= '<a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel">Hủy</a>';
               }elseif($item->status=='browser'){
                $status= '<p style="color: #0333f6;">Đã duyệt</p>';
+               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=delivery">Giao hàng</a>';
               }elseif($item->status=='delivery'){
                $status= '<p style="color: #7503f6;">Đang giao</p>';
+               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=done">Hoàn thành</a>';
               }elseif($item->status=='done'){
                $status= '<p style="color: #00ee4b;">Đã xong</p>';
               }else{
@@ -119,9 +130,13 @@
               }
               
               echo '<tr>
-              <td width="5%">'.$item->id.'</td>
-              <td width="15%">'.date('H:i d/m/Y', $item->create_at).'</td>
-              <td width="35%" style=" padding: 0;display: contents; ">
+              <td>'.$item->id.'</td>
+              <td>'.date('H:i d/m/Y', $item->create_at).'</td>
+              <td>
+                '.$item->buyer->name.'<br/>
+                '.$item->buyer->phone.'
+              </td>
+              <td style=" padding: 0;display: contents; ">
                 <table  class="table table-borderless">
                   <tbody>';
                     if(!empty($item->detail_order)){ 
@@ -136,12 +151,12 @@
                 echo '  </tbody>
                 </table>
               </td>
-              <td width="10%">'.number_format($item->money).'đ</td>
-              <td width="10%">'.number_format($item->total).'đ</td>
-              <td width="10%">'.$item->discount.'%</td>
+              <td>'.number_format($item->total).'đ<br/><del>'.number_format($item->money).'đ</del></td>
               
-              <td width="10%" align="center">'.$status.$statusPay.'</td>
-              <td></td>
+              <td>'.$item->discount.'%</td>
+              
+              <td align="center">'.$status.$statusPay.'</td>
+              <td align="center">'.$btnProcess.$btnPay.'</td>
              </tr>';
            }
          }else{

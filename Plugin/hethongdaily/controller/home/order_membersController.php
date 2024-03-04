@@ -192,6 +192,7 @@ function orderMemberAgency($input)
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'Danh sách đơn hàng đại lý';
 
+        $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelOrderMembers = $controller->loadModel('OrderMembers');
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
@@ -225,6 +226,16 @@ function orderMemberAgency($input)
                 
         }
 
+        if(!empty($_GET['phone'])){
+            $checkMember = $modelMembers->find()->where(['phone'=>$_GET['phone'] ])->first();
+
+            if(!empty($checkMember)){
+                $conditions['id_member_buy'] = $checkMember->id;
+            }else{
+                $conditions['id_member_buy'] = -1;
+            }
+        }
+
         
         $listData = $modelOrderMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         
@@ -243,6 +254,8 @@ function orderMemberAgency($input)
 
                     $listData[$key]->detail_order = $detail_order;
                 }
+
+                $listData[$key]->buyer = $modelMembers->find()->where(['id'=>$item->id_member_buy ])->first();
             }
         }
 
@@ -285,6 +298,84 @@ function orderMemberAgency($input)
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function updateOrderMemberAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Cập nhập đơn hàng đại lý';
+
+        $modelMembers = $controller->loadModel('Members');
+        $modelProducts = $controller->loadModel('Products');
+        $modelOrderMembers = $controller->loadModel('OrderMembers');
+        $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
+        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+        $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+
+        if(!empty($_GET['id'])){
+            $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id'], 'id_member_sell'=>$session->read('infoUser')->id])->first();
+
+            if(!empty($order)){
+                if(!empty($_GET['status'])){
+                    $order->status = $_GET['status'];
+
+                    // nhập hàng vào kho
+                    if($_GET['status'] == 'done'){
+                        $detail_order = $modelOrderMemberDetails->find()->where(['id_order_member'=>$order->id])->all()->toList();
+                
+                        if(!empty($detail_order)){
+                            foreach ($detail_order as $k => $value) {
+                                $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_buy])->first();
+
+                                if(empty($checkProductExits)){
+                                    $checkProductExits = $modelWarehouseProducts->newEmptyEntity();
+                                    $checkProductExits->quantity = 0;
+                                }
+
+                                $checkProductExits->id_member = $order->id_member_buy;
+                                $checkProductExits->id_product = $value->id_product;
+                                $checkProductExits->quantity += $value->quantity;
+
+                                $modelWarehouseProducts->save($checkProductExits);
+
+                                // lưu lịch sử nhập kho
+                                $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+                                $saveWarehouseHistories->id_member = $order->id_member_buy;
+                                $saveWarehouseHistories->id_product = $value->id_product;
+                                $saveWarehouseHistories->quantity = $value->quantity;
+                                $saveWarehouseHistories->note = 'Nhập hàng vào kho';
+                                $saveWarehouseHistories->create_at = time();
+                                $saveWarehouseHistories->type = 'plus';
+                                $saveWarehouseHistories->id_order_member = $order->id;
+
+                                $modelWarehouseHistories->save($saveWarehouseHistories);
+                            }
+                        }
+                    }
+                }
+
+                if(!empty($_GET['status_pay'])){
+                    $order->status_pay = $_GET['status_pay'];
+                }
+
+                $modelOrderMembers->save($order);
+
+                return $controller->redirect('/orderMemberAgency');
+            }
+        }else{
+            return $controller->redirect('/orderMemberAgency');
+        }
+
     }else{
         return $controller->redirect('/login');
     }

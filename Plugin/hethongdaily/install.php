@@ -112,6 +112,26 @@ $sqlInstallDatabase .= "CREATE TABLE `order_member_details` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
+$sqlInstallDatabase .= "CREATE TABLE `warehouse_products` (
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_member` INT NOT NULL , 
+  `id_product` INT NOT NULL , 
+  `quantity` INT NOT NULL DEFAULT '0' , 
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB; ";
+
+$sqlInstallDatabase .= "CREATE TABLE `warehouse_histories` (
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_member` INT NOT NULL , 
+  `id_product` INT NOT NULL , 
+  `note` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL , 
+  `quantity` INT NOT NULL DEFAULT '0' , 
+  `create_at` INT NOT NULL , 
+  `type` VARCHAR(20) NOT NULL COMMENT 'plus hoặc minus' , 
+  `id_order_member` INT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB; ";
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -119,6 +139,8 @@ $sqlDeleteDatabase .= "DROP TABLE customers; ";
 $sqlDeleteDatabase .= "DROP TABLE customer_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE order_members; ";
 $sqlDeleteDatabase .= "DROP TABLE order_member_details; ";
+$sqlDeleteDatabase .= "DROP TABLE warehouse_products; ";
+$sqlDeleteDatabase .= "DROP TABLE warehouse_histories; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";

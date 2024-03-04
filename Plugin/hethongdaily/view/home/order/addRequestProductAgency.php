@@ -219,7 +219,7 @@
                                     <li class="total-bh">
                                         <p>Đại lý tuyến trên</p>
                                         <p>
-                                            <?php echo $father->name.' - '.$father->phone;?>
+                                            <?php echo @$father->name.' - '.@$father->phone;?>
                                         </p>
                                     </li>
 
