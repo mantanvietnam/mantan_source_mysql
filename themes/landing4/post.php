@@ -14,7 +14,7 @@ $setting = setting();
                         </div>
 
                         <div class="post-date">
-                            <i class="fa-regular fa-clock"></i>&nbsp Đăng lúc: <span><?php echo date('H:i d/m/Y',$post->time); ?></span>
+                            <i class="fa-regular fa-calendar"></i>&nbsp Đăng lúc: <span><?php echo date('H:i d/m/Y',$post->time); ?></span>
                         </div>
 
                         <div class="post-image">
@@ -38,7 +38,7 @@ $setting = setting();
         <section id="section-blog" class="section-padding">
             <div class="container">
                 <div class="section-title text-center" data-aos="flip-up" data-aos-duration="4000">
-                    <h2 class="text-center">Bài viết <span>liên quan</span></h2>
+                    <h2 class="text-center title-section-other">Bài viết liên quan</h2>
                     <div class="border-heading"></div>
                 </div>
 
@@ -48,33 +48,42 @@ $setting = setting();
                             if(!empty($otherPosts)){
                                 foreach ($otherPosts as $item) {
                                     
-                            echo '<div class="blog-item">
-                                    <div class="blog-img">
-                                        <a href="/'.@$item->slug.'.html"><img src="'.@$item->image.'" alt=""></a>
-                                    </div>
+                            echo 
+                            '<div class="blog-item">
+                                <div class="blog-top">
+                                    <a href="/'.@$item->slug.'.html"><img src="'.@$item->image.'" alt=""></a>
+                                </div>
 
-                                    <div class="blog-detail">
-                                        <div class="blog-meta">
-                                            <i class="fa-regular fa-clock"></i> <span>'.date('H:i d/m/Y',$item->time).'</span>
+                                <div class="blog-bottom">
+                                    <div class="blog-meta">
+                                        <div class="blog-meta-item">
+                                            <i class="fa-regular fa-user"></i>                                        
+                                            <span>'.@$item->author.'</span>
                                         </div>
-
-                                        <div class="blog-title">
-                                            <a href="/'.@$item->slug.'.html">
-                                                <h4>'.@$item->title.'</h4>
-                                            </a>
-                                        </div>
-
-                                        <div class="blog-description">
-                                            <p>'.@$item->description.'</p>
-                                        </div>
-
-                                        <div class="blog-link">
-                                            <a href="/'.@$item->slug.'.html">Read More</a>
+                
+                                        <div class="blog-meta-item">
+                                            <i class="fa-regular fa-calendar"></i>
+                                            <span>'.date('d-m-Y',$item->time).'</span>
                                         </div>
                                     </div>
-                                </div>';
 
-                        } } ?>
+                                    <div class="blog-title">
+                                        <a href="/'.@$item->slug.'.html">'.@$item->title.'</a>
+                                    </div>
+
+                                    <div class="blog-description">
+                                        <p>'.@$item->description.'</p>
+                                    </div>
+
+                                    <div class="blog-link">
+                                        <a href="/'.@$item->slug.'.html">Xem thêm</a>
+                                    </div>
+                                </div>
+                            </div>';
+
+                        } } 
+                    
+                    ?>
 
                     
                 </div>

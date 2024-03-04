@@ -31,13 +31,13 @@ global $urlThemeActive;
     <section id="section-introduce" class="section-padding">
         <div class="container">
             <div class="row">
-                <div class="col-md-5 col-sm-6 col-xs-12">
+                <div class="col-md-5 col-sm-6 col-xs-12 introduce-left">
                     <div class="introduce-avata" data-aos="fade-right">
                         <img src="<?php echo @$setting['image_avatar'];?>" alt="">
                     </div>
                 </div>
 
-                <div class="col-md-7 col-sm-6 col-xs-12" data-aos="fade-left">
+                <div class="col-md-7 col-sm-6 col-xs-12 introduce-right" data-aos="fade-left">
                     <div class="section-title" data-aos="flip-up" data-aos-duration="4000">
                         <div class="block-title">
                             <p class="justify-content-start">
@@ -437,15 +437,15 @@ global $urlThemeActive;
 
                     <div class="blog-bottom">
                     <div class="blog-meta">
-                    <div class="blog-meta-item">
-                    <i class="fa-regular fa-user"></i>                                        
-                    <span>'.@$item->author.'</span>
-                    </div>
+                        <div class="blog-meta-item">
+                            <i class="fa-regular fa-user"></i>                                        
+                            <span>'.@$item->author.'</span>
+                        </div>
 
-                    <div class="blog-meta-item">
-                    <i class="fa-regular fa-calendar"></i>
-                    <span>'.date('d-m-Y',$item->time).'</span>
-                    </div>
+                        <div class="blog-meta-item">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span>'.date('d-m-Y',$item->time).'</span>
+                        </div>
                     </div>
 
                     <div class="blog-title">
@@ -457,7 +457,7 @@ global $urlThemeActive;
                     </div>
 
                     <div class="blog-link">
-                    <a href="/'.@$item->slug.'.html">Read more</a>
+                    <a href="/'.@$item->slug.'.html">Xem thêm</a>
                     </div>
                     </div>
                     </div>
@@ -571,7 +571,7 @@ global $urlThemeActive;
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input type="text" id="subject" class="form-control" placeholder="chủ đề">
+                                        <input type="text" id="subject" class="form-control" placeholder="Chủ đề">
                                     </div>
                                 </div>
 
@@ -581,9 +581,7 @@ global $urlThemeActive;
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <button type="button" onclick="contac();" class="default-btn">
-                                        Gửi
-                                    </button>
+                                    <button type="button" onclick="contac();" class="default-btn">Gửi</button>
                                 </div>
                             </div>
                         </form>
@@ -594,6 +592,43 @@ global $urlThemeActive;
     </div>
 </section>
 </main>
+
+<script>
+    // Khai báo một biến để lưu trữ trạng thái của AOS (có animation hay không)
+    var aosEnabled = true;
+
+    // Khởi tạo AOS với các cài đặt mặc định
+    function initAOS() {
+        AOS.init({
+            // Các tùy chọn AOS ở đây...
+        });
+    }
+
+    // Kiểm tra kích thước màn hình và tắt animation nếu cần
+    function handleAnimation() {
+        if (window.innerWidth < 768) { // Nếu là màn hình nhỏ hơn 768px (ví dụ: điện thoại)
+            if (aosEnabled) { // Kiểm tra xem AOS đã được kích hoạt hay chưa
+                AOS.init({
+                    disable: true // Tắt animation
+                });
+                aosEnabled = false; // Ghi nhớ rằng AOS đã được tắt
+            }
+        } else { // Nếu là màn hình lớn hơn hoặc bằng 768px
+            if (!aosEnabled) { // Kiểm tra xem AOS đã bị tắt hay chưa
+                initAOS(); // Khởi tạo AOS lại để kích hoạt animation
+                aosEnabled = true; // Ghi nhớ rằng AOS đã được kích hoạt lại
+            }
+        }
+    }
+
+    // Gọi hàm khi trang được tải và khi cửa sổ được resize
+    window.addEventListener('load', function() {
+        initAOS(); // Khởi tạo AOS khi trang được tải
+        handleAnimation(); // Kiểm tra và tắt animation khi trang được tải
+    });
+    window.addEventListener('resize', handleAnimation); // Kiểm tra và tắt animation khi cửa sổ được resize
+</script>
+
 <script type="text/javascript">
  function contac(){
     var name = $('#name').val();
