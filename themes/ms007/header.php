@@ -48,7 +48,7 @@ $setting = setting();?>
         <div class="navbar-header" id="menu-top">
             <nav class="navbar navbar-expand-lg" >
                 <div class="container">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <div class="image-header">
                             <img src="<?php echo @$setting['logo'];?>" alt="">
                         </div>
@@ -62,18 +62,18 @@ $setting = setting();?>
                                 <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-introduce">Giới thiệu</a>
+                                <a class="nav-link" href="/#section-introduce">Giới thiệu</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-help">Dịch vụ</a>
+                                <a class="nav-link" href="/#section-help">Dịch vụ</a>
                             </li>
                
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-news">Tin tức</a>
+                                <a class="nav-link" href="/#section-news">Tin tức</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-contact">Liên hệ</a>
+                                <a class="nav-link" href="/#section-contact">Liên hệ</a>
                             </li>
                         </ul>
                     </div>
