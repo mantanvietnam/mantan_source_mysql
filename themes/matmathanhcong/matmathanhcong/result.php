@@ -378,19 +378,19 @@
                             <div class="intro-suc-manh text-center">
                                 <table class="inner-border">
                                     <tr class="inner-border-tr">
-                                        <td id="td3" class="local-number local-n-3 cell animated pulse infinite">{{ str_repeat("3",getnumber(@$full_number,3)) }}</td>
-                                        <td id="td6" class="local-number local-n-6 cell animated pulse infinite">{{ str_repeat("6",getnumber(@$full_number,6)) }}</td>
-                                        <td id="td9" class="local-number local-n-9 cell animated pulse infinite">{{ str_repeat("9",getnumber(@$full_number,9)) }}</td>
+                                        <td id="td3" class="local-number local-n-3 cell animated pulse infinite"><?php  echo @$full_number[3]?></td>
+                                        <td id="td6" class="local-number local-n-6 cell animated pulse infinite"><?php  echo @$full_number[6]?></td>
+                                        <td id="td9" class="local-number local-n-9 cell animated pulse infinite"><?php  echo @$full_number[9]?></td>
                                     </tr>
                                     <tr class="inner-border-tr">
-                                        <td id="td2" class="local-number local-n-2 cell animated pulse infinite">{{ str_repeat("2",getnumber(@$full_number,2)) }}</td>
-                                        <td id="td5" class="local-number local-n-5 cell animated pulse infinite">{{ str_repeat("5",getnumber(@$full_number,5)) }}</td>
-                                        <td id="td8" class="local-number local-n-8 cell animated pulse infinite">{{ str_repeat("8",getnumber(@$full_number,8)) }}</td>
+                                        <td id="td2" class="local-number local-n-2 cell animated pulse infinite"><?php  echo @$full_number[2]?></td>
+                                        <td id="td5" class="local-number local-n-5 cell animated pulse infinite"><?php  echo @$full_number[5]?></td>
+                                        <td id="td8" class="local-number local-n-8 cell animated pulse infinite"><?php  echo @$full_number[8]?></td>
                                     </tr>
                                     <tr class="inner-border-tr">
-                                        <td id="td1" class="local-number local-n-1 cell animated pulse infinite">{{ str_repeat("1",getnumber(@$full_number,1)) }}</td>
-                                        <td id="td4" class="local-number local-n-4 cell animated pulse infinite">{{ str_repeat("4",getnumber(@$full_number,4)) }}</td>
-                                        <td id="td7" class="local-number local-n-7 cell animated pulse infinite">{{ str_repeat("7",getnumber(@$full_number,7)) }}</td>
+                                        <td id="td1" class="local-number local-n-1 cell animated pulse infinite"><?php  echo @$full_number[1]?></td>
+                                        <td id="td4" class="local-number local-n-4 cell animated pulse infinite"><?php  echo @$full_number[4]?></td>
+                                        <td id="td7" class="local-number local-n-7 cell animated pulse infinite"><?php  echo @$full_number[7]?></td>
                                     </tr>
                                 </table>
 
@@ -408,19 +408,19 @@
                             <div class="intro-suc-manh text-center">
                                 <table class="inner-border">
                                     <tr class="inner-border-tr">
-                                        <td id="tdt3" class="local-number local-n-3 cell animated pulse infinite">{{ str_repeat("3",getnumberName(@$full_name,3)) }}</td>
-                                        <td id="tdt6" class="local-number local-n-6 cell animated pulse infinite">{{ str_repeat("6",getnumberName(@$full_name,6)) }}</td>
-                                        <td id="tdt9" class="local-number local-n-9 cell animated pulse infinite">{{ str_repeat("9",getnumberName(@$full_name,9)) }}</td>
+                                        <td id="tdt3" class="local-number local-n-3 cell animated pulse infinite"><?php  echo @$full_number[3]?></td>
+                                        <td id="tdt6" class="local-number local-n-6 cell animated pulse infinite"><?php  echo @$full_number[6]?></td>
+                                        <td id="tdt9" class="local-number local-n-9 cell animated pulse infinite"><?php  echo @$full_number[9]?></td>
                                     </tr>
                                     <tr class="inner-border-tr">
-                                        <td id="tdt2" class="local-number local-n-2 cell animated pulse infinite">{{ str_repeat("2",getnumberName(@$full_name,2)) }}</td>
-                                        <td id="tdt5" class="local-number local-n-5 cell animated pulse infinite">{{ str_repeat("5",getnumberName(@$full_name,5)) }}</td>
-                                        <td id="tdt8" class="local-number local-n-8 cell animated pulse infinite">{{ str_repeat("8",getnumberName(@$full_name,8)) }}</td>
+                                        <td id="tdt2" class="local-number local-n-2 cell animated pulse infinite"><?php  echo @$full_number[2]?></td>
+                                        <td id="tdt5" class="local-number local-n-5 cell animated pulse infinite"><?php  echo @$full_number[5]?></td>
+                                        <td id="tdt8" class="local-number local-n-8 cell animated pulse infinite"><?php  echo @$full_number[8]?></td>
                                     </tr>
                                     <tr class="inner-border-tr">
-                                        <td id="tdt1" class="local-number local-n-1 cell animated pulse infinite">{{ str_repeat("1",getnumberName(@$full_name,1)) }}</td>
-                                        <td id="tdt4" class="local-number local-n-4 cell animated pulse infinite">{{ str_repeat("4",getnumberName(@$full_name,4)) }}</td>
-                                        <td id="tdt7" class="local-number local-n-7 cell animated pulse infinite">{{ str_repeat("7",getnumberName(@$full_name,7)) }}</td>
+                                        <td id="tdt1" class="local-number local-n-1 cell animated pulse infinite"><?php  echo @$full_number[1]?></td>
+                                        <td id="tdt4" class="local-number local-n-4 cell animated pulse infinite"><?php  echo @$full_number[4]?></td>
+                                        <td id="tdt7" class="local-number local-n-7 cell animated pulse infinite"><?php  echo @$full_number[7]?></td>
                                     </tr>
                                 </table>
 
