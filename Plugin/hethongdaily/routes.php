@@ -44,6 +44,10 @@
 	$routesPlugin['addRequestProductAgency']= 'hethongdaily/view/home/order/addRequestProductAgency.php';
 	$routesPlugin['orderMemberAgency']= 'hethongdaily/view/home/order/orderMemberAgency.php';
 
+	// kho hàng
+	$routesPlugin['warehouseProductAgency']= 'hethongdaily/view/home/warehouse/warehouseProductAgency.php';
+	$routesPlugin['historyWarehouseProductAgency']= 'hethongdaily/view/home/warehouse/historyWarehouseProductAgency.php';
+
 	// khách hàng
 	$routesPlugin['listCustomerAgency']= 'hethongdaily/view/home/customer/listCustomerAgency.php';
 	$routesPlugin['listCustomerHistoriesAgency']= 'hethongdaily/view/home/customer_histories/listCustomerHistoriesAgency.php';

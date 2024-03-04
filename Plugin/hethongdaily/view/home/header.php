@@ -111,7 +111,6 @@
                 <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                   <a class="dropdown-item" href="/listMember">Tuyến dưới</a>
                   <a class="dropdown-item" href="/orderMemberAgency">Đơn mua hàng</a>
-                  <a class="dropdown-item" href="/requestProductAgency">Yêu cầu nhập hàng</a>
                 </div>
               </li>
             <?php }?>
@@ -154,6 +153,24 @@
                 <a class="dropdown-item" href="/listCustomerHistoriesAgency">Chăm sóc khách hàng</a>
               </div>
             </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Kho hàng
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <a class="dropdown-item" href="/warehouseProductAgency">Tồn kho</a>
+                <a class="dropdown-item" href="/requestProductAgency">Yêu cầu nhập hàng</a>
+                <a class="dropdown-item" href="/historyWarehouseProductAgency">Lịch sử xuất nhập hàng</a>
+              </div>
+            </li>
+
+            <!--
+            <li class="nav-item">
+              <a class="nav-link" href="/warehouseProductAgency">Tồn kho</a>
+            </li>
+            -->
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -291,16 +291,56 @@ function updateStatusOrderAgency($input){
         $metaTitleMantan = 'Chi tiết đơn hàng';
 
         $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetail = $controller->loadModel('OrderDetails');
+        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+        $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
 
         if(!empty($_GET['id'])){
             $order = $modelOrder->find()->where(['id_agency'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id'] ])->first();
 
             if(!empty($order)){
-                $order->status = $_GET['status'];
+                if(!empty($_GET['status'])){
+                    $order->status = $_GET['status'];
 
-                $modelOrder->save($order);
+                    $modelOrder->save($order);
 
-                return $controller->redirect('/viewOrderCustomerAgency/?id='.$_GET['id']);
+                    // xuất hàng khỏi kho
+                    if($_GET['status'] == 'done'){
+                        $detail_order = $modelOrderDetail->find()->where(['id_order'=>$order->id])->all()->toList();
+                
+                        if(!empty($detail_order)){
+                            foreach ($detail_order as $k => $value) {
+                                $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_agency])->first();
+
+                                if(empty($checkProductExits)){
+                                    $checkProductExits = $modelWarehouseProducts->newEmptyEntity();
+                                    $checkProductExits->quantity = 0;
+                                }
+
+                                $checkProductExits->id_member = $order->id_agency;
+                                $checkProductExits->id_product = $value->id_product;
+                                $checkProductExits->quantity -= $value->quantity;
+
+                                $modelWarehouseProducts->save($checkProductExits);
+
+                                // lưu lịch sử xuất kho
+                                $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+                                $saveWarehouseHistories->id_member = $order->id_agency;
+                                $saveWarehouseHistories->id_product = $value->id_product;
+                                $saveWarehouseHistories->quantity = $value->quantity;
+                                $saveWarehouseHistories->note = 'Bán cho khách hàng '.$order->full_name.' '.$order->phone;
+                                $saveWarehouseHistories->create_at = time();
+                                $saveWarehouseHistories->type = 'minus';
+                                $saveWarehouseHistories->id_order = $order->id;
+
+                                $modelWarehouseHistories->save($saveWarehouseHistories);
+                            }
+                        }
+                    }
+                }
+
+                return $controller->redirect('/orderCustomerAgency');
             }
         }
     }else{

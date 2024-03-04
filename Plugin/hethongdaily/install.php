@@ -129,6 +129,7 @@ $sqlInstallDatabase .= "CREATE TABLE `warehouse_histories` (
   `create_at` INT NOT NULL , 
   `type` VARCHAR(20) NOT NULL COMMENT 'plus hoặc minus' , 
   `id_order_member` INT NOT NULL DEFAULT '0',
+  `id_order` INT NOT NULL DEFAULT '0' COMMENT 'id đơn hàng khách lẻ',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 

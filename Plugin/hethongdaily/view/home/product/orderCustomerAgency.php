@@ -96,12 +96,20 @@
           if(!empty($listData)){
             foreach ($listData as $item) {
               $status= '';
+              $btnProcess= '';
+
               if($item->status=='new'){ 
                $status= '<p style="color: #00aeee;">Đơn mới</p>';
+
+               $btnProcess= '<a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel">Hủy</a>';
               }elseif($item->status=='browser'){
                $status= '<p style="color: #0333f6;">Đã duyệt</p>';
+
+               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateStatusOrderAgency/?id='.$item->id.'&status=delivery">Giao hàng</a>';
               }elseif($item->status=='delivery'){
                $status= '<p style="color: #7503f6;">Đang giao</p>';
+
+               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;" href="/updateStatusOrderAgency/?id='.$item->id.'&status=done">Hoàn thành</a>';
               }elseif($item->status=='done'){
                $status= '<p style="color: #00ee4b;">Đã xong</p>';
               }else{
@@ -109,16 +117,16 @@
               }
               
               echo '<tr>
-              <td width="5%">'.$item->id.'</td>
+              <td>'.$item->id.'</td>
              
-              <td width="20%">
+              <td>
                 '.$item->full_name.'<br/>
                 '.$item->phone.'<br/>
                 '.$item->address.'<br/>
                 '.$item->email.'
               </td>
              
-              <td width="35%" style=" padding: 0;display: contents; ">
+              <td style=" padding: 0;display: contents; ">
                 <table  class="table table-borderless">
                   <tbody>';
                     if(!empty($item->detail_order)){ 
@@ -133,15 +141,11 @@
                 echo '  </tbody>
                 </table>
               </td>
-              <td width="10%">'.number_format($item->total).'đ</td>
-              <td width="10%">'.date('H:i d/m/Y', $item->create_at).'</td>
-              <td width="10%" align="center">'.$status.'</td>
-              <td width="5%" align="center">
-                <a class="dropdown-item" href="/viewOrderCustomerAgency/?id='.$item->id.'">
-                  <i class="bx bx-edit-alt me-1"></i>
-                </a>
-              </td>
-              <td width="5%" align="center">
+              <td>'.number_format($item->total).'đ</td>
+              <td>'.date('H:i d/m/Y', $item->create_at).'</td>
+              <td align="center">'.$status.'</td>
+              <td align="center">'.$btnProcess.'</td>
+              <td align="center">
                 <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderCustomerAgency/?id='.$item->id.'">
                   <i class="bx bx-trash me-1"></i>
                 </a>
