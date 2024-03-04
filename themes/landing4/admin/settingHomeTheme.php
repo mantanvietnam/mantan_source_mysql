@@ -40,6 +40,11 @@
               MẠNG XÃ HỘI
            </button>
          </li>
+         <li class="nav-item">
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-Post" aria-controls="navs-top-Post" aria-selected="false">
+              TRANG TIN TỨC
+           </button>
+         </li>
        </ul>
         <div class="card-body tab-content ">
           <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
@@ -86,27 +91,27 @@
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon mục nhỏ 1</label>
-                <input type="text" class="form-control" name="icon_mn_1" value="<?php echo @$data['icon_mn_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_mn_1" value="<?php echo @$data['icon_mn_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">Tiêu đề mục nhỏ 1</label>
-                <input type="text" class="form-control" name="title_mn_1" value="<?php echo @$data['title_mn_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_mn_1" value="<?php echo @$data['title_mn_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung mục nhỏ 1</label>
-                <input type="text" class="form-control" name="content_mn_1" value="<?php echo @$data['content_mn_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="content_mn_1" value="<?php echo @$data['content_mn_1'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon mục nhỏ 2</label>
-                <input type="text" class="form-control" name="icon_mn_2" value="<?php echo @$data['icon_mn_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_mn_2" value="<?php echo @$data['icon_mn_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">Tiêu đề mục nhỏ 2</label>
-                <input type="text" class="form-control" name="title_mn_2" value="<?php echo @$data['title_mn_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_mn_2" value="<?php echo @$data['title_mn_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung mục nhỏ 2</label>
-                <input type="text" class="form-control" name="content_mn_2" value="<?php echo @$data['content_mn_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="content_mn_2" value="<?php echo @$data['content_mn_2'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon mục nhỏ 3</label>
-                <input type="text" class="form-control" name="icon_mn_3" value="<?php echo @$data['icon_mn_3'];?>" />
+                <input type="text" class="form-control mb-3" name="icon_mn_3" value="<?php echo @$data['icon_mn_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">Tiêu đề mục nhỏ 3</label>
-                <input type="text" class="form-control" name="title_mn_3" value="<?php echo @$data['title_mn_3'];?>" />
+                <input type="text" class="form-control mb-3" name="title_mn_3" value="<?php echo @$data['title_mn_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung mục nhỏ 3</label>
-                <input type="text" class="form-control" name="content_mn_3" value="<?php echo @$data['content_mn_3'];?>" />
+                <input type="text" class="form-control mb-3" name="content_mn_3" value="<?php echo @$data['content_mn_3'];?>" />
               </div>
             </div>
           </div>
@@ -121,51 +126,51 @@
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon dịch vụ 1</label>
-                <input type="text" class="form-control" name="icon_dichvu_1" value="<?php echo @$data['icon_dichvu_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_dichvu_1" value="<?php echo @$data['icon_dichvu_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 1</label>
-                <input type="text" class="form-control" name="title_dichvu_1" value="<?php echo @$data['title_dichvu_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_dichvu_1" value="<?php echo @$data['title_dichvu_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 1</label>
-                <input type="text" class="form-control" name="content_dichvu_1" value="<?php echo @$data['content_dichvu_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="content_dichvu_1" value="<?php echo @$data['content_dichvu_1'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon dịch vụ 2</label>
-                <input type="text" class="form-control" name="icon_dichvu_2" value="<?php echo @$data['icon_dichvu_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_dichvu_2" value="<?php echo @$data['icon_dichvu_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 2</label>
-                <input type="text" class="form-control" name="title_dichvu_2" value="<?php echo @$data['title_dichvu_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_dichvu_2" value="<?php echo @$data['title_dichvu_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 2</label>
-                <input type="text" class="form-control" name="content_dichvu_2" value="<?php echo @$data['content_dichvu_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="content_dichvu_2" value="<?php echo @$data['content_dichvu_2'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon dịch vụ 3</label>
-                <input type="text" class="form-control" name="icon_dichvu_3" value="<?php echo @$data['icon_dichvu_3'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_dichvu_3" value="<?php echo @$data['icon_dichvu_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 3</label>
-                <input type="text" class="form-control" name="title_dichvu_3" value="<?php echo @$data['title_dichvu_3'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_dichvu_3" value="<?php echo @$data['title_dichvu_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 3</label>
-                <input type="text" class="form-control" name="content_dichvu_3" value="<?php echo @$data['content_dichvu_3'];?>" />
+                <input type="text" class="form-control mb-3 " name="content_dichvu_3" value="<?php echo @$data['content_dichvu_3'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon dịch vụ 4</label>
-                <input type="text" class="form-control" name="icon_dichvu_4" value="<?php echo @$data['icon_dichvu_4'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_dichvu_4" value="<?php echo @$data['icon_dichvu_4'];?>" />
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 4</label>
-                <input type="text" class="form-control" name="title_dichvu_4" value="<?php echo @$data['title_dichvu_4'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_dichvu_4" value="<?php echo @$data['title_dichvu_4'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 4</label>
-                <input type="text" class="form-control" name="content_dichvu_4" value="<?php echo @$data['content_dichvu_4'];?>" />
+                <input type="text" class="form-control mb-3 " name="content_dichvu_4" value="<?php echo @$data['content_dichvu_4'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon dịch vụ 5</label>
-                <input type="text" class="form-control" name="icon_dichvu_5" value="<?php echo @$data['icon_dichvu_5'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_dichvu_5" value="<?php echo @$data['icon_dichvu_5'];?>" />
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 5</label>
-                <input type="text" class="form-control" name="title_dichvu_5" value="<?php echo @$data['title_dichvu_5'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_dichvu_5" value="<?php echo @$data['title_dichvu_5'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 5</label>
-                <input type="text" class="form-control" name="content_dichvu_5" value="<?php echo @$data['content_dichvu_5'];?>" />
+                <input type="text" class="form-control mb-3 " name="content_dichvu_5" value="<?php echo @$data['content_dichvu_5'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon dịch vụ 6</label>
-                <input type="text" class="form-control" name="icon_dichvu_6" value="<?php echo @$data['icon_dichvu_6'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_dichvu_6" value="<?php echo @$data['icon_dichvu_6'];?>" />
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 6</label>
-                <input type="text" class="form-control" name="title_dichvu_6" value="<?php echo @$data['title_dichvu_6'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_dichvu_6" value="<?php echo @$data['title_dichvu_6'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 6</label>
-                <input type="text" class="form-control" name="content_dichvu_6" value="<?php echo @$data['content_dichvu_6'];?>" />
+                <input type="text" class="form-control mb-3 " name="content_dichvu_6" value="<?php echo @$data['content_dichvu_6'];?>" />
               </div>
 
             </div>
@@ -195,57 +200,57 @@
                 <label class="form-label" for="basic-default-fullname">Ảnh Đại diện 1</label>
                 <?php showUploadFile('image_avatar_1','image_avatar_1', @$data['image_avatar_1'],4);?>
                 <label class="form-label" for="basic-default-fullname">Tên 1</label>
-                <input type="text" class="form-control" name="fullname_1" value="<?php echo @$data['fullname_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="fullname_1" value="<?php echo @$data['fullname_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">Lĩnh vực 1</label>
-                <input type="text" class="form-control" name="field_1" value="<?php echo @$data['field_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="field_1" value="<?php echo @$data['field_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">link facebook 1</label>
-                <input type="text" class="form-control" name="facebook_1" value="<?php echo @$data['facebook_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="facebook_1" value="<?php echo @$data['facebook_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">link twitter 1</label>
-                <input type="text" class="form-control" name="twitter_1" value="<?php echo @$data['twitter_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="twitter_1" value="<?php echo @$data['twitter_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">link instagram 1</label>
-                <input type="text" class="form-control" name="instagram_1" value="<?php echo @$data['instagram_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="instagram_1" value="<?php echo @$data['instagram_1'];?>" />
               </div>
                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Ảnh Đại diện 2</label>
                 <?php showUploadFile('image_avatar_2','image_avatar_2', @$data['image_avatar_2'],5);?>
                 <label class="form-label" for="basic-default-fullname">Tên 2</label>
-                <input type="text" class="form-control" name="fullname_2" value="<?php echo @$data['fullname_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="fullname_2" value="<?php echo @$data['fullname_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">Lĩnh vực 2</label>
-                <input type="text" class="form-control" name="field_2" value="<?php echo @$data['field_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="field_2" value="<?php echo @$data['field_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">link facebook 2</label>
-                <input type="text" class="form-control" name="facebook_2" value="<?php echo @$data['facebook_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="facebook_2" value="<?php echo @$data['facebook_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">link twitter 2</label>
-                <input type="text" class="form-control" name="twitter_2" value="<?php echo @$data['twitter_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="twitter_2" value="<?php echo @$data['twitter_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">link instagram 2</label>
-                <input type="text" class="form-control" name="instagram_2" value="<?php echo @$data['instagram_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="instagram_2" value="<?php echo @$data['instagram_2'];?>" />
               </div>
                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Ảnh Đại diện 3</label>
                 <?php showUploadFile('image_avatar_3','image_avatar_3', @$data['image_avatar_3'],6);?>
                 <label class="form-label" for="basic-default-fullname">Tên 3</label>
-                <input type="text" class="form-control" name="fullname_3" value="<?php echo @$data['fullname_3'];?>" />
+                <input type="text" class="form-control mb-3 " name="fullname_3" value="<?php echo @$data['fullname_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">Lĩnh vực 3</label>
-                <input type="text" class="form-control" name="field_3" value="<?php echo @$data['field_3'];?>" />
+                <input type="text" class="form-control mb-3 " name="field_3" value="<?php echo @$data['field_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">link facebook 3</label>
-                <input type="text" class="form-control" name="facebook_3" value="<?php echo @$data['facebook_3'];?>" />
+                <input type="text" class="form-control mb-3 " name="facebook_3" value="<?php echo @$data['facebook_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">link twitter 3</label>
-                <input type="text" class="form-control" name="twitter_3" value="<?php echo @$data['twitter_3'];?>" />
+                <input type="text" class="form-control mb-3 " name="twitter_3" value="<?php echo @$data['twitter_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">link instagram 3</label>
-                <input type="text" class="form-control" name="instagram_3" value="<?php echo @$data['instagram_3'];?>" />
+                <input type="text" class="form-control mb-3 " name="instagram_3" value="<?php echo @$data['instagram_3'];?>" />
               </div>
                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Ảnh Đại diện 4</label>
                 <?php showUploadFile('image_avatar_4','image_avatar_4', @$data['image_avatar_4'],7);?>
                 <label class="form-label" for="basic-default-fullname">Tên 4</label>
-                <input type="text" class="form-control" name="fullname_4" value="<?php echo @$data['fullname_4'];?>" />
+                <input type="text" class="form-control mb-3 " name="fullname_4" value="<?php echo @$data['fullname_4'];?>" />
                 <label class="form-label" for="basic-default-fullname">Lĩnh vực 4</label>
-                <input type="text" class="form-control" name="field_4" value="<?php echo @$data['field_4'];?>" />
+                <input type="text" class="form-control mb-3 " name="field_4" value="<?php echo @$data['field_4'];?>" />
                 <label class="form-label" for="basic-default-fullname">link facebook 4</label>
-                <input type="text" class="form-control" name="facebook_4" value="<?php echo @$data['facebook_4'];?>" />
+                <input type="text" class="form-control mb-3 " name="facebook_4" value="<?php echo @$data['facebook_4'];?>" />
                 <label class="form-label" for="basic-default-fullname">link twitter 4</label>
-                <input type="text" class="form-control" name="twitter_4" value="<?php echo @$data['twitter_4'];?>" />
+                <input type="text" class="form-control mb-3 " name="twitter_4" value="<?php echo @$data['twitter_4'];?>" />
                 <label class="form-label" for="basic-default-fullname">link instagram 4</label>
-                <input type="text" class="form-control" name="instagram_4" value="<?php echo @$data['instagram_4'];?>" />
+                <input type="text" class="form-control mb-3 " name="instagram_4" value="<?php echo @$data['instagram_4'];?>" />
               </div>
             </div>
           </div>
@@ -254,27 +259,27 @@
             <div class="card-body row ">
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon 1</label>
-                <input type="text" class="form-control" name="icon_lh_1" value="<?php echo @$data['icon_lh_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_lh_1" value="<?php echo @$data['icon_lh_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">tiêu đề 1</label>
-                <input type="text" class="form-control" name="title_lh_1" value="<?php echo @$data['title_lh_1'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_lh_1" value="<?php echo @$data['title_lh_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung 1</label>
-                <input type="text" class="form-control" name="content_lh_1" value="<?php echo @$data['content_lh_1'];?>" /> 
+                <input type="text" class="form-control mb-3 " name="content_lh_1" value="<?php echo @$data['content_lh_1'];?>" /> 
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon 2</label>
-                <input type="text" class="form-control" name="icon_lh_2" value="<?php echo @$data['icon_lh_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_lh_2" value="<?php echo @$data['icon_lh_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">tiêu đề 2</label>
-                <input type="text" class="form-control" name="title_lh_2" value="<?php echo @$data['title_lh_2'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_lh_2" value="<?php echo @$data['title_lh_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung 2</label>
-                <input type="text" class="form-control" name="content_lh_2" value="<?php echo @$data['content_lh_2'];?>" /> 
+                <input type="text" class="form-control mb-3 " name="content_lh_2" value="<?php echo @$data['content_lh_2'];?>" /> 
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">icon 3</label>
-                <input type="text" class="form-control" name="icon_lh_3" value="<?php echo @$data['icon_lh_3'];?>" />
+                <input type="text" class="form-control mb-3 " name="icon_lh_3" value="<?php echo @$data['icon_lh_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">tiêu đề 3</label>
-                <input type="text" class="form-control" name="title_lh_3" value="<?php echo @$data['title_lh_3'];?>" />
+                <input type="text" class="form-control mb-3 " name="title_lh_3" value="<?php echo @$data['title_lh_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">nội dung 3</label>
-                <input type="text" class="form-control" name="content_lh_3" value="<?php echo @$data['content_lh_3'];?>" /> 
+                <input type="text" class="form-control mb-3 " name="content_lh_3" value="<?php echo @$data['content_lh_3'];?>" /> 
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">ảnh nền form đăng ký </label>
@@ -308,6 +313,11 @@
                 <label class="form-label" for="basic-default-fullname">chữ dưới cùng </label>
                 <input type="text" class="form-control" name="textfooter" value="<?php echo @$data['textfooter'];?>" />
               </div>
+             
+            </div>
+          </div>
+          <div class="tab-pane fade" id="navs-top-Post" role="tabpanel">
+            <div class="card-body row ">
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">ảnh ở bên phải tin tức </label>
                 <?php showUploadFile('image_Port','image_Port', @$data['image_Port'],9);?>
