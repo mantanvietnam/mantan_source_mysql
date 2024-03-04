@@ -37,7 +37,7 @@ $setting = setting();
 
         <section id="section-blog" class="section-padding">
             <div class="container">
-                <div class="section-title text-center" data-aos="flip-up" data-aos-duration="4000">
+                <div class="section-title text-center" data-aos="flip-up" data-aos-duration="4000" style="margin-bottom: 10px">
                     <h2 class="text-center title-section-other">Bài viết liên quan</h2>
                     <div class="border-heading"></div>
                 </div>

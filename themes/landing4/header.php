@@ -62,16 +62,16 @@ $setting = setting();?>
                                 <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-service">Dịch vụ</a>
+                                <a class="nav-link" href="/#section-service">Dịch vụ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-library">Thư viện</a>
+                                <a class="nav-link" href="/#section-library">Thư viện</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-blog">Tin tức</a>
+                                <a class="nav-link" href="/#section-blog">Tin tức</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-contact-form">Liên hệ</a>
+                                <a class="nav-link" href="/#section-contact-form">Liên hệ</a>
                             </li>
                         </ul>
                     </div>

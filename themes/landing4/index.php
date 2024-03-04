@@ -425,45 +425,48 @@ global $urlThemeActive;
                 <h3 class="text-center">Tin tức về chúng tôi</h3>
                 <div class="border-heading"></div>
             </div>
-            <?php if(!empty($listDataNew)){
-                foreach($listDataNew as $item){
-                    echo '<div class="col-lg-6 col-md-6">
-                    <div class="blog-item">
-                    <div class="blog-top">
-                    <a href="/'.@$item->slug.'.html">
-                    <img src="'.@$item->image.'" alt="">
-                    </a>
-                    </div>
 
-                    <div class="blog-bottom">
-                    <div class="blog-meta">
-                        <div class="blog-meta-item">
-                            <i class="fa-regular fa-user"></i>                                        
-                            <span>'.@$item->author.'</span>
+            <div class="blog-home-slide">
+                <?php if(!empty($listDataNew)){
+                    foreach($listDataNew as $item){
+                        echo '<div class="blog-item-outer">
+                        <div class="blog-item">
+                        <div class="blog-top">
+                        <a href="/'.@$item->slug.'.html">
+                        <img src="'.@$item->image.'" alt="">
+                        </a>
                         </div>
 
-                        <div class="blog-meta-item">
-                            <i class="fa-regular fa-calendar"></i>
-                            <span>'.date('d-m-Y',$item->time).'</span>
+                        <div class="blog-bottom">
+                        <div class="blog-meta">
+                            <div class="blog-meta-item">
+                                <i class="fa-regular fa-user"></i>                                        
+                                <span>'.@$item->author.'</span>
+                            </div>
+
+                            <div class="blog-meta-item">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span>'.date('d-m-Y',$item->time).'</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="blog-title">
-                    <a href="/'.@$item->slug.'.html">'.@$item->title.'</a>
-                    </div>
+                        <div class="blog-title">
+                        <a href="/'.@$item->slug.'.html">'.@$item->title.'</a>
+                        </div>
 
-                    <div class="blog-description">
-                    <p>'.@$item->description.'</p>
-                    </div>
+                        <div class="blog-description">
+                        <p>'.@$item->description.'</p>
+                        </div>
 
-                    <div class="blog-link">
-                    <a href="/'.@$item->slug.'.html">Xem thêm</a>
-                    </div>
-                    </div>
-                    </div>
-                    </div>';
-                }
-            } ?>
+                        <div class="blog-link">
+                        <a href="/'.@$item->slug.'.html">Xem thêm</a>
+                        </div>
+                        </div>
+                        </div>
+                        </div>';
+                    }
+                } ?>
+            </div>
             
 
             
