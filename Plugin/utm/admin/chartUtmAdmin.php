@@ -37,14 +37,14 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Số lượng', 'FacebookAds', 'Facebook', 'Zalo'],
+          ['Số lượng truy cập', 'Nguồn FacebookAds', 'Nguồn Facebook', 'Nguồn Zalo'],
           ['', <?php echo @$facebookAds ?>, <?php echo @$Facebook ?>, <?php echo @$zalo ?>],
         ]);
 
         var options = {
           chart: {
             title: ' nguồn khách vào ',
-            subtitle: 'Thống kê số nguồn khách vào  ',
+            subtitle: 'Thống kê số nguồn khách vào theo tháng',
           }
         };
 
