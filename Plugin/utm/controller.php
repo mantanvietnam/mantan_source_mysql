@@ -32,6 +32,18 @@ function listUtmAdmin($input){
 		$conditions['utm_campaign'] = $_GET['utm_campaign'];
 	}
 
+	if(!empty($_GET['utm_id'])){
+		$conditions['utm_id'] = $_GET['utm_id'];
+	}
+
+	if(!empty($_GET['utm_term'])){
+		$conditions['utm_term'] = $_GET['utm_term'];
+	}
+
+	if(!empty($_GET['utm_content'])){
+		$conditions['utm_content'] = $_GET['utm_content'];
+	}
+
 
 	if(!empty($_GET['date_start'])){
 		$date_start = explode('/', $_GET['date_start']);
@@ -121,19 +133,15 @@ function chartUtmAdmin($input){
 		$date_start = explode('/', $_GET['date_start']);
 		$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
 		$conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
-	}else{
-        $conditions['created_at LIKE'] = "%".date('Y-m')."%";
-    }
+	}
 
 	if(!empty($_GET['date_end'])){
 		$date_end = explode('/', $_GET['date_end']);
 		$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
 		$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
-	}else{
-        $conditions['created_at LIKE'] = "%".date('Y-m')."%";
-    }
+	}
 
-    $conditions['utm_source']= 'FacebookAds';
+   /* $conditions['utm_source']= 'FacebookAds';
 
 	 $FacebookAds = $modelUtm->find()->where($conditions)->all()->toList();
     $facebookAds = count($FacebookAds);
@@ -146,11 +154,30 @@ function chartUtmAdmin($input){
      $conditions['utm_source']= 'zalo';
 
 	 $zalo = $modelUtm->find()->where($conditions)->all()->toList();
-    $zalo = count($zalo);
+    $zalo = count($zalo);*/
 
-    setVariable('facebookAds', $facebookAds);
-    setVariable('Facebook', $Facebook);
-    setVariable('zalo', $zalo);
 
+    $facebookAds =  $modelUtm->find()->where($conditions)->group(['utm_source'])->all()->toList();
+    $query = $modelUtm->find()->where($conditions);
+    $utm_source = $query->select(['utm_source', 'count' => $query->func()->count('*')])->group(['utm_source'])->toArray();
+    $utm_medium = $query->select(['utm_medium', 'count' => $query->func()->count('*')])->group(['utm_medium'])->toArray();
+    $utm_campaign = $query->select(['utm_campaign', 'count' => $query->func()->count('*')])->group(['utm_source'])->toArray();
+    $utm_id = $query->select(['utm_id', 'count' => $query->func()->count('*')])->group(['utm_id'])->toArray();
+    $utm_term = $query->select(['utm_term', 'count' => $query->func()->count('*')])->group(['utm_term'])->toArray();
+    $utm_content = $query->select(['utm_content', 'count' => $query->func()->count('*')])->group(['utm_content'])->toArray();
+
+    // debug($utm_source);
+    // debug($utm_medium);
+    // debug($utm_campaign);
+    // debug($utm_id);utm_term
+    // debug($utm_content);
+    // die();
+
+    setVariable('utm_source', $utm_source);
+    setVariable('utm_medium', $utm_medium);
+    setVariable('utm_campaign', $utm_campaign);
+    setVariable('utm_id', $utm_id);
+    setVariable('utm_term', $utm_term);
+    setVariable('utm_content', $utm_content);
 }
 ?>
