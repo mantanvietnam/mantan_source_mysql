@@ -4,24 +4,28 @@ global $urlThemeActive;
 ?>
 <main>
         <section id="section-banner" style="background-image:url(<?php echo @$setting['background_top'];?>);">
+            <div class="section-banner-overlay"></div>
+        
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="banner-content d-flex justify-content-center flex-column">
-                            <h3>Xin chào!</h3>
-                            <h1>
-                                <span class="cd-words-wrapper">
-                                    <b class="is-visible"><span class="gold-title"><?php echo @$setting['full_name'];?></span></b>
-                                </span>
-                            </h1>
-                            <p><?php echo @$setting['content_top'];?></p>
-                            <div class="link-banner">
-                                <a href="<?php echo @$setting['link_top'];?>" class="main-button">Đăng ký</a>
+                <div class="banner-inner">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="banner-content d-flex justify-content-center flex-column">
+                                <h3>Xin chào!</h3>
+                                <h1>
+                                    <span class="cd-words-wrapper">
+                                        <b class="is-visible"><span class="gold-title"><?php echo @$setting['full_name'];?></span></b>
+                                    </span>
+                                </h1>
+                                <p><?php echo @$setting['content_top'];?></p>
+                                <div class="link-banner">
+                                    <a href="<?php echo @$setting['link_top'];?>" class="main-button">Đăng ký</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  
         </section>
 
         <section id="section-introduce" class="section-padding">
@@ -339,5 +343,41 @@ global $urlThemeActive;
             </div>
         </section>
     </main>
+
+    <script>
+        // Khai báo một biến để lưu trữ trạng thái của AOS (có animation hay không)
+        var aosEnabled = true;
+
+        // Khởi tạo AOS với các cài đặt mặc định
+        function initAOS() {
+            AOS.init({
+                // Các tùy chọn AOS ở đây...
+            });
+        }
+
+        // Kiểm tra kích thước màn hình và tắt animation nếu cần
+        function handleAnimation() {
+            if (window.innerWidth < 768) { // Nếu là màn hình nhỏ hơn 768px (ví dụ: điện thoại)
+                if (aosEnabled) { // Kiểm tra xem AOS đã được kích hoạt hay chưa
+                    AOS.init({
+                        disable: true // Tắt animation
+                    });
+                    aosEnabled = false; // Ghi nhớ rằng AOS đã được tắt
+                }
+            } else { // Nếu là màn hình lớn hơn hoặc bằng 768px
+                if (!aosEnabled) { // Kiểm tra xem AOS đã bị tắt hay chưa
+                    initAOS(); // Khởi tạo AOS lại để kích hoạt animation
+                    aosEnabled = true; // Ghi nhớ rằng AOS đã được kích hoạt lại
+                }
+            }
+        }
+
+        // Gọi hàm khi trang được tải và khi cửa sổ được resize
+        window.addEventListener('load', function() {
+            initAOS(); // Khởi tạo AOS khi trang được tải
+            handleAnimation(); // Kiểm tra và tắt animation khi trang được tải
+        });
+        window.addEventListener('resize', handleAnimation); // Kiểm tra và tắt animation khi cửa sổ được resize
+    </script>
 <?php
 getFooter();?>

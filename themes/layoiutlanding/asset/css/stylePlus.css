@@ -1,0 +1,41 @@
+#section-blog .blog-item .blog-detail .blog-title h4{
+    line-height: 1.3;
+}
+
+@media (max-width: 475px) {
+    #section-banner h1{
+        font-size: 45px;
+    }
+
+    #section-background .section-background-title h3{
+        font-size: 24px;
+        padding-top: 25px;
+    }
+
+    #section-introduce .introduce-content .introduce-detail-list .introduce-detail-item span {
+        width: 32%;
+    }
+}
+
+#section-banner{
+    position: relative;
+}
+
+#section-banner .section-banner-overlay{
+    background-color: #3a3838;
+    opacity: 0.7;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#section-banner .banner-inner{
+    position: relative;
+    z-index: 1;
+}
+
+footer #section-footer-main::before{
+    background-color: rgb(243 77 25 / 70%) !important;
+}
