@@ -69,6 +69,7 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách đơn hàng đại lý</h5>
+    <p>Quy trình: đơn mới -> duyệt đơn -> giao hàng -> hoàn thành -> thu tiền</p>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -109,13 +110,13 @@
               
               if($item->status=='new'){ 
                $status= '<p style="color: #00aeee;">Đơn mới</p>';
-               $btnProcess= '<a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel">Hủy</a>';
+               $btnProcess= '<a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
               }elseif($item->status=='browser'){
                $status= '<p style="color: #0333f6;">Đã duyệt</p>';
-               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=delivery">Giao hàng</a>';
+               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a>';
               }elseif($item->status=='delivery'){
                $status= '<p style="color: #7503f6;">Đang giao</p>';
-               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=done">Hoàn thành</a>';
+               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a>';
               }elseif($item->status=='done'){
                $status= '<p style="color: #00ee4b;">Đã xong</p>';
               }else{

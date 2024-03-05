@@ -65,6 +65,7 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách yêu cầu nhập hàng</h5>
+    <p>Quy trình: đơn mới -> duyệt đơn -> giao hàng -> hoàn thành -> nhập hàng vào kho</p>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>

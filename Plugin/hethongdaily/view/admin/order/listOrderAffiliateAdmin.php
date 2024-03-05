@@ -1,11 +1,5 @@
-<?php include(__DIR__.'/../header.php'); ?>
-
 <div class="container-xxl flex-grow-1 container-p-y">
-
-  <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/orderCustomerAgency">Đơn hàng lẻ</a> /</span>
-    Danh sách đơn hàng
-  </h4>
+  <h4 class="fw-bold py-3 mb-4">Đơn hàng CTV affiliate</h4>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -48,6 +42,11 @@
             <label class="form-label">Đến ngày</label>
             <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
           </div>
+
+          <div class="col-md-2">
+            <label class="form-label">ID CTV affiliate</label>
+            <input type="text" class="form-control" name="id_aff" value="<?php if(!empty($_GET['id_aff'])) echo $_GET['id_aff'];?>">
+          </div>
           
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
@@ -72,21 +71,21 @@
         <thead>
           <tr class="">
             <th width="5%">ID</th>
-            <th width="20%">Thông tin giao hàng</th>
+            <th width="20%">Thông tin khách hàng</th>
             <th width="35%" style=" padding: 0; ">
               <table  class="table table-borderless" >
-                <thead>
-                  <th colspan="3" class="text-center">thông tin đơn hàng</th> 
-                  <tr>
-                    <th width="50%">Sản phẩn</th>
-                    <th width="30%">Giá bán</th>
-                    <th width="20%">Số lượng </th>
-                  </tr>
-                </thead>
-              </table>
+              <thead>
+                <th colspan="3" class="text-center">Thông tin đơn hàng</th> 
+                <tr>
+                  <th width="50%">Sản phẩn</th>
+                  <th width="30%">Giá bán</th>
+                  <th width="20%">Số lượng </th>
+                </tr>
+              </thead>
+                </table>
             </th>
             <th width="10%">Số tiền</th>
-            <th width="10%">Thời gian tạo</th>
+            <th width="10%">Người giới thiệu</th>
             <th width="10%">Trạng thái</th>
             <th width="5%">Xử lý</th>
             <th width="5%">Xóa</th>
@@ -100,57 +99,56 @@
               $btnProcess= '';
 
               if($item->status=='new'){ 
-               $status= '<p style="color: #00aeee;">Đơn mới</p>';
+                $status= '<p style="color: #00aeee;">Đơn mới</p>';
 
-               $btnProcess= '<a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                $btnProcess= '<a class="btn btn-primary" href="/plugins/admin/product-view-admin-order-treatmentOrder/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><br/><br/><a class="btn btn-danger" href="/plugins/admin/product-view-admin-order-treatmentOrder/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
               }elseif($item->status=='browser'){
-               $status= '<p style="color: #0333f6;">Đã duyệt</p>';
+                $status= '<p style="color: #0333f6;">Đã duyệt</p>';
 
-               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateStatusOrderAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a>';
+                $btnProcess= '<a style="bacground-color: #7503f6;" class="btn btn-primary" href="/plugins/admin/product-view-admin-order-treatmentOrder/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a>';
               }elseif($item->status=='delivery'){
-               $status= '<p style="color: #7503f6;">Đang giao</p>';
+                $status= '<p style="color: #7503f6;">Đang giao</p>';
 
-               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;" href="/updateStatusOrderAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a>';
+                $btnProcess= '<a style="bacground-color: #00ee4b;" class="btn btn-primary" href="/plugins/admin/product-view-admin-order-treatmentOrder/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a>';
               }elseif($item->status=='done'){
-               $status= '<p style="color: #00ee4b;">Đã xong</p>';
+                $status= '<p style="color: #00ee4b;">Đã xong</p>';
               }else{
-               $status= '<p style="color: red;">Đã hủy</p>';
+                $status= '<p style="color: red;">Đã hủy</p>';
               }
-              
-              echo '<tr>
-              <td>'.$item->id.'</td>
-             
-              <td>
-                <a href="/listCustomerAgency/?id='.$item->id_user.'">'.$item->full_name.'</a><br/>
-                '.$item->phone.'<br/>
-                '.$item->address.'<br/>
-                '.$item->email.'
-              </td>
-             
-              <td style=" padding: 0;display: contents; ">
-                <table  class="table table-borderless">
-                  <tbody>';
-                    if(!empty($item->detail_order)){ 
-                      foreach($item->detail_order as $k => $value){
-                        echo '<tr> 
-                                <td  width="50%">'.$value->product.'</td>
-                                <td  width="30%">'.number_format($value->price).'đ</td>
-                                <td  width="20%">'.$value->quantity.'</td>
-                              </tr>';
-                      }
-                    } 
-                echo '  </tbody>
+             echo '<tr>
+             <td width="5%">'.$item->id.'<br/><br/>'.date('H:i d/m/Y', $item->create_at).'</td>
+             <td width="20%">
+             <a href="/plugins/admin/hethongdaily-view-admin-customer-listCustomerAdmin/?id='.$item->id_user.'">'.$item->full_name.'</a><br/>
+             '.$item->phone.'<br/>
+             '.$item->address.'<br/>
+             '.$item->email.'
+             </td>
+             <td width="35%" style=" padding: 0;display: contents; ">
+             <table  class="table table-borderless">
+              <tbody>';
+             if(!empty($item->detail_order)){ 
+              foreach($item->detail_order as $k => $value){
+               echo '<tr> <td  width="50%">'.$value->product.'</td>
+                <td  width="30%">'.number_format(@$value->price).'đ</td>
+                <td  width="20%">'.$value->quantity.'</td>
+              </tr>';
+           }} 
+             echo '  </tbody>
                 </table>
-              </td>
-              <td>'.number_format($item->total).'đ</td>
-              <td>'.date('H:i d/m/Y', $item->create_at).'</td>
-              <td align="center">'.$status.'</td>
-              <td align="center">'.$btnProcess.'</td>
-              <td align="center">
-                <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderCustomerAgency/?id='.$item->id.'">
-                  <i class="bx bx-trash me-1"></i>
-                </a>
-              </td>
+            </td>
+             <td width="10%">'.number_format($item->total).'đ</td>
+             <td width="10%">
+              <a href="/plugins/admin/affiliate-view-admin-affiliater-listAffiliaterAdmin/?id='.$item->id_aff.'">'.@$item->aff->name.'</a><br/>
+              '.@$item->aff->phone.'
+             </td>
+             <td width="10%" align="center">'.$status.'</td>
+             <td width="5%" align="center">'.$btnProcess.'</td>
+             
+             <td width="5%" align="center">
+             <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/product-view-admin-order-deleteOrderAdmin/?id='.$item->id.'&back='.urlencode($urlCurrent).'">
+             <i class="bx bx-trash me-1"></i>
+             </a>
+             </td>
              </tr>';
            }
          }else{
@@ -209,5 +207,3 @@
 </div>
 <!--/ Responsive Table -->
 </div>
-
-<?php include(__DIR__.'/../footer.php'); ?>

@@ -1,8 +1,9 @@
 <?php 
 $menus= array();
 $menus[0]['title']= "Hệ thống đại lý";
+$menus[0]['sub'] = [];
 
-$menus[0]['sub'][0]= array( 'title'=>'Khách hàng',
+$menus[0]['sub'][]= array( 'title'=>'Khách hàng',
                             'url'=>'/plugins/admin/hethongdaily-view-admin-customer-listCustomerAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listCustomerAdmin'
@@ -25,6 +26,27 @@ $menus[0]['sub'][]= array(	'title'=>'Hệ thống',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listSystemAdmin'
 						);
+
+$menus[1]['title']= "Đơn hàng hệ thống";
+$menus[1]['sub'] = [];
+
+$menus[1]['sub'][]= array( 'title'=>'Đơn hàng CTV affiliate',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-order-listOrderAffiliateAdmin',
+                            'classIcon'=>'bx bx-cart-add',
+                            'permission'=>'listOrderAffiliateAdmin'
+                        );
+
+$menus[1]['sub'][]= array( 'title'=>'Đơn hàng lẻ đại lý',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-order-listOrderMemberAdmin',
+                            'classIcon'=>'bx bx-cart-add',
+                            'permission'=>'listOrderMemberAdmin'
+                        );
+
+$menus[1]['sub'][]= array( 'title'=>'Đơn trong hệ thống',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-order-listOrderMemberAdmin',
+                            'classIcon'=>'bx bx-cart-add',
+                            'permission'=>'listOrderMemberAdmin'
+                        );
 
 addMenuAdminMantan($menus);
 

@@ -370,7 +370,11 @@ function updateOrderMemberAgency($input)
 
                 $modelOrderMembers->save($order);
 
-                return $controller->redirect('/orderMemberAgency');
+                if(!empty($_GET['back'])){
+                    return $controller->redirect($_GET['back']);
+                }else{
+                    return $controller->redirect('/orderMemberAgency');
+                }
             }
         }else{
             return $controller->redirect('/orderMemberAgency');

@@ -340,7 +340,11 @@ function updateStatusOrderAgency($input){
                     }
                 }
 
-                return $controller->redirect('/orderCustomerAgency');
+                if(!empty($_GET['back'])){
+                    return $controller->redirect($_GET['back']);
+                }else{
+                    return $controller->redirect('/orderCustomerAgency');
+                }
             }
         }
     }else{
