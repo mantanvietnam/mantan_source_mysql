@@ -43,7 +43,7 @@
 
         var options = {
           chart: {
-            title: ' nguồn khách vào ',
+            title: ' Nguồn khách vào ',
             subtitle: 'Thống kê số nguồn khách vào theo tháng',
           }
         };
