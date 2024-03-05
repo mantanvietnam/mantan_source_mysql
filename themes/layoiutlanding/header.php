@@ -17,6 +17,7 @@ $setting = setting();?>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
         <link rel="stylesheet" href="<?php echo $urlThemeActive ?>/asset/css/style.css">
+        <link rel="stylesheet" href="<?php echo $urlThemeActive ?>/asset/css/stylePlus.css">
         <link rel="stylesheet" href="<?php echo $urlThemeActive ?>/asset/js/textAnimation.js">
     
         <!-- Magnific Popup core CSS file -->
@@ -73,16 +74,16 @@ $setting = setting();?>
                                 <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-service">Dịch vụ</a>
+                                <a class="nav-link" href="/#section-service">Dịch vụ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-library">Thư viện</a>
+                                <a class="nav-link" href="/#section-library">Thư viện</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-blog">Tin tức</a>
+                                <a class="nav-link" href="/#section-blog">Tin tức</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-contact">Liên hệ</a>
+                                <a class="nav-link" href="/#section-contact">Liên hệ</a>
                             </li> 
                         </ul>
                     </div>

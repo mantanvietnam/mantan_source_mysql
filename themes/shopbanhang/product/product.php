@@ -239,7 +239,7 @@
                                         </button>
                                     </h2>
                                     <div id="questionTop-collapse<?php echo $key; ?>" class="accordion-collapse collapse" aria-labelledby="questionTop-heading<?php echo $key; ?>" data-bs-parent="#accordionquestionTopExample">
-                                        <div class="accordion-body"><?php echo $item->answer; ?></div>
+                                        <div class="accordion-body"><?php echo nl2br($item->answer); ?></div>
                                     </div>
                                 </div>
                             <?php }} ?>

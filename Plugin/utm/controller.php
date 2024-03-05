@@ -21,15 +21,15 @@ function listUtmAdmin($input){
 	}
 	
 	if(!empty($_GET['utm_source'])){
-		$conditions['utm_source LIKE'] = '%'.$_GET['utm_source'].'%';
+		$conditions['utm_source'] =$_GET['utm_source'];
 	}
 
 	if(!empty($_GET['utm_medium'])){
-		$conditions['utm_medium LIKE'] = '%'.$_GET['utm_medium'].'%';
+		$conditions['utm_medium'] = $_GET['utm_medium'];
 	}
 
 	if(!empty($_GET['utm_campaign'])){
-		$conditions['utm_campaign LIKE'] = '%'.$_GET['utm_campaign'].'%';
+		$conditions['utm_campaign'] = $_GET['utm_campaign'];
 	}
 
 

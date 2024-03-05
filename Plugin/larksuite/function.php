@@ -93,20 +93,26 @@ function getOrderLarkSuite($id){
 
                     }
                     $pay = json_decode($order->discount, true);
-                    $discount = '';
+                    $discount_name = '';
+                    $discount = 0;
                     if(!empty($pay['code1']) && !empty($pay['discount_price1'])){                   
-                        $discount .= $pay['code1'].':'.$pay['discount_price1'].'; ';
+                        $discount += $pay['discount_price1'];
+                        $discount_name .= $pay['code1'].',';
                     }
                     if(!empty($pay['code2']) && !empty($pay['discount_price2'])){
-                        $discount .= $pay['code2'].':'.$pay['discount_price2'].'; ';
+                        $discount += $pay['discount_price2'];
+                        $discount_name .= $pay['code2'].',';
                     }
                     if(!empty($pay['code3']) && !empty($pay['discount_price3'])){                   
-                        $discount .= $pay['code3'].':'.$pay['discount_price3'].'; ';
+                       $discount += $pay['discount_price3'];
+                       $discount_name .= $pay['code3'].',';
                     }
                     if(!empty($pay['code4']) && !empty($pay['discount_price4'])){                   
-                        $discount .= $pay['code4'].':'.$pay['discount_price4'].'; ';
+                        $discount += $pay['discount_price4'];
+                        $discount_name .= $pay['code4'].',';
                     }
                     $order->discount = $discount;
+                    $order->discount_name = $discount_name;
                     
                     
                      $order->infoOrder = $info;
