@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin nguồn khách vào </h4>
-  <p><a href="/plugins/admin/utm-admin-chartUtmAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Xem biểu đồ</a></p>
+  <h4 class="fw-bold py-3 mb-4"><a href="/plugins/admin/utm-admin-chartUtmAdmin">Thống kê </a> / Thông tin nguồn khách vào</h4>
+  <!--  -->
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
@@ -42,12 +42,12 @@
             <input type="text" class="form-control" name="utm_content" value="<?php if(!empty($_GET['utm_content'])) echo $_GET['utm_content'];?>">
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label class="form-label">Tạo từ ngày</label>
             <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label class="form-label">Đến ngày</label>
             <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
           </div>
@@ -57,7 +57,10 @@
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
           </div>
-
+          <div class="col-md-3">
+            <label class="form-label">&nbsp;</label>
+            <p style="margin-bottom: 0px;"><a href="/plugins/admin/utm-admin-listUtmAdmin" class="btn btn-primary"> Xem Tất cả </a></p>
+          </div>
           
         </div>
       </div>
@@ -101,7 +104,7 @@
                         <td>'.$item->utm_campaign.'</td>
                         <td>'.$item->utm_id.'</td>
                         <td>'.$item->utm_term.'</td>
-                        <td>'.$item->utm_contents.'</td>
+                        <td>'.$item->utm_content.'</td>
                         <td>'.$item->created_at->format('d/m/Y H:i').'</td>
                         
                         
