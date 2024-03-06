@@ -43,9 +43,9 @@ $menus[1]['sub'][]= array( 'title'=>'Đơn hàng lẻ đại lý',
                         );
 
 $menus[1]['sub'][]= array( 'title'=>'Đơn trong hệ thống',
-                            'url'=>'/plugins/admin/hethongdaily-view-admin-order-listOrderMemberAdmin',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-order-listOrderSystemAdmin',
                             'classIcon'=>'bx bx-cart-add',
-                            'permission'=>'listOrderMemberAdmin'
+                            'permission'=>'listOrderSystemAdmin'
                         );
 
 addMenuAdminMantan($menus);
