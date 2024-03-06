@@ -1,7 +1,7 @@
 <?php
 	$menus= array();
-	$menus[0]['title']= 'Nguồn khách vào';
-    $menus[0]['sub'][0]= array('title'=>'Danh sách Nguồn khách vào','classIcon'=>'bx bx-list-ul','url'=>'/plugins/admin/utm-admin-listUtmAdmin','permission'=>'listUtmAdmin',);
+	$menus[0]['title']= 'Thống kê nguồn khách vào';
+    $menus[0]['sub'][0]= array('title'=>'Thống kê nguồn khách vào','classIcon'=>'bx bx-list-ul','url'=>'/plugins/admin/utm-admin-chartUtmAdmin','permission'=>'listUtmAdmin',);
     
     addMenuAdminMantan($menus); 
 

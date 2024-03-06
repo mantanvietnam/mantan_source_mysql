@@ -263,7 +263,7 @@ global $urlThemeActive;
                         </div>
 
                         <div class="form-contact">
-                            <form>
+                            <form id="myForm">
                                 <div class="mb-3">
                                     <input type="text" class="form-control" id="name" placeholder="Họ và tên">
                                 </div>
@@ -306,12 +306,22 @@ global $urlThemeActive;
                 email: email,
                 subject: 'Đăng ký hóa học',
                 content: content,  
-                },
-                success:function(res){
+               },
+                /*success:function(res){
                   document.getElementById("success").innerHTML = 'bạn đăng ký thành công';
+                  var myForm = document.getElementById("myForm");
                   
-                }
-            })
+                }*/
+            }).done(function(msg) {
+                    console.log(msg);
+                    
+                    var html = '<p style="color: white;">'+msg.mess+'</p>';
+                    document.getElementById("success").innerHTML = html;
+
+                    var myForm = document.getElementById("myForm");
+                    myForm.reset();
+
+                });
         }
     </script>
 <?php

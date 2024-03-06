@@ -1,33 +1,53 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin nguồn khách vào </h4>
-  <p><a href="/plugins/admin/utm-admin-chartUtmAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Xem biểu đồ</a></p>
+  <h4 class="fw-bold py-3 mb-4"><a href="/plugins/admin/utm-admin-chartUtmAdmin">Thống kê </a> / Thông tin nguồn khách vào</h4>
+  <!--  -->
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
-          <div class="col-md-1">
+          <div class="col-md-3">
             <label class="form-label">ID</label>
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">source</label>
+            <label class="form-label">utm_source</label>
             <input type="text" class="form-control" name="utm_source" value="<?php if(!empty($_GET['utm_source'])) echo $_GET['utm_source'];?>">
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">CAMPAIGN</label>
+            <label class="form-label">utm_medium</label>
+            <input type="text" class="form-control" name="utm_medium" value="<?php if(!empty($_GET['utm_medium'])) echo $_GET['utm_medium'];?>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">utm_campaign</label>
             <input type="text" class="form-control" name="utm_campaign" value="<?php if(!empty($_GET['utm_campaign'])) echo $_GET['utm_campaign'];?>">
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
+            <label class="form-label">utm_id</label>
+            <input type="text" class="form-control" name="utm_id" value="<?php if(!empty($_GET['utm_id'])) echo $_GET['utm_id'];?>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">utm_term</label>
+            <input type="text" class="form-control" name="utm_term" value="<?php if(!empty($_GET['utm_term'])) echo $_GET['utm_term'];?>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">utm_content</label>
+            <input type="text" class="form-control" name="utm_content" value="<?php if(!empty($_GET['utm_content'])) echo $_GET['utm_content'];?>">
+          </div>
+
+          <div class="col-md-3">
             <label class="form-label">Tạo từ ngày</label>
             <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label class="form-label">Đến ngày</label>
             <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
           </div>
@@ -37,7 +57,10 @@
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
           </div>
-
+          <div class="col-md-3">
+            <label class="form-label">&nbsp;</label>
+            <p style="margin-bottom: 0px;"><a href="/plugins/admin/utm-admin-listUtmAdmin" class="btn btn-primary"> Xem Tất cả </a></p>
+          </div>
           
         </div>
       </div>
@@ -59,11 +82,12 @@
         <thead>
           <tr class="">
              <th>ID</th>
-            <th>source</th>
-            <th>medium</th>
-            <th>campaign</th>
-            <th>term</th>
-            <th>content</th>
+            <th>utm_source</th>
+            <th>utm_medium</th>
+            <th>utm_campaign</th>
+            <th>utm_id</th>
+            <th>utm_term</th>
+            <th>utm_content</th>
             <th>ngày</th>
             <!-- <th>Sửa</th> -->
             <!-- <th>Xóa</th>  -->
@@ -78,8 +102,9 @@
                         <td>'.$item->utm_source.'</td>
                         <td>'.$item->utm_medium.'</td>
                         <td>'.$item->utm_campaign.'</td>
+                        <td>'.$item->utm_id.'</td>
                         <td>'.$item->utm_term.'</td>
-                        <td>'.$item->utm_contents.'</td>
+                        <td>'.$item->utm_content.'</td>
                         <td>'.$item->created_at->format('d/m/Y H:i').'</td>
                         
                         

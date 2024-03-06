@@ -111,7 +111,7 @@ function getOrderLarkSuite($id){
                         $discount += $pay['discount_price4'];
                         $discount_name .= $pay['code4'].',';
                     }
-                    $order->discount = $discount;
+                    $order->discount =(string) $discount;
                     $order->discount_name = $discount_name;
                     
                     
@@ -159,6 +159,7 @@ function getOrderLarkSuite($id){
     }else{
          $return = array('code'=> 4 , 'mess'=> 'không thành công');
     }
+    // debug($dataO);
     // debug($return);
     // die;
     return $return;   
