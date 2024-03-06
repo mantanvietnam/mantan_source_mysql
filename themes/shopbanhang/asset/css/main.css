@@ -1873,11 +1873,12 @@ strong {
     margin: 20px 0;
 }
 
-#section-blog-detail .blog-detail-content p ,#section-blog-detail .blog-detail-content span{
+#section-blog-detail .blog-detail-content p ,#section-blog-detail .blog-detail-content p span{
     color: #202020!important;
     line-height : 24px;
     font-size : 16px
 }
+
 
 /* chuyên mục sản phẩm  */
 
