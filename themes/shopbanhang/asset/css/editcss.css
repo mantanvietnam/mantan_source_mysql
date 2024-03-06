@@ -788,9 +788,9 @@ header{
     height: 37px;
 }
 
-.best-sale-name a{
+/* .best-sale-name a{
     margin-top: 5px;
-}
+} */
 
 .top-deal .group-deal .list-product-1{
     margin-bottom: 0;
@@ -928,7 +928,7 @@ header{
 }
 
 .best-sale-item .best-sale-name a{ 
-    height: 34px;
+    height: 43px;
 }
 
 /* Khuyến mãi */
@@ -967,7 +967,7 @@ header{
 }
 
 .rate-best-item{
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .ribbon-top-right span{
