@@ -553,7 +553,7 @@ global $urlThemeActive;
                     </div>
                     
                     <div class="form-contact">
-                        <form action="">
+                        <form action="" id="myForm">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -655,6 +655,8 @@ global $urlThemeActive;
         
         var html = '<p style="color: white;">'+msg.mess+'</p>';
         document.getElementById("messReg").innerHTML = html;
+        var myForm = document.getElementById("myForm");
+                    myForm.reset();
 
                     // }
                     
