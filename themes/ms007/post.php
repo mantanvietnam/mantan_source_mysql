@@ -10,7 +10,7 @@ $setting = setting();
                 <div class="row">
                     <div class="col-lg-8 col-md-12">
                         <div class="post-title">
-                            <h1><?php echo $post->title; ?>!</h1>
+                            <h1><?php echo $post->title; ?></h1>
                         </div>
 
                         <div class="post-date">

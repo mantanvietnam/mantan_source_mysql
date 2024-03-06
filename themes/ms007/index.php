@@ -315,7 +315,7 @@ global $urlThemeActive;
             }).done(function(msg) {
                     console.log(msg);
                     
-                    var html = '<p style="color: white;">'+msg.mess+'</p>';
+                    var html = '<p>'+msg.mess+'</p>';
                     document.getElementById("success").innerHTML = html;
 
                     var myForm = document.getElementById("myForm");
