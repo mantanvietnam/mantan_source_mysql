@@ -419,8 +419,9 @@ table {
 }
 
 #about .about-title {
-    text-align: center;
     margin-bottom: 68px;
+    display: flex;
+    justify-content: center;
 }
 
 #about .about-title p {
@@ -436,6 +437,7 @@ table {
     font-weight: 600;
     margin-bottom: 10px;
     position: relative;
+    width: fit-content;
 }
 
 #about .about-title span:last-child {
@@ -445,10 +447,10 @@ table {
 #about .about-title h2::before {
     content: '';
     position: absolute;
-    left: 50%;
-    bottom: -65px;
-    height: 45px;
-    width: 3px;
+    left: 18%;
+    bottom: -12px;
+    height: 3px;
+    width: 60%;
     background: #e21305;
 }
 
@@ -468,6 +470,7 @@ table {
     color: #e21305;
     margin-bottom: 17px;
     text-transform: capitalize;
+    display: none;
 }
 
 #about .about-content h3 {
@@ -487,10 +490,6 @@ table {
     margin-bottom: 35px;
 }
 
-#about .about-content {
-    margin-top: 40px;
-}
-
 #about .about-detail h2 {
     color: #FFFFFF;
     font-size: 18px;
@@ -500,7 +499,7 @@ table {
 
 #about .about-detail p {
     color: #adb7c7;
-    font-size: 16px;
+    font-size: 14px;
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -536,8 +535,9 @@ table {
 }
 
 #services .services-title {
-    text-align: center;
-    margin-bottom: 115px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 68px;
 }
 
 #services .services-title p {
@@ -549,10 +549,11 @@ table {
 
 #services .services-title h2 {
     font-size: 46px;
-    color: #373737;
+    color: #000;
     font-weight: 600;
     margin-bottom: 10px;
     position: relative;
+    width: fit-content;
 }
 
 #services .services-title h2 span {
@@ -562,10 +563,10 @@ table {
 #services .services-title h2::before {
     content: '';
     position: absolute;
-    left: 50%;
-    bottom: -65px;
-    height: 45px;
-    width: 3px;
+    left: 18%;
+    bottom: -12px;
+    height: 3px;
+    width: 60%;
     background: #e21305;
 }
 
@@ -1120,7 +1121,9 @@ table {
 
 #testimonial .testimonial-title {
     text-align: center;
-    margin-bottom: 55px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
 }
 
 #testimonial .testimonial-title p {
@@ -1141,10 +1144,10 @@ table {
 #testimonial .testimonial-title h2::before {
     content: '';
     position: absolute;
-    left: 50%;
-    bottom: -65px;
-    height: 45px;
-    width: 3px;
+    left: 18%;
+    bottom: -12px;
+    height: 3px;
+    width: 60%;
     background: #e21305;
 }
 
@@ -1158,6 +1161,7 @@ table {
     color: #ececec;
     margin-bottom: 17px;
     text-transform: capitalize;
+    display: none;
 }
 
 .testimonial-detail h3 {
@@ -1343,6 +1347,13 @@ table {
 #blog .blog-title {
     text-align: center;
     margin-bottom: 55px;
+    display: grid;
+    justify-content: center;
+}
+
+#blog .blog-title p,
+#contact .contact-title p {
+    display: none;
 }
 
 #blog .blog-box {
@@ -1381,11 +1392,11 @@ table {
 #blog .blog-title h2::before {
     content: '';
     position: absolute;
-    left: 50%;
-    bottom: -65px;
-    height: 45px;
-    width: 3px;
-    background: #E21305;
+    left: 18%;
+    bottom: -12px;
+    height: 3px;
+    width: 60%;
+    background: #e21305;
 }
 
 #blog .blog-title span {
@@ -1513,6 +1524,8 @@ table {
 #contact .contact-title {
     text-align: center;
     margin-bottom: 45px;
+    display: grid;
+    justify-content: center;
 }
 
 #contact .contact-title p {
@@ -1530,14 +1543,22 @@ table {
     position: relative;
 }
 
+.contact-group-title {
+    display: none;
+}
+
+.form-btn-submid {
+    text-align: center;
+}
+
 #contact .contact-title h2::before {
     content: '';
     position: absolute;
-    left: 50%;
-    bottom: -65px;
-    height: 45px;
-    width: 3px;
-    background: #E21305;
+    left: 18%;
+    bottom: -12px;
+    height: 3px;
+    width: 60%;
+    background: #e21305;
 }
 
 #contact .contact-title span {
@@ -1660,11 +1681,11 @@ table {
 .footer-icon ul {
     display: flex;
     justify-content: end;
-    margin-right: 33px;
     margin-bottom: 0;
     position: absolute;
-    bottom: 132px;
-    right: -2%;
+    bottom: 16%;
+    right: 13%;
+    padding-left: 0;
 }
 
 .footer-icon ul li a {
@@ -1822,17 +1843,18 @@ table {
 }
 
 #related-images .related-title {
-    text-align: center;
+    display: flex;
+    justify-content: center;
     margin-bottom: 95px;
 }
 
 #related-images .related-title h2::before {
     content: '';
     position: absolute;
-    left: 50%;
-    bottom: -65px;
-    height: 45px;
-    width: 3px;
+    left: 18%;
+    bottom: -12px;
+    height: 3px;
+    width: 60%;
     background: #e21305;
 }
 
@@ -2206,6 +2228,10 @@ table {
     }
     .form-btn-submid button {
         padding: 13px 20px;
+        font-size: 14px;
+    }
+    #blog .blog-title {
+        margin-bottom: 30px;
     }
     .form-btn-submid {
         text-align: center;
@@ -2253,6 +2279,16 @@ table {
     #contact .contact-title h2,
     #blog .blog-title h2 {
         font-size: 26px;
+        text-align: center;
+    }
+    #related-images .related-title {
+        margin-bottom: 50px;
+    }
+    #testimonial .testimonial-title {
+        margin-bottom: 20px;
+    }
+    #contact .contact-title {
+        margin-bottom: 25px;
     }
     .testimonial-detail p {
         font-size: 14px;
@@ -2321,6 +2357,7 @@ table {
     #about .about-thumb {
         width: 100%;
         padding: 0px 20px;
+        margin-bottom: 30px;
     }
     .contact-group-title h5 {
         text-align: center;

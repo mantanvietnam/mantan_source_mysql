@@ -54,12 +54,12 @@ global $urlThemeActive;
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-5 col-md-6 col-sm-12">
                     <div class="about-thumb">
                         <img src="<?php echo @$setting['image_Portrait2'];?>" alt="">
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-7 col-md-6 col-sm-12">
                     <div class="about-content">
                         <h5>About Me</h5>
                         <h3> Diễn giả <span><?php echo @$setting['full_name'];?></span></h3>
