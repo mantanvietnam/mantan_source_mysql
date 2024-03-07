@@ -114,7 +114,8 @@
                               <span class="'.$classActive.'">'.$item->name.'</span><br/>
                               '.$item->phone.'<br/>
                               '.$item->address.'<br/>
-                              '.$item->email.'
+                              '.$item->email.'<br/>
+                              <a class="btn btn-danger" href="/plugins/admin/hethongdaily-view-admin-warehouse-listProductWarehouseMemberAdmin/?id_member='.$item->id.'">Xem tồn kho</a>
                             </td>
                             <td>
                               <a href="/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin/?id='.$item->id_father.'">'.@$item->father->name.'</a><br/>

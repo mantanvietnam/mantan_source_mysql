@@ -13,6 +13,7 @@ include_once('controller/admin/membersController.php'); // đại lý hệ thố
 include_once('controller/admin/categoriesController.php'); // hệ thống
 include_once('controller/admin/customersController.php'); // khách hàng
 include_once('controller/admin/ordersController.php'); // đơn hàng
+include_once('controller/admin/warehousesController.php'); // kho hàng
 
 include_once('controller/api/membersController.php'); // đại lý
 include_once('controller/api/categoriesController.php'); // cài đặt
