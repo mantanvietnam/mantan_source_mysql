@@ -8,25 +8,25 @@ $(document).ready(function(){
 
   var scrollPage = document.getElementById("menu-top");
 
-  window.onscroll = function() {
-      if (window.pageYOffset > 120 || document.documentElement.scrollTop > 120) {
-          scrollPage.style.position = "fixed";
-          scrollPage.style.backgroundColor = "#fff";
-          scrollPage.style.left = "0";
-          scrollPage.style.right = "0";
-          scrollPage.style.zIndex  = "100";
-          scrollPage.style.boxShadow = "0 10px 15px rgba(25,25,25,0.1)";
-          scrollPage.style.transition ="all 0.4s ease-in-out;"
-          scrollPage.classList.add("scroll-header")
+  // window.onscroll = function() {
+  //     if (window.pageYOffset > 120 || document.documentElement.scrollTop > 120) {
+  //         scrollPage.style.position = "fixed";
+  //         scrollPage.style.backgroundColor = "#fff";
+  //         scrollPage.style.left = "0";
+  //         scrollPage.style.right = "0";
+  //         scrollPage.style.zIndex  = "100";
+  //         scrollPage.style.boxShadow = "0 10px 15px rgba(25,25,25,0.1)";
+  //         scrollPage.style.transition ="all 0.4s ease-in-out;"
+  //         scrollPage.classList.add("scroll-header")
           
-      } 
-      else {
-        scrollPage.style.position = "relative";
-        scrollPage.style.left = "0";
-        scrollPage.style.right = "0";
-        scrollPage.style.boxShadow = "none";
-        scrollPage.classList.remove("scroll-header")
-        scrollPage.style.boxShadow = "0 10px 15px rgba(25,25,25,0.1)";
-        scrollPage.style.transition ="all 0.4s ease-in-out;"
-      }
-  }
+  //     } 
+  //     else {
+  //       scrollPage.style.position = "relative";
+  //       scrollPage.style.left = "0";
+  //       scrollPage.style.right = "0";
+  //       scrollPage.style.boxShadow = "none";
+  //       scrollPage.classList.remove("scroll-header")
+  //       scrollPage.style.boxShadow = "0 10px 15px rgba(25,25,25,0.1)";
+  //       scrollPage.style.transition ="all 0.4s ease-in-out;"
+  //     }
+  // }

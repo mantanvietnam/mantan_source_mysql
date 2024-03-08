@@ -1934,9 +1934,9 @@ color: #188181;
 
 	margin: auto;
 
-    padding-left: 25px;
+    /* padding-left: 25px;
 
-	padding-right: 20px
+	padding-right: 20px */
 
 }
 
@@ -4614,3 +4614,11 @@ color: #188181;
 	color: #fff;
 }
 
+/* Bổ sung */
+.container-box-filter-search label button{
+	background-color: transparent;
+	border-color: transparent;
+	padding-left: 25px;
+
+	padding-right: 20px
+}

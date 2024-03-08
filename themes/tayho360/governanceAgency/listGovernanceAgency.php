@@ -34,8 +34,10 @@ global $urlThemeActive;
 
                     <div class="box-search">
                         <div class="input-search">
-                            <label for="search-place" class="col-form-label"><i
-                                    class="fa-solid fa-magnifying-glass"></i></label>
+                            <label for="search-place" class="col-form-label">
+                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+                                </label>
                                 <input type="text" name="name" id="search-place" value="<?php echo @$_GET['name']; ?>" placeholder="Tìm kiếm">
                                 <button class="mt-3 btn button-submit-custom" style="display: none;" >Lưu</button>
                         </div>

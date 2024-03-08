@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/lib/slick-theme.min.css"> 
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/aos.css"> 
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/style.css?v=1002"> 
+    <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/stylePlus.css"> 
+
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/custom.css"> 
     <script type="text/javascript" src="<?php echo $urlThemeActive;?>/js/lib/jquery.min.js"></script>   
     <script type="text/javascript" src="<?php echo $urlThemeActive;?>/js/lib/bootstrap-datepicker.js"></script> 

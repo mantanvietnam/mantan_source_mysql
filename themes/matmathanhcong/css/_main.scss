@@ -1461,7 +1461,7 @@
 	.numb-total {
 		position: absolute;
 	    top: calc(50% - 25px);
-	    right: 0;
+	    right: -30px;
 	    @media (max-width: 767px) {
 	    	top: 0;
 		    position: relative;
