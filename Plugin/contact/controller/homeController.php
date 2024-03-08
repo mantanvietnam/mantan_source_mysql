@@ -82,9 +82,9 @@ function contactAPI($input)
            /* if(!empty($data_value['email'])){
                 sendEmailContact(@$data_value['email'], @$dataSend['name'],@$dataSend['phone_number'], @$dataSend['content']);
             }*/
-            $return =  array('code'=>1, 'mess'=>'bạn gửi thành công');
+            $return =  array('code'=>1, 'mess'=>'Bạn gửi thành công');
         }else{
-            $return = array('code'=>0, 'mess'=>'bạn gửi thiếu dữ liệu');
+            $return = array('code'=>0, 'mess'=>'Bạn gửi thiếu dữ liệu');
         }
         
     }
