@@ -29,3 +29,16 @@ function configServiceFeeAdmin($input)
     setVariable('serviceFee', $serviceFee);
     setVariable('mess', $mess);
 }
+
+function checkCompletedBookingAdmin($input)
+{
+    global $isRequestPost;
+    $mess = '';
+
+    if ($isRequestPost) {
+        checkFinishedBooking();
+        $mess = '<p class="text-success"> Thao tác thành công</p>';
+    }
+
+    setVariable('mess', $mess);
+}

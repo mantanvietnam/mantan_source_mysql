@@ -9,6 +9,11 @@
             <div class="card-body">
                 <div class="row gx-3 gy-2 align-items-center">
                     <div class="col-md-4">
+                      <label class="form-label">Id cuốc xe</label>
+                      <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+                    </div>
+
+                    <div class="col-md-4">
                         <label class="form-label">Tên tỉnh đi</label>
                         <select name="departure_province_id" class="form-select color-dropdown">
                             <option value="">Tất cả</option>
@@ -50,11 +55,6 @@
                     <div class="col-md-4">
                         <label class="form-label">Tên người nhận</label>
                         <input type="text" class="form-control" name="received_name" value="<?php if(!empty($_GET['received_name'])) echo $_GET['received_name'];?>">
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="form-label">Ngày đăng</label>
-                        <input type="text" class="form-control datepicker" name="posted_date" value="<?php if(!empty($_GET['posted_date'])) echo $_GET['posted_date'];?>">
                     </div>
 
                     <div class="col-md-2">
@@ -131,49 +131,49 @@
         </div>
 
         <!-- Phân trang -->
-        <div class="demo-inline-spacing">
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    <?php
-                    if (isset($totalPage) && isset($page) && isset($urlPage)) {
-                        if ($totalPage > 0) {
-                            if ($page > 5) {
-                                $startPage = $page - 5;
-                            } else {
-                                $startPage = 1;
-                            }
+      <div class="demo-inline-spacing">
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+              <?php
+              if (isset($totalPage) && isset($page) && isset($urlPage)) {
+                  if ($totalPage > 0) {
+                      if ($page > 5) {
+                          $startPage = $page - 5;
+                      } else {
+                          $startPage = 1;
+                      }
 
-                            if ($totalPage > $page + 5) {
-                                $endPage = $page + 5;
-                            } else {
-                                $endPage = $totalPage;
-                            }
+                      if ($totalPage > $page + 5) {
+                          $endPage = $page + 5;
+                      } else {
+                          $endPage = $totalPage;
+                      }
 
-                            echo '<li class="page-item first">
-                                      <a class="page-link" href="' . $urlPage . '1"
-                                          ><i class="tf-icon bx bx-chevrons-left"></i
-                                      ></a>
-                                  </li>';
+                      echo '<li class="page-item first">
+                        <a class="page-link" href="' . $urlPage . '1"
+                          ><i class="tf-icon bx bx-chevrons-left"></i
+                        ></a>
+                      </li>';
 
-                            for ($i = $startPage; $i <= $endPage; $i++) {
-                                $active = ($page == $i) ? 'active' : '';
+                      for ($i = $startPage; $i <= $endPage; $i++) {
+                          $active = ($page == $i) ? 'active' : '';
 
-                                echo '<li class="page-item ' . $active . '">
-                                          <a class="page-link" href="' . $urlPage . $i . '">' . $i . '</a>
-                                      </li>';
-                            }
+                          echo '<li class="page-item ' . $active . '">
+                            <a class="page-link" href="' . $urlPage . $i . '">' . $i . '</a>
+                          </li>';
+                      }
 
-                            echo '<li class="page-item last">
-                                      <a class="page-link" href="' . $urlPage . $totalPage . '"
-                                          ><i class="tf-icon bx bx-chevrons-right"></i
-                                      ></a>
-                                  </li>';
-                        }
-                    }
-                    ?>
-                </ul>
-            </nav>
-        </div>
+                      echo '<li class="page-item last">
+                        <a class="page-link" href="' . $urlPage . $totalPage . '"
+                          ><i class="tf-icon bx bx-chevrons-right"></i
+                        ></a>
+                      </li>';
+                  }
+              }
+              ?>
+          </ul>
+        </nav>
+      </div>
         <!--/ Basic Pagination -->
     </div>
     <!--/ Responsive Table -->

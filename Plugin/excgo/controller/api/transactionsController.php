@@ -252,7 +252,7 @@ function getListBookingTransaction($input): array
             }
         }
         $conditions = ['Bookings.received_by' => $currentUser->id];
-        $order = ['Bookings.created_at' => 'DESC'];
+        $order = ['Bookings.received_at' => 'DESC'];
         $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 10;
         $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
 
@@ -284,6 +284,7 @@ function getListBookingTransaction($input): array
         foreach ($listBooking as &$item) {
             $listTransaction = $transactionModel->find()
                 ->where(['booking_id' => $item['id']])
+                ->where(['user_id' => $currentUser->id])
                 ->order(['created_at' => 'DESC'])
                 ->all()
                 ->toList();

@@ -6,39 +6,22 @@
             <h5 class="card-header">Tìm kiếm dữ liệu</h5>
             <div class="card-body">
                 <div class="row gx-3 gy-2 align-items-center">
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         <label class="form-label">ID</label>
                         <input type="text" class="form-control" name="id"
                                value="<?php if (!empty($_GET['id'])) echo $_GET['id']; ?>">
                     </div>
 
-                    <div class="col-md-3">
-                        <label class="form-label">Tên người khiếu nại</label>
-                        <input type="text" class="form-control" name="name"
-                               value="<?php if (!empty($_GET['name'])) echo $_GET['name']; ?>">
+                    <div class="col-md-4">
+                        <label class="form-label">User Id</label>
+                        <input type="text" class="form-control" name="user_id"
+                               value="<?php if (!empty($_GET['user_id'])) echo $_GET['user_id']; ?>">
                     </div>
 
-                    <div class="col-md-3">
-                        <label class="form-label">Số điện thoại</label>
-                        <input type="text" class="form-control" name="phone_number"
-                               value="<?php if (!empty($_GET['phone_number'])) echo $_GET['phone_number']; ?>">
-                    </div>
-
-                    <div class="col-md-3">
-                        <label class="form-label">Email</label>
-                        <input type="text" class="form-control" name="email"
-                               value="<?php if (!empty($_GET['email'])) echo $_GET['email']; ?>">
-                    </div>
-
-                    <div class="col-md-2">
-                        <label class="form-label">Trạng thái</label>
-                        <select name="status" class="form-select color-dropdown">
-                            <option value="">Tất cả</option>
-                            <option value="1" <?php if (isset($_GET['status']) && $_GET['status'] == '1') echo 'selected'; ?> >Đã xử lý
-                            </option>
-                            <option value="0" <?php if (isset($_GET['status']) && $_GET['status'] == '0') echo 'selected'; ?> >Chưa xử lý
-                            </option>
-                        </select>
+                    <div class="col-md-4">
+                        <label class="form-label">Id cuốc xe</label>
+                        <input type="text" class="form-control" name="booking_id"
+                               value="<?php if (!empty($_GET['booking_id'])) echo $_GET['booking_id']; ?>">
                     </div>
 
                     <div class="col-md-2">
@@ -69,10 +52,12 @@
                 <?php
                 if (!empty($listData)) {
                     foreach ($listData as $item) {
+                        $type = $item->type == 1 ? '+' : '-';
+
                         echo '<tr>
                         <td align="center">' . $item->id . '</td>
                         <td align="center">' . $item->name . '</td>
-                        <td align="center">' . $item->amount . '</td>
+                        <td align="center">' . $type . $item->amount . '</td>
                         <td align="center">' . $item->description . '</td>
                         <td align="center">' . $item->created_at . '</td>
                       </td>
