@@ -33,12 +33,17 @@
             </li>
             <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-specifications" aria-controls="navs-top-info" aria-selected="false">
-                 ĐỘI NGŨ
+                 LIÊN HỆ
               </button>
             </li>
            <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-contac" aria-controls="navs-top-image" aria-selected="false">
-              MẠNG XÃ HỘI
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-product" aria-controls="navs-top-image" aria-selected="false">
+              SẢN PHẨM
+           </button>
+         </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-feedback" aria-controls="navs-top-image" aria-selected="false">
+              FEEDBACK
            </button>
          </li>
          <li class="nav-item">
@@ -222,13 +227,79 @@
           </div>    
           <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">
             <div class="card-body row ">
-             
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề chữ nhỏ</label>
+                <input type="text" class="form-control" name="title_lh_nho" value="<?php echo @$data['title_lh_nho'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề chữ to</label>
+                <input type="text" class="form-control" name="title_lh_to" value="<?php echo @$data['title_lh_to'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">ảnh bên phải</label>
+                 <?php showUploadFile('image_lh','image_lh', @$data['image_lh'],9);?>
+              </div>
             </div>
           </div>
           
-          <div class="tab-pane fade" id="navs-top-contac" role="tabpanel">
+          <div class="tab-pane fade" id="navs-top-product" role="tabpanel">
             <div class="card-body row ">
-              
+               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề chữ nho</label>
+                <input type="text" class="form-control" name="title_sp_nho" value="<?php echo @$data['title_sp_nho'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề chữ to</label>
+                <input type="text" class="form-control" name="title_sp_to" value="<?php echo @$data['title_sp_to'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Nội dung</label>
+                <input type="text" class="form-control" name="content_sp" value="<?php echo @$data['content_sp'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đê sản phẩm 1</label>
+                <input type="text" class="form-control mb-3" name="title_sp_1" value="<?php echo @$data['title_sp_1'];?>" />
+                <label class="form-label" for="basic-default-fullname">nội dung sản phẩm 1</label>
+                <input type="text" class="form-control mb-3" name="content_sp_1" value="<?php echo @$data['content_sp_1'];?>" />
+                <label class="form-label" for="basic-default-fullname">Giá 1</label>
+                <input type="text" class="form-control mb-3" name="price_sp_1" value="<?php echo @$data['price_sp_1'];?>" />
+                <label class="form-label" for="basic-default-fullname">Link dăng ký 1</label>
+                <input type="text" class="form-control mb-3" name="link_sp_1" value="<?php echo @$data['link_sp_1'];?>" />
+                <label class="form-label" for="basic-default-fullname">Ảnh sản phẩm 1</label>
+                 <?php showUploadFile('image_sp_1','image_sp_1', @$data['image_sp_1'],41);?>
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đê sản phẩm 2</label>
+                <input type="text" class="form-control mb-3" name="title_sp_2" value="<?php echo @$data['title_sp_2'];?>" />
+                <label class="form-label" for="basic-default-fullname">nội dung sản phẩm 2</label>
+                <input type="text" class="form-control mb-3" name="content_sp_2" value="<?php echo @$data['content_sp_2'];?>" />
+                <label class="form-label" for="basic-default-fullname">Giá 2</label>
+                <input type="text" class="form-control mb-3" name="price_sp_2" value="<?php echo @$data['price_sp_2'];?>" />
+                <label class="form-label" for="basic-default-fullname">Link dăng ký 2</label>
+                <input type="text" class="form-control mb-3" name="link_sp_2" value="<?php echo @$data['link_sp_2'];?>" />
+                <label class="form-label" for="basic-default-fullname">Ảnh sản phẩm 2</label>
+                 <?php showUploadFile('image_sp_2','image_sp_2', @$data['image_sp_2'],42);?>
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đê sản phẩm 3</label>
+                <input type="text" class="form-control mb-3" name="title_sp_3" value="<?php echo @$data['title_sp_3'];?>" />
+                <label class="form-label" for="basic-default-fullname">nội dung sản phẩm 3</label>
+                <input type="text" class="form-control mb-3" name="content_sp_3" value="<?php echo @$data['content_sp_3'];?>" />
+                <label class="form-label" for="basic-default-fullname">Giá 3</label>
+                <input type="text" class="form-control mb-3" name="price_sp_3" value="<?php echo @$data['price_sp_3'];?>" />
+                <label class="form-label" for="basic-default-fullname">Link dăng ký 3</label>
+                <input type="text" class="form-control mb-3" name="link_sp_3" value="<?php echo @$data['link_sp_3'];?>" />
+                <label class="form-label" for="basic-default-fullname">Ảnh sản phẩm 3</label>
+                 <?php showUploadFile('image_sp_3','image_sp_3', @$data['image_sp_3'],43);?>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="navs-top-feedback" role="tabpanel">
+            <div class="card-body row ">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <label class="form-label" for="basic-default-fullname">Ảnh Nền</label>
+                 <?php showUploadFile('background_feedback','background_feedback', @$data['background_feedback'],10);?>
+              </div>
             </div>
           </div>
           <div class="tab-pane fade" id="navs-top-Post" role="tabpanel">

@@ -24,7 +24,7 @@ function contact($input)
 
         $data = $modelContacts->newEmptyEntity();
 
-        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
+        if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['subject']) && !empty($dataSend['content'])){
             // tạo dữ liệu save
             $data->subject = @$dataSend['subject'];
             $data->name = @$dataSend['name'];
