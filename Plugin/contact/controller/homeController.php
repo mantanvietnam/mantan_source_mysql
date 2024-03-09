@@ -63,7 +63,7 @@ function contactAPI($input)
 
     $modelContacts = $controller->loadModel('Contacts');
 
-    $return = '';
+    $return = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -82,9 +82,9 @@ function contactAPI($input)
            /* if(!empty($data_value['email'])){
                 sendEmailContact(@$data_value['email'], @$dataSend['name'],@$dataSend['phone_number'], @$dataSend['content']);
             }*/
-            $return =  array('code'=>1, 'mess'=>'Bạn gửi thành công');
+            $return =  array('code'=>1, 'mess'=>'<p class="text-success">Gửi yêu cầu liên hệ thành công</p>');
         }else{
-            $return = array('code'=>0, 'mess'=>'Bạn gửi thiếu dữ liệu');
+            $return = array('code'=>0, 'mess'=>'<p class="text-danger">Gửi thiếu dữ liệu</p>');
         }
         
     }
