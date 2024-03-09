@@ -48,7 +48,12 @@
          </li>
          <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-Post" aria-controls="navs-top-Post" aria-selected="false">
-              TRANG TIN TỨC
+              TIN TỨC
+           </button>
+         </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-footer" aria-controls="navs-top-Post" aria-selected="false">
+              CHÂN TRANG
            </button>
          </li>
        </ul>
@@ -304,9 +309,66 @@
           </div>
           <div class="tab-pane fade" id="navs-top-Post" role="tabpanel">
             <div class="card-body row ">
-              
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <label class="form-label" for="basic-default-fullname">tiêu đề chữ nhỏ</label>
+                <input type="text" class="form-control mb-3" name="title_tt_nho" value="<?php echo @$data['title_tt_nho'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <label class="form-label" for="basic-default-fullname">tiêu đề chữ to</label>
+                <input type="text" class="form-control mb-3" name="title_tt_to" value="<?php echo @$data['title_tt_to'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <label class="form-label" for="basic-default-fullname">Nội dung</label>
+                <input type="text" class="form-control mb-3" name="content_tt" value="<?php echo @$data['content_tt'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <label class="form-label" for="basic-default-fullname">Ảnh Banner trang tin tức</label>
+                 <?php showUploadFile('background_post','background_post', @$data['background_post'],11);?>
+              </div>
             </div>
           </div>
+           <div class="tab-pane fade" id="navs-top-footer" role="tabpanel">
+            <div class="card-body row ">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <label class="form-label" for="basic-default-fullname">Tên công ty</label>
+                <input type="text" class="form-control mb-3" name="name_company" value="<?php echo @$data['name_company'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
+                <input type="text" class="form-control mb-3" name="address" value="<?php echo @$data['address'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">điện thoại</label>
+                <input type="text" class="form-control mb-3" name="phone" value="<?php echo @$data['phone'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Email</label>
+                <input type="text" class="form-control mb-3" name="email" value="<?php echo @$data['email'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Facebook</label>
+                <input type="text" class="form-control mb-3" name="facebook" value="<?php echo @$data['facebook'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">twitter</label>
+                <input type="text" class="form-control mb-3" name="twitter" value="<?php echo @$data['twitter'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">tiktok</label>
+                <input type="text" class="form-control mb-3" name="tiktok" value="<?php echo @$data['tiktok'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">chữ trân trang</label>
+                <input type="text" class="form-control mb-3" name="textfooter" value="<?php echo @$data['textfooter'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <label class="form-label" for="basic-default-fullname">Về chúng tôi</label>
+                <textarea class="form-control" name="aboutus"><?php echo @$data['aboutus'];?></textarea>
+              </div>
+            </div>
+          </div>
+
+         
         <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <button type="submit" class="btn btn-primary" style="width:75px; height: 35px;">Lưu</button>
         </div>

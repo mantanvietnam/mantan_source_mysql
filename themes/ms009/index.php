@@ -517,65 +517,40 @@ global $urlThemeActive;
         <div class="container">
             <div class="section-title text-center m-auto">
                 <div class="title-small">
-                    <span>Đặc Sản Của Chúng Tôi</span>
+                    <span><?php echo @$setting['title_tt_nho'] ?></span>
                 </div>
 
                 <div class="title-big">
-                    <span>Tại sao chọn chúng tôi</span>
+                    <span><?php echo @$setting['title_tt_to'] ?></span>
                 </div>
 
                 <div class="title-description">
-                    <p>Yoga là món quà vô giá, nhấn mạnh sự hợp nhất và hòa hợp với thiên nhiên, thể hiện sự thống nhất của tâm trí và cơ thể, suy nghĩ và hành động, sự kiềm chế.</p>
+                    <p><?php echo @$setting['content_tt'] ?></p>
                 </div>
             </div>
             <div class="news-list">
-                <div class="news-item">
+                <?php if(!empty($listDataNew)){
+                    foreach($listDataNew as $item){
+                        echo '<div class="news-item">
                     <div class="news-img">
-                        <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/thu-thach-tu-the-banh-xe-5.jpg" alt=""></a>
+                        <a href="/'.@$item->slug.'.html"><img src="'.@$item->image.'" alt=""></a>
                     </div>
 
                     <div class="news-text">
                         <div class="news-name">
-                            <a href="">Tư thế chim bồ câu</a>
+                            <a href="/'.@$item->slug.'.html">'.@$item->title.'</a>
                         </div>
 
                         <div class="news-link">
-                            <a href="">Xem thêm</a>
+                            <a href="/'.@$item->slug.'.html">Xem thêm</a>
                         </div>
                     </div>
-                </div>
+                </div>';
+                    }
+                } ?>
+                
 
-                <div class="news-item">
-                    <div class="news-img">
-                        <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/thu-thach-tu-the-banh-xe-5.jpg" alt=""></a>
-                    </div>
-
-                    <div class="news-text">
-                        <div class="news-name">
-                            <a href="">Tư thế chim bồ câu</a>
-                        </div>
-
-                        <div class="news-link">
-                            <a href="">Xem thêm</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-img">
-                        <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/thu-thach-tu-the-banh-xe-5.jpg" alt=""></a>
-                    </div>
-
-                    <div class="news-text">
-                        <div class="news-name">
-                            <a href="">Tư thế chim bồ câu</a>
-                        </div>
-
-                        <div class="news-link">
-                            <a href="">Xem thêm</a>
-                        </div>
-                    </div>
-                </div>
+             
             </div>
         </div>
     </section>

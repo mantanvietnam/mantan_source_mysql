@@ -9,16 +9,16 @@ $setting = setting();
                 <div class="row">
                     <div class="col-lg-3 ">
                         <div class="logo-footer">
-                            <img src="<?php echo $urlThemeActive ?>/asset/image/thiet-ke-lo-go-spa-01-1024x482.png" alt="">
+                            <img src="<?php echo @$setting['logo'] ?>" alt="">
                         </div>
                     </div>
 
                     <div class="col-lg-5">
                         <div class="footer-center">
-                            <p class="footer-company">CÔNG TY CỔ PHẦN DỊCH VỤ CHĂM SÓC SỨC KHỎE YOGA</p>
-                            <p class="footer-address">Địa chỉ Số 144 Đội Cấn, Ba Đình Hà Nội</p>
-                            <p class="footer-phone">Hotline: 0969.733.180</p>
-                            <p class="footer-email">Email: admin@demo.vn</p>
+                            <p class="footer-company"><?php echo @$setting['name_company'] ?></p>
+                            <p class="footer-address">Địa chỉ: <?php echo @$setting['address'] ?></p>
+                            <p class="footer-phone">Hotline: <?php echo @$setting['phone'] ?></p>
+                            <p class="footer-email">Email: <?php echo @$setting['email'] ?></p>
                         </div>
                     </div>
 
@@ -28,20 +28,18 @@ $setting = setting();
                                 Về Chúng Tôi
                             </div>
 
-                            <div class="footer-right-description">
-                                Chúng tôi đã làm việc chăm chỉ trong nhiều năm qua để trở thành một phần quan trọng của cộng đồng, chúng tôi đã được công nhận là một trong những câu lạc bộ YOGA hàng đầu
-                            </div>
+                            <div class="footer-right-description"><?php echo @$setting['aboutus'] ?></div>
 
                             <div class="footer-list-social">
                                 <ul>
                                     <li>
-                                        <a href=""><i class="fa-brands fa-facebook-f"></i></a>
+                                        <a href="<?php echo @$setting['facebook'] ?>"><i class="fa-brands fa-facebook-f"></i></a>
                                     </li>
                                     <li>
-                                        <a href=""><i class="fa-brands fa-twitter"></i></a>
+                                        <a href="<?php echo @$setting['twitter'] ?>"><i class="fa-brands fa-twitter"></i></a>
                                     </li>
                                     <li>
-                                        <a href=""><i class="fa-brands fa-tiktok"></i></a>
+                                        <a href="<?php echo @$setting['tiktok'] ?>"><i class="fa-brands fa-tiktok"></i></a>
                                     </li>
                                     <li></li>
                                 </ul>
@@ -55,7 +53,7 @@ $setting = setting();
         <section id="section-footer-bottom">
             <div class="container">
                 <div class="footer-bottom text-center">
-                    <p>© Bản quyền thuộc về Yoga</p>
+                    <p><?php echo @$setting['textfooter'] ?></p>
                 </div>
             </div>
         </section>

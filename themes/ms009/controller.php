@@ -84,6 +84,19 @@ function settingHomeTheme($input){
                             'price_sp_3'=> @$dataSend['price_sp_3'],
                             'image_sp_3'=> @$dataSend['image_sp_3'],
                             'background_feedback'=> @$dataSend['background_feedback'],
+                            'title_tt_nho'=> @$dataSend['title_tt_nho'],
+                            'title_tt_to'=> @$dataSend['title_tt_to'],
+                            'content_tt'=> @$dataSend['content_tt'],
+                            'background_post'=> @$dataSend['background_post'],
+                            'name_company'=> @$dataSend['name_company'],
+                            'address'=> @$dataSend['address'],
+                            'phone'=> @$dataSend['phone'],
+                            'email'=> @$dataSend['email'],
+                            'facebook'=> @$dataSend['facebook'],
+                            'twitter'=> @$dataSend['twitter'],
+                            'tiktok'=> @$dataSend['tiktok'],
+                            'textfooter'=> @$dataSend['textfooter'],
+                            'aboutus'=> @$dataSend['aboutus'],
                             
                             
              );
