@@ -55,9 +55,9 @@ textarea{
     color: #fff;
 }
 
-.social-item{
+/* .social-item{
     flex: 1 1;
-}
+} */
 
 
 #section-news .news-list .news-item .new-item-inner .news-detail .news-description{
@@ -94,9 +94,9 @@ textarea{
 
     /* Footer */
     footer #section-footer .footer-box .social-list{
-        display: grid;
+        /* display: grid;
         gap: 36px;
-        grid-template-columns: auto auto;
+        grid-template-columns: auto auto; */
     }
 
     h2{
@@ -149,4 +149,14 @@ textarea{
 .navbar-toggler i{
     color : #fff;
     font-size: 28px;
+}
+
+.social-item a i{
+    font-size: 36px;
+    color: #fff;
+    transition: all 0.4s linear;
+}
+
+.social-item a i:hover{
+    color: #ec8805;
 }

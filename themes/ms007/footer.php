@@ -22,31 +22,35 @@ $setting = setting();
                             <div class="social-list">
                                 <div class="social-item">
                                     <a href="<?php echo @$setting['facebook']; ?>">
-                                        <img src="<?php echo $urlThemeActive ?>asset/img/face.jpg" alt="">
-                                    </a>
+                                        <!-- <img src="<?php echo $urlThemeActive ?>asset/img/face.jpg" alt=""> -->
+                                        <i class="fa-brands fa-facebook"></i>                                    </a>
                                 </div>
 
                                 <div class="social-item">
                                     <a href="<?php echo @$setting['messenger']; ?>">
-                                        <img src="<?php echo $urlThemeActive ?>asset/img/messenger.jpg" alt="">
+                                        <!-- <img src="<?php echo $urlThemeActive ?>asset/img/messenger.jpg" alt=""> -->
+                                        <i class="fa-brands fa-facebook-messenger"></i>
                                     </a>
                                 </div>
 
                                 <div class="social-item">
                                     <a href="<?php echo @$setting['tiktok']; ?>">
-                                        <img src="<?php echo $urlThemeActive ?>asset/img/tiktok.jpg" alt="">
+                                        <!-- <img src="<?php echo $urlThemeActive ?>asset/img/tiktok.jpg" alt=""> -->
+                                        <i class="fa-brands fa-tiktok"></i>
                                     </a>
                                 </div>
 
                                 <div class="social-item">
                                     <a href="<?php echo @$setting['youtube']; ?>">
-                                        <img src="<?php echo $urlThemeActive ?>asset/img/youtube.jpg" alt="">
+                                        <!-- <img src="<?php echo $urlThemeActive ?>asset/img/youtube.jpg" alt=""> -->
+                                        <i class="fa-brands fa-youtube"></i>
                                     </a>
                                 </div>
 
                                 <div class="social-item">
                                     <a href="<?php echo @$setting['zalo']; ?>">
-                                        <img src="<?php echo $urlThemeActive ?>asset/img/zalo.jpg" alt="">
+                                        <!-- <img src="<?php echo $urlThemeActive ?>asset/img/zalo.jpg" alt=""> -->
+                                        <i class="fa-brands fa-square-instagram"></i>
                                     </a>
                                 </div>
                             </div>
