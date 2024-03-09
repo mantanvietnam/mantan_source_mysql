@@ -578,7 +578,10 @@ function info($input)
 		if(!empty($info)){
 			$metaTitleMantan = $info->name;
 			$metaImageMantan = (!empty($info->banner))?$info->banner:$info->avatar;
-			$metaDescriptionMantan = strip_tags($info->description);
+			
+			if(!empty($info->description)){
+				$metaDescriptionMantan = strip_tags($info->description);
+			}
 
 			// tăng lượt xem
 			$info->view ++;

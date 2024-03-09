@@ -164,6 +164,10 @@
             .avatar{
                 object-fit: cover;
             }
+            
+            #myPhone{
+                color: #000 !important;
+            }
         </style>                            
     </head>
     
