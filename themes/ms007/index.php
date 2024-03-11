@@ -265,15 +265,15 @@ global $urlThemeActive;
                         <div class="form-contact">
                             <form id="myForm">
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" id="name" placeholder="Họ và tên">
+                                    <input type="text" class="form-control" id="name" placeholder="Họ và tên" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                    <input type="email" class="form-control" id="email" placeholder="Email" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" id="phone" placeholder="Số điện thoại">
+                                    <input type="text" class="form-control" id="phone" pattern="^\+?[0-9]{1,3}\s?\(?[0-9]{3}\)?[\s.-]?[0-9]{3}[\s.-]?[0-9]{4}$" placeholder="Số điện thoại" required>
                                 </div>
 
                                 <div class="mb-3">
