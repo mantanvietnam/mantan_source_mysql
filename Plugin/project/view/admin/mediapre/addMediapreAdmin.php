@@ -17,7 +17,7 @@
               <div class="row">
                   <div class="mb-3 col-md-6">
                     <label class="form-label" for="basic-default-phone">Title (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
+                    <input required type="text" class="form-control phone-mask" name="name" id="name" value='<?php echo @$data->name;?>' />
                   </div>  
 
                   <div class="mb-3 col-md-6">
@@ -29,7 +29,7 @@
 
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Thời gian đăng *</label>
-                    <input type="text" class="form-control datepicker" name="time_create" value="<?php if(empty($data->time_create)) $data->time_create = time();echo date('d/m/Y', $data->time_create);?>" required />
+                    <input type="text" class="form-control datepicker" name="time_create" value='<?php if(empty($data->time_create)) $data->time_create = time();echo date('d/m/Y', $data->time_create);?>' required />
                   </div>
 
                   <div class="mb-3 col-md-6">
@@ -44,7 +44,7 @@
 
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Đường dẫn</label>
-                    <input required type="text" class="form-control phone-mask" name="link" id="link" value="<?php echo @$data->link;?>" />
+                    <input required type="text" class="form-control phone-mask" name="link" id="link" value='<?php echo @$data->link;?>' />
                   </div>
 
                   <div class="mb-3 col-md-6">

@@ -40,7 +40,6 @@ $menus[0]['sub'][8]= array('title'=>'Thông tin Event',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listEventAdmin',
                         );
-$menus= array();
 $menus[1]['title']= 'Opportunities';
 $menus[1]['sub'][5]= array('title'=>'Past tender calls',
                             'url'=>'/',

@@ -17,7 +17,7 @@
               <div class="row">
                   <div class="mb-3 col-md-6">
                     <label class="form-label" for="basic-default-phone">Title (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
+                    <input required type="text" class="form-control phone-mask" name="name" id="name" value='<?php echo @$data->name;?>' />
                   </div>  
 
                   <div class="mb-3 col-md-6">
@@ -29,22 +29,22 @@
 
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Thời gian đăng *</label>
-                    <input type="text" class="form-control " name="time_create" value="<?php echo @$data->time_create;?>" required />
+                    <input type="text" class="form-control " name="time_create" value='<?php echo @$data->time_create;?>' required />
                   </div>
                     <!-- datepicker -->
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="status" id="status">
-                        <option value="1" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
-                        <option value="0" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
+                        <option value='1' <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
+                        <option value='0' <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
                       </select>
                     </div>
                   </div>
 
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Đường dẫn</label>
-                    <input required type="text" class="form-control phone-mask" name="link" id="link" value="<?php echo @$data->link;?>" />
+                    <input required type="text" class="form-control phone-mask" name="link" id="link" value='<?php echo @$data->link;?>' />
                   </div>
 
                   <div class="mb-3 col-md-6">
