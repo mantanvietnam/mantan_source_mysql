@@ -42,22 +42,22 @@
                     </div>
                   </div>
                    <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Danh mục(*)</label>
-                    <select class="form-select form-select" id="category" required  name="category" aria-label=".form-select-sm example">
-                       <option value="">Chọn danh mục</option>
-                        <?php  foreach(categoryDiscountCode() as $key => $item){ ?>
-                        <option <?php if($data['category']==$key){ echo 'selected'; } ?> value="<?php echo $key ?>"><?php echo $item ?></option>        
+                    <label class="form-label" for="basic-default-fullname">Danh mục</label>
+                    <select class="form-select form-select" id="category"  name="category" aria-label=".form-select-sm example">
+                       <option value="">Tất cả danh mục</option>
+                        <?php  foreach($categories as $key => $item){ ?>
+                        <option <?php if($data->category==$item->id){ echo 'selected'; } ?> value="<?php echo $item->id; ?>"><?php echo $item->name; ?></option>        
                       <?php } ?>          
                     </select>
                   </div>          
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">phần trăm giảm giá (*)</label>
-                    <input type="number" required autocomplete="off" class="form-control" placeholder="" name="discount" id="discount" value="<?php echo @$data->discount;?>" />
+                    <label class="form-label" for="basic-default-fullname">Phần trăm giảm giá (*)</label>
+                    <input type="text" required autocomplete="off" class="form-control" placeholder="" name="discount" id="discount" value="<?php echo @$data->discount;?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">nội dung</label>
+                    <label class="form-label" for="basic-default-fullname">Nội dung</label>
                     <input type="text" class="form-control" placeholder="" name="note" id="note" value="<?php echo @$data->note;?>" />
                   </div>
                   <div class="mb-3">
@@ -66,11 +66,15 @@
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Giá giảm tối đa </label>
-                    <input type="number"  class="form-control" placeholder="mỗi id sản phẩm cách nhau dấu phẩy " name="maximum_price_reduction" id="maximum_price_reduction" value="<?php echo @$data->maximum_price_reduction;?>" />
+                    <input type="number"  class="form-control" placeholder="" name="maximum_price_reduction" id="maximum_price_reduction" value="<?php echo @$data->maximum_price_reduction;?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Id khách hàng</label>
-                    <input type="text" class="form-control" placeholder="mỗi id khách hàng cách nhau dấu phẩy" name="id_customers" id="id_customers" value="<?php echo @$data->id_customers;?>" />
+                    <label class="form-label" for="basic-default-fullname">ID khách hàng</label>
+                    <input type="text" class="form-control" placeholder="Mỗi id cách nhau dấu phẩy" name="id_customers" id="id_customers" value="<?php echo @$data->id_customers;?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">ID sản phẩm</label>
+                    <input type="text" class="form-control" placeholder="Mỗi id cách nhau dấu phẩy" name="id_products" id="id_products" value="<?php echo @$data->id_products;?>" />
                   </div>
                 </div>
               </div>

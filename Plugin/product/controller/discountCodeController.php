@@ -74,6 +74,15 @@ function listDiscountCodeAdmin($input)
         $mess= '<p class="text-success" style="padding-left: 1.5em;">Xóa dữ liệu thành công</p>';
     }
 
+    $conditions = array('type' => 'category_product');
+    $categories = $modelCategories->find()->where($conditions)->all()->toList();
+    $listCategory = [];
+    if(!empty($categories)){
+        foreach ($categories as $key => $value) {
+            $listCategory[$value->id] = $value->name;
+        }
+    }
+
     setVariable('mess', @$mess);
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
@@ -82,6 +91,7 @@ function listDiscountCodeAdmin($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('listCategory', $listCategory);
 }
 
 function addDiscountCodeAdmin($input)
@@ -116,9 +126,10 @@ function addDiscountCodeAdmin($input)
             $data->name = @$dataSend['name'];
             $data->status = @$dataSend['status'];
             $data->code = strtoupper(@$dataSend['code']);
-            $data->discount = @$dataSend['discount'];
+            $data->discount = (double) @$dataSend['discount'];
             $data->maximum_price_reduction = @$dataSend['maximum_price_reduction'];
             $data->id_customers = @$dataSend['id_customers'];
+            $data->id_products = @$dataSend['id_products'];
             $data->number_user = @$dataSend['number_user'];
             $data->category = @$dataSend['category'];
             if(!empty($dataSend['deadline_at'])){
@@ -143,10 +154,12 @@ function addDiscountCodeAdmin($input)
         }
     }
 
-
+    $conditions = array('type' => 'category_product');
+    $categories = $modelCategories->find()->where($conditions)->all()->toList();
 
     setVariable('data', $data);
     setVariable('mess', $mess);
+    setVariable('categories', $categories);
 }
 
 function deleteDiscountCodeAdmin($input){

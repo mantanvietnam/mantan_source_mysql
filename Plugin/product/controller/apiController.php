@@ -320,8 +320,61 @@ function getInfoProductAPI($input)
     return $return;
 }
 
-function categoryDiscountCodeAPI($input)
-{
+// tìm mã giảm giá
+function searchDiscountCodeReservedAPI($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
 
-}
+    $return = array('code'=>0);
+
+    $modelDiscountCode = $controller->loadModel('DiscountCodes');
+    
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+    }
+
+    $conditions = array();
+    
+    if(!empty($_GET['code'])){
+        $conditions['code'] = strtoupper($_GET['code']);
+        $conditions['status'] = 1;
+
+        if(!empty($_GET['category'])){
+            $conditions['category'] = (int) $_GET['category'];
+        }
+        
+        $data = $modelDiscountCode->find()->where($conditions)->first();
+
+        // kiểm tra người dùng có được áp dụng giảm giá không
+        if(!empty($data->id_customers) && !empty($infoUser)){
+            $id_customer = explode(',', $data->id_customers);
+            
+            if(!in_array($infoUser->id, $id_customer)){
+                $data = [];
+            }
+        }
+
+        // kiểm tra sản phẩm có được giảm giá không
+        if(!empty($data->id_products) && !empty($dataSend['id_product'])){
+            $id_products = explode(',', $data->id_products);
+            
+            if(!in_array($dataSend['id_product'], $id_products)){
+                $data = [];
+            }
+        }
+
+        if(!empty($data)){
+            $return = array('code'=>1, 'data'=>$data);
+        }else{
+            $return = array('code'=>0);
+        }
+    }else{
+        $return = array('code'=>0);
+    }
+
+    return $return;
+} 
 ?>

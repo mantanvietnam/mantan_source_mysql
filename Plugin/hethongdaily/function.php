@@ -261,6 +261,74 @@ function getTreeSystem($id_father, $modelMembers)
     return $listData;
 }
 
+function createCustomerNew($dataSend=[])
+{
+    global $controller;
+
+    $modelCustomers = $controller->loadModel('Customers');
+    
+    $infoUser = $modelCustomers->newEmptyEntity();
+
+    if(!empty($dataSend['full_name']) && !empty($dataSend['phone'])){
+        $infoUser = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
+        
+        if(empty($infoUser)){
+            $infoUser = $modelCustomers->newEmptyEntity();
+            
+            $infoUser->full_name = $dataSend['full_name'];
+            $infoUser->phone = $dataSend['phone'];
+            $infoUser->email = (string) @$dataSend['email'];
+            $infoUser->address = (string) @$dataSend['address'];
+            $infoUser->sex = (int) @$dataSend['sex'];
+            $infoUser->id_city = (int) @$dataSend['id_city'];
+            $infoUser->id_parent = (int) @$dataSend['id_agency']; // đại lý bán hàng
+            $infoUser->id_aff = (int) @$dataSend['id_aff']; // người tiếp thị liên kết
+            $infoUser->id_messenger = (string) @$dataSend['id_messenger'];
+            $infoUser->avatar = (string) @$dataSend['avatar'];
+            $infoUser->status = 'active';
+            $infoUser->pass = md5($dataSend['phone']);
+            $infoUser->birthday_date = (int) @$dataSend['birthday_date'];
+            $infoUser->birthday_month = (int) @$dataSend['birthday_month'];
+            $infoUser->birthday_year = (int) @$dataSend['birthday_year'];
+
+            $modelCustomers->save($infoUser);
+
+            // lưu lịch sử của khách hàng
+            $note_now = 'Khởi tạo dữ liệu người dùng mới khi khách hàng mua hàng của đại lý '.@$dataSend['name_agency'];
+
+            createCustomerHistoriesNewOrder($infoUser->id, $note_now, $infoUser->id_parent);
+        }else{
+            $infoUser->full_name = $dataSend['full_name'];
+            $note_now = 'Mua đơn hàng mới';
+            
+            // đại lý bán hàng
+            if(!empty($dataSend['id_agency'])){
+                $infoUser->id_parent = (int) $dataSend['id_agency'];
+                
+                $note_now = 'Mua hàng của đại lý '.@$dataSend['name_agency'];
+            }
+
+            // người tiếp thị liên kết
+            if(!empty($dataSend['id_aff'])){
+                $infoUser->id_aff = (int) $dataSend['id_aff'];
+                
+                $note_now = 'Mua hàng của người tiếp thị liên kết '.@$dataSend['name_agency'];
+            }
+            
+            if(!empty($dataSend['address'])){
+                $infoUser->address = (string) $dataSend['address'];
+            }
+
+            $modelCustomers->save($infoUser);
+
+            // lưu lịch sử khách hàng
+            createCustomerHistoriesNewOrder($infoUser->id, $note_now, $infoUser->id_parent);
+        }
+    }
+
+    return $infoUser;
+}
+
 function createCustomerHistoriesNewOrder($id_customer=0, $note_now='', $id_staff_now=0)
 {
     global $controller;

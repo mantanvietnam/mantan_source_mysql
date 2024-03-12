@@ -1,37 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin mã giảm giá </h4>
- <p><a href="/plugins/admin/product-view-admin-discountCode-addDiscountCodeAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/product-view-admin-discountCode-addDiscountCodeAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
-  <form action="" method="GET">
-           <!-- table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
-            <tbody><tr>
-                <td>
-                    <label>ID </label>
-                    <input type="" name="id" class="form-control" placeholder="ID" value="<?php echo @$_GET['id'] ?>">
-                </td>
-                <td>
-                    <label>Tên </label>
-                    <input type="" name="name" class="form-control" placeholder="Tên" value="<?php echo @$_GET['name'] ?>">
-                </td>
-                <td>
-                    <label>Điện thoại </label>
-                    <input type="" name="phone" class="form-control" placeholder="Điện thoại" value="<?php echo @$_GET['phone'] ?>">
-                </td>
-                <td>
-                    <label>Email </label>
-                    <input type="" name="email" class="form-control" placeholder="Email" value="<?php echo @$_GET['email'] ?>">
-                </td>
-                 <td >
-                    <br>
-                    <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">
-                </td>
-               <td >
-                    <input type="submit" name="excel" value="Xuất excel">
-                </td> 
-            </tr>
-        
-        </tbody></table> -->
-    </form>
+  
   <div class="card row">
     <h5 class="card-header">Thông tin mã giảm giá</h5>
       <p><?php echo @$mess;?></p>
@@ -74,9 +45,9 @@
                         <td>'.$item->id.'</td>
                         <td>'.@$item->name.'</td>
                         <td>'.@$item->code.'</td>
-                        <td>'.categoryDiscountCode()[@$item->category].'</td>
+                        <td>'.@$listCategory[$item->category].'</td>
                         <td>'.@$discount.'</td>
-                        <td>'.@$item->number_user.'</td>
+                        <td>'.number_format(@$item->number_user).'</td>
                         <td>'.$data.'</td>
                         <td>'.@$item->note.'</td>
                         <td>'.@$status.'</td>

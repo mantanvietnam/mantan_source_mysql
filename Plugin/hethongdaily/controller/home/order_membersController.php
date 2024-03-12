@@ -334,6 +334,7 @@ function updateOrderMemberAgency($input)
                 
                         if(!empty($detail_order)){
                             foreach ($detail_order as $k => $value) {
+                                // cộng hàng vào kho người mua
                                 $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_buy])->first();
 
                                 if(empty($checkProductExits)){
@@ -347,7 +348,21 @@ function updateOrderMemberAgency($input)
 
                                 $modelWarehouseProducts->save($checkProductExits);
 
-                                // lưu lịch sử nhập kho
+                                // trừ hàng trong kho người bán
+                                $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_sell])->first();
+
+                                if(empty($checkProductExits)){
+                                    $checkProductExits = $modelWarehouseProducts->newEmptyEntity();
+                                    $checkProductExits->quantity = 0;
+                                }
+
+                                $checkProductExits->id_member = $order->id_member_sell;
+                                $checkProductExits->id_product = $value->id_product;
+                                $checkProductExits->quantity -= $value->quantity;
+
+                                $modelWarehouseProducts->save($checkProductExits);
+
+                                // lưu lịch sử nhập kho của người mua
                                 $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
 
                                 $saveWarehouseHistories->id_member = $order->id_member_buy;
@@ -356,6 +371,19 @@ function updateOrderMemberAgency($input)
                                 $saveWarehouseHistories->note = 'Nhập hàng vào kho';
                                 $saveWarehouseHistories->create_at = time();
                                 $saveWarehouseHistories->type = 'plus';
+                                $saveWarehouseHistories->id_order_member = $order->id;
+
+                                $modelWarehouseHistories->save($saveWarehouseHistories);
+
+                                // lưu lịch sử xuất kho của người bán
+                                $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+                                $saveWarehouseHistories->id_member = $order->id_member_sell;
+                                $saveWarehouseHistories->id_product = $value->id_product;
+                                $saveWarehouseHistories->quantity = $value->quantity;
+                                $saveWarehouseHistories->note = 'Xuất hàng cho đại lý tuyến dưới';
+                                $saveWarehouseHistories->create_at = time();
+                                $saveWarehouseHistories->type = 'minus';
                                 $saveWarehouseHistories->id_order_member = $order->id;
 
                                 $modelWarehouseHistories->save($saveWarehouseHistories);

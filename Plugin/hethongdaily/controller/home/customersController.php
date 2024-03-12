@@ -141,4 +141,59 @@ function listCustomerAgency($input)
         return $controller->redirect('/login');
     }
 }
+
+function editCustomerAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Sửa thông tin khách hàng';
+
+        $modelCustomers = $controller->loadModel('Customers');
+
+        if(!empty($_GET['id'])){
+            $data = $modelCustomers->find()->where(['id'=>(int) $_GET['id'], 'id_parent'=>$session->read('infoUser')->id])->first();
+
+            if(!empty($data)){
+                $mess= '';
+                
+                if($isRequestPost){
+                    $dataSend = $input['request']->getData();
+
+                    if(!empty($dataSend['full_name'])){
+                        $data->full_name = $dataSend['full_name'];
+                        $data->email = $dataSend['email'];
+                        $data->address = $dataSend['address'];
+                        $data->sex = (int) $dataSend['sex'];
+                        $data->id_city = (int) @$dataSend['id_city'];
+                        $data->avatar = $dataSend['avatar'];
+                        $data->birthday_date = (int) $dataSend['birthday_date'];
+                        $data->birthday_month = (int) $dataSend['birthday_month'];
+                        $data->birthday_year = (int) $dataSend['birthday_year'];
+
+                        $modelCustomers->save($data);
+
+                        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                    }else{
+                        $mess= '<p class="text-danger">Bạn không được để trống các trường bắt buộc</p>';
+                    }
+                }
+
+                setVariable('data', $data);
+                setVariable('mess', $mess);
+            }else{
+                return $controller->redirect('/listCustomerAgency');
+            }
+        }else{
+            return $controller->redirect('/listCustomerAgency');
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

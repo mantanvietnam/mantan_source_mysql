@@ -60,20 +60,25 @@ function cart($input)
 
 		}
 	}
-	$categoryDiscountCode = categoryDiscountCode();
+
+	$conditionCategorieProduct = array('type' => 'category_product', 'status'=>'active');
+    $categoryDiscountCode = $modelCategories->find()->where($conditionCategorieProduct)->order(['weighty'=>'asc'])->all()->toList();
+
 	$category = array();
 
 
 	foreach($categoryDiscountCode as $key => $item){
 		$data = array();
-		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key, 'status'=>1))->all()->toList(); 
-		$data['name'] = $item;
+		$discountCode = $modelDiscountCode->find()->where(array('category'=>$item->id, 'status'=>1))->all()->toList(); 
+		$data['name'] = $item->name;
+		
 		if(!empty($discountCode)){
 			foreach(@$discountCode as $k => $value){
 				if(!empty($value->id_customers) ){
 
 					$id_customer = explode(',', $value->id_customers);
-					if( in_array(@$infoUser->id, $id_customer) && !empty($infoUser)){
+					
+					if(!empty($infoUser) && in_array(@$infoUser->id, $id_customer)){
 						$data['discountCode'][$k] = $value;
 					}
 				}else{
@@ -82,7 +87,7 @@ function cart($input)
 			}
 		}
 
-		$category[$key]=$data;
+		$category[$item->id] = $data;
 	}
 
 	// SẢN PHẨM NGẪU NHIÊN
@@ -290,48 +295,6 @@ function createOrder($input)
 	}else{
 		return $controller->redirect('/cart/?error=empty_data');
 	}
-}
-
-function searchDiscountCodeAPI($input){
-	global $controller;
-	global $urlCurrent;
-	global $modelCategories;
-	global $metaTitleMantan;
-	global $session;
-
-	$return= array();
-	$return = array('code'=>0);
-
-	$modelDiscountCode = $controller->loadModel('DiscountCodes');
-	if(!empty($session->read('infoUser'))){
-		$infoUser = $session->read('infoUser');
-	}
-	$conditions = array();
-	if(!empty($_GET['code'])){
-		$conditions['code'] = $_GET['code'];
-		$conditions['category'] = $_GET['category'];
-
-
-
-
-		$data = $modelDiscountCode->find()->where($conditions)->first();
-
-		if(!empty($data->id_customer) && !empty($infoUser)){
-			$id_customer = explode(',', $data->id_customer);
-			if(in_array($infoUser->id, $id_customer)){
-				$data['discountCode'] = $data;
-			}
-		}
-		if(!empty($data)){
-			return array('code'=>1, 'data'=>$data);
-		}else{
-			$return = array('code'=>0);
-		}
-	}else{
-		$return = array('code'=>0);
-	}
-
-	return $return;
 }
 
 function addDiscountCode($input){
@@ -571,66 +534,8 @@ function pay($input){
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
 		if(empty($infoUser)){
-			if(!empty($dataSend['full_name']) && !empty($dataSend['phone'])){
-				$infoUser = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
-				
-				if(empty($infoUser)){
-					$infoUser = $modelCustomers->newEmptyEntity();
-					
-					$infoUser->full_name = $dataSend['full_name'];
-					$infoUser->phone = $dataSend['phone'];
-					$infoUser->email = (string) @$dataSend['email'];
-					$infoUser->address = (string) @$dataSend['address'];
-					$infoUser->sex = (int) @$dataSend['sex'];
-					$infoUser->id_city = (int) @$dataSend['id_city'];
-					$infoUser->id_parent = (int) @$dataSend['id_agency']; // đại lý bán hàng
-					$infoUser->id_aff = (int) @$dataSend['id_aff']; // người tiếp thị liên kết
-					$infoUser->id_messenger = (string) @$dataSend['id_messenger'];
-					$infoUser->avatar = (string) @$dataSend['avatar'];
-					$infoUser->status = 'active';
-					$infoUser->pass = md5($dataSend['phone']);
-					$infoUser->birthday_date = (int) @$dataSend['birthday_date'];
-					$infoUser->birthday_month = (int) @$dataSend['birthday_month'];
-					$infoUser->birthday_year = (int) @$dataSend['birthday_year'];
-
-					$modelCustomers->save($infoUser);
-
-					// lưu lịch sử của khách hàng
-					if(function_exists('createCustomerHistoriesNewOrder')){
-						$note_now = 'Khởi tạo dữ liệu người dùng mới khi khách hàng mua hàng của đại lý '.@$dataSend['name_agency'];
-
-						createCustomerHistoriesNewOrder($infoUser->id, $note_now, $infoUser->id_parent);
-					}
-				}else{
-					$infoUser->full_name = $dataSend['full_name'];
-					$note_now = 'Mua đơn hàng mới';
-					
-					// đại lý bán hàng
-					if(!empty($dataSend['id_agency'])){
-						$infoUser->id_parent = (int) $dataSend['id_agency'];
-						
-						$note_now = 'Mua hàng của đại lý '.@$dataSend['name_agency'];
-					}
-
-					// người tiếp thị liên kết
-					if(!empty($dataSend['id_aff'])){
-						$infoUser->id_aff = (int) $dataSend['id_aff'];
-						
-						$note_now = 'Mua hàng của người tiếp thị liên kết '.@$dataSend['name_agency'];
-					}
-					
-					if(!empty($dataSend['address'])){
-						$infoUser->address = (string) $dataSend['address'];
-					}
-
-					$modelCustomers->save($infoUser);
-
-					// lưu lịch sử khách hàng
-					if(function_exists('createCustomerHistoriesNewOrder')){
-
-						createCustomerHistoriesNewOrder($infoUser->id, $note_now, $infoUser->id_parent);
-					}
-				}
+			if(function_exists('createCustomerNew')){
+				$infoUser = createCustomerNew($dataSend);
 			}
 		}
 		
@@ -894,40 +799,37 @@ function discount($input){
 	if(!empty($session->read('infoUser'))){
 		$modelDiscountCode = $controller->loadModel('DiscountCodes');
 		$infoUser = $session->read('infoUser');
-		$categoryDiscountCode = categoryDiscountCode();
+		
+		$conditionCategorieProduct = array('type' => 'category_product', 'status'=>'active');
+	    $categoryDiscountCode = $modelCategories->find()->where($conditionCategorieProduct)->order(['weighty'=>'asc'])->all()->toList();
+
 		$category = array();
-    /*foreach($categoryDiscountCode as $key => $item){
-    $data = array();
-    $discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
-    $data['name'] = $item;
-    if(!empty($discountCode)){
-    $data['discountCode'] = $discountCode;
-    }
-     
-   $category[$key]=$data;
-	}*/
 
-	foreach($categoryDiscountCode as $key => $item){
-		$data = array();
-		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key,'status'=>1))->all()->toList(); 
-		$data['name'] = $item;
-		if(!empty($discountCode) && !empty($infoUser)){
-			foreach(@$discountCode as $k => $value){
-				if(!empty($value->id_customers)){
 
-					$id_customer = explode(',', $value->id_customers);
-					if( in_array($infoUser->id, $id_customer)){
+		foreach($categoryDiscountCode as $key => $item){
+			$data = array();
+			$discountCode = $modelDiscountCode->find()->where(array('category'=>$item->id, 'status'=>1))->all()->toList(); 
+			$data['name'] = $item->name;
+			
+			if(!empty($discountCode)){
+				foreach(@$discountCode as $k => $value){
+					if(!empty($value->id_customers) ){
+
+						$id_customer = explode(',', $value->id_customers);
+						
+						if(!empty($infoUser) && in_array(@$infoUser->id, $id_customer)){
+							$data['discountCode'][$k] = $value;
+						}
+					}else{
 						$data['discountCode'][$k] = $value;
 					}
-				}else{
-					$data['discountCode'][$k] = $value;
 				}
 			}
+
+			$category[$item->id] = $data;
 		}
 
-		$category[$key]=$data;
-	}
-	setVariable('data', $category);
+		setVariable('data', $category);
 	}else{
 		return $controller->redirect('/cart');
 	}
@@ -943,42 +845,5 @@ function getOrderAPI($input){
 	}
 	
 }
-function searchDiscountCodeReservedAPI($input){
-	global $controller;
-	global $urlCurrent;
-	global $modelCategories;
-	global $metaTitleMantan;
-	global $session;
 
-	$return= array();
-	$return = array('code'=>0);
-
-	$modelDiscountCode = $controller->loadModel('DiscountCodes');
-	if(!empty($session->read('infoUser'))){
-		$infoUser = $session->read('infoUser');
-	}
-	$conditions = array();
-	if(!empty($_GET['code'])){
-		$conditions['code'] = $_GET['code'];
-		$conditions['status'] = 0;
-
-		$data = $modelDiscountCode->find()->where($conditions)->first();
-
-		if(!empty($data->id_customer) && !empty($infoUser)){
-			$id_customer = explode(',', $data->id_customer);
-			if(in_array($infoUser->id, $id_customer)){
-				$data['discountCode'] = $data;
-			}
-		}
-		if(!empty($data)){
-			return array('code'=>1, 'data'=>$data);
-		}else{
-			$return = array('code'=>0);
-		}
-	}else{
-		$return = array('code'=>0);
-	}
-
-	return $return;
-}	
 ?>

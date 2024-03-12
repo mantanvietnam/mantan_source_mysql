@@ -63,7 +63,7 @@ $sqlInstallDatabase .="CREATE TABLE `discount_codes` (
     `id`  INT NOT NULL AUTO_INCREMENT , 
     `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
     `code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-    `discount` INT NULL DEFAULT NULL , 
+    `discount` FLOAT(11) NULL DEFAULT '0' , 
     `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
     `created_at` TIMESTAMP NULL DEFAULT NULL , 
     `deadline_at` TIMESTAMP NULL DEFAULT NULL , 
@@ -73,6 +73,7 @@ $sqlInstallDatabase .="CREATE TABLE `discount_codes` (
     `maximum_price_reduction` INT NULL DEFAULT NULL,
     `category` INT(11) NULL DEFAULT NULL,
     `id_customers` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL, 
+    `id_products` TEXT NULL,
     PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `question_products` (`id` int(11) NOT NULL AUTO_INCREMENT,`question` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,`answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,`id_product` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB;";

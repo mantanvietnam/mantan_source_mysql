@@ -34,6 +34,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
   `view` INT NOT NULL DEFAULT '0',
   `banner` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `instagram` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -62,8 +63,8 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `phone` VARCHAR(255) NOT NULL , 
   `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
   `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
-  `sex` BOOLEAN NOT NULL , 
-  `id_city` TINYINT NOT NULL , 
+  `sex` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: Nữ, 1: Nam' , 
+  `id_city` TINYINT(4) NOT NULL DEFAULT '0' , 
   `id_messenger` VARCHAR(255) NOT NULL, 
   `avatar` TEXT NOT NULL, 
   `status` VARCHAR(255) NOT NULL , 
