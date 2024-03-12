@@ -5,6 +5,7 @@
 
     <div class="main">
         <div class="container">
+            <div class="overlay"></div>
             <div class="main-below mt-3">
                 <div class="row">
                     <div class="main-below-left col-lg-6 col-md-6">
