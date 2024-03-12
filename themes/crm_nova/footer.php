@@ -11,7 +11,7 @@
                                 </a>
                             </div>
                             <div class="footer-head-description">
-                                <p><?php echo @$setting_value['content_footer'];?></p>
+                                <p><?php echo @nl2br($setting_value['content_footer']);?></p>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12" style="margin-top: 40px;">

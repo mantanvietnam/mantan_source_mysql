@@ -149,6 +149,7 @@ function addMemberAdmin($input)
 		        $data->phone = $dataSend['phone'];
 				$data->id_father = (int) $dataSend['id_father'];
 				$data->id_system = (int) $dataSend['id_system'];
+                $data->id_position = (int) $dataSend['id_position'];
 				$data->email = $dataSend['email'];
 				$data->status =  $dataSend['status'];
 				$data->birthday =  $dataSend['birthday'];
