@@ -223,7 +223,59 @@
             </div>
         </section> -->
 
+        <section id="section-facility-description" class="section-padding-facility">
+            <div class="facility-description-inner">
+                <div class="container">
+                    <div class="title-sub-section">
+                        <h3>About the European Union</h3>
+                    </div>
 
+                    <div class="facility-description-content">
+                        <div class="facility-description-content-inner">
+                            <div class="row">
+                                <div class="description-content-left">
+                                    The European Union is an economic and political union of 27 European countries. It acts globally to promote sustainable development of societies, environment and economies, so that everyone can benefit.
+                                    <br>
+                                    <br>
+                                    <a href="https://www.eeas.europa.eu/delegations/vietnam_en">https://eeas.europa.eu/delegations/vietnam_en</a>
+                                    <br>
+                                    <br>
+                                    The European Union has issuing in 2021 the #GlobalGateway strategy that provides the framework for the EU’s external action in an evolving international context, to deepen engagement in quality infrastructure in low- and middle-income countries around the world and strengthen the global economy.
+                                    <br>
+                                    <br>
+                                    <a href="https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/stronger-europe-world/global-gateway_en">Global Gateway (europa.eu)</a>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-facility-description" class="section-padding-facility section-background-silver">
+            <div class="facility-description-inner">
+                <div class="container">
+                    <div class="title-sub-section">
+                        <h3>About AFD (Agence Française de Développement)</h3>
+                    </div>
+
+                    <div class="facility-description-content">
+                        <div class="facility-description-content-inner">
+                            <div class="row">
+                                <div class="description-content-left">
+                                AFD is a public financial institution that finances, supports and accelerates transitions towards a more sustainable world. AFD has financed in Vietnam over 90 projects since 1994 for a total of almost 2.1 billion euros in different sectors: transport, infrastructure, energy and agriculture. In line with the priorities of French cooperation in Vietnam, AFD is positioning its operations to support the implementation of the Paris Agreement
+                                    The European Union has issuing in 2021 the #GlobalGateway strategy that provides the framework for the EU’s external action in an evolving international context, to deepen engagement in quality infrastructure in low- and middle-income countries around the world and strengthen the global economy.
+                                <br>
+                                <br>
+                                <a href="https://www.afd.fr/">https://www.afd.fr/</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </main>
     <?php getFooter();?>

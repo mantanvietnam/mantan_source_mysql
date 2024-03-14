@@ -194,7 +194,7 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                     
 
                     <div class="logo-home-img logo-home-1">
-                        <img src="<?php echo $urlThemeActive;?>/asset/img/combo-logo.png" alt="">
+                        <img src="<?php echo $urlThemeActive;?>/asset/img/logonew.png" alt="">
                     </div>
         
                     <div class="logo-home-img logo-home-2">

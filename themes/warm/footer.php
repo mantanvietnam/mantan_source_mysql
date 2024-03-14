@@ -20,6 +20,10 @@
                             <div class="tel-footer">
                                 <p><strong>Tel :</strong><?php echo @$settingThemes['tel_section_footer'];?></p>
                             </div>
+
+                            <div class="web-footer">
+                                <p><i class="fa-solid fa-earth-americas"></i>  <a href="https://www.afd.fr/fr">https://www.afd.fr/fr</a></p>
+                            </div>
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-12 footer-box-center">
@@ -38,6 +42,10 @@
                             <div class="tel-footer">
                                 <p><strong>Tel :</strong><?php echo @$settingThemes['tel_2_section_footer'];?> </p>
                             </div>
+
+                            <div class="web-footer">
+                                <p><i class="fa-solid fa-earth-americas"></i> <a href="https://www.eeas.europa.eu/delegations/vietnam_en">https://www.eeas.europa.eu/delegations/vietnam_en</a></p>
+                            </div>
                         </div>
 
                         <div class="col-lg-3 col-md-3 col-12 footer-box-right">
@@ -52,6 +60,7 @@
                             </div>
                             <p class="follow-us">
                                 <span>Follow us:
+                                    
                                 <?php 
                                     if(!empty($settingThemes['youtube'])){
                                         echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
@@ -89,8 +98,30 @@
                                         </a>';
                                     }
                                 ?>
+
                                 </span>
+
+                          
+
+                                <div class="img-social-footer">
+                              
+                                    <a href="https://www.facebook.com/EUandVietnam">
+                                        <img src="<?php echo $urlThemeActive;?>/asset/img/Layer1.png" alt="">
+                                    </a>
+
+                                    <a href="https://www.facebook.com/AFDOfficiel">
+                                        <img src="<?php echo $urlThemeActive;?>/asset/img/Layer3.png" alt="">
+                                    </a>
+
+                                    <a href="https://www.facebook.com/AmbassadeFranceVietnam">
+                                        <img src="<?php echo $urlThemeActive;?>/asset/img/Layer2.png" alt="">
+                                    </a>
+                                </div>
                             </p>
+                        </div>
+
+                        <div class="col-lg-9 footer-bottom">
+                            <p>Disclaimer: This website was developed with the financial support of the European Union. Its contents are the sole responsibility of the WARM Facility and do not necessarily reflect the views of the European Union.</p>
                         </div>
                     </div>
                 </div>
