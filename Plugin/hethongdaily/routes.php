@@ -3,7 +3,17 @@
 
 	// apis
 	$routesPlugin['getListPositionAPI']= 'hethongdaily/view/api/getListPositionAPI.php';
+
+	$routesPlugin['checkLoginMemberAPI']= 'hethongdaily/view/api/checkLoginMemberAPI.php';
 	$routesPlugin['getInfoMemberAPI']= 'hethongdaily/view/api/getInfoMemberAPI.php';
+	$routesPlugin['logoutMemberAPI']= 'hethongdaily/view/api/logoutMemberAPI.php';
+	$routesPlugin['lockMemberAPI']= 'hethongdaily/view/api/lockMemberAPI.php';
+	$routesPlugin['saveChangePassMemberAPI']= 'hethongdaily/view/api/saveChangePassMemberAPI.php';
+	$routesPlugin['saveInfoMemberAPI']= 'hethongdaily/view/api/saveInfoMemberAPI.php';
+	$routesPlugin['requestCodeForgotPasswordAPI']= 'hethongdaily/view/api/requestCodeForgotPasswordAPI.php';
+	$routesPlugin['saveNewPassAPI']= 'hethongdaily/view/api/saveNewPassAPI.php';
+	$routesPlugin['updateLastLoginAPI']= 'hethongdaily/view/api/updateLastLoginAPI.php';
+
 	$routesPlugin['resendOTPAPI']= 'hethongdaily/view/api/resendOTPAPI.php';
 
 

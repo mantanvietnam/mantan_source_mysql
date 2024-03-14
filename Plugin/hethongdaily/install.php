@@ -1,9 +1,11 @@
 <?php 
 global $sqlInstallDatabase;
 global $sqlDeleteDatabase;
+global $sqlUpdateDatabase;
 
 $sqlInstallDatabase = '';
 $sqlDeleteDatabase = '';
+$sqlUpdateDatabase = '';
 
 $sqlInstallDatabase .= "CREATE TABLE `members` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -35,11 +37,11 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `view` INT NOT NULL DEFAULT '0',
   `banner` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `instagram` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `token_device` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `token` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `last_login` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-
-
-
 
 $sqlInstallDatabase .= "CREATE TABLE `zalos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -146,3 +148,6 @@ $sqlDeleteDatabase .= "DROP TABLE warehouse_histories; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
+
+// 2.0
+$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `token_device` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL AFTER `banner`, ADD `token` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL AFTER `token_device`, ADD `last_login` INT NOT NULL DEFAULT '0' AFTER `token`; ";
