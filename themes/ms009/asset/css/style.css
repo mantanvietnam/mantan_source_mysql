@@ -139,7 +139,7 @@ header .navbar-header .nav-item .nav-link:hover {
   color: #e1ccad !important;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 900px) {
   header .navbar-header .nav-item .nav-link {
     color: #e1ccad !important;
   }
@@ -731,7 +731,7 @@ header .navbar-header .nav-item .nav-link:hover {
     transform: translate3d(10px, 0, 0);
   }
 }
-@media (max-width: 475px) {
+@media (max-width: 800px) {
   .sidebar {
     display: none;
   }
@@ -928,7 +928,7 @@ footer #section-footer-bottom .footer-bottom p {
   color: #96a2a7;
 }
 
-@media (max-width: 475px) {
+@media (max-width: 900px) {
   footer #section-footer-main .logo-footer {
     margin: auto;
   }
