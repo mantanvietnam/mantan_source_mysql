@@ -519,4 +519,176 @@ function updateLastLoginAPI($input)
 
 	return $return;
 }
+
+function getListMemberDownAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMembers = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$checkPhone = getMemberByToken($dataSend['token']);
+
+			if(!empty($checkPhone)){
+				$listData = $modelMembers->find()->where(['id_father'=>$checkPhone->id])->all()->toList();
+
+				if(!empty($listData)){
+			        foreach ($listData as $key => $value) {
+			            $listData[$key]->agentSystem = getTreeSystem($value->id, $modelMembers);
+			        }
+			    }
+				
+				$return = array('code'=>0, 'listData'=>$listData);
+			}else{
+				 $return = array('code'=>3, 'mess'=>'Sai mã token');
+			}
+		}else{
+			 $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+		}
+	}
+
+	return $return;
+}
+
+function addMemberDownAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	global $modelCategories;
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelZalos = $controller->loadModel('Zalos');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$infoMember = getMemberByToken($dataSend['token']);
+
+			if(!empty($infoMember)){
+				if(!empty($dataSend['id'])){
+					$data = $modelMembers->find()->where(['id'=>(int) $dataSend['id']])->first();
+
+					if(empty($data)){
+						$return = array('code'=>4, 'mess'=>'Không tìm thấy đại lý cần sửa');
+					}
+				}else{
+					$data = $modelMembers->newEmptyEntity();
+				}
+
+				if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
+		        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+		        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+		        	$conditions = ['phone'=>$dataSend['phone']];
+		        	$checkPhone = $modelMembers->find()->where($conditions)->first();
+
+		        	if(empty($checkPhone) || (!empty($dataSend['id']) && $dataSend['id']==$checkPhone->id) ){
+		        		$system = $modelCategories->find()->where(['id'=>(int) $infoMember->id_system])->first();
+
+		        		// nếu up file ảnh avatar lên
+		        		if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+				            $avatar = uploadImage($infoMember->id, 'avatar');
+
+				            if(!empty($avatar['linkOnline'])){
+				            	$dataSend['avatar'] = $avatar['linkOnline'];
+				            }
+				        }
+
+		        		if(empty($dataSend['avatar'])){
+		        			if(!empty($data->avatar)){
+		        				$dataSend['avatar'] = $data->avatar;
+		        			}
+
+		        			if(empty($dataSend['avatar']) && !empty($system->image)){
+		        				$dataSend['avatar'] = $system->image;
+		        			}
+
+		        			if(empty($dataSend['avatar'])){
+		        				$dataSend['avatar'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+		        			}
+		        		}
+
+		        		// tạo dữ liệu save
+		        		if(empty($data->id_father)){
+		        			$data->id_father = (!empty($dataSend['id_father']))? (int) $dataSend['id_father']:(int) $infoMember->id;
+		        		}
+				        
+				        $data->name = $dataSend['name'];
+				        $data->address = $dataSend['address'];
+				        $data->avatar = $dataSend['avatar'];
+				        $data->phone = $dataSend['phone'];
+						$data->id_system = (int) $infoMember->id_system;
+						$data->email = $dataSend['email'];
+						$data->birthday = $dataSend['birthday'];
+						$data->facebook = $dataSend['facebook'];
+						$data->create_agency = (!empty($dataSend['create_agency']))?$dataSend['create_agency']:'active';
+						$data->id_position = (int) $dataSend['id_position'];
+						$data->linkedin = $dataSend['linkedin'];
+						$data->web = $dataSend['web'];
+						$data->instagram = $dataSend['instagram'];
+						$data->zalo = $dataSend['zalo'];
+						$data->twitter = $dataSend['twitter'];
+						$data->tiktok = $dataSend['tiktok'];
+						$data->youtube = $dataSend['youtube'];
+						$data->description = $dataSend['description'];
+						
+
+						if(empty($dataSend['id'])){
+							if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
+							
+							$data->password = md5($dataSend['password']);
+
+							$data->created_at = time();
+							$data->deadline = time()+ 63072000; // 2 năm
+							$data->status =  'active';
+							
+							if(empty($system->keyword)){
+								$data->verify =  'lock';
+								$data->otp =  rand(1000,9999);
+
+								// gửi mã xác thức qua Zalo
+								$zalo = $modelZalos->find()->where(['id_system'=>$infoMember->id_system])->first();
+								if(!empty($zalo->access_token)){
+									sendZNSZalo($zalo->template_otp, ['otp'=>$data->otp], $data->phone, $zalo->id_oa, $zalo->id_app);
+								}
+							}else{
+								$data->verify =  'active';
+								$data->otp = null;
+							}
+							
+						}else{
+							if(!empty($dataSend['password'])){
+					        	$data->password = md5($dataSend['password']);
+					        }
+						}
+
+				        $modelMembers->save($data);
+
+				        $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_member'=>$data->id);
+				    }else{
+				    	$return = array('code'=>4, 'mess'=>'Số điện thoại đã tồn tại');
+				    }
+			    
+			    }else{
+			    	$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+			    }
+			}else{
+				 $return = array('code'=>3, 'mess'=>'Sai mã token');
+			}
+		}else{
+			 $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+		}
+	}
+
+	return $return;
+}
 ?>

@@ -174,7 +174,7 @@ function addProduct($input)
 	        $data->image = @$dataSend['image'];
             $data->images = json_encode(@$dataSend['images']);
             $data->evaluate = json_encode(@$dataSend['evaluate']);
-            $data->code = @$dataSend['code'];
+            $data->code = @strtoupper($dataSend['code']);
             $data->price = (int) @$dataSend['price'];
             $data->price_old = (int) @$dataSend['price_old'];
             $data->price_flash = (int) @$dataSend['price_flash'];

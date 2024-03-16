@@ -358,7 +358,7 @@ function addMember($input)
 	        			}
 
 	        			if(empty($dataSend['avatar'])){
-	        				$dataSend['avatar'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-ezpics.png';
+	        				$dataSend['avatar'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
 	        			}
 	        		}
 

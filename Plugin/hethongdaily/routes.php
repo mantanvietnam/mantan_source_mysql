@@ -13,6 +13,8 @@
 	$routesPlugin['requestCodeForgotPasswordAPI']= 'hethongdaily/view/api/requestCodeForgotPasswordAPI.php';
 	$routesPlugin['saveNewPassAPI']= 'hethongdaily/view/api/saveNewPassAPI.php';
 	$routesPlugin['updateLastLoginAPI']= 'hethongdaily/view/api/updateLastLoginAPI.php';
+	
+	$routesPlugin['getListMemberDownAPI']= 'hethongdaily/view/api/getListMemberDownAPI.php';
 
 	$routesPlugin['resendOTPAPI']= 'hethongdaily/view/api/resendOTPAPI.php';
 

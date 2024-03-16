@@ -472,7 +472,7 @@ function pay($input){
 	$modelOrder = $controller->loadModel('Orders');
 	$modelOrderDetail = $controller->loadModel('OrderDetails');
 
-	$modelCustomers = $controller->loadModel('Customers');
+	//$modelCustomers = $controller->loadModel('Customers');
 	
 
 	$metaTitleMantan = 'Thanh toán';
@@ -535,7 +535,7 @@ function pay($input){
 
 		if(empty($infoUser)){
 			if(function_exists('createCustomerNew')){
-				$infoUser = createCustomerNew($dataSend);
+				$infoUser = createCustomerNew(@$dataSend['full_name'], @$dataSend['phone'], @$dataSend['email'], @$dataSend['address'], @$dataSend['sex'], @$dataSend['id_city'], @$dataSend['id_agency'], @$dataSend['id_aff'], @$dataSend['name_agency'], @$dataSend['id_messenger'], @$dataSend['avatar'], @$dataSend['birthday_date'], @$dataSend['birthday_month'], @$dataSend['birthday_year']);
 			}
 		}
 		

@@ -253,62 +253,63 @@ function getTreeSystem($id_father, $modelMembers)
     return $listData;
 }
 
-function createCustomerNew($dataSend=[])
+function createCustomerNew($full_name='', $phone='', $email='', $address='', $sex=0, $id_city=0, $id_agency=0, $id_aff=0, $name_agency='', $id_messenger='', $avatar='', $birthday_date=0, $birthday_month=0, $birthday_year=0)
 {
     global $controller;
+    global $urlHomes;
 
     $modelCustomers = $controller->loadModel('Customers');
     
     $infoUser = $modelCustomers->newEmptyEntity();
 
-    if(!empty($dataSend['full_name']) && !empty($dataSend['phone'])){
-        $infoUser = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
+    if(!empty($full_name) && !empty($phone)){
+        $infoUser = $modelCustomers->find()->where(['phone'=>$phone])->first();
         
         if(empty($infoUser)){
             $infoUser = $modelCustomers->newEmptyEntity();
             
-            $infoUser->full_name = $dataSend['full_name'];
-            $infoUser->phone = $dataSend['phone'];
-            $infoUser->email = (string) @$dataSend['email'];
-            $infoUser->address = (string) @$dataSend['address'];
-            $infoUser->sex = (int) @$dataSend['sex'];
-            $infoUser->id_city = (int) @$dataSend['id_city'];
-            $infoUser->id_parent = (int) @$dataSend['id_agency']; // đại lý bán hàng
-            $infoUser->id_aff = (int) @$dataSend['id_aff']; // người tiếp thị liên kết
-            $infoUser->id_messenger = (string) @$dataSend['id_messenger'];
-            $infoUser->avatar = (string) @$dataSend['avatar'];
+            $infoUser->full_name = $full_name;
+            $infoUser->phone = $phone;
+            $infoUser->email = (string) @$email;
+            $infoUser->address = (string) @$address;
+            $infoUser->sex = (int) @$sex;
+            $infoUser->id_city = (int) @$id_city;
+            $infoUser->id_parent = (int) @$id_agency; // đại lý bán hàng
+            $infoUser->id_aff = (int) @$id_aff; // người tiếp thị liên kết
+            $infoUser->id_messenger = (string) @$id_messenger;
+            $infoUser->avatar = (!empty($avatar))?$avatar:$urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
             $infoUser->status = 'active';
-            $infoUser->pass = md5($dataSend['phone']);
-            $infoUser->birthday_date = (int) @$dataSend['birthday_date'];
-            $infoUser->birthday_month = (int) @$dataSend['birthday_month'];
-            $infoUser->birthday_year = (int) @$dataSend['birthday_year'];
+            $infoUser->pass = md5($phone);
+            $infoUser->birthday_date = (int) @$birthday_date;
+            $infoUser->birthday_month = (int) @$birthday_month;
+            $infoUser->birthday_year = (int) @$birthday_year;
 
             $modelCustomers->save($infoUser);
 
             // lưu lịch sử của khách hàng
-            $note_now = 'Khởi tạo dữ liệu người dùng mới khi khách hàng mua hàng của đại lý '.@$dataSend['name_agency'];
+            $note_now = 'Khởi tạo dữ liệu người dùng mới khi khách hàng mua hàng của đại lý '.@$name_agency;
 
             createCustomerHistoriesNewOrder($infoUser->id, $note_now, $infoUser->id_parent);
         }else{
-            $infoUser->full_name = $dataSend['full_name'];
+            $infoUser->full_name = $full_name;
             $note_now = 'Mua đơn hàng mới';
             
             // đại lý bán hàng
-            if(!empty($dataSend['id_agency'])){
-                $infoUser->id_parent = (int) $dataSend['id_agency'];
+            if(!empty($id_agency)){
+                $infoUser->id_parent = (int) $id_agency;
                 
-                $note_now = 'Mua hàng của đại lý '.@$dataSend['name_agency'];
+                $note_now = 'Mua hàng của đại lý '.@$name_agency;
             }
 
             // người tiếp thị liên kết
-            if(!empty($dataSend['id_aff'])){
-                $infoUser->id_aff = (int) $dataSend['id_aff'];
+            if(!empty($id_aff)){
+                $infoUser->id_aff = (int) $id_aff;
                 
-                $note_now = 'Mua hàng của người tiếp thị liên kết '.@$dataSend['name_agency'];
+                $note_now = 'Mua hàng của người tiếp thị liên kết '.@$name_agency;
             }
             
-            if(!empty($dataSend['address'])){
-                $infoUser->address = (string) $dataSend['address'];
+            if(!empty($address)){
+                $infoUser->address = (string) $address;
             }
 
             $modelCustomers->save($infoUser);

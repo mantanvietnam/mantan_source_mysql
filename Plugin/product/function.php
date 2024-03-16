@@ -183,7 +183,7 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
       } 
     }
     $content .=  '<tr>  <td colspan="10">
-    Tổng tiền: '.number_format($order->money).'đ<br/>';
+    Tổng tiền trước khi giảm giá: '.number_format($order->money).'đ<br/>';
 
     if(!empty($discountCode['code1']) && !empty($discountCode['discount_price1'])){
       $content .=  '            <div class="cart-price-code-discount">
@@ -215,7 +215,7 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
       </div>
       </div>';  
     }
-    $content .=  ' Thành tiền: '.number_format($order->total).'đ<br/>
+    $content .=  ' Số tiền cần thanh toán: '.number_format($order->total).'đ<br/>
     </td></tr>
     </tbody>
     </table>

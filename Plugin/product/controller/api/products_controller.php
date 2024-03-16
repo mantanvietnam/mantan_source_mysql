@@ -1,4 +1,5 @@
 <?php 
+// tìm sản phẩm
 function searchProductAPI($input)
 {
 	global $isRequestPost;
@@ -8,25 +9,59 @@ function searchProductAPI($input)
 	$modelProduct = $controller->loadModel('Products');
 
 	$dataSend = $_REQUEST;
+    $conditions = [];
 
 	if(!empty($dataSend['term'])){
-		/*
-		$conditions['OR'] = [
-        						['phone'=>$dataSend['term']], 
-        						['full_name LIKE'=>'%'.$dataSend['term'].'%']
-        					];
-		*/
-        $conditions = ['title LIKE'=>'%'.$dataSend['term'].'%'];
+        $conditions['title LIKE'] = '%'.$dataSend['term'].'%';
+    }
 
-        $listData= $modelProduct->find()->where($conditions)->all()->toList();
+    if(!empty($dataSend['id'])){
+        $conditions['id'] = (int) $dataSend['id'];
+    }
+
+    if(!empty($dataSend['code'])){
+        $conditions['code'] = strtoupper($dataSend['code']);
+    }
+
+    if(!empty($dataSend['price_min'])){
+        $conditions['price >='] = (int) $dataSend['price_min'];
+    }
+
+    if(!empty($dataSend['price_max'])){
+        $conditions['price <='] = (int) $dataSend['price_max'];
+    }
+
+    $listData= $modelProduct->find()->where($conditions)->all()->toList();
         
-        if($listData){
-            foreach($listData as $data){
-                $return[]= array('id'=>$data->id,'label'=>$data->title.' - '.number_format($data->price).'đ','value'=>$data->id,'title'=>$data->title,'price'=>$data->price);
-            }
-        }else{
-        	$return= array(array('id'=>0, 'label'=>'Không tìm được sản phẩm', 'value'=>'', 'title'=>''));
+    if($listData){
+        foreach($listData as $data){
+            $return[]= array(   'id'=>$data->id,
+                                'label'=>$data->title.' - '.number_format($data->price).'đ',
+                                'value'=>$data->id,
+                                'title'=>$data->title,
+                                'price'=>$data->price,
+                                'price_old'=>$data->price_old,
+                                'description'=>$data->description,
+                                'image'=>$data->image,
+                                'code'=>$data->code,
+                                'quantity'=>$data->quantity,
+                                'view'=>$data->view,
+                            );
         }
+    }else{
+        $return= array(array(   'id'=>0, 
+                                'label'=>'Không tìm được sản phẩm', 
+                                'value'=>'', 
+                                'title'=>'',
+                                'price'=>'',
+                                'price_old'=>'',
+                                'description'=>'',
+                                'image'=>'',
+                                'code'=>'',
+                                'quantity'=>'',
+                                'view'=>'',
+                            )
+                );
     }
 	
 
@@ -73,15 +108,7 @@ function searchEvaluateAPI($input)
 	return $return;
 }
 
-function getCategoryProductAPI($input)
-{
-    global $modelCategories;
-    
-    $conditionCategorieProduct = array('type' => 'category_product', 'status'=>'active');
-    
-    return  $modelCategories->find()->where($conditionCategorieProduct)->order(['weighty'=>'asc'])->all()->toList();
-}
-
+// lấy sản phẩm theo danh mục
 function getProductByCategoryAPI($input)
 {
     global $isRequestPost;
@@ -150,26 +177,26 @@ function getNewProductAPI($input)
 
     $modelProduct = $controller->loadModel('Products');
 
-    if($isRequestPost){
-        $dataSend = $input['request']->getData();
+    
+    $dataSend = $input['request']->getData();
 
-        $conditions = array('status'=>'active');
-        $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
-        $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
-        if($page<1) $page = 1;
-        $order = array('id'=>'desc');
+    $conditions = array('status'=>'active');
+    $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
 
-        $list_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    $list_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-        if(!empty($list_product)){
-            foreach ($list_product as $key => $value) {
-                $list_product[$key]->images = json_decode($value->images, true);
-                $list_product[$key]->evaluate = json_decode($value->evaluate, true);
-            }
+    if(!empty($list_product)){
+        foreach ($list_product as $key => $value) {
+            $list_product[$key]->images = json_decode($value->images, true);
+            $list_product[$key]->evaluate = json_decode($value->evaluate, true);
         }
-
-        $return= $list_product;
     }
+
+    $return= $list_product;
+
 
     return $return;
 }
@@ -328,7 +355,7 @@ function searchDiscountCodeReservedAPI($input){
     global $metaTitleMantan;
     global $session;
 
-    $return = array('code'=>0);
+    $return = array('code'=>1);
 
     $modelDiscountCode = $controller->loadModel('DiscountCodes');
     
@@ -367,12 +394,12 @@ function searchDiscountCodeReservedAPI($input){
         }
 
         if(!empty($data)){
-            $return = array('code'=>1, 'data'=>$data);
+            $return = array('code'=>0, 'data'=>$data);
         }else{
-            $return = array('code'=>0);
+            $return = array('code'=>3, 'mess'=>'Không tồn tại mã khuyến mại cần tìm');
         }
     }else{
-        $return = array('code'=>0);
+        $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
     }
 
     return $return;
