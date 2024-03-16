@@ -389,8 +389,10 @@ function indexTheme($input){
         }
     }
     $product_search = $modelProduct->find()->limit(4)->where(['hot'=>1])->all()->toList();
+     $order = array('id'=>'desc');
 
-    $listDataPost = $modelPosts->find()->limit(3)->where(array('pin'=>1))->all()->toList();
+    $listDataPost = $modelPosts->find()->limit(3)->where(array('pin'=>1,'type'=>'post'))->order($order)->all()->toList();
+
 
     setVariable('setting', $data_value);
     setVariable('product_flasl', $product_flasl);
