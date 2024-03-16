@@ -476,7 +476,7 @@ function sendEmailCodeForgotPassword($email='', $fullName='', $code= '')
             <div class="bao">
                 <div class="nd">
                     <div class="head">
-                        <span>MÃ XÁC THỰC</span>
+                        <span>MÃ XÁC THỰC CẤP LẠI MẬT KHẨU</span>
                     </div>
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
@@ -487,6 +487,7 @@ function sendEmailCodeForgotPassword($email='', $fullName='', $code= '')
                         
                         Trân trọng ./
                     </div>
+
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
@@ -499,7 +500,6 @@ function sendEmailCodeForgotPassword($email='', $fullName='', $code= '')
                             <li>Website: <a href="https://ezpics.vn">https://ezpics.vn</a></li>
                         </ul>
                     </div>
-
                 </div>
             </div>
         </body>

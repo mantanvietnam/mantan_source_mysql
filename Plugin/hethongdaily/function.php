@@ -50,6 +50,10 @@ $menus[1]['sub'][]= array( 'title'=>'Đơn trong hệ thống',
 
 addMenuAdminMantan($menus);
 
+global $keyFirebase;
+
+$keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
+
 function sendEmailNewPassword($email='', $fullName='', $pass= '')
 {
 	global $urlHomes;
@@ -99,7 +103,7 @@ function sendEmailNewPassword($email='', $fullName='', $pass= '')
             <div class="bao">
                 <div class="nd">
                     <div class="head">
-                        <span>MÃ XÁC THỰC</span>
+                        <span>MÃ XÁC THỰC CẤP LẠI MẬT KHẨU</span>
                     </div>
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
@@ -109,18 +113,6 @@ function sendEmailNewPassword($email='', $fullName='', $pass= '')
                         <br><br>
                         
                         Trân trọng ./
-                    </div>
-                    <div class="thong_tin">
-                        <div class="line"><div class="line1"></div></div>
-                        <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
-                            <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
-                        </div>
-                        <ul class="list-unstyled" style="    font-size: 15px;">
-                            <li>Hỗ trợ: Trần Ngọc Mạnh</li>
-                            <li>Mobile: 081.656.0000</li>
-                            <li>Website: <a href="'.$urlHomes.'">'.$urlHomes.'</a></li>
-                        </ul>
                     </div>
 
                 </div>
@@ -362,5 +354,87 @@ function createCustomerHistoriesNewOrder($id_customer=0, $note_now='', $id_staff
         $modelCustomerHistories->save($customer_histories);
     }
     
+}
+
+function createToken($length=30)
+{
+    $chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return substr(str_shuffle($chars), 0, $length).time();
+}
+
+function sendNotification($data,$target){
+    global $keyFirebase;
+    $url = 'https://fcm.googleapis.com/fcm/send';
+
+    $fields = array();
+    
+    $fields['data'] = $data;
+    $fields['priority'] = 'high';
+    $fields['content_available'] = true;
+
+    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content'], 'sound'=>'default'];
+    
+    if(is_array($target)){
+        if(count($target)<1000){
+            $fields['registration_ids'] = $target;
+        }else{
+            $chunkedArrays = [];
+            $chunkSize = 990;
+
+            for ($i = 0; $i < count($target); $i += $chunkSize) {
+                $chunkedArrays = array_slice($target, $i, $chunkSize);
+                $result = sendNotification($data,$chunkedArrays);
+            }
+            
+            return $result;
+        }
+        
+    }else{
+        $fields['to'] = $target;
+    }
+
+    $headers = array(
+        'Content-Type:application/json',
+        'Authorization:key='.$keyFirebase
+    );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+    $result = curl_exec($ch);
+    if ($result === FALSE) {
+
+    }
+    curl_close($ch);
+
+    return $result;
+}
+
+function getMemberByToken($token='')
+{
+    global $controller;
+
+    $modelMember = $controller->loadModel('Members');
+    $checkData = [];
+
+    if(!empty($token)){
+        /*
+        $conditions = [ 'OR' => [
+                                    ['token'=>$token],
+                                    ['token_web'=>$token]
+                                ]
+                        ];
+        */
+                        
+        $conditions = ['token'=>$token];
+        $checkData = $modelMember->find()->where($conditions)->first();
+    }
+
+    return $checkData;
 }
 ?>
