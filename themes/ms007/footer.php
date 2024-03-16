@@ -50,7 +50,7 @@ $setting = setting();
                                 <div class="social-item">
                                     <a href="<?php echo @$setting['zalo']; ?>">
                                         <!-- <img src="<?php echo $urlThemeActive ?>asset/img/zalo.jpg" alt=""> -->
-                                        <i class="fa-brands fa-square-instagram"></i>
+                                        <i class="fa-brands fa-instagram"></i>
                                     </a>
                                 </div>
                             </div>
