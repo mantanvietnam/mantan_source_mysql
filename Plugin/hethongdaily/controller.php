@@ -17,6 +17,7 @@ include_once('controller/admin/warehousesController.php'); // kho hàng
 
 include_once('controller/api/membersController.php'); // đại lý
 include_once('controller/api/categoriesController.php'); // cài đặt
+include_once('controller/api/customersController.php'); // khách hàng
 
 
 

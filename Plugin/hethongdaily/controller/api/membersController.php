@@ -37,12 +37,12 @@ function getInfoMemberAPI($input)
 			
 			$return = array('code'=>0,
 							 'data'=>$checkPhone,
-							 'messages'=>array(array('text'=>'Bạn lấy dữ liệu thành công'))
+							 'mess'=> 'Bạn lấy dữ liệu thành công'
 							);
 		}else{
 			$return = array('code'=>3,
-								'messages'=>array(array('text'=>'Tài khoản không tồn tại'))
-							);
+							'mess'=> 'Tài khoản không tồn tại'
+						);
 		}
 	
 	}
@@ -78,23 +78,23 @@ function resendOTPAPI($input)
 					$returnZalo = sendZNSZalo($zalo->template_otp, ['otp'=>$checkPhone->otp], $checkPhone->phone, $zalo->id_oa, $zalo->id_app);
 
 					$return = array('code'=>0,
-									'messages'=>array(array('text'=>'Gửi mã OTP thành công')),
+									'mess'=>'Gửi mã OTP thành công',
 									'zalo' => $returnZalo
 								);
 				}else{
 					$return = array('code'=>4,
-									'messages'=>array(array('text'=>'Hệ thống chưa cài đặt Zalo OA'))
+									'mess'=>'Hệ thống chưa cài đặt Zalo OA'
 								);
 				}
 			}else{
 				$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản không tồn tại'))
-								);
+								'mess'=>'Tài khoản không tồn tại'
+							);
 			}
 		}else{
 			$return = array('code'=>2,
-									'messages'=>array(array('text'=>'Bạn thiếu dữ liệu'))
-								);
+							'mess'=>'Bạn thiếu dữ liệu'
+						);
 		}
 	}
 
@@ -141,14 +141,14 @@ function checkLoginMemberAPI($input)
 		    						'info_member'=>$checkPhone
 		    					);
 			}else{
-				$return = array('code'=>3,
-								'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai mật khẩu'))
+				$return = array('code'=> 3,
+								'mess'=> 'Tài khoản không tồn tại hoặc sai mật khẩu'
 							);
 
 			}
 		}else{
 			$return = array('code'=>2,
-							'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+							'mess'=> 'Gửi thiếu dữ liệu'
 						);
 		}
 	}
@@ -181,13 +181,13 @@ function logoutMemberAPI($input)
 				$return = array('code'=>0);
 			}else{
 				$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
-								);
+								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
+							);
 			}
 		}else{
 			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
+							'mess'=> 'Gửi thiếu dữ liệu'
+						);
 		}
 	}
 
@@ -219,13 +219,13 @@ function lockMemberAPI($input)
 				$return = array('code'=>0);
 			}else{
 				$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
-								);
+								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
+							);
 			}
 		}else{
 			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
+							'mess'=> 'Gửi thiếu dữ liệu'
+						);
 		}
 	}
 
@@ -264,23 +264,23 @@ function saveChangePassMemberAPI($input)
 						$return = array('code'=>0);
 					}else{
 						$return = array('code'=>5,
-									'messages'=>array(array('text'=>'Mật khẩu nhập lại không đúng'))
-								);
+										'mess'=> 'Mật khẩu nhập lại không đúng'
+									);
 					}
 				}else{
 					$return = array('code'=>4,
-									'messages'=>array(array('text'=>'Mật khẩu cũ nhập không đúng'))
+									'mess'=> 'Mật khẩu cũ nhập không đúng'
 								);
 				}
 			}else{
 				$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
-								);
+								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
+							);
 			}
 		}else{
 			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
+							'mess'=> 'Gửi thiếu dữ liệu'
+						);
 		}
 	}
 
@@ -359,13 +359,13 @@ function saveInfoMemberAPI($input)
 				
 			}else{
 				$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
-								);
+								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
+							);
 			}
 		}else{
 			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
+							'mess'=> 'Gửi thiếu dữ liệu'
+						);
 		}
 	}
 
@@ -381,7 +381,7 @@ function requestCodeForgotPasswordAPI($input)
 	$modelMember = $controller->loadModel('Members');
 
 	$return = array('code'=>1,
-					'messages'=>array(array('text'=>''))
+					'mess'=> ''
 				);
 	
 	if($isRequestPost){
@@ -406,16 +406,16 @@ function requestCodeForgotPasswordAPI($input)
 
 				$return = array('code'=>0,
 								'codeForgotPassword' => $code,
-								'messages'=>array(array('text'=>'Gửi email mã xác thực thành công'))
+								'mess'=> 'Gửi email mã xác thực thành công'
 							);
 			}else{
 				$return = array('code'=>3,
-					'messages'=>array(array('text'=>'Tài khoản chưa cài email'))
-				);
+								'mess'=> 'Tài khoản chưa cài email'
+							);
 			}
 		}else{
 			$return = array('code'=>2,
-							'messages'=>array(array('text'=>'Gửi thiếu dữ liệu hoặc sai định dạng số điện thoại'))
+							'mess'=> 'Gửi thiếu dữ liệu hoặc sai định dạng số điện thoại'
 						);
 		}
 	}
@@ -461,23 +461,23 @@ function saveNewPassAPI($input)
 						$return = array('code'=>0);
 					}else{
 						$return = array('code'=>5,
-									'messages'=>array(array('text'=>'Mật khẩu nhập lại không đúng'))
-								);
+										'mess'=>'Mật khẩu nhập lại không đúng'
+									);
 					}
 				}else{
 					$return = array('code'=>4,
-									'messages'=>array(array('text'=>'Mã xác thực nhập không đúng'))
+									'mess'=>'Mã xác thực nhập không đúng'
 								);
 				}
 			}else{
 				$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai số điện thoại'))
-								);
+								'mess'=>'Tài khoản không tồn tại hoặc sai số điện thoại'
+							);
 			}
 		}else{
 			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
+							'mess'=>'Gửi thiếu dữ liệu'
+						);
 		}
 	}
 
@@ -578,7 +578,7 @@ function addMemberDownAPI($input)
 					$data = $modelMembers->find()->where(['id'=>(int) $dataSend['id']])->first();
 
 					if(empty($data)){
-						$return = array('code'=>4, 'mess'=>'Không tìm thấy đại lý cần sửa');
+						return array('code'=>4, 'mess'=>'Không tìm thấy đại lý cần sửa');
 					}
 				}else{
 					$data = $modelMembers->newEmptyEntity();

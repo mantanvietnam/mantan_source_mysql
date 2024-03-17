@@ -1589,6 +1589,7 @@ function detailPlace($input){
 
         $modelPlace = $controller->loadModel('Places');
 
+        $conditions = [];
         if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
             if(!empty($_GET['id'])){
                 $conditions = array('id'=>$_GET['id']);
