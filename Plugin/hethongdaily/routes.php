@@ -22,6 +22,7 @@
 	
 	$routesPlugin['getListCustomerHistoriesAPI']= 'hethongdaily/view/api/getListCustomerHistoriesAPI.php';
 	$routesPlugin['saveCustomerHistoryAPI']= 'hethongdaily/view/api/saveCustomerHistoryAPI.php';
+	$routesPlugin['updateStatusCustomerHistoryAPI']= 'hethongdaily/view/api/updateStatusCustomerHistoryAPI.php';
 
 	$routesPlugin['resendOTPAPI']= 'hethongdaily/view/api/resendOTPAPI.php';
 

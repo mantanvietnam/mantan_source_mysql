@@ -123,4 +123,93 @@ function createOrderProductAPI($input)
 
     return $return;
 }
+
+function getListOrdersAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelOrder = $controller->loadModel('Orders');
+    $modelOrderDetail = $controller->loadModel('OrderDetails');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                $conditions = array('id_agency'=>$infoMember->id);
+                if(!empty($dataSend['id'])){
+                    $conditions['id'] = (int) $dataSend['id'];
+                }
+
+                if(!empty($dataSend['full_name'])){
+                    $conditions['full_name LIKE'] = '%'.$dataSend['full_name'].'%';
+                }
+
+                if(!empty($dataSend['phone'])){
+                    $conditions['phone'] = $dataSend['phone'];
+                }
+
+                if(!empty($dataSend['status'])){
+                    $conditions['status'] = $dataSend['status'];
+                }
+
+                if(!empty($dataSend['id_user'])){
+                    $conditions['id_user'] = (int) $dataSend['id_user'];
+                }
+
+                if(!empty($dataSend['date_start'])){
+                    $date_start = explode('/', $dataSend['date_start']);
+                    $conditions['create_at >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+                }
+
+                if(!empty($dataSend['date_end'])){
+                    $date_end = explode('/', $dataSend['date_end']);
+                    $conditions['create_at <='] = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+                        
+                }
+
+                $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+                $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+                if($page<1) $page = 1;
+                $order = array('id'=>'desc');
+
+                $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+                if(!empty($listData)){
+                    foreach($listData as $key => $item){
+                        $detail_order = $modelOrderDetail->find()->where(['id_order'=>$item->id])->all()->toList();
+                        
+                        if(!empty($detail_order)){
+                            foreach ($detail_order as $k => $value) {
+                                $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
+                                if(!empty($product)){
+                                    $detail_order[$k]->product = $product->title;
+                                    $detail_order[$k]->price = $product->price;
+                                }
+                            }
+
+                            $listData[$key]->detail_order = $detail_order;
+                        }
+                    }
+                }
+                
+                $totalData = $modelOrder->find()->where($conditions)->all()->toList();
+                
+                $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData));
+            }else{
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
 ?>

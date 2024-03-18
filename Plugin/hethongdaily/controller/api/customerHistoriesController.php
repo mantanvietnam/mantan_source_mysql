@@ -106,4 +106,51 @@ function saveCustomerHistoryAPI($input)
     return $return;
 }
 
+function updateStatusCustomerHistoryAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $urlHomes;
+
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                if( !empty($dataSend['id_customer_history']) && 
+                    !empty($dataSend['status']) 
+                ){
+                    $infoCustomerHistory = $modelCustomerHistories->find()->where(['id'=>(int) $dataSend['id_customer_history'], 'id_staff_now'=>$infoMember->id])->first();
+                    
+                    if(empty($infoCustomerHistory)){
+                        return array('code'=>4, 'mess'=>'Khách hàng không thuộc quyền quản lý của đại lý');
+                    }
+                    
+                    $infoCustomerHistory->status = $dataSend['status'];
+
+                    $modelCustomerHistories->save($infoCustomerHistory);
+
+                    $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_customer_history'=>$infoCustomerHistory->id);
+                }else{
+                    $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+                }
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
 ?>
