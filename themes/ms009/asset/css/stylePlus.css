@@ -11,4 +11,14 @@
     footer #section-footer-main .footer-center{
         
     }
+
+    #section-banner{
+        padding-top: 97px;
+    }
+
+    .navbar-toggler i{
+        color : #fff;
+    }
+
+
 }

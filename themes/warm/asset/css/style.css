@@ -437,6 +437,17 @@
 		gap: 20px
 	} */
 
+
+	.publications-content-right-inner img{
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	#section-publications .publications-content .publications-content-right-inner {
+		height: 492px;
+	}
+
 	@media (max-width: 768px) {
 		.img-social-footer a{
 			padding: 0;
