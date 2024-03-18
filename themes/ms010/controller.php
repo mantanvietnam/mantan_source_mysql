@@ -35,6 +35,9 @@ function settingHomeTheme($input){
                             'image_avatar1'=> @$dataSend['image_avatar1'],
                             'title_gt'=> @$dataSend['title_gt'],
                             'content_gt'=> @$dataSend['content_gt'],
+                            'title_al'=> @$dataSend['title_al'],
+                            'content_al'=> @$dataSend['content_al'],
+                            'id_album'=> @$dataSend['id_album'],
                             
                             
                             

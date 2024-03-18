@@ -28,7 +28,7 @@
             
              <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-image" aria-controls="navs-top-image" aria-selected="false">
-                 ĐẶC SẢN
+                 ALBUM
               </button>
             </li>
             <li class="nav-item">
@@ -141,7 +141,18 @@
           </div>
           <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
             <div class="card-body row ">
-              
+               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề</label>
+                <input type="text" class="form-control" name="title_al" value="<?php echo @$data['title_al'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Nội dung</label>
+                <input type="text" class="form-control" name="content_al" value="<?php echo @$data['content_al'];?>" />
+              </div>
+               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Id Album</label>
+                <input type="text" class="form-control" name="id_album" value="<?php echo @$data['id_album'];?>" />
+              </div>
             </div>
           </div>    
           <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">

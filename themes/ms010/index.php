@@ -28,7 +28,7 @@ global $urlThemeActive;
             <div class="container" class="text-center">
                 <div class="section-title text-center" data-aos="zoom-in-up">
                     <h2><?php echo @$setting['title_ck'] ?></h2>
-                    <p><?php echo @$setting['content_ck'] ?>/p>
+                    <p><?php echo @$setting['content_ck'] ?></p>
                 </div>
 
                 <div class="commit-list" data-aos="zoom-in-up">
@@ -116,60 +116,26 @@ global $urlThemeActive;
         <section id="section-collection">
             <div class="container">
                 <div class="section-title text-center" data-aos="zoom-in-up">
-                    <h2>CAM KẾT 3 KHÔNG Ở SON SHIUNKO</h2>
-                    <p>Với thiết kế vô cùng ĐỘC ĐÁO, duy nhất trên thị trường Việt Nam. Son SHIUNKO tập trung vào CHẤT LƯỢNG SẢN PHẨM, mẫu mã SANG TRỌNG với đội ngũ chăm sóc khách hàng chuyên nghiệp hướng tới những quý cô thời thượng, muốn được trải nghiệm dòng SON NHUNG TƯƠI CAO CẤP.</p>
+                    <h2><?php echo @$setting['title_al'] ?></h2>
+                    <p><?php echo @$setting['content_al'] ?></p>
                 </div>
             </div>
 
             <div class="container-fluid">
                 <div class="collection-list" data-aos="zoom-in-left">
-                    <div class="collection-item">
+                   <?php if(!empty($album_home->imageinfo)){
+                        foreach($album_home->imageinfo as $item){
+                            echo '<div class="collection-item">
                         <div class="collection-item-inner">
-                            <a href="./asset/img/22.jpg">
-                                <img src="./asset/img/22.jpg" alt="">
+                            <a href="'.@$item->image.'">
+                                <img src="'.@$item->image.'" alt="">
                             </a>
                         </div>
-                    </div>
+                    </div>';
+                        }
+                   } ?>
+                    
 
-                    <div class="collection-item">
-                        <div class="collection-item-inner">
-                            <a href="./asset/img/22.jpg">
-                                <img src="./asset/img/22.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="collection-item">
-                        <div class="collection-item-inner">
-                            <a href="./asset/img/22.jpg">
-                                <img src="./asset/img/22.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="collection-item">
-                        <div class="collection-item-inner">
-                            <a href="./asset/img/22.jpg">
-                                <img src="./asset/img/22.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="collection-item">
-                        <div class="collection-item-inner">
-                            <a href="./asset/img/22.jpg">
-                                <img src="./asset/img/22.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="collection-item">
-                        <div class="collection-item-inner">
-                            <a href="./asset/img/22.jpg">
-                                <img src="./asset/img/22.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
