@@ -1,0 +1,39 @@
+header{
+    background-color: transparent;
+    z-index: 100;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    .navbar-header{
+        background-image: linear-gradient(#000000, transparent);
+        transition: all 0.4s ease-in-out;
+        &.scroll-header{
+            .nav-link{
+                color: #fff !important;
+                font-size: 16px;
+            }
+        }
+        .navbar-brand{
+            .image-header{
+                width: 195px;
+            }
+        }
+
+        .nav-item{
+            .nav-link{
+                color: #fff;
+                font-size: 18px;
+                font-weight: 600;
+                padding: 15px;
+                &.active{
+                    color: #f99b1c !important;
+                }
+                &:hover{
+                    color: #f99b1c !important;
+                }
+            }
+        }
+    }
+}
