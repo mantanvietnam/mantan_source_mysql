@@ -84,8 +84,84 @@
                 <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
           </div>
-        </div>
+      </div>
 
+      <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-13">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">ĐIỂM ĐẾN</h5>
+            </div>
+            <div class="card-body row">
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề điểm đến 1</label>
+                  <input type="text" class="form-control" name="title_dd_1" value="<?php echo @$setting['title_dd_1'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link điểm đến 1</label>
+                  <input type="text" class="form-control" name="link_dd_1" value="<?php echo @$setting['link_dd_1'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Ảnh điểm đến 1</label>
+                   <?php showUploadFile('imge_dd_1','imge_dd_1', @$setting['imge_dd_1'],21);?>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề điểm đến 2</label>
+                  <input type="text" class="form-control" name="title_dd_2" value="<?php echo @$setting['title_dd_2'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link điểm đến 2</label>
+                  <input type="text" class="form-control" name="link_dd_2" value="<?php echo @$setting['link_dd_2'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Ảnh điểm đến 2</label>
+                   <?php showUploadFile('imge_dd_2','imge_dd_2', @$setting['imge_dd_2'],22);?>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề điểm đến 3</label>
+                  <input type="text" class="form-control" name="title_dd_3" value="<?php echo @$setting['title_dd_3'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link điểm đến 3</label>
+                  <input type="text" class="form-control" name="link_dd_3" value="<?php echo @$setting['link_dd_3'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Ảnh điểm đến 3</label>
+                   <?php showUploadFile('imge_dd_3','imge_dd_3', @$setting['imge_dd_3'],23);?>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề điểm đến 4</label>
+                  <input type="text" class="form-control" name="title_dd_4" value="<?php echo @$setting['title_dd_4'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link điểm đến 4</label>
+                  <input type="text" class="form-control" name="link_dd_4" value="<?php echo @$setting['link_dd_4'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Ảnh điểm đến 4</label>
+                   <?php showUploadFile('imge_dd_4','imge_dd_4', @$setting['imge_dd_4'],24);?>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề điểm đến 5</label>
+                  <input type="text" class="form-control" name="title_dd_5" value="<?php echo @$setting['title_dd_5'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link điểm đến 5</label>
+                  <input type="text" class="form-control" name="link_dd_5" value="<?php echo @$setting['link_dd_5'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Ảnh điểm đến 5</label>
+                   <?php showUploadFile('imge_dd_5','imge_dd_5', @$setting['imge_dd_5'],25);?>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề điểm đến 6</label>
+                  <input type="text" class="form-control" name="title_dd_6" value="<?php echo @$setting['title_dd_6'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link điểm đến 6</label>
+                  <input type="text" class="form-control" name="link_dd_6" value="<?php echo @$setting['link_dd_6'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Ảnh điểm đến 6</label>
+                   <?php showUploadFile('imge_dd_6','imge_dd_6', @$setting['imge_dd_6'],26);?>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề điểm đến 7</label>
+                  <input type="text" class="form-control" name="title_dd_7" value="<?php echo @$setting['title_dd_7'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link điểm đến 7</label>
+                  <input type="text" class="form-control" name="link_dd_7" value="<?php echo @$setting['link_dd_7'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Ảnh điểm đến 7</label>
+                   <?php showUploadFile('imge_dd_7','imge_dd_7', @$setting['imge_dd_7'],27);?>
+                </div>
+                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề điểm đến 8</label>
+                  <input type="text" class="form-control" name="title_dd_8" value="<?php echo @$setting['title_dd_8'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link điểm đến 8</label>
+                  <input type="text" class="form-control" name="link_dd_8" value="<?php echo @$setting['link_dd_8'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Ảnh điểm đến 8</label>
+                   <?php showUploadFile('imge_dd_8','imge_dd_8', @$setting['imge_dd_8'],28);?>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4"></div>
+                
+                <button type="submit" class="btn btn-primary"  style="width: 80px;">Lưu</button>
+            </div>
+          </div>
+      </div>
 
        <!--  <div class="col-12 col-xs-12">
           <div class="card mb-4">
