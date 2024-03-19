@@ -3,12 +3,12 @@ global $urlThemeActive;
 $setting = setting(); 
 ?>
     <footer>
-        <section id="section-footer" style="background-image: url(./asset/img/img90.png);">
+        <section id="section-footer" style="background-image: url(<?php echo @$setting['background_2'] ?>);">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="footer-left">
-                            <img src="./asset/img/logo-moc-linh.png" alt="">
+                            <img src="<?php echo @$setting['logo'];?>" alt="">
                         </div>
                     </div>
 
@@ -16,24 +16,22 @@ $setting = setting();
                         <div class="footer-center">
                             <p>THÔNG TIN LIÊN HỆ</p>
                             <ul>
-                                <li>Địa chỉ: Khu đô thị Gamuda Garden, Hoàng Mai, Hà Nội</li>
-                                <li>Hotline: 0986295xxx - 0345012xxx</li>
-                                <li>Email: email@gmail.com</li>
+                                <li>Địa chỉ: <?php echo @$setting['address'] ?></li>
+                                <li>Hotline: <?php echo @$setting['hotline'] ?></li>
+                                <li>Email: <?php echo @$setting['email'] ?></li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
-                        <div class="footer-right">
-                            Chúng tôi tập trung vào Trải nghiệm và trao giá trị cho khách hàng. Với slogan: Lan tỏa vẻ đẹp thuần khiết, chúng tôi mong muốn sẽ lan toả tình yêu và nét đẹp đến với nhiều phụ nữ, bởi phụ nữ sinh ra vốn là để được yêu thương.
-                        </div>
+                        <div class="footer-right"><?php echo @$setting['content_footer'] ?></div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="section-copyright">
-            <p class="text-center">Copyright 2024 © Mộc Linh</p>
+            <p class="text-center"><?php echo @$setting['textfooter'] ?></p>
         </section>
     </footer>
 

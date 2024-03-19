@@ -33,17 +33,12 @@
             </li>
             <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-specifications" aria-controls="navs-top-info" aria-selected="false">
-                 LIÊN HỆ
+                DỊCH VỤ
               </button>
             </li>
            <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-product" aria-controls="navs-top-image" aria-selected="false">
-              SẢN PHẨM
-           </button>
-         </li>
-          <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-feedback" aria-controls="navs-top-image" aria-selected="false">
-              FEEDBACK
+              LIÊN HỆ 
            </button>
          </li>
          <li class="nav-item">
@@ -93,13 +88,13 @@
                 <input type="text" class="form-control" name="content_ck" value="<?php echo @$data['content_ck'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <label class="form-label" for="basic-default-fullname">Ảnh nều khối đầu</label>
+                <label class="form-label" for="basic-default-fullname">Ảnh nều</label>
                 <?php showUploadFile('background_2','background_2', @$data['background_2'],4);?>
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Tiêu đề cam kết 1</label>
                 <input type="text" class="form-control mb-3" name="title_ck_1" value="<?php echo @$data['title_ck_1'];?>" />
-                <label class="form-label" for="basic-default-fullname">Tiêu đề cam kết 1</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung cam kết 1</label>
                 <input type="text" class="form-control mb-3" name="content_ck_1" value="<?php echo @$data['content_ck_1'];?>" />
                 <label class="form-label" for="basic-default-fullname">ảnh cam kết 1</label>
                 <?php showUploadFile('image_ck_1','image_ck_1', @$data['image_ck_1'],11);?>
@@ -107,7 +102,7 @@
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Tiêu đề cam kết 2</label>
                 <input type="text" class="form-control mb-3" name="title_ck_2" value="<?php echo @$data['title_ck_2'];?>" />
-                <label class="form-label" for="basic-default-fullname">Tiêu đề cam kết 2</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung cam kết 2</label>
                 <input type="text" class="form-control mb-3" name="content_ck_2" value="<?php echo @$data['content_ck_2'];?>" />
                 <label class="form-label" for="basic-default-fullname">ảnh cam kết 2</label>
                 <?php showUploadFile('image_ck_2','image_ck_2', @$data['image_ck_2'],12);?>
@@ -115,7 +110,7 @@
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Tiêu đề cam kết 3</label>
                 <input type="text" class="form-control mb-3" name="title_ck_3" value="<?php echo @$data['title_ck_3'];?>" />
-                <label class="form-label" for="basic-default-fullname">Tiêu đề cam kết 3</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung cam kết 3</label>
                 <input type="text" class="form-control mb-3" name="content_ck_3" value="<?php echo @$data['content_ck_3'];?>" />
                 <label class="form-label" for="basic-default-fullname">ảnh cam kết 3</label>
                 <?php showUploadFile('image_ck_3','image_ck_3', @$data['image_ck_3'],13);?>
@@ -157,28 +152,117 @@
           </div>    
           <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">
             <div class="card-body row ">
-              
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Ảnh bên trái</label>
+                <?php showUploadFile('image_3','image_3', @$data['image_3'],5);?>
+              </div>
+               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Nội dung ảnh</label>
+                <input type="text" class="form-control" name="content_dv_image" value="<?php echo @$data['content_dv_image'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề </label>
+                <input type="text" class="form-control" name="title_dv" value="<?php echo @$data['title_dv'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Nội dung </label>
+                <input type="text" class="form-control" name="content_dv" value="<?php echo @$data['content_dv'];?>" />
+              </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8"></div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 1</label>
+                <input type="text" class="form-control mb-3" name="title_dv_1" value="<?php echo @$data['title_dv_1'];?>" />
+                <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 1</label>
+                <input type="text" class="form-control mb-3" name="content_dv_1" value="<?php echo @$data['content_dv_1'];?>" />
+                <label class="form-label" for="basic-default-fullname">ảnh dịch vụ 1</label>
+                <?php showUploadFile('image_dv_1','image_dv_1', @$data['image_dv_1'],21);?>
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 2</label>
+                <input type="text" class="form-control mb-3" name="title_dv_2" value="<?php echo @$data['title_dv_2'];?>" />
+                <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 2</label>
+                <input type="text" class="form-control mb-3" name="content_dv_2" value="<?php echo @$data['content_dv_2'];?>" />
+                <label class="form-label" for="basic-default-fullname">ảnh dịch vụ 2</label>
+                <?php showUploadFile('image_dv_2','image_dv_2', @$data['image_dv_2'],22);?>
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 3</label>
+                <input type="text" class="form-control mb-3" name="title_dv_3" value="<?php echo @$data['title_dv_3'];?>" />
+                <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 3</label>
+                <input type="text" class="form-control mb-3" name="content_dv_3" value="<?php echo @$data['content_dv_3'];?>" />
+                <label class="form-label" for="basic-default-fullname">ảnh dịch vụ 3</label>
+                <?php showUploadFile('image_dv_3','image_dv_3', @$data['image_dv_3'],23);?>
+              </div>
             </div>
           </div>
           
           <div class="tab-pane fade" id="navs-top-product" role="tabpanel">
             <div class="card-body row ">
-              
-            </div>
-          </div>
-          <div class="tab-pane fade" id="navs-top-feedback" role="tabpanel">
-            <div class="card-body row ">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề </label>
+                <input type="text" class="form-control" name="title_lh" value="<?php echo @$data['title_lh'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Nội dung 1</label>
+                <input type="text" class="form-control" name="content_lh" value="<?php echo @$data['content_lh'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Số điện thoại </label>
+                <input type="text" class="form-control" name="phone" value="<?php echo @$data['phone'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Nội dung 2 </label>
+                <input type="text" class="form-control" name="content_lh2" value="<?php echo @$data['content_lh2'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">chữ vàng ở fom </label>
+                <input type="text" class="form-control" name="title_gtf" value="<?php echo @$data['title_gtf'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">chữ vàng trắng form </label>
+                <textarea class="form-control" name="content_lht"><?php echo @$data['content_lht'] ?></textarea>
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Ảnh bên phải </label>
+                <?php showUploadFile('image4','image4', @$data['image4'],6);?>
+              </div>
              
             </div>
           </div>
           <div class="tab-pane fade" id="navs-top-Post" role="tabpanel">
             <div class="card-body row ">
-              
+               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề</label>
+                <input type="text" class="form-control" name="title_tt" value="<?php echo @$data['title_tt'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Nội dung</label>
+                <input type="text" class="form-control" name="content_tt" value="<?php echo @$data['content_tt'];?>" />
+              </div>
             </div>
           </div>
            <div class="tab-pane fade" id="navs-top-footer" role="tabpanel">
             <div class="card-body row ">
-              
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
+                <input type="text" class="form-control" name="address" value="<?php echo @$data['address'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Hotline</label>
+                <input type="text" class="form-control" name="hotline" value="<?php echo @$data['hotline'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Email</label>
+                <input type="text" class="form-control" name="email" value="<?php echo @$data['email'];?>" />
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Gới thiệu </label>
+                <textarea class="form-control" name="content_footer"><?php echo @$data['content_footer'] ?></textarea>
+              </div>
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">chữ chân trang</label>
+                <input type="text" class="form-control" name="textfooter" value="<?php echo @$data['textfooter'];?>" />
+              </div>
             </div>
           </div>
 

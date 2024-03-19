@@ -38,6 +38,33 @@ function settingHomeTheme($input){
                             'title_al'=> @$dataSend['title_al'],
                             'content_al'=> @$dataSend['content_al'],
                             'id_album'=> @$dataSend['id_album'],
+                            'title_dv'=> @$dataSend['title_dv'],
+                            'content_dv'=> @$dataSend['content_dv'],
+                            'image_3'=> @$dataSend['image_3'],
+                            'title_dv_1'=> @$dataSend['title_dv_1'],
+                            'content_dv_1'=> @$dataSend['content_dv_1'],
+                            'image_dv_1'=> @$dataSend['image_dv_1'],
+                            'title_dv_2'=> @$dataSend['title_dv_2'],
+                            'content_dv_2'=> @$dataSend['content_dv_2'],
+                            'image_dv_2'=> @$dataSend['image_dv_2'],
+                            'title_dv_3'=> @$dataSend['title_dv_3'],
+                            'content_dv_3'=> @$dataSend['content_dv_3'],
+                            'image_dv_3'=> @$dataSend['image_dv_3'],
+                            'content_dv_image'=> @$dataSend['content_dv_image'],
+                            'title_lh'=> @$dataSend['title_lh'],
+                            'content_lh'=> @$dataSend['content_lh'],
+                            'phone'=> @$dataSend['phone'],
+                            'content_lh2'=> @$dataSend['content_lh2'],
+                            'title_gtf'=> @$dataSend['title_gtf'],
+                            'content_lht'=> @$dataSend['content_lht'],
+                            'image4'=> @$dataSend['image4'],
+                            'title_tt'=> @$dataSend['title_tt'],
+                            'content_tt'=> @$dataSend['content_tt'],
+                            'address'=> @$dataSend['address'],
+                            'hotline'=> @$dataSend['hotline'],
+                            'email'=> @$dataSend['email'],
+                            'content_footer'=> @$dataSend['content_footer'],
+                            'textfooter'=> @$dataSend['textfooter'],
                             
                             
                             
@@ -81,7 +108,7 @@ function indexTheme(){
 
     $order = array('id'=>'desc');
 
-    $listDataNew= $modelPosts->find()->limit(4)->where(array('type'=>'post'))->order($order)->all()->toList();
+    $listDataNew= $modelPosts->find()->where(array('type'=>'post'))->order($order)->all()->toList();
 
     $album_home = $modelAlbums->find()->where(['id'=>(int)@$data_value['id_album']])->first();
 

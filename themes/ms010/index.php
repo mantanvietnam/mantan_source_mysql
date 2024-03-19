@@ -140,16 +140,15 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-service" style="background-image: url(./asset/img/img90.png);">
+        <section id="section-service" style="background-image: url(<?php echo @$setting['background_2'] ?>);">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="service-left" data-aos="zoom-in-right">
                             <div class="service-img">
-                                <img src="./asset/img/img55.jpg" alt="">
+                                <img src="<?php echo @$setting['image_3'] ?>" alt="">
                                 <div class="service-left-text">
-                                    <p>“Cảm ơn tất cả những người phụ nữ xinh đẹp đã lựa chọn SHIUNKO để đồng hành. SHIUNKO chắc chắn sẽ làm hài lòng và mong được phục vụ quý khách những lần tiếp theo”.
-                                        Thanks for you!</p>
+                                    <p><?php echo @$setting['content_dv_image'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -158,83 +157,81 @@ global $urlThemeActive;
                     <div class="col-lg-7">
                         <div class="service-right" data-aos="zoom-in-left">
                             <div class="section-title">
-                                <h2>CÁC LOẠI MÀU SON CỦA SHIUNKO</h2>
-                                <p>Thỏa sức lựa chọn màu son yêu thích theo gu của riêng bạn:</p>
+                                <h2><?php echo @$setting['title_dv'] ?></h2>
+                                <p><?php echo @$setting['content_dv'] ?></p>
                             </div>
 
                             <div class="service-right-list">
                                 <div class="service-right-item">
                                     <div class="service-right-img">
-                                        <img src="./asset/img/mau-son-1-300x203.png" alt="">
+                                        <img src="<?php echo @$setting['image_dv_1'] ?>" alt="">
                                     </div>
 
                                     <div class="service-right-detail">
                                         <div class="service-right-title">
-                                            <h3>ORANGE PEACH</h3>
+                                            <h3><?php echo @$setting['title_dv_1'] ?></h3>
                                         </div>
 
                                         <div class="service-right-description">
-                                            <p>Màu hồng cam trẻ trung, cá tính và sexy phù hợp với mọi loại da. Màu son này giúp da bạn sáng lên 1 tone mà không cần makeup. Những bữa tiệc cuối tuần, party,.. nếu sở hữu Orange Peach, bạn sẽ là cô gái vô cùng nổi bật</p>
+                                            <p><?php echo @$setting['content_dv_1'] ?></p>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="service-right-item">
                                     <div class="service-right-img">
-                                        <img src="./asset/img/mau-son-1-300x203.png" alt="">
+                                        <img src="<?php echo @$setting['image_dv_2'] ?>" alt="">
                                     </div>
 
                                     <div class="service-right-detail">
                                         <div class="service-right-title">
-                                            <h3>ORANGE PEACH</h3>
+                                            <h3><?php echo @$setting['title_dv_2'] ?></h3>
                                         </div>
 
                                         <div class="service-right-description">
-                                            <p>Màu hồng cam trẻ trung, cá tính và sexy phù hợp với mọi loại da. Màu son này giúp da bạn sáng lên 1 tone mà không cần makeup. Những bữa tiệc cuối tuần, party,.. nếu sở hữu Orange Peach, bạn sẽ là cô gái vô cùng nổi bật</p>
+                                            <p><?php echo @$setting['content_dv_2'] ?></p>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="service-right-item">
                                     <div class="service-right-img">
-                                        <img src="./asset/img/mau-son-1-300x203.png" alt="">
+                                        <img src="<?php echo @$setting['image_dv_3'] ?>" alt="">
                                     </div>
 
                                     <div class="service-right-detail">
                                         <div class="service-right-title">
-                                            <h3>ORANGE PEACH</h3>
+                                            <h3><?php echo @$setting['title_dv_3'] ?></h3>
                                         </div>
 
                                         <div class="service-right-description">
-                                            <p>Màu hồng cam trẻ trung, cá tính và sexy phù hợp với mọi loại da. Màu son này giúp da bạn sáng lên 1 tone mà không cần makeup. Những bữa tiệc cuối tuần, party,.. nếu sở hữu Orange Peach, bạn sẽ là cô gái vô cùng nổi bật</p>
+                                            <p><?php echo @$setting['content_dv_3'] ?></p>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+
+                                
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="section-contact" style="background-image: url(./asset/img/img8.png);">
+        <section id="section-contact" style="background-image: url(<?php echo @$setting['background_2'] ?>);">
             <div class="container">
                 <div class="section-title text-center" data-aos="zoom-in-up">
-                    <h2>TỔNG ĐÀI TƯ VẤN MIỄN PHÍ</h2>
-                    <p>Đừng ngần ngại! Hãy gọi ngay đến tổng đài tư vấn miễn cước của chúng tôi để được tư vấn trực tiếp</p>
+                    <h2><?php echo @$setting['title_lh'] ?></h2>
+                    <p><?php echo @$setting['content_lh'] ?></p>
                 </div>
 
                 <div class="link-phone text-center" data-aos="zoom-in-up">
                     <div class="link-phone-item">
-                        <a href="">
+                        <a href="<?php echo @$setting['phone'] ?>">
                             <i class="fa-solid fa-phone"></i>
-                            <span>0972-939-xxx</span>
+                            <span><?php echo @$setting['phone'] ?></span>
                         </a>
                     </div>
 
                     <div class="link-phone-text">
-                        <p>Nếu đã tìm hiểu kỹ về sản phẩm, quý khách có thể nhanh chóng đặt mua <br>
-                            bằng cách thực hiện đầy đủ mẫu form sau và gửi đăng ký.</p>
+                        <p><?php echo @$setting['content_lh2'] ?></p>
                     </div>
                 </div>
 
@@ -244,21 +241,13 @@ global $urlThemeActive;
                             <div class="contact-form">
                                 <form action="">
                                     <div class="form-title">
-                                        <p>Đặt hàng ngay hôm nay để nhận những ưu đãi hấp dẫn:</p>
+                                        <p><?php echo @$setting['title_gtf'] ?></p>
                                     </div>
 
                                     <div class="form-description">
-                                        <ul>
-                                            <li>
-                                                Miễn phí ship hàng toàn quốc.
-                                            </li>
-
-                                            <li>
-                                                Cơ hội nhận Voucher mua hàng trị giá 500K cho 25 người đầu tiên.
-                                            </li>
-                                        </ul>
+                                        <p><?php echo nl2br(@$setting['content_lht']); ?></p>
                                     </div>
-
+                                    <div id="success"></div>
                                     <div class="form-box">
                                         <div class="mb-3">
                                             <input type="text" class="form-control" id="name" placeholder="Họ và tên..." aria-describedby="emailHelp" required>
@@ -273,19 +262,18 @@ global $urlThemeActive;
                                         </div>
 
                                         <div class="mb-3">
-                                            <textarea name="textarea-861" cols="40" rows="7" class="form-control"  placeholder="Ghi chú thêm..."></textarea>                                        
+                                            <textarea name="textarea-861" id='massage' cols="40" rows="7" class="form-control"  placeholder="Ghi chú thêm..."></textarea>                                        
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary">Đăng ký ngay</button>
+                                        <button type="button" onclick="contact()" class="btn btn-primary">Đăng ký ngay</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-6">
                         <div class="contact-img" data-aos="zoom-out-right">
-                            <img src="./asset/img/son-shiunko-2.png" alt="">
+                            <img src="<?php echo @$setting['image4'] ?>" alt="">
                         </div>
                     </div>
                 </div>
@@ -295,92 +283,40 @@ global $urlThemeActive;
         <section id="section-blog">
             <div class="container">
                 <div class="section-title text-center" data-aos="zoom-in-up">
-                    <h2>TIN TỨC – BÀI VIẾT</h2>
-                    <p>Dưới đây là một số bài viết tổng hợp về tin tức và sắc đẹp phái nữ!.</p>
+                    <h2><?php echo @$setting['title_tt'] ?></h2>
+                    <p><?php echo @$setting['content_tt'] ?></p>
                 </div>
 
                 <div class="blog-list" data-aos="zoom-out">
                     <div class="row">
-                        <div class="col-lg-3">
+                        <?php if(!empty($listDataNew)){
+                            foreach($listDataNew as $item){
+                                echo '<div class="col-lg-3">
                             <div class="blog-item">
-                                <a href="">
+                                <a href="'.@$item->slug.'.html">
                                     <div class="blog-img">
-                                        <img src="./asset/img/phuong-phap-giam-can-low-carbohydrate.jpg" alt="">
+                                        <img src="'.@$item->image.'" alt="">
                                     </div>
                                     
                                     <div class="blog-text">
                                         <div class="blog-title">
-                                            <p>10 Chế độ ăn giảm cân Nhanh & Hiệu quả nhất thế giới</p>
+                                            <p>'.@$item->title.'</p>
                                         </div>
     
                                         <div class="blog-description">
-                                            <p>Chế độ ăn giảm cân gần đây được rất nhiều bạn quan tâm, đặc biệt là ...</p>
+                                            <p>'.@$item->description.'</p>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                        </div>
+                        </div>';
+                            }
+                        } ?>
+                        
 
-                        <div class="col-lg-3">
-                            <div class="blog-item">
-                                <a href="">
-                                    <div class="blog-img">
-                                        <img src="./asset/img/phuong-phap-giam-can-low-carbohydrate.jpg" alt="">
-                                    </div>
-                                    
-                                    <div class="blog-text">
-                                        <div class="blog-title">
-                                            <p>10 Chế độ ăn giảm cân Nhanh & Hiệu quả nhất thế giới</p>
-                                        </div>
-    
-                                        <div class="blog-description">
-                                            <p>Chế độ ăn giảm cân gần đây được rất nhiều bạn quan tâm, đặc biệt là ...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                            
-                        <div class="col-lg-3">
-                            <div class="blog-item">
-                                <a href="">
-                                    <div class="blog-img">
-                                        <img src="./asset/img/phuong-phap-giam-can-low-carbohydrate.jpg" alt="">
-                                    </div>
-                                    
-                                    <div class="blog-text">
-                                        <div class="blog-title">
-                                            <p>10 Chế độ ăn giảm cân Nhanh & Hiệu quả nhất thế giới</p>
-                                        </div>
-    
-                                        <div class="blog-description">
-                                            <p>Chế độ ăn giảm cân gần đây được rất nhiều bạn quan tâm, đặc biệt là ...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                       
 
 
-                        <div class="col-lg-3">
-                            <div class="blog-item">
-                                <a href="">
-                                    <div class="blog-img">
-                                        <img src="./asset/img/phuong-phap-giam-can-low-carbohydrate.jpg" alt="">
-                                    </div>
-                                    
-                                    <div class="blog-text">
-                                        <div class="blog-title">
-                                            <p>10 Chế độ ăn giảm cân Nhanh & Hiệu quả nhất thế giới</p>
-                                        </div>
-    
-                                        <div class="blog-description">
-                                            <p>Chế độ ăn giảm cân gần đây được rất nhiều bạn quan tâm, đặc biệt là ...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>                    
                     </div>
                 </div>
             </div>
@@ -402,7 +338,7 @@ global $urlThemeActive;
                 name: name,
                 phone: phone,  
                 email: email,
-                subject: 'Đăng ký hóa học',
+                subject: 'Liên hệ',
                 content: content,  
                },
                 /*success:function(res){

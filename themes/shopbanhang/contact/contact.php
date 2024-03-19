@@ -62,8 +62,10 @@ $slide_home= slide_home($setting['id_slide']);
                 <div class="contact-form">
                     <div class="contact-text">
                         <p>Điền thông tin liên hệ để chúng tôi có thể gọi trực tiếp hỗ trợ các bạn</p>
+                        <p><?php echo @$mess; ?></p>
                     </div>
-                    <form id="formContact" onsubmit="" action="<?= $routesPlugin["contact"] ?>" method="post" class="form-custom-1 py-3">
+                    <!-- <?= $routesPlugin["lien-he"] ?> -->
+                    <form id="formContact" onsubmit="" action="" method="post" class="form-custom-1 py-3">
                         <div class="row">
                             <div class="mb-3 col-lg-6 col-12">
                                 <input placeholder="Họ và tên" type="text" class="form-control" name="name" id="name" required>
@@ -80,25 +82,25 @@ $slide_home= slide_home($setting['id_slide']);
 
                             <div class="mb-3 col-12 form-radius">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" value="Tư vấn" type="radio" name="subject" id="flexRadioDefault1">
                                     <label class="form-check-label" value="Tư vấn" for="flexRadioDefault1">
                                         Tư vấn
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <input class="form-check-input" value="Hợp tác" type="radio" name="subject" id="flexRadioDefault2" checked>
                                     <label class="form-check-label" value="Hợp tác" for="flexRadioDefault2">
                                         Hợp tác
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                    <input class="form-check-input" value="Góp ý sản phẩm" type="radio" name="subject" id="flexRadioDefault3">
                                     <label class="form-check-label" value="Góp ý sản phẩm" for="flexRadioDefault3">
                                         Góp ý sản phẩm
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" checked>
+                                    <input class="form-check-input" value="Khác" type="radio" name="subject" id="flexRadioDefault4" checked>
                                     <label class="form-check-label" value="Khác" for="flexRadioDefault4">
                                       Khác
                                     </label>
