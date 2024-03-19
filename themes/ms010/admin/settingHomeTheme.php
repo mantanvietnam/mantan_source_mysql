@@ -36,22 +36,22 @@
                 DỊCH VỤ
               </button>
             </li>
-           <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-product" aria-controls="navs-top-image" aria-selected="false">
-              LIÊN HỆ 
-           </button>
-         </li>
-         <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-Post" aria-controls="navs-top-Post" aria-selected="false">
-              TIN TỨC
-           </button>
-         </li>
-          <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-footer" aria-controls="navs-top-Post" aria-selected="false">
-              CHÂN TRANG
-           </button>
-         </li>
-       </ul>
+            <li class="nav-item">
+              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-product" aria-controls="navs-top-image" aria-selected="false">
+                LIÊN HỆ 
+             </button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-Post" aria-controls="navs-top-Post" aria-selected="false">
+                TIN TỨC
+             </button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-footer" aria-controls="navs-top-Post" aria-selected="false">
+                CHÂN TRANG
+             </button>
+           </li>
+        </ul>
         <div class="card-body tab-content ">
           <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
             <div class="card-body row ">
