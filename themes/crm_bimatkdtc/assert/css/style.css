@@ -690,7 +690,7 @@ strong{
 
     /* header */
     .header-navbar{
-        background-color: #0d664d;
+        background-color: #000;
         position: relative;
         z-index: 99;
         padding: 21px;
@@ -877,7 +877,7 @@ strong{
 
 /* header */
     .header-navbar{
-        background-color: #0d664d;
+        background-color: #000;
         position: relative;
         z-index: 99;
         padding: 21px;
@@ -900,7 +900,9 @@ strong{
         padding: 0 5px
     }
 
-
+    .btn-login{
+        margin-left: 0;
+    }
 
   
 }
