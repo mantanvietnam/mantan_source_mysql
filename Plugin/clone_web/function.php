@@ -15,6 +15,20 @@ $menus[0]['sub'][1]= array('title'=>'Kho giao diện',
 
 addMenuAdminMantan($menus);
 
+function check_domain_clone()
+{
+    global $controller;
 
+    $modelMemberWebs = $controller->loadModel('MemberWebs');
+
+    $conditions['domain'] = $_SERVER['HTTP_HOST'];
+
+    $memberWebs = $modelMemberWebs->find()->where($conditions)->first();
+
+    if(!empty($memberWebs)){
+        echo $_SERVER['HTTP_HOST'];
+        die();
+    }
+}
 
 ?>

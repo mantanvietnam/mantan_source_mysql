@@ -105,20 +105,27 @@ function addWebMemberAdmin($input)
 
         if(!empty($dataSend['id_member']) && !empty($dataSend['domain']) && !empty($dataSend['theme'])){
             $conditions = ['id_member'=>$dataSend['id_member']];
-            $checkPhone = $modelMemberWebs->find()->where($conditions)->first();
+            $checkMember = $modelMemberWebs->find()->where($conditions)->first();
 
-            if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
-                // tạo dữ liệu save
-                $data->domain = $dataSend['domain'];
-                $data->id_member = (int) $dataSend['id_member'];
-                $data->theme = $dataSend['theme'];
-                $data->status = $dataSend['status'];
+            $conditions = ['domain'=>$dataSend['domain']];
+            $checkDomain = $modelMemberWebs->find()->where($conditions)->first();
 
-                $modelMemberWebs->save($data);
+            if(empty($checkMember) || (!empty($_GET['id']) && $_GET['id']==$checkMember->id)){
+                if(empty($checkDomain) || (!empty($_GET['id']) && $_GET['id']==$checkDomain->id)){
+                    // tạo dữ liệu save
+                    $data->domain = $dataSend['domain'];
+                    $data->id_member = (int) $dataSend['id_member'];
+                    $data->theme = $dataSend['theme'];
+                    $data->status = $dataSend['status'];
 
-                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                    $modelMemberWebs->save($data);
+
+                    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                }else{
+                    $mess= '<p class="text-danger">Tên miền đã tồn tại</p>';
+                }
             }else{
-                $mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
+                $mess= '<p class="text-danger">Đại lý này đã được cấu hình website</p>';
             }
         }else{
             $mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
