@@ -252,18 +252,18 @@ function getListBookingTransaction($input): array
             }
         }
         $conditions = ['Bookings.received_by' => $currentUser->id];
-        $order = ['Bookings.created_at' => 'DESC'];
+        $order = ['Bookings.received_at' => 'DESC'];
         $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 10;
         $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
 
         if (!empty($dataSend['from_date'])) {
-            $startTime = DateTime::createFromFormat('d/m/Y', $dataSend['from_date']);
-            $conditions[] = ['Bookings.created_at >=' => $startTime];
+            $startTime = DateTime::createFromFormat('d/m/Y', $dataSend['from_date'])->setTime(0, 0, 0);
+            $conditions[] = ['Bookings.received_at >=' => $startTime];
         }
 
         if (!empty($dataSend['to_date'])) {
-            $finishTime = DateTime::createFromFormat('d/m/Y', $dataSend['to_date']);
-            $conditions[] = ['Bookings.created_at <=' => $finishTime];
+            $finishTime = DateTime::createFromFormat('d/m/Y', $dataSend['to_date'])->setTime(23, 59, 59);
+            $conditions[] = ['Bookings.received_at <=' => $finishTime];
         }
 
         if (!empty($dataSend['name'])) {
@@ -284,6 +284,7 @@ function getListBookingTransaction($input): array
         foreach ($listBooking as &$item) {
             $listTransaction = $transactionModel->find()
                 ->where(['booking_id' => $item['id']])
+                ->where(['user_id' => $currentUser->id])
                 ->order(['created_at' => 'DESC'])
                 ->all()
                 ->toList();

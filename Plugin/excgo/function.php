@@ -37,19 +37,31 @@ $menus[5]['sub'][0] = array('title' => 'Yêu cầu rút tiền',
 $menus[6]['sub'][0] = array('title' => 'Khiếu nại',
     'url' => '/plugins/admin/excgo-view-admin-complaint-listComplaintAdmin.php',
     'classIcon' => 'bx bx-cog',
-    'permission' => 'listWithdrawRequestAdmin',
+    'permission' => 'listComplaintAdmin',
 );
 
 $menus[7]['sub'][0] = array('title' => 'Yêu cầu hỗ trợ',
     'url' => '/plugins/admin/excgo-view-admin-support-listSupportAdmin.php',
     'classIcon' => 'bx bx-cog',
-    'permission' => 'listWithdrawRequestAdmin',
+    'permission' => 'listSupportAdmin',
 );
 
-$menus[7]['sub'][0] = array('title' => 'Cài đặt phí sàn',
+$menus[8]['sub'][0] = array('title' => 'Quản lí giao dịch',
+    'url' => '/plugins/admin/excgo-view-admin-transaction-listTransactionAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listTransactionAdmin',
+);
+
+$menus[9]['sub'][0] = array('title' => 'Cài đặt phí sàn',
     'url' => '/plugins/admin/excgo-view-admin-config-configServiceFeeAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'configServiceFeeAdmin',
+);
+
+$menus[10]['sub'][0] = array('title' => 'Kiểm tra cuốc xe đã hoàn thành',
+    'url' => '/plugins/admin/excgo-view-admin-config-checkCompletedBookingAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'checkCompletedBookingAdmin',
 );
 
 addMenuAdminMantan($menus);
@@ -240,8 +252,17 @@ function sendEmailAddMoney($email = '', $name = '', $coin= '')
 
 function sendEmailWithdrawRequest($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
+    global $controller;
+    $adminModel = $controller->loadModel('Admins');
+    $listAdmins = $adminModel->find()
+        ->where(['permission LIKE' => '%listWithdrawRequestAdmin%'])
+        ->all()
+        ->map(function ($item) {
+            return trim($item->email);
+        })->toList();
     if(!empty($email)){
-        $to[]= trim($email);
+
+        $to = [trim($email), ...$listAdmins];
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Tài xế yêu cầu rút tiền từ tài khoản';
@@ -318,8 +339,17 @@ function sendEmailWithdrawRequest($userName = '', $requestId = '', $email = 'exc
 
 function sendEmailUpgradeToDriver($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
+    global $controller;
+    $adminModel = $controller->loadModel('Admins');
+    $listAdmins = $adminModel->find()
+        ->where(['permission LIKE' => '%listUpgradeRequestToDriverAdmin%'])
+        ->all()
+        ->map(function ($item) {
+            return trim($item->email);
+        })->toList();
+
     if(!empty($email)){
-        $to[]= trim($email);
+        $to = [trim($email), ...$listAdmins];
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Người dùng yêu cầu nâng cấp tài khoản thành tài xế';
@@ -396,8 +426,17 @@ function sendEmailUpgradeToDriver($userName = '', $requestId = '', $email = 'exc
 
 function sendEmailSupportRequest($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
+    global $controller;
+    $adminModel = $controller->loadModel('Admins');
+    $listAdmins = $adminModel->find()
+        ->where(['permission LIKE' => '%listSupportAdmin%'])
+        ->all()
+        ->map(function ($item) {
+            return trim($item->email);
+        })->toList();
+
     if(!empty($email)) {
-        $to[] = trim($email);
+        $to = [trim($email), ...$listAdmins];
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Người dùng yêu cầu hỗ trợ';
@@ -474,8 +513,17 @@ function sendEmailSupportRequest($userName = '', $requestId = '', $email = 'excg
 
 function sendEmailComplaint($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
+    global $controller;
+    $adminModel = $controller->loadModel('Admins');
+    $listAdmins = $adminModel->find()
+        ->where(['permission LIKE' => '%listComplaintAdmin%'])
+        ->all()
+        ->map(function ($item) {
+            return trim($item->email);
+        })->toList();
+
     if(!empty($email)) {
-        $to[] = trim($email);
+        $to = [trim($email), ...$listAdmins];
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Người dùng yêu cầu khiếu nại';
@@ -810,6 +858,8 @@ function processAddMoney($money, $phoneNumber): string
                 $newTransaction->type = $transactionType['add'];
                 $newTransaction->name = 'Nạp EXC-xu thành công';
                 $newTransaction->description = '+' . number_format($money) . ' EXC-xu';
+                $newTransaction->created_at = date('Y-m-d H:i:s');
+                $newTransaction->updated_at = date('Y-m-d H:i:s');
                 $modelTransaction->save($newTransaction);
 
                 if ($user->email && $user->name) {
@@ -827,6 +877,8 @@ function processAddMoney($money, $phoneNumber): string
                     $newNotification = $modelNotification->newEmptyEntity();
                     $newNotification->user_id = $user->id;
                     $newNotification->content = 'Nạp thành công '.number_format($money).'đ vào tài khoản ' . $user->phone_number;
+                    $newNotification->created_at = date('Y-m-d H:i:s');
+                    $newNotification->updated_at = date('Y-m-d H:i:s');
                     $modelNotification->save($newNotification);
                     sendNotification($dataSendNotification, $user->device_token);
                 }
@@ -934,6 +986,168 @@ function getServiceFee()
     return json_decode($config->value ?? '', true)['price'] ?? 0;
 }
 
+function checkFinishedBooking(): array
+{
+    global $controller;
+    global $transactionType;
+    global $bookingStatus;
+    global $bookingFeeStatus;
+
+    $modelBooking = $controller->loadModel('Bookings');
+    $modelUser = $controller->loadModel('Users');
+    $modelBookingFee = $controller->loadModel('BookingFees');
+    $modelTransaction = $controller->loadModel('Transactions');
+    $modelNotification = $controller->loadModel('Notifications');
+
+    $now = DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
+    $bookingList = $modelBooking->find()
+        ->where([
+            'status' => $bookingStatus['confirmed'],
+            'completed_at <=' => $now->sub(new DateInterval('P1D'))->format('Y-m-d H:i:s'),
+        ])->all();
+
+    foreach ($bookingList as $booking) {
+        $bookingFee = $modelBookingFee->find()
+            ->where(['booking_id' => $booking->id])
+            ->first();
+
+        $postedUser = $modelUser->find()
+            ->where(['id' => $booking->posted_by])
+            ->first();
+        $postedUser->total_coin += $bookingFee->received_fee;
+        $booking->status = $bookingStatus['paid'];
+        $bookingFee->status = $bookingFeeStatus['paid'];
+
+        $modelUser->save($postedUser);
+        $modelBooking->save($booking);
+
+        // Save transaction
+        $newTransaction = $modelTransaction->newEmptyEntity();
+        $newTransaction->user_id = $postedUser->id;
+        $newTransaction->booking_id = $booking->id;
+        $newTransaction->amount = $bookingFee->received_fee;
+        $newTransaction->type = $transactionType['add'];
+        $newTransaction->name = "Nhận thanh toán cuốc xe #$booking->id thành công";
+        $newTransaction->description = '+' . number_format($bookingFee->received_fee) . ' EXC-xu';
+        $newTransaction->created_at = date('Y-m-d H:i:s');
+        $newTransaction->updated_at = date('Y-m-d H:i:s');
+        $modelTransaction->save($newTransaction);
+
+        // Thông báo cho người đăng
+        $title = 'Cộng EXC coin vào tài khoản';
+        $content = "Tài khoản của bạn được công thêm $bookingFee->received_fee phí giới thiệu cuốc xe #$booking->id";
+        $notification = $modelNotification->newEmptyEntity();
+        $notification->user_id = $postedUser->id;
+        $notification->booking_id = $booking->id;
+        $notification->title = $title;
+        $notification->content = $content;
+        $notification->created_at = date('Y-m-d H:i:s');
+        $notification->updated_at = date('Y-m-d H:i:s');
+        $modelNotification->save($notification);
+        if ($postedUser->device_token) {
+            $dataSendNotification = array(
+                'title' => $title,
+                'time' => date('H:i d/m/Y'),
+                'content' => $content,
+                'action' => 'addMoneySuccess',
+                'user_id' => $postedUser->id,
+                'booking_id' => $booking->id,
+            );
+            sendNotification($dataSendNotification, $postedUser->device_token);
+        }
+
+        // Thông báo cộng tiền cọc
+        if ($bookingFee->deposit) {
+            // Người nhận chuyến
+            $receivedUser = $modelUser->find()
+                ->where(['id' => $booking->received_by])
+                ->first();
+            $receivedUser->total_coin += $bookingFee->deposit;
+            $modelUser->save($receivedUser);
+
+            // Save transaction
+            $newTransaction = $modelTransaction->newEmptyEntity();
+            $newTransaction->user_id = $receivedUser->id;
+            $newTransaction->booking_id = $booking->id;
+            $newTransaction->amount = $bookingFee->deposit;
+            $newTransaction->type = $transactionType['add'];
+            $newTransaction->name = "Nhận lại tiền cọc cuốc xe #$booking->id thành công";
+            $newTransaction->description = '+' . number_format($bookingFee->deposit) . ' EXC-xu';
+            $newTransaction->created_at = date('Y-m-d H:i:s');
+            $newTransaction->updated_at = date('Y-m-d H:i:s');
+            $modelTransaction->save($newTransaction);
+
+            // Thông báo cho người nhận
+            $title = 'Cộng EXC coin vào tài khoản';
+            $content = "Tài khoản của bạn được trả lại $bookingFee->deposit tiền cọc cho cuốc xe #$booking->id";
+            $notification = $modelNotification->newEmptyEntity();
+            $notification->user_id = $receivedUser->id;
+            $notification->booking_id = $booking->id;
+            $notification->title = $title;
+            $notification->content = $content;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
+            $modelNotification->save($notification);
+            if ($receivedUser->device_token) {
+                $dataSendNotification = array(
+                    'title' => $title,
+                    'time' => date('H:i d/m/Y'),
+                    'content' => $content,
+                    'action' => 'addMoneySuccess',
+                    'user_id' => $receivedUser->id,
+                    'booking_id' => $booking->id,
+                );
+                sendNotification($dataSendNotification, $receivedUser->device_token);
+            }
+
+            // Người đăng chuyến
+            $postedUser = $modelUser->find()
+                ->where(['id' => $booking->posted_by])
+                ->first();
+            $postedUser->total_coin += $bookingFee->deposit;
+            $modelUser->save($postedUser);
+
+            $newTransaction = $modelTransaction->newEmptyEntity();
+            $newTransaction->user_id = $postedUser->id;
+            $newTransaction->booking_id = $booking->id;
+            $newTransaction->amount = $bookingFee->deposit;
+            $newTransaction->type = $transactionType['add'];
+            $newTransaction->name = "Nhận lại tiền cọc cuốc xe #$booking->id thành công";
+            $newTransaction->description = '+' . number_format($bookingFee->deposit) . ' EXC-xu';
+            $newTransaction->created_at = date('Y-m-d H:i:s');
+            $newTransaction->updated_at = date('Y-m-d H:i:s');
+            $modelTransaction->save($newTransaction);
+
+            // Thông báo cho người đăng
+            $title = 'Cộng EXC coin vào tài khoản';
+            $content = "Tài khoản của bạn được trả lại $bookingFee->deposit tiền cọc cho cuốc xe #$booking->id";
+            $notification = $modelNotification->newEmptyEntity();
+            $notification->user_id = $postedUser->id;
+            $notification->booking_id = $booking->id;
+            $notification->title = $title;
+            $notification->content = $content;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
+            $modelNotification->save($notification);
+            if ($postedUser->device_token) {
+                $dataSendNotification = array(
+                    'title' => $title,
+                    'time' => date('H:i d/m/Y'),
+                    'content' => $content,
+                    'action' => 'addMoneySuccess',
+                    'user_id' => $postedUser->id,
+                    'booking_id' => $booking->id,
+                );
+                sendNotification($dataSendNotification, $postedUser->device_token);
+            }
+        }
+
+        $modelBookingFee->save($bookingFee);
+    }
+
+    return apiResponse(0, 'Thanh toán phí thành công', $bookingList->toList());
+}
+
 global $bookingStatus;
 $bookingStatus = [
     'unreceived' => 0,
@@ -941,6 +1155,7 @@ $bookingStatus = [
     'canceled' => 2,
     'completed' => 3,
     'paid' => 4,
+    'confirmed' => 5,
 ];
 
 global $bookingType;

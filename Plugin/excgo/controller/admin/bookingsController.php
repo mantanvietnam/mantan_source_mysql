@@ -10,45 +10,48 @@ function listBookingAdmin($input)
     $provinceModel = $controller->loadModel('Provinces');
 
     $conditions = array();
+    $order = ['Bookings.created_at' => 'DESC'];
+    $join = [
+        [
+            'table' => 'users',
+            'alias' => 'PostedUsers',
+            'type' => 'LEFT',
+            'conditions' => [
+                'Bookings.posted_by = PostedUsers.id',
+            ],
+        ],
+        [
+            'table' => 'users',
+            'alias' => 'ReceivedUsers',
+            'type' => 'LEFT',
+            'conditions' => [
+                'Bookings.received_by = ReceivedUsers.id',
+            ],
+        ],
+        [
+            'table' => 'provinces',
+            'alias' => 'DepartureProvinces',
+            'type' => 'LEFT',
+            'conditions' => [
+                'Bookings.departure_province_id = DepartureProvinces.id',
+            ],
+        ],
+        [
+            'table' => 'provinces',
+            'alias' => 'DestinationProvinces',
+            'type' => 'LEFT',
+            'conditions' => [
+                'Bookings.destination_province_id = DestinationProvinces.id',
+            ],
+        ]
+    ];
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
     if ($page < 1) $page = 1;
 
-    $query = $bookingModel->find()
-        ->join([
-            [
-                'table' => 'users',
-                'alias' => 'PostedUsers',
-                'type' => 'LEFT',
-                'conditions' => [
-                    'Bookings.posted_by = PostedUsers.id',
-                ],
-            ],
-            [
-                'table' => 'users',
-                'alias' => 'ReceivedUsers',
-                'type' => 'LEFT',
-                'conditions' => [
-                    'Bookings.received_by = ReceivedUsers.id',
-                ],
-            ],
-            [
-                'table' => 'provinces',
-                'alias' => 'DepartureProvinces',
-                'type' => 'LEFT',
-                'conditions' => [
-                    'Bookings.departure_province_id = DepartureProvinces.id',
-                ],
-            ],
-            [
-                'table' => 'provinces',
-                'alias' => 'DestinationProvinces',
-                'type' => 'LEFT',
-                'conditions' => [
-                    'Bookings.destination_province_id = DestinationProvinces.id',
-                ],
-            ]
-        ]);
+    if (!empty($_GET['id'])) {
+        $conditions['Bookings.id'] = $_GET['id'];
+    }
 
     if (!empty($_GET['departure_province_id'])) {
         $conditions['Bookings.departure_province_id'] = $_GET['departure_province_id'];
@@ -70,16 +73,18 @@ function listBookingAdmin($input)
         $conditions['ReceivedUsers.name LIKE'] =  '%' . $_GET['received_name'] . '%';
     }
 
-    if (!empty($_GET['posted_date'])) {
+    /*if (!empty($_GET['posted_date'])) {
         $postedDate = DateTime::createFromFormat('d/m/Y', $_GET['posted_date']);
         $conditions['Bookings.created_at >='] = $postedDate->format('Y-m-d H:i:s');
         $conditions['Bookings.created_at <'] = $postedDate->add(new DateInterval('P1D'))->format('Y-m-d H:i:s');
-    }
+    }*/
 
     $listProvince = $provinceModel->find()
         ->all()
         ->toList();
-    $listBooking = $query->select([
+    $listBooking = $bookingModel->find()
+        ->join($join)
+        ->select([
             'Bookings.id',
             'Bookings.created_at',
             'Bookings.status',
@@ -92,19 +97,23 @@ function listBookingAdmin($input)
         ])->limit($limit)
         ->page($page)
         ->where($conditions)
-        ->order(['Bookings.created_at' => 'DESC'])
+        ->order($order)
         ->all()
         ->toList();
-    $totalBooking = $query->where($conditions)
+    $totalBooking = $bookingModel->find()
+        ->join($join)
+        ->where($conditions)
+        ->order($order)
         ->all()
-        ->toList();
+        ->count();
     $paginationMeta = createPaginationMetaData(
-        count($totalBooking),
+        $totalBooking,
         $limit,
         $page
     );
 
     setVariable('page', $page);
+    setVariable('paginationMeta', $totalBooking);
     setVariable('totalPage', $paginationMeta['totalPage']);
     setVariable('back', $paginationMeta['back']);
     setVariable('next', $paginationMeta['next']);

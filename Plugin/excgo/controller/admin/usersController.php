@@ -167,9 +167,12 @@ function listUpgradeRequestToDriverAdmin($input)
     $requestConditions = [];
     if (isset($_GET['status']) && is_numeric($_GET['status'])) {
         $requestConditions['status'] = $_GET['status'];
+    } else {
+        $requestConditions['status'] = 0;
     }
     $listUserRequest = $modelDriverRequest->find()
         ->where($requestConditions)
+        ->order(['created_at' => 'DESC'])
         ->all();
 
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
@@ -265,6 +268,8 @@ function acceptUpgradeToDriverAdmin($input)
                 $newNotification->user_id = $user->id;
                 $newNotification->title = $title;
                 $newNotification->content = $content;
+                $newNotification->created_at = date('Y-m-d H:i:s');
+                $newNotification->updated_at = date('Y-m-d H:i:s');
                 $notificationModel->save($newNotification);
                 sendNotification($dataSendNotification, $user->device_token);
             }
@@ -384,6 +389,8 @@ function updateStatusWithdrawRequestAdmin($input)
             $newTransaction->type = $transactionType['subtract'];
             $newTransaction->name = 'Rút tiền EXC-xu thành công';
             $newTransaction->description = '-' . number_format($request->amount) . ' EXC-xu';
+            $newTransaction->created_at = date('Y-m-d H:i:s');
+            $newTransaction->updated_at = date('Y-m-d H:i:s');
             $transactionModel->save($newTransaction);
 
             if ($user->device_token && (int)$_GET['status'] === $withdrawRequestStatus['done']) {
@@ -400,6 +407,8 @@ function updateStatusWithdrawRequestAdmin($input)
                 $newNotification->user_id = $user->id;
                 $newNotification->title = $title;
                 $newNotification->content = $content;
+                $newNotification->created_at = date('Y-m-d H:i:s');
+                $newNotification->updated_at = date('Y-m-d H:i:s');
                 $notificationModel->save($newNotification);
                 sendNotification($dataSendNotification, $user->device_token);
             }
@@ -445,8 +454,8 @@ function updateUserCoinAdmin($input)
                     $userModel->save($user);
                     $transactionModel->save($newTransaction);
 
-                    $title = 'Tài khoản của bạn dã được cộng coin';
-                    $content = "Tài khoản của bạn dã được cộng $newTransaction->amount coin bởi admin";
+                    $title = 'Tài khoản của bạn đã được cộng coin';
+                    $content = "Tài khoản của bạn đã được cộng $newTransaction->amount coin bởi admin";
                     $dataSendNotification= array(
                         'title' => $title,
                         'time' => date('H:i d/m/Y'),
@@ -466,8 +475,8 @@ function updateUserCoinAdmin($input)
                     $userModel->save($user);
                     $transactionModel->save($newTransaction);
 
-                    $title = 'Tài khoản của bạn dã bị trừ coin';
-                    $content = "Tài khoản của bạn dã bị trừ $newTransaction->amount coin bởi admin";
+                    $title = 'Tài khoản của bạn đã bị trừ coin';
+                    $content = "Tài khoản của bạn đã bị trừ $newTransaction->amount coin bởi admin";
                     $dataSendNotification= array(
                         'title' => $title,
                         'time' => date('H:i d/m/Y'),
@@ -480,8 +489,10 @@ function updateUserCoinAdmin($input)
                 if (!empty($newTransaction)) {
                     $newNotification = $notificationModel->newEmptyEntity();
                     $newNotification->user_id = $user->id;
-                    $newNotification->title = $title;
-                    $newNotification->content = $content;
+                    $newNotification->title = $title ?? '';
+                    $newNotification->content = $content ?? '';
+                    $newNotification->created_at = date('Y-m-d H:i:s');
+                    $newNotification->updated_at = date('Y-m-d H:i:s');
                     $notificationModel->save($newNotification);
                     sendNotification($dataSendNotification ?? [], $user->device_token);
                 }

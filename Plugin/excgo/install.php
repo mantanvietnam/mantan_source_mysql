@@ -158,6 +158,8 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`complaints` (
 $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`notifications` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `user_id` INT NOT NULL,
+    `request_id` INT NULL,
+    `booking_id` INT NULL,
     `content` VARCHAR CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     `is_viewed` TINYINT(1) NOT NULL DEFAULT 0,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -215,6 +217,17 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`canceled_booking_requests` (
     PRIMARY KEY (`id`), 
     INDEX `booking_id_index` (`booking_id`) ,
     INDEX `user_id_index` (`user_id`)
+) ENGINE = InnoDB;';
+
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app` . `bookmarks` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT , 
+    `user_id` INT NOT NULL , 
+    `province_id` INT NOT NULL , 
+    `created_at` TIMESTAMP NULL default NULL , 
+    `updated_at` TIMESTAMP NULL default NULL , 
+    PRIMARY KEY(`id`), 
+    INDEX `user_id_index` (`user_id`), 
+    INDEX `provincec_id_index` (`province_id`)
 ) ENGINE = InnoDB;';
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';

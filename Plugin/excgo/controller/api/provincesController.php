@@ -6,6 +6,7 @@ function getListProvinceApi($input): array
     global $isRequestPost;
 
     $modelProvinces = $controller->loadModel('Provinces');
+    $modelBookmark = $controller->loadModel('Bookmarks');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -55,6 +56,11 @@ function getListProvinceApi($input): array
             if (empty($currentUser)) {
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
+            $listBookmark = $modelBookmark->find()
+                ->where(['user_id' => $currentUser->id])
+                ->all()->map(function ($item) {
+                    return $item->province_id;
+                })->toArray();
 
             $query = $modelProvinces->find();
             $listProvince = $modelProvinces->find()
@@ -86,6 +92,14 @@ function getListProvinceApi($input): array
                     'Provinces.name' => 'ASC' // Các tỉnh còn lại sắp xếp theo tên
                 ])->all()
                 ->toList();
+
+            foreach ($listProvince as &$item) {
+                if (in_array($item->id, $listBookmark)) {
+                    $item->is_bookmark = true;
+                } else {
+                    $item->is_bookmark = false;
+                }
+            }
 
             $totalProvince = $modelProvinces->find()
                 ->where($conditions)
