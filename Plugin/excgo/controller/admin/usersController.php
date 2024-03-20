@@ -167,9 +167,12 @@ function listUpgradeRequestToDriverAdmin($input)
     $requestConditions = [];
     if (isset($_GET['status']) && is_numeric($_GET['status'])) {
         $requestConditions['status'] = $_GET['status'];
+    } else {
+        $requestConditions['status'] = 0;
     }
     $listUserRequest = $modelDriverRequest->find()
         ->where($requestConditions)
+        ->order(['created_at' => 'DESC'])
         ->all();
 
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;

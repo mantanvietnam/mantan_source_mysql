@@ -37,13 +37,13 @@ $menus[5]['sub'][0] = array('title' => 'Yêu cầu rút tiền',
 $menus[6]['sub'][0] = array('title' => 'Khiếu nại',
     'url' => '/plugins/admin/excgo-view-admin-complaint-listComplaintAdmin.php',
     'classIcon' => 'bx bx-cog',
-    'permission' => 'listWithdrawRequestAdmin',
+    'permission' => 'listComplaintAdmin',
 );
 
 $menus[7]['sub'][0] = array('title' => 'Yêu cầu hỗ trợ',
     'url' => '/plugins/admin/excgo-view-admin-support-listSupportAdmin.php',
     'classIcon' => 'bx bx-cog',
-    'permission' => 'listWithdrawRequestAdmin',
+    'permission' => 'listSupportAdmin',
 );
 
 $menus[8]['sub'][0] = array('title' => 'Quản lí giao dịch',
@@ -252,8 +252,17 @@ function sendEmailAddMoney($email = '', $name = '', $coin= '')
 
 function sendEmailWithdrawRequest($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
+    global $controller;
+    $adminModel = $controller->loadModel('Admins');
+    $listAdmins = $adminModel->find()
+        ->where(['permission LIKE' => '%listWithdrawRequestAdmin%'])
+        ->all()
+        ->map(function ($item) {
+            return trim($item->email);
+        })->toList();
     if(!empty($email)){
-        $to[]= trim($email);
+
+        $to = [trim($email), ...$listAdmins];
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Tài xế yêu cầu rút tiền từ tài khoản';
@@ -330,8 +339,17 @@ function sendEmailWithdrawRequest($userName = '', $requestId = '', $email = 'exc
 
 function sendEmailUpgradeToDriver($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
+    global $controller;
+    $adminModel = $controller->loadModel('Admins');
+    $listAdmins = $adminModel->find()
+        ->where(['permission LIKE' => '%listUpgradeRequestToDriverAdmin%'])
+        ->all()
+        ->map(function ($item) {
+            return trim($item->email);
+        })->toList();
+
     if(!empty($email)){
-        $to[]= trim($email);
+        $to = [trim($email), ...$listAdmins];
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Người dùng yêu cầu nâng cấp tài khoản thành tài xế';
@@ -408,8 +426,17 @@ function sendEmailUpgradeToDriver($userName = '', $requestId = '', $email = 'exc
 
 function sendEmailSupportRequest($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
+    global $controller;
+    $adminModel = $controller->loadModel('Admins');
+    $listAdmins = $adminModel->find()
+        ->where(['permission LIKE' => '%listSupportAdmin%'])
+        ->all()
+        ->map(function ($item) {
+            return trim($item->email);
+        })->toList();
+
     if(!empty($email)) {
-        $to[] = trim($email);
+        $to = [trim($email), ...$listAdmins];
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Người dùng yêu cầu hỗ trợ';
@@ -486,8 +513,17 @@ function sendEmailSupportRequest($userName = '', $requestId = '', $email = 'excg
 
 function sendEmailComplaint($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
+    global $controller;
+    $adminModel = $controller->loadModel('Admins');
+    $listAdmins = $adminModel->find()
+        ->where(['permission LIKE' => '%listComplaintAdmin%'])
+        ->all()
+        ->map(function ($item) {
+            return trim($item->email);
+        })->toList();
+
     if(!empty($email)) {
-        $to[] = trim($email);
+        $to = [trim($email), ...$listAdmins];
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Người dùng yêu cầu khiếu nại';

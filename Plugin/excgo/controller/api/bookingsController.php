@@ -1284,7 +1284,7 @@ function getMyBookingListApi($input): array
             $receiveRate = isset($count['received']) && !empty($total) ? round($count['received'] / $total, 1) : 0;
             $finishRate = isset($count['completed']) && !empty($total) ? round($count['completed'] / $total, 1) : 0;
             $cancelRate = isset($count['unreceived']) && !empty($total) ? round($count['unreceived'] / $total, 1) : 0;
-            $bookingsPerDay = round($total / $numberOfDays, 1);
+            $bookingsPerDay = !empty($numberOfDays) ? round($total / $numberOfDays, 1) : 0;
 
             $data = [
                 'stats' => [
