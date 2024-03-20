@@ -255,6 +255,9 @@ strong {
 
 #section-topbar .row-topbar {
     padding: 14px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #section-topbar .row-topbar .topbar-right {
@@ -284,19 +287,21 @@ strong {
 #section-topbar .row-topbar .topbar-right .topbar-follow {
     color: #fff;
     margin-left: 15px;
+    display: flex;
+    align-items: center;
 }
 
 #section-topbar .row-topbar .topbar-right .topbar-follow span {
     font-size: 13px;
 }
 
-#section-topbar .row-topbar .topbar-right .topbar-follow a {
+#section-topbar .row-topbar .topbar-right .top-socail-list a {
     color: #11417d;
     padding-bottom: 4px;
     padding-left: 5px;
     padding-right: 5px;
     border-radius: 50%;
-    background-color: #fff;
+    /* background-color: #fff; */
     margin-left: 3px;
     text-transform: uppercase;
     transition: all 0.3s linear;
@@ -307,12 +312,12 @@ strong {
     margin-left: 9px;
 }
 
-#section-topbar .row-topbar .topbar-right .topbar-follow a:hover {
+#section-topbar .row-topbar .topbar-right a:hover {
     color: #3777c5;
     transition: all 0.3s linear;
 }
 
-#section-topbar .row-topbar .topbar-right .topbar-follow i {
+#section-topbar .row-topbar .topbar-right i {
     font-size: 13px;
     width: 14px;
     height: 14px;
@@ -354,7 +359,7 @@ strong {
 #section-menu .btn-group {
     padding: 17px 0;
     margin-right: 18px !important;
-    transform: translateY(1px);
+    /* transform: translateY(1px); */
 }
 
 #section-menu .button-down-menu {
@@ -866,8 +871,8 @@ strong {
 #section-footer .footer-box {
     padding-top: 80px;
     padding-bottom: 60px;
-    padding-left: 140px;
-    padding-right: 140px;
+    padding-left: 124px;
+    padding-right: 124px;
 }
 
 #section-footer .footer-box .title-footer {
@@ -1639,6 +1644,11 @@ strong {
     align-items: center;
 }
 
+
+
+.topbar-link-newsletter a{
+
+}
 
 /*    EM HIEU CSS - END     */
 

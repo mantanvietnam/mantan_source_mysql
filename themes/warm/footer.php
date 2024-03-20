@@ -22,7 +22,7 @@
                             </div>
 
                             <div class="web-footer">
-                                <p><i class="fa-solid fa-earth-americas"></i>  <a href="https://www.afd.fr/fr">https://www.afd.fr/fr</a></p>
+                                <p><i class="fa-solid fa-earth-americas"></i>  <a href="https://www.afd.fr/fr">https://www.afd.fr</a></p>
                             </div>
                         </div>
 
@@ -58,66 +58,70 @@
                                     <img src="<?php echo $urlThemeActive; ?>/asset/img/logo-afd.png" alt="">
                                 </div>
                             </div>
-                            <p class="follow-us">
-                                <span>Follow us:
-                                    
-                                <?php 
-                                    if(!empty($settingThemes['youtube'])){
-                                        echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
-                                                    <i class="fa-brands fa-youtube"></i>
-                                                </a>';
-                                    }
-
-                                    if(!empty($settingThemes['facebook'])){
-                                        echo '  <a href="'.$settingThemes['facebook'].'">
-                                                    <i class="fa-brands fa-facebook-f"></i>
-                                                </a>';
-                                    }
-
-                                    if(!empty($settingThemes['instagram'])){
-                                        echo '  <a href="'.$settingThemes['instagram'].'">
-                                                    <i class="fa-brands fa-instagram"></i>
-                                                </a>';
-                                    }
-
-                                    if(!empty($settingThemes['tiktok'])){
-                                        echo '  <a href="'.$settingThemes['tiktok'].'">
-                                                    <i class="fa-brands fa-tiktok"></i>
-                                                </a>';
-                                    }
-
-                                    if(!empty($settingThemes['twitter'])){
-                                        echo '  <a href="'.$settingThemes['twitter'].'">
-                                                    <i class="fa-brands fa-twitter"></i>
-                                                </a>';
-                                    }
-
-                                    if(!empty($settingThemes['linkedIn'])){
-                                        echo '  <a href="'.$settingThemes['linkedIn'].'">
-                                            <i class="fa-brands fa-linkedin-in"></i>
-                                        </a>';
-                                    }
-                                ?>
-
-                                </span>
-
-                          
-
-                                <div class="img-social-footer">
-                              
-                                    <a href="https://www.facebook.com/EUandVietnam">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/img/Layer1.png" alt="">
-                                    </a>
-
-                                    <a href="https://www.facebook.com/AFDOfficiel">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/img/Layer3.png" alt="">
-                                    </a>
-
-                                    <a href="https://www.facebook.com/AmbassadeFranceVietnam">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/img/Layer2.png" alt="">
-                                    </a>
+                            <div class="follow-box">
+                                <div class="follow-us">
+                                    <span>Follow us:</span>
                                 </div>
-                            </p>
+
+                                <div class="footer-list-social">
+                                    <div class="footer-social-item">
+                                        <?php 
+                                            if(!empty($settingThemes['youtube'])){
+                                                echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
+                                                            <i class="fa-brands fa-youtube"></i>
+                                                        </a>';
+                                            }
+
+                                            if(!empty($settingThemes['facebook'])){
+                                                echo '  <a href="'.$settingThemes['facebook'].'">
+                                                            <i class="fa-brands fa-facebook-f"></i>
+                                                        </a>';
+                                            }
+
+                                            if(!empty($settingThemes['instagram'])){
+                                                echo '  <a href="'.$settingThemes['instagram'].'">
+                                                            <i class="fa-brands fa-instagram"></i>
+                                                        </a>';
+                                            }
+
+                                            if(!empty($settingThemes['tiktok'])){
+                                                echo '  <a href="'.$settingThemes['tiktok'].'">
+                                                            <i class="fa-brands fa-tiktok"></i>
+                                                        </a>';
+                                            }
+
+                                            if(!empty($settingThemes['twitter'])){
+                                                echo '  <a href="'.$settingThemes['twitter'].'">
+                                                            <i class="fa-brands fa-twitter"></i>
+                                                        </a>';
+                                            }
+
+                                            if(!empty($settingThemes['linkedIn'])){
+                                                echo '  <a href="'.$settingThemes['linkedIn'].'">
+                                                    <i class="fa-brands fa-linkedin-in"></i>
+                                                </a>';
+                                            }
+                                        ?>
+                                    </div>
+
+                                    <div class="img-social-footer">  
+                                        <a target=”_blank” href="https://www.facebook.com/EUandVietnam?gidzl=QuXw4B5-BZriatuUic0cE6wKS1MlPoWu9C5uIgXdA3jobtqThcmiCNZCVHVpFtfXACWfH33lms4KjdegC0">
+                                            <img src="<?php echo $urlThemeActive;?>/asset/img/france3.png" alt="">
+                                        </a>
+                                  
+                                        <a target=”_blank” href="https://www.facebook.com/AFDOfficiel">
+                                            <img src="<?php echo $urlThemeActive;?>/asset/img/afd3.png" alt="">
+                                        </a>
+
+                                        <a target=”_blank” href="https://www.facebook.com/AmbassadeFranceVietnam">
+                                            <img src="<?php echo $urlThemeActive;?>/asset/img/eu3.png" alt="">
+                                        </a>
+
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                  
                         </div>
 
                         <div class="col-lg-9 footer-bottom">

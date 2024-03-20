@@ -118,6 +118,16 @@ header .topbar .topbar-box .topbar-left p{
 
 @media (max-width: 1440px) {
     #section-banner .banner-slide {
-      height: 480px;
+      height: auto;
+    }
+
+    #section-banner .slick-arrow{
+        height: 24px;
+        width: 24px;
+        font-size: 18px;
+    }
+
+    #section-banner{
+        padding-bottom: 20px !important;
     }
 }

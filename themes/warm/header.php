@@ -54,8 +54,8 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
         <section id="section-topbar">
             <div class="topbar">
                 <div class="container">
-                    <div class="row row-topbar">
-                        <div class="col-lg-6 col-3 topbar-left">
+                    <div class="row-topbar">
+                        <div class="topbar-left">
                             <div class="change-language">
                                 <span>English  <i class="fa-solid fa-arrow-down"></i></span>
                                 <div class="language-box">
@@ -64,17 +64,18 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-9 topbar-right">
+                        <div class="topbar-right">
                             <div class="topbar-link-newsletter">
                                 <a href="/newletter">Newsletter subscription</a>
                             </div>
 
                             <div class="topbar-follow">
-                                <span>Follow us: </span>
+                                <p>Follow us: </p>
+                                <div class="top-socail-list">
                                 <?php 
                                     if(!empty($settingThemes['youtube'])){
                                         echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
-                                                    <i class="fa-brands fa-youtube"></i>
+                                                    <img src="'.$urlThemeActive.'/asset/img/youtubewhite.png" alt="">
                                                 </a>';
                                     }
 
@@ -108,7 +109,18 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                                         </a>';
                                     }
                                 ?>
-                                
+                                    <a href="https://www.facebook.com/EUandVietnam">
+                                        <img src="<?php echo $urlThemeActive;?>/asset/img/euwhite.png" alt="">
+                                    </a>
+
+                                    <a href="https://www.facebook.com/AFDOfficiel">
+                                        <img src="<?php echo $urlThemeActive;?>/asset/img/afdwhite.png" alt="">
+                                    </a>
+
+                                    <a href="https://www.facebook.com/AmbassadeFranceVietnam">
+                                        <img src="<?php echo $urlThemeActive;?>/asset/img/francewhite.png" alt="">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

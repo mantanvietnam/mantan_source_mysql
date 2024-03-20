@@ -257,7 +257,7 @@
             <div class="facility-description-inner">
                 <div class="container">
                     <div class="title-sub-section">
-                        <h3>About AFD (Agence Française de Développement)</h3>
+                        <h3>About AFD (Agence française de développement)</h3>
                     </div>
 
                     <div class="facility-description-content">
