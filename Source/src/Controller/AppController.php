@@ -133,25 +133,25 @@ class AppController extends Controller
         
         if(!empty($plugins_site_value)){
             foreach ($plugins_site_value as $name) {
-                $filename = __DIR__.'/../../plugins/'.$name.'/function.php';
-                if (file_exists($filename))
-                {   
-                    include_once($filename);
-                }
-
                 $filename = __DIR__.'/../../plugins/'.$name.'/routes.php';
                 if (file_exists($filename))
                 {   
                     include_once($filename);
                 }
 
-                $filename = __DIR__.'/../../plugins/'.$name.'/controller.php';
+                $filename = __DIR__.'/../../plugins/'.$name.'/model.php';
                 if (file_exists($filename))
                 {   
                     include_once($filename);
                 }
 
-                $filename = __DIR__.'/../../plugins/'.$name.'/model.php';
+                $filename = __DIR__.'/../../plugins/'.$name.'/function.php';
+                if (file_exists($filename))
+                {   
+                    include_once($filename);
+                }
+
+                $filename = __DIR__.'/../../plugins/'.$name.'/controller.php';
                 if (file_exists($filename))
                 {   
                     include_once($filename);

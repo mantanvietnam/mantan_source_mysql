@@ -26,9 +26,22 @@ function check_domain_clone()
     $memberWebs = $modelMemberWebs->find()->where($conditions)->first();
 
     if(!empty($memberWebs)){
-        echo $_SERVER['HTTP_HOST'];
+        if(file_exists(__DIR__.'/theme/'.$memberWebs->theme.'/routes.php')){
+            include(__DIR__.'/theme/'.$memberWebs->theme.'/routes.php');
+        }
+
+        if(file_exists(__DIR__.'/theme/'.$memberWebs->theme.'/function.php')){
+            include(__DIR__.'/theme/'.$memberWebs->theme.'/function.php');
+        }
+
+        if(file_exists(__DIR__.'/theme/'.$memberWebs->theme.'/controller.php')){
+            include(__DIR__.'/theme/'.$memberWebs->theme.'/controller.php');
+        }
+
+        //include(__DIR__.'/theme/'.$memberWebs->theme.'/index.php');
         die();
     }
 }
 
+check_domain_clone();
 ?>

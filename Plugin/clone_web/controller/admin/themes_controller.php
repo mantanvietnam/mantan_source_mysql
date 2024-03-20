@@ -6,16 +6,20 @@ function listThemeCLoneWebAdmin($input)
     
     $modelMemberWebs = $controller->loadModel('MemberWebs');
 
-    $listFolder = list_files(__DIR__.'/../../theme');
+    $listFolder = list_files(__DIR__.'/../../../../themes');
     $static = [];
 
     if(!empty($listFolder)){
         foreach ($listFolder as $key => $value) {
-            $conditions = ['theme'=>$value, 'status'=>'active'];
+            if(strpos($value, 'clone_web') !== false){
+                $conditions = ['theme'=>$value, 'status'=>'active'];
 
-            $number_theme = $modelMemberWebs->find()->where($conditions)->all()->toList();
+                $number_theme = $modelMemberWebs->find()->where($conditions)->all()->toList();
 
-            $static[$value] = count($number_theme);
+                $static[$value] = count($number_theme);
+            }else{
+                unset($listFolder[$key]);
+            }
         }
     }
 
@@ -29,8 +33,8 @@ function settingThemeCloneWebAdmin($input)
     global $isRequestPost;
 
     if(!empty($_GET['theme'])){
-        if(file_exists(__DIR__.'/../../theme/'.$_GET['theme'].'/controller.php')){
-            include(__DIR__.'/../../theme/'.$_GET['theme'].'/controller.php');
+        if(file_exists(__DIR__.'/../../../../themes/'.$_GET['theme'].'/controller.php')){
+            include(__DIR__.'/../../../../themes/'.$_GET['theme'].'/controller.php');
 
             if(function_exists('setting_theme_clone_web')){
                 setting_theme_clone_web($input);

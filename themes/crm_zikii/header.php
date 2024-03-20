@@ -1,4 +1,3 @@
-<?php if(function_exists('check_domain_clone')) check_domain_clone();?>
 <!DOCTYPE html>
 <html lang="en">
 
