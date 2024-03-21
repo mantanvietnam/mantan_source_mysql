@@ -361,6 +361,7 @@ class OptionsController extends AppController{
     public function activeTheme(){
         global $sqlInstallDatabase;
         global $sqlDeleteDatabase;
+        global $session;
 
         $modelOptions = $this->Options;
 
@@ -376,6 +377,9 @@ class OptionsController extends AppController{
                 $theme_active_site->value = $_GET['name'];
 
                 if($modelOptions->save($theme_active_site)){
+                    // update session
+                    $session->write('themeActive', $theme_active_site->value);
+
                     // lấy danh sách các plugin đã cài
                     $conditions = array('key_word' => 'theme_installed');
                     $theme_installed = $modelOptions->find()->where($conditions)->first();

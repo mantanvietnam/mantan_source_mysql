@@ -18,6 +18,8 @@ addMenuAdminMantan($menus);
 function check_domain_clone()
 {
     global $controller;
+    global $session;
+    global $modelOptions;
 
     $modelMemberWebs = $controller->loadModel('MemberWebs');
 
@@ -38,8 +40,12 @@ function check_domain_clone()
             include(__DIR__.'/theme/'.$memberWebs->theme.'/controller.php');
         }
 
-        //include(__DIR__.'/theme/'.$memberWebs->theme.'/index.php');
-        die();
+        $session->write('themeActive', $memberWebs->theme);
+    }else{
+        $conditions = array('key_word' => 'theme_active_site');
+        $theme_active_site = $modelOptions->find()->where($conditions)->first();
+
+        $session->write('themeActive', $theme_active_site->value);
     }
 }
 

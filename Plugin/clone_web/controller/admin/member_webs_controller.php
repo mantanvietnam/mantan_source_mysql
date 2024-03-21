@@ -132,7 +132,15 @@ function addWebMemberAdmin($input)
         }
     }
 
-    $listFolder = list_files(__DIR__.'/../../theme');
+    $listFolder = list_files(__DIR__.'/../../../../themes');
+
+    if(!empty($listFolder)){
+        foreach ($listFolder as $key => $value) {
+            if(strpos($value, 'clone_web') === false){
+                unset($listFolder[$key]);
+            }
+        }
+    }
 
     setVariable('listFolder', $listFolder);
 

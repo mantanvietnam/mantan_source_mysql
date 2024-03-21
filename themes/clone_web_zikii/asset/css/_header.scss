@@ -1,0 +1,84 @@
+header {
+    .topbar {
+        background-color: #228B22;
+        padding: 7px 0;
+        .topbar-box {
+            display: flex;
+            justify-content: space-between;
+            .topbar-left {
+                p {
+                    font-size: 15px;
+                    color: #fff;
+                }
+            }
+            .topbar-right {
+                display: flex;
+                gap: 22px;
+                @media (max-width: 470px) {
+                    display: none;
+                }
+                .topbar-item {
+                    a {
+                        display: flex;
+                        color: #fff;
+                        .topbar-texticon {
+                            font-size: 14px;
+                        }
+                        .topbar-texticon {
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .navbar-header {
+        background-color: #fff;
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+        transition: all 0.4s ease-in-out;
+        box-shadow: rgb(218, 218, 218) 0px 0px 7px 0px;
+        z-index: 10;
+        &.scroll-header {
+            .nav-link {
+                color: #000 !important;
+            }
+        }
+        .navbar-brand {
+            .image-header {
+                width: 150px;
+            }
+        }
+        .nav-item {
+            .nav-link {
+                color: #000;
+                font-size: 18px;
+                font-weight: 600;
+                padding: 15px;
+                &.active {
+                    color: #228B22 !important;
+                }
+                &:hover {
+                    color: #228B22 !important;
+                }
+            }
+        }
+    }
+}
+
+// #section-background-heading{
+//     background: rgb(34,139,34);
+//     background: linear-gradient(90deg, rgba(34,139,34,1) 0%, rgba(52,168,69,1) 100%);
+//     padding: 50px 0;
+//     text-align: center;
+//     h1{
+//         color: #fff
+//     }
+//     .breadcrumb{
+//         li{
+//             color: #fff;
+//         }
+//     }
+// }

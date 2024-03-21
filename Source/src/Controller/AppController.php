@@ -166,6 +166,12 @@ class AppController extends Controller
             $theme_active_site = $modelOptions->newEmptyEntity();
         }
 
+        if(!empty($session->read('themeActive'))){
+            $theme_active_site->value = $session->read('themeActive');
+        }else{
+            $session->write('themeActive', $theme_active_site->value);
+        }
+
         if(empty($theme_active_site->value)){
             $theme_active_site->key_word = 'theme_active_site';
             $theme_active_site->value = 'toptop';
