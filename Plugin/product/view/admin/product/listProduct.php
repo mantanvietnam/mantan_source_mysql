@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Sản phẩm</h4>
   <p><a href="/plugins/admin/product-view-admin-product-addProduct" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
-  &ensp;&ensp; <a href="/plugins/admin/product-view-admin-product-ListQuestion?id_product=0" class="btn btn-primary"><i class='bx bx-plus'></i> câu hỏi chung</a></p>
+  &ensp;&ensp; <a href="/plugins/admin/product-view-admin-product-ListQuestion?id_product=0" class="btn btn-primary"><i class='bx bx-plus'></i> Câu hỏi chung</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -10,8 +10,8 @@
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-1">
-            <label class="form-label">Mã SP</label>
-            <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
+            <label class="form-label">ID</label>
+            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
           <div class="col-md-3">
@@ -95,7 +95,7 @@
       <table class="table table-bordered">
         <thead>
           <tr class="">
-            <th>Mã SP</th>
+            <th>ID</th>
             <th>Hình minh họa</th>
             <th>Danh mục</th>
             <th>Tên sản phẩm</th>
@@ -111,11 +111,11 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                $category_name = '';
+                $category_name = [];
                 if(!empty($item->category)){
                   foreach($item->category as $value){
                      if(!empty($value->name_category)){
-                      $category_name .= $value->name_category.',</br> ';
+                      $category_name[]= $value->name_category;
                      }
                   }
                 }
@@ -126,10 +126,10 @@
                   $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc áp Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale/?id='.$item->id.'&flash_sale=1"><i class="bx bxs-check-square"></i></a>';
                 }
                 echo '<tr>
-                        <td>'.$item->code.'</td>
+                        <td>'.$item->id.'</td>
                         <td><img src="'.$item->image.'" width="100" /></td>
-                        <td>'.$category_name.'</td>
-                        <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
+                        <td>'.implode(', ', $category_name).'</td>
+                        <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
                         <td> Sl còn:'.$item->quantity.'<br/>
                             SL đã bán :'.$item->sold.'<br/>
                             SL bán ảo:'.$item->sold_virtual.'<br/>

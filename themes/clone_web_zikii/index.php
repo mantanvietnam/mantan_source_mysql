@@ -22,18 +22,18 @@ global $settingThemes;
 
         <section id="section-banner" style="padding-bottom: 70px" data-aos="fade-up">
             <div class="banner-slide">
-              <!--   <div class="banner-slide-item">
-                    <img src="./asset/image/bg1.jpg" alt="">
-                </div> -->
 
-               <?php if(!empty($slide_home->imageinfo)){
-                    foreach($slide_home->imageinfo as $key => $item){ ?>
-                        <div class="banner-home-item">
-                            <a href="<?php echo $item->link ?>">
-                                <img src="<?php echo $item->image ?>" alt="">
-                            </a>
-                        </div>
-                    <?php }} ?>
+                <?php 
+                if(!empty($slide_home->imageinfo)){
+                    foreach($slide_home->imageinfo as $key => $item){
+                        echo '  <div class="banner-home-item">
+                                    <a href="'.$item->link.'">
+                                        <img src="'.$item->image.'" alt="">
+                                    </a>
+                                </div>';
+                    }
+                } 
+                ?>
             </div>
         </section>
 
@@ -249,89 +249,46 @@ global $settingThemes;
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title" >
-                        <!-- <span><?php echo @$settingThemes['titel_category_product1']; ?></span> -->
-                        <span>Sản phẩm nổi bật</span>
+                        <span><?php echo @$settingThemes['titel_category_product1']; ?></span> 
                         <div class="title-divide-section"></div>
                     </h2>
                 </div>
                 <div class="product-new-slide" >
-                    <?php if(!empty($listproduct1)){
+                    <?php 
+                    if(!empty($listproduct1)){
                         foreach($listproduct1 as $key => $item){
-                            echo '
-                    <div class="product-hot-item">
-                        <div class="product-hot-item-inner">
-                            <div class="product-hot-image">
-                                <a href="/san-pham/'.@$item->slug.'.html">
-                                    <img src="'.@$item->image.'" alt="">
-                                </a>
-                            </div>
+                            echo '  <div class="product-hot-item">
+                                        <div class="product-hot-item-inner">
+                                            <div class="product-hot-image">
+                                                <a href="/san-pham/'.@$item->slug.'.html">
+                                                    <img src="'.@$item->image.'" alt="">
+                                                </a>
+                                            </div>
 
-                            <div class="product-hot-detail">
-                                <div class="product-hot-name">
-                                    <a href="/san-pham/'.@$item->slug.'.html">'.@$item->title.'</a>
-                                </div>
+                                            <div class="product-hot-detail">
+                                                <div class="product-hot-name">
+                                                    <a href="/san-pham/'.@$item->slug.'.html">'.@$item->title.'</a>
+                                                </div>
 
-                                <div class="product-hot-price">
-                                    <span>'.number_format(@$item->price).' đ</span>
-                                </div>
+                                                <div class="product-hot-price">
+                                                    <span>'.number_format(@$item->price).' đ</span>
+                                                </div>
 
-                                <div class="product-hot-addcart">
-                                    <a href="/san-pham/'.@$item->slug.'.html">Thêm vào giỏ hàng</a>
-                                </div>
-                            </div>
-                        </div>
+                                                <div class="product-hot-addcart">
+                                                    <a href="/san-pham/'.@$item->slug.'.html">Thêm vào giỏ hàng</a>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                    </div>';
-                }
-            }
+                                    </div>';
+                        }
+                    }
                     ?>
                     
                 </div>
             </div>
         </section>
 
-        <!-- <section id="section-product-hot" class="section-padding" data-aos="fade-up">
-            <div class="container">
-                <div class="title-box">
-                    <h2 class="section-title" >
-                        <span><?php echo @$settingThemes['titel_category_product2']; ?></span>
-                        <div class="title-divide-section"></div>
-                    </h2>
-                </div>
-                <div class="row">
-                     <?php if(!empty($listproduct2)){
-                        foreach($listproduct2 as $key => $item){
-                            echo '
-                    <div class="col-lg-4 col-md-12 product-hot-item">
-                        <div class="product-hot-item-inner">
-                            <div class="product-hot-image">
-                                <a href="/san-pham/'.@$item->slug.'.html">
-                                    <img src="'.@$item->image.'" alt="">
-                                </a>
-                            </div>
-
-                            <div class="product-hot-detail">
-                                <div class="product-hot-name">
-                                    <a href="/san-pham/'.@$item->slug.'.html">'.@$item->title.'</a>
-                                </div>
-
-                                <div class="product-hot-price">
-                                    <span>'.number_format(@$item->price).' đ</span>
-                                </div>
-
-                                <div class="product-hot-addcart">
-                                     <a href="/san-pham/'.@$item->slug.'.html">Thêm vào giỏ hàng</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>';
-                }
-            }?>
-
-                </div>
-            </div>
-        </section> -->
         <section id="section-album" class="section-padding" data-aos="fade-up">
             <div class="container">
                 <div class="title-box">
@@ -343,17 +300,19 @@ global $settingThemes;
 
                 <div class="album-list">
                     <div class="row">
-                        <?php if(!empty($listAlbuminfos)){
+                        <?php 
+                        if(!empty($listAlbuminfos)){
                             foreach($listAlbuminfos as $key => $item){
-                                echo '<div class="col-lg-3 col-md-6 col-6">
-                            <div class="album-item">
-                                <a href="thu-vien-anh/'.@$item->slug.'.html">
-                                    <img src="'.@$item->image.'" alt="">
-                                </a>
-                            </div>
-                        </div>';
+                                echo '  <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="album-item">
+                                                <a href="thu-vien-anh/'.@$item->slug.'.html">
+                                                    <img src="'.@$item->image.'" alt="">
+                                                </a>
+                                            </div>
+                                        </div>';
                             }
-                        } ?>
+                        } 
+                        ?>
                     </div>
                 </div>
 

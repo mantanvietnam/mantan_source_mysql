@@ -126,7 +126,7 @@
                 foreach ($listData as $item) {
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>'.$category[$item->id_category].'</td>
+                          <td>'.@$category[$item->id_category].'</td>
                           <td><img src="'.$item->image.'" width="100" /></td>
                           <td>
                             <a target="_blank" href="/'.$item->slug.'.html">'.$item->title.'</a>

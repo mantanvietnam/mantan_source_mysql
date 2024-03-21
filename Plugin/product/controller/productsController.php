@@ -18,8 +18,8 @@ function listProduct($input)
 	if($page<1) $page = 1;
     $order = array('Products.id'=>'desc');
 
-    if(!empty($_GET['code'])){
-        $conditions['code'] =  $_GET['code'];
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int)  $_GET['id'];
     }
 
     if(!empty($_GET['title'])){

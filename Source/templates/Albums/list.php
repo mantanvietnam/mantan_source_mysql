@@ -126,7 +126,7 @@
                 foreach ($listData as $item) {
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>'.$category[$item->id_category].'</td>
+                          <td>'.@$category[$item->id_category].'</td>
                           <td>
                             <a target="_blank" href="/'.$item->slug.'.html">'.$item->title.'</a>
                             <p>Ngày tạo: '.date('d/m/Y', $item->time_create).'</p>

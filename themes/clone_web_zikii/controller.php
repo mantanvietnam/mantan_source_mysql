@@ -93,37 +93,28 @@ function indexTheme($input){
     global $modelCategories;
     global $modelOptions;
     global $modelPosts;
-    /*
-    $conditions = array('key_word' => 'settingHomeTheme');
-    $data = $modelOptions->find()->where($conditions)->first();
-    $modelProduct = $controller->loadModel('Products');
+    global $settingThemes;
+
     $modelCategorieProduct = $controller->loadModel('CategorieProducts');
+    $modelProduct = $controller->loadModel('Products');
 
-    
-
-    $data_value = array();
-    if(!empty($data->value)){
-        $data_value = json_decode($data->value, true);
-    }
-
-
-    $slide_home = $modelAlbums->find()->where(['id'=>(int)@$data_value['id_slide']])->first();
+    // slide trang chủ
+    $slide_home = $modelAlbums->find()->where(['id'=>(int)@$settingThemes['id_slide']])->first();
 
     if(!empty($slide_home)){
         $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->order(['id'=>'desc'])->all()->toList();
     }
 
-    $listAlbum = $modelAlbums->find()->limit(8)->page(1)->where(['id_category'=>(int)@$data_value['id_album']])->all()->toList();
-    $listAlbuminfos = $modelAlbuminfos->find()->limit(8)->page(1)->where(['id_album'=>(int)@$data_value['id_albumdt']])->all()->toList();
-    $listVideo = $modelVideos->find()->where(['id_category'=>(int)@$data_value['id_video']])->all()->toList();
+    // thư viện ảnh
+    $listAlbum = $modelAlbums->find()->limit(8)->page(1)->where(['id_category'=>(int)@$settingThemes['id_album']])->all()->toList();
 
+    // hình ảnh điều trị
+    $listAlbuminfos = $modelAlbuminfos->find()->limit(8)->page(1)->where(['id_album'=>(int)@$settingThemes['id_albumdt']])->all()->toList();
+    
+    // thư viện video
+    $listVideo = $modelVideos->find()->where(['id_category'=>(int)@$settingThemes['id_video']])->all()->toList();
 
-     // $news = $modelAlbums->find()->where(['id'=>(int)$data_value['id_bc']])->first();
-
-    if(!empty($news)){
-        $news->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$news->id])->all()->toList();
-    }
-
+    // danh mục sản phẩm
     $conditionCategorieProduct = array('type' => 'category_product','status'=>'active');
     $listCategorieProduct = $modelCategories->find()->where($conditionCategorieProduct)->all()->toList();
 
@@ -132,44 +123,29 @@ function indexTheme($input){
         foreach ($listCategorieProduct as $key => $value) {
             $products = $modelCategorieProduct->find()->where(array('id_category'=>$value->id))->all()->toList();
             $listCategorieProduct[$key]->number_product = count($products);
-           // $totalProductSell += count($products);
         }
     }
 
-   $listproduct1 =  $modelProduct->find()
+    // sản phẩm nổi bật
+    $listproduct1 =  $modelProduct->find()
                         ->join([
                             'table' => 'categorie_products',
                             'alias' => 'cp',
                             'type' => 'INNER',
                             'conditions' => 'cp.id_product = Products.id',
                         ])
-                        ->where(array('cp.id_category'=>@$data_value['id_category_product1'],'status'=>'active'))->all()->toList();
+                        ->where(array('cp.id_category'=>(int)@$settingThemes['id_category_product1'],'status'=>'active'))->all()->toList();
 
-   // $modelProduct->find()->limit(6)->page(1)->where(['id_category'=>@$data_value['id_category_product1'], 'status'=>'active'])->all()->toList();
-   $listproduct2 = $modelProduct->find()
-                        ->join([
-                            'table' => 'categorie_products',
-                            'alias' => 'cp',
-                            'type' => 'INNER',
-                            'conditions' => 'cp.id_product = Products.id',
-                        ])
-                        ->where(array('cp.id_category'=>@$data_value['id_category_product2'],'status'=>'active'))->all()->toList();
-    // $modelProduct->find()->limit(6)->page(1)->where(['id_category'=>@$data_value['id_category_product2'], 'status'=>'active'])->all()->toList();
+    // tin tức mới
+    $listDataPost = $modelPosts->find()->limit(20)->where()->all()->toList();
 
-    $product_search = $modelProduct->find()->limit(4)->where(['hot'=>1])->all()->toList();
-
-    $listDataPost = $modelPosts->find()->limit(20)->where(array('pin'=>1))->all()->toList();
-
-    setVariable('setting', $data_value);
     setVariable('slide_home', $slide_home);
     setVariable('listAlbum', $listAlbum);
     setVariable('listAlbuminfos', $listAlbuminfos);
     setVariable('listVideo', $listVideo);
-    setVariable('listproduct1', $listproduct1);
-    setVariable('listproduct2', $listproduct2);
     setVariable('listCategorieProduct', $listCategorieProduct);
+    setVariable('listproduct1', $listproduct1);
     setVariable('listDataPost', $listDataPost);
-    */
 }
 
 ?>

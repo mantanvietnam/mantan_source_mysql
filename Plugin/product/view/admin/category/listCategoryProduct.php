@@ -14,6 +14,7 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th>Tên chủ đề</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
@@ -24,6 +25,7 @@
                         if(!empty($listData)){
                           foreach ($listData as $item) {
                             echo '<tr>
+                                    <td>'.$item->id.'</td>
                                     <td><a target="_blank" href="/category/'.$item->slug.'.html">'.$item->name.'</a></td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\', \''.$item->status.'\' );">
