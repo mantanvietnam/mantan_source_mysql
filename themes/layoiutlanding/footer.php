@@ -16,7 +16,7 @@ $setting = setting();
                                 <a href="<?php echo @$setting['facebook'];?>"><i class="fa-brands fa-facebook-f"></i></a>
                             </li>
                             <li>
-                                <a href="<?php echo @$setting['instagram'];?>"><i class="fa-brands fa-square-instagram"></i></a>
+                                <a href="<?php echo @$setting['instagram'];?>"><i class="fa-brands fa-instagram"></i></a>
                             </li>
                             <li>
                                 <a href="<?php echo @$setting['tiktok'];?>"><i class="fa-brands fa-tiktok"></i></a>
