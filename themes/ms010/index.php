@@ -140,7 +140,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-service" style="background-image: url(<?php echo @$setting['background_2'] ?>);">
+        <section id="section-service" style="background-image: url(<?php echo @$setting['background_5'] ?>);">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5">
@@ -215,7 +215,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-contact" style="background-image: url(<?php echo @$setting['background_2'] ?>);">
+        <section id="section-contact" style="background-image: url(<?php echo @$setting['background_6'] ?>);">
             <div class="container">
                 <div class="section-title text-center" data-aos="zoom-in-up">
                     <h2><?php echo @$setting['title_lh'] ?></h2>

@@ -60,7 +60,7 @@
                 <?php showUploadFile('logo','logo', @$data['logo'],1);?>
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <label class="form-label" for="basic-default-fullname">Ảnh nều khối đầu</label>
+                <label class="form-label" for="basic-default-fullname">Ảnh nền khối đầu</label>
                 <?php showUploadFile('background_top','background_top', @$data['background_top'],2);?>
               </div>
                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -88,7 +88,7 @@
                 <input type="text" class="form-control" name="content_ck" value="<?php echo @$data['content_ck'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <label class="form-label" for="basic-default-fullname">Ảnh nều</label>
+                <label class="form-label" for="basic-default-fullname">Ảnh nền</label>
                 <?php showUploadFile('background_2','background_2', @$data['background_2'],4);?>
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
@@ -152,6 +152,10 @@
           </div>    
           <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">
             <div class="card-body row ">
+               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Ảnh nền</label>
+                <?php showUploadFile('background_5','background_5', @$data['background_5'],8);?>
+              </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Ảnh bên trái</label>
                 <?php showUploadFile('image_3','image_3', @$data['image_3'],5);?>
@@ -168,7 +172,7 @@
                 <label class="form-label" for="basic-default-fullname">Nội dung </label>
                 <input type="text" class="form-control" name="content_dv" value="<?php echo @$data['content_dv'];?>" />
               </div>
-                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8"></div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4"></div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 1</label>
                 <input type="text" class="form-control mb-3" name="title_dv_1" value="<?php echo @$data['title_dv_1'];?>" />
@@ -198,6 +202,10 @@
           
           <div class="tab-pane fade" id="navs-top-product" role="tabpanel">
             <div class="card-body row ">
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Ảnh nền</label>
+                <?php showUploadFile('background_6','background_6', @$data['background_6'],7);?>
+              </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <label class="form-label" for="basic-default-fullname">Tiêu đề </label>
                 <input type="text" class="form-control" name="title_lh" value="<?php echo @$data['title_lh'];?>" />
@@ -244,7 +252,7 @@
            <div class="tab-pane fade" id="navs-top-footer" role="tabpanel">
             <div class="card-body row ">
                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <label class="form-label" for="basic-default-fullname">Ảnh nều</label>
+                <label class="form-label" for="basic-default-fullname">Ảnh nền</label>
                 <?php showUploadFile('background_4','background_4', @$data['background_4'],9);?>
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">

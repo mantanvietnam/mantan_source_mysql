@@ -66,7 +66,9 @@ function settingHomeTheme($input){
                             'content_footer'=> @$dataSend['content_footer'],
                             'textfooter'=> @$dataSend['textfooter'],
                             'background_4'=> @$dataSend['background_4'],
-                            
+                            'background_5'=> @$dataSend['background_5'],
+                            'background_6'=> @$dataSend['background_6'],
+
                             
                             
                             
