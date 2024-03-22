@@ -47,20 +47,19 @@ $setting = setting();
     </section>
 
     <section id="about" style="background-image: url(<?php echo show_text_clone(@$setting['background_2']);?>);">
+        <div class="overlay"></div>
         <div class="container">
+            
             <div class="row">
-                <div class="about-title">
-
-                    <h2><span><?php echo show_text_clone(@$setting['full_name']);?></span> là ai?</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-5 col-md-6 col-sm-12">
+                <div class="col-lg-5 col-md-12 col-sm-12">
                     <div class="about-thumb">
                         <img src="<?php echo show_text_clone(@$setting['image_Portrait2']);?>" alt="">
                     </div>
                 </div>
-                <div class="col-lg-7 col-md-6 col-sm-12">
+                <div class="col-lg-7 col-md-12 col-sm-12">
+                    <div class="about-title">
+                        <h2><span><?php echo show_text_clone(@$setting['full_name']);?></span> là ai?</h2>
+                    </div>
                     <div class="about-content">
                         <h3> 
                             <?php echo @$session->read('infoMemberWeb')->name_position;?> <span><?php echo show_text_clone(@$setting['full_name']);?></span>
