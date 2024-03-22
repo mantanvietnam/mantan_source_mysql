@@ -65,6 +65,8 @@ function settingHomeTheme($input){
                             'email'=> @$dataSend['email'],
                             'content_footer'=> @$dataSend['content_footer'],
                             'textfooter'=> @$dataSend['textfooter'],
+                            'background_4'=> @$dataSend['background_4'],
+                            
                             
                             
                             

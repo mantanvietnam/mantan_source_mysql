@@ -243,6 +243,10 @@
           </div>
            <div class="tab-pane fade" id="navs-top-footer" role="tabpanel">
             <div class="card-body row ">
+               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Ảnh nều</label>
+                <?php showUploadFile('background_4','background_4', @$data['background_4'],9);?>
+              </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
                 <input type="text" class="form-control" name="address" value="<?php echo @$data['address'];?>" />
@@ -256,7 +260,7 @@
                 <input type="text" class="form-control" name="email" value="<?php echo @$data['email'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <label class="form-label" for="basic-default-fullname">Gới thiệu </label>
+                <label class="form-label" for="basic-default-fullname">Giới thiệu </label>
                 <textarea class="form-control" name="content_footer"><?php echo @$data['content_footer'] ?></textarea>
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">

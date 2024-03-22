@@ -3,7 +3,7 @@ global $urlThemeActive;
 $setting = setting(); 
 ?>
     <footer>
-        <section id="section-footer" style="background-image: url(<?php echo @$setting['background_2'] ?>);">
+        <section id="section-footer" style="background-image: url(<?php echo @$setting['background_4'] ?>);">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4">
