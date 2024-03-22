@@ -1,16 +1,16 @@
 <?php
 getHeader();
+
 global $urlThemeActive;
 global $session;
-$setting = setting();
-
-$slide_home= slide_home($setting['id_slide']);
-global $session;
-$infoUser = $session->read('infoUser');
-   	
+global $settingThemes;
 ?>
  <main>
     <form action="" method="post">
+        <input type="hidden" name="id_agency" value="<?php echo @$session->read('infoMemberWeb')->id;?>">
+        <input type="hidden" name="name_agency" value="<?php echo @$session->read('infoMemberWeb')->name;?>">
+        <input type="hidden" name="name_system" value="<?php echo @$session->read('infoMemberWeb')->name_system;?>">
+
         <section id="section-payment">
             <div class="container">
                 <h3>Thanh toán</h3>
@@ -34,36 +34,11 @@ $infoUser = $session->read('infoUser');
                                         <input type="email" name="email" required>
                                     </label>
                                 </div>
-                                <!-- <label for="">Tỉnh / thành phố *
-                                    <select name="city" required>
-                                        <option value="city1">Hà Nội</option>
-                                        <option value="city2">TP. Hồ Chí Minh</option>
-                                        <option value="city3">Đà Nẵng</option>
-                                        <option value="city4">Hải Phòng</option>
-                                    </select>
-                                </label>
-                                <div>
-                                    <label for="">Quận / huyện *
-                                        <select name="district" required>
-                                            <option value="district1">Hà Nội</option>
-                                            <option value="district2">TP. Hồ Chí Minh</option>
-                                            <option value="district3">Đà Nẵng</option>
-                                            <option value="district4">Hải Phòng</option>
-                                        </select>
-                                    </label>
-
-                                    <label for="">Phường / xã *
-                                        <select name="ward" required>
-                                            <option value="ward1">Hà Nội</option>
-                                            <option value="ward2">TP. Hồ Chí Minh</option>
-                                            <option value="ward3">Đà Nẵng</option>
-                                            <option value="ward4">Hải Phòng</option>
-                                        </select>
-                                    </label>
-                                </div> -->
+                                
                                 <label for="">Địa chỉ *
                                     <input type="text" name="address" required>
                                 </label>
+
                                 <label for="">Ghi chú đơn hàng (tuỳ chọn)
                                     <textarea name="note_user" id="" cols="30" rows="4" placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn.">
 
@@ -223,5 +198,5 @@ $infoUser = $session->read('infoUser');
 </script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>  
-<?php
-getFooter();?>
+
+<?php getFooter();?>

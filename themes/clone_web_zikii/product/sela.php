@@ -1,14 +1,11 @@
 <?php
 getHeader();
+
 global $urlThemeActive;
-
-$setting = setting();
-
-$slide_home= slide_home($setting['id_slide']);
-
+global $settingThemes;
 ?>
 
-<main>
+    <main>
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
@@ -20,12 +17,12 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="sale99">
             <div class="container">
                 <div class="banner-sale">
-                    <img src="<?php echo @$setting['baner_sele'] ?>">
+                    <img src="<?php echo @$settingThemes['baner_sele'] ?>">
                 </div>
                 <div class="endow">
-                    <h3><?php echo @$setting['sela_title1'] ?></h3>
-                    <p><?php echo @$setting['sela_title2'] ?>
-                        <span><?php echo @$setting['sela_title3'] ?></span>
+                    <h3><?php echo @$settingThemes['sela_title1'] ?></h3>
+                    <p><?php echo @$settingThemes['sela_title2'] ?>
+                        <span><?php echo @$settingThemes['sela_title3'] ?></span>
                     </p>
                 </div>
              <!-- <img src="<?php echo $urlThemeActive ?>asset/image/voucher.png"> --> 
@@ -42,7 +39,7 @@ $slide_home= slide_home($setting['id_slide']);
                     <?php }} ?>
                         </div>
              
-                <div class="top-deal" style="background-image: url(<?php echo @$setting['background_sele'] ?>)">
+                <div class="top-deal" style="background-image: url(<?php echo @$settingThemes['background_sele'] ?>)">
                     <!-- <img src=""> -->
                     <div class="group-deal">
                         <div class="list-product list-product-1">
@@ -52,7 +49,7 @@ $slide_home= slide_home($setting['id_slide']);
                             $link = '/san-pham/'.$product->slug.'.html';
                             $giam = 0;
                             $price = $product->price;
-                            if($setting['targetTime']>time() && @$product->flash_sale==1){
+                            if($settingThemes['targetTime']>time() && @$product->flash_sale==1){
                                 if(!empty($product->price_old) && !empty($product->price_flash)){
                                     $giam = 100 - 100*$product->price_flash/$product->price_old;
                                     $price = @$product->price_flash;
@@ -130,5 +127,5 @@ $slide_home= slide_home($setting['id_slide']);
             </div>
         </section>
     </main>
-<?php
-getFooter();?>
+    
+<?php getFooter();?>

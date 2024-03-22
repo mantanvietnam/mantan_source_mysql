@@ -107,7 +107,7 @@ h1 {
   }
 }
 header .topbar {
-  background-color: #228B22;
+  background-color: #1a2167;
   padding: 7px 0;
 }
 header .topbar .topbar-box {
@@ -160,10 +160,10 @@ header .navbar-header .nav-item .nav-link {
   padding: 15px;
 }
 header .navbar-header .nav-item .nav-link.active {
-  color: #228B22 !important;
+  color: #1a2167 !important;
 }
 header .navbar-header .nav-item .nav-link:hover {
-  color: #228B22 !important;
+  color: #1a2167 !important;
 }
 
 .section-padding {
@@ -189,7 +189,7 @@ b {
 .title-box h2.section-title {
   margin-bottom: 30px;
   font-size: 38px;
-  color: #228B22;
+  color: #1a2167;
   align-items: center;
   text-transform: uppercase;
 }
@@ -199,7 +199,7 @@ b {
   }
 }
 .title-box .title-divide-section {
-  background-color: #228B22;
+  background-color: #1a2167;
   height: 3px;
   width: 173px;
   margin: auto;
@@ -279,7 +279,7 @@ b {
   margin-bottom: 20px;
 }
 #section-service .service-list .service-item .service-image i {
-  color: #228B22;
+  color: #1a2167;
   font-size: 64px;
 }
 #section-service .service-list .service-item .service-detail padding {
@@ -289,7 +289,7 @@ b {
   right: 10px;
 }
 #section-service .service-list .service-item .service-detail .service-title h4 {
-  color: #228B22;
+  color: #1a2167;
   font-weight: 700;
   font-size: 16px;
   text-transform: uppercase;
@@ -324,7 +324,7 @@ b {
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 1;
   font-size: 30px;
-  color: #228B22;
+  color: #1a2167;
   border-radius: 50%;
   padding: 0;
   top: 37%;
@@ -363,7 +363,7 @@ b {
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: #228B22;
+  background-color: #1a2167;
   opacity: 0.6;
 }
 #section-home-contact .section-home-background .contact-left .contact-title h3 {
@@ -392,14 +392,14 @@ b {
 }
 #section-home-contact .section-home-background .form-contact-home button {
   border-color: transparent;
-  background-color: #228B22;
+  background-color: #1a2167;
   color: #fff;
   width: 36%;
   text-transform: uppercase;
   transition: all 0.3 linear;
 }
 #section-home-contact .section-home-background .form-contact-home button:hover {
-  background-color: #1f7e1f;
+  background-color: #1a2167;
 }
 
 #section-blog .blog-list .slick-prev {
@@ -415,7 +415,7 @@ b {
   z-index: 1;
   width: 48px;
   height: 48px;
-  color: #228B22;
+  color: #1a2167;
   border-radius: 50%;
   padding: 0;
   top: 23%;
@@ -440,11 +440,11 @@ b {
 }
 #section-blog .blog-item .blog-detail .blog-meta {
   font-size: 12px;
-  color: #228B22;
+  color: #1a2167;
   font-weight: 500;
 }
 #section-blog .blog-item .blog-detail .blog-devide .solid {
-  border-top: 3px #228B22 solid;
+  border-top: 3px #1a2167 solid;
   width: 100px;
 }
 #section-blog .blog-item .blog-detail .blog-title h4 {
@@ -463,7 +463,7 @@ b {
   line-height: 1.4;
 }
 #section-blog .blog-item .blog-detail .blog-title h4:hover {
-  color: #228B22;
+  color: #1a2167;
 }
 #section-blog .blog-item .blog-detail .blog-link {
   margin-top: 10px;
@@ -479,7 +479,7 @@ b {
   padding: 10px 0px;
 }
 #section-blog .blog-item .blog-detail .blog-link a:hover {
-  color: #228B22;
+  color: #1a2167;
 }
 #section-blog .blog-item .blog-detail .blog-description {
   height: 78px;
@@ -504,7 +504,7 @@ b {
   background-color: #fff;
   z-index: 1;
   font-size: 30px;
-  color: #228B22;
+  color: #1a2167;
   border-radius: 50%;
   padding: 0;
   top: 30%;
@@ -565,7 +565,7 @@ b {
   font-weight: bold;
 }
 #section-category-product .category-product-slide .category-product-item .category-product-item-inner a .category-product-detail .category-product-number {
-  color: #228B22;
+  color: #1a2167;
   font-size: 13px;
 }
 
@@ -608,7 +608,7 @@ b {
   -webkit-line-clamp: 3;
 }
 #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-name a:hover {
-  color: #228B22;
+  color: #1a2167;
 }
 @media (max-width: 450px) {
   #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-name a {
@@ -624,7 +624,7 @@ b {
   margin-top: 10px;
 }
 #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-addcart a {
-  background-color: #228B22;
+  background-color: #1a2167;
   color: #fff;
   padding: 7px 10px;
   border-radius: 5px;
@@ -657,7 +657,7 @@ b {
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: #228B22;
+  background-color: #1a2167;
   opacity: 0.6;
 }
 #section-register .section-home-background .register-title h3 {
@@ -698,7 +698,7 @@ b {
 }
 #section-register .section-home-background .register-button-group .register-button-item:first-child a {
   text-transform: uppercase;
-  color: #1f7e1f;
+  color: #1a2167;
   font-weight: bold;
 }
 #section-register .section-home-background .register-button-group .register-button-item:last-child {
@@ -728,7 +728,7 @@ b {
   background-color: #fff;
   z-index: 1;
   font-size: 30px;
-  color: #228B22;
+  color: #1a2167;
   border-radius: 50%;
   padding: 0;
   top: 37%;
@@ -789,7 +789,7 @@ footer #section-footer .footer-item .footer-menu-title h3 {
 footer #section-footer .footer-item .footer-subtitle p {
   font-size: 25px;
   font-weight: bold;
-  color: #228B22;
+  color: #1a2167;
   margin-bottom: 13px;
   line-height: 1.3;
 }
@@ -801,22 +801,22 @@ footer #section-footer .footer-item .footer-menu ul li {
   margin-bottom: 10px;
 }
 footer #section-footer .footer-item .footer-menu ul li a {
-  color: #228B22;
+  color: #1a2167;
   transition: all 0.3s linear;
 }
 footer #section-footer .footer-item .footer-menu ul li a:hover {
-  color: #228B22;
+  color: #1a2167;
 }
 footer #section-footer .section-footer-info {
   margin-top: 30px;
   margin-bottom: 21px;
 }
 footer #section-footer .section-footer-info p {
-  color: #228B22;
+  color: #1a2167;
 }
 footer #section-footer-bottom {
   text-align: center;
-  background-color: #228B22;
+  background-color: #1a2167;
   padding: 10px 0;
 }
 footer #section-footer-bottom p {
@@ -857,7 +857,7 @@ footer #section-footer-bottom p {
   min-height: 62px;
 }
 #section-page-blog .page-blog-list .page-blog-item .page-blog-title h3 a:hover {
-  color: #228B22;
+  color: #1a2167;
 }
 #section-page-blog .page-blog-list .page-blog-item .page-blog-devide {
   max-width: 100px;
@@ -879,7 +879,7 @@ footer #section-footer-bottom p {
   margin-top: 18px;
 }
 #section-page-blog .page-blog-list .page-blog-item .page-blog-button a {
-  background-color: #228B22;
+  background-color: #1a2167;
   color: #fff;
   padding: 7px 10px;
   border-radius: 5px;
@@ -890,7 +890,7 @@ footer #section-footer-bottom p {
 }
 
 .sidebar-heading {
-  background-color: #228B22;
+  background-color: #1a2167;
   padding: 13px;
 }
 .sidebar-heading .sidebar-title span {
@@ -942,7 +942,7 @@ footer #section-footer-bottom p {
   color: #000;
 }
 .category-product-sidebar .sidebar-listcate ul li a:hover {
-  color: #228B22;
+  color: #1a2167;
 }
 
 .background-sidebar {
@@ -973,7 +973,7 @@ footer #section-footer-bottom p {
   z-index: 1;
   width: 48px;
   height: 48px;
-  color: #228B22;
+  color: #1a2167;
   border-radius: 50%;
   padding: 0;
   top: 23%;
@@ -998,11 +998,11 @@ footer #section-footer-bottom p {
 }
 #section-blog-other .blog-item .blog-detail .blog-meta {
   font-size: 12px;
-  color: #228B22;
+  color: #1a2167;
   font-weight: 500;
 }
 #section-blog-other .blog-item .blog-detail .blog-devide .solid {
-  border-top: 3px #228B22 solid;
+  border-top: 3px #1a2167 solid;
   width: 100px;
 }
 #section-blog-other .blog-item .blog-detail .blog-title h4 {
@@ -1020,7 +1020,7 @@ footer #section-footer-bottom p {
   -webkit-line-clamp: 1;
 }
 #section-blog-other .blog-item .blog-detail .blog-title h4:hover {
-  color: #228B22;
+  color: #1a2167;
 }
 #section-blog-other .blog-item .blog-detail .blog-link {
   margin-top: 10px;
@@ -1036,7 +1036,7 @@ footer #section-footer-bottom p {
   padding: 10px 0px;
 }
 #section-blog-other .blog-item .blog-detail .blog-link a:hover {
-  color: #228B22;
+  color: #1a2167;
 }
 #section-blog-other .blog-item .blog-detail .blog-description {
   height: 78px;
@@ -1069,7 +1069,7 @@ footer #section-footer-bottom p {
 }
 #section-category-product-page .category-product-filter .category-product-filter-inner .input-search input:focus {
   box-shadow: none;
-  border-color: #228B22;
+  border-color: #1a2167;
 }
 #section-category-product-page .category-product-filter .category-product-filter-inner .sort-product {
   display: flex;
@@ -1081,7 +1081,7 @@ footer #section-footer-bottom p {
 }
 #section-category-product-page .category-product-filter .category-product-filter-inner .sort-product select:focus {
   box-shadow: none;
-  border-color: #228B22;
+  border-color: #1a2167;
 }
 #section-category-product-page .product-hot-item .product-hot-item-inner {
   margin-bottom: 30px;
@@ -1117,7 +1117,7 @@ footer #section-footer-bottom p {
   transition: all 0.3s linear;
 }
 #section-category-product-page .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-name a:hover {
-  color: #228B22;
+  color: #1a2167;
 }
 #section-category-product-page .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-price {
   margin-bottom: 20px;
@@ -1131,7 +1131,7 @@ footer #section-footer-bottom p {
   margin-top: 10px;
 }
 #section-category-product-page .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-addcart a {
-  background-color: #228B22;
+  background-color: #1a2167;
   color: #fff;
   padding: 7px 10px;
   border-radius: 5px;

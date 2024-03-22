@@ -1,14 +1,10 @@
 <?php
 getHeader();
+
 global $urlThemeActive;
 global $session;
-$infoUser = $session->read('infoUser'); 
 
-$setting = setting();
 $price_total = 0;
-
-
-
 ?>
 
 <style>

@@ -1,7 +1,6 @@
 <?php
 getHeader();
 global $urlThemeActive;
-
 ?>
 
     <main>
@@ -10,7 +9,7 @@ global $urlThemeActive;
                 <div class="row">
                     <div class="col-lg-9 col-md-12">
                         <div class="post-title">
-                            <h1><?php echo $post->title; ?>!</h1>
+                            <h1><?php echo $post->title; ?></h1>
                         </div>
 
                         <div class="post-date">
@@ -33,36 +32,38 @@ global $urlThemeActive;
                                 </h2>
                 
                                 <div class="blog-list" data-aos="zoom-out-right">
-                                     <?php
-                                            if(!empty($otherPosts)){
-                                                foreach ($otherPosts as $item) {
-                             echo '<div class="blog-item">
-                                        <div class="blog-img">
-                                             <a href="/'.@$item->slug.'.html"><img src="'.@$item->image.'" alt=""></a>
-                                        </div>
-                
-                                        <div class="blog-detail">
-                                            <div class="blog-title">
-                                                <a href="/'.@$item->slug.'.html">
-                                                    <h4>'.@$item->title.'</h4>
-                                                </a>
-                                            </div>
-                
-                                            <div class="blog-meta">
-                                                <i class="fa-regular fa-clock"></i> <span>'.date('d/m/Y',$item->time).'</span>
-                                            </div>
-                
-                                            <div class="blog-devide">
-                                                <hr class="solid">
-                                            </div>
-                
-                
-                                            <div class="blog-description">
-                                                <p>'.@$item->description.'</p>
-                                            </div>
-                                        </div>
-                                    </div>';
-                                     } } ?>
+                                    <?php
+                                    if(!empty($otherPosts)){
+                                        foreach ($otherPosts as $item) {
+                                            echo '  <div class="blog-item">
+                                                        <div class="blog-img">
+                                                             <a href="/'.@$item->slug.'.html"><img src="'.@$item->image.'" alt=""></a>
+                                                        </div>
+                                
+                                                        <div class="blog-detail">
+                                                            <div class="blog-title">
+                                                                <a href="/'.@$item->slug.'.html">
+                                                                    <h4>'.@$item->title.'</h4>
+                                                                </a>
+                                                            </div>
+                                
+                                                            <div class="blog-meta">
+                                                                <i class="fa-regular fa-clock"></i> <span>'.date('d/m/Y',$item->time).'</span>
+                                                            </div>
+                                
+                                                            <div class="blog-devide">
+                                                                <hr class="solid">
+                                                            </div>
+                                
+                                
+                                                            <div class="blog-description">
+                                                                <p>'.@$item->description.'</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>';
+                                        } 
+                                    } 
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -78,25 +79,27 @@ global $urlThemeActive;
 
                             <div class="sidebar-listpost">
                                 
-                                <?php  if(!empty(getPostPin())){
+                                <?php  
+                                if(!empty(getPostPin())){
                                     foreach(getPostPin() as $key => $item){
-                                        echo '<div class="sidebar-post-item">
-                                    <div class="row">
-                                        <div class="col-5 col-post-image">
-                                            <div class="sidebar-post-image">
-                                                <img src="'.@$item->image.'" alt="">
-                                            </div>
-                                        </div>
+                                        echo '  <div class="sidebar-post-item">
+                                                    <div class="row">
+                                                        <div class="col-5 col-post-image">
+                                                            <div class="sidebar-post-image">
+                                                                <img src="'.@$item->image.'" alt="">
+                                                            </div>
+                                                        </div>
 
-                                        <div class="col-7 col-post-title">
-                                            <div class="sidebar-post-title">
-                                                <a href="/'.@$item->slug.'.html">'.@$item->title.'</a>  
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>';
+                                                        <div class="col-7 col-post-title">
+                                                            <div class="sidebar-post-title">
+                                                                <a href="/'.@$item->slug.'.html">'.@$item->title.'</a>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>';
                                     }
-                                } ?>                         
+                                } 
+                                ?>                         
                             </div>
                         </div>
 
@@ -127,5 +130,4 @@ global $urlThemeActive;
       
     </main>
 
-<?php
-getFooter();?>
+<?php getFooter();?>

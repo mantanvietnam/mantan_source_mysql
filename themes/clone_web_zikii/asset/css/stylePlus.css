@@ -11,13 +11,13 @@
 }
 
 #pagination-page .page-item.active .page-link{
-    background-color: #228B22;
-    border-color: #228B22;
+    background-color: #1a2167;
+    border-color: #1a2167;
     
 }
 
 #pagination-page .page-item .page-link i{
-    color: #228B22
+    color: #1a2167
 }
 
 #section-register .section-home-background .register-button-group .register-button-item:last-child:hover{
@@ -40,7 +40,7 @@ header .navbar-header .nav-item .nav-link:hover{
     background-color: #fff;
     z-index: 1;
     font-size: 30px;
-    color: #228B22;
+    color: #1a2167;
     border-radius: 50%;
     padding: 0;
     top: 40%;
@@ -99,7 +99,7 @@ header .topbar .topbar-box .topbar-left p{
 }
 
 .album-number{
-    color: #228B22;
+    color: #1a2167;
     font-size: 13px;
 }
 

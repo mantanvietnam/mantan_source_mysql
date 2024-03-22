@@ -36,7 +36,7 @@
             <div class="container">
                 <div class="topbar-box">
                     <div class="topbar-left">
-                        <p><?php echo @$settingThemes['compan_name'] ?></p>
+                        <p><?php echo show_text_clone(@$settingThemes['compan_name']); ?></p>
                     </div>
 
                     <div class="topbar-right">
@@ -47,7 +47,7 @@
                                 </div>
 
                                 <div class="topbar-texticon">
-                                    <span><?php echo @$settingThemes['address'] ?></span>
+                                    <span><?php echo show_text_clone(@$settingThemes['address']); ?></span>
                                 </div>
                             </a>
                         </div>
@@ -59,7 +59,7 @@
                                 </div>
 
                                 <div class="topbar-texticon">
-                                    <span><?php echo @$settingThemes['email'] ?></span>
+                                    <span><?php echo show_text_clone(@$settingThemes['email']); ?></span>
                                 </div>
                             </a>
                         </div>
@@ -71,7 +71,7 @@
                                 </div>
 
                                 <div class="topbar-texticon">
-                                    <span><?php echo @$settingThemes['phone'] ?></span>
+                                    <span><?php echo show_text_clone(@$settingThemes['phone']); ?></span>
                                 </div>
                             </a>
                         </div>
@@ -87,7 +87,7 @@
                 <div class="container">
                     <a class="navbar-brand" href="/">
                         <div class="image-header">
-                            <img src="<?php echo @$settingThemes['image_logo'] ?>" alt="">
+                            <img src="<?php echo show_text_clone(@$settingThemes['image_logo']); ?>" alt="">
                         </div>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

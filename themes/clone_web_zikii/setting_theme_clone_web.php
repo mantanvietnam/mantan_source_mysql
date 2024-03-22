@@ -37,7 +37,7 @@
                     <div class="row">
                       <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                         <label class="form-label" for="basic-default-fullname">Logo</label>
-                         <?php showUploadFile('image_logo','image_logo', @$setting['image_logo'],1);?>
+                        <?php showUploadFile('image_logo','image_logo', @$setting['image_logo'],1);?>
                       </div>
                       <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                         <label class="form-label" for="basic-default-fullname">Tên công ty</label>
@@ -69,35 +69,43 @@
                     <div class="row">
                       <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                         <label class="form-label" for="basic-default-fullname">icon 1</label>
-                         <input type="text" class="form-control" name="icon1" value="<?php echo @$setting['icon1'];?>" />
-                         <label class="form-label" for="basic-default-fullname">tiêu đề 1</label>
-                         <input type="text" class="form-control" name="titel1" value="<?php echo @$setting['titel1'];?>" />
-                         <label class="form-label" for="basic-default-fullname">nội dung  1</label>
-                         <input type="text" class="form-control" name="content1" value="<?php echo @$setting['content1'];?>" />
+                        <?php showUploadFile('icon1','icon1', @$setting['icon1'],300);?>
+                        
+                        <label class="form-label" for="basic-default-fullname">tiêu đề 1</label>
+                        <input type="text" class="form-control" name="titel1" value="<?php echo @$setting['titel1'];?>" />
+                        
+                        <label class="form-label" for="basic-default-fullname">nội dung  1</label>
+                        <input type="text" class="form-control" name="content1" value="<?php echo @$setting['content1'];?>" />
                       </div>
                       <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                         <label class="form-label" for="basic-default-fullname">icon 2</label>
-                         <input type="text" class="form-control" name="icon2" value="<?php echo @$setting['icon2'];?>" />
-                         <label class="form-label" for="basic-default-fullname">tiêu đề 2</label>
-                         <input type="text" class="form-control" name="titel2" value="<?php echo @$setting['titel2'];?>" />
-                         <label class="form-label" for="basic-default-fullname">nội dung  2</label>
-                         <input type="text" class="form-control" name="content2" value="<?php echo @$setting['content2'];?>" />
+                        <?php showUploadFile('icon2','icon2', @$setting['icon2'],301);?>
+
+                        <label class="form-label" for="basic-default-fullname">tiêu đề 2</label>
+                        <input type="text" class="form-control" name="titel2" value="<?php echo @$setting['titel2'];?>" />
+
+                        <label class="form-label" for="basic-default-fullname">nội dung  2</label>
+                        <input type="text" class="form-control" name="content2" value="<?php echo @$setting['content2'];?>" />
                       </div>
                       <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                         <label class="form-label" for="basic-default-fullname">icon 3</label>
-                         <input type="text" class="form-control" name="icon3" value="<?php echo @$setting['icon3'];?>" />
-                         <label class="form-label" for="basic-default-fullname">tiêu đề 3</label>
-                         <input type="text" class="form-control" name="titel3" value="<?php echo @$setting['titel3'];?>" />
-                         <label class="form-label" for="basic-default-fullname">nội dung  3</label>
-                         <input type="text" class="form-control" name="content3" value="<?php echo @$setting['content3'];?>" />
+                        <?php showUploadFile('icon3','icon3', @$setting['icon3'],302);?>
+
+                        <label class="form-label" for="basic-default-fullname">tiêu đề 3</label>
+                        <input type="text" class="form-control" name="titel3" value="<?php echo @$setting['titel3'];?>" />
+
+                        <label class="form-label" for="basic-default-fullname">nội dung  3</label>
+                        <input type="text" class="form-control" name="content3" value="<?php echo @$setting['content3'];?>" />
                       </div>
                       <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                         <label class="form-label" for="basic-default-fullname">icon 4</label>
-                         <input type="text" class="form-control" name="icon4" value="<?php echo @$setting['icon4'];?>" />
-                         <label class="form-label" for="basic-default-fullname">tiêu đề 4</label>
-                         <input type="text" class="form-control" name="titel4" value="<?php echo @$setting['titel4'];?>" />
-                         <label class="form-label" for="basic-default-fullname">nội dung  4</label>
-                         <input type="text" class="form-control" name="content4" value="<?php echo @$setting['content4'];?>" />
+                        <?php showUploadFile('icon4','icon4', @$setting['icon4'],303);?>
+
+                        <label class="form-label" for="basic-default-fullname">tiêu đề 4</label>
+                        <input type="text" class="form-control" name="titel4" value="<?php echo @$setting['titel4'];?>" />
+
+                        <label class="form-label" for="basic-default-fullname">nội dung  4</label>
+                        <input type="text" class="form-control" name="content4" value="<?php echo @$setting['content4'];?>" />
                       </div>
                       <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <button type="submit" class="btn btn-primary" style="width:75px; height: 35px;">Lưu</button>

@@ -1,12 +1,9 @@
 <?php
 getHeader();
 global $urlThemeActive;
-
-$setting = setting();
-
-$slide_home= slide_home($setting['id_slide']);
+global $settingThemes;
 ?>
- <main>
+    <main>
         <section id="section-detail-order">
             <div class="container">
                 <div class="row">
@@ -82,5 +79,4 @@ $slide_home= slide_home($setting['id_slide']);
             </div>
         </section>
     </main>
-<?php
-getFooter();?>
+<?php getFooter();?>

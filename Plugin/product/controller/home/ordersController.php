@@ -4,6 +4,7 @@ function cart($input)
 	global $session;
 	global $controller;
 	global $metaTitleMantan;
+	global $modelCategories;
 
 	$modelProduct = $controller->loadModel('Products');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
@@ -655,7 +656,7 @@ function pay($input){
 			sendZNSDataBot($data, $product_name, $name_system, $agency);
 		}
 
-		//return $controller->redirect('/completeOrder?id='.$data->id);
+		return $controller->redirect('/completeOrder?id='.$data->id);
 	}
 
 	setVariable('list_product', $list_product);

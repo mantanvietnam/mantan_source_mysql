@@ -11,12 +11,13 @@ if(file_exists(__DIR__.'/../../../../../themes/'.$theme.'/setting_theme_clone_we
                         <p><b>%name%</b>: Họ tên của đại lý</p>
                         <p><b>%position%</b>: Chức danh của đại lý</p>
                         <p><b>%avatar%</b>: Link ảnh đại diện của đại lý</p>
+                        <p><b>%portrait%</b>: Link ảnh chân dung nhân hiệu của đại lý</p>
                         <p><b>%phone%</b>: Số điện thoại của đại lý</p>
                         <p><b>%email%</b>: Email của đại lý</p>
                         <p><b>%address%</b>: Địa chỉ của đại lý</p>
                         <p><b>%birthday%</b>: Ngày sinh của đại lý</p>
                         <p><b>%description%</b>: Giới thiệu bản thân của đại lý</p>
-                        <p><b>%banner%</b>: Link banner chia sẻ của đại lý</p>
+                        
                     </div>
 
                     <div class="col-md-6">
@@ -27,6 +28,7 @@ if(file_exists(__DIR__.'/../../../../../themes/'.$theme.'/setting_theme_clone_we
                         <p><b>%web%</b>: Link trang web của đại lý</p>
                         <p><b>%twitter%</b>: Link trang twitter của đại lý</p>
                         <p><b>%linkedin%</b>: Link trang linkedin của đại lý</p>
+                        <p><b>%banner%</b>: Link banner chia sẻ của đại lý</p>
                     </div>
                     
                 </div>

@@ -1,8 +1,8 @@
 <?php
 getHeader();
 global $urlThemeActive;
-
-$setting = setting();?>
+global $settingThemes;
+?>
     <main>
         <section id="contact-us">
             <div class="container">
@@ -46,10 +46,10 @@ $setting = setting();?>
                                 <h3>Liên hệ với chúng tôi</h3>
                             </div>
                             <div class="contact-us-infor-detail">
-                                <p><i class="fa-solid fa-location-dot"></i><?php echo @$setting['address_footer'] ?></p>
-                                <p><i class="fa-solid fa-phone"></i><?php echo @$setting['phone_footer'] ?></p>
-                                <p><i class="fa-solid fa-envelope"></i><?php echo @$setting['email_footer'] ?></p>
-                                <p><i class="fa-solid fa-globe"></i><?php echo @$setting['web_footer'] ?></p>
+                                <p><i class="fa-solid fa-location-dot"></i><?php echo show_text_clone(@$settingThemes['address_footer']); ?></p>
+                                <p><i class="fa-solid fa-phone"></i><?php echo show_text_clone(@$settingThemes['phone_footer']); ?></p>
+                                <p><i class="fa-solid fa-envelope"></i><?php echo show_text_clone(@$settingThemes['email_footer']); ?></p>
+                                <p><i class="fa-solid fa-globe"></i><?php echo show_text_clone(@$settingThemes['web_footer']); ?></p>
                             </div>
                             <div class="bg-earth">
                                 <img src="<?php echo $urlThemeActive; ?>/asset/image/thanks.png" alt="">
@@ -62,5 +62,4 @@ $setting = setting();?>
 
     </main>
 
-<?php
-getFooter();?>
+<?php getFooter();?>

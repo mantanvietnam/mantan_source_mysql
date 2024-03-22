@@ -40,6 +40,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `token_device` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `token` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `last_login` INT NOT NULL DEFAULT '0',
+  `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ảnh chân dung',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -151,3 +152,6 @@ $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions';
 
 // 2.0
 $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `token_device` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL AFTER `banner`, ADD `token` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL AFTER `token_device`, ADD `last_login` INT NOT NULL DEFAULT '0' AFTER `token`; ";
+
+// 2.1
+$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ảnh chân dung' AFTER `last_login`; ";

@@ -163,6 +163,7 @@ function addMemberAdmin($input)
                 $data->tiktok = $dataSend['tiktok'];
                 $data->youtube = $dataSend['youtube'];
                 $data->description = $dataSend['description'];
+                $data->portrait = $dataSend['portrait'];
 
 				if(empty($_GET['id'])){
 					if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];

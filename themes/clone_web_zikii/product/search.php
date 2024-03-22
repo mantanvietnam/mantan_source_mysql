@@ -1,10 +1,8 @@
 <?php
 getHeader();
+
 global $urlThemeActive;
-
-$setting = setting();
-
-$slide_home= slide_home($setting['id_slide']);
+global $settingThemes;
 ?>
 
 <style>
@@ -21,26 +19,10 @@ $slide_home= slide_home($setting['id_slide']);
                 <div class="breadcrumb justify-content-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                          <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+                          <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Tìm kiếm</li>
                         </ol>
                     </nav>
-                </div>
-            </div>
-        </section>
-
-        <section id="section-banner" style="padding-bottom: 70px">
-            <div class="container">
-                <div class="banner-slide">
-                    <?php if(!empty($slide_home->imageinfo)){
-                            foreach($slide_home->imageinfo as $key => $item){ ?>
-                    <div class="banner-slide-item">
-                        <a href="<?php echo $item->link ?>">
-                        <img src="<?php echo $item->image ?>" alt="">
-                        </a>
-                    </div>
-                <?php }} ?>
-                    
                 </div>
             </div>
         </section>
@@ -71,7 +53,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
 
                         <div class="background-sidebar">
-                            <img src="<?php echo $setting['image_qc']; ?>" alt="">
+                            <img src="<?php echo $settingThemes['image_qc']; ?>" alt="">
                         </div>
                     </div>
 

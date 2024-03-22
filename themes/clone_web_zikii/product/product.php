@@ -2,18 +2,13 @@
     getHeader();
     global $urlThemeActive;
     global $session;
-    $infoUser = $session->read('infoUser');     
-    $setting = setting();
+    global $settingThemes;
 
-    $list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
-
-    $slide_home= slide_home($setting['id_slide']);
-
-    ?>
+?>
  <main>
         <section id="section-produce">
             <div class="container">
-                <p class="bgr"><a href="">Trang chủ</a> / <a href="">Sản phẩm</a> / <?php echo $product->title; ?></p>
+                <p class="bgr"><a href="/">Trang chủ</a> / <a href="/allProduct">Sản phẩm</a> / <?php echo $product->title; ?></p>
 
                 <div class="row">
                     <div class="col-lg-9 col-12">
@@ -270,5 +265,4 @@
     }
 </script>
 
-<?php
-getFooter();?>
+<?php getFooter();?>

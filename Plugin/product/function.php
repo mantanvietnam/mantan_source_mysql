@@ -65,7 +65,7 @@ if(isset($productCategory)){
 }
 
 $category[1]['title'] = 'Sản phẩm';
-$category[1]['sub'] = array(array (	'url' => '/products',
+$category[1]['sub'] = array(array (	'url' => '/allProduct',
                                     'name' => 'Tất cả sản phẩm'
                                     ),
                                     

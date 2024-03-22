@@ -51,16 +51,16 @@ global $settingThemes;
                         <div class="col-lg-3 col-md-12">
                             <div class="service-item">
                                 <div class="service-image">
-                                    <i class="fa-solid <?php echo @$settingThemes['icon1'] ?>"></i>
+                                    <img src="<?php echo show_text_clone(@$settingThemes['icon1']); ?>" />
                                 </div>
 
                                 <div class="service-detail">
                                     <div class="service-title">
-                                        <h4><?php echo @$settingThemes['titel1'] ?></h4>
+                                        <h4><?php echo show_text_clone(@$settingThemes['titel1']); ?></h4>
                                     </div>
 
                                     <div class="service-description">
-                                        <p><?php echo @$settingThemes['content1'] ?></p>
+                                        <p><?php echo show_text_clone(@$settingThemes['content1']); ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -69,16 +69,16 @@ global $settingThemes;
                         <div class="col-lg-3 col-md-12">
                             <div class="service-item">
                                 <div class="service-image">
-                                    <i class="fa-solid <?php echo @$settingThemes['icon2'] ?>"></i>
+                                    <img src="<?php echo show_text_clone(@$settingThemes['icon2']); ?>" />
                                 </div>
 
                                 <div class="service-detail">
                                     <div class="service-title">
-                                        <h4><?php echo @$settingThemes['titel2'] ?></h4>
+                                        <h4><?php echo show_text_clone(@$settingThemes['titel2']); ?></h4>
                                     </div>
 
                                     <div class="service-description">
-                                        <p><?php echo @$settingThemes['content2'] ?></p>
+                                        <p><?php echo show_text_clone(@$settingThemes['content2']); ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -87,16 +87,16 @@ global $settingThemes;
                         <div class="col-lg-3 col-md-12">
                             <div class="service-item">
                                  <div class="service-image">
-                                    <i class="fa-solid <?php echo @$settingThemes['icon3'] ?>"></i>
+                                    <img src="<?php echo show_text_clone(@$settingThemes['icon3']); ?>" />
                                 </div>
 
                                 <div class="service-detail">
                                     <div class="service-title">
-                                        <h4><?php echo @$settingThemes['titel3'] ?></h4>
+                                        <h4><?php echo show_text_clone(@$settingThemes['titel3']); ?></h4>
                                     </div>
 
                                     <div class="service-description">
-                                        <p><?php echo @$settingThemes['content3'] ?></p>
+                                        <p><?php echo show_text_clone(@$settingThemes['content3']); ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -105,16 +105,16 @@ global $settingThemes;
                         <div class="col-lg-3 col-md-12">
                             <div class="service-item">
                                  <div class="service-image">
-                                    <i class="fa-solid <?php echo @$settingThemes['icon4'] ?>"></i>
+                                    <img src="<?php echo show_text_clone(@$settingThemes['icon4']); ?>" />
                                 </div>
 
                                 <div class="service-detail">
                                     <div class="service-title">
-                                        <h4><?php echo @$settingThemes['titel4'] ?></h4>
+                                        <h4><?php echo show_text_clone(@$settingThemes['titel4']); ?></h4>
                                     </div>
 
                                     <div class="service-description">
-                                        <p><?php echo @$settingThemes['content4'] ?></p>
+                                        <p><?php echo show_text_clone(@$settingThemes['content4']); ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +249,7 @@ global $settingThemes;
             <div class="container">
                 <div class="title-box">
                     <h2 class="section-title" >
-                        <span><?php echo @$settingThemes['titel_category_product1']; ?></span> 
+                        <span><?php echo show_text_clone(@$settingThemes['titel_category_product1']); ?></span> 
                         <div class="title-divide-section"></div>
                     </h2>
                 </div>
@@ -324,18 +324,18 @@ global $settingThemes;
                 <div class="section-home-overlay"></div>
                 <div class="container">
                     <div class="register-title">
-                        <h3><?php echo @$settingThemes['titel6']; ?></h3>
+                        <h3><?php echo show_text_clone(@$settingThemes['titel6']); ?></h3>
                     </div>
                     <div class="register-subtitle">
-                        <span><?php echo @$settingThemes['content6']; ?></span>
+                        <span><?php echo show_text_clone(@$settingThemes['content6']); ?></span>
                     </div>
                     <div class="register-button-group">
                         <div class="register-button-item" data-aos="zoom-in">
-                            <a href="<?php echo @$settingThemes['link1']; ?>">Đăng ký tư vấn</a>
+                            <a href="<?php echo show_text_clone(@$settingThemes['link1']); ?>">Đăng ký tư vấn</a>
                         </div>
 
                         <div class="register-button-item" data-aos="zoom-in">
-                            <a href="tel:<?php echo @$settingThemes['phone']; ?>">HOTLINE: <?php echo @$settingThemes['phone']; ?> </a>
+                            <a href="tel:<?php echo show_text_clone(@$settingThemes['phone']); ?>">HOTLINE: <?php echo show_text_clone(@$settingThemes['phone']); ?> </a>
                         </div>
                     </div>
                 </div>

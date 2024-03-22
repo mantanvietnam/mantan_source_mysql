@@ -234,7 +234,7 @@
     font-weight: 500;
     border: none;
     outline: none;
-    background-color: #228B22;
+    background-color: #1a2167;
     color: #fff;
     padding: 10px 30px;
     border-radius: 5px;
@@ -413,7 +413,7 @@
 
 .produce-other-detail button {
     padding: 2px 10px;
-    background-color: #228B22;
+    background-color: #1a2167;
     color: #fff;
     padding: 7px 10px;
     border-radius: 5px;
@@ -526,7 +526,7 @@
     font-size: 18px;
     padding: 12px 80px;
     border-radius: 15px;
-    background-color: #228B22;
+    background-color: #1a2167;
     color: #fff;
     display: inline-block;
     margin-top: 30px;
@@ -549,7 +549,7 @@
     padding: 40px;
     border-radius: 20px;
     overflow: hidden;
-    background-color: #228B22;
+    background-color: #1a2167;
     height: 100%;
     position: relative;
 }
@@ -753,7 +753,7 @@
 }
 
 .money-of-produce .produce-total button {
-    background-color: #228B22;
+    background-color: #1a2167;
     color: #fff;
     padding: 10px 10px;
     border-radius: 5px;
@@ -781,7 +781,7 @@
 }
 
 .no-produce a {
-    background-color: #228B22;
+    background-color: #1a2167;
     color: #fff;
     padding: 10px 10px;
     border-radius: 5px;
@@ -827,7 +827,7 @@
 
 #section-search .search-btn {
     padding: 10px 15px;
-    background: #228B22;
+    background: #1a2167;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -865,7 +865,7 @@
 }
 
 #menu-top .menu-cart a {
-    color: #228B22;
+    color: #1a2167;
     font-size: 22px;
     font-weight: 600;
     padding: 15px;
@@ -1032,7 +1032,7 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #228B22;
+    background-color: #1a2167;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -1150,7 +1150,7 @@
 }
 
 .end-order p {
-    color: #228B22;
+    color: #1a2167;
     font-size: 20px;
     margin-bottom: 15px;
 }
