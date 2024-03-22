@@ -128,10 +128,10 @@ header .navbar-header .nav-item .nav-link {
   padding: 15px;
 }
 header .navbar-header .nav-item .nav-link.active {
-  color: #f99b1c !important;
+  color: #f3df87 !important;
 }
 header .navbar-header .nav-item .nav-link:hover {
-  color: #f99b1c !important;
+  color: #f3df87 !important;
 }
 
 .section-title h2 {

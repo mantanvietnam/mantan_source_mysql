@@ -1,0 +1,11 @@
+#section-blog .blog-list .blog-item .blog-text .blog-description p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+}
+
+.list-post .post-item .post-title{
+    height: 39px;
+}
