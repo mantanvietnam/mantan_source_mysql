@@ -62,10 +62,11 @@ $setting = setting();
                 </div>
                 <div class="col-lg-7 col-md-6 col-sm-12">
                     <div class="about-content">
-                        <h5>About Me</h5>
-                        <h3> <?php echo @$session->read('infoMemberWeb')->name_position;?> <span><?php echo show_text_clone(@$setting['full_name']);?></span></h3>
+                        <h3> 
+                            <?php echo @$session->read('infoMemberWeb')->name_position;?> <span><?php echo show_text_clone(@$setting['full_name']);?></span>
+                        </h3>
+
                         <p><?php echo show_text_clone(@$setting['content_2']);?></p>
-                        <a href=""><img src="" alt=""></a>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12">
