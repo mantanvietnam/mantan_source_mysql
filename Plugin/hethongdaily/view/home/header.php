@@ -94,7 +94,7 @@
 
     <section id="header-menu" class="container-xxl">
       <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="/listMember"><img src="<?php echo @$session->read('infoUser')->info_system->image;?>" width="50"> <?php echo strtoupper($session->read('infoUser')->info_system->name);?></a>
+        <a class="navbar-brand" href="/listMember"><img src="<?php echo @$session->read('infoUser')->info_system->image;?>" width="50"> <?php echo $session->read('infoUser')->info_system->name;?></a>
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"><i class="bx bx-menu bx-sm"></i></span>
@@ -102,18 +102,16 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <?php if($session->read('infoUser')->create_agency == 'active'){ ?>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Hệ thống
-                </a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Hệ thống
+              </a>
 
-                <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                  <a class="dropdown-item" href="/listMember">Tuyến dưới</a>
-                  <a class="dropdown-item" href="/orderMemberAgency">Đơn mua hàng</a>
-                </div>
-              </li>
-            <?php }?>
+              <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <a class="dropdown-item" href="/listMember">Tuyến dưới</a>
+                <a class="dropdown-item" href="/orderMemberAgency">Đơn mua hàng</a>
+              </div>
+            </li>
 
             <?php if(empty($session->read('infoUser')->id_father)){ ?>
               <li class="nav-item dropdown">

@@ -155,3 +155,5 @@ $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `token_device` VARCHAR(500) CHA
 
 // 2.1
 $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ảnh chân dung' AFTER `last_login`; ";
+
+$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `create_order_agency` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '1: được phép tạo đơn đại lý tuyến dưới, 0: không được phép tạo' AFTER `portrait`; ";

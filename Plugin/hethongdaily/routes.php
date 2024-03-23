@@ -16,6 +16,7 @@
 	
 	$routesPlugin['getListMemberDownAPI']= 'hethongdaily/view/api/getListMemberDownAPI.php';
 	$routesPlugin['addMemberDownAPI']= 'hethongdaily/view/api/addMemberDownAPI.php';
+	$routesPlugin['searchMemberAPI']= 'hethongdaily/view/api/searchMemberAPI.php';
 	
 	$routesPlugin['getListCustomerAPI']= 'hethongdaily/view/api/getListCustomerAPI.php';
 	$routesPlugin['getInfoCustomerAPI']= 'hethongdaily/view/api/getInfoCustomerAPI.php';
@@ -63,7 +64,10 @@
 	$routesPlugin['requestProductAgency']= 'hethongdaily/view/home/order/requestProductAgency.php';
 	$routesPlugin['addRequestProductAgency']= 'hethongdaily/view/home/order/addRequestProductAgency.php';
 	$routesPlugin['orderMemberAgency']= 'hethongdaily/view/home/order/orderMemberAgency.php';
+	$routesPlugin['printBillOrderMemberAgency']= 'hethongdaily/view/home/order/printBillOrderMemberAgency.php';
 
+	// tạo đơn hàng cho đại lý tuyến dưới 
+	$routesPlugin['addOrderAgency']= 'hethongdaily/view/home/order/addOrderAgency.php';
 	// kho hàng
 	$routesPlugin['warehouseProductAgency']= 'hethongdaily/view/home/warehouse/warehouseProductAgency.php';
 	$routesPlugin['historyWarehouseProductAgency']= 'hethongdaily/view/home/warehouse/historyWarehouseProductAgency.php';

@@ -10,7 +10,12 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Hệ thống tuyến dưới</h4>
-  <p><a href="/addMember" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+
+  <?php 
+  if($session->read('infoUser')->create_agency == 'active'){
+    echo '<p><a href="/addMember" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>';
+  }
+  ?>
 
   <!-- Responsive Table -->
   <div class="card">
@@ -179,8 +184,20 @@
             var dateDealine = new Date(dataAgency.deadline*1000).toLocaleString();
             var status, payFees, verify, edit;
             var linkProfile = '<?php global $urlHomes; echo $urlHomes;?>info/?id=';
+            var create_agency = '<?php echo $session->read('infoUser')->create_agency;?>';
+            var create_order_agency = '<?php echo $session->read('infoUser')->create_order_agency;?>';
 
-            edit = ' <a href="/addMember/?id='+dataAgency.id+'" class="btn btn-danger mb-3">Sửa thông tin</a> <a href="/addMember/?id_father='+dataAgency.id+'" class="btn btn-primary  mb-3">Thêm tuyến dưới</a> ';
+            edit = '';
+
+            if(create_agency == 'active'){
+                edit += ' <a href="/addMember/?id='+dataAgency.id+'" class="btn btn-danger mb-3">Sửa thông tin</a>';
+
+                edit += ' <a href="/addMember/?id_father='+dataAgency.id+'" class="btn btn-primary  mb-3">Thêm tuyến dưới</a> ';
+            }
+
+            if(create_order_agency == '1'){
+                edit += ' <a href="/addOrderAgency/?id_member_buy='+dataAgency.id+'" class="btn btn-primary  mb-3">Tạo đơn hàng</a> ';
+            }
 
             if(dataAgency.status == 'active'){
                 status = '<div style="margin-top: 10px;margin-bottom: 10px;" class=""><a href="/updateStatusMember?id='+dataAgency.id+'&status=lock" class="btn btn-danger width-100  mb-3"><i class="fa fa-trash-o"></i>Khóa tài khoản</a> '+edit+'</div>';
@@ -239,7 +256,71 @@
                 zalo = ' <a target="_blank" href="'+dataAgency.zalo+'"><i class="bx bx-alarm-snooze"></i></a>';
             }
 
-            infoAgency= '<div id="infoManagerDown showDesktop" style="margin-top: 10px;margin-bottom: 10px;"><h2 class="text-center">Thông tin tài khoản</h2></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><img src="'+dataAgency.avatar+'" class="img-fluid" /></div><div class="text-right col-md-9 col-sm-9 col-xs-12"><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>ID:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.id+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Họ tên:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.name+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Chức danh:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.name_position+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Điện thoại:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.phone+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Email:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.email+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Địa chỉ:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.address+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Ngày tạo:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dateCreate+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Xác thực:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+verify+'</div></div><div class="row"><div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Ngày sinh:</b></div><div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.birthday+'</div></div><div class="row"><div class="mb-3 col-md-12 col-sm-12 col-xs-12">'+facebook+youtube+twitter+tiktok+web+instagram+linkedin+zalo+'</div></div><div class="row"><div class="text-right col-md-12 col-sm-12 col-xs-12"><img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='+linkProfile+dataAgency.id+'" width="100"/></div></div>'+status+'</div></div>';
+            infoAgency= '<div id="infoManagerDown showDesktop" style="margin-top: 10px;margin-bottom: 10px;">\
+                            <h2 class="text-center">Thông tin tài khoản</h2>\
+                        </div>\
+                        <div class="row">\
+                            <div class="text-right col-md-3 col-sm-3 col-xs-12">\
+                                <img src="'+dataAgency.avatar+'" class="img-fluid" />\
+                            </div>\
+                            <div class="text-right col-md-9 col-sm-9 col-xs-12">\
+                                <div class="row">\
+                                    <div class="text-right col-md-3 col-sm-3 col-xs-12">\
+                                        <b>ID:</b>\
+                                    </div>\
+                                    <div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.id+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="text-right col-md-3 col-sm-3 col-xs-12">\
+                                        <b>Họ tên:</b>\
+                                    </div>\
+                                    <div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.name+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="text-right col-md-3 col-sm-3 col-xs-12">\
+                                        <b>Chức danh:</b>\
+                                    </div>\
+                                    <div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.name_position+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Điện thoại:</b></div>\
+                                    <div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.phone+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Email:</b></div>\
+                                    <div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.email+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Địa chỉ:</b></div>\
+                                    <div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.address+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="text-right col-md-3 col-sm-3 col-xs-12"><b>Ngày tạo:</b></div>\
+                                    <div class="col-md-9 col-sm-9 col-xs-12">'+dateCreate+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="text-right col-md-3 col-sm-3 col-xs-12">\
+                                        <b>Xác thực:</b>\
+                                    </div>\
+                                    <div class="col-md-9 col-sm-9 col-xs-12">'+verify+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="text-right col-md-3 col-sm-3 col-xs-12">\
+                                        <b>Ngày sinh:</b>\
+                                    </div>\
+                                    <div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.birthday+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="mb-3 col-md-12 col-sm-12 col-xs-12">'+facebook+youtube+twitter+tiktok+web+instagram+linkedin+zalo+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="text-right col-md-12 col-sm-12 col-xs-12">\
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='+linkProfile+dataAgency.id+'" width="100"/>\
+                                    </div>\
+                                </div>\
+                                '+status+'\
+                            </div>\
+                        </div>';
             
             $('#infoAgency').html(infoAgency);
 

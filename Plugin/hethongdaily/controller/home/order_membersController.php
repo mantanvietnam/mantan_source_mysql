@@ -181,6 +181,99 @@ function addRequestProductAgency($input)
     }
 }
 
+function addOrderAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Tạo yêu cầu nhập hàng';
+
+        $modelProducts = $controller->loadModel('Products');
+        $modelOrderMembers = $controller->loadModel('OrderMembers');
+        $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
+        $modelMembers = $controller->loadModel('Members');
+
+        $mess = '';
+
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['idHangHoa']) && !empty($dataSend['id_member_buy'])){
+                $member_buy = $modelMembers->find()->where(array('id'=>(int) $dataSend['id_member_buy']))->first();
+
+                if(!empty($member_buy)){
+                    $save = $modelOrderMembers->newEmptyEntity();
+
+                    $save->id_member_sell = $member_buy->id_father;
+                    $save->id_member_buy = $member_buy->id;
+                    $save->note_sell = '';
+                    $save->note_buy = $dataSend['note'];
+                    $save->status = 'new';
+                    $save->create_at = time();
+                    $save->money = (int) $dataSend['total'];
+                    $save->total = (int) $dataSend['totalPays'];
+                    $save->status_pay = 'wait';
+                    $save->discount = $dataSend['promotion'];
+
+                    $modelOrderMembers->save($save);
+
+                    foreach ($dataSend['idHangHoa'] as $key => $value) {
+                        $saveDetail = $modelOrderMemberDetails->newEmptyEntity();
+
+                        $saveDetail->id_product = $value;
+                        $saveDetail->id_order_member = $save->id;
+                        $saveDetail->quantity = $dataSend['soluong'][$key];
+                        $saveDetail->price = $dataSend['money'][$key];
+
+                        $modelOrderMemberDetails->save($saveDetail);
+                    }
+
+                    $mess= '<p class="text-success">Gửi yêu cầu thành công</p>';
+
+                    return $controller->redirect('/printBillOrderMemberAgency/?id_order_member='.$save->id);
+                }else{
+                    $mess= '<p class="text-danger">Không tìm thấy đại lý mua hàng</p>';
+                }
+            }else{
+                $mess= '<p class="text-danger">Không thể tạo đơn do bạn chưa chọn sản phẩm</p>';
+            }
+        }
+
+        $listProduct = [];
+        if(function_exists('getAllProductActive')){
+            $listProduct = getAllProductActive();
+        }
+
+        // mức chiết khấu của đại lý theo chức danh
+        $position = [];
+        $member_buy = [];
+        $father = [];
+
+        if(!empty($_GET['id_member_buy'])){
+            $member_buy = $modelMembers->find()->where(array('id'=>(int) $_GET['id_member_buy']))->first();
+
+            if(!empty($member_buy)){
+                $father = $modelMembers->find()->where(array('id'=>$member_buy->id_father))->first();
+                $position = $modelCategories->find()->where(array('id'=>$member_buy->id_position))->first();
+            }
+        }
+        
+
+        setVariable('listProduct', $listProduct);
+        setVariable('position', $position);
+        setVariable('father', $father);
+        setVariable('mess', $mess);
+        setVariable('member_buy', $member_buy);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 function orderMemberAgency($input)
 {
     global $controller;
@@ -408,6 +501,56 @@ function updateOrderMemberAgency($input)
             return $controller->redirect('/orderMemberAgency');
         }
 
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function printBillOrderMemberAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Phiếu đơn hàng';
+
+        $modelMembers = $controller->loadModel('Members');
+        $modelProducts = $controller->loadModel('Products');
+        $modelOrderMembers = $controller->loadModel('OrderMembers');
+        $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
+
+        if(!empty($_GET['id_order_member'])){
+            $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id_order_member'], 'id_member_sell'=>$session->read('infoUser')->id])->first();
+
+            if(!empty($order)){
+                $detail_order = $modelOrderMemberDetails->find()->where(['id_order_member'=>$order->id])->all()->toList();
+
+                $order->detail = [];
+                
+                if(!empty($detail_order)){
+                    foreach ($detail_order as $k => $value) {
+                        $value->product = $modelProducts->find()->where(['id'=>(int) $value->id_product])->first();
+
+                        $order->detail[$k] = $value;
+                    }
+                }
+
+                $system = $modelCategories->find()->where(['id'=>(int) $session->read('infoUser')->id_system])->first();
+
+                $member_sell = $modelMembers->find()->where(['id'=>(int) $order->id_member_sell])->first();
+
+                setVariable('order', $order);
+                setVariable('system', $system);
+                setVariable('member_sell', $member_sell);
+            }else{
+                return $controller->redirect('/orderMemberAgency');
+            }
+        }else{
+            return $controller->redirect('/orderMemberAgency');
+        }
     }else{
         return $controller->redirect('/login');
     }

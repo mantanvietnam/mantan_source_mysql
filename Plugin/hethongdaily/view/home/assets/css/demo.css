@@ -108,3 +108,6 @@
 .nav-link{
   color: #000 !important;
 }
+.navbar-brand{
+  text-transform: uppercase;
+}

@@ -260,10 +260,6 @@ function listMember($input)
 	$modelMembers = $controller->loadModel('Members');
 
 	if(!empty($session->read('infoUser'))){
-		if($session->read('infoUser')->create_agency == 'lock'){
-			return $controller->redirect('/account');
-		}
-
 		$mess = '';
 		if(!empty($_GET['status'])){
 			switch($_GET['status']){
@@ -318,6 +314,9 @@ function addMember($input)
     global $urlHomes;
 
     if(!empty($session->read('infoUser'))){
+    	if($session->read('infoUser')->create_agency == 'lock'){
+			return $controller->redirect('/listMember');
+		}
 
 	    $metaTitleMantan = 'Thông tin đại lý tuyến dưới';
 

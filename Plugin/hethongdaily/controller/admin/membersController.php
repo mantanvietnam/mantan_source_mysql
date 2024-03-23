@@ -164,6 +164,8 @@ function addMemberAdmin($input)
                 $data->youtube = $dataSend['youtube'];
                 $data->description = $dataSend['description'];
                 $data->portrait = $dataSend['portrait'];
+                $data->create_agency = $dataSend['create_agency'];
+                $data->create_order_agency = (int) $dataSend['create_order_agency'];
 
 				if(empty($_GET['id'])){
 					if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
