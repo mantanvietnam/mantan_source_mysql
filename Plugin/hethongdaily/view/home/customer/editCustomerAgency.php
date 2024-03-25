@@ -27,7 +27,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
-                    <input type="text" disabled class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
+                    <input type="text" <?php if(!empty($_GET['id'])) echo 'disabled';?> class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
                   </div>
                 </div>
 
@@ -112,6 +112,28 @@
                         </select>
                       </div>
                     </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nhóm khách hàng</label>
+                    <ul class="list-inline">
+                      <?php
+                        if(!empty($listGroupCustomer)){
+                          foreach ($listGroupCustomer as $key => $value) {
+                            $checked = '';
+                            if(!empty($data->id_group) && $data->id_group==$value->id){
+                              $checked = 'checked';
+                            }
+
+                            echo '<li>
+                                    <input '.$checked.' type="radio" value="'.$value->id.'" name="id_group" /> '.$value->name.'
+                                  </li>';
+                          }
+                        }
+                      ?>
+                    </ul>
                   </div>
                 </div>
               </div>

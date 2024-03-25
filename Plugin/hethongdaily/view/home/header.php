@@ -119,6 +119,11 @@
               }
 
               if(in_array('hethongdaily', $plugins_site_value)){
+                echo '<li class="nav-item">
+                        <a class="nav-link" href="/listMember">Tuyến dưới</a>
+                      </li>';
+
+                /*
                 echo '  <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Hệ thống
@@ -131,6 +136,7 @@
                             }
                 echo      '</div>
                         </li>';
+                */
               }
 
               if(empty($session->read('infoUser')->id_father) && in_array('zalo_zns', $plugins_site_value)){
@@ -159,16 +165,35 @@
                       </li>';
               }
 
-              if(in_array('order_customer', $plugins_site_value)){
+              if(in_array('order_customer', $plugins_site_value) || in_array('order_system', $plugins_site_value) ){
                 echo '<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Kinh doanh
+                          Đơn hàng
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">';
+                        if(in_array('order_customer', $plugins_site_value)){
+                          echo '<a class="dropdown-item" href="/orderCustomerAgency">Đơn khách lẻ</a>';
+                        }
+
+                        if(in_array('order_system', $plugins_site_value)){
+                          echo '<a class="dropdown-item" href="/orderMemberAgency">Đơn đại lý</a>';
+                        }
+                          
+                echo    '</div>
+                      </li>';
+              }
+
+              if(in_array('customer', $plugins_site_value)){
+                echo '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Khách hàng
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                          <a class="dropdown-item" href="/orderCustomerAgency">Đơn hàng lẻ</a>
                           <a class="dropdown-item" href="/listCustomerAgency">Khách hàng</a>
                           <a class="dropdown-item" href="/listCustomerHistoriesAgency">Chăm sóc khách hàng</a>
+                          <a class="dropdown-item" href="/groupCustomerAgency">Nhóm khách hàng</a>
                         </div>
                       </li>';
               }
@@ -187,12 +212,6 @@
                       </li>';
               }
             ?>
-
-            <!--
-            <li class="nav-item">
-              <a class="nav-link" href="/warehouseProductAgency">Tồn kho</a>
-            </li>
-            -->
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -150,48 +150,148 @@ function editCustomerAgency($input)
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
+    global $urlHomes;
 
     if(!empty($session->read('infoUser'))){
-        $metaTitleMantan = 'Sửa thông tin khách hàng';
+        $metaTitleMantan = 'Thông tin khách hàng';
 
         $modelCustomers = $controller->loadModel('Customers');
+        $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
         if(!empty($_GET['id'])){
             $data = $modelCustomers->find()->where(['id'=>(int) $_GET['id'], 'id_parent'=>$session->read('infoUser')->id])->first();
 
-            if(!empty($data)){
-                $mess= '';
-                
-                if($isRequestPost){
-                    $dataSend = $input['request']->getData();
+            if(empty($data)){
+                return $controller->redirect('/listCustomerAgency');
+            }
 
-                    if(!empty($dataSend['full_name'])){
-                        $data->full_name = $dataSend['full_name'];
-                        $data->email = $dataSend['email'];
-                        $data->address = $dataSend['address'];
-                        $data->sex = (int) $dataSend['sex'];
-                        $data->id_city = (int) @$dataSend['id_city'];
-                        $data->avatar = $dataSend['avatar'];
-                        $data->birthday_date = (int) $dataSend['birthday_date'];
-                        $data->birthday_month = (int) $dataSend['birthday_month'];
-                        $data->birthday_year = (int) $dataSend['birthday_year'];
+            $note_now = 'Đại lý '.$session->read('infoUser')->name.' sửa thông tin khách hàng';
+            $action_now = 'edit';
+        }else{
+            $data = $modelCustomers->newEmptyEntity();
 
-                        $modelCustomers->save($data);
+            $note_now = 'Đại lý '.$session->read('infoUser')->name.' tạo mới thông tin khách hàng';
+            $action_now = 'create';
+        }
+            
+        $mess= '';
+        
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
 
-                        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            if(!empty($dataSend['full_name'])){
+                if(empty($_GET['id']) && !empty($dataSend['phone'])){
+                    $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+                    $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+                    $checkPhone = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
+
+                    if(!empty($checkPhone)){
+                        $mess= '<p class="text-danger">Số điện thoại này đã được sử dụng bởi khách hàng khác</p>';
                     }else{
-                        $mess= '<p class="text-danger">Bạn không được để trống các trường bắt buộc</p>';
+                        $data->phone = $dataSend['phone'];
+                        $data->status = 'active';
+                        $data->id_messenger = '';
+                        $data->pass = md5($data->phone);
+                        $data->id_parent = $session->read('infoUser')->id;
+                        $data->created_at = time();
                     }
                 }
 
-                setVariable('data', $data);
-                setVariable('mess', $mess);
+                if(empty($mess)){
+                    $data->full_name = $dataSend['full_name'];
+                    $data->email = $dataSend['email'];
+                    $data->address = $dataSend['address'];
+                    $data->sex = (int) $dataSend['sex'];
+                    $data->id_city = (int) @$dataSend['id_city'];
+                    $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:$urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
+                    $data->birthday_date = (int) $dataSend['birthday_date'];
+                    $data->birthday_month = (int) $dataSend['birthday_month'];
+                    $data->birthday_year = (int) $dataSend['birthday_year'];
+                    $data->id_group = (int) @$dataSend['id_group'];
+
+                    $modelCustomers->save($data);
+
+                    // lưu lịch sử khách hàng
+                    $customer_histories = $modelCustomerHistories->newEmptyEntity();
+
+                    $customer_histories->id_customer = $data->id;
+                    
+                    $customer_histories->time_now = time();
+                    $customer_histories->note_now = $note_now;
+                    $customer_histories->action_now = $action_now;
+                    $customer_histories->id_staff_now = $session->read('infoUser')->id;
+                    $customer_histories->status = 'done';
+
+                    $modelCustomerHistories->save($customer_histories);
+
+                    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                }
             }else{
-                return $controller->redirect('/listCustomerAgency');
+                $mess= '<p class="text-danger">Bạn không được để trống các trường bắt buộc</p>';
             }
-        }else{
-            return $controller->redirect('/listCustomerAgency');
         }
+
+        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
+
+        setVariable('data', $data);
+        setVariable('mess', $mess);
+        setVariable('listGroupCustomer', $listGroupCustomer);
+        
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function groupCustomerAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    $modelCustomers = $controller->loadModel('Customers');
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Nhóm khách hàng';
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            
+            // tính ID category
+            if(!empty($dataSend['idCategoryEdit'])){
+                $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+            }else{
+                $infoCategory = $modelCategories->newEmptyEntity();
+            }
+
+            // tạo dữ liệu save
+            $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $infoCategory->parent = $session->read('infoUser')->id;
+            $infoCategory->image = '';
+            $infoCategory->keyword = '';
+            $infoCategory->description = '';
+            $infoCategory->type = 'group_customer';
+            $infoCategory->slug = createSlugMantan($infoCategory->name);
+
+            $modelCategories->save($infoCategory);
+
+        }
+
+        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                $customers = $modelCustomers->find()->where(['id_group'=>$value->id])->all()->toList();
+                $listData[$key]->number_customer = count($customers);
+            }
+        }
+
+        setVariable('listData', $listData);
     }else{
         return $controller->redirect('/login');
     }

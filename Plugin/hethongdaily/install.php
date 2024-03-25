@@ -79,6 +79,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `birthday_year` INT NOT NULL , 
   `id_aff` INT NOT NULL DEFAULT '0' COMMENT 'id người tiếp thị liên kết',
   `created_at` INT NOT NULL,
+  `id_group` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -160,3 +161,5 @@ $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `portrait` VARCHAR(255) CHARACT
 $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `create_order_agency` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '1: được phép tạo đơn đại lý tuyến dưới, 0: không được phép tạo' AFTER `portrait`; ";
 
 $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `created_at` INT NOT NULL AFTER `id_aff`; ";
+
+$sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `id_group` INT NOT NULL DEFAULT '0' AFTER `created_at`; ";

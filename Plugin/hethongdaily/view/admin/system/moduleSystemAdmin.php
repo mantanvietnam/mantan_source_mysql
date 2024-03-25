@@ -45,6 +45,14 @@
                     <input type="checkbox" name="crm_module[]" value="training" <?php if(!empty($data_value) && in_array('training', $data_value)) echo 'checked';?> > Đào tạo
                   </div>
                 </div>
+
+                <div class="col-md-3">
+                  <div class="mb-3">
+                    <input type="checkbox" name="crm_module[]" value="customer" <?php if(!empty($data_value) && in_array('customer', $data_value)) echo 'checked';?> > Khách hàng
+                  </div>
+                </div>
+
+                
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>

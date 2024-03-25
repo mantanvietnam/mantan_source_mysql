@@ -289,6 +289,7 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
             $infoUser->birthday_date = (int) @$birthday_date;
             $infoUser->birthday_month = (int) @$birthday_month;
             $infoUser->birthday_year = (int) @$birthday_year;
+            $infoUser->created_at = time();
 
             $modelCustomers->save($infoUser);
 
