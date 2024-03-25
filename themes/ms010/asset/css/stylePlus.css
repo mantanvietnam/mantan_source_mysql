@@ -9,3 +9,13 @@
 .list-post .post-item .post-title{
     height: 39px;
 }
+
+#section-commit .commit-list .commit-item .commit-content .commit-description p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    height: 72px;
+
+}
