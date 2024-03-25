@@ -37,4 +37,10 @@ function sendZNSDataBot($data, $product_name, $name_system, $agency)
 
     $mesZNS = sendDataConnectMantan($urlZNS, $dataZNS);
 }
+
+function getCategorieProduct(){
+    global $modelCategories;
+    $conditionCategorieProduct = array('type' => 'category_product','status'=>'active');
+    return  $modelCategories->find()->where($conditionCategorieProduct)->all()->toList();
+}
 ?>
