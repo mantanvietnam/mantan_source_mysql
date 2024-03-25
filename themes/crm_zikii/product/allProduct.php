@@ -51,10 +51,6 @@ global $settingThemes;
                                 </ul>
                             </div>
                         </div>
-
-                        <div class="background-sidebar">
-                            <img src="<?php echo $settingThemes['image_qc']; ?>" alt="">
-                        </div>
                     </div>
 
                     <div class="col-lg-9 col-md-12">
@@ -64,7 +60,7 @@ global $settingThemes;
                                 <div class="category-product-filter-inner">
                                     <div class="input-search">
                                         <i class="fa-solid fa-magnifying-glass"></i>
-                                         <!-- <img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt=""> -->
+                                         
                                         <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="" name="key" aria-describedby="">                               
                                     </div>
 
