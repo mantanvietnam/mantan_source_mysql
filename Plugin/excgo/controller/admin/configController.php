@@ -42,3 +42,45 @@ function checkCompletedBookingAdmin($input)
 
     setVariable('mess', $mess);
 }
+
+function configSendEmailAdmin($input)
+{
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $modelOptions;
+
+    $metaTitleMantan = 'Cài đặt gửi Email';
+    $mess = '';
+
+    $config = $modelOptions->find()->where(['key_word' => 'configSendEmail'])->first();
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        
+        
+        if (empty($config)) {
+            $config = $modelOptions->newEmptyEntity();
+            $config->key_word = 'configSendEmail';
+        }
+
+        $value['listUpgradeRequestToDriverAdmin']= str_replace(' ', '', $dataSend['listUpgradeRequestToDriverAdmin']);
+        $value['listWithdrawRequestAdmin']= str_replace(' ', '', $dataSend['listWithdrawRequestAdmin']);
+        $value['listComplaintAdmin']= str_replace(' ', '', $dataSend['listComplaintAdmin']);
+        $value['listSupportAdmin']= str_replace(' ', '', $dataSend['listSupportAdmin']);
+
+        $config->value = json_encode($value);
+
+        $modelOptions->save($config);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($config->value)){
+        $data_value = json_decode($config->value, true);
+    }
+
+    setVariable('data_value', $data_value);
+    setVariable('mess', $mess);
+}

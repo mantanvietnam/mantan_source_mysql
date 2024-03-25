@@ -7,6 +7,8 @@
     Danh sách đơn hàng
   </h4>
 
+  <p><a href="/addOrderCustomer" class="btn btn-primary"><i class="bx bx-plus"></i> Tạo đơn hàng mới</a></p>
+
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">

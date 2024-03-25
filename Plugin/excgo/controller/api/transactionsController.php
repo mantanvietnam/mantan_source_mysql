@@ -43,12 +43,12 @@ function getListTransactionApi($input): array
 
         if (!empty($dataSend['from_date'])) {
             $startTime = DateTime::createFromFormat('d/m/Y', $dataSend['from_date']);
-            $conditions[] = ['Transactions.created_at >=' => $startTime];
+            $conditions[] = ['Transactions.created_at >=' => $startTime->format('Y-m-d').' 0:0:0'];
         }
 
         if (!empty($dataSend['to_date'])) {
             $finishTime = DateTime::createFromFormat('d/m/Y', $dataSend['to_date']);
-            $conditions[] = ['Transactions.created_at <=' => $finishTime];
+            $conditions[] = ['Transactions.created_at <=' => $finishTime->format('Y-m-d').' 23:59:59'];
         }
 
         if (!empty($dataSend['type']) && in_array((int) $dataSend['type'], $transactionType)) {

@@ -58,6 +58,12 @@ $menus[9]['sub'][0] = array('title' => 'Cài đặt phí sàn',
     'permission' => 'configServiceFeeAdmin',
 );
 
+$menus[9]['sub'][0] = array('title' => 'Cài đặt gửi email',
+    'url' => '/plugins/admin/excgo-view-admin-config-configSendEmailAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'configSendEmailAdmin',
+);
+
 $menus[10]['sub'][0] = array('title' => 'Kiểm tra cuốc xe đã hoàn thành',
     'url' => '/plugins/admin/excgo-view-admin-config-checkCompletedBookingAdmin.php',
     'classIcon' => 'bx bx-cog',
@@ -253,16 +259,25 @@ function sendEmailAddMoney($email = '', $name = '', $coin= '')
 function sendEmailWithdrawRequest($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
     global $controller;
-    $adminModel = $controller->loadModel('Admins');
-    $listAdmins = $adminModel->find()
-        ->where(['permission LIKE' => '%listWithdrawRequestAdmin%'])
-        ->all()
-        ->map(function ($item) {
-            return trim($item->email);
-        })->toList();
+    global $modelOptions;
+
     if(!empty($email)){
 
-        $to = [trim($email), ...$listAdmins];
+        $to = [trim($email)];
+
+        $configSendEmail = $modelOptions->find()->where(['key_word' => 'configSendEmail'])->first();
+        
+        $data_value = array();
+        if(!empty($configSendEmail->value)){
+            $data_value = json_decode($configSendEmail->value, true);
+        }
+
+        if(!empty($data_value['listWithdrawRequestAdmin'])){
+            $listSupportAdmin = explode(',', $data_value['listWithdrawRequestAdmin']);
+
+            $to += $listSupportAdmin;
+        }
+
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Tài xế yêu cầu rút tiền từ tài khoản';
@@ -340,16 +355,24 @@ function sendEmailWithdrawRequest($userName = '', $requestId = '', $email = 'exc
 function sendEmailUpgradeToDriver($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
     global $controller;
-    $adminModel = $controller->loadModel('Admins');
-    $listAdmins = $adminModel->find()
-        ->where(['permission LIKE' => '%listUpgradeRequestToDriverAdmin%'])
-        ->all()
-        ->map(function ($item) {
-            return trim($item->email);
-        })->toList();
+    global $modelOptions;
 
     if(!empty($email)){
-        $to = [trim($email), ...$listAdmins];
+        $to = [trim($email)];
+
+        $configSendEmail = $modelOptions->find()->where(['key_word' => 'configSendEmail'])->first();
+        
+        $data_value = array();
+        if(!empty($configSendEmail->value)){
+            $data_value = json_decode($configSendEmail->value, true);
+        }
+
+        if(!empty($data_value['listUpgradeRequestToDriverAdmin'])){
+            $listSupportAdmin = explode(',', $data_value['listUpgradeRequestToDriverAdmin']);
+
+            $to += $listSupportAdmin;
+        }
+
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Người dùng yêu cầu nâng cấp tài khoản thành tài xế';
@@ -427,16 +450,25 @@ function sendEmailUpgradeToDriver($userName = '', $requestId = '', $email = 'exc
 function sendEmailSupportRequest($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
     global $controller;
-    $adminModel = $controller->loadModel('Admins');
-    $listAdmins = $adminModel->find()
-        ->where(['permission LIKE' => '%listSupportAdmin%'])
-        ->all()
-        ->map(function ($item) {
-            return trim($item->email);
-        })->toList();
+    global $modelOptions;
 
     if(!empty($email)) {
-        $to = [trim($email), ...$listAdmins];
+        $to = [trim($email)];
+
+        $configSendEmail = $modelOptions->find()->where(['key_word' => 'configSendEmail'])->first();
+        
+        $data_value = array();
+        if(!empty($configSendEmail->value)){
+            $data_value = json_decode($configSendEmail->value, true);
+        }
+
+        if(!empty($data_value['listSupportAdmin'])){
+            $listSupportAdmin = explode(',', $data_value['listSupportAdmin']);
+
+            $to += $listSupportAdmin;
+        }
+
+
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Người dùng yêu cầu hỗ trợ';
@@ -514,16 +546,25 @@ function sendEmailSupportRequest($userName = '', $requestId = '', $email = 'excg
 function sendEmailComplaint($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
     global $controller;
-    $adminModel = $controller->loadModel('Admins');
-    $listAdmins = $adminModel->find()
-        ->where(['permission LIKE' => '%listComplaintAdmin%'])
-        ->all()
-        ->map(function ($item) {
-            return trim($item->email);
-        })->toList();
+    global $modelOptions;
+    
 
     if(!empty($email)) {
-        $to = [trim($email), ...$listAdmins];
+        $to = [trim($email)];
+
+        $configSendEmail = $modelOptions->find()->where(['key_word' => 'configSendEmail'])->first();
+        
+        $data_value = array();
+        if(!empty($configSendEmail->value)){
+            $data_value = json_decode($configSendEmail->value, true);
+        }
+
+        if(!empty($data_value['listComplaintAdmin'])){
+            $listSupportAdmin = explode(',', $data_value['listComplaintAdmin']);
+
+            $to += $listSupportAdmin;
+        }
+
         $cc = array();
         $bcc = array();
         $subject = '[EXC-GO] ' . 'Người dùng yêu cầu khiếu nại';

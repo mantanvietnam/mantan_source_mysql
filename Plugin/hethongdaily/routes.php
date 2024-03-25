@@ -20,6 +20,7 @@
 	
 	$routesPlugin['getListCustomerAPI']= 'hethongdaily/view/api/getListCustomerAPI.php';
 	$routesPlugin['getInfoCustomerAPI']= 'hethongdaily/view/api/getInfoCustomerAPI.php';
+	$routesPlugin['searchCustomerAPI']= 'hethongdaily/view/api/searchCustomerAPI.php';
 	
 	$routesPlugin['getListCustomerHistoriesAPI']= 'hethongdaily/view/api/getListCustomerHistoriesAPI.php';
 	$routesPlugin['saveCustomerHistoryAPI']= 'hethongdaily/view/api/saveCustomerHistoryAPI.php';
@@ -59,6 +60,8 @@
 	$routesPlugin['viewOrderCustomerAgency']= 'hethongdaily/view/home/product/viewOrderCustomerAgency.php';
 	$routesPlugin['deleteOrderCustomerAgency']= 'hethongdaily/view/home/product/deleteOrderCustomerAgency.php';
 	$routesPlugin['updateStatusOrderAgency']= 'hethongdaily/view/home/product/updateStatusOrderAgency.php';
+	$routesPlugin['addOrderCustomer']= 'hethongdaily/view/home/product/addOrderCustomer.php';
+	$routesPlugin['printBillOrderCustomerAgency']= 'hethongdaily/view/home/product/printBillOrderCustomerAgency.php';
 
 	// yêu cầu mua hàng
 	$routesPlugin['requestProductAgency']= 'hethongdaily/view/home/order/requestProductAgency.php';

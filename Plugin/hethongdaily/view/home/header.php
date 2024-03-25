@@ -102,67 +102,91 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Hệ thống
-              </a>
+            <?php
+              global $modelOptions;
+              /* 
+              hethongdaily
+              order_system
+              order_customer
+              zalo_zns
+              training
+              */
+              $conditions = array('key_word' => 'crm_module');
+              $plugins_site = $modelOptions->find()->where($conditions)->first();
+              $plugins_site_value = array();
+              if(!empty($plugins_site->value)){
+                  $plugins_site_value = json_decode($plugins_site->value, true);
+              }
 
-              <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <a class="dropdown-item" href="/listMember">Tuyến dưới</a>
-                <a class="dropdown-item" href="/orderMemberAgency">Đơn mua hàng</a>
-              </div>
-            </li>
+              if(in_array('hethongdaily', $plugins_site_value)){
+                echo '  <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hệ thống
+                          </a>
 
-            <?php if(empty($session->read('infoUser')->id_father)){ ?>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Zalo OA
-                </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <a class="dropdown-item" href="/listMember">Tuyến dưới</a>';
+                            if(in_array('order_system', $plugins_site_value)){
+                              echo '<a class="dropdown-item" href="/orderMemberAgency">Đơn mua hàng</a>';
+                            }
+                echo      '</div>
+                        </li>';
+              }
 
-                <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                  <a class="dropdown-item" href="/sendMessZaloOA">Gửi tin Zalo OA</a>
-                  <a class="dropdown-item" href="/setttingZaloOA">Cài đặt Zalo OA</a>
-                  <!--
-                  <a class="dropdown-item" href="/listPosition">Cài đặt chức danh</a>
-                  -->
-                </div>
-              </li>
-            <?php }?>
+              if(empty($session->read('infoUser')->id_father) && in_array('zalo_zns', $plugins_site_value)){
+                echo '  <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Zalo OA
+                          </a>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Đào tạo
-              </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <a class="dropdown-item" href="/sendMessZaloOA">Gửi tin Zalo OA</a>
+                            <a class="dropdown-item" href="/setttingZaloOA">Cài đặt Zalo OA</a>
+                          </div>
+                        </li>';
+              }
 
-              <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <a class="dropdown-item" href="/courses">Khóa học</a>
-                <a class="dropdown-item" href="/history-test">Lịch sử thi</a>
-              </div>
-            </li>
-            
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Kinh doanh
-              </a>
+              if(in_array('training', $plugins_site_value)){
+                echo '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Đào tạo
+                        </a>
 
-              <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <a class="dropdown-item" href="/orderCustomerAgency">Đơn hàng lẻ</a>
-                <a class="dropdown-item" href="/listCustomerAgency">Khách hàng</a>
-                <a class="dropdown-item" href="/listCustomerHistoriesAgency">Chăm sóc khách hàng</a>
-              </div>
-            </li>
+                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                          <a class="dropdown-item" href="/courses">Khóa học</a>
+                          <a class="dropdown-item" href="/history-test">Lịch sử thi</a>
+                        </div>
+                      </li>';
+              }
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Kho hàng
-              </a>
+              if(in_array('order_customer', $plugins_site_value)){
+                echo '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Kinh doanh
+                        </a>
 
-              <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <a class="dropdown-item" href="/warehouseProductAgency">Tồn kho</a>
-                <a class="dropdown-item" href="/requestProductAgency">Yêu cầu nhập hàng</a>
-                <a class="dropdown-item" href="/historyWarehouseProductAgency">Lịch sử xuất nhập hàng</a>
-              </div>
-            </li>
+                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                          <a class="dropdown-item" href="/orderCustomerAgency">Đơn hàng lẻ</a>
+                          <a class="dropdown-item" href="/listCustomerAgency">Khách hàng</a>
+                          <a class="dropdown-item" href="/listCustomerHistoriesAgency">Chăm sóc khách hàng</a>
+                        </div>
+                      </li>';
+              }
+
+              if(in_array('order_system', $plugins_site_value)){
+                echo '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Kho hàng
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                          <a class="dropdown-item" href="/warehouseProductAgency">Tồn kho</a>
+                          <a class="dropdown-item" href="/requestProductAgency">Yêu cầu nhập hàng</a>
+                          <a class="dropdown-item" href="/historyWarehouseProductAgency">Lịch sử xuất nhập hàng</a>
+                        </div>
+                      </li>';
+              }
+            ?>
 
             <!--
             <li class="nav-item">

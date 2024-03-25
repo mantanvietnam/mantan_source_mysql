@@ -4,6 +4,7 @@ global $sqlDeleteDatabase;
 
 $sqlInstallDatabase = '';
 $sqlDeleteDatabase = '';
+$sqlUpdateDatabase = '';
 
 $sqlInstallDatabase .= "CREATE TABLE `products` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
@@ -50,6 +51,7 @@ $sqlInstallDatabase .= "CREATE TABLE `orders` (
     `id_discount` INT NULL DEFAULT NULL, 
     `id_agency` INT NOT NULL DEFAULT '0', 
     `id_aff` INT NULL DEFAULT '0',
+    `promotion` INT NOT NULL DEFAULT '0' COMMENT 'Phần trăm giảm giá',
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .= "CREATE TABLE `order_details` ( 
@@ -101,4 +103,7 @@ $sqlDeleteDatabase .= "DROP TABLE address; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_product'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='manufacturer_product'; ";
+
+// 2.0
+$sqlUpdateDatabase .= "ALTER TABLE `orders` ADD `promotion` INT NOT NULL DEFAULT '0' COMMENT 'Phần trăm giảm giá' AFTER `id_aff`; ";
 ?>

@@ -1,4 +1,74 @@
 <?php 
+function searchCustomerAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $modelCategories;
+
+    $return= array();
+    $modelCustomers = $controller->loadModel('Customers');
+
+    $dataSend = $_REQUEST;
+
+    
+    $conditions = [];
+
+    if(!empty($dataSend['term'])){
+        $conditions['full_name LIKE'] = '%'.$dataSend['term'].'%';
+    }
+
+    if(!empty($dataSend['id'])){
+        $conditions['id'] = (int) $dataSend['id'];
+    }
+
+    if(!empty($dataSend['phone'])){
+        $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+        $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+        $conditions['phone'] = $dataSend['phone'];
+    }
+
+    if(!empty($dataSend['email'])){
+        $conditions['email'] = $dataSend['email'];
+    }
+
+    if(!empty($dataSend['status'])){
+        $conditions['status'] = $dataSend['status'];
+    }
+
+    if(!empty($dataSend['id_member'])){
+        $conditions['id_parent'] = (int) $dataSend['id_member'];
+    }
+
+    $listData= $modelCustomers->find()->where($conditions)->all()->toList();
+    
+    if($listData){
+        foreach($listData as $data){
+            $return[]= array(   'id'=>$data->id,
+                                'label'=>$data->full_name.' '.$data->phone,
+                                'value'=>$data->id,
+                                'full_name'=>$data->full_name,
+                                'avatar'=>$data->avatar,
+                                'phone'=>$data->phone,
+                                'id_member'=>$data->id_parent,
+                                'email'=>$data->email,
+                                'status'=>$data->status,
+                                'created_at'=>$data->created_at,
+                                'address'=>$data->address,
+                            );
+        }
+    }else{
+        $return= array(array(   'id'=>0, 
+                                'label'=>'Không tìm được đại lý', 
+                                'value'=>'', 
+                            )
+                );
+    }
+        
+
+    return $return;
+}
+
 function getListCustomerAPI($input)
 {
     global $isRequestPost;

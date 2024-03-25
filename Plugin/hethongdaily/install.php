@@ -78,6 +78,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `birthday_month` INT NOT NULL , 
   `birthday_year` INT NOT NULL , 
   `id_aff` INT NOT NULL DEFAULT '0' COMMENT 'id người tiếp thị liên kết',
+  `created_at` INT NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -157,3 +158,5 @@ $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `token_device` VARCHAR(500) CHA
 $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ảnh chân dung' AFTER `last_login`; ";
 
 $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `create_order_agency` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '1: được phép tạo đơn đại lý tuyến dưới, 0: không được phép tạo' AFTER `portrait`; ";
+
+$sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `created_at` INT NOT NULL AFTER `id_aff`; ";

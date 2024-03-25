@@ -172,10 +172,13 @@ function addRequestProductAgency($input)
 
         $father = $modelMembers->find()->where(array('id'=>$session->read('infoUser')->id_father))->first();
 
+        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system])->all()->toList();
+
         setVariable('listProduct', $listProduct);
         setVariable('position', $position);
         setVariable('father', $father);
         setVariable('mess', $mess);
+        setVariable('listPositions', $listPositions);
     }else{
         return $controller->redirect('/login');
     }
@@ -253,6 +256,8 @@ function addOrderAgency($input)
         $position = [];
         $member_buy = [];
         $father = [];
+        
+        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system])->all()->toList();
 
         if(!empty($_GET['id_member_buy'])){
             $member_buy = $modelMembers->find()->where(array('id'=>(int) $_GET['id_member_buy']))->first();
@@ -269,6 +274,7 @@ function addOrderAgency($input)
         setVariable('father', $father);
         setVariable('mess', $mess);
         setVariable('member_buy', $member_buy);
+        setVariable('listPositions', $listPositions);
     }else{
         return $controller->redirect('/login');
     }

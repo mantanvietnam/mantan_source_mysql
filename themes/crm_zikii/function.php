@@ -43,4 +43,10 @@ function getCategorieProduct(){
     $conditionCategorieProduct = array('type' => 'category_product','status'=>'active');
     return  $modelCategories->find()->where($conditionCategorieProduct)->all()->toList();
 }
+
+function getPostPin(){
+    global $modelPosts;
+
+    return $modelPosts->find()->limit(5)->where(array('pin'=>1))->all()->toList();
+}
 ?>

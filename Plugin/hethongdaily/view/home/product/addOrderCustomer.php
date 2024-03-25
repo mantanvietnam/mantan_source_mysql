@@ -121,8 +121,8 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/requestProductAgency">Yêu cầu nhập hàng</a> /</span>
-    Tạo yêu cầu
+    <span class="text-muted fw-light"><a href="/orderCustomerAgency">Đơn hàng lẻ</a> /</span>
+    Tạo đơn hàng
   </h4>
 
     <form id="summary-form" action="" method="post" class="form-horizontal">
@@ -217,16 +217,9 @@
                                     </li>
 
                                     <li>
-                                        <span>Đại lý mua hàng (*)</span>
-                                        <span><input class="per-bh form-control" type="text" name="member_buy" id="member_buy" placeholder="Nhập tên hoặc SĐT" value="<?php if(!empty($member_buy)) echo $member_buy->name.' '.$member_buy->phone;?>" autocomplete="off" required /></span>
-                                        <input type="hidden" name="id_member_buy" id="id_member_buy" value="<?php echo @$member_buy->id;?>">
-                                    </li>
-
-                                    <li class="total-bh">
-                                        <p>Đại lý tuyến trên</p>
-                                        <p id="father_info">
-                                            <?php if(!empty($father)) echo @$father->name.' '.@$father->phone;?>
-                                        </p>
+                                        <span>Khách mua hàng (*)</span>
+                                        <span><input class="per-bh form-control" type="text" name="customer_buy" id="customer_buy" placeholder="Nhập tên hoặc SĐT" value="" autocomplete="off" required /></span>
+                                        <input type="hidden" name="id_customer" id="id_customer" value="">
                                     </li>
 
                                     <li style="display: contents;"><span>Ghi chú</span><br/>
@@ -237,8 +230,8 @@
 
                             <div class="action-cta">
                                 <ul>
-                                    <li><a href="/addRequestProductAgency" class="btn  btn-secondary">Nhập lại</a></li>
-                                    <li><a href="javascript:void(0);" class="btn btn-danger" onclick="createOrder();">Tạo yêu cầu nhập hàng</a></li>
+                                    <li><a href="/addOrderCustomer" class="btn  btn-secondary">Nhập lại</a></li>
+                                    <li><a href="javascript:void(0);" class="btn btn-danger" onclick="createOrder();">Tạo yêu cầu mua hàng</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -255,36 +248,8 @@ var listProductAdd= {};
 var row=0;
 var numberProduct= 0;
 var checkProduct= true;
-var member_buy = '<?php if(!empty($member_buy)) echo $member_buy->name.' '.$member_buy->phone;?>';
-var listPositions = {}
 
-<?php
-if(!empty($listPositions)){
-    foreach ($listPositions as $key => $value) {
-        echo '  listPositions['.$key.'] = {};
-                listPositions['.$key.']["minMoney"] = '.(int) $value->keyword.';
-                listPositions['.$key.']["discount"] = '.(int) $value->description.';
-            ';
-    }
-}
-?>
-
-function checkDiscountConfig(money)
-{
-    var discount = 0;
-
-    Object.keys(listPositions).forEach(function(key) {
-        if(money >= listPositions[key]['minMoney']){
-            discount = listPositions[key]['discount'];
-        }
-    });
-
-    $('#promotion').val(discount);
-
-    return discount;
-}
-
-// all sản phầm vào đơn hàng 
+// add sản phẩm vào đơn hàng 
 function addProduct(id, name, priceProduct)
 {
     if(listProductAdd.hasOwnProperty(id)){
@@ -359,8 +324,6 @@ function tinhtien()
             }
         }
 
-        checkDiscountConfig(total);
-
         // giảm giá
         var promotion= $('#promotion').val();
         if(promotion<=100){
@@ -391,18 +354,18 @@ function createOrder()
     tinhtien();
 
     var r;
-    var id_member_buy = $('#id_member_buy').val();
+    var id_customer = $('#id_customer').val();
 
     if(numberProduct>0){
-        if(id_member_buy != '' && id_member_buy!='0'){
-            r = confirm("Bạn muốn tạo yêu cầu nhập hàng cho đại lý "+member_buy+" đúng không?");
+        if(id_customer != '' && id_customer!='0'){
+            r = confirm("Bạn muốn tạo đơn hàng bán lẻ đúng không?");
             if (r == true) {
                 if(checkProduct){
                     $('#summary-form').submit();
                 }
             }
         }else{
-            alert('Bạn chưa chọn đại lý nào');
+            alert('Bạn chưa chọn khách hàng');
         }
     }else{
         alert('Bạn chưa chọn sản phẩm nào');
@@ -462,7 +425,7 @@ function createOrder()
             }
         });
 
-        $( "#member_buy" )
+        $( "#customer_buy" )
         // don't navigate away from the field on tab when selecting an item
         .bind( "keydown", function( event ) {
             if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
@@ -471,7 +434,7 @@ function createOrder()
         })
         .autocomplete({
             source: function( request, response ) {
-                $.getJSON( "/apis/searchMemberAPI", {
+                $.getJSON( "/apis/searchCustomerAPI", {
                     term: extractLast( request.term )
                 }, response );
             },
@@ -494,12 +457,8 @@ function createOrder()
                 // add the selected item
                 terms.push( ui.item.label );
                 
-                $( "#member_buy" ).val(ui.item.label);
-                $( "#id_member_buy" ).val(ui.item.id);
-                //$( "#promotion" ).val(ui.item.discount);
-                $( "#father_info" ).html('');
-
-                member_buy = ui.item.label;
+                $( "#customer_buy" ).val(ui.item.label);
+                $( "#id_customer" ).val(ui.item.id);
 
                 return false;
             }

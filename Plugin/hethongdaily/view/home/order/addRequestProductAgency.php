@@ -207,7 +207,7 @@
 
                                     <li>
                                         <span>Chiết khấu (%)</span>
-                                        <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="<?php echo @$position->description;?>" autocomplete="off" readonly /></span>
+                                        <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="0" autocomplete="off" readonly /></span>
                                     </li>
                                     
                                     <li class="total-bh">
@@ -249,6 +249,33 @@ var listProductAdd= {};
 var row=0;
 var numberProduct= 0;
 var checkProduct= true;
+var listPositions = {}
+
+<?php
+if(!empty($listPositions)){
+    foreach ($listPositions as $key => $value) {
+        echo '  listPositions['.$key.'] = {};
+                listPositions['.$key.']["minMoney"] = '.(int) $value->keyword.';
+                listPositions['.$key.']["discount"] = '.(int) $value->description.';
+            ';
+    }
+}
+?>
+
+function checkDiscountConfig(money)
+{
+    var discount = 0;
+
+    Object.keys(listPositions).forEach(function(key) {
+        if(money >= listPositions[key]['minMoney']){
+            discount = listPositions[key]['discount'];
+        }
+    });
+
+    $('#promotion').val(discount);
+
+    return discount;
+}
 
 // all sản phầm vào đơn hàng 
 function addProduct(id, name, priceProduct)
@@ -322,17 +349,19 @@ function tinhtien()
                  
                 money = new Intl.NumberFormat().format(money);
                 $('#totalmoney'+i).html(money+'đ');
-
-                // giảm giá
-                var promotion= $('#promotion').val();
-                if(promotion<=100){
-                    promotion= total*promotion/100;
-                }
-                
-                // tổng tiền cần thanh toán
-                totalPay= total-promotion;
             }
         }
+
+        checkDiscountConfig(total);
+
+        // giảm giá
+        var promotion= $('#promotion').val();
+        if(promotion<=100){
+            promotion= total*promotion/100;
+        }
+        
+        // tổng tiền cần thanh toán
+        totalPay= total-promotion;
 
         // thành tiền
         document.getElementById("total").value = total;

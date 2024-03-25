@@ -7,6 +7,12 @@
     Danh sách đơn hàng
   </h4>
 
+  <?php 
+  if($session->read('infoUser')->create_order_agency == 1){
+    echo '<p><a href="/addOrderAgency" class="btn btn-primary"><i class="bx bx-plus"></i> Tạo đơn hàng mới</a></p>';
+  }
+  ?>
+
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
