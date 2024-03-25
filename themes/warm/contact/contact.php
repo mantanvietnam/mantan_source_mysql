@@ -21,12 +21,14 @@
 
         <section id="section-form-contact">
             <div class="container">
-                <form  id="formContact" onsubmit="" action="<?= $routesPlugin["contact"] ?>" method="post" class="form-custom-1 py-3">
+                <!-- <?= $routesPlugin["contact"] ?> -->
+                <form  id="formContact" onsubmit="" action="" method="post" class="form-custom-1 py-3">
                 <div class="row row-form-contact">
                     <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                         <div class="form-contact-inner col-lg-9 col-md-8 col-sm-8 col-12">
                             <div class="title-form">
                                 <p>For more information about WARM facility or to find out how you can help be a part of the solution, please fill in the form below.</p>
+                                <p><?php echo @$mess; ?></p>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-contact-box">
                                 <label for="name" class="form-label">Name <span>Please enter your full name</span></label>
