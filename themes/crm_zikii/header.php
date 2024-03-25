@@ -18,6 +18,13 @@
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/assert/css/style.css">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/assert/css/stylePlus.css">
 
+    <!-- slick -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+
     
     <?php 
         global $setting_value;
@@ -33,11 +40,16 @@
 <body>
     <style type="text/css">
         <?php 
-            if(!empty($setting_value['background_image_1'])){
-                echo '.wrapper{
-                    background-image: url(\''.$setting_value['background_image_1'].'\');
-                }';
-            }
+            // if(!empty($setting_value['background_image_1'])){
+            //     echo '.wrapper{
+            //         background-image: url(\''.$setting_value['background_image_1'].'\');
+            //         background-position: center center;
+            //         background-repeat: no-repeat;
+            //         background-size: cover;
+            //         opacity: 1;
+            //         transition: background .3s, border-radius .3s, opacity .3s;
+            //     }';
+            // }
 
             if(!empty($setting_value['background_image_2'])){
                 echo '.register{

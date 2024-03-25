@@ -74,6 +74,8 @@
                 </div>
         </footer>
     </div>
-</body>
 
+    <script src="<?php echo $urlThemeActive ?>assert/js/slick.js"></script>
+
+</body>
 </html>

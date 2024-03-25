@@ -6,7 +6,7 @@
 
 ?>
  <main>
-        <section id="section-produce">
+        <section id="section-produce" class="section-padding">
             <div class="container">
                 <p class="bgr"><a href="/">Trang chủ</a> / <a href="/allProduct">Sản phẩm</a> / <?php echo $product->title; ?></p>
 

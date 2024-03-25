@@ -27,7 +27,7 @@ global $settingThemes;
             </div>
         </section>
 
-        <section id="section-category-product-page" class="">
+        <section id="section-category-product-page" class="section-padding">
             <div class="container">
                 <div class="row">
                     <!-- sidebar -->
@@ -91,7 +91,7 @@ global $settingThemes;
                                 <?php  if(!empty($list_product)){
                                 foreach ($list_product as $product) {
                                     $link = '/san-pham/'.$product->slug.'.html';
-                                    echo '<div class="col-lg-3 col-md-6 col-6 product-hot-item">
+                                    echo '<div class="col-lg-4 col-md-6 col-6 product-hot-item">
                                         <div class="product-hot-item-inner">
                                             <div class="product-hot-image">
                                                 <a href="'.$link.'">

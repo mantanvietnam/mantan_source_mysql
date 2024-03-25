@@ -2,6 +2,20 @@
     global $setting_value;
     getHeader();
 ?>
+    <style type="text/css">
+        <?php 
+            if(!empty($setting_value['background_image_1'])){
+                echo '.wrapper{
+                    background-image: url(\''.$setting_value['background_image_1'].'\');
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    opacity: 1;
+                    transition: background .3s, border-radius .3s, opacity .3s;
+                }';
+            }
+        ?>
+    </style>
 
     <div class="main">
         <div class="container">
