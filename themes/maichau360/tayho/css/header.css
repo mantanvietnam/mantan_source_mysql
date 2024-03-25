@@ -328,6 +328,10 @@ q:after {
     content: none;
 }
 
+strong{
+    font-weight: bold;
+}
+
   
 #header .search-area {
     background-color: #4D9F91;

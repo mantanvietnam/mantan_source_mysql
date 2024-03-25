@@ -4931,3 +4931,17 @@ main {
         right: 38px;
     }
 }
+
+
+strong{
+	font-weight: bold !important;
+}
+
+.content-information li{
+	list-style: auto;
+    list-style-position: inside;
+}
+
+.content-information li::marker {
+	font-weight: bold !important;
+}
