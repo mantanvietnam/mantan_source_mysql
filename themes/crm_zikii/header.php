@@ -112,6 +112,9 @@
                                     }
                                 ?>
                             </ul>
+                            <a href="/cart" class="cart-menu">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </a>
                             <button onclick="window.location = '/login';" class="btn-login"><span>ĐĂNG NHẬP </span><i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </div>

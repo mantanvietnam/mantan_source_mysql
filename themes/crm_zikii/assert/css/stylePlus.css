@@ -1899,6 +1899,7 @@
 .no-produce p {
     font-size: 20px;
     margin-bottom: 40px;
+    color: #000;
 }
 
 .no-produce a {
@@ -1911,6 +1912,7 @@
     border: none;
     font-size: 19px;
     font-weight: 600;
+    line-height: 53px;
 }
 
 .no-produce img {
@@ -2852,4 +2854,9 @@ header .topbar .topbar-box .topbar-left p{
     #section-banner{
         padding-bottom: 20px !important;
     }
+}
+
+.cart-menu i{
+    color: #fff;
+    font-size: 20px;
 }
