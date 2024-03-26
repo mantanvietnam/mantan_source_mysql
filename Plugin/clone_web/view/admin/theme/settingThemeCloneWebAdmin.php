@@ -22,6 +22,7 @@ if(file_exists(__DIR__.'/../../../../../themes/'.$theme.'/setting_theme_clone_we
 
                     <div class="col-md-6">
                         <p><b>%facebook%</b>: Link trang facebook của đại lý</p>
+                        <p><b>%instagram%</b>: Link trang instagram của đại lý</p>
                         <p><b>%tiktok%</b>: Link trang tiktok của đại lý</p>
                         <p><b>%youtube%</b>: Link trang youtube của đại lý</p>
                         <p><b>%zalo%</b>: Link trang zalo của đại lý</p>

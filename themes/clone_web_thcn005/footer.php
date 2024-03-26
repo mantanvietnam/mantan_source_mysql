@@ -3,7 +3,7 @@ global $urlThemeActive;
 $setting = setting(); 
 ?>
    
-    <section id="contact" style="background-image: url(<?php echo @$setting['background_4'];?>);">
+    <section id="contact" style="background-image: url(<?php echo show_text_clone(@$setting['background_4']);?>);">
         <div class="testimonial-overlay"></div>
         <div class="container">
             <div class="row">
@@ -19,7 +19,7 @@ $setting = setting();
             <div class="row">
                 <div class="col-lg-6 log-md-6 col-sm-12">
                     <div class="contact-img">
-                        <img src="<?php echo @$setting['image_cd'];?>" alt="">
+                        <img src="<?php echo show_text_clone(@$setting['image_cd']);?>" alt="">
                     </div>
                 </div>
 
@@ -31,10 +31,13 @@ $setting = setting();
                         </div>
                         <div class="contact-text">
                             <p>
-                                <span>Số điện thoại :</span> <?php echo @$setting['phone'] ?>
+                                <span>Số điện thoại :</span> <?php echo show_text_clone(@$setting['phone']); ?>
                             </p>
                             <p>
-                                <span>Email  :</span> <?php echo @$setting['email'] ?>
+                                <span>Email  :</span> <?php echo show_text_clone(@$setting['email']); ?>
+                            </p>
+                            <p>
+                                <span>Địa chỉ  :</span> <?php echo show_text_clone(@$setting['address']); ?>
                             </p>
                         </div>
                         <form action="">
@@ -75,15 +78,15 @@ $setting = setting();
                 </div>
             </div>
             <div class="copy-right">
-                <p><?php echo @$setting['textfooter'] ?></p>
+                <p><?php echo show_text_clone(@$setting['textfooter']); ?></p>
             </div>
             <div class="footer-icon">
                 <ul>
-                    <li><a href="<?php echo @$setting['facebook'] ?>"><i class="fa-brands fa-facebook-f"></i></a></li>
-                    <li><a href="<?php echo @$setting['twitter'] ?>"><i class="fa-brands fa-twitter"></i></a></li>
-                    <li><a href="<?php echo @$setting['instagram'] ?>"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="<?php echo @$setting['behance'] ?>"><i class="fa-brands fa-behance"></i></a></li>
-                    <li><a href="<?php echo @$setting['dribbble'] ?>"><i class="fa-brands fa-dribbble"></i></a></li>
+                    <li><a href="<?php echo show_text_clone(@$setting['facebook']); ?>"><i class="fa-brands fa-facebook-f"></i></a></li>
+                    <li><a href="<?php echo show_text_clone(@$setting['youtube']); ?>"><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href="<?php echo show_text_clone(@$setting['instagram']); ?>"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="<?php echo show_text_clone(@$setting['zalo']); ?>"><i class="fa-solid fa-z"></i></a></li>
+                    <li><a href="<?php echo show_text_clone(@$setting['instagram']); ?>"><i class="fa-brands fa-instagram"></i></a></li>
                 </ul>
             </div>
         </div>

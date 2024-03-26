@@ -183,30 +183,30 @@
                     </div>
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <label class="form-label" for="basic-default-fullname">Id album ảnh dước</label>
+                    <label class="form-label" for="basic-default-fullname">Id album ảnh dưới</label>
                     <input type="text" class="form-control" name="id_album2" value="<?php echo @$data['id_album2'];?>" />
                   </div>
               </div>
               <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
                 <div class="row">
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <label class="form-label" for="basic-default-fullname">chữ đỏ</label>
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề</label>
                     <input type="text" class="form-control" name="textred" value="<?php echo @$data['textred'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                      <label class="form-label" for="basic-default-fullname">ảnh Nền trên</label>
+                      <label class="form-label" for="basic-default-fullname">Ảnh nền background</label>
                       <?php showUploadFile('background_4','background_4', @$data['background_4'],7);?>
                     </div>
                   </div>
-                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <label class="form-label" for="basic-default-fullname">chữ trắng</label>
-                    <input type="text" class="form-control" name="textwhite" value="<?php echo @$data['textwhite'];?>" />
+                  <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <label class="form-label" for="basic-default-fullname">Mô tả</label>
+                    <?php showEditorInput('textwhite', 'textwhite', @$data['textwhite']);?>
                   </div>
               </div>
               <div class="tab-pane fade" id="navs-top-evaluate" role="tabpanel">
                 <div class="row">
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <label class="form-label" for="basic-default-fullname">id bàn vết</label>
+                    <label class="form-label" for="basic-default-fullname">ID chuyên mục khóa học</label>
                     <input type="text" class="form-control" name="id_post" value="<?php echo @$data['id_post'];?>" />
                   </div>
                 </div>
@@ -226,20 +226,20 @@
                     <input type="text" class="form-control" name="facebook" value="<?php echo @$data['facebook'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <label class="form-label" for="basic-default-fullname">twitter</label>
-                    <input type="text" class="form-control" name="twitter" value="<?php echo @$data['twitter'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Youtube</label>
+                    <input type="text" class="form-control" name="youtube" value="<?php echo @$data['youtube'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <label class="form-label" for="basic-default-fullname">instagram</label>
                     <input type="text" class="form-control" name="instagram" value="<?php echo @$data['instagram'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <label class="form-label" for="basic-default-fullname">id bàn vết</label>
-                    <input type="text" class="form-control" name="behance" value="<?php echo @$data['behance'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Link trang Zalo</label>
+                    <input type="text" class="form-control" name="zalo" value="<?php echo @$data['zalo'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <label class="form-label" for="basic-default-fullname">dribbble</label>
-                    <input type="text" class="form-control" name="dribbble" value="<?php echo @$data['dribbble'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Tiktok</label>
+                    <input type="text" class="form-control" name="tiktok" value="<?php echo @$data['tiktok'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <label class="form-label" for="basic-default-fullname">chữ chân trang</label>

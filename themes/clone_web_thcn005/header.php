@@ -15,6 +15,7 @@ $setting = setting();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <title>Document</title> -->
     <link rel="stylesheet" href="<?php echo $urlThemeActive ?>/css/main.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive ?>/css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
     <!-- SLick -->
@@ -37,7 +38,7 @@ $setting = setting();
         <div class="main-header" id="menu-top">
             <nav class="navbar navbar-expand-lg menu-nav">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <img src="<?php echo @$setting['logo'];?>">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

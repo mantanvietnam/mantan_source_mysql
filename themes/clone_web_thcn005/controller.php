@@ -56,10 +56,10 @@ function setting_theme_clone_web($input){
                             'id_post'=> @$dataSend['id_post'],
                             'background_5'=> @$dataSend['background_5'],
                             'facebook'=> @$dataSend['facebook'],
-                            'twitter'=> @$dataSend['twitter'],
+                            'youtube'=> @$dataSend['youtube'],
                             'instagram'=> @$dataSend['instagram'],
-                            'behance'=> @$dataSend['behance'],
-                            'dribbble'=> @$dataSend['dribbble'],
+                            'zalo'=> @$dataSend['zalo'],
+                            'tiktok'=> @$dataSend['tiktok'],
                             'image_cd'=> @$dataSend['image_cd'],
                             'textfooter'=> @$dataSend['textfooter'],
                             
@@ -94,7 +94,7 @@ function indexTheme(){
     global $modelPosts;
     global $modelCategories;
 
-    $conditions = array('key_word' => 'settingHomeTheme');
+    $conditions = array('key_word' => 'settingThemeTHCN005CloneWeb');
     $data = $modelOptions->find()->where($conditions)->first();
 
     $data_value = array();
@@ -104,7 +104,7 @@ function indexTheme(){
 
     $order = array('id'=>'desc');
 
-    $listDataNew= $modelPosts->find()->limit(4)->where(array('type'=>'post'))->order($order)->all()->toList();
+    // $listDataNew= $modelPosts->find()->limit(4)->where(array('type'=>'post'))->order($order)->all()->toList();
 
     $album_home1 = $modelAlbums->find()->where(['id'=>(int)@$data_value['id_album1']])->first();
 
@@ -123,7 +123,6 @@ function indexTheme(){
     $listDataNew= $modelPosts->find()->limit(4)->where(array('idCategory'=>(int)@$data_value['id_post'],'type'=>'post'))->order($order)->all()->toList();
 
     setVariable('setting', $data_value);
-    setVariable('listDataNew', $listDataNew);
     setVariable('album_home1', $album_home1);
     setVariable('album_home2', $album_home2);
     setVariable('listDataNew', $listDataNew);

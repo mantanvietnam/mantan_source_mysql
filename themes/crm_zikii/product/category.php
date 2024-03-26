@@ -51,10 +51,6 @@ global $settingThemes;
                                 </ul>
                             </div>
                         </div>
-
-                        <div class="background-sidebar">
-                            <img src="<?php echo $settingThemes['image_qc']; ?>" alt="">
-                        </div>
                     </div>
 
                     <div class="col-lg-9 col-md-12">

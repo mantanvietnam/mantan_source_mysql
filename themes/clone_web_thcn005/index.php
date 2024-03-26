@@ -249,7 +249,7 @@ $setting = setting();
     <section id="related-images">
         <div class="related-title">
             <h2>
-                Hình ảnh cá nhân của tôi <span></span>
+                Hình ảnh đội nhóm của tôi <span></span>
             </h2>
         </div>
         <div class="container">
@@ -348,7 +348,7 @@ $setting = setting();
                     <div class="blog-title">
                         <p>Khóa học</p>
                         <h2>
-                            Các khóa học mà tôi đã tổ chức<span></span>
+                            Các sự kiện mà tôi đã tham gia<span></span>
                         </h2>
                     </div>
                 </div>

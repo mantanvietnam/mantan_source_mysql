@@ -32,6 +32,7 @@ function show_text_clone($str='')
         $str = @str_replace('%description%', $infoMemberWeb->description, $str);
         $str = @str_replace('%banner%', $infoMemberWeb->banner, $str);
         $str = @str_replace('%facebook%', $infoMemberWeb->facebook, $str);
+        $str = @str_replace('%instagram%', $infoMemberWeb->instagram, $str);
         $str = @str_replace('%tiktok%', $infoMemberWeb->tiktok, $str);
         $str = @str_replace('%youtube%', $infoMemberWeb->youtube, $str);
         $str = @str_replace('%zalo%', $infoMemberWeb->zalo, $str);
