@@ -27,7 +27,7 @@ global $settingThemes;
             </div>
         </section>
 
-        <section id="section-category-product-page" class="">
+        <section id="section-category-product-page" class="section-padding">
             <div class="container">
                 <div class="row">
                     <!-- sidebar -->
