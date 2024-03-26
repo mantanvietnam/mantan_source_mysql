@@ -63,20 +63,6 @@ $( document ).ready(function() {
   $(window).on("load scroll", updateStickyHeader);
     
 
-  // Chi tiết sản phẩm
-  // xem thêm và rút gọn
-  let isExpanded = false;
-  $('#toggleButton').click(function(){
-    if(!isExpanded){
-      $('.product-info-tab .tab-content .intro-content').css('max-height','none')
-    }
-    else{
-      $('.product-info-tab .tab-content .intro-content').css('max-height','240px')
-    }
-    isExpanded = !isExpanded;
-
-    $('.button-show').toggleClass('before-active')
-  });
 });
 
 $(document).ready(function() {

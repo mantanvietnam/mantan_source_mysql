@@ -8,8 +8,6 @@ $setting = setting();
 <head>
     <?php 
         mantan_header(); 
-
-        if(function_exists('showSeoHome')) showSeoHome();
     ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

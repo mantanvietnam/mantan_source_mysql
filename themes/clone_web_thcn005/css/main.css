@@ -172,6 +172,10 @@ table {
     border-spacing: 0;
 }
 
+a {
+    text-decoration: none !important;
+}
+
 #header .main-header {
     padding: 0 382px;
     background-color: transparent;

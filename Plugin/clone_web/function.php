@@ -89,6 +89,10 @@ function check_domain_clone()
             $metaTitleMantan = $infoMemberWeb->name_position.' '.$infoMemberWeb->name;
             if(!empty($infoMemberWeb->banner)){
                 $metaImageMantan = $infoMemberWeb->banner;
+            }else{
+                if(!empty($infoMemberWeb->avatar)){
+                    $metaImageMantan = $infoMemberWeb->avatar;
+                }
             }
 
             $session->write('themeActive', $memberWebs->theme);

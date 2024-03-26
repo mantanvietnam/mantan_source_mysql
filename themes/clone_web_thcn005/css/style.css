@@ -4086,7 +4086,6 @@ cursor: not-allowed;
 }
 
 .product-info-tab{
-    margin-top: 40px;
     margin-bottom: 40px;
     padding: 12px;
     background: #fff;
@@ -4100,7 +4099,9 @@ cursor: not-allowed;
 }
 
 .product-info-tab .nav-pills .nav-link.active{
-    color: #282875;
+    color: #fff;
+    padding: 10px;
+    background-color: #282875;
 }
 
 .product-info-tab .nav-pills .nav-link.active::before{
@@ -4108,7 +4109,6 @@ cursor: not-allowed;
     position: absolute;
     height: 1px;
     width: 100%;
-    background: #282875;
     bottom: 0;
 }
 
@@ -4117,7 +4117,7 @@ cursor: not-allowed;
     padding-right:0;
     border: 0;
     background: #fff;
-    color: #b3b3b3;
+    color: #000;
     font-size: 18px;
     font-weight: 600;
     padding-bottom: 10px;
@@ -4134,10 +4134,6 @@ cursor: not-allowed;
     line-height: 1.6;
 }
 
-.product-info-tab .tab-content .intro-content{
-    max-height: 230px;
-    overflow: hidden;
-}
 
 .product-info-tab .tab-content .button-show{
     text-align: center;
