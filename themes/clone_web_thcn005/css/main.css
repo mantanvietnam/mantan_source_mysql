@@ -524,7 +524,7 @@ table {
 }
 
 #about .about-detail:hover {
-    border-left: 3px solid #282875;
+    border-left: 3px solid #a6a6ff;
 }
 
 #services .container {
@@ -1153,11 +1153,11 @@ table {
     bottom: -12px;
     height: 3px;
     width: 60%;
-    background: #282875;
+    background: #a6a6ff;
 }
 
 #testimonial .testimonial-title span {
-    color: #282875;
+    color: #a6a6ff;
 }
 
 .testimonial-detail h5 {
@@ -1171,7 +1171,7 @@ table {
 
 .testimonial-detail h3 {
     font-size: 32px;
-    color: #282875;
+    color: #a6a6ff;
     font-weight: 600;
     text-transform: capitalize;
     margin-bottom: 25px;
@@ -1563,11 +1563,11 @@ table {
     bottom: -12px;
     height: 3px;
     width: 60%;
-    background: #282875;
+    background: #a6a6ff;
 }
 
 #contact .contact-title span {
-    color: #282875;
+    color: #a6a6ff;
 }
 
 .contact-group-title h5 {
@@ -1591,7 +1591,7 @@ table {
 }
 
 .contact-img img {
-    width: 100%;
+    width: 85%;
     object-fit: cover;
 }
 
@@ -1600,7 +1600,7 @@ table {
 }
 
 .contact-text span {
-    color: #7c838e;
+    color: #9dc3ff;
     font-size: 16px;
     margin-right: 10px;
 }
@@ -1619,23 +1619,23 @@ table {
     width: 100%;
     height: 54px;
     padding-left: 20px;
-    background: #1C1C1C;
+    background: #ffffff;
     border-radius: 3px;
     transition: .5s;
     border: 1px solid #1C1C1C;
     font-size: 16px;
-    color: #fff;
+    color: #252424;
 }
 
 .form-input textarea {
     width: 100%;
     padding: 15px 20px;
-    background: #1C1C1C;
+    background: #ffffff;
     border-radius: 3px;
     transition: .5s;
     border: 1px solid #1C1C1C;
     font-size: 16px;
-    color: #fff;
+    color: #252424;
 }
 
 .form-btn-submid button {
@@ -1688,7 +1688,7 @@ table {
     justify-content: end;
     margin-bottom: 0;
     position: absolute;
-    bottom: 16%;
+    bottom: 7%;
     right: 13%;
     padding-left: 0;
 }
@@ -1965,6 +1965,9 @@ table {
 }
 
 @media (max-width: 768px) {
+    #contact {
+        padding: 100px 0px 70px 0;
+    }
     #about .about-thumb {
         text-align: center;
         width: 100%;
@@ -2104,8 +2107,8 @@ table {
         display: none;
     }
     .footer-icon ul {
-        bottom: 5%;
-        right: 12%;
+        bottom: -4%;
+        right: 29%;
     }
     #testimonial .testimonial-title h2,
     #blog .blog-title h2,
@@ -2177,6 +2180,9 @@ table {
     }
     #services .services-box .services-detail p {
         font-size: 14px;
+    }
+    #about {
+        padding: 85px 0px 0px 0px;
     }
     #brand .container {
         padding: 0 30px;

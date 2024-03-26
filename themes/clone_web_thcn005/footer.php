@@ -71,6 +71,15 @@ $setting = setting();
                                             Gửi tin nhắn
                                         </button>
                                     </div>
+                                    <div class="footer-icon clone-1">
+                                        <ul>
+                                            <li><a href="<?php echo show_text_clone(@$setting['facebook']); ?>"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                            <li><a href="<?php echo show_text_clone(@$setting['youtube']); ?>"><i class="fa-brands fa-youtube"></i></a></li>
+                                            <li><a href="<?php echo show_text_clone(@$setting['instagram']); ?>"><i class="fa-brands fa-instagram"></i></a></li>
+                                            <li><a href="<?php echo show_text_clone(@$setting['zalo']); ?>"><i class="fa-solid fa-z"></i></a></li>
+                                            <li><a href="<?php echo show_text_clone(@$setting['instagram']); ?>"><i class="fa-brands fa-instagram"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </form>
