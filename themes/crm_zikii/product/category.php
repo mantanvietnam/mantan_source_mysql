@@ -95,7 +95,7 @@ global $settingThemes;
                                 <?php  if(!empty($list_product)){
                                 foreach ($list_product as $product) {
                                     $link = '/san-pham/'.$product->slug.'.html';
-                                    echo '<div class="col-lg-4 col-md-6 col-6 product-hot-item">
+                                    echo '<div class="col-lg-4 col-md-6 col-12 product-hot-item">
                                         <div class="product-hot-item-inner">
                                             <div class="product-hot-image">
                                                 <a href="'.$link.'">

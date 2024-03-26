@@ -1096,6 +1096,7 @@
     padding: 7px 10px;
     border-radius: 5px;
     transition: all 0.3s linear;
+    white-space: nowrap;
   }
   #section-category-product-page .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-addcart a:hover {
     background-color: #192167;
