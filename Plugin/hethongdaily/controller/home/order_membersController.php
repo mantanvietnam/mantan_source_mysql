@@ -512,6 +512,112 @@ function updateOrderMemberAgency($input)
     }
 }
 
+function updateMyOrderMemberAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Cập nhập đơn hàng đại lý';
+
+        $modelMembers = $controller->loadModel('Members');
+        $modelProducts = $controller->loadModel('Products');
+        $modelOrderMembers = $controller->loadModel('OrderMembers');
+        $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
+        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+        $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+
+        if(!empty($_GET['id'])){
+            $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id'], 'id_member_buy'=>$session->read('infoUser')->id])->first();
+
+            if(!empty($order)){
+                if(!empty($_GET['status'])){
+                    $order->status = $_GET['status'];
+
+                    // nhập hàng vào kho
+                    if($_GET['status'] == 'done'){
+                        $detail_order = $modelOrderMemberDetails->find()->where(['id_order_member'=>$order->id])->all()->toList();
+                
+                        if(!empty($detail_order)){
+                            foreach ($detail_order as $k => $value) {
+                                // cộng hàng vào kho người mua
+                                $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_buy])->first();
+
+                                if(empty($checkProductExits)){
+                                    $checkProductExits = $modelWarehouseProducts->newEmptyEntity();
+                                    $checkProductExits->quantity = 0;
+                                }
+
+                                $checkProductExits->id_member = $order->id_member_buy;
+                                $checkProductExits->id_product = $value->id_product;
+                                $checkProductExits->quantity += $value->quantity;
+
+                                $modelWarehouseProducts->save($checkProductExits);
+
+                                // trừ hàng trong kho người bán
+                                $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_sell])->first();
+
+                                if(empty($checkProductExits)){
+                                    $checkProductExits = $modelWarehouseProducts->newEmptyEntity();
+                                    $checkProductExits->quantity = 0;
+                                }
+
+                                $checkProductExits->id_member = $order->id_member_sell;
+                                $checkProductExits->id_product = $value->id_product;
+                                $checkProductExits->quantity -= $value->quantity;
+
+                                $modelWarehouseProducts->save($checkProductExits);
+
+                                // lưu lịch sử nhập kho của người mua
+                                $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+                                $saveWarehouseHistories->id_member = $order->id_member_buy;
+                                $saveWarehouseHistories->id_product = $value->id_product;
+                                $saveWarehouseHistories->quantity = $value->quantity;
+                                $saveWarehouseHistories->note = 'Nhập hàng vào kho';
+                                $saveWarehouseHistories->create_at = time();
+                                $saveWarehouseHistories->type = 'plus';
+                                $saveWarehouseHistories->id_order_member = $order->id;
+
+                                $modelWarehouseHistories->save($saveWarehouseHistories);
+
+                                // lưu lịch sử xuất kho của người bán
+                                $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+                                $saveWarehouseHistories->id_member = $order->id_member_sell;
+                                $saveWarehouseHistories->id_product = $value->id_product;
+                                $saveWarehouseHistories->quantity = $value->quantity;
+                                $saveWarehouseHistories->note = 'Xuất hàng cho đại lý tuyến dưới';
+                                $saveWarehouseHistories->create_at = time();
+                                $saveWarehouseHistories->type = 'minus';
+                                $saveWarehouseHistories->id_order_member = $order->id;
+
+                                $modelWarehouseHistories->save($saveWarehouseHistories);
+                            }
+                        }
+                    }
+                }
+
+                $modelOrderMembers->save($order);
+
+                if(!empty($_GET['back'])){
+                    return $controller->redirect($_GET['back']);
+                }else{
+                    return $controller->redirect('/requestProductAgency');
+                }
+            }
+        }else{
+            return $controller->redirect('/requestProductAgency');
+        }
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 function printBillOrderMemberAgency($input)
 {
     global $controller;

@@ -34,7 +34,7 @@
               <td>'.$item->product->title.'</td>
               <td>'.number_format($item->quantity).'</td>
               <td>'.number_format($item->product->price).'</td>
-              <td><a href="/historyWarehouseProductAgency/?id_product='.$item->id_product.'">'.@$item->history->note.'</a></td>
+              <td>'.@$item->history->note.'</td>
              
              </tr>';
            }

@@ -197,6 +197,8 @@
 
             if(create_order_agency == '1'){
                 edit += ' <a href="/addOrderAgency/?id_member_buy='+dataAgency.id+'" class="btn btn-primary  mb-3">Tạo đơn hàng</a> ';
+
+                edit += ' <a href="/viewWarehouseProductAgency/?id_member='+dataAgency.id+'" class="btn btn-warning  mb-3">Xem tồn kho</a> ';
             }
 
             if(dataAgency.status == 'active'){

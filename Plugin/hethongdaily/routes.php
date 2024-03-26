@@ -71,9 +71,11 @@
 
 	// tạo đơn hàng cho đại lý tuyến dưới 
 	$routesPlugin['addOrderAgency']= 'hethongdaily/view/home/order/addOrderAgency.php';
-	// kho hàng
+	
+	// kho hàng đại lý
 	$routesPlugin['warehouseProductAgency']= 'hethongdaily/view/home/warehouse/warehouseProductAgency.php';
 	$routesPlugin['historyWarehouseProductAgency']= 'hethongdaily/view/home/warehouse/historyWarehouseProductAgency.php';
+	$routesPlugin['viewWarehouseProductAgency']= 'hethongdaily/view/home/warehouse/viewWarehouseProductAgency.php';
 
 	// khách hàng
 	$routesPlugin['listCustomerAgency']= 'hethongdaily/view/home/customer/listCustomerAgency.php';

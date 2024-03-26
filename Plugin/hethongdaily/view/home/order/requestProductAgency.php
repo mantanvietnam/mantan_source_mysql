@@ -85,9 +85,9 @@
               </table>
             </th>
             <th width="10%">Thành tiền</th>
-            <th width="10%">Thanh toán</th>
             <th width="10%">Chiết khấu</th>
             <th width="10%">Trạng thái</th>
+            <th width="10%">Hành động</th>
           </tr>
         </thead>
         <tbody>
@@ -113,11 +113,16 @@
               }elseif($item->status_pay=='done'){
                $statusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
               }
+
+              $action = '';
+              if($item->status!='done' && $item->status!='cancel'){
+                $action = '<a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=done" class="btn btn-danger">Nhập kho</a>';
+              }
               
               echo '<tr>
-              <td width="5%">'.$item->id.'</td>
-              <td width="15%">'.date('H:i d/m/Y', $item->create_at).'</td>
-              <td width="40%" style=" padding: 0;display: contents; ">
+              <td>'.$item->id.'</td>
+              <td>'.date('H:i d/m/Y', $item->create_at).'</td>
+              <td style=" padding: 0;display: contents; ">
                 <table  class="table table-borderless">
                   <tbody>';
                     if(!empty($item->detail_order)){ 
@@ -132,12 +137,15 @@
                 echo '  </tbody>
                 </table>
               </td>
-              <td width="10%">'.number_format($item->money).'đ</td>
-              <td width="10%">'.number_format($item->total).'đ</td>
-              <td width="10%">'.$item->discount.'%</td>
+              <td>
+                '.number_format($item->money).'đ
+                <p><del>'.number_format($item->total).'đ</del></p>
+              </td>
               
-              <td width="10%" align="center">'.$status.$statusPay.'</td>
-             
+              <td>'.$item->discount.'%</td>
+              
+              <td align="center">'.$status.$statusPay.'</td>
+              <td>'.$action.'</td>
              </tr>';
            }
          }else{
