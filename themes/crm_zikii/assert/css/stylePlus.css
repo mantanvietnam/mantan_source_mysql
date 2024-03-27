@@ -2863,3 +2863,23 @@ header .topbar .topbar-box .topbar-left p{
 .post-title h1, .background-title h1{
   color: #000;
 }
+
+
+.cart-box{
+  position: relative;
+}
+
+.cart-number{
+  position: absolute;
+  top: -10px;
+  left: 13px;
+  width: 16px;
+  height: 16px;
+  line-height: 15px;
+  background: rgb(225, 40, 40);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 200;
+  border-radius: 50%;
+  text-align: center;
+}

@@ -21,7 +21,7 @@ global $urlThemeActive;
         <div class="row">
             <div class="places-title">
                 <h2>Điểm đến Văn hóa - Du lịch tiêu biểu</h2>
-                <p>Khám phá Điểm đên Văn hóa - Du lịch tiêu biểu huyện Mai Châu</p>
+                <p>Khám phá Điểm đến Văn hóa - Du lịch tiêu biểu huyện Mai Châu</p>
             </div>
         </div>
         <div class="row">

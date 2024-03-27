@@ -46,7 +46,7 @@ global $urlThemeActive;
 
         <section id="place-category">
             <div class="category-title">
-                <h1>DIỂM DU LỊCH CỘNG ĐỒNG</h1>
+                <h1>ĐIỂM DU LỊCH CỘNG ĐỒNG</h1>
                 <p>Hãy khám phá những điểm du lịch cộng đồng ở Mai Châu</p>
             </div>
 
