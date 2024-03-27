@@ -114,42 +114,15 @@
                                 <label for="">Ảnh đại diện:</label>
                                     <?php showUploadFile('image','image',@$data['image'],1001); ?>
                             </div>
-                            <div class="mb-3 form-group col-md-6">
-                                <label for="">Ảnh:</label>
-                                    <?php showUploadFile('image2','image2',@$data['image2'],1002); ?>
-                            </div>
-                            <div class="mb-3 form-group col-md-6">
-                                <label for="">Ảnh:</label>
-                                    <?php showUploadFile('image3','image3',@$data['image3'],1003); ?>
-                            </div>
-                            <div class="mb-3 form-group col-md-6">
-                                <label for="">Ảnh:</label>
-                                    <?php showUploadFile('image4','image4',@$data['image4'],1004); ?>
-                            </div>
-                            <div class="mb-3 form-group col-md-6">
-                                <label for="">Ảnh:</label>
-                                    <?php showUploadFile('image5','image5',@$data['image5'],1005); ?>
-                            </div>
-                            <div class="mb-3 form-group col-md-6">
-                                <label for="">Ảnh:</label>
-                                    <?php showUploadFile('image6','image6',@$data['image6'],1006); ?>
-                            </div>
-                            <div class="mb-3 form-group col-md-6">
-                                <label for="">Ảnh:</label>
-                                    <?php showUploadFile('image7','image7',@$data['image7'],1007); ?>
-                            </div>
-                            <div class="mb-3 form-group col-md-6">
-                                <label for="">Ảnh:</label>
-                                    <?php showUploadFile('image8','image8',@$data['image8'],1008); ?>
-                            </div>
-                            <div class="mb-3 form-group col-md-6">
-                                <label for="">Ảnh:</label>
-                                    <?php showUploadFile('image9','image9',@$data['image9'],1009); ?>
-                            </div>
-                            <div class="mb-3 form-group col-md-6">
-                                <label for="">Ảnh:</label>
-                                    <?php showUploadFile('image10','image10',@$data['image10'],10010); ?>
-                            </div>      
+
+                            <?php 
+                            for($i=2;$i<=20;$i++){
+                                echo '  <div class="mb-3 form-group col-md-6">
+                                            <label for="">Ảnh:</label>';
+                                            showUploadFile('image'.$i,'image'.$i,@$data['image'.$i],1000+$i);       
+                                echo    '</div>';
+                            }
+                            ?>  
                         </div> 
                     </div>  
                 </div>

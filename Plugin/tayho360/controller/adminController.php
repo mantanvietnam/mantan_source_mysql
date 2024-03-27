@@ -2286,6 +2286,7 @@ function addServiceAdmin($input)
             $data->phone = @$dataSend['phone'];
             $data->email = @$dataSend['email'];
             $data->image = @$dataSend['image'];
+            
             $data->image2 = @$dataSend['image2'];
             $data->image3 = @$dataSend['image3'];
             $data->image4 = @$dataSend['image4'];
@@ -2295,6 +2296,17 @@ function addServiceAdmin($input)
             $data->image8 = @$dataSend['image8'];
             $data->image9 = @$dataSend['image9'];
             $data->image10 = @$dataSend['image10'];
+            $data->image11 = @$dataSend['image11'];
+            $data->image12 = @$dataSend['image12'];
+            $data->image13 = @$dataSend['image13'];
+            $data->image14 = @$dataSend['image14'];
+            $data->image15 = @$dataSend['image15'];
+            $data->image16 = @$dataSend['image16'];
+            $data->image17 = @$dataSend['image17'];
+            $data->image18 = @$dataSend['image18'];
+            $data->image19 = @$dataSend['image19'];
+            $data->image20 = @$dataSend['image20'];
+            
             $data->introductory = @$dataSend['introductory'];
             $data->latitude = @$dataSend['latitude'];
             $data->longitude = @$dataSend['longitude'];

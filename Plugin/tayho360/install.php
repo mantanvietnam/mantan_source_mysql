@@ -1,9 +1,11 @@
 <?php 
 global $sqlInstallDatabase;
 global $sqlDeleteDatabase;
+global $sqlUpdateDatabase;
 
 $sqlInstallDatabase = '';
 $sqlDeleteDatabase = '';
+$sqlUpdateDatabase = '';
 
 $sqlInstallDatabase .="CREATE TABLE `historicalsites` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image2` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image3` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image4` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image5` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image6` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image7` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image8` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image9` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image10` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `introductory` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `latitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL, `longitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `image360` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `content` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `urlSlug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `created` INT NULL DEFAULT NULL ,`status` BOOLEAN NULL DEFAULT NULL,`like` INT NULL DEFAULT NULL  , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
@@ -28,7 +30,43 @@ $sqlInstallDatabase .="CREATE TABLE `places` ( `id` INT NOT NULL AUTO_INCREMENT 
 
 
 
-$sqlInstallDatabase .="CREATE TABLE `services` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image2` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image3` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image4` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image5` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image6` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image7` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image8` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image9` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image10` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `introductory` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `latitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL, `longitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `image360` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `content` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `urlSlug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `created` INT NULL DEFAULT NULL,`idcategory` INT NULL DEFAULT NULL, `status` BOOLEAN NULL DEFAULT NULL,`like` INT NULL DEFAULT NULL  , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$sqlInstallDatabase .="CREATE TABLE `services` ( `id` INT NOT NULL AUTO_INCREMENT , 
+                                                `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+                                                `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+                                                `phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+                                                `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
+                                                `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
+                                                `image2` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
+                                                `image3` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
+                                                `image4` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
+                                                `image5` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
+                                                `image6` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
+                                                `image7` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
+                                                `image8` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
+                                                `image9` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,
+                                                `image10` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+                                                `image11` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+                                                `image12` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+                                                `image13` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+                                                `image14` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+                                                `image15` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+                                                `image16` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+                                                `image17` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+                                                `image18` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+                                                `image19` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+                                                `image20` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+                                                `introductory` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+                                                `latitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL, 
+                                                `longitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+                                                `image360` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+                                                `content` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+                                                `urlSlug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+                                                `created` INT NULL DEFAULT NULL,
+                                                `idcategory` INT NULL DEFAULT NULL, 
+                                                `status` BOOLEAN NULL DEFAULT NULL,
+                                                `like` INT NULL DEFAULT NULL  , 
+                                                PRIMARY KEY (`id`)
+                                            ) ENGINE = InnoDB;";
 
 
 
@@ -61,4 +99,5 @@ $sqlDeleteDatabase .= "DROP TABLE booktours; ";
 $sqlDeleteDatabase .= "DROP TABLE bookhotels; ";
 $sqlDeleteDatabase .= "DROP TABLE reports; ";
 
-
+// 2.0
+$sqlUpdateDatabase .= "ALTER TABLE `services` ADD `image11` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `like`, ADD `image12` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image11`, ADD `image13` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image12`, ADD `image14` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image13`, ADD `image15` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image14`, ADD `image16` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image15`, ADD `image17` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image16`, ADD `image18` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image17`, ADD `image19` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image18`, ADD `image20` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image19`; ";
