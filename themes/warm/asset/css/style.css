@@ -564,3 +564,11 @@
 			top: 133px;
 		}
 	}
+
+	#section-topbar .row-topbar .group-sign a{
+		color: #fff;
+	}
+
+	#section-topbar .row-topbar .group-sign span{
+		font-size: 18px !important;
+	}

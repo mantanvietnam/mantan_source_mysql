@@ -70,46 +70,46 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                             </div>
 
                             <div class="topbar-follow">
-                                <p>Follow us: </p>
+                                <!-- <p>Follow us: </p> -->
                                 <div class="top-socail-list">
                                 <?php 
-                                    if(!empty($settingThemes['youtube'])){
-                                        echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
-                                                    <img src="'.$urlThemeActive.'/asset/img/youtubewhite.png" alt="">
-                                                </a>';
-                                    }
+                                    // if(!empty($settingThemes['youtube'])){
+                                    //     echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
+                                    //                 <img src="'.$urlThemeActive.'/asset/img/youtubewhite.png" alt="">
+                                    //             </a>';
+                                    // }
 
-                                    if(!empty($settingThemes['facebook'])){
-                                        echo '  <a href="'.$settingThemes['facebook'].'">
-                                                    <i class="fa-brands fa-facebook-f"></i>
-                                                </a>';
-                                    }
+                                    // if(!empty($settingThemes['facebook'])){
+                                    //     echo '  <a href="'.$settingThemes['facebook'].'">
+                                    //                 <i class="fa-brands fa-facebook-f"></i>
+                                    //             </a>';
+                                    // }
 
-                                    if(!empty($settingThemes['instagram'])){
-                                        echo '  <a href="'.$settingThemes['instagram'].'">
-                                                    <i class="fa-brands fa-instagram"></i>
-                                                </a>';
-                                    }
+                                    // if(!empty($settingThemes['instagram'])){
+                                    //     echo '  <a href="'.$settingThemes['instagram'].'">
+                                    //                 <i class="fa-brands fa-instagram"></i>
+                                    //             </a>';
+                                    // }
 
-                                    if(!empty($settingThemes['tiktok'])){
-                                        echo '  <a href="'.$settingThemes['tiktok'].'">
-                                                    <i class="fa-brands fa-tiktok"></i>
-                                                </a>';
-                                    }
+                                    // if(!empty($settingThemes['tiktok'])){
+                                    //     echo '  <a href="'.$settingThemes['tiktok'].'">
+                                    //                 <i class="fa-brands fa-tiktok"></i>
+                                    //             </a>';
+                                    // }
 
-                                    if(!empty($settingThemes['twitter'])){
-                                        echo '  <a href="'.$settingThemes['twitter'].'">
-                                                    <i class="fa-brands fa-twitter"></i>
-                                                </a>';
-                                    }
+                                    // if(!empty($settingThemes['twitter'])){
+                                    //     echo '  <a href="'.$settingThemes['twitter'].'">
+                                    //                 <i class="fa-brands fa-twitter"></i>
+                                    //             </a>';
+                                    // }
 
-                                    if(!empty($settingThemes['linkedIn'])){
-                                        echo '  <a href="'.$settingThemes['linkedIn'].'">
-                                            <i class="fa-brands fa-linkedin-in"></i>
-                                        </a>';
-                                    }
+                                    // if(!empty($settingThemes['linkedIn'])){
+                                    //     echo '  <a href="'.$settingThemes['linkedIn'].'">
+                                    //         <i class="fa-brands fa-linkedin-in"></i>
+                                    //     </a>';
+                                    // }
                                 ?>
-                                    <a href="https://www.facebook.com/EUandVietnam">
+                                    <!-- <a href="https://www.facebook.com/EUandVietnam">
                                         <img src="<?php echo $urlThemeActive;?>/asset/img/euwhite.png" alt="">
                                     </a>
 
@@ -119,7 +119,14 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
 
                                     <a href="https://www.facebook.com/AmbassadeFranceVietnam">
                                         <img src="<?php echo $urlThemeActive;?>/asset/img/francewhite.png" alt="">
-                                    </a>
+                                    </a> -->
+                                </div>
+
+                                
+                                <div class="group-sign">
+                                    <a href="">Login</a>
+                                    <span>|</span>
+                                    <a href="">Register</a>
                                 </div>
                             </div>
                         </div>
