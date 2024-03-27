@@ -2860,3 +2860,6 @@ header .topbar .topbar-box .topbar-left p{
     color: #fff;
     font-size: 20px;
 }
+.post-title h1, .background-title h1{
+  color: #000;
+}
