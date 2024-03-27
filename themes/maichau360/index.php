@@ -2,6 +2,11 @@
 getHeader();
 global $urlThemeActive;
 ?>
+<style type="text/css">
+    .events-slide .slick-list .slick-track{
+            transform: translate3d(0px, 0px, 0px)!important;
+    }
+</style>
   <main>
        <!--  Phần Banner 360  -->
     <section id="banner360">
@@ -181,7 +186,7 @@ global $urlThemeActive;
     }
 
     function eventhome(){
-  $('.in-box-event-home').slick({
+  $('.in-box-event-home_1').slick({
 
     dots: false,
 
@@ -205,6 +210,7 @@ global $urlThemeActive;
     function loadEventNextPrev(e) {
   var month = $('.slick-center').attr('data-month');
 
+  console.log(month); 
   /*if(e = 1){
     if(month==12){
         month = 1
@@ -218,9 +224,9 @@ global $urlThemeActive;
     }else{
         mmonth = Number(month) - 1;
     }
-     
-  }*/
-  console.log(month);   
+    }
+  */
+    
   $.ajax({
       type: "GET",
       url: '/apis/ajax_event',
@@ -236,10 +242,10 @@ global $urlThemeActive;
 
 // menu scroll 
 $(document).ready(function() {
-    const button = document.querySelector(".pull-right");
+    const button = document.querySelector(".mon-pull-right");
     button.setAttribute("onclick", "loadEventNextPrev(1)");
 
-   const butt = document.querySelector(".pull-left");
+   const butt = document.querySelector(".mon-pull-left");
    butt.setAttribute("onclick", "loadEventNextPrev(2)");
 });
 

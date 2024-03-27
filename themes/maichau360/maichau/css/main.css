@@ -3706,3 +3706,7 @@ width: 578px !important; */
 .box-menu-map .title-menu-map p {
     margin-bottom: 0;
 }
+
+.events-slide .slick-list .slick-track{
+    transform: translate3d(0px, 0px, 0px)!important;
+}

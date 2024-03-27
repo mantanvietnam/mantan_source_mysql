@@ -63,8 +63,8 @@ $('.events-month-slide').slick({
     slidesToScroll: 1,
     centerMode: true,
     asNavFor: '.events-slide',
-    prevArrow: `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-arrow-left-long"></i></button>`,
-    nextArrow: `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-arrow-right-long"></i></button>`,
+    prevArrow: `<button type='button' class='slick-arrow slick-prev mon-pull-left'><i class="fa-solid fa-arrow-left-long"></i></button>`,
+    nextArrow: `<button type='button' class='slick-arrow slick-next mon-pull-right'><i class="fa-solid fa-arrow-right-long"></i></button>`,
     responsive: [{
         breakpoint: 480,
         settings: {
