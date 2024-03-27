@@ -916,11 +916,15 @@ function processAddMoney($money, $phoneNumber): string
 
                 if (!empty($user->device_token)) {
                     $newNotification = $modelNotification->newEmptyEntity();
+                    
                     $newNotification->user_id = $user->id;
+                    $newNotification->title = 'Nạp tiền thành công';
                     $newNotification->content = 'Nạp thành công '.number_format($money).'đ vào tài khoản ' . $user->phone_number;
                     $newNotification->created_at = date('Y-m-d H:i:s');
                     $newNotification->updated_at = date('Y-m-d H:i:s');
+                    
                     $modelNotification->save($newNotification);
+
                     sendNotification($dataSendNotification, $user->device_token);
                 }
 
