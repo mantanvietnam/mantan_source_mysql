@@ -98,8 +98,12 @@
                     
                    
                     <div class="row text-right footer">
-                        <div class="col-md-6 col-sm-6 col-xs-6"></div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">Người bán<br/><?php echo $member_sell->name;?></div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 text-center">
+                            Người mua<br/><?php echo $member_buy->name;?>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                            Người bán<br/><?php echo $member_sell->name;?>
+                        </div>
                     </div>
                 </div>
             </section>

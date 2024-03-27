@@ -59,7 +59,7 @@ function searchCustomerAPI($input)
         }
     }else{
         $return= array(array(   'id'=>0, 
-                                'label'=>'Không tìm được đại lý', 
+                                'label'=>'Không tìm được khách hàng', 
                                 'value'=>'', 
                             )
                 );

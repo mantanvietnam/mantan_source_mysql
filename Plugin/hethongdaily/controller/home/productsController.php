@@ -7,6 +7,7 @@ function addOrderCustomer($input)
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
+    global $urlHomes;
 
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'Tạo đơn hàng khách lẻ';
@@ -21,44 +22,68 @@ function addOrderCustomer($input)
         if($isRequestPost){
             $dataSend = $input['request']->getData();
 
-            if(!empty($dataSend['idHangHoa']) && !empty($dataSend['id_customer'])){
-                $customer_buy = $modelCustomers->find()->where(array('id'=>(int) $dataSend['id_customer'], 'id_parent'=>$session->read('infoUser')->id))->first();
-
-                if(!empty($customer_buy)){
-                    $save = $modelOrders->newEmptyEntity();
-
-                    $save->id_user = $customer_buy->id;
-                    $save->full_name = $customer_buy->full_name;
-                    $save->email = $customer_buy->email;
-                    $save->phone = $customer_buy->phone;
-                    $save->address = $customer_buy->address;
-                    $save->note_user = '';
-                    $save->note_admin = $dataSend['note'];
-                    $save->status = 'new';
-                    $save->create_at = time();
-                    $save->money = (int) $dataSend['total'];
-                    $save->total = (int) $dataSend['totalPays'];
-                    $save->promotion = (int) $dataSend['promotion'];
-                    $save->id_agency = $session->read('infoUser')->id;
-
-                    $modelOrders->save($save);
-
-                    foreach ($dataSend['idHangHoa'] as $key => $value) {
-                        $saveDetail = $modelOrderDetails->newEmptyEntity();
-
-                        $saveDetail->id_product = $value;
-                        $saveDetail->id_order = $save->id;
-                        $saveDetail->quantity = $dataSend['soluong'][$key];
-
-                        $modelOrderDetails->save($saveDetail);
-                    }
-
-                    $mess= '<p class="text-success">Tạo đơn hàng thành công</p>';
-
-                    return $controller->redirect('/printBillOrderCustomerAgency/?id_order='.$save->id);
+            if(!empty($dataSend['idHangHoa'])){
+                if(!empty($dataSend['id_customer'])){
+                    $customer_buy = $modelCustomers->find()->where(array('id'=>(int) $dataSend['id_customer'], 'id_parent'=>$session->read('infoUser')->id))->first();
                 }else{
-                    $mess= '<p class="text-danger">Không tìm thấy khách hàng</p>';
+                    $customer_buy = $modelCustomers->newEmptyEntity();
+
+                    if(!empty($dataSend['customer_buy'])){
+                        $customer_buy->full_name = $dataSend['customer_buy'];
+                        $customer_buy->phone = '';
+                        $customer_buy->email = '';
+                        $customer_buy->address = '';
+                        $customer_buy->id_messenger = '';
+                        $customer_buy->avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
+                        $customer_buy->status = 'active';
+                        $customer_buy->pass = '';
+                        $customer_buy->id_parent = $session->read('infoUser')->id;
+                        $customer_buy->birthday_date = 0;
+                        $customer_buy->birthday_month = 0;
+                        $customer_buy->birthday_year = 0;
+                        $customer_buy->created_at = time();
+
+                        $modelCustomers->save($customer_buy);
+                    }
                 }
+
+                if(empty($customer_buy->full_name)) $customer_buy->full_name = 'Khách lẻ';
+                if(empty($customer_buy->phone)) $customer_buy->phone = '';
+                if(empty($customer_buy->address)) $customer_buy->address = '';
+                if(empty($customer_buy->email)) $customer_buy->email = '';
+
+                
+                $save = $modelOrders->newEmptyEntity();
+
+                $save->id_user = (int) @$customer_buy->id;
+                $save->full_name = @$customer_buy->full_name;
+                $save->email = @$customer_buy->email;
+                $save->phone = @$customer_buy->phone;
+                $save->address = @$customer_buy->address;
+                $save->note_user = '';
+                $save->note_admin = $dataSend['note'];
+                $save->status = 'new';
+                $save->create_at = time();
+                $save->money = (int) $dataSend['total'];
+                $save->total = (int) $dataSend['totalPays'];
+                $save->promotion = (int) $dataSend['promotion'];
+                $save->id_agency = $session->read('infoUser')->id;
+
+                $modelOrders->save($save);
+
+                foreach ($dataSend['idHangHoa'] as $key => $value) {
+                    $saveDetail = $modelOrderDetails->newEmptyEntity();
+
+                    $saveDetail->id_product = $value;
+                    $saveDetail->id_order = $save->id;
+                    $saveDetail->quantity = $dataSend['soluong'][$key];
+
+                    $modelOrderDetails->save($saveDetail);
+                }
+
+                $mess= '<p class="text-success">Tạo đơn hàng thành công</p>';
+
+                return $controller->redirect('/printBillOrderCustomerAgency/?id_order='.$save->id);
             }
         }
 

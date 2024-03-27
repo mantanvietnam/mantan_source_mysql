@@ -653,10 +653,12 @@ function printBillOrderMemberAgency($input)
                 $system = $modelCategories->find()->where(['id'=>(int) $session->read('infoUser')->id_system])->first();
 
                 $member_sell = $modelMembers->find()->where(['id'=>(int) $order->id_member_sell])->first();
+                $member_buy = $modelMembers->find()->where(['id'=>(int) $order->id_member_buy])->first();
 
                 setVariable('order', $order);
                 setVariable('system', $system);
                 setVariable('member_sell', $member_sell);
+                setVariable('member_buy', $member_buy);
             }else{
                 return $controller->redirect('/orderMemberAgency');
             }

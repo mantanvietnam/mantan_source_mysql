@@ -219,7 +219,7 @@
                                     <li>
                                         <span>Khách mua hàng (*)</span>
                                         <span><input class="per-bh form-control" type="text" name="customer_buy" id="customer_buy" placeholder="Nhập tên hoặc SĐT" value="" autocomplete="off" required /></span>
-                                        <input type="hidden" name="id_customer" id="id_customer" value="">
+                                        <input type="hidden" name="id_customer" id="id_customer" value="0">
                                     </li>
 
                                     <li style="display: contents;"><span>Ghi chú</span><br/>
@@ -357,15 +357,16 @@ function createOrder()
     var id_customer = $('#id_customer').val();
 
     if(numberProduct>0){
-        if(id_customer != '' && id_customer!='0'){
-            r = confirm("Bạn muốn tạo đơn hàng bán lẻ đúng không?");
-            if (r == true) {
-                if(checkProduct){
-                    $('#summary-form').submit();
-                }
-            }
+        if(id_customer == '' || id_customer=='0'){
+            r = confirm("Bạn chưa nhập khách mua hàng, bạn vẫn muốn tạo đơn hàng này chứ?");
         }else{
-            alert('Bạn chưa chọn khách hàng');
+            r = confirm("Bạn muốn tạo đơn hàng bán lẻ đúng không?");
+        }
+
+        if (r == true) {
+            if(checkProduct){
+                $('#summary-form').submit();
+            }
         }
     }else{
         alert('Bạn chưa chọn sản phẩm nào');
