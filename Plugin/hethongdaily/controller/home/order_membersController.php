@@ -135,8 +135,8 @@ function addRequestProductAgency($input)
 
                 $save->id_member_sell = $session->read('infoUser')->id_father;
                 $save->id_member_buy = $session->read('infoUser')->id;
-                $save->note_sell = '';
-                $save->note_buy = $dataSend['note'];
+                $save->note_sell = ''; // ghi chú người bán
+                $save->note_buy = $dataSend['note']; // ghi chú người mua 
                 $save->status = 'new';
                 $save->create_at = time();
                 $save->money = (int) $dataSend['total'];
@@ -215,7 +215,7 @@ function addOrderAgency($input)
                     $save->id_member_sell = $member_buy->id_father;
                     $save->id_member_buy = $member_buy->id;
                     $save->note_sell = '';
-                    $save->note_buy = $dataSend['note'];
+                    $save->note_buy = $dataSend['note']; // ghi chú người mua 
                     $save->status = 'new';
                     $save->create_at = time();
                     $save->money = (int) $dataSend['total'];

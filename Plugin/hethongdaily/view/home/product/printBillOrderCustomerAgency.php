@@ -96,6 +96,11 @@
                     </div>
                     <p><b>Bằng chữ:</b> <em><?php echo convert_number_to_words($order->total).' đồng';?></em></p>
                     
+                    <?php 
+                    if(!empty($order->note_user)){
+                        echo '<p><b>Ghi chú:</b> '.$order->note_user.'</p>';
+                    }
+                    ?>
                    
                     <div class="row footer">
                         <div class="col-md-6 col-sm-6 col-xs-6 text-center">

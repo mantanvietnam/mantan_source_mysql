@@ -60,8 +60,8 @@ function addOrderCustomer($input)
                 $save->email = @$customer_buy->email;
                 $save->phone = @$customer_buy->phone;
                 $save->address = @$customer_buy->address;
-                $save->note_user = '';
-                $save->note_admin = $dataSend['note'];
+                $save->note_user = $dataSend['note'];
+                $save->note_admin = '';
                 $save->status = 'new';
                 $save->create_at = time();
                 $save->money = (int) $dataSend['total'];

@@ -59,7 +59,7 @@ function searchCustomerAPI($input)
         }
     }else{
         $return= array(array(   'id'=>0, 
-                                'label'=>'Không tìm được khách hàng', 
+                                'label'=>'Không tìm được khách hàng, hãy tạo thông tin cho khách hàng mới', 
                                 'value'=>'', 
                             )
                 );

@@ -68,7 +68,7 @@ function searchMemberAPI($input)
         }
     }else{
         $return= array(array(   'id'=>0, 
-                                'label'=>'Không tìm được đại lý', 
+                                'label'=>'Không tìm được đại lý, hãy tạo thông tin cho đại lý mới', 
                                 'value'=>'', 
                             )
                 );
