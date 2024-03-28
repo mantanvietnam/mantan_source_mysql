@@ -3,6 +3,17 @@
     getHeader();
 ?>
 
+    <style>
+        <?php
+            if(!empty($setting_value['background_image_1'])){
+                echo '.wrapper{
+                    background-image: url(\''.$setting_value['background_image_1'].'\');
+                }';
+            }
+        ?>
+    </style>
+
+
     <div class="main">
         <div class="container">
             <div class="main-below mt-3">

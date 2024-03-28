@@ -907,11 +907,17 @@ strong{
   
 }
 
-.cart-box{
-    position: relative;
-}
   
-.cart-number{
+.cart-menu i{
+    color: #fff;
+    font-size: 20px;
+  }
+  
+  .cart-box{
+    position: relative;
+  }
+  
+  .cart-number{
     position: absolute;
     top: -10px;
     left: 13px;
@@ -924,9 +930,15 @@ strong{
     font-weight: 200;
     border-radius: 50%;
     text-align: center;
-}
-
-.cart-menu i{
-    color: #fff;
-    font-size: 20px;
-}
+  }
+  
+  .cart-menu{
+    position: relative;
+  }
+  
+  @media (max-width: 490px) {
+    .cart-box{
+      margin-bottom: 30px;
+    }
+    
+  }

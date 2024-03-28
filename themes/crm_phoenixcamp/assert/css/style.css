@@ -898,9 +898,40 @@ strong{
 
     .header-top {
         padding: 0 5px
-    }
-
-
-
-  
+    }  
 }
+
+.cart-menu i{
+    color: #fff;
+    font-size: 20px;
+  }
+  
+  .cart-box{
+    position: relative;
+  }
+  
+  .cart-number{
+    position: absolute;
+    top: -10px;
+    left: 13px;
+    width: 16px;
+    height: 16px;
+    line-height: 15px;
+    background: rgb(225, 40, 40);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 200;
+    border-radius: 50%;
+    text-align: center;
+  }
+  
+  .cart-menu{
+    position: relative;
+  }
+  
+  @media (max-width: 490px) {
+    .cart-box{
+      margin-bottom: 30px;
+    }
+    
+  }
