@@ -2856,14 +2856,16 @@ header .topbar .topbar-box .topbar-left p{
     }
 }
 
-.cart-menu i{
-    color: #fff;
-    font-size: 20px;
-}
+
 .post-title h1, .background-title h1{
   color: #000;
 }
 
+
+.cart-menu i{
+  color: #fff;
+  font-size: 20px;
+}
 
 .cart-box{
   position: relative;
@@ -2882,4 +2884,15 @@ header .topbar .topbar-box .topbar-left p{
   font-weight: 200;
   border-radius: 50%;
   text-align: center;
+}
+
+.cart-menu{
+  position: relative;
+}
+
+@media (max-width: 490px) {
+  .cart-box{
+    margin-bottom: 30px;
+  }
+  
 }

@@ -1550,6 +1550,16 @@ background: #555;
     max-width: 500px !important;
 }
 
+@media (max-width: 1199px) and (min-width: 992px){
+    #section-product-detail .container{
+        padding: 0;
+    }
+
+    .product-slide-right-img img{
+        height: auto;
+    }
+}
+
 @media (min-width: 900px){
     .slide-rate-image .slick-track{
         

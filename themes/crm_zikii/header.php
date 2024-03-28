@@ -69,6 +69,19 @@
                     background-color: '.$setting_value['background_color'].';
                 }';
             }
+
+            if(!empty($setting_value['background_color'])){
+                echo'@media (max-width: 768px){
+                    .header-navbar {
+                        background-color: '.$setting_value['background_color'].';
+                        position: relative;
+                        z-index: 99;
+                        padding: 21px;
+                        text-align: center;
+                    }
+                }';
+            }
+
         ?>
     </style>
 
@@ -115,18 +128,19 @@
                             <div class="cart-box">
                                 <a href="/cart" class="cart-menu">
                                     <i class="fa-solid fa-cart-shopping"></i>
-                                </a>
-                                <span class="cart-number">
-                                    <?php 
-                                    global $session;
+                                    <span class="cart-number">
+                                        <?php 
+                                        global $session;
 
-                                    if(!empty($session->read('product_order'))){
-                                        echo count($session->read('product_order'));
-                                    }else{
-                                        echo 0;
-                                    }
-                                    ?>
-                                </span>
+                                        if(!empty($session->read('product_order'))){
+                                            echo count($session->read('product_order'));
+                                        }else{
+                                            echo 0;
+                                        }
+                                        ?>
+                                    </span>
+                                </a>
+                 
                             </div>
                        
                             <button onclick="window.location = '/login';" class="btn-login"><span>ĐĂNG NHẬP </span><i class="fa-solid fa-arrow-right"></i></button>
