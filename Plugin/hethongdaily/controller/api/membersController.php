@@ -432,7 +432,7 @@ function saveInfoMemberAPI($input)
 
 				$modelMember->save($checkPhone);
 
-				$return = array('code'=>0);
+				$return = array('code'=>0, 'data'=>$checkPhone);
 
 				
 			}else{
