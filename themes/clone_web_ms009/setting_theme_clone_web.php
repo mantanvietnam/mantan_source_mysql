@@ -97,7 +97,7 @@
                 <input type="text" class="form-control" name="title_dv_to" value="<?php echo @$data['title_dv_to'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <label class="form-label" for="basic-default-fullname">Tiêu đề chữ to</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung chữ to</label>
                 <input type="text" class="form-control" name="content_dv" value="<?php echo @$data['content_dv'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
@@ -183,49 +183,49 @@
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 1</label>
                 <input type="text" class="form-control mb-3" name="title_ds_1" value="<?php echo @$data['title_ds_1'];?>" />
-                <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 1</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung đặc sản 1</label>
                 <input type="text" class="form-control" name="content_ds_1" value="<?php echo @$data['content_ds_1'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 2</label>
                 <input type="text" class="form-control mb-3" name="title_ds_2" value="<?php echo @$data['title_ds_2'];?>" />
-                <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 2</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung đặc sản 2</label>
                 <input type="text" class="form-control" name="content_ds_2" value="<?php echo @$data['content_ds_2'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 3</label>
                 <input type="text" class="form-control mb-3" name="title_ds_3" value="<?php echo @$data['title_ds_3'];?>" />
-                <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 3</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung đặc sản 3</label>
                 <input type="text" class="form-control" name="content_ds_3" value="<?php echo @$data['content_ds_3'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 4</label>
                 <input type="text" class="form-control mb-3" name="title_ds_4" value="<?php echo @$data['title_ds_4'];?>" />
-                <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 4</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung đặc sản 4</label>
                 <input type="text" class="form-control" name="content_ds_4" value="<?php echo @$data['content_ds_4'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 5</label>
                 <input type="text" class="form-control mb-3" name="title_ds_5" value="<?php echo @$data['title_ds_5'];?>" />
-                <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 5</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung đặc sản 5</label>
                 <input type="text" class="form-control" name="content_ds_5" value="<?php echo @$data['content_ds_5'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 6</label>
                 <input type="text" class="form-control mb-3" name="title_ds_6" value="<?php echo @$data['title_ds_6'];?>" />
-                <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 6</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung đặc sản 6</label>
                 <input type="text" class="form-control" name="content_ds_6" value="<?php echo @$data['content_ds_6'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 7</label>
                 <input type="text" class="form-control mb-3" name="title_ds_7" value="<?php echo @$data['title_ds_7'];?>" />
-                <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 7</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung đặc sản 7</label>
                 <input type="text" class="form-control" name="content_ds_7" value="<?php echo @$data['content_ds_7'];?>" />
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 8</label>
                 <input type="text" class="form-control mb-3" name="title_ds_8" value="<?php echo @$data['title_ds_8'];?>" />
-                <label class="form-label" for="basic-default-fullname">tiêu đề đặc sản 8</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung đặc sản 8</label>
                 <input type="text" class="form-control" name="content_ds_8" value="<?php echo @$data['content_ds_8'];?>" />
               </div>
             </div>

@@ -56,21 +56,30 @@ $setting = setting();?>
                     </button>
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#section-service">Dịch vụ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#section-library">Thư viện</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#section-blog">Tin tức</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#section-contact">Liên hệ</a>
-                            </li>
+                            <?php 
+                                $menu = getMenusDefault();
+                              
+                                if(!empty($menu)){
+                                    foreach($menu as $key => $value){
+                                        if(empty($value['sub'])){
+                                            echo '  <li class="nav-item">
+                                                        <a class="nav-link " aria-current="page" href="'.$value['link'].'">'.$value['name'].'</a>
+                                                    </li>';
+                                        }else{  
+                                            echo '  <li class="nav-item dropdown">
+                                                        <a class="nav-link dropdown-toggle" href="'.$value['link'].'" role="button" data-bs-toggle="dropdown"
+                                                           aria-expanded="false">'.$value['name'].'</a>
+                                                        
+                                                        <ul class="dropdown-menu">';
+                                                            foreach($value['sub'] as $keys => $sub) { 
+                                                                echo '<li><a class="dropdown-item" href="'.$sub['link'].'">'.$sub['name'].'</a></li>';
+                                                            }
+                                            echo        '</ul>
+                                                    </li>';
+                                        }
+                                    }
+                                } 
+                            ?>
                         </ul>
                     </div>
                 </div>

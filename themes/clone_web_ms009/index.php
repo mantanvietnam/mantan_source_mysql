@@ -35,15 +35,15 @@ global $urlThemeActive;
         <div class="container">
             <div class="section-title text-center m-auto">
                 <div class="title-small">
-                    <span><?php echo @$setting['title_dv_nho'] ?></span>
+                    <span><?php echo show_text_clone(@$setting['title_dv_nho']) ?></span>
                 </div>
 
                 <div class="title-big">
-                    <span><?php echo @$setting['title_dv_to'] ?></span>
+                    <span><?php echo show_text_clone(@$setting['title_dv_to']) ?></span>
                 </div>
 
                 <div class="title-description">
-                    <p><?php echo @$setting['content_dv'] ?></p>
+                    <p><?php echo show_text_clone(@$setting['content_dv']) ?></p>
                 </div>
             </div>
 
@@ -52,16 +52,16 @@ global $urlThemeActive;
                     <div class="col-lg-4">
                         <div class="service-item">
                             <div class="service-img">
-                                <img src="<?php echo @$setting['image_dv_1'] ?>" alt="">                                
+                                <img src="<?php echo show_text_clone(@$setting['image_dv_1']) ?>" alt="">                                
                             </div> 
 
                             <div class="service-detail">
                                 <div class="service-item-title">
-                                    <p><?php echo @$setting['title_dv_1'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['title_dv_1']) ?></p>
                                 </div>
 
                                 <div class="service-item-description">
-                                    <p><?php echo @$setting['content_dv_1'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['content_dv_1']) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -69,16 +69,16 @@ global $urlThemeActive;
                     <div class="col-lg-4">
                         <div class="service-item">
                             <div class="service-img">
-                                <img src="<?php echo @$setting['image_dv_2'] ?>" alt="">                                
+                                <img src="<?php echo show_text_clone(@$setting['image_dv_2']) ?>" alt="">                                
                             </div> 
 
                             <div class="service-detail">
                                 <div class="service-item-title">
-                                    <p><?php echo @$setting['title_dv_2'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['title_dv_2']) ?></p>
                                 </div>
 
                                 <div class="service-item-description">
-                                    <p><?php echo @$setting['content_dv_2'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['content_dv_2']) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -86,16 +86,16 @@ global $urlThemeActive;
                     <div class="col-lg-4">
                         <div class="service-item">
                             <div class="service-img">
-                                <img src="<?php echo @$setting['image_dv_3'] ?>" alt="">                                
+                                <img src="<?php echo show_text_clone(@$setting['image_dv_3']) ?>" alt="">                                
                             </div> 
 
                             <div class="service-detail">
                                 <div class="service-item-title">
-                                    <p><?php echo @$setting['title_dv_3'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['title_dv_3']) ?></p>
                                 </div>
 
                                 <div class="service-item-description">
-                                    <p><?php echo @$setting['content_dv_3'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['content_dv_3']) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -103,16 +103,16 @@ global $urlThemeActive;
                     <!-- <div class="col-lg-3">
                         <div class="service-item">
                             <div class="service-img">
-                                <img src="<?php echo @$setting['image_dv_4'] ?>" alt="">                                
+                                <img src="<?php echo show_text_clone(@$setting['image_dv_4']) ?>" alt="">                                
                             </div> 
 
                             <div class="service-detail">
                                 <div class="service-item-title">
-                                    <p><?php echo @$setting['title_dv_4'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['title_dv_4']) ?></p>
                                 </div>
 
                                 <div class="service-item-description">
-                                    <p><?php echo @$setting['content_dv_4'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['content_dv_4']) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -129,29 +129,29 @@ global $urlThemeActive;
             <div class="row">
                 <div class="col-lg-6 col-md-12 about-left">
                     <div class="about-left-img">
-                        <img src="<?php echo @$setting['image_gt'] ?>" alt="">
+                        <img src="<?php echo show_text_clone(@$setting['image_gt']) ?>" alt="">
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-md-12 about-right">
                     <div class="section-title">
                         <div class="title-small">
-                            <span><?php echo @$setting['title_gt_nho'] ?></span>
+                            <span><?php echo show_text_clone(@$setting['title_gt_nho']) ?></span>
                         </div>
 
                         <div class="title-big">
-                            <span><?php echo @$setting['title_gt_to'] ?></span>
+                            <span><?php echo show_text_clone(@$setting['title_gt_to']) ?></span>
                         </div>
 
                         <div class="title-description">
-                            <p><?php echo nl2br(@$setting['content_gt_den']); ?></p>
+                            <p><?php echo nl2br(show_text_clone(@$setting['content_gt_den'])); ?></p>
                         </div>
                     </div>
 
                     <div class="about-content">
-                        <p><?php echo @$setting['content_gt_tim'] ?></p>
+                        <p><?php echo show_text_clone(@$setting['content_gt_tim']) ?></p>
                         <div class="button-link">
-                            <a href="<?php echo @$setting['link_gt'] ?>">Xem thêm</a>
+                            <a href="<?php echo show_text_clone(@$setting['link_gt']) ?>">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -163,15 +163,15 @@ global $urlThemeActive;
         <div class="container">
             <div class="section-title text-center m-auto">
                 <div class="title-small">
-                    <span><?php echo @$setting['title_ds_nho'] ?></span>
+                    <span><?php echo show_text_clone(@$setting['title_ds_nho']) ?></span>
                 </div>
 
                 <div class="title-big">
-                    <span><?php echo @$setting['title_ds_to'] ?></span>
+                    <span><?php echo show_text_clone(@$setting['title_ds_to']) ?></span>
                 </div>
 
                 <div class="title-description">
-                    <p><?php echo @$setting['content_ds'] ?></p>
+                    <p><?php echo show_text_clone(@$setting['content_ds']) ?></p>
                 </div>
             </div>
 
@@ -182,11 +182,11 @@ global $urlThemeActive;
                             <div class="why-box">
                                 <div class="icon-box-text text-end">
                                     <div class="icon-title">
-                                        <span><?php echo @$setting['title_ds_1'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['title_ds_1']) ?></span>
                                     </div>
 
                                     <div class="icon-description">
-                                        <span><?php echo @$setting['content_ds_1'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['content_ds_1']) ?></span>
                                     </div>
                                 </div>
 
@@ -198,11 +198,11 @@ global $urlThemeActive;
                             <div class="why-box box-padding-right">
                                 <div class="icon-box-text text-end">
                                     <div class="icon-title">
-                                        <span><?php echo @$setting['title_ds_2'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['title_ds_2']) ?></span>
                                     </div>
 
                                     <div class="icon-description">
-                                        <span><?php echo @$setting['content_ds_2'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['content_ds_2']) ?></span>
                                     </div>
                                 </div>
 
@@ -214,11 +214,11 @@ global $urlThemeActive;
                             <div class="why-box box-padding-right">
                                 <div class="icon-box-text text-end">
                                     <div class="icon-title">
-                                        <span><?php echo @$setting['title_ds_3'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['title_ds_3']) ?></span>
                                     </div>
 
                                     <div class="icon-description">
-                                        <span><?php echo @$setting['content_ds_3'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['content_ds_3']) ?></span>
                                     </div>
                                 </div>
 
@@ -230,11 +230,11 @@ global $urlThemeActive;
                             <div class="why-box">
                                 <div class="icon-box-text text-end">
                                     <div class="icon-title">
-                                        <span><?php echo @$setting['title_ds_4'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['title_ds_4']) ?></span>
                                     </div>
 
                                     <div class="icon-description">
-                                        <span><?php echo @$setting['content_ds_4'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['content_ds_4']) ?></span>
                                     </div>
                                 </div>
 
@@ -252,7 +252,7 @@ global $urlThemeActive;
                     <div class="col-lg-4 col-md-12">
                         <div class="why-item-center">
                             <div class="why-img">
-                                <img src="<?php echo @$setting['image_ds'] ?>" alt="">
+                                <img src="<?php echo show_text_clone(@$setting['image_ds']) ?>" alt="">
                             </div>
                         </div>
                     </div>
@@ -270,11 +270,11 @@ global $urlThemeActive;
 
                                 <div class="icon-box-text text-start">
                                     <div class="icon-title">
-                                        <span><?php echo @$setting['title_ds_5'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['title_ds_5']) ?></span>
                                     </div>
 
                                     <div class="icon-description">
-                                        <span><?php echo @$setting['content_ds_5'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['content_ds_5']) ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -286,11 +286,11 @@ global $urlThemeActive;
 
                                 <div class="icon-box-text text-start">
                                     <div class="icon-title">
-                                        <span><?php echo @$setting['title_ds_6'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['title_ds_6']) ?></span>
                                     </div>
 
                                     <div class="icon-description">
-                                        <span><?php echo @$setting['content_ds_6'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['content_ds_6']) ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -302,11 +302,11 @@ global $urlThemeActive;
 
                                 <div class="icon-box-text text-start">
                                     <div class="icon-title">
-                                        <span><?php echo @$setting['title_ds_7'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['title_ds_7']) ?></span>
                                     </div>
 
                                     <div class="icon-description">
-                                        <span><?php echo @$setting['content_ds_7'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['content_ds_7']) ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -318,11 +318,11 @@ global $urlThemeActive;
 
                                 <div class="icon-box-text text-start">
                                     <div class="icon-title">
-                                        <span><?php echo @$setting['title_ds_8'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['title_ds_8']) ?></span>
                                     </div>
 
                                     <div class="icon-description">
-                                        <span><?php echo @$setting['content_ds_8'] ?></span>
+                                        <span><?php echo show_text_clone(@$setting['content_ds_8']) ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -340,11 +340,11 @@ global $urlThemeActive;
                     <div class="form-content">
                         <div class="section-title">
                             <div class="title-small">
-                                <span><?php echo @$setting['title_lh_nho'] ?></span>
+                                <span><?php echo show_text_clone(@$setting['title_lh_nho']) ?></span>
                             </div>
 
                             <div class="title-big">
-                                <span><?php echo @$setting['title_lh_to'] ?></span>
+                                <span><?php echo show_text_clone(@$setting['title_lh_to']) ?></span>
                             </div>
                              <p id="success"></p>
                         </div>
@@ -380,7 +380,7 @@ global $urlThemeActive;
 
                 <div class="col-lg-6 form-right">
                     <div class="form-img">
-                        <img src="<?php echo @$setting['image_lh'] ?>" alt="">
+                        <img src="<?php echo show_text_clone(@$setting['image_lh']) ?>" alt="">
                     </div>
                 </div>
             </div>
@@ -391,15 +391,15 @@ global $urlThemeActive;
         <div class="container">
             <div class="section-title text-center m-auto">
                 <div class="title-small">
-                    <span><?php echo @$setting['title_sp_nho'] ?></span>
+                    <span><?php echo show_text_clone(@$setting['title_sp_nho']) ?></span>
                 </div>
 
                 <div class="title-big">
-                    <span><?php echo @$setting['title_sp_to'] ?></span>
+                    <span><?php echo show_text_clone(@$setting['title_sp_to']) ?></span>
                 </div>
 
                 <div class="title-description">
-                    <p><?php echo @$setting['content_sp'] ?></p>
+                    <p><?php echo show_text_clone(@$setting['content_sp']) ?></p>
                 </div>
             </div>
 
@@ -408,24 +408,24 @@ global $urlThemeActive;
                     <div class="col-lg-4 col-md-12">
                         <div class="learn-item">
                             <div class="learn-img">
-                                <img src="<?php echo @$setting['image_sp_1'] ?>" alt="">
+                                <img src="<?php echo show_text_clone(@$setting['image_sp_1']) ?>" alt="">
                             </div>
 
                             <div class="learn-detail">
                                 <div class="learn-name">
-                                    <span><?php echo @$setting['title_sp_1'] ?></span>
+                                    <span><?php echo show_text_clone(@$setting['title_sp_1']) ?></span>
                                 </div>
 
                                 <div class="learn-description">
-                                    <p><?php echo @$setting['content_sp_1'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['content_sp_1']) ?></p>
                                 </div>
 
                                 <div class="learn-price">
-                                    <span class="price-number"><?php echo @$setting['price_sp_1'] ?></span>
+                                    <span class="price-number"><?php echo show_text_clone(@$setting['price_sp_1']) ?></span>
                                 </div>
 
                                 <div class="button-link">
-                                    <a href="<?php echo @$setting['link_sp_1'] ?>">Đăng ký ngay</a>
+                                    <a href="<?php echo show_text_clone(@$setting['link_sp_1']) ?>">Đăng ký ngay</a>
                                 </div>
                             </div>
                         </div>
@@ -433,24 +433,24 @@ global $urlThemeActive;
                     <div class="col-lg-4 col-md-12">
                         <div class="learn-item">
                             <div class="learn-img">
-                                <img src="<?php echo @$setting['image_sp_2'] ?>" alt="">
+                                <img src="<?php echo show_text_clone(@$setting['image_sp_2']) ?>" alt="">
                             </div>
 
                             <div class="learn-detail">
                                 <div class="learn-name">
-                                    <span><?php echo @$setting['title_sp_2'] ?></span>
+                                    <span><?php echo show_text_clone(@$setting['title_sp_2']) ?></span>
                                 </div>
 
                                 <div class="learn-description">
-                                    <p><?php echo @$setting['content_sp_2'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['content_sp_2']) ?></p>
                                 </div>
 
                                 <div class="learn-price">
-                                    <span class="price-number"><?php echo @$setting['price_sp_2'] ?></span>
+                                    <span class="price-number"><?php echo show_text_clone(@$setting['price_sp_2']) ?></span>
                                 </div>
 
                                 <div class="button-link">
-                                    <a href="<?php echo @$setting['link_sp_2'] ?>">Đăng ký ngay</a>
+                                    <a href="<?php echo show_text_clone(@$setting['link_sp_2']) ?>">Đăng ký ngay</a>
                                 </div>
                             </div>
                         </div>
@@ -458,24 +458,24 @@ global $urlThemeActive;
                     <div class="col-lg-4 col-md-12">
                         <div class="learn-item">
                             <div class="learn-img">
-                                <img src="<?php echo @$setting['image_sp_3'] ?>" alt="">
+                                <img src="<?php echo show_text_clone(@$setting['image_sp_3']) ?>" alt="">
                             </div>
 
                             <div class="learn-detail">
                                 <div class="learn-name">
-                                    <span><?php echo @$setting['title_sp_3'] ?></span>
+                                    <span><?php echo show_text_clone(@$setting['title_sp_3']) ?></span>
                                 </div>
 
                                 <div class="learn-description">
-                                    <p><?php echo @$setting['content_sp_3'] ?></p>
+                                    <p><?php echo show_text_clone(@$setting['content_sp_3']) ?></p>
                                 </div>
 
                                 <div class="learn-price">
-                                    <span class="price-number"><?php echo @$setting['price_sp_3'] ?></span>
+                                    <span class="price-number"><?php echo show_text_clone(@$setting['price_sp_3']) ?></span>
                                 </div>
 
                                 <div class="button-link">
-                                    <a href="<?php echo @$setting['link_sp_3'] ?>">Đăng ký ngay</a>
+                                    <a href="<?php echo show_text_clone(@$setting['link_sp_3']) ?>">Đăng ký ngay</a>
                                 </div>
                             </div>
                         </div>
@@ -485,53 +485,51 @@ global $urlThemeActive;
             </div>
         </div>
     </section>
+    
+    <?php 
+    if(function_exists('getListFeedback')){
+        $getListFeedback = getListFeedback();
 
-    <section id="section-comment" style="background-image: url(<?php echo @$setting['background_feedback'] ?>);">
-        <div class="container">
-            <div class="comment-list">
-                <?php 
-                if(function_exists('getListFeedback')){
-                    $getListFeedback = getListFeedback();
+        if(!empty($getListFeedback)){
+            echo '<section id="section-comment" style="background-image: url('.show_text_clone(@$setting['background_feedback']).');">
+                    <div class="container">
+                        <div class="comment-list">';
+                            foreach($getListFeedback as $item){
+                                echo '  <div class="comment-item">
+                                            <div class="comment-content">
+                                                <p>'.@$item->content.'</p>
+                                            </div>
 
-                    if(!empty($getListFeedback)){
-                        foreach($getListFeedback as $item){
-                            echo '  <div class="comment-item">
-                                        <div class="comment-content">
-                                            <p>'.@$item->content.'</p>
-                                        </div>
+                                            <div class="comment-img">
+                                                <img src="'.@$item->avatar.'" alt="">
+                                            </div>
 
-                                        <div class="comment-img">
-                                            <img src="'.@$item->avatar.'" alt="">
-                                        </div>
+                                            <div class="comment-name">
+                                                <span>'.@$item->full_name.'</span>
+                                            </div>
+                                        </div>';
+                            }
 
-                                        <div class="comment-name">
-                                            <span>'.@$item->full_name.'</span>
-                                        </div>
-                                    </div>';
-                        }
-                    } 
-                }
-                ?>
-                
-
-                
-            </div>
-        </div>
-    </section>
+                echo '  </div>
+                    </div>
+                </section>';
+        } 
+    }
+    ?>
 
     <section id="section-news">
         <div class="container">
             <div class="section-title text-center m-auto">
                 <div class="title-small">
-                    <span><?php echo @$setting['title_tt_nho'] ?></span>
+                    <span><?php echo show_text_clone(@$setting['title_tt_nho']) ?></span>
                 </div>
 
                 <div class="title-big">
-                    <span><?php echo @$setting['title_tt_to'] ?></span>
+                    <span><?php echo show_text_clone(@$setting['title_tt_to']) ?></span>
                 </div>
 
                 <div class="title-description">
-                    <p><?php echo @$setting['content_tt'] ?></p>
+                    <p><?php echo show_text_clone(@$setting['content_tt']) ?></p>
                 </div>
             </div>
             <div class="news-list">
