@@ -6,7 +6,7 @@ global $urlThemeActive;
     <main>
         <section id="page-banner-img">
             <div class="banner-img">
-                <img src="<?= $urlThemeActive ?>images/slide-event.png" alt="">
+                <img src="<?= $urlThemeActive ?>images/IMG_0.jpg" alt="">
             </div>
         </section>
 

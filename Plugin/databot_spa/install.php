@@ -466,6 +466,9 @@ $sqlInstallDatabase .="CREATE TABLE `zalo_templates` (
 $sqlInstallDatabase .="ALTER TABLE `categories` ADD `id_member` INT NULL; ";
 
 
+$sqlInstallDatabase .="CREATE TABLE `medical_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `id_customer` INT NOT NULL , `id_member` INT NOT NULL , `id_spa` INT NOT NULL , `created_at` DATETIME NULL DEFAULT NULL , `updated_at` DATETIME NULL DEFAULT NULL , `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , `id_order` INT NULL DEFAULT NULL , `result` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , `treatment_plan` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
+
  
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -495,6 +498,7 @@ $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE agencys; ";
 $sqlDeleteDatabase .= "DROP TABLE zalo_templates; ";
 $sqlDeleteDatabase .= "DROP TABLE userservice_histories; ";
+$sqlDeleteDatabase .= "DROP TABLE medical_histories; ";
 
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";

@@ -154,6 +154,8 @@ function getListPermission()
                                                     array('name'=>'Nhóm khách hàng','permission'=>'listCategoryCustomer'),
                                                     array('name'=>'Xóa nhóm khách hàng','permission'=>'deleteCategoryCustomer'),
                                                     array('name'=>'Thêm và sửa nguồn khách hàng','permission'=>'listSourceCustomer'),
+                                                    array('name'=>'Xem hố sơ bệnh án khách hàng','permission'=>'listmedicalHistories'),
+                                                    array('name'=>'Thêm hố sơ bệnh án khách hàng','permission'=>'addMedicalHistories'),
 
                                                     
                                             ),

@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 getHeader();
 ?>
     <main class="bg-pt py-4">

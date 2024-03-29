@@ -49,7 +49,7 @@ global $urlThemeActive;
 
             <div class="service-list">
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="service-item">
                             <div class="service-img">
                                 <img src="<?php echo @$setting['image_dv_1'] ?>" alt="">                                
@@ -66,7 +66,7 @@ global $urlThemeActive;
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="service-item">
                             <div class="service-img">
                                 <img src="<?php echo @$setting['image_dv_2'] ?>" alt="">                                
@@ -83,7 +83,7 @@ global $urlThemeActive;
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="service-item">
                             <div class="service-img">
                                 <img src="<?php echo @$setting['image_dv_3'] ?>" alt="">                                
@@ -100,7 +100,7 @@ global $urlThemeActive;
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <!-- <div class="col-lg-3">
                         <div class="service-item">
                             <div class="service-img">
                                 <img src="<?php echo @$setting['image_dv_4'] ?>" alt="">                                
@@ -116,7 +116,7 @@ global $urlThemeActive;
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     
                 </div>
@@ -144,7 +144,7 @@ global $urlThemeActive;
                         </div>
 
                         <div class="title-description">
-                            <p><?php echo @$setting['content_gt_den'] ?></p>
+                            <p><?php echo nl2br(@$setting['content_gt_den']); ?></p>
                         </div>
                     </div>
 

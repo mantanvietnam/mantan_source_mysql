@@ -150,7 +150,7 @@
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <label class="form-label" for="basic-default-fullname">Nội dung chữ Đen</label>
-                <input type="text" class="form-control" name="content_gt_den" value="<?php echo @$data['content_gt_den'];?>" />
+                <textarea class="form-control" name="content_gt_den"><?php echo @$data['content_gt_den'];?></textarea>
               </div>
                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <label class="form-label" for="basic-default-fullname">Nội dung chữ tím</label>
@@ -242,7 +242,7 @@
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <label class="form-label" for="basic-default-fullname">ảnh bên phải</label>
-                 <?php showUploadFile('image_lh','image_lh', @$data['image_lh'],9);?>
+                 <?php showUploadFile('image_lh','image_lh', @$data['image_lh'],10);?>
               </div>
             </div>
           </div>
@@ -303,7 +303,7 @@
             <div class="card-body row ">
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
               <label class="form-label" for="basic-default-fullname">Ảnh Nền</label>
-                 <?php showUploadFile('background_feedback','background_feedback', @$data['background_feedback'],10);?>
+                 <?php showUploadFile('background_feedback','background_feedback', @$data['background_feedback'],19);?>
               </div>
             </div>
           </div>
