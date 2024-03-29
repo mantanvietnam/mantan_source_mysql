@@ -144,7 +144,7 @@ global $urlThemeActive;
                         </div>
 
                         <div class="title-description">
-                            <p><?php echo @$setting['content_gt_den'] ?></p>
+                            <p><?php echo nl2br(@$setting['content_gt_den']); ?></p>
                         </div>
                     </div>
 

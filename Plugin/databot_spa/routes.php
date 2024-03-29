@@ -46,7 +46,8 @@
 	$routesPlugin['deleteCategoryCustomer']= 'databot_spa/view/home/customer/deleteCategoryCustomer.php';
 	$routesPlugin['listSourceCustomer']= 'databot_spa/view/home/customer/listSourceCustomer.php';
 	$routesPlugin['addDataCustomer']= 'databot_spa/view/home/customer/addDataCustomer.php';
-	$routesPlugin['listmedicalHistories']= 'databot_spa/view/home/customer/listmedicalHistories.php';
+	$routesPlugin['listMedicalHistories']= 'databot_spa/view/home/customer/listMedicalHistories.php';
+	$routesPlugin['addMedicalHistories']= 'databot_spa/view/home/customer/addMedicalHistories.php';
 	
 	$routesPlugin['listStaff']= 'databot_spa/view/home/staff/listStaff.php';
 	$routesPlugin['addStaff']= 'databot_spa/view/home/staff/addStaff.php';

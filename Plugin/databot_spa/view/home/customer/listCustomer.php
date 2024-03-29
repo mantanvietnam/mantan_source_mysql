@@ -119,7 +119,7 @@
                             </a>
                           </td>
                           <td align="center">
-                            <a class="dropdown-item" href="/listmedicalHistories/?id_customer='.$item->id.'">
+                            <a class="dropdown-item" href="/listMedicalHistories/?id_customer='.$item->id.'">
                               <i class="bx bx-show"></i>
                             </a>
                           </td>
