@@ -20,11 +20,11 @@
                   <div class="nav-align-top mb-4">
                         <div class="row">
                           <div class="col-md-6 mb-3">
-                            <label class="form-label">tên đại lý (*)</label>
+                            <label class="form-label">Tên đại lý (*)</label>
                             <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                           </div>
                           <div class="col-md-6 mb-3">
-                            <label class="form-label">điện thoại (*)</label>
+                            <label class="form-label">Điện thoại (*)</label>
                             <input required type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
                           </div>
                           <div class="col-md-6 mb-3">
@@ -36,17 +36,17 @@
                             <input  type="text" class="form-control phone-mask" name="email" id="email" value="<?php echo @$data->email;?>" />
                           </div>
                           <div class="col-md-6 mb-3">
-                            <label class="form-label">link facebook </label>
+                            <label class="form-label">Facebook </label>
                             <input  type="text" class="form-control phone-mask" name="facebook" id="facebook" value="<?php echo @$data->facebook;?>" />
                           </div>
                           <div class="col-md-6 mb-3">
-                            <label class="form-label">zalo </label>
+                            <label class="form-label">Zalo </label>
                             <input  type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$data->zalo;?>" />
                           </div>
                           <div class="col-md-6  mb-3">
                             <label class="form-label">Khu vực</label>
                             <select name="id_category" class="form-control  mb-3" >
-                              <option value="">chon </option>
+                              <option value="">Chọn khu vực </option>
                               <?php
                                 if(!empty($listCategory)){
                                   foreach($listCategory as $item){
