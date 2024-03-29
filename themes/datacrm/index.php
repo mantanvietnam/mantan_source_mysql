@@ -7,7 +7,7 @@
     
     <?php 
         mantan_header(); 
-
+        global $settingThemes;
         if(function_exists('showSeoHome')) showSeoHome();
     ?>
     
@@ -64,58 +64,57 @@
         <section id="menu">
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#"><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-logo.png" alt=""></a>
+                    <a class="navbar-brand" href="/"><img src="<?php echo @$settingThemes['logo'];?>" alt=""></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="./home.html">Trang chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./introduction-page.html">Giới thiệu</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="./list-services-page.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dịch vụ
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="./list-services-page.html">Tất cả dịch vụ</a></li>
-                                    <li><a class="dropdown-item" href="#">Thiết kế Website, App</a></li>
-                                    <li><a class="dropdown-item" href="#">Làm nội dung</a></li>
-                                    <li><a class="dropdown-item" href="#">Chạy quảng cáo</a></li>
-                                    <li><a class="dropdown-item" href="#">Dịch vụ PR</a></li>
-                                    <li><a class="dropdown-item" href="#">VIRUAL TOUR 360°</a></li>
-                                    <li><a class="dropdown-item" href="#">TÊN MIỀN - WEB HOSTING</a></li>
-                                    <li><a class="dropdown-item" href="#">DỊCH VỤ DỊCH THUẬT</a></li>
-                                    <li><a class="dropdown-item" href="#">DỊCH VỤ LƯU TRÚ</a></li>
-                                    <li><a class="dropdown-item" href="#">DỊCH VỤ KHÁC</a></li>
+                            <?php 
+                                $menu = getMenusDefault();
 
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Tin tức</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./recruitment-page.html">Tuyển dụng</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./contact-page.html">Liên hệ</a>
-                            </li>
+                                if(!empty($menu)){
+                                    foreach($menu as $key => $value){
+                                        if(!empty($value->sub)){
+                                            echo '  <li class="nav-item dropdown">
+                                                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            '.$value->name.'
+                                                        </a>
+                                                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">';
+
+                                                            foreach ($value->sub as $sub) {
+                                                                echo '<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                            }
+                                            echo        '</ul>
+                                                    </li>';
+                                        }else{
+                                            echo '  <li class="nav-item">
+                                                        <a class="nav-link" href="'.$value->link.'">'.$value->name.'</a>
+                                                    </li>';
+                                        }
+                                    }
+                                }
+                            ?>
+
                             <li class="nav-item">
                                 <div class="header-btn d-none">
-                                    <button class="advise-button">Đăng kí tư vấn</button>
+                                    <button class="advise-button" >Đăng kí tư vấn</button>
+
+                                    <!--
                                     <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/coVN.png" alt=""></a>
                                     <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/coUK.png" alt=""></a>
+                                    -->
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <div class="header-btn">
-                        <button class="advise-button">Đăng kí tư vấn</button>
+                        <button class="advise-button" >Đăng kí tư vấn</button>
+
+                        <!--
                         <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/coVN.png" alt=""></a>
                         <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/coUK.png" alt=""></a>
+                        -->
                     </div>
 
 
@@ -130,36 +129,30 @@
 
                 <div class="list-banner row">
                     <div class="banner-sub col-lg-6 col-md-6 col">
-                        <div class="item-banner-sub">
-                            <h4>TOP TOP</h4>
-                            <h5>Đưa ra giải pháp số toàn diện cho bạn</h5>
-                            <p>Thấu hiểu bối cảnh doanh nghiệp, đưa ra giải pháp tối ưu, TOP TOP sẵn sàng đồng hành cùng thương hiệu cất cánh.</p>
-                            <button class="advise-button">Tư vấn ngay <i class="fa-solid fa-arrow-right-long"></i></button>
-                        </div>
-                        <div class="item-banner-sub">
-                            <h4>TOP TOP</h4>
-                            <h5>Đưa ra giải pháp số toàn diện cho bạn</h5>
-                            <p>Thấu hiểu bối cảnh doanh nghiệp, cất cánh.</p>
-                            <button class="advise-button">Tư vấn ngay <i class="fa-solid fa-arrow-right-long"></i></button>
-                        </div>
-                        <div class="item-banner-sub">
-                            <h4>TOP TOP</h4>
-                            <h5>Đưa ra giải pháp số toàn diện cho bạn</h5>
-                            <p>Thấu hiểu bối cảnh doanh nghiệp, đưa ra giải pháp tối ưu, TOP TOP sẵn sàng đồng hành cùng thương hiệu cất cánh.</p>
-                            <button class="advise-button">Tư vấn ngay <i class="fa-solid fa-arrow-right-long"></i></button>
-                        </div>
+                        <?php 
+                        if(!empty($slide_home)){
+                            foreach ($slide_home as $key => $value) {
+                                echo '  <div class="item-banner-sub">
+                                            <h4>'.@$settingThemes['name_brand'].'</h4>
+                                            <h5>'.$value->title.'</h5>
+                                            <p>'.$value->description.'</p>
+                                            <button class="advise-button">Tư vấn ngay <i class="fa-solid fa-arrow-right-long"></i></button>
+                                        </div>';
+                            }
+                        }
+                        ?>
                     </div>
 
                     <div class="banner-img col-lg-6 col-md-6 col">
-                        <div class="item-banner-img">
-                            <img src="<?php echo $urlThemeActive;?>/asset/image/Innovation.gif" alt="">
-                        </div>
-                        <div class="item-banner-img">
-                            <img src="<?php echo $urlThemeActive;?>/asset/image/Chatbot.gif" alt="">
-                        </div>
-                        <div class="item-banner-img">
-                            <img src="<?php echo $urlThemeActive;?>/asset/image/Security.gif" alt="">
-                        </div>
+                        <?php 
+                        if(!empty($slide_home)){
+                            foreach ($slide_home as $key => $value) {
+                                echo '  <div class="item-banner-img">
+                                            <img src="'.$value->image.'" alt="">
+                                        </div>';
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
 
@@ -173,16 +166,14 @@
                     <img src="<?php echo $urlThemeActive;?>/asset/image/Asset1.png" alt="">
                 </div>
                 <div class="section-title" data-aos="zoom-in-up">
-                    <h3>TOP <span>TOP</span> </h3>
+                    <h3><span><?php echo @$settingThemes['name_brand'];?></span> </h3>
                 </div>
                 <div class="introduction-content" data-aos="zoom-in-up">
-                    <h3 data-aos="zoom-in-up">Chúng tôi mang đến giải pháp công nghệ <br><span>SÁNG TẠO, TỐI ƯU</span> và <span>HIỆU QUẢ</span></h3>
-                    <p data-aos="zoom-in-up">Liệu thương hiệu của bạn có đủ lực để chiến tiếp trên thương trường trong thời kỳ chuyển đổi số? Làm sao để tối ưu nguồn lực và đẩy mạnh thương hiệu cho doanh nghiệp của bạn? TOP TOP ở đây để cùng bạn dựng xây và phát triển thương
-                        hiệu thông qua dịch vụ thiết kế website và các giải pháp Marketing và Công nghệ tổng thể: sáng tạo nội dung, quản trị website, SEO tổng thể, giải pháp thương mại điện tử, thiết kế app, thiết kế nhận diện thương hiệu, quảng cáo
-                        đa nền tảng...</p>
+                    <h3 data-aos="zoom-in-up"><?php echo @$settingThemes['title_about'];?></h3>
+                    <p data-aos="zoom-in-up"><?php echo @$settingThemes['content_about'];?></p>
                 </div>
                 <div class="introduction-btn">
-                    <a href="" data-aos="zoom-out">Về chúng tôi</a>
+                    <a href="<?php echo @$settingThemes['link_about'];?>" data-aos="zoom-out">Về chúng tôi</a>
                 </div>
 
             </div>
@@ -201,7 +192,7 @@
                                     <img src="<?php echo $urlThemeActive;?>/asset/image/arrow.png" alt="">
                                 </div>
                                 <div class="top-info">
-                                    <h3>Kết nối ngay với TOP TOP</h3>
+                                    <h3>Kết nối ngay với <?php echo @$settingThemes['name_brand'];?></h3>
                                     <p>Chúng tôi luôn sẵn sàng lắng nghe và đưa ra giải pháp phù hợp nhất cho vấn đề của bạn.</p>
                                 </div>
                                 <div class="top-img">
@@ -210,37 +201,35 @@
                                 <div class="top-contact-btn">
                                     <a href="#">
                                         <div><i class="fa-solid fa-phone fa-beat"></i></div>
-                                        <p><span>Hotline</span>0968-951-277</p>
+                                        <p><span>Hotline</span><?php echo $contactSite['phone'];?></p>
                                     </a>
                                     <a href="#">
                                         <div><i class="fa-solid fa-envelope-open-text fa-beat"></i></div>
-                                        <p><span>Email</span>info@toptop.com.vn</p>
+                                        <p><span>Email</span><?php echo $contactSite['email'];?></p>
                                     </a>
                                 </div>
                             </div>
 
                             <div class="col-lg-6 col-md-6 col top-form">
-                                <form>
+                                <form method="POST" action="/contact">
+                                    <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                                     <label for="">
-                                        <input type="text" placeholder="Họ và tên *" required>
+                                        <input type="text" placeholder="Họ và tên *" required name="name" value="">
                                     </label>
                                     <label for="">
-                                        <input type="text" placeholder="Địa chỉ e-mail *" required>
+                                        <input type="text" placeholder="Địa chỉ email *" required name="email" value="">
                                     </label>
                                     <label for="">
-                                        <input type="text" placeholder="Số điện thoại *" required>
+                                        <input type="text" placeholder="Số điện thoại *" required name="phone_number" value="">
                                     </label>
                                     <label for="">
-                                        <input type="text" placeholder="Địa chỉ *" required>
+                                        <input type="text" placeholder="Tiêu đề *" required name="subject" value="">
                                     </label>
                                     <label for="">
-                                        <input type="text" placeholder="Yêu cầu dịch vụ *" required>
-                                    </label>
-                                    <label for="">
-                                        <textarea cols="30" rows="10" placeholder="Nội dung yêu cầu ..."></textarea>
+                                        <textarea name="content" cols="30" rows="10" placeholder="Nội dung yêu cầu ..."></textarea>
                                     </label>
 
-                                    <button>Gửi yêu cầu <i class="fa-solid fa-play"></i></button>
+                                    <button type="submit">Gửi yêu cầu <i class="fa-solid fa-play"></i></button>
                                 </form>
                             </div>
                         </div>
@@ -253,146 +242,30 @@
         <section id="services">
             <div class="container">
                 <div class="section-title" data-aos="zoom-in-up">
-                    <p>Dịch vụ</p>
-                    <h3 class="animate__animated animate__bounce">Những <span>dịch vụ</span> mà TOP TOP cung cấp</h3>
+                    <p>Phân hệ chức năng</p>
+                    <h3 class="animate__animated animate__bounce">Những <span>chức năng</span> mà <?php echo @$settingThemes['name_brand'];?> cung cấp</h3>
                 </div>
                 <div class="list-services row">
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="item-services" data-aos="zoom-in-up">
-                            <div class="services-img">
-                                <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                            </div>
-                            <div class="services-name">
-                                <a href="">Thiết kế Website, App</a>
-                                <p>TOP TOP chuyên tạo ra trang web và ứng dụng độc đáo, tinh tế, đáp ứng mọi yêu cầu kỹ thuật và thương hiệu của bạn</p>
-                            </div>
-                            <div class="services-btn">
-                                <a href="#">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php 
+                    foreach ($blog_service as $key => $value) {
+                        $link = '/'.$value->slug.'.html';
 
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="item-services" data-aos="zoom-in-up">
-                            <div class="services-img">
-                                <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                            </div>
-                            <div class="services-name">
-                                <a href="">Thiết kế Website, App</a>
-                                <p>TOP TOP chuyên tạo ra trang web và ứng dụng độc đáo, tinh tế, đáp ứng mọi yêu cầu kỹ thuật và thương hiệu của bạn</p>
-                            </div>
-                            <div class="services-btn">
-                                <a href="#">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="item-services" data-aos="zoom-in-up">
-                            <div class="services-img">
-                                <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                            </div>
-                            <div class="services-name">
-                                <a href="">Thiết kế Website, App</a>
-                                <p>TOP TOP chuyên tạo ra trang web và ứng dụng độc đáo, tinh tế, đáp ứng mọi yêu cầu kỹ thuật và thương hiệu của bạn</p>
-                            </div>
-                            <div class="services-btn">
-                                <a href="#">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="item-services" data-aos="zoom-in-up">
-                            <div class="services-img">
-                                <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                            </div>
-                            <div class="services-name">
-                                <a href="">Thiết kế Website, App</a>
-                                <p>TOP TOP chuyên tạo ra trang web và ứng dụng độc đáo, tinh tế, đáp ứng mọi yêu cầu kỹ thuật và thương hiệu của bạn</p>
-                            </div>
-                            <div class="services-btn">
-                                <a href="#">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="item-services" data-aos="zoom-in-up">
-                            <div class="services-img">
-                                <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                            </div>
-                            <div class="services-name">
-                                <a href="">Thiết kế Website, App</a>
-                                <p>TOP TOP chuyên tạo ra trang web và ứng dụng độc đáo, tinh tế, đáp ứng mọi yêu cầu kỹ thuật và thương hiệu của bạn</p>
-                            </div>
-                            <div class="services-btn">
-                                <a href="#">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="item-services" data-aos="zoom-in-up">
-                            <div class="services-img">
-                                <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                            </div>
-                            <div class="services-name">
-                                <a href="">Thiết kế Website, App</a>
-                                <p>TOP TOP chuyên tạo ra trang web và ứng dụng độc đáo, tinh tế, đáp ứng mọi yêu cầu kỹ thuật và thương hiệu của bạn</p>
-                            </div>
-                            <div class="services-btn">
-                                <a href="#">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="item-services" data-aos="zoom-in-up">
-                            <div class="services-img">
-                                <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                            </div>
-                            <div class="services-name">
-                                <a href="">Thiết kế Website, App</a>
-                                <p>TOP TOP chuyên tạo ra trang web và ứng dụng độc đáo, tinh tế, đáp ứng mọi yêu cầu kỹ thuật và thương hiệu của bạn</p>
-                            </div>
-                            <div class="services-btn">
-                                <a href="#">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="item-services" data-aos="zoom-in-up">
-                            <div class="services-img">
-                                <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                            </div>
-                            <div class="services-name">
-                                <a href="">Thiết kế Website, App</a>
-                                <p>TOP TOP </p>
-                            </div>
-                            <div class="services-btn">
-                                <a href="#">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="item-services" data-aos="zoom-in-up">
-                            <div class="services-img">
-                                <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                            </div>
-                            <div class="services-name">
-                                <a href="">Thiết kế Website, App</a>
-                                <p>TOP TOP chuyên tạo ra trang web và ứng dụng độc đáo, tinh tế, đáp ứng mọi yêu cầu kỹ thuật và thương hiệu của bạn</p>
-                            </div>
-                            <div class="services-btn">
-                                <a href="#">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-
+                        echo '  <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="item-services" data-aos="zoom-in-up">
+                                        <div class="services-img">
+                                            <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
+                                        </div>
+                                        <div class="services-name">
+                                            <a href="">'.$value->title.'</a>
+                                            <p>'.$value->description.'</p>
+                                        </div>
+                                        <div class="services-btn">
+                                            <a href="'.$link.'">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>';
+                    }
+                    ?>
                 </div>
             </div>
         </section>
@@ -402,49 +275,25 @@
                 <div class="background-image-overlay"></div>
                 <div class="section-title aos-init aos-animate" data-aos="zoom-in-up">
                     <p>Nhân sự</p>
-                    <h3><span>Nhân sự</span> của <span>TOP TOP</span> bao gồm những ai ?</h3>
+                    <h3><span>Nhân sự</span> của <span><?php echo @$settingThemes['name_brand'];?></span> bao gồm những ai ?</h3>
                 </div>
                 <div class="personnel-content" data-aos="zoom-in-up" id="scrollableDiv">
                     <div class="person-grid">
-                        <div class="person">
-                            <div class="person__background person-animation-1">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/toptop-car.jpg" alt="">
-                            </div>
-                            <div class="person__content">
-                                <p class="person__category">Trưởng phòng IT </p>
-                                <h3 class="person__heading">Trần Trung Hiếu</h3>
-                            </div>
-                        </div>
-
-                        <div class="person">
-                            <div class="person__background person-animation-2">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/toptop-tshirt.jpg" alt="">
-                            </div>
-                            <div class="person__content">
-                                <p class="person__category">Trưởng phòng IT </p>
-                                <h3 class="person__heading">Trần Trung Hiếu</h3>
-                            </div>
-                        </div>
-
-                        <div class="person">
-                            <div class="person__background person-animation-1">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt="">
-                            </div>
-                            <div class="person__content">
-                                <p class="person__category">Trưởng phòng IT </p>
-                                <h3 class="person__heading">Trần Trung Hiếu</h3>
-                            </div>
-                        </div>
-
-                        <div class="person">
-                            <div class="person__background person-animation-2">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/toptop-hat.jpg" alt="">
-                            </div>
-                            <div class="person__content">
-                                <p class="person__category">Trưởng phòng IT </p>
-                                <h3 class="person__heading">Trần Trung Hiếu</h3>
-                            </div>
-                        </div>
+                        <?php 
+                        if(!empty($staff)){
+                            foreach ($staff as $key => $value) {
+                                echo '  <div class="person">
+                                            <div class="person__background person-animation-1">
+                                                <img src="'.$value->image.'" alt="">
+                                            </div>
+                                            <div class="person__content">
+                                                <p class="person__category">'.$value->name_location.'</p>
+                                                <h3 class="person__heading">'.$value->name.'</h3>
+                                            </div>
+                                        </div>';
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
         </section>
@@ -453,101 +302,28 @@
             <div class="container">
                 <div class="row">
                     <div class="worth-content col-lg-4 col-md-12 col-sm-12">
-                        <h4 data-aos="flip-up" class="aos-init aos-animate"><span>Giá trị khác biệt</span> <br>tại TOP TOP</h4>
-                        <p data-aos="fade-down-right" class="aos-init aos-animate">
-                            TOP TOP tự hào giới thiệu đội ngũ chiến binh với sự chuyên nghiệp và đội ngũ giàu kinh nghiệm thực chiến trên thị trường công nghệ. Chúng tôi không chỉ là những chuyên gia hiểu biết sâu rộng về công nghệ, mà còn là những người sáng tạo và linh hoạt, luôn
-                            sẵn sàng đối mặt với những thách thức động đối với ngành công nghiệp đầy cạm bẫy.
-                        </p>
-                        <p data-aos="fade-right" class="aos-init aos-animate">
-                            Với sự tập trung vào sự đổi mới và tiên đoán, đội ngũ của chúng tôi đã thành công trong việc áp dụng những giải pháp tiên tiến nhất để nâng cao hiệu suất và cạnh tranh của doanh nghiệp trên thị trường công nghệ ngày càng cạnh tranh. Chúng tôi không chỉ
-                            giúp doanh nghiệp xây dựng những sản phẩm và dịch vụ đột phá, mà còn thúc đẩy sự tương tác với khách hàng và xây dựng hình ảnh thương hiệu mạnh mẽ.
-                        </p>
-                        <p data-aos="fade-up-right" class="aos-init">
-                            Tâm huyết của chúng tôi không chỉ dừng lại ở việc tạo ra những chiến lược xuất sắc, mà còn làm cho chúng trở thành hiện thực thông qua quá trình triển khai kỹ thuật chính xác và đầy chuyên nghiệp. Chúng tôi hiểu rằng thị trường công nghệ đòi hỏi sự nhanh
-                            nhạy và linh hoạt, và chính vì vậy, TOP TOP là đối tác lý tưởng để cùng bạn chinh phục mọi thách thức và tạo ra những cơ hội mới.
-                        </p>
+                        <h4 data-aos="flip-up" class="aos-init aos-animate"><?php echo @$settingThemes['title_product_best'];?></h4>
+                        <p data-aos="fade-down-right" class="aos-init aos-animate"><?php echo nl2br(@$settingThemes['des_product_best']);?></p>
                     </div>
                     <div class="worth-detail col-lg-8 col-md-12 col-sm-12">
                         <div class="row">
-                            <div class="item-worth col-lg-4 col-md-6 col-sm-12">
-                                <div class="worth-card card-1 aos-init aos-animate" data-aos="fade-right">
-                                    <div class="imageBox">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/worth1.png">
-                                    </div>
-                                    <div class="contentBox">
-                                        <h2>Uy Tín</h2>
-                                        <div class="description">
-                                            <p>Luôn đặt chữ TÍN lên đầu, lấy UY TÍN làm vũ khí cạnh tranh, bảo vệ như danh dự của chính mình.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item-worth col-lg-4 col-md-6 col-sm-12">
-                                <div class="worth-card card-2 aos-init aos-animate" data-aos="fade-up">
-                                    <div class="imageBox">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/worth2.png">
-                                    </div>
-                                    <div class="contentBox">
-                                        <h2>Chuyên nghiệp</h2>
-                                        <div class="description">
-                                            <p>Đội ngũ nhân sự giàu kinh nghiệm, luôn hỗ trợ 24/7, đưa ra giải pháp tương xứng, hiệu quả.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item-worth col-lg-4 col-md-6 col-sm-12">
-                                <div class="worth-card card-3 aos-init aos-animate" data-aos="fade-left">
-                                    <div class="imageBox">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/worth3.png">
-                                    </div>
-                                    <div class="contentBox">
-                                        <h2>Sáng Tạo</h2>
-                                        <div class="description">
-                                            <p>Luôn đổi mới, sáng tạo hướng tới những sản phẩm dịch vụ mới hoàn thiện, hiệu quả hơn.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item-worth col-lg-4 col-md-6 col-sm-12">
-                                <div class="worth-card card-4 aos-init" data-aos="fade-right">
-                                    <div class="imageBox">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/worth4.png">
-                                    </div>
-                                    <div class="contentBox">
-                                        <h2>Tổng thể</h2>
-                                        <div class="description">
-                                            <p>Tư vấn giải pháp, cung cấp hệ thống, quy trình tổng thể về triển khai, vận hành và bảo trì.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item-worth col-lg-4 col-md-6 col-sm-12">
-                                <div class="worth-card card-5 aos-init" data-aos="fade-up">
-                                    <div class="imageBox">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/worth5.png">
-                                    </div>
-                                    <div class="contentBox">
-                                        <h2>Tiên Phong</h2>
-                                        <div class="description">
-                                            <p>Tiên phong tìm hiểu xu hướng, công nghệ mới, sẵn sàng mở rộng theo từng giai đoạn.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item-worth col-lg-4 col-md-6 col-sm-12">
-                                <div class="worth-card card-6 aos-init" data-aos="fade-left">
-                                    <div class="imageBox">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/worth6.png">
-                                    </div>
-                                    <div class="contentBox">
-                                        <h2>Bảo Mật</h2>
-                                        <div class="description">
-                                            <p>Đảm bảo luôn bảo mật thông tin Khách hàng theo đúng thỏa thuận.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php
+                            for ($i=1; $i <= 6 ; $i++) { 
+                                echo '  <div class="item-worth col-lg-4 col-md-6 col-sm-12">
+                                            <div class="worth-card card-1 aos-init aos-animate" data-aos="fade-right">
+                                                <div class="imageBox">
+                                                    <img src="'.@$settingThemes['image'.$i.'_product_best'].'">
+                                                </div>
+                                                <div class="contentBox">
+                                                    <h2>'.@$settingThemes['title'.$i.'_product_best'].'</h2>
+                                                    <div class="description">
+                                                        <p>'.@$settingThemes['content'.$i.'_product_best'].'</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>';
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -559,136 +335,21 @@
             <div class="container">
                 <div class="section-title" data-aos="zoom-in-up">
                     <p>Đối tác</p>
-                    <h3>Khách hàng đã <span>tin tưởng và hợp tác</span> cùng TOP TOP</h3>
+                    <h3>Khách hàng đã <span>tin tưởng và hợp tác</span> cùng <?php echo @$settingThemes['name_brand'];?></h3>
                 </div>
                 <div class="list-partner" data-aos="zoom-in-up">
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner1.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner1.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner1.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner1.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner1.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner1.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner1.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner1.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner1.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner1.png" alt="">
-                    </div>
-                    <div class="partner-logo">
-                        <div class="partner-dot dot1">
-                            <i class="fa-solid fa-circle"></i>
-                        </div>
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/partner2.png" alt="">
-                    </div>
-
+                    <?php 
+                    if(!empty($slide_partner)){
+                        foreach ($slide_partner as $key => $value) {
+                            echo '  <div class="partner-logo">
+                                        <div class="partner-dot dot1">
+                                            <i class="fa-solid fa-circle"></i>
+                                        </div>
+                                        <img src="'.$value->image.'" alt="">
+                                    </div>';
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </section>
@@ -699,256 +360,48 @@
                     <div class="row">
                         <div class="col-lg-5 col-12 no-padding-right">
                             <div class="section-title" data-aos="zoom-in-up">
-                                <h3>Khách hàng <br> <span>nói gì</span> về TOP TOP</h3>
+                                <h3>Khách hàng <br> <span>nói gì</span> về <?php echo @$settingThemes['name_brand'];?></h3>
                             </div>
 
                             <div class="fb-slide-1">
-                                <div class="item-slide-1">
-                                    <div class="customer-info">
-                                        <div class="customer-img">
-                                            <img src="<?php echo $urlThemeActive;?>/asset/image/bg-btn.jpg" alt="">
-                                        </div>
-                                        <div class="customer-company">
-                                            <p>Anh Tiến - Công ty TNHH Phú Mỹ Giàu Đẹp</p>
-                                        </div>
-                                    </div>
-                                    <div class="fedback-text">
-                                        <p>PMGĐ mong muốn thiết kế website đăng tin tại Miko Tech với mục đích tạo ra một kênh rao vặt bất động sản trung gian, kết nối người mua với người bán lại với nhau bằng những giao dịch cực kỳ đơn giản, tiện lợi, nhanh
-                                            chóng, an toàn, mang đến hiệu quả bất ngờ. Miko Tech đã giúp PMGĐ hoàn thiện website với các tính năng vượt trội, khả năng hiển thị tốt trên nhiều thiết bị. PMGĐ rất hài lòng và sẽ tiếp tục lựa chọn Miko Tech
-                                            là đơn vị đồng hành phát triển và nâng cấp website ở thời gian sắp tới</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-slide-1">
-                                    <div class="customer-info">
-                                        <div class="customer-img">
-                                            <img src="<?php echo $urlThemeActive;?>/asset/image/bg-btn.jpg" alt="">
-                                        </div>
-                                        <div class="customer-company">
-                                            <p>Anh Tiến - Công ty TNHH Phú Mỹ Giàu Đẹp</p>
-                                        </div>
-                                    </div>
-                                    <div class="fedback-text">
-                                        <p>PMGĐ mong muốn thiết kế website đăng tin tại Miko Tech với mục đích tạo ra một kênh rao vặt bất động sản trung gian, kết nối người mua với người bán lại với nhau bằng những giao dịch cực kỳ đơn giản, tiện lợi, nhanh
-                                            chóng, an toàn, mang đến hiệu quả bất ngờ.</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-slide-1">
-                                    <div class="customer-info">
-                                        <div class="customer-img">
-                                            <img src="<?php echo $urlThemeActive;?>/asset/image/bg-btn.jpg" alt="">
-                                        </div>
-                                        <div class="customer-company">
-                                            <p>Anh Tiến - Công ty TNHH Phú Mỹ Giàu Đẹp</p>
-                                        </div>
-                                    </div>
-                                    <div class="fedback-text">
-                                        <p>PMGĐ mong muốn thiết kế website đăng tin</p>
-                                    </div>
-                                </div>
+                                <?php
+                                if(!empty($listFeed)){
+                                    foreach ($listFeed as $key => $value) {
+                                        echo '  <div class="item-slide-1">
+                                                    <div class="customer-info">
+                                                        <div class="customer-img">
+                                                            <img src="'.$value->avatar.'" alt="">
+                                                        </div>
+                                                        <div class="customer-company">
+                                                            <p>'.$value->full_name.' - '.$value->position.'</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fedback-text">
+                                                        <p>'.$value->content.'</p>
+                                                    </div>
+                                                </div>';
+                                    }
+                                }
+                                ?>
                             </div>
-
-
                         </div>
                         <div class="col-lg-7 col-12 no-padding">
                             <div class="fb-slide-2">
-                                <div class="item-slide-2">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/cardvisit.jpg" alt="">
-                                </div>
-
-                                <div class="item-slide-2">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/toptop-car.jpg" alt="">
-                                </div>
-
-                                <div class="item-slide-2">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/toptop-helmet.jpg" alt="">
-                                </div>
+                                <?php
+                                if(!empty($listFeed)){
+                                    foreach ($listFeed as $key => $value) {
+                                        echo '  <div class="item-slide-2">
+                                                    <img src="'.$value->avatar.'" alt="">
+                                                </div>';
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
-
                     </div>
-
-                    <div class="sldie-feedback-center">
-                        <div class="sldie-feedback-center-content">
-                            <div class="macbook-img">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/macbook.webp" alt="">
-                            </div>
-                            <div class="list-slide-feedback-center">
-                                <div class="fb-slide-3">
-                                    <div class="item-slide-3">
-                                        <div class="item-slide-3-img">
-                                            <img src="<?php echo $urlThemeActive;?>/asset/image/cardvisit.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="item-slide-3">
-                                        <div class="item-slide-3-img">
-                                            <img src="<?php echo $urlThemeActive;?>/asset/image/toptop-car.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="item-slide-3">
-                                        <div class="item-slide-3-img">
-                                            <img src="<?php echo $urlThemeActive;?>/asset/image/toptop-helmet.jpg" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
                 </div>
             </div>
-
-
-
         </section>
-
-        <section id="news">
-            <div class="container">
-                <div class="section-title" data-aos="zoom-in-up">
-                    <p>Tin tức</p>
-                    <h3>Các <span>tin tức</span> nổi bật</h3>
-                    <h5>Cập nhật liên tục các thông tin, kiến thức và xu hướng mới nhất về công nghệ</h5>
-                </div>
-
-                <div class="news-content" data-aos="zoom-in-up">
-                    <div class="slide-news">
-                        <div class="item-slide-news">
-                            <div class="card-news">
-                                <div class="news-img">
-                                    <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                                </div>
-                                <div class="news-detail">
-                                    <div class="news-timepost">
-                                        <i class="fa-regular fa-calendar-days"></i>
-                                        <p>16/02/2024</p>
-                                    </div>
-                                    <div class="news-title">
-                                        <a href="">Feedback là gì? Ý nghĩa của feedback và cách xử lý feedback</a>
-                                    </div>
-                                    <div class="news-text">
-                                        <p>Feedback là thuật ngữ quen thuộc trong lĩnh vực kinh doanh mà ai cũng biết. Tuy nhiên, chúng ta cần hiểu rõ ý nghĩa, nguồn gốc và giá trị của feedback. Miko Tech sẽ giúp bạn hiểu feedback là gì và hướng dẫn cách
-                                            xử lý feedback từ khách hàng. Cùng tìm hiểu ngay nhé!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item-slide-news">
-                            <div class="card-news">
-                                <div class="news-img">
-                                    <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                                </div>
-                                <div class="news-detail">
-                                    <div class="news-timepost">
-                                        <i class="fa-regular fa-calendar-days"></i>
-                                        <p>16/02/2024</p>
-                                    </div>
-                                    <div class="news-title">
-                                        <a href="">Feedback là gì? Ý nghĩa của feedback và cách xử lý feedback</a>
-                                    </div>
-                                    <div class="news-text">
-                                        <p>Feedback là thuật ngữ quen thuộc trong lĩnh vực kinh doanh mà ai cũng biết. Tuy nhiên, chúng ta cần hiểu rõ ý nghĩa, nguồn gốc và giá trị của feedback. Miko Tech sẽ giúp bạn hiểu feedback là gì và hướng dẫn cách
-                                            xử lý feedback từ khách hàng. Cùng tìm hiểu ngay nhé!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item-slide-news">
-                            <div class="card-news">
-                                <div class="news-img">
-                                    <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                                </div>
-                                <div class="news-detail">
-                                    <div class="news-timepost">
-                                        <i class="fa-regular fa-calendar-days"></i>
-                                        <p>16/02/2024</p>
-                                    </div>
-                                    <div class="news-title">
-                                        <a href="">Feedback là gì? Ý nghĩa của feedback và cách xử lý feedback</a>
-                                    </div>
-                                    <div class="news-text">
-                                        <p>Feedback là thuật ngữ quen thuộc trong lĩnh vực kinh doanh mà ai cũng biết. Tuy nhiên, chúng ta cần hiểu rõ ý nghĩa, nguồn gốc và giá trị của feedback. Miko Tech sẽ giúp bạn hiểu feedback là gì và hướng dẫn cách
-                                            xử lý feedback từ khách hàng. Cùng tìm hiểu ngay nhé!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item-slide-news">
-                            <div class="card-news">
-                                <div class="news-img">
-                                    <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                                </div>
-                                <div class="news-detail">
-                                    <div class="news-timepost">
-                                        <i class="fa-regular fa-calendar-days"></i>
-                                        <p>16/02/2024</p>
-                                    </div>
-                                    <div class="news-title">
-                                        <a href="">Feedback là gì? Ý nghĩa của feedback và cách xử lý feedback</a>
-                                    </div>
-                                    <div class="news-text">
-                                        <p>Feedback là thuật ngữ quen thuộc trong lĩnh vực kinh doanh mà ai cũng biết. Tuy nhiên, chúng ta cần hiểu rõ ý nghĩa, nguồn gốc và giá trị của feedback. Miko Tech sẽ giúp bạn hiểu feedback là gì và hướng dẫn cách
-                                            xử lý feedback từ khách hàng. Cùng tìm hiểu ngay nhé!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item-slide-news">
-                            <div class="card-news">
-                                <div class="news-img">
-                                    <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                                </div>
-                                <div class="news-detail">
-                                    <div class="news-timepost">
-                                        <i class="fa-regular fa-calendar-days"></i>
-                                        <p>16/02/2024</p>
-                                    </div>
-                                    <div class="news-title">
-                                        <a href="">Feedback là gì? Ý nghĩa của feedback và cách xử lý feedback</a>
-                                    </div>
-                                    <div class="news-text">
-                                        <p>Feedback là thuật ngữ quen thuộc trong lĩnh vực kinh doanh mà ai cũng biết. Tuy nhiên, chúng ta cần hiểu rõ ý nghĩa, nguồn gốc và giá trị của feedback. Miko Tech sẽ giúp bạn hiểu feedback là gì và hướng dẫn cách
-                                            xử lý feedback từ khách hàng. Cùng tìm hiểu ngay nhé!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item-slide-news">
-                            <div class="card-news">
-                                <div class="news-img">
-                                    <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/toptop-pen.jpg" alt=""></a>
-                                </div>
-                                <div class="news-detail">
-                                    <div class="news-timepost">
-                                        <i class="fa-regular fa-calendar-days"></i>
-                                        <p>16/02/2024</p>
-                                    </div>
-                                    <div class="news-title">
-                                        <a href="">Feedback là gì? Ý nghĩa của feedback và cách xử lý feedback</a>
-                                    </div>
-                                    <div class="news-text">
-                                        <p>Feedback là thuật ngữ quen thuộc trong lĩnh vực kinh doanh mà ai cũng biết. Tuy nhiên, chúng ta cần hiểu rõ ý nghĩa, nguồn gốc và giá trị của feedback. Miko Tech sẽ giúp bạn hiểu feedback là gì và hướng dẫn cách
-                                            xử lý feedback từ khách hàng. Cùng tìm hiểu ngay nhé!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                </div>
-
-
-            </div>
-        </section>
-
     </main>
 
     <footer>
@@ -978,19 +431,17 @@
                         <div class="footer-company-info">
                             <div class="footer-company-intro">
                                 <div class="footer-company-logo">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/toptop-logo.png" alt="">
+                                    <img src="<?php echo @$settingThemes['logo'];?>" alt="">
                                 </div>
-                                <p>TOPTOP ra đời với sứ mệnh đồng hành và nâng tầm thương hiệu của bạn trên thị trường Internet. Chúng tôi giúp bạn phát triển với sự hỗ trợ của hệ sinh thái các giải pháp Marketing toàn diện. Đặc biệt với dịch vụ thiết kế
-                                    website chuyên nghiệp tại TOPTOP, bạn và doanh nghiệp bạn sẽ có bệ phóng vững chắc cho mọi hoạt động kinh doanh.</p>
+                                <p><?php echo @$settingThemes['content1_footer'];?></p>
                             </div>
 
                             <div class="footer-company-address">
                                 <h4>Trụ sở chính</h4>
                                 <ul>
-                                    <li><span>Địa chỉ:</span> Số 18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội</li>
-                                    <li><span>Số điện thoại:</span> 028 3636 8805 - 0909 326 456</li>
-                                    <li><span>Email</span> support@toptop.vn</li>
-                                    <li><span>Thời gian hoạt động:</span> Thứ 2 - Thứ 6 từ 8h30 - 17h30 Thứ 7 từ 8h30 - 12h30</li>
+                                    <li><span>Địa chỉ:</span> <?php echo $contactSite['address'];?></li>
+                                    <li><span>Số điện thoại:</span> <?php echo $contactSite['phone'];?></li>
+                                    <li><span>Email</span> <?php echo $contactSite['email'];?></li>
                                 </ul>
 
                             </div>
@@ -998,11 +449,11 @@
                             <div class="footer-company-icons-contact">
                                 <h4>Kết nối với chúng tôi</h4>
                                 <ul>
-                                    <li><a href=""><i class="fa-brands fa-facebook-f"></i></a></li>
-                                    <li><a href=""><i class="fa-brands fa-youtube"></i></a></li>
-                                    <li><a href=""><i class="fa-brands fa-instagram"></i></a></li>
-                                    <li><a href=""><i class="fa-brands fa-linkedin-in"></i></a></li>
-                                    <li><a href=""><i class="fa-brands fa-tiktok"></i></a></li>
+                                    <li><a href="<?php echo @$settingThemes['facebook'];?>"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                    <li><a href="<?php echo @$settingThemes['youtube'];?>"><i class="fa-brands fa-youtube"></i></a></li>
+                                    <li><a href="<?php echo @$settingThemes['instagram'];?>"><i class="fa-brands fa-instagram"></i></a></li>
+                                    <li><a href="<?php echo @$settingThemes['linkedIn'];?>"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                    <li><a href="<?php echo @$settingThemes['tiktok'];?>"><i class="fa-brands fa-tiktok"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -1010,24 +461,22 @@
 
                     <div class="col-lg-3 col-12" data-aos="fade-up">
                         <div class="footer-company-services">
-                            <h4>DỊCH VỤ</h4>
+                            <h4>LIÊN KẾT</h4>
                             <ul>
-                                <li><a href="">Thiết kế Website, App</a></li>
-                                <li><a href="">Làm nội dung</a></li>
-                                <li><a href="">Chạy quảng cáo</a></li>
-                                <li><a href="">Dịch vụ PR</a></li>
-                                <li><a href="">Vitual tour 360°</a></li>
-                                <li><a href="">Tên miên - Web hosting</a></li>
-                                <li><a href="">Dịch vụ dịch thuật</a></li>
-                                <li><a href="">Dịch vụ lưu trú</a></li>
-                                <li><a href="">Dịch vụ khác</a></li>
+                                <?php 
+                                if(!empty($menuFooter)){
+                                    foreach ($menuFooter as $key => $value) {
+                                        echo '<li><a target="_blank" href="'.$value->link.'">'.$value->name.'</a></li>';
+                                    }
+                                }
+                                ?>
                             </ul>
                         </div>
                         <div class="footer-company-recruitment">
                             <h4>TUYỂN DỤNG</h4>
                             <ul>
                                 <li>Gửi thông tin ứng tuyển tại</li>
-                                <li><span>Email:</span> tuyendung@toptop.vn</li>
+                                <li><span>Email:</span> <?php echo $contactSite['email'];?></li>
                             </ul>
                         </div>
                     </div>
@@ -1036,17 +485,18 @@
                         <div class="footer-advise">
                             <div class="footer-advise-title">
                                 <h4>GỬI YÊU CẦU BÁO GIÁ DỊCH VỤ</h4>
-                                <p>TOP TOP luôn tư vấn dịch vụ miễn phí. Chúng tôi sẽ liên hệ báo giá theo thông tin mà bạn để lại.</p>
+                                <p><?php echo @$settingThemes['name_brand'];?> luôn tư vấn dịch vụ miễn phí. Chúng tôi sẽ liên hệ báo giá theo thông tin mà bạn để lại.</p>
                             </div>
                             <div class="footer-advise-form">
-                                <form action="">
+                                <form action="/contact" method="POST">
+                                    <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                                     <div class="flex-input">
-                                        <input type="text" placeholder="Họ và tên *" required>
-                                        <input type="text" placeholder="Email *" required>
+                                        <input type="text" placeholder="Họ và tên *" required value="" name="name">
+                                        <input type="text" placeholder="Email *" required value="" name="email">
                                     </div>
-                                    <input type="text" placeholder="Số điện thoại *" required>
-                                    <input type="text" placeholder="Dịch vụ cần tư vấn *" required>
-                                    <textarea name="" id="" rows="6" placeholder="Nội dung tin nhắn"></textarea>
+                                    <input type="text" placeholder="Số điện thoại *" required value="" name="phone_number">
+                                    <input type="text" placeholder="Tiêu đề *" required value="" name="subject">
+                                    <textarea name="content" id="" rows="6" placeholder="Nội dung tin nhắn"></textarea>
 
                                     <div class="footer-advise-form-btn">
                                         <button type="submit">Gửi</button>
@@ -1061,7 +511,7 @@
         </section>
 
         <section id="copy-right">
-            <p>© 2024 Top Top. All rights reserved.</p>
+            <p>© 2024 <?php echo @$settingThemes['name_brand'];?>. All rights reserved.</p>
         </section>
     </footer>
 

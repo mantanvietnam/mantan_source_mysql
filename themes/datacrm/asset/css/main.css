@@ -250,7 +250,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 100px;
+    width: auto;
     height: 50px;
     margin: 0 auto;
 }
@@ -429,8 +429,8 @@ img {
 /* =========================== HOME =========================== */
 
 #banner {
-    padding-top: 150px;
-    padding-bottom: 100px;
+    padding-top: 60px;
+    padding-bottom: 60px;
 }
 
 #banner .container {
@@ -493,7 +493,7 @@ img {
     justify-content: center;
     position: absolute;
     left: -7%;
-    bottom: 0;
+    bottom: 2%;
     margin-bottom: 0;
 }
 
@@ -1412,7 +1412,7 @@ img {
 }
 
 .feedback-content .item-slide-2 {
-    height: 683px;
+    height: 723px;
     width: 100%;
     border-radius: 24px 0 0 0;
     overflow: hidden;
@@ -1429,7 +1429,9 @@ img {
     padding-top: 10px;
     margin-bottom: 30px;
     padding-right: 110px;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
 }
 
 .customer-info .customer-company p {
@@ -1441,9 +1443,6 @@ img {
 .feedback-content .item-slide-1 .customer-img {
     width: 100%;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
 }
 
 .feedback-content .item-slide-1 .customer-img img {
@@ -3875,8 +3874,33 @@ img {
 /* =========================== END TRANG TIN TỨC =========================== */
 
 @media (max-width: 1550px) {
-    /* =========== TRANG TUYỂN DỤNG =========== */
-    /* =========== END TRANG TUYỂN DỤNG =========== */
+    .macbook-img {
+        width: 880px;
+    }
+    .sldie-feedback-center .list-slide-feedback-center {
+        width: 641px;
+        top: calc(13% - 6px);
+        left: calc(14% - 5px);
+    }
+    .sldie-feedback-center .fb-slide-3 .item-slide-3-img {
+        height: 385px;
+    }
+    .item-slide-1 .fedback-text {
+        font-size: 14px;
+    }
+    .item-slide-1 .fedback-text {
+        height: 250px;
+    }
+    .feedback-content .item-slide-2 {
+        height: 634px;
+    }
+    .feedback-content .sldie-feedback-center {
+        top: 8%;
+    }
+    #section-feedback .container {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
 }
 
 @media (max-width: 1440px) {
@@ -3901,7 +3925,7 @@ img {
         font-size: 14px;
     }
     .feedback-content .item-slide-2 {
-        height: 660px;
+        height: 638px;
     }
     .feedback-content .sldie-feedback-center {
         position: absolute;
@@ -3989,7 +4013,7 @@ img {
         width: 665px;
     }
     .sldie-feedback-center .list-slide-feedback-center {
-        width: 480px;
+        width: 488px;
         height: 298px;
         overflow: hidden;
     }
@@ -4000,6 +4024,7 @@ img {
     }
     .feedback-content .item-slide-1 .customer-info {
         margin-bottom: 15px;
+        grid-template-columns: 80px 1fr;
     }
     .feedback-content .item-slide-2 {
         height: 638px;
@@ -4016,6 +4041,10 @@ img {
     }
     #banner .banner-img .item-banner-img img {
         width: 100%;
+    }
+    .feedback-content .item-slide-1 .customer-img img {
+        width: 80px;
+        height: 80px;
     }
     /* =========== END TRANG CHỦ =========== */
     /* =========== TRANG DỊCH VỤ =========== */
@@ -4936,7 +4965,7 @@ img {
     }
 }
 
-@media(max-width: 1225px) {
+@media(max-width: 1441px) {
     [data-aos] {
         opacity: 1!important;
         transform: none!important;

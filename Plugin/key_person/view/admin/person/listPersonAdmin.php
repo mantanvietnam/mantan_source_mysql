@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/key_person-view-admin-person-listPersonAdmin"> đại lý</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/key_person-view-admin-person-listPersonAdmin"> Đại lý</a> /</span>
     Danh sách đại lý
   </h4>
   <p><a href="/plugins/admin/key_person-view-admin-person-addPersonAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
@@ -63,11 +63,11 @@
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>ảnh</th>
-            <th>thông tin đại lý</th>
-            <th>khu vực</th>
-            <th>sửa</th>
-            <th>xóa</th>
+            <th>Ảnh</th>
+            <th>Thông tin đại lý</th>
+            <th>Khu vực</th>
+            <th>Sửa</th>
+            <th>Xóa</th>
           </tr>
         </thead>
         <tbody>

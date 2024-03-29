@@ -18,5 +18,23 @@ $menus[0]['sub'][]= array( 'title'=>'Khu vực',
 
 addMenuAdminMantan($menus);
 
+function get_all_person()
+{
+    global $modelCategories;
+    global $controller;
 
+    $modelPersons = $controller->loadModel('Persons');
+
+    $listData = $modelPersons->find()->where()->all()->toList();
+    
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $category = $modelCategories->find()->where(['id'=>$value->id_category])->first();
+
+            $listData[$key]->name_location = @$category->name;
+        }
+    }
+
+    return $listData;
+}
 ?>
