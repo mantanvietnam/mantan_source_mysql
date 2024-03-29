@@ -18,8 +18,9 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">ID đại lý (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="id_member" id="id_member" value="<?php echo @$data->id_member;?>" />
+                    <label class="form-label" for="basic-default-phone">Đại lý (*)</label>
+                    <input required type="text" class="form-control phone-mask" name="member" id="member" placeholder="Nhập tên hoặc SĐT" value="<?php if(!empty($member)) echo $member->name.' '.$member->phone;?>" autocomplete="off" required />
+                    <input type="hidden" name="id_member" id="id_member" value="<?php echo @$data->id_member;?>">
                   </div>
 
                   <div class="mb-3">
@@ -70,3 +71,60 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+    // tìm sản phẩm
+    $(function() {
+        function split( val ) {
+          return val.split( /,\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+        $( "#member" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchMemberAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#member" ).val(ui.item.label);
+                $( "#id_member" ).val(ui.item.id);
+
+                member_buy = ui.item.label;
+
+                return false;
+            }
+        });
+    });
+</script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>

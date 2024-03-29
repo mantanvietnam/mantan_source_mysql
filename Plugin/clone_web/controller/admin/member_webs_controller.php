@@ -142,10 +142,16 @@ function addWebMemberAdmin($input)
         }
     }
 
+    $member = [];
+    if(!empty($data->id_member)){
+        $member = $modelMembers->find()->where(['id'=>$data->id_member])->first();
+    }
+
     setVariable('listFolder', $listFolder);
 
     setVariable('data', $data);
     setVariable('mess', $mess);
+    setVariable('member', $member);
 }
 
 function deleteWebMemberAdmin($input){

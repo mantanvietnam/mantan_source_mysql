@@ -1,0 +1,43 @@
+#section-service .service-list .service-item .service-detail .service-item-description p {
+    display: block !important;
+}
+
+#section-banner .banner-content {
+    padding-top: 85px;
+}
+
+.banner-right-img {
+    width: 100%;
+}
+
+footer #section-footer-main .logo-footer {
+    height: auto !important;
+    width: 75% !important;
+}
+
+.why-item-center {
+    display: flex;
+    justify-content: center;
+}
+
+.why-img {
+    width: 275px;
+    height: 502px;
+}
+
+@media (max-width: 900px) {
+    .learn-item {
+        margin-bottom: 30px;
+    }
+    footer #section-footer-main .logo-footer {
+        height: auto;
+        width: 200px;
+    }
+    footer #section-footer-main .footer-center {}
+    #section-banner {
+        padding-top: 97px;
+    }
+    .navbar-toggler i {
+        color: #fff;
+    }
+}

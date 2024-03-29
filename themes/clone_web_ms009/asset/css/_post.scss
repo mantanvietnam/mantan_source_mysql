@@ -1,0 +1,51 @@
+#section-breadcrumb{
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 250px;
+    padding-bottom: 100px;
+
+    .background-banner{
+        position: relative;
+        z-index: 1;
+        h1{
+            width: 100%;
+            color: #fff;
+            font-size: 45px;
+            top: 0;
+            left: 0px;
+            text-align: center;
+            letter-spacing: 5px;
+            margin: 0px 0px 10px;
+            line-height: 90px;
+            display: block;
+            position: relative;
+            font-family: "Pacifico";
+        }
+    }
+   
+
+    .background-opacity{
+        background-color: rgba(118, 73, 121, 0.75);
+        height: 100%;
+        left: 0;
+        margin: 0 !important;
+        padding: 0 !important;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
+
+#section-post-detail{
+    padding-top: 120px;
+    .post-right{
+        
+    }
+}
+
+#section-post-other{
+    h2{
+        font-size: 45px;
+    }
+}

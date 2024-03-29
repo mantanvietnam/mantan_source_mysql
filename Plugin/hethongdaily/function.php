@@ -173,6 +173,24 @@ function sendZNSZalo($template_id='', $params='', $phone='', $id_oa='', $app_id=
     return ['error'=>1, 'message'=>'Gửi thiếu dữ liệu'];
 }
 
+/*
+function sendZNSDataBot($order, $product_name, $name_system, $agency)
+{
+    $url = 'https://quantri.databot.vn/sendZNS309784';
+    $data = [   'phone' => $order->phone,
+                'customer_name' => $order->full_name,
+                'order_code' => 'OC'.$order->id,
+                'payment_status' => 'Đơn hàng mới',
+                'product_name' => $product_name,
+                'author' => $name_system,
+                'cost' => $order->total,
+                'note' => 'soạn tin XÁC NHẬN để xác nhận bạn đã tạo đơn hàng này',
+            ];
+
+    sendDataConnectMantan($url, $data);
+}
+*/
+
 function getAccessTokenZaloOA($id_oa='', $app_id='')
 {
     global $controller;
