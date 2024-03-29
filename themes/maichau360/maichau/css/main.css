@@ -2624,6 +2624,10 @@ width: 578px !important; */
     padding-right: 0;
 }
 
+#header .navbar .navbar-collapse .nav-item.dropdown:last-child {
+    display: none;
+}
+
 
 /*      EM HIEU CSS - END       */
 

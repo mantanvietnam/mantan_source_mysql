@@ -466,6 +466,10 @@ strong {
     left: -70px;
 }
 
+#header .navbar .navbar-collapse .nav-item.dropdown:last-child {
+    display: none;
+}
+
 @media (max-width: 1440px) {
     #header .navbar .navbar-collapse .nav-item {
         margin-left: 18px;
