@@ -3,6 +3,12 @@ getHeader();
 global $urlThemeActive;
 $setting = setting();
 ?>
+    <style>
+        header{
+            position: relative;
+            background-color: #000
+        }
+    </style>
 
     <main>
         <section id="section-blog-content">

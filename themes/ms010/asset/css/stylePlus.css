@@ -23,3 +23,49 @@
 .form-description p{
     color: #fff;
 }
+
+#section-service .service-left .service-img{
+    max-height: 756px;
+    text-align: center;
+}
+
+#section-service .service-left .service-img img{
+    width: auto;
+    height: auto;
+}
+
+.contact-img img{
+    width: auto;
+    height: auto;
+}
+
+.contact-img {
+    text-align: center;
+    height: 500px;
+
+}
+
+#section-contact{
+    overflow: hidden;
+}
+
+
+.special-img{
+    height: 561px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.special-img img{
+    height: auto;
+    width: auto;
+}
+
+#section-special{
+    overflow: hidden;
+}
+
+@media (max-width: 500px){
+
+}
+

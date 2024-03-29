@@ -2896,3 +2896,19 @@ header .topbar .topbar-box .topbar-left p{
   }
   
 }
+
+#section-page-blog .page-blog-list .page-blog-item .page-blog-description{
+  color: #000;
+}
+
+#section-page-blog{
+  padding-bottom: 50px;
+}
+
+#section-category-product-page{
+  padding-bottom: 50px;
+}
+
+#section-blog-other .blog-item .blog-detail .blog-description p{
+  color: #000;
+}
