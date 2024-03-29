@@ -21,7 +21,7 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  font-family: "PlayfairDisplay", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -94,8 +94,8 @@ h1, h2, h3, h4 {
     padding-right: 15px;
   }
 }
-@font-face {
-  font-family: "Pacifico";
+/* @font-face {
+  font-family: "Roboto";
   src: url("../font/Pacifico-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
@@ -107,7 +107,7 @@ h1, h2, h3, h4 {
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-}
+} */
 header {
   position: absolute;
   z-index: 1;
@@ -124,7 +124,7 @@ header .navbar-header.scroll-header .nav-link {
   color: #fff !important;
 }
 header .navbar-header .navbar-brand .image-header {
-  width: 155px;
+  width: 112px;
 }
 header .navbar-header .nav-item .nav-link {
   color: #fff;
@@ -161,7 +161,7 @@ header .navbar-header .nav-item .nav-link:hover {
   letter-spacing: 2px;
   margin: 0px 0px 5px;
   line-height: 37px;
-  font-family: "Pacifico";
+  font-family: "Roboto";
 }
 .section-title .title-big span {
   display: block;
@@ -169,7 +169,7 @@ header .navbar-header .nav-item .nav-link:hover {
   color: #242424;
   font-size: 45px;
   margin: 0px 0px 10px;
-  font-family: "Pacifico";
+  font-family: "Roboto";
   margin-top: 15px;
 }
 .section-title .title-description p {
@@ -312,14 +312,14 @@ header .navbar-header .nav-item .nav-link:hover {
   line-height: 35px;
   margin: 0px 0px 10px;
   display: block;
-  font-family: "Pacifico";
+  font-family: "Roboto";
 }
 #section-banner .banner-content .banner-left .banner-left-inner .banner-title-big h2 {
   color: #fff;
   font-size: 45px;
   margin: 0px 0px 10px;
   line-height: 80px;
-  font-family: "Pacifico";
+  font-family: "Roboto";
 }
 #section-banner .banner-content .banner-left .banner-left-inner .banner-description p {
   color: #fff;
@@ -603,7 +603,7 @@ header .navbar-header .nav-item .nav-link:hover {
 #section-news .news-list .news-item .news-text .news-name a {
   font-size: 20px;
   color: #fff;
-  font-family: "Pacifico";
+  font-family: "Roboto";
   transition: all 0.3s linear;
 }
 #section-news .news-list .news-item .news-text .news-link a {
@@ -960,7 +960,7 @@ footer #section-footer-bottom .footer-bottom p {
   line-height: 90px;
   display: block;
   position: relative;
-  font-family: "Pacifico";
+  font-family: "Roboto";
 }
 #section-breadcrumb .background-opacity {
   background-color: rgba(118, 73, 121, 0.75);
