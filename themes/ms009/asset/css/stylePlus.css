@@ -3,11 +3,17 @@
 }
 
 #section-banner .banner-content {
-    padding-top: 185px;
+    padding-top: 118px;
 }
 
 .banner-right-img {
     width: 100%;
+    /* height: 425px; */
+}
+
+.banner-right-img img{
+    max-width: 425px;
+    height: auto;
 }
 
 footer #section-footer-main .logo-footer {
@@ -21,7 +27,7 @@ footer #section-footer-main .logo-footer {
 }
 
 .why-img {
-    width: 275px;
+    /* width: 275px; */
     height: 502px;
 }
 
@@ -40,4 +46,8 @@ footer #section-footer-main .logo-footer {
     .navbar-toggler i {
         color: #fff;
     }
+}
+
+#section-form .section-title{
+    width: 100% !important;
 }
