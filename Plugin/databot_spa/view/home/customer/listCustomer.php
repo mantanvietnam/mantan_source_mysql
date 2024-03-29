@@ -76,6 +76,7 @@
               <th>Điểm</th>
               <th>NV phụ trách</th>
               <th>Thẻ thành viên</th>
+              <th>Hồ sơ bệnh án</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -115,6 +116,11 @@
                             <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
                             data-bs-target="#basicModal'.$item->id.'" target="_blank">
                               <i class="bx bx-image" ></i>
+                            </a>
+                          </td>
+                          <td align="center">
+                            <a class="dropdown-item" href="/listmedicalHistories/?id_customer='.$item->id.'">
+                              <i class="bx bx-show"></i>
                             </a>
                           </td>
                           <td align="center">

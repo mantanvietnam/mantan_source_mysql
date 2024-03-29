@@ -647,4 +647,57 @@ function addDataCustomer($input){
     }
 }
 
+function listmedicalHistories(){
+	global $controller;
+	global $modelCategories;
+	global $urlCurrent;
+	global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Hố sơ bệnh án khách hàng';
+
+	$modelCustomer = $controller->loadModel('Customers');
+	$modelMembers = $controller->loadModel('Members');
+	$modelService = $controller->loadModel('Services');
+	$modelSpas = $controller->loadModel('Spas');
+	$modelProduct = $controller->loadModel('Products');
+	$modelMedicalHistories = $controller->loadModel('MedicalHistories');
+	$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
+    $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+	$modelOrder = $controller->loadModel('Orders');
+	
+	if(!empty(checkLoginManager('ListmedicalHistories', 'customer'))){
+		$infoUser = $session->read('infoUser');
+		
+		$order = array('id'=>'desc');
+
+
+		$conditions = array('id_member'=>$infoUser->id_member);
+		// $limit = 20;
+		// $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+
+		if(!empty($_GET['id_customer'])){
+			$dataCustomer = $modelCustomer->get( (int) $_GET['id_customer']);
+			$conditions['id_customer'] = (int) $_GET['id_customer'];
+		}else{
+				return $controller->redirect('/listCustomer');
+		}
+
+
+		$Medical = $modelMedicalHistories->find()->where($conditions)->order($order)->all()->toList();
+		$service = $modelUserserviceHistories->find()->where($conditions)->order($order)->all()->toList();
+
+		$conditions['type'] ='product';
+
+		$productOrder = $modelOrder->find()->where($conditions)->order($order)->all()->toList();
+
+
+		setVariable('Medical', $Medical);
+	    setVariable('service', $service);
+	    setVariable('productOrder', $productOrder);
+	    setVariable('dataCustomer', $dataCustomer);
+
+	}
+}
+
 ?>
