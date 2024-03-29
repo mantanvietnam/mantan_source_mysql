@@ -162,7 +162,7 @@
 
   } */
 
-  @font-face {
+@font-face {
     font-family: "NotoSans";
     src: url("../font/Noto_Sans/NotoSans-Medium.ttf") format("truetype");
     font-weight: 500;
@@ -285,10 +285,11 @@ video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: NotoSans !important; 
+    font-family: NotoSans !important;
 }
 
-.banner-img img{}
+.banner-img img {}
+
 
 /* HTML5 display-role reset for older browsers */
 
@@ -328,11 +329,10 @@ q:after {
     content: none;
 }
 
-strong{
+strong {
     font-weight: bold;
 }
 
-  
 #header .search-area {
     background-color: #4D9F91;
     justify-content: end;
@@ -464,4 +464,16 @@ strong{
 
 #header .nav-item.dropdown .dropdown-menu.language-drop {
     left: -70px;
+}
+
+@media (max-width: 1440px) {
+    #header .navbar .navbar-collapse .nav-item {
+        margin-left: 18px;
+    }
+    #header .navbar .navbar-collapse .nav-item.dropdown .dropdown-icon {
+        margin-left: 1px;
+    }
+    #header .navbar {
+        padding: 24px 30px;
+    }
 }
