@@ -517,6 +517,7 @@ global $urlThemeActive;
     }
     ?>
 
+    <?php if(!empty($listDataNew)){ ?>
     <section id="section-news">
         <div class="container">
             <div class="section-title text-center m-auto">
@@ -533,7 +534,7 @@ global $urlThemeActive;
                 </div>
             </div>
             <div class="news-list">
-                <?php if(!empty($listDataNew)){
+                <?php 
                     foreach($listDataNew as $item){
                         echo '<div class="news-item">
                     <div class="news-img">
@@ -551,13 +552,12 @@ global $urlThemeActive;
                     </div>
                 </div>';
                     }
-                } ?>
-                
-
-             
+                ?>
             </div>
         </div>
     </section>
+    <?php }?>
+    
 </main>
 <script type="text/javascript">
         function contact(){

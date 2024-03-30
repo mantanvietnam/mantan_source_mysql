@@ -9,16 +9,16 @@ $setting = setting();
                 <div class="row">
                     <div class="col-lg-3 ">
                         <div class="logo-footer">
-                            <img src="<?php echo @$setting['logo'] ?>" alt="">
+                            <img src="<?php echo show_text_clone(@$setting['logo']) ?>" alt="">
                         </div>
                     </div>
 
                     <div class="col-lg-5">
                         <div class="footer-center">
-                            <p class="footer-company"><?php echo @$setting['name_company'] ?></p>
-                            <p class="footer-address">Địa chỉ: <?php echo @$setting['address'] ?></p>
-                            <p class="footer-phone">Hotline: <?php echo @$setting['phone'] ?></p>
-                            <p class="footer-email">Email: <?php echo @$setting['email'] ?></p>
+                            <p class="footer-company"><?php echo show_text_clone(@$setting['name_company']) ?></p>
+                            <p class="footer-address">Địa chỉ: <?php echo show_text_clone(@$setting['address']) ?></p>
+                            <p class="footer-phone">Hotline: <?php echo show_text_clone(@$setting['phone']) ?></p>
+                            <p class="footer-email">Email: <?php echo show_text_clone(@$setting['email']) ?></p>
                         </div>
                     </div>
 
@@ -28,18 +28,18 @@ $setting = setting();
                                 Về Chúng Tôi
                             </div>
 
-                            <div class="footer-right-description"><?php echo @$setting['aboutus'] ?></div>
+                            <div class="footer-right-description"><?php echo nl2br(show_text_clone(@$setting['aboutus'])) ?></div>
 
                             <div class="footer-list-social">
                                 <ul>
                                     <li>
-                                        <a href="<?php echo @$setting['facebook'] ?>"><i class="fa-brands fa-facebook-f"></i></a>
+                                        <a href="<?php echo show_text_clone(@$setting['facebook']) ?>"><i class="fa-brands fa-facebook-f"></i></a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo @$setting['twitter'] ?>"><i class="fa-brands fa-twitter"></i></a>
+                                        <a href="<?php echo show_text_clone(@$setting['twitter']) ?>"><i class="fa-brands fa-twitter"></i></a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo @$setting['tiktok'] ?>"><i class="fa-brands fa-tiktok"></i></a>
+                                        <a href="<?php echo show_text_clone(@$setting['tiktok']) ?>"><i class="fa-brands fa-tiktok"></i></a>
                                     </li>
                                     <li></li>
                                 </ul>
@@ -53,7 +53,7 @@ $setting = setting();
         <section id="section-footer-bottom">
             <div class="container">
                 <div class="footer-bottom text-center">
-                    <p><?php echo @$setting['textfooter'] ?></p>
+                    <p><?php echo show_text_clone(@$setting['textfooter']) ?></p>
                 </div>
             </div>
         </section>
@@ -71,6 +71,7 @@ $setting = setting();
 
     <script src="<?php echo $urlThemeActive ?>/asset/js/main.js"></script>
     <script src="<?php echo $urlThemeActive ?>/asset/js/slick.js"></script>
+    <script src="<?php echo $urlThemeActive ?>/asset/js/style_product.js"></script>
     <!-- // Ẩn phần tử -->
 </body>
 </html>
