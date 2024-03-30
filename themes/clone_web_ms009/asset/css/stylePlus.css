@@ -7,14 +7,19 @@
 }
 
 .banner-right-img {
-    width: 100%;
-    /* height: 425px; */
+    max-width: 406px;
+    max-height: 681px;
+
 }
 
-.banner-right-img img{
-    max-width: 486px;
-    height: auto;
+.banner-right{
+    overflow: hidden;
 }
+
+/* .banner-right-img img{
+    max-width: 100%;
+    max-height: 100;
+} */
 
 footer #section-footer-main .logo-footer {
     height: auto !important;
