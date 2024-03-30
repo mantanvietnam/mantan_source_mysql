@@ -53,6 +53,11 @@
                   </div>
 
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ảnh chân dung nhân hiệu</label>
+                    <?php showUploadFile('portrait','portrait',@$data->portrait,1);?>
+                  </div>
+
+                  <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Trang Linkedin</label>
                     <input type="text" class="form-control phone-mask" name="linkedin" id="linkedin" value="<?php echo @$data->linkedin;?>" />
                   </div>

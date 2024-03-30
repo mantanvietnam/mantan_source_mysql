@@ -62,7 +62,7 @@
                             <div class="contact-info">
                                 <div class="contact-info-item">
                                     <div class="contact-info-img">
-                                        <span><img src="<?php echo $urlThemeActive;?>/image/place.png" alt=""></span>
+                                        <span><img src="<?php echo $urlThemeActive;?>/asset/image/place.png" alt=""></span>
                                     </div>
                                     <div class="contact-info-detail">
                                         <strong>Địa chỉ</strong>
@@ -74,7 +74,7 @@
 
                                 <div class="contact-info-item">
                                     <div class="contact-info-img">
-                                        <span><img src="<?php echo $urlThemeActive;?>/image/telephone.png" alt=""></span>
+                                        <span><img src="<?php echo $urlThemeActive;?>/asset/image/telephone.png" alt=""></span>
                                     </div>
                                     <div class="contact-info-detail">
                                         <strong>Số điện thoại</strong>
@@ -85,7 +85,7 @@
 
                                 <div class="contact-info-item">
                                     <div class="contact-info-img">
-                                        <span><img src="<?php echo $urlThemeActive;?>/image/nine-oclock-on-circular-clock.png" alt=""></span>
+                                        <span><img src="<?php echo $urlThemeActive;?>/asset/image/nine-oclock-on-circular-clock.png" alt=""></span>
                                     </div>
                                     <div class="contact-info-detail">
                                         <strong>Thời gian làm việc</strong>
@@ -96,7 +96,7 @@
 
                                 <div class="contact-info-item">
                                     <div class="contact-info-img">
-                                        <span><img src="<?php echo $urlThemeActive;?>/image/email.png" alt=""></span>
+                                        <span><img src="<?php echo $urlThemeActive;?>/asset/image/email.png" alt=""></span>
                                     </div>
                                     <div class="contact-info-detail">
                                         <strong>Email</strong>

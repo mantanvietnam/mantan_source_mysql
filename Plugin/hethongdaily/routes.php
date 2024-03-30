@@ -80,6 +80,7 @@
 	// khách hàng
 	$routesPlugin['listCustomerAgency']= 'hethongdaily/view/home/customer/listCustomerAgency.php';
 	$routesPlugin['editCustomerAgency']= 'hethongdaily/view/home/customer/editCustomerAgency.php';
+	$routesPlugin['guideAddCustomerAPIAgency']= 'hethongdaily/view/home/customer/guideAddCustomerAPIAgency.php';
 	
 	// nhóm khách hàng
 	$routesPlugin['groupCustomerAgency']= 'hethongdaily/view/home/customer/groupCustomerAgency.php';

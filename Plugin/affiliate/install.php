@@ -1,9 +1,11 @@
 <?php 
 global $sqlInstallDatabase;
 global $sqlDeleteDatabase;
+global $sqlUpdateDatabase;
 
 $sqlInstallDatabase = '';
 $sqlDeleteDatabase = '';
+$sqlUpdateDatabase = '';
 
 $sqlInstallDatabase .= "CREATE TABLE `affiliaters` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
@@ -28,6 +30,8 @@ $sqlInstallDatabase .= "CREATE TABLE `affiliaters` (
     `twitter` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
     `tiktok` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
     `youtube` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+    `last_login` INT NOT NULL DEFAULT '0',
+    `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -45,4 +49,6 @@ $sqlInstallDatabase .= "CREATE TABLE `transaction_affiliate_histories` (
 
 $sqlDeleteDatabase .= "DROP TABLE affiliaters; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_affiliate_histories; ";
+
+$sqlUpdateDatabase .= "ALTER TABLE `affiliaters` ADD `last_login` INT NOT NULL DEFAULT '0' AFTER `youtube`, ADD `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `last_login`; ";
 ?>

@@ -191,6 +191,7 @@ function addAffiliaterAdmin($input)
                 $data->name = $dataSend['name'];
                 $data->address = $dataSend['address'];
                 $data->avatar = $dataSend['avatar'];
+                $data->portrait = $dataSend['portrait'];
                 $data->phone = $dataSend['phone'];
                 $data->email = $dataSend['email'];
                 $data->description = $dataSend['description'];

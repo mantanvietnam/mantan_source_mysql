@@ -56,13 +56,18 @@ function check_domain_clone()
 
     $modelMemberWebs = $controller->loadModel('MemberWebs');
     $modelMembers = $controller->loadModel('Members');
+    $modelAffiliaters = $controller->loadModel('Affiliaters');
 
     $conditions['domain'] = $_SERVER['HTTP_HOST'];
 
     $memberWebs = $modelMemberWebs->find()->where($conditions)->first();
 
     if(!empty($memberWebs)){
-        $infoMemberWeb = $modelMembers->find()->where(['id'=>$memberWebs->id_member, 'status'=>'active'])->first();
+        if($memberWebs->type == 'member'){
+            $infoMemberWeb = $modelMembers->find()->where(['id'=>$memberWebs->id_member, 'status'=>'active'])->first();
+        }else{
+            $infoMemberWeb = $modelAffiliaters->find()->where(['id'=>$memberWebs->id_member])->first();
+        }
 
         if(!empty($infoMemberWeb)){
             if(file_exists(__DIR__.'/theme/'.$memberWebs->theme.'/routes.php')){
@@ -78,7 +83,11 @@ function check_domain_clone()
             }
 
             // lấy thông tin hệ thống
-            $position = $modelCategories->find()->where(array('id'=>$infoMemberWeb->id_position))->first();
+            $position = [];
+            if(!empty($infoMemberWeb->id_position)){
+                $position = $modelCategories->find()->where(array('id'=>$infoMemberWeb->id_position))->first();
+            }
+            
             $system = $modelCategories->find()->where(array('id'=>$infoMemberWeb->id_system ))->first();
 
             $infoMemberWeb->name_position = @$position->name;

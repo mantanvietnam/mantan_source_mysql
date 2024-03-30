@@ -13,6 +13,7 @@ $sqlInstallDatabase .= "CREATE TABLE `member_webs` (`id` INT NOT NULL AUTO_INCRE
                             `theme` VARCHAR(100) NOT NULL , 
                             `view` INT NOT NULL DEFAULT '0' , 
                             `status` VARCHAR(100) NOT NULL DEFAULT 'active',
+                            `type` VARCHAR(100) NOT NULL DEFAULT 'member' COMMENT 'member hoặc affiliate',
                             PRIMARY KEY (`id`)
                         ) ENGINE = InnoDB; ";
 
@@ -20,4 +21,6 @@ $sqlInstallDatabase .= "CREATE TABLE `member_webs` (`id` INT NOT NULL AUTO_INCRE
 $sqlDeleteDatabase .= "DROP TABLE member_webs; ";
 
 //$sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='2top_crm_training'; ";
+
+$sqlUpdateDatabase .= "ALTER TABLE `member_webs` ADD `type` VARCHAR(100) NOT NULL DEFAULT 'member' COMMENT 'member hoặc affiliate' AFTER `status`; ";
 ?>

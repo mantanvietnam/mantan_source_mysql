@@ -11,6 +11,7 @@ function listWebMemberAdmin($input)
 
     $modelMemberWebs = $controller->loadModel('MemberWebs');
     $modelMembers = $controller->loadModel('Members');
+    $modelAffiliaters = $controller->loadModel('Affiliaters');
 
     $conditions = array();
     $limit = 20;
@@ -34,7 +35,11 @@ function listWebMemberAdmin($input)
 
     if(!empty($listData)){
         foreach ($listData as $key => $value) {
-            $listData[$key]->member = $modelMembers->find()->where(['id'=>$value->id_member])->first();
+            if($value->type == 'member'){
+                $listData[$key]->member = $modelMembers->find()->where(['id'=>$value->id_member])->first();
+            }else{
+                $listData[$key]->member = $modelAffiliaters->find()->where(['id'=>$value->id_member])->first();
+            }
         }
     }
 
@@ -91,6 +96,8 @@ function addWebMemberAdmin($input)
 
     $modelMembers = $controller->loadModel('Members');
     $modelMemberWebs = $controller->loadModel('MemberWebs');
+    $modelAffiliaters = $controller->loadModel('Affiliaters');
+
     $mess= '';
 
     // lấy data edit
@@ -103,8 +110,8 @@ function addWebMemberAdmin($input)
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['id_member']) && !empty($dataSend['domain']) && !empty($dataSend['theme'])){
-            $conditions = ['id_member'=>$dataSend['id_member']];
+        if((!empty($dataSend['id_member']) || !empty($dataSend['id_affiliate'])) && !empty($dataSend['domain']) && !empty($dataSend['theme'])){
+            $conditions = ['id_member'=>$dataSend['id_member'], 'type'=>$dataSend['type']];
             $checkMember = $modelMemberWebs->find()->where($conditions)->first();
 
             $conditions = ['domain'=>$dataSend['domain']];
@@ -114,9 +121,15 @@ function addWebMemberAdmin($input)
                 if(empty($checkDomain) || (!empty($_GET['id']) && $_GET['id']==$checkDomain->id)){
                     // tạo dữ liệu save
                     $data->domain = $dataSend['domain'];
-                    $data->id_member = (int) $dataSend['id_member'];
                     $data->theme = $dataSend['theme'];
                     $data->status = $dataSend['status'];
+                    $data->type = $dataSend['type'];
+
+                    if($dataSend['type'] == 'member'){
+                        $data->id_member = (int) $dataSend['id_member'];
+                    }else{
+                        $data->id_member = (int) $dataSend['id_affiliate'];
+                    }
 
                     $modelMemberWebs->save($data);
 
@@ -144,7 +157,11 @@ function addWebMemberAdmin($input)
 
     $member = [];
     if(!empty($data->id_member)){
-        $member = $modelMembers->find()->where(['id'=>$data->id_member])->first();
+        if($data->type == 'member'){
+            $member = $modelMembers->find()->where(['id'=>$data->id_member])->first();
+        }else{
+            $member = $modelAffiliaters->find()->where(['id'=>$data->id_member])->first();
+        }
     }
 
     setVariable('listFolder', $listFolder);

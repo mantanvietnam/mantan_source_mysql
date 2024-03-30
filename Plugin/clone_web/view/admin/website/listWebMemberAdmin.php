@@ -47,6 +47,7 @@
           <tr class="">
             <th>ID</th>
             <th>Đại lý</th>
+            <th>Loại tài khoản</th>
             <th>Tên miền</th>
             <th>Gói giao diện</th>
             <th>Trạng thái</th>
@@ -62,6 +63,11 @@
               if($item->status=='active'){ 
                   $status= 'Kích hoạt';
               }
+
+              $type = 'Cộng tác viên';
+              if($item->type=='member'){ 
+                  $type= 'Đại lý';
+              }
               
               echo '<tr>
               <td>'.$item->id.'</td>
@@ -70,6 +76,8 @@
                 <a href="/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin/?id='.$item->member->id.'">'.$item->member->name.'</a><br/>
                 '.$item->member->phone.'
               </td>
+
+              <td>'.$type.'</td>
              
               <td><a target="_blank" href="http://'.$item->domain.'">'.$item->domain.'</a></td>
               

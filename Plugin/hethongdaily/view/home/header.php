@@ -194,6 +194,7 @@
                           <a class="dropdown-item" href="/listCustomerAgency">Khách hàng</a>
                           <a class="dropdown-item" href="/listCustomerHistoriesAgency">Chăm sóc khách hàng</a>
                           <a class="dropdown-item" href="/groupCustomerAgency">Nhóm khách hàng</a>
+                          <a class="dropdown-item" href="/guideAddCustomerAPIAgency">Tích hợp API</a>
                         </div>
                       </li>';
               }

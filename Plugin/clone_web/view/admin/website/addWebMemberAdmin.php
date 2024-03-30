@@ -18,9 +18,25 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-email">Loại tài khoản</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="type" id="type" onchange="select_type_account();">
+                        <option value="member" <?php if(!empty($data->type) && $data->type=='member') echo 'selected'; ?> >Đại lý</option>
+                        <option value="affiliate" <?php if(isset($data->type) && $data->type=='affiliate') echo 'selected'; ?> >Cộng tác viên affiliate</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mb-3" id="div_member">
                     <label class="form-label" for="basic-default-phone">Đại lý (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="member" id="member" placeholder="Nhập tên hoặc SĐT" value="<?php if(!empty($member)) echo $member->name.' '.$member->phone;?>" autocomplete="off" required />
+                    <input type="text" class="form-control phone-mask" name="member" id="member" placeholder="Nhập tên hoặc SĐT" value="<?php if(!empty($member)) echo $member->name.' '.$member->phone;?>" autocomplete="off" />
                     <input type="hidden" name="id_member" id="id_member" value="<?php echo @$data->id_member;?>">
+                  </div>
+
+                  <div class="mb-3" id="div_affiliate" style="display: none;">
+                    <label class="form-label" for="basic-default-phone">Cộng tác viên  affiliate(*)</label>
+                    <input type="text" class="form-control phone-mask" name="affiliate" id="affiliate" placeholder="Nhập tên hoặc SĐT" value="<?php if(!empty($affiliate)) echo $affiliate->name.' '.$affiliate->phone;?>" autocomplete="off" />
+                    <input type="hidden" name="id_affiliate" id="id_affiliate" value="<?php echo @$data->id_member;?>">
                   </div>
 
                   <div class="mb-3">
@@ -123,7 +139,64 @@
                 return false;
             }
         });
+
+        $( "#affiliate" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchAffiliateAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#affiliate" ).val(ui.item.label);
+                $( "#id_affiliate" ).val(ui.item.id);
+
+                member_buy = ui.item.label;
+
+                return false;
+            }
+        });
     });
+</script>
+
+<script type="text/javascript">
+  function select_type_account()
+  {
+    var type = $('#type').val();
+
+    $('#div_member').hide();
+    $('#div_affiliate').hide();
+
+    if(type=='member'){
+      $('#div_member').show();
+    }else{
+      $('#div_affiliate').show();
+    }
+  }
 </script>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
