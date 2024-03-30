@@ -327,9 +327,9 @@ header .navbar-header .nav-item .nav-link:hover {
   color: #fff;
   line-height: 35px;
   margin: 0px 0px 35px;
-  display: -webkit-box;
+  /* display: -webkit-box;
   -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; */
 }
 #section-banner .banner-content .banner-right .banner-right-img img {
   animation-name: shakeX;

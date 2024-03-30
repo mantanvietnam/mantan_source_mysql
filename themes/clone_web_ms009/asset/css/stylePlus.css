@@ -7,7 +7,7 @@
 }
 
 .banner-right-img {
-    max-width: 406px;
+    /* max-width: 406px; */
     max-height: 681px;
 
 }
@@ -50,6 +50,10 @@ footer #section-footer-main .logo-footer {
     }
     .navbar-toggler i {
         color: #e21305;
+    }
+
+    #section-banner .banner-content{
+        padding-top: 0;
     }
 }
 

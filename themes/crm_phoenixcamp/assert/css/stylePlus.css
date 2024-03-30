@@ -67,7 +67,7 @@
     }
   }
   /* header .topbar {
-    background-color: #192167;
+    background-color: #06382A;
     padding: 7px 0;
   }
   header .topbar .topbar-box {
@@ -120,10 +120,10 @@
     padding: 15px;
   }
   header .navbar-header .nav-item .nav-link.active {
-    color: #192167 !important;
+    color: #06382A !important;
   }
   header .navbar-header .nav-item .nav-link:hover {
-    color: #192167 !important;
+    color: #06382A !important;
   } */
   
   .section-padding {
@@ -149,7 +149,7 @@
   .title-box h2.section-title {
     margin-bottom: 30px;
     font-size: 38px;
-    color: #192167;
+    color: #06382A;
     align-items: center;
     text-transform: uppercase;
   }
@@ -159,7 +159,7 @@
     }
   }
   .title-box .title-divide-section {
-    background-color: #192167;
+    background-color: #06382A;
     height: 3px;
     width: 173px;
     margin: auto;
@@ -239,7 +239,7 @@
     margin-bottom: 20px;
   }
   #section-service .service-list .service-item .service-image i {
-    color: #192167;
+    color: #06382A;
     font-size: 64px;
   }
   #section-service .service-list .service-item .service-detail padding {
@@ -249,7 +249,7 @@
     right: 10px;
   }
   #section-service .service-list .service-item .service-detail .service-title h4 {
-    color: #192167;
+    color: #06382A;
     font-weight: 700;
     font-size: 16px;
     text-transform: uppercase;
@@ -284,7 +284,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     z-index: 1;
     font-size: 30px;
-    color: #192167;
+    color: #06382A;
     border-radius: 50%;
     padding: 0;
     top: 37%;
@@ -323,7 +323,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: #192167;
+    background-color: #06382A;
     opacity: 0.6;
   }
   #section-home-contact .section-home-background .contact-left .contact-title h3 {
@@ -352,7 +352,7 @@
   }
   #section-home-contact .section-home-background .form-contact-home button {
     border-color: transparent;
-    background-color: #192167;
+    background-color: #06382A;
     color: #fff;
     width: 36%;
     text-transform: uppercase;
@@ -375,7 +375,7 @@
     z-index: 1;
     width: 48px;
     height: 48px;
-    color: #192167;
+    color: #06382A;
     border-radius: 50%;
     padding: 0;
     top: 23%;
@@ -400,11 +400,11 @@
   }
   #section-blog .blog-item .blog-detail .blog-meta {
     font-size: 12px;
-    color: #192167;
+    color: #06382A;
     font-weight: 500;
   }
   #section-blog .blog-item .blog-detail .blog-devide .solid {
-    border-top: 3px #192167 solid;
+    border-top: 3px #06382A solid;
     width: 100px;
   }
   #section-blog .blog-item .blog-detail .blog-title h4 {
@@ -423,7 +423,7 @@
     line-height: 1.4;
   }
   #section-blog .blog-item .blog-detail .blog-title h4:hover {
-    color: #192167;
+    color: #06382A;
   }
   #section-blog .blog-item .blog-detail .blog-link {
     margin-top: 10px;
@@ -439,7 +439,7 @@
     padding: 10px 0px;
   }
   #section-blog .blog-item .blog-detail .blog-link a:hover {
-    color: #192167;
+    color: #06382A;
   }
   #section-blog .blog-item .blog-detail .blog-description {
     height: 78px;
@@ -464,7 +464,7 @@
     background-color: #fff;
     z-index: 1;
     font-size: 30px;
-    color: #192167;
+    color: #06382A;
     border-radius: 50%;
     padding: 0;
     top: 30%;
@@ -525,7 +525,7 @@
     font-weight: bold;
   }
   #section-category-product .category-product-slide .category-product-item .category-product-item-inner a .category-product-detail .category-product-number {
-    color: #192167;
+    color: #06382A;
     font-size: 13px;
   }
   
@@ -535,7 +535,7 @@
     box-shadow: 2px 0px 8px 0px #888888;
   }
   #section-product-hot .product-hot-item .product-hot-item-inner:hover {
-    box-shadow: 2px 0px 30px 0px #192167;
+    box-shadow: 2px 0px 30px 0px #06382A;
   }
   #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-image {
     height: 400px;
@@ -568,7 +568,7 @@
     -webkit-line-clamp: 3;
   }
   #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-name a:hover {
-    color: #192167;
+    color: #06382A;
   }
   @media (max-width: 450px) {
     #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-name a {
@@ -584,14 +584,14 @@
     margin-top: 10px;
   }
   #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-addcart a {
-    background-color: #192167;
+    background-color: #06382A;
     color: #fff;
     padding: 7px 10px;
     border-radius: 5px;
     transition: all 0.3s linear;
   }
   #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-addcart a:hover {
-    background-color: #192167;
+    background-color: #06382A;
   }
   @media (max-width: 450px) {
     #section-product-hot .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-addcart a {
@@ -617,7 +617,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: #192167;
+    background-color: #06382A;
     opacity: 0.6;
   }
   #section-register .section-home-background .register-title h3 {
@@ -688,7 +688,7 @@
     background-color: #fff;
     z-index: 1;
     font-size: 30px;
-    color: #192167;
+    color: #06382A;
     border-radius: 50%;
     padding: 0;
     top: 37%;
@@ -749,7 +749,7 @@
   footer #section-footer .footer-item .footer-subtitle p {
     font-size: 25px;
     font-weight: bold;
-    color: #192167;
+    color: #06382A;
     margin-bottom: 13px;
     line-height: 1.3;
   }
@@ -761,22 +761,22 @@
     margin-bottom: 10px;
   }
   footer #section-footer .footer-item .footer-menu ul li a {
-    color: #192167;
+    color: #06382A;
     transition: all 0.3s linear;
   }
   footer #section-footer .footer-item .footer-menu ul li a:hover {
-    color: #192167;
+    color: #06382A;
   }
   footer #section-footer .section-footer-info {
     margin-top: 30px;
     margin-bottom: 21px;
   }
   footer #section-footer .section-footer-info p {
-    color: #192167;
+    color: #06382A;
   }
   footer #section-footer-bottom {
     text-align: center;
-    background-color: #192167;
+    background-color: #06382A;
     padding: 10px 0;
   }
   footer #section-footer-bottom p {
@@ -817,7 +817,7 @@
     min-height: 62px;
   }
   #section-page-blog .page-blog-list .page-blog-item .page-blog-title h3 a:hover {
-    color: #192167;
+    color: #06382A;
   }
   #section-page-blog .page-blog-list .page-blog-item .page-blog-devide {
     max-width: 100px;
@@ -839,18 +839,18 @@
     margin-top: 18px;
   }
   #section-page-blog .page-blog-list .page-blog-item .page-blog-button a {
-    background-color: #192167;
+    background-color: #06382A;
     color: #fff;
     padding: 7px 10px;
     border-radius: 5px;
     transition: all 0.3s linear;
   }
   #section-page-blog .page-blog-list .page-blog-item .page-blog-button a:hover {
-    background-color: #192167;
+    background-color: #06382A;
   }
   
   .sidebar-heading {
-    background-color: #192167;
+    background-color: #06382A;
     padding: 13px;
   }
   .sidebar-heading .sidebar-title span {
@@ -902,7 +902,7 @@
     color: #000;
   }
   .category-product-sidebar .sidebar-listcate ul li a:hover {
-    color: #192167;
+    color: #06382A;
   }
   
   .background-sidebar {
@@ -933,7 +933,7 @@
     z-index: 1;
     width: 48px;
     height: 48px;
-    color: #192167;
+    color: #06382A;
     border-radius: 50%;
     padding: 0;
     top: 23%;
@@ -958,11 +958,11 @@
   }
   #section-blog-other .blog-item .blog-detail .blog-meta {
     font-size: 12px;
-    color: #192167;
+    color: #06382A;
     font-weight: 500;
   }
   #section-blog-other .blog-item .blog-detail .blog-devide .solid {
-    border-top: 3px #192167 solid;
+    border-top: 3px #06382A solid;
     width: 100px;
   }
   #section-blog-other .blog-item .blog-detail .blog-title h4 {
@@ -980,7 +980,7 @@
     -webkit-line-clamp: 1;
   }
   #section-blog-other .blog-item .blog-detail .blog-title h4:hover {
-    color: #192167;
+    color: #06382A;
   }
   #section-blog-other .blog-item .blog-detail .blog-link {
     margin-top: 10px;
@@ -996,7 +996,7 @@
     padding: 10px 0px;
   }
   #section-blog-other .blog-item .blog-detail .blog-link a:hover {
-    color: #192167;
+    color: #06382A;
   }
   #section-blog-other .blog-item .blog-detail .blog-description {
     height: 78px;
@@ -1029,7 +1029,7 @@
   }
   #section-category-product-page .category-product-filter .category-product-filter-inner .input-search input:focus {
     box-shadow: none;
-    border-color: #192167;
+    border-color: #06382A;
   }
   #section-category-product-page .category-product-filter .category-product-filter-inner .sort-product {
     display: flex;
@@ -1041,7 +1041,7 @@
   }
   #section-category-product-page .category-product-filter .category-product-filter-inner .sort-product select:focus {
     box-shadow: none;
-    border-color: #192167;
+    border-color: #06382A;
   }
   #section-category-product-page .product-hot-item .product-hot-item-inner {
     margin-bottom: 30px;
@@ -1049,7 +1049,7 @@
     box-shadow: 2px 0px 8px 0px #888888;
   }
   #section-category-product-page .product-hot-item .product-hot-item-inner:hover {
-    box-shadow: 2px 0px 30px 0px #192167;
+    box-shadow: 2px 0px 30px 0px #06382A;
   }
   #section-category-product-page .product-hot-item .product-hot-item-inner .product-hot-image {
     height: 240px;
@@ -1077,7 +1077,7 @@
     transition: all 0.3s linear;
   }
   #section-category-product-page .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-name a:hover {
-    color: #192167;
+    color: #06382A;
   }
   #section-category-product-page .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-price {
     margin-bottom: 20px;
@@ -1091,7 +1091,7 @@
     margin-top: 10px;
   }
   #section-category-product-page .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-addcart a {
-    background-color: #192167;
+    background-color: #06382A;
     color: #fff;
     padding: 7px 10px;
     border-radius: 5px;
@@ -1099,7 +1099,7 @@
     white-space: nowrap;
   }
   #section-category-product-page .product-hot-item .product-hot-item-inner .product-hot-detail .product-hot-addcart a:hover {
-    background-color: #192167;
+    background-color: #06382A;
   }
   
   #section-library .library-item {
@@ -1351,7 +1351,7 @@
     font-weight: 500;
     border: none;
     outline: none;
-    background-color: #192167;
+    background-color: #06382A;
     color: #fff;
     padding: 10px 30px;
     border-radius: 5px;
@@ -1371,7 +1371,7 @@
 }
 
 .produce-btn button:hover {
-    background-color: #192167;
+    background-color: #06382A;
     transition: all 0.3s linear;
 }
 
@@ -1531,7 +1531,7 @@
 
 .produce-other-detail button {
     padding: 2px 10px;
-    background-color: #192167;
+    background-color: #06382A;
     color: #fff;
     padding: 7px 10px;
     border-radius: 5px;
@@ -1545,7 +1545,7 @@
 }
 
 .produce-other-detail button:hover {
-    background-color: #192167;
+    background-color: #06382A;
     transition: all 0.3s linear;
 }
 
@@ -1644,7 +1644,7 @@
     font-size: 18px;
     padding: 12px 80px;
     border-radius: 15px;
-    background-color: #192167;
+    background-color: #06382A;
     color: #fff;
     display: inline-block;
     margin-top: 30px;
@@ -1653,7 +1653,7 @@
 }
 
 #contact-us .contact-infor .contact-infor-btn button:hover {
-    background-color: #192167;
+    background-color: #06382A;
     transition: all 0.2s linear;
 }
 
@@ -1667,7 +1667,7 @@
     padding: 40px;
     border-radius: 20px;
     overflow: hidden;
-    background-color: #192167;
+    background-color: #06382A;
     height: 100%;
     position: relative;
 }
@@ -1874,7 +1874,7 @@
 }
 
 .money-of-produce .produce-total button {
-    background-color: #192167;
+    background-color: #06382A;
     color: #fff;
     padding: 10px 10px;
     border-radius: 5px;
@@ -1887,7 +1887,7 @@
 }
 
 .money-of-produce .produce-total button:hover {
-    background-color: #192167;
+    background-color: #06382A;
     transition: all 0.3s linear;
 }
 
@@ -1903,7 +1903,7 @@
 }
 
 .no-produce a {
-    background-color: #192167;
+    background-color: #06382A;
     color: #fff;
     padding: 10px 10px;
     border-radius: 5px;
@@ -1950,7 +1950,7 @@
 
 #section-search .search-btn {
     padding: 10px 15px;
-    background: #192167;
+    background: #06382A;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -1962,7 +1962,7 @@
 }
 
 #section-search .search-btn:hover {
-    background: #192167;
+    background: #06382A;
     transition: all 0.2s linear;
 }
 
@@ -1988,7 +1988,7 @@
 }
 
 #menu-top .menu-cart a {
-    color: #192167;
+    color: #06382A;
     font-size: 22px;
     font-weight: 600;
     padding: 15px;
@@ -1997,7 +1997,7 @@
 }
 
 #menu-top .menu-cart a:hover {
-    color: #192167;
+    color: #06382A;
     transition: all 0.3s linear;
 }
 
@@ -2155,7 +2155,7 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #192167;
+    background-color: #06382A;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -2172,7 +2172,7 @@
 }
 
 #scrollToTopBtn:hover {
-    background-color: #192167;
+    background-color: #06382A;
     transition: all 0.3s linear;
 }
 
@@ -2273,7 +2273,7 @@
 }
 
 .end-order p {
-    color: #192167;
+    color: #06382A;
     font-size: 20px;
     margin-bottom: 15px;
 }
@@ -2735,13 +2735,13 @@ footer #section-footer .footer-item .footer-logo {
 }
 
 #pagination-page .page-item.active .page-link{
-    background-color: #192167;
-    border-color: #192167;
+    background-color: #06382A;
+    border-color: #06382A;
     
 }
 
 #pagination-page .page-item .page-link i{
-    color: #192167
+    color: #06382A
 }
 
 #section-register .section-home-background .register-button-group .register-button-item:last-child:hover{
@@ -2764,7 +2764,7 @@ header .navbar-header .nav-item .nav-link:hover{
     background-color: #fff;
     z-index: 1;
     font-size: 30px;
-    color: #192167;
+    color: #06382A;
     border-radius: 50%;
     padding: 0;
     top: 40%;
@@ -2823,7 +2823,7 @@ header .topbar .topbar-box .topbar-left p{
 }
 
 .album-number{
-    color: #192167;
+    color: #06382A;
     font-size: 13px;
 }
 
