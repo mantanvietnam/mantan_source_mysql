@@ -82,6 +82,23 @@ $setting = setting();?>
                                 } 
                             ?>
                         </ul>
+
+                        <div class="cart-box">
+                                <a href="/cart" class="cart-menu">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <span class="cart-number">
+                                        <?php 
+                                        global $session;
+
+                                        if(!empty($session->read('product_order'))){
+                                            echo count($session->read('product_order'));
+                                        }else{
+                                            echo 0;
+                                        }
+                                        ?>
+                                    </span>
+                                </a>
+                            </div>
                     </div>
                 </div>
             </nav>

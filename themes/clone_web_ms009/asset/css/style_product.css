@@ -24,14 +24,14 @@
     z-index: 1;
     width: 48px;
     height: 48px;
-    color: #282875;
+    color: #e21305;
     border-radius: 2px;
     padding: 0;
 }
 
 #section-news-post .slick-arrow, #section-product-featured .slick-arrow , #section-product-tab .slick-arrow{
     transform: translateY(-137%);
-    background-color: #282875;
+    background-color: #e21305;
     border: none;
     z-index: 1;
     width: 40px;
@@ -129,7 +129,7 @@
 
 .productDetail-related-list .slick-arrow{
     transform: translateY(-50%);
-    background-color: #282875;
+    background-color: #e21305;
     border: none;
     z-index: 1;
     width: 48px;
@@ -175,14 +175,14 @@ strong{
 /* boostrap */
 
 .container-fluid {
-    padding: 0 20px;
-    max-width: 1600px;
+    /* padding: 0 20px; */
+    /* max-width: 1600px; */
 }
 /* ket thuc boostrap */
 
 #topbar{
     height: 35px;
-    background-color: #282875;
+    background-color: #e21305;
     display: flex;
     align-items: center;
     font-size: 13px;
@@ -419,7 +419,7 @@ strong{
 
 #header-menu .search-input:focus{
     background-color: #f6f6f6;
-    border: 1px solid #282875;
+    border: 1px solid #e21305;
 }
 
 #header-menu .search-button{
@@ -526,7 +526,7 @@ strong{
     width: 12px;
     height: 12px;
     border-radius: 2px;
-    background-color: #282875;
+    background-color: #e21305;
     border: none;
 }
 
@@ -603,7 +603,7 @@ strong{
     content: "";
     width: 150px;
     height: 1px;
-    background: #282875;
+    background: #e21305;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -620,14 +620,14 @@ strong{
     width: 10px;
     height: 10px;
     bottom: -5px;
-    background-color: #282875;
+    background-color: #e21305;
     -webkit-transform: rotate(45deg);
 }
 
-.section-title{
+/* .section-title{
     text-align: center;
     padding-bottom: 25px;
-}
+} */
 
 .section-title .title-sub{
     color: #a2a2a2;
@@ -646,7 +646,7 @@ strong{
 
 
 .section-title a:hover{
-    color: #282875
+    color: #e21305
 }
 /* Lý do */
 
@@ -738,7 +738,7 @@ strong{
 #section-element .element-content .info-element-left .element-image{
     width: 60px;
     height: 60px;
-    border: 1px solid #282875;
+    border: 1px solid #e21305;
     line-height: 59px;
     vertical-align: middle;
     text-align: center;
@@ -752,7 +752,7 @@ strong{
 #section-element .element-content .info-element-right .element-image{
     width: 60px;
     height: 60px;
-    border: 1px solid #282875;
+    border: 1px solid #e21305;
     line-height: 59px;
     vertical-align: middle;
     text-align: center;
@@ -836,7 +836,7 @@ strong{
     display: inline-block;
     z-index: 1;
     overflow: hidden;
-    background-color: #282875;
+    background-color: #e21305;
     color: #fff;
     padding: 12px 28px;
     border: 0;
@@ -979,7 +979,7 @@ strong{
 }
 
 #section-news-post .slide-home-news .home-news-item .news-item-title h3 a:hover{
-    color: #282875;
+    color: #e21305;
 }
 
 
@@ -1014,7 +1014,7 @@ strong{
 }
 
 #section-news-post .slide-home-news .home-news-item .news-item-meta a:hover{
-    color: #282875
+    color: #e21305
 }
 
 #section-news-post .slide-home-news .home-news-item{
@@ -1062,7 +1062,7 @@ strong{
     display: inline-block;
     z-index: 1;
     overflow: hidden;
-    background-color: #282875;
+    background-color: #e21305;
     color: #fff;
     padding: 12px 28px;
     border: 0;
@@ -1207,7 +1207,7 @@ strong{
 #footer-copyright {
     padding: 15px 0;
     text-align: center;
-    background-color: #282875;
+    background-color: #e21305;
     color: #fff;
 }
 
@@ -1231,7 +1231,7 @@ strong{
 
 .product-featured-price .price{
     margin-right: 4px;
-    color: #282875;
+    color: #e21305;
     font-weight: 600;
     font-size: 15px;
 }
@@ -1261,7 +1261,7 @@ strong{
 }
 
 .product-featured-title a:hover{
-    color: #282875
+    color: #e21305
 }
 
 .product-featured-price {
@@ -1328,7 +1328,7 @@ strong{
     -o-transition: all 0.3s;
     transition: all 0.3s;
 
-    background-color: #282875 !important;
+    background-color: #e21305 !important;
     height: 100%;
     left: -35%;
     top: 0;
@@ -1378,7 +1378,7 @@ strong{
 .product-featured-img .item-sale{
     position: absolute;
     left: 10px;
-    background: #282875;
+    background: #e21305;
     letter-spacing: 0.5px;
     min-width: 52px;
     border-radius: 11px;
@@ -1408,13 +1408,13 @@ strong{
 
 #section-product-tab .nav-pills .nav-link.active{
     color: #fff;
-    background: #282875;
-    border-color: #282875;
+    background: #e21305;
+    border-color: #e21305;
 }
 
 #section-product-tab .nav-pills .nav-link:hover{
-    background: #282875;
-    border-color: #282875;
+    background: #e21305;
+    border-color: #e21305;
     color: #fff;
     transition: all linear 0.3s;
 }
@@ -1796,7 +1796,7 @@ position: relative;
     display: inline-block;
     z-index: 1;
     overflow: hidden;
-    background-color: #282875;
+    background-color: #e21305;
     color: #fff;
     padding: 12px 28px;
     border: 0;
@@ -1930,7 +1930,7 @@ position: relative;
 }
 
 #section-news .post-box .post-box-detail .post-title a:hover{
-    color: #282875;
+    color: #e21305;
     transition: all .3s linear;
 }
 
@@ -2039,7 +2039,7 @@ position: relative;
     line-height: 26px;
     text-align: center;
     border-radius: 100%;
-    background: #282875;
+    background: #e21305;
     color: #fff;
     font-size: 12px;
     z-index: 1;
@@ -2075,7 +2075,7 @@ position: relative;
 }
 
 #section-news .post-new-detail .post-new-title a:hover{
-    color: #282875;
+    color: #e21305;
     transition: all 0.3s linear 
 }
 
@@ -2109,7 +2109,7 @@ position: relative;
 }
 
 #section-news .menu-cat .menu-cat-lv0>a:hover{
-    color: #282875;
+    color: #e21305;
     transition: all 0.3 linear;
 
 }
@@ -2175,7 +2175,7 @@ position: relative;
 }
 
 #section-news .menu-cat .menu-cat-list .menu-cat-lv0 .menu-cat-lv1 a:hover{
-    color: #282875
+    color: #e21305
 }
 
 /* Tin tức chi tiết */
@@ -2286,7 +2286,7 @@ position: relative;
 }
 
 #section-news .detailNews-content .detailNews-move span a:hover{
-    color: #282875;
+    color: #e21305;
 }
 
 /* Bài viết liên quan */
@@ -2599,7 +2599,7 @@ position: relative;
 #section-sign-in .box-sign-in .form-sign .sign-action button{
     text-transform: uppercase;
     font-weight: 600;
-    background-color: #282875;
+    background-color: #e21305;
     height: 100%;
     color: #fff;
     border: none;
@@ -2652,7 +2652,7 @@ position: relative;
 #section-cart .cart-content-left .cart-content .cart-shipfree span{
     font-size: 18px;
     font-weight: 600;
-    color: #282875;
+    color: #e21305;
 }
 
 #section-cart .cart-content-left .cart-content .cart-shipfree strong{
@@ -2704,7 +2704,7 @@ position: relative;
 }
 
 #section-cart .cart-content-left .cart-export-bill span{
-    border: 2px solid #282875;
+    border: 2px solid #e21305;
     line-height: 1.1;
     padding: 1px 3px;
     border-radius: 100%;
@@ -2717,7 +2717,7 @@ position: relative;
 }
 
 #section-cart .cart-content-left .cart-export-bill i{
-    color: #282875
+    color: #e21305
 }
 
 #section-cart .cart-content-left .cart-export-bill p{
@@ -2807,7 +2807,7 @@ position: relative;
 #section-cart .total-price span {
     font-weight: bold;
     float: right;
-    color: #282875;
+    color: #e21305;
     font-size: 24px;
 }
 
@@ -2818,7 +2818,7 @@ position: relative;
 #section-cart .pay-button button {
     width: 100%; 
     height: 40px;
-    background-color: #282875;
+    background-color: #e21305;
     color: #fff;
     border: none;
     padding: 10px 5px;
@@ -3030,7 +3030,7 @@ position: relative;
 }
 
 .promotion-bottom .promotion-copy button{
-    background-color: #282875;
+    background-color: #e21305;
     text-transform: uppercase;
     border: none;
     padding: 3px 6px;
@@ -3295,12 +3295,12 @@ position: relative;
     margin: 0;
     padding-right: 15px;
     font-weight: bold;
-    color: #282875;
+    color: #e21305;
 }
 
 #section-product-cat .product-cat-title p{
     font-size: 16px;
-    color: #282875;
+    color: #e21305;
     margin-top: 18px;
 }
 
@@ -3360,7 +3360,7 @@ position: relative;
     z-index: 1;
     width: 12px;
     height: 6px;
-    border: 1.5px solid #282875;
+    border: 1.5px solid #e21305;
     border-top-style: none;
     border-right-style: none;
     transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
@@ -3711,7 +3711,7 @@ cursor: not-allowed;
 
 .button-filter-box button{
     width: 100%;
-    background-color: #282875;
+    background-color: #e21305;
     color: #fff;
     border: none;
     height: 49px;
@@ -3824,7 +3824,7 @@ cursor: not-allowed;
     font-size: 20px;
     line-height: 34px;
     font-weight: 600;
-    color: #282875;
+    color: #e21305;
 }
 
 #section-product-detail .product-info .product-info-detail .product-price  .product-price-number del{
@@ -3961,8 +3961,8 @@ cursor: not-allowed;
     width: 100%;
     min-height: 50px;
     background: #fff;
-    border: 1px solid #282875;
-    color: #282875;
+    border: 1px solid #e21305;
+    color: #e21305;
     font-weight: 600;
     font-size: 15px;
     text-transform: uppercase;
@@ -3976,7 +3976,7 @@ cursor: not-allowed;
 .product-info-active .product-button-group .product-button-addcart::before{
     content: '';
     display: block;
-    background-color: #282875;
+    background-color: #e21305;
     position: absolute;
     left: -10%;
     top: -10%;
@@ -4004,7 +4004,7 @@ cursor: not-allowed;
     font-weight: 600;
     font-size: 15px;
     text-transform: uppercase;
-    background-color: #282875;
+    background-color: #e21305;
     border: none;
 }
 
@@ -4101,7 +4101,7 @@ cursor: not-allowed;
 .product-info-tab .nav-pills .nav-link.active{
     color: #fff;
     padding: 10px;
-    background-color: #282875;
+    background-color: #e21305;
 }
 
 .product-info-tab .nav-pills .nav-link.active::before{
@@ -4263,13 +4263,13 @@ cursor: not-allowed;
 
 .productDetail-sub-img.slick-center img{
     border-radius: 12px;
-    border: 1px solid #282875;
+    border: 1px solid #e21305;
     overflow: hidden;
 }
 /* 
 .productDetail-main-img.slick-current img{
     border-radius: 12px;
-    border: 1px solid #282875;
+    border: 1px solid #e21305;
     overflow: hidden;
 } */
 
@@ -4312,7 +4312,7 @@ cursor: not-allowed;
 
 
 .pagination .page-item.active>.page-link{
-    background-color: #282875;
+    background-color: #e21305;
     color: #fff;
 }
 
@@ -4358,7 +4358,7 @@ cursor: not-allowed;
 
 /* uu dai */
 #section-home-intro .home-intro-content .home-intro-view a{
-    color: #282875;
+    color: #e21305;
     background-color: #fff;
 }
 
@@ -4383,16 +4383,16 @@ cursor: not-allowed;
 }
 
 #section-detailPack{
-    background-color: #282875;
+    background-color: #e21305;
 }
 
 #section-news-post{
-    background-color: #282875;
+    background-color: #e21305;
 
 }
 
 #section-newsletter .form-group .newsletter-button{
     background-color: #efe7e7;
-    color: #282875;
+    color: #e21305;
     
 }

@@ -109,11 +109,12 @@ h1, h2, h3, h4 {
   font-display: swap;
 } */
 header {
-  position: absolute;
-  z-index: 1;
+  position: relative;
+  box-shadow: 0 0 10px 0 #e7e7e7;
+  /* z-index: 1;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 2; */
 }
 header .navbar-header {
   background-color: transparent;
@@ -121,13 +122,13 @@ header .navbar-header {
   z-index: 999999;
 }
 header .navbar-header.scroll-header .nav-link {
-  color: #fff !important;
+  color: #e21305 !important;
 }
 header .navbar-header .navbar-brand .image-header {
   width: 69px;
 }
 header .navbar-header .nav-item .nav-link {
-  color: #fff;
+  color: #e21305;
   font-size: 18px;
   font-weight: 600;
   padding: 15px;
@@ -141,7 +142,7 @@ header .navbar-header .nav-item .nav-link:hover {
 
 @media (max-width: 900px) {
   header .navbar-header .nav-item .nav-link {
-    color: #e1ccad !important;
+    /* color: #e1ccad !important; */
   }
   .navbar-collapse {
     background-color: #fff;
