@@ -182,25 +182,25 @@ class AppController extends Controller
         $urlThemeActive = '/themes/'.$theme_active_site->value.'/';
         $themeActive = $theme_active_site->value;
 
-        $filename = __DIR__.'/../../themes/'.$themeActive.'/function.php';
-        if (file_exists($filename))
-        {   
-            include_once($filename);
-        }
-
         $filename = __DIR__.'/../../themes/'.$themeActive.'/routes.php';
         if (file_exists($filename))
         {   
             include_once($filename);
         }
 
-        $filename = __DIR__.'/../../themes/'.$themeActive.'/controller.php';
+        $filename = __DIR__.'/../../themes/'.$themeActive.'/model.php';
         if (file_exists($filename))
         {   
             include_once($filename);
         }
 
-        $filename = __DIR__.'/../../themes/'.$themeActive.'/model.php';
+        $filename = __DIR__.'/../../themes/'.$themeActive.'/function.php';
+        if (file_exists($filename))
+        {   
+            include_once($filename);
+        }
+
+        $filename = __DIR__.'/../../themes/'.$themeActive.'/controller.php';
         if (file_exists($filename))
         {   
             include_once($filename);

@@ -24,6 +24,10 @@ function listCustomerAgency($input)
             $conditions['id'] = (int) $_GET['id'];
         }
 
+        if(!empty($_GET['id_group'])){
+            $conditions['id_group'] = (int) $_GET['id_group'];
+        }
+
         if(!empty($_GET['full_name'])){
             $conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
         }
@@ -130,6 +134,9 @@ function listCustomerAgency($input)
             $urlPage = $urlPage . '?page=';
         }
 
+        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $listGroup = $modelCategories->find()->where($conditions)->all()->toList();
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
@@ -137,6 +144,7 @@ function listCustomerAgency($input)
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
+        setVariable('listGroup', $listGroup);
     }else{
         return $controller->redirect('/login');
     }

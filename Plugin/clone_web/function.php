@@ -65,8 +65,16 @@ function check_domain_clone()
     if(!empty($memberWebs)){
         if($memberWebs->type == 'member'){
             $infoMemberWeb = $modelMembers->find()->where(['id'=>$memberWebs->id_member, 'status'=>'active'])->first();
+
+            if(!empty($infoMemberWeb)){
+                $infoMemberWeb->type_member = 'member';
+            }
         }else{
             $infoMemberWeb = $modelAffiliaters->find()->where(['id'=>$memberWebs->id_member])->first();
+
+            if(!empty($infoMemberWeb)){
+                $infoMemberWeb->type_member = 'affiliate';
+            }
         }
 
         if(!empty($infoMemberWeb)){

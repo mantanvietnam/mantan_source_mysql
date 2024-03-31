@@ -18,6 +18,9 @@ global $urlThemeActive;
                             <div class="banner-description">
                                 <p><?php echo nl2br(show_text_clone(@$setting['content_top'])) ?></p>
                             </div>
+                            <div class="button-link mb-3">
+                                <a href="#section-form">Đăng ký tham gia</a>
+                            </div>
                         </div>
                     </div>
 
@@ -151,7 +154,7 @@ global $urlThemeActive;
                     <div class="about-content">
                         <p><?php echo show_text_clone(@$setting['content_gt_tim']) ?></p>
                         <div class="button-link">
-                            <a href="<?php echo show_text_clone(@$setting['link_gt']) ?>">Xem thêm</a>
+                            <a href="#section-form">Đăng ký tham gia</a>
                         </div>
                     </div>
                 </div>
@@ -348,30 +351,32 @@ global $urlThemeActive;
                             </div>
                              <p id="success"></p>
                         </div>
-                        <form action="" id="myForm">
+                        <form action="/registerEvent" id="myForm" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
+                            <input type="hidden" name="id_group" value="<?php echo @$setting['id_group_customer'];?>">
                             <div class="row">
                                 <div class="col-lg-6 input-contact">
-                                    <input type="text" class="form-control" id="name" required="" placeholder="Họ và tên">
+                                    <label>Họ và tên *</label>
+                                    <input type="text" class="form-control" name="name" required="" placeholder="">
                                 </div>
 
                                 <div class="col-lg-6 input-contact">
-                                    <input type="text" class="form-control" id="phone" required="" placeholder="Số điện thoại">
+                                    <label>Số điện thoại *</label>
+                                    <input type="text" class="form-control" name="phone" required="" placeholder="">
                                 </div>
 
                                 <div class="col-lg-6 input-contact">
-                                    <input type="text" class="form-control" id="" required="" placeholder="Email">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" name="email" placeholder="">
                                 </div>
 
                                 <div class="col-lg-6 input-contact">
-                                    <input type="text" class="form-control" id="subject" required="" placeholder="Chủ đề">
-                                </div>
-
-                                <div class="col-lg-12 input-contact">
-                                    <textarea class="form-control" id="content" required="" placeholder="Nội dung" rows="6" cols="40"></textarea>
+                                    <label>Ảnh đại diện của bạn *</label>
+                                    <input type="file" class="form-control" name="avatar" required="" placeholder="">
                                 </div>
 
                                 <div class="button-link">
-                                    <button type="button" onclick="contact()">Gửi</button>
+                                    <button type="submit">Đăng ký</button>
                                 </div>
                             </div>
                         </form>
@@ -559,39 +564,5 @@ global $urlThemeActive;
     <?php }?>
     
 </main>
-<script type="text/javascript">
-        function contact(){
-            var name = $('#name').val();
-            var email = $('#email').val();
-            var phone = $('#phone').val();
-            var content = $('#massage').val();
-  console.log(name);
-            $.ajax({
-            method: 'POST',
-             url: "/apis/contactAPI",
-            data: {
-                name: name,
-                phone: phone,  
-                email: email,
-                subject: 'Đăng ký hóa học',
-                content: content,  
-               },
-                /*success:function(res){
-                  document.getElementById("success").innerHTML = 'bạn đăng ký thành công';
-                  var myForm = document.getElementById("myForm");
-                  
-                }*/
-            }).done(function(msg) {
-                    console.log(msg);
-                    
-                    var html = '<p>'+msg.mess+'</p>';
-                    document.getElementById("success").innerHTML = html;
 
-                    var myForm = document.getElementById("myForm");
-                    myForm.reset();
-
-                });
-        }
-    </script>
-<?php
-getFooter();?>
+<?php getFooter();?>

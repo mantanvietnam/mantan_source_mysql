@@ -36,6 +36,24 @@
           </div>
 
           <div class="col-md-2">
+            <label class="form-label">Nhóm khách hàng</label>
+            <select name="id_group" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php 
+              if(!empty($listGroup)){
+                foreach ($listGroup as $key => $value) {
+                  if(empty($_GET['id_group']) || $_GET['id_group']!=$value->id){
+                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                  }else{
+                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                  }
+                }
+              }
+              ?>
+            </select>
+          </div>
+
+          <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="">Tất cả</option>

@@ -36,7 +36,24 @@ function listKey($input)
         $conditions['status'] = $_GET['status'];
     }
     
-    $listData = $modelKeys->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    if(!empty($_GET['action'])){
+        $listData = $modelKeys->find()->where($conditions)->order($order)->all()->toList();
+
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                if($_GET['action'] == 'active'){
+                    $value->status = 'active';
+
+                    $modelKeys->save($value);
+                }
+            }
+        }
+
+        return $controller->redirect('/plugins/admin/keys-view-admin-key-listKey');
+    }else{
+        $listData = $modelKeys->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    }
+    
 
     if(!empty($listData)){
     	foreach ($listData as $key => $value) {

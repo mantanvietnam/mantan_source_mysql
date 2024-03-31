@@ -30,7 +30,7 @@
                                     <td align="center">'.$item->id.'</td>
                                     <td>
                                       <span class="text-danger">'.$item->name.'</span><br/>
-                                      '.number_format($item->number_customer).' khách hàng
+                                      <a href="/listCustomerAgency/?id_group='.$item->id.'">'.number_format($item->number_customer).' khách hàng</a>
                                     </td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\' );">

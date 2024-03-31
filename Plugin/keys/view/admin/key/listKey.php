@@ -54,6 +54,11 @@
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
           </div>
+
+          <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary d-block" name="action" value="active">Kích hoạt</button>
+          </div>
         </div>
       </div>
     </div>

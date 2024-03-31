@@ -16,7 +16,7 @@
               </button>
             </li>
             <li class="nav-item">
-              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-rule" aria-controls="navs-top-info" aria-selected="false">
+              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-rule" aria-controls="navs-top-rule" aria-selected="false">
                  DỊCH VỤ
               </button>
             </li>
@@ -32,17 +32,17 @@
               </button>
             </li>
             <li class="nav-item">
-              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-specifications" aria-controls="navs-top-info" aria-selected="false">
+              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-specifications" aria-controls="navs-top-specifications" aria-selected="false">
                  LIÊN HỆ
               </button>
             </li>
            <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-product" aria-controls="navs-top-image" aria-selected="false">
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-product" aria-controls="navs-top-product" aria-selected="false">
               SẢN PHẨM
            </button>
          </li>
           <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-feedback" aria-controls="navs-top-image" aria-selected="false">
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-feedback" aria-controls="navs-top-feedback" aria-selected="false">
               FEEDBACK
            </button>
          </li>
@@ -52,8 +52,13 @@
            </button>
          </li>
           <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-footer" aria-controls="navs-top-Post" aria-selected="false">
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-footer" aria-controls="navs-top-footer" aria-selected="false">
               CHÂN TRANG
+           </button>
+         </li>
+         <li class="nav-item">
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-reg" aria-controls="navs-top-reg" aria-selected="false">
+              ĐĂNG KÝ HỌC
            </button>
          </li>
        </ul>
@@ -327,7 +332,7 @@
               </div>
             </div>
           </div>
-           <div class="tab-pane fade" id="navs-top-footer" role="tabpanel">
+          <div class="tab-pane fade" id="navs-top-footer" role="tabpanel">
             <div class="card-body row ">
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
               <label class="form-label" for="basic-default-fullname">Tên công ty</label>
@@ -365,6 +370,31 @@
               <label class="form-label" for="basic-default-fullname">Về chúng tôi</label>
                 <textarea class="form-control" name="aboutus"><?php echo @$data['aboutus'];?></textarea>
               </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="navs-top-reg" role="tabpanel">
+            <div class="card-body row ">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">ID nhóm khách hàng</label>
+                <input type="text" class="form-control mb-3" name="id_group_customer" value="<?php echo @$data['id_group_customer'];?>" />
+              </div>
+              
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">ID mẫu thiết kế Ezpics</label>
+                <input type="text" class="form-control mb-3" name="id_product_ezpics" value="<?php echo @$data['id_product_ezpics'];?>" />
+              </div>
+
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Biến họ tên</label>
+                <input type="text" class="form-control mb-3" name="variable_name" value="<?php echo @$data['variable_name'];?>" />
+              </div>
+
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Biến ảnh đại diện</label>
+                <input type="text" class="form-control mb-3" name="variable_avatar" value="<?php echo @$data['variable_avatar'];?>" />
+              </div>
+              
             </div>
           </div>
 
