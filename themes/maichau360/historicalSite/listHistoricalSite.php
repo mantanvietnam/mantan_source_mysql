@@ -56,8 +56,10 @@ global $urlThemeActive;
                 		foreach($listData as $item){ ?>
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 place-category-item">
                         <div class="place-category-item-img">
-                            <div class="background-opacity">
-                            </div>
+                        <a href="/chi_tiet_di_tich_lich_su/<?php echo $item->urlSlug ?>.html">
+                                <div class="background-opacity">
+                                </div>
+                            </a>
                             <a href="/chi_tiet_di_tich_lich_su/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                             <div class="place-category-item-title">
                                 <a href="/chi_tiet_di_tich_lich_su/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
