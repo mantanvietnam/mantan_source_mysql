@@ -901,10 +901,18 @@ function deleteUserApi($input): array
         if (!isset($dataSend['access_token'])) {
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         } else {
-            $currentUser = getUserByToken($dataSend['access_token']);
+            if(!empty($dataSend['pass'])){
+                $currentUser = getUserByToken($dataSend['access_token']);
 
-            if (empty($currentUser)) {
-                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+                if (empty($currentUser)) {
+                    return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+                }else{
+                    if(md5($dataSend['pass']) != $currentUser->password){
+                        return apiResponse(4, 'Mật khẩu nhập chưa đúng');
+                    }
+                }
+            }else{
+                return apiResponse(2, 'Gửi thiếu mật khẩu');
             }
         }
 

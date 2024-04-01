@@ -62,8 +62,8 @@ function searchMemberAPI($input)
                                 'address'=>$data->address,
                                 'birthday'=>$data->birthday,
                                 'id_position'=>$data->id_position,
-                                'name_position'=>$positions[$data->id_position]->name,
-                                'discount'=>$positions[$data->id_position]->description,
+                                'name_position'=>@$positions[$data->id_position]->name,
+                                'discount'=>@$positions[$data->id_position]->description,
                             );
         }
     }else{
