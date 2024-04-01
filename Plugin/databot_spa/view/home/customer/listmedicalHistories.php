@@ -29,34 +29,201 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card">
-    <h5 class="card-header">Danh sách khách hàng</h5>
+  <div class="nav-align-top mb-4">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
+          Lịch sử khám bệnh
+        </button>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-rule" aria-controls="navs-top-info" aria-selected="false">
+         Lịch sử dụng dịch vụ
+       </button>
+     </li>
+     <li class="nav-item">
+      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
+        lịch sử dùng sản phẩm
+     </button>
+   </li>
+ </ul>
+ <div class="card-body tab-content ">
+  <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
     <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Ảnh đại điện</th>
-              <th>Khách hàng</th>
-              <th>Email</th>
-              <th>Điểm</th>
-              <th>NV phụ trách</th>
-              <th>Thẻ thành viên</th>
+              <th>Lí do khám bệnh</th>
+              <th>Kết quả khám bệnh</th>
+              <th>Phương phám điều trị</th>
+              <th>chú ý</th>
+              <th>Thời gian khám bệnh</th>
               <th>Sửa</th>
-              <th>Xóa</th>
             </tr>
           </thead>
           <tbody>
-            
+            <?php if(!empty($Medical)){
+                  foreach($Medical as $item){
+                echo '<tr>
+                        <td>'.$item->id.'</td>
+                        <td>'.$item->title.'</td>
+                        <td>'.$item->result.'</td>
+                        <td>'.$item->treatment_plan.'</td>
+                        <td>'.$item->note.'</td>
+                        <td>'.date('H:i d/m/Y', strtotime(@$item->created_at)).'</td>
+                        
+                        <td align="center">
+                          <a class="dropdown-item" href="/addMedicalHistories/?id='.$item->id.'&id_customer='.$item->id_customer.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a>
+                        </td>
+                      </tr>';
+              }
+            }else{
+              echo '<tr>
+                      <td colspan="10" align="center">Chưa có dữ liệu</td>
+                    </tr>';
+            }
+                
+
+             ?>
           </tbody>
         </table>
       </div>
     </div>
+  </div>
+  <div class="tab-pane fade" id="navs-top-rule" role="tabpanel">
+    <div class="card-body row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+             <th>ID</th>
+              <th>Tên Dịch vụ</th>
+              <th>Nhân viên thực hiện</th>
+              <th>thời gian dử dụng</th>
+              <th>chú ý</th>
+            </tr>
+          </thead>
+          <tbody>
+              <?php if(!empty($service)){
+                  foreach($service as $item){
+                echo '<tr>
+                        <td>'.$item->id.'</td>
+                        <td>'.@$item->service->name.'</td>
+                        <td>'.@$item->staff->name.'</td>
+                        <td>'.date('H:i d/m/Y', strtotime(@$item->created_at)).'</td>
+                        <td>'.$item->note.'</td>
+                      </tr>';
+              }
+            }else{
+              echo '<tr>
+                      <td colspan="10" align="center">Chưa có dữ liệu</td>
+                    </tr>';
+            } ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
+    <div class="card-body row">
+      <div class="table-responsive">
+       <table class="table table-bordered" style=" text-align: center; ">
+        <thead>
+          <tr>
+            <th rowspan='2'>Id</th>
+            <th rowspan='2'>thời gian</th>
+            <th rowspan='2'>khách hàng</th>
+            <th rowspan="2">Thành tiền </th>
+            <th colspan="4">thông tin sản phẩn </th>
+          </tr>
+          <tr>
+            <th>Sản phẩn</th>
+            <th>Giá bán</th>
+            <th>Số lượng </th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          if (!empty($productOrder)) {
+            foreach ($productOrder as $key => $item) {
+              $type = 'Chưa thanh toán';
+              if ($item->status == 1) {
+                $type = 'Đã thanh toán';
+              } elseif ($item->status == 2) {
+                $type = 'Dang sử lý';
+              } elseif ($item->status == 3) {
+                $type = 'Hủy';
+              }
+              $checkin = '';
+              if (!empty($item->bed) && $item->status == 0) {
+                $checkin = '<a class="dropdown-item" href="/checkinbed?id_order=' . $item->id . '&id_bed=' . $item->id_bed . '" title="check in"><i class="bx bx-exclude me-1"></i></a>';
+              }
+
+              if ($item->promotion > 101) {
+                $promotion = number_format($item->promotion) . 'đ';
+              } else {
+                $promotion = $item->promotion . '%';
+              }
+              ?>
+              <tr>
+                <td rowspan='<?php echo count($item->product); ?>'>
+                  <?php echo $item->id ?>
+                </td>
+                <td rowspan='<?php echo count($item->product); ?>'>
+                  <?php echo date('Y-m-d H:i:s', $item->time); ?>
+                </td>
+                <td rowspan='<?php echo count($item->product); ?>'>
+                  <?php echo $item->full_name ?>
+                </td>
+                <td rowspan='<?php echo count($item->product); ?>'
+                  style="text-align: left;">Chưa giảm giá
+                  <?php echo number_format(@$item->total) ?>đ<br />
+                  Giảm giá:
+                  <?php echo $promotion ?><br />
+                  Tổng cộng:
+                  <?php echo number_format(@$item->total_pay) ?>đ<br />
+                  Trạng thái:
+                  <?php echo $type ?>
+                </td>
+                <?php if (!empty($item->product)) {
+                  foreach ($item->product as $k => $value) {
+
+                    ?>
+
+                    <td>
+                      <?php echo $value->prod->name ?>
+                    </td>
+                    <td>
+                      <?php echo number_format($value->price) ?>đ
+                    </td>
+                    <td>
+                      <?php echo $value->quantity ?>
+                    </td>
+
+                  </tr>
+                <?php }
+              }
+            }
+          } else {
+            echo '<tr>
+            <td colspan="10" align="center">Chưa có đơn nào</td>
+            </tr>';
+          } ?>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 
     <!-- Phân trang -->
-    <div class="demo-inline-spacing">
+   <!--  <div class="demo-inline-spacing">
       <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
           <?php
@@ -96,7 +263,7 @@
           ?>
         </ul>
       </nav>
-    </div>
+    </div> -->
     <!--/ Basic Pagination -->
   </div>
   <!--/ Responsive Table -->

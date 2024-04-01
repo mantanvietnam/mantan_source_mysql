@@ -665,6 +665,7 @@ function listMedicalHistories(){
 	$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 	$modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
 	$modelOrder = $controller->loadModel('Orders');
+	$modelOrderDetails = $controller->loadModel('OrderDetails');
 	
 	if(!empty(checkLoginManager('ListmedicalHistories', 'customer'))){
 		$infoUser = $session->read('infoUser');
@@ -691,9 +692,32 @@ function listMedicalHistories(){
 		$Medical = $modelMedicalHistories->find()->where($conditions)->order($order)->all()->toList();
 		$service = $modelUserserviceHistories->find()->where($conditions)->order($order)->all()->toList();
 
+
+		if(!empty($service)){
+			foreach($service as $key => $item){
+				$service[$key]->service = $modelService->find()->where(['id'=>@$item->id_services])->first();
+				if(!empty($item->id_staff)){
+					$service[$key]->staff = $modelMembers->find()->where(['id'=>@$item->id_staff])->first();
+				}
+			}
+		}
+
 		$conditions['type'] ='product';
 
 		$productOrder = $modelOrder->find()->where($conditions)->order($order)->all()->toList();
+
+
+		 if(!empty($productOrder)){
+            foreach($productOrder as $key => $item){
+              $OrderDetail = $modelOrderDetails->find()->where(['id_order'=>$item->id])->all()->toList();
+              if(!empty($OrderDetail)){
+                foreach($OrderDetail as $k => $value){
+                    $OrderDetail[$k]->prod = $modelProduct->find()->where(['id'=>$value->id_product])->first();
+                }
+                $productOrder[$key]->product = $OrderDetail;
+              }
+            }
+        }
 
 
 		setVariable('Medical', $Medical);
