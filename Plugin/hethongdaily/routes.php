@@ -88,3 +88,6 @@
 	// lịch sử chăm sóc khách hàng
 	$routesPlugin['listCustomerHistoriesAgency']= 'hethongdaily/view/home/customer_histories/listCustomerHistoriesAgency.php';
 	$routesPlugin['addCustomerHistoriesAgency']= 'hethongdaily/view/home/customer_histories/addCustomerHistoriesAgency.php';
+
+	// báo cáo kinh doanh
+	$routesPlugin['businessReport']= 'hethongdaily/view/home/static/businessReport.php';
