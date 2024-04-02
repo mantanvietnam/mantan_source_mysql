@@ -602,11 +602,9 @@ function acceptCanceledBookingApi($input): array
             $bookingModel->save($booking);
 
             // Update phí cuốc xe
-            /*
             $bookingFee->received_fee = 0;
             $bookingFee->service_fee = 0;
             $modelBookingFee->save($bookingFee);
-            */
 
             // Lưu lại lịch sử hủy cuốc của tài xế
             $canceledBooking = $userBookingModel->find()->where([
@@ -617,7 +615,6 @@ function acceptCanceledBookingApi($input): array
             if (!empty($canceledBooking)) {
                 $canceledBooking->status = $bookingStatus['canceled'];
                 $canceledBooking->canceled_at = date('Y-m-d H:i:s');
-                $canceledBooking->received_at = null;
                 $userBookingModel->save($canceledBooking);
             }
 
