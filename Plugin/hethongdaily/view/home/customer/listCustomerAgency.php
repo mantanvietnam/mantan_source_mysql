@@ -131,7 +131,8 @@
                 '.$item->full_name.'<br/>
                 '.$item->phone.'<br/>
                 '.$item->address.'<br/>
-                '.$item->email.'
+                '.$item->email.'<br/>
+                <a href="'.@$item->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>
               </td>
               <td>'.$status.'</td>
               <td>'.$sex.'</td>

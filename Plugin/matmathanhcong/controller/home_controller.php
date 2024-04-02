@@ -3,11 +3,68 @@ function result($input)
 {
     global $controller;
     global $isRequestPost;
+    global $session;
 
-    
     $dataSend = $_GET;
 
-    if(!empty($dataSend['name']) && !empty($dataSend['day']) && !empty($dataSend['month']) && !empty($dataSend['year'])){
+    $modelRequestExports = $controller->loadModel('RequestExports');
+
+    if(!empty($dataSend['name']) && !empty($dataSend['day']) && !empty($dataSend['month']) && !empty($dataSend['year']) && !empty($dataSend['phone'])){
+        // chuẩn hóa dữ liệu
+        $dataSend['birthday'] = $dataSend['day'].'/'.$dataSend['month'].'/'.$dataSend['year'];
+        $dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+        $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+        // kiểm tra đã đăng ký chưa
+        $checkDataExits = $modelRequestExports->find()->where(['phone'=>$dataSend['phone']])->first();
+
+        if(empty($checkDataExits)){
+            $data = $modelRequestExports->newEmptyEntity();
+
+            // lưu database
+            $data->avatar = '';
+            $data->name = $dataSend['name'];
+            $data->birthday = $dataSend['birthday'];
+            $data->phone = $dataSend['phone'];
+            $data->email = '';
+            $data->address = '';
+            $data->idMessenger = '';
+            $data->affiliate_phone = (!empty($session->read('aff')) && $session->read('aff')!=$dataSend['phone'])?$session->read('aff'):'';
+            $data->link_download = '';
+            $data->status_pay = 'wait';
+
+            $modelRequestExports->save($data);
+
+            // kiểm tra người giới thiệu
+            if(!empty($session->read('aff'))){
+                $checkNumberOrder = $modelRequestExports->find()->where(['affiliate_phone'=>$session->read('aff')])->all()->toList();
+               
+                if(count($checkNumberOrder) >= 3){
+                    $info_aff = $modelRequestExports->find()->where(['phone'=>$session->read('aff'), 'status_pay'=>'wait'])->first();
+                    
+                    if(!empty($info_aff)){
+                        $info_aff->status_pay = 'done';
+                        $modelRequestExports->save($info_aff);
+
+                        // gửi email
+                        if(!empty($info_aff->email)){
+                            sendEmailLinkFull($info_aff->email, $info_aff->name, $info_aff->link_download);
+                        }
+
+                        // gửi FB
+                        if(!empty($info_aff->idMessenger)){
+                            $attributesSmax = [];
+                            $attributesSmax['linkDownloadMMTC']= $info_aff->link_download;
+                            
+                            $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$dataSend['idMessenger'].'/send?bot_token='.$tokenBot.'&block_id='.$idBlockDownload.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
+                            
+                            $returnSmax= sendDataConnectMantan($urlSmax, $attributesSmax);
+                        }
+                    }
+                }
+            }
+        }
+
         $age = 0;
         $date = new \DateTime($dataSend['year'].'/'.$dataSend['month'].'/'.$dataSend['day']);
         $now = new \DateTime();
@@ -79,8 +136,12 @@ function resultvip($input)
             // kiểm tra đã đăng ký chưa
             $checkDataExits = $modelRequestExports->find()->where(['phone'=>$dataSend['customer_phone']])->first();
 
-            if(empty($checkDataExits)){
-                $data = $modelRequestExports->newEmptyEntity();
+            if(empty($checkDataExits->link_download)){
+                if(empty($checkDataExits)){
+                    $data = $modelRequestExports->newEmptyEntity();
+                }else{
+                    $data = $checkDataExits;
+                }
 
                 if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
                     $avatar = uploadImage(1, 'avatar');

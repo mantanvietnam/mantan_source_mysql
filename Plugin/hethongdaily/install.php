@@ -81,6 +81,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `id_aff` INT NOT NULL DEFAULT '0' COMMENT 'id người tiếp thị liên kết',
   `created_at` INT NOT NULL,
   `id_group` INT NOT NULL DEFAULT '0',
+  `facebook` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -164,3 +165,5 @@ $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `create_order_agency` BOOLEAN N
 $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `created_at` INT NOT NULL AFTER `id_aff`; ";
 
 $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `id_group` INT NOT NULL DEFAULT '0' AFTER `created_at`; ";
+
+$sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `facebook` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `id_group`; ";

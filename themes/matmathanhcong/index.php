@@ -31,6 +31,10 @@
                                         <div class="item-frm">
                                             <input type="text" placeholder="Họ và Tên" name="name" class="txt_field" required>
                                         </div>
+
+                                        <div class="item-frm">
+                                            <input type="text" placeholder="Số điện thoại" name="phone" class="txt_field" required>
+                                        </div>
                                         
                                         <div class="item-frm">
                                             <div class="row">

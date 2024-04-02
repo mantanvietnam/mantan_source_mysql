@@ -217,6 +217,7 @@ function editCustomerAgency($input)
                     $data->birthday_month = (int) $dataSend['birthday_month'];
                     $data->birthday_year = (int) $dataSend['birthday_year'];
                     $data->id_group = (int) @$dataSend['id_group'];
+                    $data->facebook = @$dataSend['facebook'];
 
                     $modelCustomers->save($data);
 

@@ -27,7 +27,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
-                    <input type="text" <?php if(!empty($_GET['id'])) echo 'disabled';?> class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
+                    <input type="text" <?php if(!empty($data->phone)){ echo 'disabled'; }else{ echo 'required'; }?> class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
                   </div>
                 </div>
 
@@ -134,6 +134,13 @@
                         }
                       ?>
                     </ul>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Facebook</label>
+                    <input type="text" class="form-control phone-mask" name="facebook" id="facebook" value="<?php echo @$data->facebook;?>" />
                   </div>
                 </div>
               </div>

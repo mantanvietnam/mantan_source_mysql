@@ -7,26 +7,16 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://ezpics.vn" target="_blank" class="footer-link fw-bolder">Ezpics</a>
+                  <a href="https://datacrm.asia" target="_blank" class="footer-link fw-bolder">PHOENIX TECH</a>
                 </div>
                 <div>
-                  <a href="https://www.facebook.com/ezpicsvn" class="footer-link me-4" target="_blank">Facebook</a>
+                  <a href="/" class="footer-link me-4" target="_blank">Facebook</a>
                   
-                  <a href="https://www.youtube.com/channel/UCHk4WJSIfxCKXrlN1FjnUBQ" target="_blank" class="footer-link me-4">Youtube</a>
+                  <a href="/" target="_blank" class="footer-link me-4">Youtube</a>
 
-                  <a
-                    href="https://www.tiktok.com/@ezpicsvn"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Tiktok</a
-                  >
+                  <a href="/" target="_blank" class="footer-link me-4">Tiktok</a>
 
-                  <a
-                    href="https://www.instagram.com/ezpicsvn/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Instagram</a
-                  >
+                  <a href="/" target="_blank" class="footer-link me-4">Instagram</a>
                 </div>
               </div>
             </footer>

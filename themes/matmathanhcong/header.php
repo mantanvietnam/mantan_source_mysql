@@ -236,7 +236,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-phone">Điện thoại</label>
-                                    <input required type="text" class="form-control phone-mask" name="customer_phone" id="customer_phone" value="" />
+                                    <input required type="text" class="form-control phone-mask" name="customer_phone" id="customer_phone" value="<?php echo @$_GET['phone'];?>" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-phone">Email</label>
