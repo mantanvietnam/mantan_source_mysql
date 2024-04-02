@@ -16,8 +16,8 @@ function createOrderProductAPI($input)
 
     /*
         $dataSend['data_order'] = [
-                                    ['id_product'=>1, 'quantity'=>2],
-                                    ['id_product'=>2, 'quantity'=>2],
+                                    ['id_product'=>1, 'quantity'=>2, 'price'=>0],
+                                    ['id_product'=>2, 'quantity'=>2, 'price'=>1000],
                                 ];
     */
 
@@ -72,9 +72,9 @@ function createOrderProductAPI($input)
 
                         $dataDetail->id_product = $data_order['id_product'];
                         $dataDetail->quantity = (int) $data_order['quantity'];
-                        $dataDetail->present = $product->id_product;
+                        //$dataDetail->present = $product->id_product;
                         $dataDetail->id_order = $data->id;
-                        $dataDetail->price = $product->price;
+                        $dataDetail->price = (int) $data_order['price'];
 
                         $modelOrderDetail->save($dataDetail);
 
@@ -190,7 +190,7 @@ function getListOrdersAPI($input)
                                 $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
                                 if(!empty($product)){
                                     $detail_order[$k]->product = $product->title;
-                                    $detail_order[$k]->price = $product->price;
+                                    //$detail_order[$k]->price = $value->price;
                                 }
                             }
 

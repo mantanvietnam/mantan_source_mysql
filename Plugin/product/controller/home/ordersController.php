@@ -270,6 +270,7 @@ function createOrder($input)
 
 				$dataDetail->id_product = $product->id;
 				$dataDetail->quantity = $product->numberOrder;
+				$dataDetail->price = $product->price;
 				$dataDetail->id_order = $data->id;
 
 				$modelOrderDetail->save($dataDetail);
@@ -614,7 +615,7 @@ function pay($input){
 
 				$dataDetail->id_product = $product->id;
 				$dataDetail->quantity = $product->numberOrder;
-				$dataDetail->present = $product->id_product;
+				//$dataDetail->present = $product->id_product;
 				$dataDetail->id_order = $data->id;
 				$dataDetail->price = $product->price;
 

@@ -119,6 +119,16 @@
     }
 </style>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+</script>
+
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/requestProductAgency">Yêu cầu nhập hàng</a> /</span>
@@ -131,33 +141,61 @@
             <div class="mb-3 col-md-6">
 
                 <div class="card mb-4">
-                    <h4 class="fw-bold m-2">Sản phẩm</h4>
+                    <h4 class="fw-bold m-4 mb-0">Sản phẩm</h4>
 
                     <?php
                     
                     if(!empty($listProduct)){ ?>
-                        <div class="m-3 col-md-10">
-                            <?php echo @$mess;?>
-                            <input type="text" placeholder="Tìm sản phẩm"  class="form-control phone-mask" id="searchProduct">
+                        <div class="row">
+                            <div class="m-4 col-md-11 mb-0">
+                                <?php echo @$mess;?>
+                                <input type="text" placeholder="Tìm sản phẩm"  class="form-control phone-mask" id="searchProduct">
+                            </div>
                         </div>
 
                         <div >
                           <div class="card card-body">
-                            <div class="row diagram">
-                                <?php foreach($listProduct as $key => $Product){ ?>
-                                    <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price ?>);" id='product_<?php echo $Product->id ?>' >
-                                        <div class="item_produc">
-                                            <div class="customer-name">
-                                                <span class="service_name"><?php echo $Product->title ?></span>
+                            <div id="tabs">
+                              <ul>
+                                <li><a href="#tabs-1">Sản phẩm bán</a></li>
+                                <li><a href="#tabs-2">Quà tặng</a></li>
+                              </ul>
+                              <div id="tabs-1">
+                                <div class="row diagram">
+                                    <?php foreach($listProduct as $key => $Product){ ?>
+                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price ?>, '');" id='product_<?php echo $Product->id ?>' >
+                                            <div class="item_produc">
+                                                <div class="customer-name">
+                                                    <span class="service_name"><?php echo $Product->title ?></span>
+                                                </div>
+                                                
+                                                <div class="customer-name">
+                                                    <span class="service_price"><?php echo number_format($Product->price) ?>đ</span>
+                                                </div>
                                             </div>
-                                            
-                                            <div class="customer-name">
-                                                <span class="service_price"><?php echo number_format($Product->price) ?>đ</span>
+                                         </div> 
+                                    <?php   } ?>
+                                </div>
+                              </div>
+                              <div id="tabs-2">
+                                <div class="row diagram">
+                                    <?php foreach($listProduct as $key => $Product){ ?>
+                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',0, 'free');" id='product_<?php echo $Product->id ?>_free' >
+                                            <div class="item_produc">
+                                                <div class="customer-name">
+                                                    <span class="service_name"><?php echo $Product->title ?></span>
+                                                </div>
+                                                
+                                                <div class="customer-name">
+                                                    <span class="service_price">0đ</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                     </div> 
-                                <?php   } ?>
+                                         </div> 
+                                    <?php   } ?>
+                                </div>
+                              </div>
                             </div>
+                            
                           </div>
                         </div>
                     <?php   } ?>
@@ -207,7 +245,7 @@
 
                                     <li>
                                         <span>Chiết khấu (%)</span>
-                                        <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="0" autocomplete="off" /></span>
+                                        <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien(0);" type="text" name="promotion" id="promotion" placeholder="0" value="0" autocomplete="off" /></span>
                                     </li>
                                     
                                     <li class="total-bh">
@@ -285,29 +323,52 @@ function checkDiscountConfig(money)
 }
 
 // all sản phầm vào đơn hàng 
-function addProduct(id, name, priceProduct)
+function addProduct(id, name, priceProduct, type)
 {
-    if(listProductAdd.hasOwnProperty(id)){
+    var keyID = id+type;
+
+    if(listProductAdd.hasOwnProperty(keyID) && priceProduct==$('#money-'+listProductAdd[keyID]).val()){
         // thêm số lượng vào mặt hàng đã có
-        var numberProductRow= $('#soluong'+listProductAdd[id]).val();
+        var numberProductRow= $('#soluong'+listProductAdd[keyID]).val();
         numberProductRow++;
-        $('#soluong'+listProductAdd[id]).val(numberProductRow);
+        $('#soluong'+listProductAdd[keyID]).val(numberProductRow);
     }else{
         row++;
-        listProductAdd[id]= row;
+        listProductAdd[keyID]= row;
         numberProduct++;
-        var showNumberProduct= new Intl.NumberFormat().format(numberProduct);
-        $('#numberProduct').html(showNumberProduct);
+        //var showNumberProduct= new Intl.NumberFormat().format(numberProduct);
+        //$('#numberProduct').html(showNumberProduct);
                 
         var readonly;
 
-        $('#listProductOrder tr:first').after('<tr id="tr'+row+'"><td style="text-align: initial;"><input type="hidden" name="idHangHoa['+row+']" id="idProduct'+row+'" value="'+id+'">'+name+'</td><td><div class="quantity"><div class="number-spinner"><span class="ns-btn" ></span><input name="soluong['+row+']" min="1" id="soluong'+row+'"  type="number" class="pl-ns-value form-control" value="1"  onchange="tinhtien();"></div></div></td><td><input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien();"></td><td id="totalmoney'+row+'"></td><td><a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct(\''+row+'\')"><i class="bx bx-trash me-1" aria-hidden="true"></i></a></td></tr>');    
+        $('#listProductOrder tr:first').after('\
+            <tr id="tr'+row+'">\
+                <td style="text-align: initial;">\
+                    <input type="hidden" name="idHangHoa['+row+']" id="idProduct'+row+'" value="'+id+'">\
+                    '+name+'\
+                </td>\
+                <td>\
+                    <div class="quantity">\
+                        <div class="number-spinner">\
+                            <span class="ns-btn" ></span>\
+                            <input name="soluong['+row+']" min="1" id="soluong'+row+'"  type="number" class="pl-ns-value form-control" value="1"  onchange="tinhtien(1);">\
+                        </div>\
+                    </div>\
+                </td>\
+                <td>\
+                    <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
+                </td>\
+                <td id="totalmoney'+row+'"></td>\
+                <td>\
+                    <a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct(\''+row+'\')"><i class="bx bx-trash me-1" aria-hidden="true"></i></a>\
+                </td>\
+            </tr>');    
             
             $("#trFirst").hide();
            
     }
 
-    tinhtien();
+    tinhtien(1);
 }
 
 // xóa sản phẩm trong đơn 
@@ -319,10 +380,10 @@ function deleteProduct(number)
         $("#tr"+number).remove();
         
         numberProduct--;
-        var showNumberProduct= new Intl.NumberFormat().format(numberProduct);
-        $('#numberProduct').html(showNumberProduct);
+        //var showNumberProduct= new Intl.NumberFormat().format(numberProduct);
+        //$('#numberProduct').html(showNumberProduct);
         
-        tinhtien();
+        tinhtien(1);
 
         if(numberProduct==0){
             $("#trFirst").show();
@@ -331,7 +392,7 @@ function deleteProduct(number)
 }
 
 // tính tiền 
-function tinhtien()
+function tinhtien(checkDiscount)
 {
     var total= 0;
     var totalPay= 0;
@@ -359,7 +420,7 @@ function tinhtien()
             }
         }
 
-        checkDiscountConfig(total);
+        if(checkDiscount == 1) checkDiscountConfig(total);
 
         // giảm giá
         var promotion= $('#promotion').val();
@@ -388,7 +449,7 @@ function tinhtien()
 // thanh toán 
 function createOrder()
 {
-    tinhtien();
+    tinhtien(1);
 
     var r;
     var id_member_buy = $('#id_member_buy').val();
@@ -455,7 +516,7 @@ function createOrder()
                 // add the selected item
                 terms.push( ui.item.label );
 
-                addProduct(ui.item.id,ui.item.title,ui.item.price);
+                addProduct(ui.item.id,ui.item.title,ui.item.price, '');
                 
                 $( "#searchProduct" ).val('');
                 return false;

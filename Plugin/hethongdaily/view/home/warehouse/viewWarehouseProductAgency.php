@@ -4,14 +4,12 @@
 
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/warehouseProductAgency">Kho hàng</a> /</span>
-    Danh sách hàng hóa trong kho
+    Xem tồn kho
   </h4>
-
-  <p><a href="/addRequestProductAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập hàng vào kho</a></p>
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách hàng hóa trong kho</h5>
+    <h5 class="card-header">Danh sách hàng hóa trong kho của đại lý tuyến dưới</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>

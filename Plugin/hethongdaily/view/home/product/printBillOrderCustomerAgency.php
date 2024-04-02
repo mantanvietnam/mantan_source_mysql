@@ -69,7 +69,7 @@
                                             echo '  <tr>
                                                         <td>'.$item->product->title.'</td>
                                                         <td>'.$item->quantity.'</td>
-                                                        <td>'.number_format($item->product->price).'</td>
+                                                        <td>'.number_format($item->price).'</td>
                                                     </tr>';
                                         }
                                     }

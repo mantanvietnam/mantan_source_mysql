@@ -144,7 +144,7 @@ function listOrderAdmin($input)
                     $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
                     if(!empty($product)){
                         $detail_order[$k]->product = $product->title;
-                        $detail_order[$k]->price = $product->price;
+                        //$detail_order[$k]->price = $product->price;
                     }
                 }
 

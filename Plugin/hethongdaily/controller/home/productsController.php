@@ -77,6 +77,7 @@ function addOrderCustomer($input)
                     $saveDetail->id_product = $value;
                     $saveDetail->id_order = $save->id;
                     $saveDetail->quantity = $dataSend['soluong'][$key];
+                    $saveDetail->price = $dataSend['money'][$key];
 
                     $modelOrderDetails->save($saveDetail);
                 }
@@ -242,7 +243,7 @@ function orderCustomerAgency($input)
                         $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
                         if(!empty($product)){
                             $detail_order[$k]->product = $product->title;
-                            $detail_order[$k]->price = $product->price;
+                            //$detail_order[$k]->price = $product->price;
                         }
                     }
 

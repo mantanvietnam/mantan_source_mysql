@@ -131,14 +131,16 @@
             <div class="mb-3 col-md-6">
 
                 <div class="card mb-4">
-                    <h4 class="fw-bold m-2">Sản phẩm</h4>
+                    <h4 class="fw-bold m-3 mb-0">Sản phẩm</h4>
 
                     <?php
                     
                     if(!empty($listProduct)){ ?>
-                        <div class="m-3 col-md-10">
-                            <?php echo @$mess;?>
-                            <input type="text" placeholder="Tìm sản phẩm"  class="form-control phone-mask" id="searchProduct">
+                        <div class="row">
+                            <div class="m-3 col-md-11 mb-0">
+                                <?php echo @$mess;?>
+                                <input type="text" placeholder="Tìm sản phẩm"  class="form-control phone-mask" id="searchProduct">
+                            </div>
                         </div>
 
                         <div >

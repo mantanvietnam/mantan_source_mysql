@@ -59,6 +59,7 @@ $sqlInstallDatabase .= "CREATE TABLE `order_details` (
     `id_product` INT NOT NULL , 
     `id_order` INT NOT NULL , 
     `quantity` INT NOT NULL , 
+    `price` INT NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .="CREATE TABLE `discount_codes` ( 
@@ -106,4 +107,6 @@ $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='manufacturer_produ
 
 // 2.0
 $sqlUpdateDatabase .= "ALTER TABLE `orders` ADD `promotion` INT NOT NULL DEFAULT '0' COMMENT 'Phần trăm giảm giá' AFTER `id_aff`; ";
+
+$sqlUpdateDatabase .= "ALTER TABLE `order_details` ADD `price` INT NOT NULL DEFAULT '0' AFTER `quantity`; ";
 ?>
