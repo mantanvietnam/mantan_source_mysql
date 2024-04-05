@@ -38,7 +38,7 @@
                                       </a>
                                     </td>
                                     <td align="center">
-                                      <a class="dropdown-item" onclick="deleteCategory('.$item->id.');" href="javascript:void(0);">
+                                      <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa nhóm khách hàng này không?\');" href="/deleteGroupCustomerAgency/?id='.$item->id.'">
                                         <i class="bx bx-trash me-1"></i>
                                       </a>
                                     </td>
@@ -92,24 +92,6 @@
     function editData(id, name){
       $('#idCategoryEdit').val(id);
       $('#name').val(name);
-    }
-
-    function deleteCategory(id){
-      var check = confirm('Bạn có chắc chắn muốn xóa không?');
-
-      if(check){
-        $.ajax({
-          method: "GET",
-          url: "/categories/delete/?id="+id,
-          data: {}
-        })
-          .done(function( msg ) {
-            window.location = '/groupCustomerAgency';
-          })
-          .fail(function() {
-            window.location = '/groupCustomerAgency';
-          });
-      }
     }
   </script>
 

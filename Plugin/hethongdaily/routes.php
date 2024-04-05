@@ -26,6 +26,10 @@
 	$routesPlugin['saveCustomerHistoryAPI']= 'hethongdaily/view/api/saveCustomerHistoryAPI.php';
 	$routesPlugin['updateStatusCustomerHistoryAPI']= 'hethongdaily/view/api/updateStatusCustomerHistoryAPI.php';
 
+	$routesPlugin['addGroupCustomerAPI']= 'hethongdaily/view/api/addGroupCustomerAPI.php';
+	$routesPlugin['deleteGroupCustomerAPI']= 'hethongdaily/view/api/deleteGroupCustomerAPI.php';
+	$routesPlugin['listGroupCustomerAPI']= 'hethongdaily/view/api/listGroupCustomerAPI.php';
+
 	$routesPlugin['resendOTPAPI']= 'hethongdaily/view/api/resendOTPAPI.php';
 
 
@@ -84,6 +88,7 @@
 	
 	// nhóm khách hàng
 	$routesPlugin['groupCustomerAgency']= 'hethongdaily/view/home/customer/groupCustomerAgency.php';
+	$routesPlugin['deleteGroupCustomerAgency']= 'hethongdaily/view/home/customer/deleteGroupCustomerAgency.php';
 	
 	// lịch sử chăm sóc khách hàng
 	$routesPlugin['listCustomerHistoriesAgency']= 'hethongdaily/view/home/customer_histories/listCustomerHistoriesAgency.php';

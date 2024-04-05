@@ -9,7 +9,7 @@ function searchMemberAPI($input)
 	$modelMembers = $controller->loadModel('Members');
 
 	$dataSend = $_REQUEST;
-		
+	
     $conditions = [];
 
 	if(!empty($dataSend['term'])){

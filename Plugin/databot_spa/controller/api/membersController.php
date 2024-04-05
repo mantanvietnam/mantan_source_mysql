@@ -43,6 +43,7 @@ function createMemberAPI($input)
 				$data->number_spa = 1;
 				$data->address = $dataSend['address'];
 				$data->code_otp = rand(100000, 999999);
+				$data->module = '["customer","staff","calendar","campain","zalo","sms","room","product","prepaid_cards","combo","bill","static"]';
 
 				$modelMember->save($data);
 

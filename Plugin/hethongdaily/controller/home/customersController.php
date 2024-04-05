@@ -305,4 +305,30 @@ function groupCustomerAgency($input)
         return $controller->redirect('/login');
     }
 }
+
+function deleteGroupCustomerAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Nhóm khách hàng';
+
+        if ($_GET['id']) {
+            $infoCategory = $modelCategories->find()->where(['id'=>(int) $_GET['id'], 'parent'=>$session->read('infoUser')->id])->first();
+
+            if(!empty($infoCategory)){
+                $modelCategories->delete($infoCategory);
+            }
+        }
+
+        return $controller->redirect('/groupCustomerAgency');
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

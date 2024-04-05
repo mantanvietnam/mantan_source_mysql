@@ -178,13 +178,18 @@ function saveInfoCustomerAPI($input)
     $modelCustomers = $controller->loadModel('Customers');
     $modelOrders = $controller->loadModel('Orders');
     $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+    $modelMembers = $controller->loadModel('Members');
 
     $return = array('code'=>1);
     
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+        if(!empty($dataSend['token']) || !empty($dataSend['id_member'])){
+            if(!empty($dataSend['token'])){
+                $infoMember = getMemberByToken($dataSend['token']);
+            }else{
+                $infoMember = $modelMembers->find()->where(['id'=>(int) $dataSend['id_member']])->first();
+            }
 
             if(!empty($infoMember)){
                 if( !empty($dataSend['full_name']) && 
@@ -200,17 +205,93 @@ function saveInfoCustomerAPI($input)
                             return array('code'=>4, 'mess'=>'Khách hàng không thuộc quyền quản lý của đại lý');
                         }
                     }else{
-                        $checkPhone = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
+                        $infoCustomer = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
 
-                        if(!empty($checkPhone)){
-                            return array('code'=>5, 'mess'=>'Khách hàng đã có dữ liệu trong hệ thống');
+                        if(!empty($infoCustomer)){
+                            if($infoCustomer->id_parent != $infoMember->id){
+                                return array('code'=>5, 'mess'=>'Khách hàng đã có dữ liệu trong hệ thống');
+                            }
                         }else{
                             $infoCustomer = $modelCustomers->newEmptyEntity();
+
+                            $infoCustomer->status = 'active';
+                            $infoCustomer->pass = md5($dataSend['phone']);
+                            $infoCustomer->phone = $dataSend['phone'];
+                            $infoCustomer->created_at = time();
                         }
                     }
 
+                    $infoCustomer->full_name = $dataSend['full_name'];
+                    
+                    if(!empty($dataSend['email'])){
+                        $infoCustomer->email = $dataSend['email'];
+                    }elseif(empty($infoCustomer->email)){
+                        $infoCustomer->email  = '';
+                    }
+
+                    if(!empty($dataSend['address'])){
+                        $infoCustomer->address = $dataSend['address'];
+                    }elseif(empty($infoCustomer->address)){
+                        $infoCustomer->address  = '';
+                    }
+
+                    if(!empty($dataSend['id_messenger'])){
+                        $infoCustomer->id_messenger = $dataSend['id_messenger'];
+                    }elseif(empty($infoCustomer->id_messenger)){
+                        $infoCustomer->id_messenger  = '';
+                    }
+
+                    if(!empty($dataSend['sex'])){
+                        $infoCustomer->sex = (int) $dataSend['sex'];
+                    }elseif(empty($infoCustomer->sex)){
+                        $infoCustomer->sex  = 0;
+                    }
+
+                    if(!empty($dataSend['id_city'])){
+                        $infoCustomer->id_city = (int) $dataSend['id_city'];
+                    }elseif(empty($infoCustomer->id_city)){
+                        $infoCustomer->id_city  = 0;
+                    }
+
+                    if(!empty($dataSend['birthday_date'])){
+                        $infoCustomer->birthday_date = (int) $dataSend['birthday_date'];
+                    }elseif(empty($infoCustomer->birthday_date)){
+                        $infoCustomer->birthday_date  = 0;
+                    }
+
+                    if(!empty($dataSend['birthday_month'])){
+                        $infoCustomer->birthday_month = (int) $dataSend['birthday_month'];
+                    }elseif(empty($infoCustomer->birthday_month)){
+                        $infoCustomer->birthday_month  = 0;
+                    }
+
+                    if(!empty($dataSend['birthday_year'])){
+                        $infoCustomer->birthday_year = (int) $dataSend['birthday_year'];
+                    }elseif(empty($infoCustomer->birthday_year)){
+                        $infoCustomer->birthday_year  = 0;
+                    }
+
+                    if(!empty($dataSend['id_aff'])){
+                        $infoCustomer->id_aff = (int) $dataSend['id_aff'];
+                    }elseif(empty($infoCustomer->id_aff)){
+                        $infoCustomer->id_aff  = 0;
+                    }
+
+                    if(!empty($dataSend['id_group'])){
+                        $infoCustomer->id_group = (int) $dataSend['id_group'];
+                    }elseif(empty($infoCustomer->id_group)){
+                        $infoCustomer->id_group  = 0;
+                    }
+
+                    if(!empty($dataSend['facebook'])){
+                        $infoCustomer->facebook = $dataSend['facebook'];
+                    }elseif(empty($infoCustomer->facebook)){
+                        $infoCustomer->facebook  = '';
+                    }
+
                     // nếu up file ảnh avatar lên
-                    $dataSend['avatar'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+                    $dataSend['avatar'] = '';
+
                     if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
                         $avatar = uploadImage($infoMember->id, 'avatar');
 
@@ -219,21 +300,16 @@ function saveInfoCustomerAPI($input)
                         }
                     }
 
-                    $infoCustomer->full_name = $dataSend['full_name'];
-                    $infoCustomer->phone = $dataSend['phone'];
-                    $infoCustomer->email = @$dataSend['email'];
-                    $infoCustomer->address = @$dataSend['address'];
-                    $infoCustomer->sex = (int) @$dataSend['sex'];
-                    $infoCustomer->id_city = (int) @$dataSend['id_city'];
-                    $infoCustomer->id_messenger = '';
-                    $infoCustomer->status = 'active';
+                    if(empty($dataSend['avatar'])){
+                        if(empty($infoCustomer->avatar)){
+                            $dataSend['avatar'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+                        }else{
+                            $dataSend['avatar'] = $infoCustomer->avatar;
+                        }
+                    }
+
                     $infoCustomer->avatar = $dataSend['avatar'];
-                    $infoCustomer->pass = md5($dataSend['phone']);
                     $infoCustomer->id_parent = $infoMember->id;
-                    $infoCustomer->birthday_date = (int) @$dataSend['birthday_date'];
-                    $infoCustomer->birthday_month = (int) @$dataSend['birthday_month'];
-                    $infoCustomer->birthday_year = (int) @$dataSend['birthday_year'];
-                    $infoCustomer->id_aff = (int) @$dataSend['id_aff'];
 
                     $modelCustomers->save($infoCustomer);
 
@@ -249,7 +325,6 @@ function saveInfoCustomerAPI($input)
                     $customer_histories = $modelCustomerHistories->newEmptyEntity();
 
                     $customer_histories->id_customer = $infoCustomer->id;
-                    
                     $customer_histories->time_now = time();
                     $customer_histories->note_now = $note_now;
                     $customer_histories->action_now = $action_now;
@@ -258,7 +333,8 @@ function saveInfoCustomerAPI($input)
 
                     $modelCustomerHistories->save($customer_histories);
 
-                    $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_customer'=>$infoCustomer->id);
+                    $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id);
+                    $return['set_attributes']['id_customer_crm']= $infoCustomer->id;
                 }else{
                     $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
                 }
@@ -267,6 +343,138 @@ function saveInfoCustomerAPI($input)
             }
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+function deleteGroupCustomerAPI($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        
+        if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                $infoCategory = $modelCategories->find()->where(['id'=>(int) $dataSend['id'], 'parent'=>$infoMember->id])->first();
+
+                if(!empty($infoCategory)){
+                    $modelCategories->delete($infoCategory);
+
+                    $return = array('code'=>0, 'mess'=>'Xóa nhóm khách hàng thành công');
+                }else{
+                    $return = array('code'=>4, 'mess'=>'Không phải nhóm khách hàng của bạn');
+                }
+                
+            }else{
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+function addGroupCustomerAPI($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        
+        if(!empty($dataSend['token']) && !empty($dataSend['name'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                if(!empty($dataSend['id'])){
+                    $infoCategory = $modelCategories->find()->where(['id'=>(int) $dataSend['id'], 'parent'=>$infoMember->id])->first();
+
+                    if(empty($infoCategory)){
+                        return array('code'=>4, 'mess'=>'Không phải nhóm khách hàng của bạn');
+                    }
+                }else{
+                    $infoCategory = $modelCategories->newEmptyEntity();
+                }
+
+                $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+                $infoCategory->parent = $infoMember->id;
+                $infoCategory->image = '';
+                $infoCategory->keyword = '';
+                $infoCategory->description = '';
+                $infoCategory->type = 'group_customer';
+                $infoCategory->slug = createSlugMantan($infoCategory->name);
+
+                $modelCategories->save($infoCategory);
+
+                $return = array('code'=>0, 'mess'=>'Lưu nhóm khách hàng thành công', 'id_group'=>$infoCategory->id);
+                
+            }else{
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+function listGroupCustomerAPI($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    $return = array('code'=>1);
+
+    $modelCustomers = $controller->loadModel('Customers');
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                $listData = $modelCategories->find()->where(['type'=>'group_customer', 'parent'=>$infoMember->id])->first();
+
+                if(!empty($listData)){
+                    foreach ($listData as $key => $value) {
+                        $customers = $modelCustomers->find()->where(['id_group'=>$value->id])->all()->toList();
+                        $listData[$key]->number_customer = count($customers);
+                    }
+                }
+
+                $return = array('code'=>0, 'listData'=>$listData);
+                
+            }else{
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
     }
 
