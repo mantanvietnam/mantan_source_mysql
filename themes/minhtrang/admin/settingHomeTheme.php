@@ -31,11 +31,7 @@
                         </button>
                       </li>
                       
-                      <!-- <li class="nav-item">
-                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-feedback" aria-controls="navs-top-image" aria-selected="false">
-                          FEEDBACK
-                        </button>
-                      </li> -->
+                     
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-evaluate" aria-controls="navs-top-image" aria-selected="false">
                            KHÁCH HÀNG
@@ -51,6 +47,7 @@
                            LIÊN HỆ
                         </button>
                       </li>
+                  </ul>
             <div class="card-body tab-content ">
                 <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
                     <div class="card-body row">
@@ -144,7 +141,7 @@
                          
                     </div>
                 </div>
-                <div class="tab-pane fade" id="navs-top-feedback" role="tabpanel">
+                <!-- <div class="tab-pane fade" id="navs-top-feedback" role="tabpanel">
                     <div class="card-body row">
                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <label class="form-label" for="basic-default-fullname">Tiêu đề</label>
@@ -172,7 +169,7 @@
                         </div>
                     
                     </div>
-                </div>
+                </div> -->
                 <div class="tab-pane fade" id="navs-top-evaluate" role="tabpanel">
                     <div class="card-body row">
                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
