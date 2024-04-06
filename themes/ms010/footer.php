@@ -14,7 +14,7 @@ $setting = setting();
 
                     <div class="col-lg-4">
                         <div class="footer-center">
-                            <p>THÔNG TIN LIÊN HỆ</p>
+                            <!-- <p>THÔNG TIN LIÊN HỆ</p> -->
                             <ul>
                                 <li>Địa chỉ: <?php echo @$setting['address'] ?></li>
                                 <li>Hotline: <?php echo @$setting['hotline'] ?></li>

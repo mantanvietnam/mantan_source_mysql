@@ -125,3 +125,16 @@
 #messReg p{
     font-size: 20px;
 }
+
+.content-btn{
+    text-align: center;
+}
+
+#section-banner .banner-home .banner-content .content-btn a{
+    border-radius: 7px;
+
+}
+
+.default-btn{
+    border-radius: 7px;
+}

@@ -66,6 +66,27 @@
 }
 
 @media (max-width: 500px){
+    .navbar-header{
+        background-color: #000;
+    }
 
+    header{
+        position: relative;
+    }
+
+    header .navbar-header .navbar-brand .image-header {
+        width: 135px;
+    }
+
+    .navbar-toggler i{
+        color: #fff;
+    }
+
+    .service-right .section-title{
+        text-align: center;
+    }
 }
 
+footer #section-footer .footer-center ul{
+    margin-top: 0;
+}

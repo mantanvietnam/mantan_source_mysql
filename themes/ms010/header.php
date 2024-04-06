@@ -51,7 +51,7 @@ $setting = setting();?>
                         </div>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                    <i class="fa-solid fa-bars"></i>                    
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                         <ul class="navbar-nav">
@@ -62,7 +62,7 @@ $setting = setting();?>
                                 <a class="nav-link" href="#section-service">Dịch vụ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#section-library">Thư viện</a>
+                                <a class="nav-link" href="#section-collection">Thư viện</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#section-blog">Tin tức</a>

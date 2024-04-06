@@ -19,7 +19,7 @@ global $urlThemeActive;
                             <span><?php echo @$setting['content_top'];?></span>
                         </div>
 
-                        <div class="content-btn">
+                        <div class="content-btn text-center">
                             <a href="<?php echo @$setting['link_top'];?>">Đăng ký</a>
                         </div>
                     </div>
@@ -583,7 +583,7 @@ global $urlThemeActive;
                                         <textarea name="message" id="message" class="form-control" cols="30" rows="5" required="" placeholder="Nội dung"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 text-center">
                                     <button type="button" onclick="contac();" class="default-btn">Gửi</button>
                                 </div>
                             </div>
