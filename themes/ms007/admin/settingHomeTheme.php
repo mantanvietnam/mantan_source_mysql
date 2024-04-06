@@ -245,7 +245,7 @@
                     <input type="text" class="form-control" name="messenger" value="<?php echo @$data['messenger'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <label class="form-label" for="basic-default-fullname">Nội dung chữ trắng</label>
+                    <label class="form-label" for="basic-default-fullname">tiktok</label>
                     <input type="text" class="form-control" name="tiktok" value="<?php echo @$data['tiktok'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">

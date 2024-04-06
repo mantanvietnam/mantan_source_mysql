@@ -17,8 +17,7 @@ if(@$data->order->promotion>101){
     <span class="text-muted fw-light"><a href="/listRoomBed">Sơ đồ giường</a> /</span>
     Thông tin giường <?php echo @$data->bed->name ?>
   </h4>
-  <?= $this->Form->create(); ?>
-    <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
+ 
     <div class="row">
       <div class="col-xl">
         <div class="card mb-12">
@@ -110,7 +109,7 @@ if(@$data->order->promotion>101){
                  <?php  if(@$data->order->status==0){ 
                    echo '<a href="" data-bs-toggle="modal" data-bs-target="#thanhtoan"  class="btn btn-primary">Check out</a>';
                  }else{
-                    echo ' <button type="submit" class="btn btn-primary">Check out</button>';
+                    echo ' <a href="" data-bs-toggle="modal" data-bs-target="#Checkout"  class="btn btn-primary">Check out</a>';
 
                 }?>
 
@@ -119,20 +118,17 @@ if(@$data->order->promotion>101){
       </div>
 
     </div>
-  <?= $this->Form->end() ?>
 </div>
 
 <div class="modal fade" id="thanhtoan"  name="id">
-
-
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Thanh toán đơn Dịch vụ</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="" action="/paymentOrders" class="form-horizontal" method="get" enctype=""> 
-             <div class="modal-footer" style="display: block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Thanh toán đơn Dịch vụ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="" action="/paymentOrders" class="form-horizontal" method="get" enctype=""> 
+            <div class="modal-footer" style="display: block;">
                 <div class="card-body">
                     <div class="row gx-3 gy-2 align-items-center">
                         <div class="col-md-12">
@@ -148,21 +144,23 @@ if(@$data->order->promotion>101){
                             <p> Chưa giảm giá: <?php echo number_format(@$data->order->total) ?>đ <br/>
                                 Giảm giá: <?php echo $promotion ?><br/>
                                 Tổng cộng: <?php echo number_format(@$data->order->total_pay) ?>đ<br/>
-                            <label class="form-label">Hình thức thanh toán </label>
+                                <label class="form-label">Hình thức thanh toán </label>
                                 <select name="type_collection_bill" class="form-select color-dropdown" required>
                                   <option value="">Chọn hình thức thanh toán</option>
                                   <?php
-                                     global $type_collection_bill;
-                                    foreach ($type_collection_bill as $key => $value) {
+                                  global $type_collection_bill;
+                                  foreach ($type_collection_bill as $key => $value) {
                                       if(empty(@$data->type_collection_bill) || @$data->type_collection_bill!=$key){
                                         echo '<option value="'.$key.'">'.$value.'</option>';
-                                      }else{
+                                    }else{
                                         echo '<option selected value="'.$key.'">'.$value.'</option>';
-                                      }
                                     }
-                                  ?>
-                                  <option value="cong_no">Nợ </option>
-                                </select>
+                                }
+                                ?>
+                                <option value="cong_no">Nợ </option>
+                            </select>
+                            <label class="form-label">Kết quả sử dụng dịch vụ</label>
+                            <textarea class="form-control" name="note"></textarea>
                         </div>
                     </div>
                 </div>
@@ -171,7 +169,44 @@ if(@$data->order->promotion>101){
         </form>
 
     </div>
+    </div>
 </div>
+
+<div class="modal fade" id="Checkout"  name="id">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1"> thông tin  Check out</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <?= $this->Form->create(); ?>
+    <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
+            <div class="modal-footer" style="display: block;">
+                <div class="card-body">
+                    <div class="row gx-3 gy-2 align-items-center">
+                        <div class="col-md-12">
+                            <input type="hidden" value="<?php echo @$data->order->id; ?>"  name="id">
+                            <input type="hidden" value="checkout"  name="type">
+                            <input type="hidden" value="<?php echo $data->id_services; ?>"  name="id_service">
+                            <input type="hidden" value="<?php echo $data->id; ?>"  name="id_Userservice">
+                            <input type="hidden" value="<?php echo $data->customer->name; ?>"  name="full_name">
+                            <input type="hidden" value="<?php echo @$data->bed->id; ?>"  name="id_bed">
+                            <p><label>Tiên khách hàng:</label> <?php echo $data->customer->name ?></p>
+                            <p><label>Điện thoại:</label> <?php echo $data->customer->phone ?></p>
+                            <p><label>Email:</label> <?php echo $data->customer->email ?></p>
+                          
+                            <label class="form-label">Kết quả sử dụng dịch vụ</label>
+                            <textarea class="form-control" name="note"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Thanh toán</button>
+            </div>
+        
+  <?= $this->Form->end() ?>
+
+    </div>
+    </div>
 </div>
 
 <?php include(__DIR__.'/../footer.php'); ?>

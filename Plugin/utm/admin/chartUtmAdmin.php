@@ -73,11 +73,11 @@
 
       function drawChart1() {
         var data = google.visualization.arrayToDataTable([
-          ['', 'Số lượng truy cập', 'Số lượng đơn'],
+          ['', 'Số lượng truy cập',],
           <?php if(!empty($utm_source)){
-              foreach ($utm_source as $item) { 
-                if(!empty($item['utm_source'])){
-                  echo "['".@$item['utm_source']."', ".@$item['count'].",".@$item['countorder']."],";
+              foreach ($utm_source as $key => $item) { 
+                if(!empty($key)){
+                  echo "['".@$key."', ".@$item."],";
                 }
             }
           }
@@ -99,11 +99,11 @@
 
       function drawChart2() {
         var data = google.visualization.arrayToDataTable([
-          ['', 'Số lượng truy cập', 'Số lượng đơn'],
+          ['', 'Số lượng truy cập'],
           <?php if(!empty($utm_medium)){
-              foreach ($utm_medium as $item) { 
-                if(!empty($item['utm_medium'])){
-                  echo "['".@$item['utm_medium']."', ".@$item['count'].",".@$item['countorder']."],";
+              foreach ($utm_medium as $key => $item) { 
+                if(!empty($key)){
+                  echo "['".@$key."', ".@$item."],";
                 }
             }
           }
@@ -125,11 +125,11 @@
 
       function drawChart3() {
         var data = google.visualization.arrayToDataTable([
-          ['', 'Số lượng truy cập', 'Số lượng đơn'],
+          ['', 'Số lượng truy cập'],
           <?php if(!empty($utm_campaign)){
-              foreach ($utm_campaign as $item) { 
-                if(!empty($item['utm_campaign'])){
-                  echo "['".@$item['utm_campaign']."', ".@$item['count'].",".@$item['countorder']."],";
+              foreach ($utm_campaign as $key => $item) { 
+                if(!empty($key)){
+                  echo "['".@$key."', ".@$item."],";
                 }
             }
           }
@@ -151,11 +151,11 @@
 
       function drawChart4() {
         var data = google.visualization.arrayToDataTable([
-          ['', 'Số lượng truy cập', 'Số lượng đơn'],
+          ['', 'Số lượng truy cập'],
           <?php if(!empty($utm_id)){
-              foreach ($utm_id as $item) { 
-                if(!empty($item['utm_id'])){
-                  echo "['".@$item['utm_id']."', ".@$item['count'].",".@$item['countorder']."],";
+              foreach ($utm_id as $key => $item) { 
+                if(!empty($key)){
+                  echo "['".@$key."', ".@$item."],";
                 }
             }
           }
@@ -177,11 +177,11 @@
 
       function drawChart5() {
         var data = google.visualization.arrayToDataTable([
-          ['', 'Số lượng truy cập', 'Số lượng đơn'],
+          ['', 'Số lượng truy cập'],
           <?php if(!empty($utm_term)){
-              foreach ($utm_term as $item) { 
-                if(!empty($item['utm_term'])){
-                  echo "['".@$item['utm_term']."', ".@$item['count'].",".@$item['countorder']."],";
+              foreach ($utm_term as $key => $item) { 
+                if(!empty($key)){
+                  echo "['".@$key."', ".@$item."],";
                 }
             }
           }
@@ -203,11 +203,11 @@
 
       function drawChart6() {
         var data = google.visualization.arrayToDataTable([
-          ['', 'Số lượng truy cập', 'Số lượng đơn'],
+          ['', 'Số lượng truy cập'],
           <?php if(!empty($utm_content)){
-              foreach ($utm_content as $item) { 
-                if(!empty($item['utm_content'])){
-                  echo "['".@$item['utm_content']."', ".@$item['count'].",".@$item['countorder']."],";
+              foreach ($utm_content as $key => $item) { 
+                if(!empty($key)){
+                  echo "['".@$key."', ".@$item."],";
                 }
             }
           }
@@ -280,7 +280,7 @@
             <tr class="">
               <th width="50%">utm_source</th>
               <th width="20%">Số lượng truy cập</th>
-              <th width="20%">Số lượng Đơn đặt</th>
+              <!-- <th width="20%">Số lượng Đơn đặt</th> -->
               <th width="10%">Chi tiết</th>
               <!-- <th width="50%">utm_campaign</th>
               <th width="50%">utm_id</th>
@@ -294,13 +294,13 @@
           <tbody>
             <?php 
             if(!empty($utm_source)){
-              foreach ($utm_source as $item) {
-                if(!empty($item['utm_source'])){
+              foreach ($utm_source as $key => $item) {
+
+                if(!empty($key)){
                   echo '<tr>
-                  <td>'.$item['utm_source'].'</td>
-                  <td>'.$item['count'].'</td>
-                  <td>'.$item['countorder'].'</td>
-                  <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_source='.$item['utm_source'].'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
+                  <td>'.$key.'</td>
+                  <td>'.$item.'</td>
+                  <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_source='.$key.'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
                   <i class="bx bxs-show me-1"></i></td>
 
 
@@ -329,7 +329,7 @@
             <tr class="">
               <th width="50%">utm_medium</th>
               <th width="20%">Số lượng truy cập</th>
-              <th width="20%">Số lượng Đơn đặt</th>
+              <!-- <th width="20%">Số lượng Đơn đặt</th> -->
               <th width="10%">Chi tiết</th>
                 <!-- <th width="50%">utm_campaign</th>
                 <th width="50%">utm_id</th>
@@ -337,19 +337,19 @@
                 <th width="50%">utm_content</th>
                 <th width="50%">ngày</th> -->
                 <!-- <th width="50%">Sửa</th> -->
-                <!-- <th width="50%">Xóa</th>  -->
+                <!-- <th width="50%">Xóa</th>
+                      -->
               </tr>
             </thead>
             <tbody>
               <?php 
               if(!empty($utm_medium)){
-                foreach ($utm_medium as $item) {
-                  if(!empty($item['utm_medium'])){
+                foreach ($utm_medium as $key => $item) {
+                  if(!empty($key)){
                     echo '<tr>
-                    <td>'.$item['utm_medium'].'</td>
-                    <td>'.$item['count'].'</td>
-                    <td>'.$item['countorder'].'</td>
-                    <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_medium='.$item['utm_medium'].'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
+                    <td>'.$key.'</td>
+                    <td>'.$item.'</td>
+                    <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_medium='.$key.'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
                     <i class="bx bxs-show me-1"></i></td>
 
 
@@ -378,7 +378,6 @@
               <tr class="">
                 <th width="50%">utm_campaign</th>
                 <th width="20%">Số lượng truy cập</th>
-                <th width="20%">Số lượng Đơn đặt</th>
                 <th width="10%">Chi tiết</th>
                 <!-- <th width="50%">utm_campaign</th>
                 <th width="50%">utm_id</th>
@@ -392,13 +391,13 @@
             <tbody>
               <?php 
               if(!empty($utm_campaign)){
-                foreach ($utm_campaign as $item) {
-                  if(!empty($item['utm_campaign'])){
+                foreach ($utm_campaign as $key => $item) {
+                  if(!empty($key)){
                     echo '<tr>
-                    <td>'.$item['utm_campaign'].'</td>
-                    <td>'.$item['count'].'</td>
-                    <td>'.$item['countorder'].'</td>
-                    <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_campaign='.$item['utm_campaign'].'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
+                    <td>'.$key.'</td>
+                    <td>'.$item.'</td>
+                    
+                    <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_campaign='.$key.'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
                     <i class="bx bxs-show me-1"></i></td>
 
 
@@ -428,7 +427,6 @@
               <tr class="">
                 <th width="50%">utm_id</th>
                 <th width="20%">Số lượng truy cập</th>
-                <th width="20%">Số lượng Đơn đặt</th>
                 <th width="10%">Chi tiết</th>
                 <!-- <th width="50%">utm_campaign</th>
                 <th width="50%">utm_id</th>
@@ -442,13 +440,13 @@
             <tbody>
               <?php 
               if(!empty($utm_id)){
-                foreach ($utm_id as $item) {
-                  if(!empty($item['utm_id'])){
+                foreach ($utm_id as $key => $item) {
+                  if(!empty($key)){
                     echo '<tr>
-                    <td>'.$item['utm_id'].'</td>
-                    <td>'.$item['count'].'</td>
-                    <td>'.$item['countorder'].'</td>
-                    <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_id='.$item['utm_id'].'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
+                    <td>'.$key.'</td>
+                    <td>'.$item.'</td>
+                    
+                    <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_id='.$key.'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
                     <i class="bx bxs-show me-1"></i></td>
 
 
@@ -478,7 +476,6 @@
               <tr class="">
                 <th width="50%">utm_term</th>
                 <th width="20%">Số lượng truy cập</th>
-                <th width="20%">Số lượng Đơn đặt</th>
                 <th width="10%">Chi tiết</th>
                 <!-- <th width="50%">utm_campaign</th>
                 <th width="50%">utm_id</th>
@@ -492,13 +489,13 @@
             <tbody>
               <?php 
               if(!empty($utm_term)){
-                foreach ($utm_term as $item) {
-                  if(!empty($item['utm_term'])){
+                foreach ($utm_term as $key => $item) {
+                  if(!empty($key)){
                     echo '<tr>
-                    <td>'.$item['utm_term'].'</td>
-                    <td>'.$item['count'].'</td>
-                    <td>'.$item['countorder'].'</td>
-                    <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_term='.$item['utm_term'].'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
+                    <td>'.$key.'</td>
+                    <td>'.$item.'</td>
+                    
+                    <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_term='.$key.'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
                     <i class="bx bxs-show me-1"></i></td>
 
 
@@ -528,7 +525,6 @@
               <tr class="">
                 <th width="50%">utm_content</th>
                 <th width="20%">Số lượng truy cập</th>
-                <th width="20%">Số lượng Đơn đặt</th>
                 <th width="10%">Chi tiết</th>
                 <!-- <th width="50%">utm_campaign</th>
                 <th width="50%">utm_id</th>
@@ -542,13 +538,13 @@
             <tbody>
               <?php 
               if(!empty($utm_content)){
-                foreach ($utm_content as $item) {
-                  if(!empty($item['utm_content'])){
+                foreach ($utm_content as $key => $item) {
+                  if(!empty($key)){
                     echo '<tr>
-                    <td>'.$item['utm_content'].'</td>
-                    <td>'.$item['count'].'</td>
-                    <td>'.$item['countorder'].'</td>
-                    <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_content='.$item['utm_content'].'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
+                    <td>'.$key.'</td>
+                    <td>'.$item.'</td>
+                    
+                    <td><a class="dropdown-item" href="/plugins/admin/utm-admin-listUtmAdmin/?utm_content='.$key.'&date_start='.@$_GET['date_start'].'&date_end='.@$_GET['date_end'].'" >
                     <i class="bx bxs-show me-1"></i></td>
 
 

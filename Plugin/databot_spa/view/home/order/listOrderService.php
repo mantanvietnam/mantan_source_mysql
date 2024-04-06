@@ -16,7 +16,10 @@
                         </div>
                         <div class="mb-3 col-md-3">
                          <label class="form-label" for="basic-default-phone">Khách hàng (*)</label>
-                         <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+                         <input type="text" class="form-control phone-mask" name="full_name" id="full_name"
+                                value="<?php echo @$_GET['full_name']; ?>" />
+                            <input type="hidden" name="id_customer" id="id_customer"
+                                value="<?php echo (int) @$_GET['id_customer']; ?>">
                      </div>
                      <div class="col-md-2">
                         <label class="form-label">Tạo từ ngày</label>

@@ -1582,6 +1582,9 @@ function paymentOrders($input){
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
         $modelBed = $controller->loadModel('Beds');
 
+        // debug(@$_GET['note']);
+        // die;
+
         if(!empty($_GET['id'])){
             $order = $modelOrder->get($_GET['id']); 
             $order->status = 1;
@@ -1639,7 +1642,7 @@ function paymentOrders($input){
         if(@$_GET['type']=="checkout"){
             $dataSend = $input['request']->getData();
             $data = $modelUserserviceHistories->get($_GET['id_Userservice']);
-            $data->note =@$dataSend['note'];
+            $data->note =@$_GET['note'];
             $data->status = 2;
             $modelUserserviceHistories->save($data);
            

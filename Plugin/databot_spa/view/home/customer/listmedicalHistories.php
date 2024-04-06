@@ -1,12 +1,12 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
-  <p><a href="/addMedicalHistories/?id_customer=<?php echo @$dataCustomer->id ?>" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới tiến án khám bện</a> </p>
+  <p><a href="/addMedicalHistories/?id_customer=<?php echo @$dataCustomer->id ?>" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới phiếu khám bệnh</a> </p>
 
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
-      <h5 class="card-header">thông tin khách hàng</h5>
+      <h5 class="card-header">Thông tin khách hàng</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-6">
@@ -16,7 +16,7 @@
             <label class="form-label">Điện thoại: </label><span>&emsp; <?php echo @$dataCustomer->phone ?></span>
           </div>
           <div class="col-md-6">
-            <label class="form-label">địa chỉ: </label><span>&emsp; <?php echo @$dataCustomer->address ?></span>
+            <label class="form-label">Địa chỉ: </label><span>&emsp; <?php echo @$dataCustomer->address ?></span>
           </div>
             <div class="col-md-6">
             <label class="form-label">Email: </label><span>&emsp; <?php echo @$dataCustomer->email ?></span>
@@ -43,7 +43,7 @@
      </li>
      <li class="nav-item">
       <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
-        lịch sử dùng sản phẩm
+        Lịch sử dùng sản phẩm
      </button>
    </li>
  </ul>
@@ -104,7 +104,7 @@
               <th>Tên Dịch vụ</th>
               <th>Nhân viên thực hiện</th>
               <th>thời gian dử dụng</th>
-              <th>chú ý</th>
+              <th>Kết quả sau điêu trị</th>
             </tr>
           </thead>
           <tbody>
