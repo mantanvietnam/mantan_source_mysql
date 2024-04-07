@@ -742,12 +742,14 @@ function createImageSeries($input)
 	global $ftp_username_upload_image;
 	global $ftp_password_upload_image;
 	global $response;
+	global $urlCurrent;
 	
 	$modelProduct = $controller->loadModel('Products');
 	$modelProductDetail = $controller->loadModel('ProductDetails');
 
 	$dataImage = '';
-	
+	//var_dump($urlCurrent);
+	//var_dump($_REQUEST);die;
 	if(!empty($_REQUEST['id'])){
 		$id = (int) $_REQUEST['id'];
 
@@ -819,6 +821,8 @@ function createImageSeries($input)
 
         	if(!empty($_GET['id'])){
         		$max = 1000;
+        		if(!empty($_GET['maxWidth'])) $max = (int) $_GET['maxWidth'];
+        		
 	        	if($product->width<=$max && $product->height<=$max){
 	        		$width = $product->width;
 	        		$height = $product->height;

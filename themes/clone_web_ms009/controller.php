@@ -159,11 +159,11 @@ function registerEvent($input)
 
                 $checkPhone->full_name = $dataSend['name'];
                 $checkPhone->phone = $dataSend['phone'];
-                $checkPhone->email = @$dataSend['email'];
-                $checkPhone->address = @$dataSend['address'];
+                $checkPhone->email = (!empty($dataSend['email']))?$dataSend['email']:''; 
+                $checkPhone->address = (!empty($dataSend['address']))?$dataSend['address']:'';
                 $checkPhone->sex = (int) @$dataSend['sex'];
                 $checkPhone->id_city = (int) @$dataSend['id_city'];
-                $checkPhone->id_messenger = @$dataSend['id_messenger'];
+                $checkPhone->id_messenger = (!empty($dataSend['id_messenger']))?$dataSend['id_messenger']:'';
                 $checkPhone->status = 'active';
                 $checkPhone->pass = md5($checkPhone->phone);
                 
