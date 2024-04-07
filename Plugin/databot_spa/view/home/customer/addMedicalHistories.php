@@ -37,13 +37,18 @@
     <div class=" row">
      <?php echo $mess;?>
       <div class="mb-3 col-md-6">
-        <label class="form-label" for="basic-default-phone">Hiện trạng  (*)</label>
+        <label class="form-label" for="basic-default-phone">Hình ảnh hiện trạng  (*)</label>
+        <?php showUploadFile('image','image',@$data->image,0);?>
+      </div>
+      <div class="mb-3 col-md-6">
+        <label class="form-label" for="basic-default-phone">Mô tả hiện trạng  (*)</label>
         <textarea class="form-control" name="title"><?php echo @$data->title;?></textarea>
       </div>
       <div class="mb-3 col-md-6">
         <label class="form-label" for="basic-default-fullname">Chuẩn đoán (*)</label>
         <textarea class="form-control" name="result"><?php echo @$data->result;?></textarea>
       </div>
+      
       <div class="mb-3 col-md-6">
         <label class="form-label" for="basic-default-fullname">Phương pháp xử lý (*)</label>
         <textarea class="form-control" name="treatment_plan"><?php echo @$data->treatment_plan;?></textarea>
@@ -52,7 +57,7 @@
         <label class="form-label" for="basic-default-fullname">Chú ý </label>
         <textarea class="form-control" name="note"><?php echo @$data->note;?></textarea>
       </div>
-      <div class="mb-3 col-md-6">
+      <div class="mb-3 col-md-12">
         <button type="submit" style=" width: 70px; " class="btn btn-primary">Lưu</button>
       </div>
     </div>

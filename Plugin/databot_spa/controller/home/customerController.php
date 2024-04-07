@@ -772,6 +772,7 @@ function addMedicalHistories($input){
 			$data->id_member = $infoUser->id_member;
 			$data->id_spa = $dataCustomer->id_spa;
 			$data->updated_at = date('Y-m-d H:i:s');
+			$data->image = $dataSend['image'];
 			$data->title = $dataSend['title'];
 			$data->note = $dataSend['note'];
 			$data->result = $dataSend['result'];

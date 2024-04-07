@@ -65,11 +65,15 @@
           </thead>
           <tbody>
             <?php if(!empty($Medical)){
-                  foreach($Medical as $item){
+              foreach($Medical as $item){
+                $image = '';
+                if(!empty($item->image)){
+                  $image = '<br/><img src="'.$item->image.'" width="80" />';
+                }
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>'.date('H:i d/m/Y', strtotime(@$item->created_at)).'</td>
-                        <td>'.$item->title.'</td>
+                        <td>'.$item->title.$image.'</td>
                         <td>'.$item->result.'</td>
                         <td>'.$item->treatment_plan.'</td>
                         <td>'.$item->note.'</td>
