@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
-  <p><a href="/addMedicalHistories/?id_customer=<?php echo @$dataCustomer->id ?>" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới phiếu khám bệnh</a> </p>
+  <h4 class="fw-bold py-3 mb-4">Hồ sơ khách hàng</h4>
+  <p><a href="/addMedicalHistories/?id_customer=<?php echo @$dataCustomer->id ?>" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới phiếu khám</a> </p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -33,7 +33,7 @@
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-          Lịch sử khám bệnh
+          Lịch sử khách hàng
         </button>
       </li>
       <li class="nav-item">
@@ -55,11 +55,11 @@
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Lí do khám bệnh</th>
-              <th>Kết quả khám bệnh</th>
-              <th>Phương phám điều trị</th>
-              <th>chú ý</th>
-              <th>Thời gian khám bệnh</th>
+              <th>Thời gian</th>
+              <th>Hiện trạng</th>
+              <th>Chuẩn đoán</th>
+              <th>Phương pháp</th>
+              <th>Chú ý</th>
               <th>Sửa</th>
             </tr>
           </thead>
@@ -68,11 +68,11 @@
                   foreach($Medical as $item){
                 echo '<tr>
                         <td>'.$item->id.'</td>
+                        <td>'.date('H:i d/m/Y', strtotime(@$item->created_at)).'</td>
                         <td>'.$item->title.'</td>
                         <td>'.$item->result.'</td>
                         <td>'.$item->treatment_plan.'</td>
                         <td>'.$item->note.'</td>
-                        <td>'.date('H:i d/m/Y', strtotime(@$item->created_at)).'</td>
                         
                         <td align="center">
                           <a class="dropdown-item" href="/addMedicalHistories/?id='.$item->id.'&id_customer='.$item->id_customer.'">
@@ -101,10 +101,10 @@
           <thead>
             <tr class="">
              <th>ID</th>
-              <th>Tên Dịch vụ</th>
+              <th>Tên dịch vụ</th>
               <th>Nhân viên thực hiện</th>
-              <th>thời gian dử dụng</th>
-              <th>Kết quả sau điêu trị</th>
+              <th>Thời gian sử dụng</th>
+              <th>Kết quả sau điều trị</th>
             </tr>
           </thead>
           <tbody>
@@ -134,11 +134,11 @@
        <table class="table table-bordered" style=" text-align: center; ">
         <thead>
           <tr>
-            <th rowspan='2'>Id</th>
-            <th rowspan='2'>thời gian</th>
-            <th rowspan='2'>khách hàng</th>
+            <th rowspan='2'>ID</th>
+            <th rowspan='2'>Thời gian</th>
+            <th rowspan='2'>Khách hàng</th>
             <th rowspan="2">Thành tiền </th>
-            <th colspan="4">thông tin sản phẩn </th>
+            <th colspan="4">Thông tin sản phẩn </th>
           </tr>
           <tr>
             <th>Sản phẩn</th>

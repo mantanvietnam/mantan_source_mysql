@@ -72,11 +72,11 @@
               <th>ID</th>
               <th>Ảnh đại điện</th>
               <th>Khách hàng</th>
-              <th>Email</th>
+              <th>Điện thoại</th>
               <th>Điểm</th>
               <th>NV phụ trách</th>
               <th>Thẻ thành viên</th>
-              <th>Hồ sơ bệnh án</th>
+              <th>Hồ sơ</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -106,9 +106,9 @@
                           <td>
                             <img src="' . $item->avatar . '" width="100" />
                           </td>
-                          <td>'.$item->name.'</br>
-                         '.$item->phone.'</td>
-                          <td>'.$item->email.'</td>
+                          <td>'.$item->name.'
+                          </td>
+                          <td>'.$item->phone.'</td>
                           <td>'.number_format($item->point).'</td>
                           <td>'.@$listStaff[$item->id_staff]->name.'</td>
                           

@@ -175,7 +175,7 @@
                                 <i class="bx bx bx-edit-alt me-1"></i>
                               </a>
                               -->
-                              <a target="_blank" class="dropdown-item" href="http://editor.ezpics.vn:5173/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa thông tin mẫu thiết kế">
+                              <a target="_blank" class="dropdown-item" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa thông tin mẫu thiết kế">
                                 <i class="bx bx bx-edit-alt me-1"></i>
                               </a>
                             </td>
@@ -252,7 +252,7 @@
                                   <i class="bx bx-edit"></i> Sửa</a>
                                 -->
 
-                                <a target="_blank" class="dropdown-item btn btn-primary d-block" href="http://editor.ezpics.vn:5173/?id='.$item->id.'&token='.$session->read('infoUser')->token.'">
+                                <a target="_blank" class="dropdown-item btn btn-primary d-block" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'">
                                   <i class="bx bx-edit"></i> Sửa</a>
 
                               </div>
