@@ -193,6 +193,7 @@ function orderProduct($input){
                         $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                         $bill->id_customer = (int)@$dataSend['id_customer'];
                         $bill->full_name = @$dataSend['full_name'];
+                        $bill->moneyReturn = @$dataSend['moneyReturn'];
                         if(empty($dataSend['card'])){
                             $bill->type_card = 0;
                         }else{
@@ -261,7 +262,7 @@ function orderProduct($input){
                         }
                     }
 
-                    return $controller->redirect('/printInfoOrder?id='.$order->id);
+                    return $controller->redirect('/printInfoOrder?id='.$order->id.'&url=orderProduct');
                 }elseif($dataSend['typeOrder']==3){
                    $Order = $modelOrder->find()->where(array('id_bed'=>$dataSend['id_bed'], 'status'=>2))->first();
                    $bed = $modelBed->find()->where(array('id'=>$dataSend['id_bed'], 'status'=>2))->first();
@@ -505,6 +506,8 @@ function orderCombo($input){
                     $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                     $bill->id_customer = (int)@$dataSend['id_customer'];
                     $bill->full_name = @$dataSend['full_name'];
+                    $bill->moneyReturn = @$dataSend['moneyReturn'];
+
                     if(empty($dataSend['card'])){
                         $bill->type_card = 0;
                     }else{
@@ -573,7 +576,7 @@ function orderCombo($input){
                     }
                 }
 
-                return $controller->redirect('/printInfoOrder?id='.$order->id);
+                return $controller->redirect('/printInfoOrder?id='.$order->id.'&url=orderCombo');
             }elseif($dataSend['typeOrder']==3){
                $Order = $modelOrder->find()->where(array('id_bed'=>$dataSend['id_bed'], 'status'=>2))->first();
                $bed = $modelBed->find()->where(array('id'=>$dataSend['id_bed'], 'status'=>2))->first();
@@ -793,6 +796,7 @@ function orderService($input){
                 $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                 $bill->id_customer = (int)@$dataSend['id_customer'];
                 $bill->full_name = @$dataSend['full_name'];
+                $bill->moneyReturn = @$dataSend['moneyReturn'];
                 if(empty($dataSend['card'])){
                     $bill->type_card = 0;
                 }else{
@@ -860,7 +864,7 @@ function orderService($input){
                 }
             }
 
-            return $controller->redirect('/printInfoOrder?id='.$order->id);
+            return $controller->redirect('/printInfoOrder?id='.$order->id.'&url=orderService');
         
         }elseif($dataSend['typeOrder']==3){
 
@@ -1623,6 +1627,7 @@ function paymentOrders($input){
                 $bill->type_collection_bill = @$_GET['type_collection_bill'];
                 $bill->id_customer = (int)$order->id_customer;
                 $bill->full_name = @$_GET['full_name'];
+                $bill->moneyReturn = @$dataSend['moneyReturn'];
                 if(empty($dataSend['card'])){
                     $bill->type_card = 0;
                 }else{
@@ -1650,9 +1655,9 @@ function paymentOrders($input){
             $datebed->status = 1;
             $modelBed->save($datebed);
 
-            return $controller->redirect('/printInfoOrder?id='.$_GET['id'].'&type=checkout');
+            return $controller->redirect('/printInfoOrder?id='.$_GET['id'].'&type=checkout&url=orderService');
         }else{
-            return $controller->redirect('/printInfoOrder?id='.$_GET['id']);
+            return $controller->redirect('/printInfoOrder?id='.$_GET['id'].'&url=orderService');
         }
         
     }else{

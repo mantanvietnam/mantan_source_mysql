@@ -242,7 +242,7 @@
                                         </li>                                        
                                         <li><span>Giảm giá</span><span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="" autocomplete="off" /></span></li>
                                         <li><span>Hình thức thanh toán</span><span>
-                                            <select name="type_collection_bill" class="form-select color-dropdown" required>
+                                             <select name="type_collection_bill" id="type_collection_bill" class="form-select color-dropdown" required onchange="tinhtien();">
                                               <option value="">Chọn hình thức thanh toán</option>
                                               <?php
                                               global $type_collection_bill;
@@ -258,6 +258,7 @@
                                         </span></li> 
                                         <li class="total-bh"><p><strong>Tổng thanh toán</strong></p><p><strong id="totalPay">0</strong></p>
                                             <input type="hidden" name="totalPays" id="totalPays" value="">
+                                            <input type="hidden" name="moneyReturn" id="moneyReturn" value="">
                                         </li>
                                          <li id="sotenkhachdua">
                                             <span>Số tiền khách đưa</span>
@@ -414,6 +415,15 @@ function addProduct(id, name, priceProduct,type){
         var price;
         var idProduct;
 
+         var typecollectionbill= $('#type_collection_bill').val();
+        if(typecollectionbill=='tien_mat'){
+            document.getElementById("sotenkhachdua").style.display = "flex";
+            document.getElementById("sotentralaikhach").style.display = "flex";
+        }else{
+            document.getElementById("sotenkhachdua").style.display = "none";
+            document.getElementById("sotentralaikhach").style.display = "none";
+        }
+
         if(row>0){
             for(i=1;i<=row;i++){
                 if ($('#tr'+i).length > 0) {
@@ -456,6 +466,7 @@ function addProduct(id, name, priceProduct,type){
                     $('#totalPay').html(showPay+'đ');
 
                     moneyCustomerPay = $('#moneyCustomerPay').val();
+                    document.getElementById("moneyReturn").value =moneyCustomerPay - totalPay;
                     var moneyCustomerReturn = new Intl.NumberFormat().format(moneyCustomerPay - totalPay);
                     $('#moneyCustomerReturn').html(moneyCustomerReturn+'đ');
 

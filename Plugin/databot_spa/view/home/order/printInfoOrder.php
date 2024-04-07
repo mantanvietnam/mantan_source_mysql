@@ -4,16 +4,20 @@
         <title>Phiếu thu</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/css/bootstrap.min.css?time=<?php echo time(); ?>"/>
-        <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/css/bootstrap-theme.min.css?time=<?php echo time(); ?>"/>     
-        <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/css/style.css?time=<?php echo time(); ?>"/>     
-        <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/css/print.css?time=<?php echo time(); ?>"/>     
-             
-        <script type="text/javascript" src="/plugins/databot_spa/view/home/assets/js/bootstrap.min.js?time=<?php echo time(); ?>"></script>
-        <script src="/plugins/databot_spa/view/home/assets/vendor/js/bootstrap.js?time=<?php echo time(); ?>"></script>
+
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <link rel="stylesheet" href="/plugins/databot_spa/view/home-icon/assets/css/print.css?time=<?php echo time(); ?>"/>   
+  
+          
+          
+        
         <style type="text/css">
             @media print {
                 @page {
@@ -112,6 +116,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-right" colspan="">Tiền trả lại:</td>
+                                     <td colspan="2"><b><?php echo number_format($data->bill->moneyReturn);?>đ</b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -120,7 +125,7 @@
                     
                    
                     <div class="row text-right footer">
-                        <div class="col-md-6 col-sm-6 col-xs-6"></div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">khách hàng <br/><?php echo @$data->customer->name;?></div>
                         <div class="col-md-6 col-sm-6 col-xs-6">Nhân viên<br/><?php echo $user->name;?></div>
                     </div>
                 </div>
@@ -130,7 +135,7 @@
             <p>Thanh toán thành công</p>
         </div>
 <?php   
-    $url = '/';
+    $url = '/'.$_GET['url'];
     if(@$_GET['type']=="checkout"){
          $url = '/listRoomBed';
     }
@@ -151,11 +156,11 @@
                                   "In hóa đơn": function() {
                                     $( this ).dialog( "close" );
                                     window.print();
-                                    window.location= '<?php echo $url ?>';
+                                    window.location= '<?php echo $url; ?>';
                                 },
                                 Cancel: function() {
                                       //$( this ).dialog( "close" );
-                                      window.location= '<?php echo $url ?>';
+                                      window.location= '<?php echo $url; ?>';
                                   }
                               }
                           });
