@@ -163,7 +163,7 @@
 		 	-->
 
 		 	<div class="card mb-4">
-		 		<h4 class="fw-bold m-2">Cobom liệu trình</h4>
+		 		<h4 class="fw-bold m-2">Combo liệu trình</h4>
 		 		<?php
                     echo @$mess;
                  if(!empty($listCombo)){ ?>
@@ -176,7 +176,7 @@
 				  	<div class="row diagram">
 
 				     <?php foreach($listCombo as $key => $combo){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $combo->image ?>');" onclick="addProduct('<?php echo $combo->id ?>','<?php echo $combo->name ?>',<?php echo $combo->price ?>,'cobom');" id='combo<?php echo $combo->id ?>' >
+				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $combo->image ?>');" onclick="addProduct('<?php echo $combo->id ?>','<?php echo $combo->name ?>',<?php echo $combo->price ?>,'combo');" id='combo<?php echo $combo->id ?>' >
                                     <div class="item_produc">
                                        <div class="customer-name"><span class="service_name"><?php echo $combo->name ?></span></div>
                                             <div class="customer-name"><span class="service_price"><?php echo number_format($combo->price) ?>đ</span></div>
@@ -681,7 +681,7 @@ function addProduct(id, name, priceProduct,type){
                 // add the selected item
                 terms.push( ui.item.label );
 
-                addProduct(ui.item.id,ui.item.name,ui.item.price,'cobom')
+                addProduct(ui.item.id,ui.item.name,ui.item.price,'combo')
           
                 return false;
             }

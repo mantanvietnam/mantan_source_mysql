@@ -50,7 +50,7 @@
                                                 <th >Sản phẩn</th>
                                                 <th >Giá bán</th>
                                                 <th >Số lượng </th>
-                                                <th >loại </th>
+                                                <th >loại as</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -119,7 +119,18 @@
             </div>
         </form>
     </div>
-</div>          
+</div> 
+
+<script type="text/javascript">
+     var typecollectionbill= $('#type_collection_bill').val();
+        if(typecollectionbill=='tien_mat'){
+            document.getElementById("sotenkhachdua").style.display = "flex";
+            document.getElementById("sotentralaikhach").style.display = "flex";
+        }else{
+            document.getElementById("sotenkhachdua").style.display = "none";
+            document.getElementById("sotentralaikhach").style.display = "none";
+        }
+</script>         
 
 <script type="text/javascript">
 

@@ -220,6 +220,8 @@ function detailCollectionBill($input){
 
             $order->spa = getSpa($user->id_spa);
         }
+
+      
        	
         setVariable('data', $data);
         setVariable('order', $order);

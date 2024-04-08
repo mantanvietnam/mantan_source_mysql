@@ -3,68 +3,68 @@
 $menus = array();
 $menus[0]['title'] = 'Exc-go';
 
-$menus[1]['sub'][0] = array(
+$menus[0]['sub'][0] = array(
     'title' => 'Danh sách thành viên',
     'url' => '/plugins/admin/excgo-view-admin-user-listUserAdmin',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listUserAdmin',
 );
 
-$menus[2]['sub'][0] = array('title' => 'Danh sách khu vực',
+$menus[0]['sub'][1] = array('title' => 'Danh sách khu vực',
     'url' => '/plugins/admin/excgo-view-admin-province-listProvinceAdmin',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listProvinceAdmin',
 );
 
-$menus[3]['sub'][0] = array('title' => 'Danh sách cuốc xe',
+$menus[0]['sub'][2] = array('title' => 'Danh sách cuốc xe',
     'url' => '/plugins/admin/excgo-view-admin-booking-listBookingAdmin',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listBookingAdmin',
 );
 
-$menus[4]['sub'][0] = array('title' => 'Yêu cầu nâng cấp tài khoản',
+$menus[0]['sub'][3] = array('title' => 'Yêu cầu nâng cấp tài khoản',
     'url' => '/plugins/admin/excgo-view-admin-upgradeRequest-listUpgradeRequestToDriverAdmin',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listUpgradeRequestToDriverAdmin',
 );
 
-$menus[5]['sub'][0] = array('title' => 'Yêu cầu rút tiền',
+$menus[0]['sub'][4] = array('title' => 'Yêu cầu rút tiền',
     'url' => '/plugins/admin/excgo-view-admin-withdrawRequest-listWithdrawRequestAdmin',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listWithdrawRequestAdmin',
 );
 
-$menus[6]['sub'][0] = array('title' => 'Khiếu nại',
+$menus[0]['sub'][5] = array('title' => 'Khiếu nại',
     'url' => '/plugins/admin/excgo-view-admin-complaint-listComplaintAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listComplaintAdmin',
 );
 
-$menus[7]['sub'][0] = array('title' => 'Yêu cầu hỗ trợ',
+$menus[0]['sub'][6] = array('title' => 'Yêu cầu hỗ trợ',
     'url' => '/plugins/admin/excgo-view-admin-support-listSupportAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listSupportAdmin',
 );
 
-$menus[8]['sub'][0] = array('title' => 'Quản lí giao dịch',
+$menus[0]['sub'][7] = array('title' => 'Quản lí giao dịch',
     'url' => '/plugins/admin/excgo-view-admin-transaction-listTransactionAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listTransactionAdmin',
 );
 
-$menus[9]['sub'][0] = array('title' => 'Cài đặt phí sàn',
+$menus[0]['sub'][8] = array('title' => 'Cài đặt phí sàn',
     'url' => '/plugins/admin/excgo-view-admin-config-configServiceFeeAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'configServiceFeeAdmin',
 );
 
-$menus[9]['sub'][0] = array('title' => 'Cài đặt gửi email',
+$menus[0]['sub'][9] = array('title' => 'Cài đặt gửi email',
     'url' => '/plugins/admin/excgo-view-admin-config-configSendEmailAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'configSendEmailAdmin',
 );
 
-$menus[10]['sub'][0] = array('title' => 'Kiểm tra cuốc xe đã hoàn thành',
+$menus[0]['sub'][10] = array('title' => 'Kiểm tra cuốc xe đã hoàn thành',
     'url' => '/plugins/admin/excgo-view-admin-config-checkCompletedBookingAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'checkCompletedBookingAdmin',

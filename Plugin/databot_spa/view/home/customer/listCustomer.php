@@ -221,23 +221,25 @@
                                 
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
+                              <?php if(!empty($items->category->image)){ ?>
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel1">Ảnh thẻ </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                               </div>
-                              <?php if(!empty($items->category->image)){ ?>
+                              
                               <div>
                                 <img id="imageToDownload" src="<?php echo $link ?>" style="width: 100%;">
                               </div>
-                             <!--  <a href="data:image/png;base64,<?php echo base64_decode($link); ?>" class="btn btn-warning mb-2 mt-3" download="<?php echo $link ?>">
-                                  <i class="bx bx-down-arrow-circle"></i>  Tải ảnh
-                                </a> -->
+                            
                                 <a href="javascript:void(0);" id="downloadButton" class="btn btn-warning mb-2 mt-3">
                                     <i class="fa-solid fa-cloud-arrow-down"></i> Tải ảnh
                                 </a>
-                                <!-- <a class="btn btn-primary m-3" onclick="downloadImage('')"><i class="bx bx-down-arrow-circle"></i> Tải xuống</a> -->
+                               
                               <?php }else{
-                                echo ' <div>bạn chưa cài ảnh in hàng hoạt EZPICS </div>';
+                                echo ' <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Bạn chưa cài ảnh in hàng hoạt EZPICS </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                              </div>';
                               } ?>
                             </div>
                           </div>
@@ -263,7 +265,7 @@ document.getElementById('downloadButton').addEventListener('click', function() {
             // Tạo một liên kết để tải xuống
             var a = document.createElement('a');
             a.href = url;
-            a.download = imageName;
+            a.download = imageName+'.png';
             
             // Simulate click để tải ảnh về
             document.body.appendChild(a);

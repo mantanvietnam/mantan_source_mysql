@@ -32,13 +32,64 @@
                             </div>
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="col-sm-12 control-label">Nhà cung cấp:</label>
+                            <label class="col-sm-12 control-label">Nhà cung cấp (Đối tác):</label>
                             <div class="col-sm-12">
                                 <input type="hidden" required="" name="idPartner" id="idPartner" value="<?php echo @$_GET['idPartner'] ?>">  
                                 <input type="text" required="" placeholder="Tìm kiếm nhà cung cấp theo tên đối tác"  maxlength="100" name="partner_name" id="partner_name" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['partner_name'] ?>" /> 
                             </div>
                         </div>
+                        <div class="form-group col-md-3">
+                            <label class="col-sm-12 control-label"></label>
+                            <div class="col-sm-12">
+                                <a class="btn btn-primary" href="javascript:void(0);" data-bs-toggle="modal"
+                            data-bs-target="#basicModal" target="_blank"><i class="bx bx-plus" aria-hidden="true"></i> Thêm đối tác</a>
+                            </div>
+                        </div>
                     </div> 
+                </div>
+            </div>
+
+            <div class="modal fade" id="basicModal"  name="id">
+
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">Thêm đối tác </h5>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+
+                        </div>
+                        <form class="">
+
+                            <div class="row modal-header">
+                                <div id="mess"></div>
+                                <div class="col-md-6">
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-phone">Tên đối tác (*)</label>
+                                        <input required type="text" class="form-control phone-mask" name="name" id="name" value="" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">Email</label>
+                                        <input type="email" class="form-control" placeholder="" name="email" id="email" value="" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
+                                        <input type="text" required class="form-control" placeholder="" name="phone" id="phone" value="" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
+                                        <input type="text" class="form-control" placeholder="" name="address" id="address" value="" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <button type="button" onclick="addPartnerAjax();" style=" width: 70px; " class="btn btn-primary">Lưu</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
             
@@ -337,6 +388,40 @@
         
     }
     ?>
+
+    function addPartnerAjax(){
+        var name = $('#name').val();
+        var phone = $('#phone').val();
+        var address = $('#address').val();
+        var email = $('#email').val();
+
+        console.log(name);
+        console.log(phone);
+        console.log(address);
+        console.log(email);
+         $.ajax({
+            method: "POST",
+            data:{name: name,
+                  phone: phone,
+                  address: address,
+                  email: email,
+                },
+            url: "/apis/addPartnerAjax",
+        })
+        .done(function(msg) {
+            console.log(msg);
+            if(msg.code==1){    
+                location.reload();
+            }else{
+                var html = msg.mess;
+                document.getElementById("mess").innerHTML = html;
+
+            }
+           
+        });
+
+
+    }
     
 </script>
 

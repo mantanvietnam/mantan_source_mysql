@@ -366,33 +366,39 @@
 
               $status = '';
               $color = '';
+              $statusnote = 0;
               switch ($data->status) {
                 case '0':
                   $status = 'Chưa xác nhận';
+                  $statusnote = 0;
                   $color = 'Gold';
                   $staticStatus0 ++;
                   break;
                 
                 case '1':
                   $status = 'Xác nhận';
+                  $statusnote = 1;
                   $color = 'Blue';
                   $staticStatus1 ++;
                   break;
 
                 case '2':
                   $status = 'Không đến';
+                  $statusnote = 2;
                   $color = 'Red';
                   $staticStatus2 ++;
                   break;
 
                 case '3':
                   $status = 'Đã đến';
+                  $statusnote = 3;
                   $color = 'Green';
                   $staticStatus3 ++;
                   break;
 
                 case '4':
                   $status = 'Hủy';
+                  $statusnote = 4;
                   $color = 'Black';
                   $staticStatus4 ++;
                   break;
@@ -420,6 +426,7 @@
                     id_staff: "'.$data->Members['id'].'",
                     bed: "'.$data->Beds['name'].'",
                     status: "'.$status.'",
+                    statusnote: "'.$statusnote.'",
                     type: "'.implode(', ', $type).'",
                     note: "'.$data->note.'",
                     repeat_book: "'.$data->repeat_book.'",
@@ -463,7 +470,7 @@
       },
 
       eventClick: function(info) {
-        console.log(info.event.extendedProps);
+        console.log(info.event.extendedProps.statusnote);
         listEvent = calendar.getEvents();
 
         //display a modal
@@ -509,11 +516,16 @@
                 </tbody>\
               </table>\
            </div>\
-           <div class="modal-footer">\
-           <button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+info.event.extendedProps.id_staff+');"><i class="bx bxs-edit"></i> Check in</button>\
+           <div class="modal-footer">';
+           if(info.event.extendedProps.statusnote=="1"|| info.event.extendedProps.statusnote=='0'){
+             modal += '<button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+info.event.extendedProps.id_staff+');"><i class="bx bxs-edit"></i> Check in</button>\
             <a href="/addBook/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary"><i class="bx bxs-edit"></i> Sửa hẹn</a>\
-            <button type="button" class="btn btn-danger" data-action="delete"><i class="bx bxs-trash"></i> Xóa hẹn</button>\
-           </div>\
+            <button type="button" class="btn btn-danger" data-action="delete"><i class="bx bxs-trash"></i> Xóa hẹn</button>';
+           }
+           
+
+
+           modal +=  '</div>\
           </form>\
           </div>\
          </div>\

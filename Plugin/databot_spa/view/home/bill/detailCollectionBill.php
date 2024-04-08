@@ -52,11 +52,11 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                    <h5 class="mb-0">Tổng cộng (VNĐ)</h5>
+                    <h5 class="mb-0">Tổng cộng (đ)</h5>
                     <br>
                     <div class="form-group row">
                       <label class="col-md-6"><strong>Tiền phòng:</strong></label>
-                      <div class="col-md-6" id="totalMoney"><?php echo number_format(@$order->total); ?> VNĐ</div>
+                      <div class="col-md-6" id="totalMoney"><?php echo number_format(@$order->total); ?> đ</div>
                     </div>
                    <br>  
                     <div class="form-group row">
@@ -73,7 +73,7 @@
                    <br>  
                     <div class="form-group row">
                         <label class="col-md-6" style="color: blue; font-size: 14px;"><strong>Phải thanh toán:</strong></label>
-                            <div class="col-md-6" id="totalPay"><?php echo number_format(@$order->total_pay); ?> VNĐ</div>
+                            <div class="col-md-6" id="totalPay"><?php echo number_format(@$order->total_pay); ?> đ</div>
                                <input type="hidden" name="totalPays" id="totalPays" value="<?php echo @$data->total_pay; ?>">
                     </div>
                     <br>  
@@ -107,7 +107,7 @@
                                         <td><?php echo $value->product->name ?></td>
                                         <td><?php echo number_format($value->price) ?></td>
                                         <td><?php echo number_format($value->quantity); ?></td>
-                                        <td><?php echo number_format($value->quantity*$value->price) ?>VNĐ</td>
+                                        <td><?php echo number_format($value->quantity*$value->price) ?>đ</td>
                                     </tr>
                                             <?php }}else{
                                                 echo '<tr  id="trProduct-0">
@@ -143,7 +143,7 @@
                                         <td><?php echo $value->service->name ?></td>
                                         <td><?php echo number_format($value->price) ?></td>
                                         <td><?php echo number_format($value->quantity); ?></td>
-                                        <td><?php echo number_format($value->quantity*$value->price) ?>VNĐ</td>
+                                        <td><?php echo number_format($value->quantity*$value->price) ?>đ</td>
                                     </tr>
                                             <?php }}else{
                                                 echo '<tr id="trservice-0">
@@ -178,7 +178,7 @@
                                         <td><?php echo $value->combo->name ?></td>
                                         <td><?php echo number_format($value->price) ?></td>
                                         <td><?php echo number_format($value->quantity); ?></td>
-                                        <td><?php echo number_format($value->quantity*$value->price) ?>VNĐ</td>
+                                        <td><?php echo number_format($value->quantity*$value->price) ?>đ</td>
                                     </tr>
                                             <?php }}else{
                                                 echo '<tr id="trcombo-0" >

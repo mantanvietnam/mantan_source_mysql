@@ -259,15 +259,16 @@
                             <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
                             <input type="hidden" value="<?php echo $value->id_product; ?>"  name="id_service">
                             <input type="hidden" value="<?php echo $items->full_name; ?>"  name="full_name">
-                            <p><label>Tiên khách hàng:</label> <?php echo $items->full_name ?></p>
+                            <input type="hidden" value="listOrderService"  name="url">
+                            <p><label>Tên khách hàng:</label> <?php echo $items->full_name ?></p>
                             <p><label>Điện thoại:</label> <?php echo $items->customer->phone ?></p>
-                            <p><label>Email:</label> <?php echo $items->customer->email ?></p>
+                            <p>Email:</label> <?php echo $items->customer->email ?></p>
                             <p> Chưa giảm giá: <?php echo number_format(@$items->total) ?>đ <br/>
                                 Giảm giá: <?php echo $promotion ?><br/>
                                 Tổng cộng: <?php echo number_format(@$items->total_pay) ?>đ<br/>
                                 Trạng thái: <?php echo $type ?></p>
                             <label class="form-label">Hình thức thanh toán </label>
-                                <select name="type_collection_bill" class="form-select color-dropdown" required>
+                                <select name="type_collection_bill" id="type_collection_bill<?php echo $items->id; ?>" class="form-select color-dropdown" onclick="selecttypebill(<?php echo $items->id; ?>,<?php echo $items->total_pay; ?>)" required>
                                   <option value="">Chọn hình thức thanh toán</option>
                                   <?php
                                      global $type_collection_bill;
@@ -281,6 +282,17 @@
                                   ?>
                                   <option value="cong_no">Nợ </option>
                                 </select>
+
+                             <p id="sotenkhachdua<?php echo $items->id; ?>" style='display: none;'>
+                                             <label class="form-label">Số tiền khách đưa</label>
+                                      
+                                                <input type="text" class="money-khach input_money form-control" name="moneyCustomerPay" id="moneyCustomerPay<?php echo $items->id; ?>" value="" placeholder="0" required="" min="0" onchange="tinhtien(<?php echo $items->id; ?>);" autocomplete="off">
+                                                <input type="hidden" value="<?php echo $items->total_pay; ?>" id="total_pay<?php echo $items->id; ?>"  name="total_pay">
+                                                 <input type="hidden" name="moneyReturn" id="moneyReturn<?php echo $items->id; ?>" value="">
+                                           
+                                        </p>
+                                        <p id="sotentralaikhach<?php echo $items->id; ?>" style='display: none;'><label class="form-label">Số tiền trả lại:</label> <span id="moneyCustomerReturn<?php echo $items->id; ?>"></span></p> 
+
                         </div>
                     </div>
                 </div>
@@ -293,6 +305,42 @@
 </div>
 
 <?php }} ?>
+
+<script type="text/javascript">
+    var typecollectionbill
+    function selecttypebill(id, price){
+        typecollectionbill = $('#type_collection_bill'+id).val();
+
+        
+       if(typecollectionbill=='tien_mat'){
+            document.getElementById('sotenkhachdua'+id).style.display = "block";
+            document.getElementById('sotentralaikhach'+id).style.display = "block";
+        }else{
+            document.getElementById('sotenkhachdua'+id).style.display = "none";
+            document.getElementById('sotentralaikhach'+id).style.display = "none";
+            document.getElementById('moneyCustomerPay'+id).value =price;
+
+
+        }
+    }
+
+    function tinhtien(id){
+        var totalPay = $('#total_pay'+id).val();
+        var moneyCustomerPay = $('#moneyCustomerPay'+id).val();
+
+        var total  = moneyCustomerPay  - totalPay;
+
+         console.log(total);
+
+        document.getElementById('moneyReturn'+id).value =total;
+        var moneyCustomerReturn = new Intl.NumberFormat().format(total);
+        $('#moneyCustomerReturn'+id).html(moneyCustomerReturn+'đ');
+
+       
+
+    }
+      
+</script>
 
 <script type="text/javascript">
     // tìm khách hàng 

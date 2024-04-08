@@ -48,6 +48,7 @@
                 <div class="text-center">
                     <h2>Phiếu thanh toán</h2>
                     <h5><b>Mã hóa đơn:</b> <?php echo($data->id); ?></h5>
+
                 </div>
                 <div class="content text-center">
                     <div class="row">
@@ -110,6 +111,7 @@
                                     <td class="text-right" colspan="">Tổng thanh toán:</td>
                                     <td colspan="2"><b><?php echo number_format($data->total_pay);?>đ</b></td>
                                 </tr>
+                                <?php if($data->bill->type_collection_bill=='tien_mat'){ ?>
                                 <tr>
                                     <td class="text-right" colspan="">Tiền khách đưa:</td>
                                     <td colspan="2"><b><?php echo number_format($data->bill->moneyCustomerPay);?>đ</b></td>
@@ -117,6 +119,11 @@
                                 <tr>
                                     <td class="text-right" colspan="">Tiền trả lại:</td>
                                      <td colspan="2"><b><?php echo number_format($data->bill->moneyReturn);?>đ</b></td>
+                                </tr>
+                            <?php } ?>
+                                <tr>
+                                    <td class="text-right" colspan="">hình thức thanh toán:</td>
+                                     <td colspan="2"><b><?php echo $data->bill->typecollectionbill;?></b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -135,7 +142,7 @@
             <p>Thanh toán thành công</p>
         </div>
 <?php   
-    $url = '/'.$_GET['url'];
+    $url = '/'.@$_GET['url'];
     if(@$_GET['type']=="checkout"){
          $url = '/listRoomBed';
     }

@@ -8,6 +8,7 @@
 	$routesPlugin['searchServicesApi']= 'databot_spa/view/api/customer/searchServicesApi.php'; 
 	$routesPlugin['searchComboApi']= 'databot_spa/view/api/customer/searchComboApi.php'; 
 	$routesPlugin['searchStaffApi']= 'databot_spa/view/api/customer/searchStaffApi.php'; 
+	$routesPlugin['addPartnerAjax']= 'databot_spa/view/api/customer/addPartnerAjax.php'; 
 
 	// member 
 	$routesPlugin['login']= 'databot_spa/view/home/member/login.php';
