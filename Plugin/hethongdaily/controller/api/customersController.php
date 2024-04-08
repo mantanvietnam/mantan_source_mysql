@@ -290,7 +290,9 @@ function saveInfoCustomerAPI($input)
                     }
 
                     // nếu up file ảnh avatar lên
-                    $dataSend['avatar'] = '';
+                    if(!is_string($dataSend['avatar'])){
+                        $dataSend['avatar'] = '';
+                    }
 
                     if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
                         $avatar = uploadImage($infoMember->id, 'avatar');
