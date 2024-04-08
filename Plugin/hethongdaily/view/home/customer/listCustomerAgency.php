@@ -85,6 +85,7 @@
         <thead>
           <tr class="">
             <th>ID</th>
+            <th>Hình đại diện</th>
             <th>Khách hàng</th>
             <th>Trạng thái</th>
             <th>Giới tính</th>
@@ -126,7 +127,7 @@
               
               echo '<tr>
               <td>'.$item->id.'</td>
-             
+              <td><img src="'.$item->avatar.'" width="80" /></td>
               <td>
                 '.$item->full_name.'<br/>
                 '.$item->phone.'<br/>
