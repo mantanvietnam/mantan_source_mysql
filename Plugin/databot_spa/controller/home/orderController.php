@@ -1613,7 +1613,7 @@ function paymentOrders($input){
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
         $modelBed = $controller->loadModel('Beds');
 
-        // debug(@$_GET['note']);
+        // debug(@$_GET);
         // die;
 
         if(!empty($_GET['id'])){
@@ -1644,7 +1644,7 @@ function paymentOrders($input){
                 $bill = $modelBill->newEmptyEntity();
                 $bill->id_member = @$infoUser->id_member;
                 $bill->id_spa =  @$infoUser->id_spa;
-                $bill->id_staff = (int)@$infoUser->d;;
+                $bill->id_staff = (int)@$infoUser->id;
                 $bill->total = $order->total;
                 $bill->note = 'Bán hàng IDđơn hàng là '.$order->id.', ngườibán là '.$infoUser->name.', thời gian '.date('Y-m-dH:i:s');
                 $bill->type = 0; //0: Thu, 1: hi

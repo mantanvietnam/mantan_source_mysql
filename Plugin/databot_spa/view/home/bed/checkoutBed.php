@@ -138,6 +138,7 @@ if(@$data->order->promotion>101){
                             <input type="hidden" value="<?php echo $data->id; ?>"  name="id_Userservice">
                             <input type="hidden" value="<?php echo $data->customer->name; ?>"  name="full_name">
                             <input type="hidden" value="<?php echo @$data->bed->id; ?>"  name="id_bed">
+                            <input type="hidden" value="listRoomBed"  name="url">
                             <p><label>Tiên khách hàng:</label> <?php echo $data->customer->name ?></p>
                             <p><label>Điện thoại:</label> <?php echo $data->customer->phone ?></p>
                             <p><label>Email:</label> <?php echo $data->customer->email ?></p>
@@ -145,7 +146,7 @@ if(@$data->order->promotion>101){
                                 Giảm giá: <?php echo $promotion ?><br/>
                                 Tổng cộng: <?php echo number_format(@$data->order->total_pay) ?>đ<br/>
                                 <label class="form-label">Hình thức thanh toán </label>
-                                <select name="type_collection_bill" class="form-select color-dropdown" required>
+                                <select name="type_collection_bill" class="form-select color-dropdown" id="type_collection_bill" class="form-select color-dropdown" onclick="selecttypebill(<?php echo @$data->order->total_pay; ?>)" required>
                                   <option value="">Chọn hình thức thanh toán</option>
                                   <?php
                                   global $type_collection_bill;
@@ -159,6 +160,13 @@ if(@$data->order->promotion>101){
                                 ?>
                                 <option value="cong_no">Nợ </option>
                             </select>
+                            <p id="sotenkhachdua" style='display: none;'>
+                                <label class="form-label">Số tiền khách đưa</label>
+                                <input type="text" class="money-khach input_money form-control" name="moneyCustomerPay" id="moneyCustomerPay" value="" placeholder="0" required="" min="0" onchange="tinhtien();" autocomplete="off">
+                                <input type="hidden" value="<?php echo @$data->order->total_pay; ?>" id="total_pay"  name="total_pay">
+                                <input type="hidden" name="moneyReturn" id="moneyReturn" value="">
+                            </p>
+                            <p id="sotentralaikhach" style='display: none;'><label class="form-label">Số tiền trả lại:</label> <span id="moneyCustomerReturn"></span></p> 
                             <label class="form-label">Kết quả sử dụng dịch vụ</label>
                             <textarea class="form-control" name="note"></textarea>
                         </div>
@@ -208,5 +216,41 @@ if(@$data->order->promotion>101){
     </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    var typecollectionbill
+    function selecttypebill(price){
+        typecollectionbill = $('#type_collection_bill').val();
+
+        console.log(typecollectionbill);
+       if(typecollectionbill=='tien_mat'){
+            document.getElementById('sotenkhachdua').style.display = "block";
+            document.getElementById('sotentralaikhach').style.display = "block";
+        }else{
+            document.getElementById('sotenkhachdua').style.display = "none";
+            document.getElementById('sotentralaikhach').style.display = "none";
+            document.getElementById('moneyCustomerPay').value =price;
+
+
+        }
+    }
+
+    function tinhtien(){
+        var totalPay = $('#total_pay').val();
+        var moneyCustomerPay = $('#moneyCustomerPay').val();
+
+        var total  = moneyCustomerPay  - totalPay;
+
+         console.log(total);
+
+        document.getElementById('moneyReturn').value =total;
+        var moneyCustomerReturn = new Intl.NumberFormat().format(total);
+        $('#moneyCustomerReturn').html(moneyCustomerReturn+'đ');
+
+       
+
+    }
+      
+</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

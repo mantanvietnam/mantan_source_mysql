@@ -111,7 +111,7 @@
                             <?php echo $item->created_at->format('H:i d-m-Y'); ?>
                         </td>
                         <td align="center"><?php echo $status; ?></td>
-                      </tr>';
+                      </tr>
                 <?php
                     endforeach;
                     else:

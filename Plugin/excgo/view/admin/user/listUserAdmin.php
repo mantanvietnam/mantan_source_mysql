@@ -123,7 +123,13 @@
                           <br>
                           Địa chỉ: ' . $item->address . '
                         </td>
-                        <td align="center">' . $type . ' </td>
+                        <td align="center">
+                            ' . $type . '
+                          </br> 
+                          <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-blockUserProvince/?id='.$item->id.'">
+                           Block khu vực
+                          </a>
+                        </td>
                         <td>
                           <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=plus&id='.$item->id.'">
                            Cộng coin 

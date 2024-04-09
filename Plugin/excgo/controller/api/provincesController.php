@@ -7,6 +7,7 @@ function getListProvinceApi($input): array
 
     $modelProvinces = $controller->loadModel('Provinces');
     $modelBookmark = $controller->loadModel('Bookmarks');
+    $modelBlockUserProvinces = $controller->loadModel('BlockUserProvinces');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -56,6 +57,20 @@ function getListProvinceApi($input): array
             if (empty($currentUser)) {
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
+
+
+             $listBlock = [];
+            $Block = $modelBlockUserProvinces->find()->where(['user_id'=>$currentUser->id])->all()->toList();
+
+            if(!empty($Block)){
+                foreach ($Block as $check) {
+                    $listBlock[] = $check->province_id;
+                }
+            }
+            if(!empty($listBlock)){
+                $conditions['Provinces.id NOT IN'] = $listBlock;
+            }
+            
             $listBookmark = $modelBookmark->find()
                 ->where(['user_id' => $currentUser->id])
                 ->all()->map(function ($item) {

@@ -509,3 +509,70 @@ function updateUserCoinAdmin($input)
     setVariable('data', $user);
     setVariable('mess', $mess);
 }
+
+function blockUserProvince($input){
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Block thành viên trong Khu vực';
+    $modelUser = $controller->loadModel('Users');
+    $modelBlockUserProvinces = $controller->loadModel('BlockUserProvinces');
+    $modelProvinces = $controller->loadModel('Provinces');
+    $mess = '';
+    $listProvince = $modelProvinces->find()->where(['parent_id' => 0, 'status' => 1])->order(['id'=>"asc"])->all()->toList();
+    if(!empty($_GET['id'])){
+        $user = $modelUser->find()->where(['id'=>(int)$_GET['id']])->first();
+        if(!empty($_GET['id'])){
+
+        }else{
+            return $controller->redirect('/plugins/admin/excgo-view-admin-user-listUserAdmin');
+        }
+    }else{
+        return $controller->redirect('/plugins/admin/excgo-view-admin-user-listUserAdmin');
+    }
+    
+    // $listBlock = $modelBlockUserProvinces->find()->where(['user_id'=>(int)$_GET['id']])->all()->toList();
+
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['province_id'])){
+            $conditions = ['user_id'=>$user->id];
+            $modelBlockUserProvinces->deleteAll($conditions);
+
+            foreach ($dataSend['province_id'] as $province_id) {
+                $block = $modelBlockUserProvinces->newEmptyEntity();
+
+                $block->province_id = $province_id;
+                $block->user_id = $user->id;
+
+                $modelBlockUserProvinces->save($block); 
+            }
+        }else{
+            $conditions = ['user_id'=>$user->id];
+            $modelBlockUserProvinces->deleteAll($conditions);
+        }
+
+
+        $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $listBlock = [];
+        if(!empty($user->id)){
+            $Block = $modelBlockUserProvinces->find()->where(['user_id'=>$user->id])->all()->toList();
+
+            if(!empty($Block)){
+                foreach ($Block as $check) {
+                    $listBlock[] = $check->province_id;
+                }
+            }
+        }
+
+
+
+    setVariable('mess', $mess);
+    setVariable('listProvince', $listProvince);
+    setVariable('user', $user);
+    setVariable('listBlock', $listBlock);
+}
