@@ -21,6 +21,12 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+
+                  $request = '';
+                  if(empty($item->link_download)){
+                    $request = '<a onclick="return confirm(\'Bạn tạo lại yêu cầu không?\');" href="/plugins/admin/matmathanhcong-view-admin-regenerateRequestAdmin/?id='.$item->id.'" class="btn btn-danger">Tạo lại yêu cầu</a>';
+                  }
+
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td><img src="'.$item->avatar.'" width="80" /></td>
@@ -37,6 +43,7 @@
                           <a target="_blank" href="'.$item->link_download.'">'.$item->link_download.'</a>
                           <br/>
                           <a onclick="return confirm(\'Bạn có chắc chắn muốn gửi bản full cho người dùng này không?\');" href="/plugins/admin/matmathanhcong-view-admin-sendFullMMTCAdmin/?id='.$item->id.'" class="btn btn-success">Gửi bản đầy đủ</a>
+                          '.$request.'
                         </td>
 
                         <td align="center">

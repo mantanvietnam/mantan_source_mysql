@@ -140,4 +140,46 @@ function settingMMTCAPI($input){
     setVariable('mess', $mess);
 }
 
+function regenerateRequestAdmin($input){
+   global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách yêu cầu xuất bản đầy đủ';
+
+    $modelRequestExports = $controller->loadModel('RequestExports');  
+
+
+    if(!empty($_GET['id'])){
+        $data = $modelRequestExports->get($_GET['id']);
+
+        if(empty($data->email)){
+            $data->email ='ezpicsvn@gmail.com';
+        }
+
+        if(empty($data->address)){
+            $data->address ='18 Thanh Bình, HN';
+        }
+
+        if(empty($data->avatar)){
+            $data->avatar ='https://matmathanhcong.vn/upload/admin/files/avatar-trang-4.jpg';
+        }
+
+        $infoFull = getLinkFullMMTCAPI(@$data->name, @$data->birthday, @$data->phone, @$data->email, @$data->address, @$data->avatar, 1);
+
+        $save = $modelRequestExports->get($_GET['id']);
+        
+
+        if(!empty($infoFull)){
+            $save->link_download = @$infoFull;
+            $modelRequestExports->save($save);
+            
+        }
+
+        return $controller->redirect('/plugins/admin/matmathanhcong-view-admin-requestExportFull');
+    }
+    return $controller->redirect('/plugins/admin/matmathanhcong-view-admin-requestExportFull');
+}
+
 ?>
