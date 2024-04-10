@@ -1010,6 +1010,7 @@ function getDetailBooking($id)
             'ReceivedUsers.avatar',
             'DepartureProvinces.id',
             'DepartureProvinces.name',
+            'DepartureProvinces.parent_id',
             'DestinationProvinces.id',
             'DestinationProvinces.name',
         ])->where(['Bookings.id' => $id])

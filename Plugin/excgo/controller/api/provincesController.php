@@ -7,7 +7,7 @@ function getListProvinceApi($input): array
 
     $modelProvinces = $controller->loadModel('Provinces');
     $modelBookmark = $controller->loadModel('Bookmarks');
-    $modelBlockUserProvinces = $controller->loadModel('BlockUserProvinces');
+    
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -59,18 +59,7 @@ function getListProvinceApi($input): array
             }
 
 
-             $listBlock = [];
-            $Block = $modelBlockUserProvinces->find()->where(['user_id'=>$currentUser->id])->all()->toList();
-
-            if(!empty($Block)){
-                foreach ($Block as $check) {
-                    $listBlock[] = $check->province_id;
-                }
-            }
-            if(!empty($listBlock)){
-                $conditions['Provinces.id NOT IN'] = $listBlock;
-            }
-            
+             
             $listBookmark = $modelBookmark->find()
                 ->where(['user_id' => $currentUser->id])
                 ->all()->map(function ($item) {
@@ -131,4 +120,41 @@ function getListProvinceApi($input): array
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function listIdProvinceBLock($input){
+    global $controller;
+    global $isRequestPost;
+
+    $modelBlockUserProvinces = $controller->loadModel('BlockUserProvinces');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+
+        $listBlock = [];
+        $Block = $modelBlockUserProvinces->find()->where(['user_id'=>$currentUser->id])->all()->toList();
+
+        if(!empty($Block)){
+            foreach ($Block as $check) {
+                $listBlock[] = $check->province_id;
+            }
+        }
+            
+        return apiResponse(0, 'Lấy danh sách thành công', $listBlock);
+
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+
 }
