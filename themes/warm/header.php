@@ -207,7 +207,7 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
             </div>
         </section>
 
-        <section id="section-logo-home">
+        <!-- <section id="section-logo-home">
             <div class="container-fluid logo-home-box">
                 <div class="logo-home-item">
                     
@@ -222,5 +222,24 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                 </div>
                 
             </div>
-        </section>
+        </section> -->
     </header>
+
+    <section id="section-home-banner" class="">
+            <div class="home-banner">
+                <div class="logo-banner-box">
+                    <div class="container">
+                        <div class="logo-home-box">
+                            <div class="logo-warm">
+                                <a href="/"><img src="<?php echo $urlThemeActive;?>/asset/img/logomoi.png" alt=""></a>
+                            </div>
+
+                            <div class="logo-text">
+                                <p>Water and natural resources management facility</p>
+                            </div>
+                        </div>
+                  
+                    </div>
+                </div>
+            </div>
+        </section>

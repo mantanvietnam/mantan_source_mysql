@@ -157,9 +157,9 @@ strong {
 
 /* Chung */
 
-#footer-home .footer-logo {
+/* #footer-home .footer-logo {
     display: none !important;
-}
+} */
 
 .animate-section {
     opacity: 1;
@@ -443,10 +443,12 @@ strong {
 } */
 
 #section-home-banner .logo-warm {
-    width: 184px;
+    width: 71px;
     height: auto;
     padding-top: 15px;
     padding-bottom: 15px;
+    /* display: inline-block; */
+
 }
 
 #section-home-banner .logo-warm img {
@@ -461,7 +463,12 @@ strong {
 
 #section-home-banner .banner-home-slide .banner-img {
     height: 654px;
+}
+
+#section-home-banner .banner-home-slide .banner-img-box{
     position: relative;
+    height: 100%;
+
 }
 
 #section-home-banner .banner-home-slide .description-img {
@@ -469,52 +476,52 @@ strong {
     z-index: 10;
 }
 
-#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(3)>div {
+#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(3)>div>.description-img {
     right: 0;
     left: 0;
     top: 83%;
 }
 
-#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(3)>div {
+#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(3)>div>.description-img {
     font-size: 41px;
     color: #183495;
     font-weight: bold;
     line-height: 1.1;
 }
 
-#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(2)>div {
+#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(2)>div>.description-img {
     right: 0;
     left: 0;
     top: 10%;
 }
 
-#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(2)>div {
+#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(2)>div>.description-img {
     font-size: 41px;
     color: #183495;
     font-weight: bold;
     line-height: 1.1;
 }
 
-#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(5)>div {
+#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(5)>div>.description-img {
     right: 0;
     left: 0;
     top: 33%;
 }
 
-#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(5)>div {
+#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(5)>div>.description-img {
     font-size: 41px;
     color: #fff;
     font-weight: bold;
     line-height: 1.1;
 }
 
-#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(4)>div {
+#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(4)>div>.description-img {
     right: 0;
     left: 0;
     top: 83%;
 }
 
-#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(4)>div {
+#section-home-banner>div>div.banner-home-slide.slick-initialized.slick-slider>div>div>div:nth-child(4)>div>.description-img {
     font-size: 41px;
     color: #fff;
     font-weight: bold;
@@ -663,7 +670,7 @@ strong {
 }
 
 #section-project .project-content .project-item .project-item-img:hover img {
-    scale: 1.1;
+    /* scale: 1.1; */
     transition: all 0.3s linear;
 }
 
@@ -931,13 +938,21 @@ strong {
 
 .footer-logo {
     margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 15px
 }
 
 .footer-logo .logo-home-img {
     width: 83px;
     height: auto;
-    margin: auto;
-    margin-right: 0;
+    /* margin: auto;
+    margin-right: 0; */
+
+}
+
+.footer-logo .logo-home-img:first-child{
+    width: 152px;
 }
 
 .footer-logo .logo-home-img img {
@@ -1503,7 +1518,7 @@ strong {
 }
 
 .facility-impact-left-background {
-    padding-right: 30px;
+    margin-right: 30px;
     height: 357px;
 }
 
@@ -1636,9 +1651,9 @@ strong {
     align-items: center;
 }
 
-.footer-logo {
+/* .footer-logo {
     display: none;
-}
+} */
 
 #section-menu .navbar-collapse .me-auto {
     align-items: center;
@@ -1788,13 +1803,13 @@ strong {
         max-width: 610px;
     }
     #section-home-banner .logo-warm {
-        position: absolute;
+        /* position: absolute;
         left: 0;
         top: 35px;
-        text-align: left;
+        text-align: left; */
     }
     #section-home-banner .logo-warm img {
-        width: 139px;
+        /* width: 139px; */
     }
     /* chung */
     .title-section h1 {
@@ -1925,7 +1940,7 @@ strong {
         padding-right: 12px;
     }
     .facility-impact-left-background {
-        padding-right: 0;
+        margin-right: 0;
     }
     #section-facility-impact .facility-impact-right {
         padding-left: 12px !important;
@@ -2026,12 +2041,12 @@ strong {
 	} */
     /* header */
     #section-home-banner .logo-warm {
-        position: absolute;
+        /* position: absolute;
         left: 4% !important;
-        top: -100px;
+        top: -100px; */
     }
     #section-home-banner .logo-warm img {
-        width: 139px;
+        /* width: 139px; */
     }
     /* chung */
     .title-section h1 {
@@ -2119,7 +2134,7 @@ strong {
         justify-content: center;
     }
     .footer-logo .logo-home-img {
-        margin: auto 8px;
+        /* margin: auto 8px; */
     }
     .footer-box-left {
         margin-bottom: 17px
@@ -2224,7 +2239,7 @@ strong {
         padding-bottom: 10px;
     }
     #section-menu {
-        margin-bottom: 100px;
+        /* margin-bottom: 100px; */
     }
     #section-menu .button-down-menu {
         padding-right: 20px;
@@ -2238,5 +2253,35 @@ strong {
     }
     #section-menu .nav-item:last-child .nav-link {
         margin-bottom: 20px;
+    }
+}
+
+.section-logo-header{
+    display: none !important;
+}
+
+.logo-text{
+    font-size: 28px;
+    color: #11417d;
+    font-weight: bold;
+    /* display: inline-block; */
+    width: 86%;
+    text-align: center;
+}
+
+.logo-home-box{
+    display: flex;
+    align-items: center;
+}
+
+
+@media (max-width: 500px) {
+    .logo-home-box{
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logo-text {
+        font-size: 26px;
     }
 }

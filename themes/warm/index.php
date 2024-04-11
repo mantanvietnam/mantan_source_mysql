@@ -14,23 +14,18 @@
         echo'
         <section id="section-home-banner" class="section-home-banner-background">
             <div class="home-banner">
-                <div class="logo-banner-box">
-                    <div class="container">
-                        <div class="logo-warm">
-                            <a href="/"><img src="'; echo $urlThemeActive; echo'/asset/img/WARM-horz-EN-_1_.jpg" alt=""></a>
-                        </div>
-                    </div>
-                </div>
                 <div class="banner-home-slide">';
                 
                 foreach($slide_home as $key => $value){
                 echo'
                     <div class="banner-img">
-                        <img src="'.$value->image.'" alt="">
-                        <div class="description-img">
-                            <div class="container">
-                                <p>'.$value->description.'</p>
-                            </div>   
+                        <div class="banner-img-box">
+                            <img src="'.$value->image.'" alt="">
+                            <div class="description-img">
+                                <div class="container">
+                                    <p>'.$value->description.'</p>
+                                </div>   
+                            </div>
                         </div>
                     </div>
                 ';

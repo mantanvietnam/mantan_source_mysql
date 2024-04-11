@@ -51,11 +51,11 @@
                         <div class="col-lg-3 col-md-3 col-12 footer-box-right">
                             <div class="footer-logo">
                                 <div class="logo-home-img logo-home-1">
-                                    <img src="<?php echo $urlThemeActive; ?>/asset/img/logofooter1.png" alt="">
+                                    <img src="<?php echo $urlThemeActive;?>/asset/img/logonew.png" alt="">
                                 </div>
 
                                 <div class="logo-home-img logo-home-2">
-                                    <img src="<?php echo $urlThemeActive; ?>/asset/img/logo-afd.png" alt="">
+                                    <img src="<?php echo $urlThemeActive;?>/asset/img/logo-afd.png" alt="">
                                 </div>
                             </div>
                             <div class="follow-box">
@@ -121,11 +121,10 @@
                                     </div>
                                 </div>
                             </div>
-                  
                         </div>
 
                         <div class="col-lg-9 footer-bottom">
-                            <p>Disclaimer: This website was developed with the financial support of the European Union. Its contents are the sole responsibility of the WARM Facility and do not necessarily reflect the views of the European Union.</p>
+                            <p>This website was developed with the financial support of the European Union. Its contents are the sole responsibility of the WARM Facility and do not necessarily reflect the views of the European Union.</p>
                         </div>
                     </div>
                 </div>

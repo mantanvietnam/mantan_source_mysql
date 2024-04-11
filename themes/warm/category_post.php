@@ -68,6 +68,9 @@
 
                 <div class="news-highlight-child">
                     <div class="news-highlight-child-inner">
+                        <div class="title-child-inner">
+                            <p>MORE NEWS HIGHLIGHTS</p>
+                        </div>
                         <div class="news-highlight-child-slide">
                             <?php 
                                 if(!empty($highligh_post)){

@@ -76,8 +76,10 @@
 /* Bổ sung facility */
 
 .title-section-sub {
-    font-size: 19px;
+    font-size: 20px;
     margin-bottom: 30px;
+    font-weight: bold;
+    color: #11417d;
 }
 
 .facility-project-content ul li {
@@ -466,11 +468,19 @@
 }
 
 .news-highlight-child-inner {
-    display: flex;
+    /* display: flex; */
     /* width: 58.666667%; */
     background-color: #648235;
     margin-left: auto;
     padding: 32px 0px;
+}
+
+.title-child-inner{
+    padding-left: 50px;
+    margin-bottom: 10px;
+    color: #EE6D37;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .news-highlight-child-slide .slick-list {
@@ -1227,6 +1237,11 @@
 }
 
 @media (max-width: 426px) {
+    #section-home-banner .slick-dots button{
+        width: 10px !important;
+        height: 10px !important;
+    }
+
     .facility-project-content ul li::before {
         display: none;
     }
@@ -1563,6 +1578,37 @@
 #section-home-banner {
     margin-bottom: 40px;
 }
+
+#section-home-banner .slick-dots {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 1rem 0;
+    list-style-type: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+#section-home-banner .slick-dots li {
+    margin: 0 0.25rem;
+}
+#section-home-banner .slick-dots button {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border: none;
+    border-radius: 100%;
+    background-color: #aaa4a4;
+    text-indent: -9999px;
+    opacity: 0.6;
+}
+#section-home-banner .slick-dots li.slick-active button {
+    background-color: #fff;
+    opacity: 1;
+}
+
 
 .description-img p {
     font-weight: bold;
@@ -2281,4 +2327,108 @@
 
 .captcha-area{
     padding-left: 32px
+}
+
+.project-item-img a{
+    position: relative;
+}
+
+
+.project-item-img a::before{
+    content: "CREDIT: INTERNET";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    background: #000;
+    opacity: 0.7;
+    padding: 6px;
+    vertical-align: middle;
+    font-size: 11px;
+}
+
+#section-project-page .project-accordior-image{
+    position: relative;
+}
+
+#section-project-page .project-accordior-image::before{
+    content: "CREDIT: INTERNET";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    background: #000;
+    opacity: 0.7;
+    padding: 6px;
+    vertical-align: middle;
+    font-size: 11px;
+}
+
+.facility-background .facility-background-inner{
+    position: relative;
+}
+
+.facility-background .facility-background-inner::before{
+    content: "CREDIT: INTERNET";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    background: #000;
+    opacity: 0.7;
+    padding: 6px;
+    vertical-align: middle;
+    font-size: 11px;
+}
+
+
+.facility-impact-left-background{
+    position: relative;
+}
+
+.facility-impact-left-background::before{
+    content: "CREDIT: INTERNET";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    background: #000;
+    opacity: 0.7;
+    padding: 6px;
+    vertical-align: middle;
+    font-size: 11px;
+}
+
+.description-content-background{
+    position: relative;
+}
+
+.description-content-background::before{
+    content: "CREDIT: INTERNET";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    background: #000;
+    opacity: 0.7;
+    padding: 6px;
+    vertical-align: middle;
+    font-size: 11px; 
+}
+
+.banner-img-box{
+    position: relative;
+}
+
+.banner-img-box::before{
+    content: "CREDIT: INTERNET";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    background: #000;
+    opacity: 0.7;
+    padding: 6px;
+    vertical-align: middle;
+    font-size: 11px; 
 }

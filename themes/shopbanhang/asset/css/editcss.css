@@ -4047,3 +4047,8 @@ background: #555;
 #exampleModalsale{
     
 }
+
+.big-blog-detai ul{
+    list-style: disc;
+    list-style-position: inside;
+}
