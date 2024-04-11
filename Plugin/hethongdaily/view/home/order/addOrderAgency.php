@@ -449,7 +449,7 @@ function tinhtien(checkDiscount)
 // thanh toán 
 function createOrder()
 {
-    tinhtien(1);
+    tinhtien(0);
 
     var r;
     var id_member_buy = $('#id_member_buy').val();

@@ -87,7 +87,7 @@
             <th>ID</th>
             <th>Hình đại diện</th>
             <th>Khách hàng</th>
-            <th>Trạng thái</th>
+            <th>Nhóm khách hàng</th>
             <th>Giới tính</th>
             <th>Ngày sinh</th>
             <th>Đơn hàng</th>
@@ -99,9 +99,9 @@
           <?php 
           if(!empty($listData)){
             foreach ($listData as $item) {
-              $status= 'Khóa';
+              $status= '<p class="text-danger">Khóa</p>';
               if($item->status=='active'){ 
-                  $status= 'Kích hoạt';
+                  $status= '<p class="text-success">Kích hoạt</p>';
               }
 
               $sex= 'Nữ';
@@ -124,18 +124,18 @@
 
                 $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
               }
+
+              $infoCustomer = $item->full_name.'<br/>'.$item->phone;
+              if(!empty($item->address)) $infoCustomer .= '<br/>'.$item->address;
+              if(!empty($item->email)) $infoCustomer .= '<br/>'.$item->email;
+              $infoCustomer .= $status;
+              if(!empty($item->facebook)) $infoCustomer .= '<br/><a href="'.@$item->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>';
               
               echo '<tr>
               <td>'.$item->id.'</td>
               <td><img src="'.$item->avatar.'" width="80" /></td>
-              <td>
-                '.$item->full_name.'<br/>
-                '.$item->phone.'<br/>
-                '.$item->address.'<br/>
-                '.$item->email.'<br/>
-                <a href="'.@$item->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>
-              </td>
-              <td>'.$status.'</td>
+              <td>'.$infoCustomer.'</td>
+              <td>'.$item->groups.'</td>
               <td>'.$sex.'</td>
               <td>'.$birthday.'</td>
 

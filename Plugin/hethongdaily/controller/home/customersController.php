@@ -6,6 +6,7 @@ function listCustomerAgency($input)
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $modelCategoryConnects;
 
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'Danh sách khách hàng';
@@ -14,38 +15,62 @@ function listCustomerAgency($input)
         $modelOrders = $controller->loadModel('Orders');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
-        $conditions = array('id_parent'=>$session->read('infoUser')->id);
+        // danh sách nhóm khách hàng
+        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $listGroup = $modelCategories->find()->where($conditions)->all()->toList();
+        $listNameGroup = [];
+        if(!empty($listGroup)){
+            foreach ($listGroup as $key => $value) {
+                $listNameGroup[$value->id] = $value->name;
+            }
+        }
+
+        $conditions = array('Customers.id_parent'=>$session->read('infoUser')->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
-        $order = array('id'=>'desc');
+        $order = array('Customers.id'=>'desc');
+        $join = [];
+        $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook'];
 
         if(!empty($_GET['id'])){
-            $conditions['id'] = (int) $_GET['id'];
+            $conditions['Customers.id'] = (int) $_GET['id'];
         }
 
         if(!empty($_GET['id_group'])){
-            $conditions['id_group'] = (int) $_GET['id_group'];
+            $join = [
+                        [
+                            'table' => 'category_connects',
+                            'alias' => 'CategoryConnects',
+                            'type' => 'LEFT',
+                            'conditions' => [
+                                'Customers.id = CategoryConnects.id_parent',
+                                'CategoryConnects.keyword = "group_customers"'
+                            ],
+                        ]
+                    ];
+
+            $conditions['CategoryConnects.id_category'] = (int) $_GET['id_group'];
         }
 
         if(!empty($_GET['full_name'])){
-            $conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
+            $conditions['Customers.full_name LIKE'] = '%'.$_GET['full_name'].'%';
         }
 
         if(!empty($_GET['phone'])){
-            $conditions['phone'] = $_GET['phone'];
+            $conditions['Customers.phone'] = $_GET['phone'];
         }
 
         if(!empty($_GET['status'])){
-            $conditions['status'] = $_GET['status'];
+            $conditions['Customers.status'] = $_GET['status'];
         }
 
         if(!empty($_GET['email'])){
-            $conditions['email'] = $_GET['email'];
+            $conditions['Customers.email'] = $_GET['email'];
         }
 
         if(!empty($_GET['action']) && $_GET['action']=='Excel'){
-            $listData = $modelCustomers->find()->where($conditions)->order($order)->all()->toList();
+            $listData = $modelCustomers->find()->join($join)->select($select)->where($conditions)->order($order)->all()->toList();
             
             $titleExcel =   [
                 ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
@@ -88,7 +113,7 @@ function listCustomerAgency($input)
             }
            export_excel($titleExcel,$dataExcel,'danh_sach_khach_hang');
         }else{
-            $listData = $modelCustomers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            $listData = $modelCustomers->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
@@ -98,12 +123,31 @@ function listCustomerAgency($input)
 
                     // lịch sử chăm sóc
                     $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id])->order(['id'=>'desc'])->first();
+
+                    // nhóm khách hàng
+                    $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $value->id])->all()->toList();
+                    $value->groups = [];
+
+                    if(!empty($group_customers)){
+                        foreach ($group_customers as $group) {
+                            if(!empty($listNameGroup[$group->id_category])){
+                                $value->groups[] = $listNameGroup[$group->id_category];
+                            }
+                        }
+                    }
+
+                    if(!empty($value->groups)){
+                        $listData[$key]->groups = implode('<br/>', $value->groups);
+                    }else{
+                        $listData[$key]->groups = '';
+                    }
+                    
                 }
             }
         }
 
         // phân trang
-        $totalData = $modelCustomers->find()->where($conditions)->all()->toList();
+        $totalData = $modelCustomers->find()->join($join)->select($select)->where($conditions)->all()->toList();
         $totalData = count($totalData);
 
         $balance = $totalData % $limit;
@@ -134,9 +178,6 @@ function listCustomerAgency($input)
             $urlPage = $urlPage . '?page=';
         }
 
-        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
-        $listGroup = $modelCategories->find()->where($conditions)->all()->toList();
-
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
@@ -159,6 +200,7 @@ function editCustomerAgency($input)
     global $session;
     global $isRequestPost;
     global $urlHomes;
+    global $modelCategoryConnects;
 
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'Thông tin khách hàng';
@@ -175,6 +217,16 @@ function editCustomerAgency($input)
 
             $note_now = 'Đại lý '.$session->read('infoUser')->name.' sửa thông tin khách hàng';
             $action_now = 'edit';
+
+            
+            $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $data->id])->all()->toList();
+            $data->groups = [];
+
+            if(!empty($group_customers)){
+                foreach ($group_customers as $key => $value) {
+                    $data->groups[] = $value->id_category;
+                }
+            }
         }else{
             $data = $modelCustomers->newEmptyEntity();
 
@@ -216,10 +268,27 @@ function editCustomerAgency($input)
                     $data->birthday_date = (int) $dataSend['birthday_date'];
                     $data->birthday_month = (int) $dataSend['birthday_month'];
                     $data->birthday_year = (int) $dataSend['birthday_year'];
-                    $data->id_group = (int) @$dataSend['id_group'];
+                    $data->id_group = (int) @$dataSend['id_group'][0];
                     $data->facebook = @$dataSend['facebook'];
 
                     $modelCustomers->save($data);
+
+                    // tạo dữ liệu bảng chuyên mục
+                    $modelCategoryConnects->deleteAll(['id_parent'=>$data->id, 'keyword'=>'group_customers']);
+
+                    if(!empty($dataSend['id_group'])){
+                        foreach ($dataSend['id_group'] as $id_group) {
+                            $categoryConnects = $modelCategoryConnects->newEmptyEntity();
+
+                            $categoryConnects->keyword = 'group_customers';
+                            $categoryConnects->id_parent = $data->id;
+                            $categoryConnects->id_category = (int) $id_group;
+
+                            $modelCategoryConnects->save($categoryConnects);
+                        }
+                    }
+
+                    $data->groups = !empty($dataSend['id_group'])?$dataSend['id_group']:[];
 
                     // lưu lịch sử khách hàng
                     $customer_histories = $modelCustomerHistories->newEmptyEntity();
@@ -314,6 +383,7 @@ function deleteGroupCustomerAgency($input)
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
+    global $modelCategoryConnects;
 
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'Nhóm khách hàng';
@@ -323,6 +393,7 @@ function deleteGroupCustomerAgency($input)
 
             if(!empty($infoCategory)){
                 $modelCategories->delete($infoCategory);
+                $modelCategoryConnects->deleteAll(['keyword'=>'group_customers', 'id_category'=>(int)$_GET['id']]);
             }
         }
 

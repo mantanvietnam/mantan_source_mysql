@@ -74,6 +74,8 @@ function getListCustomerAPI($input)
     global $isRequestPost;
     global $controller;
     global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
 
     $modelCustomers = $controller->loadModel('Customers');
     $modelOrders = $controller->loadModel('Orders');
@@ -87,6 +89,16 @@ function getListCustomerAPI($input)
             $infoMember = getMemberByToken($dataSend['token']);
 
             if(!empty($infoMember)){
+                // danh sách nhóm khách hàng
+                $conditions = array('type' => 'group_customer', 'parent'=>$infoMember->id);
+                $listGroup = $modelCategories->find()->where($conditions)->all()->toList();
+                $listNameGroup = [];
+                if(!empty($listGroup)){
+                    foreach ($listGroup as $key => $value) {
+                        $listNameGroup[$value->id] = $value->name;
+                    }
+                }
+
                 $conditions = array('id_parent'=>$infoMember->id);
                 $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
@@ -103,12 +115,26 @@ function getListCustomerAPI($input)
 
                         // lịch sử chăm sóc
                         $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id])->order(['id'=>'desc'])->first();
+
+                        // nhóm khách hàng
+                        $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $value->id])->all()->toList();
+                        $value->groups = [];
+
+                        if(!empty($group_customers)){
+                            foreach ($group_customers as $group) {
+                                if(!empty($listNameGroup[$group->id_category])){
+                                    $value->groups[] = $listNameGroup[$group->id_category];
+                                }
+                            }
+                        }
+
+                        $listData[$key]->groups = $value->groups;
                     }
                 }
                 
                 $totalData = $modelCustomers->find()->where($conditions)->all()->toList();
                 
-                $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData));
+                $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData), 'listGroup'=>$listGroup);
             }else{
                  $return = array('code'=>3, 'mess'=>'Sai mã token');
             }
@@ -125,6 +151,8 @@ function getInfoCustomerAPI($input)
     global $isRequestPost;
     global $controller;
     global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
 
     $modelCustomers = $controller->loadModel('Customers');
     $modelOrders = $controller->loadModel('Orders');
@@ -142,12 +170,34 @@ function getInfoCustomerAPI($input)
                     $infoCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id_customer'], 'id_parent'=>$infoMember->id])->first();
 
                     if(!empty($infoCustomer)){
+                        // danh sách nhóm khách hàng
+                        $conditions = array('type' => 'group_customer', 'parent'=>$infoMember->id);
+                        $listGroup = $modelCategories->find()->where($conditions)->all()->toList();
+                        $listNameGroup = [];
+                        if(!empty($listGroup)){
+                            foreach ($listGroup as $key => $value) {
+                                $listNameGroup[$value->id] = $value->name;
+                            }
+                        }
+
                         // thống kê đơn hàng
                         $order = $modelOrders->find()->where(['id_user'=>$infoCustomer->id])->all()->toList();
                         $infoCustomer->number_order = count($order);
 
                         // lịch sử chăm sóc
                         $infoCustomer->history = $modelCustomerHistories->find()->where(['id_customer'=>$infoCustomer->id])->order(['id'=>'desc'])->first();
+
+                        // nhóm khách hàng
+                        $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoCustomer->id])->all()->toList();
+                        $infoCustomer->groups = [];
+
+                        if(!empty($group_customers)){
+                            foreach ($group_customers as $group) {
+                                if(!empty($listNameGroup[$group->id_category])){
+                                    $infoCustomer->groups[] = $listNameGroup[$group->id_category];
+                                }
+                            }
+                        }
 
                         $return = array('code'=>0, 'infoCustomer'=>$infoCustomer);
                     }else{
@@ -174,6 +224,8 @@ function saveInfoCustomerAPI($input)
     global $controller;
     global $session;
     global $urlHomes;
+    global $modelCategoryConnects;
+    global $modelCategories;
 
     $modelCustomers = $controller->loadModel('Customers');
     $modelOrders = $controller->loadModel('Orders');
@@ -278,7 +330,9 @@ function saveInfoCustomerAPI($input)
                     }
 
                     if(!empty($dataSend['id_group'])){
-                        $infoCustomer->id_group = (int) $dataSend['id_group'];
+                        $dataSend['id_group'] = explode(',', $dataSend['id_group']);
+
+                        $infoCustomer->id_group = (int) $dataSend['id_group'][0];
                     }elseif(empty($infoCustomer->id_group)){
                         $infoCustomer->id_group  = 0;
                     }
@@ -314,6 +368,22 @@ function saveInfoCustomerAPI($input)
                     $infoCustomer->id_parent = $infoMember->id;
 
                     $modelCustomers->save($infoCustomer);
+
+                    if(!empty($dataSend['id_group'])){
+                        foreach ($dataSend['id_group'] as $id_group) {
+                            $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoCustomer->id, 'id_category'=>(int)$id_group])->first();
+
+                            if(empty($categoryConnects)){
+                                $categoryConnects = $modelCategoryConnects->newEmptyEntity();
+
+                                $categoryConnects->keyword = 'group_customers';
+                                $categoryConnects->id_parent = $infoCustomer->id;
+                                $categoryConnects->id_category = (int) $id_group;
+
+                                $modelCategoryConnects->save($categoryConnects);
+                            }
+                        }
+                    }
 
                     // lưu lịch sử chăm sóc khách hàng
                     if(empty($dataSend['id'])){
@@ -359,6 +429,7 @@ function deleteGroupCustomerAPI($input)
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
+    global $modelCategoryConnects;
 
     $return = array('code'=>1);
     
@@ -373,6 +444,8 @@ function deleteGroupCustomerAPI($input)
 
                 if(!empty($infoCategory)){
                     $modelCategories->delete($infoCategory);
+
+                    $modelCategoryConnects->deleteAll(['keyword'=>'group_customers', 'id_category'=>(int)$dataSend['id']]);
 
                     $return = array('code'=>0, 'mess'=>'Xóa nhóm khách hàng thành công');
                 }else{

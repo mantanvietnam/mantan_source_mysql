@@ -34,6 +34,21 @@
             <p>address: địa chỉ khách hàng (không bắt buộc)</p>
             <br/>
 
+            <p><b>Gửi theo dạng raw khi dùng chatbot Zalo</b></p>
+            {<br/>
+                "id_member": "<?php echo $session->read('infoUser')->id;?>",<br/>
+                "full_name": "Trần Mạnh",<br/>
+                "phone": "0816560000",<br/>
+                "email": "tranmanhbk179@gmail.com",<br/>
+                "id_messenger": "1232836292",<br/>
+                "avatar": "https://s3.smax.in/pages/fb100405719654447/fb23940862368832418.jpg",<br/>
+                "id_group": "1",<br/>
+                "birthday": "17/9/1989",<br/>
+                "address": "18 Thanh Bình, HN",<br/>
+                "chatbot": "zalo"<br/>
+            }
+            <br/><br/>
+
             <p><b>Tham số nhận về:</b></p>
             <p>code: mã xác nhận lưu dữ liệu và tạo mã dự thưởng, 1 là thành công, 0 là thất bại</p>
             <p>messages: thông báo của hệ thống</p>

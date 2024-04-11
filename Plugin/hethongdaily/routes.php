@@ -1,6 +1,9 @@
 <?php
 	global $routesPlugin;
 
+	// fix bug
+	$routesPlugin['fixBug']= 'hethongdaily/view/api/fixBug.php';
+
 	// apis
 	$routesPlugin['getListPositionAPI']= 'hethongdaily/view/api/getListPositionAPI.php';
 

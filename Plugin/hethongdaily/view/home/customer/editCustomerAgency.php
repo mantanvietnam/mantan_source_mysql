@@ -123,12 +123,12 @@
                         if(!empty($listGroupCustomer)){
                           foreach ($listGroupCustomer as $key => $value) {
                             $checked = '';
-                            if(!empty($data->id_group) && $data->id_group==$value->id){
+                            if(!empty($data->groups) && in_array($value->id, $data->groups)){
                               $checked = 'checked';
                             }
 
                             echo '<li>
-                                    <input '.$checked.' type="radio" value="'.$value->id.'" name="id_group" /> '.$value->name.'
+                                    <input '.$checked.' type="checkbox" value="'.$value->id.'" name="id_group[]" /> '.$value->name.'
                                   </li>';
                           }
                         }
