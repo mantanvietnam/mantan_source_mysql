@@ -190,14 +190,15 @@ function orderProduct($input){
                             $bill->id_order = $order->id;
                             $bill->created_at = date('Y-m-d H:i:s');
                             $bill->updated_at = date('Y-m-d H:i:s');
-                            $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                             $bill->id_customer = (int)@$dataSend['id_customer'];
                             $bill->full_name = @$dataSend['full_name'];
                             $bill->moneyReturn = @$dataSend['moneyReturn'];
                             if(empty($dataSend['card'])){
                                 $bill->type_card = 0;
+                                $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                             }else{
                                 $bill->type_card = 1;
+                                $bill->type_collection_bill = 'the_tra_truoc';
                             }
                             
                             $bill->moneyCustomerPay = @$dataSend['moneyCustomerPay'];
@@ -515,15 +516,16 @@ function orderCombo($input){
                     $bill->id_order = $order->id;
                     $bill->created_at = date('Y-m-d H:i:s');
                     $bill->updated_at = date('Y-m-d H:i:s');
-                    $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                     $bill->id_customer = (int)@$dataSend['id_customer'];
                     $bill->full_name = @$dataSend['full_name'];
                     $bill->moneyReturn = @$dataSend['moneyReturn'];
 
                     if(empty($dataSend['card'])){
                         $bill->type_card = 0;
+                        $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                     }else{
                         $bill->type_card = 1;
+                        $bill->type_collection_bill = 'the_tra_truoc';
                     }
                     
                     $bill->moneyCustomerPay = @$dataSend['moneyCustomerPay'];
@@ -805,14 +807,15 @@ function orderService($input){
                 $bill->id_order = $order->id;
                 $bill->created_at = date('Y-m-d H:i:s');
                 $bill->updated_at = date('Y-m-d H:i:s');
-                $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                 $bill->id_customer = (int)@$dataSend['id_customer'];
                 $bill->full_name = @$dataSend['full_name'];
                 $bill->moneyReturn = @$dataSend['moneyReturn'];
                 if(empty($dataSend['card'])){
                     $bill->type_card = 0;
+                    $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                 }else{
                     $bill->type_card = 1;
+                    $bill->type_collection_bill = 'the_tra_truoc';
                 }
                         
                 $bill->moneyCustomerPay = @$dataSend['moneyCustomerPay'];
@@ -1256,6 +1259,7 @@ function listOrderService($input){
         $modelBill = $controller->loadModel('Bills');
         $modelAgency = $controller->loadModel('Agencys');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
+        $modelPrepayCard = $controller->loadModel('PrepayCards');
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
 
         $conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'), 'type'=>'service');
@@ -1293,12 +1297,31 @@ function listOrderService($input){
                     $OrderDetail[$k]->prod = $modelService->find()->where(['id'=>$value->id_product])->first();
                 }
                 $listData[$key]->product = $OrderDetail;
-                $listData[$key]->customer = $modelCustomer->find()->where(['id'=>$item->id_customer])->first();;
+                $customer = $modelCustomer->find()->where(['id'=>$item->id_customer])->first();
+                if(!empty($customer)){
+                    $conditioncard['id_customer'] = $customer->id;
+                    $conditioncard['total >='] = $item->total_pay;
+                                 
+                    $card = $modelCustomerPrepaycards->find()->where($conditioncard)->all()->toList();
+                    if(!empty($card)){
+                        foreach($card as $k => $value){
+
+                            $value->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$value->id_prepaycard))->first();
+                            $card[$k] = $value;
+                            
+                        }
+
+                       $customer->card = $card;
+                    }
+                }
+                $listData[$key]->customer = $customer;
+                
 
 
               }
             }
         }
+       
 
          $totalData = $modelOrder->find()->where($conditions)->all()->toList();
         $totalMoney = 0;
@@ -1404,8 +1427,14 @@ function printInfoOrder($input){
             $combo = $modelOrderDetails->find()->where(array('id_order'=>$data->id,'type'=>'combo'))->all()->toList();
             $bill = $modelBill->find()->where(array('id_order'=>$data->id))->first();
             if(!empty($bill)){
+
                 $data->bill = $bill;
-                $data->bill->typecollectionbill = $type_collection_bill[@$bill->type_collection_bill];
+                if($bill->type_card==1){
+                    $data->bill->typecollectionbill = 'Thẻ trả trước';
+                }else{
+                    $data->bill->typecollectionbill = $type_collection_bill[@$bill->type_collection_bill];
+                }
+                
             }else{
                 $data->bill = $modelDebts->find()->where(array('id_order'=>$data->id))->first();
                 $data->bill->typecollectionbill = 'chưa trả tiền';
@@ -1439,8 +1468,8 @@ function printInfoOrder($input){
 
             $data->spa = getSpa($user->id_spa);
 
-          /* debug($data);
-            die;*/
+          // debug($data);
+            // die;
 
             setVariable('user', $user);
             setVariable('data', $data);
@@ -1651,21 +1680,22 @@ function paymentOrders($input){
                 $bill->id_order = $order->id;
                 $bill->created_at = date('Y-m-d H:i:s');
                 $bill->updated_at= date('Y-m-d H:i:s');
-                $bill->type_collection_bill = @$_GET['type_collection_bill'];
                 $bill->id_customer = (int)$order->id_customer;
                 $bill->full_name = @$_GET['full_name'];
                 $bill->moneyReturn = @$_GET['moneyReturn'];
-                if(empty($dataSend['card'])){
+                if(empty($_GET['card'])){
                     $bill->type_card = 0;
+                    $bill->type_collection_bill = @$_GET['type_collection_bill'];
                 }else{
                     $bill->type_card = 1;
+                    $bill->type_collection_bill = 'the_tra_truoc';
                 }
                 $bill->moneyCustomerPay = @$_GET['moneyCustomerPay'];
                 $bill->time = time();
                 $modelBill->save($bill);
 
-                if(!empty($dataSend['card'])){
-                    $Prepaycards = $modelCustomerPrepaycards->get($dataSend['card']);
+                if(!empty($_GET['card'])){
+                    $Prepaycards = $modelCustomerPrepaycards->get($_GET['card']);
                     $Prepaycards->total -= $bill->total;
                     $modelCustomerPrepaycards->save($Prepaycards);
                 }

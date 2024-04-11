@@ -88,7 +88,7 @@ if(@$data->order->promotion>101){
                                 <table class="table table-bordered" style=" text-align: center; ">
                                     <thead>
                                         <tr>
-                                            <th >dịch vụ</th>
+                                            <th >Dịch vụ</th>
                                             <th>LẦN THỪ</th>
                                         </tr>
                                     </thead>
@@ -146,7 +146,12 @@ if(@$data->order->promotion>101){
                                 Giảm giá: <?php echo $promotion ?><br/>
                                 Tổng cộng: <?php echo number_format(@$data->order->total_pay) ?>đ<br/>
                                 <label class="form-label">Hình thức thanh toán </label>
-                                <select name="type_collection_bill" class="form-select color-dropdown" id="type_collection_bill" class="form-select color-dropdown" onclick="selecttypebill(<?php echo @$data->order->total_pay; ?>)" required>
+                                   <?php 
+                                $required = '';
+                                if(empty($data->customer->card)){
+                                $required = 'required';
+                             } ?>
+                                <select name="type_collection_bill" class="form-select color-dropdown" id="type_collection_bill" class="form-select color-dropdown" onclick="selecttypebill(<?php echo @$data->order->total_pay; ?>)" <?php echo $required; ?>>
                                   <option value="">Chọn hình thức thanh toán</option>
                                   <?php
                                   global $type_collection_bill;
@@ -158,18 +163,33 @@ if(@$data->order->promotion>101){
                                     }
                                 }
                                 ?>
-                                <option value="cong_no">Nợ </option>
+                                <!-- <option value="cong_no">Nợ </option> -->
                             </select>
+                            <?php if(!empty($data->customer->card)){ ?>
+
+                                    <label class="form-label">Thẻ trả trước </label>
+                                    <select  name="card" id="card"  class="form-select color-dropdown">
+                                        <option value="">chọn thẻ trả trước</option>
+                                      <?php
+                                        foreach ($data->customer->card as $k => $value) {
+                                         
+                                            echo '<option value="'.@$value->id.'">'.@$value->infoPrepayCard->name.' (tiền được tiêu '.number_format(@$value->total).')</option>';
+                                          
+                                        }
+                                      ?>
+                                    </select>
+
+                                <?php } ?>
                             <p id="sotenkhachdua" style='display: none;'>
                                 <label class="form-label">Số tiền khách đưa</label>
-                                <input type="text" class="money-khach input_money form-control" name="moneyCustomerPay" id="moneyCustomerPay" value="" placeholder="0" required="" min="0" onchange="tinhtien();" autocomplete="off">
+                                <input type="text" class="money-khach input_money form-control" name="moneyCustomerPay" id="moneyCustomerPay"placeholder="0" required="" value="<?php echo @$data->order->total_pay; ?>" min="0" onchange="tinhtien();" autocomplete="off">
                                 <input type="hidden" value="<?php echo @$data->order->total_pay; ?>" id="total_pay"  name="total_pay">
                                 <input type="hidden" name="moneyReturn" id="moneyReturn" value="">
                             </p>
                             <p id="sotentralaikhach" style='display: none;'><label class="form-label">Số tiền trả lại:</label> <span id="moneyCustomerReturn"></span></p> 
                             <label class="form-label">Kết quả sử dụng dịch vụ</label>
                             <textarea class="form-control" name="note"></textarea>
-                        </div>
+                        </div>s
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Thanh toán</button>

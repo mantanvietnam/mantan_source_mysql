@@ -96,12 +96,18 @@
                     }else{
                       $id = $item->id;
                     }
+                    if($item->type_card==1){
+                      $type = 'Thẻ trả trước';
+                    }else{
+                      $type = @$type_collection_bill[@$item->type_collection_bill];
+                    }
+
                   echo '<tr>
                           <td>'.$id.'</td>
                           <td>'.date('d/m/Y H:i', $item->time).'</td>
                           <td>'.@$item->full_name.'</td>
                           <td>'.@$item->staff->name.'</td>
-                          <td>'.number_format($item->total).'đ<br/>'.@$type_collection_bill[@$item->type_collection_bill].'</td>
+                          <td>'.number_format($item->total).'đ<br/>'.$type.'</td>
                           <td>'.$item->note.'</td>
                           
                           <td align="center">

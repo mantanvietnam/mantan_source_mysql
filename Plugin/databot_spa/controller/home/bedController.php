@@ -323,7 +323,7 @@ function checkoutBed($input){
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelDebts = $controller->loadModel('Debts');
         $modelBill = $controller->loadModel('Bills');
-        $modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
+        $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
         $modelPrepayCard = $controller->loadModel('PrepayCards');
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
 
@@ -343,14 +343,27 @@ function checkoutBed($input){
 
             $data->service = $modelService->find()->where(array('id'=>$data->id_services))->first();
               
-
-            if(!empty($data->id_customer)){
-                $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
-            }
-
             $data->order = $modelOrder->find()->where(array('id'=>$data->id_order))->first();
+            if(!empty($data->id_customer)){
+                $customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
 
-           
+                $conditioncard['id_customer'] = $data->id_customer;
+                    $conditioncard['total >='] = $data->order->total_pay;
+                                 
+                    $card = $modelCustomerPrepaycards->find()->where($conditioncard)->all()->toList();
+                    if(!empty($card)){
+                        foreach($card as $k => $value){
+
+                            $value->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$value->id_prepaycard))->first();
+                            $card[$k] = $value;
+                            
+                        }
+
+                       $customer->card = $card;
+                    }
+
+                    $data->customer = $customer;
+            }
 
         }
 
@@ -372,6 +385,8 @@ function checkoutBed($input){
 
             return $controller->redirect('/listRoomBed');
         }
+
+
 
 
 

@@ -268,7 +268,12 @@
                                 Tổng cộng: <?php echo number_format(@$items->total_pay) ?>đ<br/>
                                 Trạng thái: <?php echo $type ?></p>
                             <label class="form-label">Hình thức thanh toán </label>
-                                <select name="type_collection_bill" id="type_collection_bill<?php echo $items->id; ?>" class="form-select color-dropdown" onclick="selecttypebill(<?php echo $items->id; ?>,<?php echo $items->total_pay; ?>)" required>
+                             <?php 
+                                $required = '';
+                                if(empty($items->customer->card)){
+                                $required = 'required';
+                             } ?>
+                                <select name="type_collection_bill" id="type_collection_bill<?php echo $items->id; ?>" class="form-select color-dropdown" onclick="selecttypebill(<?php echo $items->id; ?>,<?php echo $items->total_pay; ?>)" <?php echo $required; ?>>
                                   <option value="">Chọn hình thức thanh toán</option>
                                   <?php
                                      global $type_collection_bill;
@@ -280,17 +285,31 @@
                                       }
                                     }
                                   ?>
-                                  <option value="cong_no">Nợ </option>
                                 </select>
 
-                             <p id="sotenkhachdua<?php echo $items->id; ?>" style='display: none;'>
-                                             <label class="form-label">Số tiền khách đưa</label>
-                                      
-                                                <input type="text" class="money-khach input_money form-control" name="moneyCustomerPay" id="moneyCustomerPay<?php echo $items->id; ?>" value="" placeholder="0" required="" min="0" onchange="tinhtien(<?php echo $items->id; ?>);" autocomplete="off">
-                                                <input type="hidden" value="<?php echo $items->total_pay; ?>" id="total_pay<?php echo $items->id; ?>"  name="total_pay">
-                                                 <input type="hidden" name="moneyReturn" id="moneyReturn<?php echo $items->id; ?>" value="">
-                                           
-                                        </p>
+                                <p id="sotenkhachdua<?php echo $items->id; ?>" style='display: none;'>
+                                   <label class="form-label">Số tiền khách đưa</label>
+
+                                   <input type="text" class="money-khach input_money form-control" name="moneyCustomerPay" id="moneyCustomerPay<?php echo $items->id; ?>" value="<?php echo @$items->total_pay; ?>" placeholder="0" required="" min="0" onchange="tinhtien(<?php echo $items->id; ?>);" autocomplete="off">
+                                   <input type="hidden" value="<?php echo $items->total_pay; ?>" id="total_pay<?php echo $items->id; ?>"  name="total_pay">
+                                   <input type="hidden" name="moneyReturn" id="moneyReturn<?php echo $items->id; ?>" value="">
+
+                               </p>
+                                <?php if(!empty($items->customer->card)){ ?>
+
+                                    <label class="form-label">Thẻ trả trước </label>
+                                    <select  name="card" id="card"  class="form-select color-dropdown">
+                                        <option value="">chọn thẻ trả trước</option>
+                                      <?php
+                                        foreach ($items->customer->card as $k => $value) {
+                                         
+                                            echo '<option  value="'.@$value->id.'">'.@$value->infoPrepayCard->name.' (tiền được tiêu '.number_format(@$value->total).')</option>';
+                                          
+                                        }
+                                      ?>
+                                    </select>
+
+                                <?php } ?>
                                         <p id="sotentralaikhach<?php echo $items->id; ?>" style='display: none;'><label class="form-label">Số tiền trả lại:</label> <span id="moneyCustomerReturn<?php echo $items->id; ?>"></span></p> 
 
                         </div>
