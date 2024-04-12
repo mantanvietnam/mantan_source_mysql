@@ -28,9 +28,7 @@
             <p>id_group: ID nhóm khách hàng (không bắt buộc)</p>
             <p>sex: giới tính, 1 là nam, 0 là nữ (không bắt buộc)</p>
             <p>facebook: link facebook khách hàng (không bắt buộc)</p>
-            <p>birthday_date: ngày sinh (không bắt buộc)</p>
-            <p>birthday_month: tháng sinh (không bắt buộc)</p>
-            <p>birthday_year: năm sinh (không bắt buộc)</p>
+            <p>birthday: ngày sinh, dạng ngày/tháng/năm, ví dụ: 17/9/1989 (không bắt buộc)</p>
             <p>address: địa chỉ khách hàng (không bắt buộc)</p>
             <br/>
 

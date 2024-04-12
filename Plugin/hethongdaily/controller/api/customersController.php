@@ -323,6 +323,16 @@ function saveInfoCustomerAPI($input)
                         $infoCustomer->birthday_year  = 0;
                     }
 
+                    if(!empty($dataSend['birthday'])){
+                        $birthday = explode('/', $dataSend['birthday']);
+
+                        if(count($birthday) == 3){
+                            $infoCustomer->birthday_date = (int) $birthday[0];
+                            $infoCustomer->birthday_month = (int) $birthday[1];
+                            $infoCustomer->birthday_year = (int) $birthday[2];
+                        }
+                    }
+
                     if(!empty($dataSend['id_aff'])){
                         $infoCustomer->id_aff = (int) $dataSend['id_aff'];
                     }elseif(empty($infoCustomer->id_aff)){

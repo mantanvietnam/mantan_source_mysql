@@ -135,4 +135,70 @@ function refreshTokenZaloOA($id_oa='', $app_id='')
     return ['error'=>1, 'message'=>'Gửi thiếu dữ liệu'];
 }
 
+function sendMessZalo($id_oa='', $app_id='', $user_id_zalo='', $text='', $image='')
+{
+    global $controller;
+
+    $modelZaloOas = $controller->loadModel('ZaloOas');
+
+    if(!empty($user_id_zalo)){
+
+        if(empty($id_oa) || empty($app_id)){
+            $zalo_oa = $modelZaloOas->find()->where(['access_token IS NOT'=>null, 'deadline >='=>time()])->first();
+
+            if(empty($zalo_oa)){
+                $zalo_oa = $modelZaloOas->find()->where(['access_token IS NOT'=>null])->first();
+
+                refreshTokenZaloOA($zalo_oa->id_oa, $zalo_oa->id_app);
+
+                $zalo_oa = $modelZaloOas->find()->where(['access_token IS NOT'=>null, 'deadline >='=>time()])->first();
+            }
+        }else{
+            $zalo_oa = $modelZaloOas->find()->where(['id_oa'=>$id_oa, 'id_app'=>$app_id])->first();
+
+            // nếu token hết hạn
+            if($zalo_oa->deadline < time()){
+                refreshTokenZaloOA($zalo_oa->id_oa, $zalo_oa->id_app);
+
+                $zalo_oa = $modelZaloOas->find()->where(['id_oa'=>$id_oa, 'id_app'=>$app_id])->first();
+            }
+        }
+
+        if(!empty($zalo_oa->access_token)){
+            $url_zns = 'https://openapi.zalo.me/v3.0/oa/message/cs';
+            $data_send_zalo = ["recipient" => ["user_id"=>$user_id_zalo]];
+            
+            if(!empty($text)){
+                $data_send_zalo['message'] = ["text"=>$text];
+            }
+
+            if(!empty($image)){
+                $data_send_zalo['message'] = ["attachment"=>[   "type"=>"template",
+                                                                "payload"=>["template_type"=>"media",
+                                                                            "elements"=>[
+                                                                                    [
+                                                                                        "media_type"=>"image",
+                                                                                        "url"=>$image
+                                                                                    ]
+                                                                                ]
+                                                                        ]
+                                                            ]
+
+                                            ];
+
+            }
+
+            $header_zns = ['Content-Type: application/json', 'access_token: '.$zalo_oa->access_token];
+            $typeData='raw';
+            $return_zns = sendDataConnectMantan($url_zns,$data_send_zalo,$header_zns,$typeData);
+            
+            return json_decode($return_zns, true);
+        }else{
+            return ['error'=>2, 'message'=>'Không tìm được Zalo OA phù hợp'];
+        }
+    }
+
+    return ['error'=>1, 'message'=>'Gửi thiếu dữ liệu'];
+}
+
 ?>
