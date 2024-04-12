@@ -189,7 +189,7 @@ if(@$data->order->promotion>101){
                             <p id="sotentralaikhach" style='display: none;'><label class="form-label">Số tiền trả lại:</label> <span id="moneyCustomerReturn"></span></p> 
                             <label class="form-label">Kết quả sử dụng dịch vụ</label>
                             <textarea class="form-control" name="note"></textarea>
-                        </div>s
+                        </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Thanh toán</button>
