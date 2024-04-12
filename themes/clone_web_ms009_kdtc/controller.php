@@ -7,7 +7,7 @@ function setting_theme_clone_web($input){
     $metaTitleMantan = 'Cài đặt giao diện trang chủ ';
     $mess= '';
 
-    $conditions = array('key_word' => 'settingCloneWebMS005Theme');
+    $conditions = array('key_word' => 'settingCloneWebMS009KDTCTheme');
     $data = $modelOptions->find()->where($conditions)->first();
     
     if(empty($data)){
@@ -107,7 +107,7 @@ function setting_theme_clone_web($input){
 
 
 
-        $data->key_word = 'settingCloneWebMS005Theme';
+        $data->key_word = 'settingCloneWebMS009KDTCTheme';
         $data->value = json_encode($value);
 
         $modelOptions->save($data);
@@ -212,7 +212,7 @@ function indexTheme($input)
     global $modelNotices;
     global $modelPosts;
 
-    $conditions = array('key_word' => 'settingCloneWebMS005Theme');
+    $conditions = array('key_word' => 'settingCloneWebMS009KDTCTheme');
     $data = $modelOptions->find()->where($conditions)->first();
 
     $data_value = array();

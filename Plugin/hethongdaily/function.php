@@ -277,10 +277,11 @@ function getTreeSystem($id_father, $modelMembers)
     return $listData;
 }
 
-function createCustomerNew($full_name='', $phone='', $email='', $address='', $sex=0, $id_city=0, $id_agency=0, $id_aff=0, $name_agency='', $id_messenger='', $avatar='', $birthday_date=0, $birthday_month=0, $birthday_year=0)
+function createCustomerNew($full_name='', $phone='', $email='', $address='', $sex=0, $id_city=0, $id_agency=0, $id_aff=0, $name_agency='', $id_messenger='', $avatar='', $birthday_date=0, $birthday_month=0, $birthday_year=0, $id_groups=0)
 {
     global $controller;
     global $urlHomes;
+    global $modelCategoryConnects;
 
     $modelCustomers = $controller->loadModel('Customers');
     
@@ -308,8 +309,32 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
             $infoUser->birthday_month = (int) @$birthday_month;
             $infoUser->birthday_year = (int) @$birthday_year;
             $infoUser->created_at = time();
+            
+            if(!empty($id_groups)){
+                $id_groups = explode(',', $id_groups);
+
+                $infoUser->id_group = (int) $id_groups[0];
+            }else{
+                $infoUser->id_group  = 0;
+            }
 
             $modelCustomers->save($infoUser);
+
+            if(!empty($id_groups)){
+                foreach ($id_groups as $id_group) {
+                    $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoUser->id, 'id_category'=>(int)$id_group])->first();
+
+                    if(empty($categoryConnects)){
+                        $categoryConnects = $modelCategoryConnects->newEmptyEntity();
+
+                        $categoryConnects->keyword = 'group_customers';
+                        $categoryConnects->id_parent = $infoUser->id;
+                        $categoryConnects->id_category = (int) $id_group;
+
+                        $modelCategoryConnects->save($categoryConnects);
+                    }
+                }
+            }
 
             // lưu lịch sử của khách hàng
             $note_now = 'Khởi tạo dữ liệu người dùng mới khi khách hàng mua hàng của đại lý '.@$name_agency;
@@ -337,7 +362,37 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
                 $infoUser->address = (string) $address;
             }
 
+            if(!empty($email)){
+                $infoUser->email = (string) $email;
+            }
+
+            if(!empty($avatar)){
+                $infoUser->avatar = (string) $avatar;
+            }
+
+            if(!empty($id_groups)){
+                $id_groups = explode(',', $id_groups);
+
+                $infoUser->id_group = (int) $id_groups[0];
+            }
+
             $modelCustomers->save($infoUser);
+
+            if(!empty($id_groups)){
+                foreach ($id_groups as $id_group) {
+                    $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoUser->id, 'id_category'=>(int)$id_group])->first();
+
+                    if(empty($categoryConnects)){
+                        $categoryConnects = $modelCategoryConnects->newEmptyEntity();
+
+                        $categoryConnects->keyword = 'group_customers';
+                        $categoryConnects->id_parent = $infoUser->id;
+                        $categoryConnects->id_category = (int) $id_group;
+
+                        $modelCategoryConnects->save($categoryConnects);
+                    }
+                }
+            }
 
             // lưu lịch sử khách hàng
             createCustomerHistoriesNewOrder($infoUser->id, $note_now, $infoUser->id_parent);

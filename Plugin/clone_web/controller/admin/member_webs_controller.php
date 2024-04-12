@@ -111,35 +111,29 @@ function addWebMemberAdmin($input)
         $dataSend = $input['request']->getData();
 
         if((!empty($dataSend['id_member']) || !empty($dataSend['id_affiliate'])) && !empty($dataSend['domain']) && !empty($dataSend['theme'])){
-            $conditions = ['id_member'=>$dataSend['id_member'], 'type'=>$dataSend['type']];
-            $checkMember = $modelMemberWebs->find()->where($conditions)->first();
-
             $conditions = ['domain'=>$dataSend['domain']];
             $checkDomain = $modelMemberWebs->find()->where($conditions)->first();
+            
+            if(empty($checkDomain) || (!empty($_GET['id']) && $_GET['id']==$checkDomain->id)){
+                // tạo dữ liệu save
+                $data->domain = $dataSend['domain'];
+                $data->theme = $dataSend['theme'];
+                $data->status = $dataSend['status'];
+                $data->type = $dataSend['type'];
 
-            if(empty($checkMember) || (!empty($_GET['id']) && $_GET['id']==$checkMember->id)){
-                if(empty($checkDomain) || (!empty($_GET['id']) && $_GET['id']==$checkDomain->id)){
-                    // tạo dữ liệu save
-                    $data->domain = $dataSend['domain'];
-                    $data->theme = $dataSend['theme'];
-                    $data->status = $dataSend['status'];
-                    $data->type = $dataSend['type'];
-
-                    if($dataSend['type'] == 'member'){
-                        $data->id_member = (int) $dataSend['id_member'];
-                    }else{
-                        $data->id_member = (int) $dataSend['id_affiliate'];
-                    }
-
-                    $modelMemberWebs->save($data);
-
-                    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                if($dataSend['type'] == 'member'){
+                    $data->id_member = (int) $dataSend['id_member'];
                 }else{
-                    $mess= '<p class="text-danger">Tên miền đã tồn tại</p>';
+                    $data->id_member = (int) $dataSend['id_affiliate'];
                 }
+
+                $modelMemberWebs->save($data);
+
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
             }else{
-                $mess= '<p class="text-danger">Đại lý này đã được cấu hình website</p>';
+                $mess= '<p class="text-danger">Tên miền đã tồn tại</p>';
             }
+            
         }else{
             $mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
         }
