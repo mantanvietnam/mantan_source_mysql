@@ -203,7 +203,7 @@ rel='stylesheet' type='text/css'>
             },
             items: {
                 "paid": {name: "Check-out", icon: "quit"},
-                "view": {name: "Xem thông tin giường", icon: "view"},
+                "view": {name: "Xem thông tin giường", icon: "paste"},
                 "cancel": {name: "Hủy check-in", icon: "delete"},
                 "sep1": "---------",
                 //"listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
