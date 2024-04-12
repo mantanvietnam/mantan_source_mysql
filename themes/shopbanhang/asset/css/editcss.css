@@ -4051,4 +4051,9 @@ background: #555;
 .big-blog-detai ul{
     list-style: disc;
     list-style-position: inside;
+    padding-left: 20px;
+}
+
+.big-blog-detai ul li::marker{
+    margin-left: 10px;
 }

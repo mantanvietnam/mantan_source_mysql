@@ -260,7 +260,7 @@
                                 <img src="<?php echo $urlThemeActive;?>asset/image/policy1.png" alt="">
                             </div>
                             <div class="policy-item-text">
-                                <strong>Miễn phí </strong>giao hàng <br> đơn hàng từ 1 triệu 
+                                <strong>Miễn phí </strong>giao hàng <br> đơn hàng từ 400k
                             </div>
                         </div>
 
