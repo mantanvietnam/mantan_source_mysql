@@ -65,7 +65,6 @@ global $settingThemes;
                                     </div>
 
                                     <div class="sort-product">
-                                        <p>Sắp xếp</p>
                                         <!-- <select class="form-select" aria-label="Default select example">
                                             <option selected>Thứ tự mặc định</option>
                                             <option value="1">Thứ tự theo mức độ phổ biến</option>

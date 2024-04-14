@@ -72,6 +72,7 @@
                     CRM <?php echo @$setting_value['name_web'];?> 2024 - Thiết kế bởi Phoenix Tech
                     <p></p>
                 </div>
+            </div>
         </footer>
     </div>
 

@@ -41,10 +41,10 @@ global $settingThemes;
 
                             <div class="sidebar-listcate">
                                 <ul>
-                                    <?php $category = getCategorieProduct();
-                                        if(!empty($category)){
-                                            foreach($category as $key => $item){
-                                                echo '<li><a href="/category/'.$item->slug.'.html">'.$item->name.'</a></li>';
+                                    <?php 
+                                        if(!empty($listCategory)){
+                                            foreach($listCategory as $key => $item){
+                                                echo '<li><a href="/courses-public/'.$item->slug.'.html">'.$item->name.'</a></li>';
                                             }
                                         }
                                      ?>
@@ -56,11 +56,10 @@ global $settingThemes;
                     <div class="col-lg-9 col-md-12">
                         <div class="category-product-filter">
                             <div class="form">
-                                <form onsubmit="" action="/search-product" method="get" id="myForm" class="form-custom-1 py-3">
+                                <form onsubmit="" action="/search-courses-public" method="get" id="myForm" class="form-custom-1 py-3">
                                 <div class="category-product-filter-inner">
                                     <div class="input-search">
                                         <i class="fa-solid fa-magnifying-glass"></i>
-                                         <!-- <img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt=""> -->
                                         <input placeholder="Tìm kiếm khóa học" type="text" class="form-control" id="" name="key" aria-describedby="">                               
                                     </div>
                                  </div>
@@ -87,11 +86,11 @@ global $settingThemes;
                                                 </div>
                 
                                                 <div class="product-hot-price">
-                                                    <span>'.number_format($data->price).' đ</span>
+                                                    <span>'.number_format($data->view).' lượt xem</span>
                                                 </div>
                 
                                                 <div class="product-hot-addcart">
-                                                    <a href="'.$link.'">Thêm vào giỏ hàng</a>
+                                                    <a href="'.$link.'">Xem nội dung</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -147,25 +146,4 @@ global $settingThemes;
             </div>
         </section>
     </main>
-  <script>
-function actionSelect(select)
-{
-    var action= select.value;
-    var link= $(select).find('option:selected').attr('data-link');
-    window.location= link;
-   
-    
-}
-
-function actioncheckbox(select)
-{
-    var action= select.value;
-    var link= $(select).find('option:selected').attr('data-link');
-    window.location= '/search-product?sela=sela';
-   
-    
-}
-
-    </script>
-<?php
-getFooter();?>
+<?php getFooter();?>

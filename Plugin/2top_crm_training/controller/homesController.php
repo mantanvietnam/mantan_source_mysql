@@ -634,14 +634,27 @@ function courses_public($input)
     $modelLesson = $controller->loadModel('Lessons');
     $modelCourses = $controller->loadModel('Courses');
 
-    $conditions= array('public'=>1);
+    $conditions= array('public'=>true);
     $limit = 12;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
     $order = array('id'=>'desc');
-    
-    $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+    if(!empty($_GET['idCategory']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+        if(!empty($_GET['idCategory'])){
+            $conditions = array('id_category'=>$_GET['idCategory'], 'public'=>1);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('slug'=>$slug);
+
+            $category_view = $modelCategories->find()->where($conditions)->first();
+
+            $conditions = array('id_category'=>(int) @$category_view->id, 'public'=>1);
+        }
+    }
+   
+    $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+   
     if(!empty($listData)){
         foreach ($listData as $key => $value) {
             if(!empty($value->id_category) && empty($category[$value->id_category])){
@@ -687,6 +700,9 @@ function courses_public($input)
         $urlPage = $urlPage . '?page=';
     }
 
+    $conditions = array('type' => '2top_crm_training');
+    $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -694,5 +710,148 @@ function courses_public($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('listCategory', $listCategory);
+}
+
+function course_public($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thông tin khóa học';
+
+    
+    $modelLesson = $controller->loadModel('Lessons');
+    $modelCourses = $controller->loadModel('Courses');
+    $modelTests = $controller->loadModel('Tests');
+
+    if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=>$_GET['id']);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('slug'=>$slug);
+        }
+    }
+
+    $conditions['public'] = 1;
+
+    $data = $modelCourses->find()->where($conditions)->first();
+
+    if(!empty($data)){
+        $metaTitleMantan = $data->title;
+
+        $category = $modelCategories->find()->where(['id' => (int) $data->id_category])->first();
+        
+        $data->name_category = @$category->name;
+
+        // tăng lượt xem
+        $data->view ++;
+        $modelCourses->save($data);
+
+        $conditions = array('id !='=>$data->id);
+        $limit = 4;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+        
+        $otherData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+        if(!empty($otherData)){
+            $category = [];
+
+            foreach ($otherData as $key => $value) {
+                if(!empty($value->id_category) && empty($category[$value->id_category])){
+                    $category[$value->id_category] = $modelCategories->find()->where(['id' => (int) $value->id_category])->first();
+                }
+                
+                $otherData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
+
+                $lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
+                $otherData[$key]->number_lesson = count($lessons);
+            }
+        }
+
+        // lấy số bài học
+        $conditions = array('id_course'=>$data->id);
+        $order = array('id'=>'desc');
+
+        $lesson = $modelLesson->find()->where($conditions)->order($order)->all()->toList();
+
+        // lấy số bài thi
+        $conditions = array('id_course'=>$data->id, 'id_lesson'=>0);
+        $order = array('id'=>'desc');
+
+        $tests = $modelTests->find()->where($conditions)->order($order)->all()->toList();
+
+        setVariable('data', $data);
+        setVariable('otherData', $otherData);
+        setVariable('lesson', $lesson);
+        setVariable('tests', $tests);
+    }else{
+        return $controller->redirect('/');
+    }
+    
+}
+
+function lesson_public($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thông tin bài học';
+
+    
+    $modelLesson = $controller->loadModel('Lessons');
+    $modelTest = $controller->loadModel('Tests');
+
+    if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=>$_GET['id']);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('slug'=>$slug);
+        }
+    }
+
+    $data = $modelLesson->find()->where($conditions)->first();
+
+    if(!empty($data)){
+        $metaTitleMantan = $data->title;
+
+        // tăng lượt xem
+        $data->view ++;
+        $modelLesson->save($data);
+
+        $conditions = array('id !='=>$data->id);
+        $limit = 4;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+        
+        $otherData = $modelLesson->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+        // lấy số bài thi
+        $conditions = array('id_lesson'=>$data->id);
+        $order = array('id'=>'desc');
+
+        $tests = $modelTest->find()->where($conditions)->order($order)->all()->toList();
+
+        setVariable('data', $data);
+        setVariable('otherData', $otherData);
+        setVariable('tests', $tests);
+    }else{
+        return $controller->redirect('/');
+    }
 }
 ?>

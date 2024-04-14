@@ -12,5 +12,7 @@
 
 	$routesPlugin['getLessonsAPI']= '2top_crm_training/view/api/getLessonsAPI.php';
 
-	$routesPlugin['courses-public']= '2top_crm_training/view/home/courses_public.php';
+	$routesPlugin['courses-public']= '2top_crm_training/view/home/public/courses_public.php';
+	$routesPlugin['course-public']= '2top_crm_training/view/home/public/course_public.php';
+	$routesPlugin['lesson-public']= '2top_crm_training/view/home/public/lesson_public.php';
 ?>

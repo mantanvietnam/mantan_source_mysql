@@ -105,6 +105,7 @@ function addCourseCRM($input)
             $data->id_category = $dataSend['id_category'];
             $data->status = $dataSend['status'];
             $data->content = $dataSend['content'];
+            $data->public = $dataSend['public'];
 
             // tạo slug
             $slug = createSlugMantan($dataSend['title']);

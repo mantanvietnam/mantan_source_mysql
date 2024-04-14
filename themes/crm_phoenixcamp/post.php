@@ -16,10 +16,6 @@ global $urlThemeActive;
                             <i class="fa-regular fa-clock"></i>&nbsp Đăng lúc: <span><?php echo date('d/m/Y',$post->time); ?></span>
                         </div>
 
-                        <div class="post-image">
-                            <img src="<?php echo $post->image; ?>" alt="">
-                        </div>
-
                         <div class="post-content">
                             <?php echo $post->content; ?>
                         </div>

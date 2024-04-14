@@ -56,3 +56,12 @@ $menus[0]['sub'][]= array( 'title'=>'Hướng dẫn APIs',
                         );
 
 addMenuAdminMantan($menus);
+
+$category[1]['title'] = 'Đào tạo';
+$category[1]['sub'] = array(array (	'url' => '/courses-public',
+                                    'name' => 'Khóa học'
+                                    ),
+                        );
+
+
+addMenusAppearance($category);

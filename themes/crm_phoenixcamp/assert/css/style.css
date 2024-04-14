@@ -40,13 +40,6 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-    font-weight: 100;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -71,9 +64,7 @@ table {
 
 
 body {
-    color: #fff;
-	line-height: 1;
-    font-family: "Barlow", sans-serif  !important;
+    font-family: arial, sans-serif  !important;
     font-weight: normal;
 }
 
@@ -378,6 +369,7 @@ strong{
     align-items: center;
     padding-top: 40px;
     padding-bottom: 40px;
+    color: #fff;
 }
 
 .register-main>h1 {
@@ -474,6 +466,7 @@ strong{
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    color: #fff;
 }
 
 .footer-head{
@@ -900,8 +893,8 @@ strong{
     .header-top {
         padding: 0 5px
     }
+}
 
-
-
-  
+.sidebar-listcate ul{
+    padding-left: 0px;
 }

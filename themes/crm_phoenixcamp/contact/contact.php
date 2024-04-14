@@ -52,7 +52,7 @@
                         </form>
                     </div>
                     <div class="col-lg-6 col-md-6 col-12 contact-box-right">
-                        <h2><b>THÔNG TIN LIÊN HỆ</b></h2>
+                        <h2>THÔNG TIN LIÊN HỆ</h2>
                         <div class="contact-info">
                             <div class="contact-info-item">
                                 <div class="contact-info-img">
