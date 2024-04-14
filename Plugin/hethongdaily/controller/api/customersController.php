@@ -293,6 +293,12 @@ function saveInfoCustomerAPI($input)
                         $infoCustomer->id_messenger  = '';
                     }
 
+                    if(!empty($dataSend['id_zalo'])){
+                        $infoCustomer->id_zalo = $dataSend['id_zalo'];
+                    }elseif(empty($infoCustomer->id_zalo)){
+                        $infoCustomer->id_zalo  = '';
+                    }
+
                     if(!empty($dataSend['sex'])){
                         $infoCustomer->sex = (int) $dataSend['sex'];
                     }elseif(empty($infoCustomer->sex)){

@@ -277,7 +277,7 @@ function getTreeSystem($id_father, $modelMembers)
     return $listData;
 }
 
-function createCustomerNew($full_name='', $phone='', $email='', $address='', $sex=0, $id_city=0, $id_agency=0, $id_aff=0, $name_agency='', $id_messenger='', $avatar='', $birthday_date=0, $birthday_month=0, $birthday_year=0, $id_groups=0)
+function createCustomerNew($full_name='', $phone='', $email='', $address='', $sex=0, $id_city=0, $id_agency=0, $id_aff=0, $name_agency='', $id_messenger='', $avatar='', $birthday_date=0, $birthday_month=0, $birthday_year=0, $id_groups=0, $id_zalo='')
 {
     global $controller;
     global $urlHomes;
@@ -302,6 +302,7 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
             $infoUser->id_parent = (int) @$id_agency; // đại lý bán hàng
             $infoUser->id_aff = (int) @$id_aff; // người tiếp thị liên kết
             $infoUser->id_messenger = (string) @$id_messenger;
+            $infoUser->id_zalo = (string) @$id_zalo;
             $infoUser->avatar = (!empty($avatar))?$avatar:$urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
             $infoUser->status = 'active';
             $infoUser->pass = md5($phone);

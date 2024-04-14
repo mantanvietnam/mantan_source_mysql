@@ -1,0 +1,1 @@
+<?php getFileTheme('2top_crm_training/courses_public.php'); ?>

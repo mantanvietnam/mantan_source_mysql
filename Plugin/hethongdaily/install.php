@@ -82,6 +82,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `created_at` INT NOT NULL,
   `id_group` INT NOT NULL DEFAULT '0',
   `facebook` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
+  `id_zalo` VARCHAR(100) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -167,3 +168,5 @@ $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `created_at` INT NOT NULL AFT
 $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `id_group` INT NOT NULL DEFAULT '0' AFTER `created_at`; ";
 
 $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `facebook` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `id_group`; ";
+
+$sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `id_zalo` VARCHAR(100) NULL AFTER `facebook`; ";

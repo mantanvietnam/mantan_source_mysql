@@ -213,6 +213,12 @@
                         </div>
                       </li>';
               }
+
+              if(in_array('campaign', $plugins_site_value)){
+                echo '<li class="nav-item">
+                        <a class="nav-link" href="/listCampaign">Chiến dịch</a>
+                      </li>';
+              }
             ?>
 
             <li class="nav-item">

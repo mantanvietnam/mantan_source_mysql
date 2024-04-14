@@ -61,6 +61,11 @@
               ĐĂNG KÝ HỌC
            </button>
          </li>
+         <li class="nav-item">
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-seo" aria-controls="navs-top-seo" aria-selected="false">
+              CÀI SEO
+           </button>
+         </li>
        </ul>
         <div class="card-body tab-content ">
           <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
@@ -393,6 +398,26 @@
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <label class="form-label" for="basic-default-fullname">Biến ảnh đại diện</label>
                 <input type="text" class="form-control mb-3" name="variable_avatar" value="<?php echo @$data['variable_avatar'];?>" />
+              </div>
+              
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="navs-top-seo" role="tabpanel">
+            <div class="card-body row ">
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Tên website</label>
+                <input type="text" class="form-control mb-3" name="title_web" value="<?php echo @$data['title_web'];?>" />
+              </div>
+              
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Mô tả ngắn</label>
+                <input type="text" class="form-control mb-3" name="des_web" value="<?php echo @$data['des_web'];?>" />
+              </div>
+
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Ảnh minh họa</label>
+                <input type="text" class="form-control mb-3" name="image_web" value="<?php echo @$data['image_web'];?>" />
               </div>
               
             </div>

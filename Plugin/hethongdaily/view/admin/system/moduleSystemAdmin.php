@@ -24,7 +24,7 @@
 
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <input type="checkbox" name="crm_module[]" value="order_system" <?php if(!empty($data_value) && in_array('order_system', $data_value)) echo 'checked';?> > Đơn hàng hệ thống
+                    <input type="checkbox" name="crm_module[]" value="order_system" <?php if(!empty($data_value) && in_array('order_system', $data_value)) echo 'checked';?> > Đơn hàng hệ thống + Tồn kho
                   </div>
                 </div>
 
@@ -52,7 +52,11 @@
                   </div>
                 </div>
 
-                
+                <div class="col-md-3">
+                  <div class="mb-3">
+                    <input type="checkbox" name="crm_module[]" value="campaign" <?php if(!empty($data_value) && in_array('campaign', $data_value)) echo 'checked';?> > Chiến dịch
+                  </div>
+                </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>

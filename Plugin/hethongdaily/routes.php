@@ -56,9 +56,6 @@
 	$routesPlugin['callbackZalo']= 'hethongdaily/view/home/zalo/callbackZalo.php';
 	$routesPlugin['sendMessZaloOA']= 'hethongdaily/view/home/zalo/sendMessZaloOA.php';
 
-	// chức danh
-	//$routesPlugin['listPosition']= 'hethongdaily/view/home/position/listPosition.php';
-
 	// thông tin đại lý
 	$routesPlugin['info']= 'hethongdaily/view/home/member/info.php';
 

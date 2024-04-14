@@ -100,9 +100,18 @@ function setting_theme_clone_web($input){
                         'textfooter'=> @$dataSend['textfooter'],
                         'aboutus'=> @$dataSend['aboutus'],              
                         'id_group_customer'=> @$dataSend['id_group_customer'],              
+                        
                         'id_product_ezpics'=> @$dataSend['id_product_ezpics'],              
                         'variable_name'=> @$dataSend['variable_name'],              
                         'variable_avatar'=> @$dataSend['variable_avatar'],              
+                        'variable_qr'=> @$dataSend['variable_qr'],              
+                        'variable_phone'=> @$dataSend['variable_phone'],              
+                        'variable_time'=> @$dataSend['variable_time'],              
+                        'variable_code'=> @$dataSend['variable_code'],              
+                        
+                        'title_web'=> @$dataSend['title_web'],              
+                        'des_web'=> @$dataSend['des_web'],              
+                        'image_web'=> @$dataSend['image_web'],              
                 );
 
 
@@ -131,6 +140,7 @@ function registerEvent($input)
     global $isRequestPost;
     global $session;
     global $controller;
+    global $urlHomes;
 
     $metaTitleMantan = 'Đăng ký tham gia sự kiện';
     $mess= '';
@@ -191,7 +201,15 @@ function registerEvent($input)
             $settingTheme = setting(); 
 
             if(!empty($settingTheme['id_product_ezpics'])){
-                $linkImage = 'https://designer.ezpics.vn/create-image-series/?id='.$settingTheme['id_product_ezpics'].'&'.$settingTheme['variable_name'].'='.$checkPhone->full_name.'&'.$settingTheme['variable_avatar'].'='.$checkPhone->avatar;
+                if($dataSend['location'] == 1){
+                    $time = 'Hà Nội ngày 4-5/5';
+                }else{
+                    $time = 'Sài Gòn tháng 7/2024';
+                }
+                
+                $qr = 'https://api.qrserver.com/v1/create-qr-code/?data='.$urlHomes;
+
+                $linkImage = 'https://designer.ezpics.vn/create-image-series/?id='.$settingTheme['id_product_ezpics'].'&'.$settingTheme['variable_name'].'='.$checkPhone->full_name.'&'.$settingTheme['variable_avatar'].'='.$checkPhone->avatar.'&'.$settingTheme['variable_phone'].'='.$checkPhone->phone.'&'.$settingTheme['variable_time'].'='.$time.'&'.$settingTheme['variable_code'].'=KH'.$checkPhone->id.'&'.$settingTheme['variable_qr'].'='.$qr;
             }
 
             setVariable('infoCustomer', $checkPhone);

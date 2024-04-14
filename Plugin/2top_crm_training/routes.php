@@ -11,4 +11,6 @@
 	$routesPlugin['history-test']= '2top_crm_training/view/home/historyTest.php';
 
 	$routesPlugin['getLessonsAPI']= '2top_crm_training/view/api/getLessonsAPI.php';
+
+	$routesPlugin['courses-public']= '2top_crm_training/view/home/courses_public.php';
 ?>

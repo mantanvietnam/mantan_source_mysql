@@ -102,7 +102,10 @@ function setting_theme_clone_web($input){
                         'id_group_customer'=> @$dataSend['id_group_customer'],              
                         'id_product_ezpics'=> @$dataSend['id_product_ezpics'],              
                         'variable_name'=> @$dataSend['variable_name'],              
-                        'variable_avatar'=> @$dataSend['variable_avatar'],              
+                        'variable_avatar'=> @$dataSend['variable_avatar'],       
+                        'title_web'=> @$dataSend['title_web'],              
+                        'des_web'=> @$dataSend['des_web'],              
+                        'image_web'=> @$dataSend['image_web'],        
                 );
 
 

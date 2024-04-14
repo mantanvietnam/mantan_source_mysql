@@ -34,6 +34,8 @@ function addOrderCustomer($input)
                         $customer_buy->email = '';
                         $customer_buy->address = '';
                         $customer_buy->id_messenger = '';
+                        $customer_buy->id_zalo = '';
+                        $customer_buy->id_group = 0;
                         $customer_buy->avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
                         $customer_buy->status = 'active';
                         $customer_buy->pass = '';

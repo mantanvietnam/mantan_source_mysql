@@ -38,7 +38,7 @@
                 "full_name": "Trần Mạnh",<br/>
                 "phone": "0816560000",<br/>
                 "email": "tranmanhbk179@gmail.com",<br/>
-                "id_messenger": "1232836292",<br/>
+                "id_zalo": "1232836292",<br/>
                 "avatar": "https://s3.smax.in/pages/fb100405719654447/fb23940862368832418.jpg",<br/>
                 "id_group": "1",<br/>
                 "birthday": "17/9/1989",<br/>
