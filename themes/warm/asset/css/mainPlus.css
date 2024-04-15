@@ -2335,7 +2335,7 @@
 
 
 .project-item-img a::before{
-    content: "CREDIT: INTERNET";
+    content: "Credit: Internet";
     position: absolute;
     bottom: 0;
     right: 0;
@@ -2352,7 +2352,7 @@
 }
 
 #section-project-page .project-accordior-image::before{
-    content: "CREDIT: INTERNET";
+    content: "Credit: Internet";
     position: absolute;
     bottom: 0;
     right: 0;
@@ -2369,10 +2369,10 @@
 }
 
 .facility-background .facility-background-inner::before{
-    content: "CREDIT: INTERNET";
+    content: "Credit: Internet";
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: 5%;
     color: #fff;
     background: #000;
     opacity: 0.7;
@@ -2387,7 +2387,7 @@
 }
 
 .facility-impact-left-background::before{
-    content: "CREDIT: INTERNET";
+    content: "Credit: Internet";
     position: absolute;
     bottom: 0;
     right: 0;
@@ -2404,7 +2404,7 @@
 }
 
 .description-content-background::before{
-    content: "CREDIT: INTERNET";
+    content: "Credit: Internet";
     position: absolute;
     bottom: 0;
     right: 0;
@@ -2421,7 +2421,7 @@
 }
 
 .banner-img-box::before{
-    content: "CREDIT: INTERNET";
+    content: "Credit: Internet";
     position: absolute;
     bottom: 0;
     right: 0;

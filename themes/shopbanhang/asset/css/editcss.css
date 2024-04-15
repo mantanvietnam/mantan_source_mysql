@@ -1641,6 +1641,10 @@ background: #555;
     .product-detail-info{
         width: 100%;
     }
+
+    .product-detail-slide{
+        width: 75%;
+    }
 }
 
 @media(min-width: 1920px){

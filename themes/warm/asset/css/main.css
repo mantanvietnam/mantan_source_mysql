@@ -752,7 +752,7 @@ strong {
 
 #section-keydate .keydate-left .tranform-text {
     position: absolute;
-    transform: translateY(7px);
+    transform: translateY(4px);
 }
 
 #section-keydate .keydate-right .tranform-text {
