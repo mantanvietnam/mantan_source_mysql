@@ -559,17 +559,24 @@ function blockUserProvince($input){
     }
 
     $listBlock = [];
-        if(!empty($user->id)){
-            $Block = $modelBlockUserProvinces->find()->where(['user_id'=>$user->id])->all()->toList();
+    if(!empty($user->id)){
+        $Block = $modelBlockUserProvinces->find()->where(['user_id'=>$user->id])->all()->toList();
 
-            if(!empty($Block)){
-                foreach ($Block as $check) {
-                    $listBlock[] = $check->province_id;
-                }
+        if(!empty($Block)){
+            foreach ($Block as $check) {
+                $listBlock[] = $check->province_id;
             }
         }
+    }
 
+    if(!empty($listProvince)){
+        foreach($listProvince as $key => $item){
+            $listProvince[$key]->lower = $modelProvinces->find()->where(['parent_id' => $item->id, 'status' => 1])->order(['id'=>"asc"])->all()->toList();
+        }
+    }
 
+    // debug($listBlock);
+    // die();
 
     setVariable('mess', $mess);
     setVariable('listProvince', $listProvince);

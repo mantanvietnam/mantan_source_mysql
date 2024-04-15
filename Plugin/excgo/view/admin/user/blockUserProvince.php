@@ -34,12 +34,20 @@
                         </div>
                         <?php if(!empty($listProvince)){
                             foreach($listProvince as $key => $item){
+                                echo '<div class="mb-3 col-md-3"> <label class="form-label">'.$item->name.' ('.$item->bsx.')</label></br>';
                                  $check = '';
-                            if(!empty($listBlock)){
-                              $check = (in_array($item->id, $listBlock))? 'checked':'';
-                            }
 
-                            echo '<div class="mb-3 col-md-3"><input type="checkbox" '.$check.' name="province_id[]" value="'.$item->id.'">&emsp;'.$item->name.' ('.$item->bsx.')</div>';
+                                if(!empty($item->lower)){
+                                    foreach($item->lower as $k => $value){
+                                        if(!empty($listBlock)){
+                                          $check = (in_array($value->id, $listBlock))? 'checked':'';
+                                        }
+
+                                        echo '&emsp;<input type="checkbox" '.$check.' name="province_id[]" value="'.$value->id.'">&emsp;'.$value->name.'</br>';
+                                    }
+                                }
+
+                            echo '</div>';
                             }
                         } ?>
                         
