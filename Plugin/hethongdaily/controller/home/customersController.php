@@ -331,6 +331,7 @@ function groupCustomerAgency($input)
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
+    global $modelCategoryConnects;
 
     $modelCustomers = $controller->loadModel('Customers');
 
@@ -365,7 +366,7 @@ function groupCustomerAgency($input)
 
         if(!empty($listData)){
             foreach ($listData as $key => $value) {
-                $customers = $modelCustomers->find()->where(['id_group'=>$value->id])->all()->toList();
+                $customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers','id_category'=>$value->id])->all()->toList();
                 $listData[$key]->number_customer = count($customers);
             }
         }

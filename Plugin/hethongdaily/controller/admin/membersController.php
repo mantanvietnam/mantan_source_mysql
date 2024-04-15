@@ -166,6 +166,8 @@ function addMemberAdmin($input)
                 $data->portrait = $dataSend['portrait'];
                 $data->create_agency = $dataSend['create_agency'];
                 $data->create_order_agency = (int) $dataSend['create_order_agency'];
+                $data->token_device = '';
+                $data->token = '';
 
 				if(empty($_GET['id'])){
 					if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];

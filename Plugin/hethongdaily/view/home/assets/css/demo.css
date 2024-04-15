@@ -111,3 +111,7 @@
 .navbar-brand{
   text-transform: uppercase;
 }
+.img_avatar{
+  object-fit: cover;
+  border-radius: 100px;
+}

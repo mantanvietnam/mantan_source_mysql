@@ -99,9 +99,9 @@
           <?php 
           if(!empty($listData)){
             foreach ($listData as $item) {
-              $status= '<p class="text-danger">Khóa</p>';
+              $status= '<span class="text-danger">Khóa</span>';
               if($item->status=='active'){ 
-                  $status= '<p class="text-success">Kích hoạt</p>';
+                  $status= '<span class="text-success">Kích hoạt</span>';
               }
 
               $sex= 'Nữ';
@@ -128,12 +128,12 @@
               $infoCustomer = $item->full_name.'<br/>'.$item->phone;
               if(!empty($item->address)) $infoCustomer .= '<br/>'.$item->address;
               if(!empty($item->email)) $infoCustomer .= '<br/>'.$item->email;
-              $infoCustomer .= $status;
+              $infoCustomer .= '<br/>'.$status;
               if(!empty($item->facebook)) $infoCustomer .= '<br/><a href="'.@$item->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>';
               
               echo '<tr>
               <td>'.$item->id.'</td>
-              <td><img src="'.$item->avatar.'" width="80" /></td>
+              <td><img class="img_avatar" src="'.$item->avatar.'" width="80" /></td>
               <td>'.$infoCustomer.'</td>
               <td>'.$item->groups.'</td>
               <td>'.$sex.'</td>

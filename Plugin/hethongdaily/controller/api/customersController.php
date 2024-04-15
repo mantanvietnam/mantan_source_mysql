@@ -538,6 +538,7 @@ function listGroupCustomerAPI($input)
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
+    global $modelCategoryConnects;
 
     $return = array('code'=>1);
 
@@ -550,11 +551,11 @@ function listGroupCustomerAPI($input)
             $infoMember = getMemberByToken($dataSend['token']);
 
             if(!empty($infoMember)){
-                $listData = $modelCategories->find()->where(['type'=>'group_customer', 'parent'=>$infoMember->id])->first();
+                $listData = $modelCategories->find()->where(['type'=>'group_customer', 'parent'=>$infoMember->id])->all()->toList();
 
                 if(!empty($listData)){
                     foreach ($listData as $key => $value) {
-                        $customers = $modelCustomers->find()->where(['id_group'=>$value->id])->all()->toList();
+                        $customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers','id_category'=>$value->id])->all()->toList();
                         $listData[$key]->number_customer = count($customers);
                     }
                 }
