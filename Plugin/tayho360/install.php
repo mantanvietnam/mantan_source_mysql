@@ -80,6 +80,8 @@ $sqlInstallDatabase .="CREATE TABLE `bookhotels` ( `id` INT NOT NULL AUTO_INCREM
 
 $sqlInstallDatabase .="CREATE TABLE `reports` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `time` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `introductory` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `date` INT NULL DEFAULT NULL , `idtour` INT NOT NULL , `status` TINYINT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `token_apis` ( `id` INT NOT NULL AUTO_INCREMENT , `user` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `pass` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `token` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `deadline` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+
 
 $sqlDeleteDatabase .= "DROP TABLE historicalsites; ";
 $sqlDeleteDatabase .= "DROP TABLE governanceAgencys; ";
@@ -98,6 +100,7 @@ $sqlDeleteDatabase .= "DROP TABLE booktables; ";
 $sqlDeleteDatabase .= "DROP TABLE booktours; ";
 $sqlDeleteDatabase .= "DROP TABLE bookhotels; ";
 $sqlDeleteDatabase .= "DROP TABLE reports; ";
+$sqlDeleteDatabase .= "DROP TABLE token_apis; ";
 
 // 2.0
 $sqlUpdateDatabase .= "ALTER TABLE `services` ADD `image11` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `like`, ADD `image12` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image11`, ADD `image13` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image12`, ADD `image14` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image13`, ADD `image15` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image14`, ADD `image16` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image15`, ADD `image17` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image16`, ADD `image18` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image17`, ADD `image19` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image18`, ADD `image20` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER `image19`; ";

@@ -15,6 +15,26 @@ function requestExportFull($input)
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
     $order = array('id'=>'desc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+
+    if(!empty($_GET['phone'])){
+        $conditions['phone'] = $_GET['phone'];
+    }
+
+    if(!empty($_GET['status_pay'])){
+        $conditions['status_pay'] = $_GET['status_pay'];
+    }
+
+    if(!empty($_GET['email'])){
+        $conditions['email'] = $_GET['email'];
+    }
     
     $listData = $modelRequestExports->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 

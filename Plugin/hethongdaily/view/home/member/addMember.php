@@ -52,6 +52,11 @@
                   </div>
 
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ảnh chân dung xóa nền</label>
+                    <?php showUploadFile('portrait','portrait',@$data->portrait,1);?>
+                  </div>
+
+                  <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Ngày sinh</label>
                     <input autocomplete="off" type="text" class="form-control datepicker" name="birthday" id="name" value="<?php echo @$data->birthday;?>" />
                   </div>

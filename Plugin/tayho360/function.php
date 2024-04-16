@@ -564,4 +564,12 @@ function distance($lat1, $lon1, $lat2, $lon2) {
 
     return $result;
 }
+
+
+function createTokenCode($length=30)
+{
+    $chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return substr(str_shuffle($chars), 0, $length).time();
+}
+
 ?>

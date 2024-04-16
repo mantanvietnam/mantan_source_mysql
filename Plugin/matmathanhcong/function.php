@@ -147,7 +147,10 @@ function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $addr
     $token = getTokenMMTCAPI();
     
     if(!empty($token) && !empty($categories[$id_category]['category_id'])){
-        if(!empty($name) && !empty($birthdate) && !empty($phone) && !empty($email) && !empty($address) ){
+        if(empty($email)) $email = 'tranmanhbk179@gmail.com';
+        if(empty($address)) $address = '18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội';
+
+        if(!empty($name) && !empty($birthdate) && !empty($phone)){
             $birthdate = str_replace('/', '_', $birthdate);
 
             $dataSend = [   'category_id' => $categories[$id_category]['category_id'],
