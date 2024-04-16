@@ -719,8 +719,5 @@ $infoUser = $session->read('infoUser');
     <script src="<?php echo $urlThemeActive ?>asset/js/mainplusproduct.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/review.js"></script>
     <div id="addClass"></div>
-
-
-
 </body>
 </html>

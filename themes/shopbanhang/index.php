@@ -1,6 +1,7 @@
 <?php
 getHeader();
 global $urlThemeActive;
+
 ?>
 <main>
     <section id="section-banner-home" class="banner-home-margin banner-home-edit">
@@ -512,4 +513,5 @@ global $urlThemeActive;
     updateCountdown();
 </script>
 <?php
-getFooter();?>
+getFooter();
+?>
