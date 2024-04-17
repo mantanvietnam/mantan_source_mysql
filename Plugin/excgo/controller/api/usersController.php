@@ -312,7 +312,7 @@ function upgradeToDriverApi($input): array
             return apiResponse(4, 'Yêu cầu của bạn đang chờ duyệt');
         }
 
-        $checkAvatar = $modelImage->find()
+       /* $checkAvatar = $modelImage->find()
             ->where([
                 'owner_id' => $currentUser->id,
                 'owner_type' => $ownerType['users'],
@@ -321,7 +321,7 @@ function upgradeToDriverApi($input): array
 
         if (empty($checkAvatar)) {
             return apiResponse(4, 'Bạn cần cập nhật ảnh đại diện');
-        }
+        }*/
 
         $checkIdCardFront = $modelImage->find()
             ->where([
