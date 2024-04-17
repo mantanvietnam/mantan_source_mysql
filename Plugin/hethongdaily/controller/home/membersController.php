@@ -43,7 +43,7 @@ function login($input)
 		    			$session->write('infoUser', $info_customer);
 		    			
 		    			if($info_customer->verify == 'active'){
-							return $controller->redirect('/listMember');
+							return $controller->redirect('/listCustomerAgency');
 						}else{
 							return $controller->redirect('/verify');
 						}
@@ -60,7 +60,7 @@ function login($input)
 
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/listMember');
+		return $controller->redirect('/listCustomerAgency');
 	}
 }
 

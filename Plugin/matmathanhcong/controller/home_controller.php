@@ -134,6 +134,44 @@ function resultvip($input)
             $dataSend['customer_phone']= str_replace(array(' ','.','-'), '', @$dataSend['customer_phone']);
             $dataSend['customer_phone'] = str_replace('+84','0',$dataSend['customer_phone']);
 
+            $customer_birthdate = explode('/', $dataSend['customer_birthdate']);
+            $customer_birthdate[0] = (int) $customer_birthdate[0];
+            $customer_birthdate[1] = (int) $customer_birthdate[1];
+            $customer_birthdate[2] = (int) $customer_birthdate[2];
+            
+            if($customer_birthdate[0]<1 || $customer_birthdate[0]>31 || $customer_birthdate[1]<1 || $customer_birthdate[1]>12 || $customer_birthdate[2]<1900 || $customer_birthdate[1]>2124){
+                if(!empty($dataSend['idMessenger'])){
+                    echo 'Sai định dạng ngày tháng năm sinh';die;
+                }else{
+                    return $controller->redirect('/?error=birthday');
+                }
+            }
+
+            if(strlen($dataSend['customer_phone']) != 10){
+                if(!empty($dataSend['idMessenger'])){
+                    echo 'Sai định dạng số điện thoại';die;
+                }else{
+                    return $controller->redirect('/?error=phone');
+                }
+            }
+
+            if (!filter_var($dataSend['customer_email'], FILTER_VALIDATE_EMAIL)) {
+                if(!empty($dataSend['idMessenger'])){
+                    echo 'Sai định dạng email';die;
+                }else{
+                    return $controller->redirect('/?error=email');
+                }
+            }
+
+            $customer_name = explode(' ', $dataSend['customer_name']);
+            if(count($customer_name)<2){
+                if(!empty($dataSend['idMessenger'])){
+                    echo 'Họ tên phải có từ 2 từ trở lên';die;
+                }else{
+                    return $controller->redirect('/?error=name');
+                }
+            }
+
             // kiểm tra đã đăng ký chưa
             $checkDataExits = $modelRequestExports->find()->where(['phone'=>$dataSend['customer_phone']])->first();
 
@@ -178,16 +216,22 @@ function resultvip($input)
                 $infoFull = sendDataConnectMantan($url, $dataPush);
                 $infoFull = json_decode($infoFull, true);
                 */
-                $infoFull = getLinkFullMMTCAPI($dataSend['customer_name'], $dataSend['customer_birthdate'], $dataSend['customer_phone'], $dataSend['customer_email'], $dataSend['customer_address'], $dataSend['avatar'], 1);
-
+                //$infoFull = getLinkFullMMTCAPI($dataSend['customer_name'], $dataSend['customer_birthdate'], $dataSend['customer_phone'], $dataSend['customer_email'], $dataSend['customer_address'], $dataSend['avatar'], 1);
+                $infoFull = '';
                 // lưu database
                 $data->avatar = $dataSend['avatar'];
                 $data->name = $dataSend['customer_name'];
                 $data->birthday = $dataSend['customer_birthdate'];
                 $data->phone = $dataSend['customer_phone'];
-                $data->email = $dataSend['customer_email'];
+                $data->email = trim($dataSend['customer_email']);
                 $data->address = $dataSend['customer_address'];
-                $data->idMessenger = @$dataSend['idMessenger'];
+                
+                if($dataSend['chatbot']=='smax'){
+                    $data->idMessenger = @$dataSend['idMessenger'];
+                }else{
+                    $data->idZalo = @$dataSend['idMessenger'];
+                }
+
                 $data->affiliate_phone = (!empty($session->read('aff')) && $session->read('aff')!=$dataSend['customer_phone'])?$session->read('aff'):'';
                 $data->link_download = @$infoFull;
                 $data->status_pay = 'wait';
@@ -264,7 +308,8 @@ function resultvip($input)
                             $id_oa = '';
                             $app_id = '';
                             $user_id_zalo = $dataSend['idMessenger'];
-                            $text = 'Link tải bản đầy đủ Mật Mã Thành Công của '.$dataSend['customer_name'].': '.@$infoFull;
+                            //$text = 'Link tải bản đầy đủ Mật Mã Thành Công của '.$dataSend['customer_name'].': '.@$infoFull;
+                            $text = 'Chúng tôi sẽ gửi link tải bản đầy đủ Thần Số Học về email của bạn ngay khi hệ thống xử lý xong yêu cầu';
                             $image = '';
 
                             sendMessZalo($id_oa, $app_id, $user_id_zalo, $text, $image);
