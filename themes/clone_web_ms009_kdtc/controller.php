@@ -108,6 +108,7 @@ function setting_theme_clone_web($input){
                         'variable_phone'=> @$dataSend['variable_phone'],              
                         'variable_time'=> @$dataSend['variable_time'],              
                         'variable_code'=> @$dataSend['variable_code'],              
+                        'variable_address'=> @$dataSend['variable_address'],              
                         
                         'title_web'=> @$dataSend['title_web'],              
                         'des_web'=> @$dataSend['des_web'],              
@@ -202,14 +203,16 @@ function registerEvent($input)
 
             if(!empty($settingTheme['id_product_ezpics'])){
                 if($dataSend['location'] == 1){
-                    $time = 'Hà Nội ngày 4-5/5';
+                    $time = 'Ngày 4-5/5';
+                    $address = 'Hà Nội ';
                 }else{
-                    $time = 'Sài Gòn tháng 7/2024';
+                    $time = 'Tháng 7/2024';
+                    $address = 'Sài Gòn';
                 }
                 
                 $qr = 'https://api.qrserver.com/v1/create-qr-code/?data='.$urlHomes;
 
-                $linkImage = 'https://designer.ezpics.vn/create-image-series/?id='.$settingTheme['id_product_ezpics'].'&'.$settingTheme['variable_name'].'='.$checkPhone->full_name.'&'.$settingTheme['variable_avatar'].'='.$checkPhone->avatar.'&'.$settingTheme['variable_phone'].'='.$checkPhone->phone.'&'.$settingTheme['variable_time'].'='.$time.'&'.$settingTheme['variable_code'].'=KH'.$checkPhone->id.'&'.$settingTheme['variable_qr'].'='.$qr;
+                $linkImage = 'https://designer.ezpics.vn/create-image-series/?id='.$settingTheme['id_product_ezpics'].'&'.$settingTheme['variable_name'].'='.$checkPhone->full_name.'&'.$settingTheme['variable_avatar'].'='.$checkPhone->avatar.'&'.$settingTheme['variable_phone'].'='.$checkPhone->phone.'&'.$settingTheme['variable_time'].'='.$time.'&'.$settingTheme['variable_code'].'=KH'.$checkPhone->id.'&'.$settingTheme['variable_qr'].'='.$qr.'&'.$settingTheme['variable_address'].'='.$address;
             }
 
             setVariable('infoCustomer', $checkPhone);

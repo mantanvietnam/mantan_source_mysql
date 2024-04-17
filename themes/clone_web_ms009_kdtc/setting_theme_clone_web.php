@@ -416,6 +416,11 @@
               </div>
 
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">Biến địa điểm</label>
+                <input type="text" class="form-control mb-3" name="variable_address" value="<?php echo @$data['variable_address'];?>" />
+              </div>
+
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <label class="form-label" for="basic-default-fullname">Biến mã tham dự</label>
                 <input type="text" class="form-control mb-3" name="variable_code" value="<?php echo @$data['variable_code'];?>" />
               </div>

@@ -234,7 +234,7 @@ header .navbar-header .nav-item .nav-link:hover {
   display: none !important;
   content: "";
   position: absolute;
-  background: url(../image/get-image-v3-2.png);
+  background: url(/themes/clone_web_ms009/asset/image/get-image-v3-2.png);
   top: 0;
   left: 0;
   background-size: 250px 326.3157894737px;
@@ -289,7 +289,7 @@ header .navbar-header .nav-item .nav-link:hover {
 }
 #section-banner::after {
   content: "";
-  background-image: url(/asset/image/get-image-v3.png);
+  background-image: url(/themes/clone_web_ms009/asset/image/get-image-v3.png);
   background-repeat: no-repeat;
   animation-name: shakeY;
   animation-duration: 10000ms;
@@ -456,22 +456,7 @@ header .navbar-header .nav-item .nav-link:hover {
   position: relative;
   background-color: #e1ccad;
 }
-#section-form::before {
-  content: "";
-  background: url(/asset/image/anh-11.png) no-repeat center/contain !important;
-  top: 20%;
-  left: 0%;
-  width: 300px;
-  height: 300px;
-  right: unset;
-  z-index: 99999 !important;
-  position: absolute;
-  animation-name: shakeY;
-  animation-duration: 15000ms;
-  animation-fill-mode: both;
-  transition: all 0.3s;
-  animation-iteration-count: infinite;
-}
+
 #section-form .form-left {
   display: flex;
   justify-content: center;
@@ -547,7 +532,7 @@ header .navbar-header .nav-item .nav-link:hover {
 }
 #section-news::before {
   top: 50%;
-  background: url(/asset/image/423423.png);
+  background: url(/themes/clone_web_ms009/asset/image/423423.png);
   background-size: contain;
   width: 250px;
   content: "";
@@ -629,7 +614,7 @@ header .navbar-header .nav-item .nav-link:hover {
 }
 #section-comment::before {
   content: "";
-  background: url(/asset/image/1231.png);
+  background: url(/themes/clone_web_ms009/asset/image/1231.png);
   position: absolute !important;
   background-repeat: no-repeat !important;
   top: 0;
@@ -644,7 +629,7 @@ header .navbar-header .nav-item .nav-link:hover {
 }
 #section-comment::after {
   content: "";
-  background: url(/asset/image/534565.png);
+  background: url(/themes/clone_web_ms009/asset/image/534565.png);
   position: absolute !important;
   background-repeat: no-repeat !important;
   width: 200px;

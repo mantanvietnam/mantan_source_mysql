@@ -240,7 +240,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-phone">Email</label>
-                                    <input required type="text" class="form-control phone-mask" name="customer_email" id="customer_email" value="" />
+                                    <input required type="email" class="form-control phone-mask" name="customer_email" id="customer_email" value="" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-phone">Địa chỉ</label>

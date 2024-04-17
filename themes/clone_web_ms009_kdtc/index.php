@@ -365,7 +365,7 @@ global $urlThemeActive;
                                     <input type="text" class="form-control" name="phone" required="" placeholder="">
                                 </div>
 
-                                <div class="col-lg-6 input-contact">
+                                <div class="col-lg-12 input-contact">
                                     <label>Khu vực *</label>
                                     <select class="form-select" name="location" required>
                                         <option value="">Chọn khu vực tham dự</option>
@@ -373,11 +373,13 @@ global $urlThemeActive;
                                         <option value="2">Sài Gòn tháng 7/2024 </option>
                                     </select>
                                 </div>
-
+                                
+                                <!--
                                 <div class="col-lg-6 input-contact">
                                     <label>Ảnh đại diện của bạn *</label>
                                     <input type="file" class="form-control" name="avatar" required="" placeholder="">
                                 </div>
+                                -->
 
                                 <div class="button-link">
                                     <button type="submit">Đăng ký</button>

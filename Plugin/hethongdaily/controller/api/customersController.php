@@ -118,12 +118,14 @@ function getListCustomerAPI($input)
 
                         // nhóm khách hàng
                         $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $value->id])->all()->toList();
-                        $value->groups = [];
+                        $value->name_groups = [];
+                        $value->id_groups = [];
 
                         if(!empty($group_customers)){
                             foreach ($group_customers as $group) {
                                 if(!empty($listNameGroup[$group->id_category])){
-                                    $value->groups[] = $listNameGroup[$group->id_category];
+                                    $value->name_groups[] = $listNameGroup[$group->id_category];
+                                    $value->id_groups[] = $group->id_category;
                                 }
                             }
                         }
@@ -189,12 +191,14 @@ function getInfoCustomerAPI($input)
 
                         // nhóm khách hàng
                         $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoCustomer->id])->all()->toList();
-                        $infoCustomer->groups = [];
+                        $infoCustomer->name_groups = [];
+                        $infoCustomer->id_groups = [];
 
                         if(!empty($group_customers)){
                             foreach ($group_customers as $group) {
                                 if(!empty($listNameGroup[$group->id_category])){
-                                    $infoCustomer->groups[] = $listNameGroup[$group->id_category];
+                                    $infoCustomer->name_groups[] = $listNameGroup[$group->id_category];
+                                    $infoCustomer->id_groups[] = $group->id_category;
                                 }
                             }
                         }
@@ -360,7 +364,7 @@ function saveInfoCustomerAPI($input)
                     }
 
                     // nếu up file ảnh avatar lên
-                    if(!is_string($dataSend['avatar'])){
+                    if(empty($dataSend['avatar']) || !is_string($dataSend['avatar'])){
                         $dataSend['avatar'] = '';
                     }
 

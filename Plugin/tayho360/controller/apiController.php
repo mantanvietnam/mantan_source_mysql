@@ -1,39 +1,4 @@
 <?php 
-function getTokenConnectAPI($input)
-{
-    global $isRequestPost;
-    global $controller;
-
-    $modelTokenApis = $controller->loadModel('TokenApis');
-
-    $return = ['code'=>1, 'token'=>'', 'mess'=>'', 'deadline'=>''];
-
-    if($isRequestPost){
-        $dataSend = $input['request']->getData();
-
-        if(!empty($dataSend['user']) && !empty($dataSend['pass'])){
-            $checkToken = $modelTokenApis->find()->where(['user'=>$dataSend['user'], 'pass'=>md5($dataSend['pass'])])->first();
-
-            if(!empty($checkToken)){
-                $checkToken->token = createTokenCode();
-                $checkToken->deadline = time() + 30*24*60*60;
-
-                $modelTokenApis->save($checkToken);
-
-                $return = ['code'=>0, 'token'=>$checkToken->token, 'mess'=>'Lấy mã thành công', 'deadline'=>$checkToken->deadline];
-            }else{
-                $return = ['code'=>2, 'token'=>'', 'mess'=>'Sai tài khoản', 'deadline'=>''];
-            }
-        }else{
-            $return = ['code'=>3, 'token'=>'', 'mess'=>'Gửi thiếu dữ liệu', 'deadline'=>''];
-        }
-    }else{
-        $return = ['code'=>4, 'token'=>'', 'mess'=>'Gửi sai kiểu POST', 'deadline'=>''];
-    }
-
-    return $return;
-}
-
 /*Lễ hội*/
 function listFestivalAPI($input){
     
