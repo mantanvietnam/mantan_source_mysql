@@ -271,6 +271,33 @@ function compressImageBase64($base64Image)
     return false;
 }
 
+function screenshotAPIFlash($url='', $width=1920, $height=1080)
+{
+    if(function_exists('getKey')){
+        $keyScreenshot = getKey(56);
+    }else{
+        $keyScreenshot = '';
+    }
+
+    if(!empty($keyScreenshot) && !empty($url)){
+        $params = http_build_query(array(
+            "access_key" => $keyScreenshot,
+            "url" => $url,
+            "format" => "png",
+            "width" => $width,
+            "height" => $height,
+            "full_page" => true,
+            "quality" => 100,
+            "wait_until" => "page_loaded",
+            "fresh" => true
+        ));
+
+        return file_get_contents("https://api.apiflash.com/v1/urltoimage?" . $params);
+    }else{
+        return '';
+    }
+}
+
 function screenshotProduct($url='', $width=1920, $height=1080)
 {
     if(function_exists('getKey')){

@@ -128,6 +128,8 @@ function resultvip($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
 
+        if(empty($dataSend['chatbot'])) $dataSend['chatbot'] = 'smax';
+
         if(!empty($dataSend['customer_name']) && !empty($dataSend['customer_birthdate']) && !empty($dataSend['customer_phone']) && !empty($dataSend['customer_email']) && !empty($dataSend['customer_address'])){
             // chuẩn hóa dữ liệu
             $dataSend['customer_birthdate'] = str_replace(array('.','-',',',' '), '/', $dataSend['customer_birthdate']);

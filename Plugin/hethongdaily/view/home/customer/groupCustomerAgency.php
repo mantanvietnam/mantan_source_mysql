@@ -26,6 +26,11 @@
                       <?php 
                         if(!empty($listData)){
                           foreach ($listData as $item) {
+                            $ezpics_config = [];
+                            if(!empty($item->description)){
+                              $ezpics_config = json_decode($item->description, true);
+                            }
+
                             echo '<tr>
                                     <td align="center">'.$item->id.'</td>
                                     <td>
@@ -33,7 +38,7 @@
                                       <a href="/listCustomerAgency/?id_group='.$item->id.'">'.number_format($item->number_customer).' khách hàng</a>
                                     </td>
                                     <td align="center">
-                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\' );">
+                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.@$ezpics_config['id_ezpics'].'\', \''.@$ezpics_config['ezpics_full_name'].'\', \''.@$ezpics_config['ezpics_phone'].'\', \''.@$ezpics_config['ezpics_code'].'\', \''.@$ezpics_config['ezpics_avatar'].'\', \''.@$ezpics_config['ezpics_name_member'].'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
                                       </a>
                                     </td>
@@ -69,13 +74,37 @@
                 <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-phone">Tên nhóm</label>
-                  <input
-                    type="text"
-                    class="form-control phone-mask"
-                    name="name"
-                    id="name"
-                    value=""
-                  />
+                  <input type="text" class="form-control phone-mask" name="name" id="name" value="" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">ID thẻ khách hàng Ezpics</label>
+                  <input type="text" class="form-control phone-mask" name="id_ezpics" id="id_ezpics" value="" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Biến trường họ tên</label>
+                  <input type="text" class="form-control phone-mask" name="ezpics_full_name" id="ezpics_full_name" value="" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Biến trường số điện thoại</label>
+                  <input type="text" class="form-control phone-mask" name="ezpics_phone" id="ezpics_phone" value="" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Biến trường mã khách hàng</label>
+                  <input type="text" class="form-control phone-mask" name="ezpics_code" id="ezpics_code" value="" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Biến trường ảnh đại diện</label>
+                  <input type="text" class="form-control phone-mask" name="ezpics_avatar" id="ezpics_avatar" value="" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Biến trường tên đại lý</label>
+                  <input type="text" class="form-control phone-mask" name="ezpics_name_member" id="ezpics_name_member" value="" />
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu</button>
@@ -89,9 +118,15 @@
   </div>
 
   <script type="text/javascript">
-    function editData(id, name){
+    function editData(id, name, id_ezpics, ezpics_full_name, ezpics_phone, ezpics_code, ezpics_avatar, ezpics_name_member){
       $('#idCategoryEdit').val(id);
       $('#name').val(name);
+      $('#id_ezpics').val(id_ezpics);
+      $('#ezpics_full_name').val(ezpics_full_name);
+      $('#ezpics_phone').val(ezpics_phone);
+      $('#ezpics_code').val(ezpics_code);
+      $('#ezpics_avatar').val(ezpics_avatar);
+      $('#ezpics_name_member').val(ezpics_name_member);
     }
   </script>
 

@@ -441,6 +441,53 @@
                 </div>
             </div>
 
+            <!-- Tab khách hàng -->
+            <div class="tab-pane fade" id="customer">
+                <div class="container p-3 d-flex justify-content-center">
+                    <div class="card p-4"> 
+                        <form id="uploadFormCustomer" enctype="multipart/form-data">
+                            <input type="hidden" name="token" value="<?php echo $info->token;?>">
+                            <div class="mb-3">
+                              <label for="full_name" class="form-label">Họ tên (*)</label>
+                              <input type="text" class="form-control" id="full_name" name="full_name" value="" required />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Số điện thoại (*)</label>
+                              <input type="text" class="form-control" id="phone" name="phone" value="" required />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Ảnh đại diện</label>
+                              <input type="file" class="form-control" id="avatar" name="avatar" value="" accept="image/*" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Địa chỉ</label>
+                              <input type="text" class="form-control" id="address" name="address" value="" />
+                            </div>
+
+                            <?php 
+                            if(!empty($listGroupCustomer)){
+                                echo '  <div class="mb-3">
+                                          <label for="phone" class="form-label">Nhóm khách hàng</label>
+                                          <select name="id_group" class="form-select" >
+                                            <option value="">Chọn nhóm khách hàng</option>';
+                                            foreach ($listGroupCustomer as $key => $value) {
+                                                echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                                            }
+                                echo      '</select>
+                                        </div>';
+                            }
+                            ?>
+                            
+                            <div class="mb-3 text-center">
+                                <button type="submit" class="btn btn-danger" id="" >LƯU THÔNG TIN KHÁCH HÀNG</button> 
+                            </div>
+                        </form>
+
+                        <div id="show_img_card_customer"></div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Tab trang cá nhân -->
             <?php 
             if(!empty($info->web)){
@@ -459,11 +506,14 @@
             <li class="nav-item">
                 <a class="nav-link" id="product-tab" data-toggle="tab" href="#products">Sản phẩm</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="customer-tab" data-toggle="tab" href="#customer">Khách hàng</a>
+            </li>
             
             <?php 
             if(!empty($info->web)){
                 echo '  <li class="nav-item">
-                            <a class="nav-link" id="about-tab" data-toggle="tab" href="#about">Trang cá nhân</a>
+                            <a class="nav-link" id="about-tab" data-toggle="tab" href="#about">Thêm</a>
                         </li>';
             }
             ?>
@@ -711,6 +761,77 @@
                 slidesToScroll: 1 // Scroll one slide at a time
               });
             });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // Khi form được submit
+                $('#uploadFormCustomer').on('submit', function(event) {
+                    // Ngăn chặn hành động mặc định của form (làm mới trang)
+                    event.preventDefault();
+                    
+                    // Tạo đối tượng FormData để chứa dữ liệu form
+                    var formData = new FormData(this);
+                    
+                    // Sử dụng AJAX jQuery để gửi dữ liệu form lên server
+                    $.ajax({
+                        url: '/apis/saveInfoCustomerAPI', // URL của server nơi bạn muốn upload file
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            $('#uploadFormCustomer').remove();
+
+                            var img_card_customer = "<div class='mb-3'><img id='imageToDownload' src='"+response.img_card_member+"' width='100%' /></div><div class='mb-3 text-center'><button onclick='downloadCardCustomer();' type='button' class='btn btn-danger' >TẢI ẢNH</button></div>";
+
+                            $('#show_img_card_customer').html(img_card_customer);
+
+                            alert('Lưu dữ liệu khách hàng thành công');
+                            
+                            // Xử lý kết quả thành công
+                            console.log('Upload thành công:', response);
+                        },
+                        error: function(xhr, status, error) {
+                            // Xử lý kết quả lỗi
+                            console.error('Upload thất bại:', status, error);
+                        }
+                    });
+                });
+            });
+
+        </script>
+
+        <script>
+        function downloadCardCustomer(){
+            var image = document.getElementById('imageToDownload');
+            var imageUrl = image.getAttribute('src');
+            var imageName = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+            
+            // Tạo một đối tượng XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', imageUrl, true);
+            xhr.responseType = 'blob'; // Đảm bảo dữ liệu trả về là dạng blob (binary large object)
+            
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Tạo một URL dữ liệu từ dữ liệu nhận được
+                    var url = window.URL.createObjectURL(xhr.response);
+                    
+                    // Tạo một liên kết để tải xuống
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = imageName;
+                    
+                    // Simulate click để tải ảnh về
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            };
+            
+            xhr.send();
+        };
         </script>
     </body>
 </html>

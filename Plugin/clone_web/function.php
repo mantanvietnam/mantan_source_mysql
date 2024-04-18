@@ -40,6 +40,7 @@ function show_text_clone($str='')
         $str = @str_replace('%twitter%', $infoMemberWeb->twitter, $str);
         $str = @str_replace('%linkedin%', $infoMemberWeb->linkedin, $str);
         $str = @str_replace('%portrait%', $infoMemberWeb->portrait, $str);
+        $str = @str_replace('%logo%', $infoMemberWeb->img_logo, $str);
     }
 
     return $str;

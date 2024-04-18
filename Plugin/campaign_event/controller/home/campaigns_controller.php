@@ -1,0 +1,166 @@
+<?php
+function listCampaign($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Danh sách chiến dịch sự kiện';
+
+        $modelCampaigns = $controller->loadModel('Campaigns');
+
+        $conditions = array('id_member'=>$session->read('infoUser')->id);
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+
+        if(!empty($_GET['name'])){
+            $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+        }
+
+        $listData = $modelCampaigns->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        
+
+        // phân trang
+        $totalData = $modelCampaigns->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        
+        setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function addCampaign($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+    global $urlHomes;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Thông tin chiến dịch sự kiện';
+
+        $modelCampaigns = $controller->loadModel('Campaigns');
+
+        $mess= '';
+
+        // lấy data edit
+        if(!empty($_GET['id'])){
+            $data = $modelCampaigns->get( (int) $_GET['id']);
+        }else{
+            $data = $modelCampaigns->newEmptyEntity();
+
+            $data->create_at = time();
+            $data->location = '[]';
+            $data->team = '[]';
+        }
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['name'])){
+                $img_background = $urlHomes.'/plugins/campaign_event/view/home/image/background.gif';
+                if(!empty($dataSend['img_background'])){
+                    $img_background = $dataSend['img_background'];
+                }
+
+                $img_logo = $urlHomes.'/plugins/campaign_event/view/home/image/logo-phoenix.png';
+                if(!empty($dataSend['img_logo'])){
+                    $img_logo = $dataSend['img_logo'];
+                }
+
+                // tạo dữ liệu save
+                $data->name = $dataSend['name'];
+                $data->name_show = $dataSend['name_show'];
+                $data->text_welcome = $dataSend['text_welcome'];
+                $data->codeSecurity = $dataSend['codeSecurity'];
+                $data->codePersonWin = trim($dataSend['codePersonWin']);
+                $data->noteCheckin = $dataSend['noteCheckin'];
+                $data->noteCheckin = $dataSend['noteCheckin'];
+                $data->colorText = $dataSend['colorText'];
+                $data->status = $dataSend['status'];
+                $data->img_background = $img_background;
+                $data->img_logo = $img_logo;
+                $data->id_member = $session->read('infoUser')->id;
+                $data->location = json_encode($dataSend['location']);
+                $data->team = json_encode($dataSend['team']);
+                
+                $modelCampaigns->save($data);
+
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }else{
+                $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+            }
+        }
+
+        $data->location = json_decode($data->location, true);
+        $data->team = json_decode($data->team, true);
+
+        setVariable('data', $data);
+        setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteCampaign($input){
+    global $controller;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelCampaigns->get($_GET['id']);
+        
+        if($data){
+            $modelCampaigns->delete($data);
+        }
+    }
+
+    return $controller->redirect('/listCampaign');
+}

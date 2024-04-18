@@ -349,14 +349,6 @@ function saveInfoCustomerAPI($input)
                         $infoCustomer->id_aff  = 0;
                     }
 
-                    if(!empty($dataSend['id_group'])){
-                        $dataSend['id_group'] = explode(',', $dataSend['id_group']);
-
-                        $infoCustomer->id_group = (int) $dataSend['id_group'][0];
-                    }elseif(empty($infoCustomer->id_group)){
-                        $infoCustomer->id_group  = 0;
-                    }
-
                     if(!empty($dataSend['facebook'])){
                         $infoCustomer->facebook = $dataSend['facebook'];
                     }elseif(empty($infoCustomer->facebook)){
@@ -369,7 +361,7 @@ function saveInfoCustomerAPI($input)
                     }
 
                     if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-                        $avatar = uploadImage($infoMember->id, 'avatar');
+                        $avatar = uploadImage($infoMember->id, 'avatar', 'avatar_'.$infoCustomer->phone);
 
                         if(!empty($avatar['linkOnline'])){
                             $dataSend['avatar'] = $avatar['linkOnline'];
@@ -382,6 +374,30 @@ function saveInfoCustomerAPI($input)
                         }else{
                             $dataSend['avatar'] = $infoCustomer->avatar;
                         }
+                    }
+
+                    if(!empty($dataSend['id_group'])){
+                        $dataSend['id_group'] = explode(',', $dataSend['id_group']);
+
+                        $infoCustomer->id_group = (int) $dataSend['id_group'][0];
+
+                        $infoGroup = $modelCategories->find()->where(['id'=>(int) $dataSend['id_group'][0], 'type' => 'group_customer', 'parent'=>$infoMember->id])->first();
+
+                        if(!empty($infoGroup->description)){
+                            $ezpics_config = json_decode($infoGroup->description, true);
+
+                            if(!empty($ezpics_config['id_ezpics'])){
+                                $img_card_member = "https://designer.ezpics.vn/create-image-series/?id=".$ezpics_config['id_ezpics']."&".$ezpics_config['ezpics_full_name']."=".$infoCustomer->full_name."&".$ezpics_config['ezpics_phone']."=".$infoCustomer->phone."&".$ezpics_config['ezpics_code']."=KH".$infoCustomer->phone."&".$ezpics_config['ezpics_avatar']."=".$infoCustomer->avatar."&".$ezpics_config['ezpics_name_member']."=".$infoMember->name;
+
+                                $image_data = file_get_contents($img_card_member);
+                                file_put_contents(__DIR__."/../../../../upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png", $image_data);
+
+                                $infoCustomer->img_card_member = $urlHomes."upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png";
+                            }
+                        }
+
+                    }elseif(empty($infoCustomer->id_group)){
+                        $infoCustomer->id_group  = 0;
                     }
 
                     $infoCustomer->avatar = $dataSend['avatar'];
@@ -405,6 +421,30 @@ function saveInfoCustomerAPI($input)
                         }
                     }
 
+                    if(!empty($dataSend['id_campaign']) && function_exists('getInfoCampaign')){
+                        $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+
+                        $infoCampaign = getInfoCampaign($dataSend['id_campaign'], $infoMember->id);
+
+                        if(!empty($infoCampaign)){
+                            $checkCampaign = $modelCampaignCustomers->find()->where(['id_member'=>$infoMember->id, 'id_customer'=>(int) $infoCustomer->id, 'id_campaign'=>(int) $dataSend['id_campaign']])->first();
+
+                            if(empty($checkCampaign)){
+                                $checkCampaign = $modelCampaignCustomers->newEmptyEntity();
+
+                                $checkCampaign->id_member = $infoMember->id;
+                                $checkCampaign->id_customer = $infoCustomer->id;
+                                $checkCampaign->id_campaign = (int) $dataSend['id_campaign'];
+                            }
+
+                            $checkCampaign->id_location = (int) @$dataSend['id_location'];
+                            $checkCampaign->id_team = (int) @$dataSend['id_team'];
+                            $checkCampaign->note = @$dataSend['note_campaign'];
+
+                            $modelCampaignCustomers->save($checkCampaign);
+                        }
+                    }
+
                     // lưu lịch sử chăm sóc khách hàng
                     if(empty($dataSend['id'])){
                         $note_now = 'Đại lý '.$infoMember->name.' ('.$infoMember->phone.') tạo dữ liệu khách hàng';
@@ -425,8 +465,9 @@ function saveInfoCustomerAPI($input)
 
                     $modelCustomerHistories->save($customer_histories);
 
-                    $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id);
+                    $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
                     $return['set_attributes']['id_customer_crm']= $infoCustomer->id;
+                    $return['set_attributes']['img_card_member']= $infoCustomer->img_card_member;
                 }else{
                     $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
                 }

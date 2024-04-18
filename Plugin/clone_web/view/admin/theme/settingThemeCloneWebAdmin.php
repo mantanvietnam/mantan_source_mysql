@@ -17,7 +17,7 @@ if(file_exists(__DIR__.'/../../../../../themes/'.$theme.'/setting_theme_clone_we
                         <p><b>%address%</b>: Địa chỉ của đại lý</p>
                         <p><b>%birthday%</b>: Ngày sinh của đại lý</p>
                         <p><b>%description%</b>: Giới thiệu bản thân của đại lý</p>
-                        
+                        <p><b>%logo%</b>: Logo riêng của đại lý</p>
                     </div>
 
                     <div class="col-md-6">

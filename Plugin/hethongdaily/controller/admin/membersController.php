@@ -146,6 +146,7 @@ function addMemberAdmin($input)
 		        $data->name = $dataSend['name'];
 		        $data->address = $dataSend['address'];
 		        $data->avatar = $dataSend['avatar'];
+                $data->img_logo = $dataSend['img_logo'];
 		        $data->phone = $dataSend['phone'];
 				$data->id_father = (int) $dataSend['id_father'];
 				$data->id_system = (int) $dataSend['id_system'];

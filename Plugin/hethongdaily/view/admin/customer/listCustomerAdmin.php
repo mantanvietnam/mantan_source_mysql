@@ -22,7 +22,7 @@
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Điện thoại</label>
+            <label class="form-label">Điện thoại khách</label>
             <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
           </div>
 
@@ -38,6 +38,11 @@
               <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
               <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
             </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Điện thoại đại lý</label>
+            <input type="text" class="form-control" name="phone_member" value="<?php if(!empty($_GET['phone_member'])) echo $_GET['phone_member'];?>">
           </div>
           
           <div class="col-md-2">
@@ -57,7 +62,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách khách hàng</h5>
+    <h5 class="card-header">Danh sách khách hàng - <?php echo number_format($totalData);?></h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -65,28 +70,38 @@
             <th>ID</th>
             <th>Khách hàng</th>
             <th>Đơn hàng</th>
-            <th>Trạng thái</th>
-            <th>Giới tính</th>
-            <th>Ngày sinh</th>
+            <th>Đại lý</th>
+            <th>Phân nhóm</th>
+            <th>Xem</th>
           </tr>
         </thead>
         <tbody>
           <?php 
           if(!empty($listData)){
             foreach ($listData as $item) {
-              $status= 'Khóa';
+              $status= '<br/><span class="text-danger">Khóa<span>';
               if($item->status=='active'){ 
-                  $status= 'Kích hoạt';
+                  $status= '<br/><span class="text-success">Kích hoạt<span>';
               }
 
-              $sex= 'Nữ';
+              $sex = '<br/>Nữ';
               if($item->sex==1){ 
-                  $sex= 'Nam';
+                  $sex = '<br/>Nam';
               }
 
               $birthday = '';
               if(!empty($item->birthday_date) && !empty($item->birthday_month) && !empty($item->birthday_year)){
-                  $birthday = $item->birthday_date.'/'.$item->birthday_month.'/'.$item->birthday_year;
+                  $birthday = '<br/>'.$item->birthday_date.'/'.$item->birthday_month.'/'.$item->birthday_year;
+              }
+
+              $address = '';
+              if(!empty($item->address)){
+                  $address .= '<br/>'.$item->address;
+              }
+
+              $email = '';
+              if(!empty($item->email)){
+                  $email .= '<br/>'.$item->email;
               }
               
               echo '<tr>
@@ -94,16 +109,19 @@
              
               <td>
                 '.$item->full_name.'<br/>
-                '.$item->phone.'<br/>
-                '.$item->address.'<br/>
-                '.$item->email.'
+                '.$item->phone.'
+                '.$address.'
+                '.$email.'
+                '.$sex.'
+                '.$birthday.'
+                '.$status.'
               </td>
              
               <td><a href="/plugins/admin/product-view-admin-order-listOrderAdmin/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></td>
               
-              <td>'.$status.'</td>
-              <td>'.$sex.'</td>
-              <td>'.$birthday.'</td>
+              <td>'.$item->name_parent.'</td>
+              <td>'.$item->groups.'</td>
+              <td align="center"><a href="/plugins/admin/product-view-admin-customer-infoCustomerAdmin/?id='.$item->id.'"><i class="bx bx-info-circle"></i></a></td>
              </tr>';
            }
          }else{

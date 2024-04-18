@@ -820,7 +820,7 @@ function createImageSeries($input)
         	}
 
         	if(!empty($_GET['id'])){
-        		$max = 1500;
+        		$max = 1000;
         		if(!empty($_GET['maxWidth'])) $max = (int) $_GET['maxWidth'];
         		
 	        	if($product->width<=$max && $product->height<=$max){
@@ -842,10 +842,19 @@ function createImageSeries($input)
 	        	$height = $product->height;
 	        }
         	
-        	// dùng tool xuất ảnh tự code
-			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
-			
-			$dataImage = sendDataConnectMantan($url);
+        	
+
+			// dùng api flash api
+			$dataImage = screenshotAPIFlash($urlThumb, $product->width, $product->height);
+			$imageData = $dataImage;
+
+			if($dataImage === false){
+				// dùng tool xuất ảnh tự code
+				$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
+				
+				$dataImage = sendDataConnectMantan($url);
+				$imageData = base64_decode($dataImage);
+			}
 
 	        // dùng siterelic api
 			// $urlImage = screenshotProduct($urlThumb, $width, $height);
@@ -864,9 +873,6 @@ function createImageSeries($input)
 
 	        if(!empty($_GET['id'])){ 
 	        	//$dataImage = compressImageBase64($dataImage);
-
-	        	// Giải mã dữ liệu base64
-				$imageData = base64_decode($dataImage);
 
 				// Kiểm tra nếu dữ liệu ảnh hợp lệ
 				if ($imageData !== false) {

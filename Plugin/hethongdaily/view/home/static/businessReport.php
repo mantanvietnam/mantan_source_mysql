@@ -28,7 +28,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <div id="tabs">
+                <div id="tabs" class="mb-3">
                   <ul>
                     <li><a href="#tabs-1">Doanh thu khách lẻ</a></li>
                     <li><a href="#tabs-2">Doanh thu đại lý</a></li>

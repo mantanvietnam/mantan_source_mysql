@@ -49,7 +49,7 @@ $setting = setting();?>
                 <div class="container">
                     <a class="navbar-brand" href="/">
                         <div class="image-header">
-                            <img src="<?php echo @$setting['logo'];?>" alt="">
+                            <img src="<?php echo show_text_clone(@$setting['logo']);?>" alt="">
                         </div>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

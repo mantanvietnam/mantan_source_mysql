@@ -42,6 +42,8 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `last_login` INT NOT NULL DEFAULT '0',
   `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ảnh chân dung',
   `create_order_agency` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '1: được phép tạo đơn đại lý tuyến dưới, 0: không được phép tạo',
+  `img_card_member` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
+  `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -170,3 +172,5 @@ $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `id_group` INT NOT NULL DEFAU
 $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `facebook` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `id_group`; ";
 
 $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `id_zalo` VARCHAR(100) NULL AFTER `facebook`; ";
+$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `img_card_member` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `instagram`; ";
+$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `img_card_member`; ";

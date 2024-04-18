@@ -128,6 +128,7 @@
 
                             <p class="mb-5">
                                 <img id="imageToDownload" src="<?php echo $linkImage;?>" width="100%" />
+                                <img id="imageLoading" src="<?php echo $urlThemeActive ?>/asset/image/loading-ezpics.gif" width="100%">
                             </p>
                         </div>
                         <?php } ?>
@@ -169,5 +170,18 @@ document.getElementById('downloadButton').addEventListener('click', function() {
 });
 </script>
 
+<script type="text/javascript">
+window.addEventListener('load', function() {
+    // Lấy phần tử cần xóa bằng cách sử dụng một trong các phương thức chọn phần tử
+    // Ví dụ, bằng cách sử dụng getElementById hoặc querySelector
+    const elementToRemove = document.getElementById('imageLoading'); // Sửa 'element-id' thành ID của phần tử bạn muốn xóa
+
+    // Kiểm tra nếu phần tử tồn tại
+    if (elementToRemove) {
+        // Xóa phần tử
+        elementToRemove.remove();
+    }
+});
+</script>
 
 <?php getFooter();?>

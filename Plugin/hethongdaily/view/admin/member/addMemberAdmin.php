@@ -58,6 +58,11 @@
                   </div>
 
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Logo thương hiệu</label>
+                    <?php showUploadFile('img_logo','img_logo',@$data->img_logo,2);?>
+                  </div>
+
+                  <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Địa chỉ</label>
                     <input type="text" class="form-control phone-mask" name="address" id="name" value="<?php echo @$data->address;?>" />
                   </div>
@@ -87,13 +92,7 @@
                     <input type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$data->zalo;?>" />
                   </div>
 
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Tạo tài khoản đại lý tuyến dưới</label>
-                    <select class="form-select" name="create_agency" id="create_agency">
-                      <option value="active" <?php if(isset($data->create_agency) && $data->create_order_agency=='active') echo 'selected'; ?> >Được phép</option>
-                      <option value="lock" <?php if(!empty($data->create_agency) && $data->create_agency=='lock') echo 'selected'; ?> >Không được phép</option>
-                    </select>
-                  </div>
+                  
                 </div>
 
                 <div class="col-md-6">
@@ -167,6 +166,14 @@
                     <select class="form-select" name="create_order_agency" id="create_order_agency">
                       <option value="0" <?php if(isset($data->create_order_agency) && $data->create_order_agency==0) echo 'selected'; ?> >Không được phép</option>
                       <option value="1" <?php if(!empty($data->create_order_agency) && $data->create_order_agency==1) echo 'selected'; ?> >Được phép</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Tạo tài khoản đại lý tuyến dưới</label>
+                    <select class="form-select" name="create_agency" id="create_agency">
+                      <option value="active" <?php if(isset($data->create_agency) && $data->create_order_agency=='active') echo 'selected'; ?> >Được phép</option>
+                      <option value="lock" <?php if(!empty($data->create_agency) && $data->create_agency=='lock') echo 'selected'; ?> >Không được phép</option>
                     </select>
                   </div>
 

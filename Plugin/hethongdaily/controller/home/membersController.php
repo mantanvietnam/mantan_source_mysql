@@ -576,6 +576,10 @@ function info($input)
 		$info = $modelMembers->find()->where(['id'=>(int) $_GET['id'], 'status'=>'active', 'verify'=>'active'])->first();
 
 		if(!empty($info)){
+			if(empty($info->token)){
+				$info->token = createToken();
+			}
+
 			$metaTitleMantan = $info->name;
 			$metaImageMantan = (!empty($info->banner))?$info->banner:$info->avatar;
 			
@@ -614,8 +618,13 @@ function info($input)
 
 				setVariable('listProduct', $listProduct);
 			}
+
+			// lấy danh sách nhóm khách hàng
+			$conditions = array('type' => 'group_customer', 'parent'=>$info->id);
+        	$listGroupCustomer = $modelCategories->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
 		
 			setVariable('info', $info);
+			setVariable('listGroupCustomer', $listGroupCustomer);
 		}else{
 			return $controller->redirect('/');
 		}

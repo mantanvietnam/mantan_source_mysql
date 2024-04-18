@@ -6,11 +6,23 @@ function listCustomerAdmin($input)
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $modelCategoryConnects;
 
     $metaTitleMantan = 'Danh sách khách hàng';
 
     $modelCustomers = $controller->loadModel('Customers');
     $modelOrders = $controller->loadModel('Orders');
+    $modelMembers = $controller->loadModel('Members');
+
+    // danh sách nhóm khách hàng
+    $conditions = array('type' => 'group_customer');
+    $listGroup = $modelCategories->find()->where($conditions)->all()->toList();
+    $listNameGroup = [];
+    if(!empty($listGroup)){
+        foreach ($listGroup as $key => $value) {
+            $listNameGroup[$value->id] = $value->name;
+        }
+    }
 
     $conditions = array();
     $limit = 20;
@@ -40,6 +52,12 @@ function listCustomerAdmin($input)
 
     if(!empty($_GET['id_aff'])){
         $conditions['id_aff'] = $_GET['id_aff'];
+    }
+
+    if(!empty($_GET['phone_member'])){
+        $checkMember = $modelMembers->find()->where(['phone'=>$_GET['phone_member']])->first();
+
+        $conditions['id_parent'] = (int) @$checkMember->id;
     }
 
     
@@ -91,10 +109,36 @@ function listCustomerAdmin($input)
         $listData = $modelCustomers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
         if(!empty($listData)){
+            $listMember = [];
             foreach ($listData as $key => $value) {
                 $order = $modelOrders->find()->where(['id_user'=>$value->id])->all()->toList();
-
                 $listData[$key]->number_order = count($order);
+
+                if($value->id_parent>0){
+                    if(empty($listMember[$value->id_parent])){
+                        $listMember[$value->id_parent] = $modelMembers->find()->where(['id'=>$value->id_parent])->first();
+                    }
+
+                    $listData[$key]->name_parent = @$listMember[$value->id_parent]->name.' '.@$listMember[$value->id_parent]->phone;
+                }
+
+                // nhóm khách hàng
+                $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $value->id])->all()->toList();
+                $value->groups = [];
+
+                if(!empty($group_customers)){
+                    foreach ($group_customers as $group) {
+                        if(!empty($listNameGroup[$group->id_category])){
+                            $value->groups[] = $listNameGroup[$group->id_category];
+                        }
+                    }
+                }
+
+                if(!empty($value->groups)){
+                    $listData[$key]->groups = implode('<br/>', $value->groups);
+                }else{
+                    $listData[$key]->groups = '';
+                }
             }
         }
     }
@@ -136,6 +180,7 @@ function listCustomerAdmin($input)
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
     
     setVariable('listData', $listData);
    

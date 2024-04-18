@@ -3,6 +3,7 @@ function setting_theme_clone_web($input){
     global $modelOptions;
     global $metaTitleMantan;
     global $isRequestPost;
+    global $urlHomes;
 
     $metaTitleMantan = 'Cài đặt giao diện trang chủ ';
     $mess= '';
@@ -98,8 +99,11 @@ function setting_theme_clone_web($input){
                         'twitter'=> @$dataSend['twitter'],
                         'tiktok'=> @$dataSend['tiktok'],
                         'textfooter'=> @$dataSend['textfooter'],
-                        'aboutus'=> @$dataSend['aboutus'],              
-                        'id_group_customer'=> @$dataSend['id_group_customer'],              
+                        'aboutus'=> @$dataSend['aboutus'],  
+
+                        'id_group_customer'=> @$dataSend['id_group_customer'],   
+                        'domain_crm'=> $urlHomes,   
+
                         'id_product_ezpics'=> @$dataSend['id_product_ezpics'],              
                         'variable_name'=> @$dataSend['variable_name'],              
                         'variable_avatar'=> @$dataSend['variable_avatar'],       
@@ -134,6 +138,7 @@ function registerEvent($input)
     global $isRequestPost;
     global $session;
     global $controller;
+    global $urlHomes;
 
     $metaTitleMantan = 'Đăng ký tham gia sự kiện';
     $mess= '';
@@ -144,6 +149,7 @@ function registerEvent($input)
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
+        $settingTheme = setting(); 
 
         if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
             $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
@@ -154,7 +160,7 @@ function registerEvent($input)
                 $avatar_upload = uploadImage('customer', 'avatar', 'avatar_'.$dataSend['phone']);
 
                 if(!empty($avatar_upload['linkOnline'])){
-                    $avatar = $avatar_upload['linkOnline'];
+                    $avatar = str_replace($urlHomes, $settingTheme['domain_crm'], $avatar_upload['linkOnline']);
                 }
             }
 
@@ -191,7 +197,6 @@ function registerEvent($input)
             $checkPhone = createCustomerNew(@$dataSend['name'], @$dataSend['phone'], @$dataSend['email'], @$dataSend['address'], (int) @$dataSend['sex'], (int) @$dataSend['id_city'], $id_agency, $id_aff, $name_agency, $id_messenger, $avatar, $birthday_date, $birthday_month, $birthday_year, @$dataSend['id_group']);
 
             $linkImage = '';
-            $settingTheme = setting(); 
 
             if(!empty($settingTheme['id_product_ezpics'])){
                 $linkImage = 'https://designer.ezpics.vn/create-image-series/?id='.$settingTheme['id_product_ezpics'].'&'.$settingTheme['variable_name'].'='.$checkPhone->full_name.'&'.$settingTheme['variable_avatar'].'='.$checkPhone->avatar;

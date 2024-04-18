@@ -14,18 +14,31 @@ $sqlInstallDatabase .= "CREATE TABLE `campaigns` (
                                 `text_welcome` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL , 
                                 `codeSecurity` VARCHAR(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , 
                                 `codePersonWin` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL , 
-                                `noteCheckin` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , 
-                                `colorText` VARCHAR(10) NOT NULL DEFAULT '#000000' , 
+                                `noteCheckin` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL , 
+                                `colorText` VARCHAR(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT '#000000' , 
                                 `status` VARCHAR(30) NOT NULL DEFAULT 'active' , 
-                                `img_background` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , 
+                                `img_background` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL , 
                                 `id_member` INT NOT NULL , 
-                                `location` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , 
-                                `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , 
+                                `location` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL , 
+                                `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL , 
+                                `team` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
                                 `create_at` INT NOT NULL , 
                                 PRIMARY KEY (`id`)
                             ) ENGINE = InnoDB; ";
 
+$sqlInstallDatabase .= "CREATE TABLE `campaign_customers` (
+                                `id` INT NOT NULL AUTO_INCREMENT , 
+                                `id_member` INT NOT NULL , 
+                                `id_customer` INT NOT NULL , 
+                                `id_campaign` INT NOT NULL , 
+                                `id_location` INT NOT NULL DEFAULT '0' , 
+                                `id_team` INT NOT NULL DEFAULT '0' , 
+                                `note` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
+                                PRIMARY KEY (`id`)
+                            ) ENGINE = InnoDB; ";
+
 $sqlDeleteDatabase .= "DROP TABLE campaigns; ";
+$sqlDeleteDatabase .= "DROP TABLE campaign_customers; ";
 
 $sqlUpdateDatabase .= "";
 ?>

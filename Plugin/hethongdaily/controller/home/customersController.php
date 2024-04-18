@@ -349,11 +349,20 @@ function groupCustomerAgency($input)
             }
 
             // tạo dữ liệu save
+            $ezpics_config = [];
+            $ezpics_config['id_ezpics'] = $dataSend['id_ezpics'];
+            $ezpics_config['ezpics_full_name'] = $dataSend['ezpics_full_name'];
+            $ezpics_config['ezpics_phone'] = $dataSend['ezpics_phone'];
+            $ezpics_config['ezpics_code'] = $dataSend['ezpics_code'];
+            $ezpics_config['ezpics_avatar'] = $dataSend['ezpics_avatar'];
+            $ezpics_config['ezpics_name_member'] = $dataSend['ezpics_name_member'];
+
+
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
             $infoCategory->parent = $session->read('infoUser')->id;
             $infoCategory->image = '';
             $infoCategory->keyword = '';
-            $infoCategory->description = '';
+            $infoCategory->description = json_encode($ezpics_config);
             $infoCategory->type = 'group_customer';
             $infoCategory->slug = createSlugMantan($infoCategory->name);
 
@@ -362,7 +371,7 @@ function groupCustomerAgency($input)
         }
 
         $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
-        $listData = $modelCategories->find()->where($conditions)->all()->toList();
+        $listData = $modelCategories->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
 
         if(!empty($listData)){
             foreach ($listData as $key => $value) {
@@ -370,7 +379,7 @@ function groupCustomerAgency($input)
                 $listData[$key]->number_customer = count($customers);
             }
         }
-
+        
         setVariable('listData', $listData);
     }else{
         return $controller->redirect('/login');

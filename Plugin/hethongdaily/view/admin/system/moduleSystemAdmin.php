@@ -54,7 +54,7 @@
 
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <input type="checkbox" name="crm_module[]" value="campaign" <?php if(!empty($data_value) && in_array('campaign', $data_value)) echo 'checked';?> > Chiến dịch
+                    <input type="checkbox" name="crm_module[]" value="campaign" <?php if(!empty($data_value) && in_array('campaign', $data_value)) echo 'checked';?> > Chiến dịch sự kiện
                   </div>
                 </div>
               </div>

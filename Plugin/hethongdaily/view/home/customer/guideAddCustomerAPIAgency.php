@@ -26,10 +26,16 @@
             <p>avatar: link ảnh đại diện của khách hàng</p>
             <p>id_messenger: ID messenger (không bắt buộc)</p>
             <p>id_group: ID nhóm khách hàng (không bắt buộc)</p>
+            
             <p>sex: giới tính, 1 là nam, 0 là nữ (không bắt buộc)</p>
             <p>facebook: link facebook khách hàng (không bắt buộc)</p>
             <p>birthday: ngày sinh, dạng ngày/tháng/năm, ví dụ: 17/9/1989 (không bắt buộc)</p>
             <p>address: địa chỉ khách hàng (không bắt buộc)</p>
+            <br/>
+            <p>id_campaign: ID chiến dịch (không bắt buộc)</p>
+            <p>id_location: ID khu vực (không bắt buộc)</p>
+            <p>id_team: ID đội nhóm (không bắt buộc)</p>
+            <p>note_campaign: Ghi chú chiến dịch (không bắt buộc)</p>
             <br/>
 
             <p><b>Gửi theo dạng raw khi dùng chatbot Zalo</b></p>
@@ -43,7 +49,12 @@
                 "id_group": "1",<br/>
                 "birthday": "17/9/1989",<br/>
                 "address": "18 Thanh Bình, HN",<br/>
-                "chatbot": "zalo"<br/>
+                "chatbot": "zalo",<br/><br/>
+
+                "id_campaign": "1",<br/>
+                "id_location": "1",<br/>
+                "id_team": "1",<br/>
+                "note_campaign": "Hệ thống Phoenix"<br/>
             }
             <br/><br/>
 
