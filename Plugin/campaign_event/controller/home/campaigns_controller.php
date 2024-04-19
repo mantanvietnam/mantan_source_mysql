@@ -11,6 +11,7 @@ function listCampaign($input)
         $metaTitleMantan = 'Danh sách chiến dịch sự kiện';
 
         $modelCampaigns = $controller->loadModel('Campaigns');
+        $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
 
         $conditions = array('id_member'=>$session->read('infoUser')->id);
         $limit = 20;
@@ -28,6 +29,13 @@ function listCampaign($input)
 
         $listData = $modelCampaigns->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         
+        foreach ($listData as $key => $value) {
+            $customer_reg = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$session->read('infoUser')->id])->all()->toList();
+            $customer_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$session->read('infoUser')->id, 'time_checkin >'=>0])->all()->toList();
+
+            $listData[$key]->number_reg = count($customer_reg);
+            $listData[$key]->number_checkin = count($customer_checkin);
+        }
 
         // phân trang
         $totalData = $modelCampaigns->find()->where($conditions)->all()->toList();
@@ -99,6 +107,7 @@ function addCampaign($input)
             $data->create_at = time();
             $data->location = '[]';
             $data->team = '[]';
+            $data->ticket = '[]';
         }
 
         if ($isRequestPost) {
@@ -130,6 +139,16 @@ function addCampaign($input)
                 $data->id_member = $session->read('infoUser')->id;
                 $data->location = json_encode($dataSend['location']);
                 $data->team = json_encode($dataSend['team']);
+
+                $ticket = [];
+                for($i=1;$i<=10;$i++){
+                    if(!empty($dataSend['ticket_name'][$i])){
+                        $ticket[$i]['name'] = $dataSend['ticket_name'][$i];
+                        $ticket[$i]['price'] = (int) @$dataSend['ticket_price'][$i];
+                    }
+                }
+
+                $data->ticket = json_encode($ticket);
                 
                 $modelCampaigns->save($data);
 
@@ -141,6 +160,7 @@ function addCampaign($input)
 
         $data->location = json_decode($data->location, true);
         $data->team = json_decode($data->team, true);
+        $data->ticket = json_decode($data->ticket, true);
 
         setVariable('data', $data);
         setVariable('mess', $mess);
@@ -151,16 +171,21 @@ function addCampaign($input)
 
 function deleteCampaign($input){
     global $controller;
+    global $session;
 
     $modelCampaigns = $controller->loadModel('Campaigns');
     
-    if(!empty($_GET['id'])){
-        $data = $modelCampaigns->get($_GET['id']);
-        
-        if($data){
-            $modelCampaigns->delete($data);
+    if(!empty($session->read('infoUser'))){
+        if(!empty($_GET['id'])){
+            $data = $modelCampaigns->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$session->read('infoUser')->id])->first();
+            
+            if($data){
+                $modelCampaigns->delete($data);
+            }
         }
-    }
 
-    return $controller->redirect('/listCampaign');
+        return $controller->redirect('/listCampaign');
+    }else{
+        return $controller->redirect('/login');
+    }
 }

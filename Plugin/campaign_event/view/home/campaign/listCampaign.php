@@ -57,8 +57,8 @@
               echo '<tr>
                       <td>'.$item->id.'</td>
                       <td>'.$item->name.'</td>
-                      <td></td>
-                      <td></td>
+                      <td><a href="/listCustomerCampaign/?id='.$item->id.'">'.number_format($item->number_reg).' người</a></td>
+                      <td><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=true">'.number_format($item->number_checkin).' người</a></td>
 
                       <td align="center">
                         <a class="dropdown-item" href="/addCampaign/?id='.$item->id.'">

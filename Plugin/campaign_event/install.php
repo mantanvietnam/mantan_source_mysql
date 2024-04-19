@@ -22,6 +22,7 @@ $sqlInstallDatabase .= "CREATE TABLE `campaigns` (
                                 `location` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL , 
                                 `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL , 
                                 `team` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
+                                `ticket` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
                                 `create_at` INT NOT NULL , 
                                 PRIMARY KEY (`id`)
                             ) ENGINE = InnoDB; ";
@@ -34,6 +35,8 @@ $sqlInstallDatabase .= "CREATE TABLE `campaign_customers` (
                                 `id_location` INT NOT NULL DEFAULT '0' , 
                                 `id_team` INT NOT NULL DEFAULT '0' , 
                                 `note` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
+                                `time_checkin` INT NOT NULL DEFAULT '0',
+                                `id_ticket` INT NOT NULL DEFAULT '0',
                                 PRIMARY KEY (`id`)
                             ) ENGINE = InnoDB; ";
 

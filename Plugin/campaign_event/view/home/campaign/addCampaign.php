@@ -34,6 +34,7 @@
                 <li><a href="#tabs-3">Checkin</a></li>
                 <li><a href="#tabs-4">Khu vực</a></li>
                 <li><a href="#tabs-5">Đội nhóm</a></li>
+                <li><a href="#tabs-6">Hạng vé</a></li>
               </ul>
               <div id="tabs-1">
                 <div class="row">
@@ -193,6 +194,32 @@
                   </div>
                 </div>
               </div>
+
+              <div id="tabs-6">
+                <div class="row">
+                  <?php
+                  for($i=1;$i<=10;$i++){
+                    echo '<div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-phone">Tên loại vé '.$i.'</label>
+                              <input type="text" class="form-control phone-mask" name="ticket_name['.$i.']" id="" value="'.@$data->ticket[$i]['name'].'" />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-phone">Giá vé '.$i.'</label>
+                              <input type="text" class="form-control phone-mask" name="ticket_price['.$i.']" id="" value="'.@$data->ticket[$i]['price'].'" />
+                            </div>
+                          </div>';
+                  }
+                  ?>
+
+                  <div class="col-md-12 mb-3">
+                    <button type="submit" class="btn btn-primary">Lưu cài đặt</button>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

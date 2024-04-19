@@ -35,6 +35,7 @@
             <p>id_campaign: ID chiến dịch (không bắt buộc)</p>
             <p>id_location: ID khu vực (không bắt buộc)</p>
             <p>id_team: ID đội nhóm (không bắt buộc)</p>
+            <p>id_ticket: ID hạng vé (không bắt buộc)</p>
             <p>note_campaign: Ghi chú chiến dịch (không bắt buộc)</p>
             <br/>
 
@@ -54,6 +55,7 @@
                 "id_campaign": "1",<br/>
                 "id_location": "1",<br/>
                 "id_team": "1",<br/>
+                "id_ticket": "1",<br/>
                 "note_campaign": "Hệ thống Phoenix"<br/>
             }
             <br/><br/>

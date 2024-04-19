@@ -405,6 +405,10 @@ function saveInfoCustomerAPI($input)
 
                     $modelCustomers->save($infoCustomer);
 
+                    if(!empty($dataSend['clear_group'])){
+                        $modelCategoryConnects->deleteAll(['id_parent'=>$infoCustomer->id, 'keyword'=>'group_customers']);
+                    }
+
                     if(!empty($dataSend['id_group'])){
                         foreach ($dataSend['id_group'] as $id_group) {
                             $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoCustomer->id, 'id_category'=>(int)$id_group])->first();
@@ -439,6 +443,7 @@ function saveInfoCustomerAPI($input)
 
                             $checkCampaign->id_location = (int) @$dataSend['id_location'];
                             $checkCampaign->id_team = (int) @$dataSend['id_team'];
+                            $checkCampaign->id_ticket = (int) @$dataSend['id_ticket'];
                             $checkCampaign->note = @$dataSend['note_campaign'];
 
                             $modelCampaignCustomers->save($checkCampaign);

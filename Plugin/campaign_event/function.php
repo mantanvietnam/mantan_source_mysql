@@ -1,6 +1,8 @@
 <?php
 function getInfoCampaign($id_campaign=0, $id_member=0)
 {
+    global $controller;
+    
     $info = [];
 
     $modelCampaigns = $controller->loadModel('Campaigns');
