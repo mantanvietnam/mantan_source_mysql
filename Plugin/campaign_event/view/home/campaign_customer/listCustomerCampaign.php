@@ -11,6 +11,7 @@
 
   <!-- Form Search -->
   <form method="get" action="">
+    <input type="hidden" name="id" value="<?php echo @$_GET['id'];?>">
     <div class="card mb-4">
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
@@ -88,6 +89,11 @@
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
+          </div>
+
+          <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
+            <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
           </div>
         </div>
       </div>

@@ -51,6 +51,42 @@ function listCustomerCampaign($input)
                     $conditions['time_checkin >'] = 0;
                 }
 
+                if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+                    $listData = $modelCampaignCustomers->find()->where($conditions)->order($order)->all()->toList();
+                    
+                    $titleExcel =   [
+                        ['name'=>'ID', 'type'=>'text', 'width'=>5],
+                        ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
+                        ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+                        ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
+                        ['name'=>'Email', 'type'=>'text', 'width'=>25],
+                        ['name'=>'Khu vực', 'type'=>'text', 'width'=>25],
+                        ['name'=>'Đội nhóm', 'type'=>'text', 'width'=>25],
+                        ['name'=>'Hạng vé', 'type'=>'text', 'width'=>25], 
+                    ];
+
+                    $dataExcel = [];
+                    if(!empty($listData)){
+                        foreach ($listData as $key => $value) {
+                            // thông tin khách hàng
+                            $checkCustomer = $modelCustomers->find()->where(['id'=>$value->id_customer])->first();
+
+                            $dataExcel[] = [
+                                                $checkCustomer->id,   
+                                                $checkCustomer->full_name,   
+                                                $checkCustomer->phone,   
+                                                $checkCustomer->address,   
+                                                $checkCustomer->email,   
+                                                @$infoCampaign->location[$value->id_location],
+                                                @$infoCampaign->team[$value->id_team]['name'],
+                                                @$infoCampaign->ticket[$value->id_ticket]['name']
+                                            ];
+                        }
+                    }
+                    
+                    export_excel($titleExcel,$dataExcel,createSlugMantan($infoCampaign->name));die;
+                }
+
                 $listData = $modelCampaignCustomers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
                 
                 foreach ($listData as $key => $value) {

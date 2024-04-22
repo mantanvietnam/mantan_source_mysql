@@ -212,6 +212,7 @@ function registerEvent($input)
             // add vào chiến dịch sự kiện
             if(!empty($dataSend['id_campaign']) && function_exists('getInfoCampaign')){
                 $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+                $modelCampaigns = $controller->loadModel('Campaigns');
 
                 $infoCampaign = getInfoCampaign($dataSend['id_campaign'], $id_agency);
 
@@ -227,15 +228,39 @@ function registerEvent($input)
                     }
 
                     $checkCampaign->id_location = (int) @$dataSend['location'];
-                    //$checkCampaign->id_team = (int) @$dataSend['id_team'];
+                    $checkCampaign->id_team = 0;
                     $checkCampaign->id_ticket = (int) @$dataSend['id_ticket'];
                     $checkCampaign->note = @$dataSend['note_campaign'];
 
                     $infoCampaign->team = json_decode($infoCampaign->team, true);
+                    $searchTeam = false;
                     foreach ($infoCampaign->team as $key => $team) {
                         if(!empty($team['name']) && !empty($infoMemberWeb) && $infoMemberWeb->type_member == 'member' && $team['id_member'] == $infoMemberWeb->id){
                             $checkCampaign->id_team = $key;
+                            $searchTeam = true;
                             break;
+                        }
+                    }
+
+                    if($searchTeam == false){
+                        $keyNew = 0;
+                        foreach ($infoCampaign->team as $key => $team) {
+                            if(empty($team['name'])){
+                                $keyNew = $key;
+                            }
+                        }
+
+                        if(empty($keyNew)) $keyNew = count($infoCampaign->team);
+
+                        if(!empty($infoMemberWeb) && $infoMemberWeb->type_member == 'member'){
+                            $infoCampaign->team[$keyNew]['name'] = $infoMemberWeb->name.' '.$infoMemberWeb->phone;
+                            $infoCampaign->team[$keyNew]['id_member'] = $infoMemberWeb->id;
+
+                            $checkCampaign->id_team = $keyNew;
+
+                            $infoCampaign->team = json_encode($infoCampaign->team);
+
+                            $modelCampaigns->save($infoCampaign);
                         }
                     }
 

@@ -107,8 +107,13 @@ function historyWarehouseProductAgency($input)
         
 
         if(!empty($listData)){
+            $infoProduct = [];
             foreach($listData as $key => $item){
-                $listData[$key]->product = $modelProducts->find()->where(['id'=>$item->id_product ])->first();
+                if(empty($infoProduct[$item->id_product])){
+                    $infoProduct[$item->id_product] = $modelProducts->find()->where(['id'=>$item->id_product ])->first();
+                }
+                
+                $listData[$key]->product = $infoProduct[$item->id_product];
             }
         }
 

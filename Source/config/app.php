@@ -423,4 +423,12 @@ return [
         'cookie' => 'mantan_source',
         'timeout' => 4320000 // 3 days
     ],
+
+    'DebugKit' => [
+        'forceEnable' => true,
+        'safeTld' => [
+            'localhost',
+            $_SERVER['HTTP_HOST']
+        ]
+    ],
 ];
