@@ -133,7 +133,7 @@
               
               echo '<tr>
               <td>'.$item->id.'</td>
-              <td><img class="img_avatar" src="'.$item->avatar.'" width="80" /></td>
+              <td><img class="img_avatar" src="'.$item->avatar.'" width="80" height="80" /></td>
               <td>'.$infoCustomer.'</td>
               <td>'.$item->groups.'</td>
               <td>'.$sex.'</td>

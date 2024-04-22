@@ -265,7 +265,53 @@ function saveInfoCustomerAPI($input)
 
                         if(!empty($infoCustomer)){
                             if($infoCustomer->id_parent != $infoMember->id){
-                                return array('code'=>5, 'mess'=>'Khách hàng đã có dữ liệu trong hệ thống');
+                                $infoCustomer->id_parent = $infoMember->id;
+                                $infoCustomer->full_name = $dataSend['full_name'];
+
+                                if(!empty($dataSend['email'])){
+                                    $infoCustomer->email = $dataSend['email'];
+                                }
+
+                                if(!empty($dataSend['address'])){
+                                    $infoCustomer->address = $dataSend['address'];
+                                }
+
+                                if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                                    $avatar = uploadImage($infoMember->id, 'avatar', 'avatar_'.$infoCustomer->phone);
+
+                                    if(!empty($avatar['linkOnline'])){
+                                        $infoCustomer->avatar = $avatar['linkOnline'];
+                                    }
+                                }
+
+                                if(empty($infoCustomer->img_card_member)){
+                                    if(!empty($dataSend['id_group'])){
+                                        $dataSend['id_group'] = explode(',', $dataSend['id_group']);
+
+                                        $infoCustomer->id_group = (int) $dataSend['id_group'][0];
+
+                                        $infoGroup = $modelCategories->find()->where(['id'=>(int) $dataSend['id_group'][0], 'type' => 'group_customer', 'parent'=>$infoMember->id])->first();
+
+                                        if(!empty($infoGroup->description)){
+                                            $ezpics_config = json_decode($infoGroup->description, true);
+
+                                            if(!empty($ezpics_config['id_ezpics'])){
+                                                $img_card_member = "https://designer.ezpics.vn/create-image-series/?id=".$ezpics_config['id_ezpics']."&".$ezpics_config['ezpics_full_name']."=".$infoCustomer->full_name."&".$ezpics_config['ezpics_phone']."=".$infoCustomer->phone."&".$ezpics_config['ezpics_code']."=KH".$infoCustomer->phone."&".$ezpics_config['ezpics_avatar']."=".$infoCustomer->avatar."&".$ezpics_config['ezpics_name_member']."=".$infoMember->name;
+
+                                                //$image_data = file_get_contents($img_card_member);
+                                                //file_put_contents(__DIR__."/../../../../upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png", $image_data);
+
+                                                //$infoCustomer->img_card_member = $urlHomes."upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png";
+                                                $infoCustomer->img_card_member = $img_card_member;
+                                            }
+                                        }
+
+                                    }
+                                }
+
+                                $modelCustomers->save($infoCustomer);
+
+                                return array('code'=>5, 'mess'=>'Khách hàng đã có dữ liệu trong hệ thống', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
                             }
                         }else{
                             $infoCustomer = $modelCustomers->newEmptyEntity();
@@ -389,10 +435,11 @@ function saveInfoCustomerAPI($input)
                             if(!empty($ezpics_config['id_ezpics'])){
                                 $img_card_member = "https://designer.ezpics.vn/create-image-series/?id=".$ezpics_config['id_ezpics']."&".$ezpics_config['ezpics_full_name']."=".$infoCustomer->full_name."&".$ezpics_config['ezpics_phone']."=".$infoCustomer->phone."&".$ezpics_config['ezpics_code']."=KH".$infoCustomer->phone."&".$ezpics_config['ezpics_avatar']."=".$infoCustomer->avatar."&".$ezpics_config['ezpics_name_member']."=".$infoMember->name;
 
-                                $image_data = file_get_contents($img_card_member);
-                                file_put_contents(__DIR__."/../../../../upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png", $image_data);
+                                //$image_data = file_get_contents($img_card_member);
+                                //file_put_contents(__DIR__."/../../../../upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png", $image_data);
 
-                                $infoCustomer->img_card_member = $urlHomes."upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png";
+                                //$infoCustomer->img_card_member = $urlHomes."upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png";
+                                $infoCustomer->img_card_member = $img_card_member;
                             }
                         }
 

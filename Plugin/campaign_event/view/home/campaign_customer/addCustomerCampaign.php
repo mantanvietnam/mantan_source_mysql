@@ -61,11 +61,11 @@
                       <?php
                       if(!empty($infoCampaign->team)){
                         foreach($infoCampaign->team as $key=>$team){
-                          if(!empty($team)){
+                          if(!empty($team['name'])){
                             if(empty($data->id_team) || $data->id_team!=$key){
-                              echo '<option value="'.$key.'">'.$team.'</option>';
+                              echo '<option value="'.$key.'">'.$team['name'].'</option>';
                             }else{
-                              echo '<option selected value="'.$key.'">'.$team.'</option>';
+                              echo '<option selected value="'.$key.'">'.$team['name'].'</option>';
                             }
                           }
                         }

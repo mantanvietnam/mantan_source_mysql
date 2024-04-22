@@ -168,6 +168,12 @@
             #myPhone{
                 color: #000 !important;
             }
+
+            #QRCode{
+                position: relative;
+                top: -19px;
+                left: -155px;
+            }
         </style>                            
     </head>
     
@@ -180,6 +186,7 @@
                 <div class="container p-3 d-flex justify-content-center"> 
                     <div class="card p-4"> 
                         <div class=" d-flex flex-column justify-content-center align-items-center"> 
+                            <img onclick="showQRCode();" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.$urlCurrent;?>" id="QRCode" width="30" />
                              
                             <img class="avatar" src="<?php echo $info->avatar;?>" height="150" width="150" />
                             
@@ -368,7 +375,7 @@
                                                             echo '<del class="small">'.number_format($product->price_old).'đ</del>';
                                                         }
                                         echo        '</td>
-                                                    <td onclick="checkbox('.$product->id.');">'.$product->title.'</td>
+                                                    <td onclick="checkbox('.$product->id.');"><a style="color: #000;" href="/product/'.$product->slug.'.html" target="_blank">'.$product->title.'</a></td>
                                                 </tr>';
 
                                         echo '  <div class="modal fade" id="slideProduct'.$product->id.'Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -522,6 +529,19 @@
                 <a class="nav-link" id="order-tab" data-toggle="tab" href="#order">Đặt hàng</a>
             </li>
         </ul>
+
+        <div class="modal fade" id="QRCodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Scan QR Code</h5>
+                    </div>
+                    <div class="modal-body">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.$urlCurrent;?>" width="100%" />
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Bootstrap JS, Popper.js, and jQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -832,6 +852,13 @@
             
             xhr.send();
         };
+        </script>
+
+        <script type="text/javascript">
+            function showQRCode()
+            {
+                $('#QRCodeModal').modal('show');
+            }
         </script>
     </body>
 </html>

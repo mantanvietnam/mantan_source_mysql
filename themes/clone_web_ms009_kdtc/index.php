@@ -353,7 +353,9 @@ global $urlThemeActive;
                         </div>
                         <form action="/registerEvent" id="myForm" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
+                            <input type="hidden" name="id_member" value="<?php echo @$setting['id_member'];?>">
                             <input type="hidden" name="id_group" value="<?php echo @$setting['id_group_customer'];?>">
+                            <input type="hidden" name="id_campaign" value="<?php echo @$setting['id_campaign'];?>">
                             <div class="row">
                                 <div class="col-lg-6 input-contact">
                                     <label>Họ và tên *</label>
@@ -398,6 +400,7 @@ global $urlThemeActive;
         </div>
     </section>
 
+    <?php if(!empty($setting['title_sp_to'])){ ?>
     <section id="section-learn">
         <div class="container">
             <div class="section-title text-center m-auto">
@@ -496,6 +499,7 @@ global $urlThemeActive;
             </div>
         </div>
     </section>
+    <?php }?>
     
     <?php 
     if(function_exists('getListFeedback')){
@@ -507,16 +511,16 @@ global $urlThemeActive;
                         <div class="comment-list">';
                             foreach($getListFeedback as $item){
                                 echo '  <div class="comment-item">
-                                            <div class="comment-content">
-                                                <p>'.@$item->content.'</p>
-                                            </div>
-
                                             <div class="comment-img">
                                                 <img src="'.@$item->avatar.'" alt="">
                                             </div>
 
                                             <div class="comment-name">
-                                                <span>'.@$item->full_name.'</span>
+                                                <span>'.@$item->full_name.' - '.@$item->position.'</span>
+                                            </div>
+
+                                            <div class="comment-content">
+                                                <p>'.@$item->content.'</p>
                                             </div>
                                         </div>';
                             }

@@ -374,8 +374,21 @@ function groupCustomerAgency($input)
         $listData = $modelCategories->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
 
         if(!empty($listData)){
+            $join = [
+                        [
+                            'table' => 'customers',
+                            'alias' => 'Customers',
+                            'type' => 'LEFT',
+                            'conditions' => [
+                                'CategoryConnects.id_parent = Customers.id',
+                                'Customers.id_parent = '.$session->read('infoUser')->id
+                            ],
+                        ]
+                    ];
+            $select = ['CategoryConnects.id'];
+
             foreach ($listData as $key => $value) {
-                $customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers','id_category'=>$value->id])->all()->toList();
+                $customers = $modelCategoryConnects->find()->join($join)->select($select)->where(['keyword'=>'group_customers','id_category'=>$value->id])->all()->toList();
                 $listData[$key]->number_customer = count($customers);
             }
         }

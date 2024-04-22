@@ -183,7 +183,8 @@
                     echo '<div class="col-md-6">
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-phone">Đội nhóm '.$i.'</label>
-                              <input type="text" class="form-control phone-mask" name="team['.$i.']" id="" value="'.@$data->team[$i].'" />
+                              <input id="team'.$i.'" type="text" class="form-control phone-mask" name="team['.$i.']" id="" value="'.@$data->team[$i]['name'].'" />
+                              <input type="hidden" value="'.@$data->team[$i]['id_member'].'" name="team_boss['.$i.']" id="team_boss'.$i.'" />
                             </div>
                           </div>';
                   }
@@ -230,4 +231,60 @@
 <!--/ Responsive Table -->
 </div>
 
+<script type="text/javascript">
+    // tìm sản phẩm
+    $(function() {
+        function split( val ) {
+          return val.split( /,\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+        <?php for($i=1; $i<=20; $i++){ ?>
+        $( "#team<?php echo $i;?>" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchMemberAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#team<?php echo $i;?>" ).val(ui.item.label);
+                $( "#team_boss<?php echo $i;?>" ).val(ui.item.id);
+
+                return false;
+            }
+        });
+        <?php }?>
+    });
+</script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/footer.php'); ?>

@@ -570,6 +570,7 @@ function info($input)
     global $urlHomes;
 
     $modelMembers = $controller->loadModel('Members');
+    $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
     $session->write('infoUser', []);
 
 	if(!empty($_GET['id'])){
@@ -600,7 +601,25 @@ function info($input)
 			$info->image_system = @$system->image;
 
 			if(function_exists('getAllProductActive')){
-				$allProduct = getAllProductActive();
+				// lấy sản phẩm trong kho
+				$conditions = array('id_member'=>$info->id);
+				$warehouseProduct = $modelWarehouseProducts->find()->where($conditions)->all()->toList();
+				
+				if(empty($warehouseProduct)){
+					$allProduct = getAllProductActive();
+				}else{
+					$allProduct = [];
+					foreach ($warehouseProduct as $product) {
+						if($product->quantity > 0){
+							$infoProduct = getProduct($product->id_product);
+
+							if(!empty($infoProduct)){
+								$allProduct[] = $infoProduct;
+							}
+						}
+					}
+				}
+
 				$allCategoryProduct = getAllCategoryProduct();
 				$listProduct = [];
 

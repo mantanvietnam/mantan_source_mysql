@@ -405,6 +405,15 @@ function getAllProductActive()
   return $modelProduct->find()->where(['status'=>'active'])->order(['id_category'=>'asc'])->all()->toList();
 }
 
+function getProduct($id=0)
+{
+  global $controller;
+
+  $modelProduct = $controller->loadModel('Products');
+
+  return $modelProduct->find()->where(['id'=>(int) $id, 'status'=>'active'])->first();
+}
+
 function getAllCategoryProduct()
 {
   global $modelCategories;

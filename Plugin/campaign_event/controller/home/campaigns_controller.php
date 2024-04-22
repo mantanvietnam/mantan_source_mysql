@@ -138,7 +138,6 @@ function addCampaign($input)
                 $data->img_logo = $img_logo;
                 $data->id_member = $session->read('infoUser')->id;
                 $data->location = json_encode($dataSend['location']);
-                $data->team = json_encode($dataSend['team']);
 
                 $ticket = [];
                 for($i=1;$i<=10;$i++){
@@ -148,7 +147,16 @@ function addCampaign($input)
                     }
                 }
 
+                $team = [];
+                for($i=1;$i<=20;$i++){
+                    if(!empty($dataSend['team'][$i])){
+                        $team[$i]['name'] = $dataSend['team'][$i];
+                        $team[$i]['id_member'] = (int) @$dataSend['team_boss'][$i];
+                    }
+                }
+
                 $data->ticket = json_encode($ticket);
+                $data->team = json_encode($team);
                 
                 $modelCampaigns->save($data);
 

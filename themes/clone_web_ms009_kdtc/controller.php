@@ -101,7 +101,9 @@ function setting_theme_clone_web($input){
                         'textfooter'=> @$dataSend['textfooter'],
                         'aboutus'=> @$dataSend['aboutus'],    
 
+                        'id_member'=> @$dataSend['id_member'],              
                         'id_group_customer'=> @$dataSend['id_group_customer'],              
+                        'id_campaign'=> @$dataSend['id_campaign'],              
                         'domain_crm'=> $urlHomes,               
                         
                         'id_product_ezpics'=> @$dataSend['id_product_ezpics'],              
@@ -188,26 +190,66 @@ function registerEvent($input)
                 }
             }
 
-            if(!empty($infoMemberWeb)){
-                if($infoMemberWeb->type_member == 'member'){
-                    $id_agency = (int) $infoMemberWeb->id;
-                    $id_aff = 0;
-                }else{
-                    $id_agency = 0;
-                    $id_aff = (int) $infoMemberWeb->id;
-                }
+            if(empty($dataSend['id_member'])){
+                if(!empty($infoMemberWeb)){
+                    if($infoMemberWeb->type_member == 'member'){
+                        $id_agency = (int) $infoMemberWeb->id;
+                        $id_aff = 0;
+                    }else{
+                        $id_agency = 0;
+                        $id_aff = (int) $infoMemberWeb->id;
+                    }
 
-                $name_agency = $infoMemberWeb->name;
+                    $name_agency = $infoMemberWeb->name;
+                }
+            }else{
+                $id_agency = (int) $dataSend['id_member'];
+                $id_aff = 0;
             }
 
             $checkPhone = createCustomerNew(@$dataSend['name'], @$dataSend['phone'], @$dataSend['email'], @$dataSend['address'], (int) @$dataSend['sex'], (int) @$dataSend['id_city'], $id_agency, $id_aff, $name_agency, $id_messenger, $avatar, $birthday_date, $birthday_month, $birthday_year, @$dataSend['id_group']);
 
+            // add vào chiến dịch sự kiện
+            if(!empty($dataSend['id_campaign']) && function_exists('getInfoCampaign')){
+                $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+
+                $infoCampaign = getInfoCampaign($dataSend['id_campaign'], $id_agency);
+
+                if(!empty($infoCampaign)){
+                    $checkCampaign = $modelCampaignCustomers->find()->where(['id_member'=>$id_agency, 'id_customer'=>(int) $checkPhone->id, 'id_campaign'=>(int) $dataSend['id_campaign']])->first();
+
+                    if(empty($checkCampaign)){
+                        $checkCampaign = $modelCampaignCustomers->newEmptyEntity();
+
+                        $checkCampaign->id_member = $id_agency;
+                        $checkCampaign->id_customer = $checkPhone->id;
+                        $checkCampaign->id_campaign = (int) $dataSend['id_campaign'];
+                    }
+
+                    $checkCampaign->id_location = (int) @$dataSend['location'];
+                    //$checkCampaign->id_team = (int) @$dataSend['id_team'];
+                    $checkCampaign->id_ticket = (int) @$dataSend['id_ticket'];
+                    $checkCampaign->note = @$dataSend['note_campaign'];
+
+                    $infoCampaign->team = json_decode($infoCampaign->team, true);
+                    foreach ($infoCampaign->team as $key => $team) {
+                        if(!empty($team['name']) && !empty($infoMemberWeb) && $infoMemberWeb->type_member == 'member' && $team['id_member'] == $infoMemberWeb->id){
+                            $checkCampaign->id_team = $key;
+                            break;
+                        }
+                    }
+
+                    $modelCampaignCustomers->save($checkCampaign);
+                }
+            }
+
+            // tạo ảnh vé mời
             $linkImage = '';
 
             if(!empty($settingTheme['id_product_ezpics'])){
                 if($dataSend['location'] == 1){
                     $time = 'Ngày 4-5/5';
-                    $address = 'Hà Nội ';
+                    $address = '89 Lê Đức Thọ, Mỹ Đình, HN';
                 }else{
                     $time = 'Tháng 7/2024';
                     $address = 'Sài Gòn';

@@ -381,8 +381,18 @@
           <div class="tab-pane fade" id="navs-top-reg" role="tabpanel">
             <div class="card-body row ">
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">ID đại lý quản lý</label>
+                <input type="text" class="form-control mb-3" name="id_member" value="<?php echo @$data['id_member'];?>" />
+              </div>
+
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <label class="form-label" for="basic-default-fullname">ID nhóm khách hàng</label>
                 <input type="text" class="form-control mb-3" name="id_group_customer" value="<?php echo @$data['id_group_customer'];?>" />
+              </div>
+
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <label class="form-label" for="basic-default-fullname">ID chiến dịch</label>
+                <input type="text" class="form-control mb-3" name="id_campaign" value="<?php echo @$data['id_campaign'];?>" />
               </div>
               
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">

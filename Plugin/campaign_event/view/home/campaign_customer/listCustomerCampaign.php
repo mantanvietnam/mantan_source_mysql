@@ -52,11 +52,11 @@
               <?php
               if(!empty($infoCampaign->team)){
                 foreach($infoCampaign->team as $key=>$team){
-                  if(!empty($team)){
+                  if(!empty($team['name'])){
                     if(empty($_GET['id_team']) || $_GET['id_team']!=$key){
-                      echo '<option value="'.$key.'">'.$team.'</option>';
+                      echo '<option value="'.$key.'">'.$team['name'].'</option>';
                     }else{
-                      echo '<option selected value="'.$key.'">'.$team.'</option>';
+                      echo '<option selected value="'.$key.'">'.$team['name'].'</option>';
                     }
                   }
                 }
@@ -138,7 +138,7 @@
                       <td>'.$checkin.'</td>
                       <td>'.$item->customer_name.'<br/>'.$item->customer_phone.'</td>
                       <td>'.@$infoCampaign->location[$item->id_location].'</td>
-                      <td>'.@$infoCampaign->team[$item->id_team].'</td>
+                      <td>'.@$infoCampaign->team[$item->id_team]['name'].'</td>
                       <td>'.@$infoCampaign->ticket[$item->id_ticket]['name'].'</td>
 
                       <td>
