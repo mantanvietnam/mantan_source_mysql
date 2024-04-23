@@ -1256,11 +1256,17 @@ $complaintType = [
 
 global $permissiondata;
 $permissiondata =[
-    'exportarexcel'=>'xuất excel',
-    'edit'=>'sửa',
-    'status'=>'trạng thái',
-    'type'=>'loại tài khoản',
+    'exportarexcel'=>'Xuất excel',
+    'idadmin'=>'Id',
+    'avatar'=>'Ảnh đạt diện',
+    'fullname'=>'Họ tên',
+    'info'=>'Thông tin',
+    'type'=>'Loại tài khoản',
     'coin'=>'cộng từ Coin',
+    'edit'=>'Sửa',
+    'status'=>'Trạng thái',
+    
+    
 ];
 
 global $transactionKey;
@@ -1280,7 +1286,7 @@ function checkPermission($permission='') {
 
     if(!empty($session->read('infoAdmin'))){
         $infoAdmin = $session->read('infoAdmin');
-        
+
         if($infoAdmin->type=='staff'){
             if(!empty(@$infoAdmin->permission_data) && in_array($permission,  json_decode(@$infoAdmin->permission_data, true))){
                 $return = 1;

@@ -72,18 +72,21 @@
       <table class="table table-bordered">
         <thead>
         <tr class="">
-          <th>ID</th>
-          <th>Avatar</th>
-          <th>Họ và tên</th>
-          <th>Thông tin</th>
-          <?php if(checkPermission('type')){ echo '<th>Loại tài khoản</th>';} ?>
-           <?php if(checkPermission('coin')){ echo '<th>Cộng/Trừ coin</th>';} ?>
-          <?php if(checkPermission('edit')){ echo '<th>Sửa</th>';} ?>
-          <?php if(checkPermission('status')){ echo '<th>Trạng thái</th>';} ?>
+          <?php if(checkPermission('idadmin')){ echo '<th>ID</th>';} 
+                if(checkPermission('avatar')){ echo '<th>Avatar</th>';} 
+                if(checkPermission('fullname')){ echo '<th>Họ và tên</th>';} 
+                if(checkPermission('info')){ echo '<th>Thông tin</th>';} 
+                if(checkPermission('type')){ echo '<th>Loại tài khoản</th>';} 
+                if(checkPermission('coin')){ echo '<th>Cộng/Trừ coin</th>';} 
+                if(checkPermission('edit')){ echo '<th>Sửa</th>';} 
+                if(checkPermission('status')){ echo '<th>Trạng thái</th>';} ?>
         </tr>
         </thead>
         <tbody>
         <?php
+
+        
+        
         if (!empty($listData)) {
             foreach ($listData as $item) {
                 if ($item->type == 0) {
@@ -110,62 +113,70 @@
                   </a><br/> Đã khóa ';
                 }
 
-                echo '<tr>
-                        <td align="center">' . $item->id . '</td>
-                        <td align="center"><img src="' . $item->avatar . '" width="100" /></td>
-                        <td>
-                          ' . $item->name . '
-                          </br>
-                          ' . $item->phone_number . ' 
-                          </br>
-                          ' . $item->email . ' 
-                        </td>
-                        <td>
-                          Số dư: ' . number_format($item->total_coin) . ' đ
-                          <br>
-                          Địa chỉ: ' . $item->address . '
-                        </td>';
-                         if(checkPermission('type')){
-                       echo '
-                        <td align="center">
-                            ' . $type . '
-                          </br> 
-                          <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-blockUserProvince/?id='.$item->id.'">
-                           Block khu vực
-                          </a>
-                        </td>';
-                        }
-                         if(checkPermission('coin')){
-                       echo '
-                        <td>
-                          <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=plus&id='.$item->id.'">
-                           Cộng coin 
-                          </a>
-                          <a class="btn btn-danger" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=minus&id='.$item->id.'">
-                           Trừ coin 
-                          </a>
-                        </td>';
-                        }
-                         if(checkPermission('edit')){
-                       echo '
-                        <td> 
-                        <p align="center">
-                        <a class="btn btn-primary" 
-                          href="/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=' . $item->id . '"
-                        >
-                          <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
-                        </a>
-                        </p>
-                        </td>';
-                    }
-                      if(checkPermission('status')){
-        
-                     echo '<td align="center">' . $status . '</td>
-                        
-                      </td>';
-                  }
+              echo '<tr>';
+                if(checkPermission('idadmin')){
+                  echo '<td align="center">' . $item->id . '</td>';
+                }
+                if(checkPermission('avatar')){
+                  echo  '<td align="center"><img src="' . $item->avatar . '" width="100" /></td>';
+                }
 
-                  echo '</tr>';
+                if(checkPermission('fullname')){
+                  echo '<td>'.$item->name . '
+                  </br>'. $item->phone_number . ' 
+                  </br>' . $item->email.'
+                  </td>';
+                }
+
+                if(checkPermission('info')){
+                  echo '<td>
+                  Số dư: ' . number_format($item->total_coin) . ' đ
+                  <br>
+                  Địa chỉ: ' . $item->address . '
+                  </td>';
+                }
+
+                if(checkPermission('type')){
+                 echo '
+                 <td align="center">
+                 ' . $type . '
+                 </br> 
+                 <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-blockUserProvince/?id='.$item->id.'">
+                 Block khu vực
+                 </a>
+                 </td>';
+               }
+
+               if(checkPermission('coin')){
+                 echo '
+                 <td>
+                 <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=plus&id='.$item->id.'">
+                 Cộng coin 
+                 </a>
+                 <a class="btn btn-danger" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=minus&id='.$item->id.'">
+                 Trừ coin 
+                 </a>
+                 </td>';
+               }
+             
+               if(checkPermission('edit')){
+                 echo '
+                 <td> 
+                 <p align="center">
+                 <a class="btn btn-primary" 
+                 href="/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=' . $item->id . '"
+                 >
+                 <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                 </a>
+                 </p>
+                 </td>';
+               }
+
+               if(checkPermission('status')){
+                 echo '<td align="center">' . $status . '</td>';
+               } 
+
+             echo '</tr>';
             }
         } else {
             echo '<tr>
