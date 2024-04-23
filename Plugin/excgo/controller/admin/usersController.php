@@ -583,3 +583,16 @@ function blockUserProvince($input){
     setVariable('user', $user);
     setVariable('listBlock', $listBlock);
 }
+
+function addPermissionData($input){
+    // aaaaaaaaaaaaaa
+
+    global $controller;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách cuốc xe';
+    $bookingModel = $controller->loadModel('Bookings');
+    $provinceModel = $controller->loadModel('Provinces');
+    debug($_GET);
+    die;
+}

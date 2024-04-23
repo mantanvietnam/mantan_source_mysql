@@ -1,6 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thành viên</h4>
+  <?php if(checkPermission('exportarexcel')){ ?>
   <p><a href="#" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập excel</a></p>
+<?php } ?>
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
@@ -74,10 +76,10 @@
           <th>Avatar</th>
           <th>Họ và tên</th>
           <th>Thông tin</th>
-          <th>Loại tài khoản</th>
-          <th>Cộng/Trừ coin</th>
-          <th>Sửa</th>
-          <th>Trạng thái</th>
+          <?php if(checkPermission('type')){ echo '<th>Loại tài khoản</th>';} ?>
+           <?php if(checkPermission('coin')){ echo '<th>Cộng/Trừ coin</th>';} ?>
+          <?php if(checkPermission('edit')){ echo '<th>Sửa</th>';} ?>
+          <?php if(checkPermission('status')){ echo '<th>Trạng thái</th>';} ?>
         </tr>
         </thead>
         <tbody>
@@ -122,14 +124,19 @@
                           Số dư: ' . number_format($item->total_coin) . ' đ
                           <br>
                           Địa chỉ: ' . $item->address . '
-                        </td>
+                        </td>';
+                         if(checkPermission('type')){
+                       echo '
                         <td align="center">
                             ' . $type . '
                           </br> 
                           <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-blockUserProvince/?id='.$item->id.'">
                            Block khu vực
                           </a>
-                        </td>
+                        </td>';
+                        }
+                         if(checkPermission('coin')){
+                       echo '
                         <td>
                           <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=plus&id='.$item->id.'">
                            Cộng coin 
@@ -137,7 +144,10 @@
                           <a class="btn btn-danger" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=minus&id='.$item->id.'">
                            Trừ coin 
                           </a>
-                        </td>
+                        </td>';
+                        }
+                         if(checkPermission('edit')){
+                       echo '
                         <td> 
                         <p align="center">
                         <a class="btn btn-primary" 
@@ -146,12 +156,16 @@
                           <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                         </a>
                         </p>
-
-                        <td align="center">' . $status . '</td>
+                        </td>';
+                    }
+                      if(checkPermission('status')){
+        
+                     echo '<td align="center">' . $status . '</td>
                         
-                      </td>
+                      </td>';
+                  }
 
-                      </tr>';
+                  echo '</tr>';
             }
         } else {
             echo '<tr>

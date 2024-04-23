@@ -1254,6 +1254,15 @@ $complaintType = [
     'passive' => 2,
 ];
 
+global $permissiondata;
+$permissiondata =[
+    'exportarexcel'=>'xuất excel',
+    'edit'=>'sửa',
+    'status'=>'trạng thái',
+    'type'=>'loại tài khoản',
+    'coin'=>'cộng từ Coin',
+];
+
 global $transactionKey;
 $transactionKey = 'EXCGO';
 
@@ -1262,3 +1271,32 @@ $urlTransaction = 'https://img.vietqr.io/image/TPB-26689898989-compact2.png?';
 
 global $defaultAvatar;
 $defaultAvatar = 'https://apis.exc-go.vn/plugins/excgo/view/image/default-avatar.png';
+
+
+function checkPermission($permission='') {
+    global $session;
+    global $controller;
+    global $permissiondata;
+
+    if(!empty($session->read('infoAdmin'))){
+        $infoAdmin = $session->read('infoAdmin');
+        
+        if($infoAdmin->type=='staff'){
+            if(!empty(@$infoAdmin->permission_data) && in_array($permission,  json_decode(@$infoAdmin->permission_data, true))){
+                $return = 1;
+            }else{
+                $return = 0;
+              
+            }
+            
+        }else{
+            $return = 1;
+          
+        }
+    }else{
+        //$return = 0;
+        return $controller->redirect('/admins/logout');
+    }
+      
+    return $return;
+}

@@ -8,8 +8,9 @@ include_once('controller/admin/complaintController.php'); // Khiếu nại
 include_once('controller/admin/supportController.php'); // Yêu cầu hỗ trợ
 include_once('controller/admin/configController.php'); // Phí sàn
 include_once('controller/admin/transactionControllers.php'); // Phí sàn
+include_once('controller/admin/permissionController.php'); // Phân quyên
 
-// Api
+// Api .php
 include_once('controller/api/provincesController.php'); // Tỉnh thành
 include_once('controller/api/usersController.php'); // Tài xế
 include_once('controller/api/bookingsController.php'); // Cuốc xe
