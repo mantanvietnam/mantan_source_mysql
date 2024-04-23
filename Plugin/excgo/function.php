@@ -889,7 +889,7 @@ function processAddMoney($money, $phoneNumber): string
                 ->first();
 
             if ($user) {
-                $user->totalcoin += $money;
+                $user->total_coin += $money;
                 $modelUser->save($user);
 
                 // Save transaction

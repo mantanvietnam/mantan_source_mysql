@@ -16,6 +16,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserFlashUploadUrl = '/webroot/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
 
 	//config.extraPlugins = 'video,html5video,widget,widgetselection,clipboard,lineutils';
+	config.extraPlugins = 'ckeditor_wiris';
 
 	config.height = '500px';
 	config.width = '100%';
