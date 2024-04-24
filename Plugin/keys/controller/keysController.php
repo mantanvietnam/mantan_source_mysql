@@ -10,6 +10,27 @@ function listKey($input)
 
 	$modelKeys = $controller->loadModel('Appkeys');
 
+    $listData = $modelKeys->find()->all()->toList();
+    $app = [];
+    $timeNow = time();
+    foreach ($listData as $key => $value) {
+        if(empty($app[$value->id_category])){
+            $app[$value->id_category] = $modelCategories->find()->where(['id'=>(int) $value->id_category])->first();
+        }
+
+        if(empty($value->deadline)){
+            if($app[$value->id_category]->keyword == 'first_month'){
+                $value->deadline = getLastDayOfMonthTimestamp();
+            }else{
+                do{
+                    $value->deadline += 30*24*60*60; // cộng thêm 30 ngày
+                }while($value->deadline<$timeNow);
+            }
+
+            $modelKeys->save($value);
+        }
+    }
+
 	$conditions = array();
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -127,8 +148,14 @@ function addKey($input)
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelKeys->get( (int) $_GET['id']);
+
+        if(!empty($data) && empty($data->create_at)){
+            $data->create_at = time();
+        }
     }else{
         $data = $modelKeys->newEmptyEntity();
+
+        $data->create_at = time();
     }
 
 	if ($isRequestPost) {
@@ -146,6 +173,8 @@ function addKey($input)
             $checkKey = $modelKeys->find()->where($conditions)->first();
 
             if(empty($checkKey)){
+                $app = $modelCategories->find()->where(['id'=>(int) $dataSend['id_category']])->first();
+
     	        // tạo dữ liệu save
     	        $data->value = trim($dataSend['value']);
                 $data->id_category = (int) $dataSend['id_category'];
@@ -155,6 +184,23 @@ function addKey($input)
 
                 if(empty($data->used)) $data->used = 0;
                 if(empty($data->month)) $data->month = (int) date('m');
+
+                if(!empty($dataSend['create_at'])){
+                    $create_at = explode('/', $dataSend['create_at']);
+
+                    $data->create_at = mktime(0, 0, 0, $create_at[1], $create_at[0], $create_at[2]);
+                }
+
+                if($app->keyword == 'first_month'){
+                    $data->deadline = getLastDayOfMonthTimestamp();
+                }else{
+                    $data->deadline = $data->create_at;
+                    $timeNow = time();
+
+                    do{
+                        $data->deadline += 30*24*60*60; // cộng thêm 30 ngày
+                    }while($data->deadline < $timeNow);
+                }
 
     	        $modelKeys->save($data);
 

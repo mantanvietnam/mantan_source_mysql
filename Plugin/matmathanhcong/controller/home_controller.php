@@ -99,7 +99,14 @@ function result($input)
 
         $url = 'https://quantri.matmathanhcong.vn/api/Calculate?customer_birthdate='.$dataSend['day'].'/'.$dataSend['month'].'/'.$dataSend['year'].'&customer_name='.urlencode($dataSend['name']);
         
-        $infoNumber = file_get_contents($url);
+        try {
+            $infoNumber = file_get_contents($url);
+        } catch (Exception $e) {
+            return $controller->redirect('/?error=api_error');
+
+            echo "Đã xảy ra lỗi: " . $e->getMessage();
+        }
+        
         $infoNumber = json_decode($infoNumber, true);
 
         $full_number = array_merge($tach_year,$tach_month, $tach_day);

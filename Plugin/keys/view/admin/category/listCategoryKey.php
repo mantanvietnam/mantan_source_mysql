@@ -83,8 +83,11 @@
                 </div>
 
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Từ khóa</label>
-                  <input type="text" class="form-control" placeholder="" name="keyword" id="keyword" value="" />
+                  <label class="form-label" for="basic-default-fullname">Thời điểm reset key</label>
+                  <select name="keyword" id="keyword" class="form-select">
+                    <option value="first_month">Đầu tháng</option>
+                    <option value="date_create">Ngày tạo</option>
+                  </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu</button>

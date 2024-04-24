@@ -81,20 +81,20 @@
 
                     <div class="intro-result-hiden">
                         <div id="tinhcach" class="mg-10 bg-f6f6f6">
-                           <h4 class="title-tinhcach title-everyone">Con số chủ đạo đường đời là số <?php echo $infoNumber[0]['Values']['ConSoChuDaoDuongDoi'];?></h4> 
-                            <p class="description"><?php echo $infoNumber[0]['Values']['ConSoChuDaoDuongDoi_NoiDung'];?></p>
+                           <h4 class="title-tinhcach title-everyone">Con số chủ đạo đường đời là số <?php echo @$infoNumber[0]['Values']['ConSoChuDaoDuongDoi'];?></h4> 
+                            <p class="description"><?php echo @$infoNumber[0]['Values']['ConSoChuDaoDuongDoi_NoiDung'];?></p>
                             <p class="cl-red" data-toggle="modal" data-target="#exampleModalheader">Bấm vào đây để xem luận giải của mục này!</p>
                         </div>
 
                          <div id="duongdoi" class="mg-10 bd-10 bg-f6f6f6">
-                            <h4 class="title-duongdoi title-everyone">Năng Lực Tự Nhiên Sẵn Có là số: <span >  <?php echo $infoNumber[1]['Values']['NangLucTuNhienSanCo'];?></span></h4>
-                            <p class="description"> <?php echo $infoNumber[1]['Values']['NangLucTuNhienSanCo_NoiDung'];?></p>
+                            <h4 class="title-duongdoi title-everyone">Năng Lực Tự Nhiên Sẵn Có là số: <span >  <?php echo @$infoNumber[1]['Values']['NangLucTuNhienSanCo'];?></span></h4>
+                            <p class="description"> <?php echo @$infoNumber[1]['Values']['NangLucTuNhienSanCo_NoiDung'];?></p>
                             <p class="cl-red" data-toggle="modal" data-target="#exampleModalheader">Bấm vào đây để xem luận giải của mục này!</p>
                         </div>
 
                         <div id="chuky" class="mg-10 bd-10 bg-f6f6f6">
-                            <h4 class="title-everyone">Chu Kỳ Vòng Đời là số: <span ><?php echo $infoNumber[11]['Values']['ChuKyVongDoi1'];?></span></h4>
-                            <p class="description"><?php echo $infoNumber[11]['Values']['ChuKyVongDoi1_NoiDung'];?></p>
+                            <h4 class="title-everyone">Chu Kỳ Vòng Đời là số: <span ><?php echo @$infoNumber[11]['Values']['ChuKyVongDoi1'];?></span></h4>
+                            <p class="description"><?php echo @$infoNumber[11]['Values']['ChuKyVongDoi1_NoiDung'];?></p>
                             <p class="cl-red" data-toggle="modal" data-target="#exampleModalheader">Bấm vào đây để xem luận giải của mục này!</p>
                             
                             <div class="box-text-chuky">
@@ -336,37 +336,37 @@
 
                         <div id="chi-so-su-menh" class="mg-10 bd-10 bg-f6f6f6">
                             <h4>Năng Lực Bên Trong:</h4>
-                            <p class="description"><?php echo $infoNumber[2]['Values']['NangLucBenTrong_NoiDung'];?></p>
+                            <p class="description"><?php echo @$infoNumber[2]['Values']['NangLucBenTrong_NoiDung'];?></p>
                              <p class="cl-red" data-toggle="modal" data-target="#exampleModalheader">Bấm vào đây để xem luận giải của mục này!</p>
                         </div>
 
                         <div id="thu-thach-su-menh" class="mg-10 bd-10 bg-f6f6f6">
                             <h4>Năng Lực Thể Hiện Bên Ngoài:</h4>
-                            <p class="description"><?php echo $infoNumber[3]['Values']['NangLucTheHienBenNgoai_NoiDung'];?></p>
+                            <p class="description"><?php echo @$infoNumber[3]['Values']['NangLucTheHienBenNgoai_NoiDung'];?></p>
                             <p class="cl-red" data-toggle="modal" data-target="#exampleModalheader">Bấm vào đây để xem luận giải của mục này!</p>
                         </div>
 
                         <div id="chi-so-truong-thanh" class="mg-10 bd-10 bg-f6f6f6">
                             <h4>Trưởng Thành: </h4>
-                            <p class="description"><?php echo $infoNumber[4]['Values']['TruongThanh_NoiDung'];?></p>
+                            <p class="description"><?php echo @$infoNumber[4]['Values']['TruongThanh_NoiDung'];?></p>
                             <p class="cl-red" data-toggle="modal" data-target="#exampleModalheader">Bấm vào đây để xem luận giải của mục này!</p>
                         </div>
 
                         <div id="nang-luc-truong-thanh" class="mg-10 bd-10 bg-f6f6f6">
                             <h4>Khả Năng:</h4>
-                            <p class="description"><?php echo $infoNumber[5]['Values']['KhaNang_NoiDung'];?></p>
+                            <p class="description"><?php echo @$infoNumber[5]['Values']['KhaNang_NoiDung'];?></p>
                             <p class="cl-red"data-toggle="modal" data-target="#exampleModalheader" >Bấm vào đây để xem luận giải của mục này!</p>
                         </div>
 
                         <div id="chi-so-thu-thach-linh-hon" class="mg-10 bd-10 bg-f6f6f6">
                             <h4>Phản Hồi Tiềm Thức:</h4>
-                            <p class="description"><?php echo $infoNumber[6]['Values']['PhanHoiTiemThuc_NoiDung'];?></p>
+                            <p class="description"><?php echo @$infoNumber[6]['Values']['PhanHoiTiemThuc_NoiDung'];?></p>
                             <p class="cl-red" data-toggle="modal" data-target="#exampleModalheader" >Bấm vào đây để xem luận giải của mục này!</p>
                         </div>
 
                         <div id="chi-so-nhan-cach" class="mg-10 bd-10 bg-f6f6f6">
                             <h4>Năng Lượng Vượt Trội:</h4>
-                            <p class="description"><?php echo $infoNumber[10]['Values']['NangLuongVuotTroi_NoiDung'];?></p>
+                            <p class="description"><?php echo @$infoNumber[10]['Values']['NangLuongVuotTroi_NoiDung'];?></p>
                             <p class="cl-red" data-toggle="modal" data-target="#exampleModalheader"> Bấm vào đây để xem luận giải của mục này!</p>
                         </div>
 

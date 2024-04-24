@@ -51,6 +51,11 @@
                       </select>
                     </div>
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ngày tạo khóa</label>
+                    <input type="text" class="form-control datepicker" placeholder="" name="create_at" id="create_at" value="<?php $create = getdate($data->create_at); echo $create['mday'].'/'.$create['mon'].'/'.$create['year'];?>" />
+                  </div>
                 </div>
 
                 <div class="col-md-6">

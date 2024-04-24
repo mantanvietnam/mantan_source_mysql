@@ -78,6 +78,7 @@
               <th>Khóa</th>
               <th>Ứng dụng</th>
               <th>Số lần dùng</th>
+              <th>Hạn dùng</th>
               <th>Trạng thái</th>
               <th>Làm mới</th>
               <th>Sửa</th>
@@ -99,6 +100,7 @@
                           <td>'.$item->value.'<br/>User: '.$item->user.'</td>
                           <td>'.$item->name_category.'</td>
                           <td>'.$used.'</td>
+                          <td>'.date('d/m/Y', $item->deadline).'</td>
                           <td>'.$item->status.'</td>
                           
                           <td align="center">
