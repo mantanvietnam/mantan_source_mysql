@@ -48,7 +48,7 @@
 
           <div class="col-md-3">
             <label class="form-label">Đội nhóm</label>
-            <select name="id_location" class="form-select color-dropdown">
+            <select name="id_team" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <?php
               if(!empty($infoCampaign->team)){

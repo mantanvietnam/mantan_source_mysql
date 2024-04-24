@@ -11,9 +11,21 @@ function result($input)
 
     if(!empty($dataSend['name']) && !empty($dataSend['day']) && !empty($dataSend['month']) && !empty($dataSend['year']) && !empty($dataSend['phone'])){
         // chuẩn hóa dữ liệu
+        $dataSend['day'] = (int) $dataSend['day'];
+        $dataSend['month'] = (int) $dataSend['month'];
+        $dataSend['year'] = (int) $dataSend['year'];
+        
         $dataSend['birthday'] = $dataSend['day'].'/'.$dataSend['month'].'/'.$dataSend['year'];
         $dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
         $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+        if($dataSend['day']<1 || $dataSend['day']>31 || $dataSend['month']<1 || $dataSend['month']>12 || $dataSend['year']<1900 || $dataSend['year']>2124){
+            return $controller->redirect('/?error=birthday');
+        }
+
+        if(strlen($dataSend['phone']) != 10){
+            return $controller->redirect('/?error=phone');
+        }
 
         // kiểm tra đã đăng ký chưa
         $checkDataExits = $modelRequestExports->find()->where(['phone'=>$dataSend['phone']])->first();
@@ -130,7 +142,15 @@ function resultvip($input)
 
         if(empty($dataSend['chatbot'])) $dataSend['chatbot'] = 'smax';
 
-        if(!empty($dataSend['customer_name']) && !empty($dataSend['customer_birthdate']) && !empty($dataSend['customer_phone']) && !empty($dataSend['customer_email']) && !empty($dataSend['customer_address'])){
+        if(!empty($dataSend['customer_name']) && !empty($dataSend['customer_birthdate']) && !empty($dataSend['customer_phone'])){
+            if(empty($dataSend['customer_email'])){
+                $dataSend['customer_email'] = "matmathanhcong@gmail.com";
+            }
+
+            if(empty($dataSend['customer_address'])){
+                $dataSend['customer_address'] = "18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội";
+            }
+
             // chuẩn hóa dữ liệu
             $dataSend['customer_birthdate'] = str_replace(array('.','-',',',' '), '/', $dataSend['customer_birthdate']);
             $dataSend['customer_phone']= str_replace(array(' ','.','-'), '', @$dataSend['customer_phone']);
@@ -141,7 +161,7 @@ function resultvip($input)
             $customer_birthdate[1] = (int) $customer_birthdate[1];
             $customer_birthdate[2] = (int) $customer_birthdate[2];
             
-            if($customer_birthdate[0]<1 || $customer_birthdate[0]>31 || $customer_birthdate[1]<1 || $customer_birthdate[1]>12 || $customer_birthdate[2]<1900 || $customer_birthdate[1]>2124){
+            if($customer_birthdate[0]<1 || $customer_birthdate[0]>31 || $customer_birthdate[1]<1 || $customer_birthdate[1]>12 || $customer_birthdate[2]<1900 || $customer_birthdate[2]>2124){
                 if(!empty($dataSend['idMessenger'])){
                     echo 'Sai định dạng ngày tháng năm sinh';die;
                 }else{
