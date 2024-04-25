@@ -1974,6 +1974,7 @@ function repostBookingApi($input): array
 {
     global $controller;
     global $isRequestPost;
+    global $bookingStatus;
 
     $bookingModel = $controller->loadModel('Bookings');
     $modelBookmark = $controller->loadModel('Bookmarks');
@@ -2010,6 +2011,7 @@ function repostBookingApi($input): array
             }
 
             $booking->created_at = date('Y-m-d H:i:s');
+            $booking->status = $bookingStatus['unreceived'];
             $bookingModel->save($booking);
 
             $province = $modelProvince->find()->where([

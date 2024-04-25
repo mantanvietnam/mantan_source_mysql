@@ -793,4 +793,47 @@ function addMedicalHistories($input){
 
 }
 
+function downloadLinkNumerology($input){
+	 global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách yêu cầu xuất bản đầy đủ';
+
+    // $modelRequestExports = $controller->loadModel('RequestExports');  
+    $modelCustomer = $controller->loadModel('Customers');
+    if(!empty(checkLoginManager('listCustomer', 'customer'))){
+
+	    if(!empty($_GET['id'])){
+	        $data = $modelCustomer->get($_GET['id']);
+
+	        if(empty($data->email)){
+	            $data->email ='ezpicsvn@gmail.com';
+	        }
+
+	        if(empty($data->address)){
+	            $data->address ='18 Thanh Bình, HN';
+	        }
+
+	        if(empty($data->avatar)){
+	            $data->avatar ='https://matmathanhcong.vn/upload/admin/files/avatar-trang-4.jpg';
+	        }
+
+	        if(function_exists('getLinkFullMMTCAPI')){
+	        	$infoFull = getLinkFullMMTCAPI(@$data->name, @$data->birthday, @$data->phone, @$data->email, @$data->address, @$data->avatar, 1);
+	        }       	
+
+	        if(!empty($infoFull)){
+	            return $controller->redirect($infoFull);   
+	        }
+
+	        return $controller->redirect('/');
+	    }
+	    return $controller->redirect('/');
+	}else{
+		return $controller->redirect('/');
+	}
+}
+
 ?>

@@ -9,7 +9,7 @@ function listTransactionAdmin($input)
 
     $transactionModel = $controller->loadModel('Transactions');
 
-    $conditions = array();
+    $conditions = array('amount >'=>0);
     $order = ['created_at' => 'DESC'];
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
@@ -26,6 +26,8 @@ function listTransactionAdmin($input)
     if (!empty($_GET['booking_id']) && is_numeric($_GET['booking_id'])) {
         $conditions['booking_id'] = $_GET['booking_id'];
     }
+
+
 
     $listData = $transactionModel->find()
         ->limit($limit)

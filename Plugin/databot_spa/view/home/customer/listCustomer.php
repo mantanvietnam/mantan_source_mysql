@@ -72,11 +72,11 @@
               <th>ID</th>
               <th>Ảnh đại điện</th>
               <th>Khách hàng</th>
-              <th>Điện thoại</th>
               <th>Điểm</th>
               <th>NV phụ trách</th>
               <th>Thẻ thành viên</th>
-              <th>Hồ sơ</th>
+              <th>Hồ sơ bệnh án</th>
+              <th>Thần số học</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -106,9 +106,9 @@
                           <td>
                             <img src="' . $item->avatar . '" width="100" />
                           </td>
-                          <td>'.$item->name.'
-                          </td>
-                          <td>'.$item->phone.'</td>
+                          <td>'.$item->name.'</br>
+                         '.$item->phone.'</br>
+                          '.$item->email.'</td>
                           <td>'.number_format($item->point).'</td>
                           <td>'.@$listStaff[$item->id_staff]->name.'</td>
                           
@@ -121,6 +121,11 @@
                           <td align="center">
                             <a class="dropdown-item" href="/listMedicalHistories/?id_customer='.$item->id.'">
                               <i class="bx bx-show"></i>
+                            </a>
+                          </td>
+                           <td align="center">
+                            <a class="dropdown-item" target="_blank" href="/downloadLinkNumerology/?id='.$item->id.'">
+                              Link tải
                             </a>
                           </td>
                           <td align="center">
@@ -145,7 +150,6 @@
         </table>
       </div>
     </div>
-
 
     <!-- Phân trang -->
     <div class="demo-inline-spacing">

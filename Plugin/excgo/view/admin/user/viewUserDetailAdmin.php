@@ -81,13 +81,22 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label" for="basic-default-phone">Hình ảnh (*)</label>
-                            <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>
+                        <div class="col-md-6 mb-3 ">
+                            <label class="form-label" for="basic-default-phone">Ngân hàng</label>
+                            <input disabled type="text" class="form-control phone-mask" name="bank_account" id="bank_account" value="<?php echo @$data->bank_account;?>" />
+                        </div>
+
+                        <div class="col-md-6 mb-3 ">
+                            <label class="form-label" for="basic-default-phone">Số tài khoản ngân hàng</label>
+                            <input disabled type="text" class="form-control phone-mask" name="account_number" id="account_number" value="<?php echo @$data->account_number;?>" />
                         </div>
                     </div>
 
                     <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="basic-default-phone">Hình ảnh (*)</label>
+                            <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>
+                        </div>
                         <div class="col-md-6 mb-3">
                           <label class="form-label" for="basic-default-phone">Số dư tài khoản (*)</label>
                           <input disabled type="text" class="form-control phone-mask" name="total_coin" id="total_coin" value="<?php echo @$data->total_coin;?>" />

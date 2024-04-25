@@ -41,6 +41,7 @@ function listUserAdmin($input)
         ->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['id' => 'desc'])
         ->all()
         ->toList();
     $totalUser = $modelUser->find()
@@ -172,7 +173,7 @@ function listUpgradeRequestToDriverAdmin($input)
     }
     $listUserRequest = $modelDriverRequest->find()
         ->where($requestConditions)
-        ->order(['created_at' => 'DESC'])
+        ->order(['id' => 'desc'])
         ->all();
 
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
@@ -209,6 +210,7 @@ function listUpgradeRequestToDriverAdmin($input)
             ->limit($limit)
             ->page($page)
             ->where($conditions)
+            ->order(['id' => 'desc'])
             ->all()
             ->toList();
         $totalUser = $modelUser->find()
@@ -583,16 +585,4 @@ function blockUserProvince($input){
     setVariable('user', $user);
     setVariable('listBlock', $listBlock);
 }
-
-function addPermissionData($input){
-    // aaaaaaaaaaaaaa
-
-    global $controller;
-    global $metaTitleMantan;
-
-    $metaTitleMantan = 'Danh sách cuốc xe';
-    $bookingModel = $controller->loadModel('Bookings');
-    $provinceModel = $controller->loadModel('Provinces');
-    debug($_GET);
-    die;
-}
+?>

@@ -888,4 +888,7 @@ function sendZNSZalo($template_id='', $params='', $phone='', $id_oa='', $app_id=
 
     return ['error'=>1, 'message'=>'Gửi thiếu dữ liệu'];
 }
+
+
+
 ?>
