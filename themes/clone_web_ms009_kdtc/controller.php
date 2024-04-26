@@ -250,7 +250,7 @@ function registerEvent($input)
                             }
                         }
 
-                        if(empty($keyNew)) $keyNew = count($infoCampaign->team);
+                        if(empty($keyNew)) $keyNew = count($infoCampaign->team) + 1;
 
                         if(!empty($infoMemberWeb) && $infoMemberWeb->type_member == 'member'){
                             $infoCampaign->team[$keyNew]['name'] = $infoMemberWeb->name.' '.$infoMemberWeb->phone;

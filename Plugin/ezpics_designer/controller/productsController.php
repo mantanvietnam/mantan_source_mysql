@@ -848,7 +848,7 @@ function createImageSeries($input)
 			$dataImage = screenshotAPIFlash($urlThumb, $product->width, $product->height);
 
 			$imageData = $dataImage;
-
+			
 			if($dataImage === false){
 				// dùng tool xuất ảnh tự code
 				$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
