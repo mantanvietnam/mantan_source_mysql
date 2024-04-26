@@ -10,7 +10,7 @@
 					<i class="fa-solid fa-pen-to-square"></i> Nhập lại thông tin
 				</a> 
 			</p>
-			<img id="imageId" src="data:image/png;base64,<?php echo $dataImage;?>" width="100%" />
+			<img id="imageId" src="<?php echo $dataImage;?>" width="100%" />
 	</main>
     <?php include(__DIR__.'/../footerPublic.php') ; ?>
 

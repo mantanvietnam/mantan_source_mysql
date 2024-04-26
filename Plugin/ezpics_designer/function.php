@@ -292,10 +292,16 @@ function screenshotAPIFlash($url='', $width=1920, $height=1080)
             "fresh" => true
         ));
 
-        return file_get_contents("https://api.apiflash.com/v1/urltoimage?" . $params);
-    }else{
-        return '';
+        try{
+            $dataImage = file_get_contents("https://api.apiflash.com/v1/urltoimage?" . $params);
+        }catch(Exception $e){
+            return false;
+        }
+        
+        return $dataImage;
     }
+
+    return false;
 }
 
 function screenshotProduct($url='', $width=1920, $height=1080)

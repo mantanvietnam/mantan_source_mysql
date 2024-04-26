@@ -846,6 +846,7 @@ function createImageSeries($input)
 
 			// dùng api flash api
 			$dataImage = screenshotAPIFlash($urlThumb, $product->width, $product->height);
+
 			$imageData = $dataImage;
 
 			if($dataImage === false){
@@ -871,6 +872,7 @@ function createImageSeries($input)
 	        	}
 	        }
 
+	        /*
 	        if(!empty($_GET['id'])){ 
 	        	//$dataImage = compressImageBase64($dataImage);
 
@@ -880,7 +882,14 @@ function createImageSeries($input)
 					echo $imageData;
 					$controller->autoRender = false;
 				}
+	        }else{
+	        	$dataImage = 'data:image/png;base64,'.$dataImage;
 	        }
+	        */
+
+	        header('Content-Type: image/png');
+			echo $imageData;
+			$controller->autoRender = false;
 		}
 		
 		setVariable('dataImage', $dataImage);
