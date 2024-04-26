@@ -1,0 +1,167 @@
+<?php
+function getListCampaignAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                $conditions = array('id_member'=>$infoMember->id);
+                $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+                $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+                if($page<1) $page = 1;
+                $order = array('id'=>'desc');
+
+                if(!empty($dataSend['id'])){
+		            $conditions['id'] = (int) $dataSend['id'];
+		        }
+
+		        if(!empty($dataSend['name'])){
+		            $conditions['name LIKE'] = '%'.$dataSend['name'].'%';
+		        }
+
+                $listData = $modelCampaigns->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+                if(!empty($listData)){
+                    foreach ($listData as $key => $value) {
+                        $customer_reg = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$infoMember->id])->all()->toList();
+			            $customer_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$infoMember->id, 'time_checkin >'=>0])->all()->toList();
+
+			            $listData[$key]->number_reg = count($customer_reg);
+			            $listData[$key]->number_checkin = count($customer_checkin);
+                    }
+                }
+                
+                $totalData = $modelCampaigns->find()->where($conditions)->all()->toList();
+                
+                $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData));
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+function saveInfoCampaignAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+    global $urlHomes;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                // lấy data edit
+		        if(!empty($dataSend['id'])){
+		            $data = $modelCampaigns->get( (int) $dataSend['id']);
+		        }else{
+		            $data = $modelCampaigns->newEmptyEntity();
+
+		            $data->create_at = time();
+		            $data->location = '[]';
+		            $data->team = '[]';
+		            $data->ticket = '[]';
+		        }
+
+		        if(!empty($dataSend['name'])){
+	                $img_background = $urlHomes.'/plugins/campaign_event/view/home/image/background.gif';
+	                if(isset($_FILES['img_background']) && empty($_FILES['img_background']["error"])){
+	                	if(!empty($data->id)){
+	                		$file_img_background = 	'img_background_campaign_'.$data->id;
+	                	}else{
+	                		$file_img_background = 	'img_background_campaign_'.time();
+	                	}
+
+                        $image_upload = uploadImage($infoMember->id, 'img_background', $file_img_background);
+
+                        if(!empty($image_upload['linkOnline'])){
+                            $img_background = $image_upload['linkOnline'];
+                        }
+                    }
+
+	                $img_logo = '';
+	                if(isset($_FILES['img_logo']) && empty($_FILES['img_logo']["error"])){
+	                	if(!empty($data->id)){
+	                		$file_img_logo = 	'img_logo_campaign_'.$data->id;
+	                	}else{
+	                		$file_img_logo = 	'img_logo_campaign_'.time();
+	                	}
+
+                        $image_upload = uploadImage($infoMember->id, 'img_background', $file_img_logo);
+
+                        if(!empty($image_upload['linkOnline'])){
+                            $img_logo = $image_upload['linkOnline'];
+                        }
+                    }
+
+                    if(empty($img_logo)){
+                    	$system = $modelCategories->find()->where(['id'=>(int) $infoMember->id_system])->first();
+
+                    	if(!empty($system->image)){
+	        				$img_logo = $system->image;
+	        			}else{
+	        				$img_logo = $urlHomes.'/plugins/campaign_event/view/home/image/logo-phoenix.png';
+	        			}
+                    }
+
+	                // tạo dữ liệu save
+	                $data->name = $dataSend['name'];
+	                $data->name_show = $dataSend['name_show'];
+	                $data->text_welcome = $dataSend['text_welcome'];
+	                $data->codeSecurity = $dataSend['codeSecurity'];
+	                $data->codePersonWin = trim($dataSend['codePersonWin']);
+	                $data->noteCheckin = $dataSend['noteCheckin'];
+	                $data->colorText = $dataSend['colorText'];
+	                $data->status = $dataSend['status'];
+	                $data->img_background = $img_background;
+	                $data->img_logo = $img_logo;
+	                $data->id_member = $infoMember->id;
+	                $data->location = $dataSend['location'];
+	                $data->ticket = $dataSend['ticket'];
+	                $data->team = $dataSend['team'];
+	                
+	                $modelCampaigns->save($data);
+
+	                $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_campaign'=>$data->id);
+	            }else{
+	                $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+	            }
+                
+                
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}

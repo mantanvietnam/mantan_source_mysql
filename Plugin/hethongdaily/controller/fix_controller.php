@@ -4,8 +4,27 @@ function fixBug()
 	global $modelCategoryConnects;
 	global $controller ;
 
-	$modelCustomers = $controller->loadModel('Customers');
+	$modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+    
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+    /*
+    // fix lỗi thời gian đăng ký chiến dịch
+    $all = $modelCampaignCustomers->find()->where(['create_at'=>0])->all()->toList();
 
+    foreach ($all as $key => $value) {
+    	$history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id_customer])->order(['id'=>'desc'])->first();
+
+    	if(!empty($history->time_now)){
+    		$value->create_at = $history->time_now;
+
+    		$modelCampaignCustomers->save($value);
+    	}
+    	
+    }
+
+	// fix lỗi id nhóm khách hàng
 	$all = $modelCustomers->find()->where()->all()->toList();
 
 	foreach ($all as $key => $value) {
@@ -19,5 +38,8 @@ function fixBug()
 	        $modelCategoryConnects->save($categoryConnects);
 	    }
 	}
+	*/
+
+
 }
 ?>
