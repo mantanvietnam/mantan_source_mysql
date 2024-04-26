@@ -277,7 +277,7 @@ function getTreeSystem($id_father, $modelMembers)
     return $listData;
 }
 
-function createCustomerNew($full_name='', $phone='', $email='', $address='', $sex=0, $id_city=0, $id_agency=0, $id_aff=0, $name_agency='', $id_messenger='', $avatar='', $birthday_date=0, $birthday_month=0, $birthday_year=0, $id_groups=0, $id_zalo='')
+function createCustomerNew($full_name='', $phone='', $email='', $address='', $sex=0, $id_city=0, $id_agency=0, $id_aff=0, $name_agency='', $id_messenger='', $avatar='', $birthday_date=0, $birthday_month=0, $birthday_year=0, $id_groups=0, $id_zalo='', $note_history='')
 {
     global $controller;
     global $urlHomes;
@@ -396,6 +396,8 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
             }
 
             // lưu lịch sử khách hàng
+            if(!empty($note_history)) $note_now = $note_history;
+
             createCustomerHistoriesNewOrder($infoUser->id, $note_now, $infoUser->id_parent);
         }
     }
@@ -428,7 +430,7 @@ function createCustomerHistoriesNewOrder($id_customer=0, $note_now='', $id_staff
         $customer_histories->id_customer = $id_customer;
         
         $customer_histories->time_now = time() + 60*15;
-        $customer_histories->note_now = 'Gọi điện xác nhận đơn hàng';
+        $customer_histories->note_now = 'Gọi điện xác nhận yêu cầu';
         $customer_histories->action_now = 'call';
         $customer_histories->id_staff_now = $id_staff_now;
         $customer_histories->status = 'new';

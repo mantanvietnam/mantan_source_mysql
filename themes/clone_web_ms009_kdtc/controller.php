@@ -147,6 +147,7 @@ function registerEvent($input)
     global $session;
     global $controller;
     global $urlHomes;
+    global $urlCurrent;
 
     $metaTitleMantan = 'Đăng ký tham gia sự kiện';
     $mess= '';
@@ -207,7 +208,9 @@ function registerEvent($input)
                 $id_aff = 0;
             }
 
-            $checkPhone = createCustomerNew(@$dataSend['name'], @$dataSend['phone'], @$dataSend['email'], @$dataSend['address'], (int) @$dataSend['sex'], (int) @$dataSend['id_city'], $id_agency, $id_aff, $name_agency, $id_messenger, $avatar, $birthday_date, $birthday_month, $birthday_year, @$dataSend['id_group']);
+            $note_history = 'Khách đăng ký tham gia sự kiện từ web '.$urlCurrent.' của '.@$infoMemberWeb->name.' '.@$infoMemberWeb->phone;
+
+            $checkPhone = createCustomerNew(@$dataSend['name'], @$dataSend['phone'], @$dataSend['email'], @$dataSend['address'], (int) @$dataSend['sex'], (int) @$dataSend['id_city'], $id_agency, $id_aff, $name_agency, $id_messenger, $avatar, $birthday_date, $birthday_month, $birthday_year, @$dataSend['id_group'], '', $note_history);
 
             // add vào chiến dịch sự kiện
             if(!empty($dataSend['id_campaign']) && function_exists('getInfoCampaign')){
@@ -231,6 +234,7 @@ function registerEvent($input)
                     $checkCampaign->id_team = 0;
                     $checkCampaign->id_ticket = (int) @$dataSend['id_ticket'];
                     $checkCampaign->note = @$dataSend['note_campaign'];
+                    $checkCampaign->create_at = time();
 
                     $infoCampaign->team = json_decode($infoCampaign->team, true);
                     $searchTeam = false;

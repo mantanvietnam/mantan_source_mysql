@@ -125,7 +125,7 @@
             foreach ($listData as $item) {
               $checkin = '<a class="btn btn-primary" href="/checkinCampaign/?id='.$item->id.'&checkin=true">Checkin</a>';
               if(!empty($item->time_checkin)){
-                $checkin = date("H:i d/m/Y", $item->time_checkin).'<br/><a onclick="return confirm(\'Bạn có chắc chắn muốn hủy checkin không?\');" class="btn btn-danger" href="/checkinCampaign/?id='.$item->id.'">Hủy checkin</a>';
+                $checkin = '<p class="text-danger">'.date("H:i d/m/Y", $item->time_checkin).'</p><br/><a onclick="return confirm(\'Bạn có chắc chắn muốn hủy checkin không?\');" class="btn btn-danger" href="/checkinCampaign/?id='.$item->id.'">Hủy checkin</a>';
               }
 
               $history = '';
@@ -141,7 +141,7 @@
 
               echo '<tr>
                       <td>'.$item->id_customer.'</td>
-                      <td>'.$checkin.'</td>
+                      <td><p class="text-success">'.date("d/m/Y", $item->create_at).'</p>'.$checkin.'</td>
                       <td>'.$item->customer_name.'<br/>'.$item->customer_phone.'</td>
                       <td>'.@$infoCampaign->location[$item->id_location].'</td>
                       <td>'.@$infoCampaign->team[$item->id_team]['name'].'</td>

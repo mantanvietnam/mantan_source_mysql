@@ -37,11 +37,12 @@ $sqlInstallDatabase .= "CREATE TABLE `campaign_customers` (
                                 `note` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
                                 `time_checkin` INT NOT NULL DEFAULT '0',
                                 `id_ticket` INT NOT NULL DEFAULT '0',
+                                `create_at` INT NOT NULL DEFAULT '0',
                                 PRIMARY KEY (`id`)
                             ) ENGINE = InnoDB; ";
 
 $sqlDeleteDatabase .= "DROP TABLE campaigns; ";
 $sqlDeleteDatabase .= "DROP TABLE campaign_customers; ";
 
-$sqlUpdateDatabase .= "";
+$sqlUpdateDatabase .= "ALTER TABLE `campaign_customers` ADD `create_at` INT NOT NULL DEFAULT '0' AFTER `id_ticket`; ";
 ?>

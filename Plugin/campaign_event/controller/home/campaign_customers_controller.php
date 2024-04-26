@@ -56,6 +56,7 @@ function listCustomerCampaign($input)
                     
                     $titleExcel =   [
                         ['name'=>'ID', 'type'=>'text', 'width'=>5],
+                        ['name'=>'Ngày đăng ký', 'type'=>'text', 'width'=>15],
                         ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
                         ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
                         ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
@@ -73,6 +74,7 @@ function listCustomerCampaign($input)
 
                             $dataExcel[] = [
                                                 $checkCustomer->id,   
+                                                date('d/m/Y', $checkCustomer->create_at),
                                                 $checkCustomer->full_name,   
                                                 $checkCustomer->phone,   
                                                 $checkCustomer->address,   
@@ -213,6 +215,8 @@ function addCustomerCampaign($input)
                 $data->phone = @$customer->phone;
             }else{
                 $data = $modelCampaignCustomers->newEmptyEntity();
+
+                $data->create_at = time();
             }
 
             if ($isRequestPost) {
