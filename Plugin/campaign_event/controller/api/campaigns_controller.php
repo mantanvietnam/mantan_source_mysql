@@ -165,3 +165,47 @@ function saveInfoCampaignAPI($input)
 
     return $return;
 }
+
+function deleteCampaignAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                if(!empty($dataSend['id'])){
+		            $data = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id'], 'id_member'=>$infoMember->id])->first();
+		            
+		            if($data){
+		                $modelCampaignCustomers->deleteAll(['id_campaign'=>$data->id, 'id_member'=>$infoMember->id]);
+		                $modelCampaigns->delete($data);
+
+		                $return = array('code'=>0, 'mess'=>'Xóa dữ liệu thành công');
+		            }else{
+		            	$return = array('code'=>4, 'mess'=>'Không tồn tại chiến dịch muốn xóa');
+		            }
+		        }else{
+		        	$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+		        }
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}

@@ -191,12 +191,14 @@ function deleteCampaign($input){
     global $session;
 
     $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
     
     if(!empty($session->read('infoUser'))){
         if(!empty($_GET['id'])){
             $data = $modelCampaigns->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$session->read('infoUser')->id])->first();
             
             if($data){
+                $modelCampaignCustomers->deleteAll(['id_campaign'=>$data->id, 'id_member'=>$session->read('infoUser')->id]);
                 $modelCampaigns->delete($data);
             }
         }

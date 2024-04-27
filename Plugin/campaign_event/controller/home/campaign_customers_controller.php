@@ -16,14 +16,14 @@ function listCustomerCampaign($input)
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
         if(!empty($_GET['id'])){
-            $infoCampaign = $modelCampaigns->find()->where(['id'=>$_GET['id']])->first();
+            $infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$session->read('infoUser')->id])->first();
 
             if(!empty($infoCampaign)){
                 $infoCampaign->location = json_decode($infoCampaign->location, true);
                 $infoCampaign->team = json_decode($infoCampaign->team, true);
                 $infoCampaign->ticket = json_decode($infoCampaign->ticket, true);
 
-                $conditions = array('id_member'=>$session->read('infoUser')->id, 'id_campaign'=>$_GET['id']);
+                $conditions = array('id_member'=>$session->read('infoUser')->id, 'id_campaign'=>(int) $_GET['id']);
                 $limit = 20;
                 $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
                 if($page<1) $page = 1;
@@ -45,6 +45,10 @@ function listCustomerCampaign($input)
 
                 if(!empty($_GET['id_team'])){
                     $conditions['id_team'] = (int) $_GET['id_team'];
+                }
+
+                if(!empty($_GET['id_ticket'])){
+                    $conditions['id_ticket'] = (int) $_GET['id_ticket'];
                 }
 
                 if(!empty($_GET['checkin'])){
@@ -91,15 +95,17 @@ function listCustomerCampaign($input)
 
                 $listData = $modelCampaignCustomers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
                 
-                foreach ($listData as $key => $value) {
-                    // thông tin khách hàng
-                    $checkCustomer = $modelCustomers->find()->where(['id'=>$value->id_customer])->first();
+                if(!empty($listData)){
+                    foreach ($listData as $key => $value) {
+                        // thông tin khách hàng
+                        $checkCustomer = $modelCustomers->find()->where(['id'=>$value->id_customer])->first();
 
-                    $listData[$key]->customer_name = @$checkCustomer->full_name;
-                    $listData[$key]->customer_phone = @$checkCustomer->phone;
+                        $listData[$key]->customer_name = @$checkCustomer->full_name;
+                        $listData[$key]->customer_phone = @$checkCustomer->phone;
 
-                    // lịch sử chăm sóc
-                    $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id_customer])->order(['id'=>'desc'])->first();
+                        // lịch sử chăm sóc
+                        $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id_customer])->order(['id'=>'desc'])->first();
+                    }
                 }
 
                 // phân trang
