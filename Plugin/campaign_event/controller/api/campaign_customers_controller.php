@@ -91,3 +91,205 @@ function getListCustomerCampaignAPI($input)
 
     return $return;
 }
+
+function deleteCustomerCampaignAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+    
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                if(!empty($dataSend['id_campaign']) && !empty($dataSend['id_customer'])){
+                    $infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id_campaign'], 'id_member'=>$infoMember->id])->first();
+
+                    if(!empty($infoCampaign)){
+                        $data = $modelCampaignCustomers->find()->where(['id_campaign'=>(int) $dataSend['id_campaign'], 'id_customer'=>(int) $dataSend['id_customer'], 'id_member'=>$infoMember->id])->first();
+            
+                        if($data){
+                            $modelCampaignCustomers->delete($data);
+                        }
+                        
+                        $return = array('code'=>0, 'mess'=>'Xóa dữ liệu thành công');
+                    }else{
+                        $return = array('code'=>4, 'mess'=>'Không tồn tại chiến dịch cần tìm');
+                    }
+                }else{
+                    $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+                }
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+function saveCustomerCampaignAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+    
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                if(!empty($dataSend['id_campaign']) && !empty($dataSend['full_name']) && !empty($dataSend['phone'])){
+                    $infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id_campaign'], 'id_member'=>$infoMember->id])->first();
+
+                    if(!empty($infoCampaign)){
+                        $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+                        $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+                        $customer = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
+
+                        if(empty($customer)){
+                            $customer = createCustomerNew($dataSend['full_name'], $dataSend['phone'], '', '', 0, 0, $infoMember->id);
+                        }
+
+                        // tạo dữ liệu save
+                        if(!empty($customer->id)){
+                            $checkCampaignCustomer = $modelCampaignCustomers->find()->where(['id_campaign'=>(int) $infoCampaign->id, 'id_member'=>$infoMember->id, 'id_customer'=>$customer->id])->first();
+
+                            if(empty($checkCampaignCustomer)){
+                                $checkCampaignCustomer = $modelCampaignCustomers->newEmptyEntity();
+
+                                $checkCampaignCustomer->create_at = time();
+                                $checkCampaignCustomer->id_member = $infoMember->id;
+                                $checkCampaignCustomer->id_customer = $customer->id;
+                                $checkCampaignCustomer->id_campaign = $infoCampaign->id;
+                                $checkCampaignCustomer->id_location = (int) @$dataSend['id_location'];
+                                $checkCampaignCustomer->id_team = (int) @$dataSend['id_team'];
+                                $checkCampaignCustomer->id_ticket = (int) @$dataSend['id_ticket'];
+                                $checkCampaignCustomer->note = @$dataSend['note'];
+
+                                if(!empty($dataSend['checkin'])){
+                                    $checkCampaignCustomer->time_checkin = time();
+                                }else{
+                                    $checkCampaignCustomer->time_checkin = 0;
+                                }
+                                
+                                $modelCampaignCustomers->save($checkCampaignCustomer);
+                            }else{
+                                $checkCampaignCustomer->id_location = (int) @$dataSend['id_location'];
+                                $checkCampaignCustomer->id_team = (int) @$dataSend['id_team'];
+                                $checkCampaignCustomer->id_ticket = (int) @$dataSend['id_ticket'];
+                                $checkCampaignCustomer->note = @$dataSend['note'];
+
+                                if(!empty($dataSend['checkin'])){
+                                    $checkCampaignCustomer->time_checkin = time();
+                                }else{
+                                    $checkCampaignCustomer->time_checkin = 0;
+                                }
+                                
+                                $modelCampaignCustomers->save($checkCampaignCustomer);
+                            }
+
+                            $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công');
+                        }else{
+                            $return = array('code'=>5, 'mess'=>'Lỗi tạo dữ liệu khách hàng');
+                        }
+                    }else{
+                        $return = array('code'=>4, 'mess'=>'Không tồn tại chiến dịch cần tìm');
+                    }
+                }else{
+                    $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+                }
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+function checkinCustomerCampaignAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+    
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                if(!empty($dataSend['id_campaign']) && !empty($dataSend['id_customer'])){
+                    $infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id_campaign'], 'id_member'=>$infoMember->id])->first();
+
+                    if(!empty($infoCampaign)){
+                        $data = $modelCampaignCustomers->find()->where(['id_campaign'=>(int) $dataSend['id_campaign'], 'id_customer'=>(int) $dataSend['id_customer'], 'id_member'=>$infoMember->id])->first();
+            
+                        if($data){
+                            if(!empty($dataSend['checkin'])){
+                                $checkData->time_checkin = time();
+                            }else{
+                                $checkData->time_checkin = 0;
+                            }
+
+                            $modelCampaignCustomers->save($checkData);
+
+                            $return = array('code'=>0, 'mess'=>'Lưu trạng thái checkin thành công');
+                        }else{
+                            $return = array('code'=>5, 'mess'=>'Không tìm được khách đăng ký cần checkin');
+                        }
+                    }else{
+                        $return = array('code'=>4, 'mess'=>'Không tồn tại chiến dịch cần tìm');
+                    }
+                }else{
+                    $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+                }
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
