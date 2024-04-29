@@ -1,4 +1,5 @@
 <?php 
+// tạo đơn hàng khách lẻ
 function addOrderCustomer($input)
 {
     global $controller;
@@ -100,6 +101,7 @@ function addOrderCustomer($input)
     }
 }
 
+// danh sách đơn hàng khách lẻ
 function orderCustomerAgency($input)
 {
     global $controller;
@@ -298,6 +300,7 @@ function orderCustomerAgency($input)
     }
 }
 
+// xóa đơn hàng khách lẻ
 function deleteOrderCustomerAgency($input)
 {
     global $controller;
@@ -322,6 +325,7 @@ function deleteOrderCustomerAgency($input)
     }
 }
 
+// xem chi tiết đơn hàng
 function viewOrderCustomerAgency($input)
 {
     global $controller;
@@ -381,6 +385,7 @@ function viewOrderCustomerAgency($input)
     }
 }
 
+// cập nhập trạng thái đơn hàng
 function updateStatusOrderAgency($input){
     global $controller;
     global $urlCurrent;
@@ -453,6 +458,7 @@ function updateStatusOrderAgency($input){
     }
 }
 
+// tạo phiếu in bill
 function printBillOrderCustomerAgency($input)
 {
     global $controller;

@@ -1,4 +1,5 @@
 <?php 
+// danh sách yêu cầu nhập hàng vào kho
 function requestProductAgency($input)
 {
     global $controller;
@@ -108,6 +109,7 @@ function requestProductAgency($input)
     }
 }
 
+// tạo yêu cầu nhập hàng vào kho
 function addRequestProductAgency($input)
 {
     global $controller;
@@ -184,6 +186,7 @@ function addRequestProductAgency($input)
     }
 }
 
+// tạo đơn hàng cho đại lý tuyến dưới
 function addOrderAgency($input)
 {
     global $controller;
@@ -280,6 +283,7 @@ function addOrderAgency($input)
     }
 }
 
+// danh sách đơn hàng của hệ thống
 function orderMemberAgency($input)
 {
     global $controller;
@@ -402,6 +406,7 @@ function orderMemberAgency($input)
     }
 }
 
+// cập nhập trạng thái đơn hàng
 function updateOrderMemberAgency($input)
 {
     global $controller;
@@ -512,6 +517,7 @@ function updateOrderMemberAgency($input)
     }
 }
 
+// tự cập nhập trạng thái đơn hàng của mình
 function updateMyOrderMemberAgency($input)
 {
     global $controller;
@@ -618,6 +624,7 @@ function updateMyOrderMemberAgency($input)
     }
 }
 
+// tạo phiếu in bill
 function printBillOrderMemberAgency($input)
 {
     global $controller;

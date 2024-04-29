@@ -23,6 +23,7 @@ include_once('controller/api/customersController.php'); // khách hàng
 include_once('controller/api/customerHistoriesController.php'); // chăm sóc khách hàng
 include_once('controller/api/warehousesController.php'); // kho hàng
 include_once('controller/api/order_membersController.php'); // đơn hàng hệ thống
+include_once('controller/api/orderController.php'); // đơn hàng khách lẻ
 
 include_once('controller/fix_controller.php'); // vá lỗi
 
