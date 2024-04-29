@@ -25,12 +25,22 @@ function listCustomerAgency($input)
             }
         }
 
-        $conditions = array('Customers.id_parent'=>$session->read('infoUser')->id);
+        $conditions = array('CategoryConnects.id_category'=>$session->read('infoUser')->id, 'CategoryConnects.keyword'=>'member_customers');
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
         $order = array('Customers.id'=>'desc');
-        $join = [];
+        $join = [
+                    [
+                        'table' => 'category_connects',
+                        'alias' => 'CategoryConnects',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Customers.id = CategoryConnects.id_parent'
+                        ],
+                    ]
+                ];
+
         $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
 
         if(!empty($_GET['id'])){
@@ -38,19 +48,8 @@ function listCustomerAgency($input)
         }
 
         if(!empty($_GET['id_group'])){
-            $join = [
-                        [
-                            'table' => 'category_connects',
-                            'alias' => 'CategoryConnects',
-                            'type' => 'LEFT',
-                            'conditions' => [
-                                'Customers.id = CategoryConnects.id_parent',
-                                'CategoryConnects.keyword = "group_customers"'
-                            ],
-                        ]
-                    ];
-
             $conditions['CategoryConnects.id_category'] = (int) $_GET['id_group'];
+            $conditions['CategoryConnects.keyword'] = 'group_customers';
         }
 
         if(!empty($_GET['full_name'])){
@@ -209,7 +208,20 @@ function editCustomerAgency($input)
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
         if(!empty($_GET['id'])){
-            $data = $modelCustomers->find()->where(['id'=>(int) $_GET['id'], 'id_parent'=>$session->read('infoUser')->id])->first();
+            $join = [
+                        [
+                            'table' => 'category_connects',
+                            'alias' => 'CategoryConnects',
+                            'type' => 'LEFT',
+                            'conditions' => [
+                                'Customers.id = CategoryConnects.id_parent'
+                            ],
+                        ]
+                    ];
+
+            $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+
+            $data = $modelCustomers->find()->join($join)->select($select)->where(['Customers.id'=>(int) $_GET['id'], 'CategoryConnects.id_category'=>$session->read('infoUser')->id, 'CategoryConnects.keyword'=>'member_customers'])->first();
 
             if(empty($data)){
                 return $controller->redirect('/listCustomerAgency');
@@ -273,6 +285,9 @@ function editCustomerAgency($input)
                     $data->facebook = @$dataSend['facebook'];
 
                     $modelCustomers->save($data);
+
+                    // lưu bảng đại lý
+                    saveCustomerMember($data->id, $session->read('infoUser')->id);
 
                     // tạo dữ liệu bảng chuyên mục
                     $modelCategoryConnects->deleteAll(['id_parent'=>$data->id, 'keyword'=>'group_customers']);
@@ -374,21 +389,9 @@ function groupCustomerAgency($input)
         $listData = $modelCategories->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
 
         if(!empty($listData)){
-            $join = [
-                        [
-                            'table' => 'customers',
-                            'alias' => 'Customers',
-                            'type' => 'LEFT',
-                            'conditions' => [
-                                'CategoryConnects.id_parent = Customers.id',
-                                'Customers.id_parent = '.$session->read('infoUser')->id
-                            ],
-                        ]
-                    ];
-            $select = ['CategoryConnects.id'];
-
             foreach ($listData as $key => $value) {
-                $customers = $modelCategoryConnects->find()->join($join)->select($select)->where(['keyword'=>'group_customers','id_category'=>$value->id])->all()->toList();
+                $customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers','id_category'=>$value->id])->all()->toList();
+
                 $listData[$key]->number_customer = count($customers);
             }
         }

@@ -36,10 +36,6 @@ function searchCustomerAPI($input)
         $conditions['status'] = $dataSend['status'];
     }
 
-    if(!empty($dataSend['id_member'])){
-        $conditions['id_parent'] = (int) $dataSend['id_member'];
-    }
-
     $listData= $modelCustomers->find()->where($conditions)->all()->toList();
     
     if($listData){
@@ -99,13 +95,24 @@ function getListCustomerAPI($input)
                     }
                 }
 
-                $conditions = array('id_parent'=>$infoMember->id);
+                $conditions = array('CategoryConnects.id_category'=>$infoMember->id, 'CategoryConnects.keyword'=>'member_customers');
                 $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                 if($page<1) $page = 1;
-                $order = array('id'=>'desc');
+                $order = array('Customers.id'=>'desc');
+                $join = [
+                            [
+                                'table' => 'category_connects',
+                                'alias' => 'CategoryConnects',
+                                'type' => 'LEFT',
+                                'conditions' => [
+                                    'Customers.id = CategoryConnects.id_parent'
+                                ],
+                            ]
+                        ];
+                $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
 
-                $listData = $modelCustomers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+                $listData = $modelCustomers->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
                 if(!empty($listData)){
                     foreach ($listData as $key => $value) {
@@ -134,7 +141,7 @@ function getListCustomerAPI($input)
                     }
                 }
                 
-                $totalData = $modelCustomers->find()->where($conditions)->all()->toList();
+                $totalData = $modelCustomers->find()->join($join)->select($select)->where($conditions)->all()->toList();
                 
                 $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData), 'listGroup'=>$listGroup);
             }else{
@@ -169,7 +176,19 @@ function getInfoCustomerAPI($input)
 
             if(!empty($infoMember)){
                 if(!empty($dataSend['id_customer'])){
-                    $infoCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id_customer'], 'id_parent'=>$infoMember->id])->first();
+                    $join = [
+                                [
+                                    'table' => 'category_connects',
+                                    'alias' => 'CategoryConnects',
+                                    'type' => 'LEFT',
+                                    'conditions' => [
+                                        'Customers.id = CategoryConnects.id_parent'
+                                    ],
+                                ]
+                            ];
+                    $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+
+                    $infoCustomer = $modelCustomers->find()->join($join)->select($select)->where(['Customers.id'=>(int) $dataSend['id_customer'], 'CategoryConnects.id_category'=>$infoMember->id, 'CategoryConnects.keyword'=>'member_customers'])->first();
 
                     if(!empty($infoCustomer)){
                         // danh sách nhóm khách hàng
@@ -255,64 +274,68 @@ function saveInfoCustomerAPI($input)
                     $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
                     if(!empty($dataSend['id'])){
-                        $infoCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id'], 'id_parent'=>$infoMember->id])->first();
+                        $infoCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id']])->first();
                         
                         if(empty($infoCustomer)){
-                            return array('code'=>4, 'mess'=>'Khách hàng không thuộc quyền quản lý của đại lý');
+                            return array('code'=>4, 'mess'=>'Không tìm được khách hàng');
                         }
                     }else{
                         $infoCustomer = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
 
+                        // nếu đã có dữ liệu khách hàng
                         if(!empty($infoCustomer)){
-                            if($infoCustomer->id_parent != $infoMember->id){
-                                $infoCustomer->id_parent = $infoMember->id;
-                                $infoCustomer->full_name = $dataSend['full_name'];
+                            $infoCustomer->id_parent = $infoMember->id;
+                            $infoCustomer->full_name = $dataSend['full_name'];
 
-                                if(!empty($dataSend['email'])){
-                                    $infoCustomer->email = $dataSend['email'];
-                                }
-
-                                if(!empty($dataSend['address'])){
-                                    $infoCustomer->address = $dataSend['address'];
-                                }
-
-                                if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-                                    $avatar = uploadImage($infoMember->id, 'avatar', 'avatar_'.$infoCustomer->phone);
-
-                                    if(!empty($avatar['linkOnline'])){
-                                        $infoCustomer->avatar = $avatar['linkOnline'];
-                                    }
-                                }
-
-                                if(empty($infoCustomer->img_card_member)){
-                                    if(!empty($dataSend['id_group'])){
-                                        $dataSend['id_group'] = explode(',', $dataSend['id_group']);
-
-                                        $infoCustomer->id_group = (int) $dataSend['id_group'][0];
-
-                                        $infoGroup = $modelCategories->find()->where(['id'=>(int) $dataSend['id_group'][0], 'type' => 'group_customer', 'parent'=>$infoMember->id])->first();
-
-                                        if(!empty($infoGroup->description)){
-                                            $ezpics_config = json_decode($infoGroup->description, true);
-
-                                            if(!empty($ezpics_config['id_ezpics'])){
-                                                $img_card_member = "https://designer.ezpics.vn/create-image-series/?id=".$ezpics_config['id_ezpics']."&".$ezpics_config['ezpics_full_name']."=".$infoCustomer->full_name."&".$ezpics_config['ezpics_phone']."=".$infoCustomer->phone."&".$ezpics_config['ezpics_code']."=KH".$infoCustomer->phone."&".$ezpics_config['ezpics_avatar']."=".$infoCustomer->avatar."&".$ezpics_config['ezpics_name_member']."=".$infoMember->name;
-
-                                                //$image_data = file_get_contents($img_card_member);
-                                                //file_put_contents(__DIR__."/../../../../upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png", $image_data);
-
-                                                //$infoCustomer->img_card_member = $urlHomes."upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png";
-                                                $infoCustomer->img_card_member = $img_card_member;
-                                            }
-                                        }
-
-                                    }
-                                }
-
-                                $modelCustomers->save($infoCustomer);
-
-                                return array('code'=>5, 'mess'=>'Khách hàng đã có dữ liệu trong hệ thống', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
+                            if(!empty($dataSend['email'])){
+                                $infoCustomer->email = $dataSend['email'];
                             }
+
+                            if(!empty($dataSend['address'])){
+                                $infoCustomer->address = $dataSend['address'];
+                            }
+
+                            if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                                $avatar = uploadImage($infoMember->id, 'avatar', 'avatar_'.$infoCustomer->phone);
+
+                                if(!empty($avatar['linkOnline'])){
+                                    $infoCustomer->avatar = $avatar['linkOnline'];
+                                }
+                            }
+
+                            // in thẻ thành viên
+                            if(empty($infoCustomer->img_card_member)){
+                                if(!empty($dataSend['id_group'])){
+                                    $dataSend['id_group'] = explode(',', $dataSend['id_group']);
+
+                                    $infoCustomer->id_group = (int) $dataSend['id_group'][0];
+
+                                    $infoGroup = $modelCategories->find()->where(['id'=>(int) $dataSend['id_group'][0], 'type' => 'group_customer', 'parent'=>$infoMember->id])->first();
+
+                                    if(!empty($infoGroup->description)){
+                                        $ezpics_config = json_decode($infoGroup->description, true);
+
+                                        if(!empty($ezpics_config['id_ezpics'])){
+                                            $img_card_member = "https://designer.ezpics.vn/create-image-series/?id=".$ezpics_config['id_ezpics']."&".$ezpics_config['ezpics_full_name']."=".$infoCustomer->full_name."&".$ezpics_config['ezpics_phone']."=".$infoCustomer->phone."&".$ezpics_config['ezpics_code']."=KH".$infoCustomer->phone."&".$ezpics_config['ezpics_avatar']."=".$infoCustomer->avatar."&".$ezpics_config['ezpics_name_member']."=".$infoMember->name;
+
+                                            //$image_data = file_get_contents($img_card_member);
+                                            //file_put_contents(__DIR__."/../../../../upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png", $image_data);
+
+                                            //$infoCustomer->img_card_member = $urlHomes."upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png";
+                                            $infoCustomer->img_card_member = $img_card_member;
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            $modelCustomers->save($infoCustomer);
+
+                            // lưu bảng đại lý
+                            saveCustomerMember($infoCustomer->id, $infoMember->id);
+
+                            return array('code'=>5, 'mess'=>'Khách hàng đã có dữ liệu trong hệ thống, cập nhập dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
+                            
                         }else{
                             $infoCustomer = $modelCustomers->newEmptyEntity();
 
@@ -451,6 +474,9 @@ function saveInfoCustomerAPI($input)
                     $infoCustomer->id_parent = $infoMember->id;
 
                     $modelCustomers->save($infoCustomer);
+
+                    // lưu bảng đại lý
+                    saveCustomerMember($infoCustomer->id, $infoMember->id);
 
                     if(!empty($dataSend['clear_group'])){
                         $modelCategoryConnects->deleteAll(['id_parent'=>$infoCustomer->id, 'keyword'=>'group_customers']);

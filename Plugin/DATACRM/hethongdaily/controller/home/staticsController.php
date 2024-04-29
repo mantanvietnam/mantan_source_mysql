@@ -57,7 +57,20 @@ function businessReport($input)
         }
 
         // khách hàng mới
-        $listCustomer = $modelCustomers->find()->where(['id_parent'=>$infoMember->id, 'created_at >='=>$start_day, 'created_at <='=>$end_day])->all()->toList();
+        $join = [
+                    [
+                        'table' => 'category_connects',
+                        'alias' => 'CategoryConnects',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Customers.id = CategoryConnects.id_parent',
+                        ],
+                    ]
+                ];
+                
+        $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+
+        $listCustomer = $modelCustomers->find()->join($join)->select($select)->where(['Customers.created_at >='=>$start_day, 'Customers.created_at <='=>$end_day, 'CategoryConnects.id_category'=>$infoMember->id, 'CategoryConnects.keyword'=>'member_customers'])->all()->toList();
 
         $staticCustomer = [0,0,0,0,0,0,0,0,0,0,0,0,0];
         if(!empty($listCustomer)){

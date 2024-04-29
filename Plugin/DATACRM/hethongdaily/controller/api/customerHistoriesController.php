@@ -69,10 +69,10 @@ function saveCustomerHistoryAPI($input)
                     !empty($dataSend['action']) && 
                     !empty($dataSend['time']) 
                 ){
-                    $infoCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id_customer'], 'id_parent'=>$infoMember->id])->first();
+                    $infoCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id_customer']])->first();
                     
                     if(empty($infoCustomer)){
-                        return array('code'=>4, 'mess'=>'Khách hàng không thuộc quyền quản lý của đại lý');
+                        return array('code'=>4, 'mess'=>'Không tìm thấy thông tin khách hàng');
                     }
 
                     $customer_histories = $modelCustomerHistories->newEmptyEntity();

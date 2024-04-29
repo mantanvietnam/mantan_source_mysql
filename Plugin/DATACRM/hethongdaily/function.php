@@ -321,6 +321,7 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
 
             $modelCustomers->save($infoUser);
 
+            // lưu bảng nhóm khách hàng
             if(!empty($id_groups)){
                 foreach ($id_groups as $id_group) {
                     $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoUser->id, 'id_category'=>(int)$id_group])->first();
@@ -337,8 +338,13 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
                 }
             }
 
+            // lưu bảng đại lý
+            if(!empty($id_agency)){
+                saveCustomerMember($infoUser->id, $id_agency);
+            }
+
             // lưu lịch sử của khách hàng
-            $note_now = 'Khởi tạo dữ liệu người dùng mới khi khách hàng mua hàng của đại lý '.@$name_agency;
+            $note_now = 'Đại lý '.@$name_agency.' (ID '.$id_agency.') khởi tạo dữ liệu người dùng mới';
 
             createCustomerHistoriesNewOrder($infoUser->id, $note_now, $infoUser->id_parent);
         }else{
@@ -379,6 +385,7 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
 
             $modelCustomers->save($infoUser);
 
+            // lưu bảng nhóm khách hàng
             if(!empty($id_groups)){
                 foreach ($id_groups as $id_group) {
                     $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoUser->id, 'id_category'=>(int)$id_group])->first();
@@ -393,6 +400,11 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
                         $modelCategoryConnects->save($categoryConnects);
                     }
                 }
+            }
+
+            // lưu bảng đại lý
+            if(!empty($id_agency)){
+                saveCustomerMember($infoUser->id, $id_agency);
             }
 
             // lưu lịch sử khách hàng
@@ -629,5 +641,25 @@ function convert_number_to_words($number)
         $string .= implode(' ', $words);
     }
     return $string;
+}
+
+function saveCustomerMember($id_customer=0, $id_member=0)
+{
+    global $modelCategoryConnects;
+
+    if(!empty($id_customer) && !empty($id_member)){
+        // id_parent: id khách hàng, id_category: id đại lý
+        $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'member_customers', 'id_parent'=>(int) $id_customer, 'id_category'=>(int) $id_member])->first();
+
+        if(empty($categoryConnects)){
+            $categoryConnects = $modelCategoryConnects->newEmptyEntity();
+
+            $categoryConnects->keyword = 'member_customers';
+            $categoryConnects->id_parent = (int) $id_customer;
+            $categoryConnects->id_category = (int) $id_member;
+
+            $modelCategoryConnects->save($categoryConnects);
+        }
+    }
 }
 ?>

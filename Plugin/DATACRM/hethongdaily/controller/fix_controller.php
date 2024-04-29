@@ -4,8 +4,8 @@ function fixBug()
 	global $modelCategoryConnects;
 	global $controller ;
 
-	$modelCampaigns = $controller->loadModel('Campaigns');
-    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+	//$modelCampaigns = $controller->loadModel('Campaigns');
+    //$modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
     
     $modelCustomers = $controller->loadModel('Customers');
     $modelCustomerHistories = $controller->loadModel('CustomerHistories');
@@ -39,7 +39,22 @@ function fixBug()
 	    }
 	}
 	*/
+	// fix lỗi 1 khách hàng thuộc nhiều đại lý
+	$all = $modelCustomers->find()->where()->all()->toList();
 
+	foreach ($all as $key => $value) {
+		if(!empty($value->id_parent)){
+			$categoryConnects = $modelCategoryConnects->newEmptyEntity();
+
+	        $categoryConnects->keyword = 'member_customers';
+	        $categoryConnects->id_parent = $value->id;
+	        $categoryConnects->id_category = (int) $value->id_parent;
+
+	        $modelCategoryConnects->save($categoryConnects);
+	    }
+	}
+	
+	// fix lỗi đội nhóm
 
 }
 ?>

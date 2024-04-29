@@ -25,30 +25,17 @@ function addOrderCustomer($input)
 
             if(!empty($dataSend['idHangHoa'])){
                 if(!empty($dataSend['id_customer'])){
-                    $customer_buy = $modelCustomers->find()->where(array('id'=>(int) $dataSend['id_customer'], 'id_parent'=>$session->read('infoUser')->id))->first();
+                    $customer_buy = $modelCustomers->find()->where(array('id'=>(int) $dataSend['id_customer']))->first();
                 }else{
                     $customer_buy = $modelCustomers->newEmptyEntity();
 
                     if(!empty($dataSend['customer_buy'])){
-                        $customer_buy->full_name = $dataSend['customer_buy'];
-                        $customer_buy->phone = '';
-                        $customer_buy->email = '';
-                        $customer_buy->address = '';
-                        $customer_buy->id_messenger = '';
-                        $customer_buy->id_zalo = '';
-                        $customer_buy->id_group = 0;
-                        $customer_buy->avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
-                        $customer_buy->status = 'active';
-                        $customer_buy->pass = '';
-                        $customer_buy->id_parent = $session->read('infoUser')->id;
-                        $customer_buy->birthday_date = 0;
-                        $customer_buy->birthday_month = 0;
-                        $customer_buy->birthday_year = 0;
-                        $customer_buy->created_at = time();
-
-                        $modelCustomers->save($customer_buy);
+                        $customer_buy = createCustomerNew($dataSend['customer_buy'], '', '', '', 0, 0, $session->read('infoUser')->id);
                     }
                 }
+
+                // lưu bảng đại lý
+                saveCustomerMember(@$customer_buy->id, $session->read('infoUser')->id);
 
                 if(empty($customer_buy->full_name)) $customer_buy->full_name = 'Khách lẻ';
                 if(empty($customer_buy->phone)) $customer_buy->phone = '';

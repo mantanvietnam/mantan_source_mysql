@@ -212,6 +212,10 @@ function registerEvent($input)
 
             $checkPhone = createCustomerNew(@$dataSend['name'], @$dataSend['phone'], @$dataSend['email'], @$dataSend['address'], (int) @$dataSend['sex'], (int) @$dataSend['id_city'], $id_agency, $id_aff, $name_agency, $id_messenger, $avatar, $birthday_date, $birthday_month, $birthday_year, @$dataSend['id_group'], '', $note_history);
 
+            if(!empty($infoMemberWeb) && $infoMemberWeb->type_member == 'member'){
+                saveCustomerMember($checkPhone->id, $infoMemberWeb->id);
+            }
+
             // add vào chiến dịch sự kiện
             if(!empty($dataSend['id_campaign']) && function_exists('getInfoCampaign')){
                 $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');

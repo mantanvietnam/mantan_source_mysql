@@ -28,41 +28,16 @@ function createOrderCustomerAPI($input)
                 	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
                 	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-                    $customer_buy = $modelCustomers->find()->where(array('phone'=>$dataSend['phone'], 'id_parent'=>$infoMember->id))->first();
-
-                    if(empty($customer_buy)){
-                		$customer_buy = $modelCustomers->find()->where(array('phone'=>$dataSend['phone']))->first();
-
-                		if(!empty($customer_buy)){
-                			$customer_buy->id_parent = $infoMember->id;
-
-                			$modelCustomers->save($customer_buy);
-                		}
-                	}
-	                
+                    $customer_buy = $modelCustomers->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 	                if(empty($customer_buy)){
-	                    $customer_buy = $modelCustomers->newEmptyEntity();
-
-                        $customer_buy->full_name = $dataSend['phone'];
-                        $customer_buy->phone = $dataSend['phone'];
-                        $customer_buy->email = '';
-                        $customer_buy->address = '';
-                        $customer_buy->id_messenger = '';
-                        $customer_buy->id_zalo = '';
-                        $customer_buy->id_group = 0;
-                        $customer_buy->avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
-                        $customer_buy->status = 'active';
-                        $customer_buy->pass = '';
-                        $customer_buy->id_parent = $infoMember->id;
-                        $customer_buy->birthday_date = 0;
-                        $customer_buy->birthday_month = 0;
-                        $customer_buy->birthday_year = 0;
-                        $customer_buy->created_at = time();
-
-                        $modelCustomers->save($customer_buy);
+	                    $customer_buy = createCustomerNew($dataSend['phone'], $dataSend['phone'], '', '', 0, 0, $infoMember->id);
 	                }
-	                
+
+                    // lưu bảng đại lý
+                    saveCustomerMember($customer_buy->id, $infoMember->id);
+                    
+	                // tạo đơn hàng mới
 	                $save = $modelOrders->newEmptyEntity();
 
 	                $save->id_user = (int) @$customer_buy->id;

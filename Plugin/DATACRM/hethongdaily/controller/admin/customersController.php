@@ -28,42 +28,58 @@ function listCustomerAdmin($input)
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
-    $order = array('id'=>'desc');
+    $order = array('Customers.id'=>'desc');
+    $join = [];
+    $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
 
     if(!empty($_GET['id'])){
-        $conditions['id'] = (int) $_GET['id'];
+        $conditions['Customers.id'] = (int) $_GET['id'];
     }
 
     if(!empty($_GET['full_name'])){
-        $conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
+        $conditions['Customers.full_name LIKE'] = '%'.$_GET['full_name'].'%';
     }
 
     if(!empty($_GET['phone'])){
-        $conditions['phone'] = $_GET['phone'];
+        $conditions['Customers.phone'] = $_GET['phone'];
     }
 
     if(!empty($_GET['status'])){
-        $conditions['status'] = $_GET['status'];
+        $conditions['Customers.status'] = $_GET['status'];
     }
 
     if(!empty($_GET['email'])){
-        $conditions['email'] = $_GET['email'];
+        $conditions['Customers.email'] = $_GET['email'];
     }
 
     if(!empty($_GET['id_aff'])){
-        $conditions['id_aff'] = $_GET['id_aff'];
+        $conditions['Customers.id_aff'] = $_GET['id_aff'];
     }
 
     if(!empty($_GET['phone_member'])){
         $checkMember = $modelMembers->find()->where(['phone'=>$_GET['phone_member']])->first();
 
-        $conditions['id_parent'] = (int) @$checkMember->id;
+        if(!empty($checkMember->id)){
+            $join = [
+                        [
+                            'table' => 'category_connects',
+                            'alias' => 'CategoryConnects',
+                            'type' => 'LEFT',
+                            'conditions' => [
+                                'Customers.id = CategoryConnects.id_parent'
+                            ],
+                        ]
+                    ];
+
+            $conditions['CategoryConnects.id_category'] = $checkMember->id;
+            $conditions['CategoryConnects.keyword'] = "member_customers";
+        }
     }
 
     
 
     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
-        $listData = $modelCustomers->find()->where($conditions)->order($order)->all()->toList();
+        $listData = $modelCustomers->find()->join($join)->select($select)->where($conditions)->order($order)->all()->toList();
         
         $titleExcel =   [
             ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
@@ -106,7 +122,7 @@ function listCustomerAdmin($input)
         }
        export_excel($titleExcel,$dataExcel,'danh_sach_khach_hang');
     }else{
-        $listData = $modelCustomers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        $listData = $modelCustomers->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
         if(!empty($listData)){
             $listMember = [];
@@ -144,7 +160,7 @@ function listCustomerAdmin($input)
     }
 
     // phân trang
-    $totalData = $modelCustomers->find()->where($conditions)->all()->toList();
+    $totalData = $modelCustomers->find()->join($join)->select($select)->where($conditions)->all()->toList();
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
