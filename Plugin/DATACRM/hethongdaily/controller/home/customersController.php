@@ -117,11 +117,11 @@ function listCustomerAgency($input)
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
                     // thống kê đơn hàng
-                    $order = $modelOrders->find()->where(['id_user'=>$value->id])->all()->toList();
+                    $order = $modelOrders->find()->where(['id_user'=>$value->id, 'id_agency'=>$session->read('infoUser')->id])->all()->toList();
                     $listData[$key]->number_order = count($order);
 
                     // lịch sử chăm sóc
-                    $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id])->order(['id'=>'desc'])->first();
+                    $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id, 'id_staff_now'=>$session->read('infoUser')->id])->order(['id'=>'desc'])->first();
 
                     // nhóm khách hàng
                     $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $value->id])->all()->toList();

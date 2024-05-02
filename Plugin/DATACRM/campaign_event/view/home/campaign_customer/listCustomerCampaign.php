@@ -3,8 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listCampaign">Chiến dịch</a> /</span> / <?php echo $infoCampaign->name;?> / 
-    Danh sách
+    <span class="text-muted fw-light"><a href="/listCampaign">Chiến dịch</a> /</span> <?php echo $infoCampaign->name;?>
   </h4>
 
   <p><a href="/addCustomerCampaign/?id_campaign=<?php echo $infoCampaign->id;?>" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới khách sự kiện</a></p>
@@ -21,7 +20,7 @@
             <input type="text" class="form-control" name="id_customer" value="<?php if(!empty($_GET['id_customer'])) echo $_GET['id_customer'];?>">
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="form-label">Điện thoại khách</label>
             <input type="text" class="form-control" name="phone_customer" value="<?php if(!empty($_GET['phone_customer'])) echo $_GET['phone_customer'];?>">
           </div>
@@ -66,7 +65,7 @@
             </select>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="form-label">Hạng vé</label>
             <select name="id_ticket" class="form-select color-dropdown">
               <option value="">Tất cả</option>

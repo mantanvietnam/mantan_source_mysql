@@ -846,15 +846,16 @@ function createImageSeries($input)
 
 			// dùng api flash api
 			$dataImage = screenshotAPIFlash($urlThumb, $product->width, $product->height);
-
-			$imageData = $dataImage;
 			
 			if($dataImage === false){
 				// dùng tool xuất ảnh tự code
 				$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
 				
 				$dataImage = sendDataConnectMantan($url);
+
 				$imageData = base64_decode($dataImage);
+			}else{
+				$imageData = $dataImage;
 			}
 
 	        // dùng siterelic api

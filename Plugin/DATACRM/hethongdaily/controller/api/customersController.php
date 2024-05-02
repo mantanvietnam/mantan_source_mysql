@@ -303,11 +303,13 @@ function saveInfoCustomerAPI($input)
                                 }
                             }
 
+                            if(!empty($dataSend['id_group'])){
+                                $dataSend['id_group'] = explode(',', $dataSend['id_group']);
+                            }
+
                             // in thẻ thành viên
                             if(empty($infoCustomer->img_card_member)){
                                 if(!empty($dataSend['id_group'])){
-                                    $dataSend['id_group'] = explode(',', $dataSend['id_group']);
-
                                     $infoCustomer->id_group = (int) $dataSend['id_group'][0];
 
                                     $infoGroup = $modelCategories->find()->where(['id'=>(int) $dataSend['id_group'][0], 'type' => 'group_customer', 'parent'=>$infoMember->id])->first();
@@ -333,6 +335,27 @@ function saveInfoCustomerAPI($input)
 
                             // lưu bảng đại lý
                             saveCustomerMember($infoCustomer->id, $infoMember->id);
+
+                            if(!empty($dataSend['clear_group'])){
+                                $modelCategoryConnects->deleteAll(['id_parent'=>$infoCustomer->id, 'keyword'=>'group_customers']);
+                            }
+                            
+                            // lưu bảng nhóm khách hàng
+                            if(!empty($dataSend['id_group'])){
+                                foreach ($dataSend['id_group'] as $id_group) {
+                                    $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoCustomer->id, 'id_category'=>(int)$id_group])->first();
+
+                                    if(empty($categoryConnects)){
+                                        $categoryConnects = $modelCategoryConnects->newEmptyEntity();
+
+                                        $categoryConnects->keyword = 'group_customers';
+                                        $categoryConnects->id_parent = $infoCustomer->id;
+                                        $categoryConnects->id_category = (int) $id_group;
+
+                                        $modelCategoryConnects->save($categoryConnects);
+                                    }
+                                }
+                            }
 
                             return array('code'=>5, 'mess'=>'Khách hàng đã có dữ liệu trong hệ thống, cập nhập dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
                             
@@ -445,6 +468,7 @@ function saveInfoCustomerAPI($input)
                         }
                     }
 
+                    // in thẻ thành viên
                     if(!empty($dataSend['id_group'])){
                         $dataSend['id_group'] = explode(',', $dataSend['id_group']);
 
@@ -482,6 +506,7 @@ function saveInfoCustomerAPI($input)
                         $modelCategoryConnects->deleteAll(['id_parent'=>$infoCustomer->id, 'keyword'=>'group_customers']);
                     }
 
+                    // lưu bảng nhóm khách hàng
                     if(!empty($dataSend['id_group'])){
                         foreach ($dataSend['id_group'] as $id_group) {
                             $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoCustomer->id, 'id_category'=>(int)$id_group])->first();
