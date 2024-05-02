@@ -69,6 +69,7 @@
                 <tbody>
                 <?php
                 if (!empty($listData)) {
+                    // debug($listData);
                     foreach ($listData as $item) {
                         if ($item->status == 1) {
                             $status = '

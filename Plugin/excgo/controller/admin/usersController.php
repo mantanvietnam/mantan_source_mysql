@@ -166,11 +166,12 @@ function listUpgradeRequestToDriverAdmin($input)
     $modelUser = $controller->loadModel('Users');
 
     $requestConditions = [];
-    if (isset($_GET['status']) && is_numeric($_GET['status'])) {
+    $requestConditions['status'] = 0;
+    if (isset($_GET['status'])) {
         $requestConditions['status'] = $_GET['status'];
-    } else {
-        $requestConditions['status'] = 0;
-    }
+    } 
+        
+    
     $listUserRequest = $modelDriverRequest->find()
         ->where($requestConditions)
         ->order(['id' => 'desc'])
@@ -184,11 +185,20 @@ function listUpgradeRequestToDriverAdmin($input)
         $listUserId = $listUserRequest->map(function ($item) {
             return $item->user_id;
         })->toList();
+
         $conditions = ['id IN' => $listUserId];
 
         if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
             $conditions['id'] = $_GET['id'];
         }
+
+        if (!empty($_GET['status'])) {
+            $conditions['type'] = 2;
+        }else{
+            $conditions['type'] = 1;
+        }
+        
+        
 
         if (!empty($_GET['name'])) {
             $conditions['name LIKE'] = '%' . $_GET['name'] . '%';

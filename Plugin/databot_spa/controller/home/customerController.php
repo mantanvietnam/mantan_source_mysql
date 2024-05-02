@@ -822,8 +822,8 @@ function downloadLinkNumerology($input){
 
 	        if(function_exists('getLinkFullMMTCAPI')){
 	        	$infoFull = getLinkFullMMTCAPI(@$data->name, @$data->birthday, @$data->phone, @$data->email, @$data->address, @$data->avatar, 1);
-	        }       	
-
+	        }
+	        
 	        if(!empty($infoFull)){
 	            return $controller->redirect($infoFull);   
 	        }

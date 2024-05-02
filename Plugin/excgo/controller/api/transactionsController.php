@@ -251,7 +251,10 @@ function getListBookingTransaction($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
         }
-        $conditions = ['Bookings.received_by' => $currentUser->id];
+        $conditions = ['OR' => [
+                    'Bookings.received_by' => $currentUser->id,
+                    'Bookings.posted_by' => $currentUser->id
+                ] ];
         $order = ['Bookings.received_at' => 'DESC'];
         $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 10;
         $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
