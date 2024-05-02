@@ -1,1 +1,0 @@
-<?php include(__DIR__.'/../../../plugins/hethongdaily/view/home/training/lesson.php');?>

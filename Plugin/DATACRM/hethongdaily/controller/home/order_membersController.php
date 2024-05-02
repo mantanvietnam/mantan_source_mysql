@@ -364,6 +364,14 @@ function orderMemberAgency($input)
 
         // phân trang
         $totalData = $modelOrderMembers->find()->where($conditions)->all()->toList();
+
+        $totalMoney = 0;
+        if(!empty($totalData)){
+            foreach ($totalData as $key => $value) {
+                $totalMoney += $value->total;
+            }
+        }
+
         $totalData = count($totalData);
 
         $balance = $totalData % $limit;
@@ -401,6 +409,7 @@ function orderMemberAgency($input)
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
+        setVariable('totalMoney', $totalMoney);
     }else{
         return $controller->redirect('/login');
     }

@@ -25,8 +25,8 @@
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Điện thoại đại lý</label>
-            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+            <label class="form-label">Tên/Điện thoại đại lý</label>
+            <input type="text" class="form-control" name="phone" id="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
           </div>
 
 
@@ -74,7 +74,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách đơn hàng đại lý</h5>
+    <h5 class="card-header">Danh sách đơn hàng đại lý - <span class="text-danger"><?php echo number_format($totalMoney);?>đ</span></h5>
     <p>Quy trình: đơn mới -> duyệt đơn -> giao hàng -> hoàn thành -> thu tiền</p>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -135,6 +135,11 @@
               }elseif($item->status_pay=='done'){
                $statusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
               }
+
+              $showMoney = number_format($item->total).'đ';
+              if($item->money > 0 && $item->money!=$item->total){
+                $showMoney .= '<br/><del>'.number_format($item->money).'đ</del>';
+              }
               
               echo '<tr>
               <td><a href="/printBillOrderMemberAgency/?id_order_member='.$item->id.'" target="_blank">'.$item->id.'</a></td>
@@ -158,7 +163,7 @@
                 echo '  </tbody>
                 </table>
               </td>
-              <td>'.number_format($item->total).'đ<br/><del>'.number_format($item->money).'đ</del></td>
+              <td>'.$showMoney.'</td>
               
               <td>'.$item->discount.'%</td>
               
@@ -222,5 +227,59 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+
+<script type="text/javascript">
+    // tìm sản phẩm
+    $(function() {
+        function split( val ) {
+          return val.split( /,\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+        $( "#phone" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchMemberAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#phone" ).val(ui.item.phone);
+
+                return false;
+            }
+        });
+    });
+</script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <?php include(__DIR__.'/../footer.php'); ?>
