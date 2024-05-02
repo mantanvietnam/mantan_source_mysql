@@ -336,8 +336,9 @@ strong {
 #header .search-area {
     background-color: #4D9F91;
     justify-content: end;
-    display: flex;
     padding: 12px 70px;
+    /* display: flex; */
+    display: none;
 }
 
 #header .container {
@@ -437,7 +438,7 @@ strong {
 }
 
 #header .navbar .navbar-collapse .nav-item {
-    margin-left: 56px;
+    margin-left: 40px;
 }
 
 #header .navbar .dropdown-toggle::after {
@@ -449,7 +450,7 @@ strong {
     background-color: transparent;
     padding: 0;
     color: #5B5E63;
-    margin-left: 18px;
+    margin-left: 1px;
 }
 
 #header .nav-item.dropdown .dropdown-menu {
@@ -479,6 +480,6 @@ strong {
         margin-left: 1px;
     }
     #header .navbar {
-        padding: 24px 30px;
+        padding: 12px 30px;
     }
 }

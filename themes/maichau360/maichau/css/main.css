@@ -175,8 +175,9 @@ table {
 #header .search-area {
     background-color: #4D9F91;
     justify-content: end;
-    display: flex;
     padding: 12px 70px;
+    /* display: flex; */
+    display: none;
 }
 
 #header .container {
@@ -276,7 +277,7 @@ table {
 }
 
 #header .navbar .navbar-collapse .nav-item {
-    margin-left: 56px;
+    margin-left: 40px;
 }
 
 #header .navbar .dropdown-toggle::after {
@@ -288,7 +289,7 @@ table {
     background-color: transparent;
     padding: 0;
     color: #5B5E63;
-    margin-left: 18px;
+    margin-left: 1px;
 }
 
 #header .nav-item.dropdown .dropdown-menu {
@@ -307,7 +308,7 @@ table {
 }
 
 #banner360 .iframe-360 {
-    height: calc(100vh - 300px);
+    height: calc(100vh - 80px);
 }
 
 #banner360 .iframe-360 iframe {
@@ -2888,7 +2889,7 @@ width: 578px !important; */
         margin-left: 15px;
     }
     #header .navbar {
-        padding: 24px 30px;
+        padding: 12px 30px;
     }
     #header .navbar .navbar-collapse .nav-item.dropdown .dropdown-icon {
         margin-left: 2px;
