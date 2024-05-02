@@ -400,13 +400,23 @@ header{
 }
 
 .menu-blog-detail{
-    margin-top: 26px;
+    /* margin-top: 26px;
     background-color: #DBF7FE;
     height: 627px;
     padding-top: 28px;
     padding-left: 36px;
     padding-right: 49px;
+    border-radius: 16px; */
+}
+
+#table-of-contents{
+    margin-top: 26px;
+    background-color: #DBF7FE;
+    padding-top: 28px;
+    padding-left: 36px;
+    padding-right: 49px;
     border-radius: 16px;
+    padding-bottom: 30px;
 }
 
 .blog-detail-description{

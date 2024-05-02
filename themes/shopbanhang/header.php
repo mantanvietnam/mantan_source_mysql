@@ -25,7 +25,7 @@ if(!empty($session->read('utm'))){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name='dmca-site-verification' content='THIwRVVGTzh6UGRwMTltV3paVmlZUT090' />
     <!-- <title>Document</title> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="<?php echo $urlThemeActive ?>asset/css/main.css">
     <link rel="stylesheet" href="<?php echo $urlThemeActive ?>asset/css/cssplus.css">
     <link rel="stylesheet" href="<?php echo $urlThemeActive ?>asset/css/mainplus.css">
@@ -36,7 +36,7 @@ if(!empty($session->read('utm'))){
     <!-- boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- slick -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
     <script
         type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
@@ -45,10 +45,8 @@ if(!empty($session->read('utm'))){
         type="text/javascript"
         src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"
     ></script>
-    <script
-        type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-    ></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
       <?php mantan_header(); ?>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
