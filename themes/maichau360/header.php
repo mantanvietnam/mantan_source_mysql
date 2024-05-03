@@ -47,19 +47,17 @@ $setting = setting();
 
 <?php }else{ ?>
     <link rel="stylesheet" href="<?= $urlThemeActive ?>maichau/css/main.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
     <link rel="shortcut icon" type="image/png" href="../images/logo.png" />
     <!-- SLick -->
 
     <!-- Boostrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Fonawesome -->
     <script src="https://kit.fontawesome.com/9163bded0f.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
 <?php } ?>
    
@@ -93,9 +91,10 @@ $setting = setting();
 
             <!--  Phần Tìm Kiếm  -->
             <div class="row">
+                <form class="search-input d-none d-md-block" action="/search" method="get">
                 <div class="search-area">
                     <div class="search-input">
-                        <input type="text" placeholder="Tìm kiếm tại đây...">
+                        <input type="text"  name="key" placeholder="Tìm kiếm tại đây...">
                     </div>
                     <div class="search-btn">
                         <a href="/">
@@ -103,6 +102,7 @@ $setting = setting();
                         </a>
                     </div>
                 </div>
+            </form>
             </div>
 
             <!--  Phần Menu  -->

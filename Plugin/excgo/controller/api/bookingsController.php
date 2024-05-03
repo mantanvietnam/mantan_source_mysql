@@ -1973,6 +1973,7 @@ function acceptBookingDealApi($input): array
 function repostBookingApi($input): array
 {
     global $controller;
+    global $transactionType;
     global $isRequestPost;
     global $bookingStatus;
 
@@ -1981,6 +1982,7 @@ function repostBookingApi($input): array
     $modelUser = $controller->loadModel('Users');
     $modelProvince = $controller->loadModel('Provinces');
     $modelNotification = $controller->loadModel('Notifications');
+    $modelTransaction = $controller->loadModel('Transactions');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -2008,6 +2010,34 @@ function repostBookingApi($input): array
 
             if (!is_null($booking->received_by)) {
                 return apiResponse(4, 'Cuốc xe đã có người nhận');
+            }
+
+            if (!empty($booking->deposit)) {
+                if ($booking->deposit > $currentUser->total_coin) {
+                    return apiResponse(2, 'Số tiền trong ví không đủ để cọc');
+                }
+
+                // Giữ tiền cọc của người đăng
+                $currentUser->total_coin -= $booking->deposit;
+                $modelUser->save($currentUser);
+
+                /*$bookingFee = $modelBookingFee->newEmptyEntity();
+                $bookingFee->received_fee = 0;
+                $bookingFee->service_fee = 0;
+                $bookingFee->deposit = $booking->deposit;
+                $bookingFee->booking_id = $booking->id;
+                $modelBookingFee->save($bookingFee);*/
+
+                $depositTransaction = $modelTransaction->newEmptyEntity();
+                $depositTransaction->user_id = $currentUser->id;
+                $depositTransaction->amount = $booking->deposit;
+                $depositTransaction->type = $transactionType['subtract'];
+                $depositTransaction->booking_id = $booking->id;
+                $depositTransaction->name = "Thanh toán tiền cọc khi đăng lại cuốc xe #$booking->id thành công";
+                $depositTransaction->description = '-' . number_format($booking->deposit) . ' EXC-xu';
+                $depositTransaction->created_at = date('Y-m-d H:i:s');
+                $depositTransaction->updated_at = date('Y-m-d H:i:s');
+                $modelTransaction->save($depositTransaction);
             }
 
             $booking->created_at = date('Y-m-d H:i:s');
