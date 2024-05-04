@@ -1520,6 +1520,7 @@ function cancelBookingApi($input): array
 
                 // Update trạng thái cuốc xe
                 $booking->status = $bookingStatus['canceled'];
+                $booking->status_repost = 0;
                 $booking->canceled_at = date('Y-m-d H:i:s');
                 $modelBooking->save($booking);
 
@@ -2012,9 +2013,9 @@ function repostBookingApi($input): array
                 return apiResponse(4, 'Cuốc xe đã có người nhận');
             }
 
-            if (!empty($booking->deposit)) {
+            if (!empty($booking->deposit) && empty($booking->status_repost) && $booking->status == $bookingStatus['canceled']){
                 if ($booking->deposit > $currentUser->total_coin) {
-                    return apiResponse(2, 'Số tiền trong ví không đủ để cọc');
+                    return apiResponse(2, 'Số tiền trong ví không đủ để cọc!');
                 }
 
                 // Giữ tiền cọc của người đăng
@@ -2042,6 +2043,7 @@ function repostBookingApi($input): array
 
             $booking->created_at = date('Y-m-d H:i:s');
             $booking->status = $bookingStatus['unreceived'];
+            $booking->status_repost = 1;
             $bookingModel->save($booking);
 
             $province = $modelProvince->find()->where([
