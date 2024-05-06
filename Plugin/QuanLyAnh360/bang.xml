@@ -1,0 +1,77 @@
+<scene name="s1" title_vi="11" title_en="14" title_cn="3333" lat="1" lng="2" intro_sound="23" intro_sound_en="33" intro_sound_cn="4443" info_vi="s1vi" info_en="s1en" info_cn="s1cn" gallery="true" gal="gallery1">
+
+            <view hlookat="3" vlookat="4" fovtype="2" fov="6" maxpixelzoom="7" fovmin="8" fovmax="9" limitview="true" />
+
+            <preview url="%SWFPATH%/panos/chuyenlaocai/s1/preview.jpg" />
+
+            <image>
+                <cube url="%SWFPATH%/panos/chuyenlaocai/s1/pano_%s.jpg" />
+                <cube url="%SWFPATH%/panos/chuyenlaocai/s1/mobile/pano_%s.jpg" devices="mobile" />
+            </image>
+
+            <events name="s1" onxmlcomplete=""
+                onloadcomplete=" 
+                create_hs(s11, s11,158.32674693848392, 41.64496653216571,0);
+                create_hs(s2, s2,-36.930256918860835, 31.274572349278635,0);
+                                
+                "
+                />
+
+            </scene><scene name="s2" title_vi="11" title_en="14" title_cn="3333" lat="1" lng="" intro_sound="https://ms011.huubang.xyz/upload/admin/files/1_binh_yen_la_tam_guong_phan_chieu_cua_hanh_phuc_d372482c-a9c4-4c01-8ec0-b1d6c5bc800d.mp3" intro_sound_en="https://ms011.huubang.xyz/upload/admin/files/1_binh_yen_la_tam_guong_phan_chieu_cua_hanh_phuc_d372482c-a9c4-4c01-8ec0-b1d6c5bc800d.mp3" intro_sound_cn="https://ms011.huubang.xyz/upload/admin/files/1_binh_yen_la_tam_guong_phan_chieu_cua_hanh_phuc_d372482c-a9c4-4c01-8ec0-b1d6c5bc800d.mp33" info_vi="s2vi" info_en="s2en" info_cn="s2cn" gallery="true" gal="gallery1">
+
+            <view hlookat="3" vlookat="4" fovtype="" fov="6" maxpixelzoom="7" fovmin="8" fovmax="9" limitview="true" />
+
+            <preview url="%SWFPATH%/panos/chuyenlaocai/s2/preview.jpg" />
+
+            <image>
+                <cube url="%SWFPATH%/panos/chuyenlaocai/s2/pano_%s.jpg" />
+                <cube url="%SWFPATH%/panos/chuyenlaocai/s2/mobile/pano_%s.jpg" devices="mobile" />
+            </image>
+
+            <events name="s1" onxmlcomplete=""
+                onloadcomplete=" 
+                create_hs(s11, s11,158.32674693848392, 41.64496653216571,0);
+                create_hs(s2, s2,-36.930256918860835, 31.274572349278635,0);
+                                
+                "
+                />
+
+            </scene><scene name="s2" title_vi="11" title_en="14" title_cn="3333" lat="1" lng="" intro_sound="23" intro_sound_en="33" intro_sound_cn="4443" info_vi="s2vi" info_en="s2en" info_cn="s2cn" gallery="true" gal="gallery1">
+
+            <view hlookat="3" vlookat="4" fovtype="" fov="6" maxpixelzoom="7" fovmin="8" fovmax="9" limitview="true" />
+
+            <preview url="%SWFPATH%/panos/chuyenlaocai/s2/preview.jpg" />
+
+            <image>
+                <cube url="%SWFPATH%/panos/chuyenlaocai/s2/pano_%s.jpg" />
+                <cube url="%SWFPATH%/panos/chuyenlaocai/s2/mobile/pano_%s.jpg" devices="mobile" />
+            </image>
+
+            <events name="s1" onxmlcomplete=""
+                onloadcomplete=" 
+                create_hs(s11, s11,158.32674693848392, 41.64496653216571,0);
+                create_hs(s2, s2,-36.930256918860835, 31.274572349278635,0);
+                                
+                "
+                />
+
+            </scene><scene name="s2" title_vi="11" title_en="14" title_cn="3333" lat="1" lng="2" intro_sound="23" intro_sound_en="33" intro_sound_cn="4443" info_vi="s2vi" info_en="s2en" info_cn="s2cn" gallery="true" gal="gallery1">
+
+            <view hlookat="3" vlookat="4" fovtype="" fov="6" maxpixelzoom="7" fovmin="8" fovmax="9" limitview="true" />
+
+            <preview url="%SWFPATH%/panos/chuyenlaocai/s2/preview.jpg" />
+
+            <image>
+                <cube url="%SWFPATH%/panos/chuyenlaocai/s2/pano_%s.jpg" />
+                <cube url="%SWFPATH%/panos/chuyenlaocai/s2/mobile/pano_%s.jpg" devices="mobile" />
+            </image>
+
+            <events name="s1" onxmlcomplete=""
+                onloadcomplete=" 
+                create_hs(s11, s11,158.32674693848392, 41.64496653216571,0);
+                create_hs(s2, s2,-36.930256918860835, 31.274572349278635,0);
+                                
+                "
+                />
+
+            </scene>
