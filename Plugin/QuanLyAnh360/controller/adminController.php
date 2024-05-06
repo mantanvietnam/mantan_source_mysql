@@ -134,9 +134,13 @@ function addSceneAdmin($input)
             // debug($data);
             // die();
 
-            $modelInfoScene->save($data);     
+            $modelInfoScene->save($data); 
 
-            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            if(!empty(createXML())){
+                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }else{
+                 $mess= '<p class="text-danger">Bạn bị lỗi xml</p>';
+            }   
         }else{
             $mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin</p>';
         }
