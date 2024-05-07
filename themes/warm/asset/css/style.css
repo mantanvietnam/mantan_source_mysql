@@ -449,6 +449,7 @@
 
 	.publications-content-right-inner img{
 		width: 100%;
+		max-width: 648px;
 		height: 100%;
 		/* object-fit: cover; */
 	}
