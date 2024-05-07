@@ -52,7 +52,7 @@
                   <input  type="text" class="form-control phone-mask" name="lat" id="lat" value='<?php echo @$data->lat;?>' />
                 </div>
                 <div class="mb-3 col-md-6">
-                  <label class="form-label" for="basic-default-phone">lng</label>
+                  <label class="form-label" for="basic-default-phone">long</label>
                   <input  type="text" class="form-control phone-mask" name="lng" id="lng" value='<?php echo @$data->lng;?>' />
                 </div>
                  <div class="mb-3 col-md-6">

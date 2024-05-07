@@ -31,4 +31,15 @@ $sqlInstallDatabase .="CREATE TABLE `info_scenes` ( `id` INT NOT NULL AUTO_INCRE
   `info_cn` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL , 
   PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .='CREATE TABLE `plug_points` ( `id` INT NOT NULL AUTO_INCREMENT , 
+`code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+`id_scene` INT NOT NULL , 
+`icon` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL , 
+`hlookat` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`vlookat` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL , 
+`status` TINYINT NOT NULL DEFAULT '0',
+`note` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL , 
+PRIMARY KEY (`id`)) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= "DROP TABLE info_scenes; ";
+$sqlDeleteDatabase .= "DROP TABLE plug_points; ";

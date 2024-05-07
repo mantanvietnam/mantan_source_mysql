@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin bối cảnh</h4> 
-  <p><a href="/plugins/admin/QuanLyAnh360-view-admin-scene-addSceneAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Thông tin điểm cắm</h4> 
+  <p><a href="/plugins/admin/QuanLyAnh360-view-admin-plugpoint-addPlugPointAdmin?id_scene=<?php echo @$_GET['id_scene']; ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <!-- <form method="get" action="">
@@ -35,16 +35,15 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách bối cảnh</h5>
+    <h5 class="card-header">Danh sách điểm cắm</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Ảnh</th>
+            <th>ảnh cảnh</th>
             <th>Mã cảnh</th>
             <th>Tiêu đề Việt</th>
-            <th>điểm cắm</th>
             <th>Sửa</th>
             <th>Xóa</th>
 
@@ -57,21 +56,16 @@
                
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td><img src="'.$item->image.'" width="100"/></td>
+                        <td><img src="'.$item->InfoScene->image.'" width="100"/></td>
                         <td>'.$item->code.'</td>
-                        <td>'.$item->title_vi.'</td>
+                        <td>'.$item->InfoScene->title_vi.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/QuanLyAnh360-view-admin-plugpoint-listPlugPointAdmin/?id_scene='.$item->id.'">
-                            <i class="bx bxs-map-pin me-1"></i>
-                          </a>
-                        </td>
-                        <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/QuanLyAnh360-view-admin-scene-addSceneAdmin/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/QuanLyAnh360-view-admin-plugpoint-addPlugPointAdmin/?id='.$item->id.'&id_scene='.$_GET['id_scene'].'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteSceneAdmin/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deletePlugPointAdmin/?id='.$item->id.'&id_scene='.$_GET['id_scene'].'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

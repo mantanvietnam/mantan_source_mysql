@@ -9,6 +9,12 @@ $menus[0]['sub'][0]= array('title'=>'Thông tin bối cảnh',
                             'permission'=>'listSceneAdmins',
                         );
 
+$menus[0]['sub'][1]= array('title'=>'Cài đặt',
+                            'url'=>'/plugins/admin/QuanLyAnh360-view-admin-path-setingPathAdmin',
+                            'classIcon'=>'bx bxs-cog',
+                            'permission'=>'setingPathAdmin',
+                        );
+
 // /$menus[1]['sub'][6]= ;
 addMenuAdminMantan($menus);
 
@@ -27,10 +33,18 @@ function createXML()
     global $urlCurrent;
     global $metaTitleMantan;
     global $modelCategories;
+    global $modelOptions;
+    
+    $conditio = array('key_word' => 'setingPathAdmin');
+    $data = $modelOptions->find()->where($conditio)->first();
 
-    $metaTitleMantan = 'Danh sách Library';
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
 
     $modelInfoScene = $controller->loadModel('InfoScenes');
+    $modelPlugPoint = $controller->loadModel('PlugPoints');
 
     $conditions = array('status'=>1);
    
@@ -41,7 +55,7 @@ function createXML()
     $info = '<krpano>';
     
 
-    $roots = '<krpano flare_dir="core" version="1.20.11" gtitle="chuaboc" default_demo_speed="7" autotour_running="false" step="0">
+    $roots = '<krpano flare_dir="core" version="1.20.11" gtitle="'.@$data_value['path'].'" default_demo_speed="7" autotour_running="false" step="0">
 
     <include url="core/core.xml" />
     <include url="lensflare.xml" />
@@ -177,29 +191,29 @@ function createXML()
 
          // Thay đổi thông tin ở phần này 
      foreach($listData as $key => $item){
-
-        $roots .='   <scene name="'.@$item->code.'" title="'.@$item->title_vi.'" title_vi="'.@$item->title_vi.'" title_en="'.@$item->title_en.'" title_cn="'.@$item->title_cn.'" lat="'.@$item->lat.'" lng="'.@$item->lng.'" intro_sound="'.@$item->audio_vi.'" intro_sound_en="'.@$item->audio_en.'" intro_sound_cn="'.@$item->audio_cn.'" info_vi="'.@$item->code.'vi" info_en="'.@$item->code.'en" info_cn="'.@$item->code.'cn" gallery="true" gal="gallery1" thumburl="%SWFPATH%/panos/chuaboc/thumb/'.@$item->code.'.jpg">
+             $PlugPoint = $modelPlugPoint->find()->where(array('status'=>1,'id_scene'=>$item->id))->all()->toList();
+        $roots .='   <scene name="'.@$item->code.'" title="'.@$item->title_vi.'" title_vi="'.@$item->title_vi.'" title_en="'.@$item->title_en.'" title_cn="'.@$item->title_cn.'" lat="'.@$item->lat.'" lng="'.@$item->lng.'" intro_sound="'.@$item->audio_vi.'" intro_sound_en="'.@$item->audio_en.'" intro_sound_cn="'.@$item->audio_cn.'" info_vi="'.@$item->code.'vi" info_en="'.@$item->code.'en" info_cn="'.@$item->code.'cn" gallery="true" gal="gallery1" thumburl="%SWFPATH%/panos/'.@$data_value['path'].'/thumb/'.@$item->code.'.jpg">
 
             <view hlookat="'.@$item->hlookat.'" vlookat="'.@$item->vlookat.'" fovtype="'.@$item->fovtype.'" fov="'.@$item->fov.'" maxpixelzoom="'.@$item->maxpixelzoom.'" fovmin="'.@$item->fovmin.'" fovmax="'.@$item->fovmax.'" limitview="true" />
 
-            <preview url="%SWFPATH%/panos/chuaboc/'.@$item->code.'/preview.jpg" />
+            <preview url="%SWFPATH%/panos/'.@$data_value['path'].'/'.@$item->code.'/preview.jpg" />
 
             <image>
-                <cube url="%SWFPATH%/panos/chuaboc/'.@$item->code.'/pano_%s.jpg" />
-                <cube url="%SWFPATH%/panos/chuaboc/'.@$item->code.'/mobile/pano_%s.jpg" devices="mobile" />
+                <cube url="%SWFPATH%/panos/'.@$data_value['path'].'/'.@$item->code.'/pano_%s.jpg" />
+                <cube url="%SWFPATH%/panos/'.@$data_value['path'].'/'.@$item->code.'/mobile/pano_%s.jpg" devices="mobile" />
             </image>
 
             <events name="'.@$item->code.'" onxmlcomplete=""
-                onloadcomplete=""
-                />
+                onloadcomplete="';
+                    if(!empty($PlugPoint)){
+                        foreach($PlugPoint as $k => $value){
+                            $roots .='create_hs('.@$value->code.', '.@$value->icon.','.@$value->hlookat.', '.@$value->vlookat.',0,'.@$value->note.');';
+                        }
+                    }
+
+             $roots .='     "/>
 
             </scene>';
-
-            /*create_hs(s4, hotspot1,-6.256971599014207, 51.56418353091401,0);
-            create_hs(s18, hotspot1,-32.99111173004951, 73.76806350148648,0);
-            create_hs(s20, hotspot1,99.8607985987559, 54.43261724823227,0);
-            create_hs(s2, hotspot1,-67.02883660923493, 26.54488619469841,0); */               
-                
 
            $info .= ' <data name="'.@$item->code.'vi">
                         <p>'.@$item->info_vn.'</p>
@@ -217,8 +231,8 @@ function createXML()
         $roots .=' </krpano>';
         $info .=' </krpano>';
 
-    $file1 = '../anh360/data/projects/chuaboc/index.xml';
-    $file2 = '../anh360/data/projects/chuaboc/data.xml';
+    $file1 = '../anh360/data/projects/'.@$data_value['path'].'/index.xml';
+    $file2 = '../anh360/data/projects/'.@$data_value['path'].'/data.xml';
     file_put_contents($file1, $roots);
     file_put_contents($file2, $info);
 
@@ -232,6 +246,15 @@ function createXML()
 
 }
 
+global $icon;
 
+$icon = array(
+         'hotspot1'=> 'map',   
+         'turn_left'=> 'rẽ trái',   
+         'turn_right'=> 'rẽ phải',   
+         'ahead'=> 'phía trước',   
+         'here_left'=> 'hướng trái',   
+         'here_right'=> 'hướng phải',   
+    )
 
 ?>
