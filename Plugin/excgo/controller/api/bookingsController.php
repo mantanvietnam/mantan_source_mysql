@@ -1342,11 +1342,15 @@ function viewBookingDetailApi($input): array
 function updateBookingApi($input): array
 {
     global $controller;
+    global $transactionType;
     global $isRequestPost;
     global $bookingStatus;
 
     $modelBooking = $controller->loadModel('Bookings');
     $modelProvince = $controller->loadModel('Provinces');
+    $modelUser = $controller->loadModel('Users');
+    $modelTransaction = $controller->loadModel('Transactions');
+    $modelNotification = $controller->loadModel('Notifications');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -1451,6 +1455,92 @@ function updateBookingApi($input): array
             }
 
             if (!empty($dataSend['deposit'])) {
+                if($booking->deposit >$dataSend['deposit']){
+                    $deposit = $booking->deposit - $dataSend['deposit'];
+
+                    $currentUser->total_coin += $deposit;
+                    $modelUser->save($currentUser);
+
+                    $newTransaction = $modelTransaction->newEmptyEntity();
+                    $newTransaction->user_id = $currentUser->id;
+                    $newTransaction->booking_id = $booking->id;
+                    $newTransaction->amount = $deposit;
+                    $newTransaction->type = $transactionType['add'];
+                    $newTransaction->name = "Bới tiền cọc cuốc xe #$booking->id thành công";
+                    $newTransaction->description = '+' . number_format($deposit) . ' EXC-xu';
+                    $newTransaction->created_at = date('Y-m-d H:i:s');
+                    $newTransaction->updated_at = date('Y-m-d H:i:s');
+                    $modelTransaction->save($newTransaction);
+                        // Thông báo cho người đăng
+                    $title = 'Cộng EXC coin vào tài khoản';
+                    $content = "Tài khoản của bạn được trả lại $deposit tiền cọc cho cuốc xe #$booking->id";
+                    $notification = $modelNotification->newEmptyEntity();
+                    $notification->user_id = $currentUser->id;
+                    $notification->booking_id = $booking->id;
+                    $notification->title = $title;
+                    $notification->content = $content;
+                    $notification->created_at = date('Y-m-d H:i:s');
+                    $notification->updated_at = date('Y-m-d H:i:s');
+                    $modelNotification->save($notification);
+                    if ($currentUser->device_token) {
+                        $dataSendNotification= array(
+                            'title' => $title,
+                            'time' => date('H:i d/m/Y'),
+                            'content' => $content,
+                            'action' => 'addMoneySuccess',
+                            'user_id' => $currentUser->id,
+                            'booking_id' => $booking->id,
+                        );
+                        sendNotification($dataSendNotification, $currentUser->device_token);
+                    }
+
+                }elseif($booking->deposit < $dataSend['deposit']){
+                    $deposit = $dataSend['deposit']- $booking->deposit;
+                    if ($deposit > $currentUser->total_coin) {
+                    return apiResponse(2, 'Số tiền trong ví không đủ để cọc!');
+                    }
+
+                    // Giữ tiền cọc của người đăng
+                    $currentUser->total_coin -= $deposit;
+                    $modelUser->save($currentUser);
+
+                   
+
+                    $depositTransaction = $modelTransaction->newEmptyEntity();
+                    $depositTransaction->user_id = $currentUser->id;
+                    $depositTransaction->amount = $deposit;
+                    $depositTransaction->type = $transactionType['subtract'];
+                    $depositTransaction->booking_id = $booking->id;
+                    $depositTransaction->name = "Thanh toán thêm tiền cọc khi đăng lại cuốc xe #$booking->id thành công";
+                    $depositTransaction->description = '-' . number_format($deposit) . ' EXC-xu';
+                    $depositTransaction->created_at = date('Y-m-d H:i:s');
+                    $depositTransaction->updated_at = date('Y-m-d H:i:s');
+                    $modelTransaction->save($depositTransaction);
+
+                        // Thông báo cho người đăng
+                    $title = 'Trừ EXC coin tài khoản';
+                    $content = "Tài khoản của bạn được trừ thêm $deposit tiền cọc cho cuốc xe #$booking->id";
+                    $notification = $modelNotification->newEmptyEntity();
+                    $notification->user_id = $currentUser->id;
+                    $notification->booking_id = $booking->id;
+                    $notification->title = $title;
+                    $notification->content = $content;
+                    $notification->created_at = date('Y-m-d H:i:s');
+                    $notification->updated_at = date('Y-m-d H:i:s');
+                    $modelNotification->save($notification);
+                    if ($currentUser->device_token) {
+                        $dataSendNotification= array(
+                            'title' => $title,
+                            'time' => date('H:i d/m/Y'),
+                            'content' => $content,
+                            'action' => 'addMoneySuccess',
+                            'user_id' => $currentUser->id,
+                            'booking_id' => $booking->id,
+                        );
+                        sendNotification($dataSendNotification, $currentUser->device_token);
+                    }
+                }
+
                 $booking->deposit = $dataSend['deposit'];
             }
 
