@@ -254,6 +254,7 @@ function saveInfoCustomerAPI($input)
     $modelOrders = $controller->loadModel('Orders');
     $modelCustomerHistories = $controller->loadModel('CustomerHistories');
     $modelMembers = $controller->loadModel('Members');
+    $modelTokenDevices = $controller->loadModel('TokenDevices');
 
     $return = array('code'=>1);
     
@@ -357,6 +358,81 @@ function saveInfoCustomerAPI($input)
                                 }
                             }
 
+                            // lưu bảng chiến dịch
+                            if(!empty($dataSend['id_campaign']) && function_exists('getInfoCampaign')){
+                                $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+
+                                $infoCampaign = getInfoCampaign($dataSend['id_campaign'], $infoMember->id);
+
+                                if(!empty($infoCampaign)){
+                                    $checkCampaign = $modelCampaignCustomers->find()->where(['id_member'=>$infoMember->id, 'id_customer'=>(int) $infoCustomer->id, 'id_campaign'=>(int) $dataSend['id_campaign']])->first();
+
+                                    if(empty($checkCampaign)){
+                                        $checkCampaign = $modelCampaignCustomers->newEmptyEntity();
+
+                                        $checkCampaign->id_member = $infoMember->id;
+                                        $checkCampaign->id_customer = $infoCustomer->id;
+                                        $checkCampaign->id_campaign = (int) $dataSend['id_campaign'];
+                                        $checkCampaign->create_at = time();
+                                    }
+
+                                    if(!empty($dataSend['id_location'])){
+                                        $checkCampaign->id_location = (int) @$dataSend['id_location'];
+                                    }elseif(empty($checkCampaign->id_location)){
+                                        $checkCampaign->id_location = 0;
+                                    }
+
+                                    if(!empty($dataSend['id_ticket'])){
+                                        $checkCampaign->id_ticket = (int) @$dataSend['id_ticket'];
+                                    }elseif(empty($checkCampaign->id_ticket)){
+                                        $checkCampaign->id_ticket = 0;
+                                    }
+
+                                    if(!empty($dataSend['id_team'])){
+                                        $checkCampaign->id_team = (int) @$dataSend['id_team'];
+                                    }elseif(empty($checkCampaign->id_team)){
+                                        $checkCampaign->id_team = 0;
+                                    }
+
+                                    if(!empty($dataSend['note_campaign'])){
+                                        $checkCampaign->note = @$dataSend['note_campaign'];
+                                    }elseif(empty($checkCampaign->note)){
+                                        $checkCampaign->note = '';
+                                    }
+
+                                    if(!empty($dataSend['checkin'])){
+                                        $checkCampaign->time_checkin = time();
+                                    }elseif(empty($checkCampaign->time_checkin)){
+                                        $checkCampaign->time_checkin = 0;
+                                    }
+
+                                    $modelCampaignCustomers->save($checkCampaign);
+
+                                    // bắn thông báo khách đăng ký chiến dịch mới
+                                    $actionCampaign = 'đăng ký tham gia';
+                                    if(!empty($dataSend['checkin'])){
+                                        $actionCampaign = 'checkin';
+                                    }
+
+                                    $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã '.$actionCampaign.' chiến dịch '.$infoCampaign->name,'action'=>'addCustomerCampaign', 'id_campaign'=>$infoCampaign->id);
+                                    $token_device = [];
+
+                                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                                    if(!empty($listTokenDevice)){
+                                        foreach ($listTokenDevice as $tokenDevice) {
+                                            if(!empty($tokenDevice->token_device)){
+                                                $token_device[] = $tokenDevice->token_device;
+                                            }
+                                        }
+
+                                        if(!empty($token_device)){
+                                            $return = sendNotification($dataSendNotification, $token_device);
+                                        }
+                                    }
+                                }
+                            }
+
                             return array('code'=>5, 'mess'=>'Khách hàng đã có dữ liệu trong hệ thống, cập nhập dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
                             
                         }else{
@@ -370,6 +446,10 @@ function saveInfoCustomerAPI($input)
                     }
 
                     $infoCustomer->full_name = $dataSend['full_name'];
+
+                    if(empty($infoCustomer->created_at)){
+                        $infoCustomer->created_at = time();
+                    }
                     
                     if(!empty($dataSend['email'])){
                         $infoCustomer->email = $dataSend['email'];
@@ -537,6 +617,7 @@ function saveInfoCustomerAPI($input)
                                 $checkCampaign->id_member = $infoMember->id;
                                 $checkCampaign->id_customer = $infoCustomer->id;
                                 $checkCampaign->id_campaign = (int) $dataSend['id_campaign'];
+                                $checkCampaign->create_at = time();
                             }
 
                             $checkCampaign->id_location = (int) @$dataSend['id_location'];
@@ -544,7 +625,36 @@ function saveInfoCustomerAPI($input)
                             $checkCampaign->id_ticket = (int) @$dataSend['id_ticket'];
                             $checkCampaign->note = @$dataSend['note_campaign'];
 
+                            if(!empty($dataSend['checkin'])){
+                                $checkCampaign->time_checkin = time();
+                            }else{
+                                $checkCampaign->time_checkin = 0;
+                            }
+
                             $modelCampaignCustomers->save($checkCampaign);
+
+                            // bắn thông báo khách đăng ký chiến dịch mới
+                            $actionCampaign = 'đăng ký tham gia';
+                            if(!empty($dataSend['checkin'])){
+                                $actionCampaign = 'checkin';
+                            }
+
+                            $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã '.$actionCampaign.' chiến dịch '.$infoCampaign->name,'action'=>'addCustomerCampaign', 'id_campaign'=>$infoCampaign->id);
+                            $token_device = [];
+
+                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                            if(!empty($listTokenDevice)){
+                                foreach ($listTokenDevice as $tokenDevice) {
+                                    if(!empty($tokenDevice->token_device)){
+                                        $token_device[] = $tokenDevice->token_device;
+                                    }
+                                }
+
+                                if(!empty($token_device)){
+                                    $return = sendNotification($dataSendNotification, $token_device);
+                                }
+                            }
                         }
                     }
 

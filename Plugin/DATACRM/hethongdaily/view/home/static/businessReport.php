@@ -1,15 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-<script>
-  $( function() {
-    $( "#tabs" ).tabs();
-  } );
-</script>
 
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -28,24 +19,42 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <div id="tabs" class="mb-3">
-                  <ul>
-                    <li><a href="#tabs-1">Doanh thu khách lẻ</a></li>
-                    <li><a href="#tabs-2">Doanh thu đại lý</a></li>
-                    <li><a href="#tabs-3">Nhập hàng hệ thống</a></li>
-                    <li><a href="#tabs-4">Khách hàng mới</a></li>
+                <div class="nav-align-top mb-4">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                      <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-1" aria-controls="navs-top-1" aria-selected="true">
+                        Doanh thu khách lẻ
+                      </button>
+                    </li>
+                    <li class="nav-item">
+                      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-2" aria-controls="navs-top-2" aria-selected="false">
+                        Doanh thu đại lý
+                      </button>
+                    </li>
+                    <li class="nav-item">
+                      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-3" aria-controls="navs-top-3" aria-selected="false">
+                        Nhập hàng hệ thống
+                      </button>
+                    </li>
+                    <li class="nav-item">
+                      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-4" aria-controls="navs-top-4" aria-selected="false">
+                        Khách hàng mới
+                      </button>
+                    </li>
                   </ul>
-                  <div id="tabs-1" style="min-height: 450px;">
-                    <div id="columnchart_staticOrder" style="width: 98%; height: 300px;"></div>
-                  </div>
-                  <div id="tabs-2" style="min-height: 450px;">
-                    <div id="columnchart_staticOrderMemberSell" style="width: 98%; height: 300px;"></div>
-                  </div>
-                  <div id="tabs-3" style="min-height: 450px;">
-                    <div id="columnchart_staticOrderMemberBuy" style="width: 98%; height: 300px;"></div>
-                  </div>
-                  <div id="tabs-4" style="min-height: 450px;">
-                    <div id="columnchart_staticCustomer" style="width: 98%; height: 300px;"></div>
+                  <div class="tab-content">
+                    <div class="tab-pane fade active show" id="navs-top-1" role="tabpanel" style="min-height: 450px;">
+                      <div id="columnchart_staticOrder" style="width: 98%; height: 300px;"></div>
+                    </div>
+                    <div class="tab-pane fade" id="navs-top-2" role="tabpanel" style="min-height: 450px;">
+                      <div id="columnchart_staticOrderMemberSell" style="width: 98%; height: 300px;"></div>
+                    </div>
+                    <div class="tab-pane fade" id="navs-top-3" role="tabpanel" style="min-height: 450px;">
+                      <div id="columnchart_staticOrderMemberBuy" style="width: 98%; height: 300px;"></div>
+                    </div>
+                    <div class="tab-pane fade" id="navs-top-4" role="tabpanel" style="min-height: 450px;">
+                      <div id="columnchart_staticCustomer" style="width: 98%; height: 300px;"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -92,13 +101,17 @@
 
     var options = {
       title: "",
-      
+      width: '100%',
       height: 400,
       bar: {groupWidth: "95%"},
       legend: { position: "none" },
     };
     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_staticOrder"));
     chart.draw(view, options);
+
+    window.addEventListener('resize', function() {
+        chart.draw(view, options);
+    });
   }
 
   function drawChartOrderMemberSell() {
@@ -128,13 +141,17 @@
 
     var options = {
       title: "",
-      
+      width: '100%',
       height: 400,
       bar: {groupWidth: "95%"},
       legend: { position: "none" },
     };
     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_staticOrderMemberSell"));
     chart.draw(view, options);
+
+    window.addEventListener('resize', function() {
+        chart.draw(view, options);
+    });
   }
 
   function drawChartOrderMemberBuy() {
@@ -164,13 +181,17 @@
 
     var options = {
       title: "",
-      
+      width: '100%',
       height: 400,
       bar: {groupWidth: "95%"},
       legend: { position: "none" },
     };
     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_staticOrderMemberBuy"));
     chart.draw(view, options);
+
+    window.addEventListener('resize', function() {
+        chart.draw(view, options);
+    });
   }
 
   function drawChartCustomer() {
@@ -200,14 +221,36 @@
 
     var options = {
       title: "",
-      
+      width: '100%',
       height: 400,
       bar: {groupWidth: "95%"},
       legend: { position: "none" },
     };
     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_staticCustomer"));
     chart.draw(view, options);
+
+    window.addEventListener('resize', function() {
+        chart.draw(view, options);
+    });
   }
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.nav-link').on( "click", function() {
+    var target = $( this ).data('bs-target');
+    
+    if (target === "#navs-top-1") {
+      drawChartOrder();
+    } else if (target === "#navs-top-2") {
+      drawChartOrderMemberSell();
+    } else if (target === "#navs-top-3") {
+      drawChartOrderMemberBuy();
+    } else if (target === "#navs-top-4") {
+      drawChartCustomer();
+    }
+  } );
+});
 </script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

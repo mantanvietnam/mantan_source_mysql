@@ -16,7 +16,7 @@ global $recommenders;
 $urlsCreateImage = [
                     //'http://171.244.16.76:3000/convert',
                     'http://14.225.53.136:3000/convert',
-                    'http://14.225.53.107:3000/convert',
+                    //'http://14.225.53.107:3000/convert',
                     ];
 $randIndex = array_rand($urlsCreateImage);
 $urlCreateImage = $urlsCreateImage[$randIndex];
@@ -79,7 +79,7 @@ function removeBackground($link_image_local='',$create_new= false)
     $linkImage = removeBackgroundPhotoroom($link_image_local, $create_new);
     $linkLocalNew = __DIR__.'/../../'.$linkImage;
 
-    cropAutoImagePNG($linkLocalNew, $linkLocalNew);
+    //cropAutoImagePNG($linkLocalNew, $linkLocalNew);
 
     //zipImage($linkLocalNew);
     

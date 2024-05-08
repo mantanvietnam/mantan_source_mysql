@@ -186,6 +186,7 @@ function checkLoginMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelTokenDevices = $controller->loadModel('TokenDevices');
 
 	$return = array('code'=>1);
 	
@@ -211,6 +212,19 @@ function checkLoginMemberAPI($input)
 
 				if(!empty($dataSend['token_device'])){
 					$checkPhone->token_device = $dataSend['token_device'];
+
+					$checkTokenDevice = $modelTokenDevices->find()->where(['token_device'=>$dataSend['token_device']])->first();
+
+					if(!empty($checkTokenDevice)){
+						$checkTokenDevice->id_member = $checkPhone->id;
+					}else{
+						$checkTokenDevice = $modelTokenDevices->newEmptyEntity();
+
+						$checkTokenDevice->token_device = $dataSend['token_device'];
+						$checkTokenDevice->id_member = $checkPhone->id;
+					}
+
+					$modelTokenDevices->save($checkTokenDevice);
 				}
 
 				$modelMember->save($checkPhone);
