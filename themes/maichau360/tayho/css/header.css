@@ -483,3 +483,13 @@ strong {
         padding: 12px 30px;
     }
 }
+
+@media (max-width: 480px) {
+    #header .navbar-brand {
+        width: 45px;
+        height: 45px;
+    }
+    #header .navbar {
+        padding: 5px 30px;
+    }
+}
