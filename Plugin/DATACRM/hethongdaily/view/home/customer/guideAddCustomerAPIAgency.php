@@ -26,6 +26,7 @@
             <p>avatar: link ảnh đại diện của khách hàng</p>
             <p>id_messenger: ID messenger (không bắt buộc)</p>
             <p>id_group: ID nhóm khách hàng (không bắt buộc)</p>
+            <p>checkin: cờ đánh dấu cho checkin tự động hay không (không bắt buộc, 1 là tự động, chuỗi rỗng '' là không)</p>
             
             <p>sex: giới tính, 1 là nam, 0 là nữ (không bắt buộc)</p>
             <p>facebook: link facebook khách hàng (không bắt buộc)</p>
@@ -50,6 +51,7 @@
                 "id_group": "1",<br/>
                 "birthday": "17/9/1989",<br/>
                 "address": "18 Thanh Bình, HN",<br/>
+                "checkin": "",<br/>
                 "chatbot": "zalo",<br/><br/>
 
                 "id_campaign": "1",<br/>

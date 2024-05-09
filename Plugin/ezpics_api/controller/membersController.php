@@ -136,7 +136,7 @@ function saveRegisterMemberAPI($input)
 
 					$return = array(	'code'=>0, 
 			    						'set_attributes'=>array('id_member'=>$data->id),
-			    						'messages'=>array(array('text'=>'Lưu thông tin thành công')),
+			    						'messages'=>array(array('text'=>'Khởi tạo tài khoản Ezpics thành công, tài khoản '.$dataSend['phone'].', mật khẩu '.$dataSend['password'])),
 			    						'info_member'=>$data,
 			    						'code_otp' => $data->otp
 			    					);
@@ -152,7 +152,7 @@ function saveRegisterMemberAPI($input)
 			}else{
 				$return = array('code'=>3,
 					'set_attributes'=>array('id_customer'=>0),
-					'messages'=>array(array('text'=>'Số điện thoại đã tồn tại'))
+					'messages'=>array(array('text'=>'Tài khoản Ezpics đã được khởi tạo'))
 				);
 
 			}

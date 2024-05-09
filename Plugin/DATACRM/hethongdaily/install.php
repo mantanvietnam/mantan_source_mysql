@@ -144,6 +144,8 @@ $sqlInstallDatabase .= "CREATE TABLE `warehouse_histories` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
+$sqlInstallDatabase .= "CREATE TABLE `token_devices` (`id` INT NOT NULL AUTO_INCREMENT , `token_device` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , `id_member` INT NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -153,6 +155,7 @@ $sqlDeleteDatabase .= "DROP TABLE order_members; ";
 $sqlDeleteDatabase .= "DROP TABLE order_member_details; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouse_products; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouse_histories; ";
+$sqlDeleteDatabase .= "DROP TABLE token_devices; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";

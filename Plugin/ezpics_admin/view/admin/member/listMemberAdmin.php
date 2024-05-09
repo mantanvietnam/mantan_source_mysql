@@ -95,7 +95,6 @@
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Ảnh đại diện</th>
               <th>Khách hàng</th>
               <th>Thống kê</th>
               <th>Loại tài khoản</th>
@@ -145,15 +144,20 @@
                             </a>';
                   }
 
+                  $last_login = '';
+                  if(!empty($item->last_login)){
+                    $last_login = date('H:i d/m/Y', strtotime($item->last_login));
+                  }
+
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td><img src="'.$item->avatar.'" width="100" /></td>
                           <td>
+                            <img src="'.$item->avatar.'" width="100" /><br/>
                             '.$item->name.'<br/>
                             '.$item->phone.'<br/>
                             '.$item->email.'<br/>
                             Đăng ký: '.date('H:i d/m/Y', strtotime($item->created_at)).'<br/>
-                            Đăng nhập lần cuối lúc: '.date('H:i d/m/Y', strtotime(@$item->last_login)).'<br/>
+                            Đăng nhập lần cuối lúc: '.$last_login.'<br/>
                             '.$pro.'<br/><br/>
                             <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager/?type=plus&id='.$item->id.'">
                              Cộng tiền 

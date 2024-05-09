@@ -3142,7 +3142,7 @@ width: 578px !important; */
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
     #places .places-slide .item-slide-content h3 {
         line-height: 30px;
     }
@@ -3576,8 +3576,12 @@ width: 578px !important; */
     #header .nav-item.dropdown .dropdown-menu.relics-drop {
         left: -40px;
     }
+    #header .navbar-brand {
+        width: 45px;
+        height: 45px;
+    }
     #header .navbar {
-        padding: 12px 30px;
+        padding: 5px 30px;
     }
     #places .places-title {
         text-align: center;

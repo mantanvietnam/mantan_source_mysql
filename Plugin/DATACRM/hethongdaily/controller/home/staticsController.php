@@ -75,12 +75,11 @@ function businessReport($input)
         $staticCustomer = [0,0,0,0,0,0,0,0,0,0,0,0,0];
         if(!empty($listCustomer)){
             foreach ($listCustomer as $key => $value) {
-                $time = getdate($value->create_at);
-
-                $staticCustomer[$time['mon']] += $value->total;
+                $time = getdate($value->created_at);
+                $staticCustomer[$time['mon']] += 1;
             }
         }
-
+        
         setVariable('today', $today);
         setVariable('staticOrder', $staticOrder);
         setVariable('staticOrderMemberSell', $staticOrderMemberSell);

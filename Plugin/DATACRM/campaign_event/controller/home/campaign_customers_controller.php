@@ -52,7 +52,12 @@ function listCustomerCampaign($input)
                 }
 
                 if(!empty($_GET['checkin'])){
-                    $conditions['time_checkin >'] = 0;
+                    if($_GET['checkin']==1){
+                        $conditions['time_checkin >'] = 0;
+                    }elseif($_GET['checkin']==2){
+                        $conditions['time_checkin'] = 0;
+                    }
+                    
                 }
 
                 if(!empty($_GET['action']) && $_GET['action']=='Excel'){
@@ -78,7 +83,7 @@ function listCustomerCampaign($input)
 
                             $dataExcel[] = [
                                                 $checkCustomer->id,   
-                                                date('d/m/Y', $checkCustomer->create_at),
+                                                date('d/m/Y', $value->create_at),
                                                 $checkCustomer->full_name,   
                                                 $checkCustomer->phone,   
                                                 $checkCustomer->address,   

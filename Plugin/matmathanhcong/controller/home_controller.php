@@ -226,7 +226,11 @@ function resultvip($input)
                 }
 
                 if(empty($dataSend['avatar'])){
-                    $dataSend['avatar'] = $urlHomes.'/plugins/matmathanhcong/view/home/img/avatar-default-crm.png';
+                    if(!empty($_GET['avatar'])){
+                        $dataSend['avatar'] = $_GET['avatar'];
+                    }else{
+                        $dataSend['avatar'] = $urlHomes.'/plugins/matmathanhcong/view/home/img/avatar-default-crm.png';
+                    }
                 }
                 
                 // lấy link tải bản full
@@ -325,6 +329,7 @@ function resultvip($input)
                         //$attributesSmax['linkAffMMTC']= 'https://matmathanhcong.vn/?aff='.$data->phone;
                         $attributesSmax['linkAffMMTC']= 'https://m.me/100405719654447?ref=Dang-ky-Mat-ma-thanh-cong-affiliate.'.$data->phone;
                         $attributesSmax['phone']= $data->phone;
+                        $attributesSmax['linkDownloadMMTC']= null;
                         
                         $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$dataSend['idMessenger'].'/send?bot_token='.$tokenBot.'&block_id='.$idBlockConfirm.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
                         
@@ -354,6 +359,16 @@ function resultvip($input)
                 setVariable('linkQR', $linkQR);
                 setVariable('infoFull', $infoFull);
             }else{
+                if(!empty($_GET['avatar'])){
+                    $checkDataExits->avatar = $_GET['avatar'];
+                }
+
+                if(!empty($dataSend['customer_name'])){
+                    $checkDataExits->name = $dataSend['customer_name'];
+                }
+
+                $modelRequestExports->save($checkDataExits);
+
                 // tạo link thanh toán
                 $linkQR = 'https://img.vietqr.io/image/TPB-'.$bank_number.'-compact2.png?amount='.$price_full.'&addInfo='.$checkDataExits->id.'%20'.$key_banking.'&accountName='.$bank_name;
 
@@ -368,6 +383,7 @@ function resultvip($input)
                         //$attributesSmax['linkAffMMTC']= 'https://matmathanhcong.vn/?aff='.$data->phone;
                         $attributesSmax['linkAffMMTC']= 'https://m.me/100405719654447?ref=Dang-ky-Mat-ma-thanh-cong-affiliate.'.$checkDataExits->phone;
                         $attributesSmax['phone']= $checkDataExits->phone;
+                        $attributesSmax['linkDownloadMMTC']= $checkDataExits->link_download;
                         
                         $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$dataSend['idMessenger'].'/send?bot_token='.$tokenBot.'&block_id='.$idBlockConfirm.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
                         

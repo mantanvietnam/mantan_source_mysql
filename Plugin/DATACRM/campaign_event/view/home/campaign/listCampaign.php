@@ -48,6 +48,7 @@
             <th>Checkin</th>
             <th>Sửa</th>
             <th>Xóa</th>
+            <th>Lựa chọn</th>
           </tr>
         </thead>
         <tbody>
@@ -70,6 +71,18 @@
                         <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCampaign/?id='.$item->id.'">
                           <i class="bx bx-trash me-1"></i>
                         </a>
+                      </td>
+
+                      <td>
+                        <div class="btn-group">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Primary
+                      </button>
+                      <ul class="dropdown-menu" style="">
+                        <li><a class="dropdown-item" href="javascript:void(0);">Sửa</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Xóa</a></li>
+                      </ul>
+                    </div>
                       </td>
                      </tr>';
            }
@@ -129,5 +142,7 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+
+
 
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/footer.php'); ?>

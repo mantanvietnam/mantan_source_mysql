@@ -84,6 +84,16 @@
               ?>
             </select>
           </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Checkin</label>
+            <select name="checkin" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="1" <?php if(!empty($_GET['checkin']) && $_GET['checkin']==1) echo 'selected';?>>Đã checkin</option>
+              <option value="2" <?php if(!empty($_GET['checkin']) && $_GET['checkin']==2) echo 'selected';?>>Chưa checkin</option>
+              
+            </select>
+          </div>
           
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
