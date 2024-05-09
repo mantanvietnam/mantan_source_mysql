@@ -345,7 +345,7 @@ function upgradeToDriverApi($input): array
                 'owner_id' => $currentUser->id,
                 'owner_type' => $ownerType['users'],
                 'type' => $imageType['car']
-            ])->all();
+            ])->first();
 
         if (empty($checkCarImage)) {
             return apiResponse(4, 'Bạn cần cập nhật ảnh phương tiện');
