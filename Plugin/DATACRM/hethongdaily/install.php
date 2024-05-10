@@ -44,6 +44,11 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `create_order_agency` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '1: được phép tạo đơn đại lý tuyến dưới, 0: không được phép tạo',
   `img_card_member` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
   `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
+  `noti_new_order` BOOLEAN NOT NULL DEFAULT TRUE,
+  `noti_new_customer` BOOLEAN NOT NULL DEFAULT TRUE,
+  `noti_checkin_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
+  `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
+  `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -175,5 +180,9 @@ $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `id_group` INT NOT NULL DEFAU
 $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `facebook` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `id_group`; ";
 
 $sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `id_zalo` VARCHAR(100) NULL AFTER `facebook`; ";
+
 $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `img_card_member` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `instagram`; ";
+
 $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `img_card_member`; ";
+
+$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `noti_new_order` BOOLEAN NOT NULL DEFAULT TRUE AFTER `img_logo`, ADD `noti_new_customer` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_new_order`, ADD `noti_checkin_campaign` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_new_customer`, ADD `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_checkin_campaign`, ADD `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_reg_campaign`; ";

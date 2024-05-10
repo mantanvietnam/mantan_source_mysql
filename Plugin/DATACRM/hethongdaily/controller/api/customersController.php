@@ -335,7 +335,29 @@ function saveInfoCustomerAPI($input)
                             $modelCustomers->save($infoCustomer);
 
                             // lưu bảng đại lý
-                            saveCustomerMember($infoCustomer->id, $infoMember->id);
+                            $statusCustomerMember = saveCustomerMember($infoCustomer->id, $infoMember->id);
+
+                            if($statusCustomerMember == 'new'){
+                                // bắn thông báo có dữ liệu khách hàng mới
+                                if(!empty($infoMember->noti_new_customer) && empty($dataSend['token'])){
+                                    $dataSendNotification= array('title'=>'Khách hàng mới','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã trở thành khách hàng mới của bạn','action'=>'addCustomer');
+                                    $token_device = [];
+
+                                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                                    if(!empty($listTokenDevice)){
+                                        foreach ($listTokenDevice as $tokenDevice) {
+                                            if(!empty($tokenDevice->token_device)){
+                                                $token_device[] = $tokenDevice->token_device;
+                                            }
+                                        }
+
+                                        if(!empty($token_device)){
+                                            $return = sendNotification($dataSendNotification, $token_device);
+                                        }
+                                    }
+                                }
+                            }
 
                             if(!empty($dataSend['clear_group'])){
                                 $modelCategoryConnects->deleteAll(['id_parent'=>$infoCustomer->id, 'keyword'=>'group_customers']);
@@ -408,26 +430,32 @@ function saveInfoCustomerAPI($input)
 
                                     $modelCampaignCustomers->save($checkCampaign);
 
-                                    // bắn thông báo khách đăng ký chiến dịch mới
-                                    $actionCampaign = 'đăng ký tham gia';
-                                    if(!empty($dataSend['checkin'])){
-                                        $actionCampaign = 'checkin';
-                                    }
-
-                                    $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã '.$actionCampaign.' chiến dịch '.$infoCampaign->name,'action'=>'addCustomerCampaign', 'id_campaign'=>$infoCampaign->id);
-                                    $token_device = [];
-
-                                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
-
-                                    if(!empty($listTokenDevice)){
-                                        foreach ($listTokenDevice as $tokenDevice) {
-                                            if(!empty($tokenDevice->token_device)){
-                                                $token_device[] = $tokenDevice->token_device;
-                                            }
+                                    // bắn thông báo khách đăng ký hoặc checkin chiến dịch
+                                    if( empty($dataSend['token']) && (
+                                            (!empty($infoMember->noti_reg_campaign) && empty($dataSend['checkin'])) ||
+                                            (!empty($infoMember->noti_checkin_campaign) && !empty($dataSend['checkin']))
+                                        )
+                                    ){
+                                        $actionCampaign = 'đăng ký tham gia';
+                                        if(!empty($dataSend['checkin'])){
+                                            $actionCampaign = 'checkin';
                                         }
 
-                                        if(!empty($token_device)){
-                                            $return = sendNotification($dataSendNotification, $token_device);
+                                        $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã '.$actionCampaign.' chiến dịch '.$infoCampaign->name,'action'=>'addCustomerCampaign', 'id_campaign'=>$infoCampaign->id);
+                                        $token_device = [];
+
+                                        $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                                        if(!empty($listTokenDevice)){
+                                            foreach ($listTokenDevice as $tokenDevice) {
+                                                if(!empty($tokenDevice->token_device)){
+                                                    $token_device[] = $tokenDevice->token_device;
+                                                }
+                                            }
+
+                                            if(!empty($token_device)){
+                                                $return = sendNotification($dataSendNotification, $token_device);
+                                            }
                                         }
                                     }
                                 }
@@ -603,6 +631,27 @@ function saveInfoCustomerAPI($input)
                         }
                     }
 
+                    // bắn thông báo có dữ liệu khách hàng mới
+                    if(!empty($infoMember->noti_new_customer) && empty($dataSend['token'])){
+                        $dataSendNotification= array('title'=>'Khách hàng mới','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã trở thành khách hàng mới của bạn','action'=>'addCustomer');
+                        $token_device = [];
+
+                        $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                        if(!empty($listTokenDevice)){
+                            foreach ($listTokenDevice as $tokenDevice) {
+                                if(!empty($tokenDevice->token_device)){
+                                    $token_device[] = $tokenDevice->token_device;
+                                }
+                            }
+
+                            if(!empty($token_device)){
+                                $return = sendNotification($dataSendNotification, $token_device);
+                            }
+                        }
+                    }
+
+                    // lưu bảng chiến dịch
                     if(!empty($dataSend['id_campaign']) && function_exists('getInfoCampaign')){
                         $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
 
@@ -633,26 +682,32 @@ function saveInfoCustomerAPI($input)
 
                             $modelCampaignCustomers->save($checkCampaign);
 
-                            // bắn thông báo khách đăng ký chiến dịch mới
-                            $actionCampaign = 'đăng ký tham gia';
-                            if(!empty($dataSend['checkin'])){
-                                $actionCampaign = 'checkin';
-                            }
-
-                            $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã '.$actionCampaign.' chiến dịch '.$infoCampaign->name,'action'=>'addCustomerCampaign', 'id_campaign'=>$infoCampaign->id);
-                            $token_device = [];
-
-                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
-
-                            if(!empty($listTokenDevice)){
-                                foreach ($listTokenDevice as $tokenDevice) {
-                                    if(!empty($tokenDevice->token_device)){
-                                        $token_device[] = $tokenDevice->token_device;
-                                    }
+                            // bắn thông báo khách đăng ký hoặc checkin chiến dịch
+                            if( empty($dataSend['token']) && (
+                                    (!empty($infoMember->noti_reg_campaign) && empty($dataSend['checkin'])) ||
+                                    (!empty($infoMember->noti_checkin_campaign) && !empty($dataSend['checkin']))
+                                )
+                            ){
+                                $actionCampaign = 'đăng ký tham gia';
+                                if(!empty($dataSend['checkin'])){
+                                    $actionCampaign = 'checkin';
                                 }
 
-                                if(!empty($token_device)){
-                                    $return = sendNotification($dataSendNotification, $token_device);
+                                $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã '.$actionCampaign.' chiến dịch '.$infoCampaign->name,'action'=>'addCustomerCampaign', 'id_campaign'=>$infoCampaign->id);
+                                $token_device = [];
+
+                                $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                                if(!empty($listTokenDevice)){
+                                    foreach ($listTokenDevice as $tokenDevice) {
+                                        if(!empty($tokenDevice->token_device)){
+                                            $token_device[] = $tokenDevice->token_device;
+                                        }
+                                    }
+
+                                    if(!empty($token_device)){
+                                        $return = sendNotification($dataSendNotification, $token_device);
+                                    }
                                 }
                             }
                         }

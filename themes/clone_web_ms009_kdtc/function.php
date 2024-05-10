@@ -1,15 +1,15 @@
 <?php
-    /*
+    
     $menus= array();
     $menus[0]['title']= 'Cài đặt giao diện';
     $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
-                            'url'=>'/plugins/admin/ms009-admin-settingHomeTheme',
+                            'url'=>'/plugins/admin/clone_web_ms009_kdtc-setting_theme_clone_web',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingHomeTheme'
                         );
     
     addMenuAdminMantan($menus);
-    */
+    
 
     function setting()
     {
@@ -41,5 +41,11 @@
         }
 
         return $data_value;
+    }
+
+    if(!function_exists('show_text_clone')){
+        function show_text_clone($text){
+            return $text;
+        }
     }
 ?>

@@ -204,6 +204,7 @@ function addCustomerCampaign($input)
         $modelCampaigns = $controller->loadModel('Campaigns');
         $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
         $modelCustomers = $controller->loadModel('Customers');
+        $modelTokenDevices = $controller->loadModel('TokenDevices');
 
         $mess= '';
 
@@ -263,6 +264,35 @@ function addCustomerCampaign($input)
                             }
                             
                             $modelCampaignCustomers->save($data);
+
+                            // bắn thông báo khách đăng ký hoặc checkin chiến dịch
+                            if( 
+                                (!empty($session->read('infoUser')->noti_reg_campaign) && empty($dataSend['checkin'])) ||
+                                (!empty($session->read('infoUser')->noti_checkin_campaign) && !empty($dataSend['checkin']))
+                            
+                            ){
+                                $actionCampaign = 'đăng ký tham gia';
+                                if(!empty($dataSend['checkin'])){
+                                    $actionCampaign = 'checkin';
+                                }
+
+                                $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$customer->full_name.' đã '.$actionCampaign.' chiến dịch '.$checkCampaign->name,'action'=>'addCustomerCampaign', 'id_campaign'=>$checkCampaign->id);
+                                $token_device = [];
+
+                                $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$session->read('infoUser')->id])->all()->toList();
+
+                                if(!empty($listTokenDevice)){
+                                    foreach ($listTokenDevice as $tokenDevice) {
+                                        if(!empty($tokenDevice->token_device)){
+                                            $token_device[] = $tokenDevice->token_device;
+                                        }
+                                    }
+
+                                    if(!empty($token_device)){
+                                        $return = sendNotification($dataSendNotification, $token_device);
+                                    }
+                                }
+                            }
                         }else{
                             $checkCampaignCustomer->id_location = (int) $dataSend['id_location'];
                             $checkCampaignCustomer->id_team = (int) $dataSend['id_team'];

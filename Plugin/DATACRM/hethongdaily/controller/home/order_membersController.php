@@ -433,6 +433,7 @@ function updateOrderMemberAgency($input)
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
         $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+        $modelTokenDevices = $controller->loadModel('TokenDevices');
 
         if(!empty($_GET['id'])){
             $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id'], 'id_member_sell'=>$session->read('infoUser')->id])->first();
@@ -461,6 +462,28 @@ function updateOrderMemberAgency($input)
 
                                 $modelWarehouseProducts->save($checkProductExits);
 
+                                // thông báo cho người mua
+                                $infoMemberBuy = $modelMembers->find()->where(['id'=>$order->id_member_buy])->first();
+
+                                if(!empty($infoMemberBuy->noti_product_warehouse)){
+                                    $dataSendNotification= array('title'=>'Nhập hàng vào kho','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$order->id.' của bạn đã được nhập kho','action'=>'addProductWarehouse');
+                                    $token_device = [];
+
+                                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMemberBuy->id])->all()->toList();
+
+                                    if(!empty($listTokenDevice)){
+                                        foreach ($listTokenDevice as $tokenDevice) {
+                                            if(!empty($tokenDevice->token_device)){
+                                                $token_device[] = $tokenDevice->token_device;
+                                            }
+                                        }
+
+                                        if(!empty($token_device)){
+                                            $return = sendNotification($dataSendNotification, $token_device);
+                                        }
+                                    }
+                                }
+
                                 // trừ hàng trong kho người bán
                                 $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_sell])->first();
 
@@ -474,6 +497,28 @@ function updateOrderMemberAgency($input)
                                 $checkProductExits->quantity -= $value->quantity;
 
                                 $modelWarehouseProducts->save($checkProductExits);
+
+                                // thông báo cho người bán
+                                $infoMemberSell = $modelMembers->find()->where(['id'=>$order->id_member_sell])->first();
+
+                                if(!empty($infoMemberSell->noti_product_warehouse)){
+                                    $dataSendNotification= array('title'=>'Trừ hàng trong kho','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$order->id.' của đại lý '.$infoMemberBuy->name.' đã hoàn thành','action'=>'deleteProductWarehouse','id_order_member'=>$order->id);
+                                    $token_device = [];
+
+                                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMemberSell->id])->all()->toList();
+
+                                    if(!empty($listTokenDevice)){
+                                        foreach ($listTokenDevice as $tokenDevice) {
+                                            if(!empty($tokenDevice->token_device)){
+                                                $token_device[] = $tokenDevice->token_device;
+                                            }
+                                        }
+
+                                        if(!empty($token_device)){
+                                            $return = sendNotification($dataSendNotification, $token_device);
+                                        }
+                                    }
+                                }
 
                                 // lưu lịch sử nhập kho của người mua
                                 $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
@@ -507,6 +552,52 @@ function updateOrderMemberAgency($input)
 
                 if(!empty($_GET['status_pay'])){
                     $order->status_pay = $_GET['status_pay'];
+
+                    if($_GET['status_pay'] == 'done'){
+                        // thông báo cho người mua
+                        $infoMemberBuy = $modelMembers->find()->where(['id'=>$order->id_member_buy])->first();
+
+                        if(!empty($infoMemberBuy->noti_new_order)){
+                            $dataSendNotification= array('title'=>'Thanh toán thành công','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$order->id.' của bạn đã được thanh toán thành công số tiền '.number_format($order->total).'đ','action'=>'deleteProductWarehouse','id_order_member'=>$order->id);
+                            $token_device = [];
+
+                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMemberBuy->id])->all()->toList();
+
+                            if(!empty($listTokenDevice)){
+                                foreach ($listTokenDevice as $tokenDevice) {
+                                    if(!empty($tokenDevice->token_device)){
+                                        $token_device[] = $tokenDevice->token_device;
+                                    }
+                                }
+
+                                if(!empty($token_device)){
+                                    $return = sendNotification($dataSendNotification, $token_device);
+                                }
+                            }
+                        }
+
+                        // thông báo cho người bán
+                        $infoMemberSell = $modelMembers->find()->where(['id'=>$order->id_member_sell])->first();
+
+                        if(!empty($infoMemberSell->noti_product_warehouse)){
+                            $dataSendNotification= array('title'=>'Thanh toán thành công','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$order->id.' của đại lý '.$infoMemberBuy->name.' đã được thanh toán thành công số tiền '.number_format($order->total).'đ','action'=>'deleteProductWarehouse','id_order_member'=>$order->id);
+                            $token_device = [];
+
+                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMemberSell->id])->all()->toList();
+
+                            if(!empty($listTokenDevice)){
+                                foreach ($listTokenDevice as $tokenDevice) {
+                                    if(!empty($tokenDevice->token_device)){
+                                        $token_device[] = $tokenDevice->token_device;
+                                    }
+                                }
+
+                                if(!empty($token_device)){
+                                    $return = sendNotification($dataSendNotification, $token_device);
+                                }
+                            }
+                        }
+                    }
                 }
 
                 $modelOrderMembers->save($order);

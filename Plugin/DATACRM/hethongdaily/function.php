@@ -660,7 +660,13 @@ function saveCustomerMember($id_customer=0, $id_member=0)
             $categoryConnects->id_category = (int) $id_member;
 
             $modelCategoryConnects->save($categoryConnects);
+
+            return 'new';
+        }else{
+            return 'old';
         }
     }
+
+    return '';
 }
 ?>

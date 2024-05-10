@@ -657,6 +657,33 @@ function pay($input){
 			sendZNSDataBot($data, $product_name, $name_system, $agency);
 		}
 
+		// gửi cho đại lý
+        if(!empty($dataSend['id_agency']) && function_exists('sendNotification')){
+            $modelTokenDevices = $controller->loadModel('TokenDevices');
+            $modelMembers = $controller->loadModel('Members');
+
+            $infoMember = $modelMembers->find()->where(['id'=>$dataSend['id_agency']])->first();
+
+            if(!empty($infoMember->noti_new_order)){
+                $dataSendNotification= array('title'=>'Đơn hàng mới','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$data->id.' của khách hàng '.$data->full_name.' trị giá '.number_format($data->total).'đ','action'=>'createOrder','id_order'=>$data->id);
+                $token_device = [];
+
+                $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                if(!empty($listTokenDevice)){
+                    foreach ($listTokenDevice as $tokenDevice) {
+                        if(!empty($tokenDevice->token_device)){
+                            $token_device[] = $tokenDevice->token_device;
+                        }
+                    }
+
+                    if(!empty($token_device)){
+                        $return = sendNotification($dataSendNotification, $token_device);
+                    }
+                }
+            }
+        }
+
 		return $controller->redirect('/completeOrder?id='.$data->id);
 	}
 

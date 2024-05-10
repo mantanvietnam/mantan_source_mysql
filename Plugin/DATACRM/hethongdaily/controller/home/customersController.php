@@ -206,6 +206,7 @@ function editCustomerAgency($input)
 
         $modelCustomers = $controller->loadModel('Customers');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+        $modelTokenDevices = $controller->loadModel('TokenDevices');
 
         if(!empty($_GET['id'])){
             $join = [
@@ -285,6 +286,28 @@ function editCustomerAgency($input)
                     $data->facebook = @$dataSend['facebook'];
 
                     $modelCustomers->save($data);
+
+                    // bắn thông báo có dữ liệu khách hàng mới
+                    if(empty($_GET['id'])){
+                        if(!empty($session->read('infoUser')->noti_new_customer)){
+                            $dataSendNotification= array('title'=>'Khách hàng mới','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã trở thành khách hàng mới của bạn','action'=>'addCustomer');
+                            $token_device = [];
+
+                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$session->read('infoUser')->id])->all()->toList();
+
+                            if(!empty($listTokenDevice)){
+                                foreach ($listTokenDevice as $tokenDevice) {
+                                    if(!empty($tokenDevice->token_device)){
+                                        $token_device[] = $tokenDevice->token_device;
+                                    }
+                                }
+
+                                if(!empty($token_device)){
+                                    $return = sendNotification($dataSendNotification, $token_device);
+                                }
+                            }
+                        }
+                    }
 
                     // lưu bảng đại lý
                     saveCustomerMember($data->id, $session->read('infoUser')->id);

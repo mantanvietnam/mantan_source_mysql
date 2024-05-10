@@ -200,12 +200,14 @@ function checkLoginMemberAPI($input)
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']), 'status'=>'active' ))->first();
 
 			if(!empty($checkPhone)){
+				/*
 				if(!empty($dataSend['token_device']) && $checkPhone->token_device != $dataSend['token_device']){
 					// gửi thông báo đăng xuất
                     $dataSendNotification= array('title'=>'Đăng xuất','time'=>date('H:i d/m/Y'),'content'=>'Tài khoản của bạn đã được đăng nhập trên một thiết bị khác','action'=>'login');
 
                     sendNotification($dataSendNotification, $checkPhone->token_device);
 				}
+				*/
 
 				$checkPhone->last_login = time();
 				$checkPhone->token = createToken();
@@ -463,6 +465,62 @@ function saveInfoMemberAPI($input)
 
 	return $return;
 }
+
+function saveConfigNotificationAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token'])){
+			$checkPhone = getMemberByToken($dataSend['token']);
+
+			if(!empty($checkPhone)){
+				if(isset($dataSend['noti_new_order'])){
+					$checkPhone->noti_new_order = (int) $dataSend['noti_new_order'];
+				}
+
+				if(isset($dataSend['noti_new_customer'])){
+					$checkPhone->noti_new_customer = (int) $dataSend['noti_new_customer'];
+				}
+
+				if(isset($dataSend['noti_checkin_campaign'])){
+					$checkPhone->noti_checkin_campaign = (int) $dataSend['noti_checkin_campaign'];
+				}
+
+				if(isset($dataSend['noti_reg_campaign'])){
+					$checkPhone->noti_reg_campaign = (int) $dataSend['noti_reg_campaign'];
+				}
+
+				if(isset($dataSend['noti_product_warehouse'])){
+					$checkPhone->noti_product_warehouse = (int) $dataSend['noti_product_warehouse'];
+				}
+
+				$modelMember->save($checkPhone);
+
+				$return = array('code'=>0, 'data'=>$checkPhone);
+			}else{
+				$return = array('code'=>3,
+								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
+							);
+			}
+		}else{
+			$return = array('code'=>2,
+							'mess'=> 'Gửi thiếu dữ liệu'
+						);
+		}
+	}
+
+	return $return;
+}
+
 
 function requestCodeForgotPasswordAPI($input)
 {
