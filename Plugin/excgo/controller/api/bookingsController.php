@@ -2190,3 +2190,52 @@ function repostBookingApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+
+function checkBookingReceivedApi($input): array
+{
+    global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    $modelBooking = $controller->loadModel('Bookings');
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        if (!empty($dataSend['id'])) {
+            $booking = $modelBooking->find()
+            ->where(['id' => $dataSend['id']])
+            ->first();
+
+            if (empty($booking)){
+                return apiResponse(4, 'Cuốc xe không tồn tại');
+            }
+
+            if(!empty($booking->received_by)){
+               return apiResponse(2, 'Cuốc xe có người nhận rồi');  
+           }else{
+            return apiResponse(1, 'Cuốc xe chưa có người nhận');
+        }
+
+    }else{
+        return apiResponse(5, 'Gửi thiếu dữ liệu');
+    }
+
+}
+return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+
+}
+

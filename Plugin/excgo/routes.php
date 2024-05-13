@@ -44,8 +44,9 @@ $routesPlugin['repostBookingApi'] = 'excgo/view/repostBookingApi.php';
 $routesPlugin['acceptCanceledBookingApi'] = 'excgo/view/acceptCanceledBookingApi.php';
 $routesPlugin['rejectCanceledBookingApi'] = 'excgo/view/rejectCanceledBookingApi.php';
 $routesPlugin['confirmFinishedBookingApi'] = 'excgo/view/confirmFinishedBookingApi.php';
+$routesPlugin['checkBookingReceivedApi'] = 'excgo/view/checkBookingReceivedApi.php';
 
-// Transaction
+// Transaction 
 $routesPlugin['getListTransactionApi'] = 'excgo/view/getListTransactionApi.php';
 
 // Complaint

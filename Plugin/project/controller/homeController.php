@@ -183,6 +183,59 @@ function projectPhoto($input){
 
 }
 
+function eventPhoto($input){
+    global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategories;
+    global $modelAlbums;
+    global $modelAlbuminfos;
+
+
+    $conditions = array();
+    $limit = 10;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+
+    $conditions['id_category'] = 19;
+
+    $category = $modelCategories->find()->where(['id'=>19,'type'=>'album'])->first();
+
+    if(!empty($input['request']->getAttribute('params')['pass'][1])){
+        $slug = explode('.html', $input['request']->getAttribute('params')['pass'][1]);
+        $slug = $slug[0];
+        $slug = explode('-', $slug);
+        $count = count($slug)-1;
+        $id = (int) $slug[$count];
+
+        $data = $modelAlbums->find()->where(['id'=>$id])->first();
+        if(!empty($data)){
+        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
+        }
+
+        $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        
+       
+    }else{
+        $data = $modelAlbums->find()->where($conditions)->first();
+
+        if(!empty($data)){
+        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
+        }
+
+        $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    }
+    setVariable('data', $data);
+    setVariable('category', $category);
+    setVariable('listData', $listData);
+
+}
+
 function thematicVideo($input){
     global $controller;
     global $urlCurrent;
