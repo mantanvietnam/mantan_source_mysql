@@ -66,7 +66,7 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
 
                         <div class="topbar-right">
                             <div class="topbar-link-newsletter">
-                                <a href="/newletter">Newsletter subscription</a>
+                                <a href="/newsletter">Newsletter subscription</a>
                             </div>
 
                             <div class="topbar-follow">
