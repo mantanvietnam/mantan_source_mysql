@@ -281,7 +281,7 @@ function registerEvent($input)
 
             if(!empty($settingTheme['id_product_ezpics'])){
                 if($dataSend['location'] == 1){
-                    $time = 'Ngày 4-5/5';
+                    $time = 'Tháng 6/2024';
                     $address = '89 Lê Đức Thọ, Mỹ Đình, HN';
                 }elseif($dataSend['location'] == 2){
                     $time = 'Tháng 6/2024';
