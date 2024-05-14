@@ -72,7 +72,7 @@ function callbackZalo($input)
 	return $controller->redirect('/setttingZaloOA');
 }
 
-function sendMessZaloOA($input)
+function sendMessZaloFollow($input)
 {
 	global $controller;
     global $isRequestPost;

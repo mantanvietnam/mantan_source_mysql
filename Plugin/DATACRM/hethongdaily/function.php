@@ -469,7 +469,7 @@ function sendNotification($data,$target){
     $fields['priority'] = 'high';
     $fields['content_available'] = true;
 
-    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content'], 'sound'=>'default'];
+    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content'], 'sound'=>'default', 'action'=>$data['action']];
     
     if(is_array($target)){
         if(count($target)<1000){

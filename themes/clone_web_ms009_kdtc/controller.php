@@ -283,8 +283,8 @@ function registerEvent($input)
                 if($dataSend['location'] == 1){
                     $time = 'Ngày 4-5/5';
                     $address = '89 Lê Đức Thọ, Mỹ Đình, HN';
-                }else{
-                    $time = 'Tháng 7/2024';
+                }elseif($dataSend['location'] == 2){
+                    $time = 'Tháng 6/2024';
                     $address = 'Sài Gòn';
                 }
                 
@@ -310,6 +310,7 @@ function indexTheme($input)
     global $modelOptions;
     global $modelNotices;
     global $modelPosts;
+    global $controller;
 
     $conditions = array('key_word' => 'settingCloneWebMS009KDTCTheme');
     $data = $modelOptions->find()->where($conditions)->first();
@@ -329,11 +330,23 @@ function indexTheme($input)
         $album_home->imageinfo = $modelAlbuminfos->find()->limit(6)->where(['id_album'=>(int)$album_home->id])->order(['id'=>'desc'])->all()->toList();
     }
 
+    $infoCampaign = [];
+    if(!empty($data_value['id_campaign'])){
+        $modelCampaigns = $controller->loadModel('Campaigns');
 
+        $infoCampaign = $modelCampaigns->find()->where(['id'=>$data_value['id_campaign']])->first();
+
+        if(!empty($infoCampaign)){
+            $infoCampaign->location = json_decode($infoCampaign->location, true);
+            $infoCampaign->team = json_decode($infoCampaign->team, true);
+            $infoCampaign->ticket = json_decode($infoCampaign->ticket, true);
+        }
+    }
 
     setVariable('setting', $data_value);
     setVariable('listDataNew', $listDataNew);
     setVariable('album_home', $album_home);
+    setVariable('infoCampaign', $infoCampaign);
 
 }
 ?>

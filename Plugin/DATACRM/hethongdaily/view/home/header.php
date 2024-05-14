@@ -147,11 +147,14 @@
               if(empty($session->read('infoUser')->id_father) && in_array('zalo_zns', $plugins_site_value)){
                 echo '  <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Zalo OA
+                            Gửi tin nhắn
                           </a>
 
                           <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                            <a class="dropdown-item" href="/sendMessZaloOA">Gửi tin Zalo OA</a>
+                            <a class="dropdown-item" href="/sendMessAPPMobile">Gửi thông báo APP</a>
+                            <a class="dropdown-item" href="/sendMessZaloFollow">Gửi tin Zalo Follow</a>
+                            <a class="dropdown-item" href="/sendMessZaloZNS">Gửi tin Zalo ZNS</a>
+                            <a class="dropdown-item" href="/templateZaloZNS">Mẫu tin Zalo ZNS</a>
                             <a class="dropdown-item" href="/setttingZaloOA">Cài đặt Zalo OA</a>
                           </div>
                         </li>';

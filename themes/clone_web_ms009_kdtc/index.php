@@ -367,14 +367,22 @@ global $urlThemeActive;
                                     <input type="text" class="form-control" name="phone" required="" placeholder="">
                                 </div>
 
-                                <div class="col-lg-12 input-contact">
-                                    <label>Khu vực *</label>
-                                    <select class="form-select" name="location" required>
-                                        <option value="">Chọn khu vực tham dự</option>
-                                        <option value="1">Hà Nội ngày 4-5/5</option>
-                                        <option value="2">Sài Gòn tháng 7/2024 </option>
-                                    </select>
-                                </div>
+                                <?php
+                                    if(!empty($infoCampaign->location)){
+                                        echo '  <div class="col-lg-12 input-contact">
+                                                    <label>Khu vực *</label>
+                                                    <select class="form-select" name="location" required>
+                                                        <option value="">Chọn khu vực tham dự</option>';
+
+                                                        foreach ($infoCampaign->location as $key => $location) {
+                                                            if(!empty($location)){
+                                                                echo '<option value="'.$key.'">'.$location.'</option>';
+                                                            }
+                                                        }
+                                        echo        '</select>
+                                                </div>';
+                                    }
+                                ?>
                                 
                                 <!--
                                 <div class="col-lg-6 input-contact">

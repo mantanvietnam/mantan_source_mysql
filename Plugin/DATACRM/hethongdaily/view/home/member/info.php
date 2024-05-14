@@ -678,7 +678,7 @@
                 }else{
                     $.ajax({
                       method: "GET",
-                      url: "/clearCart",
+                      url: "/clearCart/?callAPI=1",
                       data: {}
                     })
                     .done(function( msg ) {
@@ -740,7 +740,7 @@
                 if(full_name != '' && phone != ''){
                     $.ajax({
                       method: "POST",
-                      url: "/pay",
+                      url: "/pay/?callAPI=1",
                       data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf, id_agency:id_agency, name_agency:name_agency, name_system:name_system }
                     })
                     .done(function( msg ) {

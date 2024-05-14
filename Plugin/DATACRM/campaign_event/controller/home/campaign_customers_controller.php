@@ -344,11 +344,15 @@ function checkinCampaign($input)
         $modelCampaigns = $controller->loadModel('Campaigns');
         $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
         $modelCustomers = $controller->loadModel('Customers');
+        $modelTokenDevices = $controller->loadModel('TokenDevices');
 
         if(!empty($_GET['id'])){
             $checkData = $modelCampaignCustomers->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$session->read('infoUser')->id])->first();
 
             if(!empty($checkData)){
+                $customer = $modelCustomers->find()->where(['id'=>$checkData->id_customer])->first();
+                $checkCampaign = $modelCampaigns->find()->where(['id'=>$checkData->id_campaign])->first();
+
                 if(!empty($_GET['checkin'])){
                     $checkData->time_checkin = time();
                 }else{
@@ -356,6 +360,31 @@ function checkinCampaign($input)
                 }
 
                 $modelCampaignCustomers->save($checkData);
+
+                // bắn thông báo khách checkin chiến dịch
+                if( !empty($session->read('infoUser')->noti_checkin_campaign)){
+                    $actionCampaign = 'hủy checkin';
+                    if(!empty($_GET['checkin'])){
+                        $actionCampaign = 'checkin';
+                    }
+
+                    $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$customer->full_name.' đã '.$actionCampaign.' chiến dịch '.$checkCampaign->name,'action'=>'checkinCustomerCampaign', 'id_campaign'=>$checkCampaign->id);
+                    $token_device = [];
+
+                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$session->read('infoUser')->id])->all()->toList();
+
+                    if(!empty($listTokenDevice)){
+                        foreach ($listTokenDevice as $tokenDevice) {
+                            if(!empty($tokenDevice->token_device)){
+                                $token_device[] = $tokenDevice->token_device;
+                            }
+                        }
+
+                        if(!empty($token_device)){
+                            $return = sendNotification($dataSendNotification, $token_device);
+                        }
+                    }
+                }
 
                 return $controller->redirect('/listCustomerCampaign/?id='.$checkData->id_campaign);
             }

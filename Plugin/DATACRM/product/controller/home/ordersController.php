@@ -220,7 +220,11 @@ function clearCart($input)
 
 	$session->write('product_order', []);
 
-	return $controller->redirect('/cart');
+	if(empty($_GET['callAPI'])){
+		return $controller->redirect('/cart');
+	}else{
+		return '';
+	}
 }
 
 function createOrder($input)
@@ -507,11 +511,19 @@ function pay($input){
 				}
 				$list_product[$key]->present = $present;
 			}else{
-				return $controller->redirect('/san-pham/'.$product->slug.'.html?error=quantity');
+				if(empty($_GET['callAPI'])){
+					return $controller->redirect('/san-pham/'.$product->slug.'.html?error=quantity');
+				}else{
+					return '';
+				}
 			}
 		}
 	}else{
-		return $controller->redirect('/cart');
+		if(empty($_GET['callAPI'])){
+			return $controller->redirect('/cart');
+		}else{
+			return '';
+		}
 	}
 
 	if(!empty($pay['discountCode'])){
@@ -684,7 +696,11 @@ function pay($input){
             }
         }
 
-		return $controller->redirect('/completeOrder?id='.$data->id);
+        if(empty($_GET['callAPI'])){
+			return $controller->redirect('/completeOrder?id='.$data->id);
+		}else{
+			return '';
+		}
 	}
 
 	setVariable('list_product', $list_product);
