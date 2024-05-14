@@ -55,7 +55,7 @@
 	$routesPlugin['setttingZaloOA']= 'hethongdaily/view/home/zalo/setttingZaloOA.php';
 	$routesPlugin['callbackZalo']= 'hethongdaily/view/home/zalo/callbackZalo.php';
 	$routesPlugin['sendMessZaloFollow']= 'hethongdaily/view/home/zalo/sendMessZaloFollow.php';
-	$routesPlugin['sendMessAPPMobile']= 'hethongdaily/view/home/zalo/sendMessAPPMobile.php';
+	$routesPlugin['sendNotificationMobile']= 'hethongdaily/view/home/zalo/sendNotificationMobile.php';
 
 	// thông tin đại lý
 	$routesPlugin['info']= 'hethongdaily/view/home/member/info.php';

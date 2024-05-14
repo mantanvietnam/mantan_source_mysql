@@ -21,8 +21,15 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="mb-3">
+                    <label class="form-label">Tiêu đề (*)</label>
+                    <input type="text" name="title" class="form-control phone-mask" required value="" />
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="mb-3">
                     <label class="form-label">Nội dung thông báo (*)</label>
-                    <textarea class="form-control phone-mask" name="mess" rows="5"></textarea>
+                    <textarea class="form-control phone-mask" name="content" rows="5"></textarea>
                   </div>
                 </div>
                 

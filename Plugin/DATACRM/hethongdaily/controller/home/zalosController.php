@@ -176,4 +176,55 @@ function sendMessZaloFollow($input)
 		return $controller->redirect('/login');
 	}
 }
+
+function sendNotificationMobile($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+
+    if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Gửi thông báo trên ứng dụng điện thoại';
+		$mess= '';
+
+		$modelTokenDevices = $controller->loadModel('TokenDevices');
+
+		$infoUser = $session->read('infoUser');
+
+		if ($isRequestPost) {
+	        $dataSend = $input['request']->getData();
+
+	        if(!empty($dataSend['content']) && !empty($dataSend['title'])){
+	        	$dataSendNotification= array('title'=>$dataSend['title'],'time'=>date('H:i d/m/Y'),'content'=>$dataSend['content'],'action'=>'notificationAdmin');
+                $token_device = [];
+
+                $listTokenDevice =  $modelTokenDevices->find()->where()->all()->toList();
+
+                if(!empty($listTokenDevice)){
+                    foreach ($listTokenDevice as $tokenDevice) {
+                        if(!empty($tokenDevice->token_device)){
+                            $token_device[] = $tokenDevice->token_device;
+                        }
+                    }
+
+                    if(!empty($token_device)){
+                        $return = sendNotification($dataSendNotification, $token_device);
+                    }
+                }
+
+		        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format(count($token_device)).' người dùng</p>';
+		    
+		    }else{
+		    	$mess= '<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>';
+		    }
+	    }
+
+	    setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
 ?>

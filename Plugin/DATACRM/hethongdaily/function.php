@@ -469,7 +469,11 @@ function sendNotification($data,$target){
     $fields['priority'] = 'high';
     $fields['content_available'] = true;
 
-    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content'], 'sound'=>'default', 'action'=>$data['action']];
+    if(empty($data['clickAction'])){
+        $data['clickAction'] = 'phoenixcampcrm://app';
+    }
+
+    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content'], 'sound'=>'default', 'action'=>$data['action'], 'clickAction'=>$data['clickAction']];
     
     if(is_array($target)){
         if(count($target)<1000){

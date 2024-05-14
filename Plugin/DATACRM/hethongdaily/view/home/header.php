@@ -151,7 +151,7 @@
                           </a>
 
                           <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                            <a class="dropdown-item" href="/sendMessAPPMobile">Gửi thông báo APP</a>
+                            <a class="dropdown-item" href="/sendNotificationMobile">Gửi thông báo APP Mobile</a>
                             <a class="dropdown-item" href="/sendMessZaloFollow">Gửi tin Zalo Follow</a>
                             <a class="dropdown-item" href="/sendMessZaloZNS">Gửi tin Zalo ZNS</a>
                             <a class="dropdown-item" href="/templateZaloZNS">Mẫu tin Zalo ZNS</a>
