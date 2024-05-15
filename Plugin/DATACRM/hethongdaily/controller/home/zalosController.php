@@ -227,4 +227,49 @@ function sendNotificationMobile($input)
 		return $controller->redirect('/login');
 	}
 }
+
+function sendMessZaloZNS($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+
+    if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Gửi tin Zalo ZNS';
+		$mess= '';
+
+		$modelZaloTemplates = $controller->loadModel('ZaloTemplates');
+
+		$conditions = array('id_system'=>$session->read('infoUser')->id_system);
+		$listTemplateZNS = $modelZaloTemplates->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
+
+		$today = getdate();
+
+		if ($isRequestPost) {
+			if($today['hours']<22 && $today['hours']>=6){
+		        $dataSend = $input['request']->getData();
+
+		        if(!empty($dataSend['id_zns'])){
+		        	
+
+			        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format(count($token_device)).' người dùng</p>';
+			    
+			    }else{
+			    	$mess= '<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>';
+			    }
+			}else{
+				$mess= '<p class="text-danger">Hệ thống Zalo không cho phép gửi tin từ 22h hôm trước đến 6h hôm sau</p>';
+			}
+	    }
+
+	    setVariable('mess', $mess);
+	    setVariable('listTemplateZNS', $listTemplateZNS);
+	    setVariable('today', $today);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
 ?>

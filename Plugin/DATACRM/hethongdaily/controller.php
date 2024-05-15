@@ -1,6 +1,7 @@
 <?php 
 include_once('controller/home/membersController.php'); // đại lý hệ thống
 include_once('controller/home/zalosController.php'); // cài đặt Zalo OA
+include_once('controller/home/zalo_templates_controller.php'); // cài đặt mẫu tin Zalo ZNS
 include_once('controller/home/categoriesController.php'); // chức danh
 include_once('controller/home/productsController.php'); // sản phẩm
 include_once('controller/home/customersController.php'); // khách hàng

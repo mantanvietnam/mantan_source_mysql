@@ -149,6 +149,16 @@ $sqlInstallDatabase .= "CREATE TABLE `warehouse_histories` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
+$sqlInstallDatabase .="CREATE TABLE `zalo_templates` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_system` int(11) NOT NULL,
+  `id_zns` int(11) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`content`)),
+  `content_example` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
 $sqlInstallDatabase .= "CREATE TABLE `token_devices` (`id` INT NOT NULL AUTO_INCREMENT , `token_device` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , `id_member` INT NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
@@ -161,6 +171,7 @@ $sqlDeleteDatabase .= "DROP TABLE order_member_details; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouse_products; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouse_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE token_devices; ";
+$sqlDeleteDatabase .= "DROP TABLE zalo_templates; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";

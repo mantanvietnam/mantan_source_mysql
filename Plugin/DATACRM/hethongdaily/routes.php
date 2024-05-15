@@ -55,6 +55,12 @@
 	$routesPlugin['setttingZaloOA']= 'hethongdaily/view/home/zalo/setttingZaloOA.php';
 	$routesPlugin['callbackZalo']= 'hethongdaily/view/home/zalo/callbackZalo.php';
 	$routesPlugin['sendMessZaloFollow']= 'hethongdaily/view/home/zalo/sendMessZaloFollow.php';
+	$routesPlugin['sendMessZaloZNS']= 'hethongdaily/view/home/zalo/sendMessZaloZNS.php';
+
+	$routesPlugin['templateZaloZNS']= 'hethongdaily/view/home/zalo_templates/templateZaloZNS.php';
+	$routesPlugin['addTemplateZaloZNS']= 'hethongdaily/view/home/zalo_templates/addTemplateZaloZNS.php';
+	$routesPlugin['deleteTemplateZaloZNS']= 'hethongdaily/view/home/zalo_templates/deleteTemplateZaloZNS.php';
+
 	$routesPlugin['sendNotificationMobile']= 'hethongdaily/view/home/zalo/sendNotificationMobile.php';
 
 	// thông tin đại lý
