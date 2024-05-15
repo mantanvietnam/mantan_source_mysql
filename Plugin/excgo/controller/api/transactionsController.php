@@ -212,6 +212,10 @@ function createWithdrawRequestApi($input): array
         }
 
         if ($dataSend['amount']) {
+            $checkWithdrawRequest = $withdrawRequestModel->find()->where(array('user_id'=>$currentUser->id,'status'=>0))->first();
+            if(!empty($checkWithdrawRequest)){
+                 return apiResponse(0, 'Yêu cầu của bạn đang được xử lý.');
+            }
             if ($dataSend['amount'] > $currentUser->total_coin) {
                 return apiResponse(4, 'Số tiền trong ví không đủ');
             }

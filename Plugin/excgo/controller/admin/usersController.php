@@ -388,41 +388,63 @@ function updateStatusWithdrawRequestAdmin($input)
             ])->first();
 
         if ($request && isset($_GET['status'])) {
-            $user->total_coin -= $request->amount;
-            $userModel->save($user);
-
             $request->status = $_GET['status'];
             $withdrawRequestModel->save($request);
 
-            // Save transaction
-            $newTransaction = $transactionModel->newEmptyEntity();
-            $newTransaction->user_id = $user->id;
-            $newTransaction->amount = $request->amount;
-            $newTransaction->type = $transactionType['subtract'];
-            $newTransaction->name = 'Rút tiền EXC-xu thành công';
-            $newTransaction->description = '-' . number_format($request->amount) . ' EXC-xu';
-            $newTransaction->created_at = date('Y-m-d H:i:s');
-            $newTransaction->updated_at = date('Y-m-d H:i:s');
-            $transactionModel->save($newTransaction);
+            if($_GET['status']==1){
+                $user->total_coin -= $request->amount;
+                $userModel->save($user);
 
-            if ($user->device_token && (int)$_GET['status'] === $withdrawRequestStatus['done']) {
-                $title = 'Rút tiền thành công EXC-GO';
-                $content = 'Rút tiền thành công '.number_format($request->amount).'đ từ tài khoản ' . $user->phone_number;
-                $dataSendNotification= array(
-                    'title' => $title,
-                    'time' => date('H:i d/m/Y'),
-                    'content' => $content,
-                    'action' => 'withdrawMoneySuccess'
-                );
+                // Save transaction
+                $newTransaction = $transactionModel->newEmptyEntity();
+                $newTransaction->user_id = $user->id;
+                $newTransaction->amount = $request->amount;
+                $newTransaction->type = $transactionType['subtract'];
+                $newTransaction->name = 'Rút tiền EXC-xu thành công';
+                $newTransaction->description = '-' . number_format($request->amount) . ' EXC-xu';
+                $newTransaction->created_at = date('Y-m-d H:i:s');
+                $newTransaction->updated_at = date('Y-m-d H:i:s');
+                $transactionModel->save($newTransaction);
 
-                $newNotification = $notificationModel->newEmptyEntity();
-                $newNotification->user_id = $user->id;
-                $newNotification->title = $title;
-                $newNotification->content = $content;
-                $newNotification->created_at = date('Y-m-d H:i:s');
-                $newNotification->updated_at = date('Y-m-d H:i:s');
-                $notificationModel->save($newNotification);
-                sendNotification($dataSendNotification, $user->device_token);
+                if ($user->device_token && (int)$_GET['status'] === $withdrawRequestStatus['done']) {
+                    $title = 'Rút tiền thành công EXC-GO';
+                    $content = 'Rút tiền thành công '.number_format($request->amount).'đ từ tài khoản ' . $user->phone_number;
+                    $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'withdrawMoneySuccess'
+                    );
+
+                    $newNotification = $notificationModel->newEmptyEntity();
+                    $newNotification->user_id = $user->id;
+                    $newNotification->title = $title;
+                    $newNotification->content = $content;
+                    $newNotification->created_at = date('Y-m-d H:i:s');
+                    $newNotification->updated_at = date('Y-m-d H:i:s');
+                    $notificationModel->save($newNotification);
+                    sendNotification($dataSendNotification, $user->device_token);
+                }
+            }else{
+                if($user->device_token) {
+                    $title = 'Rút tiền không thành công EXC-GO';
+                    $content = 'Bạn không đủ điều kiện để rút tiền';
+                    $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'withdrawMoneySuccess'
+                    );
+
+                    $newNotification = $notificationModel->newEmptyEntity();
+                    $newNotification->user_id = $user->id;
+                    $newNotification->title = $title;
+                    $newNotification->content = $content;
+                    $newNotification->created_at = date('Y-m-d H:i:s');
+                    $newNotification->updated_at = date('Y-m-d H:i:s');
+                    $notificationModel->save($newNotification);
+                    sendNotification($dataSendNotification, $user->device_token);
+                }
             }
         }
     }

@@ -38,6 +38,8 @@
                             </option>
                             <option value="0" <?php if (isset($_GET['status']) && $_GET['status'] == '0') echo 'selected'; ?> >Chưa xử lý
                             </option>
+                            <option value="2" <?php if (isset($_GET['status']) && $_GET['status'] == '2') echo 'selected'; ?> >Hủy
+                            </option>
                         </select>
                     </div>
 
@@ -64,7 +66,7 @@
                     <th>Thông tin tài khoản</th>
                     <th>Số tiền muốn rút</th>
                     <th>Thời gian tạo</th>
-                    <th>Trạng thái</th>
+                    <th colspan="2" >Trạng thái</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -72,16 +74,26 @@
                 if (!empty($listData)):
                     foreach ($listData as $item):
                         if ($item->status == 1) {
-                            $status = 'Đã hoàn thành';
+                            $status = '<td colspan="2"  align="center">Đã hoàn thành</td>';
+                        }elseif($item->status == 2) {
+                           $status = '<td colspan="2"  align="center">Đã bị hủy</td>';
                         } else {
                             $status = '
-                  <a class="btn btn-success"  title="Hoàn thành" 
+                  <td align="center"><a class="btn btn-success"  title="Hoàn thành" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn hoàn thành yêu cầu này không?\')"
                     href="/plugins/admin/excgo-view-admin-withdrawRequest-updateStatusWithdrawRequestAdmin/?id=' . $item->id . '&status=1"
                   >
                            <i class="bx bx-check-circle me-1" style="font-size: 22px;"></i>
-                  </a>';
+                  </a></td>
+                  <td align="center"><a class="btn btn-danger"  title="Hủy" 
+                    onclick="return confirm(\'Bạn có chắc chắn muốn hủy yêu cầu này không?\')"
+                    href="/plugins/admin/excgo-view-admin-withdrawRequest-updateStatusWithdrawRequestAdmin/?id=' . $item->id . '&status=2"
+                  >
+                           <i class="bx bxs-x-circle me-1" style="font-size: 22px;"></i>
+                  </a></td>';
                         }
+
+
                 ?>
                     <tr>
                         <td align="center"><?php echo $item->id; ?></td>
@@ -110,7 +122,7 @@
                         <td class="text-center">
                             <?php echo $item->created_at->format('H:i d-m-Y'); ?>
                         </td>
-                        <td align="center"><?php echo $status; ?></td>
+                       <?php echo $status;?>
                       </tr>
                 <?php
                     endforeach;
