@@ -31,7 +31,7 @@
             <div class="swiper-wrapper">
                
                 <?php
-                if($data->imageinfo){
+                if(!empty($data->imageinfo)){
                  foreach($data->imageinfo as $key => $value){ ?>
                 <div class="swiper-slide" id="swiper-1">
 
@@ -58,7 +58,7 @@
               <div class="setting-column-warm-video">
                   <div class="btn-tab-warm-video nav flex-column nav-pills btn-tab-nopadding">
                     <?php foreach($listData as $key => $item){ ?>
-                    <a href="/projectPhoto/<?php echo $item->slug.'-'.$item->id.'.html'; ?>" class=""><?php echo $item->title; ?></a>
+                    <a href="/eventPhoto/<?php echo $item->slug.'.html'; ?>" class=""><?php echo $item->title; ?></a>
                     <?php } ?>
                   </div>               
                   <div class="list-img-warm-video tab-content" id="v-pills-tabContent">
@@ -66,7 +66,7 @@
                           <div class="swiper galleryThumbstwo">
                               <div class="swiper-wrapper">
                                 <?php
-                                if($data->imageinfo){
+                               if(!empty($data->imageinfo)){
                                  foreach($data->imageinfo as $key => $value){ ?>
                                 <div class="swiper-slide">
                                   <img src="<?php echo $value->image; ?>" />

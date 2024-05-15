@@ -103,11 +103,11 @@ function listAlbum($input){
     if(!empty($input['request']->getAttribute('params')['pass'][1])){
         $slug = explode('.html', $input['request']->getAttribute('params')['pass'][1]);
         $slug = $slug[0];
-        $slug = explode('-', $slug);
-        $count = count($slug)-1;
-        $id = (int) $slug[$count];
+        // $slug = explode('-', $slug);
+        // $count = count($slug)-1;
+        // $id = (int) $slug[$count];
 
-        $data = $modelAlbums->find()->where(['id'=>$id])->first();
+        $data = $modelAlbums->find()->where(['slug'=>$slug])->first();
         if(!empty($data)){
             $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
         }
@@ -156,11 +156,11 @@ function projectPhoto($input){
     if(!empty($input['request']->getAttribute('params')['pass'][1])){
         $slug = explode('.html', $input['request']->getAttribute('params')['pass'][1]);
         $slug = $slug[0];
-        $slug = explode('-', $slug);
-        $count = count($slug)-1;
-        $id = (int) $slug[$count];
+        // $slug = explode('-', $slug);
+        // $count = count($slug)-1;
+        // $id = (int) $slug[$count];
 
-        $data = $modelAlbums->find()->where(['id'=>$id])->first();
+        $data = $modelAlbums->find()->where(['slug'=>$slug])->first();
         if(!empty($data)){
         $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
         }
@@ -209,11 +209,12 @@ function eventPhoto($input){
     if(!empty($input['request']->getAttribute('params')['pass'][1])){
         $slug = explode('.html', $input['request']->getAttribute('params')['pass'][1]);
         $slug = $slug[0];
-        $slug = explode('-', $slug);
-        $count = count($slug)-1;
-        $id = (int) $slug[$count];
+        // $slug = explode('-', $slug);
+        // $count = count($slug)-1;
+        // $id = (int) $slug[$count];
 
-        $data = $modelAlbums->find()->where(['id'=>$id])->first();
+        $data = $modelAlbums->find()->where(['slug'=>$slug])->first();
+        
         if(!empty($data)){
         $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
         }
@@ -262,11 +263,11 @@ function thematicVideo($input){
     if(!empty($input['request']->getAttribute('params')['pass'][1])){
         $slug = explode('.html', $input['request']->getAttribute('params')['pass'][1]);
         $slug = $slug[0];
-        $slug = explode('-', $slug);
-        $count = count($slug)-1;
-        $id = (int) $slug[$count];
+        // $slug = explode('-', $slug);
+        // $count = count($slug)-1;
+        // $id = (int) $slug[$count];
 
-        $data = $modelAlbums->find()->where(['id'=>$id])->first();
+        $data = $modelAlbums->find()->where(['slug'=>$slug])->first();
 
         if(!empty($data)){
            $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList(); 
@@ -318,11 +319,11 @@ function projectVideo($input){
     if(!empty($input['request']->getAttribute('params')['pass'][1])){
         $slug = explode('.html', $input['request']->getAttribute('params')['pass'][1]);
         $slug = $slug[0];
-        $slug = explode('-', $slug);
-        $count = count($slug)-1;
-        $id = (int) $slug[$count];
+        // $slug = explode('-', $slug);
+        // $count = count($slug)-1;
+        // $id = (int) $slug[$count];
 
-        $data = $modelAlbums->find()->where(['id'=>$id])->first();
+        $data = $modelAlbums->find()->where(['slug'=>$slug])->first();
 
         if(!empty($data)){
             $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();

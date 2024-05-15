@@ -89,7 +89,7 @@
                         aria-orientation="vertical">
     
                         <?php foreach($listData as $key => $item){ ?>
-                            <a href="/projectVideo/<?php echo $item->slug.'-'.$item->id.'.html'; ?>" class=""><?php echo $item->title; ?></a>
+                            <a href="/projectVideo/<?php echo $item->slug.'.html'; ?>" class=""><?php echo $item->title; ?></a>
                         <?php } ?>
                     </div>               
                     <div class="list-img-warm-video tab-content" id="v-pills-tabContent">

@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Danh mục sản phẩn</h4>
+    <h4 class="fw-bold py-3 mb-4">Danh mục sản phẩm</h4>
 
     <!-- Basic Layout -->
       <div class="row">
