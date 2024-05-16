@@ -96,7 +96,7 @@
                 <h1><?php echo @$settingThemes['title_section_2'];?></h1>
                 <div class="title-divide-section"></div>
             </div>
-            <div class="project-content">
+            <!-- <div class="project-content">
                 <div class="project-slide">
                     <?php 
                     // debug($home_projects);
@@ -117,7 +117,83 @@
                     }
                     ?>
                 </div>
-            </div>
+            </div> -->
+            <section id="section-news-facility" class="section-news-ribbon">
+                <div class="section-news-facility-inner">
+                    <div class="container">
+                        <div class="news-title-section-cate">
+                            <h2><?php echo $category_post[1]->name ?></h2>
+                        </div>
+                    </div>
+
+                        
+                    <div class="news-slide news-slide-left">
+                        
+                        <?php 
+                            if(!empty($facility_post)){
+                                foreach($facility_post as $key => $value){
+                                    echo' 
+                                    <div class="news-slide-item">
+                                        <div class="news-slide-item-inner">
+                                            <div class="news-item-img">
+                                                <img src="'.$value->image.'" alt="">
+                                            </div>
+                    
+                                            <div class="news-item-content">
+                                                <p>'.$value->title.'</p>
+                                            </div>
+                
+                                            <div class="news-right-button-news">
+                                                <a href="'.$value->slug.'.html">Read more </a> 
+                                                <img src="'.$urlThemeActive.'/asset/img/arow.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>';
+                                }
+                            }
+                        ?>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-news-facility" class="section-news-project section-news-ribbon2">
+                <div class="section-news-facility-inner">
+                    <div class="container">
+                        <div class="news-title-section-cate">
+                            <h2><?php echo $category_post[3]->name ?></h2>
+                        </div>
+                    </div>
+
+                        
+                    <div class="news-slide">
+                        <?php 
+                            if(!empty($facility_post)){
+                                foreach($project_post as $key => $value){
+                                    echo' 
+                                    <div class="news-slide-item">
+                                        <div class="news-slide-item-inner">
+                                            <div class="news-item-img">
+                                                <img src="'.$value->image.'" alt="">
+                                            </div>
+                    
+                                            <div class="news-item-content">
+                                                <p>'.$value->title.'</p>
+                                            </div>
+                
+                                            <div class="news-right-button-news">
+                                                <a href="'.$value->slug.'.html">Read more </a> 
+                                                <img src="'.$urlThemeActive.'/asset/img/arow.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>';
+                                }
+                            }
+                        ?>
+
+
+                    </div>
+                </div>
+            </section>
         </section>
 
         <!-- key date -->
