@@ -70,6 +70,12 @@ $menus[0]['sub'][10] = array('title' => 'Kiểm tra cuốc xe đã hoàn thành'
     'permission' => 'checkCompletedBookingAdmin',
 );
 
+$menus[0]['sub'][11] = array('title' => 'Gửi thông báo ',
+    'url' => '/plugins/admin/excgo-view-admin-notification-addNotificationAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'addNotificationAdmin',
+);
+
 addMenuAdminMantan($menus);
 
 global $keyFirebase;

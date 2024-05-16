@@ -9,6 +9,7 @@ include_once('controller/admin/supportController.php'); // Yêu cầu hỗ trợ
 include_once('controller/admin/configController.php'); // Phí sàn
 include_once('controller/admin/transactionControllers.php'); // Phí sàn
 include_once('controller/admin/permissionController.php'); // Phân quyên
+include_once('controller/admin/notificationControlle.php'); // Thông báo 
 
 // Api .php
 include_once('controller/api/provincesController.php'); // Tỉnh thành
