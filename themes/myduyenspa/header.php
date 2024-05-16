@@ -26,7 +26,7 @@
 		<link rel="stylesheet" href="<?php echo $urlThemeActive; ?>css/owl.carousel.min.css">
 		<link rel="stylesheet" href="<?php echo $urlThemeActive; ?>css/owl.theme.default.min.css">
 		<!-- css web page -->
-		<link rel="stylesheet" href="<?php echo $urlThemeActive; ?>css/style.css">
+		<link rel="stylesheet" href="<?php echo $urlThemeActive; ?>css/style.css?data=<?php echo time(); ?>">
 		<!-- font family -->
 		<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&family=Lobster&display=swap" rel="stylesheet">

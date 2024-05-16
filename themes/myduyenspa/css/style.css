@@ -24,7 +24,10 @@
 .slogan_page small{
 	font-size: 14px;
 }
-
+a:hover {
+    /* color: #0056b3; */
+    text-decoration: none;
+}
 .nav-menu-bar{
 	justify-content: flex-end;
 }
@@ -244,7 +247,7 @@ video {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(38 55 44 / 87%);
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -528,6 +531,8 @@ video {
   }
   .textnhanxet h3{
     margin-top: 0px;
+    text-align: center;
+    
   }
   .text {
     margin-top: 73px;
@@ -667,8 +672,9 @@ a, path {
 }
 .section5 h5{
   width: 100%;
-  overflow: hidden;
-  white-space: nowrap; 
+  height: 50px;
+  /*overflow: hidden;
+  white-space: nowrap;*/ 
   text-overflow: ellipsis;
   margin: 15px 0px 7px;
 }
@@ -687,4 +693,8 @@ a, path {
 }
 .thumbnail_baiviet{
   margin-bottom: 30px;
+}
+
+.container_Introduction{
+  color: #fff;
 }

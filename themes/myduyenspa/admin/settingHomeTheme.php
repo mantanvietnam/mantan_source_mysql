@@ -14,7 +14,7 @@
     <?= $this->Form->create(); ?>
       <div class="row">
         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          <div class="card mb-4">
+          <div class=" mb-4">
             <div class="nav-align-top mb-4">
                     <ul class="nav nav-tabs" role="tablist">
                       <li class="nav-item">
@@ -108,6 +108,8 @@
                     <input class="form-control" type="text" name="titleLearn1" value="<?php echo @$data['titleLearn1'];?>" />
                     <label class="form-label" for="basic-default-fullname">Mô tả khóa 1</label>
                     <input class="form-control" type="text" name="decsLearn1" value="<?php echo @$data['decsLearn1'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Link Mô tả khóa 1</label>
+                    <input class="form-control" type="text" name="Link_kh1" value="<?php echo @$data['Link_kh1'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                     <label class="form-label" for="basic-default-fullname">Ảnh minh họa khóa 2</label>
@@ -116,6 +118,8 @@
                     <input class="form-control" type="text" name="titleLearn2" value="<?php echo @$data['titleLearn2'];?>" />
                     <label class="form-label" for="basic-default-fullname">Mô tả khóa 2</label>
                     <input class="form-control" type="text" name="decsLearn2" value="<?php echo @$data['decsLearn2'];?>" />
+                     <label class="form-label" for="basic-default-fullname">Link Mô tả khóa 2</label>
+                    <input class="form-control" type="text" name="Link_kh2" value="<?php echo @$data['Link_kh2'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                     <label class="form-label" for="basic-default-fullname">Ảnh minh họa khóa 3</label>
@@ -124,6 +128,8 @@
                     <input class="form-control" type="text" name="titleLearn3" value="<?php echo @$data['titleLearn3'];?>" />
                     <label class="form-label" for="basic-default-fullname">Mô tả khóa 1</label>
                     <input class="form-control" type="text" name="decsLearn1" value="<?php echo @$data['decsLearn1'];?>" />
+                     <label class="form-label" for="basic-default-fullname">Link Mô tả khóa 3</label>
+                    <input class="form-control" type="text" name="Link_kh3" value="<?php echo @$data['Link_kh3'];?>" />
                   </div>
                 </div>
               </div>
@@ -139,6 +145,9 @@
                       <input class="form-control" type="text" name="titleProgram1" value="<?php echo @$data['titleProgram1'];?>" />
                       <label class="form-label" for="basic-default-fullname">Mô tả chương trình 1</label>
                       <input class="form-control" type="text" name="decsProgram1" value="<?php echo @$data['decsProgram1'];?>" />
+
+                      <label class="form-label" for="basic-default-fullname">Link Mô chương trình 1</label>
+                      <input class="form-control" type="text" name="Link_ct1" value="<?php echo @$data['Link_ct1'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                     <label class="form-label" for="basic-default-fullname">Ảnh minh họa chương trình 2</label>
@@ -149,6 +158,8 @@
                       <input class="form-control" type="text" name="titleProgram2" value="<?php echo @$data['titleProgram2'];?>" />
                       <label class="form-label" for="basic-default-fullname">Mô tả chương trình 1</label>
                       <input class="form-control" type="text" name="decsProgram2" value="<?php echo @$data['decsProgram2'];?>" />
+                      <label class="form-label" for="basic-default-fullname">Link Mô chương trình 2</label>
+                      <input class="form-control" type="text" name="Link_ct2" value="<?php echo @$data['Link_ct2'];?>" />
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                     <label class="form-label" for="basic-default-fullname">Ảnh minh họa chương trình 3</label>
@@ -159,6 +170,8 @@
                       <input class="form-control" type="text" name="titleProgram3" value="<?php echo @$data['titleProgram3'];?>" />
                       <label class="form-label" for="basic-default-fullname">Mô tả chương trình 3</label>
                       <input class="form-control" type="text" name="decsProgram3" value="<?php echo @$data['decsProgram3'];?>" />
+                      <label class="form-label" for="basic-default-fullname">Link Mô chương trình 3</label>
+                      <input class="form-control" type="text" name="Link_ct3" value="<?php echo @$data['Link_ct3'];?>" />
                   </div>
                 </div>
               </div>
@@ -219,7 +232,7 @@
                       <input class="form-control"  name="color2" value="<?php echo @htmlspecialchars_decode($data['color2']);?>"data-jscolor="">
                   </div>  -->
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                      <label class="form-label" for="basic-default-fullname">SPA</label>
+                      <label class="form-label" for="basic-default-fullname">Cơ sở</label>
                       <input class="form-control"  name="nameThamMy" value="<?php echo @$data['nameThamMy'];?>"data-jscolor="">
                   </div>
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
@@ -233,6 +246,10 @@
                   <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                       <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
                       <input class="form-control"  name="address" value="<?php echo @$data['address'];?>"data-jscolor="">
+                  </div>
+                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                      <label class="form-label" for="basic-default-fullname">Text chân trang</label>
+                      <input class="form-control"  name="textfooter" value="<?php echo @$data['textfooter'];?>"data-jscolor="">
                   </div>
                 </div>
               </div>

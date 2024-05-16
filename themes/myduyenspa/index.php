@@ -47,7 +47,7 @@
 									<h1><?php echo @$setting['fullName']; ?></h1>
 									<h3 style="color: #6d0202"><i><?php echo @$setting['slogan']; ?></i></h3>
 							</div>
-							<div class="content">
+							<div class="content container_Introduction">
 								<?php echo @$setting['personIntroduction']; ?>
 							</div>
 						</div>
@@ -79,36 +79,42 @@
 					</div>
 					<div class="row ">
 						<div class="col-md-4">
-							<div class="thumbnail daotao">
-								<img class="img-thumbnail" src="<?php echo @$setting['imageLearn1']; ?>" alt="">
-								<div class="texttilltecon">
-									<h3><?php echo @$setting['titleLearn1']; ?></h3>
-								</div>
-								<div class="overlay">
-									<div class="text"> <span><?php echo @$setting['decsLearn1']; ?></span> </div>
-								</div>
+							<div class="thumbnail ">
+								<a href="<?php echo @$setting['Link_kh1']; ?>">
+									<img class="img-thumbnail" src="<?php echo @$setting['imageLearn1']; ?>" alt="">
+									<div class="texttilltecon">
+										<h3><?php echo @$setting['titleLearn1']; ?></h3>
+									</div>
+									<div class="overlay">
+										<div class="text"> <span><?php echo @$setting['decsLearn1']; ?></span> </div>
+									</div>
+								</a>
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="thumbnail daotao1 ">
-								<img class="img-thumbnail" src="<?php echo @$setting['imageLearn2']; ?>" alt="">
-								<div class="texttilltecon">
-									<h3><?php echo @$setting['titleLearn2']; ?></h3>
-								</div>
-								<div class="overlay">
-									<div class="text"> <span><?php echo @$setting['decsLearn2']; ?></span> </div>
-								</div>
+							<div class="thumbnail  ">
+								<a href="<?php echo @$setting['Link_kh2']; ?>">
+									<img class="img-thumbnail" src="<?php echo @$setting['imageLearn2']; ?>" alt="">
+									<div class="texttilltecon">
+										<h3><?php echo @$setting['titleLearn2']; ?></h3>
+									</div>
+									<div class="overlay">
+										<div class="text"> <span><?php echo @$setting['decsLearn2']; ?></span> </div>
+									</div>
+								</a>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="thumbnail">
-								<img class="img-thumbnail" src="<?php echo @$setting['imageLearn3']; ?>" alt="">
-								<div class="texttilltecon">
-									<h3><?php echo @$setting['titleLearn3']; ?></h3>
-								</div>
-								<div class="overlay">
-									<div class="text"> <span><?php echo @$setting['decsLearn3']; ?></span> </div>
-								</div>
+								<a href="<?php echo @$setting['Link_kh3']; ?>">
+									<img class="img-thumbnail" src="<?php echo @$setting['imageLearn3']; ?>" alt="">
+									<div class="texttilltecon">
+										<h3><?php echo @$setting['titleLearn3']; ?></h3>
+									</div>
+									<div class="overlay">
+										<div class="text"> <span><?php echo @$setting['decsLearn3']; ?></span> </div>
+									</div>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -129,41 +135,45 @@
 				</div>
 				<div class = "row">
 					<div class = "col-md-4 chuongtrinhcon">
+						<a href="<?php echo @$setting['Link_ct1']; ?>">
 						<div class = "thumbnail">
 							<img src = "<?php echo @$setting['imageProgram1']; ?>" alt = "" style="width:100%;">
 						</div>
-
+						</a>
 						<div class ="caption">
-							<p><span><?php echo @$setting['titleProgram1']; ?></span></p>
+							<a href="<?php echo @$setting['Link_ct2']; ?>"><p><span><?php echo @$setting['titleProgram1']; ?></span></p></a>
 							<p><b><?php echo @$setting['timeProgram1']; ?></b></p>
 							<p class="text-progran"><?php echo @$setting['decsProgram1']; ?></p>
 						</div>
+					
 					</div>
 
 					<div class = "col-md-4 chuongtrinhcon">
-
+						<a href="<?php echo @$setting['Link_ct2']; ?>">
 						<div class = "thumbnail">
 							<img src = "<?php echo @$setting['imageProgram2']; ?>" alt = "" style="width:100%;">
 						</div>
-
+						</a>
 						<div class ="caption">
-							<p><span><?php echo @$setting['titleProgram2']; ?></span></p>
+							<a href="<?php echo @$setting['Link_ct2']; ?>"><p><span><?php echo @$setting['titleProgram2']; ?></span></p></a>
 							<p><b><?php echo @$setting['timeProgram2']; ?></b></p>
 							<p class="text-progran"><?php echo @$setting['decsProgram2']; ?></p>
 						</div>
+					
 					</div>
 
 					<div class = "col-md-4 chuongtrinhcon">
-
+						<a href="<?php echo @$setting['Link_ct3']; ?>">
 						<div class = "thumbnail">
 							<img src = "<?php echo @$setting['imageProgram3']; ?>" alt = "" style="width:100%;">
 						</div>
-
+						</a>
 						<div class ="caption">
-							<p><span><?php echo @$setting['titleProgram3']; ?></span></p>
+							<a href="<?php echo @$setting['Link_ct2']; ?>"><p><span><?php echo @$setting['titleProgram3']; ?></span></p></a>
 							<p><b><?php echo @$setting['timeProgram3']; ?></b></p>
 							<p class="text-progran"><?php echo @$setting['decsProgram3']; ?></p>
 						</div>
+					
 					</div>			
 				</div>	
 			</div>

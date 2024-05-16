@@ -23,23 +23,25 @@
 								<input type="text" class="form-control" name="phone" placeholder="Vui lòng nhập số điện thoại">
 								</div>
 							</div>
-						</div>
-						<div class="form-group">
+							<div class="col-md-12 form-group">
 							<label>Email</label>
 							<input type="email" class="form-control" name="email" placeholder="Vui lòng nhập email">
 						</div>
-						<div class="form-group">
+						<div class="col-md-12 form-group">
 							<label>Nội dung</label>
 							<textarea class="form-control" name="content" placeholder="Vui lòng để lại nội dung liên hệ của bạn"></textarea>
 						</div>
+						<div class=" col-md-12 text-center	">
+							<button  type="submit" class="btn btn-info"><i class="fab fa-telegram-plane"></i> Gửi</button>
+						</div>
+						</div>
 						
-						<button style="float: right" type="submit" class="btn btn-info"><i class="fab fa-telegram-plane"></i> Gửi</button>
 					</form>
 				</div>
 				<div class="col-md-4">
-					<h3>Địa chỉ</h3>
+					<h3>Thông tin</h3>
 					<p>
-						<?php echo @$setting['nameThamMy']; ?><br>
+						<b><?php echo @$setting['nameThamMy']; ?></b><br>
 						<b>Điện thoại CSKH:</b> <?php echo @$setting['hotline']; ?> <br>
 						<b>Email CSKH:</b> <?php echo @$setting['linkMail']; ?><br>
 						<b>Địa chỉ:</b> <?php echo @$setting['address']; ?>

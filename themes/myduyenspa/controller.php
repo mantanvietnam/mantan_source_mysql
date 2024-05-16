@@ -29,30 +29,35 @@ function settingHomeTheme($input){
 				'imageLearn1'=> @$dataSend['imageLearn1'],
 				'titleLearn1'=> @$dataSend['titleLearn1'],
 				'decsLearn1'=> @$dataSend['decsLearn1'],
+				'Link_kh1'=> @$dataSend['Link_kh1'],
 
 				'imageLearn2'=> @$dataSend['imageLearn2'],
 				'titleLearn2'=> @$dataSend['titleLearn2'],
 				'decsLearn2'=> @$dataSend['decsLearn2'],
+				'Link_kh2'=> @$dataSend['Link_kh2'],
+
 
 				'imageLearn3'=> @$dataSend['imageLearn3'],
 				'titleLearn3'=> @$dataSend['titleLearn3'],
 				'decsLearn3'=> @$dataSend['decsLearn3'],
+				'Link_kh3'=> @$dataSend['Link_kh3'],
+
 
 				'imageProgram1'=> @$dataSend['imageProgram1'],
                 'timeProgram1'=> @$dataSend['timeProgram1'],
                 'titleProgram1'=> @$dataSend['titleProgram1'],
                 'decsProgram1'=> @$dataSend['decsProgram1'],
-
+				'Link_ct1'=> @$dataSend['Link_ct1'],                	
                 'imageProgram2'=> @$dataSend['imageProgram2'],
                 'timeProgram2'=> @$dataSend['timeProgram2'],
                 'titleProgram2'=> @$dataSend['titleProgram2'],
                 'decsProgram2'=> @$dataSend['decsProgram2'],
-
+				'Link_ct2'=> @$dataSend['Link_ct2'],	
                 'imageProgram3'=> @$dataSend['imageProgram3'],
                 'timeProgram3'=> @$dataSend['timeProgram3'],
                 'titleProgram3'=> @$dataSend['titleProgram3'],
                 'decsProgram3'=> @$dataSend['decsProgram3'],
-
+				'Link_ct3'=> @$dataSend['Link_ct3'],
                 'imageStatic'=> @$dataSend['imageStatic'],
                 
                 'nameStatic1'=> @$dataSend['nameStatic1'],
@@ -73,6 +78,7 @@ function settingHomeTheme($input){
                 'hotline'=> @$dataSend['hotline'],
                 'linkMail'=> @$dataSend['linkMail'],
                 'address'=> @$dataSend['address'],
+                'textfooter'=> @$dataSend['textfooter'],
 
 			 );
 
