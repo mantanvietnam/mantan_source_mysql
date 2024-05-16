@@ -29,7 +29,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Id người dùng</label>
-                    <input  type="text" class="form-control phone-mask" name="idUser" id="idUser" value="" />
+                    <input  type="text" class="form-control phone-mask" name="idUser" placeholder="mỗi id cách nhau dấu phẩy (,)" id="idUser" value="" />
                   </div>
                  </div>
                 <div class="col-md-6">

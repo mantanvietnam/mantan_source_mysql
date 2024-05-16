@@ -24,13 +24,12 @@ function addNotificationAdmin($input)
 			}
 
 			if(!empty($dataSend['idUser'])){
-				$conditions['id'] = $dataSend['idUser'];
+				$conditions['id IN'] = array_map('intval', explode(',', $dataSend['idUser']));
 			}
-			
 
 			$conditions['device_token IS NOT'] = null;
 			$listUser = $modelUser->find()->where($conditions)->all()->toList();	
-
+			
 			if(!empty($listUser)){
 				$title = $dataSend['title'];
 				$content = $dataSend['mess'];
