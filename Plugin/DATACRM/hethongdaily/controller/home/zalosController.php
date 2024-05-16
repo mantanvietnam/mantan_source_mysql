@@ -236,38 +236,204 @@ function sendMessZaloZNS($input)
     global $metaTitleMantan;
     global $session;
     global $urlHomes;
+    global $modelCategoryConnects;
 
     if(!empty($session->read('infoUser'))){
 	    $metaTitleMantan = 'Gửi tin Zalo ZNS';
 		$mess= '';
 
 		$modelZaloTemplates = $controller->loadModel('ZaloTemplates');
+		$modelCampaigns = $controller->loadModel('Campaigns');
+		$modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+		$modelMembers = $controller->loadModel('Members');
+		$modelZalos = $controller->loadModel('Zalos');
+		$modelCustomers = $controller->loadModel('Customers');
+		$modelTransactionHistories = $controller->loadModel('TransactionHistories');
 
-		$conditions = array('id_system'=>$session->read('infoUser')->id_system);
-		$listTemplateZNS = $modelZaloTemplates->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
+		$infoUser = $modelMembers->find()->where(['id'=>$session->read('infoUser')->id])->first();
 
-		$today = getdate();
+		// lấy data edit
+		$infoZalo = $modelZalos->find()->where(['id_system'=>$infoUser->id_system])->first();
 
-		if ($isRequestPost) {
-			if($today['hours']<22 && $today['hours']>=6){
-		        $dataSend = $input['request']->getData();
+    	if(!empty($infoZalo->id_app) && !empty($infoZalo->secret_key) && !empty($infoZalo->id_oa) && !empty($infoZalo->access_token)){
+    		if($infoZalo->deadline < time()){
+    			refreshTokenZaloOA($infoZalo->id_oa, $infoZalo->id_app);
 
-		        if(!empty($dataSend['id_zns'])){
-		        	
+                $infoZalo = $modelZalos->find()->where(['id_system'=>$infoUser->id_system])->first();
+    		}
 
-			        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format(count($token_device)).' người dùng</p>';
-			    
-			    }else{
-			    	$mess= '<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>';
-			    }
-			}else{
-				$mess= '<p class="text-danger">Hệ thống Zalo không cho phép gửi tin từ 22h hôm trước đến 6h hôm sau</p>';
-			}
-	    }
+			// danh sách mẫu tin ZNS
+			$conditions = array('id_system'=>$session->read('infoUser')->id_system);
+			$listTemplateZNS = $modelZaloTemplates->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
 
-	    setVariable('mess', $mess);
-	    setVariable('listTemplateZNS', $listTemplateZNS);
-	    setVariable('today', $today);
+			// danh sách chiến dịch
+			$conditions = array('id_member'=>$session->read('infoUser')->id);
+			$listCampaign = $modelCampaigns->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
+
+			// danh sách nhóm khách hàng
+			$conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+	        $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
+
+	        // danh sách chức danh đại lý
+	        $conditions = array('type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system);
+	        $listPositions = $modelCategories->find()->where($conditions)->all()->toList();
+
+			$today = getdate();
+
+			if ($isRequestPost) {
+				if($today['hours']<22 && $today['hours']>=6){
+			        $dataSend = $input['request']->getData();
+
+			        if(!empty($dataSend['id_zns']) && !empty($dataSend['type_user'])){
+			        	$listCustomers = [];
+
+			        	if($dataSend['type_user'] == 'customer_campaign'){
+			        		if(!empty($dataSend['id_campaign'])){
+			        			$infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id_campaign'], 'id_member'=>$session->read('infoUser')->id])->first();
+
+			        			if(!empty($infoCampaign)){
+			        				$conditions = array('id_member'=>$session->read('infoUser')->id, 'id_campaign'=>(int) $infoCampaign->id);
+
+			        				$listCampaignCustomers = $modelCampaignCustomers->find()->where($conditions)->all()->toList();
+
+			        				if(!empty($listCampaignCustomers)){
+					                    foreach ($listCampaignCustomers as $key => $value) {
+					                        // thông tin khách hàng
+					                        $checkCustomer = $modelCustomers->find()->where(['id'=>$value->id_customer])->first();
+
+					                        if(!empty($checkCustomer)){
+					                        	$listCustomers[] = $checkCustomer;
+					                    	}
+					                    }
+					                }
+			        			}
+			        		}
+			        	}elseif($dataSend['type_user'] == 'customer_group'){
+			        		if(!empty($dataSend['id_group_customer'])){
+			        			$infoGroup = $modelCategories->find()->where(['id'=>(int) $dataSend['id_group_customer'], 'parent'=>$session->read('infoUser')->id, 'type' => 'group_customer'])->first();
+
+			        			if(!empty($infoGroup)){
+				        			$customer_in_group = $modelCategoryConnects->find()->where(['keyword'=>'group_customers','id_category'=> (int) $dataSend['id_group_customer']])->all()->toList();
+
+				        			if(!empty($customer_in_group)){
+				        				foreach ($customer_in_group as $key => $value) {
+				        					// thông tin khách hàng
+					                        $checkCustomer = $modelCustomers->find()->where(['id'=>$value->id_parent])->first();
+
+					                        if(!empty($checkCustomer)){
+					                        	$listCustomers[] = $checkCustomer;
+					                    	}
+				        				}
+				        			}
+				        		}
+			        		}
+			        	}elseif($dataSend['type_user'] == 'member_position'){
+			        		if(!empty($dataSend['id_position'])){
+			        			$infoPosition = $modelCategories->find()->where(['id'=>(int) $dataSend['id_position'], 'type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system])->first();
+
+			        			if(!empty($infoPosition)){
+			        				$listCustomers = $modelMembers->find()->where(['id_position'=>(int) $dataSend['id_position']])->all()->toList();
+			        			}
+			        		}
+			        	}elseif($dataSend['type_user'] == 'test'){
+			        		if(!empty($dataSend['phone_test'])){
+			        			$infoCustomer = $modelCustomers->newEmptyEntity();
+
+			        			$dataSend['phone_test'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone_test']));
+                    			$dataSend['phone_test'] = str_replace('+84','0',$dataSend['phone_test']);
+
+			        			$infoCustomer->id = 0;
+			        			$infoCustomer->full_name = 'Khách Test';
+			        			$infoCustomer->phone = $dataSend['phone_test'];
+
+			        			$listCustomers[] = $infoCustomer;
+			        		}
+			        	}
+			        	
+			        	if(!empty($listCustomers)){
+							$requestMoney = 500 * count($listCustomers);
+
+							if($infoUser->coin >= $requestMoney){
+								// gửi tin Zalo 
+				                $numberSend = 0;
+				                foreach ($listCustomers as $customer) {
+						    		$params = [];
+
+                                    foreach ($dataSend['variable'] as $key => $variable) {
+                                        if(!empty($dataSend['value'][$key])){
+                                        	$name = (!empty($customer->full_name))?$customer->full_name:$customer->name;
+                                        	$nameCampaign = @$infoCampaign->name;
+                                        	$nameGroup = @$infoGroup->name;
+                                        	$namePosition = @$infoPosition->name;
+
+                                            $smsSend = str_replace('%name%', $name, $dataSend['value'][$key]);
+                                            $smsSend = str_replace('%phone%', $customer->phone, $smsSend);
+                                            $smsSend = str_replace('%id_user%', $customer->id, $smsSend);
+                                            $smsSend = str_replace('%campaign_name%', $nameCampaign, $smsSend);
+                                            $smsSend = str_replace('%group_name%', $nameGroup, $smsSend);
+                                            $smsSend = str_replace('%position_name%', $namePosition, $smsSend);
+                                            
+                                            $params[$variable] = $smsSend;
+                                        }
+                                    }
+
+                                    if(!empty($params) && strlen($customer->phone)==10){
+                                        $returnZalo = sendZNSZalo($dataSend['id_zns'], $params, $customer->phone, $infoZalo->id_oa, $infoZalo->id_app);
+                                        
+                                        if($returnZalo['error']==0){
+                                            $numberSend ++;
+                                        }elseif($returnZalo['error']!=0){
+                                            $mess = $returnZalo['message'];
+                                            echo $mess;die;
+                                        }
+                                    }else{
+                                    	$mess= '<p class="text-danger">Nhập thiếu giá trị biến hoặc sai định dạng số điện thoại '.$customer->phone.'</p>';
+                                    }
+						        }
+
+						        // trừ tiền tài khoản
+						        $requestMoney = $numberSend * 500;
+
+						        $infoUser->coin -= $requestMoney;
+						        $modelMembers->save($infoUser);
+
+						        // tạo lịch sử giao dịch
+				                $histories = $modelTransactionHistories->newEmptyEntity();
+
+				                $histories->id_member = $infoUser->id;
+				                $histories->id_system = $infoUser->id_system;
+				                $histories->coin = $requestMoney;
+				                $histories->type = 'minus';
+				                $histories->note = 'Trừ tiền dịch vụ gửi '.number_format($numberSend).' tin nhắn Zalo ZNS '.$dataSend['id_zns'].' cho khách hàng, số dư tài khoản sau giao dịch là '.number_format($infoUser->coin).'đ';
+				                $histories->create_at = time();
+				                
+				                $modelTransactionHistories->save($histories);
+
+						        $mess = '<p class="text-success">Gửi thành công '.number_format($numberSend).' tin nhắn Zalo ZNS cho khách hàng</p>';	
+						    }else{
+						    	$mess = '<p class="text-danger">Tài khoản bạn không đủ tiền, vui lòng nạp thêm '.number_format($requestMoney).'đ để gửi tin nhắn Zalo cho '.number_format(count($listCustomers)).' khách hàng. Liên hệ hotline 081.656.000 để được hỗ trợ nạp tiền</p>';	
+						    }
+				        }else{
+				        	$mess= '<p class="text-danger">Không tìm được khách hàng phù hợp</p>';
+				        }
+				    
+				    }else{
+				    	$mess= '<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>';
+				    }
+				}else{
+					$mess= '<p class="text-danger">Hệ thống Zalo không cho phép gửi tin từ 22h hôm trước đến 6h hôm sau</p>';
+				}
+		    }
+
+		    setVariable('mess', $mess);
+		    setVariable('listTemplateZNS', $listTemplateZNS);
+		    setVariable('listCampaign', $listCampaign);
+		    setVariable('listGroupCustomer', $listGroupCustomer);
+		    setVariable('listPositions', $listPositions);
+		    setVariable('today', $today);
+		}else{
+    		return $controller->redirect('/setttingZaloOA/?status=emptyData');
+    	}
 	}else{
 		return $controller->redirect('/login');
 	}

@@ -113,34 +113,52 @@
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 1</label>
                 <input type="text" class="form-control mb-3" name="title_dv_1" value="<?php echo @$data['title_dv_1'];?>" />
-                <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 1</label>
-                <input type="text" class="form-control mb-3" name="content_dv_1" value="<?php echo @$data['content_dv_1'];?>" />
+                <label class="form-label" for="basic-default-fullname">Nội dung dịch vụ 1</label>
+                <textarea class="form-control mb-3" rows="5" name="content_dv_1"><?php echo @$data['content_dv_1'];?></textarea>
                 <label class="form-label" for="basic-default-fullname">Ảnh dịch vụ 1</label>
                  <?php showUploadFile('image_dv_1','image_dv_1', @$data['image_dv_1'],4);?>
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 2</label>
                 <input type="text" class="form-control mb-3" name="title_dv_2" value="<?php echo @$data['title_dv_2'];?>" />
-                <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 2</label>
-                <input type="text" class="form-control mb-3" name="content_dv_2" value="<?php echo @$data['content_dv_2'];?>" />
-                <label class="form-label" for="basic-default-fullname">Ảnh dịch vụ 1</label>
+                <label class="form-label" for="basic-default-fullname">Nội dung dịch vụ 2</label>
+                <textarea class="form-control mb-3" rows="5" name="content_dv_2"><?php echo @$data['content_dv_2'];?></textarea>
+                <label class="form-label" for="basic-default-fullname">Ảnh dịch vụ 2</label>
                  <?php showUploadFile('image_dv_2','image_dv_2', @$data['image_dv_2'],5);?>
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 3</label>
                 <input type="text" class="form-control mb-3" name="title_dv_3" value="<?php echo @$data['title_dv_3'];?>" />
-                <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 3</label>
-                <input type="text" class="form-control mb-3" name="content_dv_3" value="<?php echo @$data['content_dv_3'];?>" />
+                <label class="form-label" for="basic-default-fullname">Nội dung dịch vụ 3</label>
+                <textarea class="form-control mb-3" rows="5" name="content_dv_3"><?php echo @$data['content_dv_3'];?></textarea>
                 <label class="form-label" for="basic-default-fullname">Ảnh dịch vụ 3</label>
                  <?php showUploadFile('image_dv_3','image_dv_3', @$data['image_dv_3'],6);?>
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 4</label>
                 <input type="text" class="form-control mb-3" name="title_dv_4" value="<?php echo @$data['title_dv_4'];?>" />
-                <label class="form-label" for="basic-default-fullname">nội dung dịch vụ 4</label>
-                <input type="text" class="form-control mb-3" name="content_dv_4" value="<?php echo @$data['content_dv_4'];?>" />
+                <label class="form-label" for="basic-default-fullname">Nội dung dịch vụ 4</label>
+                <textarea class="form-control mb-3" rows="5" name="content_dv_4"><?php echo @$data['content_dv_4'];?></textarea>
                 <label class="form-label" for="basic-default-fullname">Ảnh dịch vụ 4</label>
                  <?php showUploadFile('image_dv_4','image_dv_4', @$data['image_dv_4'],7);?>
+              </div>
+
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 5</label>
+                <input type="text" class="form-control mb-3" name="title_dv_5" value="<?php echo @$data['title_dv_5'];?>" />
+                <label class="form-label" for="basic-default-fullname">Nội dung dịch vụ 5</label>
+                <textarea class="form-control mb-3" rows="5" name="content_dv_5"><?php echo @$data['content_dv_5'];?></textarea>
+                <label class="form-label" for="basic-default-fullname">Ảnh dịch vụ 5</label>
+                 <?php showUploadFile('image_dv_5','image_dv_5', @$data['image_dv_5'],70);?>
+              </div>
+
+              <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                <label class="form-label" for="basic-default-fullname">Tiêu đề dịch vụ 6</label>
+                <input type="text" class="form-control mb-3" name="title_dv_6" value="<?php echo @$data['title_dv_6'];?>" />
+                <label class="form-label" for="basic-default-fullname">Nội dung dịch vụ 6</label>
+                <textarea class="form-control mb-3" rows="5" name="content_dv_6"><?php echo @$data['content_dv_6'];?></textarea>
+                <label class="form-label" for="basic-default-fullname">Ảnh dịch vụ 6</label>
+                 <?php showUploadFile('image_dv_6','image_dv_6', @$data['image_dv_6'],71);?>
               </div>
             </div>
           </div>

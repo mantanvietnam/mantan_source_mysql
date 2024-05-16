@@ -52,6 +52,7 @@ global $urlThemeActive;
 
             <div class="service-list">
                 <div class="row">
+                    <?php if(!empty($setting['title_dv_1'])){ ?>
                     <div class="col-lg-4">
                         <div class="service-item">
                             <div class="service-img">
@@ -69,6 +70,9 @@ global $urlThemeActive;
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
+
+                    <?php if(!empty($setting['title_dv_2'])){ ?>
                     <div class="col-lg-4">
                         <div class="service-item">
                             <div class="service-img">
@@ -86,6 +90,9 @@ global $urlThemeActive;
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
+
+                    <?php if(!empty($setting['title_dv_3'])){ ?>
                     <div class="col-lg-4">
                         <div class="service-item">
                             <div class="service-img">
@@ -103,7 +110,10 @@ global $urlThemeActive;
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-3">
+                    <?php } ?>
+
+                    <?php if(!empty($setting['title_dv_4'])){ ?>
+                    <div class="col-lg-4">
                         <div class="service-item">
                             <div class="service-img">
                                 <img src="<?php echo show_text_clone(@$setting['image_dv_4']) ?>" alt="">                                
@@ -119,9 +129,48 @@ global $urlThemeActive;
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
+                    <?php } ?>
 
-                    
+                    <?php if(!empty($setting['title_dv_5'])){ ?>
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <div class="service-img">
+                                <img src="<?php echo show_text_clone(@$setting['image_dv_5']) ?>" alt="">                                
+                            </div> 
+
+                            <div class="service-detail">
+                                <div class="service-item-title">
+                                    <p><?php echo show_text_clone(@$setting['title_dv_5']) ?></p>
+                                </div>
+
+                                <div class="service-item-description">
+                                    <p><?php echo show_text_clone(@$setting['content_dv_5']) ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <?php if(!empty($setting['title_dv_6'])){ ?>
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <div class="service-img">
+                                <img src="<?php echo show_text_clone(@$setting['image_dv_6']) ?>" alt="">                                
+                            </div> 
+
+                            <div class="service-detail">
+                                <div class="service-item-title">
+                                    <p><?php echo show_text_clone(@$setting['title_dv_6']) ?></p>
+                                </div>
+
+                                <div class="service-item-description">
+                                    <p><?php echo show_text_clone(@$setting['content_dv_6']) ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>

@@ -43,7 +43,7 @@
                         <div class="col-md-6">
                           <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Giá trị biến '.$i.'</label>
-                            <input type="text" class="form-control" placeholder="" name="value['.$i.']" value="'.@$data->content[$i]['value'].'" />
+                            <input maxlength="100" type="text" class="form-control" placeholder="" name="value['.$i.']" value="'.@$data->content[$i]['value'].'" />
                           </div>
                         </div>';
 
@@ -61,6 +61,21 @@
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>
+
+            <br/>
+            <b>Chú ý:</b> <br/>
+            - Chỉ nhắn tin chăm sóc khách hàng, không nhắn tin spam, vi phạm sẽ bị khóa tài khoản vĩnh viễn. Hệ thống chỉ cho phép gửi tin nhắn theo mẫu được Zalo duyệt. <br/>
+            - Giá trị dài tối đa 100 ký tự.<br/>
+            - Có thể sử dụng các ký tự sau để thay thế cho thông tin của từng người dùng:<br/>
+
+            <ul>
+                <li>%name% : họ tên khách hàng</li>
+                <li>%phone% : số điện thoại khách hàng</li>
+                <li>%campaign_name% : tên chiến dịch khách đăng ký</li>
+                <li>%group_name% : tên chiến dịch khách đăng ký</li>
+                <li>%position_name% : tên chiến dịch khách đăng ký</li>
+                <li>%id_user% : mã đăng ký của người dùng</li>
+            </ul>
           </div>
         </div>
       </div>

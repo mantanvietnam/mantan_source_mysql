@@ -39,6 +39,14 @@ function setting_theme_clone_web($input){
                         'title_dv_4'=> @$dataSend['title_dv_4'],
                         'content_dv_4'=> @$dataSend['content_dv_4'],
                         'image_dv_4'=> @$dataSend['image_dv_4'],
+                        'title_dv_5'=> @$dataSend['title_dv_5'],
+                        'content_dv_5'=> @$dataSend['content_dv_5'],
+                        'image_dv_5'=> @$dataSend['image_dv_5'],
+                        'title_dv_6'=> @$dataSend['title_dv_6'],
+                        'content_dv_6'=> @$dataSend['content_dv_6'],
+                        'image_dv_6'=> @$dataSend['image_dv_6'],
+                        
+
                         'image_gt'=> @$dataSend['image_gt'],
                         'title_gt_nho'=> @$dataSend['title_gt_nho'],
                         'title_gt_to'=> @$dataSend['title_gt_to'],

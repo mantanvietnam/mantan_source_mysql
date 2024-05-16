@@ -256,6 +256,10 @@ function refreshTokenZaloOA($id_oa='', $app_id='')
                 $zalo_oa->deadline = time() + $return_zns['expires_in'] - 600;
 
                 $modelZalos->save($zalo_oa);
+            }else{
+                $link_access_token = 'https://developers.zalo.me/app/'.$zalo_oa->id_app.'/oa/settings';
+                echo 'Lỗi khi lấy mã access token mới, truy cập <a href="'.$link_access_token.'">'.$link_access_token.'</a> để tạo mã access token mới';
+                die;
             }
 
             return $return_zns;
@@ -530,16 +534,18 @@ function sendNotification($data,$target){
     $url = 'https://fcm.googleapis.com/fcm/send';
 
     $fields = array();
+
+    if(empty($data['clickAction'])){
+        //$data['clickAction'] = 'phoenixcampcrm://notification';
+    }
+
+    $data['navigationId'] = 'notification';
     
     $fields['data'] = $data;
     $fields['priority'] = 'high';
     $fields['content_available'] = true;
 
-    if(empty($data['clickAction'])){
-        $data['clickAction'] = 'phoenixcampcrm://notification';
-    }
-
-    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content'], 'sound'=>'default', 'action'=>$data['action'], 'clickAction'=>$data['clickAction']];
+    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content'], 'sound'=>'default', 'action'=>$data['action']];
     
     if(is_array($target)){
         if(count($target)<1000){
