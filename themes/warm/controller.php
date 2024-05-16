@@ -84,6 +84,7 @@ function settingHomeThemeWarm($input)
 
 function indexTheme($input)
 {
+    global $modelCategories;
     global $modelAlbums;
     global $modelAlbuminfos;
     global $modelPosts;
@@ -109,8 +110,24 @@ function indexTheme($input)
  
      $home_projects = $modelProjects->find()->where($conditions)->order($order)->all()->toList();
 
-    
+     $conditions = array('type' => 'post');
+    $category_post = $modelCategories->find()->where($conditions)->all()->toList();
 
+     // WARM Facility News 
+    $conditions = array('idCategory'=>"4");
+    $order = array('id'=>'desc');
+
+    $facility_post = $modelPosts->find()->where($conditions)->order($order)->all()->toList();
+
+
+    // Projects News 
+    $conditions = array('idCategory'=>"7");
+    $order = array('id'=>'desc');
+    $project_post = $modelPosts->find()->where($conditions)->order($order)->all()->toList();
+
+    setVariable('category_post', $category_post);
+    setVariable('project_post', $project_post);
+    setVariable('facility_post', $facility_post);
     setVariable('slide_home', $slide_home);
     setVariable('album_photo', $album_photo);
     setVariable('home_projects', $home_projects);
