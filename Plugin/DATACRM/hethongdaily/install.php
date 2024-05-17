@@ -48,7 +48,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `noti_new_customer` BOOLEAN NOT NULL DEFAULT TRUE,
   `noti_checkin_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
   `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
-  `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE
+  `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -66,7 +66,16 @@ $sqlInstallDatabase .= "CREATE TABLE `zalos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
-$sqlInstallDatabase .= "CREATE TABLE `transaction_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `id_member` INT NOT NULL , `coin` INT NOT NULL , `type` VARCHAR(255) NOT NULL , `note` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `create_at` INT NOT NULL , `id_system` INT NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+$sqlInstallDatabase .= "CREATE TABLE `transaction_histories` ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_member` INT NOT NULL , 
+  `coin` INT NOT NULL , 
+  `type` VARCHAR(255) NOT NULL , 
+  `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `create_at` INT NOT NULL , 
+  `id_system` INT NOT NULL, 
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .= "CREATE TABLE `customers` ( 
   `id` INT NOT NULL AUTO_INCREMENT , 
@@ -197,3 +206,5 @@ $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `img_card_member` VARCHAR(500) 
 $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `img_card_member`; ";
 
 $sqlUpdateDatabase .= "ALTER TABLE `members` ADD `noti_new_order` BOOLEAN NOT NULL DEFAULT TRUE AFTER `img_logo`, ADD `noti_new_customer` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_new_order`, ADD `noti_checkin_campaign` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_new_customer`, ADD `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_checkin_campaign`, ADD `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_reg_campaign`; ";
+
+$sqlUpdateDatabase .= "ALTER TABLE `transaction_histories` CHANGE `note` `note` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL; ";

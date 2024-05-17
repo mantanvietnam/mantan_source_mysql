@@ -391,25 +391,29 @@ function sendMessZaloZNS($input)
                                     }
 						        }
 
-						        // trừ tiền tài khoản
-						        $requestMoney = $numberSend * 500;
+						        if($numberSend > 0){
+							        // trừ tiền tài khoản
+							        $requestMoney = $numberSend * 500;
 
-						        $infoUser->coin -= $requestMoney;
-						        $modelMembers->save($infoUser);
+							        $infoUser->coin -= $requestMoney;
+							        $modelMembers->save($infoUser);
 
-						        // tạo lịch sử giao dịch
-				                $histories = $modelTransactionHistories->newEmptyEntity();
+							        // tạo lịch sử giao dịch
+					                $histories = $modelTransactionHistories->newEmptyEntity();
 
-				                $histories->id_member = $infoUser->id;
-				                $histories->id_system = $infoUser->id_system;
-				                $histories->coin = $requestMoney;
-				                $histories->type = 'minus';
-				                $histories->note = 'Trừ tiền dịch vụ gửi '.number_format($numberSend).' tin nhắn Zalo ZNS '.$dataSend['id_zns'].' cho khách hàng, số dư tài khoản sau giao dịch là '.number_format($infoUser->coin).'đ';
-				                $histories->create_at = time();
-				                
-				                $modelTransactionHistories->save($histories);
+					                $histories->id_member = $infoUser->id;
+					                $histories->id_system = $infoUser->id_system;
+					                $histories->coin = $requestMoney;
+					                $histories->type = 'minus';
+					                $histories->note = 'Trừ tiền dịch vụ gửi '.number_format($numberSend).' tin nhắn Zalo ZNS '.$dataSend['id_zns'].' cho khách hàng, số dư tài khoản sau giao dịch là '.number_format($infoUser->coin).'đ';
+					                $histories->create_at = time();
+					                
+					                $modelTransactionHistories->save($histories);
 
-						        $mess = '<p class="text-success">Gửi thành công '.number_format($numberSend).' tin nhắn Zalo ZNS cho khách hàng</p>';	
+							        $mess = '<p class="text-success">Gửi thành công '.number_format($numberSend).' tin nhắn Zalo ZNS cho khách hàng</p>';
+						        }else{
+						        	$mess= '<p class="text-danger">Không gửi được tin nhắn cho khách hàng nào</p>';
+						        }	
 						    }else{
 						    	$mess = '<p class="text-danger">Tài khoản bạn không đủ tiền, vui lòng nạp thêm '.number_format($requestMoney).'đ để gửi tin nhắn Zalo cho '.number_format(count($listCustomers)).' khách hàng. Liên hệ hotline 081.656.000 để được hỗ trợ nạp tiền</p>';	
 						    }

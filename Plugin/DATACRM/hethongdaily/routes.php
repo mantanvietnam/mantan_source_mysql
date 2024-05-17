@@ -103,3 +103,6 @@
 
 	// báo cáo kinh doanh
 	$routesPlugin['businessReport']= 'hethongdaily/view/home/static/businessReport.php';
+
+	// lịch sử giao dịch tiền
+	$routesPlugin['listTransactionHistories']= 'hethongdaily/view/home/transaction_histories/listTransactionHistories.php';

@@ -36,13 +36,13 @@
 
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <input type="checkbox" name="crm_module[]" value="zalo_zns" <?php if(!empty($data_value) && in_array('zalo_zns', $data_value)) echo 'checked';?> > Zalo OA
+                    <input type="checkbox" name="crm_module[]" value="zalo_zns" <?php if(!empty($data_value) && in_array('zalo_zns', $data_value)) echo 'checked';?> > Zalo OA + Bắn thông báo
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <input type="checkbox" name="crm_module[]" value="training" <?php if(!empty($data_value) && in_array('training', $data_value)) echo 'checked';?> > Đào tạo
+                    <input type="checkbox" name="crm_module[]" value="training" <?php if(!empty($data_value) && in_array('training', $data_value)) echo 'checked';?> > Đào tạo + Thi trắc nghiệm
                   </div>
                 </div>
 
@@ -55,6 +55,18 @@
                 <div class="col-md-3">
                   <div class="mb-3">
                     <input type="checkbox" name="crm_module[]" value="campaign" <?php if(!empty($data_value) && in_array('campaign', $data_value)) echo 'checked';?> > Chiến dịch sự kiện
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="mb-3">
+                    <input type="checkbox" name="crm_module[]" value="clone_web" <?php if(!empty($data_value) && in_array('clone_web', $data_value)) echo 'checked';?> > Nhân bản website
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="mb-3">
+                    <input type="checkbox" name="crm_module[]" value="affiliate" <?php if(!empty($data_value) && in_array('affiliate', $data_value)) echo 'checked';?> > Tiếp thị liên kết (Cộng tác viên)
                   </div>
                 </div>
               </div>

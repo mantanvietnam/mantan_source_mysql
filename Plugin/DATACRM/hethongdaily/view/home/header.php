@@ -156,6 +156,7 @@
                             <a class="dropdown-item" href="/sendMessZaloZNS">Gửi tin Zalo ZNS</a>
                             <a class="dropdown-item" href="/templateZaloZNS">Mẫu tin Zalo ZNS</a>
                             <a class="dropdown-item" href="/setttingZaloOA">Cài đặt Zalo OA</a>
+                            <a class="dropdown-item" href="/listTransactionHistories">Nạp tiền tài khoản</a>
                           </div>
                         </li>';
               }
