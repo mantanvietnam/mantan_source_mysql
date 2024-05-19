@@ -43,6 +43,18 @@ function saveRegisterMemberAPI($input)
 						$affsource = $modelMember->find()->where(array('aff'=>$dataSend['affsource']))->first();
 						
 						if(!empty($affsource)){
+							// tài khoản giới thiệu của Hoàng 0828266622
+							if($affsource->id == 2516){
+								$data->member_pro = 1;
+								$data->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 90 days'));
+							}
+
+							// tài khoản giới thiệu của chị Hà Light 0966175688
+							if($affsource->id == 351){
+								$data->member_pro = 1;
+								$data->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 30 days'));
+							}
+
 							$data->affsource = $affsource->id;
 
 							if(!empty($affsource->deadline_pro) && $affsource->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
@@ -50,6 +62,7 @@ function saveRegisterMemberAPI($input)
 							}else{
 								$affsource->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 7 days'));
 							}
+
 							$affsource->member_pro = 1;
 							$affsource->ecoin += 20;
 

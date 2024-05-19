@@ -78,3 +78,32 @@ function listTransactionHistories($input)
         return $controller->redirect('/login');
     }
 }
+
+function addMoney($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Nạp tiền tài khoản';
+
+        if(!empty($_GET['money'])){
+            $number_bank = '0816560000';
+            $name_bank = 'Tran Ngoc Manh';
+            $code_bank = 'VPB';
+            $content = 'CRM '.$session->read('infoUser')->phone.' '.str_replace('.', ' ', $urlCurrent);
+
+            $linkQR = 'https://img.vietqr.io/image/'.$code_bank.'-'.$number_bank.'-compact2.png?amount='.(int) $_GET['money'].'&addInfo='.$content.'&accountName='.$name_bank;
+
+            setVariable('linkQR', $linkQR);
+        }else{
+            return $controller->redirect('/listTransactionHistories');
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}

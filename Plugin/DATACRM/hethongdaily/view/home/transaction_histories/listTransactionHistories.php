@@ -7,7 +7,7 @@
     Lịch sử giao dịch
   </h4>
 
-  <p><a href="/addMoney" class="btn btn-primary"><i class='bx bx-plus'></i> Nạp tiền tài khoản</a></p>
+  <p><a href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#basicModalAddMoney" class="btn btn-primary"><i class='bx bx-plus'></i> Nạp tiền tài khoản</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -128,6 +128,36 @@
   <!--/ Basic Pagination -->
 </div>
 <!--/ Responsive Table -->
+</div>
+
+<div class="modal fade" id="basicModalAddMoney"  name="id">               
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Nạp tiền tài khoản</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+
+      <form action="/addMoney" method="GET">
+
+        <div class="modal-body">
+          <div class="card-body">
+            <div class="row gx-3 gy-2 align-items-center">
+              <div class="col-md-12">
+                <label class="form-label">Số tiền muốn nạp</label>
+                <input type="number" value="0" min="50000" class="form-control" placeholder="" name="money">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Tạo mã thanh toán</button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
 </div>
 
 <?php include(__DIR__.'/../footer.php'); ?>

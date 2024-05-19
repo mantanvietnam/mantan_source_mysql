@@ -106,3 +106,4 @@
 
 	// lịch sử giao dịch tiền
 	$routesPlugin['listTransactionHistories']= 'hethongdaily/view/home/transaction_histories/listTransactionHistories.php';
+	$routesPlugin['addMoney']= 'hethongdaily/view/home/transaction_histories/addMoney.php';
