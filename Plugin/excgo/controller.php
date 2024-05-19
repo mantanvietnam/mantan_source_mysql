@@ -10,6 +10,8 @@ include_once('controller/admin/configController.php'); // Phí sàn
 include_once('controller/admin/transactionControllers.php'); // Phí sàn
 include_once('controller/admin/permissionController.php'); // Phân quyên
 include_once('controller/admin/notificationControlle.php'); // Thông báo 
+include_once('controller/admin/settingController.php'); // cài đặt thông số 
+include_once('controller/admin/rewardController.php'); // cài đặt thông số 
 
 // Api .php
 include_once('controller/api/provincesController.php'); // Tỉnh thành

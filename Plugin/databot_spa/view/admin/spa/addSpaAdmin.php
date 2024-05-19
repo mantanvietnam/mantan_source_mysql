@@ -39,7 +39,7 @@
                     <input type="file" name="image" value="<?php echo @$data->image; ?>" class="form-control">
                   </div> -->
                   <div class="mb-3">
-                    <label class="form-label">Nô tả</label>
+                    <label class="form-label">Mô tả</label>
                     <textarea class="form-control" rows="3" name="note"><?php echo @$data->note; ?></textarea>
                   </div>
                 </div>

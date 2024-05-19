@@ -1,5 +1,4 @@
 <?php
-
 include('model/provinces.php');
 include('model/users.php');
 include('model/bookings.php');
@@ -17,3 +16,5 @@ include('model/booking_deals.php');
 include('model/canceled_booking_requests.php');
 include('model/bookmarks.php');
 include('model/block_user_provinces.php');
+include('model/reward.php');
+?>

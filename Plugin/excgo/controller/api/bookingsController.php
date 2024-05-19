@@ -295,6 +295,12 @@ function receiveBookingApi($input): array
                 return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
             }
 
+            $checkbooking = count($modelBooking->find()->where(array('received_by'=>$currentUser->id,'status'=>$bookingStatus['received']))->all()->toList());
+
+            if($checkbooking >6){
+                 return apiResponse(4, 'Bạn đã nhận 5 cuốc xe chưa sử lý xong');
+            }
+
             if (isset($dataSend['booking_id'])) {
                 $booking = $modelBooking->find()
                     ->where(['id' => $dataSend['booking_id']])

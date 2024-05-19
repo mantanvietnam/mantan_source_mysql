@@ -298,11 +298,12 @@ function changePass($input)
 					$user->email = $dataSend['email'];
 
 					$modelMembers->save($user);
-
+					$user->module = json_decode($user->module, true);
 				// nếu là chủ spa
 					if($user->type == 1){
 						$user->id_member = $user->id;
 					}
+					
 
 					$session->write('infoUser', $user);
 					return $controller->redirect('/managerSelectSpa');

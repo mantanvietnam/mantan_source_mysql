@@ -237,6 +237,19 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`block_user_provinces` (
     PRIMARY KEY (`id`))
      ENGINE = InnoDB;';
 
+$sqlInstallDatabase .='CREATE TABLE `rewards` ( 
+    `id` INT NOT NULL AUTO_INCREMENT ,
+    `name` VARCHAR(255) NULL , 
+    `start_day` TIMESTAMP NOT NULL , 
+    `end_date` TIMESTAMP NOT NULL , 
+    `created_at` TIMESTAMP NOT NULL , 
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+    `quantity_booking` INT NOT NULL , 
+    `money` INT NOT NULL , 
+    `status` TINYINT NOT NULL DEFAULT '0' , 
+    `note` TEXT NULL DEFAULT NULL ,
+     PRIMARY KEY (`id`)) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `images`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `provinces`;';
@@ -254,4 +267,5 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `support_requests`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `booking_deals`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `canceled_booking_requests`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `block_user_provinces`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `rewards`;';
 ?>

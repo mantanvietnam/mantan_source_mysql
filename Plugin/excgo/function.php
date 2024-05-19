@@ -75,6 +75,21 @@ $menus[0]['sub'][11] = array('title' => 'Gửi thông báo ',
     'classIcon' => 'bx bx-cog',
     'permission' => 'addNotificationAdmin',
 );
+$menus[0]['sub'][11] = array('title' => 'Cài đặt thông số',
+    'url' => '/plugins/admin/excgo-view-admin-setting-settingAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'settingAdmin',
+);
+$menus[0]['sub'][12] = array('title' => 'Thống kê tài khoản',
+    'url' => '/plugins/admin/excgo-view-admin-user-listUserStatisticAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listUserStatisticAdmin',
+);
+$menus[0]['sub'][13] = array('title' => 'Phần thưởng',
+    'url' => '/plugins/admin/excgo-view-admin-reward-listRewardAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listRewardAdmin',
+);
 
 addMenuAdminMantan($menus);
 
@@ -1311,4 +1326,17 @@ function checkPermission($permission='') {
     }
       
     return $return;
+}
+
+function parameter(){
+    global $controller;
+    global $modelOptions;
+    $conditions = array('key_word' => 'settingAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    return $data_value;
 }

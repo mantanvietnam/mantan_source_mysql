@@ -220,6 +220,10 @@ function createWithdrawRequestApi($input): array
                 return apiResponse(4, 'Số tiền trong ví không đủ');
             }
 
+            if(500000 > $currentUser->total_coin-$dataSend['amount']) {
+                return apiResponse(4, 'Số tiền để lại tối thiểu là 500.000 đ');
+            }
+
             $newRequest = $withdrawRequestModel->newEmptyEntity();
             $newRequest->user_id = $currentUser->id;
             $newRequest->amount = $dataSend['amount'];
