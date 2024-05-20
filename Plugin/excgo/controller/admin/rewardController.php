@@ -89,8 +89,8 @@ function addRewardAdmin($input){
         if(!empty($dataSend['name'])){
 	        // tạo dữ liệu save
             $data->name = @$dataSend['name'];
-            if(!empty($dataSend['start_day'])){
-                $data->start_day = DateTime::createFromFormat('d/m/Y', @$dataSend['start_day'])->format('Y-m-d 00:00:00');
+            if(!empty($dataSend['start_date'])){
+                $data->start_date = DateTime::createFromFormat('d/m/Y', @$dataSend['start_date'])->format('Y-m-d 00:00:00');
             }
 
               if(!empty($dataSend['end_date'])){

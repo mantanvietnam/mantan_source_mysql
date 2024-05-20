@@ -55,9 +55,9 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                $start_day = '';
-                if(!empty($item->start_day)){
-                  $start_day = $item->start_day->format('d/m/Y');
+                $start_data = '';
+                if(!empty($item->start_data)){
+                  $start_data = $item->start_data->format('d/m/Y');
                 }
 
                 $end_date = '';
@@ -73,7 +73,7 @@
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>'.@$item->name.'</td>
-                        <td>'.$start_day.'</td>
+                        <td>'.$start_date.'</td>
                         <td>'.$end_date.'</td>
                         <td>'.$item->quantity_booking.'</td>
                         <td>'.number_format(@$item->money).'đ</td>

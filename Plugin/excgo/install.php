@@ -240,7 +240,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`block_user_provinces` (
 $sqlInstallDatabase .='CREATE TABLE `rewards` ( 
     `id` INT NOT NULL AUTO_INCREMENT ,
     `name` VARCHAR(255) NULL , 
-    `start_day` TIMESTAMP NOT NULL , 
+    `start_date` TIMESTAMP NOT NULL , 
     `end_date` TIMESTAMP NOT NULL , 
     `created_at` TIMESTAMP NOT NULL , 
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
@@ -248,6 +248,7 @@ $sqlInstallDatabase .='CREATE TABLE `rewards` (
     `money` INT NOT NULL , 
     `status` TINYINT NOT NULL DEFAULT '0' , 
     `note` TEXT NULL DEFAULT NULL ,
+    `user_id` TEXT NULL DEFAULT NULL ,
      PRIMARY KEY (`id`)) ENGINE = InnoDB;';
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';

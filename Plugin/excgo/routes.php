@@ -71,3 +71,8 @@ $routesPlugin['getPostDetailApi'] = 'excgo/view/getPostDetailApi.php';
 // Bookmarks
 $routesPlugin['createBookmarkApi'] = 'excgo/view/createBookmarkApi.php';
 $routesPlugin['getListBookmarkApi'] = 'excgo/view/getListBookmarkApi.php';
+
+//Reward 
+$routesPlugin['listRewardAPI'] = 'excgo/view/listRewardAPI.php';
+$routesPlugin['checkRewardAPI'] = 'excgo/view/checkRewardAPI.php';
+$routesPlugin['receiveRewardAPI'] = 'excgo/view/receiveRewardAPI.php';
