@@ -72,6 +72,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
   `birthday` date DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` tinyint(1) NOT NULL DEFAULT 0,
+  `point` int(11) NOT NULL DEFAULT 0,
   `bank_account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `account_number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `total_coin` int(11) NOT NULL DEFAULT 0,

@@ -93,6 +93,10 @@ function createBookingApi($input): array
 
                 // Giữ tiền cọc của người đăng
                 $currentUser->total_coin -= $dataSend['deposit'];
+                if($currentUser->point>0){
+                    $currentUser->point -= 1;
+                }
+                
                 $modelUser->save($currentUser);
 
                 $bookingFee = $modelBookingFee->newEmptyEntity();
@@ -295,11 +299,10 @@ function receiveBookingApi($input): array
                 return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
             }
 
-            $checkbooking = count($modelBooking->find()->where(array('received_by'=>$currentUser->id,'status'=>$bookingStatus['received']))->all()->toList());
-
-            if($checkbooking >6){
-                 return apiResponse(4, 'Bạn đã nhận 5 cuốc xe chưa sử lý xong');
+            if($currentUser->point >= 5){
+                 return apiResponse(4, 'Bạn hãy đăng thêm cuốc hoặc bạn sử lý nốt cuốc bạn chưa sửs lý ');
             }
+
 
             if (isset($dataSend['booking_id'])) {
                 $booking = $modelBooking->find()
@@ -331,6 +334,7 @@ function receiveBookingApi($input): array
                 $totalFee = $receivedFee + $serviceFee + $deposit;
                 // Trừ xu của user nhận cuốc xe
                 $currentUser->total_coin = $currentUser->total_coin - $totalFee;
+                $currentUser->point += 1;
                 $modelUser->save($currentUser);
 
                 // Update cuốc xe
@@ -804,6 +808,10 @@ function completeBookingApi($input): array
                 $booking->updated_at = date('Y-m-d H:i:s');
                 $modelBooking->save($booking);
 
+                if($currentUser->point>0){
+                    $currentUser->point -= 1;
+                }
+                $modelUser->save($currentUser);
                 // Lưu lịch sử đăng cuốc xe và nhận cuốc xe
                 $receivedUserBooking = $userBookingModel->find()->where([
                     'user_id' => $currentUser->id,
