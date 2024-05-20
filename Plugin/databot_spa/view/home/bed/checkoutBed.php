@@ -36,7 +36,7 @@ if(@$data->order->promotion>101){
                     <br><br>
                     <div class="form-group col-sm-12 row">
                         <label class="col-sm-4 control-label"><strong>Tên khách hàng:</strong></label>
-                        <div class="col-sm-8"><?php echo $data->full_name; ?> </div>
+                        <div class="col-sm-8"><?php echo $data->customer->name; ?> </div>
                     </div>
                     <div class="form-group col-sm-12 row">
                         <label class="col-sm-4 control-label"><strong>Địa chỉ:</strong></label>

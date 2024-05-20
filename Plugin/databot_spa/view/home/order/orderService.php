@@ -205,7 +205,7 @@
                                         <li><span>Giảm giá</span><span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="" autocomplete="off" /></span></li>
                                         <li><span>Hình thức thanh toán</span><span>
                                             <select name="type_collection_bill" id="type_collection_bill" class="form-select color-dropdown" required onchange="tinhtien();">
-                                              <option value="">Chọn hình thức thanh toán</option>
+                                              <option value="0">Chọn hình thức thanh toán</option>
                                               <?php
                                               global $type_collection_bill;
                                                 foreach ($type_collection_bill as $key => $value) {
@@ -508,15 +508,22 @@ function addProduct(id, name, priceProduct,type){
         $('#thanhtoan').show();
         $('#nhankhach').remove();
 
-        if(numberProduct>0){
-            r = confirm("bạn thanh toán đơn này?");
-            if (r == true) {
-                if(checkProduct){
-                    $('#summary-form').submit();
-                }
-            }
+         var type_collection_bill = $('#type_collection_bill').val();
+
+        if(type_collection_bill==0){
+            alert('Bạn chưa chọn hình thức thanh toán');
         }else{
-            alert('Bạn chưa chọn sản phẩm nào');
+
+            if(numberProduct>0){
+                r = confirm("bạn thanh toán đơn này?");
+                if (r == true) {
+                    if(checkProduct){
+                        $('#summary-form').submit();
+                    }
+                }
+            }else{
+                alert('Bạn chưa chọn sản phẩm nào');
+            }
         }
 
     }

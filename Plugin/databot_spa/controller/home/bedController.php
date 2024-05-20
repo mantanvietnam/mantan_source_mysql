@@ -1,4 +1,4 @@
-    <?php 
+        <?php 
 function listBed($input){
     global $isRequestPost;
     global $modelCategories;
@@ -333,15 +333,20 @@ function checkoutBed($input){
 
         if(!empty($_GET['idBed'])){
             $data = $modelUserserviceHistories->find()->where(array('id_bed'=>$_GET['idBed'], 'status'=>1))->first();
-
+          /*  debug($data);
+        die();*/
             if(!empty($data->id_bed)){
                 $data->bed = $modelBed->get($data->id_bed);
             }else{
                 return $controller->redirect('/listRoomBed');
             }
           
-
+            
             $data->service = $modelService->find()->where(array('id'=>$data->id_services))->first();
+
+            if(empty($data->id_order)){
+                $data->id_order = $modelOrderDetails->find()->where(['id'=>$data->id_order_details])->first()->id_order;    
+            }
               
             $data->order = $modelOrder->find()->where(array('id'=>$data->id_order))->first();
             if(!empty($data->id_customer)){
@@ -387,8 +392,7 @@ function checkoutBed($input){
         }
 
 
-
-
+        
 
         setVariable('data', $data);
         setVariable('mess', @$mess);
