@@ -75,7 +75,7 @@
               <th>Điểm</th>
               <th>NV phụ trách</th>
               <th>Thẻ thành viên</th>
-              <th>Hồ sơ bệnh án</th>
+              <th>Hồ sơ khách hàng</th>
               <th>Thần số học</th>
               <th>Sửa</th>
               <th>Xóa</th>

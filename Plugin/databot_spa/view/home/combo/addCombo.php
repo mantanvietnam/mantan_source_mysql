@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-group mb-3 col-md-6">
-                    <label class="col-sm-12 form-label control-label">Số lượng</label>
+                    <label class="col-sm-12 form-label control-label">Số lần sử dụng</label>
                     <div class="col-sm-12">
                         <input value="<?php echo @$data->quantity;?>" type="text" name="quantity" id="quantity" class="form-control input_money"  placeholder=""/>
                     </div>
@@ -103,7 +103,7 @@
                                     }
                                     echo '  <tr class="gradeX" id="tr-'.$i.'">
                                                 <td>
-                                                    <select onchange="checkUnit('.$i.');" name="idHangHoa['.$i.']" id="idHangHoa-'.$i.'" required=""  class="form-select color-dropdown">
+                                                    <select onchange="checkUnit('.$i.');" name="idHangHoa['.$i.']" id="idHangHoa-'.$i.'"  class="form-select color-dropdown">
                                                         <option value="">Chọn hàng hóa</option>';
                                                         foreach ($categoryProduct as $category) { 
                                                             echo '<optgroup label="'.$category->name.'">';
@@ -122,7 +122,7 @@
                                                         }
                                                     echo '</select>
                                                 </td>
-                                                <td><input value="'.$quantity.'" type="text" required="" name="soluong['.$i.']" id="soluong-'.$i.'" class="form-control input_money"  placeholder="Số lượng"/></td>
+                                                <td><input value="'.$quantity.'" type="text" name="soluong['.$i.']" id="soluong-'.$i.'" class="form-control input_money"  placeholder="Số lượng"/></td>
                                                
                                                     <td align="center" class="actions">'.$delete.'</td>
                                                 </tr>';

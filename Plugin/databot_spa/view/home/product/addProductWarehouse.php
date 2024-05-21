@@ -3,22 +3,23 @@
     <h4 class="fw-bold py-3 mb-4">Danh mục nhập hàng vào kho</h4>
     <div class="data-content">
         <form id="" action="" class="form-horizontal" method="post" enctype="multipart/form-data">  
-        <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
+            <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
             <div class=" card mb-4">
                 <div class="card-body">
                     <div class=" row">
                         <div class="form-group col-md-3">
                             <label class="col-sm-12 control-label">Kho hàng<span class="required">*</span>:</label>
                             <div class="col-sm-12">  
-                                <select name="idWarehouse" id="idWarehouse" class="form-control" required="">
-                                    <option value="">Kho hàng</option>
-                                        <?php 
-                                            if(!empty($listWarehouse)){
-                                                foreach($listWarehouse as $item){
-                                                    echo '<option value="'.$item->id.'">'.$item->name.'</option>';
-                                                }
+                                <select name="idWarehouse" id="idWarehouse" class="form-select color-dropdown" required="">
+                                    <?php 
+                                        if(!empty($listWarehouse)){
+                                            foreach($listWarehouse as $item){
+                                                echo '<option value="'.$item->id.'">'.$item->name.'</option>';
                                             }
-                                        ?>
+                                        }else{
+                                            echo '<option value="">Chọn kho hàng</option>';
+                                        }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -46,50 +47,6 @@
                             </div>
                         </div>
                     </div> 
-                </div>
-            </div>
-
-            <div class="modal fade" id="basicModal"  name="id">
-
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel1">Thêm đối tác </h5>
-
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-
-                        </div>
-                        <form class="">
-
-                            <div class="row modal-header">
-                                <div id="mess"></div>
-                                <div class="col-md-6">
-
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-default-phone">Tên đối tác (*)</label>
-                                        <input required type="text" class="form-control phone-mask" name="name" id="name" value="" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-default-fullname">Email</label>
-                                        <input type="email" class="form-control" placeholder="" name="email" id="email" value="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
-                                        <input type="text" required class="form-control" placeholder="" name="phone" id="phone" value="" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
-                                        <input type="text" class="form-control" placeholder="" name="address" id="address" value="" />
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <button type="button" onclick="addPartnerAjax();" style=" width: 70px; " class="btn btn-primary">Lưu</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             </div>
             
@@ -186,7 +143,50 @@
             
         </form>
     </div>
-</div>          
+</div>   
+
+<div class="modal fade" id="basicModal"  name="id">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Thêm đối tác </h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+
+            </div>
+            <form class="">
+
+                <div class="row modal-header">
+                    <div id="mess"></div>
+                    <div class="col-md-6">
+
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-phone">Tên đối tác (*)</label>
+                            <input required type="text" class="form-control phone-mask" name="name" id="name" value="" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Email</label>
+                            <input type="email" class="form-control" placeholder="" name="email" id="email" value="" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
+                            <input type="text" required class="form-control" placeholder="" name="phone" id="phone" value="" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
+                            <input type="text" class="form-control" placeholder="" name="address" id="address" value="" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" onclick="addPartnerAjax();" style=" width: 70px; " class="btn btn-primary">Lưu</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>       
 
 <script type="text/javascript">
 

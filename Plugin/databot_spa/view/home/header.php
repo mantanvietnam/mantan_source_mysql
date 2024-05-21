@@ -272,9 +272,10 @@
               </ul>
             </li>
 
-            <!-- Template -->
+            <!--
+            
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Marketing Automation</span></li>
-            <!-- Cards -->
+            
 
             <li class="menu-item">
               <a href="/listCampain" class="menu-link <?php if(!in_array('campain', $session->read('infoUser')->module)) echo 'btn disabled';?>">
@@ -334,7 +335,8 @@
                 <div>Tích hợp Chatbot</div>
               </a>
             </li>   
-
+            -->
+            
             <!-- Template -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Cài đặt hệ thống</span></li>
             <!-- Cards -->
