@@ -16,7 +16,9 @@
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M9.3,127.3c49.3-3,150.7-7.6,199.7-7.4c121.9,0.4,189.9,0.4,282.3,7.2C380.1,129.6,181.2,130.6,70,139 c82.6-2.9,254.2-1,335.9,1.3c-56,1.4-137.2-0.3-197.1,9"></path></svg>
 						</span>
 						<h2><?php echo @$setting['sloganBanner2']; ?></h2>
-						<p><i class="<?php echo @$setting['iconBanner']; ?>"></i></p>
+						<p>
+							<!-- <i class="<?php echo @$setting['iconBanner']; ?>"></i> -->
+						</p>
 						<h4 class="animate__animated animate__backInUp"><?php echo @$setting['sloganBanner3']; ?></h4>
 						<a href="<?php echo @$setting['linkBanner']; ?>" class="btn btn-warning"><i class="fas fa-arrow-circle-right"></i> CÂU CHUYỆN CỦA TÔI</a>
 					</div>
@@ -167,9 +169,11 @@
 								echo '
 								<div class="col-12 col-sm-6 col-md-6 col-lg-3">
 									<div class="blog_item">
+									<a href="/'.@$item->slug.'.html">
 										<div class="blog_item_bg" style="background-image: url('.$item->image.')">
 											<div class="blog_item_img"></div>
 										</div>
+										</a>
 										<div class="blog_item_text">
 											<a href="/'.@$item->slug.'.html"><p>'.@$item->title.'</p></a>
 										</div>

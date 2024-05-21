@@ -40,6 +40,10 @@
                 <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
                     <div class="row">
                         <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                            <label class="form-label" for="basic-default-fullname">Logo</label>
+                            <?php showUploadFile('logo','logo',@$data['logo'],9);?>
+                        </div>
+                        <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                             <label class="form-label" for="basic-default-fullname">Tiêu đề</label>
                             <input class="form-control" type="text" name="titleNav" value="<?php echo @$data['titleNav'];?>" />
                         </div>

@@ -1,7 +1,7 @@
 <?php $setting = setting(); ?>
 
 		<section class="bando_main">
-			<p><center>Website được xây dựng bởi <a href="http://manmoweb.com/" title="Công cụ tạo web tự động">Unix Team</a></center></p>
+			<p><center>Website được xây dựng bởi <a href="https://2top.vn/" title="Công cụ tạo web tự động">Top Top</a></center></p>
 		</section>
 
 

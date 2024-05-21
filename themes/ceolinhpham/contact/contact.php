@@ -4,7 +4,7 @@
 		<!-- <div class="map_main">
 			<?php echo @$themeSettings['Option']['value']['map']; ?>
 		</div> -->
-		<div class="container contact_content" style="padding: 20px 15px 30px 15px">
+		<div class="container contact_content" style="padding: 20px 15px 30px 15px; height: 657px;">
 			<div class="row">
 				<div class="col-md-8">
 					<h3>Thông tin liên hệ</h3>

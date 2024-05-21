@@ -55,9 +55,9 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                $start_data = '';
-                if(!empty($item->start_data)){
-                  $start_data = $item->start_data->format('d/m/Y');
+                $start_date = '';
+                if(!empty($item->start_date)){
+                  $start_date = $item->start_date->format('d/m/Y');
                 }
 
                 $end_date = '';

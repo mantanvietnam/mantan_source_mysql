@@ -444,7 +444,7 @@ h1.heading span {
     margin: 0 auto;
     display: table;
     color: #F0A900;
-    font-family: "Viga", Sans-serif;
+    font-family: monospace;
     font-weight: 400;
 }
 @media(max-width: 992px){
@@ -971,4 +971,9 @@ h1.heading span {
   top: 85px;
   left: 0;
   position: absolute;
+}
+
+.blog_item_bg img{
+	width: 100%;
+	width: 170px;
 }

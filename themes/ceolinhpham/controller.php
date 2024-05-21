@@ -17,6 +17,7 @@ function settingHomeTheme($input){
 			
 			$value = array('titleNav'=> @$dataSend['titleNav'],
 				'sloganNav'=> @$dataSend['sloganNav'],
+				'logo'=> @$dataSend['logo'],
 				
 				'videoBanner'=> @$dataSend['videoBanner'],
 				'sloganBanner1'=> @$dataSend['sloganBanner1'],

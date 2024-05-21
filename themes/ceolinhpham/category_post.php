@@ -3,7 +3,7 @@
 	<section style="border-top: 1px solid #f0f0f0; padding: 50px 0px;">
 		<div class="container">
 			<div class="text-center">
-				<h1><?php echo $category['name'];?></h1>
+				<h1 style=" font-size: 3em;"><?php echo $category['name'];?></h1>
 			</div>
 			<div class="row">
 				<?php
@@ -12,8 +12,8 @@
 							echo '
 							<div style="margin-top: 20px" class="col-12 col-sm-6 col-md-6 col-lg-4">
 								<div class="blog_item">
-									<div class="blog_item_bg" style="background-image: url('.$item->image.')">
-										<div class="blog_item_img"></div>
+									<div class="blog_item_bg">
+										<img src="'.$item->image.'" style="width: 100%; height: 170px;">
 									</div>
 									<div class="blog_item_text">
 										<a href="'.$item->slug.'.html"><p>'.$item->title.'</p></a>
