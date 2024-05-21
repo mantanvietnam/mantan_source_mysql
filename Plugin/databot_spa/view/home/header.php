@@ -336,7 +336,7 @@
               </a>
             </li>   
             -->
-            
+
             <!-- Template -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Cài đặt hệ thống</span></li>
             <!-- Cards -->
@@ -386,26 +386,6 @@
                 </li>
               </ul>
             </li>
-
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
-                <i class="menu-icon tf-icons bx bx-home"></i>
-                <div>Kho hàng</div>
-              </a>
-              <ul class="menu-sub">
-                
-                <li class="menu-item">
-                  <a href="/listWarehouse" class="menu-link">
-                    <div>Danh sách kho</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="/importHistorytWarehouse" class="menu-link">
-                    <div>Lịch sử nhập kho</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
             
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
@@ -431,6 +411,26 @@
                 <i class='menu-icon tf-icons bx bx-gift'></i>
                 <div>Combo liệu trình</div>
               </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
+                <i class="menu-icon tf-icons bx bx-home"></i>
+                <div>Kho hàng</div>
+              </a>
+              <ul class="menu-sub">
+                
+                <li class="menu-item">
+                  <a href="/listWarehouse" class="menu-link">
+                    <div>Danh sách kho</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/importHistorytWarehouse" class="menu-link">
+                    <div>Lịch sử nhập kho</div>
+                  </a>
+                </li>
+              </ul>
             </li>
 
             <li class="menu-item">
