@@ -137,7 +137,7 @@
               <td>'.$infoCustomer.'</td>
               <td>'.$item->groups.'</td>
               <td>'.$sex.'</td>
-              <td>'.$birthday.'</td>
+              <td><a href="/downloadMMTC/?id_customer='.$item->id.'" target="_blank">'.$birthday.'</a></td>
 
               <td><a href="/orderCustomerAgency/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></td>
 

@@ -452,4 +452,53 @@ function deleteGroupCustomerAgency($input)
         return $controller->redirect('/login');
     }
 }
+
+function downloadMMTC($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+    global $urlHomes;
+    global $modelCategoryConnects;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Tải thần số học khách hàng';
+
+        $modelCustomers = $controller->loadModel('Customers');
+
+        if(!empty($_GET['id_customer'])){
+            $infoCustomer = $modelCustomers->find()->where(['id'=>(int) $_GET['id_customer']])->first();
+
+            if(!empty($infoCustomer->birthday_date)){
+                $birthday = $infoCustomer->birthday_date.'/'.$infoCustomer->birthday_month.'/'.$infoCustomer->birthday_year;
+                $linkFull = '';
+
+                if(empty($infoCustomer->email)){
+                    $infoCustomer->email = 'datacrmasia@gmail.com';
+                }
+
+                if(empty($infoCustomer->address)){
+                    $infoCustomer->address = '18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội';
+                }
+
+                if(function_exists('getLinkFullMMTCAPI')){
+                    $linkFull = getLinkFullMMTCAPI($infoCustomer->full_name, $birthday, $infoCustomer->phone, $infoCustomer->email, $infoCustomer->address, $infoCustomer->avatar, (int) $infoCustomer->sex);
+                }
+
+                if(!empty($linkFull)){
+                    return $controller->redirect($linkFull);
+                }else{
+                    return $controller->redirect('/listCustomerAgency');        
+                }
+            }
+        }else{
+            return $controller->redirect('/listCustomerAgency');
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>
