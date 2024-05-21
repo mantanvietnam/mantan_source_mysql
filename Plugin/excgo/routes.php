@@ -76,3 +76,4 @@ $routesPlugin['getListBookmarkApi'] = 'excgo/view/getListBookmarkApi.php';
 $routesPlugin['listRewardAPI'] = 'excgo/view/listRewardAPI.php';
 $routesPlugin['checkRewardAPI'] = 'excgo/view/checkRewardAPI.php';
 $routesPlugin['receiveRewardAPI'] = 'excgo/view/receiveRewardAPI.php';
+$routesPlugin['conventionParameterAPI'] = 'excgo/view/conventionParameterAPI.php';

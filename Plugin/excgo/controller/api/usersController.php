@@ -925,3 +925,9 @@ function deleteUserApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function conventionParameterAPI(){
+    return apiResponse(1, 'Lấy dữ liệu thành công', parameter());
+}
+
+?>
