@@ -253,44 +253,105 @@ function editCustomerAgency($input)
             $dataSend = $input['request']->getData();
 
             if(!empty($dataSend['full_name'])){
-                if(empty($_GET['id']) && !empty($dataSend['phone'])){
-                    $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
-                    $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+                if(empty($_GET['id'])){
+                    if(!empty($dataSend['phone'])){
+                        $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+                        $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-                    $checkPhone = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
+                        $checkPhone = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
 
-                    if(!empty($checkPhone)){
-                        $mess= '<p class="text-danger">Số điện thoại này đã được sử dụng bởi khách hàng khác</p>';
+                        if(!empty($checkPhone)){
+                            // $mess= '<p class="text-danger">Số điện thoại này đã được sử dụng bởi khách hàng khác</p>';
+                            $data = $checkPhone;
+                        }else{
+                            $data->phone = $dataSend['phone'];
+                            $data->status = 'active';
+                            $data->id_messenger = '';
+                            $data->id_zalo = '';
+                            $data->pass = md5($data->phone);
+                            $data->id_parent = $session->read('infoUser')->id;
+                            $data->created_at = time();
+                        }
                     }else{
-                        $data->phone = $dataSend['phone'];
-                        $data->status = 'active';
-                        $data->id_messenger = '';
-                        $data->id_zalo = '';
-                        $data->pass = md5($data->phone);
-                        $data->id_parent = $session->read('infoUser')->id;
-                        $data->created_at = time();
+                        $mess= '<p class="text-danger">Nhập thiếu dữ liệu số điện thoại</p>';
                     }
                 }
 
                 if(empty($mess)){
                     $data->full_name = $dataSend['full_name'];
-                    $data->email = $dataSend['email'];
-                    $data->address = $dataSend['address'];
-                    $data->sex = (int) $dataSend['sex'];
-                    $data->id_city = (int) @$dataSend['id_city'];
-                    $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:$urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
-                    $data->birthday_date = (int) $dataSend['birthday_date'];
-                    $data->birthday_month = (int) $dataSend['birthday_month'];
-                    $data->birthday_year = (int) $dataSend['birthday_year'];
-                    $data->id_group = (int) @$dataSend['id_group'][0];
-                    $data->facebook = @$dataSend['facebook'];
+
+                    if(!empty($dataSend['email'])){
+                        $data->email = $dataSend['email'];
+                    }elseif(empty($data->email)){
+                        $data->email = '';
+                    }
+
+                    if(!empty($dataSend['address'])){
+                        $data->address = $dataSend['address'];
+                    }elseif(empty($data->address)){
+                        $data->address = '';
+                    }
+                    
+                    if(isset($dataSend['sex']) && $dataSend['sex'] != ''){
+                        $data->sex = (int) $dataSend['sex'];
+                    }elseif(empty($data->sex)){
+                        $data->sex = 0;
+                    }
+
+                    if(!empty($dataSend['id_city'])){
+                        $data->id_city = (int) @$dataSend['id_city'];
+                    }elseif(empty($data->id_city)){
+                        $data->id_city = 0;
+                    }
+
+                    if(!empty($dataSend['avatar'])){
+                        $data->avatar = $dataSend['avatar'];
+                    }elseif(empty($data->avatar)){
+                        $data->avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
+                    }
+
+                    if(!empty($dataSend['birthday_date'])){
+                        $data->birthday_date = (int) $dataSend['birthday_date'];
+                    }elseif(empty($data->birthday_date)){
+                        $data->birthday_date = 0;
+                    }
+
+                    if(!empty($dataSend['birthday_month'])){
+                        $data->birthday_month = (int) $dataSend['birthday_month'];
+                    }elseif(empty($data->birthday_month)){
+                        $data->birthday_month = 0;
+                    }
+                    
+                    if(!empty($dataSend['birthday_year'])){
+                        $data->birthday_year = (int) $dataSend['birthday_year'];
+                    }elseif(empty($data->birthday_year)){
+                        $data->birthday_year = 0;
+                    }
+
+                    if(!empty($dataSend['birthday_year'])){
+                        $data->birthday_year = (int) $dataSend['birthday_year'];
+                    }elseif(empty($data->birthday_year)){
+                        $data->birthday_year = 0;
+                    }
+
+                    if(!empty($dataSend['id_group'][0])){
+                        $data->id_group = (int) $dataSend['id_group'][0];
+                    }elseif(empty($data->id_group)){
+                        $data->id_group = 0;
+                    }
+
+                    if(!empty($dataSend['facebook'])){
+                        $data->facebook = @$dataSend['facebook'];
+                    }elseif(empty($data->facebook)){
+                        $data->facebook = '';
+                    }
 
                     $modelCustomers->save($data);
 
                     // bắn thông báo có dữ liệu khách hàng mới
                     if(empty($_GET['id'])){
                         if(!empty($session->read('infoUser')->noti_new_customer)){
-                            $dataSendNotification= array('title'=>'Khách hàng mới','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã trở thành khách hàng mới của bạn','action'=>'addCustomer');
+                            $dataSendNotification= array('title'=>'Khách hàng mới','time'=>date('H:i d/m/Y'),'content'=>$data->full_name.' đã trở thành khách hàng mới của bạn','action'=>'addCustomer');
                             $token_device = [];
 
                             $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$session->read('infoUser')->id])->all()->toList();
