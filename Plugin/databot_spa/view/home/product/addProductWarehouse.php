@@ -324,6 +324,7 @@
                 var terms = split( this.value );
                 // remove the current input
                 terms.pop();
+                
                 // add the selected item
                 terms.push( ui.item.label );
 
