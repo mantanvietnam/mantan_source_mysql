@@ -19,9 +19,10 @@
             <th width="5%">ID</th>
             <th width="10%">Hình ảnh</th>
             <th width="30%">Hàng hóa</th>
-            <th width="15%">Số lượng</th>
+            <th width="10%">Số lượng</th>
             <th width="15%">Giá bán</th>
             <th width="25%">Xuất nhập lần cuối</th>
+            <th width="5%">Sửa</th>
           </tr>
         </thead>
         <tbody>
@@ -35,7 +36,11 @@
               <td>'.number_format($item->quantity).'</td>
               <td>'.number_format($item->product->price).'</td>
               <td><a href="/historyWarehouseProductAgency/?id_product='.$item->id_product.'">'.@$item->history->note.'</a></td>
-             
+              <td align="center">
+                <a onclick="editProductWarehouse('.$item->id.');" class="dropdown-item" href="javascript:void(0);">
+                  <i class="bx bx-edit-alt me-1"></i>
+                </a>
+              </td>
              </tr>';
            }
          }else{
@@ -94,5 +99,51 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+
+<div class="modal fade" id="editProductWarehouse"  name="id">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Sửa số lượng tồn kho</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+     <form action="/editProductWarehouse" method="POST">
+        <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
+       <div class="modal-footer">
+        <input type="hidden" value="0"  name="idWarehouseProduct" id="idWarehouseProduct">
+        
+        <div class="card-body">
+          <div class="row gx-3 gy-2 align-items-center">
+            <div class="col-md-12">
+              <label class="form-label">Số lượng tồn kho thực tế (*)</label>
+              <input type="number" value="" class="form-control" placeholder="" name="number" min="0" required>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Lý do chỉnh sửa (*)</label>
+              <textarea class="form-control" placeholder="" name="note" required></textarea>
+            </div>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Cập nhập dữ liệu</button>
+      </div>
+     </form>
+      
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function editProductWarehouse(id){
+    $('#idWarehouseProduct').val(id);
+
+    $('#editProductWarehouse').modal('show');
+  }
+</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

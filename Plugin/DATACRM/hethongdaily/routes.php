@@ -87,6 +87,7 @@
 	$routesPlugin['warehouseProductAgency']= 'hethongdaily/view/home/warehouse/warehouseProductAgency.php';
 	$routesPlugin['historyWarehouseProductAgency']= 'hethongdaily/view/home/warehouse/historyWarehouseProductAgency.php';
 	$routesPlugin['viewWarehouseProductAgency']= 'hethongdaily/view/home/warehouse/viewWarehouseProductAgency.php';
+	$routesPlugin['editProductWarehouse']= 'hethongdaily/view/home/warehouse/editProductWarehouse.php';
 
 	// khách hàng
 	$routesPlugin['listCustomerAgency']= 'hethongdaily/view/home/customer/listCustomerAgency.php';

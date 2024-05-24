@@ -30,7 +30,7 @@ function warehouseProductAgency($input)
         if(!empty($listData)){
             foreach($listData as $key => $item){
                 $listData[$key]->product = $modelProducts->find()->where(['id'=>$item->id_product ])->first();
-                $listData[$key]->history = $modelWarehouseHistories->find()->where(['id_product'=>$item->id_product, 'id_member'=>$item->id_member ])->first();
+                $listData[$key]->history = $modelWarehouseHistories->find()->where(['id_product'=>$item->id_product, 'id_member'=>$item->id_member ])->order(['id'=>'desc'])->first();
             }
         }
 
@@ -193,7 +193,7 @@ function viewWarehouseProductAgency($input)
             if(!empty($listData)){
                 foreach($listData as $key => $item){
                     $listData[$key]->product = $modelProducts->find()->where(['id'=>$item->id_product ])->first();
-                    $listData[$key]->history = $modelWarehouseHistories->find()->where(['id_product'=>$item->id_product, 'id_member'=>$item->id_member ])->first();
+                    $listData[$key]->history = $modelWarehouseHistories->find()->where(['id_product'=>$item->id_product, 'id_member'=>$item->id_member ])->order(['id'=>'desc'])->first();
                 }
             }
 
@@ -238,6 +238,71 @@ function viewWarehouseProductAgency($input)
             setVariable('listData', $listData);
         }else{
             return $controller->redirect('/listMember');
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function editProductWarehouse($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Kho hàng đại lý';
+
+        $modelProducts = $controller->loadModel('Products');
+        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+        $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['idWarehouseProduct']) && !empty($dataSend['number']) && !empty($dataSend['note'])){
+                $checkData = $modelWarehouseProducts->find()->where(['id'=>(int) $dataSend['idWarehouseProduct'], 'id_member'=>$session->read('infoUser')->id])->first();
+
+                if(!empty($checkData)){
+                    $quantity_old = $checkData->quantity;
+
+                    $checkData->quantity = (int) $dataSend['number'];
+
+                    $modelWarehouseProducts->save($checkData);
+
+                    // lưu nhật ký
+                    if($checkData->quantity >= $quantity_old){
+                        $type = 'plus';
+                        $quantity = $checkData->quantity - $quantity_old;
+                    }else{
+                        $type = 'minus';
+                        $quantity = $quantity_old - $checkData->quantity;
+                    }
+
+                    $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+                    $saveWarehouseHistories->id_member = $session->read('infoUser')->id;
+                    $saveWarehouseHistories->id_product = $checkData->id_product;
+                    $saveWarehouseHistories->quantity = $quantity;
+                    $saveWarehouseHistories->note = 'Chỉnh sửa số lượng hàng trong kho vì: '.$dataSend['note'];
+                    $saveWarehouseHistories->create_at = time();
+                    $saveWarehouseHistories->type = $type;
+                    $saveWarehouseHistories->id_order_member = 0;
+
+                    $modelWarehouseHistories->save($saveWarehouseHistories);
+
+                    return $controller->redirect('/warehouseProductAgency/');
+                }else{
+                    return $controller->redirect('/warehouseProductAgency/?error=dataNotExist');
+                }
+            }else{
+                return $controller->redirect('/warehouseProductAgency/?error=emptyData');
+            }
+        }else{
+            return $controller->redirect('/warehouseProductAgency/?error=errorPost');
         }
     }else{
         return $controller->redirect('/login');
