@@ -95,7 +95,7 @@ function addLessonCRM($input)
 
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelLesson->get( (int) $_GET['id']);
+        $data = $modelLesson->find()->where(['id'=>(int) $_GET['id']])->first();
     }else{
         $data = $modelLesson->newEmptyEntity();
     }
@@ -155,7 +155,7 @@ function deleteLessonCRM($input){
 	$modelLesson = $controller->loadModel('Lessons');
 	
 	if(!empty($_GET['id'])){
-		$data = $modelLesson->get($_GET['id']);
+		$data = $modelLesson->find()->where(['id'=>(int) $_GET['id']])->first();
 		
 		if($data){
          	$modelLesson->delete($data);

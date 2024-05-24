@@ -35,7 +35,7 @@ function login($input)
 	    		if($info_customer){
     				// nếu tài khoản không bị khóa
     				if($info_customer->status == 'active'){
-    					$info_customer->info_system = $modelCategories->get($info_customer->id_system);
+    					$info_customer->info_system = $modelCategories->find()->where(['id'=>(int) $info_customer->id_system])->first();
 
 		    			$session->write('CheckAuthentication', true);
 	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
@@ -93,7 +93,7 @@ function changePass($input)
 
 			if(!empty($dataSend['passOld']) && !empty($dataSend['passNew']) && !empty($dataSend['passAgain'])){
 				if($dataSend['passNew'] == $dataSend['passAgain']){
-					$user = $modelMembers->get($session->read('infoUser')->id);
+					$user = $modelMembers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
 
 					if($user->password == md5($dataSend['passOld'])){
 						$user->password = md5($dataSend['passNew']);
@@ -136,7 +136,7 @@ function account($input)
 	if(!empty($session->read('infoUser'))){
 		$mess = '';
 
-		$user = $modelMembers->get($session->read('infoUser')->id);
+		$user = $modelMembers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
 
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
@@ -160,7 +160,7 @@ function account($input)
 
 				$modelMembers->save($user);
 
-				$user->info_system = $modelCategories->get($user->id_system);
+				$user->info_system = $modelCategories->find()->where(['id'=>(int) $user->id_system])->first();
 
 				$session->write('infoUser', $user);
 

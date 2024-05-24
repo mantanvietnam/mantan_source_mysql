@@ -76,7 +76,7 @@ function addQuestionCRM($input)
 
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelQuestions->get( (int) $_GET['id']);
+        $data = $modelQuestions->find()->where(['id'=>(int) $_GET['id']])->first();
     }else{
         $data = $modelQuestions->newEmptyEntity();
     }
@@ -119,7 +119,7 @@ function deleteQuestionCRM($input){
 	$modelQuestions = $controller->loadModel('Questions');
 	
 	if(!empty($_GET['id'])){
-		$data = $modelQuestions->get($_GET['id']);
+		$data = $modelQuestions->find()->where(['id'=>(int) $_GET['id']])->first();
 		
 		if($data){
          	$modelQuestions->delete($data);

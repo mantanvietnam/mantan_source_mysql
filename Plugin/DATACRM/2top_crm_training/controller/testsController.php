@@ -100,7 +100,7 @@ function addTestCRM($input)
 
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelTests->get( (int) $_GET['id']);
+        $data = $modelTests->find()->where(['id'=>(int) $_GET['id']])->first();
     }else{
         $data = $modelTests->newEmptyEntity();
     }
@@ -192,7 +192,7 @@ function deleteTestCRM($input){
     $modelTests = $controller->loadModel('Tests');
 	
 	if(!empty($_GET['id'])){
-		$data = $modelTests->get($_GET['id']);
+		$data = $modelTests->find()->where(['id'=>(int) $_GET['id']])->first();
 		
 		if($data){
          	$modelTests->delete($data);

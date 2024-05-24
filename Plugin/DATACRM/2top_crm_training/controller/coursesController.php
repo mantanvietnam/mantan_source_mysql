@@ -88,7 +88,7 @@ function addCourseCRM($input)
 
     // lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelCourses->get( (int) $_GET['id']);
+        $data = $modelCourses->find()->where(['id'=>(int) $_GET['id']])->first();
     }else{
         $data = $modelCourses->newEmptyEntity();
     }
@@ -148,7 +148,7 @@ function deleteCourseCRM($input){
     $modelCourses = $controller->loadModel('Courses');
     
     if(!empty($_GET['id'])){
-        $data = $modelCourses->get($_GET['id']);
+        $data = $modelCourses->find()->where(['id'=>(int) $_GET['id']])->first();
         
         if($data){
             $modelCourses->delete($data);

@@ -50,17 +50,17 @@ function listHistoryTestCRM($input)
         $listCustomer = array();
     	foreach ($listData as $key => $value) {
             if(empty($listCustomer[$value->id_customer])){
-                $listCustomer[$value->id_customer] = $modelCustomers->get($value->id_customer);
+                $listCustomer[$value->id_customer] = $modelCustomers->find()->where(['id'=>(int) $value->id_customer])->first();
 
                 if($listCustomer[$value->id_customer]->id_parent > 0){
-                    $parent = $modelCustomers->get($listCustomer[$value->id_customer]->id_parent);
+                    $parent = $modelCustomers->find()->where(['id'=>(int) $listCustomer[$value->id_customer]->id_parent])->first();
 
                     $listCustomer[$value->id_customer]->name_parent = @$parent->full_name;
                 }
             }
 
             if(empty($listTest[$value->id_test])){
-                $listTest[$value->id_test] = $modelTests->get($value->id_test);
+                $listTest[$value->id_test] = $modelTests->find()->where(['id'=>(int) $value->id_test])->first();
             }
 
             $listData[$key]->name_test = @$listTest[$value->id_test]->title;
@@ -117,7 +117,7 @@ function deleteHistoryTestCRM($input){
     $modelHistoryTests = $controller->loadModel('Historytests');
     
     if(!empty($_GET['id'])){
-        $data = $modelHistoryTests->get($_GET['id']);
+        $data = $modelHistoryTests->find()->where(['id'=>(int) $_GET['id']])->first();
         
         if($data){
             $modelHistoryTests->delete($data);

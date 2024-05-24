@@ -69,12 +69,12 @@ function testOnline($input)
 
                 // lưu lịch sử thi
                 if(!empty($_GET['id_customer'])){
-                    $info_customer = $modelCustomers->get($_GET['id_customer']);
+                    $info_customer = $modelCustomers->find()->where(['id'=>(int) $_GET['id_customer']])->first();
                 }
 
                 if(empty($info_customer)){
                     if(!empty($session->read('infoUser'))){
-                        $info_customer = $modelCustomers->get($session->read('infoUser')->id);
+                        $info_customer = $modelCustomers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
 
                         $_GET['id_customer'] = @$info_customer->id;
                     }

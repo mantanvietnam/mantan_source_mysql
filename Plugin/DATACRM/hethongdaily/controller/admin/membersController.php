@@ -114,7 +114,7 @@ function addMemberAdmin($input)
 
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelMembers->get( (int) $_GET['id']);
+        $data = $modelMembers->find()->where(['id'=>(int) $_GET['id']])->first();
     }else{
         $data = $modelMembers->newEmptyEntity();
     }
@@ -207,12 +207,12 @@ function deleteMemberAdmin($input){
     $modelMembers = $controller->loadModel('Members');
     
     if(!empty($_GET['id'])){
-        $data = $modelMembers->get($_GET['id']);
+        $data = $modelMembers->find()->where(['id'=>(int) $_GET['id']])->first();
         
         if($data){
             $modelMembers->delete($data);
         }
     }
 
-    return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct');
+    return $controller->redirect('/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin');
 }

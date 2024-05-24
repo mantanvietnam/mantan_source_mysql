@@ -11,7 +11,7 @@ function listCategoryLessonCRM($input){
         
         // tính ID category
         if(!empty($dataSend['idCategoryEdit'])){
-            $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+            $infoCategory = $modelCategories->find()->where(['id'=>(int) $dataSend['idCategoryEdit']])->first();
         }else{
             $infoCategory = $modelCategories->newEmptyEntity();
         }
