@@ -209,7 +209,7 @@
 
                                     <li>
                                         <span>Chiết khấu (%)</span>
-                                        <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="0" autocomplete="off" readonly /></span>
+                                        <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="0" autocomplete="off" /></span>
                                     </li>
                                     
                                     <li class="total-bh">
