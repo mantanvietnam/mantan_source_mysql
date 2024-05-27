@@ -108,7 +108,7 @@ function addRewardAdmin($input){
 	    }else{
 	    	$mess= '<p class="text-danger">Bạn chưa nhập tên </p>';
 	    }
-	      $data = $modelReward->get( (int) $_GET['id']);
+	      $data = $modelReward->get($data->id);
     }
 
 
@@ -118,5 +118,19 @@ function addRewardAdmin($input){
     setVariable('mess', $mess);
 }
 
+function deleteRewardAdmin($input){
+    global $controller;
 
+    // $modelHistoricalsite = $controller->loadModel('Historicalsites');
+    $modelReward = $controller->loadModel('Rewards');
+    if(!empty($_GET['id'])){
+        $data = $modelReward->get($_GET['id']);
+        
+        if($data){
+            $modelReward->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/excgo-view-admin-reward-listRewardAdmin.php');
+}
 ?>
