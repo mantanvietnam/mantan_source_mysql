@@ -24,6 +24,10 @@ function getListProvinceApi($input): array
             $conditions['bsx LIKE'] = '%' . $dataSend['bsx'] . '%';
         }
 
+         if (!empty($dataSend['ghim'])) {
+            $conditions['ghim'] = $dataSend['ghim'];
+        }
+
         if (!empty($dataSend['parent_id'])) {
             $conditions['parent_id'] = $dataSend['parent_id'];
         } else {
@@ -50,7 +54,7 @@ function getListProvinceApi($input): array
                 $page
             );
 
-            return apiResponse(0, 'Lấy danh sách tỉnh thành công', $listProvince, $paginationMeta);
+            return apiResponse(0, 'Lấy danh sách tỉnh thành công a', $listProvince, $paginationMeta);
         } else {
             $currentUser = getUserByToken($dataSend['access_token']);
 
@@ -81,6 +85,7 @@ function getListProvinceApi($input): array
                     'Provinces.name',
                     'Provinces.bsx',
                     'Provinces.gps',
+                    'Provinces.ghim',
                     'Provinces.status',
                     'is_pinned' => $query->newExpr()
                         ->case()
@@ -93,7 +98,7 @@ function getListProvinceApi($input): array
                 ->order([
                     'PinnedProvinces.id IS NULL' => 'ASC', // Tỉnh nào được ghim sẽ sắp xếp lên trước
                     'PinnedProvinces.created_at' => 'DESC', // Tỉnh nào được ghim gần nhất xếp lên trước
-                    'Provinces.name' => 'ASC' // Các tỉnh còn lại sắp xếp theo tên
+                    'Provinces.id' => 'ASC' // Các tỉnh còn lại sắp xếp theo tên
                 ])->all()
                 ->toList();
 

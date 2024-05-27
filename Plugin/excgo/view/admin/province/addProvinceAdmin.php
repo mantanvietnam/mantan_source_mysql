@@ -48,6 +48,13 @@
                               </select>
                             <?php endif; ?>
                         </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label" for="status">Ghim (*)</label>
+                            <select name="ghim" class="form-select color-dropdown">
+                              <option value="0" <?php if(@$data->ghim == 0) echo 'selected';?> >bỏ ghim</option>
+                              <option value="1" <?php if(@$data->ghim === 1) echo 'selected';?> >ghim</option>
+                            </select>
+                        </div>
                         <p><a href="<?php echo '/plugins/admin/excgo-view-admin-province-addProvinceAdmin?parent_id=' . @$data->id ?>" class="btn btn-primary">
                           <i class='bx bx-plus'></i> Thêm khu vực con
                         </a></p>
