@@ -43,7 +43,6 @@
 </head>
 
 <body>
-
     <div class="intro">
         <h1 class="logo-header">
             <div class="loader">
