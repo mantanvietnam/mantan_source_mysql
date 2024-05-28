@@ -32,9 +32,7 @@
                             </div>
                             <div class="list-other-post">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12" data-aos-duration="1000" data-aos="fade-up-right">
-                                        <div class="item-other-post">
-                                            <?php 
+                                    <?php 
                                             if(!empty($otherPosts)){
                                                 foreach ($otherPosts as $key => $value) {
                                                     $link = '/'.$value->slug.'.html';
@@ -61,8 +59,6 @@
                                                     }
                                                 }
                                             ?>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -77,8 +73,7 @@
 
                             <div class="list-outstanding-post">
                                 <div class="row">
-                                    <div class="item-outstanding-post col-lg-12 no-padding">
-                                        <?php 
+                                    <?php 
                                             if(!empty($otherPosts)){
                                                 foreach ($otherPosts as $key => $value) {
                                                     $link = '/'.$value->slug.'.html';
@@ -105,7 +100,6 @@
                                                     }
                                                 }
                                             ?>
-                                    </div>
                                 </div>
                             </div>
                         </div>

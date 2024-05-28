@@ -20,9 +20,7 @@
             <div class="container">
                 <div class="list-post">
                     <div class="row">
-                        <div class="item-post col-lg-4 col-md-6 col-sm-12">
-                            <div class="post-content">
-                                <?php 
+                         <?php 
                                     if(!empty($listPosts)){
                                         foreach ($listPosts as $key => $value) {
                                             $link = '/'.$value->slug.'.html';
@@ -49,10 +47,7 @@
                                         }
                                     }
                                 ?>
-                            </div>
-                        </div>
                     </div>
-
                 </div>
                 <div class="post-pagenation">
                     <div class="pagenation-arrow pagenation-prev">
