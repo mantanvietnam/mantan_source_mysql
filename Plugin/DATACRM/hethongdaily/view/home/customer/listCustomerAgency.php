@@ -7,7 +7,7 @@
     Danh sách khách hàng
   </h4>
 
-  <p><a href="/editCustomerAgency" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
+  <p><a href="/editCustomerAgency" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a>  <a href="/addDataCustomer" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới bằng Excel</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">

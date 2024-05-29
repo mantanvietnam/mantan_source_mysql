@@ -31,7 +31,7 @@
             <div class="swiper-wrapper">
                
                 <?php
-                if($data->imageinfo){
+                if(!empty($data->imageinfo)){
                  foreach($data->imageinfo as $key => $value){ ?>
                 <div class="swiper-slide" id="swiper-1">
 
@@ -68,7 +68,7 @@
                           <div class="swiper galleryThumbstwo">
                               <div class="swiper-wrapper">
                                 <?php
-                                if($data->imageinfo){
+                                if(!empty($data->imageinfo)){
                                  foreach($data->imageinfo as $key => $value){ ?>
                                 <div class="swiper-slide">
                                   <img src="<?php echo $value->image; ?>" />

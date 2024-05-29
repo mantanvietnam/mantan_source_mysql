@@ -66,7 +66,7 @@
 	// thông tin đại lý
 	$routesPlugin['info']= 'hethongdaily/view/home/member/info.php';
 
-	// đơn hàng lẻ đại lý
+	// đơn hàng lẻ đại lý 
 	$routesPlugin['orderCustomerAgency']= 'hethongdaily/view/home/product/orderCustomerAgency.php';
 	$routesPlugin['viewOrderCustomerAgency']= 'hethongdaily/view/home/product/viewOrderCustomerAgency.php';
 	$routesPlugin['deleteOrderCustomerAgency']= 'hethongdaily/view/home/product/deleteOrderCustomerAgency.php';
@@ -92,6 +92,7 @@
 	// khách hàng
 	$routesPlugin['listCustomerAgency']= 'hethongdaily/view/home/customer/listCustomerAgency.php';
 	$routesPlugin['editCustomerAgency']= 'hethongdaily/view/home/customer/editCustomerAgency.php';
+	$routesPlugin['addDataCustomer']= 'hethongdaily/view/home/customer/addDataCustomer.php';
 	$routesPlugin['guideAddCustomerAPIAgency']= 'hethongdaily/view/home/customer/guideAddCustomerAPIAgency.php';
 	$routesPlugin['downloadMMTC']= 'hethongdaily/view/home/customer/downloadMMTC.php';
 	
