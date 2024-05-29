@@ -56,8 +56,6 @@ function settingHomeThemeDataCRM($input)
     					'title6_product_best' => $dataSend['title6_product_best'],
     					'content6_product_best' => $dataSend['content6_product_best'],
 
-    					'content1_footer' => $dataSend['content1_footer'],
-    					'id_menu_footer' => $dataSend['id_menu_footer'],
                     );
 
         $data->key_word = 'settingHomeThemeDataCRM';
