@@ -1,4 +1,13 @@
 <?php
+$menus = array();
+$menus[0]['title'] = 'DATA CRM';
+$menus[0]['sub'][0] = array('title' => 'Danh sách đăng ký',
+                            'url'=>'/plugins/admin/data_crm-views-admin-listRegAdmin',
+                            'classIcon' => 'menu-icon tf-icons bx bxs-data',
+                            'permission'=>'listRegAdmin'
+);
+addMenuAdminMantan($menus);
+
 global $vst_hostname;
 global $ftpUser;
 global $ftpPass;
