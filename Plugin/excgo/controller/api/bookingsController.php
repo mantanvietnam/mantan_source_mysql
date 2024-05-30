@@ -300,7 +300,7 @@ function receiveBookingApi($input): array
             }
 
             if($currentUser->point >= 5){
-                 return apiResponse(4, 'Bạn hãy đăng thêm cuốc hoặc bạn sử lý nốt cuốc bạn chưa sửs lý ');
+                 return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
             }
 
 
