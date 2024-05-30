@@ -23,13 +23,13 @@ function searchCustomerAPI($input)
 
     if(!empty($dataSend['phone'])){
         $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
-        $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+        $dataSend['phone LIKE'] = '%'.str_replace('+84','0',$dataSend['phone']).'%';
 
-        $conditions['phone'] = $dataSend['phone'];
+        $conditions['phone LIKE'] = '%'.$dataSend['phone'].'%';
     }
 
     if(!empty($dataSend['email'])){
-        $conditions['email'] = $dataSend['email'];
+        $conditions['email LIKE'] =  '%'.$dataSend['email'].'%';
     }
 
     if(!empty($dataSend['status'])){

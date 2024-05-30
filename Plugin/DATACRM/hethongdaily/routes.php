@@ -92,14 +92,17 @@
 	// khách hàng
 	$routesPlugin['listCustomerAgency']= 'hethongdaily/view/home/customer/listCustomerAgency.php';
 	$routesPlugin['editCustomerAgency']= 'hethongdaily/view/home/customer/editCustomerAgency.php';
-	$routesPlugin['addDataCustomer']= 'hethongdaily/view/home/customer/addDataCustomer.php';
+	$routesPlugin['addDataCustomerAgency']= 'hethongdaily/view/home/customer/addDataCustomerAgency.php';
 	$routesPlugin['guideAddCustomerAPIAgency']= 'hethongdaily/view/home/customer/guideAddCustomerAPIAgency.php';
 	$routesPlugin['downloadMMTC']= 'hethongdaily/view/home/customer/downloadMMTC.php';
 	
 	// nhóm khách hàng
 	$routesPlugin['groupCustomerAgency']= 'hethongdaily/view/home/customer/groupCustomerAgency.php';
 	$routesPlugin['deleteGroupCustomerAgency']= 'hethongdaily/view/home/customer/deleteGroupCustomerAgency.php';
-	
+
+	// Lịch hẹn 
+	$routesPlugin['listAppointmentAgency']= 'hethongdaily/view/home/appointment/listAppointmentAgency.php';
+	$routesPlugin['addAppointmentAgency']= 'hethongdaily/view/home/appointment/addAppointmentAgency.php';
 	// lịch sử chăm sóc khách hàng
 	$routesPlugin['listCustomerHistoriesAgency']= 'hethongdaily/view/home/customer_histories/listCustomerHistoriesAgency.php';
 	$routesPlugin['addCustomerHistoriesAgency']= 'hethongdaily/view/home/customer_histories/addCustomerHistoriesAgency.php';

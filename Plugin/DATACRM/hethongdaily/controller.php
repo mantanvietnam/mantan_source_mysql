@@ -9,6 +9,7 @@ include_once('controller/home/customerHistoriesController.php'); // lịch sử 
 include_once('controller/home/order_membersController.php'); // đơn hàng đại lý
 include_once('controller/home/warehousesController.php'); // kho hàng đại lý
 include_once('controller/home/staticsController.php'); // thống kê
+include_once('controller/home/appointmentsController.php'); // thống kê
 
 
 include_once('controller/admin/membersController.php'); // đại lý hệ thống

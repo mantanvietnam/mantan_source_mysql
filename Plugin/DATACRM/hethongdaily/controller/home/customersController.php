@@ -563,7 +563,7 @@ function downloadMMTC($input)
     }
 }
 
-function addDataCustomer($input)
+function addDataCustomerAgency($input)
 {
     global $controller;
     global $urlCurrent;
