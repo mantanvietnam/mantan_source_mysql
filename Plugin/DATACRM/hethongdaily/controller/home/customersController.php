@@ -626,24 +626,19 @@ function addDataCustomerAgency($input)
                                 $data->address = '';
                             }
 
-                            if(isset($value[5]) && $value[5] != ''){
-                                $data->sex = (int) $value[5];
+                            if(isset($value[4]) && $value[4] != ''){
+                                $data->sex = (int) $value[4];
                             }elseif(empty($data->sex)){
                                 $data->sex = 0;
                             }
 
 
                             $data->id_city = 0;
+                            
+                            $data->avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
 
-
-                            if(!empty($value[4])){
-                                $data->avatar = $value[4];
-                            }elseif(empty($data->avatar)){
-                                $data->avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
-                            }
-
-                            if(!empty($value[6])){
-                                $date = explode("/", $value[6]);
+                            if(!empty($value[5])){
+                                $date = explode("/", $value[5]);
                                 $data->birthday_date = (int) $date[0];
                                 $data->birthday_month = (int) $date[1];
                                 $data->birthday_year = (int) $date[2];
@@ -654,15 +649,15 @@ function addDataCustomerAgency($input)
                             }
 
 
-                            if(!empty($value[7])){
-                                $id_group = explode(",", $value[7]);
+                            if(!empty($value[6])){
+                                $id_group = explode(",", $value[6]);
                                 $data->id_group = (int) $id_group[0];
                             }elseif(empty($data->id_group)){
                                 $data->id_group = 0;
                             }
 
-                            if(!empty($value[8])){
-                                $data->facebook = $value[8];
+                            if(!empty($value[7])){
+                                $data->facebook = $value[7];
                             }elseif(empty($data->facebook)){
                                 $data->facebook = '';
                             }
@@ -674,8 +669,8 @@ function addDataCustomerAgency($input)
 
                             saveCustomerHistorie($data->id);
 
-                            if(!empty($value[7])){
-                                $id_group = explode(",", $value[7]);
+                            if(!empty($value[6])){
+                                $id_group = explode(",", $value[6]);
                                 saveCustomerCategory($data->id,$id_group);
                             }
 

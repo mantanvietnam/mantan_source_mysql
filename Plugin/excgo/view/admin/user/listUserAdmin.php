@@ -133,6 +133,8 @@
                   Số dư: ' . number_format($item->total_coin) . ' đ
                   <br>
                   Địa chỉ: ' . $item->address . '
+                  <br>
+                  Sl chuyến xe có thể nhận: ' . $item->maximum_trip . '
                   </td>';
                 }
 

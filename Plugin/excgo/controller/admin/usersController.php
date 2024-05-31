@@ -136,6 +136,7 @@ function viewUserDetailAdmin($input)
             $data->status = $dataSend['status'];
             $data->type = $dataSend['type'];
             $data->email = $dataSend['email'];
+            $data->maximum_trip = (int) $dataSend['maximum_trip'];
 
             $modelUser->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
