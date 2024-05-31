@@ -841,8 +841,6 @@ function createImageSeries($input)
 	        	$width = $product->width;
 	        	$height = $product->height;
 	        }
-        	
-        	
 
 			// dùng api flash api
 			$dataImage = screenshotAPIFlash($urlThumb, $product->width, $product->height);
