@@ -203,4 +203,98 @@ function addCustomerHistoriesAgency($input)
         return $controller->redirect('/login');
     }
 }
+
+function calendarCustomerHistoriesAgency(){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+        
+        $metaTitleMantan = 'Lịch sử chăm sóc khách hàng';
+
+        $modelCustomers = $controller->loadModel('Customers');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrders = $controller->loadModel('Orders');
+        $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+        $conditions = array('id_staff_now'=>$session->read('infoUser')->id);
+
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+
+        if(!empty($_GET['id_customer'])){
+            $conditions['id_customer'] = (int) $_GET['id_customer'];
+        }
+
+        if(!empty($_GET['status'])){
+            $conditions['status'] = $_GET['status'];
+        }
+
+        if(!empty($_GET['action_now'])){
+            $conditions['action_now'] = $_GET['action_now'];
+        }
+
+        
+        $listData = $modelCustomerHistories->find()->where($conditions)->all()->toList();
+
+        if(!empty($listData)){
+            $listCustomer = [];
+
+            foreach ($listData as $key => $value) {
+                if(empty($listCustomer[$value->id_customer])){
+                    $listCustomer[$value->id_customer] = $modelCustomers->find()->where(['id'=>$value->id_customer])->first();
+                }
+
+                    // lịch sử chăm sóc
+                $listData[$key]->info_customer = $listCustomer[$value->id_customer];
+            }
+        }
+        
+        // debug($listData);
+        // die;
+       
+        
+        setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function treatmentCustomerHistoriesAgency(){
+     global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+    if(!empty($session->read('infoUser'))){
+
+        $metaTitleMantan = 'Thông tin chăm sóc khách hàng';
+
+        $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+        $modelCustomers = $controller->loadModel('Customers');
+
+        $mess= '';
+
+        $infoUser = $session->read('infoUser');
+
+        // lấy data edit
+        if(!empty($_GET['id'])){
+            $data = $modelCustomerHistories->find()->where(['id'=>(int) $_GET['id'], 'id_staff_now'=>$infoUser->id])->first();
+            if(!empty($data)){
+                $data->status= 'done';
+                $modelCustomerHistories->save($data);
+            }            
+            return $controller->redirect('/calendarCustomerHistoriesAgency');
+        }else{
+            return $controller->redirect('/calendarCustomerHistoriesAgency');
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

@@ -46,10 +46,12 @@
                 <div class="col-md-6">
                   <label class="form-label">Trạng thái</label>
                   <select name="status" class="form-select color-dropdown">
-                    <option value="0" <?php if(isset($data->status) && $data->status=='0') echo 'selected';?> >chưa sử lý</option>
-                    <option value="1" <?php if(!empty($data->status) && $data->status=='1') echo 'selected';?> >đã sử lý</option>
-                    <option value="2" <?php if(!empty($data->status) && $data->status=='2') echo 'selected';?> >Tù trối</option>
-                  </select>
+                    <option value="0" <?php if(isset($data->status) && $data->status=='0') echo 'selected';?> >Chưa xác nhận </option>
+                    <option value="1" <?php if(!empty($data->status) && $data->status=='1') echo 'selected';?> >Xác nhận</option>
+                    <option value="2" <?php if(!empty($data->status) && $data->status=='2') echo 'selected';?> >Không đến</option>
+                    <option value="3" <?php if(!empty($data->status) && $data->status=='3') echo 'selected';?> >Đã đến</option>
+                    <option value="4" <?php if(!empty($data->status) && $data->status=='4') echo 'selected';?> >Hủy lịch</option>
+                </select>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">

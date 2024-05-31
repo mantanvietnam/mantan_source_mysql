@@ -100,12 +100,15 @@
 	$routesPlugin['groupCustomerAgency']= 'hethongdaily/view/home/customer/groupCustomerAgency.php';
 	$routesPlugin['deleteGroupCustomerAgency']= 'hethongdaily/view/home/customer/deleteGroupCustomerAgency.php';
 
-	// Lịch hẹn 
+	// Lịch hẹn
 	$routesPlugin['listAppointmentAgency']= 'hethongdaily/view/home/appointment/listAppointmentAgency.php';
 	$routesPlugin['addAppointmentAgency']= 'hethongdaily/view/home/appointment/addAppointmentAgency.php';
-	// lịch sử chăm sóc khách hàng
+	$routesPlugin['calendarAppointmentAgency']= 'hethongdaily/view/home/appointment/calendarAppointmentAgency.php';
+
+	// lịch sử chăm sóc khách hàng 
 	$routesPlugin['listCustomerHistoriesAgency']= 'hethongdaily/view/home/customer_histories/listCustomerHistoriesAgency.php';
 	$routesPlugin['addCustomerHistoriesAgency']= 'hethongdaily/view/home/customer_histories/addCustomerHistoriesAgency.php';
+	$routesPlugin['calendarCustomerHistoriesAgency']= 'hethongdaily/view/home/customer_histories/calendarCustomerHistoriesAgency.php';
 
 	// báo cáo kinh doanh
 	$routesPlugin['businessReport']= 'hethongdaily/view/home/static/businessReport.php';

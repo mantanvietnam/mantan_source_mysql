@@ -22,11 +22,11 @@
             <input type="hidden" class="form-control" name="id_customer" id='id_customer' value="<?php if(!empty($_GET['id_customer'])) echo $_GET['id_customer'];?>">
           </div>
 
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <label class="form-label">tên đại lý</label>
             <input type="text" class="form-control" name="name_parent" id='name_parent' value="<?php if(!empty($_GET['name_parent'])) echo $_GET['name_parent'];?>">
             <input type="hidden" class="form-control" name="id_parent" id='id_parent' value="<?php if(!empty($_GET['id_parent'])) echo $_GET['id_parent'];?>">
-          </div>
+          </div> -->
 
            <div class="col-md-3">
             <label class="form-label">Từ ngày</label>
@@ -41,9 +41,11 @@
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="">Tất cả</option>
-              <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >chưa sử lý</option>
-              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >đã sử lý</option>
-              <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Tù trối</option>
+              <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa xác nhận </option>
+              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Xác nhận</option>
+              <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Không đến</option>
+              <option value="3" <?php if(!empty($_GET['status']) && $_GET['status']=='3') echo 'selected';?> >Đã đến</option>
+              <option value="4" <?php if(!empty($_GET['status']) && $_GET['status']=='4') echo 'selected';?> >Hủy lịch</option>
             </select>
           </div>
           
@@ -75,13 +77,24 @@
             <th>Đại lý hẹn</th>
             <th>nội dung hẹn</th>
             <th>Trạng thái</th>
+            <th>Sửa</th>
           </tr>
         </thead>
         <tbody>
           <?php 
           if(!empty($listData)){
             foreach ($listData as $item) {
-              
+               if($item->status==0){
+                $status= 'Chưa xác nhận';
+              }elseif($item->status==1){
+                $status= 'Xác nhận';
+              }elseif($item->status==2){
+                $status= 'Không đến';
+              }elseif($item->status==3){
+                $status= 'Đã đến';
+              }elseif($item->status==4){
+                $status= 'Hủy lịch';
+                  }
               echo '<tr>
               <td>'.$item->id.'</td>
               <td>'.$item->name.'<br>
@@ -91,8 +104,7 @@
               <td>'.$item->time->format('Y-m-d H:i').'</td>
               <td>'.$item->parent->name.'</td>
               <td>'.$item->note.'</td>
-              <td>
-              </td>
+              <td>'.$status.'</td>
 
               <td width="5%" align="center">
                 <a class="dropdown-item" href="/addAppointmentAgency/?id='.$item->id.'">
@@ -157,5 +169,57 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+<script type="text/javascript">
+  $(function() {
+       function split( val ) {
+          return val.split( /,\s*/ );
+        }
 
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+        $( "#name_customer" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchCustomerAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#name_customer" ).val(ui.item.full_name);
+                $( "#id_customer" ).val(ui.item.id);
+
+                return false;
+            }
+        });
+      });
+</script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <?php include(__DIR__.'/../footer.php'); ?>

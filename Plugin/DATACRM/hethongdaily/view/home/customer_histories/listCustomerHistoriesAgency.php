@@ -21,8 +21,9 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">ID khách hàng</label>
-            <input type="text" class="form-control" name="id_customer" value="<?php if(!empty($_GET['id_customer'])) echo $_GET['id_customer'];?>">
+            <label class="form-label">Tên khách hàng</label>
+            <input type="text" class="form-control" name="name_customer" id="name_customer" value="<?php if(!empty($_GET['name_customer'])) echo $_GET['name_customer'];?>">
+            <input type="hidden" class="form-control" name="id_customer" id="id_customer" value="<?php if(!empty($_GET['id_customer'])) echo $_GET['id_customer'];?>">
           </div>
 
           <div class="col-md-2">
@@ -62,6 +63,9 @@
 
   <!-- Responsive Table -->
   <div class="card row">
+    <h5 class="card-header">
+      <a href="/calendarCustomerHistoriesAgency" class="btn btn-danger">Xem dạng Lịch</a>
+    </h5>
     <h5 class="card-header">Lịch sử chăm sóc khách hàng</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -154,5 +158,56 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+<script type="text/javascript">
+  $(function() {
+       function split( val ) {
+          return val.split( /,\s*/ );
+        }
 
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+        $( "#name_customer" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchCustomerAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#name_customer" ).val(ui.item.full_name);
+                $( "#id_customer" ).val(ui.item.id);
+
+                return false;
+            }
+        });
+      });
+</script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <?php include(__DIR__.'/../footer.php'); ?>

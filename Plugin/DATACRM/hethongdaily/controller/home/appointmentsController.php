@@ -30,7 +30,9 @@ function listAppointmentAgency($input){
         }
 
         if(isset($_GET['status'])){
-            $conditions['status'] = $_GET['status'];
+        	if($_GET['status']!=''){
+            	$conditions['status'] = $_GET['status'];
+            }
         }
 
         if(!empty($_GET['date_start'])){
@@ -146,6 +148,67 @@ function addAppointmentAgency($input){
     }
 }
 
+function calendarAppointmentAgency(){
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Lịch hẹn';
+
+    $modelAppointment = $controller->loadModel('Appointments');
+    $modelMembers = $controller->loadModel('Members');
+
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+
+		$conditions = array();
+		
+		if(!empty($_GET['name'])){
+            $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+        }
+
+        if(!empty($_GET['id_customer'])){
+            $conditions['id_customer'] = $_GET['id_customer'];
+        }
+
+        if(!empty($_GET['id_parent'])){
+            $conditions['id_parent'] = $_GET['id_parent'];
+        }
+
+        if(isset($_GET['status'])){
+        	if($_GET['status']!=''){
+            	$conditions['status'] = $_GET['status'];
+            }
+        }
+
+        if(!empty($_GET['date_start'])){
+			$date_start = explode('/', $_GET['date_start']);
+			$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+			$conditions['time >='] = date('Y-m-d H:i:s', $date_start);
+		}
+
+		if(!empty($_GET['date_end'])){
+			$date_end = explode('/', $_GET['date_end']);
+			$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+			$conditions['time <='] = date('Y-m-d H:i:s', $date_end);
+		}
+
+	    $listData = $modelAppointment->find()->where($conditions)->all()->toList();
+	    if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                if(!empty($value->id_parent)){
+                    $listData[$key]->parent = $modelMembers->find()->where(['id'=>$value->id_parent])->first();
+                } 
+            }
+        }
+	    
+	    setVariable('listData', $listData);
+	}else{
+		return $controller->redirect('/');
+	}
+}
 
 
  ?>
