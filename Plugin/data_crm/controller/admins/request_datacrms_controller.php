@@ -126,3 +126,26 @@ function updateCodeAdmin($input)
     setVariable('domain_done', $domain_done);
     setVariable('domain_error', $domain_error);
 }
+
+function fixDatabaseAdmin($input)
+{
+    global $controller;
+    
+    $root = __DIR__.'/../../../../../../';
+    $listFile = list_files($root);
+
+    $domain_done = [];
+    $domain_error = [];
+
+    if(!empty($listFile)){
+        foreach ($listFile as $key => $domain) {
+            
+            $public = $root.$domain.'/public_html/';
+
+            if(file_exists($public.'config/app_local.php')){
+                $app_local = file_get_contents($public.'config/app_local.php');
+            }
+            
+        }
+    }
+}
