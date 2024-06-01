@@ -83,7 +83,11 @@ function addOrderCustomer($input)
             $listProduct = getAllProductActive();
         }
 
+        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
+
         setVariable('listProduct', $listProduct);
+        setVariable('listGroupCustomer', $listGroupCustomer);
         setVariable('mess', $mess);
     }
 }

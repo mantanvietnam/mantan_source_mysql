@@ -32,6 +32,7 @@
 	$routesPlugin['addGroupCustomerAPI']= 'hethongdaily/view/api/addGroupCustomerAPI.php';
 	$routesPlugin['deleteGroupCustomerAPI']= 'hethongdaily/view/api/deleteGroupCustomerAPI.php';
 	$routesPlugin['listGroupCustomerAPI']= 'hethongdaily/view/api/listGroupCustomerAPI.php';
+	$routesPlugin['saveInfoCustomerAjax']= 'hethongdaily/view/api/saveInfoCustomerAjax.php';
 
 	$routesPlugin['resendOTPAPI']= 'hethongdaily/view/api/resendOTPAPI.php';
 

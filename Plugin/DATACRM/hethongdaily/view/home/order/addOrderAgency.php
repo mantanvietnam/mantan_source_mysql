@@ -258,6 +258,9 @@
                                         <span>Đại lý mua hàng (*)</span>
                                         <span><input class="per-bh form-control" type="text" name="member_buy" id="member_buy" placeholder="Nhập tên hoặc SĐT" value="<?php if(!empty($member_buy)) echo $member_buy->name.' '.$member_buy->phone;?>" autocomplete="off" required /></span>
                                         <input type="hidden" name="id_member_buy" id="id_member_buy" value="<?php echo @$member_buy->id;?>">
+                                         <a href="javascript:void(0);" onclick="showAddCustom();" title="Thêm đại lý mới" class="btn btn-primary">
+                                            <i class="bx bx-plus"></i>
+                                        </a>
                                     </li>
 
                                     <li class="total-bh">
@@ -286,7 +289,102 @@
         </div>
     </form>
 </div>
+<div id="addCustomer"  class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm thông tin đạt lý mới</h4>
+                
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>
+            <div class="data-content card-body">
+                <div id="messAddCustom"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Họ tên (*)</label>
+                        <input required type="text" class="form-control phone-mask" name="full_name" id="full_name" value="" />
+                      </div>
+                    </div>
 
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
+                        <input type="text" class="form-control" placeholder="" name="phone" id="phone" value="" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Email</label>
+                        <input type="email" class="form-control" placeholder="" name="email" id="email" value="" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Địa chỉ</label>
+                        <input type="text" class="form-control phone-mask" name="address" id="address" value="" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Giới tính</label>
+                        <select name="sex" id='sex' class="form-select color-dropdown">
+                          <option value="0">Nữ</option>
+                          <option value="1" >Nam</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Hình đại diện</label>
+                        <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Ngày sinh</label>
+                        <input autocomplete="off" type="text" class="form-control datepicker" name="birthday" id="birthday" value="" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Chức danh (*)</label>
+                            <select name="id_position" id="id_position" class="form-select color-dropdown" required>
+                              <option value="">Chọn chức danh</option>
+                              <?php 
+                              if(!empty($listPositions)){
+                                foreach ($listPositions as $key => $value) {
+                                    echo '<option value="'.$value->id.'" >'.$value->name.'</option>';
+                                  
+                                }
+                              }
+                              ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Mật khẩu</label>
+                        <input type="text" class="form-control phone-mask" name="password" id="password" value="" />
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="text-center col-sm-12" style="padding-bottom: 30px;">
+                        <button type="button" class="btn btn-primary" onclick="addCustomer();">Lưu thông tin</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
 var listProductAdd= {};
@@ -470,6 +568,54 @@ function createOrder()
     }
 }
 
+
+function showAddCustom()
+    {
+        $('#addCustomer').modal('show');
+    }
+
+function addCustomer()
+{
+
+    var full_name= $('#full_name').val();
+    var email= $('#email').val();
+    var phone= $('#phone').val();
+    var address= $('#address').val();
+    var avatar= $('#avatar').val();
+    var birthday= $('#birthday').val();
+    var id_position= $('#id_position').val();
+    var password= $('#password').val();
+
+        $.ajax({
+          method: "POST",
+          url: "/apis/saveInfoAgencyAjax",
+          data: { 
+            name: full_name,
+            email: email, 
+            phone: phone, 
+            address: address, 
+            avatar: avatar, 
+            birthday: birthday, 
+            id_position: id_position, 
+            password: password, 
+        }
+    })
+        .done(function( msg ) {
+            console.log(msg);
+            // var obj = jQuery.parseJSON(msg);
+             // console.log(obj);
+            if(msg.code==1){
+                $('#id_member_buy').val(msg.id_member_buy);
+                $('#member_buy').val(msg.member_buy);
+                $('#addCustomer').modal('hide');
+            }else{
+                console.log(msg.mess);
+               $('#messAddCustom').html(msg.mess);
+                
+            }
+        }) 
+          
+}
     
 </script>
 
