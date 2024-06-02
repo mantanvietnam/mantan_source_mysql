@@ -40,6 +40,9 @@ function saveRequestCreateDataCRMAPI($input)
 			$data->boss_email = $dataSend['boss_email'];
 			$data->boss_id_messenger = @$dataSend['boss_id_messenger'];
 			$data->boss_avatar = (!empty($dataSend['boss_avatar']))?$dataSend['boss_avatar']:'https://crm.phoenixcamp.vn/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+			$data->domain = $system_slug.'.icham.vn';
+			$data->create_at = time();
+			$data->deadline = $data->create_at + 30*24*60*60;
 
 			$modelRequestDatacrms->save($data);
 

@@ -144,8 +144,19 @@ function fixDatabaseAdmin($input)
 
             if(file_exists($public.'config/app_local.php')){
                 $app_local = file_get_contents($public.'config/app_local.php');
+
+                $username = explode('"username" => "', $app_local);
+                $password = explode('"password" => "', $username[1]);
+
+                $username = explode('",', $password[0]);
+                $password = explode('",', $password[1]);
+
+                debug($domain.' '.$username[0].' '.$password[0]);
+                
             }
             
         }
     }
+
+    die;
 }

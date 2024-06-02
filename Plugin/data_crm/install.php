@@ -18,6 +18,9 @@ $sqlInstallDatabase .= "CREATE TABLE `request_datacrms` (
     `boss_email` VARCHAR(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , 
     `boss_avatar` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
     `boss_id_messenger` VARCHAR(100) CHARACTER SET utf32 COLLATE utf32_unicode_ci NULL,
+    `domain` VARCHAR(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+    `create_at` INT NOT NULL DEFAULT '0',
+    `deadline` INT NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ";
 
