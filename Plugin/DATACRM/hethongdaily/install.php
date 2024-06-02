@@ -170,20 +170,6 @@ $sqlInstallDatabase .="CREATE TABLE `zalo_templates` (
 
 $sqlInstallDatabase .= "CREATE TABLE `token_devices` (`id` INT NOT NULL AUTO_INCREMENT , `token_device` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , `id_member` INT NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
-$sqlInstallDatabase .="CREATE TABLE `appointments` (
-`id` INT NOT NULL AUTO_INCREMENT , 
-`name` VARCHAR(255)   CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
-`phone` VARCHAR(255)  CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL DEFAULT NULL , 
-`email` VARCHAR(255)  CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL DEFAULT NULL , 
-`id_customer` INT NOT NULL , 
-`status` TINYINT NOT NULL DEFAULT '0' , 
-`created_at` TIMESTAMP NOT NULL , 
-`time` TIMESTAMP NOT NULL , 
-`note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL , 
-`id_parent` INT NOT NULL , 
-PRIMARY KEY (`id`)
-) ENGINE = InnoDB;";
-
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -195,7 +181,6 @@ $sqlDeleteDatabase .= "DROP TABLE warehouse_products; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouse_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE token_devices; ";
 $sqlDeleteDatabase .= "DROP TABLE zalo_templates; ";
-$sqlDeleteDatabase .= "DROP TABLE appointments; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";

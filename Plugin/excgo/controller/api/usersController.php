@@ -930,4 +930,37 @@ function conventionParameterAPI(){
     return apiResponse(1, 'Lấy dữ liệu thành công', parameter());
 }
 
+function getUserStatisticAdmin($input)
+{
+    global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    $modelBooking = $controller->loadModel('Bookings');
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            $currentUser->nhan_cuoc = count($modelBooking->find()->where(array('received_by'=>$currentUser->id,'status'=>3))->all()->toList());
+            $currentUser->dang_cuoc = count($modelBooking->find()->where(array('posted_by'=>$currentUser->id,'status'=>3))->all()->toList());
+
+            return apiResponse(0, 'Lấy dữ liệu thành công', $user);
+        }
+
+    }
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+
+}
+
 ?>
