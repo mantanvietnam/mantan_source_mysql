@@ -940,4 +940,48 @@ function saveInfoAgencyAjax($input)
 		return array('code'=> 0 , 'mess'=> '<p class="text-danger">Bạn chưa đăng nhập</p>');
 	}
 }
+
+function NotificationCustomerHistories($input){
+
+	global $controller;
+	global $session;
+	global $modelCategories;
+
+	$modelCustomers = $controller->loadModel('Customers');
+    $modelMembers = $controller->loadModel('Members');
+   	$modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+	$return = array('code'=>1);
+
+	$listData = $modelMembers->find()->where(array('status'=>'active' ))->all()->toList();
+
+	$current_time = time();
+	$time_in_5_minutes  = $current_time+ (5 * 60);
+
+	$conditions = array('status'=>'new');
+	$conditions['time_now >='] = $current_time;
+
+	$conditions['time_now <='] =$time_in_5_minutes;
+
+
+	if(!empty($listData)){
+
+
+		foreach($listData as $key => $item){
+			$conditions['id_staff_now'] = $item->id;
+			$historie = $modelCustomerHistories->find()->where($conditions)->first();
+			if(!empty($historie)){
+				debug($historie);
+				if(!empty($session->read('infoUser')->noti_new_customer)){
+                    $dataSendNotification= array('title'=>'Lịch hẹn','time'=>date('H:i d/m/Y'),'content'=>'Trong vòng 5 phúc nữa bạn có lịch hẹn','action'=>'addCustomer');
+                   
+                  		if(!empty($item->token_device)){
+                            $return = sendNotification($dataSendNotification, $item->token_device);
+                        }
+                    }
+                }
+			}	
+	}
+	
+}
 ?>
