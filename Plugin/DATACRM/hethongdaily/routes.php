@@ -74,6 +74,10 @@
 	$routesPlugin['updateStatusOrderAgency']= 'hethongdaily/view/home/product/updateStatusOrderAgency.php';
 	$routesPlugin['addOrderCustomer']= 'hethongdaily/view/home/product/addOrderCustomer.php';
 	$routesPlugin['printBillOrderCustomerAgency']= 'hethongdaily/view/home/product/printBillOrderCustomerAgency.php';
+	$routesPlugin['listProductAgency']= 'hethongdaily/view/home/product/listProductAgency.php';
+	$routesPlugin['addProductAgency']= 'hethongdaily/view/home/product/addProductAgency.php';
+	$routesPlugin['deleteProductAgency']= 'hethongdaily/view/home/product/deleteProductAgency.php';
+	$routesPlugin['listCategoryProductAgency']= 'hethongdaily/view/home/product/listCategoryProductAgency.php';
 
 	// yêu cầu mua hàng
 	$routesPlugin['requestProductAgency']= 'hethongdaily/view/home/order/requestProductAgency.php';

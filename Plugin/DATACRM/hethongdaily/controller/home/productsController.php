@@ -503,4 +503,387 @@ function printBillOrderCustomerAgency($input)
         return $controller->redirect('/login');
     }
 }
+
+function listProductAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Danh sách sản phẩm';
+
+    if(!empty($session->read('infoUser'))){
+
+        if(!empty($session->read('infoUser')->id_father)){
+            return $controller->redirect('/');
+        }
+
+        $modelProduct = $controller->loadModel('Products');
+
+        $modelCategorieProduct = $controller->loadModel('CategorieProducts');
+
+        $conditions = array();
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('Products.id'=>'desc');
+
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int)  $_GET['id'];
+        }
+
+        if(!empty($_GET['title'])){
+            $conditions['title LIKE'] = '%'.$_GET['title'].'%';
+        }
+
+        if(!empty($_GET['id_manufacturer'])){
+            $conditions['id_manufacturer'] = (int) $_GET['id_manufacturer'];
+        }
+
+        if(isset($_GET['hot'])){
+            if($_GET['hot']!=''){
+                $conditions['hot'] = (int) $_GET['hot'];
+            }
+        }
+
+        if(!empty($_GET['code'])){
+            $conditions['code'] = $_GET['code'];
+        }
+
+        if(!empty($_GET['status'])){
+            $conditions['status'] = $_GET['status'];
+        }
+
+        if(!empty($_GET['id_category'])){
+            $conditions['cp.id_category'] = (int)$_GET['id_category'];
+                $listData = $modelProduct->find()
+                            ->join([
+                                'table' => 'categorie_products',
+                                'alias' => 'cp',
+                                'type' => 'INNER',
+                                'conditions' => 'cp.id_product = Products.id',
+                            ])
+                            ->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+                $totalData = $modelProduct->find()
+                            ->join([
+                                'table' => 'categorie_products',
+                                'alias' => 'cp',
+                                'type' => 'INNER',
+                                'conditions' => 'cp.id_product = Products.id',
+                            ])
+                            ->where($conditions)->all()->toList();
+
+
+
+        }else{
+            $listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            $totalData = $modelProduct->find()->where($conditions)->all()->toList();
+        }
+        if(!empty($listData)){
+
+            foreach ($listData as $key => $value) {
+
+                     $conditionsCategorie = ['id_product'=>$value->id];
+                    $category  =    $modelCategorieProduct->find()->where(array($conditionsCategorie))->all()->toList();
+                    if(!empty($category)){
+                        foreach ($category as $k => $item) {
+                            if(!empty($item->id_category)){
+                                $category[$k]->name_category = @$modelCategories->find()->where(array('id'=>$item->id_category))->first()->name;
+                              
+                            }
+
+                             
+        
+                        }
+                    } 
+                    $listData[$key]->category = $category;
+                
+                
+                
+            }
+        }
+        // phân trang
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        $conditions = array('type' => 'category_product');
+        $categories = $modelCategories->find()->where($conditions)->all()->toList();
+
+        $conditions = array('type' => 'manufacturer_product');
+        $manufacturers = $modelCategories->find()->where($conditions)->all()->toList();
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        
+        setVariable('listData', $listData);
+        setVariable('categories', $categories);
+        setVariable('manufacturers', $manufacturers);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function addProductAgency($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    $metaTitleMantan = 'Thông tin sản phẩm';
+    if(!empty($session->read('infoUser'))){
+        if(!empty($session->read('infoUser')->id_father)){
+            return $controller->redirect('/');
+        }
+
+        $modelProduct = $controller->loadModel('Products');
+        $modelCategorieProduct = $controller->loadModel('CategorieProducts');
+        $mess= '';
+
+        if(!empty($session->read('infoUser')->id_father)){
+            return $controller->redirect('/');
+        }
+
+        // lấy data edit
+        if(!empty($_GET['id'])){
+            $data = $modelProduct->get( (int) $_GET['id']);  
+        }else{
+            $data = $modelProduct->newEmptyEntity();
+        }
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['title'])){
+                // tạo dữ liệu save
+                $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
+                // $data->id_category = (int) @$dataSend['id_category'];
+                $data->hot = (int) @$dataSend['hot'];
+                $data->description = @$dataSend['description'];
+                $data->keyword = @$dataSend['keyword'];
+                $data->info = @$dataSend['info'];
+                $data->image = @$dataSend['image'];
+                $data->images = json_encode(@$dataSend['images']);
+                $data->evaluate = json_encode(@$dataSend['evaluate']);
+                $data->code = @strtoupper($dataSend['code']);
+                $data->price = (int) @$dataSend['price'];
+                $data->price_old = (int) @$dataSend['price_old'];
+                $data->price_flash = (int) @$dataSend['price_flash'];
+                $data->quantity_initial = (int) @$dataSend['quantity_initial'];
+                $data->number_like = (int) @$dataSend['number_like'];
+                $data->quantity = (int) @$dataSend['quantity'];
+                $data->id_manufacturer = (int) @$dataSend['id_manufacturer'];
+                $data->status = @$dataSend['status'];
+                $data->rule = @$dataSend['rule'];
+                $data->specification = @$dataSend['specification'];
+                $data->id_product = @$dataSend['id_product'];
+                $data->idpro_discount = @$dataSend['idpro_discount'];
+                $data->pricepro_discount = @$dataSend['pricepro_discount'];
+                $data->sold_virtual = @$dataSend['sold_virtual'];
+                $data->id_category = (int) @$dataSend['id_category'][0];
+
+                // tạo slug
+                $slug = createSlugMantan($dataSend['title']);
+                $slugNew = $slug;
+                $number = 0;
+
+                if(empty($data->slug) || $data->slug!=$slugNew){
+                    do{
+                        $conditions = array('slug'=>$slugNew);
+                        $listData = $modelProduct->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                        if(!empty($listData)){
+                            $number++;
+                            $slugNew = $slug.'-'.$number;
+                        }
+                    }while (!empty($listData));
+                }
+
+                $data->slug = $slugNew;
+
+                $modelProduct->save($data);
+
+                // lưu danh mục sản phẩm
+                if(!empty($dataSend['id_category'])){
+                    $conditions = ['id_product'=>$data->id];
+                    $modelCategorieProduct->deleteAll($conditions);
+
+                    foreach ($dataSend['id_category'] as $id_category) {
+                        $category = $modelCategorieProduct->newEmptyEntity();
+
+                        $category->id_product = $data->id;;
+                        $category->id_category = $id_category;
+                        $modelCategorieProduct->save($category);
+                    }
+                }else{
+                    $conditions = ['id_product'=>$data->id];
+                    $modelCategorieProduct->deleteAll($conditions);
+                }
+
+
+
+
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }else{
+                $mess= '<p class="text-danger">Bạn chưa nhập tên sản phẩm</p>';
+            }
+        }
+
+                
+                if(!empty($data->images)){
+                    $data->images = json_decode($data->images, true);
+                }           
+               
+                if(!empty($data->evaluate)){
+                    $data->evaluate = json_decode($data->evaluate, true);
+                }
+              
+
+        $conditions = array('type' => 'category_product');
+        $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
+        $listCategoryCheck = [];
+            if(!empty($data->id)){
+                $listCheck = $modelCategorieProduct->find()->where(['id_product'=>$data->id])->all()->toList();
+
+                if(!empty($listCheck)){
+                    foreach ($listCheck as $check) {
+                        $listCategoryCheck[] = $check->id_category;
+                    }
+                }
+            }
+
+        $conditions = array('type' => 'manufacturer_product');
+        $listManufacturer = $modelCategories->find()->where($conditions)->all()->toList();
+
+        setVariable('data', $data);
+        setVariable('mess', $mess);
+        setVariable('listCategory', $listCategory);
+        setVariable('listCategoryCheck', $listCategoryCheck);
+        setVariable('listManufacturer', $listManufacturer);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteProductAgency($input){
+    global $controller;
+    global $session;
+    if(!empty($session->read('infoUser'))){
+
+        if(!empty($session->read('infoUser')->id_father)){
+            return $controller->redirect('/');
+        }
+
+        $modelProduct = $controller->loadModel('Products');
+        
+        if(!empty($_GET['id'])){
+            $data = $modelProduct->get($_GET['id']);
+            
+            if($data){
+                $modelProduct->delete($data);
+
+                deleteSlugURL($data->slug);
+            }
+        }
+
+    return $controller->redirect('/listProductAgency');
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function listCategoryProductAgency($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    if(!empty($session->read('infoUser'))){
+
+         if(!empty($session->read('infoUser')->id_father)){
+            return $controller->redirect('/');
+        }
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            
+            // tính ID category
+            if(!empty($dataSend['idCategoryEdit'])){
+                $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+            }else{
+                $infoCategory = $modelCategories->newEmptyEntity();
+            }
+
+            // tạo dữ liệu save
+            $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $infoCategory->parent = 0;
+            $infoCategory->image = @$dataSend['image'];
+            $infoCategory->status = @$dataSend['status'];
+            $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+            $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+            $infoCategory->type = 'category_product';
+
+            // tạo slug
+            $slug = createSlugMantan($infoCategory->name);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew,'type'=>'category_product');
+                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+
+            $infoCategory->slug = $slugNew;
+
+            $modelCategories->save($infoCategory);
+
+        }
+
+        $conditions = array('type' => 'category_product');
+        $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+        setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

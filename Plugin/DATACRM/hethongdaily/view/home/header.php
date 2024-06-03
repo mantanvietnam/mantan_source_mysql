@@ -208,6 +208,19 @@
                       </li>';
               }
 
+               if(empty($session->read('infoUser')->id_father)){
+                echo '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Sản phẩm
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                          <a class="dropdown-item" href="/listProductAgency">Sản phẩm</a>
+                          <a class="dropdown-item" href="/listCategoryProductAgency">Danh mục sản phẩm</a>
+                        </div>
+                      </li>';
+              }
+
               if(in_array('order_system', $plugins_site_value)){
                 echo '<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
