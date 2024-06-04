@@ -231,7 +231,7 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                     <div class="container">
                         <div class="logo-home-box">
                             <div class="logo-warm">
-                                <a href="/"><img src="<?php echo $urlThemeActive;?>/asset/img/logomoi.png" alt=""></a>
+                                <a href="/"><img src="<?php echo $urlThemeActive;?>/asset/img/logowarmmoi.png" alt=""></a>
                             </div>
 
                             <div class="logo-text">
