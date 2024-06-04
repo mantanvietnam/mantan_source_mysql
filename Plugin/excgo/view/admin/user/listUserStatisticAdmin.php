@@ -64,6 +64,7 @@
           <th>Họ và tên</th> 
           <th>Quốc đăng</th> 
           <th>Quốc Nhận</th> 
+          <th>Thống kê tổng</th> 
           <th>LOẠI TÀI KHOẢN</th> 
                
         </tr>
@@ -91,6 +92,7 @@
                   </td>
                   <td align="center">' . $item->posted . '</td>
                   <td align="center">' . $item->received . '</td>
+                  <td align="center">' . $item->posted-$item->received . '</td>
                   <td align="center">' . $type . '</td>
 
                </tr>';

@@ -24,11 +24,11 @@
                   
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ngày bắt đầu </label>
-                    <input type="text"  class="form-control datepicker" placeholder="" name="start_day" id="start_date" value="<?php if(!empty($data->start_date)){  echo @$data->start_date->format('d/m/Y');}?>" />
+                    <input type="text" required  class="form-control datepicker" placeholder="" name="start_date" id="start_date" value="<?php if(!empty($data->start_date)){  echo @$data->start_date->format('d/m/Y');}?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Tiền thưởng (*)</label>
-                    <input type="number"  class="form-control" placeholder="" name="money" id="money" value="<?php echo @$data->money;?>" />
+                    <input type="number" required  class="form-control" placeholder="" name="money" id="money" value="<?php echo @$data->money;?>" />
                   </div>
                   <div class="mb-3">
                       <label class="form-label" for="basic-default-fullname">Trạng thái:</label>&ensp;
@@ -39,11 +39,11 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Số lượng cuốc thành công (*)</label>
-                    <input type="number"  class="form-control" placeholder="" name="quantity_booking" id="quantity_booking" value="<?php echo @$data->quantity_booking;?>" />
+                    <input type="number" required  class="form-control" placeholder="" name="quantity_booking" id="quantity_booking" value="<?php echo @$data->quantity_booking;?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ngày Kết túc</label>
-                    <input type="text"  class="form-control datepicker" placeholder="" name="end_date" id="end_date" value="<?php if(!empty($data->end_date)){  echo @$data->end_date->format('d/m/Y');}?>" />
+                    <input type="text" required  class="form-control datepicker" placeholder="" name="end_date" id="end_date" value="<?php if(!empty($data->end_date)){  echo @$data->end_date->format('d/m/Y');}?>" />
                   </div>
                    
                   <div class="mb-3">

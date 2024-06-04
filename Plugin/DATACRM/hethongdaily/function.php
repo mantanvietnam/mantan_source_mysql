@@ -745,4 +745,46 @@ function saveCustomerMember($id_customer=0, $id_member=0)
 
     return '';
 }
+
+function saveCustomerHistorie($id_customer=0){
+
+    global $controller;
+
+    global $session;
+
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+    $modelTokenDevices = $controller->loadModel('TokenDevices');
+
+    $note_now = 'Đại lý '.$session->read('infoUser')->name.' tạo mới thông tin khách hàng';
+    $action_now = 'create';
+    $customer_histories = $modelCustomerHistories->newEmptyEntity();
+
+    $customer_histories->id_customer = $id_customer;
+                    
+    $customer_histories->time_now = time();
+    $customer_histories->note_now = $note_now;
+    $customer_histories->action_now = $action_now;
+    $customer_histories->id_staff_now = $session->read('infoUser')->id;
+    $customer_histories->status = 'done';
+
+    $modelCustomerHistories->save($customer_histories);
+
+    return 'ok';
+}
+
+function saveCustomerCategory($id_customer=0,$idgroup=array()){
+
+    global $modelCategoryConnects;
+    if(!empty($idgroup)){
+        foreach ($idgroup as $id_group) {
+            $categoryConnects = $modelCategoryConnects->newEmptyEntity();
+            $categoryConnects->keyword = 'group_customers';
+            $categoryConnects->id_parent = $id_customer;
+            $categoryConnects->id_category = (int) $id_group;
+
+            $modelCategoryConnects->save($categoryConnects);
+        }
+    }
+    return 'ok';
+}
 ?>

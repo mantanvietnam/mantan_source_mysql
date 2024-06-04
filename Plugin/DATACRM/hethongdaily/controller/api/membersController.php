@@ -841,4 +841,147 @@ function addMemberDownAPI($input)
 
 	return $return;
 }
+
+function saveInfoAgencyAjax($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+	global $metaTitleMantan;
+	global $session;
+	global $urlHomes;
+
+	if(!empty($session->read('infoUser'))){
+		if($session->read('infoUser')->create_agency == 'lock'){
+			return $controller->redirect('/listMember');
+		}
+
+		$metaTitleMantan = 'Thông tin đại lý tuyến dưới';
+
+		$modelMembers = $controller->loadModel('Members');
+		$modelZalos = $controller->loadModel('Zalos');
+
+		$mess= '';
+
+		$infoUser = $session->read('infoUser');
+		
+		$data = $modelMembers->newEmptyEntity();
+		
+
+		if ($isRequestPost) {
+			$dataSend = $input['request']->getData();
+
+			if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
+				$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+				$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+				$conditions = ['phone'=>$dataSend['phone']];
+				$checkPhone = $modelMembers->find()->where($conditions)->first();
+
+				if(empty($checkPhone) ){
+					$system = $modelCategories->find()->where(['id'=>(int) $infoUser->id_system])->first();
+
+					if(empty($dataSend['avatar'])){
+						if(!empty($system->image)){
+							$dataSend['avatar'] = $system->image;
+						}
+
+						if(empty($dataSend['avatar'])){
+							$dataSend['avatar'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+						}
+					}
+
+	        		// tạo dữ liệu save
+					$data->id_father = $infoUser->id;
+
+					$data->name = $dataSend['name'];
+					$data->address = $dataSend['address'];
+					$data->avatar = $dataSend['avatar'];
+					$data->phone = $dataSend['phone'];
+					$data->id_system = (int) $infoUser->id_system;
+					$data->email = $dataSend['email'];
+					$data->birthday = $dataSend['birthday'];
+					$data->id_position = (int) $dataSend['id_position'];
+					
+
+					if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
+					$data->password = md5($dataSend['password']);
+
+					$data->created_at = time();
+					$data->deadline = time()+ 63072000; // 2 năm
+					$data->status =  'active';
+						
+					if(empty($system->keyword)){
+						$data->verify =  'lock';
+						$data->otp =  rand(1000,9999);
+						// gửi mã xác thức qua Zalo
+						$zalo = $modelZalos->find()->where(['id_system'=>$infoUser->id_system])->first();
+						if(!empty($zalo->access_token)){
+							sendZNSZalo($zalo->template_otp, ['otp'=>$data->otp], $data->phone, $zalo->id_oa, $zalo->id_app);
+						}
+					}else{
+						$data->verify =  'active';
+						$data->otp = null;
+					}
+					$modelMembers->save($data);
+
+					return array('code'=> 1 , 'mess'=> '<p class="text-success">Lưu dữ liệu thành công</p>','id_member_buy'=>$data->id,'member_buy'=>$data->name );
+
+				}else{
+					return array('code'=> 0 , 'mess'=> '<p class="text-danger">Số điện thoại này đã được sử dụng rồi</p>');
+				}
+			}else{
+				return array('code'=> 0 , 'mess'=> '<p class="text-danger">Bạn không được để trống các trường bắt buộc</p>');
+			}
+		}else{
+			return array('code'=> 0 , 'mess'=> '<p class="text-danger">Bạn không được để trống các trường bắt buộc</p>');
+		}
+	}else{
+		return array('code'=> 0 , 'mess'=> '<p class="text-danger">Bạn chưa đăng nhập</p>');
+	}
+}
+
+function NotificationCustomerHistories($input){
+
+	global $controller;
+	global $session;
+	global $modelCategories;
+
+	$modelCustomers = $controller->loadModel('Customers');
+    $modelMembers = $controller->loadModel('Members');
+   	$modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+	$return = array('code'=>1);
+
+	$listData = $modelMembers->find()->where(array('status'=>'active' ))->all()->toList();
+
+	$current_time = time();
+	$time_in_5_minutes  = $current_time+ (5 * 60);
+
+	$conditions = array('status'=>'new');
+	$conditions['time_now >='] = $current_time;
+
+	$conditions['time_now <='] =$time_in_5_minutes;
+
+
+	if(!empty($listData)){
+
+
+		foreach($listData as $key => $item){
+			$conditions['id_staff_now'] = $item->id;
+			$historie = $modelCustomerHistories->find()->where($conditions)->first();
+			if(!empty($historie)){
+				debug($historie);
+				if(!empty($session->read('infoUser')->noti_new_customer)){
+                    $dataSendNotification= array('title'=>'Lịch hẹn','time'=>date('H:i d/m/Y'),'content'=>'Trong vòng 5 phúc nữa bạn có lịch hẹn','action'=>'addCustomer');
+                   
+                  		if(!empty($item->token_device)){
+                            $return = sendNotification($dataSendNotification, $item->token_device);
+                        }
+                    }
+                }
+			}	
+	}
+	
+}
 ?>

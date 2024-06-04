@@ -31,15 +31,15 @@ function listCustomerAgency($input)
         if($page<1) $page = 1;
         $order = array('Customers.id'=>'desc');
         $join = [
-                    [
-                        'table' => 'category_connects',
-                        'alias' => 'CategoryConnects',
-                        'type' => 'LEFT',
-                        'conditions' => [
-                            'Customers.id = CategoryConnects.id_parent'
-                        ],
-                    ]
-                ];
+            [
+                'table' => 'category_connects',
+                'alias' => 'CategoryConnects',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'Customers.id = CategoryConnects.id_parent'
+                ],
+            ]
+        ];
 
         $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
 
@@ -100,17 +100,17 @@ function listCustomerAgency($input)
                     }
 
                     $dataExcel[] = [
-                                        $value->full_name,   
-                                        $value->phone,   
-                                        $value->address,   
-                                        $value->email,   
-                                        $sex,
-                                        $status,
-                                        $birthday
-                                    ];
+                        $value->full_name,   
+                        $value->phone,   
+                        $value->address,   
+                        $value->email,   
+                        $sex,
+                        $status,
+                        $birthday
+                    ];
                 }
             }
-           export_excel($titleExcel,$dataExcel,'danh_sach_khach_hang');
+            export_excel($titleExcel,$dataExcel,'danh_sach_khach_hang');
         }else{
             $listData = $modelCustomers->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
@@ -210,15 +210,15 @@ function editCustomerAgency($input)
 
         if(!empty($_GET['id'])){
             $join = [
-                        [
-                            'table' => 'category_connects',
-                            'alias' => 'CategoryConnects',
-                            'type' => 'LEFT',
-                            'conditions' => [
-                                'Customers.id = CategoryConnects.id_parent'
-                            ],
-                        ]
-                    ];
+                [
+                    'table' => 'category_connects',
+                    'alias' => 'CategoryConnects',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Customers.id = CategoryConnects.id_parent'
+                    ],
+                ]
+            ];
 
             $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
 
@@ -246,7 +246,7 @@ function editCustomerAgency($input)
             $note_now = 'Đại lý '.$session->read('infoUser')->name.' tạo mới thông tin khách hàng';
             $action_now = 'create';
         }
-            
+
         $mess= '';
         
         if($isRequestPost){
@@ -558,6 +558,160 @@ function downloadMMTC($input)
         }else{
             return $controller->redirect('/listCustomerAgency');
         }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function addDataCustomerAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+    global $urlHomes;
+    global $modelCategoryConnects;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Thông tin khách hàng';
+
+        $modelCustomer = $controller->loadModel('Customers');
+        $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+        $modelTokenDevices = $controller->loadModel('TokenDevices');
+
+        
+
+        $mess= '';
+        
+        if($isRequestPost){
+            $dataSeries = uploadAndReadExcelData('dataCustomer');
+
+            if($dataSeries){
+                unset($dataSeries[0]);
+
+                $double = [];
+                $number = 0;
+                foreach ($dataSeries as $key => $value) {
+                    if(!empty($value[0]) && !empty($value[1])){
+              
+                        $value[1] = trim(str_replace(array(' ','.','-'), '', $value[1]));
+                        $value[1] = str_replace('+84','0',$value[1]);
+
+                        $conditions = ['phone'=>$value[1]];
+                        $checkPhone = $modelCustomer->find()->where($conditions)->first();
+
+                        if(empty($checkPhone)){
+                            $data = $modelCustomer->newEmptyEntity();
+                            
+                            $data->full_name = $value[0];
+                            $data->phone = $value[1];
+                            $data->status = 'active';
+                            $data->id_messenger = '';
+                            $data->id_zalo = '';
+                            $data->pass = md5($data->phone);
+                            $data->id_parent = $session->read('infoUser')->id;
+                            $data->created_at = time();
+
+                            if(!empty($value[2])){
+                                $data->email = $value[2];
+                            }elseif(empty($data->email)){
+                                $data->email = '';
+                            }
+
+                            if(!empty($value[3])){
+                                $data->address = $value[3];
+                            }elseif(empty($data->address)){
+                                $data->address = '';
+                            }
+
+                            if(isset($value[4]) && $value[4] != ''){
+                                $data->sex = (int) $value[4];
+                            }elseif(empty($data->sex)){
+                                $data->sex = 0;
+                            }
+
+
+                            $data->id_city = 0;
+                            
+                            $data->avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
+
+                            if(!empty($value[5])){
+                                $date = explode("/", $value[5]);
+                                $data->birthday_date = (int) $date[0];
+                                $data->birthday_month = (int) $date[1];
+                                $data->birthday_year = (int) $date[2];
+                            }else{
+                                $data->birthday_date = 0;
+                                $data->birthday_month = 0;
+                                $data->birthday_year = 0;
+                            }
+
+
+                            if(!empty($value[6])){
+                                $id_group = explode(",", $value[6]);
+                                $data->id_group = (int) $id_group[0];
+                            }elseif(empty($data->id_group)){
+                                $data->id_group = 0;
+                            }
+
+                            if(!empty($value[7])){
+                                $data->facebook = $value[7];
+                            }elseif(empty($data->facebook)){
+                                $data->facebook = '';
+                            }
+
+                            $modelCustomer->save($data);
+                            $number += 1;
+                            // lưu bảng đại lý
+                            saveCustomerMember($data->id, $session->read('infoUser')->id);
+
+                            saveCustomerHistorie($data->id);
+
+                            if(!empty($value[6])){
+                                $id_group = explode(",", $value[6]);
+                                saveCustomerCategory($data->id,$id_group);
+                            }
+
+                        }else{
+                            $double[] = $value[1];
+                        }
+
+                    }else{
+                        $mess= '<p class="text-danger">Bạn không được để trống tên và số điện thoại</p>';
+                    }
+                }
+
+                if(!empty($double)){
+                    $mess= '<p class="text-danger">Các khách hàng sau đã có tài khoản từ trước: '.implode(', ', $double).'</p>';
+                }
+
+                if(!empty($session->read('infoUser')->noti_new_customer)){
+                    $dataSendNotification= array('title'=>'Khách hàng mới','time'=>date('H:i d/m/Y'),'content'=>'Đã nhập file excel dữ liệu khách hàng mới thành công','action'=>'addCustomer');
+                    $token_device = [];
+
+                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$session->read('infoUser')->id])->all()->toList();
+
+                    if(!empty($listTokenDevice)){
+                        foreach ($listTokenDevice as $tokenDevice) {
+                            if(!empty($tokenDevice->token_device)){
+                                $token_device[] = $tokenDevice->token_device;
+                            }
+                        }
+
+                        if(!empty($token_device)){
+                            $return = sendNotification($dataSendNotification, $token_device);
+                        }
+                    }
+                }
+
+                $mess .= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }
+        }
+
+        setVariable('mess', $mess);
+
     }else{
         return $controller->redirect('/login');
     }

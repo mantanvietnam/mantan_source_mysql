@@ -293,7 +293,7 @@ function screenshotAPIFlash($url='', $width=1920, $height=1080)
         ));
 
         try{
-            $dataImage = file_get_contents("https://api.apiflash.com/v1/urltoimage?" . $params);
+            $dataImage = @file_get_contents("https://api.apiflash.com/v1/urltoimage?" . $params);
         }catch(Exception $e){
             return false;
         }

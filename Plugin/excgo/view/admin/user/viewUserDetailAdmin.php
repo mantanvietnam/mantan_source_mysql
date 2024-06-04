@@ -68,8 +68,9 @@
                             <label class="form-label" for="basic-default-phone">Địa chỉ</label>
                             <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address;?>" />
                         </div>
+                        
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-3 mb-3">
                           <label class="form-label">Loại tài khoản</label>
                           <div class="input-group input-group-merge">
                               <select class="form-select" name="type" id="type">
@@ -77,6 +78,10 @@
                                   <option value="2" <?php if (!empty($data->type) && $data->type == '2') echo 'selected'; ?> >Tài xế</option>
                               </select>
                           </div>
+                        </div>
+                         <div class="col-md-3 mb-3">
+                            <label class="form-label" for="basic-default-phone">Chuyến nhận tối da</label>
+                            <input required type="number" class="form-control phone-mask" name="maximum_trip" id="maximum_trip" value="<?php echo @$data->maximum_trip;?>" />
                         </div>
                     </div>
 

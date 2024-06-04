@@ -197,6 +197,7 @@ function createWithdrawRequestApi($input): array
     global $isRequestPost;
 
     $withdrawRequestModel = $controller->loadModel('WithdrawRequests');
+    $modelBooking = $controller->loadModel('Bookings');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -216,13 +217,30 @@ function createWithdrawRequestApi($input): array
             if(!empty($checkWithdrawRequest)){
                  return apiResponse(0, 'Yêu cầu của bạn đang được xử lý.');
             }
+            $posted = count($modelBooking->find()->where(array('posted_by'=>$currentUser->id))->all()->toList());
+            $received = count($modelBooking->find()->where(array('received_by'=>$currentUser->id))->all()->toList());
+
+             if($posted < $received){
+                 return apiResponse(4, 'Số cuốc nhận đang nhiều hơn số cuốc đăng, yêu câu đăng thêm quốc.');
+            }
+
+
+
+            $received = $modelBooking->find()->where(array('received_by'=>$currentUser->id,'status'=>1))->first();
+            if(!empty($received)){
+                if(500000 > $currentUser->total_coin-$dataSend['amount']) {
+                    return apiResponse(4, 'Số tiền để lại tối thiểu là 500.000 đ');
+                }
+            }
+            
+
+
+
             if ($dataSend['amount'] > $currentUser->total_coin) {
                 return apiResponse(4, 'Số tiền trong ví không đủ');
             }
 
-            if(500000 > $currentUser->total_coin-$dataSend['amount']) {
-                return apiResponse(4, 'Số tiền để lại tối thiểu là 500.000 đ');
-            }
+            
 
             $newRequest = $withdrawRequestModel->newEmptyEntity();
             $newRequest->user_id = $currentUser->id;

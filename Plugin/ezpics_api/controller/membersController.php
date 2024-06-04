@@ -38,6 +38,8 @@ function saveRegisterMemberAPI($input)
 					$data->avatar = $dataSend['avatar'];
 					$data->phone = $dataSend['phone'];
 					$data->aff = $dataSend['aff'];
+					$data->member_pro = 1;
+					$data->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 7 days'));
 					
 					if(!empty($dataSend['affsource']) && $dataSend['affsource']!=$dataSend['aff']){
 						$affsource = $modelMember->find()->where(array('aff'=>$dataSend['affsource']))->first();

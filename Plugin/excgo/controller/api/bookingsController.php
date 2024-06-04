@@ -300,7 +300,21 @@ function receiveBookingApi($input): array
             }
 
             if($currentUser->point >= 5){
-                 return apiResponse(4, 'Bạn hãy đăng thêm cuốc hoặc bạn sử lý nốt cuốc bạn chưa sửs lý ');
+                 return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
+            }
+
+            $conditions = array('received_by'=>$currentUser->id);
+            $conditions['OR'] = [ 
+                ['status'=> $bookingStatus['received']],
+                ['status'=>$bookingStatus['completed']],
+            ];
+
+
+            $receivedUser = count($modelBooking->find()->where($conditions)->all()->toList());
+
+      
+            if($currentUser->maximum_trip<$receivedUser){
+                return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận');
             }
 
 

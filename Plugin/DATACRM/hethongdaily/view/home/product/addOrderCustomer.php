@@ -256,8 +256,12 @@
 
                                     <li>
                                         <span>Khách mua hàng (*)</span>
+                                        
                                         <span><input class="per-bh form-control" type="text" name="customer_buy" id="customer_buy" placeholder="Nhập tên hoặc SĐT" value="" autocomplete="off" required /></span>
                                         <input type="hidden" name="id_customer" id="id_customer" value="0">
+                                        <a href="javascript:void(0);" onclick="showAddCustom();" title="Thêm khách hàng mới" class="btn btn-primary">
+                                            <i class="bx bx-plus"></i>
+                                        </a>
                                     </li>
 
                                     <li style="display: contents;"><span>Ghi chú</span><br/>
@@ -279,8 +283,138 @@
         </div>
     </form>
 </div>
+<div id="addCustomer"  class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm thông tin khách hàng mới</h4>
+                
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>
+            <div class="data-content card-body">
+                <div id="messAddCustom"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Họ tên (*)</label>
+                        <input required type="text" class="form-control phone-mask" name="full_name" id="full_name" value="" />
+                      </div>
+                    </div>
 
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
+                        <input type="text" class="form-control" placeholder="" name="phone" id="phone" value="" />
+                      </div>
+                    </div>
 
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Email</label>
+                        <input type="email" class="form-control" placeholder="" name="email" id="email" value="" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Địa chỉ</label>
+                        <input type="text" class="form-control phone-mask" name="address" id="address" value="" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Giới tính</label>
+                        <select name="sex" id='sex' class="form-select color-dropdown">
+                          <option value="0">Nữ</option>
+                          <option value="1" >Nam</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Hình đại diện</label>
+                        <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Ngày sinh</label>
+                        
+                        <div class="row">
+                          <div class="mb-3 col-md-4">
+                            <select name="birthday_date" id="birthday_date" class="form-select color-dropdown">
+                              <option value="0">Ngày</option>
+                              <?php
+                              for ($i=1; $i <= 31 ; $i++) {
+                                  echo '<option value="'.$i.'">'.$i.'</option>';
+                              }
+                              ?>
+                            </select>
+                          </div>
+
+                          <div class="mb-3 col-md-4">
+                            <select name="birthday_month" id="birthday_month" class="form-select color-dropdown">
+                              <option value="0">Tháng</option>
+                              <?php
+                              for ($i=1; $i <= 12 ; $i++) { 
+                                  echo '<option value="'.$i.'">'.$i.'</option>';
+                              }
+                              ?>
+                            </select>
+                          </div>
+
+                          <div class="mb-3 col-md-4">
+                            <select name="birthday_year" id="birthday_year" class="form-select color-dropdown">
+                              <option value="0">Năm</option>
+                              <?php
+                              for ($i=1950; $i <= 2024 ; $i++) { 
+                                  echo '<option value="'.$i.'">'.$i.'</option>';
+                              }
+                              ?>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Nhóm khách hàng</label>
+                        <ul class="list-inline">
+                          <?php
+                            if(!empty($listGroupCustomer)){
+                              foreach ($listGroupCustomer as $key => $value) {
+                                        // $stt = $key+1;
+                                echo '<li>
+                                        <input  type="checkbox" value="'.$value->id.'" name="id_group[]" class="id_group" /> '.$value->name.'
+                                      </li>';
+                              }
+                            }
+                          ?>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Facebook</label>
+                        <input type="text" class="form-control phone-mask" name="facebook" id="facebook" value="<?php echo @$data->facebook;?>" />
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="text-center col-sm-12" style="padding-bottom: 30px;">
+                        <button type="button" class="btn btn-primary" onclick="addCustomer();">Lưu thông tin</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 var listProductAdd= {};
 var row=0;
@@ -432,6 +566,69 @@ function createOrder()
     }else{
         alert('Bạn chưa chọn sản phẩm nào');
     }
+}
+
+function showAddCustom()
+    {
+        $('#addCustomer').modal('show');
+    }
+
+function addCustomer()
+{
+
+    var full_name= $('#full_name').val();
+    var email= $('#email').val();
+    var phone= $('#phone').val();
+    var address= $('#address').val();
+    var avatar= $('#avatar').val();
+    var birthday_date= $('#birthday_date').val();
+    var birthday_month= $('#birthday_month').val();
+    var birthday_year= $('#birthday_year').val();
+    var facebook= $('#facebook').val();
+    var checkboxes = document.querySelectorAll('.id_group');
+    var values = [];
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            values.push(checkbox.value);
+         }
+    });
+
+    var id_group = values.join(',');
+    
+        $.ajax({
+          method: "POST",
+          url: "/apis/saveInfoCustomerAjax",
+          data: { 
+            full_name: full_name,
+            email: email, 
+            phone: phone, 
+            address: address, 
+            avatar: avatar, 
+            birthday_date: birthday_date, 
+            birthday_month: birthday_month, 
+            birthday_year: birthday_year, 
+            id_group: id_group, 
+            facebook: facebook,
+        }
+    })
+        .done(function( msg ) {
+            console.log(msg);
+
+            // var obj = jQuery.parseJSON(msg);
+             // console.log(obj);
+            if(msg.code==1){
+                $('#id_customer').val(msg.idCus);
+                $('#customer_buy').val(msg.cus_name);
+                $('#addCustomer').modal('hide');
+            }else{
+                console.log(msg.mess);
+               $('#messAddCustom').html(msg.mess);
+                
+            }
+
+
+        }) 
+          
 }
 
     
