@@ -56,6 +56,9 @@ function settingHomeThemeDataCRM($input)
     					'title6_product_best' => $dataSend['title6_product_best'],
     					'content6_product_best' => $dataSend['content6_product_best'],
 
+                        'content1_footer' => $dataSend['content1_footer'],
+                        'id_menu_footer' => $dataSend['id_menu_footer'],
+
                     );
 
         $data->key_word = 'settingHomeThemeDataCRM';
@@ -74,6 +77,99 @@ function settingHomeThemeDataCRM($input)
     setVariable('setting', $data_value);
     setVariable('mess', $mess);
 }
+
+function settingRecruitmentThemeDataCRM($input)
+{
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện trang Tuyển Dụng';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingRecruitmentThemeDataCRM');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $value = array( 'banner_title_1' => $dataSend['banner_title_1'], 
+                        'banner_content_1' => $dataSend['banner_content_1'],
+
+                        'banner_title_2' => $dataSend['banner_title_2'], 
+                        'banner_content_2' => $dataSend['banner_content_2'],
+
+                        'banner_title_3' => $dataSend['banner_title_3'], 
+                        'banner_content_3' => $dataSend['banner_content_3'],
+                        'link_content' => $dataSend['link_content']
+
+                        'culture_title' => $dataSend['culture_title'],
+                        'culture_content' => $dataSend['culture_content'],
+
+                        'decoration_title' => $dataSend['decoration_title'],
+                        'decoration_content' => $dataSend['decoration_content'],
+                    );
+
+        $data->key_word = 'settingRecruitmentThemeDataCRM';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
+
+function settingContactThemeDataCRM($input)
+{
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện trang Tuyển Dụng';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingContactThemeDataCRM');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $value = array( 'contact_email' => $dataSend['contact_email'],
+                        'contact_phone' => $dataSend['contact_phone'],
+                        'contact_address' => $dataSend['contact_address'],
+                    );
+
+        $data->key_word = 'settingContactThemeDataCRM';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
+
 
 function indexTheme($input)
 {

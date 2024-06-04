@@ -10,17 +10,20 @@
                     <div class="col-lg-8 col-12">
                         <div class="post-content">
                             <div class="post-breadcrumbs">
-                                <p><a href="">Home</a> <i class="fa-solid fa-caret-right"></i> <a href="">Tin tức</a> <i class="fa-solid fa-caret-right"></i> <?php echo @$post->title; ?></p>
+                                <p><a href="/">Home</a> <i class="fa-solid fa-caret-right"></i> <a href="/posts">Tin tức</a> <i class="fa-solid fa-caret-right"></i> <?php echo @$post->title; ?></p>
                             </div>
 
                             <div class="post-title">
                                 <h1><?php echo @$post->title; ?></h1>
-
                                 <p><i class="fa-regular fa-calendar-days"></i> <?php echo date('d/m/Y', $post->time);?></p>
                             </div>
 
+                            <div class="post-content-detail-img">
+                                <img src="<?php echo @$post->image; ?>">
+                            </div>
+
                             <div class="post-content-detail">
-                                <?php echo @$post->content; ?>
+                                <?php echo @$post->description; ?>
                             </div>
                         </div>
 
@@ -37,25 +40,30 @@
                                                 foreach ($otherPosts as $key => $value) {
                                                     $link = '/'.$value->slug.'.html';
 
-                                                    echo '<div class="post-item">
-                                                            <div class="post-box">
-                                                                <div class="post-box-img">
-                                                                    <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
+                                                    echo '<div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <div class="item-other-post">
+                                                                <div class="item-other-post-img">
+                                                                    <a href="'.$link.'" tabindex="0"><img src="'.$value->image.'" alt=""></a>
                                                                 </div>
-                    
-                                                                <div class="post-box-detail">
-                                                                    <h3 class="post-title">
+
+                                                                <div class="item-other-post-date">
+                                                                    <p>
+                                                                        <i class="fa-regular fa-calendar-days aria-hidden="true"></i> <span class="date">'.date('d/m/Y', $value->time).'</span>
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="item-other-post-name">
+                                                                    <h3 class="item-other-post-title">
                                                                         <a href="'.$link.'">'.$value->title.'</a>
                                                                     </h3>
-                                                                    <div class="post-entry">
-                                                                        <p>'.$value->description.'</p>
-                                                                    </div>
-                                                                    <div class="post-meta">
-                                                                        <span class="date">'.date('d/m/Y', $value->time).'</span>
-                                                                    </div>
+                                                                </div>
+
+                                                                <div class="post-text">
+                                                                    <p>'.$value->description.'</p>
                                                                 </div>
                                                             </div>
-                                                        </div>';
+                                                        </div>
+                                                        ';
                                                     }
                                                 }
                                             ?>
@@ -74,32 +82,30 @@
                             <div class="list-outstanding-post">
                                 <div class="row">
                                     <?php 
-                                            if(!empty($otherPosts)){
-                                                foreach ($otherPosts as $key => $value) {
-                                                    $link = '/'.$value->slug.'.html';
+                                        if(!empty($otherPosts)){
+                                            foreach ($otherPosts as $key => $value) {
+                                                $link = '/'.$value->slug.'.html';
 
-                                                    echo '<div class="post-item">
-                                                            <div class="post-box">
-                                                                <div class="post-box-img">
-                                                                    <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
-                                                                </div>
-                    
-                                                                <div class="post-box-detail">
-                                                                    <h3 class="post-title">
-                                                                        <a href="'.$link.'">'.$value->title.'</a>
-                                                                    </h3>
-                                                                    <div class="post-entry">
-                                                                        <p>'.$value->description.'</p>
-                                                                    </div>
-                                                                    <div class="post-meta">
-                                                                        <span class="date">'.date('d/m/Y', $value->time).'</span>
-                                                                    </div>
-                                                                </div>
+                                                echo '<div class="item-outstanding-post col-lg-12 no-padding">
+                                                        <div class="col-lg-5 no-padding outstanding-np">
+                                                            <div class="outstanding-post-img">
+                                                                <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
                                                             </div>
-                                                        </div>';
-                                                    }
+                                                        </div>
+                                                        <div class="col-lg-7">
+                                                            <div class="outstanding-post-info">
+                                                                <h3 class="outstanding-post-title">
+                                                                    <a href="'.$link.'">'.$value->title.'</a>
+                                                                </h3>
+                                                                <p>
+                                                                    <i class="fa-regular fa-calendar-days aria-hidden="true"></i> <span class="date">'.date('d/m/Y', $value->time).'</span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>';
                                                 }
-                                            ?>
+                                            }
+                                        ?>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +186,7 @@
                             </div>
 
                             <div class="all-services-btn">
-                                <a href="./list-services-page.html">Xem thêm tất cả dịch vụ của Top Top <i class="fa-solid fa-arrow-right-long"></i></a>
+                                <a href="/services">Xem thêm tất cả dịch vụ của Top Top <i class="fa-solid fa-arrow-right-long"></i></a>
                             </div>
                         </div>
 
