@@ -1,0 +1,1 @@
+<?php getFileTheme('recruitment/recruitment.php'); ?>

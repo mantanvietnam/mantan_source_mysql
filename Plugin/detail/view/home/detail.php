@@ -1,0 +1,1 @@
+<?php getFileTheme('detail/detail.php'); ?>
