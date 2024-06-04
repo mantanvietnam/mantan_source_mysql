@@ -23,12 +23,6 @@ $menus[1]['sub'][0]= array( 'title'=>'Danh sách Liên Hệ',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'listContactAdmin'
                         );
-$menus[2]['title']= 'Dịch Vụ';
-$menus[2]['sub'][0]= array( 'title'=>'Danh sách báo giá Dịch Vụ',
-                            'url'=>'/plugins/admin/services-view-admin-listServicesAdmin',
-                            'classIcon'=>'bx bx-cog',
-                            'permission'=>'listServicesAdmin'
-                        );
 
 addMenuAdminMantan($menus);
 
