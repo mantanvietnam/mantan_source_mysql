@@ -121,9 +121,9 @@
             <section id="section-news-facility" class="section-news-ribbon">
                 <div class="section-news-facility-inner">
                     <div class="container">
-                        <div class="news-title-section-cate">
+                        <!-- <div class="news-title-section-cate">
                             <h2><?php echo $category_post[1]->name ?></h2>
-                        </div>
+                        </div> -->
                     </div>
 
                         
@@ -159,9 +159,9 @@
             <section id="section-news-facility" class="section-news-project section-news-ribbon2">
                 <div class="section-news-facility-inner">
                     <div class="container">
-                        <div class="news-title-section-cate">
+                        <!-- <div class="news-title-section-cate">
                             <h2><?php echo $category_post[3]->name ?></h2>
-                        </div>
+                        </div> -->
                     </div>
 
                         
