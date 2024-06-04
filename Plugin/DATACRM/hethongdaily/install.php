@@ -49,6 +49,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `noti_checkin_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
   `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
   `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE,
+  `display_info` TINYINT NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 

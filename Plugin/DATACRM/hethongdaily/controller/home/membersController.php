@@ -128,6 +128,7 @@ function account($input)
 	global $isRequestPost;
 	global $modelCategories;
 	global $urlHomes;
+	global $displayInfo;
 
 	$metaTitleMantan = 'Đổi thông tin tài khoản';
 
@@ -157,6 +158,7 @@ function account($input)
 				$user->description = $dataSend['description'];
 				$user->zalo = $dataSend['zalo'];
 				$user->banner = $dataSend['banner'];
+				$user->display_info = $dataSend['display_info'];
 
 				$modelMembers->save($user);
 
@@ -172,6 +174,7 @@ function account($input)
 
 		setVariable('mess', $mess);
 		setVariable('user', $user);
+		setVariable('displayInfo', $displayInfo);
 	}else{
 		return $controller->redirect('/login');
 	}
