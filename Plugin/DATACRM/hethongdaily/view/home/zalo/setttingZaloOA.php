@@ -35,8 +35,8 @@
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">ID template OTP (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="template_otp" id="template_otp" value="<?php echo @$data->template_otp;?>" />
+                    <label class="form-label" for="basic-default-phone">ID template OTP</label>
+                    <input type="text" class="form-control phone-mask" name="template_otp" id="template_otp" value="<?php echo @$data->template_otp;?>" />
                   </div>
                 </div>
 
