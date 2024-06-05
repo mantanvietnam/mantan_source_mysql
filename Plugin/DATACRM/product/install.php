@@ -233,7 +233,7 @@ $sqlUpdateDatabase['categorie_products']['id_category'] = "ALTER TABLE `categori
 $sqlUpdateDatabase['categorie_products']['id_product'] = "ALTER TABLE `categorie_products` ADD `id_product` INT NOT NULL; ";
 
 // Bang address
-$sqlUpdateDatabase['categorie_products']['address_name'] = "ALTER TABLE `categorie_products` ADD `address_name` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['categorie_products']['id_customer'] = "ALTER TABLE `categorie_products` ADD `id_customer` INT NOT NULL DEFAULT '0'; ";
-$sqlUpdateDatabase['categorie_products']['address_type'] = "ALTER TABLE `categorie_products` ADD `address_type` INT NOT NULL; ";
+$sqlUpdateDatabase['address']['address_name'] = "ALTER TABLE `address` ADD `address_name` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['address']['id_customer'] = "ALTER TABLE `address` ADD `id_customer` INT NOT NULL DEFAULT '0'; ";
+$sqlUpdateDatabase['address']['address_type'] = "ALTER TABLE `address` ADD `address_type` INT NOT NULL; ";
 ?>
