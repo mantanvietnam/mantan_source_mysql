@@ -5,7 +5,7 @@ global $sqlUpdateDatabase;
 
 $sqlInstallDatabase = '';
 $sqlDeleteDatabase = '';
-$sqlUpdateDatabase = '';
+$sqlUpdateDatabase = [];
 
 $sqlInstallDatabase .= "CREATE TABLE `members` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -49,6 +49,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `noti_checkin_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
   `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
   `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE,
+  `display_info` TINYINT NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -168,7 +169,12 @@ $sqlInstallDatabase .="CREATE TABLE `zalo_templates` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
-$sqlInstallDatabase .= "CREATE TABLE `token_devices` (`id` INT NOT NULL AUTO_INCREMENT , `token_device` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , `id_member` INT NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+$sqlInstallDatabase .= "CREATE TABLE `token_devices` (
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `token_device` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , 
+  `id_member` INT NOT NULL DEFAULT '0' , 
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB; ";
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
@@ -185,26 +191,139 @@ $sqlDeleteDatabase .= "DROP TABLE zalo_templates; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
 
-// 2.0
-$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `token_device` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL AFTER `banner`, ADD `token` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL AFTER `token_device`, ADD `last_login` INT NOT NULL DEFAULT '0' AFTER `token`; ";
+// update
+$sqlUpdateDatabase['members']['name'] = "ALTER TABLE `members` ADD `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ;";
+$sqlUpdateDatabase['members']['avatar'] = "ALTER TABLE `members` ADD `avatar` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['phone'] = "ALTER TABLE `members` ADD `phone` varchar(15) NOT NULL;";
+$sqlUpdateDatabase['members']['id_father'] = "ALTER TABLE `members` ADD `id_father` int(11) NOT NULL COMMENT 'id member cha';";
+$sqlUpdateDatabase['members']['email'] = "ALTER TABLE `members` ADD `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['password'] = "ALTER TABLE `members` ADD `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['status'] = "ALTER TABLE `members` ADD `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['created_at'] = "ALTER TABLE `members` ADD `created_at` int(11) NOT NULL;";
+$sqlUpdateDatabase['members']['id_system'] = "ALTER TABLE `members` ADD `id_system` int(11) NOT NULL;";
+$sqlUpdateDatabase['members']['otp'] = "ALTER TABLE `members` ADD `otp` int(11) DEFAULT NULL;";
+$sqlUpdateDatabase['members']['address'] = "ALTER TABLE `members` ADD `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['members']['deadline'] = "ALTER TABLE `members` ADD `deadline` int(11) NOT NULL;";
+$sqlUpdateDatabase['members']['verify'] = "ALTER TABLE `members` ADD `verify` varchar(255) NOT NULL DEFAULT 'lock';";
+$sqlUpdateDatabase['members']['birthday'] = "ALTER TABLE `members` ADD `birthday` varchar(255) DEFAULT NULL;";
+$sqlUpdateDatabase['members']['facebook'] = "ALTER TABLE `members` ADD `facebook` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
+$sqlUpdateDatabase['members']['id_position'] = "ALTER TABLE `members` ADD `id_position` int(11) NOT NULL DEFAULT 0;";
+$sqlUpdateDatabase['members']['create_agency'] = "ALTER TABLE `members` ADD `create_agency` VARCHAR(255) NOT NULL DEFAULT 'active';";
+$sqlUpdateDatabase['members']['coin'] = "ALTER TABLE `members` ADD `coin` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['members']['twitter'] = "ALTER TABLE `members` ADD `twitter` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['tiktok'] = "ALTER TABLE `members` ADD `tiktok` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['youtube'] = "ALTER TABLE `members` ADD `youtube` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['web'] = "ALTER TABLE `members` ADD `web` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['linkedin'] = "ALTER TABLE `members` ADD `linkedin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['description'] = "ALTER TABLE `members` ADD `description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['zalo'] = "ALTER TABLE `members` ADD `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;";
+$sqlUpdateDatabase['members']['view'] = "ALTER TABLE `members` ADD `view` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['members']['banner'] = "ALTER TABLE `members` ADD `banner` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;";
+$sqlUpdateDatabase['members']['instagram'] = "ALTER TABLE `members` ADD `instagram` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
+$sqlUpdateDatabase['members']['token_device'] = "ALTER TABLE `members` ADD `token_device` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
+$sqlUpdateDatabase['members']['token'] = "ALTER TABLE `members` ADD `token` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
+$sqlUpdateDatabase['members']['last_login'] = "ALTER TABLE `members` ADD `last_login` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['members']['portrait'] = "ALTER TABLE `members` ADD `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ảnh chân dung';";
+$sqlUpdateDatabase['members']['create_order_agency'] = "ALTER TABLE `members` ADD `create_order_agency` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '1: được phép tạo đơn đại lý tuyến dưới, 0: không được phép tạo';";
+$sqlUpdateDatabase['members']['img_card_member'] = "ALTER TABLE `members` ADD `img_card_member` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;";
+$sqlUpdateDatabase['members']['img_logo'] = "ALTER TABLE `members` ADD `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;";
+$sqlUpdateDatabase['members']['noti_new_order'] = "ALTER TABLE `members` ADD `noti_new_order` BOOLEAN NOT NULL DEFAULT TRUE;";
+$sqlUpdateDatabase['members']['noti_new_customer'] = "ALTER TABLE `members` ADD `noti_new_customer` BOOLEAN NOT NULL DEFAULT TRUE;";
+$sqlUpdateDatabase['members']['noti_checkin_campaign'] = "ALTER TABLE `members` ADD `noti_checkin_campaign` BOOLEAN NOT NULL DEFAULT TRUE;";
+$sqlUpdateDatabase['members']['noti_reg_campaign'] = "ALTER TABLE `members` ADD `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE;";
+$sqlUpdateDatabase['members']['noti_product_warehouse'] = "ALTER TABLE `members` ADD `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE;";
+$sqlUpdateDatabase['members']['display_info'] = "ALTER TABLE `members` ADD `display_info` TINYINT NOT NULL DEFAULT '1';";
 
-// 2.1
-$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `portrait` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ảnh chân dung' AFTER `last_login`; ";
+// bảng zalos
+$sqlUpdateDatabase['zalos']['id_oa'] = "ALTER TABLE `zalos` ADD `id_oa` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['zalos']['id_app'] = "ALTER TABLE `zalos` ADD `id_app` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['zalos']['secret_key'] = "ALTER TABLE `zalos` ADD `secret_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['zalos']['oauth_code'] = "ALTER TABLE `zalos` ADD `oauth_code` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
+$sqlUpdateDatabase['zalos']['access_token'] = "ALTER TABLE `zalos` ADD `access_token` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
+$sqlUpdateDatabase['zalos']['refresh_token'] = "ALTER TABLE `zalos` ADD `refresh_token` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
+$sqlUpdateDatabase['zalos']['deadline'] = "ALTER TABLE `zalos` ADD `deadline` int(11) DEFAULT NULL;";
+$sqlUpdateDatabase['zalos']['id_system'] = "ALTER TABLE `zalos` ADD `id_system` int(11) NOT NULL;";
+$sqlUpdateDatabase['zalos']['template_otp'] = "ALTER TABLE `zalos` ADD `template_otp` int(11) NOT NULL;";
 
-$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `create_order_agency` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '1: được phép tạo đơn đại lý tuyến dưới, 0: không được phép tạo' AFTER `portrait`; ";
+// bảng transaction_histories
+$sqlUpdateDatabase['transaction_histories']['id_member'] = "ALTER TABLE `transaction_histories` ADD `id_member` INT NOT NULL;";
+$sqlUpdateDatabase['transaction_histories']['coin'] = "ALTER TABLE `transaction_histories` ADD `coin` INT NOT NULL;";
+$sqlUpdateDatabase['transaction_histories']['type'] = "ALTER TABLE `transaction_histories` ADD `type` VARCHAR(255) NOT NULL;";
+$sqlUpdateDatabase['transaction_histories']['note'] = "ALTER TABLE `transaction_histories` ADD `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['transaction_histories']['create_at'] = "ALTER TABLE `transaction_histories` ADD `create_at` INT NOT NULL;";
+$sqlUpdateDatabase['transaction_histories']['id_system'] = "ALTER TABLE `transaction_histories` ADD `id_system` INT NOT NULL;";
 
-$sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `created_at` INT NOT NULL AFTER `id_aff`; ";
+// bảng customers
+$sqlUpdateDatabase['customers']['full_name'] = "ALTER TABLE `customers` ADD `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['phone'] = "ALTER TABLE `customers` ADD `phone` VARCHAR(255) NOT NULL;";
+$sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` ADD `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['address'] = "ALTER TABLE `customers` ADD `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['sex'] = "ALTER TABLE `customers` ADD `sex` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: Nữ, 1: Nam';";
+$sqlUpdateDatabase['customers']['id_city'] = "ALTER TABLE `customers` ADD `id_city` TINYINT(4) NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['customers']['id_messenger'] = "ALTER TABLE `customers` ADD `id_messenger` VARCHAR(255) NOT NULL;";
+$sqlUpdateDatabase['customers']['avatar'] = "ALTER TABLE `customers` ADD `avatar` TEXT NOT NULL;";
+$sqlUpdateDatabase['customers']['status'] = "ALTER TABLE `customers` ADD `status` VARCHAR(255) NOT NULL;";
+$sqlUpdateDatabase['customers']['pass'] = "ALTER TABLE `customers` ADD `pass` VARCHAR(255) NOT NULL;";
+$sqlUpdateDatabase['customers']['id_parent'] = "ALTER TABLE `customers` ADD `id_parent` INT(11) NOT NULL DEFAULT '0' COMMENT 'id member đại lý';";
+$sqlUpdateDatabase['customers']['id_level'] = "ALTER TABLE `customers` ADD `id_level` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['customers']['birthday_date'] = "ALTER TABLE `customers` ADD `birthday_date` INT NOT NULL;";
+$sqlUpdateDatabase['customers']['birthday_month'] = "ALTER TABLE `customers` ADD `birthday_month` INT NOT NULL;";
+$sqlUpdateDatabase['customers']['birthday_year'] = "ALTER TABLE `customers` ADD `birthday_year` INT NOT NULL;";
+$sqlUpdateDatabase['customers']['id_aff'] = "ALTER TABLE `customers` ADD `id_aff` INT NOT NULL DEFAULT '0' COMMENT 'id người tiếp thị liên kết';";
+$sqlUpdateDatabase['customers']['created_at'] = "ALTER TABLE `customers` ADD `created_at` INT NOT NULL;";
+$sqlUpdateDatabase['customers']['id_group'] = "ALTER TABLE `customers` ADD `id_group` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['customers']['facebook'] = "ALTER TABLE `customers` ADD `facebook` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;";
+$sqlUpdateDatabase['customers']['id_zalo'] = "ALTER TABLE `customers` ADD `id_zalo` VARCHAR(100) NULL;";
 
-$sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `id_group` INT NOT NULL DEFAULT '0' AFTER `created_at`; ";
+// bảng customer_histories
+$sqlUpdateDatabase['customer_histories']['id_customer'] = "ALTER TABLE `customer_histories` ADD `id_customer` INT NOT NULL;";
+$sqlUpdateDatabase['customer_histories']['time_now'] = "ALTER TABLE `customer_histories` ADD `time_now` INT NOT NULL;";
+$sqlUpdateDatabase['customer_histories']['note_now'] = "ALTER TABLE `customer_histories` ADD `note_now` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['customer_histories']['action_now'] = "ALTER TABLE `customer_histories` ADD `action_now` VARCHAR(255) NOT NULL;";
+$sqlUpdateDatabase['customer_histories']['id_staff_now'] = "ALTER TABLE `customer_histories` ADD `id_staff_now` INT NOT NULL;";
+$sqlUpdateDatabase['customer_histories']['status'] = "ALTER TABLE `customer_histories` ADD `status` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new';";
 
-$sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `facebook` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `id_group`; ";
+// bảng order_members
+$sqlUpdateDatabase['order_members']['id_member_sell'] = "ALTER TABLE `order_members` ADD `id_member_sell` INT NOT NULL COMMENT 'id đại lý tuyến trên';";
+$sqlUpdateDatabase['order_members']['id_member_buy'] = "ALTER TABLE `order_members` ADD `id_member_buy` INT NOT NULL COMMENT 'id đại lý tuyến dưới đặt mua' ;";
+$sqlUpdateDatabase['order_members']['note_sell'] = "ALTER TABLE `order_members` ADD `note_sell` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ghi chú người bán';";
+$sqlUpdateDatabase['order_members']['note_buy'] = "ALTER TABLE `order_members` ADD `note_buy` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ghi chú người mua' ;";
+$sqlUpdateDatabase['order_members']['status'] = "ALTER TABLE `order_members` ADD `status` VARCHAR(100) NOT NULL DEFAULT 'new' ;";
+$sqlUpdateDatabase['order_members']['create_at'] = "ALTER TABLE `order_members` ADD `create_at` INT NOT NULL;";
+$sqlUpdateDatabase['order_members']['money'] = "ALTER TABLE `order_members` ADD `money` INT NOT NULL DEFAULT '0' COMMENT 'tổng tiền gốc đơn hàng';";
+$sqlUpdateDatabase['order_members']['total'] = "ALTER TABLE `order_members` ADD `total` INT NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu' ;";
+$sqlUpdateDatabase['order_members']['status_pay'] = "ALTER TABLE `order_members` ADD `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán';";
+$sqlUpdateDatabase['order_members']['discount'] = "ALTER TABLE `order_members` ADD `discount` DOUBLE NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu';";
 
-$sqlUpdateDatabase .= "ALTER TABLE `customers` ADD `id_zalo` VARCHAR(100) NULL AFTER `facebook`; ";
+// bảng order_member_details
+$sqlUpdateDatabase['order_member_details']['id_product'] = "ALTER TABLE `order_member_details` ADD `id_product` INT NOT NULL;";
+$sqlUpdateDatabase['order_member_details']['id_order_member'] = "ALTER TABLE `order_member_details` ADD `id_order_member` INT NOT NULL;";
+$sqlUpdateDatabase['order_member_details']['quantity'] = "ALTER TABLE `order_member_details` ADD `quantity` INT NOT NULL;";
+$sqlUpdateDatabase['order_member_details']['price'] = "ALTER TABLE `order_member_details` ADD `price` INT NOT NULL;";
 
-$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `img_card_member` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `instagram`; ";
+// bảng warehouse_products
+$sqlUpdateDatabase['warehouse_products']['id_member'] = "ALTER TABLE `warehouse_products` ADD `id_member` INT NOT NULL;";
+$sqlUpdateDatabase['warehouse_products']['id_product'] = "ALTER TABLE `warehouse_products` ADD `id_product` INT NOT NULL;";
+$sqlUpdateDatabase['warehouse_products']['quantity'] = "ALTER TABLE `warehouse_products` ADD `quantity` INT NOT NULL DEFAULT '0';";
 
-$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL AFTER `img_card_member`; ";
+// bảng warehouse_histories
+$sqlUpdateDatabase['warehouse_histories']['id_member'] = "ALTER TABLE `warehouse_histories` ADD `id_member` INT NOT NULL;";
+$sqlUpdateDatabase['warehouse_histories']['id_product'] = "ALTER TABLE `warehouse_histories` ADD `id_product` INT NOT NULL;";
+$sqlUpdateDatabase['warehouse_histories']['note'] = "ALTER TABLE `warehouse_histories` ADD `note` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;";
+$sqlUpdateDatabase['warehouse_histories']['quantity'] = "ALTER TABLE `warehouse_histories` ADD `quantity` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouse_histories']['create_at'] = "ALTER TABLE `warehouse_histories` ADD `create_at` INT NOT NULL;";
+$sqlUpdateDatabase['warehouse_histories']['type'] = "ALTER TABLE `warehouse_histories` ADD `type` VARCHAR(20) NOT NULL COMMENT 'plus hoặc minus';";
+$sqlUpdateDatabase['warehouse_histories']['id_order_member'] = "ALTER TABLE `warehouse_histories` ADD `id_order_member` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouse_histories']['id_order'] = "ALTER TABLE `warehouse_histories` ADD `id_order` INT NOT NULL DEFAULT '0' COMMENT 'id đơn hàng khách lẻ';";
 
-$sqlUpdateDatabase .= "ALTER TABLE `members` ADD `noti_new_order` BOOLEAN NOT NULL DEFAULT TRUE AFTER `img_logo`, ADD `noti_new_customer` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_new_order`, ADD `noti_checkin_campaign` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_new_customer`, ADD `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_checkin_campaign`, ADD `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE AFTER `noti_reg_campaign`; ";
+// bảng zalo_templates
+$sqlUpdateDatabase['zalo_templates']['id_system'] = "ALTER TABLE `zalo_templates` ADD `id_system` int(11) NOT NULL;";
+$sqlUpdateDatabase['zalo_templates']['id_zns'] = "ALTER TABLE `zalo_templates` ADD `id_zns` int(11) NOT NULL;";
+$sqlUpdateDatabase['zalo_templates']['name'] = "ALTER TABLE `zalo_templates` ADD `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['zalo_templates']['content'] = "ALTER TABLE `zalo_templates` ADD `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`content`));";
+$sqlUpdateDatabase['zalo_templates']['content_example'] = "ALTER TABLE `zalo_templates` ADD `content_example` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;";
 
-$sqlUpdateDatabase .= "ALTER TABLE `transaction_histories` CHANGE `note` `note` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL; ";
+// bảng token_devices
+$sqlUpdateDatabase['token_devices']['token_device'] = "ALTER TABLE `token_devices` ADD `token_device` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['token_devices']['id_member'] = "ALTER TABLE `token_devices` ADD `id_member` INT NOT NULL DEFAULT '0';";
+

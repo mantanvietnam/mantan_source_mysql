@@ -28,7 +28,7 @@ function setttingZaloOA($input)
 		if ($isRequestPost) {
 	        $dataSend = $input['request']->getData();
 
-	        if(!empty($dataSend['id_oa']) && !empty($dataSend['id_app']) && !empty($dataSend['secret_key']) && !empty($dataSend['template_otp'])){
+	        if(!empty($dataSend['id_oa']) && !empty($dataSend['id_app']) && !empty($dataSend['secret_key'])){
 	        	$data->id_oa = trim($dataSend['id_oa']);
 		        $data->id_app = trim($dataSend['id_app']);
 		        $data->secret_key = trim($dataSend['secret_key']);

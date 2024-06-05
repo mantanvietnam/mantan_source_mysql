@@ -787,4 +787,11 @@ function saveCustomerCategory($id_customer=0,$idgroup=array()){
     }
     return 'ok';
 }
+
+global $displayInfo;
+
+     $displayInfo =array( 1 =>'Giao diện 1',
+                         2 =>'Giao diện 2',
+
+     );
 ?>

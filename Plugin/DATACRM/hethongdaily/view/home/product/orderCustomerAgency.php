@@ -80,7 +80,7 @@
                 <thead>
                   <th colspan="3" class="text-center">thông tin đơn hàng</th> 
                   <tr>
-                    <th width="50%">Sản phẩn</th>
+                    <th width="50%">Sản phẩm</th>
                     <th width="30%">Giá bán</th>
                     <th width="20%">Số lượng </th>
                   </tr>

@@ -98,7 +98,19 @@
                     <label class="form-label" for="basic-default-phone">Trang Zalo</label>
                     <input type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$user->zalo;?>" />
                   </div>
-
+                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Giao diện trang info</label>
+                    <select required class="form-select" name="display_info" id="display_info">
+                        <option value="">Chọn giao diện trang info</option>
+                        <?php foreach($displayInfo as $key => $item){
+                          $selected = '';
+                          if($user->display_info==$key){ 
+                            $selected = 'selected';
+                          }
+                          echo'<option value="'.$key.'" '.$selected.' >'.$item.'</option>';
+                        } ?>
+                      </select>
+                  </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Mã QR của bạn</label><br/>
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'info/?id='.@$user->id;?>" width="100">
