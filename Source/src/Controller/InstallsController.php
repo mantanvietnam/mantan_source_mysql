@@ -1,10 +1,77 @@
 <?php
 namespace App\Controller;
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
 
 class InstallsController extends AppController{
 	public function index(){
 		
+	}
+
+	public function updateDatabase(){
+		global $sqlUpdateDatabase;
+		global $metaTitleMantan;
+
+		$metaTitleMantan = 'Cập nhập cơ sở dữ liệu';
+		$modelOptions = $this->Options;
+
+		// lấy danh sách gói mở rộng trong thư mục plugins
+        $listFile= list_files(__DIR__.'/../../plugins');
+
+        $listFileShow= array();
+
+        // lấy danh sách plugin được kích hoạt
+        $conditions = array('key_word' => 'plugins_site');
+        $plugins_site = $modelOptions->find()->where($conditions)->first();
+        if(empty($plugins_site)){
+            $plugins_site = $modelOptions->newEmptyEntity();
+        }
+
+        $plugins_site_value = array();
+        if(!empty($plugins_site->value)){
+            $plugins_site_value = json_decode($plugins_site->value, true);
+        }
+
+        // tạo kết nối với database
+        $connection = ConnectionManager::get('default');
+
+        foreach($listFile as $file){
+        	if(in_array($file, $plugins_site_value)){
+                $filename = __DIR__.'/../../plugins/'.$file."/install.php";
+                
+                if(file_exists($filename)){
+                	include_once($filename);
+
+                	if(!empty($sqlUpdateDatabase) && is_array($sqlUpdateDatabase)){
+                		foreach ($sqlUpdateDatabase as $table => $value) {
+                			$sqlQuery = "DESCRIBE ".$table.";";
+                            $results = $connection->execute($sqlQuery)->fetchAll('assoc');
+
+                            if(!empty($results)){
+                            	foreach ($results as $field) {
+                            		if(isset($value[$field['Field']])){
+                            			unset($value[$field['Field']]);
+                            		}
+                            	}
+
+                            	if(!empty($value)){
+                            		debug($value);
+
+                            		foreach ($value as $sqlQuery) {
+                            			$connection->execute($sqlQuery)->fetchAll('assoc');
+                            		}
+                            	}
+                            }
+                		}
+                	}else{
+                		debug($file);
+                		debug($sqlUpdateDatabase);
+                	}
+                }
+            }
+        }
+
+        echo 1;die;
 	}
 
 	public function createDatabase(){

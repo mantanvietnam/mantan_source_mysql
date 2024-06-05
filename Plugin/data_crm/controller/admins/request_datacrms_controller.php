@@ -97,59 +97,70 @@ function updateCodeAdmin($input)
 {
     global $controller;
     
-    $root = __DIR__.'/../../../../../../';
-    $listFile = list_files($root);
+    if(!empty($_GET['version'])){
+        $root = __DIR__.'/../../../../../../';
+        $listFile = list_files($root);
 
-    $domain_done = [];
-    $domain_error = [];
+        $domain_done = [];
+        $domain_error = [];
 
-    if(!empty($listFile)){
-        foreach ($listFile as $key => $domain) {
-            
-            $public = $root.$domain.'/public_html/';
-
-            if(file_exists($public.'plugins/hethongdaily/info.xml')){
-                $info= @simplexml_load_file($public.'plugins/hethongdaily/info.xml');
+        if(!empty($listFile)){
+            foreach ($listFile as $key => $domain) {
                 
-                if($info->ver != '3'){
-                    // copy file zip
-                    $source = __DIR__.'/../../code/data_crm_update.zip'; // Đường dẫn tới file ZIP nguồn
+                $public = $root.$domain.'/public_html/';
 
-                    $zipArchive = new ZipArchive();
-                    $result = $zipArchive->open($source);
-                    if ($result === TRUE) {
-                        // giải nén code
-                        $zipArchive ->extractTo($public);
-                        $zipArchive ->close();
+                if(file_exists($public.'plugins/hethongdaily/info.xml')){
+                    $info= @simplexml_load_file($public.'plugins/hethongdaily/info.xml');
+                    
+                    if($info->ver != '3'){
+                        // copy file zip
+                        $source = __DIR__.'/../../code/data_crm_update.zip'; // Đường dẫn tới file ZIP nguồn
 
-                        // xoá thư mục bộ nhớ đệm
-                        $files_tmp = glob($public . 'tmp/cache/models/*');
+                        $zipArchive = new ZipArchive();
+                        $result = $zipArchive->open($source);
+                        if ($result === TRUE) {
+                            // giải nén code
+                            $zipArchive ->extractTo($public);
+                            $zipArchive ->close();
 
-                        if(!empty($files_tmp)){
-                            foreach ($files_tmp as $file) {
-                                if (is_file($file)) {
-                                    unlink($file);
-                                    //echo 'Xoá file ' . $file . ' thành công. <br>';
+                            // xoá thư mục bộ nhớ đệm
+                            $files_tmp = glob($public . 'tmp/cache/models/*');
+
+                            if(!empty($files_tmp)){
+                                foreach ($files_tmp as $file) {
+                                    if (is_file($file)) {
+                                        unlink($file);
+                                        //echo 'Xoá file ' . $file . ' thành công. <br>';
+                                    }
                                 }
                             }
+
+                            $updateDatabase = sendDataConnectMantan('https://'.$domain.'/installs/updateDatabase');
+
+                            if($updateDatabase == '1'){
+                                $domain_done[] = $domain;
+                            }else{
+                                $domain_error[] = $domain;
+                            }
+                            
+                        }else{
+                            $domain_error[] = $domain;
                         }
 
-                        $domain_done[] = $domain;
+                        //return $controller->redirect('/updateCodeAdmin/?time='.time());
                     }else{
-                        $domain_error[] = $domain;
+                        $domain_done[] = $domain;
                     }
-
-                    //return $controller->redirect('/updateCodeAdmin/?time='.time());
-                }else{
-                    $domain_done[] = $domain;
                 }
+                
             }
-            
         }
+        
+        setVariable('domain_done', $domain_done);
+        setVariable('domain_error', $domain_error);
+    }else{
+        return $controller->redirect('/plugins/admin/data_crm-views-admin-listRegAdmin');
     }
-    
-    setVariable('domain_done', $domain_done);
-    setVariable('domain_error', $domain_error);
 }
 
 function fixDatabaseAdmin($input)

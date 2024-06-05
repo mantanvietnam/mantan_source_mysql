@@ -58,6 +58,8 @@ return static function (RouteBuilder $routes) {
 
         $builder->connect('/menus/delete', ['controller' => 'Menus', 'action' => 'delete']);
 
+        $builder->connect('/installs/updateDatabase', ['controller' => 'Installs', 'action' => 'updateDatabase']);
+
         $builder->connect('/admins', ['controller' => 'Admins', 'action' => 'index']);
         $builder->connect('/admins/login', ['controller' => 'Admins', 'action' => 'login']);
         $builder->connect('/admins/logout', ['controller' => 'Admins', 'action' => 'logout']);
