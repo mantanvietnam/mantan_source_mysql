@@ -9,7 +9,7 @@ $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
 $menus[0]['sub'][1]= array( 'title'=>'Cài đặt trang Tuyển Dụng',
                             'url'=>'/plugins/admin/ichamcrm-admin-settingRecruitmentThemeIchamCRM.php',
                             'classIcon'=>'bx bx-cog',
-                            'permission'=>'settingRecruitmentThemeDataCRM'
+                            'permission'=>'settingRecruitmentThemeIchamCRM'
                         );
 $menus[0]['sub'][2]= array( 'title'=>'Cài đặt trang Liên Hệ',
                             'url'=>'/plugins/admin/ichamcrm-admin-settingContactThemeIchamCRM.php',
@@ -44,7 +44,7 @@ if(!empty($data->value)){
 }
 
 // CÀI ĐẶT TRANG TUYỂN DỤNG
-$conditions = array('key_word' => 'settingRecruitmentThemeDataCRM');
+$conditions = array('key_word' => 'settingRecruitmentThemeIchamCRM');
 $data = $modelOptions->find()->where($conditions)->first();
 
 $settingRecruitments = array();
