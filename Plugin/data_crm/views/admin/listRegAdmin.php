@@ -43,7 +43,7 @@
 
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
-            <a href="/plugins/admin/data_crm-views-admin-updateCodeAdmin" class="btn btn-danger d-block">Nâng cấp code</a>
+            <a href="/updateCodeCRM/?version=4" class="btn btn-danger d-block">Nâng cấp code</a>
           </div>
         </div>
       </div>

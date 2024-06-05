@@ -93,7 +93,7 @@ function listRegAdmin($input)
     setVariable('listData', $listData);
 }
 
-function updateCodeAdmin($input)
+function updateCodeCRM($input)
 {
     global $controller;
     
@@ -112,7 +112,7 @@ function updateCodeAdmin($input)
                 if(file_exists($public.'plugins/hethongdaily/info.xml')){
                     $info= @simplexml_load_file($public.'plugins/hethongdaily/info.xml');
                     
-                    if($info->ver != '3'){
+                    if($info->ver != $_GET['version']){
                         // copy file zip
                         $source = __DIR__.'/../../code/data_crm_update.zip'; // Đường dẫn tới file ZIP nguồn
 
@@ -139,6 +139,8 @@ function updateCodeAdmin($input)
 
                             if($updateDatabase == '1'){
                                 $domain_done[] = $domain;
+
+                                echo $domain.'<br/>';die;
                             }else{
                                 $domain_error[] = $domain;
                             }
