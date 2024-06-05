@@ -225,8 +225,8 @@ $sqlUpdateDatabase['views']['id_customer'] = "ALTER TABLE `views` ADD `id_custom
 $sqlUpdateDatabase['views']['id_product'] = "ALTER TABLE `views` ADD `id_product` INT NOT NULL; ";
 
 // Bang reviews
-$sqlUpdateDatabase['views']['id_customer'] = "ALTER TABLE `views` ADD `id_customer` INT NOT NULL; ";
-$sqlUpdateDatabase['views']['id_product'] = "ALTER TABLE `views` ADD `id_product` INT NOT NULL; ";
+$sqlUpdateDatabase['reviews']['id_customer'] = "ALTER TABLE `reviews` ADD `id_customer` INT NOT NULL; ";
+$sqlUpdateDatabase['reviews']['id_product'] = "ALTER TABLE `reviews` ADD `id_product` INT NOT NULL; ";
 
 // Bang categorie_products
 $sqlUpdateDatabase['categorie_products']['id_category'] = "ALTER TABLE `categorie_products` ADD `id_category` INT NOT NULL; ";
