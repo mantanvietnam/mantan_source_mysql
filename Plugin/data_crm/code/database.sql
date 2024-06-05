@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 23, 2024 at 07:55 AM
--- Server version: 10.6.12-MariaDB
--- PHP Version: 8.1.17
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th6 05, 2024 lúc 09:10 PM
+-- Phiên bản máy phục vụ: 10.6.12-MariaDB
+-- Phiên bản PHP: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `datacrm_phoenixtech1`
+-- Cơ sở dữ liệu: `datacrm_demo`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `address`
+-- Cấu trúc bảng cho bảng `address`
 --
 
 CREATE TABLE `address` (
@@ -37,7 +37,7 @@ CREATE TABLE `address` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admins`
+-- Cấu trúc bảng cho bảng `admins`
 --
 
 CREATE TABLE `admins` (
@@ -51,7 +51,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `admins`
+-- Đang đổ dữ liệu cho bảng `admins`
 --
 
 INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`, `permission`, `type`) VALUES
@@ -60,7 +60,7 @@ INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`, `permission
 -- --------------------------------------------------------
 
 --
--- Table structure for table `affiliaters`
+-- Cấu trúc bảng cho bảng `affiliaters`
 --
 
 CREATE TABLE `affiliaters` (
@@ -93,7 +93,7 @@ CREATE TABLE `affiliaters` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `albuminfos`
+-- Cấu trúc bảng cho bảng `albuminfos`
 --
 
 CREATE TABLE `albuminfos` (
@@ -108,7 +108,7 @@ CREATE TABLE `albuminfos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `albums`
+-- Cấu trúc bảng cho bảng `albums`
 --
 
 CREATE TABLE `albums` (
@@ -126,7 +126,7 @@ CREATE TABLE `albums` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `campaigns`
+-- Cấu trúc bảng cho bảng `campaigns`
 --
 
 CREATE TABLE `campaigns` (
@@ -151,7 +151,7 @@ CREATE TABLE `campaigns` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `campaign_customers`
+-- Cấu trúc bảng cho bảng `campaign_customers`
 --
 
 CREATE TABLE `campaign_customers` (
@@ -170,7 +170,7 @@ CREATE TABLE `campaign_customers` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Cấu trúc bảng cho bảng `categories`
 --
 
 CREATE TABLE `categories` (
@@ -189,7 +189,7 @@ CREATE TABLE `categories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categorie_products`
+-- Cấu trúc bảng cho bảng `categorie_products`
 --
 
 CREATE TABLE `categorie_products` (
@@ -201,7 +201,7 @@ CREATE TABLE `categorie_products` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category_connects`
+-- Cấu trúc bảng cho bảng `category_connects`
 --
 
 CREATE TABLE `category_connects` (
@@ -214,7 +214,7 @@ CREATE TABLE `category_connects` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `courses`
+-- Cấu trúc bảng cho bảng `courses`
 --
 
 CREATE TABLE `courses` (
@@ -234,7 +234,7 @@ CREATE TABLE `courses` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customers`
+-- Cấu trúc bảng cho bảng `customers`
 --
 
 CREATE TABLE `customers` (
@@ -246,7 +246,7 @@ CREATE TABLE `customers` (
   `sex` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: Nữ, 1: Nam',
   `id_city` tinyint(4) NOT NULL DEFAULT 0,
   `id_messenger` varchar(255) NOT NULL,
-  `avatar` text NOT NULL,
+  `avatar` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `status` varchar(255) NOT NULL,
   `pass` varchar(255) NOT NULL,
   `id_parent` int(11) NOT NULL DEFAULT 0 COMMENT 'id member đại lý',
@@ -264,7 +264,7 @@ CREATE TABLE `customers` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer_histories`
+-- Cấu trúc bảng cho bảng `customer_histories`
 --
 
 CREATE TABLE `customer_histories` (
@@ -280,7 +280,7 @@ CREATE TABLE `customer_histories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `discount_codes`
+-- Cấu trúc bảng cho bảng `discount_codes`
 --
 
 CREATE TABLE `discount_codes` (
@@ -303,7 +303,7 @@ CREATE TABLE `discount_codes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `evaluates`
+-- Cấu trúc bảng cho bảng `evaluates`
 --
 
 CREATE TABLE `evaluates` (
@@ -321,7 +321,7 @@ CREATE TABLE `evaluates` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `historytests`
+-- Cấu trúc bảng cho bảng `historytests`
 --
 
 CREATE TABLE `historytests` (
@@ -339,7 +339,7 @@ CREATE TABLE `historytests` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lessons`
+-- Cấu trúc bảng cho bảng `lessons`
 --
 
 CREATE TABLE `lessons` (
@@ -360,7 +360,7 @@ CREATE TABLE `lessons` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `members`
+-- Cấu trúc bảng cho bảng `members`
 --
 
 CREATE TABLE `members` (
@@ -404,13 +404,15 @@ CREATE TABLE `members` (
   `noti_new_customer` tinyint(1) NOT NULL DEFAULT 1,
   `noti_checkin_campaign` tinyint(1) NOT NULL DEFAULT 1,
   `noti_reg_campaign` tinyint(1) NOT NULL DEFAULT 1,
-  `noti_product_warehouse` tinyint(1) NOT NULL DEFAULT 1
+  `noti_product_warehouse` tinyint(1) NOT NULL DEFAULT 1,
+  `display_info` tinyint(4) NOT NULL DEFAULT 1,
+  `image_qr_pay` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menus`
+-- Cấu trúc bảng cho bảng `menus`
 --
 
 CREATE TABLE `menus` (
@@ -426,7 +428,7 @@ CREATE TABLE `menus` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `options`
+-- Cấu trúc bảng cho bảng `options`
 --
 
 CREATE TABLE `options` (
@@ -437,7 +439,7 @@ CREATE TABLE `options` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `options`
+-- Đang đổ dữ liệu cho bảng `options`
 --
 
 INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES
@@ -453,7 +455,7 @@ INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Cấu trúc bảng cho bảng `orders`
 --
 
 CREATE TABLE `orders` (
@@ -480,7 +482,7 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_details`
+-- Cấu trúc bảng cho bảng `order_details`
 --
 
 CREATE TABLE `order_details` (
@@ -494,7 +496,7 @@ CREATE TABLE `order_details` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_members`
+-- Cấu trúc bảng cho bảng `order_members`
 --
 
 CREATE TABLE `order_members` (
@@ -514,7 +516,7 @@ CREATE TABLE `order_members` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_member_details`
+-- Cấu trúc bảng cho bảng `order_member_details`
 --
 
 CREATE TABLE `order_member_details` (
@@ -528,7 +530,7 @@ CREATE TABLE `order_member_details` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Cấu trúc bảng cho bảng `posts`
 --
 
 CREATE TABLE `posts` (
@@ -550,7 +552,7 @@ CREATE TABLE `posts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Cấu trúc bảng cho bảng `products`
 --
 
 CREATE TABLE `products` (
@@ -583,7 +585,7 @@ CREATE TABLE `products` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questions`
+-- Cấu trúc bảng cho bảng `questions`
 --
 
 CREATE TABLE `questions` (
@@ -601,7 +603,7 @@ CREATE TABLE `questions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `question_products`
+-- Cấu trúc bảng cho bảng `question_products`
 --
 
 CREATE TABLE `question_products` (
@@ -614,7 +616,7 @@ CREATE TABLE `question_products` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reviews`
+-- Cấu trúc bảng cho bảng `reviews`
 --
 
 CREATE TABLE `reviews` (
@@ -622,13 +624,14 @@ CREATE TABLE `reviews` (
   `id_user` int(11) NOT NULL,
   `id_product` int(11) DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_customer` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `slugs`
+-- Cấu trúc bảng cho bảng `slugs`
 --
 
 CREATE TABLE `slugs` (
@@ -641,7 +644,7 @@ CREATE TABLE `slugs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tests`
+-- Cấu trúc bảng cho bảng `tests`
 --
 
 CREATE TABLE `tests` (
@@ -661,7 +664,7 @@ CREATE TABLE `tests` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `token_devices`
+-- Cấu trúc bảng cho bảng `token_devices`
 --
 
 CREATE TABLE `token_devices` (
@@ -673,7 +676,7 @@ CREATE TABLE `token_devices` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaction_affiliate_histories`
+-- Cấu trúc bảng cho bảng `transaction_affiliate_histories`
 --
 
 CREATE TABLE `transaction_affiliate_histories` (
@@ -690,7 +693,7 @@ CREATE TABLE `transaction_affiliate_histories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaction_histories`
+-- Cấu trúc bảng cho bảng `transaction_histories`
 --
 
 CREATE TABLE `transaction_histories` (
@@ -706,7 +709,7 @@ CREATE TABLE `transaction_histories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `videos`
+-- Cấu trúc bảng cho bảng `videos`
 --
 
 CREATE TABLE `videos` (
@@ -725,7 +728,7 @@ CREATE TABLE `videos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `views`
+-- Cấu trúc bảng cho bảng `views`
 --
 
 CREATE TABLE `views` (
@@ -737,7 +740,7 @@ CREATE TABLE `views` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `warehouse_histories`
+-- Cấu trúc bảng cho bảng `warehouse_histories`
 --
 
 CREATE TABLE `warehouse_histories` (
@@ -755,7 +758,7 @@ CREATE TABLE `warehouse_histories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `warehouse_products`
+-- Cấu trúc bảng cho bảng `warehouse_products`
 --
 
 CREATE TABLE `warehouse_products` (
@@ -768,7 +771,7 @@ CREATE TABLE `warehouse_products` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `zalos`
+-- Cấu trúc bảng cho bảng `zalos`
 --
 
 CREATE TABLE `zalos` (
@@ -787,7 +790,7 @@ CREATE TABLE `zalos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `zalo_templates`
+-- Cấu trúc bảng cho bảng `zalo_templates`
 --
 
 CREATE TABLE `zalo_templates` (
@@ -800,489 +803,489 @@ CREATE TABLE `zalo_templates` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `address`
+-- Chỉ mục cho bảng `address`
 --
 ALTER TABLE `address`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `admins`
+-- Chỉ mục cho bảng `admins`
 --
 ALTER TABLE `admins`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `affiliaters`
+-- Chỉ mục cho bảng `affiliaters`
 --
 ALTER TABLE `affiliaters`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `albuminfos`
+-- Chỉ mục cho bảng `albuminfos`
 --
 ALTER TABLE `albuminfos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `albums`
+-- Chỉ mục cho bảng `albums`
 --
 ALTER TABLE `albums`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `campaigns`
+-- Chỉ mục cho bảng `campaigns`
 --
 ALTER TABLE `campaigns`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `campaign_customers`
+-- Chỉ mục cho bảng `campaign_customers`
 --
 ALTER TABLE `campaign_customers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `categories`
+-- Chỉ mục cho bảng `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `categorie_products`
+-- Chỉ mục cho bảng `categorie_products`
 --
 ALTER TABLE `categorie_products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `category_connects`
+-- Chỉ mục cho bảng `category_connects`
 --
 ALTER TABLE `category_connects`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `courses`
+-- Chỉ mục cho bảng `courses`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `customers`
+-- Chỉ mục cho bảng `customers`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `customer_histories`
+-- Chỉ mục cho bảng `customer_histories`
 --
 ALTER TABLE `customer_histories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `discount_codes`
+-- Chỉ mục cho bảng `discount_codes`
 --
 ALTER TABLE `discount_codes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `evaluates`
+-- Chỉ mục cho bảng `evaluates`
 --
 ALTER TABLE `evaluates`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `historytests`
+-- Chỉ mục cho bảng `historytests`
 --
 ALTER TABLE `historytests`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `lessons`
+-- Chỉ mục cho bảng `lessons`
 --
 ALTER TABLE `lessons`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `members`
+-- Chỉ mục cho bảng `members`
 --
 ALTER TABLE `members`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `menus`
+-- Chỉ mục cho bảng `menus`
 --
 ALTER TABLE `menus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `options`
+-- Chỉ mục cho bảng `options`
 --
 ALTER TABLE `options`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `orders`
+-- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `order_details`
+-- Chỉ mục cho bảng `order_details`
 --
 ALTER TABLE `order_details`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `order_members`
+-- Chỉ mục cho bảng `order_members`
 --
 ALTER TABLE `order_members`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `order_member_details`
+-- Chỉ mục cho bảng `order_member_details`
 --
 ALTER TABLE `order_member_details`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `posts`
+-- Chỉ mục cho bảng `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `products`
+-- Chỉ mục cho bảng `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `questions`
+-- Chỉ mục cho bảng `questions`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `question_products`
+-- Chỉ mục cho bảng `question_products`
 --
 ALTER TABLE `question_products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `reviews`
+-- Chỉ mục cho bảng `reviews`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `slugs`
+-- Chỉ mục cho bảng `slugs`
 --
 ALTER TABLE `slugs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tests`
+-- Chỉ mục cho bảng `tests`
 --
 ALTER TABLE `tests`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `token_devices`
+-- Chỉ mục cho bảng `token_devices`
 --
 ALTER TABLE `token_devices`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transaction_affiliate_histories`
+-- Chỉ mục cho bảng `transaction_affiliate_histories`
 --
 ALTER TABLE `transaction_affiliate_histories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transaction_histories`
+-- Chỉ mục cho bảng `transaction_histories`
 --
 ALTER TABLE `transaction_histories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `videos`
+-- Chỉ mục cho bảng `videos`
 --
 ALTER TABLE `videos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `views`
+-- Chỉ mục cho bảng `views`
 --
 ALTER TABLE `views`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `warehouse_histories`
+-- Chỉ mục cho bảng `warehouse_histories`
 --
 ALTER TABLE `warehouse_histories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `warehouse_products`
+-- Chỉ mục cho bảng `warehouse_products`
 --
 ALTER TABLE `warehouse_products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `zalos`
+-- Chỉ mục cho bảng `zalos`
 --
 ALTER TABLE `zalos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `zalo_templates`
+-- Chỉ mục cho bảng `zalo_templates`
 --
 ALTER TABLE `zalo_templates`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `address`
+-- AUTO_INCREMENT cho bảng `address`
 --
 ALTER TABLE `address`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `admins`
+-- AUTO_INCREMENT cho bảng `admins`
 --
 ALTER TABLE `admins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `affiliaters`
+-- AUTO_INCREMENT cho bảng `affiliaters`
 --
 ALTER TABLE `affiliaters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `albuminfos`
+-- AUTO_INCREMENT cho bảng `albuminfos`
 --
 ALTER TABLE `albuminfos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `albums`
+-- AUTO_INCREMENT cho bảng `albums`
 --
 ALTER TABLE `albums`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `campaigns`
+-- AUTO_INCREMENT cho bảng `campaigns`
 --
 ALTER TABLE `campaigns`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `campaign_customers`
+-- AUTO_INCREMENT cho bảng `campaign_customers`
 --
 ALTER TABLE `campaign_customers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `categorie_products`
+-- AUTO_INCREMENT cho bảng `categorie_products`
 --
 ALTER TABLE `categorie_products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `category_connects`
+-- AUTO_INCREMENT cho bảng `category_connects`
 --
 ALTER TABLE `category_connects`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `courses`
+-- AUTO_INCREMENT cho bảng `courses`
 --
 ALTER TABLE `courses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `customers`
+-- AUTO_INCREMENT cho bảng `customers`
 --
 ALTER TABLE `customers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `customer_histories`
+-- AUTO_INCREMENT cho bảng `customer_histories`
 --
 ALTER TABLE `customer_histories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `discount_codes`
+-- AUTO_INCREMENT cho bảng `discount_codes`
 --
 ALTER TABLE `discount_codes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `evaluates`
+-- AUTO_INCREMENT cho bảng `evaluates`
 --
 ALTER TABLE `evaluates`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `historytests`
+-- AUTO_INCREMENT cho bảng `historytests`
 --
 ALTER TABLE `historytests`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `lessons`
+-- AUTO_INCREMENT cho bảng `lessons`
 --
 ALTER TABLE `lessons`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `members`
+-- AUTO_INCREMENT cho bảng `members`
 --
 ALTER TABLE `members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `menus`
+-- AUTO_INCREMENT cho bảng `menus`
 --
 ALTER TABLE `menus`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `options`
+-- AUTO_INCREMENT cho bảng `options`
 --
 ALTER TABLE `options`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `order_details`
+-- AUTO_INCREMENT cho bảng `order_details`
 --
 ALTER TABLE `order_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `order_members`
+-- AUTO_INCREMENT cho bảng `order_members`
 --
 ALTER TABLE `order_members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `order_member_details`
+-- AUTO_INCREMENT cho bảng `order_member_details`
 --
 ALTER TABLE `order_member_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT cho bảng `posts`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `products`
+-- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `questions`
+-- AUTO_INCREMENT cho bảng `questions`
 --
 ALTER TABLE `questions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `question_products`
+-- AUTO_INCREMENT cho bảng `question_products`
 --
 ALTER TABLE `question_products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `reviews`
+-- AUTO_INCREMENT cho bảng `reviews`
 --
 ALTER TABLE `reviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `slugs`
+-- AUTO_INCREMENT cho bảng `slugs`
 --
 ALTER TABLE `slugs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tests`
+-- AUTO_INCREMENT cho bảng `tests`
 --
 ALTER TABLE `tests`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `token_devices`
+-- AUTO_INCREMENT cho bảng `token_devices`
 --
 ALTER TABLE `token_devices`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `transaction_affiliate_histories`
+-- AUTO_INCREMENT cho bảng `transaction_affiliate_histories`
 --
 ALTER TABLE `transaction_affiliate_histories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `transaction_histories`
+-- AUTO_INCREMENT cho bảng `transaction_histories`
 --
 ALTER TABLE `transaction_histories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `videos`
+-- AUTO_INCREMENT cho bảng `videos`
 --
 ALTER TABLE `videos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `views`
+-- AUTO_INCREMENT cho bảng `views`
 --
 ALTER TABLE `views`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `warehouse_histories`
+-- AUTO_INCREMENT cho bảng `warehouse_histories`
 --
 ALTER TABLE `warehouse_histories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `warehouse_products`
+-- AUTO_INCREMENT cho bảng `warehouse_products`
 --
 ALTER TABLE `warehouse_products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `zalos`
+-- AUTO_INCREMENT cho bảng `zalos`
 --
 ALTER TABLE `zalos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `zalo_templates`
+-- AUTO_INCREMENT cho bảng `zalo_templates`
 --
 ALTER TABLE `zalo_templates`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
