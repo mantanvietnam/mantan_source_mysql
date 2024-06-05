@@ -716,4 +716,26 @@ function addDataCustomerAgency($input)
         return $controller->redirect('/login');
     }
 }
+
+function lockCustomerAgency($input)
+{
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+
+    if(!empty($session->read('infoUser'))){
+        if(!empty($_GET['id'])){
+            // id_parent: id khách hàng, id_category: id đại lý
+            $data = $modelCategoryConnects->find()->where(['keyword'=>'member_customers', 'id_parent'=>(int) $_GET['id'], 'id_category'=>(int) $session->read('infoUser')->id])->first();
+
+            if($data){
+                $modelCategoryConnects->delete($data);
+            }
+        }
+
+        return $controller->redirect('/listCustomerAgency/?status=deleteCustomerDone');
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

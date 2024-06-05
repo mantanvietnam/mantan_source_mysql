@@ -302,6 +302,10 @@ function saveInfoCustomerAPI($input)
                                 if(!empty($avatar['linkOnline'])){
                                     $infoCustomer->avatar = $avatar['linkOnline'];
                                 }
+                            }else{
+                                if(!empty($dataSend['avatar'])){
+                                    $infoCustomer->avatar = $dataSend['avatar'];
+                                }
                             }
 
                             if(!empty($dataSend['id_group'])){
@@ -461,6 +465,8 @@ function saveInfoCustomerAPI($input)
                                 }
                             }
 
+                            if(empty($infoCustomer->img_card_member)) $infoCustomer->img_card_member = '';
+                            
                             return array('code'=>5, 'mess'=>'Khách hàng đã có dữ liệu trong hệ thống, cập nhập dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
                             
                         }else{

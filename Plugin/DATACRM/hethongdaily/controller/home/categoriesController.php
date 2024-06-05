@@ -28,8 +28,8 @@ function listPosition($input){
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
             $infoCategory->parent = $session->read('infoUser')->id_system;
             $infoCategory->image = '';
-            $infoCategory->keyword = '';
-            $infoCategory->description = '';
+            $infoCategory->keyword = $dataSend['keyword'];
+            $infoCategory->description = $dataSend['description'];
             $infoCategory->type = 'system_positions';
             $infoCategory->slug = createSlugMantan($infoCategory->name);
             
@@ -49,6 +49,47 @@ function listPosition($input){
         }
 
         setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function settingSystem($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $controller;
+    global $session;
+
+    $metaTitleMantan = 'Cài đặt hệ thống';
+    
+    if(!empty($session->read('infoUser'))){
+        $mess = '';
+
+        $data = $modelCategories->find()->where(array('id'=>$session->read('infoUser')->id_system ))->first();
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['name'])){
+                $data->name = $dataSend['name'];
+                $data->image = $dataSend['image'];
+                $data->keyword = $dataSend['keyword'];
+
+                $modelCategories->save($data);
+
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+                $info_customer = $session->read('infoUser');
+                $info_customer->info_system = $data;
+                $session->write('infoUser', $info_customer);
+            }else{
+                $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+            }
+        }
+
+        setVariable('data', $data);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }

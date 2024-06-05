@@ -568,11 +568,13 @@
                         contentType: false,
                         processData: false,
                         success: function(response) {
-                            $('#uploadFormCustomer').remove();
+                            if(response.img_card_member != '' && response.img_card_member != null){
+                                $('#uploadFormCustomer').remove();
 
-                            var img_card_customer = "<div class='mb-3'><img id='imageToDownload' src='"+response.img_card_member+"' width='100%' /></div><div class='mb-3 text-center'><button onclick='downloadCardCustomer();' type='button' class='btn btn-danger' >TẢI ẢNH</button></div>";
+                                var img_card_customer = "<div class='mb-3'><img id='imageToDownload' src='"+response.img_card_member+"' width='100%' /></div><div class='mb-3 text-center'><button onclick='downloadCardCustomer();' type='button' class='btn btn-danger' >TẢI ẢNH</button></div>";
 
-                            $('#show_img_card_customer').html(img_card_customer);
+                                $('#show_img_card_customer').html(img_card_customer);
+                            }
 
                             alert('Lưu dữ liệu khách hàng thành công');
                             

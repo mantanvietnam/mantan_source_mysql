@@ -93,6 +93,7 @@
             <th>Đơn hàng</th>
             <th>Chăm sóc</th>
             <th>Sửa</th>
+            <th>Xoá</th>
           </tr>
         </thead>
         <tbody>
@@ -152,6 +153,12 @@
               <td width="5%" align="center">
                 <a class="dropdown-item" href="/editCustomerAgency/?id='.$item->id.'">
                   <i class="bx bx-edit-alt me-1"></i>
+                </a>
+              </td>
+
+              <td align="center">
+                <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/lockCustomerAgency/?id='.$item->id.'">
+                  <i class="bx bx-trash me-1"></i>
                 </a>
               </td>
              </tr>';
