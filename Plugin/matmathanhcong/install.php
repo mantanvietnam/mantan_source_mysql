@@ -18,7 +18,8 @@ $sqlInstallDatabase .= "CREATE TABLE `request_exports` (
     `affiliate_phone` VARCHAR(15) NULL , 
     `link_download` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , 
     `status_pay` VARCHAR(255) NOT NULL DEFAULT 'wait', 
-    `idMessenger` VARCHAR(255) NULL, `idZalo` VARCHAR(100) NULL, 
+    `idMessenger` VARCHAR(255) NULL, 
+    `idZalo` VARCHAR(100) NULL, 
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -34,5 +35,6 @@ $sqlUpdateDatabase['request_exports']['address'] = "ALTER TABLE `request_exports
 $sqlUpdateDatabase['request_exports']['affiliate_phone'] = "ALTER TABLE `request_exports` ADD `affiliate_phone` VARCHAR(15) NULL; ";
 $sqlUpdateDatabase['request_exports']['link_download'] = "ALTER TABLE `request_exports` ADD `link_download` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL; ";
 $sqlUpdateDatabase['request_exports']['status_pay'] = "ALTER TABLE `request_exports` ADD `status_pay` VARCHAR(255) NOT NULL DEFAULT 'wait'; ";
-$sqlUpdateDatabase['request_exports']['idMessenger'] = "ALTER TABLE `request_exports` ADD `idMessenger` VARCHAR(255) NULL, `idZalo` VARCHAR(100) NULL; ";
+$sqlUpdateDatabase['request_exports']['idMessenger'] = "ALTER TABLE `request_exports` ADD `idMessenger` VARCHAR(255) NULL; ";
+$sqlUpdateDatabase['request_exports']['idZalo'] = "ALTER TABLE `request_exports` ADD `idZalo` VARCHAR(100) NULL; ";
 ?>
