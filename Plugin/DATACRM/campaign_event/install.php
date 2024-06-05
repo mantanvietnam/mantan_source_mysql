@@ -5,7 +5,7 @@ global $sqlUpdateDatabase;
 
 $sqlInstallDatabase = '';
 $sqlDeleteDatabase = '';
-$sqlUpdateDatabase = '';
+$sqlUpdateDatabase = [];
 
 $sqlInstallDatabase .= "CREATE TABLE `campaigns` (
                                 `id` INT NOT NULL AUTO_INCREMENT , 
@@ -44,5 +44,7 @@ $sqlInstallDatabase .= "CREATE TABLE `campaign_customers` (
 $sqlDeleteDatabase .= "DROP TABLE campaigns; ";
 $sqlDeleteDatabase .= "DROP TABLE campaign_customers; ";
 
-$sqlUpdateDatabase .= "ALTER TABLE `campaign_customers` ADD `create_at` INT NOT NULL DEFAULT '0' AFTER `id_ticket`; ";
+// bảng campaigns
+$sqlUpdateDatabase['campaigns']['name'] = "ALTER TABLE `campaign_customers` ADD `name` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['campaigns']['name_show'] = "ALTER TABLE `campaign_customers` ADD `name_show` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL; ";
 ?>
