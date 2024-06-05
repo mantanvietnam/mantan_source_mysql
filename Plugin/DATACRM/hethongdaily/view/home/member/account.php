@@ -111,6 +111,10 @@
                         } ?>
                       </select>
                   </div>
+                   <div class="mb-3">
+                    <label class="form-label">Ảnh mã QR thanh toán</label>
+                    <?php showUploadFile('image_qr_pay','image_qr_pay',@$user->image_qr_pay,3);?>
+                  </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Mã QR của bạn</label><br/>
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'info/?id='.@$user->id;?>" width="100">

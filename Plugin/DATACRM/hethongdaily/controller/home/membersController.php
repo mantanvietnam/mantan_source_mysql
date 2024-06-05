@@ -159,6 +159,7 @@ function account($input)
 				$user->zalo = $dataSend['zalo'];
 				$user->banner = $dataSend['banner'];
 				$user->display_info = $dataSend['display_info'];
+				$user->image_qr_pay = $dataSend['image_qr_pay'];
 
 				$modelMembers->save($user);
 

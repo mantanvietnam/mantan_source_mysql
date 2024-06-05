@@ -54,6 +54,8 @@ function registerUserApi($input): array
                     'status' => 1
                 ])->first();
 
+                sendEmailnewUserRegistration($user->name, $user->id);
+
                 return apiResponse(0, 'Lưu thông tin thành công', $loginUser);
             }
 

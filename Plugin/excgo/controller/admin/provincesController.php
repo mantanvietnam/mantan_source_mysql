@@ -108,7 +108,12 @@ function addProvinceAdmin($input)
 
         if (!empty($dataSend['name'])) {
             $data->name = $dataSend['name'];
-            $data->parent_id = !empty($dataSend['parent_id']) ? $dataSend['parent_id'] : 0;
+            if(!empty($_GET['parent_id'])){
+                $data->parent_id = (int)$_GET['parent_id'];
+            }else{
+                $data->parent_id = !empty($dataSend['parent_id']) ? $dataSend['parent_id'] : 0;
+            }
+            
             $data->status = (int) $dataSend['status'] ?? 1;
             $data->ghim = (int) @$dataSend['ghim'];
             $provinceModel->save($data);
@@ -118,6 +123,8 @@ function addProvinceAdmin($input)
             $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
         }
     }
+
+     // debug($listChildProvince);die;
 
     setVariable('data', $data);
     setVariable('listProvince', $listProvince);

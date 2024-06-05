@@ -64,10 +64,11 @@ function configSendEmailAdmin($input)
             $config->key_word = 'configSendEmail';
         }
 
-        $value['listUpgradeRequestToDriverAdmin']= str_replace(' ', '', $dataSend['listUpgradeRequestToDriverAdmin']);
-        $value['listWithdrawRequestAdmin']= str_replace(' ', '', $dataSend['listWithdrawRequestAdmin']);
-        $value['listComplaintAdmin']= str_replace(' ', '', $dataSend['listComplaintAdmin']);
-        $value['listSupportAdmin']= str_replace(' ', '', $dataSend['listSupportAdmin']);
+        $value['listUpgradeRequestToDriverAdmin']= str_replace(' ', '', @$dataSend['listUpgradeRequestToDriverAdmin']);
+        $value['listWithdrawRequestAdmin']= str_replace(' ', '', @$dataSend['listWithdrawRequestAdmin']);
+        $value['listComplaintAdmin']= str_replace(' ', '', @$dataSend['listComplaintAdmin']);
+        $value['listSupportAdmin']= str_replace(' ', '', @$dataSend['listSupportAdmin']);
+        $value['newUserRegistration']= str_replace(' ', '', @$dataSend['newUserRegistration']);
 
         $config->value = json_encode($value);
 

@@ -50,6 +50,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
   `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE,
   `display_info` TINYINT NOT NULL DEFAULT '1',
+  `image_qr_pay`text CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -233,8 +234,9 @@ $sqlUpdateDatabase['members']['noti_checkin_campaign'] = "ALTER TABLE `members` 
 $sqlUpdateDatabase['members']['noti_reg_campaign'] = "ALTER TABLE `members` ADD `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE;";
 $sqlUpdateDatabase['members']['noti_product_warehouse'] = "ALTER TABLE `members` ADD `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE;";
 $sqlUpdateDatabase['members']['display_info'] = "ALTER TABLE `members` ADD `display_info` TINYINT NOT NULL DEFAULT '1';";
+$sqlUpdateDatabase['members']['image_qr_pay'] = "ALTER TABLE `members` ADD `image_qr_pay` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 
-// bảng zalos
+// bảng zalos 
 $sqlUpdateDatabase['zalos']['id_oa'] = "ALTER TABLE `zalos` ADD `id_oa` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['zalos']['id_app'] = "ALTER TABLE `zalos` ADD `id_app` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['zalos']['secret_key'] = "ALTER TABLE `zalos` ADD `secret_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";

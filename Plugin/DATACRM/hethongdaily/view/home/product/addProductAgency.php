@@ -6,19 +6,16 @@
     Thông tin sản phẩm
   </h4>
 
-  <!-- Basic Layout -->
+  <!-- Basic Layout nav-align-top-->
     <div class="row">
       <div class="col-xl">
         <div class="card mb-12">
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin sản phẩm</h5>
-          </div>
           <div class="card-body">
             <p><?php echo $mess; ?></p>
             <?= $this->Form->create(); ?>
               <div class="row">
                 <div class="col-12">
-                  <div class="nav-align-top mb-4">
+                  <div class=" mb-4">
                     <ul class="nav nav-tabs" role="tablist">
                       <li class="nav-item">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
@@ -30,26 +27,13 @@
                           Thông tin sản phẩm
                         </button>
                       </li>
-                      <li class="nav-item">
-                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-rule" aria-controls="navs-top-info" aria-selected="false">
-                          Đặc điểm nổi bật
-                        </button>
-                      </li>
-                      <li class="nav-item">
-                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-specifications" aria-controls="navs-top-info" aria-selected="false">
-                         Thông số kỹ thuật
-                        </button>
-                      </li>
+                      
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-image" aria-controls="navs-top-image" aria-selected="false">
                           Hình ảnh
                         </button>
                       </li>
-                      <li class="nav-item">
-                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-evaluate" aria-controls="navs-top-image" aria-selected="false">
-                          Hình ảnh dánh giá
-                        </button>
-                      </li>
+                      
                     </ul>
 
                     <div class="tab-content">
@@ -66,35 +50,7 @@
                               <input type="text" class="form-control phone-mask" name="code" id="code" value="<?php echo @$data->code;?>" required />
                             </div>
 
-                            <div class="mb-3">
-                              <label class="form-label">Nhà sản xuất</label>
-                              <div class="input-group input-group-merge">
-                                <select class="form-select" name="id_manufacturer" id="id_manufacturer">
-                                  <option value="">Chọn nhà sản xuất</option>
-                                  <?php 
-                                  if(!empty($listManufacturer)){
-                                    foreach ($listManufacturer as $key => $item) {
-                                      if(empty($data->id_manufacturer) || $data->id_manufacturer!=$item->id){
-                                        echo '<option value="'.$item->id.'">'.$item->name.'</option>';
-                                      }else{
-                                        echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
-                                      }
-                                    }
-                                  }
-                                  ?>
-                                </select>
-                              </div>
-                            </div>
-
-                            <div class="mb-3">
-                              <label class="form-label">Ghim lên đầu</label>
-                              <div class="input-group input-group-merge">
-                                <select class="form-select" name="hot" id="hot">
-                                  <option value="1" <?php if(!empty($data->hot) && $data->hot=='1') echo 'selected'; ?> >Có</option>
-                                  <option value="0" <?php if(empty($data->hot)) echo 'selected'; ?> >Không</option>
-                                </select>
-                              </div>
-                            </div>
+                            
 
                             <div class="mb-3">
                               <label class="form-label">Trạng thái</label>
@@ -105,13 +61,10 @@
                                 </select>
                               </div>
                             </div>
+                            
                             <div class="mb-3">
-                              <label class="form-label">Số lượt xem</label>
-                              <input disabled type="number" class="form-control phone-mask" name="view" id="view" value="<?php echo (int) @$data->view;?>" />
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Mã sản phẩm quà tặng </label>
-                              <input type="text" class="form-control" name="id_product" id="id_product" value="<?php echo @$data->id_product; ?>" />
+                              <label class="form-label">Số lượng </label>
+                              <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Danh mục (*)</label>
@@ -132,19 +85,10 @@
                                 
                               </div>
                             </div>
+
                           </div>
 
                           <div class="col-md-6">
-                            <div class="mb-3">
-                              <label class="form-label">Từ khóa</label>
-                              <input type="text" class="form-control phone-mask" name="keyword" id="keyword" value="<?php echo @$data->keyword;?>" />
-                            </div>
-
-                            <div class="mb-3">
-                              <label class="form-label">Mô tả ngắn</label>
-                              <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
-                            </div>
-
                             <div class="mb-3">
                               <label class="form-label">Giá bán</label>
                               <input type="text" class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price;?>" />
@@ -154,28 +98,20 @@
                               <label class="form-label">Giá bán cũ</label>
                               <input type="text" class="form-control phone-mask" name="price_old" id="price_old" value="<?php echo @$data->price_old;?>" />
                             </div>
+                           <!--  <div class="mb-3">
+                              <label class="form-label">Từ khóa</label>
+                              <input type="text" class="form-control phone-mask" name="keyword" id="keyword" value="<?php echo @$data->keyword;?>" />
+                            </div> -->
+
                             <div class="mb-3">
-                              <label class="form-label">Giá ưu đãi</label>
-                              <input type="text" class="form-control" name="pricepro_discount" id="pricepro_discount" value="<?php echo @$data->pricepro_discount; ?>" />
-                            </div>
-                             <div class="mb-3">
-                              <label class="form-label">Giá flash sale </label>
-                              <input type="number" class="form-control phone-mask" name="price_flash" id="price_flash" value="<?php echo (int) @$data->price_flash;?>" />
-                            </div> 
-                            <div class="mb-3">
-                              <label class="form-label">Số lượng </label>
-                              <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Số lượng bán ảo</label>
-                              <input type="text" class="form-control phone-mask" name="sold_virtual" id="sold_virtual" value="<?php echo (int) @$data->sold_virtual;?>" />
-                            </div>
-                            
-                            <div class="mb-3">
-                              <label class="form-label">Mã sản phẩm ưu đãi</label>
-                              <input type="text" class="form-control" name="idpro_discount" id="idpro_discount" value="<?php echo @$data->idpro_discount; ?>" />
+                              <label class="form-label">Mô tả ngắn</label>
+                              <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
 
+                            
+                            
+                            
+                            
 
                           </div>
                         </div>
@@ -190,26 +126,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="tab-pane fade" id="navs-top-rule" role="tabpanel">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="mb-3">
-                              <label class="form-label">Đặc điểm nổi bật</label>
-                              <?php showEditorInput('rule', 'rule', @$data->rule);?>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="mb-3">
-                              <label class="form-label">Thông số kỹ thuật</label>
-                              <?php showEditorInput('specification', 'specification', @$data->specification);?>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      
                       <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
                         <div class="row">
                           <div class="col-md-4">
@@ -340,58 +257,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="tab-pane fade" id="navs-top-evaluate" role="tabpanel">
-                        <div class="row">
-                          <div class="col-md-4">
-                            <div class="mb-3">
-                              <label class="form-label">Hình 1</label>
-                              <?php showUploadFile('image21','evaluate[1][image]',@$data->evaluate[1]['image'],21);?>
-                               <label class="form-label">link đáng giá </label>
-                              <input type="text" class="form-control phone-mask" name="evaluate[1][link]" id="title" value="<?php echo @$data->evaluate[1]["link"];?>" />
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="mb-3">
-                              <label class="form-label">Hình 2</label>
-                              <?php showUploadFile('image22','evaluate[2][image]',@$data->evaluate[2]['image'],22);?>
-                               <label class="form-label">link đáng giá </label>
-                              <input type="text" class="form-control phone-mask" name="evaluate[2][link]" id="title" value="<?php echo @$data->evaluate[2]["link"];?>" />
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="mb-3">
-                              <label class="form-label">Hình 3</label>
-                              <?php showUploadFile('image23','evaluate[3][image]',@$data->evaluate[3]['image'],23);?>
-                               <label class="form-label">link đáng giá </label>
-                              <input type="text" class="form-control phone-mask" name="evaluate[3][link]" id="title" value="<?php echo @$data->evaluate[3]["link"];?>" />
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="mb-3">
-                              <label class="form-label">Hình 4</label>
-                              <?php showUploadFile('image24','evaluate[4][image]',@$data->evaluate[4]['image'],24);?>
-                               <label class="form-label">link đáng giá </label>
-                              <input type="text" class="form-control phone-mask" name="evaluate[4][link]" id="title" value="<?php echo @$data->evaluate[4]["link"];?>" />
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="mb-3">
-                              <label class="form-label">Hình 5</label>
-                              <?php showUploadFile('image25','evaluate[5][image]',@$data->evaluate[5]['image'],25);?>
-                               <label class="form-label">link đáng giá </label>
-                              <input type="text" class="form-control phone-mask" name="evaluate[5][link]" id="title" value="<?php echo @$data->evaluate[5]["link"];?>" />
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="mb-3">
-                              <label class="form-label">Hình 6</label>
-                              <?php showUploadFile('image26','evaluate[6][image]',@$data->evaluate[6]['image'],26);?>
-                               <label class="form-label">link đáng giá </label>
-                              <input type="text" class="form-control phone-mask" name="evaluate[6][link]" id="title" value="<?php echo @$data->evaluate[6]["link"];?>" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>

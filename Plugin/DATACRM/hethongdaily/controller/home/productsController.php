@@ -690,9 +690,7 @@ function addProductAgency($input)
                 // tạo dữ liệu save
                 $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
                 // $data->id_category = (int) @$dataSend['id_category'];
-                $data->hot = (int) @$dataSend['hot'];
                 $data->description = @$dataSend['description'];
-                $data->keyword = @$dataSend['keyword'];
                 $data->info = @$dataSend['info'];
                 $data->image = @$dataSend['image'];
                 $data->images = json_encode(@$dataSend['images']);
@@ -700,18 +698,8 @@ function addProductAgency($input)
                 $data->code = @strtoupper($dataSend['code']);
                 $data->price = (int) @$dataSend['price'];
                 $data->price_old = (int) @$dataSend['price_old'];
-                $data->price_flash = (int) @$dataSend['price_flash'];
-                $data->quantity_initial = (int) @$dataSend['quantity_initial'];
-                $data->number_like = (int) @$dataSend['number_like'];
                 $data->quantity = (int) @$dataSend['quantity'];
-                $data->id_manufacturer = (int) @$dataSend['id_manufacturer'];
                 $data->status = @$dataSend['status'];
-                $data->rule = @$dataSend['rule'];
-                $data->specification = @$dataSend['specification'];
-                $data->id_product = @$dataSend['id_product'];
-                $data->idpro_discount = @$dataSend['idpro_discount'];
-                $data->pricepro_discount = @$dataSend['pricepro_discount'];
-                $data->sold_virtual = @$dataSend['sold_virtual'];
                 $data->id_category = (int) @$dataSend['id_category'][0];
 
                 // tạo slug

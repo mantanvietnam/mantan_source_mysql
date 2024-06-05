@@ -36,6 +36,12 @@
                                 <input class="form-control" required type="text" id="listSupportAdmin" name="listSupportAdmin" value="<?php echo @$data_value['listSupportAdmin']; ?>">
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="newUserRegistration">Đăng ký người dùng mới</label>
+                                <input class="form-control" required type="text" id="newUserRegistration" name="newUserRegistration" value="<?php echo @$data_value['newUserRegistration']; ?>">
+                            </div>
+                        </div>
                     </div>
                     <p><b>Chú ý:</b> các email cách nhau bởi dấu phẩy</p>
                     <button type="submit" class="btn btn-primary">Lưu</button>
