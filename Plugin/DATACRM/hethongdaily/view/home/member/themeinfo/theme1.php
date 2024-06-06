@@ -864,5 +864,16 @@
                 $('#QRCodeModal').modal('show');
             }
         </script>
+
+        <script type="text/javascript">
+            var tabShow = 'info';
+            <?php
+                if(!empty($_GET['tabShow'])){
+                    echo "var tabShow = '".$_GET['tabShow']."';";
+                }
+            ?>
+
+            $('.nav-tabs a[href="#'+tabShow+'"]').tab('show');
+        </script>
     </body>
 </html>

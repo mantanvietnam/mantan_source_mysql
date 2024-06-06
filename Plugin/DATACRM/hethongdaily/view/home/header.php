@@ -32,7 +32,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://designer.ezpics.vn/plugins/hethongdaily/view/home/assets/img/avatar-ezpics.png" />
+    <link rel="icon" type="image/x-icon" href="/plugins/hethongdaily/view/home/assets/img/logo-phoenix.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
