@@ -702,6 +702,10 @@ function addProductAgency($input)
                 $data->status = @$dataSend['status'];
                 $data->id_category = (int) @$dataSend['id_category'][0];
 
+                $data->hot = 0;
+                $data->keyword = '';
+                $data->id_manufacturer = 0;
+
                 // tạo slug
                 $slug = createSlugMantan($dataSend['title']);
                 $slugNew = $slug;
