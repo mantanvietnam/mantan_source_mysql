@@ -1,8 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin tỉnh thành</h4>
+  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><a href="/plugins/admin/excgo-view-admin-province-listProvinceAdmin">Khu vực</a> / </span>Thông tin nhóm khu vực <?php echo $data->name.'('.$data->bsx.')'; ?> </h4>
   <h4 class="fw-bold py-3 mb-4"></h4>
   <!-- Form Search -->
-  <p><a href="/plugins/admin/excgo-view-admin-province-addProvinceAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/excgo-view-admin-province-addProvinceGroupAdmin?parent_id=<?php echo $_GET['parent_id'] ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <form method="get" action="">
     <div class="card mb-4">
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
@@ -11,6 +11,7 @@
           <div class="col-md-1">
             <label class="form-label">ID</label>
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+            <input type="hidden" class="form-control" name="parent_id" value="<?php if(!empty($_GET['parent_id'])) echo $_GET['parent_id'];?>">
           </div>
 
           <div class="col-md-5">
@@ -50,9 +51,7 @@
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Tên tỉnh</th>
-            <th>Biển số xe</th>
-            <th>Số Lượng Nhóm </th>
+            <th>Tên Nhóm</th>
             <th>Sửa</th>
             <th>Trạng thái</th>
           </tr>
@@ -65,7 +64,7 @@
                     $status = '
                   <a class="btn btn-success"  title="Khóa tỉnh" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn Khóa tỉnh này không?\');" 
-                    href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin/?id=' . $item->id . '&status=0"
+                    href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin/?id=' . $item->id . '&status=0&parent_id='.$_GET['parent_id'].'"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Đã Kích hoạt ';
@@ -73,7 +72,7 @@
                     $status = '
                   <a class=" btn btn-danger"  title="Kích hoạt tỉnh" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt tỉnh này không?\');" 
-                    href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin/?id=' . $item->id . '&status=1"
+                    href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin/?id=' . $item->id . '&status=1&parent_id='.$_GET['parent_id'].'"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Đã khóa ';
@@ -82,12 +81,9 @@
                 echo '<tr>
                         <td>' . $item->id . '</td>
                         <td>' . $item->name . '</td>
-                        <td align="center">' . $item->bsx . '</td>
-                        <td align="center"><a href="/plugins/admin/excgo-view-admin-province-listProvinceGroupAdmin/?parent_id=' . $item->id . '"
-                        >' . $item->count . ' </a></td>
                         <td><p align="center">
                         <a class="btn btn-primary" 
-                          href="/plugins/admin/excgo-view-admin-province-addProvinceAdmin/?id=' . $item->id . '"
+                          href="/plugins/admin/excgo-view-admin-province-addProvinceGroupAdmin/?id=' . $item->id . '&parent_id='.$_GET['parent_id'].'"
                         >
                           <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                         </a>
