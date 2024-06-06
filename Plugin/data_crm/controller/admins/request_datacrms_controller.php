@@ -106,6 +106,18 @@ function updateCodeCRM($input)
 
         if(!empty($listFile)){
             foreach ($listFile as $key => $domain) {
+                $public = $root.$domain.'/public_html/';
+
+                if(file_exists($public.'plugins/hethongdaily/info.xml')){
+                    $info= @simplexml_load_file($public.'plugins/hethongdaily/info.xml');
+                    
+                    if($info->ver != $_GET['version']){
+                        echo $domain.'<br/>';
+                    }
+                }
+            }
+
+            foreach ($listFile as $key => $domain) {
                 
                 $public = $root.$domain.'/public_html/';
 
@@ -140,7 +152,7 @@ function updateCodeCRM($input)
                             if($updateDatabase == '1'){
                                 $domain_done[] = $domain;
 
-                                echo $domain.'<br/>';die;
+                                echo '<br/><br/>Xử lý xong: '.$domain.'<br/>';die;
                             }else{
                                 $domain_error[] = $domain;
                             }

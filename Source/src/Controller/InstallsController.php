@@ -44,24 +44,48 @@ class InstallsController extends AppController{
 
                 	if(!empty($sqlUpdateDatabase) && is_array($sqlUpdateDatabase)){
                 		foreach ($sqlUpdateDatabase as $table => $value) {
-                			$sqlQuery = "DESCRIBE ".$table.";";
-                            $results = $connection->execute($sqlQuery)->fetchAll('assoc');
+                			$sqlQuery = "SHOW TABLES LIKE '".$table."';";
+                			$results = $connection->execute($sqlQuery)->fetchAll('assoc');
 
-                            if(!empty($results)){
-                            	foreach ($results as $field) {
-                            		if(isset($value[$field['Field']])){
-                            			unset($value[$field['Field']]);
-                            		}
-                            	}
+                			if(!empty($results)){
+	                			$sqlQuery = "DESCRIBE ".$table.";";
+	                            $results = $connection->execute($sqlQuery)->fetchAll('assoc');
 
-                            	if(!empty($value)){
-                            		debug($value);
+	                            if(!empty($results)){
+	                            	foreach ($results as $field) {
+	                            		if(isset($value[$field['Field']])){
+	                            			unset($value[$field['Field']]);
+	                            		}
+	                            	}
 
-                            		foreach ($value as $sqlQuery) {
-                            			$connection->execute($sqlQuery)->fetchAll('assoc');
-                            		}
-                            	}
-                            }
+	                            	if(!empty($value)){
+	                            		debug($value);
+
+	                            		foreach ($value as $sqlQuery) {
+	                            			$connection->execute($sqlQuery)->fetchAll('assoc');
+	                            		}
+	                            	}
+	                            }
+
+	                            unset($sqlUpdateDatabase[$table]);
+	                        }
+                		}
+
+                		if(!empty($sqlUpdateDatabase)){
+                			foreach ($sqlUpdateDatabase as $table => $value) {
+                				$sqlQuery = "CREATE TABLE `".$table."` (
+											  `id` int(11) NOT NULL AUTO_INCREMENT,
+											  PRIMARY KEY (`id`)
+											) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+								$connection->execute($sqlQuery)->fetchAll('assoc');
+
+								foreach ($value as $field=>$sqlQuery) {
+									if($field != 'id'){
+                        				$connection->execute($sqlQuery)->fetchAll('assoc');
+                        			}
+                        		}
+                			}
                 		}
                 	}else{
                 		debug($file);

@@ -36,6 +36,9 @@
 
 	$routesPlugin['resendOTPAPI']= 'hethongdaily/view/api/resendOTPAPI.php';
 
+	// cài đặt hệ thống
+	$routesPlugin['listPosition']= 'hethongdaily/view/home/system/listPosition.php';
+	$routesPlugin['settingSystem']= 'hethongdaily/view/home/system/settingSystem.php';
 
 	// tài khoản cá nhân
 	$routesPlugin['login']= 'hethongdaily/view/home/member/login.php';
@@ -100,6 +103,7 @@
 	$routesPlugin['addDataCustomerAgency']= 'hethongdaily/view/home/customer/addDataCustomerAgency.php';
 	$routesPlugin['guideAddCustomerAPIAgency']= 'hethongdaily/view/home/customer/guideAddCustomerAPIAgency.php';
 	$routesPlugin['downloadMMTC']= 'hethongdaily/view/home/customer/downloadMMTC.php';
+	$routesPlugin['lockCustomerAgency']= 'hethongdaily/view/home/customer/lockCustomerAgency.php';
 	
 	// nhóm khách hàng
 	$routesPlugin['groupCustomerAgency']= 'hethongdaily/view/home/customer/groupCustomerAgency.php';

@@ -52,7 +52,8 @@
             <th>ID</th>
             <th>Tên tỉnh</th>
             <th>Biển số xe</th>
-            <th>Chi tiết</th>
+            <th>Số Lượng Nhóm </th>
+            <th>Sửa</th>
             <th>Trạng thái</th>
           </tr>
         </thead>
@@ -81,7 +82,9 @@
                 echo '<tr>
                         <td>' . $item->id . '</td>
                         <td>' . $item->name . '</td>
-                        <td>' . $item->bsx . '</td>
+                        <td align="center">' . $item->bsx . '</td>
+                        <td align="center"><a href="/plugins/admin/excgo-view-admin-province-listProvinceGroupAdmin/?parent_id=' . $item->id . '"
+                        >' . $item->count . ' </a></td>
                         <td><p align="center">
                         <a class="btn btn-primary" 
                           href="/plugins/admin/excgo-view-admin-province-addProvinceAdmin/?id=' . $item->id . '"

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th6 05, 2024 lúc 09:10 PM
+-- Thời gian đã tạo: Th6 06, 2024 lúc 12:03 AM
 -- Phiên bản máy phục vụ: 10.6.12-MariaDB
 -- Phiên bản PHP: 8.1.17
 
@@ -412,6 +412,22 @@ CREATE TABLE `members` (
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `member_webs`
+--
+
+CREATE TABLE `member_webs` (
+  `id` int(11) NOT NULL,
+  `domain` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_member` int(11) NOT NULL DEFAULT 0,
+  `theme` varchar(100) NOT NULL,
+  `view` int(11) NOT NULL DEFAULT 0,
+  `status` varchar(100) NOT NULL DEFAULT 'active',
+  `type` varchar(100) NOT NULL DEFAULT 'member' COMMENT 'member hoặc affiliate'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `menus`
 --
 
@@ -443,14 +459,15 @@ CREATE TABLE `options` (
 --
 
 INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES
-(2, 'seo_site', '{\"title\":\"Mantan Source\",\"keyword\":\"\",\"description\":\"\",\"number_post\":\"10\",\"code_script\":\"\"}', NULL),
-(3, 'contact_site', '{\"phone\":\"0816560000\",\"email\":\"tranmanhbk179@gmail.com\",\"address\":\"\"}', NULL),
-(4, 'smtp_site', '{\"email\":\"mantansource@gmail.com\",\"pass\":\"mantansource\",\"display_name\":\"Mantan Source\",\"server\":\"ssl:\\/\\/smtp.gmail.com\",\"port\":\"465\"}', NULL),
-(5, 'plugins_site', '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\"]', NULL),
+(2, 'seo_site', '{\"title\":\"ICHAM CRM - PH\\u1ea6N M\\u1ec0M CH\\u0102M S\\u00d3C KH\\u00c1CH H\\u00c0NG\",\"keyword\":\"\",\"description\":\"ICHAM CRM kh\\u00f4ng ch\\u1ec9 l\\u00e0 m\\u1ed9t ph\\u1ea7n m\\u1ec1m qu\\u1ea3n l\\u00fd m\\u1ed1i quan h\\u1ec7 kh\\u00e1ch h\\u00e0ng th\\u00f4ng th\\u01b0\\u1eddng, m\\u00e0 n\\u00f3 c\\u00f2n l\\u00e0 m\\u1ed9t h\\u1ec7 th\\u1ed1ng t\\u1ed5ng th\\u1ec3 gi\\u00fap t\\u1ed1i \\u01b0u h\\u00f3a c\\u00e1c ho\\u1ea1t \\u0111\\u1ed9ng kinh doanh t\\u1eeb \\u0111\\u1ea1i l\\u00fd, \\u0111\\u01a1n h\\u00e0ng, kh\\u00e1ch h\\u00e0ng, t\\u1ed3n kho \\u0111\\u1ebfn c\\u1ed9ng t\\u00e1c vi\\u00ean\",\"number_post\":\"10\",\"code_script\":\"\",\"logo\":\"\",\"image_share\":\"\",\"favicon\":\"\"}', NULL),
+(3, 'contact_site', '{\"phone\":\"0816560000\",\"email\":\"tranmanhbk179@gmail.com\",\"address\":\"18 Thanh B\\u00ecnh, M\\u1ed7 Lao, H\\u00e0 \\u0110\\u00f4ng, H\\u00e0 N\\u1ed9i\"}', NULL),
+(4, 'smtp_site', '{\"email\":\"ezpicsvn@gmail.com\",\"pass\":\"xutxevlnfjmmsngi\",\"display_name\":\"ICHAM CRM\",\"server\":\"ssl:\\/\\/smtp.gmail.com\",\"port\":\"465\"}', NULL),
+(5, 'plugins_site', '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\"]', NULL),
 (6, 'theme_active_site', 'loginAdmin', NULL),
-(7, 'plugin_installed', '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\"]', NULL),
+(7, 'plugin_installed', '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\"]', NULL),
 (8, 'theme_installed', '[\"toptop\",\"loginAdmin\"]', NULL),
-(9, 'crm_module', '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"affiliate\"]', NULL);
+(9, 'crm_module', '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"affiliate\"]', NULL),
+(10, 'settingMMTCAPI', '{\"userAPI\":\"admin\",\"passAPI\":\"Mmtc123!\",\"price\":\"0\",\"note_pay\":\"\",\"number_bank\":\"\",\"account_bank\":\"\",\"key_bank\":\"\",\"idBot\":\"\",\"tokenBot\":\"\",\"idBlockConfirm\":\"\",\"idBlockDownload\":\"\"}', NULL);
 
 -- --------------------------------------------------------
 
@@ -611,6 +628,27 @@ CREATE TABLE `question_products` (
   `question` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_product` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `request_exports`
+--
+
+CREATE TABLE `request_exports` (
+  `id` int(11) NOT NULL,
+  `avatar` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `birthday` varchar(255) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `affiliate_phone` varchar(15) DEFAULT NULL,
+  `link_download` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `status_pay` varchar(255) NOT NULL DEFAULT 'wait',
+  `idMessenger` varchar(255) DEFAULT NULL,
+  `idZalo` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -915,6 +953,12 @@ ALTER TABLE `members`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `member_webs`
+--
+ALTER TABLE `member_webs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `menus`
 --
 ALTER TABLE `menus`
@@ -972,6 +1016,12 @@ ALTER TABLE `questions`
 -- Chỉ mục cho bảng `question_products`
 --
 ALTER TABLE `question_products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `request_exports`
+--
+ALTER TABLE `request_exports`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1159,6 +1209,12 @@ ALTER TABLE `members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT cho bảng `member_webs`
+--
+ALTER TABLE `member_webs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `menus`
 --
 ALTER TABLE `menus`
@@ -1168,7 +1224,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT cho bảng `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
@@ -1216,6 +1272,12 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT cho bảng `question_products`
 --
 ALTER TABLE `question_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `request_exports`
+--
+ALTER TABLE `request_exports`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

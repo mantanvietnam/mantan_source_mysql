@@ -27,12 +27,12 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng nhập hệ thống quản lý hệ thống</title>
+    <title>Đăng nhập phần mềm chăm sóc khách hàng ICHAM CRM</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://designer.ezpics.vn/plugins/hethongdaily/view/home/assets/img/avatar-ezpics.png" />
+    <link rel="icon" type="image/x-icon" href="/plugins/hethongdaily/view/home/assets/img/logo-phoenix.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -75,9 +75,9 @@
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
-                <a href="index.html" class="app-brand-link gap-2">
+                <a href="/" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
-                    <img src="/plugins/hethongdaily/view/home/assets/img/avatar-ezpics.png" width="50">
+                    <img src="/plugins/hethongdaily/view/home/assets/img/logo-phoenix.png" width="50">
                   </span>
                   <span class="app-brand-text demo text-body fw-bolder">ĐĂNG NHẬP</span>
                 </a>
