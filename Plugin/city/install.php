@@ -2,6 +2,11 @@
 
 global $sqlInstallDatabase;
 global $sqlDeleteDatabase;
+global $sqlUpdateDatabase;
+
+$sqlInstallDatabase = '';
+$sqlDeleteDatabase = '';
+$sqlUpdateDatabase = [];
 
 $sqlInstallDatabase .= "CREATE TABLE `district` (
   `district_id` int NOT NULL,
@@ -11401,3 +11406,17 @@ $sqlInstallDatabase .= "INSERT INTO `district` (`district_id`, `province_id`, `n
 $sqlDeleteDatabase .= 'DROP TABLE `district`;';
 $sqlDeleteDatabase .= 'DROP TABLE `province`;';
 $sqlDeleteDatabase .= 'DROP TABLE `wards`;';
+
+// Bang district
+$sqlUpdateDatabase['district']['district_id'] = "ALTER TABLE `district` ADD `district_id` int NOT NULL; ";
+$sqlUpdateDatabase['district']['province_id'] = "ALTER TABLE `district` ADD `province_id` int NOT NULL; ";
+$sqlUpdateDatabase['district']['name'] = "ALTER TABLE `district` ADD `name` varchar(64) COLLATE utf8mb4_general_ci NOT NULL; ";
+
+// Bang province
+$sqlUpdateDatabase['province']['province_id'] = "ALTER TABLE `province` ADD `province_id` int NOT NULL; ";
+$sqlUpdateDatabase['province']['name'] = "ALTER TABLE `province` ADD `name` varchar(64) COLLATE utf8mb4_general_ci NOT NULL; ";
+
+// Bang wards
+$sqlUpdateDatabase['wards']['wards_id'] = "ALTER TABLE `wards` ADD `wards_id` int NOT NULL; ";
+$sqlUpdateDatabase['wards']['district_id'] = "ALTER TABLE `wards` ADD `district_id` int NOT NULL; ";
+$sqlUpdateDatabase['wards']['name'] = "ALTER TABLE `wards` ADD `name` varchar(64) COLLATE utf8mb4_general_ci NOT NULL; ";
