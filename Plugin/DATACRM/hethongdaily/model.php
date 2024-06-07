@@ -11,4 +11,6 @@ include('model/order_member_details.php'); // chi tiết đơn hàng đại lý
 include('model/warehouse_products.php'); // kho hàng sản phẩm của đại lý
 include('model/warehouse_histories.php'); // lịch sử xuất nhập kho
 include('model/token_devices.php'); // mã thiết bị
+include('model/document.php'); // thư viện
+include('model/documentinfo.php'); // chi tết thư viện
 ?>

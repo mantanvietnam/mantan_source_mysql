@@ -177,6 +177,31 @@ $sqlInstallDatabase .= "CREATE TABLE `token_devices` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
+$sqlInstallDatabase .="CREATE TABLE `documents` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `image` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `id_parent` INT NOT NULL , 
+  `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `created_at` INT NOT NULL ,
+   PRIMARY KEY (`id`)
+ ) ENGINE = InnoDB;";
+
+ $sqlInstallDatabase .="CREATE TABLE `documentinfos` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `file` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `id_document` INT NOT NULL , 
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -188,6 +213,8 @@ $sqlDeleteDatabase .= "DROP TABLE warehouse_products; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouse_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE token_devices; ";
 $sqlDeleteDatabase .= "DROP TABLE zalo_templates; ";
+$sqlDeleteDatabase .= "DROP TABLE documents; ";
+$sqlDeleteDatabase .= "DROP TABLE documentinfos; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -328,4 +355,25 @@ $sqlUpdateDatabase['zalo_templates']['content_example'] = "ALTER TABLE `zalo_tem
 // bảng token_devices
 $sqlUpdateDatabase['token_devices']['token_device'] = "ALTER TABLE `token_devices` ADD `token_device` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['token_devices']['id_member'] = "ALTER TABLE `token_devices` ADD `id_member` INT NOT NULL DEFAULT '0';";
+
+$sqlUpdateDatabase['token_devices']['id_member'] = "ALTER TABLE `token_devices` ADD `id_member` INT NOT NULL DEFAULT '0';";
+
+// bảng 
+$sqlUpdateDatabase['documents']['title'] = "ALTER TABLE `documents` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
+$sqlUpdateDatabase['documents']['type'] = "ALTER TABLE `documents` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
+$sqlUpdateDatabase['documents']['image'] = "ALTER TABLE `documents` ADD `image` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
+$sqlUpdateDatabase['documents']['id_parent'] = "ALTER TABLE `documents` ADD `id_parent` INT NOT NULL;"; 
+$sqlUpdateDatabase['documents']['status'] = "ALTER TABLE `documents` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
+$sqlUpdateDatabase['documents']['content'] = "ALTER TABLE `documents` ADD `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
+$sqlUpdateDatabase['documents']['slug'] = "ALTER TABLE `documents` ADD `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
+$sqlUpdateDatabase['documents']['description'] = "ALTER TABLE `documents` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
+$sqlUpdateDatabase['documents']['created_at'] = "ALTER TABLE `documents` ADD `created_at` INT NOT NULL";
+
+$sqlUpdateDatabase['documentinfos']['title'] = "ALTER TABLE `documentinfos` ADD  `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['documentinfos']['file'] = "ALTER TABLE `documentinfos` ADD  `file` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['documentinfos']['status'] = "ALTER TABLE `documentinfos` ADD  `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['documentinfos']['description'] = "ALTER TABLE `documentinfos` ADD  `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['documentinfos']['slug'] = "ALTER TABLE `documentinfos` ADD  `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['documentinfos']['id_document'] = "ALTER TABLE `documentinfos` ADD  `id_document` INT NOT NULL";
+
 

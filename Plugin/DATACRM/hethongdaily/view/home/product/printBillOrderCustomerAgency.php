@@ -110,7 +110,12 @@
                             Người bán<br/><?php echo $member_sell->name;?>
                         </div>
                     </div>
-                </div>
+                    <?php if(!empty($member_sell->image_qr_pay)){ ?>
+                    <div class=" footer " style="padding-top: 5px;">
+                            <h5>Mã QR thanh toán</h5>
+                            <img src="<?php echo $member_sell->image_qr_pay; ?>" style="width: 80%;">
+                    </div>
+                <?php } ?>
             </section>
         </div>
         <div id="dialog-confirm" title="Thông báo" style="display: none;">
