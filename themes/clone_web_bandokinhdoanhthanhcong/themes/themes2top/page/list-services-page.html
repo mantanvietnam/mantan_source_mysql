@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../asset/css/main.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+    <!-- aos -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Boostrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+    <!-- Fonawesome -->
+    <script src="https://kit.fontawesome.com/9163bded0f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Fancyapp -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+</head>
+
+<body>
+
+    <!-- <div class="intro">
+        <h1 class="logo-header">
+            <div class="loader">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </h1>
+    </div> -->
+
+
+    <header>
+        <section id="menu">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"><img src="../asset/image/toptop-logo.png" alt=""></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="./home.html">Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./introduction-page.html">Giới thiệu</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="./list-services-page.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dịch vụ
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./list-services-page.html">Tất cả dịch vụ</a></li>
+                                    <li><a class="dropdown-item" href="#">Thiết kế Website, App</a></li>
+                                    <li><a class="dropdown-item" href="#">Làm nội dung</a></li>
+                                    <li><a class="dropdown-item" href="#">Chạy quảng cáo</a></li>
+                                    <li><a class="dropdown-item" href="#">Dịch vụ PR</a></li>
+                                    <li><a class="dropdown-item" href="#">VIRUAL TOUR 360°</a></li>
+                                    <li><a class="dropdown-item" href="#">TÊN MIỀN - WEB HOSTING</a></li>
+                                    <li><a class="dropdown-item" href="#">DỊCH VỤ DỊCH THUẬT</a></li>
+                                    <li><a class="dropdown-item" href="#">DỊCH VỤ LƯU TRÚ</a></li>
+                                    <li><a class="dropdown-item" href="#">DỊCH VỤ KHÁC</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Tin tức</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./recruitment-page.html">Tuyển dụng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./contact-page.html">Liên hệ</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="header-btn d-none">
+                                    <button class="advise-button">Đăng kí tư vấn</button>
+                                    <a href=""><img src="../asset/image/coVN.png" alt=""></a>
+                                    <a href=""><img src="../asset/image/coUK.png" alt=""></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="header-btn">
+                        <button class="advise-button">Đăng kí tư vấn</button>
+                        <a href=""><img src="../asset/image/coVN.png" alt=""></a>
+                        <a href=""><img src="../asset/image/coUK.png" alt=""></a>
+                    </div>
+
+
+                </div>
+            </nav>
+        </section>
+    </header>
+
+    <main>
+        <section id="section-banner-top">
+            <div class="container">
+                <div class="banner-contain">
+                    <div class="desktop-banner">
+                        <img src="../asset/image/teamwork.png" alt="">
+                    </div>
+                    <div class="banner-contain-title">
+                        <p>Dịch vụ</p>
+                        <h3>Những <span>dịch vụ</span> chúng tôi <br> cung cấp cho khách hàng</h3>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+        <section id="section-all-services">
+            <div class="container">
+                <div class="sg-list-services">
+                    <div class="row">
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv1.png" alt="">
+                                    <p>1/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>THIẾT KẾ WEBSITE</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Đội ngũ MIKO TECH giàu kinh nghiệm thực chiến thiết kế website đa ngành nghề sẽ giúp bạn giải quyết vấn đề tiếp cận khách hàng thông qua những thiết kế website SÁNG TẠO - TỐI ƯU - CHUẨN SEO - CHUYÊN NGHIỆP VÀ HIỆU QUẢ.</p>
+                                    <ul>
+                                        <li>Thiết kế website bán hàng, website giới thiệu doanh nghiệp</li>
+                                        <li>Thiết kế website đa ngành nghề</li>
+                                        <li>Tư vấn và giải đáp thắc mắc thiết kế website miễn phí</li>
+                                    </ul>
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv2.png" alt="">
+                                    <p>2/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>THIẾT KẾ SÀN THƯƠNG MẠI ĐIỆN TỬ</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Nắm bắt cơ hội kinh doanh và xu hướng kinh doanh thương mại điện tử đang được Chính phủ khuyến khích trong thời đại dịch COVID, sàn thương mại điện tử chính là chìa khóa phát triển kinh doanh dành cho bạn.</p>
+                                    <ul>
+                                        <li>Tạo gian hàng Lazada, Shopee cho người mới</li>
+                                        <li>Trang trí gian hàng bắt mắt</li>
+                                        <li>Tối ưu chuẩn SEO</li>
+                                    </ul>
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv3.png" alt="">
+                                    <p>3/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>THIẾT KẾ WEB APP</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Web app được rất nhiều cá nhân và doanh nghiệp áp dụng trong hoạt động quản trị hiện nay bởi tính tiện lợi, đồng bộ, hiệu quả và an toàn mà nó mang lại. Một số ứng dụng của web app phổ biến hiện nay là phần mềm quản
+                                        lý giáo dục, phần mềm quản lý cửa hàng, quản lý kho, quản lý kế toán - bán hàng, quản lý nhân sự,...</p>
+                                    <ul>
+                                        <li>Web app quản lý bán hàng</li>
+                                        <li>Web app quản lý nhân sự</li>
+                                        <li>Thiết kế web app theo yêu cầu</li>
+                                    </ul>
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv4.png" alt="">
+                                    <p>4/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>THIẾT KẾ MOBILE APP</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Sở hữu app mobile là điều kiện tiên quyết để bạn đến gần hơn với thành công và mang về con số lợi nhuận “vượt bậc”. Thiết kế app mobile là một cơ hội mới và vô cùng tiềm năng để các cá nhân và doanh nghiệp tận dụng
+                                        được lợi thế kinh doanh nhờ vào sự phát triển của công nghệ.</p>
+                                    <ul>
+                                        <li>Native Mobile App</li>
+                                        <li>Hybrid Mobile App</li>
+                                    </ul>
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv5.png" alt="">
+                                    <p>5/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>DỊCH VỤ SEO</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Làm thế nào để website của bạn thuộc top đầu trên công cụ tìm kiếm? Hãy để dịch vụ SEO tổng thể tại MIKO TECH hỗ trợ bạn.
+                                        <br>SEO sẽ giúp khách hàng truy cập vào website của bạn mà không mất bất kỳ khoản chi phí nào cho công cụ tìm kiếm. SEO càng tốt thì website của bạn sẽ có xếp hạng cao hơn trên trang kết quả tìm kiếm, từ đó đạt
+                                        được những mục tiêu quan trọng mà bạn hướng đến.
+                                    </p>
+                                    <ul>
+                                        <li>Gói SEO cơ bản</li>
+                                        <li>Gói SEO nâng cao</li>
+                                        <li>Gói SEO cao cấp</li>
+                                    </ul>
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv6.png" alt="">
+                                    <p>6/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>QUẢN TRỊ WEBSITE</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Bạn không có đủ nguồn lực để tự vận hành và quản trị website? Bạn có nhân viên quản trị web nhưng chưa thực sự hiệu quả? Đội ngũ nhân viên MIKO TECH với kinh nghiệm nhiều năm tạo lập và quản trị website sẽ hỗ trợ bạn
+                                        nâng cao chất lượng nội dung website, giúp thu hút khách hàng tiềm năng và quảng bá thương hiệu của bạn trên thị trường online.</p>
+                                    <!-- <ul>
+                                        <li>Thiết kế website bán hàng, website giới thiệu doanh nghiệp</li>
+                                        <li>Thiết kế website đa ngành nghề</li>
+                                        <li>Tư vấn và giải đáp thắc mắc thiết kế website miễn phí</li>
+                                    </ul> -->
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv7.png" alt="">
+                                    <p>7/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>HOSTING</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Bất kỳ website nào để có thể hoạt động đều cần có không gian lưu trữ và xử lý dữ liệu, thường gọi là hosting. TOP TOP cung cấp dịch vụ hosting với các gói khác nhau, phù hợp nhu cầu của nhiều phân phúc với chi phí hợp
+                                        lý.
+                                    </p>
+                                    <ul>
+                                        <li>Gói cơ bản</li>
+                                        <li>Gói cao cấp</li>
+                                        <li>Gói VIP</li>
+                                    </ul>
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv8.png" alt="">
+                                    <p>8/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>DOMAIN</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Tên miền là một hình thức đại diện cho địa chỉ website của bạn, thay vì dùng những con số được mã hóa, một cái tên ấn tượng, súc tích sẽ dễ nhớ và dễ nhận biết hơn đối với website của bạn trên thị trường Internet.
+                                    </p>
+                                    <ul>
+                                        <li>Tên miền Việt Nam</li>
+                                        <li>Tên miền quốc tế</li>
+                                    </ul>
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv9.png" alt="">
+                                    <p>9/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>DỊCH VỤ QUẢNG CÁO ĐA KÊNH</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Quảng cáo là công cụ lý tưởng để thương hiệu của bạn tỏa sáng, giúp cải thiện doanh thu với mức chi phí hợp lý. Để có thể nhận được “hào quang doanh số”, đội ngũ TOP TOP luôn chú trọng từng chi tiết nhỏ nhất nhằm xuất
+                                        hiện trên “đấu trường Internet” với vẻ ngoài hoàn hảo và nội dung chất lượng nhất.</p>
+                                    <ul>
+                                        <li>Google Ads</li>
+                                        <li>Facebook Ads</li>
+                                        <li>Tiktok Ads</li>
+                                        <li>...</li>
+                                    </ul>
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv10.png" alt="">
+                                    <p>10/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>THIẾT KẾ BRANDING THƯƠNG HIỆU</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Bạn có muốn thương hiệu của mình trở nên thu hút và dễ dàng phân biệt với hàng ngàn thương hiệu ngoài kia. MIKO TECH với đội ngũ nhân viên thiết kế trẻ trung và sáng tạo sẽ xây dựng cho bạn các ấn phẩm branding, catalogue,
+                                        banners,... đẹp mắt, thu hút và thể hiện phong cách riêng</p>
+                                    <ul>
+                                        <li>Thiết kế logo</li>
+                                        <li>Thiết kế catalogue</li>
+                                        <li>Thiết kế banners</li>
+                                    </ul>
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="sg-item-services">
+                                <div class="item-services-illustration">
+                                    <img src="../asset/image/sv10.png" alt="">
+                                    <p>11/11</p>
+                                </div>
+                                <div class="item-services-name">
+                                    <h4>ĐĂNG KÝ WEBSITE BỘ CÔNG THƯƠNG</h4>
+                                </div>
+                                <div class="item-services-content">
+                                    <p>Bất kỳ cá nhân, tổ chức, doanh nghiệp nào có các hoạt động xúc tiến thương mại, quảng bá, bán hàng trên thị trường Internet đều phải thông báo hoặc đăng ký với Bộ Công thương để tránh rủi ro bị phạt, nâng cao uy tín
+                                        và khẳng định thương hiệu.</p>
+                                    <ul>
+                                        <li>Thông báo website với Bộ Công thương</li>
+                                        <li>Đăng ký website với Bộ Công thương</li>
+                                    </ul>
+                                </div>
+                                <div class="item-services-btn">
+                                    <a href="">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <section id="section-feedback" class="list-services-page">
+            <div class="container">
+                <div class="feedback-content">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-12 col-sm-12 col-12 no-padding-right">
+                            <div class="section-title" data-aos="zoom-in-up">
+                                <h3>Khách hàng <br> <span>nói gì</span> về TOP TOP</h3>
+                            </div>
+
+                            <div class="fb-slide-1">
+                                <div class="item-slide-1">
+                                    <div class="customer-info">
+                                        <div class="customer-img">
+                                            <img src="../asset/image/bg-btn.jpg" alt="">
+                                        </div>
+                                        <div class="customer-company">
+                                            <p>Anh Tiến <br> Công ty TNHH Phú Mỹ </p>
+                                        </div>
+                                    </div>
+                                    <div class="fedback-text">
+                                        <p>PMGĐ mong muốn thiết kế website đăng tin tại Miko Tech với mục đích tạo ra một kênh rao vặt bất động sản trung gian, kết nối người mua với người bán lại với nhau bằng những giao dịch cực kỳ đơn giản, tiện lợi, nhanh
+                                            chóng, an toàn, mang đến hiệu quả bất ngờ. Miko Tech đã giúp PMGĐ hoàn thiện website với các tính năng vượt trội, khả năng hiển thị tốt trên nhiều thiết bị. PMGĐ rất hài lòng và sẽ tiếp tục lựa chọn Miko Tech
+                                            là đơn vị đồng hành phát triển và nâng cấp website ở thời gian sắp tới</p>
+                                    </div>
+                                </div>
+
+                                <div class="item-slide-1">
+                                    <div class="customer-info">
+                                        <div class="customer-img">
+                                            <img src="../asset/image/bg-btn.jpg" alt="">
+                                        </div>
+                                        <div class="customer-company">
+                                            <p>Anh Tiến - Công ty TNHH Phú Mỹ </p>
+                                        </div>
+                                    </div>
+                                    <div class="fedback-text">
+                                        <p>PMGĐ mong muốn thiết kế website đăng tin tại Miko Tech với mục đích tạo ra một kênh rao vặt bất động sản trung gian, kết nối người mua với người bán lại với nhau bằng những giao dịch cực kỳ đơn giản, tiện lợi, nhanh
+                                            chóng, an toàn, mang đến hiệu quả bất ngờ.</p>
+                                    </div>
+                                </div>
+
+                                <div class="item-slide-1">
+                                    <div class="customer-info">
+                                        <div class="customer-img">
+                                            <img src="../asset/image/bg-btn.jpg" alt="">
+                                        </div>
+                                        <div class="customer-company">
+                                            <p>Anh Tiến - Công ty TNHH Phú Mỹ </p>
+                                        </div>
+                                    </div>
+                                    <div class="fedback-text">
+                                        <p>PMGĐ mong muốn thiết kế website đăng tin</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-lg-7 col-md-12 col-sm-12 col-12 no-padding">
+                            <div class="fb-slide-2">
+                                <div class="item-slide-2">
+                                    <img src="../asset/image/cardvisit.jpg" alt="">
+                                </div>
+
+                                <div class="item-slide-2">
+                                    <img src="../asset/image/toptop-car.jpg" alt="">
+                                </div>
+
+                                <div class="item-slide-2">
+                                    <img src="../asset/image/toptop-helmet.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="sldie-feedback-center">
+                        <div class="sldie-feedback-center-content">
+                            <div class="macbook-img">
+                                <img src="../asset/image/macbook.webp" alt="">
+                            </div>
+                            <div class="list-slide-feedback-center">
+                                <div class="fb-slide-3">
+                                    <div class="item-slide-3">
+                                        <div class="item-slide-3-img">
+                                            <img src="../asset/image/cardvisit.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="item-slide-3">
+                                        <div class="item-slide-3-img">
+                                            <img src="../asset/image/toptop-car.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="item-slide-3">
+                                        <div class="item-slide-3-img">
+                                            <img src="../asset/image/toptop-helmet.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <section id="footer">
+            <div class="container">
+
+                <div class="footer-contact-absolute">
+                    <div class="footer-contact">
+                        <div class="footer-contact-text">
+                            <p>Ngay bây giờ chính là thời điểm sớm nhất<br> Bước gần hơn đến thành công của bạn bằng cách trò chuyện với chúng tôi</p>
+                        </div>
+
+                        <div class="footer-contact-btn">
+                            <button class="advise-button" data-aos="zoom-in">Liên hệ ngay</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="footer-contact-wave">
+                    <img src="../asset/image/wave.webp" alt="">
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-4 col-12">
+                        <div class="footer-company-info">
+                            <div class="footer-company-intro">
+                                <div class="footer-company-logo">
+                                    <img src="../asset/image/toptop-logo.png" alt="">
+                                </div>
+                                <p>TOPTOP ra đời với sứ mệnh đồng hành và nâng tầm thương hiệu của bạn trên thị trường Internet. Chúng tôi giúp bạn phát triển với sự hỗ trợ của hệ sinh thái các giải pháp Marketing toàn diện. Đặc biệt với dịch vụ thiết kế
+                                    website chuyên nghiệp tại TOPTOP, bạn và doanh nghiệp bạn sẽ có bệ phóng vững chắc cho mọi hoạt động kinh doanh.</p>
+                            </div>
+
+                            <div class="footer-company-address">
+                                <h4>Trụ sở chính</h4>
+                                <ul>
+                                    <li><span>Địa chỉ:</span> Số 18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội</li>
+                                    <li><span>Số điện thoại:</span> 028 3636 8805 - 0909 326 456</li>
+                                    <li><span>Email</span> support@toptop.vn</li>
+                                    <li><span>Thời gian hoạt động:</span> Thứ 2 - Thứ 6 từ 8h30 - 17h30 Thứ 7 từ 8h30 - 12h30</li>
+                                </ul>
+
+                            </div>
+
+                            <div class="footer-company-icons-contact">
+                                <h4>Kết nối với chúng tôi</h4>
+                                <ul>
+                                    <li><a href=""><i class="fa-brands fa-facebook-f"></i></a></li>
+                                    <li><a href=""><i class="fa-brands fa-youtube"></i></a></li>
+                                    <li><a href=""><i class="fa-brands fa-instagram"></i></a></li>
+                                    <li><a href=""><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                    <li><a href=""><i class="fa-brands fa-tiktok"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-12 d-fl">
+                        <div class="footer-company-services set-width">
+                            <h4>DỊCH VỤ</h4>
+                            <ul>
+                                <li><a href="">Thiết kế Website, App</a></li>
+                                <li><a href="">Làm nội dung</a></li>
+                                <li><a href="">Chạy quảng cáo</a></li>
+                                <li><a href="">Dịch vụ PR</a></li>
+                                <li><a href="">Vitual tour 360°</a></li>
+                                <li><a href="">Tên miên - Web hosting</a></li>
+                                <li><a href="">Dịch vụ dịch thuật</a></li>
+                                <li><a href="">Dịch vụ lưu trú</a></li>
+                                <li><a href="">Dịch vụ khác</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-company-recruitment set-width">
+                            <h4>TUYỂN DỤNG</h4>
+                            <ul>
+                                <li>Gửi thông tin ứng tuyển tại</li>
+                                <li><span>Email:</span> tuyendung@toptop.vn</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 col-12">
+                        <div class="footer-advise">
+                            <div class="footer-advise-title">
+                                <h4>GỬI YÊU CẦU BÁO GIÁ DỊCH VỤ</h4>
+                                <p>TOP TOP luôn tư vấn dịch vụ miễn phí. Chúng tôi sẽ liên hệ báo giá theo thông tin mà bạn để lại.</p>
+                            </div>
+                            <div class="footer-advise-form">
+                                <form action="">
+                                    <div class="flex-input">
+                                        <input type="text" placeholder="Họ và tên *" required>
+                                        <input type="text" placeholder="Email *" required>
+                                    </div>
+                                    <input type="text" placeholder="Số điện thoại *" required>
+                                    <input type="text" placeholder="Dịch vụ cần tư vấn *" required>
+                                    <textarea name="" id="" rows="6" placeholder="Nội dung tin nhắn"></textarea>
+
+                                    <div class="footer-advise-form-btn">
+                                        <button type="submit">Gửi</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="copy-right">
+            <p>© 2024 Top Top. All rights reserved.</p>
+        </section>
+    </footer>
+
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="../asset/js/main.js"></script>
+</body>
+
+</html>
