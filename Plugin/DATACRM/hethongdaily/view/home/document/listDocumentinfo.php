@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <a href="/list<?php echo $slug ?>"><?php echo $title ?></a> / <?php echo $data->title ?> / Danh sách hình ảnh
+    <a href="/list<?php echo $slug ?>"><?php echo $title ?></a> / <?php echo $data->title ?> / Danh sách <?php echo $title ?>
   </h4>
 
   <p><a href="/add<?php echo $slug ?>info?id_document=<?php echo $data->id; ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>

@@ -197,7 +197,11 @@ function addCustomerHistoriesAgency($input)
             }
         }
 
+        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
+
         setVariable('data', $data);
+        setVariable('listGroupCustomer', $listGroupCustomer);
         setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
@@ -293,6 +297,65 @@ function treatmentCustomerHistoriesAgency(){
         }else{
             return $controller->redirect('/calendarCustomerHistoriesAgency');
         }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function addCustomerHistoriesAjax($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+
+    if(!empty($session->read('infoUser'))){
+
+        $metaTitleMantan = 'Thông tin chăm sóc khách hàng';
+
+        $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+        $modelCustomers = $controller->loadModel('Customers');
+
+        $mess= '';
+
+        $infoUser = $session->read('infoUser');
+
+        // lấy data edit
+        
+        $data = $modelCustomerHistories->newEmptyEntity();
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['id_customer']) && !empty($dataSend['time_now']) && !empty($dataSend['note_now']) && !empty($dataSend['action_now']) && !empty($dataSend['status'])){
+                $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id_customer']])->first();
+                // tạo dữ liệu save
+                if(!empty($checkCustomer) && $checkCustomer->id_parent == $infoUser->id){
+                    $data->id_customer = (int) $dataSend['id_customer'];
+                    $data->note_now = $dataSend['note_now'];
+                    $data->action_now = $dataSend['action_now'];
+                    $data->id_staff_now = $infoUser->id;
+                    $data->status = $dataSend['status'];
+
+                    $time_now = explode(' ', $dataSend['time_now']);
+                    $time = explode(':', $time_now[0]);
+                    $date = explode('/', $time_now[1]);
+                    $data->time_now = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+
+                    $modelCustomerHistories->save($data);
+
+                    return array('code'=> 1 , 'mess'=>'<p class="text-success">Lưu dữ liệu thành công</p>','data'=>$data,'customer'=>$checkCustomer);
+                }else{
+                   return array('code'=> 0 , 'mess'=>'<p class="text-danger">Đây không phải khách hàng của bạn</p>');
+                }
+            }else{
+                return array('code'=> 0 , 'mess'=>'<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>');
+            }
+        }
+        return array('code'=> 0 , 'mess'=>'<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>');
+        
     }else{
         return $controller->redirect('/login');
     }
