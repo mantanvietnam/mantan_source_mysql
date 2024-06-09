@@ -67,6 +67,9 @@
 
 	$routesPlugin['sendNotificationMobile']= 'hethongdaily/view/home/zalo/sendNotificationMobile.php';
 
+	// sms
+	$routesPlugin['sendSMS']= 'hethongdaily/view/home/sms/sendSMS.php';
+	
 	// thông tin đại lý
 	$routesPlugin['info']= 'hethongdaily/view/home/member/info.php';
 

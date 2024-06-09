@@ -211,7 +211,7 @@ function resultvip($input)
                     $data = $checkDataExits;
                 }
 
-                if(!is_string($dataSend['avatar'])){
+                if(empty($dataSend['avatar']) || !is_string($dataSend['avatar'])){
                     $dataSend['avatar'] = '';
                 }
 

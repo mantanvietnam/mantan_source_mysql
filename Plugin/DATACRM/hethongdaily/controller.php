@@ -30,6 +30,8 @@ include_once('controller/api/token_devicesController.php'); // mã thiết bị
 
 include_once('controller/home/transaction_histories_controller.php'); // lịch sử giao dịch nạp tiền
 
+include_once('controller/home/smsController.php'); // gửi tin sms
+
 include_once('controller/fix_controller.php'); // vá lỗi
 
 

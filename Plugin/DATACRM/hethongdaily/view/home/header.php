@@ -153,11 +153,14 @@
                           </a>
 
                           <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                            <a class="dropdown-item" href="/sendNotificationMobile">Gửi thông báo APP Mobile</a>
+                            <a class="dropdown-item" href="/sendSMS">Gửi tin SMS</a>
                             <a class="dropdown-item" href="/sendMessZaloFollow">Gửi tin Zalo Follow</a>
                             <a class="dropdown-item" href="/sendMessZaloZNS">Gửi tin Zalo ZNS</a>
+                            <a class="dropdown-item" href="/sendNotificationMobile">Gửi thông báo APP Mobile</a>
+                            <hr/>
                             <a class="dropdown-item" href="/templateZaloZNS">Mẫu tin Zalo ZNS</a>
                             <a class="dropdown-item" href="/setttingZaloOA">Cài đặt Zalo OA</a>
+                            <hr/>
                             <a class="dropdown-item" href="/listTransactionHistories">Nạp tiền tài khoản</a>
                           </div>
                         </li>';

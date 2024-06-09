@@ -12,11 +12,12 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Gửi tin nhắn Zalo ZNS</h5>
+            <h5 class="mb-0">Gửi tin nhắn Zalo ZNS (phí gửi 500đ/tin)</h5>
           </div>
           <div class="card-body">
             <?php if($today['hours']<22 && $today['hours']>=6){ ?>
             <p><?php echo @$mess;?></p>
+            <p>Số dư tài khoản: <b class="text-danger"><?php echo number_format($infoUser->coin);?>đ</b></p>
             <form enctype="multipart/form-data" method="post" action="">
               <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
               <div class="row">
