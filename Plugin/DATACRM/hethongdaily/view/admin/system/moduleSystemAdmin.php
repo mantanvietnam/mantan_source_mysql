@@ -69,6 +69,11 @@
                     <input type="checkbox" name="crm_module[]" value="affiliate" <?php if(!empty($data_value) && in_array('affiliate', $data_value)) echo 'checked';?> > Tiếp thị liên kết (Cộng tác viên)
                   </div>
                 </div>
+                <div class="col-md-3">
+                  <div class="mb-3">
+                    <input type="checkbox" name="crm_module[]" value="document" <?php if(!empty($data_value) && in_array('document', $data_value)) echo 'checked';?> > Thư viện
+                  </div>
+                </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>

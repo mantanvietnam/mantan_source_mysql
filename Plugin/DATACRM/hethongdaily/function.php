@@ -57,6 +57,11 @@ $menus[1]['sub'][]= array( 'title'=>'Đơn trong hệ thống',
 addMenuAdminMantan($menus);
 
 global $keyFirebase;
+global $displayInfo;
+
+$displayInfo = array(   1 =>'Giao diện 1',
+                        2 =>'Giao diện 2',
+                );
 
 //$keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
 $keyFirebase = 'AAAAl-zVR38:APA91bG2D6eIYD98YPIAWn5iowWnSfRfItalL1j044xvjhaH15RbWAwLxPtJRgniwNkdRoCZTQUomHmofsP-zuEFsrO414SAgNffjz5BeQWbKnQ61zqahMebNhgSNPLZpkDj5XR09E16';
@@ -788,10 +793,35 @@ function saveCustomerCategory($id_customer=0,$idgroup=array()){
     return 'ok';
 }
 
-global $displayInfo;
+function sendSMSByESMS($phone='', $mess='', $id_history_sms=0)
+{
+    if(!empty($phone) && !empty($mess)){
+        $url = 'https://rest.esms.vn/MainService.svc/json/SendMultipleMessage_V4_post_json/';
+        $headers = ['Content-Type: application/json'];
+        $data = [  "ApiKey" => "E69EBCCCBD92CC5E403D68E78F605E",
+                   "SecretKey" => "262DC6F859F9EC69B9F6F46388B71E",
+                   
+                   "Content" => $mess,
+                   "Phone" => $phone,
+                   
+                   "SmsType" => "8",
+                   "IsUnicode" => 0, // 1 có dấu, 0 không dấu
+                   "Sandbox" => 0, // 1 là tets, 0 là chạy thật
+                   "campaignid" => "ICHAM CRM",
+                   "RequestId" => $id_history_sms,
+                   "CallbackUrl" => "",
+                   "SendDate" => ""
+               ];
 
-     $displayInfo =array( 1 =>'Giao diện 1',
-                         2 =>'Giao diện 2',
+        $return = sendDataConnectMantan($url, $data, $headers, 'raw');
+        $return = json_decode($return, true);
 
-     );
+        if($return['CodeResult'] == 100){
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 ?>

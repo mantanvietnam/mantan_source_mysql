@@ -1,0 +1,55 @@
+header{
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    .navbar-header{
+        background-color: transparent;
+        transition: all 0.4s ease-in-out;
+        z-index: 999999;
+        &.scroll-header{
+            .nav-link{
+                color: #fff !important;
+            }
+        }
+        .navbar-brand{
+            .image-header{
+                width: 155px;
+            }
+        }
+
+        .nav-item{
+            .nav-link{
+                color: #fff;
+                font-size: 18px;
+                font-weight: 600;
+                padding: 15px;
+                &.active{
+                    color: #e1ccad !important;
+                }
+                &:hover{
+                    color: #e1ccad !important;
+                }
+            }
+        }
+    }
+}
+
+
+
+@media (max-width: 450px){
+    header .navbar-header .nav-item .nav-link{
+        color: #e1ccad !important;
+    }    
+
+    .navbar-collapse{
+        background-color: #fff;
+        z-index: 9;
+    }
+
+    .navbar-toggler:focus{
+        box-shadow: none;
+    }
+}
+

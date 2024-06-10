@@ -169,6 +169,7 @@ function sendMessZaloFollow($input)
 	        }
 
 	        setVariable('mess', $mess);
+	        setVariable('infoUser', $infoUser);
     	}else{
     		return $controller->redirect('/setttingZaloOA/?status=emptyData');
     	}
@@ -435,6 +436,7 @@ function sendMessZaloZNS($input)
 		    setVariable('listGroupCustomer', $listGroupCustomer);
 		    setVariable('listPositions', $listPositions);
 		    setVariable('today', $today);
+		    setVariable('infoUser', $infoUser);
 		}else{
     		return $controller->redirect('/setttingZaloOA/?status=emptyData');
     	}

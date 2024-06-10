@@ -9,6 +9,7 @@ include_once('controller/home/customerHistoriesController.php'); // lịch sử 
 include_once('controller/home/order_membersController.php'); // đơn hàng đại lý
 include_once('controller/home/warehousesController.php'); // kho hàng đại lý
 include_once('controller/home/staticsController.php'); // thống kê
+include_once('controller/home/documentController.php'); // thống kê
 
 
 include_once('controller/admin/membersController.php'); // đại lý hệ thống
@@ -28,6 +29,8 @@ include_once('controller/api/orderController.php'); // đơn hàng khách lẻ
 include_once('controller/api/token_devicesController.php'); // mã thiết bị
 
 include_once('controller/home/transaction_histories_controller.php'); // lịch sử giao dịch nạp tiền
+
+include_once('controller/home/smsController.php'); // gửi tin sms
 
 include_once('controller/fix_controller.php'); // vá lỗi
 

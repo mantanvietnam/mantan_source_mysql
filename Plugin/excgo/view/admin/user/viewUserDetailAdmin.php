@@ -113,6 +113,7 @@
                         <label class="form-label">Ảnh CCCD mặt trước</label>
                         <div class="text-center">
                           <img src="<?php if (isset($idCardFront)) echo $idCardFront->path; else echo 'https://apis.exc-go.vn/plugins/excgo/view/image/default-image.jpg'; ?>" width="450px" height="300px">
+                           <?php showUploadFile('idCardFront','idCardFront',@$idCardFront->path,1);?>
                         </div>
                       </div>
 
@@ -122,6 +123,7 @@
                           <img src="<?php if (isset($idCardBack)) echo $idCardBack->path; else echo 'https://apis.exc-go.vn/plugins/excgo/view/image/default-image.jpg'; ?>"
                                width="450px" height="300px"
                           >
+                           <?php showUploadFile('idCardBack','idCardBack',@$idCardBack->path,2);?>
                         </div>
                       </div>
                     </div>
@@ -130,14 +132,18 @@
                       <label class="form-label">Hình ảnh xe</label>
                         <?php 
                         if (isset($car) && count($car)){
-                            foreach ($car as $item){
+                            foreach ($car as $key => $item){
                                 echo '  <div class="col-md-6 mb-3 text-center">
-                                          <img src="'.$item->path.'" width="450px" height="300px" class="mb-3">
-                                        </div>';
+                                          <img src="'.$item->path.'" width="450px" height="300px" class="mb-3">';
+                                        showUploadFile('car'.$key,'car[]',@$item->path,4+$key);
+                                     echo '   </div>';
                             }
                         } else {
                           echo '<p> Chưa có hình ảnh </p>';
                         }
+                         echo '  <div class="col-md-6 mb-3 text-center">';
+                            showUploadFile('car','car[]','',3);
+                        echo '   </div>';
                         ?>
                     </div>
 

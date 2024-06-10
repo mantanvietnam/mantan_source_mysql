@@ -129,6 +129,13 @@ function viewUserDetailAdmin($input)
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
+        /*debug($dataSend);
+        $domain = 'https://apis.exc-go.vn//';
+        $del_str=str_replace($domain, '', $dataSend['avatar']);
+        debug($del_str);
+        die;*/
+
+
         if (!empty($dataSend['name'])) {
             $data->name = $dataSend['name'];
             $data->avatar = $dataSend['avatar'];
@@ -140,6 +147,63 @@ function viewUserDetailAdmin($input)
 
             $modelUser->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+
+
+
+            if (!empty($_GET['id'])) {
+                $data = $modelUser->find()->where(['id' => (int)$_GET['id']])->first();
+                if(!empty($dataSend['idCardFront'])){
+                    $idCardFront = $modelImage->find()->where(['owner_id' => $_GET['id'], 'owner_type' => 'users', 'type' => 'id-card-front'])->first();
+                    if(!empty($idCardFront)){
+                        $idCardFront->path = $dataSend['idCardFront'];
+                        $modelImage->save($idCardFront);
+                    }else{
+                        $idCardFront = $modelImage->newEmptyEntity();
+                        $idCardFront->path = $dataSend['idCardFront'];
+                        $idCardFront->local_path =str_replace($domain, '', $dataSend['idCardFront']);
+                        $idCardFront->type = 'users';
+                        $idCardFront->owner_id =$_GET['id'];
+                        $idCardFront->owner_type = 'id-card-front';
+                        $modelImage->save($idCardFront);
+                    }
+                }
+                if(!empty($dataSend['idCardBack'])){
+                    $idCardBack = $modelImage->find()->where(['owner_id' => $_GET['id'], 'owner_type' => 'users', 'type' => 'id-card-back'])->first();
+                    if(!empty($idCardBack)){
+                        $idCardBack->path = $dataSend['idCardBack'];
+                        $modelImage->save($idCardBack);
+                    }else{
+                        $idCardBack = $modelImage->newEmptyEntity();
+                        $idCardBack->path = $dataSend['idCardBack'];
+                        $idCardBack->local_path =str_replace($domain, '', $dataSend['idCardBack']);
+                        $idCardBack->type = 'users';
+                        $idCardBack->owner_id =$_GET['id'];
+                        $idCardBack->owner_type = 'id-card-back';
+                        $modelImage->save($idCardBack);
+                    }
+                }
+
+
+                $car = $modelImage->deleteAll([ 'owner_id' => $_GET['id'], 'owner_type' => 'users', 'type' => 'car']);
+                $domain = 'https://apis.exc-go.vn//';
+                if(!empty($dataSend['car'])){
+                    foreach($dataSend['car'] as $key => $item){
+                        if(!empty($item)){
+                            $save = $modelImage->newEmptyEntity();
+                            $save->path = $item;
+                            $save->local_path =str_replace($domain, '', $item);
+                            $save->type = 'car';
+                            $save->owner_id =$_GET['id'];
+                            $save->owner_type = 'users';
+                            $modelImage->save($save);
+                        }
+                        
+                    }
+                }
+                $car = $modelImage->find()->where(['owner_id' => $_GET['id'],'owner_type' => 'users','type' => 'car'])->all();
+
+            }
         } else {
             $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
         }

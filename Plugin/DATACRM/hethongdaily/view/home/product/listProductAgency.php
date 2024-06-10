@@ -125,8 +125,6 @@
                         <td>'.implode(', ', $category_name).'</td>
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
                         <td> Sl còn:'.$item->quantity.'<br/>
-                            SL đã bán :'.$item->sold.'<br/>
-                            SL bán ảo:'.$item->sold_virtual.'<br/>
                         </td>
                         <td>'.$item->status.'</td>
                         

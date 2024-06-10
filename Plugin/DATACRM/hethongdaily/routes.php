@@ -67,6 +67,9 @@
 
 	$routesPlugin['sendNotificationMobile']= 'hethongdaily/view/home/zalo/sendNotificationMobile.php';
 
+	// sms
+	$routesPlugin['sendSMS']= 'hethongdaily/view/home/sms/sendSMS.php';
+	
 	// thông tin đại lý
 	$routesPlugin['info']= 'hethongdaily/view/home/member/info.php';
 
@@ -125,3 +128,19 @@
 	// lịch sử giao dịch tiền
 	$routesPlugin['listTransactionHistories']= 'hethongdaily/view/home/transaction_histories/listTransactionHistories.php';
 	$routesPlugin['addMoney']= 'hethongdaily/view/home/transaction_histories/addMoney.php';
+
+	// thư viện 
+	$routesPlugin['listAlbum']= 'hethongdaily/view/home/document/listDocument.php';
+	$routesPlugin['addAlbum']= 'hethongdaily/view/home/document/addDocument.php';
+	$routesPlugin['listAlbuminfo']= 'hethongdaily/view/home/document/listDocumentinfo.php';
+	$routesPlugin['addAlbuminfo']= 'hethongdaily/view/home/document/addDocumentinfo.php';
+
+	$routesPlugin['listVideo']= 'hethongdaily/view/home/document/listDocument.php';
+	$routesPlugin['addVideo']= 'hethongdaily/view/home/document/addDocument.php';
+	$routesPlugin['listVideoinfo']= 'hethongdaily/view/home/document/listDocumentinfo.php';
+	$routesPlugin['addVideoinfo']= 'hethongdaily/view/home/document/addDocumentinfo.php';
+
+	$routesPlugin['listDocument']= 'hethongdaily/view/home/document/listDocument.php';
+	$routesPlugin['addDocument']= 'hethongdaily/view/home/document/addDocument.php';
+	$routesPlugin['listDocumentinfo']= 'hethongdaily/view/home/document/listDocumentinfo.php';
+	$routesPlugin['addDocumentinfo']= 'hethongdaily/view/home/document/addDocumentinfo.php';

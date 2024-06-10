@@ -153,11 +153,14 @@
                           </a>
 
                           <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                            <a class="dropdown-item" href="/sendNotificationMobile">Gửi thông báo APP Mobile</a>
+                            <a class="dropdown-item" href="/sendSMS">Gửi tin SMS</a>
                             <a class="dropdown-item" href="/sendMessZaloFollow">Gửi tin Zalo Follow</a>
                             <a class="dropdown-item" href="/sendMessZaloZNS">Gửi tin Zalo ZNS</a>
+                            <a class="dropdown-item" href="/sendNotificationMobile">Gửi thông báo APP Mobile</a>
+                            <hr/>
                             <a class="dropdown-item" href="/templateZaloZNS">Mẫu tin Zalo ZNS</a>
                             <a class="dropdown-item" href="/setttingZaloOA">Cài đặt Zalo OA</a>
+                            <hr/>
                             <a class="dropdown-item" href="/listTransactionHistories">Nạp tiền tài khoản</a>
                           </div>
                         </li>';
@@ -233,6 +236,20 @@
                           <a class="dropdown-item" href="/warehouseProductAgency">Tồn kho</a>
                           <a class="dropdown-item" href="/requestProductAgency">Yêu cầu nhập hàng</a>
                           <a class="dropdown-item" href="/historyWarehouseProductAgency">Lịch sử xuất nhập hàng</a>
+                        </div>
+                      </li>';
+              }
+
+              if(in_array('document', $plugins_site_value)){
+                echo '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Thư viện
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                          <a class="dropdown-item" href="/listAlbum">Hình ảnh</a>
+                          <a class="dropdown-item" href="/listVideo">Video</a>
+                          <a class="dropdown-item" href="/listDocument">Tài liệu</a>
                         </div>
                       </li>';
               }

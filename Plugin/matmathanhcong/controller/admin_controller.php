@@ -187,10 +187,9 @@ function regenerateRequestAdmin($input){
         }
 
         $infoFull = getLinkFullMMTCAPI(@$data->name, @$data->birthday, @$data->phone, @$data->email, @$data->address, @$data->avatar, 1);
-
+        
         $save = $modelRequestExports->get($_GET['id']);
         
-
         if(!empty($infoFull)){
             $save->link_download = @$infoFull;
             $modelRequestExports->save($save);
