@@ -600,6 +600,7 @@ main {
     /* margin-bottom: 20px; */
     display: inline-block;
     width: 100%;
+    position: relative;
 }
 
 #popupContainer {
@@ -675,6 +676,7 @@ main {
     font-weight: 500;
     height: 30px;
     font-size: 15px;
+    width: 44px;
 }
 
 .qty-input .product-qty:focus,
@@ -915,7 +917,7 @@ td a {
         font-size: 14px !important;
     }
     #crm-card {
-        padding: 0px 12px 110px 12px;
+        padding: 20px 12px 68px 12px;
     }
 }
 
@@ -930,7 +932,7 @@ td a {
         padding: 10px 7px !important;
     }
     #crm-card {
-        padding: 0px 8px 110px 8px;
+        padding: 20px 8px 68px 8px;
     }
     #block-8 {
         padding: 30px 22px;

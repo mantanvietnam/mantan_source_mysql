@@ -47,7 +47,7 @@
             
 
 
-            <div id="crm-card">
+            <div id="crm-card" style="position: relative;">
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
 
@@ -182,7 +182,7 @@
                                                 </div>
                                                 <div class="qty-input">
                                                     <button class="qty-count qty-count--minus" data-action="minus" type="button">-</button>
-                                                    <input class="product-qty" type="number" id="numberProduct'.$product->id.'" name="product-qty" min="0" max="10" value="1">
+                                                    <input class="product-qty" type="number" id="numberProduct'.$product->id.'" name="product-qty" min="0" max="999" value="1">
                                                     <button class="qty-count qty-count--add" data-action="add" type="button">+</button>
                                                 </div>
                                             </th>
