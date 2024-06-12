@@ -66,12 +66,12 @@
                                 <img src="<?php echo $info->avatar;?>" alt="">
                             </div>
                             <div class="block-2-title">
-                                <h1><?php echo $info->name;?></h1>
+                                <h1 style="color: rgb(42 50 127);"><?php echo $info->name;?></h1>
                             </div>
                             <div class="block-2-detail">
                                 <h3><?php echo $info->name_position;?></h3>
                                 <h4><?php echo $info->name_system;?></h4>
-                                <p><i class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
+                                <p><i style="color: rgb(42 50 127);" class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
                             </div>
                         </section>
 
@@ -93,7 +93,7 @@
                             </div>
                         </section>
 
-                        <section id="block-4">
+                        <section id="block-4" style="gap: 24px;">
                             <?php if(!empty($info->facebook)){ ?>
                             <div class="block-4-icon icon-fb">
                                 <a href="">
