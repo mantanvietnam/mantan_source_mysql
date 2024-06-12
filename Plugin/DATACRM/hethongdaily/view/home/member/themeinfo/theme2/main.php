@@ -2,10 +2,13 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CARD</title>
+    <link rel="icon" type="image/x-icon" href="<?php echo $info->image_system;?>" />
+
+    <?php 
+        mantan_header();
+    ?>
     <link rel="stylesheet" href="/plugins/hethongdaily/view/home/member/themeinfo/theme2/Asset/css/main.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -55,9 +58,13 @@
                                 </a>
                             </div>
                             <div class="home-btn">
-                                <a href="">
-                                    <i class="fa-solid fa-globe"></i>
-                                </a>
+                                <?php 
+                                if(!empty($info->web)){
+                                    echo '  <a target="_blank" href="'.$info->web.'">
+                                                <i class="fa-solid fa-globe"></i>
+                                            </a>';
+                                }?>
+                                
                             </div>
                         </section>
 
@@ -87,7 +94,7 @@
                                 </a>
                             </div>
                             <div class="block-3-btn">
-                                <a href="" onclick="saveToPhonebook()" class=" block-3-btn-3">
+                                <a href="javascript:void(0);" onclick="saveToPhonebook()" class=" block-3-btn-3">
                                     <i class="fa-solid fa-user"></i>Lưu
                                 </a>
                             </div>
@@ -96,7 +103,7 @@
                         <section id="block-4" style="gap: 24px;">
                             <?php if(!empty($info->facebook)){ ?>
                             <div class="block-4-icon icon-fb">
-                                <a href="">
+                                <a href="<?php echo $info->facebook;?>">
                                     <i class="fa-brands fa-facebook"></i>
                                 </a>
                             </div>
@@ -104,7 +111,7 @@
 
                             <?php if(!empty($info->tiktok)){ ?>
                             <div class="block-4-icon icon-tiktok">
-                                <a href="">
+                                <a href="<?php echo $info->tiktok;?>">
                                     <i class="fa-brands fa-tiktok"></i>
                                 </a>
                             </div>
@@ -112,7 +119,7 @@
 
                             <?php if(!empty($info->youtube)){ ?>
                             <div class="block-4-icon">
-                                <a href="">
+                                <a href="<?php echo $info->youtube;?>">
                                     <i class="fa-brands fa-youtube"></i>
                                 </a>
                             </div>
@@ -120,7 +127,7 @@
 
                             <?php if(!empty($info->zalo)){ ?>
                             <div class="block-4-icon">
-                                <a href="">
+                                <a href="<?php echo $info->zalo;?>">
                                     <img src="/plugins/hethongdaily/view/home/member/themeinfo\theme2\Asset/images/zalo-white-d96e.png" alt="">
                                 </a>
                             </div>
@@ -128,7 +135,7 @@
 
                             <?php if(!empty($info->instagram)){ ?>
                             <div class="block-4-icon">
-                                <a href="">
+                                <a href="<?php echo $info->instagram;?>">
                                     <i class="fa-brands fa-instagram"></i>
                                 </a>
                             </div>
@@ -260,26 +267,13 @@
                         </div>
                     </div>
 
-                    <?php 
-                    if(!empty($info->web)){
-                        echo '  <div class="tab-pane fade" id="about">
-                                    <iframe allowfullscreen="" width="100%" height="100%" title="main360" src="'.$info->web.'"></iframe>
-                                </div>';
-                    }
-                    ?>
                 </div>
 
                 <div class="tabs-menu">
                     <ul class="nav nav-pills">
-                        <li class="active"><a data-toggle="pill" href="#home"><i class="fa-solid fa-circle-user"></i> <p>Cá nhân</p></a></li>
+                        <li class="active"><a data-toggle="pill" href="#home"><i class="fa-solid fa-circle-user"></i> <p>Thông tin</p></a></li>
                         <li><a data-toggle="pill" href="#menu2"><i class="fa-solid fa-wallet"></i> <p>Sản phẩm</p></a></li>
                         <li><a data-toggle="pill" href="#menu3"><i class="fa-solid fa-circle-user"></i> <p>Khách hàng</p></a></li>
-                         <?php 
-                            if(!empty($info->web)){
-                                echo '  <li class="nav-item">
-                                        <a class="nav-link" id="about-tab" data-toggle="tab" href="#about"><i class="bx bxs-add-to-queue" style=" font-size: 20px; width: 100%; "></i>Thêm</a>
-                                        </li>';
-                            }?>
                     </ul>
                 </div>
 
