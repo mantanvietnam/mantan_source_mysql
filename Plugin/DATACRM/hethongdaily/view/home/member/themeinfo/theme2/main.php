@@ -41,23 +41,26 @@
     <main>
         <div class="container">
 
-            <section id="block-1">
-                <div class="qr-code">
-                    <a href="#" id="imageLink">
-                        <i class="fa-solid fa-qrcode"></i>
-                    </a>
-                </div>
-                <div class="home-btn">
-                    <a href="">
-                        <i class="fa-solid fa-globe"></i>
-                    </a>
-                </div>
-            </section>
+            
 
 
             <div id="crm-card">
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
+
+                        <section id="block-1">
+                            <div class="qr-code">
+                                <a href="#" id="imageLink">
+                                    <i class="fa-solid fa-qrcode"></i>
+                                </a>
+                            </div>
+                            <div class="home-btn">
+                                <a href="">
+                                    <i class="fa-solid fa-globe"></i>
+                                </a>
+                            </div>
+                        </section>
+
                         <section id="block-2">
                             <div class="block-2-img">
                                 <img src="<?php echo $info->avatar;?>" alt="">
@@ -142,8 +145,6 @@
                                <img src="<?php echo @$info->image_qr_pay; ?>">
                            <?php } ?>
                             </div>
-
-
                         </section>
 
                     </div>
@@ -168,7 +169,7 @@
                                 if(!empty($item['product'])){
                                     foreach ($item['product'] as $product) {
                                         echo '<tr>
-                                            <th scope="row" class="no-padding">
+                                            <th scope="row" class="no-padding" style="width: 45px;">
                                                 <div class="check-input">
                                                     <input type="checkbox" data-idProduct="'.$product->id.'" name="id_product[]" id="checkbox'.$product->id.'" >
                                                 </div>
@@ -178,8 +179,8 @@
                                                     <button class="qty-count qty-count--add" data-action="add" type="button">+</button>
                                                 </div>
                                             </th>
-                                            <td>
-                                                <img data-toggle="modal" data-target="#slideProduct'.$product->id.'Modal" src="'.$product->image.'" class="img-thumbnail">
+                                            <td class="table-img" style="width: 120px;">
+                                                <img data-toggle="modal" data-target="#slideProduct'.$product->id.'Modal" src="'.$product->image.'">
                                             </td>
                                             <td><a href="/product/'.$product->slug.'.html" target="_blank">'.$product->title.'</a><br/>
                                                 <span class="text-danger">'.number_format($product->price).'đ</span><br/>';
@@ -198,7 +199,7 @@
                         ?>
 
                                
-                                 <button style="position: sticky ; bottom: 10px;" type="button" class="btn btn-danger" onclick="checkSelectProduct();">ĐẶT MUA HÀNG</button>
+                                 <button style="position: sticky; width: 100%;bottom: 68px;" type="button" class="btn btn-danger buy-btn" onclick="checkSelectProduct();">ĐẶT MUA HÀNG</button>
                             </div>
                         </section>
 
@@ -232,7 +233,7 @@
 
                      <!-- Tab đặt hàng -->
                     <div class="tab-pane fade" id="order">
-                        <div class="container p-3 d-flex justify-content-center">
+                        <div class=" p-3 d-flex justify-content-center">
                             <div class="card p-4"> 
                                 <div class="mb-3">
                                   <label for="full_name" class="form-label">Họ tên (*)</label>

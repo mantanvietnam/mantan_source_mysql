@@ -230,7 +230,7 @@ main {
 }
 
 #block-1 {
-    padding: 20px 40px;
+    padding: 0px 20px 20px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -262,7 +262,7 @@ main {
     text-transform: uppercase;
     font-size: 28px;
     font-weight: 700;
-    color: rgba(252, 211, 77);
+    color: rgb(42 50 127);
     margin-bottom: 0;
     margin-top: 0;
 }
@@ -292,7 +292,7 @@ main {
 }
 
 .block-2-detail p i {
-    color: rgba(252, 211, 77);
+    color: rgb(42 50 127);
     margin-right: 3px;
 }
 
@@ -470,8 +470,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    margin: 30px 0;
+    gap: 24px;
+    margin: 28px 0;
 }
 
 #block-4 .block-4-icon i {
@@ -589,12 +589,11 @@ main {
 }
 
 #block-1 {
-    background-color: rgb(255 255 255 / 5%) !important;
     border-radius: 8px 8px 0px 0px;
 }
 
 #crm-card {
-    padding: 0px 20px 110px 20px;
+    padding: 20px 20px 68px 20px;
     background-color: rgb(255 255 255 / 5%) !important;
     /* border-radius: 8px 8px 0px 0px; */
     min-height: 100vh;
@@ -773,14 +772,21 @@ table {
 
 .table>tbody>tr>th.no-padding {
     padding: 8px 3px !important;
+    width: 45px;
 }
 
 table td {
     font-weight: 500;
 }
 
-table img {
-    width: 110px;
+.buy-btn {
+    position: sticky;
+    width: 100%;
+    bottom: 68px;
+}
+
+.table-img img {
+    width: 100%;
     height: auto;
     object-fit: cover;
     border: 3px solid #fff;
@@ -843,6 +849,39 @@ td a {
 
 #block-8 .form-customer input:typr #block-8 .form-customer label span {
     color: #d30a0a;
+}
+
+#order {
+    background: #f1f1f147;
+    padding: 32px 32px;
+    border-radius: 8px;
+}
+
+#order .form-label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#order .form-control {
+    background-color: #fff;
+    padding: 8px 8px;
+    font-size: 15px;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+#order .btn.btn-danger {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 8px;
+}
+
+#order .list_cart p {
+    font-size: 18px;
+    font-weight: 600;
 }
 
 @media (max-width: 417px) {
