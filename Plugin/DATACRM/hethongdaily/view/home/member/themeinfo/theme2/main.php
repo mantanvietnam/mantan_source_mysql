@@ -181,9 +181,9 @@
                                                     <input type="checkbox" data-idProduct="'.$product->id.'" name="id_product[]" id="checkbox'.$product->id.'" >
                                                 </div>
                                                 <div class="qty-input">
-                                                    <button class="qty-count qty-count--minus" data-action="minus" type="button">-</button>
-                                                    <input class="product-qty" type="number" id="numberProduct'.$product->id.'" name="product-qty" min="0" max="999" value="1">
-                                                    <button class="qty-count qty-count--add" data-action="add" type="button">+</button>
+                                                    <button style="width: 44px;" class="qty-count qty-count--minus" data-action="minus" type="button">-</button>
+                                                    <input style="width: 44px;" class="product-qty" type="number" id="numberProduct'.$product->id.'" name="product-qty" min="0" max="999" value="1">
+                                                    <button style="width: 44px;" class="qty-count qty-count--add" data-action="add" type="button">+</button>
                                                 </div>
                                             </th>
                                             <td class="table-img" style="width: 120px;">
@@ -203,9 +203,7 @@
                         }else{
                             echo '<p class="text-danger">Chưa có sản phẩm bán</p>';
                         }
-                        ?>
-
-                               
+                        ?>                               
                                  <button style="position: sticky; width: 100%;bottom: 68px;" type="button" class="btn btn-danger buy-btn" onclick="checkSelectProduct();">ĐẶT MUA HÀNG</button>
                             </div>
                         </section>
