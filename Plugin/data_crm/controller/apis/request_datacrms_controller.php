@@ -106,8 +106,23 @@ function createDataCRMAPI($input)
 	return [];
 }
 
-function updateDataCRMAPI($input)
+function getListSystemCRMAPI($input)
 {
+	global $isRequestPost;
+	global $controller ;
 
+	$modelRequestDatacrms = $controller->loadModel('RequestDatacrms');
+
+	$listData = [];
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token']) && $dataSend['token']=='2MzNkZjI5Y2VjNjNkMzZhNGVkNmUxNiIsIm5hbWUiOi'){
+			$listData = $modelRequestDatacrms->find()->where(['deadline >'=>time(), 'status'=>'done'])->all()->toList();
+		}
+	}
+
+	return $listData;
 }
 ?>

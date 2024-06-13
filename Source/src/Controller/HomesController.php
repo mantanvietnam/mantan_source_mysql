@@ -579,11 +579,11 @@ class HomesController extends AppController{
             $urlPage = $urlPage . '?page=';
         }
 
-        if(function_exists('categoryAlbumTheme')){
+        if(function_exists('categoryVideoTheme')){
             $url= '/themes/'.$themeActive.'/category_album.php';
 
             $input= array('fileProcess'=>$url,'request'=>$this->request);
-            categoryAlbumTheme($input);
+            categoryVideoTheme($input);
         }
 
         if(empty($category->name)) $category->name = 'Videos';
