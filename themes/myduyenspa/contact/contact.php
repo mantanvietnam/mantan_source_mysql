@@ -14,22 +14,22 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Họ và tên</label>
-								    <input type="text" class="form-control"  name="name" placeholder="Vui lòng nhập họ và tên">
+								    <input type="text" class="form-control" required="" name="name" placeholder="Vui lòng nhập họ và tên">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Số điện thoại</label>
-								<input type="text" class="form-control" name="phone" placeholder="Vui lòng nhập số điện thoại">
+								<input type="number" class="form-control" required="" name="phone" placeholder="Vui lòng nhập số điện thoại">
 								</div>
 							</div>
 							<div class="col-md-12 form-group">
 							<label>Email</label>
-							<input type="email" class="form-control" name="email" placeholder="Vui lòng nhập email">
+							<input type="email" class="form-control " required="" name="email" placeholder="Vui lòng nhập email">
 						</div>
 						<div class="col-md-12 form-group">
 							<label>Nội dung</label>
-							<textarea class="form-control" name="content" placeholder="Vui lòng để lại nội dung liên hệ của bạn"></textarea>
+							<textarea class="form-control" name="content" required="" placeholder="Vui lòng để lại nội dung liên hệ của bạn"></textarea>
 						</div>
 						<div class=" col-md-12 text-center	">
 							<button  type="submit" class="btn btn-info"><i class="fab fa-telegram-plane"></i> Gửi</button>
