@@ -144,14 +144,14 @@ global $urlThemeActive;
                         </div>
 
                         <div class="title-description">
-                            <p><?php echo nl2br(@$setting['content_gt_den']); ?></p>
+                            <p><?php echo @$setting['content_gt_den'] ?></p>
                         </div>
                     </div>
 
                     <div class="about-content">
                         <p><?php echo @$setting['content_gt_tim'] ?></p>
                         <div class="button-link">
-                            <a href="<?php echo @$setting['link_gt'] ?>">Xem thêm</a>
+                            <a href="<?php echo @$setting['link_gt'] ?>">Liên hệ ngay</a>
                         </div>
                     </div>
                 </div>
@@ -425,7 +425,7 @@ global $urlThemeActive;
                                 </div>
 
                                 <div class="button-link">
-                                    <a href="<?php echo @$setting['link_sp_1'] ?>">Đăng ký ngay</a>
+                                    <a href="<?php echo @$setting['link_sp_1'] ?>">Liên Hệ Ngay</a>
                                 </div>
                             </div>
                         </div>
@@ -450,7 +450,7 @@ global $urlThemeActive;
                                 </div>
 
                                 <div class="button-link">
-                                    <a href="<?php echo @$setting['link_sp_2'] ?>">Đăng ký ngay</a>
+                                    <a href="<?php echo @$setting['link_sp_2'] ?>">Liên Hệ Ngay</a>
                                 </div>
                             </div>
                         </div>
@@ -475,7 +475,7 @@ global $urlThemeActive;
                                 </div>
 
                                 <div class="button-link">
-                                    <a href="<?php echo @$setting['link_sp_3'] ?>">Đăng ký ngay</a>
+                                    <a href="<?php echo @$setting['link_sp_3'] ?>">Liên Hệ Ngay</a>
                                 </div>
                             </div>
                         </div>
