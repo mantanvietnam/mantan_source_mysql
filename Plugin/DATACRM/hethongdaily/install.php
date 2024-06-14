@@ -136,6 +136,7 @@ $sqlInstallDatabase .= "CREATE TABLE `order_member_details` (
   `id_order_member` INT NOT NULL , 
   `quantity` INT NOT NULL , 
   `price` INT NOT NULL , 
+  `discount` INT NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -202,6 +203,41 @@ $sqlInstallDatabase .="CREATE TABLE `documents` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `bills` (
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_member_sell` INT NOT NULL , 
+  `id_member_buy` INT NOT NULL DEFAULT '0' , 
+  `total` INT NOT NULL DEFAULT '0' , 
+  `id_order` INT NOT NULL DEFAULT '0' , 
+  `type` INT NOT NULL COMMENT '1: phiếu thu, 2 phiếu chi' , 
+  `type_order` INT NULL DEFAULT '0' COMMENT '0: tự tạo, 1: đại lý, 2: khách hàng' , 
+  `created_at` INT NULL DEFAULT NULL , 
+  `updated_at` INT NULL DEFAULT NULL ,
+  `type_collection_bill` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `id_customer` INT NOT NULL DEFAULT '0' , 
+  `id_debt` INT NOT NULL DEFAULT '0' , 
+  `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+   PRIMARY KEY (`id`)
+ ) ENGINE = InnoDB;";
+
+ $sqlInstallDatabase .="CREATE TABLE `debts` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `id_member_sell` INT NOT NULL ,
+  `id_member_buy` INT NOT NULL DEFAULT '0' ,
+  `total` INT NOT NULL DEFAULT '0' ,
+  `total_payment` INT NOT NULL DEFAULT '0' ,
+  `number_payment` INT NOT NULL DEFAULT '0' ,
+  `type` INT NOT NULL DEFAULT '0' COMMENT '1: Nợ phải thu, 2: Nợ Phải trả, ' ,
+  `status` INT NOT NULL COMMENT '0 : chưa trả ,1 đã trả hết' ,
+  `type_order` INT NOT NULL COMMENT '0: tự tạo, 1: đại lý, 2: khách hàng' ,
+  `id_customer` INT NOT NULL DEFAULT '0' ,
+  `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `created_at` INT NULL DEFAULT NULL ,
+  `updated_at` INT NULL DEFAULT NULL ,
+  `id_order` INT NOT NULL DEFAULT '0' ,
+   PRIMARY KEY (`id`)
+ ) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -215,6 +251,8 @@ $sqlDeleteDatabase .= "DROP TABLE token_devices; ";
 $sqlDeleteDatabase .= "DROP TABLE zalo_templates; ";
 $sqlDeleteDatabase .= "DROP TABLE documents; ";
 $sqlDeleteDatabase .= "DROP TABLE documentinfos; ";
+$sqlDeleteDatabase .= "DROP TABLE debts; ";
+$sqlDeleteDatabase .= "DROP TABLE bills; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -329,6 +367,7 @@ $sqlUpdateDatabase['order_member_details']['id_product'] = "ALTER TABLE `order_m
 $sqlUpdateDatabase['order_member_details']['id_order_member'] = "ALTER TABLE `order_member_details` ADD `id_order_member` INT NOT NULL;";
 $sqlUpdateDatabase['order_member_details']['quantity'] = "ALTER TABLE `order_member_details` ADD `quantity` INT NOT NULL;";
 $sqlUpdateDatabase['order_member_details']['price'] = "ALTER TABLE `order_member_details` ADD `price` INT NOT NULL;";
+$sqlUpdateDatabase['order_member_details']['discount'] = "ALTER TABLE `order_member_details` ADD `discount` INT NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu';";
 
 // bảng warehouse_products
 $sqlUpdateDatabase['warehouse_products']['id_member'] = "ALTER TABLE `warehouse_products` ADD `id_member` INT NOT NULL;";
@@ -376,4 +415,31 @@ $sqlUpdateDatabase['documentinfos']['description'] = "ALTER TABLE `documentinfos
 $sqlUpdateDatabase['documentinfos']['slug'] = "ALTER TABLE `documentinfos` ADD  `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
 $sqlUpdateDatabase['documentinfos']['id_document'] = "ALTER TABLE `documentinfos` ADD  `id_document` INT NOT NULL";
 
+//  phiếu thu chi
+$sqlUpdateDatabase['bills']['id_member_sell'] = "ALTER TABLE `bills` ADD `id_member_sell` INT NOT NULL";
+$sqlUpdateDatabase['bills']['id_member_buy'] = "ALTER TABLE `bills` ADD `id_member_buy` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['bills']['total'] = "ALTER TABLE `bills` ADD `total` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['bills']['id_order'] = "ALTER TABLE `bills` ADD `id_order` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['bills']['type'] = "ALTER TABLE `bills` ADD `type` INT NOT NULL COMMENT '1: phiếu thu, 2 phiếu chi'";
+$sqlUpdateDatabase['bills']['type_order'] = "ALTER TABLE `bills` ADD `type_order` INT NULL DEFAULT '0' COMMENT '0: tự tạo, 1: đại lý, 2: khách hàng'";
+$sqlUpdateDatabase['bills']['created_at'] = "ALTER TABLE `bills` ADD `created_at` INT NULL DEFAULT NULL";
+$sqlUpdateDatabase['bills']['updated_at'] = "ALTER TABLE `bills` ADD `updated_at` INT NULL DEFAULT NULL";
+$sqlUpdateDatabase['bills']['type_collection_bill'] = "ALTER TABLE `bills` ADD `type_collection_bill` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['bills']['id_customer'] = "ALTER TABLE `bills` ADD `id_customer` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['bills']['id_debt'] = "ALTER TABLE `bills` ADD `id_debt` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['bills']['note'] = "ALTER TABLE `bills` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NUL";
 
+// chi
+$sqlUpdateDatabase['debts']['id_member_sell'] = "ALTER TABLE `debts` ADD `id_member_sell` INT NOT NULL";
+$sqlUpdateDatabase['debts']['id_member_buy'] = "ALTER TABLE `debts` ADD `id_member_buy` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['debts']['total'] = "ALTER TABLE `debts` ADD `total` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['debts']['total_payment'] = "ALTER TABLE `debts` ADD `total_payment` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['debts']['number_payment'] = "ALTER TABLE `debts` ADD `number_payment` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['debts']['type'] = "ALTER TABLE `debts` ADD `type` INT NOT NULL DEFAULT '0' COMMENT '1: Nợ phải thu, 2: Nợ Phải trả, '";
+$sqlUpdateDatabase['debts']['status'] = "ALTER TABLE `debts` ADD `status` INT NOT NULL COMMENT '0 : chưa trả ,1 đã trả hết'";
+$sqlUpdateDatabase['debts']['type_order'] = "ALTER TABLE `debts` ADD `type_order` INT NOT NULL COMMENT '0: tự tạo, 1: đại lý, 2: khách hàng'";
+$sqlUpdateDatabase['debts']['id_customer'] = "ALTER TABLE `debts` ADD `id_customer` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['debts']['note'] = "ALTER TABLE `debts` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['debts']['created_at'] = "ALTER TABLE `debts` ADD `created_at` INT NULL DEFAULT NULL";
+$sqlUpdateDatabase['debts']['updated_at'] = "ALTER TABLE `debts` ADD `updated_at` INT NULL DEFAULT NULL";
+$sqlUpdateDatabase['debts']['id_order'] = "ALTER TABLE `debts` ADD `id_order` INT NOT NULL DEFAULT '0'";
