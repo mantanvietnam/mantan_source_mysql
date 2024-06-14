@@ -162,7 +162,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-5 d-block d-lg-none">
-                    <a href="https://snaggolf.vn/dang-ky-huan-luyen-vien" class="button-link">
+                    <a href="https://snaggolf.vn/dang-ki-huan-luyen-vien" class="button-link">
                         <button class="custom-button button-reg">ĐĂNG KÍ</button>
                     </a>
                 </div>
