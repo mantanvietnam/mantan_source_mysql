@@ -8,11 +8,17 @@
             <div class="card-body row">
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="basic-default-fullname">Phần trăm cọc</label>
-                  <input type="text" class="form-control" name="pilePercentage" value="<?php echo @$setting['pilePercentage'];?>" />
+                  <input type="number" class="form-control" name="pilePercentage" value="<?php echo @$setting['pilePercentage'];?>" />
                 </div>
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="basic-default-fullname">chuyến tối đa</label>
-                  <input type="text" class="form-control" name="maximumTrip" value="<?php echo @$setting['maximumTrip'];?>" />
+                  <input type="number" class="form-control" name="maximumTrip" value="<?php echo @$setting['maximumTrip'];?>" />
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="basic-default-fullname">Số tiền nâng cấp lên tài xế</label>
+                  <input type="number" class="form-control" name="moneyUpgradeToDriver" value="<?php echo @$setting['moneyUpgradeToDriver'];?>" />
+                </div> 
+                <div class="mb-3 col-md-6">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
             </div>

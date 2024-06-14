@@ -277,6 +277,85 @@ function sendEmailAddMoney($email = '', $name = '', $coin= '')
     }
 }
 
+function sendEmailSubtractMoney($email = '', $name = '', $coin= '')
+{
+    $to = array();
+
+    if(!empty($email)){
+        $to[]= trim($email);
+        $cc = array();
+        $bcc = array();
+        $subject = '[EXC-GO] ' . 'Bị trừ tiền Khi liên cấp tài xế ';
+
+        $content='<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Thông tin nạp tiền EXC-GO</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>Bì trừ '.number_format($coin).'Đ</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$name.' !</em> <br>
+                        <br/>
+                        Bạn đã bị '.number_format($coin).'đ  tài khoản của bạn Khi liên cấp tài xế  <a href="#">https://excgo.vn</a>
+                        
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    <div class="thong_tin">
+                        <div class="line"><div class="line1"></div></div>
+                        <div class="cty">
+                            <span style="font-weight: bold;">EXC-GO</span> <br>
+                            <span>Ứng dụng chia sẻ chuyến xe EXC-GO</span>
+                        </div>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: Nguyễn Văn A</li>
+                            <li>Mobile: 0123456789</li>
+                            <li>Website: <a href="#">https://excgo.vn</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        sendEmail($to, $cc, $bcc, $subject, $content);
+    }
+}
+
 function sendEmailWithdrawRequest($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
 {
     global $controller;
@@ -441,6 +520,101 @@ function sendEmailUpgradeToDriver($userName = '', $requestId = '', $email = 'exc
                         <br/>
                         Có một yêu cầu nâng cấp tài khoản từ tài xế '.$userName.'. 
                         Xem chi tiết tại <a href="https://apis.exc-go.vn/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=' .$requestId.'"> đây</a>
+                        
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    <div class="thong_tin">
+                        <div class="line"><div class="line1"></div></div>
+                        <div class="cty">
+                            <span style="font-weight: bold;">EXC-GO</span> <br>
+                            <span>Ứng dụng chia sẻ chuyến xe EXC-GO</span>
+                        </div>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: Nguyễn Văn A</li>
+                            <li>Mobile: 0123456789</li>
+                            <li>Website: <a href="#">https://excgo.vn</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        sendEmail($to, $cc, $bcc, $subject, $content);
+    }
+}
+
+function sendEmailUpgradeToDriverSuccess($userName = '', $requestId = '', $email = 'excgoquanly@gmail.com')
+{
+    global $controller;
+    global $modelOptions;
+
+    if(!empty($email)){
+        $to = [trim($email)];
+
+        $configSendEmail = $modelOptions->find()->where(['key_word' => 'configSendEmail'])->first();
+        
+        $data_value = array();
+        if(!empty($configSendEmail->value)){
+            $data_value = json_decode($configSendEmail->value, true);
+        }
+
+        if(!empty($data_value['listUpgradeRequestToDriverAdmin'])){
+            $listSupportAdmin = explode(',', $data_value['listUpgradeRequestToDriverAdmin']);
+
+            $to += $listSupportAdmin;
+        }
+
+        $cc = array();
+        $bcc = array();
+        $subject = '[EXC-GO] ' . 'Người dùng chở thành tài xế thành công';
+
+        $content='<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Thông tin nạp tiền EXC-GO</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>Người dùng chở thành tài xế thành công</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào Admin!</em> <br>
+                        <br/>
+                        Người dùng chở thành tài xế là '.$userName.'. 
+                        Xem chi tiết tại <a href="https://apis.exc-go.vn/plugins/admin/excgo-view-admin-user-listUserAdmin?id=' .$requestId.'"> đây</a>
                         
                         <br><br>
                         
@@ -990,6 +1164,20 @@ function getUserByToken($accessToken, $checkActive = true)
     return $modelUser->find()->where($conditions)->first();
 }
 
+function parameter(){
+    global $controller;
+    global $modelOptions;
+    $conditions = array('key_word' => 'settingAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    return $data_value;
+}
+
+
 function processAddMoney($money, $phoneNumber): string
 {
     global $controller;
@@ -998,6 +1186,7 @@ function processAddMoney($money, $phoneNumber): string
     $modelUser = $controller->loadModel('Users');
     $modelTransaction = $controller->loadModel('Transactions');
     $modelNotification = $controller->loadModel('Notifications');
+    $modelDriverRequest = $controller->loadModel('DriverRequests');
 
     if ($money >= 1000) {
         if($phoneNumber) {
@@ -1043,6 +1232,58 @@ function processAddMoney($money, $phoneNumber): string
                     $modelNotification->save($newNotification);
 
                     sendNotification($dataSendNotification, $user->device_token);
+                }
+
+                $request = $modelDriverRequest->find()->where(['user_id' => $user->id, 'status'=>0])->first();
+
+                $money = (int) parameter()['moneyUpgradeToDriver'];
+
+                if($user->type==1 && !empty($request) && $user->total_coin > $money){
+
+                    $user->type = $memberType['driver'];
+                    $user->total_coin -= $money;
+                    $modelUser->save($user);
+
+                    
+                    $request->status = 1;
+                    $request->handled_by = 1;
+                    $modelDriverRequest->save($request);
+                    sendEmailUpgradeToDriverSuccess($user->name, $user->id);
+
+                    // Save transaction
+                    $newTransaction = $modelTransaction->newEmptyEntity();
+                    $newTransaction->user_id = $user->id;
+                    $newTransaction->amount = $money;
+                    $newTransaction->type = $transactionType['subtract'];
+                    $newTransaction->name = 'Bị trừ tiền Khi liên cấp tài xế ';
+                    $newTransaction->description = '-' . number_format($money) . ' EXC-xu';
+                    $newTransaction->created_at = date('Y-m-d H:i:s');
+                    $newTransaction->updated_at = date('Y-m-d H:i:s');
+                    $modelTransaction->save($newTransaction);
+
+                    if ($user->email && $user->name) {
+                        sendEmailSubtractMoney($user->email, $user->name, $money);
+                    }
+
+                    if ($user->device_token) {
+                        $title = 'Yêu cầu nâng cấp tài khoản được chấp nhận';
+                        $content = 'Yêu cầu nâng cấp tài khoản thành tài xế của bạn đã được chấp nhận và bạn bị trừ'.number_format($money).'đ';
+                        $dataSendNotification= array(
+                            'title' => $title,
+                            'time' => date('H:i d/m/Y'),
+                            'content' => $content,
+                            'action' => 'upgradeToDriverSuccess'
+                        );
+
+                        $newNotification = $notificationModel->newEmptyEntity();
+                        $newNotification->user_id = $user->id;
+                        $newNotification->title = $title;
+                        $newNotification->content = $content;
+                        $newNotification->created_at = date('Y-m-d H:i:s');
+                        $newNotification->updated_at = date('Y-m-d H:i:s');
+                        $notificationModel->save($newNotification);
+                        sendNotification($dataSendNotification, $user->device_token);
+                    }
                 }
 
                 return 'Nạp tiền thành công cho tài khoản '. $user->phone_number;
@@ -1424,15 +1665,4 @@ function checkPermission($permission='') {
     return $return;
 }
 
-function parameter(){
-    global $controller;
-    global $modelOptions;
-    $conditions = array('key_word' => 'settingAdmin');
-    $data = $modelOptions->find()->where($conditions)->first();
 
-    $data_value = array();
-    if(!empty($data->value)){
-        $data_value = json_decode($data->value, true);
-    }
-    return $data_value;
-}
