@@ -68,6 +68,7 @@ function addOrderCustomer($input)
                     $saveDetail->id_order = $save->id;
                     $saveDetail->quantity = $dataSend['soluong'][$key];
                     $saveDetail->price = $dataSend['money'][$key];
+                    $saveDetail->discount = $dataSend['discount'][$key];
 
                     $modelOrderDetails->save($saveDetail);
                 }

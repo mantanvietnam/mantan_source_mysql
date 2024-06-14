@@ -222,8 +222,9 @@
                                     <th width="30%">Tên sản phẩm</th>
                                     <th  width="15%">Số lượng</th>
                                     <th  width="20%">Đơn giá</th>
-                                    <th  width="20%">Thành tiền</th>
-                                    <th  width="15%">Xóa</th>
+                                    <th  width="20%">giảm giá</th>
+                                    <th  width="15%">Thành tiền</th>
+                                    <th  width="5%">Xóa</th>
                                 </tr>
                             </thead>
                             <tbody id="listProductOrder">
@@ -457,6 +458,9 @@ function addProduct(id, name, priceProduct, type)
                 <td>\
                     <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
                 </td>\
+                <td>\
+                    <input type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(1);">\
+                </td>\
                 <td id="totalmoney'+row+'"></td>\
                 <td>\
                     <a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct(\''+row+'\')"><i class="bx bx-trash me-1" aria-hidden="true"></i></a>\
@@ -507,13 +511,25 @@ function tinhtien()
                 price= parseFloat($('#money-'+i).val());
                
                 $('#soluong'+i).css("border","");
+
+                if($('#discount-'+i).val()!=''){
+                    discount= parseFloat($('#discount-'+i).val());
+                }else{
+                    discount= 0;
+                }
                 
                 money = 0;
                 if(number>0){
                     money= number*price;
+
+                    if(discount>=0 && discount<=100){
+                        discount= money*discount/100;
+                    }
+
+                    money-= discount;
                     total+= money;
                 }
-                 
+
                 money = new Intl.NumberFormat().format(money);
                 $('#totalmoney'+i).html(money+'đ');
             }

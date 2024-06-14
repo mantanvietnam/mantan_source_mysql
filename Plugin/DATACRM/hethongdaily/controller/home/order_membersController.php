@@ -155,6 +155,7 @@ function addRequestProductAgency($input)
                     $saveDetail->id_order_member = $save->id;
                     $saveDetail->quantity = $dataSend['soluong'][$key];
                     $saveDetail->price = $dataSend['money'][$key];
+                    $saveDetail->discount = $dataSend['discount'][$key];
 
                     $modelOrderMemberDetails->save($saveDetail);
                 }
@@ -233,8 +234,9 @@ function addOrderAgency($input)
 
                         $saveDetail->id_product = $value;
                         $saveDetail->id_order_member = $save->id;
-                        $saveDetail->quantity = $dataSend['soluong'][$key];
-                        $saveDetail->price = $dataSend['money'][$key];
+                        $saveDetail->quantity = (int)$dataSend['soluong'][$key];
+                        $saveDetail->price = (int)$dataSend['money'][$key];
+                        $saveDetail->discount = (int)$dataSend['discount'][$key];
 
                         $modelOrderMemberDetails->save($saveDetail);
                     }

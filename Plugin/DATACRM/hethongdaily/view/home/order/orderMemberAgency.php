@@ -88,9 +88,10 @@
                 <thead>
                   <th colspan="3" class="text-center">Thông tin đơn hàng</th> 
                   <tr>
-                    <th width="50%">Sản phẩm</th>
-                    <th width="25%">Giá bán</th>
-                    <th width="25%">Số lượng </th>
+                    <th width="50%" style="padding: 0.625rem 0.4rem;">Sản phẩm</th>
+                    <th width="30%" style="padding: 0.625rem 0.4rem;">Giá bán</th>
+                    <th width="10%" style="padding: 0.625rem 0.4rem;">Số lượng </th>
+                    <th width="10%" style="padding: 0.625rem 0.4rem;">Giảm giá </th>
                   </tr>
                 </thead>
               </table>
@@ -153,10 +154,18 @@
                   <tbody>';
                     if(!empty($item->detail_order)){ 
                       foreach($item->detail_order as $k => $value){
+                        $discount= '';                        
+                        if($value->discount>100){
+                          $discount= number_format($value->discount).'đ';
+                        }elseif($value->discount>0){
+                          $discount= number_format($value->discount).'%';
+                        }
+
                         echo '<tr> 
-                                <td  width="50%">'.$value->product.'</td>
-                                <td  width="25%">'.number_format($value->price).'đ</td>
-                                <td  width="25%" align="center">'.$value->quantity.'</td>
+                                <td  width="50%" style="padding: 0.625rem 0.4rem;">'.$value->product.'</td>
+                                <td  width="30%" style="padding: 0.625rem 0.4rem;">'.number_format($value->price).'đ</td>
+                                <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$value->quantity.'</td>
+                                <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$discount.'</td>
                               </tr>';
                       }
                     } 
