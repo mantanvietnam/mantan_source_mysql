@@ -52,7 +52,9 @@ function createBookingApi($input): array
             }
 
             $now = date('Y-m-d H:i:s');
-            if (isset($dataSend['start_time'])) {
+            $startTime = date('Y-m-d H:i:s');
+            $finishTime = date('Y-m-d H:i:s');
+            if (!empty($dataSend['start_time'])) {
                 $startTime = date('Y-m-d H:i:s', strtotime($dataSend['start_time']));
 
                 if ($startTime <= $now) {
@@ -60,13 +62,17 @@ function createBookingApi($input): array
                 }
             }
 
-            if (isset($dataSend['finish_time'])) {
+            if (!empty($dataSend['finish_time'])) {
                 $finishTime = date('Y-m-d H:i:s', strtotime($dataSend['finish_time']));
 
                 if ($finishTime <= $startTime) {
                     return apiResponse(2, 'Thời gian đến phải lớn hơn thời gian khởi hành');
                 }
             }
+
+            if (!empty($dataSend['deposit']) && $dataSend['deposit'] > $currentUser->total_coin) {
+                    return apiResponse(2, 'Số tiền trong ví không đủ để cọc');
+                }
 
             $booking = $modelBooking->newEmptyEntity();
             $booking->name = $dataSend['name'];
@@ -82,14 +88,12 @@ function createBookingApi($input): array
             $booking->deposit = $dataSend['deposit'] ?? 0;
             $booking->price = $dataSend['price'];
             $booking->description = $dataSend['description'] ?? null;
-            $booking->created_at = $now;
-            $booking->updated_at = $now;
+            $booking->created_at = date('Y-m-d H:i:s');
+            $booking->updated_at = date('Y-m-d H:i:s');
             $modelBooking->save($booking);
 
             if (!empty($dataSend['deposit'])) {
-                if ($dataSend['deposit'] > $currentUser->total_coin) {
-                    return apiResponse(2, 'Số tiền trong ví không đủ để cọc');
-                }
+                
 
                 // Giữ tiền cọc của người đăng
                 $currentUser->total_coin -= $dataSend['deposit'];
@@ -614,7 +618,8 @@ function acceptCanceledBookingApi($input): array
                 ->first();
 
             // Cộng lại số tiền chiết khấu
-            $refundCoin = $bookingFee->received_fee + $bookingFee->service_fee + $bookingFee->deposit;
+            //$refundCoin = $bookingFee->received_fee + $bookingFee->service_fee + $bookingFee->deposit;
+            $refundCoin = $booking->deposit;
             $cancelUser->total_coin += $refundCoin;
             $modelUser->save($cancelUser);
 
@@ -1583,7 +1588,7 @@ function updateBookingApi($input): array
                 $booking->status = $dataSend['status'];
             }
 
-            $booking->updated_at = $now;
+            $booking->updated_at = date('Y-m-d H:i:s');
             $modelBooking->save($booking);
 
             $result = getDetailBooking($dataSend['id']);
@@ -1652,23 +1657,23 @@ function cancelBookingApi($input): array
 
                     // Trả lại tiền cọc nếu có
                     if ($bookingFee->deposit) {
-                        $currentUser->total_coin += $bookingFee->deposit;
+                        $currentUser->total_coin += $booking->deposit;
                         $modelUser->save($currentUser);
 
                         $newTransaction = $modelTransaction->newEmptyEntity();
                         $newTransaction->user_id = $currentUser->id;
                         $newTransaction->booking_id = $booking->id;
-                        $newTransaction->amount = $bookingFee->deposit;
+                        $newTransaction->amount = $booking->deposit;
                         $newTransaction->type = $transactionType['add'];
                         $newTransaction->name = "Nhận lại tiền cọc cuốc xe #$booking->id thành công";
-                        $newTransaction->description = '+' . number_format($bookingFee->deposit) . ' EXC-xu';
+                        $newTransaction->description = '+' . number_format($booking->deposit) . ' EXC-xu';
                         $newTransaction->created_at = date('Y-m-d H:i:s');
                         $newTransaction->updated_at = date('Y-m-d H:i:s');
                         $modelTransaction->save($newTransaction);
 
                         // Thông báo cho người đăng
                         $title = 'Cộng EXC coin vào tài khoản';
-                        $content = "Tài khoản của bạn được trả lại $bookingFee->deposit tiền cọc cho cuốc xe #$booking->id";
+                        $content = "Tài khoản của bạn được trả lại $booking->deposit tiền cọc cho cuốc xe #$booking->id";
                         $notification = $modelNotification->newEmptyEntity();
                         $notification->user_id = $currentUser->id;
                         $notification->booking_id = $booking->id;

@@ -328,12 +328,6 @@ function editCustomerAgency($input)
                         $data->birthday_year = 0;
                     }
 
-                    if(!empty($dataSend['birthday_year'])){
-                        $data->birthday_year = (int) $dataSend['birthday_year'];
-                    }elseif(empty($data->birthday_year)){
-                        $data->birthday_year = 0;
-                    }
-
                     if(!empty($dataSend['id_group'][0])){
                         $data->id_group = (int) $dataSend['id_group'][0];
                     }elseif(empty($data->id_group)){

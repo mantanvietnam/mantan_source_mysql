@@ -52,7 +52,7 @@
 
                             
 
-                            <div class="mb-3">
+                           <!--  <div class="mb-3">
                               <label class="form-label">Trạng thái</label>
                               <div class="input-group input-group-merge">
                                 <select class="form-select" name="status" id="status">
@@ -60,12 +60,12 @@
                                   <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
                                 </select>
                               </div>
-                            </div>
+                            </div> -->
                             
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                               <label class="form-label">Số lượng </label>
                               <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
-                            </div>
+                            </div> -->
                             <div class="mb-3">
                               <label class="form-label">Danh mục (*)</label>
                               <div class="input-group input-group-merge">

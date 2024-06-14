@@ -56,8 +56,10 @@
                   $types ='';
                   if($type=='album'){
                     $types='<img src="'.$item->file.'" width="100">';
+                  }elseif($type=='video'){
+                    $types='<iframe width="300" height="150" src="https://www.youtube.com/embed/'.$item->file.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
                   }else{
-                    $types='<a  href="'.$item->file.'">'.$item->file.'</a>';
+                    $types='<a  href="'.$item->file.'" target="_bank">'.$item->file.'</a>';
                   }
 
                   echo '<tr>

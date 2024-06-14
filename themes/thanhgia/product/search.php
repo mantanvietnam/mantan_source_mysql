@@ -39,9 +39,9 @@
                                     }
 
                                     if($giam>0){
-                                        $giam = '<img src="'.$urlThemeActive.'/asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
+                                        $giam = '
                                                     <div class="item-sale">
-                                                        <span><i class="fa-solid fa-bolt"></i> -'.$giam.'%</span>
+                                                        <span><i class="fa-solid fa-bolt"></i> -'.round($giam).'%</span>
                                                     </div>';
                                     }else{
                                         $giam = '';

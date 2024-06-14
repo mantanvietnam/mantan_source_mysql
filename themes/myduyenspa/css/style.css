@@ -99,9 +99,11 @@ video {
     border-bottom-left-radius: 15px;
     box-shadow: 5px 5px  #330000 ;
 }
-
+.img_myduyen{
+  z-index: 2;
+}
 .content_myduyen{
-     padding: 15px;
+     padding: 20px;
 }
 .content_myduyen h1 {
     margin-top: 50px;

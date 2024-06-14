@@ -60,16 +60,24 @@
                                     <td><b>Sản phẩm</b></td>
                                     <td><b>SL</b></td>
                                     <td><b>Giá</b></td>
+                                    <td><b>Giảm giá</b></td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                     if(!empty($order->detail)){
                                         foreach($order->detail as $item){
+                                            $discount= '';                        
+                                            if($item->discount>100){
+                                              $discount= number_format($item->discount).'đ';
+                                            }elseif($item->discount>0){
+                                              $discount= $item->discount.'%';
+                                            }
                                             echo '  <tr>
                                                         <td>'.$item->product->title.'</td>
                                                         <td>'.$item->quantity.'</td>
                                                         <td>'.number_format($item->price).'</td>
+                                                        <td>'.$discount.'</td>
                                                     </tr>';
                                         }
                                     }
@@ -77,18 +85,18 @@
                                 
                                 <tr>
                                     <td class="text-right" colspan="">Tổng tiền:</td>
-                                    <td colspan="2"><b><?php echo number_format($order->money);?>đ</b></td>
+                                    <td colspan="3"><b><?php echo number_format($order->money);?>đ</b></td>
                                 </tr>
 
                                 <tr>
                                     <td class="text-right" colspan="">Giảm giá:</td>
-                                    <td colspan="2"><?php echo $order->discount;?>%</td>
+                                    <td colspan="3"><?php echo $order->discount;?>%</td>
                                 </tr>
                             
                                 
                                 <tr>
                                     <td class="text-right" colspan="">Tổng thanh toán:</td>
-                                    <td colspan="2"><b><?php echo number_format($order->total);?>đ</b></td>
+                                    <td colspan="3"><b><?php echo number_format($order->total);?>đ</b></td>
                                 </tr>
                                 
                             </tbody>

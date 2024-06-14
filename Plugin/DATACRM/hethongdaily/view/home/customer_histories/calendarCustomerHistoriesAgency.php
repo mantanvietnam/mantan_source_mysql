@@ -86,7 +86,7 @@
             <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">ID khách hàng (*) </label>
+                    <label class="form-label" for="basic-default-phone">Tên khách hàng (*) </label>
                     <input type="text" required class="form-control" name="customer_buy" id="customer_buy" value="" />
                     <input required type="hidden" class="form-control phone-mask" name="id_customer" id="id_customer" value="" />
                   </div>
@@ -336,14 +336,14 @@
               $statusnote = 0;
               switch ($data->status) {
                 case 'new':
-                  $status = 'Chưa sử lý';
+                  $status = 'Chưa xử lý';
                   $statusnote = 'new';
                   $color = 'Gold';
                   $staticStatus0 ++;
                   break;
                 
                 case 'done':
-                  $status = 'Đã sử lý';
+                  $status = 'Đã xử lý';
                   $statusnote = 'done';
                   $color = 'Blue';
                   $staticStatus1 ++;
@@ -454,7 +454,7 @@
            </div>\
            <div class="modal-footer">';
            if(info.event.extendedProps.statusnote=="new"){
-             modal += '<a href="/treatmentCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary">Sử lý</a>';
+             modal += '<a href="/treatmentCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary">Xử lý</a>';
            }
            
 

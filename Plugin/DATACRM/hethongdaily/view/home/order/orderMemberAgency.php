@@ -88,9 +88,10 @@
                 <thead>
                   <th colspan="3" class="text-center">Thông tin đơn hàng</th> 
                   <tr>
-                    <th width="50%">Sản phẩm</th>
-                    <th width="25%">Giá bán</th>
-                    <th width="25%">Số lượng </th>
+                    <th width="50%" style="padding: 0.625rem 0.4rem;">Sản phẩm</th>
+                    <th width="30%" style="padding: 0.625rem 0.4rem;">Giá bán</th>
+                    <th width="10%" style="padding: 0.625rem 0.4rem;">Số lượng </th>
+                    <th width="10%" style="padding: 0.625rem 0.4rem;">Giảm giá </th>
                   </tr>
                 </thead>
               </table>
@@ -111,7 +112,7 @@
               $btnPay= '';
 
               if($item->status_pay=='wait'){
-                $btnPay= '<br/><br/><a class="btn btn-warning" href="/updateOrderMemberAgency/?id='.$item->id.'&status_pay=done">Thu tiền</a>';
+                $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
               }
               
               if($item->status=='new'){ 
@@ -153,10 +154,18 @@
                   <tbody>';
                     if(!empty($item->detail_order)){ 
                       foreach($item->detail_order as $k => $value){
+                        $discount= '';                        
+                        if($value->discount>100){
+                          $discount= number_format($value->discount).'đ';
+                        }elseif($value->discount>0){
+                          $discount= number_format($value->discount).'%';
+                        }
+
                         echo '<tr> 
-                                <td  width="50%">'.$value->product.'</td>
-                                <td  width="25%">'.number_format($value->price).'đ</td>
-                                <td  width="25%" align="center">'.$value->quantity.'</td>
+                                <td  width="50%" style="padding: 0.625rem 0.4rem;">'.$value->product.'</td>
+                                <td  width="30%" style="padding: 0.625rem 0.4rem;">'.number_format($value->price).'đ</td>
+                                <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$value->quantity.'</td>
+                                <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$discount.'</td>
                               </tr>';
                       }
                     } 
@@ -227,7 +236,73 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+ <?php 
+  if(!empty($listData)){
+    foreach ($listData as $items) {?>
+      <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
 
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel1">Thông tin Thanh toán</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer" style="display: block;">
+              <p><label>ID:</label> <?php echo $items->id ?></p>
+              <p><label>Tên khách hàng:</label> <?php echo $items->buyer->full_name ?></p>
+              <p><label>Điện thoại:</label> <?php echo @$items->buyer->phone ?></p>
+              <p><label>Email:</label> <?php echo @$items->buyer->email ?></p>
+                <table class="table table-bordered" style=" text-align: center; ">
+                  <thead>
+                    <tr>
+                      <th >Sản Phẩm</th>
+                      <th >Giá bán</th>
+                      <th >Số lượng </th>                                                 
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php  if(!empty($items->detail_order)){ 
+                      foreach($items->detail_order as $k => $value){
+                        echo '<tr> 
+                                <td  width="50%">'.$value->product.'</td>
+                                <td  width="30%">'.number_format($value->price).'đ</td>
+                                <td  width="20%">'.$value->quantity.'</td>
+                              </tr>';
+                      }} ?>
+                    </tbody>
+                </table>
+                <p><label>Thành tiền:</label> <?php echo number_format(@$items->money) ?>đ</p>
+                <p><label>Giảm:</label> <?php echo number_format(@$items->money-$items->total) ?>đ</p>
+                <p><label>Tổng cộng:</label> <?php echo number_format(@$items->total) ?>đ</p>
+                <form id="" action="/updateOrderMemberAgency" class="form-horizontal" method="get" enctype=""> 
+                 <div class="" style="display: block;">
+                  <div class="row gx-3 gy-2 align-items-center mb-3">
+                    <div class="col-md-12">
+                      <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                      <input type="hidden" value="done"  name="status_pay">
+                      <!-- <input type="hidden" value="<?php echo urlencode($urlCurrent); ?>"  name="back"> -->
+                      <label class="form-label">Chọn hình thức thanh toán</label>
+                      <select  name="type_collection_bill" id="type_collection_bill" required="" class="form-select color-dropdown">
+                        <option value="">Chọn hình thức thanh toán</option>
+                        <option value="tien_mat">Tiền mặt</option>
+                        <option value="chuyen_khoan">Chuyển khoản</option>
+                        <option value="the_tin_dung">Quẹt thẻ</option>
+                        <option value="vi_dien_tu">Ví điện tử</option>
+                        <option value="cong_no">Công nợ</option>
+                        <option value="hinh_thuc_khac">Hình thức khác</option> 
+                      </select>
+                      <label class="form-label">Ghi chú</label>
+                      <textarea class="form-control phone-mask" rows="3" name="note"></textarea>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary ">Thanh toán</button>
+                </div>
+              </form>
+              </div>
+            </div>
+            </div>
+          </div>
+<?php }} ?>
 <script type="text/javascript">
     // tìm sản phẩm
     $(function() {

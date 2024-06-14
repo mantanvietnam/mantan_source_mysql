@@ -258,11 +258,12 @@ function calendarCustomerHistoriesAgency(){
             }
         }
         
-        // debug($listData);
-        // die;
+        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
        
         
         setVariable('listData', $listData);
+        setVariable('listGroupCustomer', $listGroupCustomer);
     }else{
         return $controller->redirect('/login');
     }

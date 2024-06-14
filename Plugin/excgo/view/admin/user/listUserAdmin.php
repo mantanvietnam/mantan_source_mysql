@@ -59,6 +59,10 @@
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
+          <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" name="excel" class="btn btn-primary d-block" value="Excel">Xuất Excle</button>
+          </div>
         </div>
       </div>
     </div>
@@ -115,7 +119,8 @@
 
               echo '<tr>';
                 if(checkPermission('idadmin')){
-                  echo '<td align="center">' . $item->id . '</td>';
+                  echo '<td align="center">' . $item->id . '
+                  </td>';
                 }
                 if(checkPermission('avatar')){
                   echo  '<td align="center"><img src="' . $item->avatar . '" width="100" /></td>';
@@ -134,7 +139,8 @@
                   <br>
                   Địa chỉ: ' . $item->address . '
                   <br>
-                  Sl chuyến xe có thể nhận: ' . $item->maximum_trip . '
+                  Sl chuyến xe có thể nhận: ' . $item->maximum_trip . '</br>
+                    thời gian tạo : '.$item->created_at->format('H:i d-m-Y').'
                   </td>';
                 }
 

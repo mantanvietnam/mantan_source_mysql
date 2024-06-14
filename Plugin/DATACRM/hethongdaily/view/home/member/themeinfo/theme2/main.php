@@ -2,10 +2,13 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CARD</title>
+    <link rel="icon" type="image/x-icon" href="<?php echo $info->image_system;?>" />
+
+    <?php 
+        mantan_header();
+    ?>
     <link rel="stylesheet" href="/plugins/hethongdaily/view/home/member/themeinfo/theme2/Asset/css/main.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -41,34 +44,41 @@
     <main>
         <div class="container">
 
-            <section id="block-1">
-                <div class="qr-code">
-                    <a href="#" id="imageLink">
-                        <i class="fa-solid fa-qrcode"></i>
-                    </a>
-                </div>
-                <div class="home-btn">
-                    <a href="">
-                        <i class="fa-solid fa-globe"></i>
-                    </a>
-                </div>
-            </section>
+            
 
 
-            <div id="crm-card">
+            <div id="crm-card" style="position: relative;">
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
+
+                        <section id="block-1">
+                            <div class="qr-code">
+                                <a href="#" id="imageLink">
+                                    <i class="fa-solid fa-qrcode"></i>
+                                </a>
+                            </div>
+                            <div class="home-btn">
+                                <?php 
+                                if(!empty($info->web)){
+                                    echo '  <a target="_blank" href="'.$info->web.'">
+                                                <i class="fa-solid fa-globe"></i>
+                                            </a>';
+                                }?>
+                                
+                            </div>
+                        </section>
+
                         <section id="block-2">
                             <div class="block-2-img">
                                 <img src="<?php echo $info->avatar;?>" alt="">
                             </div>
                             <div class="block-2-title">
-                                <h1><?php echo $info->name;?></h1>
+                                <h1 style="color: rgb(42 50 127);"><?php echo $info->name;?></h1>
                             </div>
                             <div class="block-2-detail">
                                 <h3><?php echo $info->name_position;?></h3>
                                 <h4><?php echo $info->name_system;?></h4>
-                                <p><i class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
+                                <p><i style="color: rgb(42 50 127);" class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
                             </div>
                         </section>
 
@@ -84,16 +94,16 @@
                                 </a>
                             </div>
                             <div class="block-3-btn">
-                                <a href="" onclick="saveToPhonebook()" class=" block-3-btn-3">
+                                <a href="javascript:void(0);" onclick="saveToPhonebook()" class=" block-3-btn-3">
                                     <i class="fa-solid fa-user"></i>Lưu
                                 </a>
                             </div>
                         </section>
 
-                        <section id="block-4">
+                        <section id="block-4" style="gap: 24px;">
                             <?php if(!empty($info->facebook)){ ?>
                             <div class="block-4-icon icon-fb">
-                                <a href="">
+                                <a href="<?php echo $info->facebook;?>">
                                     <i class="fa-brands fa-facebook"></i>
                                 </a>
                             </div>
@@ -101,7 +111,7 @@
 
                             <?php if(!empty($info->tiktok)){ ?>
                             <div class="block-4-icon icon-tiktok">
-                                <a href="">
+                                <a href="<?php echo $info->tiktok;?>">
                                     <i class="fa-brands fa-tiktok"></i>
                                 </a>
                             </div>
@@ -109,7 +119,7 @@
 
                             <?php if(!empty($info->youtube)){ ?>
                             <div class="block-4-icon">
-                                <a href="">
+                                <a href="<?php echo $info->youtube;?>">
                                     <i class="fa-brands fa-youtube"></i>
                                 </a>
                             </div>
@@ -117,7 +127,7 @@
 
                             <?php if(!empty($info->zalo)){ ?>
                             <div class="block-4-icon">
-                                <a href="">
+                                <a href="<?php echo $info->zalo;?>">
                                     <img src="/plugins/hethongdaily/view/home/member/themeinfo\theme2\Asset/images/zalo-white-d96e.png" alt="">
                                 </a>
                             </div>
@@ -125,7 +135,7 @@
 
                             <?php if(!empty($info->instagram)){ ?>
                             <div class="block-4-icon">
-                                <a href="">
+                                <a href="<?php echo $info->instagram;?>">
                                     <i class="fa-brands fa-instagram"></i>
                                 </a>
                             </div>
@@ -142,8 +152,6 @@
                                <img src="<?php echo @$info->image_qr_pay; ?>">
                            <?php } ?>
                             </div>
-
-
                         </section>
 
                     </div>
@@ -168,18 +176,18 @@
                                 if(!empty($item['product'])){
                                     foreach ($item['product'] as $product) {
                                         echo '<tr>
-                                            <th scope="row" class="no-padding">
+                                            <th scope="row" class="no-padding" style="width: 45px;">
                                                 <div class="check-input">
                                                     <input type="checkbox" data-idProduct="'.$product->id.'" name="id_product[]" id="checkbox'.$product->id.'" >
                                                 </div>
                                                 <div class="qty-input">
-                                                    <button class="qty-count qty-count--minus" data-action="minus" type="button">-</button>
-                                                    <input class="product-qty" type="number" id="numberProduct'.$product->id.'" name="product-qty" min="0" max="10" value="1">
-                                                    <button class="qty-count qty-count--add" data-action="add" type="button">+</button>
+                                                    <button style="width: 44px;" class="qty-count qty-count--minus" data-action="minus" type="button">-</button>
+                                                    <input style="width: 44px;" class="product-qty" type="number" id="numberProduct'.$product->id.'" name="product-qty" min="0" max="999" value="1">
+                                                    <button style="width: 44px;" class="qty-count qty-count--add" data-action="add" type="button">+</button>
                                                 </div>
                                             </th>
-                                            <td>
-                                                <img data-toggle="modal" data-target="#slideProduct'.$product->id.'Modal" src="'.$product->image.'" class="img-thumbnail">
+                                            <td class="table-img" style="width: 120px;">
+                                                <img data-toggle="modal" data-target="#slideProduct'.$product->id.'Modal" src="'.$product->image.'">
                                             </td>
                                             <td><a href="/product/'.$product->slug.'.html" target="_blank">'.$product->title.'</a><br/>
                                                 <span class="text-danger">'.number_format($product->price).'đ</span><br/>';
@@ -195,10 +203,8 @@
                         }else{
                             echo '<p class="text-danger">Chưa có sản phẩm bán</p>';
                         }
-                        ?>
-
-                               
-                                 <button style="position: sticky ; bottom: 10px;" type="button" class="btn btn-danger" onclick="checkSelectProduct();">ĐẶT MUA HÀNG</button>
+                        ?>                               
+                                 <button style="position: sticky; width: 100%;bottom: 68px;" type="button" class="btn btn-danger buy-btn" onclick="checkSelectProduct();">ĐẶT MUA HÀNG</button>
                             </div>
                         </section>
 
@@ -232,7 +238,7 @@
 
                      <!-- Tab đặt hàng -->
                     <div class="tab-pane fade" id="order">
-                        <div class="container p-3 d-flex justify-content-center">
+                        <div class=" p-3 d-flex justify-content-center">
                             <div class="card p-4"> 
                                 <div class="mb-3">
                                   <label for="full_name" class="form-label">Họ tên (*)</label>
@@ -259,26 +265,13 @@
                         </div>
                     </div>
 
-                    <?php 
-                    if(!empty($info->web)){
-                        echo '  <div class="tab-pane fade" id="about">
-                                    <iframe allowfullscreen="" width="100%" height="100%" title="main360" src="'.$info->web.'"></iframe>
-                                </div>';
-                    }
-                    ?>
                 </div>
 
                 <div class="tabs-menu">
                     <ul class="nav nav-pills">
-                        <li class="active"><a data-toggle="pill" href="#home"><i class="fa-solid fa-circle-user"></i> <p>Cá nhân</p></a></li>
+                        <li class="active"><a data-toggle="pill" href="#home"><i class="fa-solid fa-circle-user"></i> <p>Thông tin</p></a></li>
                         <li><a data-toggle="pill" href="#menu2"><i class="fa-solid fa-wallet"></i> <p>Sản phẩm</p></a></li>
                         <li><a data-toggle="pill" href="#menu3"><i class="fa-solid fa-circle-user"></i> <p>Khách hàng</p></a></li>
-                         <?php 
-                            if(!empty($info->web)){
-                                echo '  <li class="nav-item">
-                                        <a class="nav-link" id="about-tab" data-toggle="tab" href="#about"><i class="bx bxs-add-to-queue" style=" font-size: 20px; width: 100%; "></i>Thêm</a>
-                                        </li>';
-                            }?>
                     </ul>
                 </div>
 

@@ -68,6 +68,7 @@ function addOrderCustomer($input)
                     $saveDetail->id_order = $save->id;
                     $saveDetail->quantity = $dataSend['soluong'][$key];
                     $saveDetail->price = $dataSend['money'][$key];
+                    $saveDetail->discount = $dataSend['discount'][$key];
 
                     $modelOrderDetails->save($saveDetail);
                 }
@@ -107,6 +108,7 @@ function orderCustomerAgency($input)
         $modelProduct = $controller->loadModel('Products');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetail = $controller->loadModel('OrderDetails');
+        $modelCustomers = $controller->loadModel('Customers');
 
         $conditions = array('id_agency'=>$session->read('infoUser')->id);
         $limit = 20;
@@ -242,8 +244,10 @@ function orderCustomerAgency($input)
                         }
                     }
 
+
                     $listData[$key]->detail_order = $detail_order;
                 }
+                $listData[$key]->customer = $modelCustomers->find()->where(['id'=>(int) $item->id_user])->first();
             }
         }
 
@@ -388,18 +392,22 @@ function updateStatusOrderAgency($input){
         $metaTitleMantan = 'Chi tiết đơn hàng';
 
         $modelOrder = $controller->loadModel('Orders');
+        $modelBill = $controller->loadModel('Bills');
+        $modelDebt = $controller->loadModel('Debts');
         $modelOrderDetail = $controller->loadModel('OrderDetails');
         $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
         $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+        $modelCustomers = $controller->loadModel('Customers');
+        $time = time();
 
         if(!empty($_GET['id'])){
+            // debug($_GET);
+            // die();
             $order = $modelOrder->find()->where(['id_agency'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id'] ])->first();
 
             if(!empty($order)){
                 if(!empty($_GET['status'])){
                     $order->status = $_GET['status'];
-
-                    $modelOrder->save($order);
 
                     // xuất hàng khỏi kho
                     if($_GET['status'] == 'done'){
@@ -434,8 +442,53 @@ function updateStatusOrderAgency($input){
                                 $modelWarehouseHistories->save($saveWarehouseHistories);
                             }
                         }
+
                     }
                 }
+
+                // tạo phiêu thu 
+                if(!empty($_GET['status_pay'])){
+                    $order->status_pay = $_GET['status_pay'];
+                    if($_GET['status_pay']=='done'){
+                        $customer = $modelCustomers->find()->where(['id'=>(int) $order->id_user])->first();
+                        if($_GET['type_collection_bill']!='cong_no'){
+                            $bill = $modelBill->newEmptyEntity();
+                            $bill->id_member_sell =  $session->read('infoUser')->id;
+                            $bill->id_member_buy = 0;
+                            $bill->total = $order->total;
+                            $bill->id_order = $order->id;
+                            $bill->type = 1;
+                            $bill->type_order = 2; 
+                            $bill->created_at = $time;
+                            $bill->updated_at = $time;
+                            $bill->id_debt = 0;
+                            $bill->type_collection_bill =  @$_GET['type_collection_bill'];
+                            $bill->id_customer = $order->id_user;
+                            $bill->note = 'Thanh toán đơn hàng id:'.$order->id.' của khách '.@$customer->full_name.' '.@$customer->phone.'; '.@$_GET['note'];
+                            $modelBill->save($bill);
+                        }else{
+                            if(!empty($customer)){
+                                $debt = $modelDebt->newEmptyEntity();
+                                $debt->id_member_sell =  $session->read('infoUser')->id;
+                                $debt->id_member_buy = 0;
+                                $debt->total = $order->total;
+                                $debt->id_order = $order->id;
+                                $debt->number_payment = 0;
+                                $debt->total_payment = 0;
+                                $debt->type = 0;
+                                $debt->status = 0;
+                                $debt->type_order = 2; 
+                                $debt->created_at = $time;
+                                $debt->updated_at = $time;
+                                $debt->id_customer = $order->id_user;
+                                $debt->note = 'Thanh toán đơn hàng id:'.$order->id.' của khách '.@$customer->full_name.' '.@$customer->phone.'; '.@$_GET['note'];
+                                    $modelDebt->save($debt);
+                            }
+                        }
+                    }
+                }
+                $modelOrder->save($order);
+                
 
                 if(!empty($_GET['back'])){
                     return $controller->redirect($_GET['back']);
@@ -554,6 +607,8 @@ function listProductAgency($input)
 
         if(!empty($_GET['status'])){
             $conditions['status'] = $_GET['status'];
+        }else{
+            $conditions['status'] = 'active';
         }
 
         if(!empty($_GET['id_category'])){
@@ -681,6 +736,7 @@ function addProductAgency($input)
             $data = $modelProduct->get( (int) $_GET['id']);  
         }else{
             $data = $modelProduct->newEmptyEntity();
+            $data->quantity = 10000000;
         }
 
         if ($isRequestPost) {
@@ -699,7 +755,7 @@ function addProductAgency($input)
                 $data->price = (int) @$dataSend['price'];
                 $data->price_old = (int) @$dataSend['price_old'];
                 $data->quantity = (int) @$dataSend['quantity'];
-                $data->status = @$dataSend['status'];
+                $data->status = 'active';
                 $data->id_category = (int) @$dataSend['id_category'][0];
 
                 $data->hot = 0;
@@ -805,9 +861,9 @@ function deleteProductAgency($input){
             $data = $modelProduct->get($_GET['id']);
             
             if($data){
-                $modelProduct->delete($data);
-
-                deleteSlugURL($data->slug);
+                $data->status = 'lock';
+                $modelProduct->save($data);
+                //deleteSlugURL($data->slug);
             }
         }
 

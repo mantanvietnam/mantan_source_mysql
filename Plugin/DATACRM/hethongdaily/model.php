@@ -13,4 +13,6 @@ include('model/warehouse_histories.php'); // lịch sử xuất nhập kho
 include('model/token_devices.php'); // mã thiết bị
 include('model/document.php'); // thư viện
 include('model/documentinfo.php'); // chi tết thư viện
+include('model/bill.php'); // phiếu thu va chi
+include('model/debt.php'); // công nợ
 ?>
