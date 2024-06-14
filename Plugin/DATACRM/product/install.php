@@ -53,6 +53,7 @@ $sqlInstallDatabase .= "CREATE TABLE `orders` (
     `id_agency` INT NOT NULL DEFAULT '0', 
     `id_aff` INT NULL DEFAULT '0',
     `promotion` INT NOT NULL DEFAULT '0' COMMENT 'Phần trăm giảm giá',
+    `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán' , 
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .= "CREATE TABLE `order_details` ( 
@@ -182,6 +183,7 @@ $sqlUpdateDatabase['orders']['discount'] = "ALTER TABLE `orders` ADD `discount` 
 $sqlUpdateDatabase['orders']['id_discount'] = "ALTER TABLE `orders` ADD `id_discount` INT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['orders']['id_agency'] = "ALTER TABLE `orders` ADD `id_agency` INT NOT NULL DEFAULT '0'; ";
 $sqlUpdateDatabase['orders']['id_aff'] = "ALTER TABLE `orders` ADD `id_aff` INT NULL DEFAULT '0'; ";
+$sqlUpdateDatabase['orders']['status_pay'] = "ALTER TABLE `orders` ADD `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán';";
 $sqlUpdateDatabase['orders']['promotion'] = "ALTER TABLE `orders` ADD `promotion` INT NOT NULL DEFAULT '0' COMMENT 'Phần trăm giảm giá'; ";
 
 // Bang order_details
