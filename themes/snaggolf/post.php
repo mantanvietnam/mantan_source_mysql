@@ -40,7 +40,7 @@
                                                         <h5 class="">
                                                             <a href="'.$link.'">'.$value->title.'</a>
                                                         </h5>
-                                                        <p>'.$value->description.'</p>
+                                                        <p>'.$value->content.'</p>
                                                     </div>
                                                 </div>
                                             </div>

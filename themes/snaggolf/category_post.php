@@ -24,7 +24,7 @@
                                                 <a href="'.$link.'">'.$value->title.'</a>
                                             </h3>
                                             <div class="post-entry">
-                                                <p>'.$value->description.'</p>
+                                                <p>'.$value->content.'</p>
                                             </div>
                                             <div class="post-meta">
                                                 <span class="post-author">'.date('d/m/Y', $value->time).'</span>
