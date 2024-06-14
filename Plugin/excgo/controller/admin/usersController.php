@@ -37,22 +37,50 @@ function listUserAdmin($input)
         $conditions['status'] = $_GET['status'];
     }
 
-    $listData = $modelUser->find()
-        ->limit($limit)
-        ->page($page)
-        ->where($conditions)
-        ->order(['id' => 'desc'])
-        ->all()
-        ->toList();
-    $totalUser = $modelUser->find()
-        ->where($conditions)
-        ->all()
-        ->toList();
-    $paginationMeta = createPaginationMetaData(
-        count($totalUser),
-        $limit,
-        $page
-    );
+    if(!empty($_GET['excel']) && $_GET['excel']=='Excel'){
+            $listData = $modelUser->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
+            $titleExcel =   [
+                ['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
+                ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
+                ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+                ['name'=>'Email', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Số tiền', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Loại tài khoản', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Ngàn hàng', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Số tài khoản ngân hàng', 'type'=>'text', 'width'=>25],  
+            ];
+            $dataExcel = [];
+            if(!empty($listData)){
+                
+                foreach ($listData as $key => $value) {
+                    if ($value->type == 0) {
+                        $type = 'Người dùng';
+                    } else {
+                        $type = 'Tài xế';
+                    }
+                    
+                    $dataExcel[] = [
+                                    $value->created_at->format('H:i d-m-Y'), 
+                                    @$value->name,   
+                                    @$value->phone_number,   
+                                    @$value->email,   
+                                    @$value->address,   
+                                    number_format(@$value->total_coin),   
+                                    @$type,   
+                                    @$value->bank_account,   
+                                    @$value->account_number,   
+                            ];
+                }
+            }            
+            export_excel($titleExcel,$dataExcel,'danh_sach_thanh_vien');
+        }
+        $listData = $modelUser->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
+        $totalUser = $modelUser->find()->where($conditions)->all()->toList();
+        $paginationMeta = createPaginationMetaData(count($totalUser),$limit,$page); 
+        
+
+    
 
     setVariable('page', $page);
     setVariable('totalPage', $paginationMeta['totalPage']);
