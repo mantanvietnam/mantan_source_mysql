@@ -86,7 +86,7 @@
             <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Tên hoặc SĐT khách hàng (*) </label>
+                    <label class="form-label" for="basic-default-phone">Tên khách hàng (*) </label>
                     <input type="text" required class="form-control" name="customer_buy" id="customer_buy" value="" />
                     <input required type="hidden" class="form-control phone-mask" name="id_customer" id="id_customer" value="" />
                   </div>
@@ -798,10 +798,10 @@
           let startTime = startDate[1];
 
           if(status=='new'){
-            statusnote = 'Chưa xử lý';
+            statusnote = 'Chưa sử lý';
             color = 'Gold';
           }else{
-            statusnote = 'Đã xử lý';
+            statusnote = 'Đã sử lý';
             color ='Blue';
           }
 

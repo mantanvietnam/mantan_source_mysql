@@ -73,7 +73,7 @@
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
+              <!-- <option value="">Tất cả</option> -->
               <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
               <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
             </select>
@@ -100,10 +100,11 @@
             <th>Hình minh họa</th>
             <th>Danh mục</th>
             <th>Tên sản phẩm</th>
+            <th>Giá bán</th>
             <th>Số lượng</th>
             <th>Trạng thái</th>
             <th>Sửa</th>
-            <th>Xóa</th>
+            <th>Khóa</th>
           </tr>
         </thead>
         <tbody>
@@ -124,8 +125,8 @@
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.implode(', ', $category_name).'</td>
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
-                        <td> Sl còn:'.$item->quantity.'<br/>
-                        </td>
+                        <td> '.number_format($item->price).' đ</td>
+                        <td> Sl còn:'.$item->quantity.'</td>
                         <td>'.$item->status.'</td>
                         
                         <td align="center">
@@ -134,8 +135,8 @@
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteProductAgency/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn khóa không?\');" href="/deleteProductAgency/?id='.$item->id.'">
+                            <i class="bx bxs-lock-alt me-1"></i>
                           </a>
                         </td>
                       </tr>';

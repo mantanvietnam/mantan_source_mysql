@@ -18,8 +18,15 @@
                   <input type="text" class="form-control" name="title" value="<?php echo @$data->title;?>" required />
                 </div>
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
-                  <label class="form-label"><?php echo $title ?> *</label>
-                  <?php showUploadFile('file','file',@$data->file,0);?>
+                  <?php if($type=='video'){
+                    echo '<label class="form-label">Mã video youtube *</label>
+                        <input type="text" class="form-control" name="file" value="'.@$data->file.'" required />';
+
+                  }else{ 
+                    echo '<label class="form-label">'.$title.' *</label>';
+                   showUploadFile('file','file',@$data->file,0);
+                  }
+                   ?>
                 </div>
               </div>
 
