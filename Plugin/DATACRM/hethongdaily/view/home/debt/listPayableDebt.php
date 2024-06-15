@@ -82,7 +82,7 @@ global $type_collection_bill;
               <th>đối tượng</th>
               <th>Số tiền </th>
               <th>Số lần trả</th>
-              <th>Nội dung phiếu thu</th>
+              <th>Nội dung</th>
               <th >Trả</th>
             </tr>
           </thead>
@@ -97,7 +97,7 @@ global $type_collection_bill;
                     $type = 'Khách hàng';
                   }
 
-                  $status = ' <td align="center" colspan="2" >đã trả xong';
+                  $status = ' <td align="center">đã trả xong';
                   if($item->status==0){
                     $status = '
                     <td align="center">Chưa trả xong<br/>

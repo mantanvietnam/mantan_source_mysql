@@ -90,7 +90,7 @@
               <th>đối tượng</th>
               <th>hinh thức</th>
               <th>Số tiền</th>
-              <th>Nội dung phiếu chi</th>
+              <th>Nội dung</th>
               <!-- </th>Sửa</th> -->
               <th>in</th>
             </tr>
