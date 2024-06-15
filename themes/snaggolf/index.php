@@ -280,7 +280,6 @@
                                                 <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
                                                 <div class="overlay">
                                                     <span class="post-author">'.date('d/m/Y', $value->time).'</span>
-                                                    <a href="'.$link.'"><button class="rounded-circle"><img src="<?php echo $urlThemeActive; ?>assets/img/greater-than.svg" alt=""></button></a>
                                                 </div>
                                             </div>
                                             <div class="card-body">
