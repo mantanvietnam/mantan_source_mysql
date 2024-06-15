@@ -226,6 +226,21 @@
                       </li>';
               }
 
+              if(in_array('cashBook', $plugins_site_value)){
+                echo '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Sổ quỹ
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                          <a class="dropdown-item" href="/listCollectionBill">Phiếu thu</a>
+                          <a class="dropdown-item" href="/listBill">Phiếu thu</a>
+                          <a class="dropdown-item" href="/listCollectionDebt">Công nợ thu</a>
+                          <a class="dropdown-item" href="/listPayableDebt">Công nợ trả</a>
+                        </div>
+                      </li>';
+              }
+
               if(in_array('order_system', $plugins_site_value)){
                 echo '<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

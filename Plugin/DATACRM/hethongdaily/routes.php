@@ -144,3 +144,12 @@
 	$routesPlugin['addDocument']= 'hethongdaily/view/home/document/addDocument.php';
 	$routesPlugin['listDocumentinfo']= 'hethongdaily/view/home/document/listDocumentinfo.php';
 	$routesPlugin['addDocumentinfo']= 'hethongdaily/view/home/document/addDocumentinfo.php';
+
+	// bill phiếu thu chi 
+	$routesPlugin['listBill']= 'hethongdaily/view/home/bill/listBill.php';
+	$routesPlugin['listCollectionBill']= 'hethongdaily/view/home/bill/listCollectionBill.php';
+	$routesPlugin['printCollectionBill']= 'hethongdaily/view/home/bill/printCollectionBill.php';
+	$routesPlugin['printBill']= 'hethongdaily/view/home/bill/printBill.php';
+
+	$routesPlugin['listCollectionDebt']= 'hethongdaily/view/home/debt/listCollectionDebt.php';
+	$routesPlugin['listPayableDebt']= 'hethongdaily/view/home/debt/listPayableDebt.php';
