@@ -34,20 +34,21 @@
                                                 <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
                                                 <div class="overlay">
                                                     <span class="post-author">'.date('d/m/Y', $value->time).'</span>
-                                                </div>
-                                                </div>
-                                                    <div class="card-body">
-                                                        <h5 class="">
-                                                            <a href="'.$link.'">'.$value->title.'</a>
-                                                        </h5>
-                                                        <p>'.$value->content.'</p>
-                                                    </div>
+                                                    <a href="'.$link.'"><button class="rounded-circle"><img src="<?php echo $urlThemeActive; ?>assets/img/greater-than.svg" alt=""></button></a>
                                                 </div>
                                             </div>
-                                        </div>';
-                                    }
-                                }   
-                            ?>
+                                            <div class="card-body">
+                                                <h5 class="">
+                                                    <a href="'.$link.'">'.$value->title.'</a>
+                                                </h5>
+                                                <p>'.$value->content.'</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                            }
+                        }
+                    ?>
             </div>
         </div>
     </section>
