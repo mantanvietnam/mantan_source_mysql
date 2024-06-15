@@ -6,28 +6,58 @@
     <section class="head-component">
         <div class="container">
             <h1><?php echo $category['name']; ?></h1>
+        </div>
+    </section>
 
-            <div class="row post-list">
+    <section class="news-post">
+        <div class="container">
+            <div class="row g-4">
                 <?php 
                     if(!empty($listPosts)){
                         foreach ($listPosts as $key => $value) {
                             $link = '/'.$value->slug.'.html';
 
-                            echo '<div class="post-item col-lg-4 col-md-6 col-12">
-                                    <div class="post-box">
-                                        <div class="post-box-img">
-                                            <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
-                                        </div>
-
-                                        <div class="post-box-detail">
-                                            <h3 class="post-title">
-                                                <a href="'.$link.'">'.$value->title.'</a>
-                                            </h3>
-                                            <div class="post-entry">
-                                                <p>'.$value->content.'</p>
+                            echo '<div class="col-12 col-md-6 mt-0">
+                                    <section class="post-box">
+                                        <div class="card-news">
+                                            <div class="card">
+                                                <div class="head-card">
+                                                    <img src="'.$value->image.'" class="card-img-top" alt="...">
+                                                    <div class="overlay">
+                                                        <span>'.date('d/m/Y', $value->time).'</span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5 class="">
+                                                        <a href="'.$link.'">'.$value->title.'</a>
+                                                    </h5>
+                                                    <p class="">'.$value->content.'</p>
+                                                </div>
                                             </div>
-                                            <div class="post-meta">
-                                                <span class="post-author">'.date('d/m/Y', $value->time).'</span>
+                                        </div>
+                                    </section>
+
+                                    <div class="post-card card d-block d-lg-none">
+                                        <div class="d-flex">
+                                            <div class="card-img-custom">
+                                                <img src="'.$value->image.'" alt="">
+                                            </div>
+
+                                            <div class="card-content-custom">
+                                                <div class="content-contain">
+                                                    <h5>
+                                                        <a href="'.$link.'">'.$value->title.'</a>
+                                                    </h5>
+                                                    <p>'.$value->content.'</p>
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <span>'.date('d/m/Y', $value->time).'</span>
+                                                        <a href="">
+                                                            <button>
+                                                                <img src="'.$value->image.'" alt="">
+                                                            </button>
+                                                        </a>
+                                                    </div
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
