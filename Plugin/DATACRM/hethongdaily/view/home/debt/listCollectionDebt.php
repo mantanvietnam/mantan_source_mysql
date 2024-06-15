@@ -84,10 +84,10 @@ global $type_collection_bill;
               <th>Thông tin</th>
               <th>đối tượng</th>
               <th>Số tiền </th>
-              <th>Số lần trả</th>
-              <th>Nội dung phiếu thu</th>
+              <th>Số lần thu</th>
+              <th>Nội dung</th>
               <th>Sửa</th>
-              <th >Trả</th>
+              <th >Thu</th>
             </tr>
           </thead>
           <tbody>
@@ -104,14 +104,14 @@ global $type_collection_bill;
                     $link = '/orderCustomerAgency?id='.$item->id_order;
                   }
 
-                  $status = ' <td align="center" colspan="2" >đã trả xong';
+                  $status = ' <td align="center" colspan="2" >đã thu xong';
                   if($item->status==0){
                     $status = '<td align="center">
                             <a class="dropdown-item" href="/addCollectionDebt/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
-                    <td align="center">Chưa trả xong<br/>
+                    <td align="center">Chưa thu xong<br/>
                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
                               <i class="bx bxl-paypal me-1"></i>
                             </a></td>
@@ -134,7 +134,7 @@ global $type_collection_bill;
                           <td>'.$type.'</td>
                           <td>
                           Số tiền Nợ: '.number_format($item->total).'đ<br/>
-                          Số tiền đã trả: '.number_format($item->total_payment).'đ<br/>
+                          Số tiền đã thu: '.number_format($item->total_payment).'đ<br/>
                           Số tiền còn : '.number_format($item->total-$item->total_payment).'đ<br/>
                           </td>
                           <td align="center"><a href="/listCollectionBill?id_debt='.$item->id.'" title="chi tiết">'.$item->number_payment.'</a></td>
@@ -210,11 +210,11 @@ global $type_collection_bill;
 
                    $info = '';
                   if(!empty($items->member)){
-                    $info = '<p><label class="form-label">Tên đại lý nợ:</label>:'.$items->member->name.'</p>
-                            <p><label class="form-label">Số điện thoại:</label>'.$items->member->phone.'</p>';
+                    $info = '<p><label class="form-label">Tên đại lý nợ:</label> '.$items->member->name.'</p>
+                            <p><label class="form-label">Số điện thoại:</label> '.$items->member->phone.'</p>';
                   }elseif(!empty($item->customer)){
-                    $info = '<p><label class="form-label">Tên khách hàng nợ:</label>:'.$items->customer->full_name.'</p>
-                            <p><label class="form-label">Số điện thoại:</label>'.$items->customer->phone.'</p>';
+                    $info = '<p><label class="form-label">Tên khách hàng nợ:</label> '.$items->customer->full_name.'</p>
+                            <p><label class="form-label">Số điện thoại:</label> '.$items->customer->phone.'</p>';
                   }
 
 
@@ -235,13 +235,13 @@ global $type_collection_bill;
                                     <div class="col-md-12">
                                       <?php echo $info; ?>
                                       <p><label class="form-label">Số tiền Nợ:</label> <?php echo number_format($items->total) ?> đ</p>
-                                      <p><label class="form-label">Số tiền đã trả:</label> <?php echo number_format($items->total_payment) ?> đ</p>
+                                      <p><label class="form-label">Số tiền đã thu:</label> <?php echo number_format($items->total_payment) ?> đ</p>
                                       <p><label class="form-label">Số tiền còn:</label> <?php echo number_format($items->total-$items->total_payment) ?> đ</p>
-                                      <p><label class="form-label">Số lần trả:</label> <?php echo $items->number_payment ?> lần</p>
+                                      <p><label class="form-label">Số lần đã thu:</label> <?php echo $items->number_payment ?> lần</p>
                                     </div>
                                     
                                     <div class="col-md-12">
-                                      <label class="form-label">Số tiền trả</label>
+                                      <label class="form-label">Số tiền thu</label>
                                       <input type="number" value="" class="form-control" placeholder="" name="total">
                                     </div>
                                     <div class="col-md-12">
