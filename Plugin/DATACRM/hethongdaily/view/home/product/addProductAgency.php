@@ -90,8 +90,8 @@
 
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label">Giá bán</label>
-                              <input type="text" class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price;?>" />
+                              <label class="form-label">Giá bán (*)</label>
+                              <input type="text" required class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price;?>" />
                             </div>
 
                             <div class="mb-3">
@@ -131,7 +131,7 @@
                         <div class="row">
                           <div class="col-md-4">
                             <div class="mb-3">
-                              <label class="form-label">Hình minh họa</label>
+                              <label class="form-label">Hình minh họa (*)</label>
                               <?php showUploadFile('image','image',@$data->image,0);?>
                             </div>
                           </div>

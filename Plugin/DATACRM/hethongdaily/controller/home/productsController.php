@@ -717,6 +717,8 @@ function addProductAgency($input)
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $urlHomes;
+
     $metaTitleMantan = 'Thông tin sản phẩm';
     if(!empty($session->read('infoUser'))){
         if(!empty($session->read('infoUser')->id_father)){
@@ -743,9 +745,12 @@ function addProductAgency($input)
             $dataSend = $input['request']->getData();
 
             if(!empty($dataSend['title'])){
+                if(empty($dataSend['image'])){
+                    $dataSend['image'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/default-thumb.jpg';
+                }
+
                 // tạo dữ liệu save
                 $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
-                // $data->id_category = (int) @$dataSend['id_category'];
                 $data->description = @$dataSend['description'];
                 $data->info = @$dataSend['info'];
                 $data->image = @$dataSend['image'];
@@ -754,7 +759,7 @@ function addProductAgency($input)
                 $data->code = @strtoupper($dataSend['code']);
                 $data->price = (int) @$dataSend['price'];
                 $data->price_old = (int) @$dataSend['price_old'];
-                $data->quantity = (int) @$dataSend['quantity'];
+                $data->quantity = 1000000;
                 $data->status = 'active';
                 $data->id_category = (int) @$dataSend['id_category'][0];
 
@@ -800,9 +805,6 @@ function addProductAgency($input)
                     $modelCategorieProduct->deleteAll($conditions);
                 }
 
-
-
-
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
             }else{
                 $mess= '<p class="text-danger">Bạn chưa nhập tên sản phẩm</p>';
@@ -810,13 +812,13 @@ function addProductAgency($input)
         }
 
                 
-                if(!empty($data->images)){
-                    $data->images = json_decode($data->images, true);
-                }           
-               
-                if(!empty($data->evaluate)){
-                    $data->evaluate = json_decode($data->evaluate, true);
-                }
+        if(!empty($data->images)){
+            $data->images = json_decode($data->images, true);
+        }           
+       
+        if(!empty($data->evaluate)){
+            $data->evaluate = json_decode($data->evaluate, true);
+        }
               
 
         $conditions = array('type' => 'category_product');
