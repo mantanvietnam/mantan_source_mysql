@@ -1,5 +1,6 @@
 <?php
     getHeader();
+    global $urlThemeActive;
 ?>
 <main>
     <section class="post-head">
@@ -27,21 +28,26 @@
                         foreach ($otherPosts as $key => $value) {
                             $link = '/'.$value->slug.'.html';
 
-                            echo '<div class="col-12 col-lg-4">
-                                    <div class="card-news">
-                                        <div class="card">
-                                            <div class="head-card">
-                                                <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
-                                                <div class="overlay">
-                                                    <span class="">'.date('d/m/Y', $value->time).'</span>
-                                                    <a href="'.$link.'"><button class="rounded-circle"><img src="<?php echo $urlThemeActive; ?>assets/img/greater-than.svg" alt=""></button></a>
+                            
+                            echo '<div class="col-12 col-lg-6">
+                                    <div class="contain">
+                                        <div class="post-card card">
+                                            <div class="d-flex">
+                                                <div class="card-img-custom">
+                                                    <img src="'.$value->image.'" alt="">
                                                 </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="">
-                                                    <a href="'.$link.'">'.$value->title.'</a>
-                                                </h5>
-                                                <p>'.$value->content.'</p>
+                                                <div class="card-content-custom">
+                                                    <div class="content-contain">
+                                                        <h5><a href="'.$link.'">'.$value->title.'</a></h5>
+                                                        <p>'.$value->content.'</p>
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <span class="">'.date('d/m/Y', $value->time).'</span>
+                                                            <button>
+                                                                <img src="<?php $urlThemeActive ?>assets/img/news.right-arrow.png; ?>" alt="">
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
