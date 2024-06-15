@@ -42,9 +42,6 @@
                                                         <p>'.$value->content.'</p>
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <span class="">'.date('d/m/Y', $value->time).'</span>
-                                                            <button>
-                                                                <img src="<?php $urlThemeActive ?>assets/img/news.right-arrow.png; ?>" alt="">
-                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
