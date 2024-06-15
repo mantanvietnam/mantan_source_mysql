@@ -17,47 +17,21 @@
                         foreach ($listPosts as $key => $value) {
                             $link = '/'.$value->slug.'.html';
 
-                            echo '<div class="col-12 col-md-6 mt-0">
-                                    <section class="post-box">
-                                        <div class="card-news">
-                                            <div class="card">
-                                                <div class="head-card">
-                                                    <img src="'.$value->image.'" class="card-img-top" alt="...">
-                                                    <div class="overlay">
-                                                        <span>'.date('d/m/Y', $value->time).'</span>
-                                                    </div>
-                                                </div>
-                                                <div class="card-body">
-                                                    <h5 class="">
-                                                        <a href="'.$link.'">'.$value->title.'</a>
-                                                    </h5>
-                                                    <p class="">'.$value->content.'</p>
+                            echo '<div class="col-12 col-lg-4">
+                                    <div class="card-news">
+                                        <div class="card">
+                                            <div class="head-card">
+                                                <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
+                                                <div class="overlay">
+                                                    <span class="post-author">'.date('d/m/Y', $value->time).'</span>
+                                                    <a href="'.$link.'"><button class="rounded-circle"><img src="<?php echo $urlThemeActive; ?>assets/img/greater-than.svg" alt=""></button></a>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </section>
-
-                                    <div class="post-card card d-block d-lg-none">
-                                        <div class="d-flex">
-                                            <div class="card-img-custom">
-                                                <img src="'.$value->image.'" alt="">
-                                            </div>
-
-                                            <div class="card-content-custom">
-                                                <div class="content-contain">
-                                                    <h5>
-                                                        <a href="'.$link.'">'.$value->title.'</a>
-                                                    </h5>
-                                                    <p>'.$value->content.'</p>
-                                                    <div class="d-flex align-items-center justify-content-between">
-                                                        <span>'.date('d/m/Y', $value->time).'</span>
-                                                        <a href="">
-                                                            <button>
-                                                                <img src="'.$value->image.'" alt="">
-                                                            </button>
-                                                        </a>
-                                                    </div
-                                                </div>
+                                            <div class="card-body">
+                                                <h5 class="">
+                                                    <a href="'.$link.'">'.$value->title.'</a>
+                                                </h5>
+                                                <p>'.$value->content.'</p>
                                             </div>
                                         </div>
                                     </div>
