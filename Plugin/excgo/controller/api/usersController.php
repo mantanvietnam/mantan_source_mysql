@@ -285,6 +285,8 @@ function upgradeToDriverApi($input): array
     global $imageType;
     global $isRequestPost;
     global $memberType;
+    global $urlTransaction;
+    global $transactionKey;
 
     $modelImage = $controller->loadModel('Images');
     $modelDriverRequest = $controller->loadModel('DriverRequests');
@@ -298,7 +300,7 @@ function upgradeToDriverApi($input): array
             $currentUser = getUserByToken($dataSend['access_token']);
 
             if (empty($currentUser)) {
-                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã toksen');
             }
         }
 
@@ -365,9 +367,25 @@ function upgradeToDriverApi($input): array
         $request->user_id = $currentUser->id;
         $modelDriverRequest->save($request);
 
+
+
         sendEmailUpgradeToDriver($currentUser->name, $currentUser->id);
 
-        return apiResponse(0, 'Gửi yêu cầu thành công');
+         $money = (int) parameter()['moneyUpgradeToDriver'];
+        $data =array();
+        if (!empty($money)) {
+            $addInfo = "$currentUser->phone_number $transactionKey";
+            $url = $urlTransaction . "amount=$money&addInfo=$addInfo&accountName=CTY CP THUONG MAI VA DV EXC-GO";
+            $data = [
+                'url' => $url,
+                'bank' => 'Ngân hàng Tiên Phong Bank (TPB)',
+                'account_number' => '26689898989',
+                'account_name' => 'CTY CP THUONG MAI VA DV EXC-GO',
+                'content' => $addInfo
+            ];
+        }
+
+        return apiResponse(0, 'Gửi yêu cầu thành công', $data);
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');

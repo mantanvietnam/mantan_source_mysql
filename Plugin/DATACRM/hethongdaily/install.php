@@ -101,6 +101,9 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `id_group` INT NOT NULL DEFAULT '0',
   `facebook` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
   `id_zalo` VARCHAR(100) NULL,
+  `token_device` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `token` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `reset_password_code`INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -341,6 +344,9 @@ $sqlUpdateDatabase['customers']['created_at'] = "ALTER TABLE `customers` ADD `cr
 $sqlUpdateDatabase['customers']['id_group'] = "ALTER TABLE `customers` ADD `id_group` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['customers']['facebook'] = "ALTER TABLE `customers` ADD `facebook` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;";
 $sqlUpdateDatabase['customers']['id_zalo'] = "ALTER TABLE `customers` ADD `id_zalo` VARCHAR(100) NULL;";
+$sqlUpdateDatabase['customers']['token_device'] = "ALTER TABLE `customers` ADD `token_device` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customers']['token'] = "ALTER TABLE `customers` ADD `token` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customers']['reset_password_code'] = "ALTER TABLE `customers` ADD `reset_password_code`INT NULL DEFAULT NULL;";
 
 // bảng customer_histories
 $sqlUpdateDatabase['customer_histories']['id_customer'] = "ALTER TABLE `customer_histories` ADD `id_customer` INT NOT NULL;";
