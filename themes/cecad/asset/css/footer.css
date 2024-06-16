@@ -3,11 +3,7 @@ footer .container {
     padding: 0;
 }
 
-.footer-section {
-    padding: 60px 100px;
-}
-
-.ftbg-section {
+footer {
     background-image: url(../images/footer.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -15,7 +11,7 @@ footer .container {
     position: relative;
 }
 
-.ftbg-section::after {
+footer::after {
     position: absolute;
     content: "";
     width: 100%;
@@ -24,6 +20,29 @@ footer .container {
     left: 0;
     top: 0;
     z-index: 0;
+}
+
+.footer-section {
+    padding: 60px 100px;
+}
+
+.ftbg-section {
+    /* background-image: url(../images/footer.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative; */
+}
+
+.ftbg-section::after {
+    /* position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #00000080;
+    left: 0;
+    top: 0;
+    z-index: 0; */
 }
 
 .ft-logo {

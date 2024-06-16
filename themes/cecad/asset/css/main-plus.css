@@ -860,7 +860,7 @@ table {
 }
 
 #banner-section .container {
-    max-width: 1440px;
+    max-width: none !important;
     padding: 0;
 }
 
@@ -951,7 +951,7 @@ table {
 }
 
 #count-section .container {
-    max-width: 1440px;
+    max-width: 1550px;
     padding: 0;
 }
 
@@ -1021,7 +1021,7 @@ table {
 }
 
 #majors-section .container {
-    max-width: 1440px;
+    max-width: 1550px;
     padding: 0;
 }
 
@@ -1138,6 +1138,17 @@ table {
 
 #projects-section .title-section {
     padding-bottom: 50px;
+}
+
+#projects-section {
+    background-image: url(../images/Background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top: 80px;
+    padding-bottom: 70px;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 #projects-section .container {
@@ -1260,14 +1271,14 @@ table {
 }
 
 .bg-section {
-    background-image: url(../images/Background.png);
+    /* background-image: url(../images/Background.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     padding-top: 80px;
     padding-bottom: 70px;
     padding-left: 100px;
-    padding-right: 100px;
+    padding-right: 100px; */
 }
 
 .swiper1 .swiper-wrapper {
@@ -1316,6 +1327,17 @@ table {
 #news-section .container {
     max-width: 1440px;
     padding: 0;
+}
+
+#news-section {
+    background-image: url(../images/Background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top: 80px;
+    padding-bottom: 70px;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 #news-section .title-section {
@@ -1729,7 +1751,8 @@ table {
     .projects-items {
         margin: 0;
     }
-    .bg-section {
+    #projects-section,
+    #new-section {
         padding-left: 15px;
         padding-right: 15px;
     }
