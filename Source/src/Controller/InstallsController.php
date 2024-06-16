@@ -10,6 +10,7 @@ class InstallsController extends AppController{
 
 	public function updateDatabase(){
 		global $sqlUpdateDatabase;
+		global $sqlFixDatabase;
 		global $metaTitleMantan;
 
 		$metaTitleMantan = 'Cập nhập cơ sở dữ liệu';
@@ -90,6 +91,10 @@ class InstallsController extends AppController{
                 	}else{
                 		debug($file);
                 		debug($sqlUpdateDatabase);
+                	}
+
+                	if(!empty($sqlFixDatabase)){
+                        $connection->execute($sqlFixDatabase)->fetchAll('assoc');
                 	}
                 }
             }
