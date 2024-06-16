@@ -1400,8 +1400,8 @@ function logoutCustomerApi($input): array
 {
     global $controller;
     global $isRequestPost;
-
-    $modelUser = $controller->loadModel('Users');
+    
+    $modelCustomer = $controller->loadModel('Customers');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -1412,7 +1412,7 @@ function logoutCustomerApi($input): array
             if (!empty($user)) {
                 $user->token = null;
                 $user->device_token = null;
-                $modelUser->save($user);
+                $modelCustomer->save($user);
 
                 return array('code'=>1,'messages'=>'Đăng xuất thành công');
             }
