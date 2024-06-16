@@ -2,10 +2,12 @@
 global $sqlInstallDatabase;
 global $sqlDeleteDatabase;
 global $sqlUpdateDatabase;
+global $sqlFixDatabase;
 
 $sqlInstallDatabase = '';
 $sqlDeleteDatabase = '';
 $sqlUpdateDatabase = [];
+$sqlFixDatabase = '';
 
 $sqlInstallDatabase .= "CREATE TABLE `members` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -126,8 +128,8 @@ $sqlInstallDatabase .= "CREATE TABLE `order_members` (
   `note_buy` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ghi chú người mua' , 
   `status` VARCHAR(100) NOT NULL DEFAULT 'new' , 
   `create_at` INT NOT NULL , 
-  `money` INT NOT NULL DEFAULT '0' COMMENT 'tổng tiền gốc đơn hàng' , 
-  `total` INT NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu' , 
+  `money` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền gốc đơn hàng',
+  `total` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu',
   `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán' , 
   `discount` DOUBLE NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu',
   PRIMARY KEY (`id`)
@@ -260,6 +262,11 @@ $sqlDeleteDatabase .= "DROP TABLE bills; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
 
+// sửa lỗi
+$sqlFixDatabase .= "ALTER TABLE `order_members` CHANGE `money` `money` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền gốc đơn hàng'; ";
+$sqlFixDatabase .= "ALTER TABLE `order_members` CHANGE `total` `total` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu'; ";
+$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"affiliate\",\"document\",\"cashBook\"]' WHERE `options`.`key_word` = 'crm_module'; ";
+
 // update
 $sqlUpdateDatabase['members']['name'] = "ALTER TABLE `members` ADD `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ;";
 $sqlUpdateDatabase['members']['avatar'] = "ALTER TABLE `members` ADD `avatar` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
@@ -363,8 +370,8 @@ $sqlUpdateDatabase['order_members']['note_sell'] = "ALTER TABLE `order_members` 
 $sqlUpdateDatabase['order_members']['note_buy'] = "ALTER TABLE `order_members` ADD `note_buy` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL COMMENT 'ghi chú người mua' ;";
 $sqlUpdateDatabase['order_members']['status'] = "ALTER TABLE `order_members` ADD `status` VARCHAR(100) NOT NULL DEFAULT 'new' ;";
 $sqlUpdateDatabase['order_members']['create_at'] = "ALTER TABLE `order_members` ADD `create_at` INT NOT NULL;";
-$sqlUpdateDatabase['order_members']['money'] = "ALTER TABLE `order_members` ADD `money` INT NOT NULL DEFAULT '0' COMMENT 'tổng tiền gốc đơn hàng';";
-$sqlUpdateDatabase['order_members']['total'] = "ALTER TABLE `order_members` ADD `total` INT NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu' ;";
+$sqlUpdateDatabase['order_members']['money'] = "ALTER TABLE `order_members` ADD `money` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền gốc đơn hàng';";
+$sqlUpdateDatabase['order_members']['total'] = "ALTER TABLE `order_members` ADD `total` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu';";
 $sqlUpdateDatabase['order_members']['status_pay'] = "ALTER TABLE `order_members` ADD `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán';";
 $sqlUpdateDatabase['order_members']['discount'] = "ALTER TABLE `order_members` ADD `discount` DOUBLE NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu';";
 
