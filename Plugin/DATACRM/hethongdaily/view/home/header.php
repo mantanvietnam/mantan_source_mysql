@@ -154,6 +154,7 @@
 
                           <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                             <a class="dropdown-item" href="/sendSMS">Gửi tin SMS</a>
+                            <a class="dropdown-item" href="/sendFacebook">Gửi tin Facebook</a>
                             <a class="dropdown-item" href="/sendMessZaloFollow">Gửi tin Zalo Follow</a>
                             <a class="dropdown-item" href="/sendMessZaloZNS">Gửi tin Zalo ZNS</a>
                             <a class="dropdown-item" href="/sendNotificationMobile">Gửi thông báo APP Mobile</a>
