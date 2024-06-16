@@ -1,0 +1,1018 @@
+.plus-jakarta-sans-<uniquifier> {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    font-family: Plus Jakarta Sans;
+}
+
+dl,
+ol,
+ul {
+    margin-bottom: 0 !important;
+    padding-left: 0 !important;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+    background-color: #F5F6FA;
+}
+
+h3 {
+    margin-bottom: 0 !important;
+}
+
+ol,
+ul {
+    list-style: none;
+    margin-left: 0 !important;
+}
+
+a {
+    text-decoration: none !important;
+    transition: all linear 0.2s;
+    color: #000;
+}
+
+row {
+    margin: 0 !important;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+p {
+    margin-bottom: 0 !important;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all linear 0.3s;
+    overflow: hidden;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* album */
+
+.section-albums-parent {
+    margin: 50px;
+}
+
+.section-albums-parent .header-title-albums h1 {
+    font-size: 34px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #000;
+    margin-bottom: 55px;
+}
+
+.section-albums-parent .header-title-albums h1::after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 5px;
+    margin: 25px auto 0;
+    background: #427FE3;
+}
+
+.image-slide {
+    height: 280px;
+}
+
+.image-slide img {
+    box-shadow: 0 0 12px rgba(0, 0, 0, .175);
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.section-albums-parent .main-content-slide-albums .h2-title-above-slide {
+    font-weight: 700;
+    font-size: 34px;
+    margin: 16px 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    color: #000;
+    transition: all linear 0.3s;
+}
+
+.section-albums-parent .content-slide:hover .h2-title-above-slide {
+    color: #427FE3;
+    transition: all linear 0.3s;
+}
+
+.section-albums-parent .content-slide {
+    margin: 0 10px;
+}
+
+.section-albums-parent .main-content-slide-albums .paragrap-titleabove-slide {
+    font-size: 18px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+}
+
+.section-albums-parent .main-content-slide-albums .image-people-cv {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.section-albums-parent .main-content-slide-albums .image-people-cv img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.section-albums-parent .main-content-slide-albums .image-name-people {
+    display: flex;
+    margin-top: 13px;
+}
+
+.section-albums-parent .main-content-slide-albums .name-people-cv {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.section-albums-parent .main-content-slide-albums .name-people-cv h2 {
+    font-weight: 700;
+    line-height: 1;
+}
+
+.section-albums-parent .main-content-slide-albums .name-people-cv p {
+    color: #888;
+}
+
+.section-albums-parent .main-content-slide-albums .date-content-slide-albums {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.section-albums-parent .slick-dots {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    align-items: center;
+}
+
+.section-albums-parent .slick-dots button {
+    background: none;
+    display: inline;
+    border: none;
+    font-size: 0;
+}
+
+.section-albums-parent .slick-dots button::before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: .3s all ease;
+}
+
+.section-albums-parent .slick-dots .slick-active button::before {
+    background-color: #427FE3;
+}
+
+
+/* card-albums */
+
+.section-card-albums {
+    padding: 60px 0;
+}
+
+.section-card-albums .card-albums-all-information {
+    margin-bottom: 60px;
+    margin-top: 0;
+}
+
+.section-card-albums .date-content-slide-albums {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.section-card-albums .card-albums-all-information:hover .h2-title-above-slide {
+    color: #427FE3;
+    transition: all linear 0.3s;
+}
+
+.section-card-albums .card-albums-all-information:hover img {
+    scale: 1.05;
+}
+
+.section-card-albums .h2-title-above-slide {
+    font-weight: 700;
+    font-size: 24px;
+    margin: 16px 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    color: #000;
+    transition: all linear 0.3s;
+}
+
+.section-card-albums .paragrap-titleabove-slide {
+    font-size: 16px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+}
+
+.section-card-albums .image-people-cv {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.section-card-albums .image-people-cv img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.section-card-albums .name-people-cv {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.section-card-albums .name-people-cv h2 {
+    font-weight: 700;
+    line-height: 1;
+}
+
+.section-card-albums .name-people-cv p {
+    color: #888;
+}
+
+
+/* detail album */
+
+.section-detail-albums .title-detail-albums {
+    text-align: center;
+}
+
+.section-detail-albums .title-detail-albums h1 {
+    font-size: 34px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #000;
+    margin-bottom: 55px;
+}
+
+.section-detail-albums .title-detail-albums h1:after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 5px;
+    margin: 25px auto 0;
+    background: #427FE3;
+}
+
+.section-detail-albums {
+    margin: 90px 0;
+}
+
+.section-detail-albums .list-slide-detail-albums .card-slide-detail-albums img {
+    width: 100%;
+}
+
+.section-detail-albums .list-slide-detail-albums .card-slide-detail-albums {
+    margin: 0 10px;
+}
+
+.section-detail-albums .slick-dots {
+    position: absolute;
+    bottom: -25px;
+    display: flex;
+    justify-content: center;
+    gap: 0 16px;
+    width: 100%;
+}
+
+.section-detail-albums .slick-dots button {
+    height: 15px;
+    background: transparent;
+    display: inline;
+    border: none;
+    font-size: 0;
+}
+
+.section-detail-albums .slick-dots button::before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: .3s all ease;
+}
+
+.section-detail-albums .slick-dots .slick-active button::before {
+    background-color: #427FE3;
+}
+
+.section-detail-albums .describe-detail-albums h2 {
+    font-weight: normal;
+    color: #333333;
+    margin: 10px 0 20px 0;
+    font-size: 20px;
+}
+
+.section-detail-albums .Categories-albums h2 {
+    font-size: 20px;
+    border-bottom: 1px solid #e7e6e6;
+    padding-bottom: 20px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.section-detail-albums .Categories-albums span {
+    color: #e43c4c;
+}
+
+.section-detail-albums .list-image-albums .img-detail {
+    margin-top: 20px;
+}
+
+.section-detail-albums .list-image-albums .img-detail img {
+    width: 100%;
+}
+
+.section-detail-albums .title-list-detail {
+    margin-bottom: 20px;
+    font-size: 25px;
+    color: #427FE3;
+}
+
+.bottom-container-detail {
+    margin-top: 150px;
+}
+
+.bottom-container-detail .image-picture-right img {
+    border-radius: 2px;
+    width: 100%;
+    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-container-detail .img-left-content {
+    padding: 0 3px 0 0;
+    box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-container-detail .img-left-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bottom-container-detail .img-right-content {
+    box-shadow: -3px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-container-detail .border-detail {
+    margin: 20px 10px;
+    border: 3px solid #dfddda;
+    border-radius: 7px;
+    box-shadow: -3px 2px 25px rgba(0, 0, 0, 0.2);
+}
+
+.bottom-container-detail .image-picture-right {
+    padding: 15px 12px 10px 15px;
+}
+
+
+/* publication */
+
+.section-publication a {
+    text-decoration: none;
+}
+
+.section-publication .image-publication {
+    width: 100%;
+    height: 400px;
+}
+
+.section-publication .publication-title {
+    margin-bottom: 50px;
+}
+
+.section-publication .publication-title h1 {
+    font-size: 34px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+.section-publication .publication-title h1:after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 5px;
+    margin: 25px auto 0;
+    background: #427FE3;
+}
+
+.section-publication .infor-publication-title {
+    margin-top: 1em;
+}
+
+.section-publication .infor-publication-title h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 12px 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    color: #000;
+    padding: 0 8px;
+}
+
+.section-publication .infor-publication-meta {
+    padding: 0 12px 0 12px;
+}
+
+.section-publication .infor-publication-meta span {
+    margin-left: 5px;
+}
+
+.section-publication .infor-publication-meta .infor-publication-information {
+    margin-top: 10px;
+}
+
+.section-publication .infor-publication-meta .infor-publication-information {
+    padding: 8px 0;
+    color: #000000;
+    border-bottom: 1px solid #000;
+}
+
+.section-publication .infor-publication-meta .infor-publication-information span {
+    color: #000;
+}
+
+.section-publication .infor-publication-meta .infor-publication-information i {
+    color: #000;
+}
+
+.section-publication .infor-publication-meta .infor-detail-publication {
+    padding: 16px 0 20px 0;
+}
+
+.section-publication .infor-publication-meta .infor-detail-publication a {
+    text-decoration: none;
+}
+
+.section-publication .infor-publication-meta .infor-detail-publication .button-dowload-detail a {
+    border-radius: 3px;
+    background-color: #427FE3;
+    padding: 6px 18px;
+    color: #fff;
+}
+
+.section-publication .infor-publication-meta .infor-detail-publication .button-dowload-detail a:hover {
+    background-color: #063f99;
+}
+
+.section-publication .image-publication {
+    overflow: hidden;
+}
+
+.section-publication .publication-card {
+    box-shadow: 0 0px 5px 0 rgb(172, 172, 172);
+    padding: 0;
+    border-radius: 7px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: all linear 0.2s;
+}
+
+.section-publication .publication-card:hover .infor-publication-title h2 {
+    color: #427FE3;
+    transition: all linear 0.2s;
+}
+
+.section-publication .search-publication {
+    margin-bottom: 20px;
+}
+
+.section-publication .wrap {
+    width: 40%;
+}
+
+.section-publication .detail-publication a {
+    color: #427FE3;
+    border-radius: 3px;
+    padding: 6px 7px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.section-publication {
+    padding: 50px 0;
+}
+
+
+/* detail publication */
+
+.section-detail-publication {
+    margin: 70px 0;
+    padding: 0px 30px;
+}
+
+.section-detail-publication .image-title-detail-publication .image-detail-publication img {
+    width: 100%;
+}
+
+.section-detail-publication .image-title-detail-publication {
+    padding: 20px;
+}
+
+.section-detail-publication .title-detail-publication h1 {
+    font-size: 34px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #000;
+    margin-bottom: 30px;
+}
+
+.section-detail-publication .bottom-content h2 {
+    margin: 8px 0;
+    font-size: 27px;
+}
+
+.section-detail-publication .button-dowload-detail-publication a {
+    padding: 6px 16px;
+    font-size: 22px;
+    font-weight: 500;
+    background-color: #427FE3;
+    display: inline-block;
+    border-radius: 7px;
+    overflow: hidden;
+    color: #fff;
+}
+
+.section-detail-publication .button-dowload-detail-publication a:hover {
+    background-color: #063f99;
+}
+
+.section-detail-publication .button-dowload-detail-publication {
+    margin-top: 30px;
+}
+
+.section-detail-publication .new-publication {
+    margin-top: 15px;
+}
+
+.section-detail-publication .new-publication h2 {
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.section-detail-publication .image-new-publication {
+    height: 100px;
+}
+
+.section-detail-publication .image-new-publication img {
+    width: 100%;
+}
+
+.section-detail-publication .content-image a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #000000;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+}
+
+.section-detail-publication .image-and-content-new {
+    margin-top: 15px;
+}
+
+.section-detail-publication .categorys-much {
+    margin-top: 13px;
+}
+
+.section-detail-publication .categorys-much .title-categorys-much {
+    margin-bottom: 30px;
+}
+
+.section-detail-publication .categorys-much .title-categorys-much h2 {
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.section-detail-publication .title-guide-categorys {
+    margin-top: 13px;
+}
+
+.section-detail-publication .title-guide-categorys a {
+    text-decoration: none;
+}
+
+.section-detail-publication .title-guide-categorys h2 {
+    color: #427FE3;
+    font-size: 19px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ececec;
+}
+
+.section-detail-publication .left-border {
+    padding-left: 20px;
+    border-left: 1px solid #ececec;
+}
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.searchTerm {
+    width: 100%;
+    border: 3px solid #427FE3;
+    border-right: none;
+    padding: 19.5px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+}
+
+.searchTerm:focus {
+    color: #427FE3;
+}
+
+.searchButton {
+    width: 55px;
+    height: 45px;
+    border: 1px solid #427FE3;
+    background: #427FE3;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.bottom-content ul {
+    width: 100%;
+}
+
+.bottom-content ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 8px;
+    font-size: 22px;
+    font-weight: 500;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+
+/*Resize the wrap to see the search bar change!*/
+
+.wrap {
+    width: 100%;
+}
+
+
+/* video list */
+
+.section-video .video-title {
+    margin-top: 70px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-video .video-title h1 {
+    font-size: 34px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+.section-video .video-title h1:after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 5px;
+    margin: 25px auto 0;
+    background: #427FE3;
+}
+
+.section-video .cover-card-video {
+    margin: 10px 19px 50px 10px;
+}
+
+.section-video .cover-card-video p {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 19px;
+    color: #427FE3;
+    text-align: center;
+}
+
+.section-card-albums .image-albums-card {
+    height: 300px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .175);
+    overflow: hidden;
+    border-radius: 12px;
+    transition: all linear 0.2s;
+}
+
+.section-card-albums .image-albums-card:hover {
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.295);
+    transition: all linear 0.2s;
+}
+
+.section-albums-parent .container {
+    max-width: 1200px;
+}
+
+.content-slide:hover {}
+
+@media screen and (max-width: 1200px) {}
+
+@media screen and (max-width: 1100px) {
+    .section-albums-parent .main-content-slide-albums .h2-title-above-slide {
+        font-size: 30px;
+    }
+    .section-detail-albums .right-detail-albums {
+        margin-top: 70px;
+    }
+    .section-detail-publication .content-image a {
+        font-size: 12px;
+    }
+    .section-detail-publication .title-guide-categorys h2 {
+        font-size: 12px;
+        padding-bottom: 12px;
+    }
+    .section-detail-publication .title-guide-categorys {
+        margin-top: 9px;
+    }
+    .section-detail-publication .title-detail-publication h1 {
+        font-size: 20px;
+    }
+    .section-detail-publication .bottom-content h2 {
+        font-size: 23px;
+    }
+    .section-card-albums .image-albums-card {
+        height: 250px;
+    }
+    .section-card-albums .card-albums-all-information {
+        margin-bottom: 40px;
+        padding: 0 12px;
+    }
+    .section-card-albums .h2-title-above-slide {
+        font-size: 22px;
+        margin: 10px 0;
+    }
+    .section-card-albums .date-content-slide-albums {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .section-albums-parent .header-title-albums h1 {
+        font-size: 35px;
+    }
+    .section-albums-parent .main-content-slide-albums .h2-title-above-slide {
+        font-size: 21px;
+    }
+    .section-card-albums .h2-title-above-slide {
+        font-size: 22px;
+    }
+    .section-card-albums .paragrap-titleabove-slide {
+        font-size: 14px;
+    }
+    .section-detail-publication .content-image a {
+        font-size: 20px;
+    }
+    .wrap {
+        width: 90%;
+    }
+    .section-detail-publication .left-border {
+        margin-top: 40px;
+    }
+    .section-albums-parent {
+        margin: 50px 0;
+    }
+    .image-slide {
+        height: 250px;
+    }
+    .section-albums-parent .slick-dots button::before {
+        bottom: 16px;
+    }
+    .section-detail-publication .left-border {
+        padding-left: 0;
+        border-left: 0;
+    }
+    .section-detail-publication {
+        margin: 20px 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .wrap {
+        width: 100%;
+    }
+    .section-detail-publication .content-image a {
+        font-size: 13px;
+    }
+    .section-albums-parent .slick-dots button::before {
+        bottom: auto;
+    }
+    .section-card-albums .image-albums-card {
+        height: 290px;
+    }
+    .image-slide {
+        height: 290px;
+    }
+    .section-albums-parent .main-content-slide-albums .h2-title-above-slide {
+        font-size: 22px;
+    }
+    .section-albums-parent .main-content-slide-albums .paragrap-titleabove-slide {
+        font-size: 14px;
+    }
+    .section-albums-parent .header-title-albums h1 {
+        font-size: 30px;
+    }
+    .section-detail-albums .describe-detail-albums h2 {
+        font-size: 16px;
+        text-align: justify;
+    }
+    .section-detail-albums .Categories-albums h2 {
+        font-size: 16px;
+    }
+    .section-detail-publication {
+        padding: 0;
+    }
+    .section-detail-publication .left-border {
+        padding-left: 12px;
+    }
+    .bottom-content ul li {
+        font-size: 20px;
+    }
+    .section-video .video-title h1,
+    .section-publication .publication-title h1,
+    .section-detail-albums .title-detail-albums h1 {
+        font-size: 30px;
+    }
+}

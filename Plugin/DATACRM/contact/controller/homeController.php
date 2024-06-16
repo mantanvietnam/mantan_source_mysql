@@ -18,8 +18,9 @@ function contact($input)
     $modelContacts = $controller->loadModel('Contacts');
 
     $mess = '';
-
+    
     if ($isRequestPost) {
+
         $dataSend = $input['request']->getData();
 
         $data = $modelContacts->newEmptyEntity();

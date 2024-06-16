@@ -1,0 +1,1 @@
+<?php getFileTheme('detailpublication.php');?>
