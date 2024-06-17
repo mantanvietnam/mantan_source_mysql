@@ -180,6 +180,7 @@ $sqlInstallDatabase .= "CREATE TABLE `token_devices` (
   `id` INT NOT NULL AUTO_INCREMENT , 
   `token_device` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , 
   `id_member` INT NOT NULL DEFAULT '0' , 
+  `id_customer` INT NOT NULL DEFAULT '0' , 
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -408,7 +409,7 @@ $sqlUpdateDatabase['zalo_templates']['content_example'] = "ALTER TABLE `zalo_tem
 $sqlUpdateDatabase['token_devices']['token_device'] = "ALTER TABLE `token_devices` ADD `token_device` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['token_devices']['id_member'] = "ALTER TABLE `token_devices` ADD `id_member` INT NOT NULL DEFAULT '0';";
 
-$sqlUpdateDatabase['token_devices']['id_member'] = "ALTER TABLE `token_devices` ADD `id_member` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['token_devices']['id_customer'] = "ALTER TABLE `token_devices` ADD `id_customer` INT NOT NULL DEFAULT '0';";
 
 // bảng 
 $sqlUpdateDatabase['documents']['title'] = "ALTER TABLE `documents` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 

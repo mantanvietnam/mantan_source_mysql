@@ -153,3 +153,16 @@
 
 	$routesPlugin['listCollectionDebt']= 'hethongdaily/view/home/debt/listCollectionDebt.php';
 	$routesPlugin['listPayableDebt']= 'hethongdaily/view/home/debt/listPayableDebt.php';
+
+
+
+	// api khách hàng 
+
+	$routesPlugin['saveRegisterCustomerAPI']= 'hethongdaily/view/saveRegisterCustomerAPI.php';
+	$routesPlugin['checkLoginCustomerAPI']= 'hethongdaily/view/checkLoginCustomerAPI.php';
+	$routesPlugin['forgotPasswordCustomerApi']= 'hethongdaily/view/forgotPasswordCustomerApi.php';
+	$routesPlugin['resetPasswordCustomerApi']= 'hethongdaily/view/resetPasswordCustomerApi.php';
+	$routesPlugin['logoutCustomerApi']= 'hethongdaily/view/logoutCustomerApi.php';
+	$routesPlugin['editInfoCustomerApi']= 'hethongdaily/view/editInfoCustomerApi.php';
+	$routesPlugin['editPassCustomerApi']= 'hethongdaily/view/editPassCustomerApi.php';
+	$routesPlugin['getInfoUserCustomerAPI']= 'hethongdaily/view/getInfoUserCustomerAPI.php';

@@ -37,4 +37,8 @@ include_once('controller/home/smsController.php'); // gửi tin sms
 include_once('controller/fix_controller.php'); // vá lỗi
 
 
+// API Khách hàng 	
+include_once('controller/apiCustomer/customerController.php'); // tài khoản của khách hàng
+include_once('controller/apiCustomer/orderController.php'); // tài khoản của khách hàng
+
 ?>

@@ -103,7 +103,7 @@
               $btnProcess= '';
               $btnPay= '';
 
-              if($item->status_pay=='wait'){
+              if($item->status_pay=='wait' && $item->status!='cancel'){
                 $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
               }
 
@@ -114,11 +114,11 @@
               }elseif($item->status=='browser'){
                $status= '<p style="color: #0333f6;">Đã duyệt</p>';
 
-               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateStatusOrderAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a>';
+               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateStatusOrderAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
               }elseif($item->status=='delivery'){
                $status= '<p style="color: #7503f6;">Đang giao</p>';
 
-               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;"  href="/updateStatusOrderAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a>';
+               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;"  href="/updateStatusOrderAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
               }elseif($item->status=='done'){
                $status= '<p style="color: #00ee4b;">Đã xong</p>';
               }else{
