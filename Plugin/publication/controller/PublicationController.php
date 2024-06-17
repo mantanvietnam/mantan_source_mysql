@@ -1,5 +1,5 @@
 <?php 
-function listProductProjectAdmin($input)
+function listpublication($input)
 {
 	
 	global $controller;
@@ -7,9 +7,9 @@ function listProductProjectAdmin($input)
     global $metaTitleMantan;
     global $modelCategories;
 
-    $metaTitleMantan = 'Danh sách Dự án';
+    $metaTitleMantan = 'Danh sách ấn phẩm';
 
-	$modelProductProjects = $controller->loadModel('ProductProjects');
+	$modelPublications = $controller->loadModel('Publication');
 
 	$conditions = array();
 	$limit = 20;
@@ -20,31 +20,14 @@ function listProductProjectAdmin($input)
     if(!empty($_GET['id'])){
         $conditions['id'] = (int) $_GET['id'];
     }
-
     if(!empty($_GET['name'])){
         $conditions['name LIKE'] = '%'.$_GET['name'].'%';
     }
-
-    if(!empty($_GET['status'])){
-        $conditions['status'] = $_GET['status'];
-    }
-
-    if(!empty($listData)){
-        $kind[0] = $modelCategories->newEmptyEntity();
-
-    	foreach ($listData as $key => $value) {
-    		if(empty($kind[$value->id_kind])){
-    			$kind[$value->id_kind] = $modelCategories->get( (int) $value->id_kind);
-    		}
-    		
-    		$listData[$key]->name_category = (!empty($kind[$value->id_kind]->name))?$kind[$value->id_kind]->name:'';
-    	}
-    }
     
-    $listData = $modelProductProjects->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    $listData = $modelPublications->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
  
     // phân trang
-    $totalData = $modelProductProjects->find()->where($conditions)->all()->toList();
+    $totalData = $modelPublications->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -75,8 +58,6 @@ function listProductProjectAdmin($input)
         $urlPage = $urlPage . '?page=';
     }
 
-    $conditions = array('type' => 'category_kind');
-    $listKind = $modelCategories->find()->where($conditions)->all()->toList();
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
@@ -85,11 +66,10 @@ function listProductProjectAdmin($input)
     setVariable('urlPage', $urlPage);
     setVariable('totalData', $totalData);
     setVariable('listData', $listData);
-    setVariable('listKind', $listKind);
+
 
 }
-
-function addProductProjectAdmin($input)
+function addpublication($input)
 {
 	global $controller;
 	global $isRequestPost;
@@ -98,39 +78,37 @@ function addProductProjectAdmin($input)
 
     $metaTitleMantan = 'Thông tin Dự án';
 
-	$modelProductProjects = $controller->loadModel('ProductProjects');
+	$modelPublication = $controller->loadModel('Publication');
 	$mess= '';
 
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelProductProjects->get( (int) $_GET['id']);
-        $data->images = json_decode($data->images, true);     
+        $data = $modelPublication->get( (int) $_GET['id']);
+  
         // $data->id_product = json_decode($data->id_product, true);
 
     }else{
-        $data = $modelProductProjects->newEmptyEntity();
+        $data = $modelPublication->newEmptyEntity();
     }
 
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['name'])){
-	        // tạo dữ liệu save
-            $data->year = $dataSend['year'];
-            $data->donor = $dataSend['donor'];
-	        $data->name = $dataSend['name'];
             $data->address = $dataSend['address'];
-            $data->company_design = $dataSend['company_design'];
-            $data->designer = $dataSend['designer'];
-            $data->company_build= $dataSend['company_build'];
+            $data->name = $dataSend['name'];
+            // $data->company_design = $dataSend['company_design'];
+            // $data->designer = $dataSend['designer'];
+            // $data->company_build= $dataSend['company_build'];
             $data->description= $dataSend['description'];
-            $data->city= $dataSend['city'];
-            $data->id_product= $dataSend['id_product'];
-            $data->status= $dataSend['status'];
-            $data->images = json_encode($dataSend['images']);
+            $data->time_create= $dataSend['time_create'];
+            // $data->city= $dataSend['city'];
+            // $data->id_product= $dataSend['id_product'];
+            // $data->status= $dataSend['status'];
+       
             $data->image = $dataSend['image'];
-            $data->id_kind = $dataSend['id_kind'];
-            $data->info = $dataSend['info'];
+          
+            $data->content = $dataSend['content'];
 
 
 
@@ -147,7 +125,7 @@ function addProductProjectAdmin($input)
             if(empty($data->slug) || $data->slug!=$slugNew){
                 do{
                 	$conditions = array('slug'=>$slugNew);
-        			$listData = $modelProductProjects->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+        			$listData = $modelPublication->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
         			if(!empty($listData)){
         				$number++;
@@ -157,9 +135,9 @@ function addProductProjectAdmin($input)
             }
             $data->slug = $slugNew;
 
-            $modelProductProjects->save($data);   
+            $modelPublication->save($data);   
 
-            $data->images = json_decode($data->images, true);
+          
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
@@ -167,31 +145,12 @@ function addProductProjectAdmin($input)
 	    }
     }
 
-    $conditions = array('type' => 'category_kind');
-    $listKind = $modelCategories->find()->where($conditions)->all()->toList();
-
     setVariable('data', $data);
     setVariable('mess', $mess);
-    setVariable('listKind', $listKind);
+
     
 
 }
 
-function deleteProductProjectAdmin($input){
-	global $controller;
-
-	$modelProductProjects = $controller->loadModel('ProductProjects');
-	
-	if(!empty($_GET['id'])){
-		$data = $modelProductProjects->get($_GET['id']);
-		
-		if($data){
-         	$modelProductProjects->delete($data);
-         	deleteSlugURL($data->slug);
-        }
-	}
-
-	return $controller->redirect('/plugins/admin/product_project-view-admin-product_project-listProductProjectAdmin');
-}
 
 ?>

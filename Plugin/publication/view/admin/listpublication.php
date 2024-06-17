@@ -1,5 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Đăng ký Data CRM</h4>
+  <h4 class="fw-bold py-3 mb-4">Ấn Phẩm</h4>
+  <p><a href="/plugins/admin/publication-view-admin-addpublication" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -13,37 +14,12 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên hệ thống</label>
-            <input type="text" class="form-control" name="system_name" value="<?php if(!empty($_GET['system_name'])) echo $_GET['system_name'];?>">
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Tên người đăng ký</label>
-            <input type="text" class="form-control" name="boss_name" value="<?php if(!empty($_GET['boss_name'])) echo $_GET['boss_name'];?>">
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Điện thoại người đăng ký</label>
-            <input type="text" class="form-control" name="boss_phone" value="<?php if(!empty($_GET['boss_phone'])) echo $_GET['boss_phone'];?>">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Trạng thái</label>
-            <select name="status" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="new" <?php if(!empty($_GET['status']) && $_GET['status']=='new') echo 'selected';?> >Mới đăng ký</option>
-              <option value="done" <?php if(!empty($_GET['status']) && $_GET['status']=='done') echo 'selected';?> >Đã tạo xong</option>
-            </select>
-          </div>
-          
+            <label class="form-label">Tên ấn phẩm</label>
+            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+          </div>          
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">&nbsp;</label>
-            <a href="/updateCodeCRM/?version=7" class="btn btn-danger d-block">Nâng cấp code</a>
           </div>
         </div>
       </div>
@@ -53,50 +29,43 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách đăng ký</h5>
+    <h5 class="card-header">Danh sách ấn phẩm</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Thời gian</th>
-            <th>Người đăng ký</th>
-            <th>Tên miền</th>
-            <th>Database</th>
-            <th>Trạng thái</th>
+            <th>Thông tin</th>
+            <th>sửa</th>
+            <th>xóa</th>
           </tr>
         </thead>
         <tbody>
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                if($item->status == 'done'){
-                  $link = '<a href="https://'.$item->domain.'" target="_blank">'.$item->domain.'</a>';
-                }else{
-                  $link = $item->domain;
-                }
-
-                $status = $item->status;
-                if($item->deadline < time()){
-                  $status = '<p class="text-danger"><b>Hết hạn</b></p>';
+     
+                if(!empty($item->category)){
+                  foreach($item->category as $value){
+                    
+                  }
                 }
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td>
-                          <p class="text-success">'.date('d/m/Y', $item->create_at).'</p>
-                          <p class="text-danger">'.date('d/m/Y', $item->deadline).'</p>
+                  
+                        <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->name.'</a><br/><br/>Thời gian:'.$item->time_create.'<br/><br/>Địa chỉ:'.$item->address.'<br/><br/>mô tả ngắn: '.$item->description.'</td>
+                       
+                      
+                        <td align="center">
+                          <a class="dropdown-item" href="/plugins/admin/publication-view-admin-addpublication/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a>
                         </td>
-                        <td>
-                            '.$item->boss_name.'<br/>
-                            '.$item->boss_phone.'<br/>
-                            '.$item->boss_email.'
+                        <td align="center">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/product-view-admin-product-deleteProduct/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
                         </td>
-                        <td>'.$link.'</td>
-                        <td>
-                            '.$item->user_db.'<br/>
-                            '.$item->pass_db.'
-                        </td>
-                        <td>'.$status.'</td>
                       </tr>';
               }
             }else{

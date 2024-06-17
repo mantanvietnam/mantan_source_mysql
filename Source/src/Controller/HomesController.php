@@ -363,6 +363,7 @@ class HomesController extends AppController{
 
             $category = $modelCategories->find()->where($conditions)->first();
 
+            $conditions = [];
             if(!empty($category)){
                 $conditions['CategoryConnects.id_category'] = $category->id;
                 $conditions['CategoryConnects.keyword'] = 'album';
@@ -521,6 +522,7 @@ class HomesController extends AppController{
 
             $category = $modelCategories->find()->where($conditions)->first();
 
+            $conditions = [];
             if(!empty($category)){
                 $conditions['CategoryConnects.id_category'] = $category->id;
                 $conditions['CategoryConnects.keyword'] = 'video';
