@@ -1358,7 +1358,16 @@ function detailProductSeriesAPI($input)
 				$metaDescriptionMantan = 'Ảnh được tạo từ mẫu thiết kế: '.$product->name.' của tác giả '.$user->name.' trên Ezpics';
 				$metaImageMantan = $product->image;
 
-				$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+				//$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+				$listLayer = getLayerProductForEdit($product->id);
+
+				if(!empty($listLayer['data']['productDetail'])){
+					$listLayer = $listLayer['data']['productDetail'];
+				}else{
+					$listLayer = [];
+				}
+				
 
 				$urlChatBot = 'https://designer.ezpics.vn/create-image-series/?id='.$product->id;
 
@@ -1370,7 +1379,7 @@ function detailProductSeriesAPI($input)
                             $urlChatBot .= '&'.$content['variable'].'={{'.$content['variable'].'}}';
                         }
 
-                        $content['gradient'] = (int) @$content['gradient'];
+                        //$content['gradient'] = (int) @$content['gradient'];
 
                         $listLayer[$key]['content'] = $content;
                     }
