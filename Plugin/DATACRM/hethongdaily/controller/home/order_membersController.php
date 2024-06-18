@@ -155,7 +155,7 @@ function addRequestProductAgency($input)
                     $saveDetail->id_order_member = $save->id;
                     $saveDetail->quantity = $dataSend['soluong'][$key];
                     $saveDetail->price = $dataSend['money'][$key];
-                    $saveDetail->discount = $dataSend['discount'][$key];
+                    $saveDetail->discount = (int) @$dataSend['discount'][$key];
 
                     $modelOrderMemberDetails->save($saveDetail);
                 }

@@ -694,6 +694,10 @@ function pay($input){
                     }
                 }
             }
+
+            if(!empty($infoMember->email)){
+            	getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data, $infoMember->email);
+            }
         }
 
         if(empty($_GET['callAPI'])){

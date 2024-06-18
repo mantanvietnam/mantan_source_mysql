@@ -9,7 +9,7 @@
     <?php 
         mantan_header();
     ?>
-    <link rel="stylesheet" href="/plugins/hethongdaily/view/home/member/themeinfo/theme2/Asset/css/main.css">
+    <link rel="stylesheet" href="/plugins/hethongdaily/view/home/member/themeinfo/theme2/Asset/css/main.css?time=<?php echo time();?>">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -213,20 +213,30 @@
                         <section id="block-8">
                             <div class="card p-4"> 
                                 <form id="uploadFormCustomer" class="form-customer" enctype="multipart/form-data">
-                                     <input type="hidden" name="token" value="<?php echo $info->token;?>">
+                                    <input type="hidden" name="token" value="<?php echo $info->token;?>">
                                     <label for="">Họ tên (<span>*</span>)</label>
-                                    <input type="text" required  id="full_name" name="full_name" value="">
+                                    <input type="text" required  id="" name="full_name" value="">
 
                                     <label for="">Số điện thoại (<span>*</span>)</label>
-                                    <input type="text" required  id="phone" name="phone" value="" >
+                                    <input type="text" required  id="" name="phone" value="" >
 
                                     <label for="">Ảnh đại diện</label>
-                                    <input type="file" required id="avatar" name="avatar" value="" accept="image/*" >
+                                    <input type="file" id="" name="avatar" value="" accept="image/*" >
 
                                     <label for="">Địa chỉ</label>
-                                    <input type="text" required id="address" name="address" value="">
+                                    <input type="text" id="" name="address" value="">
 
-
+                                    <?php 
+                                    if(!empty($listGroupCustomer)){
+                                        echo '  <label for="">Nhóm khách hàng</label>
+                                                <select name="id_group" class="form-select" >
+                                                    <option value="">Chọn nhóm khách hàng</option>';
+                                                    foreach ($listGroupCustomer as $key => $value) {
+                                                        echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                                                    }
+                                        echo    '</select>';
+                                    }
+                                    ?>
 
                                     <input class="submit-btn" type="submit" value="LƯU THÔNG TIN KHÁCH HÀNG">
                                 </form>
@@ -248,11 +258,11 @@
                                   <input type="text" class="form-control" id="phone" name="phone" value="" required />
                                 </div>
                                 <div class="mb-3">
-                                  <label for="phone" class="form-label">Địa chỉ nhận hàng</label>
+                                  <label for="address" class="form-label">Địa chỉ nhận hàng</label>
                                   <input type="text" class="form-control" id="address" name="address" value="" />
                                 </div>
                                 <div class="mb-3">
-                                  <label for="phone" class="form-label">Mã giảm giá</label>
+                                  <label for="codeDiscount" class="form-label">Mã giảm giá</label>
                                   <input type="text" class="form-control" id="codeDiscount" name="codeDiscount" value="" />
                                 </div>
                                 <div class="mb-3">
@@ -456,7 +466,6 @@
 
                         $('#list_cart').html(list_cart);
 
-                        // $('.nav-tabs a[href="#order"]').tab('active'); 
                         document.getElementById("menu2").classList.remove("active");
                         document.getElementById("menu2").classList.remove("in");
 
@@ -493,6 +502,8 @@
                 var address = $('#address').val();
 
                 $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
+                console.log(full_name);
+                console.log(phone);
 
                 if(full_name != '' && phone != ''){
                     $.ajax({
@@ -503,7 +514,12 @@
                     .done(function( msg ) {
                         $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
 
-                        $('.nav-tabs a[href="#info"]').tab('show');
+                        // đóng tab về màn home
+                        document.getElementById("order").classList.remove("active");
+                        document.getElementById("order").classList.remove("in");
+
+                        document.getElementById("home").classList.add("active");
+                        document.getElementById("home").classList.add("in");
 
                         alert('Tạo đơn hàng thành công');
                     });
@@ -563,7 +579,7 @@
                             if(response.img_card_member != '' && response.img_card_member != null){
                                 $('#uploadFormCustomer').remove();
 
-                                var img_card_customer = "<div class='mb-3'><img id='imageToDownload' src='"+response.img_card_member+"' width='100%' /></div><div class='mb-3 text-center'><button onclick='downloadCardCustomer();' type='button' class='btn btn-danger' >TẢI ẢNH</button></div>";
+                                var img_card_customer = "<div class='mb-3'><img id='imageToDownload' src='"+response.img_card_member+"' width='100%' /></div><br/><br/><div class='mb-3 text-center'><button onclick='downloadCardCustomer();' type='button' class='btn btn-danger' >TẢI ẢNH</button></div>";
 
                                 $('#show_img_card_customer').html(img_card_customer);
                             }
@@ -623,14 +639,18 @@
         </script>
         
         <script type="text/javascript">
-            var tabShow = 'info';
+            var tabShow = 'home';
             <?php
                 if(!empty($_GET['tabShow'])){
                     echo "var tabShow = '".$_GET['tabShow']."';";
                 }
             ?>
 
-            $('.nav-tabs a[href="#'+tabShow+'"]').tab('show');
+            document.getElementById("home").classList.remove("active");
+            document.getElementById("home").classList.remove("in");
+
+            document.getElementById(tabShow).classList.add("active");
+            document.getElementById(tabShow).classList.add("in");
         </script>
 </body>
 

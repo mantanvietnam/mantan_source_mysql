@@ -303,7 +303,7 @@ function saveInfoCustomerAPI($input)
                                 $infoCustomer->avatar = $avatar['linkOnline'];
                             }
                         }else{
-                            if(!empty($dataSend['avatar'])){
+                            if(!empty($dataSend['avatar']) && is_string($dataSend['avatar'])){
                                 $infoCustomer->avatar = $dataSend['avatar'];
                             }
                         }
@@ -329,6 +329,8 @@ function saveInfoCustomerAPI($input)
                                             //file_put_contents(__DIR__."/../../../../upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png", $image_data);
 
                                             //$infoCustomer->img_card_member = $urlHomes."upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png";
+
+
                                         $infoCustomer->img_card_member = $img_card_member;
                                     }
                                 }

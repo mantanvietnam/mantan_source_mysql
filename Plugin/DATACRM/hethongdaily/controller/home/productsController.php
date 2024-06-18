@@ -881,6 +881,7 @@ function listCategoryProductAgency($input){
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $controller;
 
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
     if(!empty($session->read('infoUser'))){

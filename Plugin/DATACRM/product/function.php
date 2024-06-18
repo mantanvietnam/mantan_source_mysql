@@ -247,12 +247,13 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
   }
 
   $to = [];
-  if(!empty($data_value['email'])){
-    $to[]= trim($data_value['email']);
-  }
-
+  
   if(!empty($emailAdmin)){
     $to[]= trim($emailAdmin);
+  }else{
+    if(!empty($data_value['email'])){
+      $to[]= trim($data_value['email']);
+    }
   }
     
   $cc = array();
