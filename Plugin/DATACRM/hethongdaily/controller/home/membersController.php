@@ -160,9 +160,14 @@ function account($input)
 				$user->banner = $dataSend['banner'];
 				$user->display_info = $dataSend['display_info'];
 				$user->image_qr_pay = $dataSend['image_qr_pay'];
+				$user->bank_number = $dataSend['bank_number'];
+				$user->bank_name = $dataSend['bank_name'];
+				$user->bank_code = $dataSend['bank_code'];
+
 
 				$modelMembers->save($user);
 
+				
 				$user->info_system = $modelCategories->find()->where(['id'=>(int) $user->id_system])->first();
 
 				$session->write('infoUser', $user);

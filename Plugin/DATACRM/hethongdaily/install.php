@@ -52,7 +52,10 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `noti_reg_campaign` BOOLEAN NOT NULL DEFAULT TRUE,
   `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE,
   `display_info` TINYINT NOT NULL DEFAULT '1',
-  `image_qr_pay`text CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL;
+  `image_qr_pay`text CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
+  `bank_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `bank_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `bank_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -216,7 +219,7 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `total` INT NOT NULL DEFAULT '0' , 
   `id_order` INT NOT NULL DEFAULT '0' , 
   `type` INT NOT NULL COMMENT '1: phiếu thu, 2 phiếu chi' , 
-  `type_order` INT NULL DEFAULT '0' COMMENT '0: tự tạo, 1: đại lý, 2: khách hàng' , 
+  `type_order` INT NULL DEFAULT '0' COMMENT '3: tự tạo, 1: đại lý, 2: khách hàng' , 
   `created_at` INT NULL DEFAULT NULL , 
   `updated_at` INT NULL DEFAULT NULL ,
   `type_collection_bill` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
@@ -235,7 +238,7 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `number_payment` INT NOT NULL DEFAULT '0' ,
   `type` INT NOT NULL DEFAULT '0' COMMENT '1: Nợ phải thu, 2: Nợ Phải trả, ' ,
   `status` INT NOT NULL COMMENT '0 : chưa trả ,1 đã trả hết' ,
-  `type_order` INT NOT NULL COMMENT '0: tự tạo, 1: đại lý, 2: khách hàng' ,
+  `type_order` INT NOT NULL COMMENT '3: tự tạo, 1: đại lý, 2: khách hàng' ,
   `id_customer` INT NOT NULL DEFAULT '0' ,
   `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
   `created_at` INT NULL DEFAULT NULL ,
@@ -311,6 +314,9 @@ $sqlUpdateDatabase['members']['noti_reg_campaign'] = "ALTER TABLE `members` ADD 
 $sqlUpdateDatabase['members']['noti_product_warehouse'] = "ALTER TABLE `members` ADD `noti_product_warehouse` BOOLEAN NOT NULL DEFAULT TRUE;";
 $sqlUpdateDatabase['members']['display_info'] = "ALTER TABLE `members` ADD `display_info` TINYINT NOT NULL DEFAULT '1';";
 $sqlUpdateDatabase['members']['image_qr_pay'] = "ALTER TABLE `members` ADD `image_qr_pay` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['members']['bank_name'] = "ALTER TABLE `members` ADD `bank_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
+$sqlUpdateDatabase['members']['bank_number'] = "ALTER TABLE `members` ADD `bank_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['members']['bank_code'] = "ALTER TABLE `members` ADD `bank_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
 
 // bảng zalos 
 $sqlUpdateDatabase['zalos']['id_oa'] = "ALTER TABLE `zalos` ADD `id_oa` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
@@ -435,7 +441,7 @@ $sqlUpdateDatabase['bills']['id_member_buy'] = "ALTER TABLE `bills` ADD `id_memb
 $sqlUpdateDatabase['bills']['total'] = "ALTER TABLE `bills` ADD `total` INT NOT NULL DEFAULT '0'";
 $sqlUpdateDatabase['bills']['id_order'] = "ALTER TABLE `bills` ADD `id_order` INT NOT NULL DEFAULT '0'";
 $sqlUpdateDatabase['bills']['type'] = "ALTER TABLE `bills` ADD `type` INT NOT NULL COMMENT '1: phiếu thu, 2 phiếu chi'";
-$sqlUpdateDatabase['bills']['type_order'] = "ALTER TABLE `bills` ADD `type_order` INT NULL DEFAULT '0' COMMENT '0: tự tạo, 1: đại lý, 2: khách hàng'";
+$sqlUpdateDatabase['bills']['type_order'] = "ALTER TABLE `bills` ADD `type_order` INT NULL DEFAULT '3' COMMENT '0: tự tạo, 1: đại lý, 2: khách hàng'";
 $sqlUpdateDatabase['bills']['created_at'] = "ALTER TABLE `bills` ADD `created_at` INT NULL DEFAULT NULL";
 $sqlUpdateDatabase['bills']['updated_at'] = "ALTER TABLE `bills` ADD `updated_at` INT NULL DEFAULT NULL";
 $sqlUpdateDatabase['bills']['type_collection_bill'] = "ALTER TABLE `bills` ADD `type_collection_bill` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
@@ -451,7 +457,7 @@ $sqlUpdateDatabase['debts']['total_payment'] = "ALTER TABLE `debts` ADD `total_p
 $sqlUpdateDatabase['debts']['number_payment'] = "ALTER TABLE `debts` ADD `number_payment` INT NOT NULL DEFAULT '0'";
 $sqlUpdateDatabase['debts']['type'] = "ALTER TABLE `debts` ADD `type` INT NOT NULL DEFAULT '0' COMMENT '1: Nợ phải thu, 2: Nợ Phải trả, '";
 $sqlUpdateDatabase['debts']['status'] = "ALTER TABLE `debts` ADD `status` INT NOT NULL COMMENT '0 : chưa trả ,1 đã trả hết'";
-$sqlUpdateDatabase['debts']['type_order'] = "ALTER TABLE `debts` ADD `type_order` INT NOT NULL COMMENT '0: tự tạo, 1: đại lý, 2: khách hàng'";
+$sqlUpdateDatabase['debts']['type_order'] = "ALTER TABLE `debts` ADD `type_order` INT NOT NULL COMMENT '3: tự tạo, 1: đại lý, 2: khách hàng'";
 $sqlUpdateDatabase['debts']['id_customer'] = "ALTER TABLE `debts` ADD `id_customer` INT NOT NULL DEFAULT '0'";
 $sqlUpdateDatabase['debts']['note'] = "ALTER TABLE `debts` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
 $sqlUpdateDatabase['debts']['created_at'] = "ALTER TABLE `debts` ADD `created_at` INT NULL DEFAULT NULL";
