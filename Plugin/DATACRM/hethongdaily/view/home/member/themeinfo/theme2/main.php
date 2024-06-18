@@ -76,8 +76,7 @@
                                 <h1 style="color: rgb(42 50 127);"><?php echo $info->name;?></h1>
                             </div>
                             <div class="block-2-detail">
-                                <h3><?php echo $info->name_position;?></h3>
-                                <h4><?php echo $info->name_system;?></h4>
+                                <h4><?php echo $info->name_position;?> <?php echo $info->name_system;?></h4>
                                 <p><i style="color: rgb(42 50 127);" class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
                             </div>
                         </section>
@@ -167,7 +166,7 @@
                                 
                                 echo '  <thead>
                                             <tr>
-                                              <th colspan="4">'.@$item['category']->name.'</th>
+                                              <th colspan="4"><b>'.@$item['category']->name.'</b></th>
                                             </tr>
                                         </thead>
                                         <tbody>

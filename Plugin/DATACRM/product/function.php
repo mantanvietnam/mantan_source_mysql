@@ -235,7 +235,7 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
 }
 
 
-function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note='',$listTypeMoney=array(),$discountCode=array(), $order=array()){
+function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note='',$listTypeMoney=array(),$discountCode=array(), $order=array(), $emailAdmin=''){
   global $modelOptions;
   global $controller;
 
@@ -246,11 +246,19 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
     $data_value = json_decode($data->value, true);
   }
 
+  $to = [];
   if(!empty($data_value['email'])){
     $to[]= trim($data_value['email']);
-    $cc = array();
-    $bcc = array();
+  }
 
+  if(!empty($emailAdmin)){
+    $to[]= trim($emailAdmin);
+  }
+    
+  $cc = array();
+  $bcc = array();
+
+  if(!empty($to)){
     if(!empty($order->id_agency)){
       $modelMembers = $controller->loadModel('Members');
 
