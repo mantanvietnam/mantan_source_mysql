@@ -447,7 +447,7 @@ $sqlUpdateDatabase['bills']['updated_at'] = "ALTER TABLE `bills` ADD `updated_at
 $sqlUpdateDatabase['bills']['type_collection_bill'] = "ALTER TABLE `bills` ADD `type_collection_bill` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
 $sqlUpdateDatabase['bills']['id_customer'] = "ALTER TABLE `bills` ADD `id_customer` INT NOT NULL DEFAULT '0'";
 $sqlUpdateDatabase['bills']['id_debt'] = "ALTER TABLE `bills` ADD `id_debt` INT NOT NULL DEFAULT '0'";
-$sqlUpdateDatabase['bills']['note'] = "ALTER TABLE `bills` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NUL";
+$sqlUpdateDatabase['bills']['note'] = "ALTER TABLE `bills` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
 // chi
 $sqlUpdateDatabase['debts']['id_member_sell'] = "ALTER TABLE `debts` ADD `id_member_sell` INT NOT NULL";
