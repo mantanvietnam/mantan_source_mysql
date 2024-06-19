@@ -6,14 +6,16 @@
                     <h1>DANH SÁCH ẤN PHẨM</h1>
                 </div>
                 <div class="search-publication">
-                    <div class="wrap">
-                        <div class="search">
-                            <input type="text" class="searchTerm" placeholder="What are you looking for?">
-                            <button type="submit" class="searchButton">
-                             <i class="fa fa-search"></i>
-                          </button>
+                    <form action="" method="get">
+                        <div class="wrap">
+                            <div class="search">
+                                <input type="text" class="searchTerm" placeholder="What are you looking for?" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+                                <button type="submit" class="searchButton">
+                                <i class="fa fa-search"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="row">
                 <?php foreach ($listDatapublication as $key => $value) { ?>

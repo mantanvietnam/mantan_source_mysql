@@ -84,6 +84,12 @@
                               <?php showUploadFile('image','image',@$data->image,0);?>
                             </div>
                           </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">file</label>
+                              <?php showUploadFile('file','file',@$data->file,1);?>
+                            </div>
+                          </div>
                           <!-- <div class="col-md-4">
                             <div class="mb-3">
                               <label class="form-label">Hình 1</label>

@@ -1,1 +1,1 @@
-<?php getFileTheme('detailpublication.php');?>
+<?php getFileTheme('publication/detailpublication.php');?>

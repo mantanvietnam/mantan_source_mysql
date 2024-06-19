@@ -774,9 +774,11 @@ table {
     padding-left: 20px;
     border-left: 1px solid #ececec;
 }
-
+.section-card-albums .set-padding-top{
+    margin-top: 20px;
+}
 .search {
-    width: 100%;
+    width: 40%;
     position: relative;
     display: flex;
 }

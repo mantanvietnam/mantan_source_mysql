@@ -41,7 +41,6 @@ function listpublication($input)
         $back = 1;
     if ($next >= $totalPage)
         $next = $totalPage;
-
     if (isset($_GET['page'])) {
         $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
         $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
@@ -57,8 +56,6 @@ function listpublication($input)
     } else {
         $urlPage = $urlPage . '?page=';
     }
-
-
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -75,18 +72,12 @@ function addpublication($input)
 	global $isRequestPost;
 	global $modelCategories;
     global $metaTitleMantan;
-
     $metaTitleMantan = 'Thông tin Dự án';
-
 	$modelPublication = $controller->loadModel('Publication');
 	$mess= '';
-
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelPublication->get( (int) $_GET['id']);
-  
-        // $data->id_product = json_decode($data->id_product, true);
-
     }else{
         $data = $modelPublication->newEmptyEntity();
     }
@@ -97,26 +88,11 @@ function addpublication($input)
         if(!empty($dataSend['name'])){
             $data->address = $dataSend['address'];
             $data->name = $dataSend['name'];
-            // $data->company_design = $dataSend['company_design'];
-            // $data->designer = $dataSend['designer'];
-            // $data->company_build= $dataSend['company_build'];
             $data->description= $dataSend['description'];
             $data->time_create= $dataSend['time_create'];
-            // $data->city= $dataSend['city'];
-            // $data->id_product= $dataSend['id_product'];
-            // $data->status= $dataSend['status'];
-       
             $data->image = $dataSend['image'];
-          
             $data->content = $dataSend['content'];
-
-
-
-            // if(!empty($dataSend['id_kind'])){
-            //     $data->id_kind = implode(',', $dataSend['id_kind']);
-            // }
-
-            
+            $data->file = $dataSend['file'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;

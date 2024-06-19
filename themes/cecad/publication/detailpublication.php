@@ -4,17 +4,23 @@
 
 ?>
 <main>
+
         <section class="section-detail-publication">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="image-title-detail-publication col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="image-title-detail-publication col-lg-11 col-md-12 col-sm-12 col-12">
                         <div class="title-detail-publication">
                             <h1><?= $publication['name'] ?></h1>
                         </div>
-                        <div class="image-detail-publication">
-                            <img src="<?= $publication['image']?>" alt="">
+                        <div style="">
+                            <iframe src="<?= $publication['file']?>" width="100%" height="800px">
+                                Trình duyệt của bạn không hỗ trợ iframe.
+                            </iframe>
                         </div>
-                        <div class="bottom-content d-flex justify-content-between">
+                           <!-- <div class="image-detail-publication">
+                            <img src="<?= $publication['image']?>" alt="">
+                        </div> -->
+                        <!-- <div class="bottom-content d-flex justify-content-between">
                             <ul>
                                 <li>Dowload: <span>1852</span></li>
                                 <li>File Size: <span>39.36 MB</span></li>
@@ -22,15 +28,12 @@
                                 <li>Create Date: <span>15/09/2017</span></li>
                                 <li>Last Updated: <span>15/09/2023</span></li>
                             </ul>
-                        </div>
-                        <iframe src="path/to/your/file.pdf" width="100%" height="600px">
-                            Trình duyệt của bạn không hỗ trợ iframe.
-                        </iframe>
-                        <div class="button-dowload-detail-publication">
+                        </div> -->
+                        <!-- <div class="button-dowload-detail-publication">
                             <a href="">Dowload</a>
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="col-lg-3 col-md-12 col-sm-12 col-12 left-border">
+                    <!-- <div class="col-lg-3 col-md-12 col-sm-12 col-12 left-border">
                         <div class="input-search">
                             <div class="wrap">
                                 <div class="search">
@@ -75,12 +78,13 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
                 </div>
             </div>
             </div>
         </section>
     </main>
-    <?php 
+
+<?php 
     getFooter();
 ?>

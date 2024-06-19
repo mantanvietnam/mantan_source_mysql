@@ -209,7 +209,7 @@
                     <?php if(!empty($listDataPost)){
                             foreach($listDataPost as $item){ ?>
                         <div class="home-news-items">
-                            <a href="">
+                            <a href="<?php echo @$item->slug ?>.html">
                                 <div class="home-news-img">
                                     <img src="<?= $item->image;?>" alt="">
                                 </div>

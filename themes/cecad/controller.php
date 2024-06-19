@@ -6,6 +6,7 @@ function settingHomececad($input){
     $metaTitleMantan = 'Cài đặt giao diện trang chủ ';
     $mess= '';
     $conditions = array('key_word' => 'settingHomececad');
+    
     $data = $modelOptions->find()->where($conditions)->first();
     if(empty($data)){
         $data = $modelOptions->newEmptyEntity();
@@ -144,11 +145,7 @@ function categoryAlbumTheme($input)
 	global $settingThemes;
     global $controller;
     $conditions = array('key_word' => 'settingHomececad');
-    $data = $modelOptions->find()->where($conditions)->first();
-    $data_value = array();
-    if(!empty($data->value)){
-        $data_value = json_decode($data->value, true);
-    }
+
     $slide_albums = [];
     if(!empty($settingThemes['slide_albums'])){
         $slide_albums = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['slide_albums']])->all()->toList();
@@ -162,6 +159,7 @@ function categoryVideoTheme($input)
 	global $settingThemes;
     global $controller;
     $conditions = array('key_word' => 'settingHomececad');
+    
     $data = $modelOptions->find()->where($conditions)->first();
     $data_value = array();
     if(!empty($data->value)){
@@ -182,13 +180,19 @@ function publication($input){
     global $metaTitleMantan;
     global $modelpublication;
     global $urlCurrent;
-    $limit = 2;
+    $limit = 8;
     $conditions = array();
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     $modelpublication = $controller->loadModel('Publication');
     $order = array('id' => 'desc');
-    $listDatapublication= $modelpublication->find()->limit($limit)->page($page)->order($order)->all()->toList();
-
+    $listDatapublication= $modelpublication->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
+    
     $totalData = $modelpublication->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
     $balance = $totalData % $limit;
