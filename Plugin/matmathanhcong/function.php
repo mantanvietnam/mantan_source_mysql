@@ -36,7 +36,7 @@ $userAPI = '';
 $passAPI = '';
 $price_full = 0;
 $bank_number = '87818938888';
-$bank_name = 'Tran Van Toan';
+$bank_name = 'Tran%20Van%20Toan';
 $key_banking = 'MMTC';
 $idBot = '63edf5c2642152d701d5739b';
 $tokenBot = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWRmNWMyNjQyMTUyZDcwMWQ1NzM5YiIsIm5hbWUiOiJCTEFOSyBCT1QgLSBDb3B5IiwiaWF0IjoxNjc2NTM5MzMwLCJleHAiOjE5OTE4OTkzMzB9.6GeoT8QLvvUvyzBJ_zeyLlMq4iAXhHnV2UtjVJhUR9M';
@@ -231,6 +231,31 @@ function process_send_link($order_id = 0)
             sendEmailLinkFull($info->email, $info->name, $info->link_download);
         }
 
+        // gửi FB
+        if(!empty($info->idMessenger)){
+            $attributesSmax = [];
+            $attributesSmax['linkDownloadMMTC']= $info->link_download;
+            
+            $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$info->idMessenger.'/send?bot_token='.$tokenBot.'&block_id='.$idBlockDownload.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
+            
+            $returnSmax= sendDataConnectMantan($urlSmax, $attributesSmax);
+        }
+
+        // gửi zalo
+        if(!empty($info->idZalo)){
+            // gửi tin nhắn chatbot Zalo
+            if(function_exists('sendMessZalo')){
+                $id_oa = '';
+                $app_id = '';
+                $user_id_zalo = $info->idZalo;
+                $text = 'Link tải bản đầy đủ Mật Mã Thành Công của '.$info->name.': '.$info->link_download;
+                //$text = 'Chúng tôi sẽ gửi link tải bản đầy đủ Thần Số Học về email của bạn ngay khi hệ thống xử lý xong yêu cầu';
+                $image = '';
+
+                sendMessZalo($id_oa, $app_id, $user_id_zalo, $text, $image);
+            }
+        }
+
         if(!empty($info->affiliate_phone)){
             $checkNumberOrder = $modelRequestExports->find()->where(['affiliate_phone'=>$info->affiliate_phone, 'status_pay'=>'done'])->all()->toList();
 
@@ -254,6 +279,22 @@ function process_send_link($order_id = 0)
                         $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$dataSend['idMessenger'].'/send?bot_token='.$tokenBot.'&block_id='.$idBlockDownload.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
                         
                         $returnSmax= sendDataConnectMantan($urlSmax, $attributesSmax);
+                    }
+
+                    // gửi zalo
+                    if(!empty($info_aff->idZalo)){
+                        // gửi tin nhắn chatbot Zalo
+                        if(function_exists('sendMessZalo')){
+                            $id_oa = '';
+                            $app_id = '';
+                            $user_id_zalo = $info_aff->idZalo;
+                            $text = 'Link tải bản đầy đủ Mật Mã Thành Công của '.$info_aff->name.': '.$info_aff->link_download;
+                            //$text = 'Chúng tôi sẽ gửi link tải bản đầy đủ Thần Số Học về email của bạn ngay khi hệ thống xử lý xong yêu cầu';
+                            $image = '';
+
+                            sendMessZalo($id_oa, $app_id, $user_id_zalo, $text, $image);
+
+                        }
                     }
                 }
             }
