@@ -1,4 +1,4 @@
-<?php 
+f<?php 
 function getNewProductAPI($input)
 {
 	global $isRequestPost;
@@ -1009,6 +1009,32 @@ function getMyProductAPI($input)
 				if(!empty($dataSend['type'])){
 					$conditions['type']= $dataSend['type'];
 				}
+				if(!empty($dataSend['type'])){
+					$conditions['type']= $dataSend['type'];
+				}
+				if(!empty($dataSend['name'])){
+					$conditions['OR'] = [
+											['name LIKE'=>'%'.$dataSend['name'].'%'],
+											['keyword LIKE'=>'%'.$dataSend['name'].'%']
+										];
+
+				}
+
+				if(!empty($dataSend['category_id'])){
+					$conditions['category_id'] = (int) $dataSend['category_id'];
+				}
+
+				if(!empty($dataSend['color'])){
+					$conditions['color'] = $dataSend['color'];
+				}
+
+				if(!empty($dataSend['price'])){
+					$price = explode('-', $dataSend['price']);
+					$conditions['sale_price >='] = (int) $price[0];
+					$conditions['sale_price <='] = (int) $price[1];
+				}
+
+
 				$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
 				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 				if($page<1) $page = 1;

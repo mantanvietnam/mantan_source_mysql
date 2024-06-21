@@ -129,6 +129,7 @@ function getComplaintListApi($input): array
                 'PostedUsers.name',
                 'ComplainedUsers.id',
                 'ComplainedUsers.name',
+                'Complaints.status',
                 'Bookings.name',
             ])->limit($limit)
             ->page($page)

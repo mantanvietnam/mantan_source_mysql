@@ -975,7 +975,7 @@ function getUserStatisticAdmin($input)
             $currentUser->nhan_cuoc = count($modelBooking->find()->where(array('received_by'=>$currentUser->id,'status'=>3))->all()->toList());
             $currentUser->dang_cuoc = count($modelBooking->find()->where(array('posted_by'=>$currentUser->id,'status'=>3))->all()->toList());
 
-            return apiResponse(0, 'Lấy dữ liệu thành công', $user);
+            return apiResponse(0, 'Lấy dữ liệu thành công', $currentUser);
         }
 
     }
