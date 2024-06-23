@@ -459,6 +459,18 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
                 $infoUser->id_group = (int) $id_groups[0];
             }
 
+            if(!empty($birthday_date)){
+                $infoUser->birthday_date = (int) $birthday_date;
+            }
+
+            if(!empty($birthday_month)){
+                $infoUser->birthday_month = (int) $birthday_month;
+            }
+
+            if(!empty($birthday_year)){
+                $infoUser->birthday_year = (int) $birthday_year;
+            }
+
             $modelCustomers->save($infoUser);
 
             // lưu bảng nhóm khách hàng

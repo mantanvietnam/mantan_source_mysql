@@ -30,10 +30,15 @@ global $modelOptions;
 global $urlAPI;
 global $userAPI;
 global $passAPI;
+global $maxExport;
+global $numberExport;
 
 $urlAPI = 'https://quanly.matmathanhcong.vn';
 $userAPI = '';
 $passAPI = '';
+$maxExport = 0;
+$numberExport = 0;
+
 $price_full = 0;
 $bank_number = '87818938888';
 $bank_name = 'Tran%20Van%20Toan';
@@ -51,6 +56,9 @@ if(!empty($settingMMTCAPI->value)){
 
     $userAPI = @$data_value['userAPI'];
     $passAPI = @$data_value['passAPI'];
+    $maxExport = (int) @$data_value['maxExport'];
+    $numberExport = (int) @$data_value['numberExport'];
+
     $price_full = (int) @$data_value['price'];
 
     $bank_number = @$data_value['number_bank'];
@@ -142,49 +150,75 @@ function getListProductMMTCAPI()
 function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $address='', $avatar='', $gender=1, $id_category = 0)
 {
     global $urlAPI;
+    global $maxExport;
+    global $numberExport;
+    global $modelOptions;
 
-    $categories = getListProductMMTCAPI();
-    $token = getTokenMMTCAPI();
-    
-    if(!empty($token) && !empty($categories[$id_category]['category_id'])){
-        if(empty($email)) $email = 'tranmanhbk179@gmail.com';
-        if(empty($address)) $address = '18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội';
+    if($numberExport < $maxExport){
+        $categories = getListProductMMTCAPI();
+        $token = getTokenMMTCAPI();
+        
+        if(!empty($token) && !empty($categories[$id_category]['category_id'])){
+            if(empty($email)) $email = 'tranmanhbk179@gmail.com';
+            if(empty($address)) $address = '18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội';
 
-        if(!empty($name) && !empty($birthdate) && !empty($phone)){
-            $birthdate = str_replace('/', '_', $birthdate);
+            if(!empty($name) && !empty($birthdate) && !empty($phone)){
+                $birthdate = str_replace('/', '_', $birthdate);
 
-            $dataSend = [   'category_id' => $categories[$id_category]['category_id'],
-                            'customer_name' => $name,
-                            'customer_birthdate' => $birthdate,
-                            'customer_phone' => $phone,
-                            'customer_email' => $email,
-                            'customer_address' => $address,
-                            'customer_avatar' => $avatar,
-                            'customer_gender' => $gender,
-                            'user_avatar' => ''
-                        ];
+                $dataSend = [   'category_id' => $categories[$id_category]['category_id'],
+                                'customer_name' => $name,
+                                'customer_birthdate' => $birthdate,
+                                'customer_phone' => $phone,
+                                'customer_email' => $email,
+                                'customer_address' => $address,
+                                'customer_avatar' => $avatar,
+                                'customer_gender' => $gender,
+                                'user_avatar' => '',
+                                'source'=>'ICHAM CRM'
+                            ];
 
-            $header = ['Authorization: '.$token, 'Content-Type: application/x-www-form-urlencoded'];
-            $typeData = 'x-www-form-urlencoded';
-            $typeSend = 'GET';
+                $header = ['Authorization: '.$token, 'Content-Type: application/x-www-form-urlencoded'];
+                $typeData = 'x-www-form-urlencoded';
+                $typeSend = 'GET';
 
-            $linkFull = sendDataConnectMantan($urlAPI.'/api/GetLink', $dataSend, $header, $typeData, $typeSend);
-            
-            // debug($linkFull);
-            // debug($dataSend);
-            
-            if(!empty($linkFull)){
-                if(strpos($linkFull, 'https://') !== false){
-                    return trim($linkFull, '"');
+                $linkFull = sendDataConnectMantan($urlAPI.'/api/GetLink', $dataSend, $header, $typeData, $typeSend);
+                
+                // debug($linkFull);
+                // debug($dataSend);
+                
+                if(!empty($linkFull)){
+                    if(strpos($linkFull, 'https://') !== false){
+                        // cập nhập lại số lượt xuất
+                        $conditions = array('key_word' => 'settingMMTCAPI');
+                        $data = $modelOptions->find()->where($conditions)->first();
+                       
+                        if(!empty($data->value)){
+                            $value = json_decode($data->value, true);
+
+                            if(empty($value['numberExport'])){
+                                $value['numberExport'] = 0;
+                            }
+
+                            $value['numberExport'] ++;
+
+                            $data->value = json_encode($value);
+
+                            $modelOptions->save($data);
+                        }
+
+                        return trim($linkFull, '"');
+                    }
                 }
-            }
 
-            return '';
+                return '';
+            }else{
+                return '';
+            }
         }else{
             return '';
         }
     }else{
-        return '';
+        echo 'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.number_format($maxExport).' bản thần số học.';die;
     }
 
     return '';

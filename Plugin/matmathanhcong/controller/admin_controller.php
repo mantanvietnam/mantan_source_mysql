@@ -132,7 +132,10 @@ function settingMMTCAPI($input){
 
         $value = array( 'userAPI' => $dataSend['userAPI'],
                         'passAPI' => $dataSend['passAPI'],
-                        'price' => $dataSend['price'],
+                        'maxExport' => (int) $dataSend['maxExport'],
+                        'numberExport' => (int) $dataSend['numberExport'],
+
+                        'price' => (int) $dataSend['price'],
                         'note_pay' => $dataSend['note_pay'],
                         'number_bank' => $dataSend['number_bank'],
                         'account_bank' => $dataSend['account_bank'],

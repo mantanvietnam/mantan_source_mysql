@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/plugins/hethongdaily/view/home/member/themeinfo/theme2/Asset/css/main.css?time=<?php echo time();?>">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- Fonawesome -->
@@ -21,6 +21,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
       <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 </head>
 
 
@@ -102,7 +105,7 @@
                         <section id="block-4" style="gap: 24px;">
                             <?php if(!empty($info->facebook)){ ?>
                             <div class="block-4-icon icon-fb">
-                                <a href="<?php echo $info->facebook;?>">
+                                <a target="_blank" href="<?php echo $info->facebook;?>">
                                     <i class="fa-brands fa-facebook"></i>
                                 </a>
                             </div>
@@ -110,7 +113,7 @@
 
                             <?php if(!empty($info->tiktok)){ ?>
                             <div class="block-4-icon icon-tiktok">
-                                <a href="<?php echo $info->tiktok;?>">
+                                <a target="_blank" href="<?php echo $info->tiktok;?>">
                                     <i class="fa-brands fa-tiktok"></i>
                                 </a>
                             </div>
@@ -118,7 +121,7 @@
 
                             <?php if(!empty($info->youtube)){ ?>
                             <div class="block-4-icon">
-                                <a href="<?php echo $info->youtube;?>">
+                                <a target="_blank" href="<?php echo $info->youtube;?>">
                                     <i class="fa-brands fa-youtube"></i>
                                 </a>
                             </div>
@@ -126,7 +129,7 @@
 
                             <?php if(!empty($info->zalo)){ ?>
                             <div class="block-4-icon">
-                                <a href="<?php echo $info->zalo;?>">
+                                <a target="_blank" href="<?php echo $info->zalo;?>">
                                     <img src="/plugins/hethongdaily/view/home/member/themeinfo\theme2\Asset/images/zalo-white-d96e.png" alt="">
                                 </a>
                             </div>
@@ -134,7 +137,7 @@
 
                             <?php if(!empty($info->instagram)){ ?>
                             <div class="block-4-icon">
-                                <a href="<?php echo $info->instagram;?>">
+                                <a target="_blank" href="<?php echo $info->instagram;?>">
                                     <i class="fa-brands fa-instagram"></i>
                                 </a>
                             </div>
@@ -226,6 +229,9 @@
                                     <label for="">Địa chỉ</label>
                                     <input type="text" id="" name="address" value="">
 
+                                    <label for="">Ngày sinh (giảm giá khi đến sinh nhật)</label>
+                                    <input type="text" id="" name="birthday" value="" class="datepicker">
+
                                     <?php 
                                     if(!empty($listGroupCustomer)){
                                         echo '  <label for="">Nhóm khách hàng</label>
@@ -260,6 +266,10 @@
                                 <div class="mb-3">
                                   <label for="address" class="form-label">Địa chỉ nhận hàng</label>
                                   <input type="text" class="form-control" id="address" name="address" value="" />
+                                </div>
+                                <div class="mb-3">
+                                  <label for="birthday" class="form-label">Ngày sinh (giảm giá khi đến sinh nhật)</label>
+                                  <input type="text" class="form-control datepicker" id="birthday" name="birthday" value="" />
                                 </div>
                                 <div class="mb-3">
                                   <label for="codeDiscount" class="form-label">Mã giảm giá</label>
@@ -500,16 +510,15 @@
                 var full_name = $('#full_name').val();
                 var phone = $('#phone').val();
                 var address = $('#address').val();
+                var birthday = $('#birthday').val();
 
                 $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
-                console.log(full_name);
-                console.log(phone);
 
                 if(full_name != '' && phone != ''){
                     $.ajax({
                       method: "POST",
                       url: "/pay/?callAPI=1",
-                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf, id_agency:id_agency, name_agency:name_agency, name_system:name_system }
+                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf, id_agency:id_agency, name_agency:name_agency, name_system:name_system, birthday:birthday }
                     })
                     .done(function( msg ) {
                         $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
@@ -651,6 +660,16 @@
 
             document.getElementById(tabShow).classList.add("active");
             document.getElementById(tabShow).classList.add("in");
+        </script>
+
+        <script>
+        
+        $( function() {
+            $( ".datepicker" ).datepicker({
+              dateFormat: "dd/mm/yy"
+            });
+        } );
+        
         </script>
 </body>
 

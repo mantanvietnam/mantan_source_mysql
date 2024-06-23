@@ -45,13 +45,13 @@
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label">Ảnh đại diện (*)</label>
-                              <?php showUploadFile('avatar','avatar',@$user->avatar,0);?>
-                            </div>
-
-                            <div class="mb-3">
-                              <label class="form-label">Ảnh banner chia sẻ</label>
-                              <?php showUploadFile('banner','banner',@$user->banner,1);?>
+                              <label class="form-label">Ảnh đại diện</label>
+                              <input type="file" class="form-control phone-mask" name="avatar" id="avatar" value=""/>
+                              <?php
+                              if(!empty($user->avatar)){
+                                echo '<br/><img src="'.$user->avatar.'" width="80" />';
+                              }
+                              ?>
                             </div>
 
                             <div class="mb-3">
@@ -94,6 +94,16 @@
                             </div>
 
                             <div class="mb-3">
+                              <label class="form-label">Ảnh banner chia sẻ</label>
+                              <input type="file" class="form-control phone-mask" name="banner" id="banner" value=""/>
+                              <?php
+                              if(!empty($user->banner)){
+                                echo '<br/><img src="'.$user->banner.'" width="80" />';
+                              }
+                              ?>
+                            </div>
+
+                            <div class="mb-3">
                               <label class="form-label">Địa chỉ</label>
                               <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$user->address;?>"/>
                             </div>
@@ -117,23 +127,7 @@
                               <label class="form-label" for="basic-default-phone">Trang Zalo</label>
                               <input type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$user->zalo;?>" />
                             </div>
-                             <!-- <div class="mb-3">
-                              <label class="form-label" for="basic-default-phone">Giao diện trang info</label>
-                              <select required class="form-select" name="display_info" id="display_info">
-                                  <option value="">Chọn giao diện trang info</option>
-                                  <?php foreach($displayInfo as $key => $item){
-                                    $selected = '';
-                                    if($user->display_info==$key){ 
-                                      $selected = 'selected';
-                                    }
-                                    echo'<option value="'.$key.'" '.$selected.' >'.$item.'</option>';
-                                  } ?>
-                                </select>
-                            </div> -->
-                             <!-- <div class="mb-3">
-                              <label class="form-label">Ảnh mã QR thanh toán</label>
-                              <?php showUploadFile('image_qr_pay','image_qr_pay',@$user->image_qr_pay,3);?>
-                            </div> -->
+                            
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-phone">Mã QR của bạn</label><br/>
                               <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'info/?id='.@$user->id;?>" width="100">

@@ -745,16 +745,48 @@ function addProductAgency($input)
             $dataSend = $input['request']->getData();
 
             if(!empty($dataSend['title'])){
-                if(empty($dataSend['image'])){
-                    $dataSend['image'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/default-thumb.jpg';
+                $user = $session->read('infoUser');
+
+                if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
+                    if(!empty($data->id)){
+                        $fileName = 'image_product_'.$data->id;
+                    }else{
+                        $fileName = 'image_product_'.time().rand(0,1000000);
+                    }
+
+                    $image = uploadImage($user->id, 'image', $fileName);
+                }
+
+                if(!empty($image['linkOnline'])){
+                    $data->image = $image['linkOnline'].'?time='.time();
+                }else{
+                    if(empty($data->image)){
+                        $data->image = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/default-thumb.jpg';
+                    }
+                }
+
+                $listImage = [];
+                for($i=1;$i<=20;$i++){
+                    if(isset($_FILES['image'.$i]) && empty($_FILES['image'.$i]["error"])){
+                        if(!empty($data->id)){
+                            $fileName = 'image'.$i.'_product_'.$data->id;
+                        }else{
+                            $fileName = 'image'.$i.'_product_'.time().rand(0,1000000);
+                        }
+
+                        $image = uploadImage($user->id, 'image'.$i, $fileName);
+
+                        if(!empty($image['linkOnline'])){
+                            $listImage[$i] = $image['linkOnline'].'?time='.time();
+                        }
+                    }
                 }
 
                 // tạo dữ liệu save
                 $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
                 $data->description = @$dataSend['description'];
                 $data->info = @$dataSend['info'];
-                $data->image = @$dataSend['image'];
-                $data->images = json_encode(@$dataSend['images']);
+                $data->images = json_encode($listImage);
                 $data->evaluate = json_encode(@$dataSend['evaluate']);
                 $data->code = @strtoupper($dataSend['code']);
                 $data->price = (int) @$dataSend['price'];
@@ -815,7 +847,7 @@ function addProductAgency($input)
         if(!empty($data->images)){
             $data->images = json_decode($data->images, true);
         }           
-       
+        
         if(!empty($data->evaluate)){
             $data->evaluate = json_decode($data->evaluate, true);
         }
