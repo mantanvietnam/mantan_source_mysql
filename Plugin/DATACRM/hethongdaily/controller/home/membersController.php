@@ -138,6 +138,7 @@ function account($input)
 		$mess = '';
 
 		$user = $modelMembers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
+		$boss = $modelMembers->find()->where(['id_father'=>0])->first();
 
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
@@ -158,7 +159,6 @@ function account($input)
 				$user->description = $dataSend['description'];
 				$user->zalo = $dataSend['zalo'];
 				$user->banner = $dataSend['banner'];
-				$user->display_info = $dataSend['display_info'];
 				$user->image_qr_pay = $dataSend['image_qr_pay'];
 				$user->bank_number = $dataSend['bank_number'];
 				$user->bank_name = $dataSend['bank_name'];
@@ -180,6 +180,7 @@ function account($input)
 
 		setVariable('mess', $mess);
 		setVariable('user', $user);
+		setVariable('boss', $boss);
 		setVariable('displayInfo', $displayInfo);
 	}else{
 		return $controller->redirect('/login');
@@ -659,5 +660,37 @@ function info($input)
 	}else{
 		return $controller->redirect('/');
 	}
+}
+
+function useThemeInfo($input){
+
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $modelCategories;
+	global $urlHomes;
+	global $displayInfo;
+
+	$metaTitleMantan = 'Đổi thông tin tài khoản';
+
+	$modelMembers = $controller->loadModel('Members');
+
+	if(!empty($session->read('infoUser'))){
+		$mess = '';
+
+		$user = $modelMembers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
+		$user->display_info = $_GET['id'];
+
+
+		$modelMembers->save($user);
+		
+		return $controller->redirect('/account');
+
+
+	}else{
+		return $controller->redirect('/login');
+	}
+
 }
 ?>

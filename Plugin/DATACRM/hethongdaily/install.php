@@ -56,6 +56,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `bank_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `bank_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `bank_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `list_theme_info` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -197,6 +198,7 @@ $sqlInstallDatabase .="CREATE TABLE `documents` (
   `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
   `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
   `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `public` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT DEFAULT 'public' , 
   `created_at` INT NOT NULL ,
    PRIMARY KEY (`id`)
  ) ENGINE = InnoDB;";
@@ -317,6 +319,7 @@ $sqlUpdateDatabase['members']['image_qr_pay'] = "ALTER TABLE `members` ADD `imag
 $sqlUpdateDatabase['members']['bank_name'] = "ALTER TABLE `members` ADD `bank_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
 $sqlUpdateDatabase['members']['bank_number'] = "ALTER TABLE `members` ADD `bank_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['members']['bank_code'] = "ALTER TABLE `members` ADD `bank_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
+$sqlUpdateDatabase['members']['list_theme_info'] = "ALTER TABLE `members` ADD `list_theme_info` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL DEFAULT '1';";
 
 // bảng zalos 
 $sqlUpdateDatabase['zalos']['id_oa'] = "ALTER TABLE `zalos` ADD `id_oa` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
@@ -427,6 +430,7 @@ $sqlUpdateDatabase['documents']['content'] = "ALTER TABLE `documents` ADD `conte
 $sqlUpdateDatabase['documents']['slug'] = "ALTER TABLE `documents` ADD `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
 $sqlUpdateDatabase['documents']['description'] = "ALTER TABLE `documents` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
 $sqlUpdateDatabase['documents']['created_at'] = "ALTER TABLE `documents` ADD `created_at` INT NOT NULL";
+$sqlUpdateDatabase['documents']['public']= "ALTER TABLE `documents` ADD `public` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'public'";
 
 $sqlUpdateDatabase['documentinfos']['title'] = "ALTER TABLE `documentinfos` ADD  `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
 $sqlUpdateDatabase['documentinfos']['file'] = "ALTER TABLE `documentinfos` ADD  `file` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
@@ -434,6 +438,7 @@ $sqlUpdateDatabase['documentinfos']['status'] = "ALTER TABLE `documentinfos` ADD
 $sqlUpdateDatabase['documentinfos']['description'] = "ALTER TABLE `documentinfos` ADD  `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
 $sqlUpdateDatabase['documentinfos']['slug'] = "ALTER TABLE `documentinfos` ADD  `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
 $sqlUpdateDatabase['documentinfos']['id_document'] = "ALTER TABLE `documentinfos` ADD  `id_document` INT NOT NULL";
+
 
 //  phiếu thu chi
 $sqlUpdateDatabase['bills']['id_member_sell'] = "ALTER TABLE `bills` ADD `id_member_sell` INT NOT NULL";

@@ -22,10 +22,19 @@
                   <label class="form-label">Hình minh họa *</label>
                   <?php showUploadFile('image','image',@$data->image,0);?>
                 </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-email">Hiểu thị</label>
+                  <div class="input-group input-group-merge">
+                    <select class="form-select" name="public" id="public">
+                      <option value="private" <?php if(!empty($data->status) && $data->status=='private') echo 'selected'; ?> >Dành riêng cho đại lý</option>
+                      <option value="public" <?php if(!empty($data->status) && $data->status=='public') echo 'selected'; ?> >Chung cho hệ thống</option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
               <div class="col-12 col-sm-12 col-md-6">
-              	 <div class="mb-3">
+              	<div class="mb-3">
                   <label class="form-label" for="basic-default-email">Trạng thái</label>
                   <div class="input-group input-group-merge">
                     <select class="form-select" name="status" id="status">

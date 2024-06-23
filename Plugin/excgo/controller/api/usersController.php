@@ -313,7 +313,21 @@ function upgradeToDriverApi($input): array
             ->first();
 
         if (!empty($currentRequest) && !$currentRequest->status) {
-            return apiResponse(4, 'Yêu cầu của bạn đang chờ duyệt');
+            $money = (int) parameter()['moneyUpgradeToDriver'];
+            $data =array();
+            if (!empty($money)) {
+                $addInfo = "$currentUser->phone_number $transactionKey";
+                $url = $urlTransaction . "amount=$money&addInfo=$addInfo&accountName=CTY CP THUONG MAI VA DV EXC-GO";
+                $data = [
+                    'url' => $url,
+                    'bank' => 'Ngân hàng Tiên Phong Bank (TPB)',
+                    'account_number' => '26689898989',
+                    'account_name' => 'CTY CP THUONG MAI VA DV EXC-GO',
+                    'content' => $addInfo
+                ];
+            }
+
+            return apiResponse(4, 'Yêu cầu của bạn đang chờ duyệt',$data);
         }
 
        /* $checkAvatar = $modelImage->find()

@@ -892,6 +892,9 @@ function sendEmailCodeForgotPassword($email = '', $fullName = '', $code = '')
     }
 }
 
+global $urlTransaction;
+$urlTransaction = 'https://img.vietqr.io/image/MB-0816560000-compact2.png?';
+
 function listBank()
 {
     return [
@@ -944,6 +947,14 @@ function listBank()
         ['id' => 47, 'name' => 'Xăng dầu Petrolimex', 'code' => 'PG Bank'],
         ['id' => 48, 'name' => 'Xây dựng', 'code' => 'CB'],
         ['id' => 49, 'name' => 'Xuất Nhập Khẩu', 'code' => 'Eximbank'],
+
+    ];
+}
+
+function listThemeInfo(){
+    return [ 
+        ['id' => 1, 'name' => 'Theme info 1 ', 'code' => 'themeifo1', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them1.jpg','price'=>0],
+        ['id' => 2, 'name' => 'Theme info 2 ', 'code' => 'themeifo2', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them2.jpg','price'=>99000],
 
     ];
 }
