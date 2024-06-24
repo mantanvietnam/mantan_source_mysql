@@ -230,7 +230,7 @@
                                     <input type="text" id="" name="address" value="">
 
                                     <label for="">Ngày sinh (giảm giá khi đến sinh nhật)</label>
-                                    <input type="text" id="" name="birthday" value="" class="datepicker">
+                                    <input type="date" id="" name="birthday" value="" class="datepicker">
 
                                     <?php 
                                     if(!empty($listGroupCustomer)){
@@ -269,7 +269,7 @@
                                 </div>
                                 <div class="mb-3">
                                   <label for="birthday" class="form-label">Ngày sinh (giảm giá khi đến sinh nhật)</label>
-                                  <input type="text" class="form-control datepicker" id="birthday" name="birthday" value="" />
+                                  <input type="date" class="form-control datepicker" id="birthday" name="birthday" value="" />
                                 </div>
                                 <div class="mb-3">
                                   <label for="codeDiscount" class="form-label">Mã giảm giá</label>
