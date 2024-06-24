@@ -353,6 +353,13 @@ function getTreeSystem($id_father, $modelMembers)
     return $listData;
 }
 
+function getInfoCustomerMember($value=0, $type='id')
+{
+    $modelCustomers = $controller->loadModel('Customers');
+
+    return $modelCustomers->find()->where([$type=>$value])->first();
+}
+
 function createCustomerNew($full_name='', $phone='', $email='', $address='', $sex=0, $id_city=0, $id_agency=0, $id_aff=0, $name_agency='', $id_messenger='', $avatar='', $birthday_date=0, $birthday_month=0, $birthday_year=0, $id_groups=0, $id_zalo='', $note_history='')
 {
     global $controller;
