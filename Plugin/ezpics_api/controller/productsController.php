@@ -1,4 +1,4 @@
-f<?php 
+<?php 
 function getNewProductAPI($input)
 {
 	global $isRequestPost;

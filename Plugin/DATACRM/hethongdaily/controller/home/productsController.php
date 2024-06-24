@@ -782,6 +782,8 @@ function addProductAgency($input)
                     }
                 }
 
+
+
                 // tạo dữ liệu save
                 $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
                 $data->description = @$dataSend['description'];
@@ -847,6 +849,8 @@ function addProductAgency($input)
         if(!empty($data->images)){
             $data->images = json_decode($data->images, true);
         }           
+
+
         
         if(!empty($data->evaluate)){
             $data->evaluate = json_decode($data->evaluate, true);
@@ -969,4 +973,97 @@ function listCategoryProductAgency($input){
         return $controller->redirect('/login');
     }
 }
+
+function addDataProductAgency(){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+    global $urlHomes;
+    global $modelCategoryConnects;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Thêm thông tin sản phẩm ';
+
+        $modelProduct = $controller->loadModel('Products');
+        $modelCategorieProduct = $controller->loadModel('CategorieProducts');        
+
+        $mess= '';
+        
+        if($isRequestPost){
+            $dataSeries = uploadAndReadExcelData('dataProduct');
+
+            if($dataSeries){
+                unset($dataSeries[0]);
+
+                $double = [];
+                $number = 0;
+                foreach ($dataSeries as $key => $value) {
+                    if(!empty($value[0]) && !empty($value[1])){
+                        $data = $modelProduct->newEmptyEntity();
+                        $id_category = explode(',' , $value[4]);
+                        $data->title = str_replace(array('"', "'"), '’', @$value[0]);
+                        $data->description = @$value[5];
+                        $data->info = @$value[6];
+                        $data->image = $value[7];
+                        $data->evaluate = '';
+                        $data->code = @strtoupper($value[1]);
+                        $data->price = (int) @$value[2];
+                        $data->price_old = (int) @$value[3];
+                        $data->quantity = 1000000;
+                        $data->status = 'active';
+                        $data->id_category = (int) @$id_category[0];
+
+                        $data->hot = 0;
+                        $data->keyword = '';
+                        $data->id_manufacturer = 0;
+
+                        // tạo slug
+                        $slug = createSlugMantan($value[0]);
+                        $slugNew = $slug;
+                        $number = 0;
+
+                        if(empty($data->slug) || $data->slug!=$slugNew){
+                            do{
+                                $conditions = array('slug'=>$slugNew);
+                                $listData = $modelProduct->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                                if(!empty($listData)){
+                                    $number++;
+                                    $slugNew = $slug.'-'.$number;
+                                }
+                            }while (!empty($listData));
+                        }
+
+                        $data->slug = $slugNew;
+
+                        $modelProduct->save($data);
+
+                        // lưu danh mục sản phẩm
+                        if(!empty($id_category)){
+                            foreach ($id_category as $item) {
+                                $category = $modelCategorieProduct->newEmptyEntity();
+
+                                $category->id_product = $data->id;;
+                                $category->id_category = $item;
+                                $modelCategorieProduct->save($category);
+                            }
+                        }
+                    }
+                    
+                    
+                }
+                $mess .= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }
+        }
+
+        setVariable('mess', $mess);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 ?>
