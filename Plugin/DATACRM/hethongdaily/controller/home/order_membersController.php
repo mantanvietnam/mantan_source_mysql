@@ -204,6 +204,7 @@ function addOrderAgency($input)
         $modelOrderMembers = $controller->loadModel('OrderMembers');
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelMembers = $controller->loadModel('Members');
+        $modelDiscountProductAgency = $controller->loadModel('DiscountProductAgencys');
 
         $mess = '';
 
@@ -237,6 +238,18 @@ function addOrderAgency($input)
                         $saveDetail->quantity = (int)$dataSend['soluong'][$key];
                         $saveDetail->price = (int)$dataSend['money'][$key];
                         $saveDetail->discount = (int)$dataSend['discount'][$key];
+
+                        if(!empty($dataSend['discount'][$key])){
+                            $checkDiscount = $modelDiscountProductAgency->find()->where(['id_product'=>$value,'id_agency'=>$member_buy->id])->first();
+
+                            if(empty($checkDiscount)){
+                                $Discount = $modelDiscountProductAgency->newEmptyEntity();
+                                $Discount->id_product = $value;
+                                $Discount->id_agency = $member_buy->id;
+                                $Discount->discount = $dataSend['discount'][$key];
+                                $modelDiscountProductAgency->save($Discount);
+                            }
+                        }
 
                         $modelOrderMemberDetails->save($saveDetail);
                     }

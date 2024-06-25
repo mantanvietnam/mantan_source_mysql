@@ -940,7 +940,7 @@ function listCategoryProductAgency($input){
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
             $infoCategory->parent = 0;
             $infoCategory->image = @$dataSend['image'];
-            $infoCategory->status = @$dataSend['status'];
+            $infoCategory->status = 'active';
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_product';
@@ -965,10 +965,33 @@ function listCategoryProductAgency($input){
 
         }
 
-        $conditions = array('type' => 'category_product');
+        $conditions = array('type' => 'category_product','status'=>'active');
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteCategoryProductAgency($input){
+    global $controller;
+    global $session;
+
+    global $modelCategories;
+    if(!empty($session->read('infoUser'))){
+        if(!empty($_GET['id'])){
+            $data = $modelCategories->get($_GET['id']);
+            
+            if($data){
+                $data->status = 'lock';
+                $modelCategories->save($data);
+                //deleteSlugURL($data->slug);
+            }
+        }
+
+    // return $controller->redirect('/listProductAgency');
+
     }else{
         return $controller->redirect('/login');
     }
