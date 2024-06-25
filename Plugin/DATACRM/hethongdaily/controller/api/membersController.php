@@ -407,7 +407,7 @@ function saveInfoMemberAPI($input)
 				}
 
 				if(!empty($avatar['linkOnline'])){
-					$checkPhone->avatar = $avatar['linkOnline'];
+					$checkPhone->avatar = $avatar['linkOnline'].'?time='.time();
 				}
 
 				if(!empty($dataSend['email'])){

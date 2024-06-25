@@ -153,7 +153,7 @@ function account($input)
 				}
 
 				if(!empty($avatar['linkOnline'])){
-					$user->avatar = $avatar['linkOnline'];
+					$user->avatar = $avatar['linkOnline'].'?time='.time();
 				}else{
 					if(empty($user->avatar)){
 						$user->avatar = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
@@ -161,7 +161,7 @@ function account($input)
 				}
 
 				if(!empty($banner['linkOnline'])){
-					$user->banner = $banner['linkOnline'];
+					$user->banner = $banner['linkOnline'].'?time='.time();
 				}
 
 				$user->name = $dataSend['name'];
