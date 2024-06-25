@@ -20,6 +20,15 @@ addMenusAppearance($categoryMenu);
 
 function sendEmailContact($email='',$fullName='',$phone='', $contacht='')
 {
+
+    global $modelOptions;
+
+    $conditions = array('key_word' => 'seo_site');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
     $to = array();
 
     if(!empty($email)){
@@ -27,7 +36,7 @@ function sendEmailContact($email='',$fullName='',$phone='', $contacht='')
     
         $cc = array();
         $bcc = array();
-        $subject = 'Liên hệ mới từ [Web Bumas]';
+        $subject = 'Liên hệ mới từ ['.@$data_value['title'].']';
 
         $content='<!DOCTYPE html>
         <html lang="en">
@@ -70,7 +79,6 @@ function sendEmailContact($email='',$fullName='',$phone='', $contacht='')
                         Phone: '.$phone.'<br/>
                         contacht: '.$contacht.'<br>
                         <br/>
-                        <a href="https://bumas.vn">https://bumas.vn</a>
                         
                         <br><br>
                         

@@ -248,10 +248,11 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `id_order` INT NOT NULL DEFAULT '0' ,
    PRIMARY KEY (`id`)
  ) ENGINE = InnoDB;";
-$sqlInstallDatabase .="CREATE TABLE `discount_product_agency` (
+$sqlInstallDatabase .="CREATE TABLE `discount_product_agencys` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `id_product` INT NOT NULL ,
-`id_agency` INT NOT NULL ,
+`id_member_sell` INT NOT NULL COMMENT 'id đại lý tuyến trên' , 
+`id_member_buy` INT NOT NULL COMMENT 'id đại lý tuyến dưới đặt mua' , 
 `discount` INT NOT NULL DEFAULT '0' ,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -271,7 +272,7 @@ $sqlDeleteDatabase .= "DROP TABLE documents; ";
 $sqlDeleteDatabase .= "DROP TABLE documentinfos; ";
 $sqlDeleteDatabase .= "DROP TABLE debts; ";
 $sqlDeleteDatabase .= "DROP TABLE bills; ";
-$sqlDeleteDatabase .= "DROP TABLE discount_product_agency; ";
+$sqlDeleteDatabase .= "DROP TABLE discount_product_agencys; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -478,6 +479,7 @@ $sqlUpdateDatabase['debts']['created_at'] = "ALTER TABLE `debts` ADD `created_at
 $sqlUpdateDatabase['debts']['updated_at'] = "ALTER TABLE `debts` ADD `updated_at` INT NULL DEFAULT NULL";
 $sqlUpdateDatabase['debts']['id_order'] = "ALTER TABLE `debts` ADD `id_order` INT NOT NULL DEFAULT '0'";
 
-$sqlUpdateDatabase['discount_product_agency']['id_product'] = "ALTER TABLE `discount_product_agency` ADD `id_product` INT NOT NULL";
-$sqlUpdateDatabase['discount_product_agency']['id_agency'] = "ALTER TABLE `discount_product_agency` ADD `id_agency` INT NOT NULL";
-$sqlUpdateDatabase['discount_product_agency']['discount'] = "ALTER TABLE `discount_product_agency` ADD `discount` INT NOT NULL DEFAULT '0'";
+$sqlUpdateDatabase['discount_product_agencys']['id_product'] = "ALTER TABLE `discount_product_agencys` ADD `id_product` INT NOT NULL";
+$sqlUpdateDatabase['discount_product_agencys']['id_member_sell'] = "ALTER TABLE `discount_product_agencys` ADD `id_member_sell` INT NOT NULL COMMENT 'id đại lý tuyến trên' , 
+$sqlUpdateDatabase['discount_product_agencys']['id_member_buy'] = "ALTER TABLE `discount_product_agencys` ADD `id_member_buy` INT NOT NULL COMMENT 'id đại lý tuyến dưới đặt mua' , 
+$sqlUpdateDatabase['discount_product_agencys']['discount'] = "ALTER TABLE `discount_product_agencys` ADD `discount` INT NOT NULL DEFAULT '0'";

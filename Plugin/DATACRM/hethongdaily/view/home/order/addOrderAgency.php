@@ -467,6 +467,14 @@ function addProduct(id, name, priceProduct, type)
             </tr>');    
             
             $("#trFirst").hide();
+
+            var id_member_buy = $('#id_member_buy').val();
+
+            if(id_member_buy != '' && id_member_buy!='0'){
+
+                discountProductAgency(id, id_member_buy);
+
+            }
            
     }
 
@@ -492,6 +500,7 @@ function deleteProduct(number)
         }
     }
 }
+
 
 // tính tiền 
 function tinhtien(checkDiscount)
@@ -560,6 +569,39 @@ function tinhtien(checkDiscount)
         $('#totalMoney').html('0đ');
         $('#totalPay').html('0đ');
     }
+}
+
+// lấy lịch sử giảm gá từng sản phẩm
+function discountProductAgency(id_product, id_member_buy){
+    var idProduct 
+     $.ajax({
+          method: "POST",
+          url: "/apis/AjaxDiscountProductAgency",
+          data: { 
+            id_product: id_product,
+            id_member_buy: id_member_buy, 
+        }
+    })
+        .done(function( msg ) {
+            // /console.log(id_product);
+            // var obj = jQuery.parseJSON(msg);
+             // console.log(obj);
+            if(msg.code==1){
+                if(row>0){
+                    for(i=1;i<=row;i++){
+                            idProduct= $('#idProduct'+i).val();
+                            if(id_product == idProduct){
+
+                                $('#discount-'+i).val(msg.discount);
+                                tinhtien(1); 
+                            }
+                        
+                    }
+                }
+            }
+        })
+
+        
 }
 
 // thanh toán 
@@ -725,6 +767,14 @@ function addCustomer()
                 $( "#father_info" ).html('');
 
                 member_buy = ui.item.label;
+
+                 if(row>0){
+                    for(i=1;i<=row;i++){
+                            idProduct= $('#idProduct'+i).val();
+                             discountProductAgency(idProduct, ui.item.id);
+                        
+                    }
+                }
 
                 return false;
             }

@@ -204,7 +204,7 @@ function addOrderAgency($input)
         $modelOrderMembers = $controller->loadModel('OrderMembers');
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelMembers = $controller->loadModel('Members');
-        // /$modelDiscountProductAgency = $controller->loadModel('DiscountProductAgencys');
+        $modelDiscountProductAgency = $controller->loadModel('DiscountProductAgencys');
 
         $mess = '';
 
@@ -239,17 +239,18 @@ function addOrderAgency($input)
                         $saveDetail->price = (int)$dataSend['money'][$key];
                         $saveDetail->discount = (int)$dataSend['discount'][$key];
 
-                        // if(!empty($dataSend['discount'][$key])){
-                        //     $checkDiscount = $modelDiscountProductAgency->find()->where(['id_product'=>$value,'id_agency'=>$member_buy->id])->first();
+                        if(!empty($dataSend['discount'][$key])){
+                            $checkDiscount = $modelDiscountProductAgency->find()->where(['id_product'=>$value,'id_member_buy'=>$member_buy->id,'id_member_sell'=>$member_buy->id_father ])->first();
 
-                        //     if(empty($checkDiscount)){
-                        //         $Discount = $modelDiscountProductAgency->newEmptyEntity();
-                        //         $Discount->id_product = $value;
-                        //         $Discount->id_agency = $member_buy->id;
-                        //         $Discount->discount = $dataSend['discount'][$key];
-                        //         $modelDiscountProductAgency->save($Discount);
-                        //     }
-                        // }
+                            if(empty($checkDiscount)){
+                                $Discount = $modelDiscountProductAgency->newEmptyEntity();
+                                $Discount->id_product = $value;
+                                $Discount->id_member_sell = $member_buy->id_father;
+                                $Discount->id_member_buy = $member_buy->id;
+                                $Discount->discount = $dataSend['discount'][$key];
+                                $modelDiscountProductAgency->save($Discount);
+                            }
+                        }
 
                         $modelOrderMemberDetails->save($saveDetail);
                     }
@@ -862,3 +863,30 @@ function printBillOrderMemberAgency($input)
         return $controller->redirect('/login');
     }
 }
+
+function AjaxDiscountProductAgency($input){
+    global $controller;
+    global $isRequestPost;
+
+    $modelDiscountProductAgency = $controller->loadModel('DiscountProductAgencys');
+    $modelMembers = $controller->loadModel('Members');
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['id_product']) && !empty($dataSend['id_member_buy'])){
+            
+            $member_buy = $modelMembers->find()->where(array('id'=>(int) $dataSend['id_member_buy']))->first();
+            
+            $checkDiscount = $modelDiscountProductAgency->find()->where(['id_product'=>$dataSend['id_product'],'id_member_buy'=>$dataSend['id_member_buy'],'id_member_sell'=>$member_buy->id_father])->first();
+            
+            if(!empty($checkDiscount->discount)){
+                return array('code'=>1, 'mess'=>'lấy dữ liệu thành công' ,'discount'=> $checkDiscount->discount);
+            }
+
+             return array('code'=>1, 'mess'=>'lấy dữ liệu thành công' ,'discount'=>0);
+        }
+        return array('code'=>2, 'mess'=>'nhập thiếu dữ liệu');
+
+    }
+}
+?>
