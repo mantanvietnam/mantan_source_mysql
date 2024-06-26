@@ -1867,6 +1867,7 @@ table {
     #projects-section .title-section h2,
     #news-section .title-section h2 {
         font-size: 30px;
+        line-height: 1.5;
     }
     #majors-section .majors .majors-items {
         position: initial;

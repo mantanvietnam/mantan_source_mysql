@@ -129,7 +129,7 @@ footer::after {
 
 .ft-contact-form form textarea {
     height: 120px;
-    padding: 8 16px;
+    padding: 8px 16px;
     background: transparent;
     color: #fff;
     font-size: 16px;
