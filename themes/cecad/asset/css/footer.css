@@ -127,7 +127,21 @@ footer::after {
     width: 100%;
 }
 
-.ft-contact-form form input::placeholder {
+.ft-contact-form form textarea {
+    height: 120px;
+    padding: 8 16px;
+    background: transparent;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 20px;
+    border: 2.5px solid #FAF9FF;
+    outline: none;
+    width: 100%;
+}
+
+.ft-contact-form form input::placeholder,
+.ft-contact-form form textarea::placeholder {
     color: #fff;
     font-size: 16px;
     font-weight: 400;
@@ -213,11 +227,16 @@ footer::after {
 }
 
 @media (max-width: 500px) {
+    .ft-logo img {
+        width: 85px;
+    }
     .footer-section {
         padding: 60px 20px;
     }
     .ft-company {
         gap: 10px;
+        text-align: center;
+        grid-template-columns: auto;
     }
     .ft-name {
         font-size: 18px;

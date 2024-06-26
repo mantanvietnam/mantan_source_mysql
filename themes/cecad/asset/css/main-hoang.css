@@ -774,9 +774,11 @@ table {
     padding-left: 20px;
     border-left: 1px solid #ececec;
 }
-.section-card-albums .set-padding-top{
+
+.section-card-albums .set-padding-top {
     margin-top: 20px;
 }
+
 .search {
     width: 40%;
     position: relative;
@@ -866,8 +868,15 @@ table {
     margin-top: 10px;
     font-weight: 500;
     font-size: 19px;
-    color: #427FE3;
+    color: #000000;
     text-align: center;
+    text-transform: capitalize;
+    transition: all linear 0.2s;
+}
+
+.cover-card-video:hover .section-video .cover-card-video p {
+    color: #427FE3;
+    transition: all linear 0.2s;
 }
 
 .section-card-albums .image-albums-card {
@@ -972,6 +981,9 @@ table {
 }
 
 @media screen and (max-width: 500px) {
+    .search-publication .search {
+        width: 100%;
+    }
     .wrap {
         width: 100%;
     }
