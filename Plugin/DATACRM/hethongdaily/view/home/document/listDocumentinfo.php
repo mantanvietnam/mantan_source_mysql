@@ -4,7 +4,10 @@
     <a href="/list<?php echo $slug ?>"><?php echo $title ?></a> / <?php echo $data->title ?> / Danh sách <?php echo $title ?>
   </h4>
 
-  <p><a href="/add<?php echo $slug ?>info?id_document=<?php echo $data->id; ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  
+     <?php if($data->id_parent==$session->read('infoUser')->id){
+                    echo '<p><a href="/add'.$slug.'info?id_document='.$data->id;.'" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>';
+              } ?>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -46,8 +49,11 @@
               <th>ID</th>
               <th>Tiêu đề</th>
               <th><?php echo $title ?></th>
-              <th>Sửa</th>
-              <th>Xóa</th>
+              <?php if($data->id_parent==$session->read('infoUser')->id){
+                    echo '<th>Sửa</th>
+                          <th>Xóa</th>';
+              } ?>
+              
             </tr>
           </thead>
           <tbody>
@@ -68,8 +74,9 @@
                           <td>
                             '.$item->title.'
                           </td>
-                          <td>'.$types.'</td>
-                          <td align="center">
+                          <td>'.$types.'</td>';
+                          if($data->id_parent==$session->read('infoUser')->id){
+                         echo' <td align="center">
                             <a class="dropdown-item" href="/add'.$slug.'info?id_document='.$data->id.'&id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
@@ -78,8 +85,9 @@
                             <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteDocumentinfo/?id_document='.$data->id.'&id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
-                          </td>
-                        </tr>';
+                          </td>';
+                        }
+                        echo '</tr>';
                 }
               }else{
                 echo '<tr>
@@ -108,7 +116,9 @@
                       <div style="border: 1px solid #F0F1F1;">
                        <a  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">'.$types.'
                         <h4 style="text-align: center;">'.$item->title.'</h4>
-                        </a>
+                        </a>';
+                      if($data->id_parent==$session->read('infoUser')->id){
+                         echo'
                         <div class="row">
                          <div class="col-md-6">
                             <a class="dropdown-item" style="text-align: center;"  href="/add'.$slug.'info?id_document='.$data->id.'&id='.$item->id.'">
@@ -120,8 +130,9 @@
                               <i class="bx bx-trash me-1"> Xóa</i>
                             </a>
                           </div>
-                        </div>
-                        </div>
+                        </div>';
+                      }
+                       echo 's</div>
                   </div>';
 
                 }

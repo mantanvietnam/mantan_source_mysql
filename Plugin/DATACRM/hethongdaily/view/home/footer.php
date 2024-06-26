@@ -54,7 +54,17 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-
+    <script type="text/javascript">
+      $(document).ready(function() {
+  if($(window).width()<1024){
+    $('#desktop_view').remove();
+    $('#mobile_view').show();
+  }else{
+    $('#mobile_view').remove();
+    $('#desktop_view').show();
+  }
+});
+    </script>
     <script>
     $(document).ready(function() {
       $('.datepicker').datepicker({

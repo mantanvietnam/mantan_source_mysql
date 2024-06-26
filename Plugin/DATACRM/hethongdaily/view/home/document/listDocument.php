@@ -40,95 +40,191 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách <?php echo $title ?></h5>
-
-    <div class="card-body row">
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-            <tr class="">
-              <th>ID</th>
-              <th>Tiêu đề</th>
-              <th><?php echo $title ?></th>
-              <th>Sửa</th>
-              <th>Xóa</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php 
-              if(!empty($listData)){
-                foreach ($listData as $item) {
-                  echo '<tr>
-                          <td>'.$item->id.'</td>
-                          <td>
-                            <a target="_blank" href="/'.$item->slug.'.html">'.$item->title.'</a>
-                            <p>Ngày tạo: '.date('d/m/Y', $item->created_at).'</p>
-                          </td>
-                          <td><a href="/list'.$slug.'info?id_document='.$item->id.'">'.$item->number_document.'</a></td>
-                          <td align="center">
-                            <a class="dropdown-item" href="/add'.$slug.'?id='.$item->id.'">
-                              <i class="bx bx-edit-alt me-1"></i>
-                            </a>
-                          </td>
-                          <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="deleteDocument?type='.$type.'&id='.$item->id.'">
-                              <i class="bx bx-trash me-1"></i>
-                            </a>
-                          </td>
-                        </tr>';
-                }
-              }else{
-                echo '<tr>
-                        <td colspan="5" align="center">Chưa có dữ liệu nào! </td>
-                      </tr>';
-              }
-            ?>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Phân trang -->
-      <div class="demo-inline-spacing">
-        <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center">
-            <?php
-              if($totalPage>0){
-                  if ($page > 5) {
-                      $startPage = $page - 5;
-                  } else {
-                      $startPage = 1;
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
+          Mọi người
+        </button>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
+          của tôi
+        </button>
+      </li>
+      
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
+        <div class="card-body row">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr class="">
+                  <th>ID</th>
+                  <th>Tiêu đề</th>
+                  <th><?php echo $title ?></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php 
+                  if(!empty($conditioneverybody)){
+                    foreach ($conditioneverybody as $item) {
+                      echo '<tr>
+                              <td>'.$item->id.'</td>
+                              <td>
+                                <a target="_blank" href="/'.$item->slug.'.html">'.$item->title.'</a>
+                                <p>Ngày tạo: '.date('d/m/Y', $item->created_at).'</p>
+                              </td>
+                              <td><a href="/list'.$slug.'info?id_document='.$item->id.'">'.$item->number_document.'</a></td>
+                              
+                            </tr>';
+                    }
+                  }else{
+                    echo '<tr>
+                            <td colspan="5" align="center">Chưa có dữ liệu nào! </td>
+                          </tr>';
                   }
+                ?>
+              </tbody>
+            </table>
+          </div>
 
-                  if ($totalPage > $page + 5) {
-                      $endPage = $page + 5;
-                  } else {
-                      $endPage = $totalPage;
-                  }
-                  
-                  echo '<li class="page-item first">
-                          <a class="page-link" href="'.$urlPage.'1"
-                            ><i class="tf-icon bx bx-chevrons-left"></i
-                          ></a>
-                        </li>';
-                  
-                  for ($i = $startPage; $i <= $endPage; $i++) {
-                      $active= ($page==$i)?'active':'';
+          <!-- Phân trang -->
+          <div class="demo-inline-spacing">
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <?php
+                  if($totalPage>0){
+                      if ($page > 5) {
+                          $startPage = $page - 5;
+                      } else {
+                          $startPage = 1;
+                      }
 
-                      echo '<li class="page-item '.$active.'">
-                              <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                      if ($totalPage > $page + 5) {
+                          $endPage = $page + 5;
+                      } else {
+                          $endPage = $totalPage;
+                      }
+                      
+                      echo '<li class="page-item first">
+                              <a class="page-link" href="'.$urlPage.'1"
+                                ><i class="tf-icon bx bx-chevrons-left"></i
+                              ></a>
+                            </li>';
+                      
+                      for ($i = $startPage; $i <= $endPage; $i++) {
+                          $active= ($page==$i)?'active':'';
+
+                          echo '<li class="page-item '.$active.'">
+                                  <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                                </li>';
+                      }
+
+                      echo '<li class="page-item last">
+                              <a class="page-link" href="'.$urlPage.$totalPage.'"
+                                ><i class="tf-icon bx bx-chevrons-right"></i
+                              ></a>
                             </li>';
                   }
-
-                  echo '<li class="page-item last">
-                          <a class="page-link" href="'.$urlPage.$totalPage.'"
-                            ><i class="tf-icon bx bx-chevrons-right"></i
-                          ></a>
-                        </li>';
-              }
-            ?>
-          </ul>
-        </nav>
+                ?>
+              </ul>
+            </nav>
+          </div>
+          <!--/ Basic Pagination -->
+        </div>
       </div>
-      <!--/ Basic Pagination -->
+      <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
+        <div class="card-body row">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr class="">
+                  <th>ID</th>
+                  <th>Tiêu đề</th>
+                  <th><?php echo $title ?></th>
+                  <th>Sửa</th>
+                  <th>Xóa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php 
+                  if(!empty($listData)){
+                    foreach ($listData as $item) {
+                      echo '<tr>
+                              <td>'.$item->id.'</td>
+                              <td>
+                                <a target="_blank" href="/'.$item->slug.'.html">'.$item->title.'</a>
+                                <p>Ngày tạo: '.date('d/m/Y', $item->created_at).'</p>
+                              </td>
+                              <td><a href="/list'.$slug.'info?id_document='.$item->id.'">'.$item->number_document.'</a></td>
+                              <td align="center">
+                                <a class="dropdown-item" href="/add'.$slug.'?id='.$item->id.'">
+                                  <i class="bx bx-edit-alt me-1"></i>
+                                </a>
+                              </td>
+                              <td align="center">
+                                <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="deleteDocument?type='.$type.'&id='.$item->id.'">
+                                  <i class="bx bx-trash me-1"></i>
+                                </a>
+                              </td>
+                            </tr>';
+                    }
+                  }else{
+                    echo '<tr>
+                            <td colspan="5" align="center">Chưa có dữ liệu nào! </td>
+                          </tr>';
+                  }
+                ?>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Phân trang -->
+         <!--  <div class="demo-inline-spacing">
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <?php
+                  if($totalPage>0){
+                      if ($page > 5) {
+                          $startPage = $page - 5;
+                      } else {
+                          $startPage = 1;
+                      }
+
+                      if ($totalPage > $page + 5) {
+                          $endPage = $page + 5;
+                      } else {
+                          $endPage = $totalPage;
+                      }
+                      
+                      echo '<li class="page-item first">
+                              <a class="page-link" href="'.$urlPage.'1"
+                                ><i class="tf-icon bx bx-chevrons-left"></i
+                              ></a>
+                            </li>';
+                      
+                      for ($i = $startPage; $i <= $endPage; $i++) {
+                          $active= ($page==$i)?'active':'';
+
+                          echo '<li class="page-item '.$active.'">
+                                  <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                                </li>';
+                      }
+
+                      echo '<li class="page-item last">
+                              <a class="page-link" href="'.$urlPage.$totalPage.'"
+                                ><i class="tf-icon bx bx-chevrons-right"></i
+                              ></a>
+                            </li>';
+                  }
+                ?>
+              </ul>
+            </nav>
+          </div> -->
+          <!--/ Basic Pagination -->
+        </div>
+      </div>
     </div>
   </div>
   <!--/ Responsive Table -->

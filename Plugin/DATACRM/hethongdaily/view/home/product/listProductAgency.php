@@ -92,63 +92,105 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách sản phẩm</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Hình minh họa</th>
-            <th>Danh mục</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá bán</th>
-            <th>Số lượng</th>
-            <th>Trạng thái</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                $category_name = [];
-                if(!empty($item->category)){
-                  foreach($item->category as $value){
-                     if(!empty($value->name_category)){
-                      $category_name[]= $value->name_category;
-                     }
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Hình minh họa</th>
+              <th>Danh mục</th>
+              <th>Tên sản phẩm</th>
+              <th>Giá bán</th>
+              <th>Số lượng</th>
+              <th>Trạng thái</th>
+              <th>Sửa</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $category_name = [];
+                  if(!empty($item->category)){
+                    foreach($item->category as $value){
+                       if(!empty($value->name_category)){
+                        $category_name[]= $value->name_category;
+                       }
+                    }
                   }
+                 
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td><img src="'.$item->image.'" width="100" /></td>
+                          <td>'.implode(', ', $category_name).'</td>
+                          <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
+                          <td> '.number_format($item->price).' đ</td>
+                          <td> Sl còn:'.$item->quantity.'</td>
+                          <td>'.$item->status.'</td>
+                          
+                          <td align="center">
+                            <a class="dropdown-item" href="/addProductAgency/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn khóa không?\');" href="/deleteProductAgency/?id='.$item->id.'">
+                              <i class="bx bxs-trash me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
                 }
-               
+              }else{
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td><img src="'.$item->image.'" width="100" /></td>
-                        <td>'.implode(', ', $category_name).'</td>
-                        <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
-                        <td> '.number_format($item->price).' đ</td>
-                        <td> Sl còn:'.$item->quantity.'</td>
-                        <td>'.$item->status.'</td>
-                        
-                        <td align="center">
-                          <a class="dropdown-item" href="/addProductAgency/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn khóa không?\');" href="/deleteProductAgency/?id='.$item->id.'">
-                            <i class="bx bxs-trash me-1"></i>
-                          </a>
-                        </td>
+                        <td colspan="10" align="center">Chưa có dữ liệu</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có dữ liệu</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $category_name = [];
+                  if(!empty($item->category)){
+                    foreach($item->category as $value){
+                       if(!empty($value->name_category)){
+                        $category_name[]= $value->name_category;
+                       }
+                    }
+                  }
+                   echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <img src="'.$item->image.'" style=" width:100%" />
+                        <p><span> Tên sản phẩm: </span>'.$item->title.'</p>
+                        <p><span> Mã sản phẩm: </span>'.$item->code.'</p>
+                        <p><span> Danh mục: </span>'.implode(', ', $category_name).'</p>
+                        <p><span> Giá: </span>'.number_format($item->price).'</p>
+                        <p><span> Số lượng: </span>'.$item->quantity.'</p>
+                        <p align="center">
+                            <a class="btn btn-success" href="/addProductAgency/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                            </a>
+                             &nbsp;&nbsp;&nbsp;&nbsp;
+                          
+                   <a class=" btn btn-danger" title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/deleteProductAgency/?id='.$item->id.'">
+                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                            </a><br> Kích hoạt </p>
+
+
+                </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+        }
+      ?>
     </div>
 
     <!-- Phân trang -->
