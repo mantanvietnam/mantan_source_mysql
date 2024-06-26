@@ -355,6 +355,8 @@ function getTreeSystem($id_father, $modelMembers)
 
 function getInfoCustomerMember($value=0, $type='id')
 {
+    global $controller;
+    
     $modelCustomers = $controller->loadModel('Customers');
 
     return $modelCustomers->find()->where([$type=>$value])->first();
