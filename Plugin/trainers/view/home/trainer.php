@@ -1,0 +1,1 @@
+<?php getFileTheme('snaggolf/footer.php'); ?>

@@ -1,0 +1,1 @@
+<?php getFileTheme('courses/adult.php'); ?>
