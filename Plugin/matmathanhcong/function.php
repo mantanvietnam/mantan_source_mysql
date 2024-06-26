@@ -30,13 +30,18 @@ global $modelOptions;
 global $urlAPI;
 global $userAPI;
 global $passAPI;
+global $maxExport;
+global $numberExport;
 
 $urlAPI = 'https://quanly.matmathanhcong.vn';
 $userAPI = '';
 $passAPI = '';
+$maxExport = 0;
+$numberExport = 0;
+
 $price_full = 0;
 $bank_number = '87818938888';
-$bank_name = 'Tran Van Toan';
+$bank_name = 'Tran%20Van%20Toan';
 $key_banking = 'MMTC';
 $idBot = '63edf5c2642152d701d5739b';
 $tokenBot = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWRmNWMyNjQyMTUyZDcwMWQ1NzM5YiIsIm5hbWUiOiJCTEFOSyBCT1QgLSBDb3B5IiwiaWF0IjoxNjc2NTM5MzMwLCJleHAiOjE5OTE4OTkzMzB9.6GeoT8QLvvUvyzBJ_zeyLlMq4iAXhHnV2UtjVJhUR9M';
@@ -51,6 +56,9 @@ if(!empty($settingMMTCAPI->value)){
 
     $userAPI = @$data_value['userAPI'];
     $passAPI = @$data_value['passAPI'];
+    $maxExport = (int) @$data_value['maxExport'];
+    $numberExport = (int) @$data_value['numberExport'];
+
     $price_full = (int) @$data_value['price'];
 
     $bank_number = @$data_value['number_bank'];
@@ -142,49 +150,75 @@ function getListProductMMTCAPI()
 function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $address='', $avatar='', $gender=1, $id_category = 0)
 {
     global $urlAPI;
+    global $maxExport;
+    global $numberExport;
+    global $modelOptions;
 
-    $categories = getListProductMMTCAPI();
-    $token = getTokenMMTCAPI();
-    
-    if(!empty($token) && !empty($categories[$id_category]['category_id'])){
-        if(empty($email)) $email = 'tranmanhbk179@gmail.com';
-        if(empty($address)) $address = '18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội';
+    if($numberExport < $maxExport){
+        $categories = getListProductMMTCAPI();
+        $token = getTokenMMTCAPI();
+        
+        if(!empty($token) && !empty($categories[$id_category]['category_id'])){
+            if(empty($email)) $email = 'tranmanhbk179@gmail.com';
+            if(empty($address)) $address = '18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội';
 
-        if(!empty($name) && !empty($birthdate) && !empty($phone)){
-            $birthdate = str_replace('/', '_', $birthdate);
+            if(!empty($name) && !empty($birthdate) && !empty($phone)){
+                $birthdate = str_replace('/', '_', $birthdate);
 
-            $dataSend = [   'category_id' => $categories[$id_category]['category_id'],
-                            'customer_name' => $name,
-                            'customer_birthdate' => $birthdate,
-                            'customer_phone' => $phone,
-                            'customer_email' => $email,
-                            'customer_address' => $address,
-                            'customer_avatar' => $avatar,
-                            'customer_gender' => $gender,
-                            'user_avatar' => ''
-                        ];
+                $dataSend = [   'category_id' => $categories[$id_category]['category_id'],
+                                'customer_name' => $name,
+                                'customer_birthdate' => $birthdate,
+                                'customer_phone' => $phone,
+                                'customer_email' => $email,
+                                'customer_address' => $address,
+                                'customer_avatar' => $avatar,
+                                'customer_gender' => $gender,
+                                'user_avatar' => '',
+                                'source'=>'ICHAM CRM'
+                            ];
 
-            $header = ['Authorization: '.$token, 'Content-Type: application/x-www-form-urlencoded'];
-            $typeData = 'x-www-form-urlencoded';
-            $typeSend = 'GET';
+                $header = ['Authorization: '.$token, 'Content-Type: application/x-www-form-urlencoded'];
+                $typeData = 'x-www-form-urlencoded';
+                $typeSend = 'GET';
 
-            $linkFull = sendDataConnectMantan($urlAPI.'/api/GetLink', $dataSend, $header, $typeData, $typeSend);
-            
-            // debug($linkFull);
-            // debug($dataSend);
-            
-            if(!empty($linkFull)){
-                if(strpos($linkFull, 'https://') !== false){
-                    return trim($linkFull, '"');
+                $linkFull = sendDataConnectMantan($urlAPI.'/api/GetLink', $dataSend, $header, $typeData, $typeSend);
+                
+                // debug($linkFull);
+                // debug($dataSend);
+                
+                if(!empty($linkFull)){
+                    if(strpos($linkFull, 'https://') !== false){
+                        // cập nhập lại số lượt xuất
+                        $conditions = array('key_word' => 'settingMMTCAPI');
+                        $data = $modelOptions->find()->where($conditions)->first();
+                       
+                        if(!empty($data->value)){
+                            $value = json_decode($data->value, true);
+
+                            if(empty($value['numberExport'])){
+                                $value['numberExport'] = 0;
+                            }
+
+                            $value['numberExport'] ++;
+
+                            $data->value = json_encode($value);
+
+                            $modelOptions->save($data);
+                        }
+
+                        return trim($linkFull, '"');
+                    }
                 }
-            }
 
-            return '';
+                return '';
+            }else{
+                return '';
+            }
         }else{
             return '';
         }
     }else{
-        return '';
+        echo 'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.number_format($maxExport).' bản thần số học.';die;
     }
 
     return '';
@@ -231,6 +265,31 @@ function process_send_link($order_id = 0)
             sendEmailLinkFull($info->email, $info->name, $info->link_download);
         }
 
+        // gửi FB
+        if(!empty($info->idMessenger)){
+            $attributesSmax = [];
+            $attributesSmax['linkDownloadMMTC']= $info->link_download;
+            
+            $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$info->idMessenger.'/send?bot_token='.$tokenBot.'&block_id='.$idBlockDownload.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
+            
+            $returnSmax= sendDataConnectMantan($urlSmax, $attributesSmax);
+        }
+
+        // gửi zalo
+        if(!empty($info->idZalo)){
+            // gửi tin nhắn chatbot Zalo
+            if(function_exists('sendMessZalo')){
+                $id_oa = '';
+                $app_id = '';
+                $user_id_zalo = $info->idZalo;
+                $text = 'Link tải bản đầy đủ Mật Mã Thành Công của '.$info->name.': '.$info->link_download;
+                //$text = 'Chúng tôi sẽ gửi link tải bản đầy đủ Thần Số Học về email của bạn ngay khi hệ thống xử lý xong yêu cầu';
+                $image = '';
+
+                sendMessZalo($id_oa, $app_id, $user_id_zalo, $text, $image);
+            }
+        }
+
         if(!empty($info->affiliate_phone)){
             $checkNumberOrder = $modelRequestExports->find()->where(['affiliate_phone'=>$info->affiliate_phone, 'status_pay'=>'done'])->all()->toList();
 
@@ -254,6 +313,22 @@ function process_send_link($order_id = 0)
                         $urlSmax= 'https://api.smax.bot/bots/'.$idBot.'/users/'.$dataSend['idMessenger'].'/send?bot_token='.$tokenBot.'&block_id='.$idBlockDownload.'&messaging_tag="CONFIRMED_EVENT_UPDATE"';
                         
                         $returnSmax= sendDataConnectMantan($urlSmax, $attributesSmax);
+                    }
+
+                    // gửi zalo
+                    if(!empty($info_aff->idZalo)){
+                        // gửi tin nhắn chatbot Zalo
+                        if(function_exists('sendMessZalo')){
+                            $id_oa = '';
+                            $app_id = '';
+                            $user_id_zalo = $info_aff->idZalo;
+                            $text = 'Link tải bản đầy đủ Mật Mã Thành Công của '.$info_aff->name.': '.$info_aff->link_download;
+                            //$text = 'Chúng tôi sẽ gửi link tải bản đầy đủ Thần Số Học về email của bạn ngay khi hệ thống xử lý xong yêu cầu';
+                            $image = '';
+
+                            sendMessZalo($id_oa, $app_id, $user_id_zalo, $text, $image);
+
+                        }
                     }
                 }
             }

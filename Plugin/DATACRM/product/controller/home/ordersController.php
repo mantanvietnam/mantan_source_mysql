@@ -549,6 +549,16 @@ function pay($input){
 
 		if(empty($infoUser)){
 			if(function_exists('createCustomerNew')){
+				if(!empty($dataSend['birthday'])){
+                    $birthday = explode('/', $dataSend['birthday']);
+
+                    if(count($birthday) == 3){
+                        $dataSend['birthday_date'] = (int) $birthday[0];
+                        $dataSend['birthday_month'] = (int) $birthday[1];
+                        $dataSend['birthday_year'] = (int) $birthday[2];
+                    }
+                }
+				
 				$infoUser = createCustomerNew(@$dataSend['full_name'], @$dataSend['phone'], @$dataSend['email'], @$dataSend['address'], @$dataSend['sex'], @$dataSend['id_city'], @$dataSend['id_agency'], @$dataSend['id_aff'], @$dataSend['name_agency'], @$dataSend['id_messenger'], @$dataSend['avatar'], @$dataSend['birthday_date'], @$dataSend['birthday_month'], @$dataSend['birthday_year']);
 			}
 		}
@@ -693,6 +703,10 @@ function pay($input){
                         $return = sendNotification($dataSendNotification, $token_device);
                     }
                 }
+            }
+
+            if(!empty($infoMember->email)){
+            	getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data, $infoMember->email);
             }
         }
 

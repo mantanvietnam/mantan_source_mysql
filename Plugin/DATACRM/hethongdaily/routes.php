@@ -84,6 +84,7 @@
 	$routesPlugin['addProductAgency']= 'hethongdaily/view/home/product/addProductAgency.php';
 	$routesPlugin['deleteProductAgency']= 'hethongdaily/view/home/product/deleteProductAgency.php';
 	$routesPlugin['listCategoryProductAgency']= 'hethongdaily/view/home/product/listCategoryProductAgency.php';
+	$routesPlugin['addDataProductAgency']= 'hethongdaily/view/home/product/addDataProductAgency.php';
 
 	// yêu cầu mua hàng
 	$routesPlugin['requestProductAgency']= 'hethongdaily/view/home/order/requestProductAgency.php';
@@ -153,3 +154,16 @@
 
 	$routesPlugin['listCollectionDebt']= 'hethongdaily/view/home/debt/listCollectionDebt.php';
 	$routesPlugin['listPayableDebt']= 'hethongdaily/view/home/debt/listPayableDebt.php';
+
+
+
+	// api khách hàng 
+
+	$routesPlugin['saveRegisterCustomerAPI']= 'hethongdaily/view/saveRegisterCustomerAPI.php';
+	$routesPlugin['checkLoginCustomerAPI']= 'hethongdaily/view/checkLoginCustomerAPI.php';
+	$routesPlugin['forgotPasswordCustomerApi']= 'hethongdaily/view/forgotPasswordCustomerApi.php';
+	$routesPlugin['resetPasswordCustomerApi']= 'hethongdaily/view/resetPasswordCustomerApi.php';
+	$routesPlugin['logoutCustomerApi']= 'hethongdaily/view/logoutCustomerApi.php';
+	$routesPlugin['editInfoCustomerApi']= 'hethongdaily/view/editInfoCustomerApi.php';
+	$routesPlugin['editPassCustomerApi']= 'hethongdaily/view/editPassCustomerApi.php';
+	$routesPlugin['getInfoUserCustomerAPI']= 'hethongdaily/view/getInfoUserCustomerAPI.php';

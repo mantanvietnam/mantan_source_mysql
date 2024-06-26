@@ -1,0 +1,237 @@
+footer .container {
+    max-width: 1440px;
+    padding: 0;
+}
+
+footer {
+    background-image: url(../images/footer.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+footer::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #00000080;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+
+.footer-section {
+    padding: 60px 100px;
+}
+
+.ftbg-section {
+    /* background-image: url(../images/footer.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative; */
+}
+
+.ftbg-section::after {
+    /* position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #00000080;
+    left: 0;
+    top: 0;
+    z-index: 0; */
+}
+
+.ft-logo {
+    width: 85px;
+    height: 85px;
+}
+
+.r-relative {
+    position: relative;
+    z-index: 1;
+}
+
+.ft-company {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.ft-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.ft-info ul {
+    display: grid;
+    gap: 16px;
+}
+
+.ft-info ul li {
+    display: flex;
+    gap: 12px;
+    font-size: 20px;
+    color: #FFFFFF;
+    font-weight: 500;
+    align-items: center;
+}
+
+.ft-contact-form {
+    display: grid;
+    gap: 24px;
+    padding-left: 100px;
+}
+
+.submit-btn {
+    background-color: #427FE3 !important;
+    color: #fff;
+    border: 2.5px solid #427FE3 !important;
+    font-weight: 600 !important;
+}
+
+.ft-contact-form h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.ft-contact-form form {
+    display: grid;
+    gap: 12px;
+}
+
+.ft-contact-form form div {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 12px;
+}
+
+.ft-contact-form form input {
+    height: 48px;
+    padding: 0 16px;
+    background: transparent;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 100px;
+    border: 2.5px solid #FAF9FF;
+    outline: none;
+    width: 100%;
+}
+
+.ft-contact-form form input::placeholder {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.col-left {
+    padding-right: 36px;
+}
+
+.ft-contact-form ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.ft-contact-form ul i {
+    font-size: 16px;
+    color: #000;
+    transition: all linear 0.2s;
+}
+
+.ft-contact-form ul a {
+    width: 36px;
+    height: 36px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #0D062D29;
+    transition: all linear 0.2s;
+}
+
+.ft-contact-form ul a:hover {
+    background-color: #427FE3;
+    border: 1px solid #fff;
+    transition: all linear 0.2s;
+}
+
+.ft-contact-form ul a:hover i {
+    color: #fff;
+    transition: all linear 0.2s;
+}
+
+.end-section {
+    position: relative;
+    z-index: 1;
+    padding: 0px 100px;
+    text-align: center;
+}
+
+.end-section span {
+    padding: 24px 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #ffffffe3;
+    text-align: center;
+    border-top: 1.5px solid #ffffff3d;
+    display: block;
+}
+
+@media (max-width: 1050px) {
+    .col-left {
+        padding-right: 0px;
+    }
+    .footer-section {
+        padding: 60px 40px;
+    }
+    .ft-contact-form {
+        padding-left: 40px;
+    }
+    .end-section {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 800px) {
+    .ft-contact-form {
+        padding-left: 0;
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 500px) {
+    .footer-section {
+        padding: 60px 20px;
+    }
+    .ft-company {
+        gap: 10px;
+    }
+    .ft-name {
+        font-size: 18px;
+    }
+    .ft-info ul li {
+        gap: 12px;
+    }
+    .ft-contact-form h3 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .ft-contact-form form div {
+        grid-template-columns: auto;
+    }
+}

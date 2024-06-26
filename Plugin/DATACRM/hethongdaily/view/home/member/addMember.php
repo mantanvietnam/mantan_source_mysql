@@ -15,7 +15,8 @@
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
-            <?= $this->Form->create(); ?>
+            <form enctype="multipart/form-data" method="post" action="">
+              <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -48,12 +49,12 @@
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Hình đại diện</label>
-                    <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh chân dung xóa nền</label>
-                    <?php showUploadFile('portrait','portrait',@$data->portrait,1);?>
+                    <input type="file" class="form-control phone-mask" name="avatar" id="avatar" value=""/>
+                    <?php
+                    if(!empty($data->avatar)){
+                      echo '<br/><img src="'.$data->avatar.'" width="80" />';
+                    }
+                    ?>
                   </div>
 
                   <div class="mb-3">
@@ -100,6 +101,16 @@
                   </div>
 
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ảnh chân dung xóa nền</label>
+                    <input type="file" class="form-control phone-mask" name="portrait" id="portrait" value=""/>
+                    <?php
+                    if(!empty($data->portrait)){
+                      echo '<br/><img src="'.$data->portrait.'" width="80" />';
+                    }
+                    ?>
+                  </div>
+
+                  <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Quyền tạo dữ liệu đại lý cấp dưới</label>
                     <select name="create_agency" class="form-select color-dropdown">
                       <option value="active">Được tạo</option>
@@ -138,7 +149,7 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
-            <?= $this->Form->end() ?>
+            </form>
           </div>
         </div>
       </div>

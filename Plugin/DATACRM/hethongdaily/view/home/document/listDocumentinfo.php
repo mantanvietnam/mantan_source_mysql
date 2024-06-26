@@ -38,7 +38,8 @@
     <h5 class="card-header">Danh sách <?php echo $title ?></h5>
 
     <div class="card-body row">
-      <div class="table-responsive">
+      <div class="table-responsive row">
+        <?php  if($type=='document'){ ?>
         <table class="table table-bordered">
           <thead>
             <tr class="">
@@ -59,7 +60,7 @@
                   }elseif($type=='video'){
                     $types='<iframe width="300" height="150" src="https://www.youtube.com/embed/'.$item->file.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
                   }else{
-                    $types='<a  href="'.$item->file.'" target="_bank">'.$item->file.'</a>';
+                    $types='<a  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >'.$item->file.'</a>';
                   }
 
                   echo '<tr>
@@ -88,6 +89,45 @@
             ?>
           </tbody>
         </table>
+
+
+        <?php 
+      }else{
+           if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $types ='';
+                  if($type=='album'){
+                    $types='<img src="'.$item->file.'" style="width:100%">';
+                  }elseif($type=='video'){
+                    $types='<iframe style="width:100%" height="300" src="https://www.youtube.com/embed/'.$item->file.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+                  }else{
+                    $types='<embed src="'.$item->file.'"  style="width:100%" height="250" type="application/pdf">';
+                  }
+
+                  echo '<div class="col-md-4" >
+                      <div style="border: 1px solid #F0F1F1;">
+                       <a  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">'.$types.'
+                        <h4 style="text-align: center;">'.$item->title.'</h4>
+                        </a>
+                        <div class="row">
+                         <div class="col-md-6">
+                            <a class="dropdown-item" style="text-align: center;"  href="/add'.$slug.'info?id_document='.$data->id.'&id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"> Sửa</i>
+                            </a>
+                          </div>
+                          <div class="col-md-6">
+                            <a class="dropdown-item" style="text-align: center;" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteDocumentinfo/?id_document='.$data->id.'&id='.$item->id.'">
+                              <i class="bx bx-trash me-1"> Xóa</i>
+                            </a>
+                          </div>
+                        </div>
+                        </div>
+                  </div>';
+
+                }
+            }
+          }
+         ?>
       </div>
 
       <!-- Phân trang -->
@@ -133,6 +173,32 @@
         </nav>
       </div>
       <!--/ Basic Pagination -->
+
+      <?php  if(!empty($listData)){
+              foreach ($listData as $items) {
+                 $types ='';
+                  if($type=='album'){
+                    $types='<img src="'.$item->file.'" style="width: 40%;display: block;margin-left: 20%;margin-right: 20%;">';
+                  }elseif($type=='video'){
+                    $types='<iframe style="width:100%; height: 760px;" src="https://www.youtube.com/embed/'.$item->file.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+                  }else{
+                    $types='<embed src="'.$item->file.'"  style="width:100%; height: 800px;" type="application/pdf">';
+                  }
+
+
+               ?>
+                        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document" style="margin: 36px 10%; max-width: 100%; ">
+
+                            <div class="modal-content" style="background-color: #fff0; box-shadow: none;">
+                              <?php echo $types ?>
+                            </div>
+                          </div>
+                        </div>
+                      <?php }} ?>
+
+
     </div>
   </div>
   <!--/ Responsive Table -->

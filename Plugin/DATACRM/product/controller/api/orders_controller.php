@@ -34,9 +34,15 @@ function createOrderProductAPI($input)
                 $product_name = [];
 
                 // thông tin đơn hàng
-                $infoUser = [];
-                if(function_exists('createCustomerNew')){
-                    $infoUser = createCustomerNew($dataSend['full_name'], $dataSend['phone'], @$dataSend['email'], @$dataSend['address'], @$dataSend['sex'], @$dataSend['id_city'], @$dataSend['id_agency'], @$dataSend['id_aff'], @$dataSend['name_agency'], @$dataSend['id_messenger'], @$dataSend['avatar'], @$dataSend['birthday_date'], @$dataSend['birthday_month'], @$dataSend['birthday_year']);
+                if(!empty($dataSend['token_customer'])){
+                    if(function_exists('getInfoCustomerMember')){
+                       $infoUser = getInfoCustomerMember('token', $dataSend['token_customer']);
+                    }
+                }else{
+                    $infoUser = [];
+                    if(function_exists('createCustomerNew')){
+                        $infoUser = createCustomerNew($dataSend['full_name'], $dataSend['phone'], @$dataSend['email'], @$dataSend['address'], @$dataSend['sex'], @$dataSend['id_city'], @$dataSend['id_agency'], @$dataSend['id_aff'], @$dataSend['name_agency'], @$dataSend['id_messenger'], @$dataSend['avatar'], @$dataSend['birthday_date'], @$dataSend['birthday_month'], @$dataSend['birthday_year']);
+                    }
                 }
 
                 // tạo đơn hàng

@@ -116,6 +116,8 @@ function addProductProjectAdmin($input)
 
         if(!empty($dataSend['name'])){
 	        // tạo dữ liệu save
+            $data->year = $dataSend['year'];
+            $data->donor = $dataSend['donor'];
 	        $data->name = $dataSend['name'];
             $data->address = $dataSend['address'];
             $data->company_design = $dataSend['company_design'];

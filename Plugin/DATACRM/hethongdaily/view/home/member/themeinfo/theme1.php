@@ -17,7 +17,10 @@
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-    
+        
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+
         <style>
             ::-webkit-scrollbar {
                       width: 8px;
@@ -432,11 +435,15 @@
                           <input type="text" class="form-control" id="phone" name="phone" value="" required />
                         </div>
                         <div class="mb-3">
-                          <label for="phone" class="form-label">Địa chỉ nhận hàng</label>
+                          <label for="address" class="form-label">Địa chỉ nhận hàng</label>
                           <input type="text" class="form-control" id="address" name="address" value="" />
                         </div>
                         <div class="mb-3">
-                          <label for="phone" class="form-label">Mã giảm giá</label>
+                          <label for="birthday" class="form-label">Ngày sinh (giảm giá khi đến sinh nhật)</label>
+                          <input type="text" class="form-control datepicker" id="birthday" name="birthday" value="" />
+                        </div>
+                        <div class="mb-3">
+                          <label for="codeDiscount" class="form-label">Mã giảm giá</label>
                           <input type="text" class="form-control" id="codeDiscount" name="codeDiscount" value="" />
                         </div>
                         <div class="mb-3">
@@ -456,19 +463,23 @@
                             <input type="hidden" name="token" value="<?php echo $info->token;?>">
                             <div class="mb-3">
                               <label for="full_name" class="form-label">Họ tên (*)</label>
-                              <input type="text" class="form-control" id="full_name" name="full_name" value="" required />
+                              <input type="text" class="form-control" id="" name="full_name" value="" required />
                             </div>
                             <div class="mb-3">
                               <label for="phone" class="form-label">Số điện thoại (*)</label>
-                              <input type="text" class="form-control" id="phone" name="phone" value="" required />
+                              <input type="text" class="form-control" id="" name="phone" value="" required />
                             </div>
                             <div class="mb-3">
-                              <label for="phone" class="form-label">Ảnh đại diện</label>
-                              <input type="file" class="form-control" id="avatar" name="avatar" value="" accept="image/*" />
+                              <label for="avatar" class="form-label">Ảnh đại diện</label>
+                              <input type="file" class="form-control" id="" name="avatar" value="" accept="image/*" />
                             </div>
                             <div class="mb-3">
-                              <label for="phone" class="form-label">Địa chỉ</label>
-                              <input type="text" class="form-control" id="address" name="address" value="" />
+                              <label for="address" class="form-label">Địa chỉ</label>
+                              <input type="text" class="form-control" id="" name="address" value="" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="birthday" class="form-label">Ngày sinh (giảm giá khi đến sinh nhật)</label>
+                              <input type="text" class="form-control datepicker" id="" name="birthday" value="" />
                             </div>
 
                             <?php 
@@ -734,6 +745,7 @@
                 var full_name = $('#full_name').val();
                 var phone = $('#phone').val();
                 var address = $('#address').val();
+                var birthday = $('#birthday').val();
 
                 $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
 
@@ -741,7 +753,7 @@
                     $.ajax({
                       method: "POST",
                       url: "/pay/?callAPI=1",
-                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf, id_agency:id_agency, name_agency:name_agency, name_system:name_system }
+                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf, id_agency:id_agency, name_agency:name_agency, name_system:name_system, birthday:birthday }
                     })
                     .done(function( msg ) {
                         $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
@@ -801,7 +813,7 @@
                         contentType: false,
                         processData: false,
                         success: function(response) {
-                            if(response.img_card_member.length > 0){
+                            if(response.img_card_member != null && response.img_card_member.length > 0){
                                 $('#uploadFormCustomer').remove();
 
                                 var img_card_customer = "<div class='mb-3'><img id='imageToDownload' src='"+response.img_card_member+"' width='100%' /></div><div class='mb-3 text-center'><button onclick='downloadCardCustomer();' type='button' class='btn btn-danger' >TẢI ẢNH</button></div>";
@@ -874,6 +886,14 @@
             ?>
 
             $('.nav-tabs a[href="#'+tabShow+'"]').tab('show');
+        </script>
+
+        <script>
+          $( function() {
+            $( ".datepicker" ).datepicker({
+              dateFormat: "dd/mm/yy"
+            });
+          } );
         </script>
     </body>
 </html>

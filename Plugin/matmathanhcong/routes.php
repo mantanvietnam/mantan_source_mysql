@@ -7,3 +7,4 @@
     $routesPlugin['callbackBanking']= 'matmathanhcong/view/api/callbackBanking.php';
 
     $routesPlugin['regVip']= 'matmathanhcong/view/home/regVip.php';
+    $routesPlugin['getLinkFullAPI']= 'matmathanhcong/view/home/getLinkFullAPI.php';

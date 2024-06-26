@@ -1009,6 +1009,32 @@ function getMyProductAPI($input)
 				if(!empty($dataSend['type'])){
 					$conditions['type']= $dataSend['type'];
 				}
+				if(!empty($dataSend['type'])){
+					$conditions['type']= $dataSend['type'];
+				}
+				if(!empty($dataSend['name'])){
+					$conditions['OR'] = [
+											['name LIKE'=>'%'.$dataSend['name'].'%'],
+											['keyword LIKE'=>'%'.$dataSend['name'].'%']
+										];
+
+				}
+
+				if(!empty($dataSend['category_id'])){
+					$conditions['category_id'] = (int) $dataSend['category_id'];
+				}
+
+				if(!empty($dataSend['color'])){
+					$conditions['color'] = $dataSend['color'];
+				}
+
+				if(!empty($dataSend['price'])){
+					$price = explode('-', $dataSend['price']);
+					$conditions['sale_price >='] = (int) $price[0];
+					$conditions['sale_price <='] = (int) $price[1];
+				}
+
+
 				$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
 				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 				if($page<1) $page = 1;
@@ -1358,7 +1384,16 @@ function detailProductSeriesAPI($input)
 				$metaDescriptionMantan = 'Ảnh được tạo từ mẫu thiết kế: '.$product->name.' của tác giả '.$user->name.' trên Ezpics';
 				$metaImageMantan = $product->image;
 
-				$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+				//$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+				$listLayer = getLayerProductForEdit($product->id);
+
+				if(!empty($listLayer['data']['productDetail'])){
+					$listLayer = $listLayer['data']['productDetail'];
+				}else{
+					$listLayer = [];
+				}
+				
 
 				$urlChatBot = 'https://designer.ezpics.vn/create-image-series/?id='.$product->id;
 
@@ -1370,7 +1405,7 @@ function detailProductSeriesAPI($input)
                             $urlChatBot .= '&'.$content['variable'].'={{'.$content['variable'].'}}';
                         }
 
-                        $content['gradient'] = (int) @$content['gradient'];
+                        //$content['gradient'] = (int) @$content['gradient'];
 
                         $listLayer[$key]['content'] = $content;
                     }

@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Phiếu chi</h4>
-  <!-- <p><a href="/addBill" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
+  <p><a class="btn btn-primary"  data-bs-toggle="modal" style="color: white;" data-bs-target="#basicModal" ><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -204,6 +204,44 @@
       </nav>
     </div>
     <!--/ Basic Pagination -->
+  </div>
+
+  <div class="modal fade" id="basicModal"  name="id">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header form-label border-bottom">
+          <h5 class="modal-title" id="exampleModalLabel1">Thêm mới phiêu chi</h5>
+          <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="addBill" method="GET">
+          <div class="modal-footer">
+            <!-- <input type="hidden" value="<?php echo $items->id; ?>"  name="id"> -->
+           <div class="col-md-12">
+              <label class="form-label">Số tiền chi</label>
+              <input type="number" value="" class="form-control" placeholder="" name="total">
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Hình thức thanh toán</label>
+              <select name="type_collection_bill" class="form-select color-dropdown" required>
+                <option value="">Chọn hình thức thanh toán</option>
+                <option value="tien_mat">Tiền mặt</option>
+                <option value="chuyen_khoan">Chuyển khoản</option>
+                <option value="the_tin_dung">Quẹt thẻ</option>
+                <option value="vi_dien_tu">Ví điện tử</option>
+                <option value="hinh_thuc_khac">Hình thức khác</option>
+              </select>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Nội dung trả </label>
+              <textarea  class="form-control" rows="5" name="note"></textarea>
+            </div>
+            <div class="col-md-4">
+              <button type="submit" class="btn btn-primary">Thanh thoán</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
   <!--/ Responsive Table -->
 </div>

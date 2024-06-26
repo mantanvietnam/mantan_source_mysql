@@ -407,7 +407,7 @@ function saveInfoMemberAPI($input)
 				}
 
 				if(!empty($avatar['linkOnline'])){
-					$checkPhone->avatar = $avatar['linkOnline'];
+					$checkPhone->avatar = $avatar['linkOnline'].'?time='.time();
 				}
 
 				if(!empty($dataSend['email'])){
@@ -984,4 +984,41 @@ function NotificationCustomerHistories($input){
 	}
 	
 }
+
+function buyThemeInfo($input){
+	global $controller;
+
+	global $isRequestPost;
+	$modelMembers = $controller->loadModel('Members');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$user = $modelMembers->find()->where(['id'=>(int) $dataSend['idUser']])->first();
+		$price = 0;
+		if(!empty(listThemeInfo())){
+            foreach(listThemeInfo() as $key => $item){
+                if($dataSend['idTheme']==$item['id']) {
+                	$price = $item['price'];
+               	}
+            }
+        }
+
+        if($price > $dataSend['price']){
+        	return ['code'=> 0, 'mess'=>'Số tiền bạn không đủ '];
+        }
+
+		if(!empty($user)){
+			$user->list_theme_info .= ','.$dataSend['idTheme'];
+			$modelMembers->save($user);
+			return ['code'=> 1, 'mess'=>'Mua tài khoản thành công'];
+		}
+		return ['code'=> 0, 'mess'=>'Tài khoản này không tồn tại'];
+
+	}
+
+	return ['code'=> 0, 'mess'=>'chuyền phương thức POST'];
+}
+
+
 ?>

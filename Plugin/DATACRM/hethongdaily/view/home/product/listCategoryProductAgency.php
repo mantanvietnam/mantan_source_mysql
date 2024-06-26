@@ -83,7 +83,7 @@
                   <input type="text" class="form-control" placeholder="" name="description" id="description" value="" />
                 </div>
 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label class="form-label">Trạng thái</label>
                   <div class="input-group input-group-merge">
                     <select class="form-select" name="status" id="status">
@@ -91,7 +91,7 @@
                       <option value="lock"  >Khóa</option>
                     </select>
                   </div>
-                </div>
+                </div> -->
 
                 <button type="submit" class="btn btn-primary">Lưu</button>
               <?= $this->Form->end() ?>
@@ -110,7 +110,7 @@
       $('#image').val(image);
       $('#keyword').val(keyword);
       $('#description').val(description);
-      $('#status').val(status);
+      //$('#status').val(status);
     }
 
     function deleteCategory(id){
@@ -119,14 +119,14 @@
       if(check){
         $.ajax({
           method: "GET",
-          url: "/categories/delete/?id="+id,
+          url: "/deleteCategoryProductAgency?id="+id,
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/product-view-admin-category-listCategoryProduct';
+            window.location = '/listCategoryProductAgency';
           })
           .fail(function() {
-            window.location = '/plugins/admin/product-view-admin-category-listCategoryProduct';
+            window.location = '/listCategoryProductAgency';
           });
       }
     }

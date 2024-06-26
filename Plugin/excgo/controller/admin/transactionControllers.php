@@ -8,6 +8,7 @@ function listTransactionAdmin($input)
     $metaTitleMantan = 'Danh sách giao dịch';
 
     $transactionModel = $controller->loadModel('Transactions');
+    $modelUser = $controller->loadModel('Users');
 
     $conditions = array('amount >'=>0);
     $order = ['created_at' => 'DESC'];
@@ -45,7 +46,15 @@ function listTransactionAdmin($input)
         $limit,
         $page
     );
-
+    
+    if(!empty($listData)){
+        foreach($listData as $key => $item){
+            if(!empty($item->user_id)){
+                $listData[$key]->user =$modelUser->find()->where(['id'=>$item->user_id])->first();
+            }
+        }
+    }
+    
     setVariable('page', $page);
     setVariable('totalPage', $paginationMeta['totalPage']);
     setVariable('back', $paginationMeta['back']);

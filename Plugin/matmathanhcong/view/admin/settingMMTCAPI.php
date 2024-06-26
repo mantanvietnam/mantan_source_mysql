@@ -42,6 +42,15 @@
                         <input required type="text" class="form-control phone-mask" name="passAPI" id="passAPI" value="<?php echo @$data['passAPI'];?>" />
                       </div>
 
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Số lượng bản xuất tối đa(*)</label>
+                        <input required type="text" class="form-control phone-mask" name="maxExport" id="maxExport" value="<?php echo (int) @$data['maxExport'];?>" />
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label" for="basic-default-phone">Số lượng đã xuất</label>
+                        <input readonly type="text" class="form-control phone-mask" name="numberExport" id="numberExport" value="<?php echo (int) @$data['numberExport'];?>" />
+                      </div>
                     </div>
 
                   </div>

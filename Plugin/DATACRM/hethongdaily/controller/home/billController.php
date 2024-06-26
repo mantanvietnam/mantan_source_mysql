@@ -186,7 +186,7 @@ function listBill(){
 
 }
 
-/*function addBill($input){
+function addBill($input){
     global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -203,7 +203,7 @@ function listBill(){
 
         $infoUser = $session->read('infoUser');
         $mess= '';
-
+        
         // lấy data edit
         $time =time();
         if(!empty($_GET['id'])){
@@ -212,33 +212,24 @@ function listBill(){
             $bill = $modelBill->newEmptyEntity();
             $bill->created_at = $time;
         }
-
-
-        if ($isRequestPost) {
-            $dataSend = $input['request']->getData();
-
-            $bill->id_member_sell =  0;
-            $bill->id_member_buy = $infoUser->id;
-            $bill->total = @$dataSend['total'];
-            $bill->id_order = 0;
-            $bill->type = 2;
-            $bill->type_order = 0; 
-            $bill->updated_at = $time;
-            $bill->id_debt = 0;
-            $bill->type_collection_bill =  @$dataSend['type_collection_bill'];
-            $bill->id_customer = 0;
-            $bill->note = @$dataSend['note'];
-            $modelBill->save($bill);
-
-            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-        }   
-
-        setVariable('data', $data);
-        setVariable('mess', $mess);
+        $bill->id_member_sell =  0;
+        $bill->id_member_buy = $session->read('infoUser')->id;
+        $bill->total = @$_GET['total'];
+        $bill->id_order = 0;
+        $bill->type = 2;
+        $bill->type_order = 3; 
+        $bill->updated_at = $time;
+        $bill->id_debt = 0;
+        $bill->type_collection_bill =  @$_GET['type_collection_bill'];
+        $bill->id_customer = 0;
+        $bill->note =@$_GET['note'];
+       
+        $modelBill->save($bill);
+        return $controller->redirect('/listBill');
     }else{
         return $controller->redirect('/login');
     }
-}*/
+}
 
 function listCollectionBill(){
 
@@ -427,6 +418,51 @@ function listCollectionBill(){
         return $controller->redirect('/login');
     }
 
+}
+
+function addCollectionBill($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Thông tin phiếu chi';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelMembers = $controller->loadModel('Members');
+        $modelBill = $controller->loadModel('Bills');
+
+        $infoUser = $session->read('infoUser');
+        $mess= '';
+        
+        // lấy data edit
+        $time =time();
+        if(!empty($_GET['id'])){
+            $bill = $modelBill->get( (int) $_GET['id']);
+        }else{
+            $bill = $modelBill->newEmptyEntity();
+            $bill->created_at = $time;
+        }
+        $bill->id_member_sell =  $session->read('infoUser')->id;
+        $bill->id_member_buy = 0;
+        $bill->total = @$_GET['total'];
+        $bill->id_order = 0;
+        $bill->type = 1;
+        $bill->type_order = 3; 
+        $bill->updated_at = $time;
+        $bill->id_debt = 0;
+        $bill->type_collection_bill =  @$_GET['type_collection_bill'];
+        $bill->id_customer = 0;
+        $bill->note =@$_GET['note'];
+       
+        $modelBill->save($bill);
+        return $controller->redirect('/listCollectionBill');
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 
 function printCollectionBill(){

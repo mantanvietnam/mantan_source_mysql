@@ -99,7 +99,7 @@
 
     <section id="header-menu" class="container-xxl">
       <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="/listMember"><img src="<?php echo @$session->read('infoUser')->info_system->image;?>" width="50"> <?php echo $session->read('infoUser')->info_system->name;?></a>
+        <a title="<?php echo $session->read('infoUser')->info_system->name;?>" class="navbar-brand" href="/listMember"><img src="<?php echo @$session->read('infoUser')->info_system->image;?>" width="50"></a>
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"><i class="bx bx-menu bx-sm"></i></span>
@@ -154,6 +154,7 @@
 
                           <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                             <a class="dropdown-item" href="/sendSMS">Gửi tin SMS</a>
+                            <a class="dropdown-item" href="/sendFacebook">Gửi tin Facebook</a>
                             <a class="dropdown-item" href="/sendMessZaloFollow">Gửi tin Zalo Follow</a>
                             <a class="dropdown-item" href="/sendMessZaloZNS">Gửi tin Zalo ZNS</a>
                             <a class="dropdown-item" href="/sendNotificationMobile">Gửi thông báo APP Mobile</a>
@@ -234,9 +235,9 @@
 
                         <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                           <a class="dropdown-item" href="/listCollectionBill">Phiếu thu</a>
-                          <a class="dropdown-item" href="/listBill">Phiếu thu</a>
+                          <a class="dropdown-item" href="/listBill">Phiếu chi</a>
                           <a class="dropdown-item" href="/listCollectionDebt">Công nợ thu</a>
-                          <a class="dropdown-item" href="/listPayableDebt">Công nợ trả</a>
+                          <a class="dropdown-item" href="/listPayableDebt">Công nợ chi</a>
                         </div>
                       </li>';
               }

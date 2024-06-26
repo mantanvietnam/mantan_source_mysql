@@ -15,7 +15,8 @@
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
-            <?= $this->Form->create(); ?>
+            <form enctype="multipart/form-data" method="post" action="">
+              <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -58,7 +59,12 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Hình đại diện</label>
-                    <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>
+                    <input type="file" class="form-control phone-mask" name="avatar" id="avatar" value=""/>
+                    <?php
+                    if(!empty($data->avatar)){
+                      echo '<br/><img src="'.$data->avatar.'" width="80" />';
+                    }
+                    ?>
                   </div>
                 </div>
 
@@ -145,7 +151,7 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
-            <?= $this->Form->end() ?>
+            </form>
           </div>
         </div>
       </div>

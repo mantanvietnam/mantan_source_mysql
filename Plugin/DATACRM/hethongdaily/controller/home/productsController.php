@@ -717,6 +717,8 @@ function addProductAgency($input)
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $urlHomes;
+
     $metaTitleMantan = 'Thông tin sản phẩm';
     if(!empty($session->read('infoUser'))){
         if(!empty($session->read('infoUser')->id_father)){
@@ -743,18 +745,55 @@ function addProductAgency($input)
             $dataSend = $input['request']->getData();
 
             if(!empty($dataSend['title'])){
+                $user = $session->read('infoUser');
+
+                if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
+                    if(!empty($data->id)){
+                        $fileName = 'image_product_'.$data->id;
+                    }else{
+                        $fileName = 'image_product_'.time().rand(0,1000000);
+                    }
+
+                    $image = uploadImage($user->id, 'image', $fileName);
+                }
+
+                if(!empty($image['linkOnline'])){
+                    $data->image = $image['linkOnline'].'?time='.time();
+                }else{
+                    if(empty($data->image)){
+                        $data->image = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/default-thumb.jpg';
+                    }
+                }
+
+                $listImage = [];
+                for($i=1;$i<=20;$i++){
+                    if(isset($_FILES['image'.$i]) && empty($_FILES['image'.$i]["error"])){
+                        if(!empty($data->id)){
+                            $fileName = 'image'.$i.'_product_'.$data->id;
+                        }else{
+                            $fileName = 'image'.$i.'_product_'.time().rand(0,1000000);
+                        }
+
+                        $image = uploadImage($user->id, 'image'.$i, $fileName);
+
+                        if(!empty($image['linkOnline'])){
+                            $listImage[$i] = $image['linkOnline'].'?time='.time();
+                        }
+                    }
+                }
+
+
+
                 // tạo dữ liệu save
                 $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
-                // $data->id_category = (int) @$dataSend['id_category'];
                 $data->description = @$dataSend['description'];
                 $data->info = @$dataSend['info'];
-                $data->image = @$dataSend['image'];
-                $data->images = json_encode(@$dataSend['images']);
+                $data->images = json_encode($listImage);
                 $data->evaluate = json_encode(@$dataSend['evaluate']);
                 $data->code = @strtoupper($dataSend['code']);
                 $data->price = (int) @$dataSend['price'];
                 $data->price_old = (int) @$dataSend['price_old'];
-                $data->quantity = (int) @$dataSend['quantity'];
+                $data->quantity = 1000000;
                 $data->status = 'active';
                 $data->id_category = (int) @$dataSend['id_category'][0];
 
@@ -800,9 +839,6 @@ function addProductAgency($input)
                     $modelCategorieProduct->deleteAll($conditions);
                 }
 
-
-
-
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
             }else{
                 $mess= '<p class="text-danger">Bạn chưa nhập tên sản phẩm</p>';
@@ -810,13 +846,15 @@ function addProductAgency($input)
         }
 
                 
-                if(!empty($data->images)){
-                    $data->images = json_decode($data->images, true);
-                }           
-               
-                if(!empty($data->evaluate)){
-                    $data->evaluate = json_decode($data->evaluate, true);
-                }
+        if(!empty($data->images)){
+            $data->images = json_decode($data->images, true);
+        }           
+
+
+        
+        if(!empty($data->evaluate)){
+            $data->evaluate = json_decode($data->evaluate, true);
+        }
               
 
         $conditions = array('type' => 'category_product');
@@ -879,6 +917,7 @@ function listCategoryProductAgency($input){
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $controller;
 
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
     if(!empty($session->read('infoUser'))){
@@ -901,7 +940,7 @@ function listCategoryProductAgency($input){
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
             $infoCategory->parent = 0;
             $infoCategory->image = @$dataSend['image'];
-            $infoCategory->status = @$dataSend['status'];
+            $infoCategory->status = 'active';
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_product';
@@ -926,7 +965,7 @@ function listCategoryProductAgency($input){
 
         }
 
-        $conditions = array('type' => 'category_product');
+        $conditions = array('type' => 'category_product','status'=>'active');
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
@@ -934,4 +973,120 @@ function listCategoryProductAgency($input){
         return $controller->redirect('/login');
     }
 }
+
+function deleteCategoryProductAgency($input){
+    global $controller;
+    global $session;
+
+    global $modelCategories;
+    if(!empty($session->read('infoUser'))){
+        if(!empty($_GET['id'])){
+            $data = $modelCategories->get($_GET['id']);
+            
+            if($data){
+                $data->status = 'lock';
+                $modelCategories->save($data);
+                //deleteSlugURL($data->slug);
+            }
+        }
+
+    // return $controller->redirect('/listProductAgency');
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function addDataProductAgency(){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+    global $urlHomes;
+    global $modelCategoryConnects;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Thêm thông tin sản phẩm ';
+
+        $modelProduct = $controller->loadModel('Products');
+        $modelCategorieProduct = $controller->loadModel('CategorieProducts');        
+
+        $mess= '';
+        
+        if($isRequestPost){
+            $dataSeries = uploadAndReadExcelData('dataProduct');
+
+            if($dataSeries){
+                unset($dataSeries[0]);
+
+                $double = [];
+                $number = 0;
+                foreach ($dataSeries as $key => $value) {
+                    if(!empty($value[0]) && !empty($value[1])){
+                        $data = $modelProduct->newEmptyEntity();
+                        $id_category = explode(',' , $value[4]);
+                        $data->title = str_replace(array('"', "'"), '’', @$value[0]);
+                        $data->description = @$value[5];
+                        $data->info = @$value[6];
+                        $data->image = $value[7];
+                        $data->evaluate = '';
+                        $data->code = @strtoupper($value[1]);
+                        $data->price = (int) @$value[2];
+                        $data->price_old = (int) @$value[3];
+                        $data->quantity = 1000000;
+                        $data->status = 'active';
+                        $data->id_category = (int) @$id_category[0];
+
+                        $data->hot = 0;
+                        $data->keyword = '';
+                        $data->id_manufacturer = 0;
+
+                        // tạo slug
+                        $slug = createSlugMantan($value[0]);
+                        $slugNew = $slug;
+                        $number = 0;
+
+                        if(empty($data->slug) || $data->slug!=$slugNew){
+                            do{
+                                $conditions = array('slug'=>$slugNew);
+                                $listData = $modelProduct->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                                if(!empty($listData)){
+                                    $number++;
+                                    $slugNew = $slug.'-'.$number;
+                                }
+                            }while (!empty($listData));
+                        }
+
+                        $data->slug = $slugNew;
+
+                        $modelProduct->save($data);
+
+                        // lưu danh mục sản phẩm
+                        if(!empty($id_category)){
+                            foreach ($id_category as $item) {
+                                $category = $modelCategorieProduct->newEmptyEntity();
+
+                                $category->id_product = $data->id;;
+                                $category->id_category = $item;
+                                $modelCategorieProduct->save($category);
+                            }
+                        }
+                    }
+                    
+                    
+                }
+                $mess .= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }
+        }
+
+        setVariable('mess', $mess);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 ?>

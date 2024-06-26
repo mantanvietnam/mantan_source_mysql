@@ -46,13 +46,13 @@
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label">Mã sản phẩm (*)</label>
-                              <input required type="text" class="form-control phone-mask" name="id_product" id="id_product" value="<?php echo @$data['id_product'];?>" />
+                              <label class="form-label">Mã sản phẩm</label>
+                              <input  type="text" class="form-control phone-mask" name="id_product" id="id_product" value="<?php echo @$data['id_product'];?>" />
                             </div>
 
                             <div class="mb-3">
                               <label class="form-label">Địa chỉ (*)</label>
-                              <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address;?>" />
+                              <input  type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address;?>" />
                             </div>
 
                             <div class="mb-3">
@@ -73,28 +73,35 @@
                           <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">Thành phố</label>
-                                <input required type="text" class="form-control phone-mask" name="city" id="city" value="<?php echo @$data->city;?>" />
+                                <input  type="text" class="form-control phone-mask" name="city" id="city" value="<?php echo @$data->city;?>" />
                               </div>
 
                               <div class="mb-3">
                                 <label class="form-label">Công ty thiết kế</label>
-                                <input required type="text" class="form-control phone-mask" name="company_design" id="company_design" value="<?php echo @$data->company_design;?>" />
+                                <input  type="text" class="form-control phone-mask" name="company_design" id="company_design" value="<?php echo @$data->company_design;?>" />
                               </div>
 
                               <div class="mb-3">
                                 <label class="form-label">Công ty thi công</label>
-                                <input required type="text" class="form-control phone-mask" name="company_build" id="company_build" value="<?php echo @$data->company_build;?>" />
+                                <input  type="text" class="form-control phone-mask" name="company_build" id="company_build" value="<?php echo @$data->company_build;?>" />
                               </div>
 
                               <div class="mb-3">
                                 <label class="form-label">Nhà thiết kế</label>
-                                <input required type="text" class="form-control phone-mask" name="designer" id="designer" value="<?php echo @$data->designer;?>" />
+                                <input  type="text" class="form-control phone-mask" name="designer" id="designer" value="<?php echo @$data->designer;?>" />
                               </div>
-
+                              <div class="mb-3">
+                                <label class="form-label">Thời gian</label>
+                                <input  type="text" class="form-control phone-mask" name="year" id="year" value="<?php echo @$data->year;?>" />
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">Cơ quan tài trợ</label>
+                                <input  type="text" class="form-control phone-mask" name="donor" id="donor" value="<?php echo @$data->donor;?>" />
+                              </div>
                               <div class="mb-3">
                               <label class="form-label">Danh mục (*)</label>
                               <div class="input-group input-group-merge">
-                                <select class="form-select" name="id_kind" id="id_kind" required>
+                                <select class="form-select" name="id_kind" id="id_kind" >
                                   <option value="">Chọn danh mục</option>
                                   <?php 
                                   if(!empty($listKind)){
@@ -104,8 +111,8 @@
                                       }else{
                                         echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
                                       }
-                                    }
-                                  }
+                                    }}
+                                
                                   ?>
                                 </select>
                               </div>

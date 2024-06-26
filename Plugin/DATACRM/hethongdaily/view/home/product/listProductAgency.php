@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Sản phẩm</h4>
-  <p><a href="/addProductAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
+  <p><a href="/addProductAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a> <a href="/addDataProductAgency" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới bằng Excel</a>
   </p>
 
   <!-- Form Search -->
@@ -70,14 +70,14 @@
             <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
           </div>
 
-          <div class="col-md-2">
+          <!-- <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
-              <!-- <option value="">Tất cả</option> -->
+             
               <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
               <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
             </select>
-          </div>
+          </div> -->
           
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
@@ -104,7 +104,7 @@
             <th>Số lượng</th>
             <th>Trạng thái</th>
             <th>Sửa</th>
-            <th>Khóa</th>
+            <th>Xóa</th>
           </tr>
         </thead>
         <tbody>
@@ -136,7 +136,7 @@
                         </td>
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn khóa không?\');" href="/deleteProductAgency/?id='.$item->id.'">
-                            <i class="bx bxs-lock-alt me-1"></i>
+                            <i class="bx bxs-trash me-1"></i>
                           </a>
                         </td>
                       </tr>';

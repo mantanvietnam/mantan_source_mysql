@@ -353,6 +353,13 @@ function getTreeSystem($id_father, $modelMembers)
     return $listData;
 }
 
+function getInfoCustomerMember($value=0, $type='id')
+{
+    $modelCustomers = $controller->loadModel('Customers');
+
+    return $modelCustomers->find()->where([$type=>$value])->first();
+}
+
 function createCustomerNew($full_name='', $phone='', $email='', $address='', $sex=0, $id_city=0, $id_agency=0, $id_aff=0, $name_agency='', $id_messenger='', $avatar='', $birthday_date=0, $birthday_month=0, $birthday_year=0, $id_groups=0, $id_zalo='', $note_history='')
 {
     global $controller;
@@ -457,6 +464,18 @@ function createCustomerNew($full_name='', $phone='', $email='', $address='', $se
                 $id_groups = explode(',', $id_groups);
 
                 $infoUser->id_group = (int) $id_groups[0];
+            }
+
+            if(!empty($birthday_date)){
+                $infoUser->birthday_date = (int) $birthday_date;
+            }
+
+            if(!empty($birthday_month)){
+                $infoUser->birthday_month = (int) $birthday_month;
+            }
+
+            if(!empty($birthday_year)){
+                $infoUser->birthday_year = (int) $birthday_year;
             }
 
             $modelCustomers->save($infoUser);
@@ -822,6 +841,141 @@ function sendSMSByESMS($phone='', $mess='', $id_history_sms=0)
     }
 
     return 0;
+}
+
+function sendEmailCodeForgotPassword($email = '', $fullName = '', $code = '')
+{
+    $to = array();
+
+    if (!empty($email)) {
+        $to[] = trim($email);
+
+        $cc = array();
+        $bcc = array();
+        $subject = 'Mã xác thực cấp lại mật khẩu mới';
+
+        $content = '<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Mã xác thực cấp lại mật khẩu mới</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>MÃ XÁC THỰC</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào ' . $fullName . ' !</em> <br>
+                        <br/>
+                        Mã xác thực cấp lại mật khẩu mới của bạn là: <b>' . $code . '</b>
+                        
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        sendEmail($to, $cc, $bcc, $subject, $content);
+    }
+}
+
+global $urlTransaction;
+$urlTransaction = 'https://img.vietqr.io/image/MB-0816560000-compact2.png?';
+
+function listBank()
+{
+    return [
+        ['id' => 1, 'name' => 'An Bình', 'code' => 'ABBANK'],
+        ['id' => 2, 'name' => 'ANZ Việt Nam', 'code' => 'ANZVL'],
+        ['id' => 3, 'name' => 'Á Châu', 'code' => 'ACB'],
+        ['id' => 4, 'name' => 'Bắc Á', 'code' => 'Bac A Bank'],
+        ['id' => 5, 'name' => 'Bản Việt', 'code' => 'Viet Capital Bank'],
+        ['id' => 6, 'name' => 'Bảo Việt', 'code' => 'BAOVIET Bank'],
+        ['id' => 7, 'name' => 'Bưu điện Liên Việt', 'code' => 'LienVietPostBank'],
+        ['id' => 8, 'name' => 'Chính sách xã hội Việt Nam', 'code' => 'VBSP'],
+        ['id' => 9, 'name' => 'CIMB Việt Nam', 'code' => 'CIMB'],
+        ['id' => 10, 'name' => 'Công thương Việt Nam', 'code' => 'VietinBank'],
+        ['id' => 11, 'name' => 'Dầu khí toàn cầu', 'code' => 'GPBank'],
+        ['id' => 12, 'name' => 'Đại Chúng Việt Nam', 'code' => 'PVcomBank'],
+        ['id' => 13, 'name' => 'Đại Dương', 'code' => 'OceanBank'],
+        ['id' => 14, 'name' => 'Đầu tư và Phát triển Việt Nam', 'code' => 'BIDV'],
+        ['id' => 15, 'name' => 'Đông Á', 'code' => 'DongA Bank'],
+        ['id' => 16, 'name' => 'Đông Nam Á', 'code' => 'SeABank'],
+        ['id' => 17, 'name' => 'Hàng Hải', 'code' => 'MSB'],
+        ['id' => 18, 'name' => 'Hong Leong Việt Nam', 'code' => 'HLBVN'],
+        ['id' => 19, 'name' => 'Hợp tác xã Việt Nam', 'code' => 'Co-opBank'],
+        ['id' => 20, 'name' => 'HSBC Việt Nam', 'code' => 'HSBC'],
+        ['id' => 21, 'name' => 'Indovina', 'code' => 'IVB'],
+        ['id' => 22, 'name' => 'Kiên Long', 'code' => 'Kienlongbank'],
+        ['id' => 23, 'name' => 'Kỹ Thương', 'code' => 'Techcombank'],
+        ['id' => 24, 'name' => 'Liên doanh Việt Nga', 'code' => 'VRB'],
+        ['id' => 25, 'name' => 'Nam Á', 'code' => 'Nam A Bank'],
+        ['id' => 26, 'name' => 'Ngoại Thương Việt Nam', 'code' => 'Vietcombank'],
+        ['id' => 27, 'name' => 'NN&PT Nông thôn Việt Nam', 'code' => 'Agribank'],
+        ['id' => 28, 'name' => 'Phát triển Thành phố Hồ Chí Minh', 'code' => 'HDBank'],
+        ['id' => 29, 'name' => 'Phát triển Việt Nam', 'code' => 'VDB'],
+        ['id' => 30, 'name' => 'Phương Đông', 'code' => 'OCB'],
+        ['id' => 31, 'name' => 'Public Bank Việt Nam', 'code' => 'PBVN'],
+        ['id' => 32, 'name' => 'Quân Đội', 'code' => 'MB'],
+        ['id' => 33, 'name' => 'Quốc dân', 'code' => 'NCB'],
+        ['id' => 34, 'name' => 'Quốc Tế', 'code' => 'VIB'],
+        ['id' => 35, 'name' => 'Sài Gòn', 'code' => 'SCB'],
+        ['id' => 36, 'name' => 'Sài Gòn – Hà Nội', 'code' => 'SHB'],
+        ['id' => 37, 'name' => 'Sài Gòn Công Thương', 'code' => 'SAIGONBANK'],
+        ['id' => 38, 'name' => 'Sài Gòn Thương Tín', 'code' => 'Sacombank'],
+        ['id' => 39, 'name' => 'Shinhan Việt Nam', 'code' => 'SHBVN'],
+        ['id' => 40, 'name' => 'Standard Chartered Việt Nam', 'code' => 'SCBVL'],
+        ['id' => 41, 'name' => 'Tiên Phong', 'code' => 'TPBank'],
+        ['id' => 42, 'name' => 'UOB Việt Nam', 'code' => 'UOB'],
+        ['id' => 43, 'name' => 'Việt Á', 'code' => 'VietABank'],
+        ['id' => 44, 'name' => 'Việt Nam Thịnh Vượng', 'code' => 'VPBank'],
+        ['id' => 45, 'name' => 'Việt Nam Thương Tín', 'code' => 'Vietbank'],
+        ['id' => 46, 'name' => 'Woori Việt Nam', 'code' => 'Woori'],
+        ['id' => 47, 'name' => 'Xăng dầu Petrolimex', 'code' => 'PG Bank'],
+        ['id' => 48, 'name' => 'Xây dựng', 'code' => 'CB'],
+        ['id' => 49, 'name' => 'Xuất Nhập Khẩu', 'code' => 'Eximbank'],
+
+    ];
+}
+
+function listThemeInfo(){
+    return [ 
+        ['id' => 1, 'name' => 'Theme info 1 ', 'code' => 'themeifo1', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them1.jpg','price'=>0],
+        ['id' => 2, 'name' => 'Theme info 2 ', 'code' => 'themeifo2', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them2.jpg','price'=>99000],
+
+    ];
 }
 
 ?>

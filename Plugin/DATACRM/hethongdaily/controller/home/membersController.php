@@ -138,13 +138,33 @@ function account($input)
 		$mess = '';
 
 		$user = $modelMembers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
+		$boss = $modelMembers->find()->where(['id_father'=>0])->first();
 
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
 
-			if(!empty($dataSend['name']) && !empty($dataSend['avatar']) && !empty($dataSend['email'])){
+			if(!empty($dataSend['name']) && !empty($dataSend['email'])){
+				if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+					$avatar = uploadImage($user->id, 'avatar', 'avatar_'.$user->id);
+				}
+
+				if(isset($_FILES['banner']) && empty($_FILES['banner']["error"])){
+					$banner = uploadImage($user->id, 'banner', 'banner_'.$user->id);
+				}
+
+				if(!empty($avatar['linkOnline'])){
+					$user->avatar = $avatar['linkOnline'].'?time='.time();
+				}else{
+					if(empty($user->avatar)){
+						$user->avatar = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+					}
+				}
+
+				if(!empty($banner['linkOnline'])){
+					$user->banner = $banner['linkOnline'].'?time='.time();
+				}
+
 				$user->name = $dataSend['name'];
-				$user->avatar = $dataSend['avatar'];
 				$user->email = $dataSend['email'];
 				$user->address = $dataSend['address'];
 				$user->birthday = $dataSend['birthday'];
@@ -157,12 +177,18 @@ function account($input)
 				$user->linkedin = $dataSend['linkedin'];
 				$user->description = $dataSend['description'];
 				$user->zalo = $dataSend['zalo'];
-				$user->banner = $dataSend['banner'];
-				$user->display_info = $dataSend['display_info'];
-				$user->image_qr_pay = $dataSend['image_qr_pay'];
+				$user->image_qr_pay = '';
+				$user->bank_number = $dataSend['bank_number'];
+				$user->bank_name = $dataSend['bank_name'];
+				$user->bank_code = $dataSend['bank_code'];
+
+				if(!empty($user->bank_number) && !empty($user->bank_name) && !empty($user->bank_code)){
+					$user->image_qr_pay = 'https://img.vietqr.io/image/'.$user->bank_code.'-'.$user->bank_number.'-compact2.png?amount=&addInfo=&accountName='.$user->bank_name;
+				}
 
 				$modelMembers->save($user);
 
+				
 				$user->info_system = $modelCategories->find()->where(['id'=>(int) $user->id_system])->first();
 
 				$session->write('infoUser', $user);
@@ -175,6 +201,7 @@ function account($input)
 
 		setVariable('mess', $mess);
 		setVariable('user', $user);
+		setVariable('boss', $boss);
 		setVariable('displayInfo', $displayInfo);
 	}else{
 		return $controller->redirect('/login');
@@ -354,16 +381,45 @@ function addMember($input)
 
 	        	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
 	        		$system = $modelCategories->find()->where(['id'=>(int) $infoUser->id_system])->first();
+	        		$user = $session->read('infoUser');
 
-	        		if(empty($dataSend['avatar'])){
-	        			if(!empty($system->image)){
-	        				$dataSend['avatar'] = $system->image;
-	        			}
+	        		if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+	        			if(!empty($data->id)){
+	                        $fileName = 'avatar_'.$data->id;
+	                    }else{
+	                        $fileName = 'avatar_'.time().rand(0,1000000);
+	                    }
 
-	        			if(empty($dataSend['avatar'])){
-	        				$dataSend['avatar'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
-	        			}
-	        		}
+						$avatar = uploadImage($user->id, 'avatar', $fileName);
+					}
+
+					if(!empty($avatar['linkOnline'])){
+						$data->avatar = $avatar['linkOnline'].'?time='.time();
+					}else{
+						if(empty($data->avatar)){
+							if(!empty($system->image)){
+		        				$data->avatar = $system->image;
+		        			}
+
+		        			if(empty($data->avatar)){
+		        				$data->avatar = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+		        			}
+						}
+					}
+
+					if(isset($_FILES['portrait']) && empty($_FILES['portrait']["error"])){
+						if(!empty($data->id)){
+	                        $fileName = 'portrait_'.$data->id;
+	                    }else{
+	                        $fileName = 'portrait_'.time().rand(0,1000000);
+	                    }
+
+						$portrait = uploadImage($user->id, 'portrait', $fileName);
+					}
+
+					if(!empty($portrait['linkOnline'])){
+						$data->portrait = $portrait['linkOnline'].'?time='.time();
+					}
 
 	        		// tạo dữ liệu save
 	        		if(empty($data->id_father)){
@@ -372,8 +428,6 @@ function addMember($input)
 			        
 			        $data->name = $dataSend['name'];
 			        $data->address = $dataSend['address'];
-			        $data->avatar = $dataSend['avatar'];
-			        $data->portrait = $dataSend['portrait'];
 			        $data->phone = $dataSend['phone'];
 					$data->id_system = (int) $infoUser->id_system;
 					$data->email = $dataSend['email'];
@@ -654,5 +708,37 @@ function info($input)
 	}else{
 		return $controller->redirect('/');
 	}
+}
+
+function useThemeInfo($input){
+
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $modelCategories;
+	global $urlHomes;
+	global $displayInfo;
+
+	$metaTitleMantan = 'Đổi thông tin tài khoản';
+
+	$modelMembers = $controller->loadModel('Members');
+
+	if(!empty($session->read('infoUser'))){
+		$mess = '';
+
+		$user = $modelMembers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
+		$user->display_info = $_GET['id'];
+
+
+		$modelMembers->save($user);
+		
+		return $controller->redirect('/account');
+
+
+	}else{
+		return $controller->redirect('/login');
+	}
+
 }
 ?>

@@ -158,6 +158,7 @@ function addDocument($input){
 	            $data->id_parent = $user->id;
 	            $data->status = @$dataSend['status'];
 	            $data->content = @$dataSend['content'];
+	            $data->public = @$dataSend['public'];
 	            $data->description = @$dataSend['description'];
 	            $data->slug = createSlugMantan(trim($dataSend['title']));
 

@@ -828,7 +828,7 @@ td a {
     color: #d30a0a;
 }
 
-#block-8 .form-customer input {
+#block-8 .form-customer input,#block-8 .form-customer select {
     background-color: #fff;
     padding: 8px 8px;
     font-size: 15px;
@@ -836,6 +836,7 @@ td a {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 15px;
+    width: 100%;
 }
 
 #block-8 .form-customer input:last-child {

@@ -304,10 +304,22 @@ function editCustomerAgency($input)
                         $data->id_city = 0;
                     }
 
-                    if(!empty($dataSend['avatar'])){
-                        $data->avatar = $dataSend['avatar'];
-                    }elseif(empty($data->avatar)){
-                        $data->avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
+                    if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                        if(!empty($data->id)){
+                            $fileName = 'avatar_'.$data->id;
+                        }else{
+                            $fileName = 'avatar_'.time().rand(0,1000000);
+                        }
+
+                        $avatar = uploadImage($session->read('infoUser')->id, 'avatar', $fileName);
+                    }
+
+                    if(!empty($avatar['linkOnline'])){
+                        $data->avatar = $avatar['linkOnline'].'?time='.time();
+                    }else{
+                        if(empty($data->avatar)){
+                            $data->avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";
+                        }
                     }
 
                     if(!empty($dataSend['birthday_date'])){
