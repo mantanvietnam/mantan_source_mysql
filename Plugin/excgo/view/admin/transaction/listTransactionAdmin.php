@@ -42,6 +42,7 @@
                 <thead>
                 <tr class="">
                     <th>ID</th>
+                    <th>Thông tin khách hàng</th>
                     <th>Tên giao dịch</th>
                     <th>Số Tiền</th>
                     <th>Nội dung</th>
@@ -54,8 +55,11 @@
                     foreach ($listData as $item) {
                         $type = $item->type == 1 ? '+' : '-';
 
+                        $user = !empty($item->user)? $item->user->name . '</br>'. $item->user->phone_number . ' </br>' . $item->user->email : '';
+
                         echo '<tr>
                         <td align="center">' . $item->id . '</td>
+                        <td align="center">' . $user . '</td>
                         <td align="center">' . $item->name . '</td>
                         <td align="center">' . $type . $item->amount . '</td>
                         <td align="center">' . $item->description . '</td>
