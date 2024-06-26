@@ -39,6 +39,27 @@ $menus[3]['sub'][0]= array( 'title'=>'Danh sách đăng ký',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'listRegisterAdmin'
                         );
+// Danh sách dụng cụ
+$menus[4]['title']= 'Dụng Cụ';
+$menus[4]['sub'][0]= array( 'title'=>'Danh sách dụng cụ',
+                            'url'=>'/plugins/admin/product-view-admin-product-listProduct',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'listProduct'
+                        );
+// Form đăng ký
+$menus[5]['title']= 'Form Đăng Ký';
+$menus[5]['sub'][0]= array( 'title'=>'Danh sách đăng ký',
+                            'url'=>'/plugins/admin/form-view-admin-listFormAdmin',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'listFormAdmin'
+                        );
+// Form đăng ký HLV
+$menus[6]['title']= 'Form Đăng Ký HLV';
+$menus[6]['sub'][0]= array( 'title'=>'Danh sách đăng ký HLV',
+                            'url'=>'/plugins/admin/trainers-view-admin-listTrainerAdmin',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'listTrainerAdmin'
+                        );
 addMenuAdminMantan($menus);
 
 global $modelOptions;
