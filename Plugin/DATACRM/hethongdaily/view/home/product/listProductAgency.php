@@ -39,24 +39,6 @@
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Nhà sản xuất</label>
-            <select name="id_manufacturer" class="form-control">
-              <option value="">Tất cả</option>
-              <?php
-                if(!empty($manufacturers)){
-                  foreach($manufacturers as $item){
-                    if(empty($_GET['id_manufacturer']) || $_GET['id_manufacturer']!=$item->id){
-                      echo '<option value="'.$item->id.'">'.$item->name.'</option>';
-                    }else{
-                      echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
-                    }
-                  }
-                }
-              ?>
-            </select>
-          </div>
-
-          <div class="col-md-2">
             <label class="form-label">Ghim lên đầu</label>
             <select name="hot" class="form-select color-dropdown">
               <option value="">Tất cả</option>
@@ -69,15 +51,6 @@
             <label class="form-label">Mã sản phẩm</label>
             <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
           </div>
-
-          <!-- <div class="col-md-2">
-            <label class="form-label">Trạng thái</label>
-            <select name="status" class="form-select color-dropdown">
-             
-              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
-              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
-            </select>
-          </div> -->
           
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
@@ -102,8 +75,6 @@
               <th>Danh mục</th>
               <th>Tên sản phẩm</th>
               <th>Giá bán</th>
-              <th>Số lượng</th>
-              <th>Trạng thái</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -127,8 +98,6 @@
                           <td>'.implode(', ', $category_name).'</td>
                           <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
                           <td> '.number_format($item->price).' đ</td>
-                          <td> Sl còn:'.$item->quantity.'</td>
-                          <td>'.$item->status.'</td>
                           
                           <td align="center">
                             <a class="dropdown-item" href="/addProductAgency/?id='.$item->id.'">
@@ -165,21 +134,22 @@
                     }
                   }
                    echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                        <img src="'.$item->image.'" style=" width:100%" />
+                        <center><img src="'.$item->image.'" style=" width:50%" /></center><br/>
                         <p><strong> Tên sản phẩm: </strong>'.$item->title.'</p>
                         <p><strong> Mã sản phẩm: </strong>'.$item->code.'</p>
                         <p><strong> Danh mục: </strong>'.implode(', ', $category_name).'</p>
-                        <p><strong> Giá: </strong>'.number_format($item->price).'</p>
-                        <p><strong> Số lượng: </strong>'.$item->quantity.'</p>
+                        <p><strong> Giá: </strong>'.number_format($item->price).'đ</p>
                         <p align="center">
-                            <a class="btn btn-success" href="/addProductAgency/?id='.$item->id.'">
+                        
+                          <a class="btn btn-success" href="/addProductAgency/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
-                            </a>
+                          </a>
                              &nbsp;&nbsp;&nbsp;&nbsp;
                           
-                   <a class=" btn btn-danger" title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/deleteProductAgency/?id='.$item->id.'">
-                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
-                            </a><br> Kích hoạt </p>
+                          <a class=" btn btn-danger" title="Xóa sản phẩm" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteProductAgency/?id='.$item->id.'">
+                              <i class="bx bxs-trash me-1" style="font-size: 22px;"></i>
+                          </a>
+                        </p>
 
 
                 </div>';

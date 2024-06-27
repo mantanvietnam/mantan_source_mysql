@@ -42,7 +42,7 @@
                           }
                         }else{
                           echo '<tr>
-                                  <td colspan="3" align="center">Chưa có chủ đề</td>
+                                  <td colspan="5" align="center">Chưa có chủ đề</td>
                                 </tr>';
                         }
                       ?>

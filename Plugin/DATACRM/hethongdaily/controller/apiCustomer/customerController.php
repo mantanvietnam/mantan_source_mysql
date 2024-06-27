@@ -1,4 +1,43 @@
 <?php 
+// khóa tài khoản
+function lockAccountAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+    $modelCustomer = $controller->loadModel('Customers');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['token'])){
+            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+
+            if(!empty($user)){
+                $user->status = 'lock';
+                $user->token = '';
+                
+                $modelCustomer->save($user);
+                
+                $return = array('code'=>0);
+            }else{
+                $return = array('code'=>3,
+                                    'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
+                                );
+            }
+        }else{
+            $return = array('code'=>2,
+                    'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+                );
+        }
+    }
+
+    return $return;
+}
+
 // API đăng ký khách hàng 
 function saveRegisterCustomerAPI($input)
 {

@@ -210,26 +210,30 @@
                 if(!empty($item->facebook)) $infoCustomer .= '<br/><a href="'.@$item->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>';
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                        <img src="'.$item->avatar.'" style=" width:100%" />
-                        <p><strong> Thông tin khách hàng: </strong><br/>'.$infoCustomer.'<br/>'.$sex.'</p>
+                        <center><img class="img_avatar" src="'.$item->avatar.'" style=" width:50%" /></center><br/>
+                        <p><strong> Khách hàng: </strong>: '.$item->full_name.' (ID: '.$item->id.')</p>
+                        <p><strong> Điện thoại: </strong>: '.$item->phone.'</p>
+                        <p><strong> Địa chỉ: </strong>: '.$item->address.'</p>
                         <p><strong> Nhóm: </strong>'.$item->groups.'</p>
-                        <p><strong> Trạng thái: </strong>'.$status.'</p>
-                        <p><a href="/downloadMMTC/?id_customer='.$item->id.'" target="_blank">'.$birthday.'</a></p>
+                        <p><strong> Ngày sinh: </strong><a href="/downloadMMTC/?id_customer='.$item->id.'" target="_blank">'.$birthday.'</a></p>
 
                         <p><a href="/orderCustomerAgency/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></p>
 
                         <p><strong>Chăm sóc: </strong>'.$history.'</p>
+                        
                         <p class="text-center mt-3">
-                        <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
-                        <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-info"><i class="bx bx-list-ul" ></i></a>
+                          <a title="Thêm chăm sóc" href="/addCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
+                          <a title="Lịch sử chăm sóc" href="/listCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-info"><i class="bx bx-list-ul" ></i></a>
                         </p>
 
                         <p  class="text-center mt-3">
-                        <a class="btn btn-success" href="/editCustomerAgency/?id='.$item->id.'">
-                        <i class="bx bx-edit-alt me-1"></i>
-                        </a> <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/lockCustomerAgency/?id='.$item->id.'">
-                        <i class="bx bx-trash me-1"></i>
-                        </a>
+                          <a title="Sửa" class="btn btn-success" href="/editCustomerAgency/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a> 
+
+                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/lockCustomerAgency/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
                         </p>
 
                         </div>';

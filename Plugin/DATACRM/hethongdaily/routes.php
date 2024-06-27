@@ -16,6 +16,7 @@
 	$routesPlugin['requestCodeForgotPasswordAPI']= 'hethongdaily/view/api/requestCodeForgotPasswordAPI.php';
 	$routesPlugin['saveNewPassAPI']= 'hethongdaily/view/api/saveNewPassAPI.php';
 	$routesPlugin['updateLastLoginAPI']= 'hethongdaily/view/api/updateLastLoginAPI.php';
+	$routesPlugin['lockAccountAPI']= 'hethongdaily/view/api/lockAccountAPI.php';
 	
 	$routesPlugin['getListMemberDownAPI']= 'hethongdaily/view/api/getListMemberDownAPI.php';
 	$routesPlugin['addMemberDownAPI']= 'hethongdaily/view/api/addMemberDownAPI.php';
