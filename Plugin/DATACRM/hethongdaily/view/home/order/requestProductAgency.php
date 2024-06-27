@@ -78,7 +78,7 @@
                   <th colspan="3" class="text-center">Thông tin đơn hàng</th> 
                   <tr>
                     <th width="50%">Sản phẩm</th>
-                    <th width="25%">Giá bán</th>
+                    <th width="25%">Giá nhập</th>
                     <th width="25%">Số lượng </th>
                   </tr>
                 </thead>
@@ -127,9 +127,20 @@
                   <tbody>';
                     if(!empty($item->detail_order)){ 
                       foreach($item->detail_order as $k => $value){
+                        if($value->discount > 0){
+                          $priceBuy = $value->price;
+                          $priceDiscount = $value->discount;
+
+                          if($priceDiscount<=100){
+                              $priceDiscount= $priceBuy*$value->discount/100;
+                          }
+                          $priceBuy-= $priceDiscount;
+                        }else{
+                          $priceBuy = $value->price;
+                        }
                         echo '<tr> 
                                 <td  width="50%">'.$value->product.'</td>
-                                <td  width="25%">'.number_format($value->price).'đ</td>
+                                <td  width="25%">'.number_format($priceBuy).'đ</td>
                                 <td  width="25%" align="center">'.$value->quantity.'</td>
                               </tr>';
                       }

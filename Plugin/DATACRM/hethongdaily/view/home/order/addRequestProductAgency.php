@@ -128,7 +128,7 @@
     <form id="summary-form" action="" method="post" class="form-horizontal">
         <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
         <div class="row">
-            <div class="mb-3 col-md-6">
+            <div class="mb-3 col-md-5">
 
                 <div class="card mb-4">
                     <h4 class="fw-bold m-3 mb-0">Sản phẩm</h4>
@@ -166,7 +166,7 @@
                 </div>
             </div>
 
-            <div class="mb-3 col-md-6">
+            <div class="mb-3 col-md-7">
                 <div class="card mb-4">
                     <h4 class="fw-bold py-3 mb-4 info-order">Thông tin đơn hàng</h4>
                     
@@ -186,8 +186,9 @@
                                     <th width="30%">Tên sản phẩm</th>
                                     <th  width="15%">Số lượng</th>
                                     <th  width="20%">Đơn giá</th>
-                                    <th  width="20%">Thành tiền</th>
-                                    <th  width="15%">Xóa</th>
+                                    <th  width="20%">Giảm giá</th>
+                                    <th  width="15%">Thành tiền</th>
+                                    <th  width="5%">Xóa</th>
                                 </tr>
                             </thead>
                             <tbody id="listProductOrder">
@@ -209,7 +210,7 @@
 
                                     <li>
                                         <span>Chiết khấu (%)</span>
-                                        <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="0" autocomplete="off" /></span>
+                                        <span><input <?php if(!empty($session->read('infoUser')->id_father)) echo 'readonly';?> class="per-bh input_money form-control" min="0" onchange="checkDiscount();" type="text" name="promotion" id="promotion" placeholder="0" value="0" autocomplete="off" /></span>
                                     </li>
                                     
                                     <li class="total-bh">
@@ -252,6 +253,7 @@ var row=0;
 var numberProduct= 0;
 var checkProduct= true;
 var listPositions = {}
+var checkBoss = <?php if(empty($session->read('infoUser')->id_father)){ echo 'true';}else{ echo 'false';}?>;
 
 <?php
 if(!empty($listPositions)){
@@ -295,14 +297,39 @@ function addProduct(id, name, priceProduct)
         $('#numberProduct').html(showNumberProduct);
                 
         var readonly;
+        if(!checkBoss) readonly = 'readonly';
 
-        $('#listProductOrder tr:first').after('<tr id="tr'+row+'"><td style="text-align: initial;"><input type="hidden" name="idHangHoa['+row+']" id="idProduct'+row+'" value="'+id+'">'+name+'</td><td><div class="quantity"><div class="number-spinner"><span class="ns-btn" ></span><input name="soluong['+row+']" min="1" id="soluong'+row+'"  type="number" class="pl-ns-value form-control" value="1"  onchange="tinhtien();"></div></div></td><td><input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien();"></td><td id="totalmoney'+row+'"></td><td><a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct(\''+row+'\')"><i class="bx bx-trash me-1" aria-hidden="true"></i></a></td></tr>');    
+        $('#listProductOrder tr:first').after('\
+            <tr id="tr'+row+'">\
+                <td style="text-align: initial;">\
+                    <input type="hidden" name="idHangHoa['+row+']" id="idProduct'+row+'" value="'+id+'">\
+                    '+name+'\
+                </td>\
+                <td>\
+                    <div class="quantity">\
+                        <div class="number-spinner">\
+                            <span class="ns-btn" ></span>\
+                            <input name="soluong['+row+']" min="1" id="soluong'+row+'"  type="number" class="pl-ns-value form-control" value="1"  onchange="tinhtien(1);">\
+                        </div>\
+                    </div>\
+                </td>\
+                <td>\
+                    <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
+                </td>\
+                <td>\
+                    <input '+readonly+' type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(1);">\
+                </td>\
+                <td id="totalmoney'+row+'"></td>\
+                <td>\
+                    <a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct(\''+row+'\')"><i class="bx bx-trash me-1" aria-hidden="true"></i></a>\
+                </td>\
+            </tr>');    
             
             $("#trFirst").hide();
            
     }
 
-    tinhtien();
+    tinhtien(1);
 }
 
 // xóa sản phẩm trong đơn 
@@ -317,7 +344,7 @@ function deleteProduct(number)
         var showNumberProduct= new Intl.NumberFormat().format(numberProduct);
         $('#numberProduct').html(showNumberProduct);
         
-        tinhtien();
+        tinhtien(1);
 
         if(numberProduct==0){
             $("#trFirst").show();
@@ -325,8 +352,19 @@ function deleteProduct(number)
     }
 }
 
+// kiểm tra giảm giá
+function checkDiscount()
+{
+    if(checkBoss){
+        // nếu là boss thì cho phép sửa chiết khấu của mình
+        tinhtien(0);
+    }else{
+        tinhtien(1);
+    }
+}
+
 // tính tiền 
-function tinhtien()
+function tinhtien(checkDiscount)
 {
     var total= 0;
     var totalPay= 0;
@@ -334,6 +372,7 @@ function tinhtien()
     var number;
     var price;
     var idProduct;
+    var discount;
 
     if(row>0){
         for(i=1;i<=row;i++){
@@ -342,10 +381,22 @@ function tinhtien()
                 price= parseFloat($('#money-'+i).val());
                
                 $('#soluong'+i).css("border","");
+
+                if($('#discount-'+i).val()!=''){
+                    discount= parseFloat($('#discount-'+i).val());
+                }else{
+                    discount= 0;
+                }
                 
                 money = 0;
                 if(number>0){
                     money= number*price;
+
+                    if(discount>=0 && discount<=100){
+                        discount= money*discount/100;
+                    }
+                    money-= discount;
+                    
                     total+= money;
                 }
                  
@@ -354,7 +405,7 @@ function tinhtien()
             }
         }
 
-        checkDiscountConfig(total);
+        if(checkDiscount == 1) checkDiscountConfig(total);
 
         // giảm giá
         var promotion= $('#promotion').val();
@@ -383,7 +434,7 @@ function tinhtien()
 // thanh toán 
 function createOrder()
 {
-    tinhtien();
+    tinhtien(0);
 
     var r;
 

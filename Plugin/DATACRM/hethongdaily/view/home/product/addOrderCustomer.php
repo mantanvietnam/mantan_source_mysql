@@ -222,7 +222,7 @@
                                     <th width="30%">Tên sản phẩm</th>
                                     <th  width="15%">Số lượng</th>
                                     <th  width="20%">Đơn giá</th>
-                                    <th  width="20%">giảm giá</th>
+                                    <th  width="20%">Giảm giá</th>
                                     <th  width="15%">Thành tiền</th>
                                     <th  width="5%">Xóa</th>
                                 </tr>
