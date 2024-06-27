@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 23, 2024 at 10:20 PM
+-- Generation Time: Jun 28, 2024 at 02:31 AM
 -- Server version: 10.6.12-MariaDB
 -- PHP Version: 8.1.17
 
@@ -346,6 +346,20 @@ CREATE TABLE `discount_codes` (
   `category` int(11) DEFAULT NULL,
   `id_customers` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_products` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discount_product_agencys`
+--
+
+CREATE TABLE `discount_product_agencys` (
+  `id` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_member_sell` int(11) NOT NULL COMMENT 'id đại lý tuyến trên',
+  `id_member_buy` int(11) NOT NULL COMMENT 'id đại lý tuyến dưới đặt mua',
+  `discount` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -1032,6 +1046,12 @@ ALTER TABLE `discount_codes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `discount_product_agencys`
+--
+ALTER TABLE `discount_product_agencys`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `documentinfos`
 --
 ALTER TABLE `documentinfos`
@@ -1309,6 +1329,12 @@ ALTER TABLE `debts`
 -- AUTO_INCREMENT for table `discount_codes`
 --
 ALTER TABLE `discount_codes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `discount_product_agencys`
+--
+ALTER TABLE `discount_product_agencys`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
