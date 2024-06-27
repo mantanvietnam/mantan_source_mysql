@@ -40,6 +40,7 @@ function listUserAdmin($input)
     if(!empty($_GET['excel']) && $_GET['excel']=='Excel'){
             $listData = $modelUser->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
             $titleExcel =   [
+                ['name'=>'ID', 'type'=>'text', 'width'=>10],
                 ['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
                 ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
                 ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
@@ -61,6 +62,7 @@ function listUserAdmin($input)
                     }
                     
                     $dataExcel[] = [
+                                    @$value->id,
                                     $value->created_at->format('H:i d-m-Y'), 
                                     @$value->name,   
                                     @$value->phone_number,   

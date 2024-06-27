@@ -166,11 +166,11 @@
                   }
                    echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
                         <img src="'.$item->image.'" style=" width:100%" />
-                        <p><span> Tên sản phẩm: </span>'.$item->title.'</p>
-                        <p><span> Mã sản phẩm: </span>'.$item->code.'</p>
-                        <p><span> Danh mục: </span>'.implode(', ', $category_name).'</p>
-                        <p><span> Giá: </span>'.number_format($item->price).'</p>
-                        <p><span> Số lượng: </span>'.$item->quantity.'</p>
+                        <p><strong> Tên sản phẩm: </strong>'.$item->title.'</p>
+                        <p><strong> Mã sản phẩm: </strong>'.$item->code.'</p>
+                        <p><strong> Danh mục: </strong>'.implode(', ', $category_name).'</p>
+                        <p><strong> Giá: </strong>'.number_format($item->price).'</p>
+                        <p><strong> Số lượng: </strong>'.$item->quantity.'</p>
                         <p align="center">
                             <a class="btn btn-success" href="/addProductAgency/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>

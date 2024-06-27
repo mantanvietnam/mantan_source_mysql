@@ -130,7 +130,6 @@ function getListProvinceApi($input): array
 function listIdProvinceBLock($input){
     global $controller;
     global $isRequestPost;
-
     $modelBlockUserProvinces = $controller->loadModel('BlockUserProvinces');
 
     if ($isRequestPost) {

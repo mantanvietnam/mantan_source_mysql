@@ -67,50 +67,76 @@
       <a href="/calendarCustomerHistoriesAgency" class="btn btn-danger">Xem dạng Lịch</a>
     </h5>
     <h5 class="card-header">Lịch sử chăm sóc khách hàng</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Thời gian</th>
-            <th>Khách hàng</th>
-            <th>Nội dung</th>
-            <th>Trạng thái</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          if(!empty($listData)){
-            foreach ($listData as $item) {
-              $status= '<span class="text-danger">Chưa xử lý</span>';
-              if($item->status=='done'){ 
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Thời gian</th>
+              <th>Khách hàng</th>
+              <th>Nội dung</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+            if(!empty($listData)){
+              foreach ($listData as $item) {
+                $status= '<span class="text-danger">Chưa xử lý</span>';
+                if($item->status=='done'){ 
                   $status= '<span class="text-success">Đã hoàn thành</span>';
-              }
-              
-              echo '<tr>
-              <td>'.$item->id.'</td>
-              <td>'.date('H:i d/m/Y', $item->time_now).'</td>
-             
-              <td>
+                }
+                
+                echo '<tr>
+                <td>'.$item->id.'</td>
+                <td>'.date('H:i d/m/Y', $item->time_now).'</td>
+
+                <td>
                 <a href="/listCustomerAgency?id='.$item->id_customer.'">'.$item->info_customer->full_name.'</a><br/>
                 '.$item->info_customer->phone.'
-              </td>
-              <td>'.$item->note_now.'</td>
-              
-              <td>'.$status.'</td>
+                </td>
+                <td>'.$item->note_now.'</td>
+                
+                <td>'.$status.'</td>
 
-              
-             </tr>';
-           }
-         }else{
-          echo '<tr>
-          <td colspan="10" align="center">Chưa có dữ liệu</td>
-          </tr>';
+                
+                </tr>';
+              }
+            }else{
+              echo '<tr>
+              <td colspan="10" align="center">Chưa có dữ liệu</td>
+              </tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+              foreach ($listData as $item) {
+                 $status= '<span class="text-danger">Chưa xử lý</span>';
+                if($item->status=='done'){ 
+                  $status= '<span class="text-success">Đã hoàn thành</span>';
+                }
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <p><strong> Thông tin khách hàng: </strong><a href="/listCustomerAgency?id='.$item->id_customer.'">'.$item->info_customer->full_name.'</a><br/>'.$item->info_customer->phone.'</p>
+                        <p><strong> Thời gian: </strong>'.date('H:i d/m/Y', $item->time_now).'</p>
+                        <p><strong> Nội dung: </strong>'.$item->note_now.'</p>
+                        <p><strong> Trạng thái: </strong>'.$status.'</p>
+
+                        </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
         }
-        ?>
-      </tbody>
-    </table>
-  </div>
+      ?>
+    </div>
 
   <!-- Phân trang -->
   <div class="demo-inline-spacing">
