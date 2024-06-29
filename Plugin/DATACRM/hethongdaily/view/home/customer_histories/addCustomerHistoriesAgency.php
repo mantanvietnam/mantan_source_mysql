@@ -21,12 +21,14 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Tên khách hàng (*) </label>
-                    <input type="text" required class="form-control" name="customer_buy" id="customer_buy" value="" />
-                    <input required type="hidden" class="form-control phone-mask" name="id_customer" id="id_customer" value="<?php if(!empty($data->id_customer)){ 
-                                    echo $data->id_customer; 
-                                  } elseif(!empty($_GET['id_customer'])){ 
-                                    echo (int) $_GET['id_customer'];
-                                  }?>" />
+                    <input type="text" required class="form-control" name="customer_buy" id="customer_buy" value="<?php if(!empty($checkCustomer)) echo $checkCustomer->full_name;?>" />
+                    <input required type="hidden" class="form-control phone-mask" name="id_customer" id="id_customer" value="<?php 
+                      if(!empty($data->id_customer)){ 
+                        echo $data->id_customer; 
+                      }elseif(!empty($_GET['id_customer'])){ 
+                        echo (int) $_GET['id_customer'];
+                      }
+                    ?>" />
 
                   </div>
 
@@ -39,6 +41,7 @@
                         <option value="message" <?php if(isset($data->status) && $data->status=='message') echo 'selected'; ?> >Nhắn tin</option>
                         <option value="go_meet" <?php if(isset($data->status) && $data->status=='go_meet') echo 'selected'; ?> >Đi gặp</option>
                         <option value="online_meeting" <?php if(isset($data->status) && $data->status=='online_meeting') echo 'selected'; ?> >Họp online</option>
+                        <option value="other" <?php if(isset($data->status) && $data->status=='other') echo 'selected'; ?> >Khác</option>
                       </select>
                     </div>
                   </div>

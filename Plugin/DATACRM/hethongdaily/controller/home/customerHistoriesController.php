@@ -168,11 +168,17 @@ function addCustomerHistoriesAgency($input)
             $data = $modelCustomerHistories->newEmptyEntity();
         }
 
+        $checkCustomer = [];
+        if(!empty($_GET['id_customer'])){
+            $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $_GET['id_customer']])->first();
+        }
+
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
 
             if(!empty($dataSend['id_customer']) && !empty($dataSend['time_now']) && !empty($dataSend['note_now']) && !empty($dataSend['action_now']) && !empty($dataSend['status'])){
                 $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id_customer']])->first();
+                
                 // tạo dữ liệu save
                 if(!empty($checkCustomer) && $checkCustomer->id_parent == $infoUser->id){
                     $data->id_customer = (int) $dataSend['id_customer'];
@@ -203,6 +209,7 @@ function addCustomerHistoriesAgency($input)
         setVariable('data', $data);
         setVariable('listGroupCustomer', $listGroupCustomer);
         setVariable('mess', $mess);
+        setVariable('checkCustomer', $checkCustomer);
     }else{
         return $controller->redirect('/login');
     }
