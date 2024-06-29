@@ -75,6 +75,7 @@
               <th>Danh mục</th>
               <th>Tên sản phẩm</th>
               <th>Giá bán</th>
+              <th>Đơn vị</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -98,7 +99,7 @@
                           <td>'.implode(', ', $category_name).'</td>
                           <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
                           <td> '.number_format($item->price).' đ</td>
-                          
+                          <td>'.$item->unit.'</td>
                           <td align="center">
                             <a class="dropdown-item" href="/addProductAgency/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>

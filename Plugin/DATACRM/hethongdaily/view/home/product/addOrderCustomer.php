@@ -163,7 +163,7 @@
                               <div id="tabs-1">
                                 <div class="row diagram">
                                     <?php foreach($listProduct as $key => $Product){ ?>
-                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price ?>, '');" id='product_<?php echo $Product->id ?>' >
+                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price ?>, '','<?php echo @$Product->unit ?>');" id='product_<?php echo $Product->id ?>' >
                                             <div class="item_produc">
                                                 <div class="customer-name">
                                                     <span class="service_name"><?php echo $Product->title ?></span>
@@ -180,7 +180,7 @@
                               <div id="tabs-2">
                                 <div class="row diagram">
                                     <?php foreach($listProduct as $key => $Product){ ?>
-                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',0, 'free');" id='product_<?php echo $Product->id ?>_free' >
+                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',0, 'free','<?php echo @$Product->unit ?>');" id='product_<?php echo $Product->id ?>_free' >
                                             <div class="item_produc">
                                                 <div class="customer-name">
                                                     <span class="service_name"><?php echo $Product->title ?></span>
@@ -218,11 +218,12 @@
                     <div class="table-responsive">
                         <table class=" table-bordered">
                             <thead>
-                                <tr>
-                                    <th width="30%">Tên sản phẩm</th>
+                                 <tr>
+                                    <th width="20%">Tên sản phẩm</th>
                                     <th  width="15%">Số lượng</th>
-                                    <th  width="20%">Đơn giá</th>
-                                    <th  width="20%">Giảm giá</th>
+                                    <th  width="15%">Đơn giá</th>
+                                    <th  width="15%">Đơn vị</th>
+                                    <th  width="15%">Giảm giá</th>
                                     <th  width="15%">Thành tiền</th>
                                     <th  width="5%">Xóa</th>
                                 </tr>
@@ -423,7 +424,7 @@ var numberProduct= 0;
 var checkProduct= true;
 
 // add sản phẩm vào đơn hàng 
-function addProduct(id, name, priceProduct, type)
+function addProduct(id, name, priceProduct, type,unit)
 {
     var keyID = id+type;
 
@@ -457,6 +458,9 @@ function addProduct(id, name, priceProduct, type)
                 </td>\
                 <td>\
                     <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
+                </td>\
+                <td>\
+                    <input type="text" readonly value="'+unit+'" class="input_money form-control" name="v['+row+']" min="1" id="unit-'+row+'" onchange="tinhtien(1);">\
                 </td>\
                 <td>\
                     <input type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(1);">\
@@ -693,7 +697,7 @@ function addCustomer()
                 // add the selected item
                 terms.push( ui.item.label );
 
-                addProduct(ui.item.id,ui.item.title,ui.item.price);
+                addProduct(ui.item.id,ui.item.title,ui.item.price,'',ui.item.unit);
                 
                 $( "#searchProduct" ).val('');
                 return false;

@@ -795,6 +795,7 @@ function addProductAgency($input)
                 $data->price_old = (int) @$dataSend['price_old'];
                 $data->quantity = 1000000;
                 $data->status = 'active';
+                $data->unit = @$dataSend['unit'];
                 $data->id_category = (int) @$dataSend['id_category'][0];
 
                 $data->hot = 0;
@@ -1026,11 +1027,12 @@ function addDataProductAgency(){
                 foreach ($dataSeries as $key => $value) {
                     if(!empty($value[0]) && !empty($value[1])){
                         $data = $modelProduct->newEmptyEntity();
-                        $id_category = explode(',' , $value[4]);
+                        $id_category = explode(',' , $value[5]);
                         $data->title = str_replace(array('"', "'"), '’', @$value[0]);
-                        $data->description = @$value[5];
-                        $data->info = @$value[6];
-                        $data->image = $value[7];
+                        $data->description = @$value[6];
+                        $data->info = @$value[7];
+                        $data->image = $value[8];
+                        $data->unit = $value[4];
                         $data->evaluate = '';
                         $data->code = @strtoupper($value[1]);
                         $data->price = (int) @$value[2];

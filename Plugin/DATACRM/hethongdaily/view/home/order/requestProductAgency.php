@@ -66,89 +66,8 @@
   <div class="card row">
     <h5 class="card-header">Danh sách yêu cầu nhập hàng</h5>
     <p>Quy trình: đơn mới -> duyệt đơn -> giao hàng -> hoàn thành -> nhập hàng vào kho</p>
-<<<<<<< Updated upstream
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th width="5%">ID</th>
-            <th width="15%">Thời gian tạo</th>
-            <th width="40%" style=" padding: 0; ">
-              <table  class="table table-borderless" >
-                <thead>
-                  <th colspan="3" class="text-center">Thông tin đơn hàng</th> 
-                  <tr>
-                    <th width="50%">Sản phẩm</th>
-                    <th width="25%">Giá nhập</th>
-                    <th width="25%">Số lượng </th>
-                  </tr>
-                </thead>
-              </table>
-            </th>
-            <th width="10%">Thành tiền</th>
-            <th width="10%">Chiết khấu</th>
-            <th width="10%">Trạng thái</th>
-            <th width="10%">Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          if(!empty($listData)){
-            foreach ($listData as $item) {
-              $status= '';
-              if($item->status=='new'){ 
-               $status= '<p style="color: #00aeee;">Đơn mới</p>';
-              }elseif($item->status=='browser'){
-               $status= '<p style="color: #0333f6;">Đã duyệt</p>';
-              }elseif($item->status=='delivery'){
-               $status= '<p style="color: #7503f6;">Đang giao</p>';
-              }elseif($item->status=='done'){
-               $status= '<p style="color: #00ee4b;">Đã xong</p>';
-              }else{
-               $status= '<p style="color: red;">Đã hủy</p>';
-              }
 
-              $statusPay= '';
-              if($item->status_pay=='wait'){ 
-               $statusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
-              }elseif($item->status_pay=='done'){
-               $statusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
-              }
-
-              $action = '';
-              if($item->status!='done' && $item->status!='cancel'){
-                $action = '<a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=done" class="btn btn-danger">Nhập kho</a>';
-              }
-              
-              echo '<tr>
-              <td>'.$item->id.'</td>
-              <td>'.date('H:i d/m/Y', $item->create_at).'</td>
-              <td style=" padding: 0;display: contents; ">
-                <table  class="table table-borderless">
-                  <tbody>';
-                    if(!empty($item->detail_order)){ 
-                      foreach($item->detail_order as $k => $value){
-                        if($value->discount > 0){
-                          $priceBuy = $value->price;
-                          $priceDiscount = $value->discount;
-
-                          if($priceDiscount<=100){
-                              $priceDiscount= $priceBuy*$value->discount/100;
-                          }
-                          $priceBuy-= $priceDiscount;
-                        }else{
-                          $priceBuy = $value->price;
-                        }
-                        echo '<tr> 
-                                <td  width="50%">'.$value->product.'</td>
-                                <td  width="25%">'.number_format($priceBuy).'đ</td>
-                                <td  width="25%" align="center">'.$value->quantity.'</td>
-                              </tr>';
-                      }
-                    } 
-                echo '  </tbody>
-=======
-     <div id="desktop_view"> 
+    <div id="desktop_view"> 
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
@@ -165,7 +84,6 @@
                       <th width="25%">Số lượng </th>
                     </tr>
                   </thead>
->>>>>>> Stashed changes
                 </table>
               </th>
               <th width="10%">Thành tiền</th>

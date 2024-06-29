@@ -31,6 +31,7 @@ $sqlInstallDatabase .= "CREATE TABLE `products` (
     `idpro_discount`  VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     `pricepro_discount` INT NULL DEFAULT NULL,
     `evaluate` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, 
+    `unit` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     `price_fash` INT NULL DEFAULT NULL, 
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
@@ -165,6 +166,7 @@ $sqlUpdateDatabase['products']['idpro_discount'] = "ALTER TABLE `products` ADD `
 $sqlUpdateDatabase['products']['pricepro_discount'] = "ALTER TABLE `products` ADD `pricepro_discount` INT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['products']['evaluate'] = "ALTER TABLE `products` ADD `evaluate` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL; ";
 $sqlUpdateDatabase['products']['price_fash'] = "ALTER TABLE `products` ADD `price_fash` INT NULL DEFAULT NULL; ";
+$sqlUpdateDatabase['products']['unit'] = "ALTER TABLE `products` ADD `unit` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL
 
 // Bang orders
 $sqlUpdateDatabase['orders']['id_user'] = "ALTER TABLE `orders` ADD `id_user` INT NULL DEFAULT '0' ; ";
