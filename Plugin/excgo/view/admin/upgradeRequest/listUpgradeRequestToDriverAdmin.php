@@ -69,13 +69,13 @@
                 <tbody>
                 <?php
                 if (!empty($listData)) {
-                    // debug($listData);
+                     // debug($listData);
                     foreach ($listData as $item) {
                         if ($item->status == 1) {
                             $status = '
                   <a class="btn btn-success"  title="Khóa tài khoản" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');"
-                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=0"
+                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin/?id=' . $item->us['id'] . '&status=0"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Đã kích hoạt ';
@@ -83,7 +83,7 @@
                             $status = '
                   <a class=" btn btn-danger"  title="Kích hoạt tài khoản" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt người dùng không?\');" 
-                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=1"
+                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin/?id=' . $item->us['id'] . '&status=1"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Đã khóa ';
@@ -91,23 +91,24 @@
 
                         echo '<tr>
                         <td align="center">' . $item->id . '</td>
-                        <td align="center"><img src="' . $item->avatar . '" width="100" /></td>
+                        <td align="center"><img src="' . $item->us['avatar'] . '" width="100" /></td>
                         <td>
-                          ' . $item->name . '
+                          ' . $item->us['name'] . '
                           </br>
-                          ' . $item->phone_number . ' 
+                          ' . $item->us['phone_number'] . ' 
                           </br>
-                          ' . $item->email . ' 
+                          ' . $item->us['email'] . ' 
                         </td>
                         <td>
-                          Số dư: ' . number_format($item->total_coin) . ' đ
+                          Số dư: ' . number_format($item->us['total_coin']) . ' đ
                           <br>
-                          Địa chỉ: ' . $item->address . '
+                          Địa chỉ: ' . $item->us['address'] . '</br>
+                          Thời gian: '.$item->created_at->i18nFormat('yyyy-MM-dd HH:mm:ss').'
                         </td>
                         <td> 
                         <p align="center">
                         <a class="btn btn-primary" 
-                          href="/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=' . $item->id . '"
+                          href="/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=' . $item->us['id'] . '"
                         >
                           <i class="bx bx-show-alt me-1" style="font-size: 22px;"></i>
                         </a>
