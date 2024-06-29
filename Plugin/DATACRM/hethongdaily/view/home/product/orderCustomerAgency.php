@@ -280,11 +280,13 @@
                           </p>
                           <p><strong>Tổng tiền: </strong>'.number_format($item->total).'</p>
 
-                          <p><strong>Trạng thái: </strong>'.$status.$statusPay.'</p>
-                          <p align="center">'.$btnProcess.$btnPay.'</p> 
-                          <p align="center"><a class="btn btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderCustomerAgency/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i> Xóa
-                          </a></p>
+                          <p><strong>Trạng thái: </strong>'.$status.' '.$statusPay.'</p>
+                          <p align="center">'.$btnProcess.'&nbsp;&nbsp;'.$btnPay.'</p> 
+                          <p align="center">
+                            <a class="btn btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderCustomerAgency/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i> Xóa
+                            </a>
+                          </p>
                         </div>';
           }
          

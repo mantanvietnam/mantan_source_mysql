@@ -73,19 +73,19 @@
                 $idOrder= '';
                 
                 if($item->type == 'minus'){
-                  $type= '<p class="text-danger">Xuất</p>';
+                  $type= '<span class="text-danger">Xuất</span>';
                   $idOrder = '<a href="/orderCustomerAgency/?id='.$item->id_order.'">'.$item->id_order.'</a>';
                 }elseif($item->type == 'plus'){
-                  $type= '<p class="text-success">Nhập</p>';
+                  $type= '<span class="text-success">Nhập</span>';
                   $idOrder = '<a href="/requestProductAgency/?id='.$item->id_order_member.'">'.$item->id_order_member.'</a>';
                 }
 
 
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <center><img src="'.$item->product->image.'" style="width:50%;" /></center>
                         <p><strong>ID: </strong>'.$item->id.'</p>
                         <p><strong>Thời gian: </strong>'.date('H:i d/m/Y', $item->create_at).'</p>
-                        <p align="center"><img src="'.$item->product->image.'" style="width:100%;" /></p>
                         <p><strong>Hàng hóa: </strong>'.$item->product->title.'</p>
                         <p><strong>Kiểu giao dịch: </strong>'.$type.'</p>
                         <p><strong>Số lượng: </strong>'.number_format($item->quantity).'</p>

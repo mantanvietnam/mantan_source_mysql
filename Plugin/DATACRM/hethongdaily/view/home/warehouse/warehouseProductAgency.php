@@ -60,8 +60,8 @@
               foreach ($listData as $item) {
                 
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <center><img src="'.$item->product->image.'" style="width:50%;" /></center>
                         <p><strong>ID: </strong>'.$item->id.'</p>
-                        <p align="center"><img src="'.$item->product->image.'" style="width:100%;" /></p>
                         <p><strong>Sản phẩm: </strong>'.$item->product->title.'</td>
                         <p><strong>Số lượng: </strong>'.number_format($item->quantity).'</p>
                         <p><strong>Giá bán: </strong>'.number_format($item->product->price).'</p>
