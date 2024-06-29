@@ -152,7 +152,7 @@
                         echo '<tr> 
                                 <td  width="40%">'.$value->product.'</td>
                                 <td  width="40%">'.$showPrice.'</td>
-                                <td  width="20%" align="center">'.$value->quantity.'</td>
+                                <td  width="20%" align="center">'.number_format($value->quantity).'</td>
                               </tr>';
                       }
                     } 

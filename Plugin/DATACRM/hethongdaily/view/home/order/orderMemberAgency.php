@@ -177,7 +177,7 @@
                         echo '<tr> 
                                 <td  width="40%">'.$value->product.'</td>
                                 <td  width="40%">'.$showPrice.'</td>
-                                <td  width="20%" align="center">'.$value->quantity.'</td>
+                                <td  width="20%" align="center">'.number_format($value->quantity).'</td>
                               </tr>';
                   }
                 } 
@@ -273,7 +273,7 @@
                               echo '<tr> 
                               <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$value->product.'</td>
                               <td  width="30%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.number_format($value->price).'đ</td>
-                              <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$value->quantity.'</td>
+                              <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.number_format($value->quantity).'</td>
                               <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$discount.'</td>
                               </tr>';
                             }

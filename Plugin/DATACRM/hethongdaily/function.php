@@ -975,7 +975,7 @@ function listBank()
 function listThemeInfo(){
     return [ 
         ['id' => 1, 'name' => 'Theme info 1 ', 'code' => 'themeifo1', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them1.jpg','price'=>0],
-        ['id' => 2, 'name' => 'Theme info 2 ', 'code' => 'themeifo2', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them2.jpg','price'=>99000],
+        ['id' => 2, 'name' => 'Theme info 2 ', 'code' => 'themeifo2', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them2.jpg','price'=>499000],
 
     ];
 }
