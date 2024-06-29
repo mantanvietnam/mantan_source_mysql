@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 28, 2024 at 02:31 AM
+-- Generation Time: Jun 29, 2024 at 11:25 PM
 -- Server version: 10.6.12-MariaDB
 -- PHP Version: 8.1.17
 
@@ -700,7 +700,8 @@ CREATE TABLE `products` (
   `idpro_discount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pricepro_discount` int(11) DEFAULT NULL,
   `evaluate` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `price_fash` int(11) DEFAULT NULL
+  `price_fash` int(11) DEFAULT NULL,
+  `unit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
