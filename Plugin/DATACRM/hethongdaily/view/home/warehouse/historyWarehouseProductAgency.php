@@ -12,57 +12,96 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Lịch sử xuất nhập tồn</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th width="5%">ID</th>
-            <th width="10%">Thời gian</th>
-            <th width="10%">Hình ảnh</th>
-            <th width="15%">Hàng hóa</th>
-            <th width="10%">Kiểu giao dịch</th>
-            <th width="10%">Số lượng</th>
-            <th width="25%">Ghi chú</th>
-            <th width="10%">Đơn hàng</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          if(!empty($listData)){
-            foreach ($listData as $item) {
-              $type= '';
-              $idOrder= '';
-              
-              if($item->type == 'minus'){
-                $type= '<p class="text-danger">Xuất</p>';
-                $idOrder = '<a href="/orderCustomerAgency/?id='.$item->id_order.'">'.$item->id_order.'</a>';
-              }elseif($item->type == 'plus'){
-                $type= '<p class="text-success">Nhập</p>';
-                $idOrder = '<a href="/requestProductAgency/?id='.$item->id_order_member.'">'.$item->id_order_member.'</a>';
-              }
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th width="5%">ID</th>
+              <th width="10%">Thời gian</th>
+              <th width="10%">Hình ảnh</th>
+              <th width="15%">Hàng hóa</th>
+              <th width="10%">Kiểu giao dịch</th>
+              <th width="10%">Số lượng</th>
+              <th width="25%">Ghi chú</th>
+              <th width="10%">Đơn hàng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+            if(!empty($listData)){
+              foreach ($listData as $item) {
+                $type= '';
+                $idOrder= '';
+                
+                if($item->type == 'minus'){
+                  $type= '<p class="text-danger">Xuất</p>';
+                  $idOrder = '<a href="/orderCustomerAgency/?id='.$item->id_order.'">'.$item->id_order.'</a>';
+                }elseif($item->type == 'plus'){
+                  $type= '<p class="text-success">Nhập</p>';
+                  $idOrder = '<a href="/requestProductAgency/?id='.$item->id_order_member.'">'.$item->id_order_member.'</a>';
+                }
 
 
-              echo '<tr>
-              <td>'.$item->id.'</td>
-              <td>'.date('H:i d/m/Y', $item->create_at).'</td>
-              <td align="center"><img src="'.$item->product->image.'" width="100" /></td>
-              <td>'.$item->product->title.'</td>
-              <td>'.$type.'</td>
-              <td>'.number_format($item->quantity).'</td>
-              <td>'.$item->note.'</td>
-              <td>'.$idOrder.'</td>
-             
-             </tr>';
-           }
-         }else{
-          echo '<tr>
-          <td colspan="10" align="center">Chưa có dữ liệu</td>
-          </tr>';
+                echo '<tr>
+                <td>'.$item->id.'</td>
+                <td>'.date('H:i d/m/Y', $item->create_at).'</td>
+                <td align="center"><img src="'.$item->product->image.'" width="100" /></td>
+                <td>'.$item->product->title.'</td>
+                <td>'.$type.'</td>
+                <td>'.number_format($item->quantity).'</td>
+                <td>'.$item->note.'</td>
+                <td>'.$idOrder.'</td>
+               
+               </tr>';
+             }
+           }else{
+            echo '<tr>
+            <td colspan="10" align="center">Chưa có dữ liệu</td>
+            </tr>';
+          }
+          ?>
+        </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+              foreach ($listData as $item) {
+                $type= '';
+                $idOrder= '';
+                
+                if($item->type == 'minus'){
+                  $type= '<p class="text-danger">Xuất</p>';
+                  $idOrder = '<a href="/orderCustomerAgency/?id='.$item->id_order.'">'.$item->id_order.'</a>';
+                }elseif($item->type == 'plus'){
+                  $type= '<p class="text-success">Nhập</p>';
+                  $idOrder = '<a href="/requestProductAgency/?id='.$item->id_order_member.'">'.$item->id_order_member.'</a>';
+                }
+
+
+                  
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <p><strong>ID: </strong>'.$item->id.'</p>
+                        <p><strong>Thời gian: </strong>'.date('H:i d/m/Y', $item->create_at).'</p>
+                        <p align="center"><img src="'.$item->product->image.'" style="width:100%;" /></p>
+                        <p><strong>Hàng hóa: </strong>'.$item->product->title.'</p>
+                        <p><strong>Kiểu giao dịch: </strong>'.$type.'</p>
+                        <p><strong>Số lượng: </strong>'.number_format($item->quantity).'</p>
+                        <p><strong>Ghi chú: </strong>'.$item->note.'</p>
+                        <p><strong>Đơn hàng: </strong>'.$idOrder.'</p>
+
+                        </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
         }
-        ?>
-      </tbody>
-    </table>
-  </div>
+      ?>
+    </div>
 
   <!-- Phân trang -->
   <div class="demo-inline-spacing">

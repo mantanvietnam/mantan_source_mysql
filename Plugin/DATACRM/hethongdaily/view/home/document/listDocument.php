@@ -55,40 +55,64 @@
     </ul>
     <div class="tab-content">
       <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
+
         <div class="card-body row">
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <tr class="">
-                  <th>ID</th>
-                  <th>Tiêu đề</th>
-                  <th><?php echo $title ?></th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php 
-                  if(!empty($conditioneverybody)){
-                    foreach ($conditioneverybody as $item) {
+          <div id="desktop_view">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr class="">
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                    <th><?php echo $title ?></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php 
+                    if(!empty($conditioneverybody)){
+                      foreach ($conditioneverybody as $item) {
+                        echo '<tr>
+                                <td>'.$item->id.'</td>
+                                <td>
+                                  '.$item->title.'
+                                  <p>Ngày tạo: '.date('d/m/Y', $item->created_at).'</p>
+                                </td>
+                                <td><a href="/list'.$slug.'info?id_document='.$item->id.'">'.$item->number_document.'</a></td>
+                                
+                              </tr>';
+                      }
+                    }else{
                       echo '<tr>
-                              <td>'.$item->id.'</td>
-                              <td>
-                                <a target="_blank" href="/'.$item->slug.'.html">'.$item->title.'</a>
-                                <p>Ngày tạo: '.date('d/m/Y', $item->created_at).'</p>
-                              </td>
-                              <td><a href="/list'.$slug.'info?id_document='.$item->id.'">'.$item->number_document.'</a></td>
-                              
+                              <td colspan="5" align="center">Chưa có dữ liệu nào! </td>
                             </tr>';
                     }
-                  }else{
-                    echo '<tr>
-                            <td colspan="5" align="center">Chưa có dữ liệu nào! </td>
-                          </tr>';
-                  }
-                ?>
-              </tbody>
-            </table>
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
+          <div id="mobile_view">
+      <?php 
+         if(!empty($conditioneverybody)){
+              foreach ($conditioneverybody as $item) {
+                
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <p><strong>ID: </strong>'.$item->id.'</p>
+                        <p><strong>Tiêu đề: </strong>'.$item->title.'</p>
+                        <p><strong>Thời gian: </strong>'.date('d/m/Y', $item->created_at).'</td>
+                        <p><strong>'.$title.': </strong><a href="/list'.$slug.'info?id_document='.$item->id.'">'.$item->number_document.'</a></p>
+                       
 
+                        </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+        }
+      ?>
+    </div>
           <!-- Phân trang -->
           <div class="demo-inline-spacing">
             <nav aria-label="Page navigation">
@@ -136,6 +160,7 @@
       </div>
       <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
         <div class="card-body row">
+          <div id="desktop_views">
           <div class="table-responsive">
             <table class="table table-bordered">
               <thead>
@@ -179,6 +204,35 @@
               </tbody>
             </table>
           </div>
+        </div>
+            <div id="mobile_views">
+      <?php 
+         if(!empty($listData)){
+              foreach ($listData as $item) {
+                
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <p><strong>ID: </strong>'.$item->id.'</p>
+                        <p><strong>Tiêu đề: </strong>'.$item->title.'</p>
+                        <p><strong>Thời gian: </strong>'.date('d/m/Y', $item->created_at).'</td>
+                        <p><strong>'.$title.': </strong><a href="/list'.$slug.'info?id_document='.$item->id.'">'.$item->number_document.'</a></p>
+                        <p align="center">
+                                <a class="dropdown-item" href="/add'.$slug.'?id='.$item->id.'">
+                                  <i class="bx bx-edit-alt me-1"></i>
+                                </a><a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="deleteDocument?type='.$type.'&id='.$item->id.'">
+                                  <i class="bx bx-trash me-1"></i>
+                                </a>
+                              </p>
+
+                        </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+        }
+      ?>
+    </div>
 
           <!-- Phân trang -->
          <!--  <div class="demo-inline-spacing">
@@ -229,5 +283,15 @@
   </div>
   <!--/ Responsive Table -->
 </div>
-
+    <script type="text/javascript">
+      $(document).ready(function() {
+  if($(window).width()<1024){
+    $('#desktop_views').remove();
+    $('#mobile_views').show();
+  }else{
+    $('#mobile_views').remove();
+    $('#desktop_views').show();
+  }
+});
+    </script>
 <?php include(__DIR__.'/../footer.php'); ?>

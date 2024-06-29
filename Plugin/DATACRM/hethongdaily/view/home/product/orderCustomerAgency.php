@@ -69,122 +69,221 @@
   <div class="card row">
     <h5 class="card-header">Danh sách đơn hàng</h5>
     <p>Quy trình: đơn mới -> duyệt đơn -> giao hàng -> hoàn thành</p>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th width="5%">ID</th>
-            <th width="20%">Thông tin giao hàng</th>
-            <th width="35%" style=" padding: 0; ">
-              <table  class="table table-borderless" >
-                <thead>
-                  <th colspan="4" class="text-center">thông tin đơn hàng</th> 
-                  <tr>
-                    <th width="50%" style="padding: 0.625rem 0.4rem;">Sản phẩm</th>
-                    <th width="30%" style="padding: 0.625rem 0.4rem;">Giá bán</th>
-                    <th width="10%" style="padding: 0.625rem 0.4rem;">Số lượng </th>
-                    <th width="10%" style="padding: 0.625rem 0.4rem;">Giảm giá </th>
-                  </tr>
-                </thead>
-              </table>
-            </th>
-            <th width="10%">Số tiền</th>
-            <th width="10%">Thời gian tạo</th>
-            <th width="10%">Trạng thái</th>
-            <th width="5%">Xử lý</th>
-            <th width="5%">Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          if(!empty($listData)){
-            foreach ($listData as $item) {
-              $status= '';
-              $btnProcess= '';
-              $btnPay= '';
-
-              if($item->status_pay=='wait' && $item->status!='cancel'){
-                $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
-              }
-
-              if($item->status=='new'){ 
-               $status= '<p style="color: #00aeee;">Đơn mới</p>';
-
-               $btnProcess= '<a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
-              }elseif($item->status=='browser'){
-               $status= '<p style="color: #0333f6;">Đã duyệt</p>';
-
-               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateStatusOrderAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
-              }elseif($item->status=='delivery'){
-               $status= '<p style="color: #7503f6;">Đang giao</p>';
-
-               $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;"  href="/updateStatusOrderAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
-              }elseif($item->status=='done'){
-               $status= '<p style="color: #00ee4b;">Đã xong</p>';
-              }else{
-               $status= '<p style="color: red;">Đã hủy</p>';
-              }
-
-               $statusPay= '';
-              if($item->status_pay=='wait'){ 
-               $statusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
-              }elseif($item->status_pay=='done'){
-               $statusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
-              }
-              
-              echo '<tr>
-              <td>'.$item->id.'</td>
-             
-              <td>
-                <a href="/listCustomerAgency/?id='.$item->id_user.'">'.$item->full_name.'</a><br/>
-                '.$item->phone.'<br/>
-                '.$item->address.'<br/>
-                '.$item->email.'
-              </td>
-             
-              <td style=" padding: 0;display: contents; ">
-                <table  class="table table-borderless">
-                  <tbody>';
-                    if(!empty($item->detail_order)){ 
-                      foreach($item->detail_order as $k => $value){
-                        $discount= '';                        
-                        if($value->discount>100){
-                          $discount= number_format($value->discount).'đ';
-                        }elseif($value->discount>0){
-                          $discount= number_format($value->discount).'%';
-                        }
-
-                        echo '<tr> 
-                                <td  width="50%" style="padding: 0.625rem 0.4rem;">'.$value->product.'</td>
-                                <td  width="30%" style="padding: 0.625rem 0.4rem;">'.number_format($value->price).'đ</td>
-                                <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$value->quantity.'</td>
-                                <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$discount.'</td>
-                              </tr>';
-                      }
-                    } 
-                echo '  </tbody>
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th width="5%">ID</th>
+              <th width="20%">Thông tin giao hàng</th>
+              <th width="35%" style=" padding: 0; ">
+                <table  class="table table-borderless" >
+                  <thead>
+                    <th colspan="4" class="text-center">thông tin đơn hàng</th> 
+                    <tr>
+                      <th width="50%" style="padding: 0.625rem 0.4rem;">Sản phẩm</th>
+                      <th width="30%" style="padding: 0.625rem 0.4rem;">Giá bán</th>
+                      <th width="10%" style="padding: 0.625rem 0.4rem;">Số lượng </th>
+                      <th width="10%" style="padding: 0.625rem 0.4rem;">Giảm giá </th>
+                    </tr>
+                  </thead>
                 </table>
-              </td>
-              <td>'.number_format($item->total).'đ</td>
-              <td>'.date('H:i d/m/Y', $item->create_at).'</td>
-              <td align="center">'.$status.$statusPay.'</td>
-              <td align="center">'.$btnProcess.$btnPay.'</td>
-              <td align="center">
-                <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderCustomerAgency/?id='.$item->id.'">
-                  <i class="bx bx-trash me-1"></i>
-                </a>
-              </td>
-             </tr>';
-           }
-         }else{
-          echo '<tr>
-          <td colspan="10" align="center">Chưa có dữ liệu</td>
-          </tr>';
+              </th>
+              <th width="10%">Số tiền</th>
+              <th width="10%">Thời gian tạo</th>
+              <th width="10%">Trạng thái</th>
+              <th width="5%">Xử lý</th>
+              <th width="5%">Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+            if(!empty($listData)){
+              foreach ($listData as $item) {
+                $status= '';
+                $btnProcess= '';
+                $btnPay= '';
+
+                if($item->status_pay=='wait' && $item->status!='cancel'){
+                  $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
+                }
+
+                if($item->status=='new'){ 
+                 $status= '<p style="color: #00aeee;">Đơn mới</p>';
+
+                 $btnProcess= '<a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                }elseif($item->status=='browser'){
+                 $status= '<p style="color: #0333f6;">Đã duyệt</p>';
+
+                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateStatusOrderAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                }elseif($item->status=='delivery'){
+                 $status= '<p style="color: #7503f6;">Đang giao</p>';
+
+                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;"  href="/updateStatusOrderAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                }elseif($item->status=='done'){
+                 $status= '<p style="color: #00ee4b;">Đã xong</p>';
+                }else{
+                 $status= '<p style="color: red;">Đã hủy</p>';
+                }
+
+                 $statusPay= '';
+                if($item->status_pay=='wait'){ 
+                 $statusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
+                }elseif($item->status_pay=='done'){
+                 $statusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
+                }
+                
+                echo '<tr>
+                <td>'.$item->id.'</td>
+               
+                <td>
+                  <a href="/listCustomerAgency/?id='.$item->id_user.'">'.$item->full_name.'</a><br/>
+                  '.$item->phone.'<br/>
+                  '.$item->address.'<br/>
+                  '.$item->email.'
+                </td>
+               
+                <td style=" padding: 0;display: contents; ">
+                  <table  class="table table-borderless">
+                    <tbody>';
+                      if(!empty($item->detail_order)){ 
+                        foreach($item->detail_order as $k => $value){
+                          $discount= '';                        
+                          if($value->discount>100){
+                            $discount= number_format($value->discount).'đ';
+                          }elseif($value->discount>0){
+                            $discount= number_format($value->discount).'%';
+                          }
+
+                          echo '<tr> 
+                                  <td  width="50%" style="padding: 0.625rem 0.4rem;">'.$value->product.'</td>
+                                  <td  width="30%" style="padding: 0.625rem 0.4rem;">'.number_format($value->price).'đ</td>
+                                  <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$value->quantity.'</td>
+                                  <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$discount.'</td>
+                                </tr>';
+                        }
+                      } 
+                  echo '  </tbody>
+                  </table>
+                </td>
+                <td>'.number_format($item->total).'đ</td>
+                <td>'.date('H:i d/m/Y', $item->create_at).'</td>
+                <td align="center">'.$status.$statusPay.'</td>
+                <td align="center">'.$btnProcess.$btnPay.'</td>
+                <td align="center">
+                  <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderCustomerAgency/?id='.$item->id.'">
+                    <i class="bx bx-trash me-1"></i>
+                  </a>
+                </td>
+               </tr>';
+             }
+           }else{
+            echo '<tr>
+            <td colspan="10" align="center">Chưa có dữ liệu</td>
+            </tr>';
+          }
+          ?>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+              foreach ($listData as $item) {
+                $status= '';
+                $btnProcess= '';
+                $btnPay= '';
+
+                if($item->status_pay=='wait' && $item->status!='cancel'){
+                  $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
+                }
+
+                if($item->status=='new'){ 
+                 $status= '<p style="color: #00aeee;">Đơn mới</p>';
+
+                 $btnProcess= '<a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                }elseif($item->status=='browser'){
+                 $status= '<p style="color: #0333f6;">Đã duyệt</p>';
+
+                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateStatusOrderAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                }elseif($item->status=='delivery'){
+                 $status= '<p style="color: #7503f6;">Đang giao</p>';
+
+                 $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;"  href="/updateStatusOrderAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                }elseif($item->status=='done'){
+                 $status= '<p style="color: #00ee4b;">Đã xong</p>';
+                }else{
+                 $status= '<p style="color: red;">Đã hủy</p>';
+                }
+
+                 $statusPay= '';
+                if($item->status_pay=='wait'){ 
+                 $statusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
+                }elseif($item->status_pay=='done'){
+                 $statusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
+                }
+
+                  
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                      <p><strong>ID đơn hàng: </strong><a href="/printBillOrderCustomerAgency/?id_order='.$item->id.'" target="_blank">'.$item->id.'</a></p>
+                          <p><strong>Thời gian: </strong>'.date('H:i d/m/Y', $item->create_at).'</p>
+                          <p><strong>Thông tin khách hàng: </strong>
+                          <a href="/listCustomerAgency/?id='.$item->id_user.'">'.$item->full_name.'</a><br/>
+                              '.$item->phone.'<br/>
+                              '.$item->address.'<br/>
+                              '.$item->email.'
+                          </p>
+                          <p style=" padding: 0;display: contents; ">
+                          <table  class="table">
+                            <thead style="border-width: 3px;">
+                              <th colspan="4" class="text-center">Thông tin đơn hàng</th> 
+                              <tr>
+                                <th width="50%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Sản phẩm</th>
+                                <th width="30%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Giá bán</th>
+                                <th width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Số lượng</th>
+                                <th width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Giảm giá</th>
+                              </tr>
+                            </thead>
+                          <tbody style="border-width: 3px;">';
+                          if(!empty($item->detail_order)){ 
+                            foreach($item->detail_order as $k => $value){
+                              $discount= '';                        
+                              if($value->discount>100){
+                                $discount= number_format($value->discount).'đ';
+                              }elseif($value->discount>0){
+                                $discount= number_format($value->discount).'%';
+                              }
+
+                              echo '<tr> 
+                              <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$value->product.'</td>
+                              <td  width="30%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.number_format($value->price).'đ</td>
+                              <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$value->quantity.'</td>
+                              <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$discount.'</td>
+                              </tr>';
+                            }
+                          } 
+                          echo '  </tbody>
+                          </table>
+                          </p>
+                          <p><strong>Tổng tiền: </strong>'.number_format($item->total).'</p>
+
+                          <p><strong>Trạng thái: </strong>'.$status.$statusPay.'</p>
+                          <p align="center">'.$btnProcess.$btnPay.'</p> 
+                          <p align="center"><a class="btn btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderCustomerAgency/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i> Xóa
+                          </a></p>
+                        </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
         }
-        ?>
-      </tbody>
-    </table>
-  </div>
+      ?>
+    </div>
+
 
   <!-- Phân trang -->
   <div class="demo-inline-spacing">

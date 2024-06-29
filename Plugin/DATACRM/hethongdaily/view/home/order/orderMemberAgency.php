@@ -234,7 +234,7 @@
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
                       <p><strong>ID đơn hàng: </strong><a href="/printBillOrderMemberAgency/?id_order_member='.$item->id.'" target="_blank">'.$item->id.'</a></p>
                           <p><strong>Thời gian: </strong>'.date('H:i d/m/Y', $item->create_at).'</p>
-                          <p><strong>Thông tin khách hàng: </strong>
+                          <p><strong>Thông tin đại lý: </strong>
                           '.$item->buyer->name.'<br/>
                           '.$item->buyer->phone.'
                           </p>

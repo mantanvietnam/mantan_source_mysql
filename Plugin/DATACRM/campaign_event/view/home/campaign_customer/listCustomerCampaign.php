@@ -113,80 +113,134 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách khách đăng ký - <?php echo number_format($totalData)?></h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th width="50">Mã khách</th>
-            <th>Checkin</th>
-            <th>Khách đăng ký</th>
-            <th>Khu vực</th>
-            <th>Đội nhóm</th>
-            <th>Hạng vé</th>
-            <th width="250">Chăm sóc</th>
-            <th width="50">Sửa</th>
-            <th width="50">Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          if(!empty($listData)){
-            foreach ($listData as $item) {
-              $checkin = '<a class="btn btn-primary" href="/checkinCampaign/?id='.$item->id.'&checkin=true">Checkin</a>';
-              if(!empty($item->time_checkin)){
-                $checkin = '<p class="text-danger">'.date("H:i d/m/Y", $item->time_checkin).'</p><br/><a onclick="return confirm(\'Bạn có chắc chắn muốn hủy checkin không?\');" class="btn btn-danger" href="/checkinCampaign/?id='.$item->id.'">Hủy checkin</a>';
-              }
-
-              $history = '';
-              if(!empty($item->history)){
-                $status_history = 'text-danger';
-
-                if($item->history->status == 'done'){
-                  $status_history = 'text-success';
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th width="50">Mã khách</th>
+              <th>Checkin</th>
+              <th>Khách đăng ký</th>
+              <th>Khu vực</th>
+              <th>Đội nhóm</th>
+              <th>Hạng vé</th>
+              <th width="250">Chăm sóc</th>
+              <th width="50">Sửa</th>
+              <th width="50">Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+            if(!empty($listData)){
+              foreach ($listData as $item) {
+                $checkin = '<a class="btn btn-primary" href="/checkinCampaign/?id='.$item->id.'&checkin=true">Checkin</a>';
+                if(!empty($item->time_checkin)){
+                  $checkin = '<p class="text-danger">'.date("H:i d/m/Y", $item->time_checkin).'</p><br/><a onclick="return confirm(\'Bạn có chắc chắn muốn hủy checkin không?\');" class="btn btn-danger" href="/checkinCampaign/?id='.$item->id.'">Hủy checkin</a>';
                 }
 
-                $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
-              }
+                $history = '';
+                if(!empty($item->history)){
+                  $status_history = 'text-danger';
 
-              echo '<tr>
-                      <td>'.$item->id_customer.'</td>
-                      <td><p class="text-success">'.date("d/m/Y", $item->create_at).'</p>'.$checkin.'</td>
-                      <td>'.$item->customer_name.'<br/>'.$item->customer_phone.'</td>
-                      <td>'.@$infoCampaign->location[$item->id_location].'</td>
-                      <td>'.@$infoCampaign->team[$item->id_team]['name'].'</td>
-                      <td>'.@$infoCampaign->ticket[$item->id_ticket]['name'].'</td>
+                  if($item->history->status == 'done'){
+                    $status_history = 'text-success';
+                  }
 
-                      <td>
+                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
+                }
+
+                echo '<tr>
+                        <td>'.$item->id_customer.'</td>
+                        <td><p class="text-success">'.date("d/m/Y", $item->create_at).'</p>'.$checkin.'</td>
+                        <td>'.$item->customer_name.'<br/>'.$item->customer_phone.'</td>
+                        <td>'.@$infoCampaign->location[$item->id_location].'</td>
+                        <td>'.@$infoCampaign->team[$item->id_team]['name'].'</td>
+                        <td>'.@$infoCampaign->ticket[$item->id_ticket]['name'].'</td>
+
+                        <td>
+                          '.$history.'
+                          <p class="text-center mt-3">
+                            <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
+                            <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-danger"><i class="bx bx-list-ul" ></i></a>
+                          </p>
+                        </td>
+
+                        <td align="center">
+                          <a class="dropdown-item" href="/addCustomerCampaign/?id='.$item->id.'&id_campaign='.$infoCampaign->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a>
+                        </td>
+
+                        <td align="center">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerCampaign/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
+                        </td>
+                       </tr>';
+             }
+           }else{
+            echo '<tr>
+            <td colspan="10" align="center">Chưa có dữ liệu</td>
+            </tr>';
+          }
+          ?>
+        </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+              foreach ($listData as $item) {
+                 $checkin = '<a class="btn btn-primary" href="/checkinCampaign/?id='.$item->id.'&checkin=true">Checkin</a>';
+                if(!empty($item->time_checkin)){
+                  $checkin = '<p class="text-danger">'.date("H:i d/m/Y", $item->time_checkin).'</p><br/><a onclick="return confirm(\'Bạn có chắc chắn muốn hủy checkin không?\');" class="btn btn-danger" href="/checkinCampaign/?id='.$item->id.'">Hủy checkin</a>';
+                }
+
+                $history = '';
+                if(!empty($item->history)){
+                  $status_history = 'text-danger';
+
+                  if($item->history->status == 'done'){
+                    $status_history = 'text-success';
+                  }
+
+                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
+                }
+                  
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                       <p><strong>ID: </strong>'.$item->id_customer.'</p>
+                       <p><strong>Checkin: </strong>'.date("d/m/Y", $item->create_at).' '.$checkin.'</p>
+                       <p><strong>Khách đăng ký: </strong>'.$item->customer_name.'<br/>'.$item->customer_phone.'</p>
+                       <p><strong>Khu vực: </strong>'.@$infoCampaign->location[$item->id_location].'</p>
+                       <p><strong>Đội nhóm: </strong>'.@$infoCampaign->team[$item->id_team]['name'].'</p>
+                       <p><strong>Hạng vé:  </strong>'.@$infoCampaign->ticket[$item->id_ticket]['name'].'</p>
+
+                       <p><strong>Chăm sóc </strong>
                         '.$history.'
                         <p class="text-center mt-3">
                           <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
                           <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-danger"><i class="bx bx-list-ul" ></i></a>
                         </p>
-                      </td>
+                      </p>
 
-                      <td align="center">
+                        <p align="center">
                         <a class="dropdown-item" href="/addCustomerCampaign/?id='.$item->id.'&id_campaign='.$infoCampaign->id.'">
                           <i class="bx bx-edit-alt me-1"></i>
-                        </a>
-                      </td>
-
-                      <td align="center">
-                        <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerCampaign/?id='.$item->id.'">
+                        </a>  <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerCampaign/?id='.$item->id.'">
                           <i class="bx bx-trash me-1"></i>
                         </a>
-                      </td>
-                     </tr>';
-           }
-         }else{
-          echo '<tr>
-          <td colspan="10" align="center">Chưa có dữ liệu</td>
-          </tr>';
+                      </p>
+                      </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
         }
-        ?>
-      </tbody>
-    </table>
-  </div>
-
+      ?>
+    </div>
   <!-- Phân trang -->
   <div class="demo-inline-spacing">
     <nav aria-label="Page navigation">
