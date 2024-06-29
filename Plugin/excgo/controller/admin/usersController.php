@@ -288,8 +288,7 @@ function listUpgradeRequestToDriverAdmin($input)
     if (isset($_GET['type']) && $_GET['type'] !== '' && is_numeric($_GET['type'])) {
         $conditions['us.type'] = $_GET['type'];
     }
-    // debug($conditions);
-    // die();
+
     $listData = $modelDriverRequest->find()->select(['DriverRequests.id','us.id','us.name', 'us.phone_number', 'us.email', 'us.avatar','us.total_coin','us.address','DriverRequests.created_at'])->join([
                             'table' => 'users',
                             'alias' => 'us',
@@ -298,7 +297,7 @@ function listUpgradeRequestToDriverAdmin($input)
                         ])->limit($limit)->page($page)->where($conditions)->order(['DriverRequests.created_at' => 'desc'])->all()->toList();
        
 
-    $totalUser = count($modelDriverRequest->find()->select(['DriverRequests.id','us.id','us.name', 'us.phone_number', 'us.email', 'us.avatar','DriverRequests.created_at'])->join([
+    $totalUser = count($modelDriverRequest->find()->join([
                             'table' => 'users',
                             'alias' => 'us',
                             'type' => 'INNER',
