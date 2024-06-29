@@ -51,7 +51,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Thời gian chăm sóc (*)</label>
-                    <input type="text" required class="form-control phone-mask datetimepicker" name="time_now" id="time_now" value="<?php if(!empty($data->time_now)) echo date('H:i d/m/Y', $data->time_now);?>" />
+                    <input type="text" autocomplete="off" required class="form-control phone-mask datetimepicker" name="time_now" id="time_now" value="<?php if(!empty($data->time_now)) echo date('H:i d/m/Y', $data->time_now);?>" />
                   </div>
 
                   <div class="mb-3">

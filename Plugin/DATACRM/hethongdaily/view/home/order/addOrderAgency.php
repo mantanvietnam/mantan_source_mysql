@@ -537,14 +537,14 @@ function tinhtien(checkDiscount)
                     money= number*price;
 
                     if(discount>=0 && discount<=100){
-                        discount= money*discount/100;
+                        discount= price*discount/100;
                     }
 
-                    money-= discount;
+                    money-= discount*number;
+                    
                     total+= money;
                 }
                 
-                 
                 money = new Intl.NumberFormat().format(money);
                 $('#totalmoney'+i).html(money+'đ');
             }

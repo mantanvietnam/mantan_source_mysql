@@ -3,7 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/orderCustomerAgency">Khách hàng</a> /</span>
+    <span class="text-muted fw-light"><a href="/listCustomerAgency">Khách hàng</a> /</span>
     Danh sách khách hàng
   </h4>
 
@@ -79,7 +79,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách khách hàng</h5>
+    <h5 class="card-header">Danh sách khách hàng - <span class="text-danger"><?php echo number_format($totalData);?> khách hàng</span></h5>
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">

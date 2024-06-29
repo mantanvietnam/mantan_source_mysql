@@ -527,10 +527,11 @@ function tinhtien()
                     money= number*price;
 
                     if(discount>=0 && discount<=100){
-                        discount= money*discount/100;
+                        discount= price*discount/100;
                     }
 
-                    money-= discount;
+                    money-= discount*number;
+                    
                     total+= money;
                 }
 

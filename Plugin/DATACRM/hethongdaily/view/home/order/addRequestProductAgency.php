@@ -317,7 +317,7 @@ function addProduct(id, name, priceProduct)
                     <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
                 </td>\
                 <td>\
-                    <input '+readonly+' type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(1);">\
+                    <input '+readonly+' type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(0);">\
                 </td>\
                 <td id="totalmoney'+row+'"></td>\
                 <td>\
@@ -393,9 +393,10 @@ function tinhtien(checkDiscount)
                     money= number*price;
 
                     if(discount>=0 && discount<=100){
-                        discount= money*discount/100;
+                        discount= price*discount/100;
                     }
-                    money-= discount;
+
+                    money-= discount*number;
                     
                     total+= money;
                 }

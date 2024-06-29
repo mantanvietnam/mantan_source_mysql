@@ -182,6 +182,7 @@ function listCustomerAgency($input)
         setVariable('back', $back);
         setVariable('next', $next);
         setVariable('urlPage', $urlPage);
+        setVariable('totalData', $totalData);
         
         setVariable('listData', $listData);
         setVariable('listGroup', $listGroup);

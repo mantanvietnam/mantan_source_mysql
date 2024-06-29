@@ -76,21 +76,19 @@
             <tr class="">
               <th width="5%">ID</th>
               <th width="20%">Thông tin giao hàng</th>
-              <th width="35%" style=" padding: 0; ">
+              <th width="45%" style=" padding: 0; ">
                 <table  class="table table-borderless" >
                   <thead>
-                    <th colspan="4" class="text-center">thông tin đơn hàng</th> 
+                    <th colspan="4" class="text-center">Thông tin đơn hàng</th> 
                     <tr>
-                      <th width="50%" style="padding: 0.625rem 0.4rem;">Sản phẩm</th>
-                      <th width="30%" style="padding: 0.625rem 0.4rem;">Giá bán</th>
-                      <th width="10%" style="padding: 0.625rem 0.4rem;">Số lượng </th>
-                      <th width="10%" style="padding: 0.625rem 0.4rem;">Giảm giá </th>
+                      <th width="40%">Sản phẩm</th>
+                      <th width="40%">Giá bán</th>
+                      <th width="20%">Số lượng</th>
                     </tr>
                   </thead>
                 </table>
               </th>
               <th width="10%">Số tiền</th>
-              <th width="10%">Thời gian tạo</th>
               <th width="10%">Trạng thái</th>
               <th width="5%">Xử lý</th>
               <th width="5%">Xóa</th>
@@ -134,7 +132,7 @@
                 }
                 
                 echo '<tr>
-                <td>'.$item->id.'</td>
+                <td>'.$item->id.'<br/><br/>'.date('H:i d/m/Y', $item->create_at).'</td>
                
                 <td>
                   <a href="/listCustomerAgency/?id='.$item->id_user.'">'.$item->full_name.'</a><br/>
@@ -148,18 +146,33 @@
                     <tbody>';
                       if(!empty($item->detail_order)){ 
                         foreach($item->detail_order as $k => $value){
-                          $discount= '';                        
-                          if($value->discount>100){
-                            $discount= number_format($value->discount).'đ';
-                          }elseif($value->discount>0){
-                            $discount= number_format($value->discount).'%';
+                          $priceBuy = $value->price;
+                          $priceOld = $value->price;
+                          $showDiscount = '';
+
+                          if($value->discount > 0){
+                            $priceDiscount = $value->discount;
+
+                            if($priceDiscount<=100){
+                                $priceDiscount= $priceBuy*$value->discount/100;
+                                $showDiscount = $value->discount.'%';
+                            }else{
+                                $showDiscount = number_format($value->discount).'đ';
+                            }
+
+                            $priceBuy -= $priceDiscount;
+                          }
+
+                          if($priceBuy != $priceOld){
+                            $showPrice = number_format($priceBuy).'đ<br/><del>'.number_format($priceOld).'đ</del><br/><br/>Giảm <b>'.$showDiscount.'</b> mỗi sản phẩm';
+                          }else{
+                            $showPrice = number_format($priceBuy).'đ';
                           }
 
                           echo '<tr> 
-                                  <td  width="50%" style="padding: 0.625rem 0.4rem;">'.$value->product.'</td>
-                                  <td  width="30%" style="padding: 0.625rem 0.4rem;">'.number_format($value->price).'đ</td>
-                                  <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$value->quantity.'</td>
-                                  <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$discount.'</td>
+                                  <td  width="40%">'.$value->product.'</td>
+                                  <td  width="40%">'.$showPrice.'</td>
+                                  <td  width="20%" align="center">'.$value->quantity.'</td>
                                 </tr>';
                         }
                       } 
@@ -167,7 +180,6 @@
                   </table>
                 </td>
                 <td>'.number_format($item->total).'đ</td>
-                <td>'.date('H:i d/m/Y', $item->create_at).'</td>
                 <td align="center">'.$status.$statusPay.'</td>
                 <td align="center">'.$btnProcess.$btnPay.'</td>
                 <td align="center">

@@ -81,27 +81,24 @@
           <table class="table table-bordered">
             <thead>
               <tr class="">
-                <th width="3%">ID</th>
-                <th width="10%">Thời gian tạo</th>
-                <th width="10%">Đại lý mua</th>
-                <th width="35%" style=" padding: 0; ">
+                <th width="10%">ID</th>
+                <th width="15%">Đại lý mua</th>
+                <th width="40%" style=" padding: 0; ">
                   <table  class="table table-borderless" >
                     <thead>
                       <th colspan="4" class="text-center">Thông tin đơn hàng</th> 
                       <tr>
-                        <th width="50%" style="padding: 0.625rem 0.4rem;">Sản phẩm</th>
-                        <th width="30%" style="padding: 0.625rem 0.4rem;">Giá bán</th>
-                        <th width="10%" style="padding: 0.625rem 0.4rem;">Số lượng </th>
-                        <th width="10%" style="padding: 0.625rem 0.4rem;">Giảm giá </th>
+                        <th width="40%">Sản phẩm</th>
+                        <th width="40%">Giá bán</th>
+                        <th width="20%">Số lượng </th>
                       </tr>
                     </thead>
                   </table>
                 </th>
                 <th width="10%">Tổng tiền</th>
-
                 <th width="10%">Chiết khấu</th>
                 <th width="10%">Trạng thái</th>
-                <th width="12%">Xử lý</th>
+                <th width="5%">Xử lý</th>
               </tr>
             </thead>
             <tbody>
@@ -144,8 +141,7 @@
                 }
 
                 echo '<tr>
-                <td><a href="/printBillOrderMemberAgency/?id_order_member='.$item->id.'" target="_blank">'.$item->id.'</a></td>
-                <td>'.date('H:i d/m/Y', $item->create_at).'</td>
+                <td><a href="/printBillOrderMemberAgency/?id_order_member='.$item->id.'" target="_blank">'.$item->id.'</a><br/><br/>'.date('H:i d/m/Y', $item->create_at).'</td>
                 <td>
                 '.$item->buyer->name.'<br/>
                 '.$item->buyer->phone.'
@@ -155,19 +151,34 @@
                 <tbody>';
                 if(!empty($item->detail_order)){ 
                   foreach($item->detail_order as $k => $value){
-                    $discount= '';                        
-                    if($value->discount>100){
-                      $discount= number_format($value->discount).'đ';
-                    }elseif($value->discount>0){
-                      $discount= number_format($value->discount).'%';
-                    }
+                    $priceBuy = $value->price;
+                        $priceOld = $value->price;
+                        $showDiscount = '';
 
-                    echo '<tr> 
-                    <td  width="50%" style="padding: 0.625rem 0.4rem;">'.$value->product.'</td>
-                    <td  width="30%" style="padding: 0.625rem 0.4rem;">'.number_format($value->price).'đ</td>
-                    <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$value->quantity.'</td>
-                    <td  width="10%" style="padding: 0.625rem 0.4rem;">'.$discount.'</td>
-                    </tr>';
+                        if($value->discount > 0){
+                          $priceDiscount = $value->discount;
+
+                          if($priceDiscount<=100){
+                              $priceDiscount= $priceBuy*$value->discount/100;
+                              $showDiscount = $value->discount.'%';
+                          }else{
+                              $showDiscount = number_format($value->discount).'đ';
+                          }
+
+                          $priceBuy -= $priceDiscount;
+                        }
+
+                        if($priceBuy != $priceOld){
+                          $showPrice = number_format($priceBuy).'đ<br/><del>'.number_format($priceOld).'đ</del><br/><br/>Giảm <b>'.$showDiscount.'</b> mỗi sản phẩm';
+                        }else{
+                          $showPrice = number_format($priceBuy).'đ';
+                        }
+
+                        echo '<tr> 
+                                <td  width="40%">'.$value->product.'</td>
+                                <td  width="40%">'.$showPrice.'</td>
+                                <td  width="20%" align="center">'.$value->quantity.'</td>
+                              </tr>';
                   }
                 } 
                 echo '  </tbody>
