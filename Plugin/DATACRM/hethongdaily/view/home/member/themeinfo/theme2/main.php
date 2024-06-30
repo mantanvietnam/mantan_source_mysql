@@ -151,8 +151,8 @@
                         <section id="block-5">
                             <div class="accordion accordion-flush" id="accordionFlushExample">
                                 <?php if(!empty($image_qr_pay)){ ?>
-                               <img src="<?php echo @$info->image_qr_pay; ?>">
-                           <?php } ?>
+                                    <center><img width="80%" src="<?php echo @$info->image_qr_pay; ?>"><center>
+                                <?php } ?>
                             </div>
                         </section>
 
@@ -278,8 +278,10 @@
                                 <div class="mb-3">
                                     <button type="button" class="btn btn-danger" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button> 
                                 </div>
-                                <div id="list_cart"></div>
-                                
+                                <div id="list_cart" class="mb-3"></div>
+                                <?php if(!empty($image_qr_pay)){ ?>
+                                    <center><img width="80%" src="<?php echo @$info->image_qr_pay; ?>"><center>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

@@ -214,6 +214,12 @@
                                 <?php echo $info->description;?> 
                             </div> 
 
+                            <?php 
+                                if(!empty($info->bank_name) && !empty($info->bank_number) && !empty($info->bank_code)){ 
+                                    echo '<center class="mb-3"><img src="https://img.vietqr.io/image/'.$info->bank_code.'-'.$info->bank_number.'-compact2.png?amount=&addInfo=&accountName='.$info->bank_name.'" width="80%" /></center>';
+                                }
+                            ?>
+
                             <?php if(!empty($info->facebook)){ ?>
                             <a target="_blank" href="<?php echo $info->facebook;?>">
                                 <div class="row social mb-3">
@@ -449,7 +455,12 @@
                         <div class="mb-3">
                             <button type="button" class="btn btn-danger" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button> 
                         </div>
-                        <div id="list_cart"></div>
+                        <div id="list_cart" class="mb-3"></div>
+                        <?php
+                            if(!empty($info->bank_name) && !empty($info->bank_number) && !empty($info->bank_code)){ 
+                                echo '<center><img src="https://img.vietqr.io/image/'.$info->bank_code.'-'.$info->bank_number.'-compact2.png?amount=&addInfo=&accountName='.$info->bank_name.'" width="80%" /></center>';
+                            }
+                        ?>
                         
                     </div>
                 </div>
@@ -529,11 +540,13 @@
             </li>
             
             <?php 
+            /*
             if(!empty($info->web)){
                 echo '  <li class="nav-item">
                             <a class="nav-link" id="about-tab" data-toggle="tab" href="#about">Thêm</a>
                         </li>';
             }
+            */
             ?>
             
             <li class="nav-item">

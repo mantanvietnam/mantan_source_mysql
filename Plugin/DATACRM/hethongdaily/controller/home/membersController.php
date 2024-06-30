@@ -658,6 +658,10 @@ function info($input)
 			$info->name_system = @$system->name;
 			$info->image_system = @$system->image;
 
+			if($info->id_father == 0){
+				$info->name_position = 'CO-FOUNDER';
+			}
+
 			if(function_exists('getAllProductActive')){
 				// lấy sản phẩm trong kho
 				$conditions = array('id_member'=>$info->id);
