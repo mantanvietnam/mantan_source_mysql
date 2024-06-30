@@ -214,12 +214,6 @@
                                 <?php echo $info->description;?> 
                             </div> 
 
-                            <?php 
-                                if(!empty($info->bank_name) && !empty($info->bank_number) && !empty($info->bank_code)){ 
-                                    echo '<center class="mb-3"><img src="https://img.vietqr.io/image/'.$info->bank_code.'-'.$info->bank_number.'-compact2.png?amount=&addInfo=&accountName='.$info->bank_name.'" width="80%" /></center>';
-                                }
-                            ?>
-
                             <?php if(!empty($info->facebook)){ ?>
                             <a target="_blank" href="<?php echo $info->facebook;?>">
                                 <div class="row social mb-3">
@@ -337,6 +331,12 @@
                                 </div>
                             </a>
                             <?php }?>
+
+                            <?php 
+                                if(!empty($info->bank_name) && !empty($info->bank_number) && !empty($info->bank_code)){ 
+                                    echo '<center class="mb-3"><img src="https://img.vietqr.io/image/'.$info->bank_code.'-'.$info->bank_number.'-compact2.png?amount=&addInfo=&accountName='.$info->bank_name.'" width="80%" /></center>';
+                                }
+                            ?>
 
                             <!--
                             <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> 
