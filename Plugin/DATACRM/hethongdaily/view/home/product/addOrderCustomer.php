@@ -138,7 +138,7 @@
     <form id="summary-form" action="" method="post" class="form-horizontal">
         <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
         <div class="row">
-            <div class="mb-3 col-md-6">
+            <div class="mb-3 col-md-5">
 
                 <div class="card mb-4">
                     <h4 class="fw-bold m-4 mb-0">Sản phẩm</h4>
@@ -166,11 +166,11 @@
                                         <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price ?>, '','<?php echo @$Product->unit ?>');" id='product_<?php echo $Product->id ?>' >
                                             <div class="item_produc">
                                                 <div class="customer-name">
-                                                    <span class="service_name"><?php echo $Product->title ?></span>
+                                                    <span class="service_name"><b><?php echo $Product->title ?></b></span>
                                                 </div>
                                                 
                                                 <div class="customer-name">
-                                                    <span class="service_price"><?php echo number_format($Product->price) ?>đ</span>
+                                                    <span class="service_price"><?php echo number_format($Product->price).'đ/'.$Product->unit; ?></span>
                                                 </div>
                                             </div>
                                          </div> 
@@ -187,7 +187,7 @@
                                                 </div>
                                                 
                                                 <div class="customer-name">
-                                                    <span class="service_price">0đ</span>
+                                                    <span class="service_price">0đ/<?php echo $Product->unit; ?></span>
                                                 </div>
                                             </div>
                                          </div> 
@@ -202,7 +202,7 @@
                 </div>
             </div>
 
-            <div class="mb-3 col-md-6">
+            <div class="mb-3 col-md-7">
                 <div class="card mb-4">
                     <h4 class="fw-bold py-3 mb-4 info-order">Thông tin đơn hàng</h4>
                     
@@ -460,7 +460,7 @@ function addProduct(id, name, priceProduct, type,unit)
                     <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
                 </td>\
                 <td>\
-                    <input type="text" readonly value="'+unit+'" class="input_money form-control" name="v['+row+']" min="1" id="unit-'+row+'" onchange="tinhtien(1);">\
+                    '+unit+'\
                 </td>\
                 <td>\
                     <input type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(1);">\

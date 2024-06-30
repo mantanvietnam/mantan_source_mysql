@@ -51,8 +51,8 @@
                               <input type="text" class="form-control phone-mask" name="code" id="code" value="<?php echo @$data->code;?>" required />
                             </div>
                             <div class="mb-3">
-                              <label class="form-label">đơn vị tính</label>
-                              <input type="text" class="form-control phone-mask" name="unit" id="unit" value="<?php echo @$data->unit;?>" />
+                              <label class="form-label">Đơn vị tính (*)</label>
+                              <input type="text" class="form-control phone-mask" name="unit" id="unit" value="<?php echo @$data->unit;?>" required />
                             </div>
                             
                             <div class="mb-3">

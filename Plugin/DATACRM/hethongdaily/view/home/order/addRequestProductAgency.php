@@ -147,14 +147,14 @@
                           <div class="card card-body">
                             <div class="row diagram">
                                 <?php foreach($listProduct as $key => $Product){ ?>
-                                    <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price ?>);" id='product_<?php echo $Product->id ?>' >
+                                    <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price ?>,'<?php echo $Product->unit ?>');" id='product_<?php echo $Product->id ?>' >
                                         <div class="item_produc">
                                             <div class="customer-name">
-                                                <span class="service_name"><?php echo $Product->title ?></span>
+                                                <span class="service_name"><b><?php echo $Product->title ?></b></span>
                                             </div>
                                             
                                             <div class="customer-name">
-                                                <span class="service_price"><?php echo number_format($Product->price) ?>đ</span>
+                                                <span class="service_price"><?php echo number_format($Product->price).'đ/'.$Product->unit; ?></span>
                                             </div>
                                         </div>
                                      </div> 
@@ -183,10 +183,11 @@
                         <table class=" table-bordered">
                             <thead>
                                 <tr>
-                                    <th width="30%">Tên sản phẩm</th>
+                                    <th width="20%">Tên sản phẩm</th>
                                     <th  width="15%">Số lượng</th>
-                                    <th  width="20%">Đơn giá</th>
-                                    <th  width="20%">Giảm giá</th>
+                                    <th  width="15%">Đơn giá</th>
+                                    <th  width="15%">Đơn vị</th>
+                                    <th  width="15%">Giảm giá</th>
                                     <th  width="15%">Thành tiền</th>
                                     <th  width="5%">Xóa</th>
                                 </tr>
@@ -282,7 +283,7 @@ function checkDiscountConfig(money)
 }
 
 // all sản phầm vào đơn hàng 
-function addProduct(id, name, priceProduct)
+function addProduct(id, name, priceProduct, unit)
 {
     if(listProductAdd.hasOwnProperty(id)){
         // thêm số lượng vào mặt hàng đã có
@@ -315,6 +316,9 @@ function addProduct(id, name, priceProduct)
                 </td>\
                 <td>\
                     <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
+                </td>\
+                <td>\
+                    '+unit+'\
                 </td>\
                 <td>\
                     <input '+readonly+' type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(0);">\
@@ -496,7 +500,7 @@ function createOrder()
                 // add the selected item
                 terms.push( ui.item.label );
 
-                addProduct(ui.item.id,ui.item.title,ui.item.price)
+                addProduct(ui.item.id,ui.item.title,ui.item.price,ui.item.unit)
                 
                 $( "#searchProduct" ).val('');
                 return false;
