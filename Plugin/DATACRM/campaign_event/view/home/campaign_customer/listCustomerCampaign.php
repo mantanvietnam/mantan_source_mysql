@@ -220,14 +220,14 @@
                         '.$history.'
                         <p class="text-center mt-3">
                           <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
-                          <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-danger"><i class="bx bx-list-ul" ></i></a>
+                          <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-info"><i class="bx bx-list-ul" ></i></a>
                         </p>
                       </p>
 
                         <p align="center">
-                        <a class="dropdown-item" href="/addCustomerCampaign/?id='.$item->id.'&id_campaign='.$infoCampaign->id.'">
+                        <a class="btn btn-success" href="/addCustomerCampaign/?id='.$item->id.'&id_campaign='.$infoCampaign->id.'">
                           <i class="bx bx-edit-alt me-1"></i>
-                        </a>  <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerCampaign/?id='.$item->id.'">
+                        </a>  <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerCampaign/?id='.$item->id.'">
                           <i class="bx bx-trash me-1"></i>
                         </a>
                       </p>
