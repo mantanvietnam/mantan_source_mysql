@@ -95,6 +95,7 @@ footer::after {
     color: #fff;
     border: 2.5px solid #427FE3 !important;
     font-weight: 600 !important;
+    border-radius: 200px !important;
 }
 
 .ft-contact-form h3 {

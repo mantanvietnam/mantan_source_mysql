@@ -1521,6 +1521,16 @@ table {
 @media (max-width: 1440px) {}
 
 @media (max-width: 1050px) {
+    #majors-section .title-section {
+        padding: 80px 50px;
+    }
+    #news-section {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .swiper-block .banner-icon {
+        right: 5%;
+    }
     .featured-news .featured-news-img {
         width: 525px;
         height: 370px;
@@ -1613,7 +1623,7 @@ table {
         top: 43%;
     }
     #count-section .count {
-        padding: 80px 100px 0px 100px;
+        padding: 80px 30px 0px 30px;
     }
     .counter_item div {
         scale: .8;
@@ -1899,7 +1909,7 @@ table {
         border-radius: 0;
     }
     #projects-section .swiper1 {
-        padding: 0 5px 50px 5px;
+        padding: 0 0px 50px 0px;
     }
     .swiper1 .swiper-button.swiper-button-next,
     .swiper1 .swiper-button.swiper-button-prev {
