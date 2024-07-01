@@ -15,7 +15,7 @@
                             <div class="news-left-site">
                                 <div class="news-date">
                                     <p><a href="">Trang chủ</a>/<a href="">Tin tức</a>/ <?php echo $post->title;?></p>
-                                    <span> <?php echo date('d/m/Y', $post->time);?></span>
+                                    <span><i class="fa-solid fa-calendar-days"></i> <?php echo date('d/m/Y', $post->time);?></span>
                                 </div>
                                 <div class="news-detail">
                                     <h4><?php echo $post->description;?></h4>

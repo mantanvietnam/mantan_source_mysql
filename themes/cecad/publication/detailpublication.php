@@ -14,7 +14,6 @@
                         </div>
                         <div style="">
                             <iframe src="<?= $publication['file']?>" width="100%" height="800px">
-                                Trình duyệt của bạn không hỗ trợ iframe.
                             </iframe>
                         </div>
                            <!-- <div class="image-detail-publication">

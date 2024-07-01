@@ -41,7 +41,6 @@ function checkDeadlineOrderAPI($input)
 		        $dataHistories->type_note = 'minus_order';
 		        $dataHistories->modified = time();
 		        $dataHistories->created = time();
-
 		        $modelHistories->save($dataHistories);
 
 		        // thêm thời gian cho đơn hàng
@@ -82,6 +81,8 @@ function checkDeadlineOrderAPI($input)
 
 	// khóa tài khoản Zoom hết hạn
 	$listDeadlineZoom = $modelZooms->find()->where(['deadline >'=>0, 'deadline <'=>time(), 'status'=>'active'])->all()->toList();
+
+
 
 	if(!empty($listDeadlineZoom)){
 		foreach ($listDeadlineZoom as $key => $value) {

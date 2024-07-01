@@ -236,6 +236,23 @@ function publication($input){
 
 
 }
+// function projectDetail($input){
+//     global $controller;
+//     global $modelOptions;
+//     global $modelCategories;
+//     global $urlCurrent;
+//     global $metaTitleMantan;
+//     global $metaKeywordsMantan;
+//     global $metaDescriptionMantan;
+//     global $metaImageMantan;
+//     global $session;
+//     $metaTitleMantan = 'Chi tiết dự án';
+//     $modelproduct_projects = $controller->loadModel('ProductProjects');
+//     $order = array('id'=>'desc');
+//     $listDataproduct_projects= $modelproduct_projects->find()->limit(3)->order($order)->all()->toList();
+//     setVariable('listDataproduct_projects', $listDataproduct_projects);
+    
+// }
 function detailpublication($input){
     global $controller;
     global $isRequestPost;

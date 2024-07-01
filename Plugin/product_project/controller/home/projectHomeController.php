@@ -108,8 +108,9 @@ function projectDetail($input)
     $metaTitleMantan = 'Chi tiết sản phẩm';;
 
 	$modelProductProjects = $controller->loadModel('ProductProjects');
+    $order = array('id'=>'desc');
     $modelProduct = $controller->loadModel('Products');
-
+   
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
             $conditions = array('id'=>$_GET['id']);
@@ -151,7 +152,8 @@ function projectDetail($input)
                 }
             }       
 
-
+        $listDataproduct_projects= $modelProductProjects->find()->limit(3)->order($order)->all()->toList();
+        setVariable('listDataproduct_projects', $listDataproduct_projects);
         setVariable('project', $project);
         setVariable('listKind', $listKind);
 
