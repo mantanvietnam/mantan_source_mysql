@@ -7,8 +7,8 @@
     <title>CECAD</title>
     <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/footer.css?time=123403">
     <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/header.css?time=12345">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-plus.css?time=126594">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-hoang.css?time=123543">
+    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-plus.css?time=12310">
+    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-hoang.css?time=123673">
     <!-- Slick Carousel CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
