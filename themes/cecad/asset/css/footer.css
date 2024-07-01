@@ -96,6 +96,7 @@ footer::after {
     border: 2.5px solid #427FE3 !important;
     font-weight: 600 !important;
     border-radius: 200px !important;
+    padding: 10px 0;
 }
 
 .ft-contact-form h3 {
@@ -129,6 +130,7 @@ footer::after {
 }
 
 .ft-contact-form form textarea {
+    display: none;
     height: 120px;
     padding: 8px 16px;
     background: transparent;
@@ -230,6 +232,9 @@ footer::after {
 @media (max-width: 500px) {
     .ft-logo img {
         width: 85px;
+    }
+    .ft-logo {
+        width: 100%;
     }
     .footer-section {
         padding: 60px 20px;

@@ -419,10 +419,13 @@ table {
 
 .section-detail-albums .list-slide-detail-albums .card-slide-detail-albums img {
     width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .section-detail-albums .list-slide-detail-albums .card-slide-detail-albums {
     margin: 0 10px;
+    height: 380px;
 }
 
 .section-detail-albums .slick-dots {
@@ -477,10 +480,13 @@ table {
 
 .section-detail-albums .list-image-albums .img-detail {
     margin-top: 20px;
+    height: 230px;
+    width: 100%;
 }
 
 .section-detail-albums .list-image-albums .img-detail img {
     width: 100%;
+    object-fit: contain;
 }
 
 .section-detail-albums .title-list-detail {
@@ -611,9 +617,9 @@ table {
 }
 
 .section-publication .infor-publication-meta .infor-detail-publication .button-dowload-detail a {
-    border-radius: 10px;
+    border-radius: 4px;
     background-color: #427FE3;
-    padding: 6px 18px;
+    padding: 10px 40px;
     color: #fff;
 }
 
@@ -624,18 +630,20 @@ table {
 .section-publication .image-publication {
     overflow: hidden;
 }
+
 .section-publication .publication-card:hover {
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.438);
     transition: all linear 0.2s;
     transform: translateY(-10px);
 }
+
 .section-publication .publication-card {
     padding: 0;
     margin-bottom: 30px;
     margin-bottom: 30px;
     box-shadow: 0 0 12px rgba(0, 0, 0, .175);
     transition: all linear 0.2s;
-    border-radius: 16px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -648,9 +656,7 @@ table {
     margin-bottom: 50px;
 }
 
-.section-publication .wrap {
-
-}
+.section-publication .wrap {}
 
 .section-publication .detail-publication a {
     color: #427FE3;
