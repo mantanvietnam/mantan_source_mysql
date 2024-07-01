@@ -1471,6 +1471,7 @@ table {
     -webkit-line-clamp: 3;
     color: #000;
     text-align: justify;
+    height: 63px;
 }
 
 .home-news-btn {
