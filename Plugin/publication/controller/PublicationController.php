@@ -127,6 +127,20 @@ function addpublication($input)
     
 
 }
+function deletePublication($input){
+    global $controller;
 
+    $modelPublication = $controller->loadModel('Publication');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelPublication->get($_GET['id']);
+        
+        if($data){
+            $modelPublication->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/publication-view-admin-listpublication');
+}
 
 ?>

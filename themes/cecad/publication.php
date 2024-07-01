@@ -22,10 +22,10 @@
                     <div class=" col-lg-4 col-md-6 col-sm-6 col-12 ">
                         <div class="publication-card">
                             <div class="image-publication">
-                                <a href=""><img src="<?php echo $value->image;?>" alt=""></a>
+                                <a href="/detailpublication/<?php echo $value->slug;?>.html"><img src="<?php echo $value->image;?>" alt=""></a>
                             </div>
                             <div class="infor-publication-title">
-                                <a href="">
+                                <a href="/detailpublication/<?php echo $value->slug;?>.html">
                                     <h2><?php echo $value->name;?></h2>
                                 </a>
                             </div>
