@@ -18,6 +18,7 @@
                     </form>
                 </div>
                 <div class="row">
+
                 <?php foreach ($listDatapublication as $key => $value) { ?>
                     <div class=" col-lg-4 col-md-6 col-sm-6 col-12 ">
                         <div class="publication-card">
@@ -41,7 +42,7 @@
 
                                 <div class="infor-detail-publication d-flex justify-content-between">
                                     <div class="detail-publication"><a href="/detailpublication/<?php echo $value->slug;?>.html">Xem Chi Tiết</a></div>
-                                    <div class="button-dowload-detail"><a href="detailpublications.html">Dowload</a></div>
+                                    <div class="button-dowload-detail"><a href="<?php echo $value->file;?>" Dowload>Dowload</a></div>
                                 </div>
                             </div>
                         </div>

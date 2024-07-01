@@ -12,8 +12,9 @@
                         <div class="title-detail-publication">
                             <h1><?= $publication['name'] ?></h1>
                         </div>
-                        <div style="">
-                            <iframe src="<?= $publication['file']?>" width="100%" height="800px">
+                        
+                        <div style="height:800px">
+                            <iframe src="<?= $publication['file']?>" style="width:100%; height:100%;">
                             </iframe>
                         </div>
                            <!-- <div class="image-detail-publication">

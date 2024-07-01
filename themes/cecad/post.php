@@ -27,20 +27,21 @@
                         </div>
      
                         <div class="col-lg-4">
+                            <div><h2 class="title-news-other">Tin tức khác</h2></div>
                             <div class="news-right-site">
                         <?php if (!empty($otherPosts)): ?>
                             <?php foreach ($otherPosts as $key => $value): ?>
                                 <div class="news-right-site-img">
-                                    <div class="right-site-img">
-                                        <a href="<?php echo @$value->slug ?>.html">
+                                    <a href="<?php echo @$value->slug ?>.html">
+                                        <div class="right-site-img">
                                             <img src="<?php echo $value->image;?>" />
-                                        </a>
-                                    </div>
-                                    <div class="right-site-name-img">
-                                        <p>
-                                        <?php echo $value->title;?>
-                                        </p>
-                                    </div>
+                                        </div>
+                                        <div class="right-site-name-img">
+                                            <p>
+                                            <?php echo $value->title;?>
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>

@@ -16,6 +16,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <!--  fancybox css-->
+    <link rel="icon" sizes="16x16" href="<?= $urlThemeActive?>/asset/images/logo.png" type="image/png">
+    <link rel="icon" sizes="32x32" href="<?= $urlThemeActive?>/asset/images/logo.png" type="image/png">
+    <link rel="icon" sizes="48x48" href="<?= $urlThemeActive?>/asset/images/logo.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/9163bded0f.js" crossorigin="anonymous"></script>
@@ -39,7 +42,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-body-tertiary menu">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="">
+                    <a class="navbar-brand" href="/">
                         <img src="<?= @$settingThemes['logo'];?>" alt="">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

@@ -26,56 +26,25 @@
                     </div>
 
                 </div>
-<?php $listKind ?>
                 <div class="col-lg-4">
+                    <div><h2 class="title-news-other">Tin tức khác</h2></div>
                     <div class="news-right-site">
                     <?php if(!empty($listDataproduct_projects)){
-                                        foreach($listDataproduct_projects as $item){ ?>
+                        foreach($listDataproduct_projects as $item){ ?>
                         <div class="news-right-site-img">
+                          <a href="<?php echo @$item->slug ?>.html">
                             <div class="right-site-img">
-                                <a href="<?=$item->slug?>" >
-                                    <img src="<?=$item->image?>" />
-                                </a>
+                                <img src="<?= $item->image?>" />
                             </div>
                             <div class="right-site-name-img">
                                 <p>
-                                <?=$item->name?><br>
-                                    <span></span>
+                                <?= $item->name?><br>
                                 </p>
                             </div>
+                          </a>
                         </div>
-                    <?php }} ?>
-                        <!-- <div class="news-right-site-img">
-                            <div class="right-site-img">
-                                <a href="../Asset/images/banner.jpg" data-fancybox="group" data-caption="Camera trap image of a chimpanzee, Gabon">
-                                    <img src="../Asset/images/banner.jpg" />
-                                </a>
-                            </div>
-                            <div class="right-site-name-img">
-                                <p>
-                                    Camera trap image of a chimpanzee, Gabon<br>
-                                    <span>© Joeri Zwerts, University of Utrecht</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="news-right-site-img">
-                            <div class="right-site-img">
-                                <a href="../Asset/images/avt.jpg" data-fancybox="group" data-caption="Elephant caught in a camera trap image as part of a study in the Congo Basin to study the impacts of FSC-certified forests on large mammals.">
-                                    <img src="../Asset/images/avt.jpg" />
-                                </a>
-                            </div>
-                            <div class="right-site-name-img">
-                                <p>
-                                    Elephant caught in a camera trap image as part of a study in the Congo Basin to study the impacts of FSC-certified forests on large mammals.<br>
-                                    <span>© Joeri Zwerts, University of Utrecht</span>
-                                </p>
-                            </div>
-                        </div> -->
-
-
+                        <?php }} ?>
                     </div>
-
                 </div>
             </div>
         </div>

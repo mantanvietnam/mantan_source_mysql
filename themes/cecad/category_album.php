@@ -22,7 +22,7 @@
                             </div>
                             <div class="information-card-albums">
                                 <div class="main-information-card-albums">
-                                    <h3 class="date-content-slide-albums">Post on -<span><?php echo date('d/m/Y', $value->time_create);?></span></h3>
+                                    <h3 class="date-content-slide-albums"><i class="fa-solid fa-calendar-days"></i><span class="m-1"><?php echo date('d/m/Y', $value->time_create);?></span></h3>
                                     <a class="h2-title-above-slide" href="/<?= $value->slug?>.html"><?php echo $value->title; ?></a>
                                     <p class="paragrap-titleabove-slide"><?php echo $value->description; ?></p>
                                 </div>
