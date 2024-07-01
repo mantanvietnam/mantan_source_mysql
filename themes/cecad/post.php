@@ -25,21 +25,20 @@
                             </div>
 
                         </div>
-
+     
                         <div class="col-lg-4">
-
                             <div class="news-right-site">
                         <?php if (!empty($otherPosts)): ?>
                             <?php foreach ($otherPosts as $key => $value): ?>
                                 <div class="news-right-site-img">
                                     <div class="right-site-img">
                                         <a href="<?php echo @$value->slug ?>.html">
-                                            <img src="<?php echo $post->image;?>" />
+                                            <img src="<?php echo $value->image;?>" />
                                         </a>
                                     </div>
                                     <div class="right-site-name-img">
                                         <p>
-                                        <?php echo $post->title;?>
+                                        <?php echo $value->title;?>
                                         </p>
                                     </div>
                                 </div>

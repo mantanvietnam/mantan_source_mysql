@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-12 no-padding-right">
                             <div class="contact-form">
-                                <h4>Chúng tôi sẽ liên hệ với bạn theo thông tin bạn gửi, vui lòng điền vào khung thông tin bên dưới.</h4>
+                                <h4>Liên Hệ Ngay</h4>
                                 <?= $mess; ?>
                                 <form action="" method="POST">
                                     <input type="text" placeholder="Họ và tên *" name="name" required>
