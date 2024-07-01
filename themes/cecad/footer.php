@@ -51,8 +51,8 @@
                                         <input type="text" placeholder="Số điện thoại" name="phone"  id="phone" required>
                                     </div>
                                     <input type="email" placeholder="Địa chỉ Email" name="email"  id="email" required>
-                                    <input type="text" placeholder="subject" required name="subject">
-                                    <textarea  id="" cols="30" rows="5" placeholder="Nội dung tin nhắn *" name="content" required></textarea>
+                                    <!-- <input type="text" placeholder="subject" required name="subject">
+                                    <textarea  id="" cols="30" rows="5" placeholder="Nội dung tin nhắn *" name="content" required></textarea> -->
                                     <button type="submit" value="Liên hệ" class="submit-btn">Liên Hệ</button>
                                 </form>
 

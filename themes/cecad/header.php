@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/footer.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/header.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-plus.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-hoang.css">
+    <title>Cecad</title>
+    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/footer.css?time=123453">
+    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/header.css?time=123453">
+    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-plus.css?time=12253">
+    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-hoang.css?time=123453">
     <!-- Slick Carousel CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
@@ -37,7 +37,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-body-tertiary menu">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="">
                         <img src="<?= @$settingThemes['logo'];?>" alt="">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

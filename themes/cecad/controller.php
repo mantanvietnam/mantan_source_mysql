@@ -65,6 +65,8 @@ function settingHomececad($input){
             'phone'=>$dataSend['phone'],
             // 
             'imagecontact'=>$dataSend['imagecontact'],
+            'map'=>$dataSend['map'],
+            'imageheadercontact'=>$dataSend['imageheadercontact'],
 
         );
     $data->key_word = 'settingHomececad';

@@ -19,7 +19,7 @@
                 </div>
                 <div class="row">
                 <?php foreach ($listDatapublication as $key => $value) { ?>
-                    <div class=" col-lg-3 col-md-6 col-sm-6 col-12 ">
+                    <div class=" col-lg-4 col-md-6 col-sm-6 col-12 ">
                         <div class="publication-card">
                             <div class="image-publication">
                                 <a href=""><img src="<?php echo $value->image;?>" alt=""></a>

@@ -34,7 +34,7 @@ else {
                            
                         </div>
                         <div class="Categories-albums">
-                            <h2>Categories: <span><?php echo date('d/m/Y', $value->time_create);?></span></h2>
+                            <h2>Categories: <span><?php echo date('d/m/Y', $album->time_create);?></span></h2>
                             <h2>Tags: <span><?= $album->title?></span></h2>
                         </div>
                     </div>

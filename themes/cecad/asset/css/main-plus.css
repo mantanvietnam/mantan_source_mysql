@@ -226,8 +226,8 @@ table {
 }
 
 .featured-news .featured-news-content .featured-news-name a {
-    padding-bottom: 35px;
-    font-size: 46px;
+    padding-bottom: 28px;
+    font-size: 35px;
     text-transform: uppercase;
     color: #000;
     font-weight: 700;
@@ -747,7 +747,7 @@ table {
 }
 
 #section-banner-top .banner-contain-3 .contact-form-img {
-    height: 100%;
+    height: 590px;
 }
 
 #section-company-address {

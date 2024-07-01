@@ -591,7 +591,7 @@ table {
 .section-publication .infor-publication-meta .infor-publication-information {
     padding: 8px 0;
     color: #000000;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #a8a6a67d;
 }
 
 .section-publication .infor-publication-meta .infor-publication-information span {
@@ -611,7 +611,7 @@ table {
 }
 
 .section-publication .infor-publication-meta .infor-detail-publication .button-dowload-detail a {
-    border-radius: 3px;
+    border-radius: 10px;
     background-color: #427FE3;
     padding: 6px 18px;
     color: #fff;
@@ -624,14 +624,19 @@ table {
 .section-publication .image-publication {
     overflow: hidden;
 }
-
-.section-publication .publication-card {
-    box-shadow: 0 0px 5px 0 rgb(172, 172, 172);
-    padding: 0;
-    border-radius: 7px;
-    margin-bottom: 30px;
-    overflow: hidden;
+.section-publication .publication-card:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.438);
     transition: all linear 0.2s;
+    transform: translateY(-10px);
+}
+.section-publication .publication-card {
+    padding: 0;
+    margin-bottom: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .175);
+    transition: all linear 0.2s;
+    border-radius: 16px;
+    overflow: hidden;
 }
 
 .section-publication .publication-card:hover .infor-publication-title h2 {
@@ -640,11 +645,11 @@ table {
 }
 
 .section-publication .search-publication {
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .section-publication .wrap {
-    width: 40%;
+
 }
 
 .section-publication .detail-publication a {
