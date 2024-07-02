@@ -177,6 +177,13 @@
                 top: -19px;
                 left: -155px;
             }
+
+            a[href^="tel"] {
+                color: black !important; /* Đặt màu văn bản thành màu đen */
+                text-decoration: none; /* Bỏ gạch chân nếu cần */
+                pointer-events: none; /* Ngăn chặn hành vi liên kết */
+                cursor: default; /* Đổi con trỏ chuột */
+            }
         </style>                            
     </head>
     
