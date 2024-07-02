@@ -246,7 +246,7 @@ table {
 
 .featured-news .featured-news-content .featured-news-sub {
     margin-top: 25px;
-    font-size: 14px;
+    font-size: 18px;
     color: #898989;
     font-weight: 500;
     overflow: hidden;
@@ -266,9 +266,9 @@ table {
     transition: all .3s ease;
     border: none;
     border-radius: 7px;
-    font-size: 14px;
+    font-size: 18px;
     text-transform: uppercase;
-    padding: 20px 60px;
+    padding: 16px 50px;
     letter-spacing: 1px;
     color: #fff;
     background-color: #427FE3;

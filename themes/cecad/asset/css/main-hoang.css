@@ -469,9 +469,10 @@ table {
 .section-detail-albums .describe-detail-albums h2 {
     font-weight: normal;
     color: #333333;
-    margin: 43px 0 20px 0;
+    margin: 18px 0 20px 0;
     font-size: 20px;
     line-height: 1.5;
+    text-align: justify;
 }
 
 .section-detail-albums .Categories-albums h2 {
@@ -500,9 +501,12 @@ table {
 }
 
 .section-detail-albums .title-list-detail {
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 35px;
     font-size: 25px;
+    text-transform: uppercase;
     color: #427FE3;
+    margin-top: 70px;
 }
 
 .bottom-container-detail {

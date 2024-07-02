@@ -9,7 +9,7 @@
                     <form action="" method="get">
                         <div class="wrap">
                             <div class="search">
-                                <input type="text" class="searchTerm" placeholder="What are you looking for?" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+                                <input type="text" class="searchTerm" placeholder="Nhập thông tin cần tìm kiếm" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
                                 <button type="submit" class="searchButton">
                                 <i class="fa fa-search"></i>
                                 </button>
@@ -32,7 +32,7 @@
                             </div>
                             <div class="infor-publication-meta">
                                 <div class="d-flex justify-content-between infor-publication-information">
-                                    <div><i class="fa-solid fa-location-dot"></i><span>Địa Điểm</span></div>
+                                    <div><i class="fa-solid fa-location-dot"></i><span>Địa điểm</span></div>
                                     <div><?php echo $value->address;?></div>
                                 </div>
                                 <div class="d-flex justify-content-between infor-publication-information ">

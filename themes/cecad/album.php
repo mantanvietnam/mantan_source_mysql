@@ -18,7 +18,7 @@ else {
                     <h1>Chi tiết ALbums</h1>
                 </div>
                 <div class="row justify-content-between">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="list-slide-detail-albums">
                         <?php foreach ($listImages as $image=>$value) { ?>
                             <div class="card-slide-detail-albums">
@@ -27,7 +27,7 @@ else {
                         <?php } ?>
                         </div>
                     </div>
-                    <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 right-detail-albums">
+                    <div class=" col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 right-detail-albums">
                         <div class="describe-detail-albums">
                             <h2><?= $album->description?></h2>
                            
@@ -39,9 +39,9 @@ else {
                     </div>
                 </div>
             </div>
-            <div class="container" style="margin-top: 37px;">
+            <div class="container" style="">
                 <div class="title-list-detail">
-                    <h2>Danh sách hình ảnh:</h2>
+                    <h2>Danh sách hình ảnh</h2>
                 </div>
                 <div class="row">
                 <?php foreach ($listImages as $image=>$value) { ?>
