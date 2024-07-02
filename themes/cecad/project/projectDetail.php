@@ -15,7 +15,7 @@
                 <div class="col-lg-7">
                     <div class="news-left-site">
                         <div class="news-date">
-                            <p><a href="/">Trang chủ</a>/ <a href="">Dự án</a>/<?= $project['name'] ?></p>
+                            <p><a href="/">Trang chủ</a>/ <a href="/">Dự án</a>/<?= $project['name'] ?></p>
                             <span><i class="fa-solid fa-calendar-days"></i> <?php echo date('d/m/Y', $project->time);?></span>
                         </div>
                         <div class="news-detail">

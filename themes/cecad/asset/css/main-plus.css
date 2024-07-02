@@ -265,7 +265,7 @@ table {
 .featured-news .featured-news-content .featured-news-btn a {
     transition: all .3s ease;
     border: none;
-    border-radius: 0;
+    border-radius: 7px;
     font-size: 14px;
     text-transform: uppercase;
     padding: 20px 60px;

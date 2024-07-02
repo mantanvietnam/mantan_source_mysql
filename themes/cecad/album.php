@@ -10,16 +10,15 @@ else {
     return false;
 }
 
-
 ?>
     <main>
         <section class="section-detail-albums">
             <div class="container">
                 <div class="title-detail-albums">
-                    <h1>Album Template</h1>
+                    <h1>Chi tiết ALbums</h1>
                 </div>
                 <div class="row justify-content-between">
-                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="list-slide-detail-albums">
                         <?php foreach ($listImages as $image=>$value) { ?>
                             <div class="card-slide-detail-albums">
@@ -28,21 +27,21 @@ else {
                         <?php } ?>
                         </div>
                     </div>
-                    <div class=" col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 right-detail-albums">
+                    <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 right-detail-albums">
                         <div class="describe-detail-albums">
                             <h2><?= $album->description?></h2>
                            
                         </div>
                         <div class="Categories-albums">
-                            <h2>Categories: <span><?php echo date('d/m/Y', $album->time_create);?></span></h2>
-                            <h2>Tags: <span><?= $album->title?></span></h2>
+                            <h2>Ngày: <span><?php echo date('d/m/Y', $album->time_create);?></span></h2>
+                            <h2>Tên Albums: <span><?= $album->title?></span></h2>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="container" style="margin-top: 130px;">
+            <div class="container" style="margin-top: 37px;">
                 <div class="title-list-detail">
-                    <h2>IMAGE:</h2>
+                    <h2>Danh sách hình ảnh:</h2>
                 </div>
                 <div class="row">
                 <?php foreach ($listImages as $image=>$value) { ?>
