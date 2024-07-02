@@ -248,16 +248,16 @@
                           </p>
                           <p style=" padding: 0;display: contents; ">
                           <table  class="table">
-                            <thead style="border-width: 3px;">
+                            <thead style="border-width: 1px;">
                               <th colspan="4" class="text-center">Thông tin đơn hàng</th> 
                               <tr>
-                                <th width="50%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Sản phẩm</th>
-                                <th width="30%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Giá bán</th>
-                                <th width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Số lượng</th>
-                                <th width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Giảm giá</th>
+                                <th width="50%" style="padding: 0.625rem 0.4rem; border-width: 1px;">Sản phẩm</th>
+                                <th width="30%" style="padding: 0.625rem 0.4rem; border-width: 1px;">Giá bán</th>
+                                <th width="10%" style="padding: 0.625rem 0.4rem; border-width: 1px;">Số lượng</th>
+                                <th width="10%" style="padding: 0.625rem 0.4rem; border-width: 1px;">Giảm giá</th>
                               </tr>
                             </thead>
-                          <tbody style="border-width: 3px;">';
+                          <tbody style="border-width: 1px;">';
                           if(!empty($item->detail_order)){ 
                             foreach($item->detail_order as $k => $value){
                               $discount= '';                        
@@ -268,10 +268,10 @@
                               }
 
                               echo '<tr> 
-                              <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$value->product.'</td>
-                              <td  width="30%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.number_format($value->price).'đ</td>
-                              <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$value->quantity.'</td>
-                              <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$discount.'</td>
+                              <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->product.'</td>
+                              <td  width="30%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.number_format($value->price).'đ</td>
+                              <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->quantity.'</td>
+                              <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$discount.'</td>
                               </tr>';
                             }
                           } 

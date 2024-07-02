@@ -77,9 +77,9 @@
                     <thead>
                       <th colspan="4" class="text-center">Thông tin đơn hàng</th> 
                       <tr>
-                        <th width="50%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Sản phẩm</th>
-                        <th width="30%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Giá bán</th>
-                        <th width="20%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Số lượng</th>
+                        <th width="50%" style="padding: 0.625rem 0.4rem;">Sản phẩm</th>
+                        <th width="30%" style="padding: 0.625rem 0.4rem;">Giá bán</th>
+                        <th width="20%" style="padding: 0.625rem 0.4rem;">Số lượng</th>
                       </tr>
                     </thead>
                   </table>
@@ -151,9 +151,9 @@
                             
 
                             echo '<tr> 
-                                   <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$value->product.'</td>
-                              <td  width="30%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$showPrice.'</td>
-                              <td  width="20%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$value->quantity.'</td>
+                                    <td  width="50%" style="padding: 0.625rem 0.4rem;">'.$value->product.'</td>
+                                    <td  width="30%" style="padding: 0.625rem 0.4rem;">'.$showPrice.'</td>
+                                    <td  width="20%" style="padding: 0.625rem 0.4rem;">'.$value->quantity.'</td>
                                   </tr>';
                           }
                         } 
@@ -216,15 +216,15 @@
                           
                           <p style=" padding: 0;display: contents; ">
                           <table  class="table">
-                            <thead style="border-width: 3px;">
+                            <thead style="border-width: 1px;">
                               <th colspan="2" class="text-center">Thông tin đơn hàng</th> 
                               <tr>
-                                <th width="50%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Sản phẩm</th>
-                                <th width="30%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Giá bán</th>
-                                <th width="10%" style="padding: 0.625rem 0.4rem; border-width: 3px;">Số lượng</th>
+                                <th width="50%" style="padding: 0.625rem 0.4rem; border-width: 1px;">Sản phẩm</th>
+                                <th width="30%" style="padding: 0.625rem 0.4rem; border-width: 1px;">Giá bán</th>
+                                <th width="10%" style="padding: 0.625rem 0.4rem; border-width: 1px;">Số lượng</th>
                               </tr>
                             </thead>
-                          <tbody style="border-width: 3px;">';
+                          <tbody style="border-width: 1px;">';
                           if(!empty($item->detail_order)){ 
                             foreach($item->detail_order as $k => $value){
                               $priceBuy = $value->price;
@@ -252,9 +252,9 @@
 
  
                               echo '<tr> 
-                              <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$value->product.'</td>
-                              <td  width="30%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$showPrice.'</td>
-                              <td  width="20%" style="padding: 0.625rem 0.4rem; border-width: 3px;">'.$value->quantity.'</td>
+                              <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->product.'</td>
+                              <td  width="30%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$showPrice.'</td>
+                              <td  width="20%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->quantity.'</td>
                               </tr>';
                             }
                           } 
