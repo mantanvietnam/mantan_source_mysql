@@ -171,6 +171,8 @@ function addCustomerHistoriesAgency($input)
         $checkCustomer = [];
         if(!empty($_GET['id_customer'])){
             $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $_GET['id_customer']])->first();
+        }elseif(!empty($data->id_customer)){
+            $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $data->id_customer])->first();
         }
 
         if ($isRequestPost) {

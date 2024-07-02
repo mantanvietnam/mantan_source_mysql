@@ -323,7 +323,8 @@ function upgradeToDriverApi($input): array
                     'bank' => 'Ngân hàng Tiên Phong Bank (TPB)',
                     'account_number' => '26689898989',
                     'account_name' => 'CTY CP THUONG MAI VA DV EXC-GO',
-                    'content' => $addInfo
+                    'content' => $addInfo,
+                    'noidung' => parameter()['contentUpgradeToDriver']
                 ];
             }
 

@@ -28,9 +28,17 @@
 
 
 </div>
+<?php 
+  $themeinfo = $modelSetingThemeInfo->find()->where(['id_theme'=>2,'id_member'=>$info->id])->first();
+      
+      $data_value = array();
+    if(!empty($themeinfo->config)){
+        $data_value = json_decode($themeinfo->config, true);
+    }
 
+ ?>
 <body>
-    <div class="area">
+    <div class="area"  <?php if(!empty($data_value['background_color1']) && !empty($data_value['background_color2'])) echo 'style="background: radial-gradient(circle, '.$data_value['background_color1'].' 0%, '.$data_value['background_color2'].' 100%);"';?>>
         <ul class="circles">
             <li></li>
             <li></li>
@@ -73,14 +81,15 @@
 
                         <section id="block-2">
                             <div class="block-2-img">
-                                <img src="<?php echo $info->avatar;?>" alt="">
+                                <img  src="<?php echo $info->avatar;?>" alt="">
                             </div>
                             <div class="block-2-title">
-                                <h1 style="color: rgb(42 50 127);"><?php echo $info->name;?></h1>
+                                <h1  style=" color: <?php echo (!empty($data_value['text_color_name']))? $data_value['text_color_name']: 'rgb(42 50 127)' ;?>"><?php echo $info->name;?></h1>
                             </div>
                             <div class="block-2-detail">
-                                <h4><?php echo $info->name_position;?> <?php echo $info->name_system;?></h4>
-                                <p><i style="color: rgb(42 50 127);" class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
+                                <h4 style=" color: <?php echo (!empty($data_value['text_color_Jobtitle']))? $data_value['text_color_Jobtitle']: 'rgb(42 50 127)' ;?>"><?php echo $info->name_position;?> <?php echo $info->name_system;?></h4>
+
+                                <p style=" color: <?php echo (!empty($data_value['text_color_address']))? $data_value['text_color_address']: 'rgb(42 50 127)' ;?>"><i class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
                             </div>
                         </section>
 

@@ -460,7 +460,7 @@
            </div>\
            <div class="modal-footer">';
            if(info.event.extendedProps.statusnote=="new"){
-             modal += '<a href="/treatmentCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary">Xử lý</a>';
+             modal += '<a href="/treatmentCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary">Xử lý</a>  <a href="/addCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary">Sửa lịch hẹn</a>';
            }
            
 

@@ -19,6 +19,8 @@
                   <input type="number" class="form-control" name="moneyUpgradeToDriver" value="<?php echo @$setting['moneyUpgradeToDriver'];?>" />
                 </div> 
                 <div class="mb-3 col-md-6">
+                  <label class="form-label" for="basic-default-fullname">Nội dung thanh toán nâng cấp lên tài xế</label>
+                  <input type="number" class="form-control" name="contentUpgradeToDriver" value="<?php echo @$setting['contentUpgradeToDriver'];?>" />
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
             </div>

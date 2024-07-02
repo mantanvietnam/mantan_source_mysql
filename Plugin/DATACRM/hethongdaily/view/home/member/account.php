@@ -196,9 +196,9 @@
 
                                   if (in_array($item['id'], $list_theme_info)) {
                                       if($item['id'] == $user->display_info){
-                                        $status = ' <p>Đang sử dụng theme này</p>';
+                                        $status = ' <p>Đang sử dụng theme này <a data-bs-toggle="modal" data-bs-target="#editThemeinfo'.$item['id'].'" class="btn btn-primary" style=" color: #fff; ">chỉnh sửa màu</a></p>     ';
                                       }else{
-                                        $status = ' <a href="/useThemeInfo?id='.$item['id'].'" class="btn btn-success">Sử dụng theme này </a>';
+                                        $status = ' <a href="/useThemeInfo?id='.$item['id'].'" class="btn btn-success">Sử dụng theme này </a> <a data-bs-toggle="modal" data-bs-target="#editThemeinfo'.$item['id'].'" class="btn btn-primary" style=" color: #fff; ">chỉnh sửa màu</a>';
                                       }
                                   }else{
                                      $status = ' <a href="" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal'.$item['id'].'">Đặt mua theme</a>';
@@ -230,6 +230,15 @@
   global $urlTransaction;
   foreach(listThemeInfo() as $key => $item){
      $link = $urlTransaction.'accountName=tran ngọc manh &amount='.$item['price'].'&addInfo='.$boss->phone.' '.$user->id.' '.$item['id'];
+
+
+      $themeinfo = $modelSetingThemeInfo->find()->where(['id_theme'=>(int)$item['id'],'id_member'=>$user->id])->first();
+      
+      $data_value = array();
+    if(!empty($themeinfo->config)){
+        $data_value = json_decode($themeinfo->config, true);
+
+    }
     ?>
     <div class="modal fade" id="basicModal<?php echo $item['id'] ?>"  name="id">
 
@@ -257,7 +266,60 @@
            </div>
          </div>
        </div>
-     </div>
+       <div class="modal fade" id="editThemeinfo<?php echo $item['id'] ?>"  name="id">
+
+      <div class="modal-dialog" role="document" style=" max-width: 45rem;">
+        <div class="modal-content" style="padding: 20px;">
+          <div class="modal-header form-label border-bottom">
+            <h5 class="modal-title" id="exampleModalLabel1">Sửa màu sắc time info </h5>
+            <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form enctype="multipart/form-data" method="post" action="editThemeinfo">
+            <div class="row">
+            <div class="col-md-6">
+                  <img src="<?php echo $item['image']?>" style="width: 100%; height:550px;"/>
+                <div style=" text-align: center; font-size: 20px; padding: 10px 0; ">
+                  <p>Giá : <?php echo number_format($item['price']) ?>đ</p>
+                </div>
+            </div>
+             <div class="col-md-6">
+              <div class="row">
+                <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
+                <input type="hidden"  name="id_theme" id="id_theme" value="<?php echo $item['id'] ?>"/>
+                <div class="col-md-12 mb-3">
+                      <label class="form-label" for="basic-default-phone">ảnh nền</label>
+                      <input type="file" class="form-control phone-mask" name="image_background" id="image_background" value=""/>
+                        <?php if(!empty($data_value['image_background'])){
+                              echo '<img src="'.@$data_value['image_background'].'"  width="80" />';
+                        }?>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label" for="basic-default-phone">màu nền gradien</label></br>
+                      Màu trên <input type="color" class="" name="background_color1" id="background_color1" value="<?php echo @$data_value['background_color1'] ?>" style="border: 1px solid #f9fafa;padding: 0px;"/></br>
+                      Màu dưới<input type="color" class="" name="background_color2" id="background_color2" value="<?php echo @$data_value['background_color2'] ?>" style="border: 1px solid #f9fafa;padding: 0px;"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label" for="basic-default-phone">màu Họ và Tên</label></br>
+                      <input type="color" class="" name="text_color_name" id="text_color_name" value="<?php echo @$data_value['text_color_name'] ?>" style="border: 1px solid #f9fafa;padding: 0px;"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label" for="basic-default-phone">màu Tên Chức danh</label></br>
+                      <input type="color" class="" name="text_color_Jobtitle" id="text_color_Jobtitle" value="<?php echo @$data_value['text_color_Jobtitle'] ?>" style="border: 1px solid #f9fafa;padding: 0px;"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label" for="basic-default-phone">màu  địa chỉ</label></br>
+                      <input type="color" class="" name="text_color_address" id="text_color_address" value="<?php echo @$data_value['text_color_address'] ?>" style="border: 1px solid #f9fafa;padding: 0px;"/>
+                    </div>
+                   
+
+                  </div>
+              </div>
+            </div>
+              <button type="submit" class="btn btn-primary">Lưu</button> 
+          </form>
+             </div>
+           </div>
+         </div>
    <?php  }
  }
  ?>

@@ -133,6 +133,7 @@ function account($input)
 	$metaTitleMantan = 'Đổi thông tin tài khoản';
 
 	$modelMembers = $controller->loadModel('Members');
+	$modelSetingThemeInfo = $controller->loadModel('setingThemeInfos');
 
 	if(!empty($session->read('infoUser'))){
 		$mess = '';
@@ -203,6 +204,7 @@ function account($input)
 		setVariable('user', $user);
 		setVariable('boss', $boss);
 		setVariable('displayInfo', $displayInfo);
+		setVariable('modelSetingThemeInfo', $modelSetingThemeInfo);
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -629,6 +631,8 @@ function info($input)
 
     $modelMembers = $controller->loadModel('Members');
     $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+    
+	$modelSetingThemeInfo = $controller->loadModel('setingThemeInfos');
     $session->write('infoUser', []);
 
 	if(!empty($_GET['id'])){
@@ -706,6 +710,7 @@ function info($input)
 		
 			setVariable('info', $info);
 			setVariable('listGroupCustomer', $listGroupCustomer);
+			setVariable('modelSetingThemeInfo', $modelSetingThemeInfo);
 		}else{
 			return $controller->redirect('/');
 		}
@@ -719,10 +724,6 @@ function useThemeInfo($input){
 	global $session;
 	global $controller;
 	global $metaTitleMantan;
-	global $isRequestPost;
-	global $modelCategories;
-	global $urlHomes;
-	global $displayInfo;
 
 	$metaTitleMantan = 'Đổi thông tin tài khoản';
 
@@ -744,5 +745,62 @@ function useThemeInfo($input){
 		return $controller->redirect('/login');
 	}
 
+}
+
+function editThemeinfo($input){
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+
+	$metaTitleMantan = 'Đổi thông tin tài khoản';
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelSetingThemeInfo = $controller->loadModel('setingThemeInfos');
+
+	if(!empty($session->read('infoUser'))){
+		$dataSend = $input['request']->getData();
+	
+		$user = $session->read('infoUser');
+		$data = $modelSetingThemeInfo->find()->where(['id_theme'=>(int)$dataSend['id_theme'],'id_member'=>$user->id])->first();
+		$image_background = '';
+		
+		if(empty($data)){
+			$data = $modelSetingThemeInfo->newEmptyEntity();
+			$data->id_theme = (int) @$dataSend['id_theme'];
+			$data->id_member = $user->id;
+		}else{
+			$data_value = array();
+    		if(!empty($data->config)){
+    		    $data_value = json_decode($data->config, true);
+    		}
+    		if(!empty($data_value['image_background'])){
+    			$image_background = @$data_value['image_background'];
+    		}
+		}
+
+		if(isset($_FILES['image_background']) && empty($_FILES['image_background']["error"])){
+			$background = uploadImage($user->id, 'image_background', 'image_background_'.$data->id_theme);
+		}
+		
+		if(!empty($background['linkOnline'])){
+			$image_background = @$background['linkOnline'].'?time='.time();
+		}
+		$value = array('background_color1'=>$dataSend['background_color1'],
+				'background_color2'=>$dataSend['background_color2'],
+				'text_color_name'=>$dataSend['text_color_name'],
+				'text_color_Jobtitle'=>$dataSend['text_color_Jobtitle'],
+				'text_color_address'=>$dataSend['text_color_address'],
+				'image_background'=>$image_background,
+				);
+		 $data->config = json_encode($value);
+
+		 $modelSetingThemeInfo->save($data);	
+
+		return $controller->redirect('/account');
+
+
+	}else{
+		return $controller->redirect('/login');
+	}
 }
 ?>

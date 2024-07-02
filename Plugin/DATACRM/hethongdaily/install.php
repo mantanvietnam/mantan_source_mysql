@@ -257,6 +257,14 @@ $sqlInstallDatabase .="CREATE TABLE `discount_product_agencys` (
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `seting_theme_infos` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`id_member` INT NOT NULL ,
+`id_theme` INT NOT NULL ,
+`config` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -273,6 +281,7 @@ $sqlDeleteDatabase .= "DROP TABLE documentinfos; ";
 $sqlDeleteDatabase .= "DROP TABLE debts; ";
 $sqlDeleteDatabase .= "DROP TABLE bills; ";
 $sqlDeleteDatabase .= "DROP TABLE discount_product_agencys; ";
+$sqlDeleteDatabase .= "DROP TABLE seting_theme_infos; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -483,3 +492,7 @@ $sqlUpdateDatabase['discount_product_agencys']['id_product'] = "ALTER TABLE `dis
 $sqlUpdateDatabase['discount_product_agencys']['id_member_sell'] = "ALTER TABLE `discount_product_agencys` ADD `id_member_sell` INT NOT NULL COMMENT 'id đại lý tuyến trên'"; 
 $sqlUpdateDatabase['discount_product_agencys']['id_member_buy'] = "ALTER TABLE `discount_product_agencys` ADD `id_member_buy` INT NOT NULL COMMENT 'id đại lý tuyến dưới đặt mua'";
 $sqlUpdateDatabase['discount_product_agencys']['discount'] = "ALTER TABLE `discount_product_agencys` ADD `discount` INT NOT NULL DEFAULT '0'";
+
+$sqlUpdateDatabase['seting_theme_infos']['id_member'] = "ALTER TABLE `seting_theme_infos` ADD `id_member` INT NOT NULL";
+$sqlUpdateDatabase['seting_theme_infos']['id_theme'] = "ALTER TABLE `seting_theme_infos` ADD `id_theme` INT NOT NULL";
+$sqlUpdateDatabase['seting_theme_infos']['config'] = "ALTER TABLE `seting_theme_infos` ADD `config` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";

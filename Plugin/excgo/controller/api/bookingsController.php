@@ -2260,7 +2260,7 @@ function checkBookingReceivedApi($input): array
             if(!empty($booking->received_by)){
                return apiResponse(2, 'Cuốc xe có người nhận rồi');  
            }else{
-            return apiResponse(1, 'Cuốc xe chưa có người nhận');
+            return apiResponse(1, 'Cuốc xe chưa có người nhận', $booking);
         }
 
     }else{
@@ -2271,4 +2271,8 @@ function checkBookingReceivedApi($input): array
 return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 
 }
+
+
+
+
 
