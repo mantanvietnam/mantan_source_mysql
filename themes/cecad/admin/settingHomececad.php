@@ -9,12 +9,12 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                                    KHỐI ĐẦU
+                                    KHỐI BANNER
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-2" aria-controls="navs-top-info" aria-selected="false">
-                                    KHỐI THỨ 2
+                                    KHỐI NHỮNG CON SỐ ẤN TƯỢNG
                                 </button>
                             </li>
                             <li class="nav-item">
@@ -24,22 +24,22 @@
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-4" aria-controls="navs-top-info" aria-selected="false">
-                                    KHỐI THỨ 4
+                                    KHỐI LĨNH VỰC HOẠT ĐỘNG
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-5" aria-controls="navs-top-info" aria-selected="false">
-                                    KHỐI THỨ 5
+                                    KHỐI DỰ ÁN
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-6" aria-controls="navs-top-info" aria-selected="false">
-                                    KHỐI THỨ 6
+                                    KHỐI TIN TỨC
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-7" aria-controls="navs-top-info" aria-selected="false">
-                                    KHỐI THỨ 7
+                                    KHỐI ĐỐI TÁC
                                 </button>
                             </li>
                             <li class="nav-item">
