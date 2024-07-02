@@ -18,7 +18,7 @@
                             </iframe>
                         </div>
                         <div class="button-dowload-detail-publication text-center">
-                            <a href="<?= $publication['file']?>" dowload>Dowload</a>
+                            <a href="<?= $publication['file']?>" dowload>Tải xuống</a>
                         </div>
                            <!-- <div class="image-detail-publication">
                             <img src="<?= $publication['image']?>" alt="">

@@ -42,7 +42,7 @@
 
                                 <div class="infor-detail-publication d-flex justify-content-between">
                                     <div class="detail-publication"><a href="/detailpublication/<?php echo $value->slug;?>.html">Xem Chi Tiết</a></div>
-                                    <div class="button-dowload-detail"><a href="<?php echo $value->file;?>" Dowload>Dowload</a></div>
+                                    <div class="button-dowload-detail"><a href="<?php echo $value->file;?>" Dowload>Tải xuống</a></div>
                                 </div>
                             </div>
                         </div>

@@ -27,7 +27,7 @@
                         </div>
      
                         <div class="col-lg-4">
-                            <div><h2 class="title-news-other">Tin tức khác</h2></div>
+                            <div><h2 class="title-news-other">Tin tức liên quan</h2></div>
                             <div class="news-right-site">
                         <?php if (!empty($otherPosts)): ?>
                             <?php foreach ($otherPosts as $key => $value): ?>

@@ -15,7 +15,7 @@ else {
         <section class="section-detail-albums">
             <div class="container">
                 <div class="title-detail-albums">
-                    <h1>Chi tiết ALbums</h1>
+                    <h1>Chi tiết ALbum</h1>
                 </div>
                 <div class="row justify-content-between">
                     <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">

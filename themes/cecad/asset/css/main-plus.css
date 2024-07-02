@@ -735,6 +735,8 @@ table {
     font-size: 1.125rem;
     margin-bottom: 1rem;
     max-width: 450px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 #section-banner-top .banner-contain-3 .contact-form form {
