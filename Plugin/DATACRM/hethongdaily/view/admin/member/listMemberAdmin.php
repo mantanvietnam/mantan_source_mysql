@@ -106,7 +106,15 @@
                     if($item->status ==  'active'){
                       $status = '<p class="text-success">Kích hoạt</p>';
                     }
-
+                    $theme_info = '';
+                     $list_theme_info = explode(",", $item->list_theme_info);
+                     if(!empty(listThemeInfo())){
+                      foreach(listThemeInfo() as $key => $item){
+                          if (in_array($item['id'], $list_theme_info)) {
+                            $theme_info = $item['name']',';
+                          }
+                        }
+                      }
                     echo '<tr>
                             <td>'.$item->id.'</td>
                             <td><img src="'.$item->avatar.'" width="100" /></td>
@@ -115,7 +123,9 @@
                               '.$item->phone.'<br/>
                               '.$item->address.'<br/>
                               '.$item->email.'<br/>
+                              Theme info: '.$theme_info.' 
                               <a class="btn btn-danger" href="/plugins/admin/hethongdaily-view-admin-warehouse-listProductWarehouseMemberAdmin/?id_member='.$item->id.'">Xem tồn kho</a>
+                              <a class="btn btn-primary" href="/plugins/admin/hethongdaily-view-admin-member-activateThemeMemberAdmin/?id_member='.$item->id.'">Kích hoạt theme</a>
                             </td>
                             <td>
                               <a href="/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin/?id='.$item->id_father.'">'.@$item->father->name.'</a><br/>

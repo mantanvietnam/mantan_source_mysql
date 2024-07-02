@@ -216,3 +216,38 @@ function deleteMemberAdmin($input){
 
     return $controller->redirect('/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin');
 }
+
+function activateThemeMemberAdmin($input){
+	global $controller;
+	global $isRequestPost;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $urlHomes;
+
+    $metaTitleMantan = 'Thông tin đại lý hệ thống';
+
+	$modelMembers = $controller->loadModel('Members');
+	$mess= '';
+
+	// lấy data edit
+    if(!empty($_GET['id_member'])){
+        $data = $modelMembers->find()->where(['id'=>(int) $_GET['id_member']])->first();
+    }
+
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        $data->list_theme_info = implode(',', $dataSend['list_theme_info']);
+        
+        $modelMembers->save($data);
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $conditions = array('type' => 'system_sales');
+    $listSystem = $modelCategories->find()->where($conditions)->all()->toList();
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+    setVariable('listSystem', $listSystem);
+}
+
+?>

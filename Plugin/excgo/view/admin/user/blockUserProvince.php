@@ -38,7 +38,7 @@
                                 if(!empty($listBlock)){
                                           $checks = (in_array($item->id, $listBlock))? 'checked':'';
                                         }
-                                echo '<div class="mb-3 col-md-3"> <label class="form-label"'.$item->name.' ('.$item->bsx.')</label></br>';
+                                echo '<div class="mb-3 col-md-3"> <label class="form-label">'.$item->name.' ('.$item->bsx.')</label></br>';
                                  
 
                                 if(!empty($item->lower)){

@@ -81,7 +81,7 @@ $setting = setting();
     <div class="bottom-footer">
         <div class="container">
             <div class="row g-3">
-                <div class="col-12 col-lg-9"><span>Copyright Tay Ho 360 © 2020. Developed & Managed by VinGG</span></div>
+                <div class="col-12 col-lg-9"><span>Copyright Tay Ho 360 © 2020</span></div>
                 <div class="col-12 col-lg-3"><span></span></div>
             </div>
         </div>
