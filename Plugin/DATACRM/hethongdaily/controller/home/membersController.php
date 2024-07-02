@@ -658,7 +658,7 @@ function info($input)
 			$info->name_system = @$system->name;
 			$info->image_system = @$system->image;
 
-			if($info->id_father == 0){
+			if($info->id_father == 0 && empty($info->name_position)){
 				$info->name_position = 'CO-FOUNDER';
 			}
 
