@@ -46,7 +46,7 @@ else {
                 </div>
                 <div class="row">
                 <?php foreach ($listImages as $image=>$value) { ?>
-                    <div class="col-md-3 col-sm-3 list-image-albums">
+                    <div class="col-lg-4 col-md-6 col-sm-12 list-image-albums">
                         <div class="img-detail">
                             <a href="<?php echo $value->image?>" data-fancybox="gallery" data-caption="Caption">
                                 <img src="<?php echo $value->image?>" alt="">

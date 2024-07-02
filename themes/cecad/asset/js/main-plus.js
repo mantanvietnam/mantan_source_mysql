@@ -61,35 +61,10 @@ $('.slide-albums-content').slick({
 
 
 $('.list-slide-detail-albums').slick({
-    centerMode: true,
-
     arrows: false,
     infinite: true,
     slidesToShow: 1,
     dots: true,
-    responsive: [{
-            breakpoint: 768,
-            settings: {
-                centerMode: true,
-
-                arrows: false,
-                infinite: true,
-                slidesToShow: 1,
-                dots: true,
-            }
-        },
-        {
-            breakpoint: 480,
-            settings: {
-                centerMode: true,
-
-                arrows: false,
-                infinite: true,
-                slidesToShow: 1,
-                dots: true,
-            }
-        }
-    ]
 });
 
 let counter = document.querySelectorAll(".counter")

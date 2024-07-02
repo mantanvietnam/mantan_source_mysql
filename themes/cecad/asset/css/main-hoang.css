@@ -357,6 +357,7 @@ table {
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
+    text-align: justify;
 }
 
 .section-card-albums .image-people-cv {
@@ -425,7 +426,7 @@ table {
 
 .section-detail-albums .list-slide-detail-albums .card-slide-detail-albums {
     margin: 0 10px;
-    height: 380px;
+    height: 440px;
 }
 
 .section-detail-albums .slick-dots {
@@ -472,6 +473,7 @@ table {
     padding-bottom: 20px;
     margin-bottom: 15px;
     overflow: hidden;
+    line-height: 1.5;
 }
 
 .section-detail-albums .Categories-albums span {
@@ -480,7 +482,7 @@ table {
 
 .section-detail-albums .list-image-albums .img-detail {
     margin-top: 20px;
-    height: 230px;
+    height: 300px;
     width: 100%;
 }
 
@@ -874,7 +876,7 @@ table {
 }
 
 .section-video .cover-card-video {
-    margin: 10px 19px 50px 10px;
+    margin: 10px 10px 50px 10px;
 }
 
 .section-video .cover-card-video p {
@@ -894,7 +896,6 @@ table {
 
 .section-card-albums .image-albums-card {
     height: 300px;
-    margin-bottom: 15px;
     box-shadow: 0 0 12px rgba(0, 0, 0, .175);
     overflow: hidden;
     border-radius: 12px;
@@ -911,6 +912,22 @@ table {
 }
 
 .content-slide:hover {}
+
+.list-slide-detail-albums .slick-list.draggable {
+    padding: 0 !important;
+}
+
+.cover-box-albums {
+    margin-bottom: 30px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .175);
+    transition: all linear 0.2s;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.information-card-albums {
+    padding: 30px 25px;
+}
 
 @media screen and (max-width: 1200px) {}
 
@@ -951,9 +968,21 @@ table {
     .section-card-albums .date-content-slide-albums {
         font-size: 14px;
     }
+    .section-card-albums {
+        padding: 0;
+    }
 }
 
 @media screen and (max-width: 800px) {
+    .section-video .cover-card-video {
+        margin: 0px 0px 50px 0px;
+    }
+    .section-detail-albums .list-image-albums .img-detail {
+        width: 250;
+    }
+    .section-detail-albums .list-image-albums .img-detail img {
+        object-fit: cover;
+    }
     .section-albums-parent .header-title-albums h1 {
         font-size: 35px;
     }
@@ -991,9 +1020,27 @@ table {
     .section-detail-publication {
         margin: 20px 0;
     }
+    .section-detail-albums .container:last-child {
+        margin-top: 50px !important;
+    }
 }
 
 @media screen and (max-width: 500px) {
+    .section-card-albums .h2-title-above-slide {
+        font-size: 20px;
+    }
+    .section-detail-albums .list-slide-detail-albums .card-slide-detail-albums {
+        margin: 0 5px;
+        height: 330px;
+    }
+    .section-detail-albums .list-slide-detail-albums .card-slide-detail-albums img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .section-detail-albums {
+        margin: 50px 0;
+    }
     .search-publication .search {
         width: 100%;
     }
@@ -1019,7 +1066,7 @@ table {
         font-size: 14px;
     }
     .section-albums-parent .header-title-albums h1 {
-        font-size: 30px;
+        font-size: 28px;
     }
     .section-detail-albums .describe-detail-albums h2 {
         font-size: 16px;
