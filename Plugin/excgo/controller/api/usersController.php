@@ -311,9 +311,9 @@ function upgradeToDriverApi($input): array
         $currentRequest = $modelDriverRequest->find()
             ->where(['user_id' => $currentUser->id])
             ->first();
-
+        $parameter = parameter();
         if (!empty($currentRequest) && !$currentRequest->status) {
-            $money = (int) parameter()['moneyUpgradeToDriver'];
+            $money = (int) $parameter['moneyUpgradeToDriver'];
             $data =array();
             if (!empty($money)) {
                 $addInfo = "$currentUser->phone_number $transactionKey";
@@ -324,7 +324,7 @@ function upgradeToDriverApi($input): array
                     'account_number' => '26689898989',
                     'account_name' => 'CTY CP THUONG MAI VA DV EXC-GO',
                     'content' => $addInfo,
-                    'noidung' => parameter()['contentUpgradeToDriver']
+                    'noidung' => @$parameter['contentUpgradeToDriver']
                 ];
             }
 
@@ -997,5 +997,24 @@ function getUserStatisticAdmin($input)
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 
 }
+function checkVersionAppStore($input){
+      global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
 
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+    
+        $info = sendDataConnectMantan('https://itunes.apple.com/lookup?id='.$dataSend['id_app']);
+        $info = str_replace('ï»¿', '', utf8_encode($info));
+        $info = json_decode($info, true);
+
+        return apiResponse(1, 'Lấy dữ liệu thành công', $info);
+        
+
+    }
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+} 
 ?>

@@ -1020,5 +1020,34 @@ function buyThemeInfo($input){
 	return ['code'=> 0, 'mess'=>'chuyền phương thức POST'];
 }
 
+function extendMemberAPI($input){
+	global $controller;
+
+	global $isRequestPost;
+	$modelMembers = $controller->loadModel('Members');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['phone']) && !empty($dataSend['deadline'])){
+
+			$user = $modelMembers->find()->where(['phone'=>$dataSend['phone']])->first();
+
+			if(!empty($user)){
+				$date = explode("/", $dataSend['deadline']);
+				$user->deadline =  mktime(23, 59, 59, $date[1], $date[0], $date[2]);
+				$modelMembers->save($user);
+				return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này gia hạn thành công</p>', 'data'=> $user];
+			}
+			return ['code'=> 0, 'mess'=>'<p class="text-danger"> số điện thoại này không tồn tại</p>'];
+		}
+		return ['code'=> 0, 'mess'=>'<p class="text-danger"> Thiếu dữ liệu</p>'];
+	}
+
+	return ['code'=> 0, 'mess'=>'<p class="text-danger"> chuyền phương thức POST</p>'];
+}
 
 ?>
+
+
+

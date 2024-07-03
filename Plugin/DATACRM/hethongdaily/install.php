@@ -265,6 +265,14 @@ $sqlInstallDatabase .="CREATE TABLE `seting_theme_infos` (
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `link_infos` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`id_member` INT NOT NULL ,
+`type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`link` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -282,6 +290,7 @@ $sqlDeleteDatabase .= "DROP TABLE debts; ";
 $sqlDeleteDatabase .= "DROP TABLE bills; ";
 $sqlDeleteDatabase .= "DROP TABLE discount_product_agencys; ";
 $sqlDeleteDatabase .= "DROP TABLE seting_theme_infos; ";
+$sqlDeleteDatabase .= "DROP TABLE link_infos; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -496,3 +505,7 @@ $sqlUpdateDatabase['discount_product_agencys']['discount'] = "ALTER TABLE `disco
 $sqlUpdateDatabase['seting_theme_infos']['id_member'] = "ALTER TABLE `seting_theme_infos` ADD `id_member` INT NOT NULL";
 $sqlUpdateDatabase['seting_theme_infos']['id_theme'] = "ALTER TABLE `seting_theme_infos` ADD `id_theme` INT NOT NULL";
 $sqlUpdateDatabase['seting_theme_infos']['config'] = "ALTER TABLE `seting_theme_infos` ADD `config` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+
+$sqlUpdateDatabase['link_infos']['id_member'] = "ALTER TABLE `link_infos` ADD `id_member` INT NOT NULL";
+$sqlUpdateDatabase['link_infos']['type'] = "ALTER TABLE `link_infos` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['link_infos']['link'] = "ALTER TABLE `link_infos` ADD `link` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";

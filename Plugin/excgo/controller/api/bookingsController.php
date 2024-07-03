@@ -290,6 +290,8 @@ function receiveBookingApi($input): array
     $userBookingModel = $controller->loadModel('UserBookings');
     $serviceFee = getServiceFee();
 
+    $parameter = parameter();
+
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
         if (!empty($dataSend['access_token'])) {
@@ -303,7 +305,7 @@ function receiveBookingApi($input): array
                 return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
             }
 
-            if($currentUser->point >= 5){
+            if($currentUser->point >= $parameter['maximumTrip']){
                  return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
             }
 
@@ -827,9 +829,9 @@ function completeBookingApi($input): array
                 $booking->updated_at = date('Y-m-d H:i:s');
                 $modelBooking->save($booking);
 
-                if($currentUser->point>0){
-                    $currentUser->point -= 1;
-                }
+                // if($currentUser->point>0){
+                    // $currentUser->point -= 1;
+                // }
                 $modelUser->save($currentUser);
                 // Lưu lịch sử đăng cuốc xe và nhận cuốc xe
                 $receivedUserBooking = $userBookingModel->find()->where([

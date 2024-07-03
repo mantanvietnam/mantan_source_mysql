@@ -125,8 +125,9 @@
                               '.$item->phone.'<br/>
                               '.$item->address.'<br/>
                               '.$item->email.'<br/>
-                              Theme info: '.implode(', ', $theme_info).'<br/><br/>
-                              <a class="btn btn-danger mb-3" href="/plugins/admin/hethongdaily-view-admin-warehouse-listProductWarehouseMemberAdmin/?id_member='.$item->id.'">Xem tồn kho</a><br/>
+                              Ngày hết hạn: '.date('d/m/Y', $item->deadline).'<br/>
+                              Theme info: '.implode(', ', $theme_info).'<br/>
+                              <a class="btn btn-danger " href="/plugins/admin/hethongdaily-view-admin-warehouse-listProductWarehouseMemberAdmin/?id_member='.$item->id.'">Xem tồn kho</a>
                               <a class="btn btn-primary" href="/plugins/admin/hethongdaily-view-admin-member-activateThemeMemberAdmin/?id_member='.$item->id.'">Kích hoạt theme</a>
                             </td>
                             <td>

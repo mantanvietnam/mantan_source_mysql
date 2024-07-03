@@ -2,7 +2,7 @@
 namespace App\Model\Table;
 use Cake\ORM\Table;
 
-class SetingThemeInfosTable extends Table
+class LinkInfosTable extends Table
 {
     /*
     public function initialize(array $config): void
