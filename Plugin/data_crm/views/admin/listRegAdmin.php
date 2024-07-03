@@ -89,7 +89,8 @@
                         <td>
                             '.$item->boss_name.'<br/>
                             '.$item->boss_phone.'<br/>
-                            '.$item->boss_email.'
+                            '.$item->boss_email.'<br/>
+                            <a class="btn btn-primary" style="color: #fff;" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >Gia hạn cho đại lý</a>
                         </td>
                         <td>'.$link.'</td>
                         <td>
@@ -107,7 +108,7 @@
           ?>
         </tbody>
       </table>
-    </div>
+    </div >
 
     <!-- Phân trang -->
     <div class="demo-inline-spacing">
@@ -151,7 +152,80 @@
         </ul>
       </nav>
     </div>
+    <?php 
+      if(!empty($listData)){
+        foreach ($listData as $item) {?>
+          <div class="modal fade" id="basicModal<?php echo $item->id; ?>"  name="id">
+
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header form-label border-bottom">
+                  <h5 class="modal-title" id="exampleModalLabel1">Gia hạn cho đại lý </h5>
+                  <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="">
+                 <div class="modal-footer">
+                  <input type="hidden" value="<?php echo $item->id; ?>"  name="id">
+                  <div class="card-body">
+                    <div class="row gx-3 gy-2 align-items-center">
+                      <div class="col-md-12">
+                        <label class="form-label">Thông tin Boss</label>
+                         <?php echo '<p>Tên boss :'.$item->boss_name.'</p>
+                            <p>Điện thoại boss:'.$item->boss_phone.'</p>
+                            <p>Emai boss: '.$item->boss_email.'</p>';
+                            ?>
+                      </div>
+
+                      <div class="col-md-12">
+                        <label class="form-label">Số điện thoại đạt lý gia hạn</label>
+                        <input type="text" class="form-control " id="phone_<?php echo $item->id; ?>" name="phone" value="">
+                      </div>
+                      <div class="col-md-12">
+                        <label class="form-label">Ngày gia hạn</label>
+                        <input type="text" class="form-control datetimepicker" id="deadline_<?php echo $item->id; ?>" name="deadline" value="">
+
+                      </div>
+                      <div class="col-md-12" id="messAddCustom<?php echo $item->id; ?>"></div>
+                    </div>
+                  </div>
+                  <a class="btn btn-primary" style="color: #fff;" onclick="extend(<?php echo $item->id; ?>,'<?php echo $item->domain; ?>')">Gia hạn </a>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+        <?php }
+      } ?>
     <!--/ Basic Pagination -->
   </div>
   <!--/ Responsive Table -->
 </div>
+ <script>
+    $(document).ready(function() {
+     
+      $('.datetimepicker').datetimepicker({
+        format:'d/m/Y'
+      });
+    });
+
+    function extend(id,link){
+        var phone = $('#phone_'+id).val();
+        var deadline = $('#deadline_'+id).val();
+       link = "https://"+link+"/apis/extendMemberAPI";
+
+         $.ajax({
+          method: "POST",
+          url: link,
+          data: { 
+            phone: phone,
+            deadline: deadline,
+        }
+    })
+        .done(function( msg ) {
+            $('#messAddCustom'+id).html(msg.mess);
+            
+        })
+    }
+    </script>
