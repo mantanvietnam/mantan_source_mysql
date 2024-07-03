@@ -32,7 +32,7 @@
                                 <div class="input-group">
                                     <input type="text" name="search_input" class="form-control search-input" id="agency_search_input" style="border: solid 1px;" value="" placeholder="Tìm kiếm ...">
                                     <span class="input-group-btn">
-                                        <button type="button" id="agency_search_btn" class="btn btn-primary" style="color: white;">
+                                        <button type="button" id="agency_search_btn" class="btn btn-primary" style="color: white;z-index: 1;">
                                             <i class='bx bx-search-alt-2'></i>
 
                                         </button>

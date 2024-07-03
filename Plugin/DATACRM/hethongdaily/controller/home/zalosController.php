@@ -192,8 +192,21 @@ function sendNotificationMobile($input)
 		$mess= '';
 
 		$modelTokenDevices = $controller->loadModel('TokenDevices');
+		$modelCampaigns = $controller->loadModel('Campaigns');
 
 		$infoUser = $session->read('infoUser');
+
+		// danh sách chiến dịch
+		$conditions = array('id_member'=>$session->read('infoUser')->id);
+		$listCampaign = $modelCampaigns->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
+
+		// danh sách nhóm khách hàng
+		$conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
+
+        // danh sách chức danh đại lý
+        $conditions = array('type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system);
+        $listPositions = $modelCategories->find()->where($conditions)->all()->toList();
 
 		if ($isRequestPost) {
 	        $dataSend = $input['request']->getData();
@@ -224,6 +237,9 @@ function sendNotificationMobile($input)
 	    }
 
 	    setVariable('mess', $mess);
+	    setVariable('listCampaign', $listCampaign);
+	    setVariable('listGroupCustomer', $listGroupCustomer);
+	    setVariable('listPositions', $listPositions);
 	}else{
 		return $controller->redirect('/login');
 	}
