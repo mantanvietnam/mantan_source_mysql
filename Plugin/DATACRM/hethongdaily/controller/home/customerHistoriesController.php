@@ -182,7 +182,7 @@ function addCustomerHistoriesAgency($input)
                 $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id_customer']])->first();
                 
                 // tạo dữ liệu save
-                if(!empty($checkCustomer) && $checkCustomer->id_parent == $infoUser->id){
+                if(!empty($checkCustomer)){
                     $data->id_customer = (int) $dataSend['id_customer'];
                     $data->note_now = $dataSend['note_now'];
                     $data->action_now = $dataSend['action_now'];
