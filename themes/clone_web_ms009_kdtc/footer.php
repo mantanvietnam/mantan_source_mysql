@@ -18,7 +18,18 @@ $setting = setting();
                             <p class="footer-company"><?php echo show_text_clone(@$setting['name_company']) ?></p>
                             <p class="footer-address">Địa chỉ: <?php echo show_text_clone(@$setting['address']) ?></p>
                             <p class="footer-phone">Hotline: <?php echo show_text_clone(@$setting['phone']) ?></p>
-                            <p class="footer-email">Email: <?php echo show_text_clone(@$setting['email']) ?></p>
+                            <p class="footer-email mb-3">Email: <?php echo show_text_clone(@$setting['email']) ?></p>
+
+                            <p class="footer-company">Tải ứng dụng</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="https://apps.apple.com/vn/app/phoenix-ng%C6%B0%E1%BB%9Di-d%E1%BA%ABn-%C4%91%C6%B0%E1%BB%9Dng/id6504493368?l=vi"><img class="img-fluid" src="http://crm.phoenixcamp.vn/upload/admin/files/ios.png" /></a>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <a href="https://play.google.com/store/apps/details?id=vn.phoenixcamp.mobile&amp;pli=1"><img class="img-fluid" src="http://crm.phoenixcamp.vn/upload/admin/files/ggplay.png" /></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

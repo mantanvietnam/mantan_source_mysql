@@ -78,6 +78,8 @@
               <th>Khách hàng</th>
               <th>Nội dung</th>
               <th>Trạng thái</th>
+              <th>Sửa</th>
+              <th>Xóa</th>
             </tr>
           </thead>
           <tbody>
@@ -90,18 +92,28 @@
                 }
                 
                 echo '<tr>
-                <td>'.$item->id.'</td>
-                <td>'.date('H:i d/m/Y', $item->time_now).'</td>
+                  <td>'.$item->id.'</td>
+                  <td>'.date('H:i d/m/Y', $item->time_now).'</td>
 
-                <td>
-                <a href="/listCustomerAgency?id='.$item->id_customer.'">'.$item->info_customer->full_name.'</a><br/>
-                '.$item->info_customer->phone.'
-                </td>
-                <td>'.$item->note_now.'</td>
-                
-                <td>'.$status.'</td>
+                  <td>
+                  <a href="/listCustomerAgency?id='.$item->id_customer.'">'.$item->info_customer->full_name.'</a><br/>
+                  '.$item->info_customer->phone.'
+                  </td>
+                  <td>'.$item->note_now.'</td>
+                  
+                  <td>'.$status.'</td>
 
-                
+                  <td width="5%" align="center">
+                    <a class="dropdown-item" href="/addCustomerHistoriesAgency/?id='.$item->id.'">
+                    <i class="bx bx-edit-alt me-1"></i>
+                    </a>
+                  </td>
+
+                  <td align="center">
+                    <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerHistoriesAgency/?id='.$item->id.'">
+                    <i class="bx bx-trash me-1"></i>
+                    </a>
+                  </td>
                 </tr>';
               }
             }else{
@@ -127,7 +139,15 @@
                         <p><strong> Thời gian: </strong>'.date('H:i d/m/Y', $item->time_now).'</p>
                         <p><strong> Nội dung: </strong>'.$item->note_now.'</p>
                         <p><strong> Trạng thái: </strong>'.$status.'</p>
+                        <p  class="text-center mt-3">
+                          <a title="Sửa" class="btn btn-success" href="/addCustomerHistoriesAgency/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a> 
 
+                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerHistoriesAgency/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
+                        </p>
                         </div>';
           }
          
