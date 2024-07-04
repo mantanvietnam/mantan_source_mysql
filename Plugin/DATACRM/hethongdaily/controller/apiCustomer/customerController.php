@@ -53,12 +53,9 @@ function saveRegisterCustomerAPI($input)
         $dataSend = $input['request']->getData();
 
         if( !empty($dataSend['full_name']) && 
-            !empty($dataSend['email']) &&
             !empty($dataSend['pass']) &&
             !empty($dataSend['passAgain']) &&
-            !empty($dataSend['phone']) &&
-            !empty($dataSend['address']) &&
-            !empty($dataSend['birthday'])
+            !empty($dataSend['phone']) 
         ){
 
             if(!empty($dataSend['phone_agency'])){
@@ -96,7 +93,7 @@ function saveRegisterCustomerAPI($input)
                         // tạo dữ liệu save
                     $data->full_name = $dataSend['full_name'];
                     $data->phone = $dataSend['phone'];
-                    $data->email = $dataSend['email'];
+                    $data->email = @$dataSend['email'];
                     $data->address = (!empty($dataSend['address']))?$dataSend['address']:'';
                     $data->sex = (int) @$dataSend['sex'];
                     $data->id_city = 0;
