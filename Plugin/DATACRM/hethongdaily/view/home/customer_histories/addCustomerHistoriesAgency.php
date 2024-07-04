@@ -37,11 +37,11 @@
                     <div class="input-group input-group-merge">
                       <select required class="form-select" name="action_now" id="action_now">
                         <option value="">Chọn hành động</option>
-                        <option value="call" <?php if(!empty($data->status) && $data->status=='call') echo 'selected'; ?> >Gọi điện</option>
-                        <option value="message" <?php if(isset($data->status) && $data->status=='message') echo 'selected'; ?> >Nhắn tin</option>
-                        <option value="go_meet" <?php if(isset($data->status) && $data->status=='go_meet') echo 'selected'; ?> >Đi gặp</option>
-                        <option value="online_meeting" <?php if(isset($data->status) && $data->status=='online_meeting') echo 'selected'; ?> >Họp online</option>
-                        <option value="other" <?php if(isset($data->status) && $data->status=='other') echo 'selected'; ?> >Khác</option>
+                        <option value="call" <?php if(!empty($data->action_now) && $data->action_now=='call') echo 'selected'; ?> >Gọi điện</option>
+                        <option value="message" <?php if(isset($data->action_now) && $data->action_now=='message') echo 'selected'; ?> >Nhắn tin</option>
+                        <option value="go_meet" <?php if(isset($data->action_now) && $data->action_now=='go_meet') echo 'selected'; ?> >Đi gặp</option>
+                        <option value="online_meeting" <?php if(isset($data->action_now) && $data->action_now=='online_meeting') echo 'selected'; ?> >Họp online</option>
+                        <option value="other" <?php if(isset($data->action_now) && $data->action_now=='other') echo 'selected'; ?> >Khác</option>
                       </select>
                     </div>
                   </div>
