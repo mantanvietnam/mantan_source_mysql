@@ -337,7 +337,43 @@
                                     </div>
                                 </div>
                             </a>
-                            <?php }?>
+                            <?php }?> 
+
+                            <?php if(!empty($dataLink)){
+                                foreach($dataLink as $key => $item){
+                                    $icon = '';
+                                    if($item->type=='website'){
+                                        $icon = '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Circle-icons-global.svg/1024px-Circle-icons-global.svg.png" width="100%">';
+                                    }elseif($item->type=='facebook'){
+                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/facebook.svg" height="32" width="32"></image></svg>';
+                                    }elseif($item->type=='instagram'){
+                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/instagram.svg" height="32" width="32"></image></svg>';
+                                    }elseif($item->type=='tiktok'){
+                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/tiktok.svg" height="32" width="32"></image></svg>';
+                                    }elseif($item->type=='youtube'){
+                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/youtube.svg" height="32" width="32"></image></svg>';
+                                    }elseif($item->type=='zalo'){
+                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/zalo.svg" height="32" width="32"></image></svg>';
+                                    }elseif($item->type=='linkedin'){
+                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/linkedin.svg" height="32" width="32"></image></svg>';
+                                    }elseif($item->type=='twitter'){
+                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/twitter.svg" height="32" width="32"></image></svg>';
+                                    }
+
+                                    echo '<a target="_blank" href="'.$item->link.'">
+                                <div class="row social mb-3">
+                                    <div class="col-3">'.$icon.'</div>
+
+                                    <div class="col-9 text-center">
+                                        <span class="title">'.$item->namelink.'</span><br/>
+                                        <span class="des">'.$item->description.'</span>
+                                    </div>
+                                </div>
+                            </a>';
+                                }
+                            } 
+
+                             ?>
 
                             <?php 
                                 if(!empty($info->bank_name) && !empty($info->bank_number) && !empty($info->bank_code)){ 

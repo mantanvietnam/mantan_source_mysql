@@ -199,6 +199,7 @@
                               <tr>
                                 <th>Kiểu</th>
                                 <th>Link</th>
+                                <th>Tên link</th>
                                 <th>Mô tả</th>
                                 <th>Xóa</th>
                               </tr>
@@ -224,10 +225,14 @@
                                         <option value="youtube" <?php if($value->type=='youtube') echo 'selected';?> >Youtube</option>
                                         <option value="zalo" <?php if($value->type=='zalo') echo 'selected';?> >Zalo</option>
                                         <option value="linkedin" <?php if($value->type=='linkedin') echo 'selected';?> >linkedin</option>
+                                        <option value="twitter" <?php if($value->type=='twitter') echo 'selected';?> >Twitter</option>
                                       </select>
                                     </td>
                                     <td>
                                       <input type="text" class="form-control phone-mask" name="link[<?php echo $i ?>]"  value="<?php echo @$value->link;?>"/>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="namelink[<?php echo $i ?>]"  value="<?php echo @$value->namelink;?>"/>
                                     </td>
                                     <td>
                                       <input type="text" class="form-control phone-mask" name="descriptionlink[<?php echo $i ?>]"  value="<?php echo @$value->description;?>"/>
@@ -248,10 +253,14 @@
                                         <option value="youtube">Youtube</option>
                                         <option value="zalo">Zalo</option>
                                         <option value="linkedin" >linkedin</option>
+                                        <option value="twitter" >Twitter</option>
                                       </select>
                                     </td>
                                     <td>
                                       <input type="text" class="form-control phone-mask" name="link[<?php echo $i ?>]"  value=""/>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="namelink[<?php echo $i ?>]"  value=""/>
                                     </td>
                                     <td>
                                       <input type="text" class="form-control phone-mask" name="descriptionlink[<?php echo $i ?>]"  value=""/>
@@ -447,7 +456,7 @@
     {
       console.log(row);
         row++;
-        $('#tbodylink tr:last').after('<tr class="gradeX" id="trlink-'+row+'"><td><select name="type['+row+']" class="form-select color-dropdown"><option value="">Chọn kiểu link</option><option value="website" >website</option><option value="facebook" >Facebook</option><option value="instagram " >Instagram </option><option value="tiktok" >Tiktok</option><option value="youtube">Youtube</option><option value="zalo">Zalo</option><option value="linkedin" >linkedin</option></select></td><td><input type="text" class="form-control phone-mask" name="link['+row+']"  value=""/></td></td><td><input type="text" class="form-control phone-mask" name="descriptionlink['+row+']"  value=""/></td><td align="center" class="actions"><a onclick="deleteTr('+row+')" href="javascript:void(0);"><i class="bx bx-trash"></i></a></td></tr>');
+        $('#tbodylink tr:last').after('<tr class="gradeX" id="trlink-'+row+'"><td><select name="type['+row+']" class="form-select color-dropdown"><option value="">Chọn kiểu link</option><option value="website" >website</option><option value="facebook" >Facebook</option><option value="instagram " >Instagram </option><option value="tiktok" >Tiktok</option><option value="youtube">Youtube</option><option value="zalo">Zalo</option><option value="linkedin" >linkedin</option><option value="twitter" >Twitter</option></select></td><td><input type="text" class="form-control phone-mask" name="link['+row+']"  value=""/></td><td><input type="text" class="form-control phone-mask" name="namelink['+row+']"  value=""/></td><td><input type="text" class="form-control phone-mask" name="descriptionlink['+row+']"  value=""/></td><td align="center" class="actions"><a onclick="deleteTr('+row+')" href="javascript:void(0);"><i class="bx bx-trash"></i></a></td></tr>');
 
          console.log(row);
 

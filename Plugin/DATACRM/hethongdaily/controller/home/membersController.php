@@ -202,6 +202,7 @@ function account($input)
 		        		if(!empty($link)){
 			        		$LinkInfo = $modelLinkInfo->newEmptyEntity();
 			        		$LinkInfo->link = $link;
+			        		$LinkInfo->namelink = $dataSend['namelink'][$key];
 			        		$LinkInfo->id_member = $user->id;
 			        		$LinkInfo->type = @$dataSend['type'][$key];
 			        		$LinkInfo->description = @$dataSend['descriptionlink'][$key];
