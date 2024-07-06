@@ -1007,12 +1007,16 @@ function checkVersionAppStore($input){
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
     
-        $info = sendDataConnectMantan('https://itunes.apple.com/lookup?id='.$dataSend['id_app']);
-        $info = str_replace('ï»¿', '', utf8_encode($info));
-        $info = json_decode($info, true);
+        $ios = sendDataConnectMantan('https://itunes.apple.com/lookup?id='.$dataSend['id_app_ios']);
+        $ios = str_replace('ï»¿', '', utf8_encode($ios));
+        $ios = json_decode($ios, true);
 
-        return apiResponse(1, 'Lấy dữ liệu thành công', $info);
-        
+        $android = sendDataConnectMantan('https://exampleapi.com/googleplay?package='.$dataSend['id_app_android']);
+        $android = str_replace('ï»¿', '', utf8_encode($android));
+         
+        $data = ['ios'=>$ios,'android'=>$android];
+        return apiResponse(1, 'Lấy dữ liệu thành công', $data);
+      
 
     }
     return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');

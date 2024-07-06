@@ -370,4 +370,33 @@ function addCustomerHistoriesAjax($input)
         return $controller->redirect('/login');
     }
 }
+
+function deleteCustomerHistoriesAgency(){
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+    if(!empty($session->read('infoUser'))){
+        $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+        if(!empty($_GET['id'])){
+            $data = $modelCustomerHistories->find()->where(['id_staff_now'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id']])->first();
+            
+            if($data){
+                $modelCustomerHistories->delete($data);
+            }
+        }
+        if(@$_GET['status']=='Calendar'){
+
+            return $controller->redirect('/calendarCustomerHistoriesAgency');
+        }else{
+
+            return $controller->redirect('/listCustomerHistoriesAgency');
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

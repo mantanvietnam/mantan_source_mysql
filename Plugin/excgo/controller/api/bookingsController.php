@@ -530,6 +530,7 @@ function cancelReceiveBookingApi($input): array
                 $canceledBooking->booking_id = $booking->id;
                 $canceledBooking->user_id = $currentUser->id;
                 $canceledBooking->status = 0;
+                $canceledBooking->type = 'received';
                 $canceledBooking->created_at = date('Y-m-d H:i:s');
                 $canceledBooking->updated_at = date('Y-m-d H:i:s');
                 $canceledBookingModel->save($canceledBooking);
@@ -1618,6 +1619,8 @@ function cancelBookingApi($input): array
     $modelNotification = $controller->loadModel('Notifications');
     $modelBookingFee = $controller->loadModel('BookingFees');
 
+    $canceledBookingModel = $controller->loadModel('CanceledBookingRequests');
+
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -1639,77 +1642,119 @@ function cancelBookingApi($input): array
                     return apiResponse(4, 'Bạn không phải người đăng cuốc xe nên không thể hủy');
                 }
 
-                if (!is_null($booking->received_by)) {
-                    return apiResponse(4, 'Cuốc xe đã được nhận nên không thể hủy');
-                }
+                if (empty($booking->received_by)) {
+                  //  return apiResponse(4, 'Cuốc xe đã được nhận nên không thể hủy');
+                
 
-                // Update trạng thái cuốc xe
-                $booking->status = $bookingStatus['canceled'];
-                $booking->status_repost = 0;
-                $booking->canceled_at = date('Y-m-d H:i:s');
-                $modelBooking->save($booking);
+                    // Update trạng thái cuốc xe
+                    $booking->status = $bookingStatus['canceled'];
+                    $booking->status_repost = 0;
+                    $booking->canceled_at = date('Y-m-d H:i:s');
+                    $modelBooking->save($booking);
 
-                $bookingFee = $modelBookingFee->find()
-                    ->where(['booking_id' => $booking->id])
-                    ->first();
+                    $bookingFee = $modelBookingFee->find()
+                        ->where(['booking_id' => $booking->id])
+                        ->first();
 
-                if (!empty($bookingFee)) {
-                    $bookingFee->status = $bookingFeeStatus['paid'];
-                    $modelBookingFee->save($bookingFee);
+                    if (!empty($bookingFee)) {
+                        $bookingFee->status = $bookingFeeStatus['paid'];
+                        $modelBookingFee->save($bookingFee);
 
-                    // Trả lại tiền cọc nếu có
-                    if ($bookingFee->deposit) {
-                        $currentUser->total_coin += $booking->deposit;
-                        $modelUser->save($currentUser);
+                        // Trả lại tiền cọc nếu có
+                        if ($bookingFee->deposit) {
+                            $currentUser->total_coin += $booking->deposit;
+                            $modelUser->save($currentUser);
 
-                        $newTransaction = $modelTransaction->newEmptyEntity();
-                        $newTransaction->user_id = $currentUser->id;
-                        $newTransaction->booking_id = $booking->id;
-                        $newTransaction->amount = $booking->deposit;
-                        $newTransaction->type = $transactionType['add'];
-                        $newTransaction->name = "Nhận lại tiền cọc cuốc xe #$booking->id thành công";
-                        $newTransaction->description = '+' . number_format($booking->deposit) . ' EXC-xu';
-                        $newTransaction->created_at = date('Y-m-d H:i:s');
-                        $newTransaction->updated_at = date('Y-m-d H:i:s');
-                        $modelTransaction->save($newTransaction);
+                            $newTransaction = $modelTransaction->newEmptyEntity();
+                            $newTransaction->user_id = $currentUser->id;
+                            $newTransaction->booking_id = $booking->id;
+                            $newTransaction->amount = $booking->deposit;
+                            $newTransaction->type = $transactionType['add'];
+                            $newTransaction->name = "Nhận lại tiền cọc cuốc xe #$booking->id thành công";
+                            $newTransaction->description = '+' . number_format($booking->deposit) . ' EXC-xu';
+                            $newTransaction->created_at = date('Y-m-d H:i:s');
+                            $newTransaction->updated_at = date('Y-m-d H:i:s');
+                            $modelTransaction->save($newTransaction);
 
-                        // Thông báo cho người đăng
-                        $title = 'Cộng EXC coin vào tài khoản';
-                        $content = "Tài khoản của bạn được trả lại $booking->deposit tiền cọc cho cuốc xe #$booking->id";
-                        $notification = $modelNotification->newEmptyEntity();
-                        $notification->user_id = $currentUser->id;
-                        $notification->booking_id = $booking->id;
-                        $notification->title = $title;
-                        $notification->content = $content;
-                        $notification->created_at = date('Y-m-d H:i:s');
-                        $notification->updated_at = date('Y-m-d H:i:s');
-                        $modelNotification->save($notification);
-                        if ($currentUser->device_token) {
-                            $dataSendNotification= array(
-                                'title' => $title,
-                                'time' => date('H:i d/m/Y'),
-                                'content' => $content,
-                                'action' => 'addMoneySuccess',
-                                'user_id' => $currentUser->id,
-                                'booking_id' => $booking->id,
-                            );
-                            sendNotification($dataSendNotification, $currentUser->device_token);
+                            // Thông báo cho người đăng
+                            $title = 'Cộng EXC coin vào tài khoản';
+                            $content = "Tài khoản của bạn được trả lại $booking->deposit tiền cọc cho cuốc xe #$booking->id";
+                            $notification = $modelNotification->newEmptyEntity();
+                            $notification->user_id = $currentUser->id;
+                            $notification->booking_id = $booking->id;
+                            $notification->title = $title;
+                            $notification->content = $content;
+                            $notification->created_at = date('Y-m-d H:i:s');
+                            $notification->updated_at = date('Y-m-d H:i:s');
+                            $modelNotification->save($notification);
+                            if ($currentUser->device_token) {
+                                $dataSendNotification= array(
+                                    'title' => $title,
+                                    'time' => date('H:i d/m/Y'),
+                                    'content' => $content,
+                                    'action' => 'addMoneySuccess',
+                                    'user_id' => $currentUser->id,
+                                    'booking_id' => $booking->id,
+                                );
+                                sendNotification($dataSendNotification, $currentUser->device_token);
+                            }
                         }
                     }
+
+                    // Update lịch sử đăng cuốc xe
+                    $postedUserBooking = $userBookingModel->find()->where([
+                        'user_id' =>  $currentUser->id,
+                        'booking_id' => $booking->id,
+                        'type' => $bookingType['post'],
+                    ])->first();
+                    $postedUserBooking->status = $bookingStatus['canceled'];
+                    $postedUserBooking->received_at = null;
+                    $postedUserBooking->canceled_at = date('Y-m-d H:i:s');
+                    $userBookingModel->save($postedUserBooking);
+
+                    return apiResponse(0, 'Hủy cuốc xe thành công');
+
+                }else{
+
+
+                    $canceledBooking = $canceledBookingModel->newEmptyEntity();
+                    $canceledBooking->booking_id = $booking->id;
+                    $canceledBooking->user_id = $currentUser->id;
+                    $canceledBooking->status = 0;
+                    $canceledBooking->type = 'posted';
+                    $canceledBooking->created_at = date('Y-m-d H:i:s');
+                    $canceledBooking->updated_at = date('Y-m-d H:i:s');
+                    $canceledBookingModel->save($canceledBooking);
+
+                    // Thông báo cho người nhận cuốc xe
+                    $title = 'Tài xế đăng cuốc xe  đã hủy cuốc xe';
+                    $content = "Tài xế $currentUser->name đăng cuốc xe đã hủy cuốc xe #$booking->id";
+                    $received = $modelUser->find()->where(['id' => $booking->received_by])->first();
+                    $notification = $modelNotification->newEmptyEntity();
+                    $notification->user_id = $received->id;
+                    $notification->booking_id = $booking->id;
+                    $notification->posted_id = $canceledBooking->id;
+                    $notification->title = $title;
+                    $notification->content = $content;
+                    $notification->created_at = date('Y-m-d H:i:s');
+                    $notification->updated_at = date('Y-m-d H:i:s');
+                    $modelNotification->save($notification);
+
+                    if ($received->device_token) {
+                        $dataSendNotification= array(
+                            'title' => $title,
+                            'time' => date('H:i d/m/Y'),
+                            'content' => $content,
+                            'action' => 'cancelReceiveBookingSuccess',
+                            'user_id' => $currentUser->id,
+                            'booking_id' => $booking->id,
+                            'posted_id' => $canceledBooking->id
+                        );
+                        sendNotification($dataSendNotification, $received->device_token);
+                    }
+
+                    return apiResponse(0, 'Gửi yêu cầu hủy cuốc xe thành công');
                 }
-
-                // Update lịch sử đăng cuốc xe
-                $postedUserBooking = $userBookingModel->find()->where([
-                    'user_id' =>  $currentUser->id,
-                    'booking_id' => $booking->id,
-                    'type' => $bookingType['post'],
-                ])->first();
-                $postedUserBooking->status = $bookingStatus['canceled'];
-                $postedUserBooking->received_at = null;
-                $postedUserBooking->canceled_at = date('Y-m-d H:i:s');
-                $userBookingModel->save($postedUserBooking);
-
-                return apiResponse(0, 'Hủy cuốc xe thành công');
             }
 
             return apiResponse(2, 'Gửi thiếu dữ liệu');
@@ -1720,6 +1765,259 @@ function cancelBookingApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function acceptCanceledBookingPostedApi($input): array
+{
+    global $controller, $bookingStatus, $bookingType, $transactionType;
+    global $isRequestPost;
+
+    $bookingModel = $controller->loadModel('Bookings');
+    $canceledBookingModel = $controller->loadModel('CanceledBookingRequests');
+    $modelBookingFee = $controller->loadModel('BookingFees');
+    $userBookingModel = $controller->loadModel('UserBookings');
+    $modelUser = $controller->loadModel('Users');
+    $modelNotification = $controller->loadModel('Notifications');
+    $modelTransaction = $controller->loadModel('Transactions');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if ($currentUser->type != 2) {
+                return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
+            }
+
+            if (empty($dataSend['posted_id'])) {
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+
+            $request = $canceledBookingModel->find()->where(['id' => $dataSend['posted_id']])->first();
+            if (empty($request)) {
+                return apiResponse(4, 'Không tìm thấy dữ liệu');
+            }
+
+            $booking = $bookingModel->find()->where(['id' => $request->booking_id])->first();
+
+            if ($booking->received_by != $currentUser->id) {
+                return apiResponse(4, 'Bạn không phải người nhân cuốc xe này');
+            }
+
+            $cancelUser = $modelUser->find()->where(['id' => $booking->posted_by])->first();
+            $bookingFee = $modelBookingFee->find()
+                ->where(['booking_id' => $booking->id])
+                ->first();
+
+            // Cộng lại số tiền chiết khấu cho người đăng 
+            $refundCoin = $booking->deposit;
+            $cancelUser->total_coin += $refundCoin;
+            $modelUser->save($cancelUser);
+
+            $newTransaction = $modelTransaction->newEmptyEntity();
+            $newTransaction->user_id = $cancelUser->id;
+            $newTransaction->booking_id = $booking->id;
+            $newTransaction->amount = $booking->deposit;
+            $newTransaction->type = $transactionType['add'];
+            $newTransaction->name = "Nhận lại tiền cọc cuốc xe #$booking->id thành công";
+            $newTransaction->description = '+' . number_format($booking->deposit) . ' EXC-xu';
+            $newTransaction->created_at = date('Y-m-d H:i:s');
+            $newTransaction->updated_at = date('Y-m-d H:i:s');
+            $modelTransaction->save($newTransaction);
+
+            // Thông báo cho người đăng
+            $title = 'Cộng EXC coin vào tài khoản';
+            $content = "Tài khoản của bạn được trả lại $booking->deposit tiền cọc cho cuốc xe #$booking->id";
+            $notification = $modelNotification->newEmptyEntity();
+            $notification->user_id = $cancelUser->id;
+            $notification->booking_id = $booking->id;
+            $notification->title = $title;
+            $notification->content = $content;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
+            $modelNotification->save($notification);
+            if ($cancelUser->device_token) {
+                $dataSendNotification= array(
+                    'title' => $title,
+                    'time' => date('H:i d/m/Y'),
+                    'content' => $content,
+                    'action' => 'addMoneySuccess',
+                    'user_id' => $currentUser->id,
+                    'booking_id' => $booking->id,
+                );
+                sendNotification($dataSendNotification, $cancelUser->device_token);
+            }
+
+
+             // Cộng lại số tiền chiết khấu cho người nhận quốc xe 
+            $currentUser->total_coin += $refundCoin;
+            $modelUser->save($currentUser);
+
+            $newTransaction = $modelTransaction->newEmptyEntity();
+            $newTransaction->user_id = $currentUser->id;
+            $newTransaction->booking_id = $booking->id;
+            $newTransaction->amount = $booking->deposit;
+            $newTransaction->type = $transactionType['add'];
+            $newTransaction->name = "Nhận lại tiền cọc cuốc xe #$booking->id thành công";
+            $newTransaction->description = '+' . number_format($booking->deposit) . ' EXC-xu';
+            $newTransaction->created_at = date('Y-m-d H:i:s');
+            $newTransaction->updated_at = date('Y-m-d H:i:s');
+            $modelTransaction->save($newTransaction);
+
+            // Thông báo cho người đăng
+            $title = 'Cộng EXC coin vào tài khoản';
+            $content = "Tài khoản của bạn được trả lại $booking->deposit tiền cọc cho cuốc xe #$booking->id";
+            $notification = $modelNotification->newEmptyEntity();
+            $notification->user_id = $currentUser->id;
+            $notification->booking_id = $booking->id;
+            $notification->title = $title;
+            $notification->content = $content;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
+            $modelNotification->save($notification);
+            if ($currentUser->device_token) {
+                $dataSendNotification= array(
+                    'title' => $title,
+                    'time' => date('H:i d/m/Y'),
+                    'content' => $content,
+                    'action' => 'addMoneySuccess',
+                    'user_id' => $currentUser->id,
+                    'booking_id' => $booking->id,
+                );
+                sendNotification($dataSendNotification, $currentUser->device_token);
+            }
+
+
+
+
+            // Update trạng thái cuốc xe
+            $booking->received_by = null;
+            $booking->status = $bookingStatus['canceled'];;
+            $booking->received_at = null;
+            $booking->updated_at = date('Y-m-d H:i:s');
+            $bookingModel->save($booking);
+
+            // Update phí cuốc xe
+            /*
+            $bookingFee->received_fee = 0;
+            $bookingFee->service_fee = 0;
+            $modelBookingFee->save($bookingFee);
+            */
+
+            // Lưu lại lịch sử hủy cuốc của tài xế
+            $canceledBooking = $userBookingModel->find()->where([
+                'user_id' => $cancelUser->id,
+                'booking_id' => $booking->id,
+                'type' => $bookingType['receive'],
+            ])->first();
+            if (!empty($canceledBooking)) {
+                $canceledBooking->status = $bookingStatus['canceled'];
+                $canceledBooking->canceled_at = date('Y-m-d H:i:s');
+                $canceledBooking->received_at = null;
+                $userBookingModel->save($canceledBooking);
+            }
+
+            // Update lịch sử cuốc xe của người đăng
+            $postedUserBooking = $userBookingModel->find()->where([
+                'user_id' => $booking->posted_by,
+                'booking_id' => $booking->id,
+                'type' => $bookingType['post'],
+            ])->first();
+            if (!empty($postedUserBooking)) {
+                $postedUserBooking->status = $bookingStatus['unreceived'];
+                $postedUserBooking->received_at = null;
+                $userBookingModel->save($postedUserBooking);
+            }
+
+            // Update trạng thái yêu cầu
+            $request->status = 1;
+            $canceledBookingModel->save($request);
+
+            
+
+            return apiResponse(1, 'Thao tác thành công');
+        }
+
+        return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+    }
+
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function rejectCanceledBookingPostedApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $bookingModel = $controller->loadModel('Bookings');
+    $canceledBookingModel = $controller->loadModel('CanceledBookingRequests');
+    $modelUser = $controller->loadModel('Users');
+    $modelNotification = $controller->loadModel('Notifications');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if ($currentUser->type != 2) {
+                return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
+            }
+
+            if (empty($dataSend['posted_id'])) {
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+
+            $request = $canceledBookingModel->find()->where(['id' => $dataSend['posted_id']])->first();
+            if (empty($request)) {
+                return apiResponse(4, 'Không tìm thấy dữ liệu');
+            }
+
+            $booking = $bookingModel->find()->where(['id' => $request->booking_id])->first();
+            $cancelUser = $modelUser->find()->where(['id' => $booking->posted_by])->first();
+
+            if ($booking->received_by != $currentUser->id) {
+                return apiResponse(4, 'Bạn không phải người nhận cuốc xe này');
+            }
+
+            $title = 'Yêu cầu hủy cuốc xe thất bại';
+            $content = "Người nhận chuyến không đồng ý hủy chuyến vui lòng liên hệ với người nhận";
+            $notification = $modelNotification->newEmptyEntity();
+            $notification->user_id = $cancelUser->id;
+            $notification->request_id = $request->id;
+            $notification->booking_id = $booking->id;
+            $notification->title = $title;
+            $notification->content = $content;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
+            $modelNotification->save($notification);
+
+            if ($cancelUser->device_token) {
+                $dataSendNotification= array(
+                    'title' => $title,
+                    'time' => date('H:i d/m/Y'),
+                    'content' => $content,
+                    'action' => 'cancelReceiveBookingFailed',
+                    'booking_id' => $booking->id,
+                );
+                sendNotification($dataSendNotification, $cancelUser->device_token);
+            }
+
+            return apiResponse(1, 'Thao tác thành công');
+        }
+
+        return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+    }
+
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+}
+
 
 function getAvailableBookingListApi($input): array
 {
@@ -2236,6 +2534,7 @@ function checkBookingReceivedApi($input): array
 
     $modelBooking = $controller->loadModel('Bookings');
     $modelUser = $controller->loadModel('Users');
+    $modelProvince = $controller->loadModel('Provinces');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -2258,6 +2557,8 @@ function checkBookingReceivedApi($input): array
             if (empty($booking)){
                 return apiResponse(4, 'Cuốc xe không tồn tại');
             }
+
+            $booking->province = $modelProvince->find()->where(['id'=>$booking->departure_province_id])->first();
 
             if(!empty($booking->received_by)){
                return apiResponse(2, 'Cuốc xe có người nhận rồi');  

@@ -156,7 +156,9 @@
 	$routesPlugin['listCollectionDebt']= 'hethongdaily/view/home/debt/listCollectionDebt.php';
 	$routesPlugin['listPayableDebt']= 'hethongdaily/view/home/debt/listPayableDebt.php';
 
-
+	// mã giảm giá 
+	$routesPlugin['addDiscountCodeAgency']= 'hethongdaily/view/home/discountcode/addDiscountCodeAgency.php';
+	$routesPlugin['listDiscountCodeAgency']= 'hethongdaily/view/home/discountcode/listDiscountCodeAgency.php';
 
 	// api khách hàng 
 

@@ -462,7 +462,7 @@
            if(info.event.extendedProps.statusnote=="new"){
              modal += '<a href="/treatmentCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary">Xử lý</a>  <a href="/addCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary">Sửa lịch hẹn</a>';
            }
-           
+           modal += '<a href="/deleteCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'&status=Calendar" confirm(\'Bạn có chắc chắn muốn xóa không?\');"  class="btn btn-primary">xóa</a>';
 
 
            modal +=  '</div>\

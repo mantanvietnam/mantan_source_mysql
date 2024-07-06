@@ -147,10 +147,39 @@
                             <?php if(!empty($info->instagram)){ ?>
                             <div class="block-4-icon">
                                 <a target="_blank" href="<?php echo $info->instagram;?>">
-                                    <i class="fa-brands fa-instagram"></i>
+                                    <i class="fa-brands fa-s"></i>
                                 </a>
                             </div>
                             <?php }?>
+
+                            <?php if(!empty($dataLink)){
+                                foreach($dataLink as $key => $item){
+                                    $icon = '';
+                                    if($item->type=='website'){
+                                        $icon = '<i class="fa-solid fa-globe"></i>';
+                                    }elseif($item->type=='facebook'){
+                                        $icon = '<i class="fa-brands fa-facebook"></i>';
+                                    }elseif($item->type=='instagram'){
+                                        $icon = '<i class="fa-brands fa-instagram"></i>';
+                                    }elseif($item->type=='tiktok'){
+                                        $icon = ' <i class="fa-brands fa-tiktok"></i>';
+                                    }elseif($item->type=='youtube'){
+                                        $icon = '<i class="fa-brands fa-youtube"></i>';
+                                    }elseif($item->type=='zalo'){
+                                        $icon = '<img src="/plugins/hethongdaily/view/home/member/themeinfo\theme2\Asset/images/zalo-white-d96e.png" alt="">';
+                                    }elseif($item->type=='linkedin'){
+                                        $icon = '<i class="fa-brands fa-linkedin"></i>';
+                                    }
+
+                                    echo '<div class="block-4-icon">
+                                <a target="_blank" href="'.$item->link.'">
+                                    '.$icon.'
+                                </a>
+                            </div>';
+                                }
+                            } 
+
+                             ?>
                         </section>
 
                         <section id="block-6">

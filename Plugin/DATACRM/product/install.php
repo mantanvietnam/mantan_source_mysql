@@ -80,6 +80,7 @@ $sqlInstallDatabase .="CREATE TABLE `discount_codes` (
     `category` INT(11) NULL DEFAULT NULL,
     `id_customers` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL, 
     `id_products` TEXT NULL,
+    `id_member` INT(11) NULL DEFAULT '0',
     PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `question_products` (
@@ -208,7 +209,7 @@ $sqlUpdateDatabase['discount_codes']['maximum_price_reduction'] = "ALTER TABLE `
 $sqlUpdateDatabase['discount_codes']['category'] = "ALTER TABLE `discount_codes` ADD `category` INT(11) NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['discount_codes']['id_customers'] = "ALTER TABLE `discount_codes` ADD `id_customers` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['discount_codes']['id_products'] = "ALTER TABLE `discount_codes` ADD `id_products` TEXT NULL; ";
-
+$sqlUpdateDatabase['discount_codes']['id_member'] = "ALTER TABLE `discount_codes` ADD `id_member` INT(11) NULL DEFAULT '0';";
 // Bang question_products
 $sqlUpdateDatabase['question_products']['question'] = "ALTER TABLE `question_products` ADD `question` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['question_products']['answer'] = "ALTER TABLE `question_products` ADD `answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";

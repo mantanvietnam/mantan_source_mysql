@@ -110,7 +110,7 @@
                   </td>
 
                   <td align="center">
-                    <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerHistoriesAgency/?id='.$item->id.'">
+                    <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerHistoriesAgency/?id='.$item->id.'&status=lists">
                     <i class="bx bx-trash me-1"></i>
                     </a>
                   </td>
@@ -144,7 +144,7 @@
                             <i class="bx bx-edit-alt me-1"></i>
                           </a> 
 
-                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerHistoriesAgency/?id='.$item->id.'">
+                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerHistoriesAgency/?id='.$item->id.'&status=lists">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </p>

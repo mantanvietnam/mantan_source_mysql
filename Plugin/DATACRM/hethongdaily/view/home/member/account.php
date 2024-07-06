@@ -30,6 +30,11 @@
                         </button>
                       </li>
                       <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-link" aria-controls="navs-top-info" aria-selected="false">
+                          Danh sách link
+                        </button>
+                      </li>
+                      <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-theme" aria-controls="navs-top-info" aria-selected="false">
                           Theme info
                         </button>
@@ -183,6 +188,84 @@
                             </select>
                           </div>
                         </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-link" role="tabpanel">
+
+                        <div class="row">
+                          <div class="col-md-12"> 
+                            <table class="table table-bordered table-striped table-hover mb-none text-center mb-3">
+                             <thead>
+                              <tr>
+                                <th>Kiểu</th>
+                                <th>Link</th>
+                                <th>Mô tả</th>
+                                <th>Xóa</th>
+                              </tr>
+                            </thead>
+                            <tbody id="tbodylink">  
+                              <?php
+                              $i= 0;
+                              if(!empty($dataLink)){
+                                foreach($dataLink as $key => $value){
+                                  $i++;
+                                 
+                                    $delete= '<a onclick="deleteTr('.$i.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
+                                  
+                                  ?>
+                                  <tr class="gradeX" id="trlink-<?php echo $i ?>">
+                                    <td>
+                                      <select name="type[<?php echo $i ?>]" class="form-select color-dropdown">
+                                        <option value="">Chọn kiểu link</option>
+                                        <option value="website" <?php if($value->type=='website') echo 'selected';?> >website</option>
+                                        <option value="facebook" <?php if($value->type=='facebook') echo 'selected';?> >Facebook</option>
+                                        <option value="instagram " <?php if($value->type=='instagram ') echo 'selected';?> >Instagram </option>
+                                        <option value="tiktok" <?php if($value->type=='tiktok') echo 'selected';?> >Tiktok</option>
+                                        <option value="youtube" <?php if($value->type=='youtube') echo 'selected';?> >Youtube</option>
+                                        <option value="zalo" <?php if($value->type=='zalo') echo 'selected';?> >Zalo</option>
+                                        <option value="linkedin" <?php if($value->type=='linkedin') echo 'selected';?> >linkedin</option>
+                                      </select>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="link[<?php echo $i ?>]"  value="<?php echo @$value->link;?>"/>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="descriptionlink[<?php echo $i ?>]"  value="<?php echo @$value->description;?>"/>
+                                    </td>
+                                    <td align="center" class="actions"><?php echo $delete ?></td>
+                                  </tr>
+                                <?php }}else{
+                                  $i++;
+                                  ?>
+                                  <tr class="gradeX" id="trlink-<?php echo $i ?>">
+                                    <td>
+                                      <select name="type[<?php echo $i ?>]" class="form-select color-dropdown">
+                                        <option value="">Chọn kiểu link</option>
+                                        <option value="website" >website</option>
+                                        <option value="facebook" >Facebook</option>
+                                        <option value="instagram " >Instagram </option>
+                                        <option value="tiktok" >Tiktok</option>
+                                        <option value="youtube">Youtube</option>
+                                        <option value="zalo">Zalo</option>
+                                        <option value="linkedin" >linkedin</option>
+                                      </select>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="link[<?php echo $i ?>]"  value=""/>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="descriptionlink[<?php echo $i ?>]"  value=""/>
+                                    </td>
+                                    <td align="center" class="actions"></td>
+                                  </tr>
+                                <?php } ?>
+                              </tbody>
+                            </table> 
+
+                            <div class="form-group mb-3 col-md-12">
+                              <button type="button" class="btn btn-danger" onclick="return addRowlink();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm link</button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div class="tab-pane fade content" id="navs-top-theme" role="tabpanel">
@@ -359,6 +442,24 @@
       }
       xhr.send();
   }
+   var row= <?php echo $i ;?>;
+   function addRowlink()
+    {
+      console.log(row);
+        row++;
+        $('#tbodylink tr:last').after('<tr class="gradeX" id="trlink-'+row+'"><td><select name="type['+row+']" class="form-select color-dropdown"><option value="">Chọn kiểu link</option><option value="website" >website</option><option value="facebook" >Facebook</option><option value="instagram " >Instagram </option><option value="tiktok" >Tiktok</option><option value="youtube">Youtube</option><option value="zalo">Zalo</option><option value="linkedin" >linkedin</option></select></td><td><input type="text" class="form-control phone-mask" name="link['+row+']"  value=""/></td></td><td><input type="text" class="form-control phone-mask" name="descriptionlink['+row+']"  value=""/></td><td align="center" class="actions"><a onclick="deleteTr('+row+')" href="javascript:void(0);"><i class="bx bx-trash"></i></a></td></tr>');
+
+         console.log(row);
+
+        
+    }
+
+    function deleteTr(i)
+    {
+        row--;
+        $('#trlink-'+i).remove();
+       
+    }
 
  </script>
 
