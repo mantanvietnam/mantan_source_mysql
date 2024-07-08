@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 29, 2024 at 11:25 PM
+-- Generation Time: Jul 08, 2024 at 11:59 PM
 -- Server version: 10.6.12-MariaDB
 -- PHP Version: 8.1.17
 
@@ -345,7 +345,8 @@ CREATE TABLE `discount_codes` (
   `maximum_price_reduction` int(11) DEFAULT NULL,
   `category` int(11) DEFAULT NULL,
   `id_customers` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_products` text DEFAULT NULL
+  `id_products` text DEFAULT NULL,
+  `id_member` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -453,6 +454,21 @@ CREATE TABLE `lessons` (
   `time_learn` int(11) NOT NULL,
   `author` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `youtube_code` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `link_infos`
+--
+
+CREATE TABLE `link_infos` (
+  `id` int(11) NOT NULL,
+  `id_member` int(11) NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `namelink` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -774,6 +790,19 @@ CREATE TABLE `reviews` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `seting_theme_infos`
+--
+
+CREATE TABLE `seting_theme_infos` (
+  `id` int(11) NOT NULL,
+  `id_member` int(11) NOT NULL,
+  `id_theme` int(11) NOT NULL,
+  `config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `slugs`
 --
 
@@ -1083,6 +1112,12 @@ ALTER TABLE `lessons`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `link_infos`
+--
+ALTER TABLE `link_infos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `members`
 --
 ALTER TABLE `members`
@@ -1164,6 +1199,12 @@ ALTER TABLE `request_exports`
 -- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `seting_theme_infos`
+--
+ALTER TABLE `seting_theme_infos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1369,6 +1410,12 @@ ALTER TABLE `lessons`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `link_infos`
+--
+ALTER TABLE `link_infos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
@@ -1450,6 +1497,12 @@ ALTER TABLE `request_exports`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `seting_theme_infos`
+--
+ALTER TABLE `seting_theme_infos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
