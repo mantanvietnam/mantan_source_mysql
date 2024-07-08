@@ -45,6 +45,7 @@ header {
     align-items: center;
     gap: 12px;
     color: #427FE3;
+    font-weight: 500;
 }
 
 .navbar-collapse {
