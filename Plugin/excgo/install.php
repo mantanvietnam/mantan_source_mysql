@@ -89,6 +89,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
   `apple_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reset_password_code` VARCHAR(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `difference_booking` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;';
 
@@ -342,6 +343,7 @@ $sqlUpdateDatabase['users']['google_id'] = "ALTER TABLE `users` ADD `google_id` 
 $sqlUpdateDatabase['users']['apple_id'] = "ALTER TABLE `users` ADD `apple_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['users']['reset_password_code'] = "ALTER TABLE `users` ADD `reset_password_code` VARCHAR(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['users']['deleted_at'] = "ALTER TABLE `users` ADD `deleted_at` timestamp NULL DEFAULT NULL; ";
+$sqlUpdateDatabase['users']['difference_booking'] = "ALTER TABLE `users` ADD `difference_booking` INT NULL DEFAULT NULL;";
 
 // Bang pinned_provinces
 $sqlUpdateDatabase['pinned_provinces']['user_id'] = "ALTER TABLE `pinned_provinces` ADD `user_id` int NOT NULL; ";

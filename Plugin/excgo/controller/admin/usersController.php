@@ -174,6 +174,7 @@ function viewUserDetailAdmin($input)
             $data->type = $dataSend['type'];
             $data->email = $dataSend['email'];
             $data->maximum_trip = (int) $dataSend['maximum_trip'];
+            $data->difference_booking = (int) $dataSend['difference_booking'];
 
             $modelUser->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';

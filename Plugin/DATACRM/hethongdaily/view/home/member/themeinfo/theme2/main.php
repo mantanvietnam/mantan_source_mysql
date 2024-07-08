@@ -310,10 +310,14 @@
                                   <input type="date" class="form-control datepicker" id="birthday" name="birthday" value="" />
                                 </div>
                                 <div class="mb-3">
-                                  <label for="codeDiscount" class="form-label">Mã giảm giá</label>
-                                  <input type="text" class="form-control" id="codeDiscount" name="codeDiscount" value="" />
+                                  <label for="codeDiscount" class="form-label">Mã giảm giá</label><span id="messdiscount"></span>
+                                  <input type="text" class="form-control" id="discountCode" onchange="searchDiscountCodeAgencyAPI()" name="discountCode" value="" />
                                 </div>
                                 <div class="mb-3">
+                                    <input type="hidden" id="money" value="0">
+                                    <input type="hidden" id="discount" value="0">
+                                    <input type="hidden" id="total" value="0">
+                                    <input type="hidden" id="codeDiscount" value="">
                                     <button type="button" class="btn btn-danger" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button> 
                                 </div>
                                 <div id="list_cart" class="mb-3"></div>
@@ -510,11 +514,14 @@
                             }
                         }
                         
-                        list_cart += '</tbody></table> <p><b>Tổng tiền: </b>'+formatNumberWithCommas(total_money)+'đ</p>';
-
-                        console.log(list_cart);
+                        list_cart += '</tbody></table> <p><b>Thành tiền: </b><span id="money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
+                        list_cart += '</tbody></table> <p><b>giảm giá : </b><span id="discountmoney">0 đ</span</p>';
+                        list_cart += '</tbody></table> <p><b>Tổng tiền: </b><span id="total_money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
 
                         $('#list_cart').html(list_cart);
+                        $('#money').val(total_money);
+                        $('#discount').val(0);
+                        $('#total').val(total_money);
 
                         document.getElementById("menu2").classList.remove("active");
                         document.getElementById("menu2").classList.remove("in");
@@ -551,24 +558,37 @@
                 var phone = $('#phone').val();
                 var address = $('#address').val();
                 var birthday = $('#birthday').val();
+                var money = $('#money').val();
+                var discount = $('#discount').val();
+                var total = $('#total').val();
+                var codeDiscount = $('#codeDiscount').val();
+
 
                 $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
 
                 if(full_name != '' && phone != ''){
                     $.ajax({
                       method: "POST",
-                      url: "/pay/?callAPI=1",
-                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf, id_agency:id_agency, name_agency:name_agency, name_system:name_system, birthday:birthday }
-                    })
-                    .done(function( msg ) {
+                      url: "/apis/paycreateOrderCustomerPAI",
+                      data: { full_name: full_name, 
+                              phone: phone, 
+                              address: address, 
+                              _csrfToken: crf, 
+                              id_agency:id_agency, 
+                              name_agency:name_agency, 
+                              name_system:name_system, 
+                              birthday:birthday,
+                              money:money,
+                              discount:discount,
+                              total:total,
+                              codeDiscount:codeDiscount,
+                          }
+
+                    }).done(function( msg ) {
+                        console.log(msg);
                         $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
 
-                        // đóng tab về màn home
-                        document.getElementById("order").classList.remove("active");
-                        document.getElementById("order").classList.remove("in");
-
-                        document.getElementById("home").classList.add("active");
-                        document.getElementById("home").classList.add("in");
+                        $('.nav-tabs a[href="#info"]').tab('show');
 
                         alert('Tạo đơn hàng thành công');
                     });
@@ -678,6 +698,58 @@
             
             xhr.send();
         };
+
+        function searchDiscountCodeAgencyAPI()
+        {
+            var code  = $('#discountCode').val();
+            var money  = parseInt($('#money').val());
+            var id_member  = <?php echo $info->id ;?>;
+
+            $.ajax({
+                method: "GET",
+                url: "/apis/searchDiscountCodeAgencyAPI/?code="+code+'&id_member='+id_member,
+            }).done(function(msg) {
+                if(msg.code==0){
+                    if(msg.data.applicable_price <= money){
+
+                        const specifiedTime = new Date(msg.data.deadline_at);
+                        const currentTime = new Date();
+                        var html ='';
+                        if(specifiedTime > currentTime) {
+
+                            if(msg.data.discount>100){
+                                var discount = msg.data.discount;
+                            }else{
+                             var discount =(msg.data.discount / 100) * money;
+                         }
+                         if(msg.data.maximum_price_reduction!=null){
+                            if(discount>msg.data.maximum_price_reduction ){
+                                discount = msg.data.maximum_price_reduction;
+                            }
+                        }
+                        $('#discount').val(discount);
+                        $('#codeDiscount').val(msg.data.code);
+                        $('#total').val(money-discount);
+
+                        $('#discountmoney').html(formatNumberWithCommas(discount)+ 'đ');
+                        $('#total_money').html(formatNumberWithCommas(money-discount)+ 'đ');
+                    }
+                }
+
+                }else{
+                    $('#codeDiscount').val('');
+                    $('#discount').val(0);
+                    $('#total').val(money);
+                    $('#discountmoney').html('0đ');
+                    $('#total_money').html(formatNumberWithCommas(money) + 'đ');
+
+                }
+                $('#messdiscount').html('<p class="text-danger">'+msg.mess+'</p>');   
+
+
+            });
+
+        }
         </script>
 
         <script type="text/javascript">

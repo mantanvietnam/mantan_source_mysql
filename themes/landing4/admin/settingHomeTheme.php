@@ -12,37 +12,44 @@
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
               <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                KHỐI ĐẦU
+                <!-- KHỐI ĐẦU -->
+                KHỐI THỨ I
               </button>
             </li>
             <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
-                 GIỚI THIỆU
+                 <!-- GIỚI THIỆU -->
+                KHỐI THỨ II
               </button>
             </li>
             <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-rule" aria-controls="navs-top-info" aria-selected="false">
-                 DỊCH VỤ
+                 <!-- DỊCH VỤ -->
+                KHỐI THỨ III
               </button>
             </li>
              <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-image" aria-controls="navs-top-image" aria-selected="false">
-                 THƯ VIỆN
+                 <!-- THƯ VIỆN -->
+                KHỐI THỨ IV
               </button>
             </li>
             <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-specifications" aria-controls="navs-top-info" aria-selected="false">
-                 ĐỘI NGŨ
+                 <!-- ĐỘI NGŨ -->
+                KHỐI THỨ V
               </button>
             </li>
            <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-contac" aria-controls="navs-top-image" aria-selected="false">
-              MẠNG XÃ HỘI
+              <!-- MẠNG XÃ HỘI -->
+              KHỐI THỨ VI
            </button>
          </li>
          <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-Post" aria-controls="navs-top-Post" aria-selected="false">
-              TRANG TIN TỨC
+              <!-- TRANG TIN TỨC -->
+              KHỐI THỨ VII
            </button>
          </li>
        </ul>

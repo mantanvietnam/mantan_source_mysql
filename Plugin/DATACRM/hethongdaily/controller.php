@@ -28,8 +28,9 @@ include_once('controller/api/customersController.php'); // khách hàng
 include_once('controller/api/customerHistoriesController.php'); // chăm sóc khách hàng
 include_once('controller/api/warehousesController.php'); // kho hàng
 include_once('controller/api/order_membersController.php'); // đơn hàng hệ thống
-include_once('controller/api/orderController.php'); // đơn hàng khách lẻ
+include_once('controller/api/orderController.php'); // đơn hàng khách lẻ 
 include_once('controller/api/token_devicesController.php'); // mã thiết bị
+include_once('controller/api/discountCodeController.php'); // mã thiết bị
 
 include_once('controller/home/transaction_histories_controller.php'); // lịch sử giao dịch nạp tiền
 

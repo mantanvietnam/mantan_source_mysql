@@ -12,58 +12,69 @@
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
               <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                KHỐI ĐẦU
+                <!-- /KHỐI THỨ ĐẦU -->
+                KHỐI THỨ I
               </button>
             </li>
             <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-rule" aria-controls="navs-top-rule" aria-selected="false">
-                 DỊCH VỤ
-              </button>
+                 <!-- DỊCH VỤ -->
+                  KHỐI THỨ II
+                </button>
             </li>
             <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
-                 GIỚI THIỆU
+                 <!-- GIỚI THIỆU -->
+                  KHỐI THỨ III
               </button>
             </li>
             
              <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-image" aria-controls="navs-top-image" aria-selected="false">
-                 ĐẶC SẢN
+                 <!-- ĐẶC SẢN -->
+                  KHỐI THỨ IV
               </button>
             </li>
             <li class="nav-item">
               <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-specifications" aria-controls="navs-top-specifications" aria-selected="false">
-                 LIÊN HỆ
+                 <!-- LIÊN HỆ -->
+                  KHỐI THỨ V
               </button>
             </li>
            <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-product" aria-controls="navs-top-product" aria-selected="false">
-              SẢN PHẨM
+              <!-- SẢN PHẨM -->
+              KHỐI THỨ VI
            </button>
          </li>
           <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-feedback" aria-controls="navs-top-feedback" aria-selected="false">
-              FEEDBACK
+              <!-- FEEDBACK -->
+              KHỐI THỨ VII
            </button>
          </li>
          <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-Post" aria-controls="navs-top-Post" aria-selected="false">
-              TIN TỨC
+              <!-- TIN TỨC -->
+              KHỐI THỨ VIII
            </button>
          </li>
           <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-footer" aria-controls="navs-top-footer" aria-selected="false">
-              CHÂN TRANG
+              <!-- CHÂN TRANG -->
+            KHỐI THỨ IX
            </button>
          </li>
          <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-reg" aria-controls="navs-top-reg" aria-selected="false">
-              ĐĂNG KÝ HỌC
+              <!-- ĐĂNG KÝ HỌC -->
+              KHỐI THỨ X
            </button>
          </li>
          <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-seo" aria-controls="navs-top-seo" aria-selected="false">
-              CÀI SEO
+              <!-- CÀI SEO -->
+              KHỐI THỨ XI
            </button>
          </li>
        </ul>
@@ -75,7 +86,7 @@
                 <?php showUploadFile('logo','logo', @$data['logo'],1);?>
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <label class="form-label" for="basic-default-fullname">Ảnh nều khối đầu</label>
+                <label class="form-label" for="basic-default-fullname">Ảnh nều khối THỨ đầu</label>
                 <?php showUploadFile('background_top','background_top', @$data['background_top'],2);?>
               </div>
               <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">

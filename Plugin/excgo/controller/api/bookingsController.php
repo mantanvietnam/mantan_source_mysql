@@ -305,9 +305,16 @@ function receiveBookingApi($input): array
                 return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
             }
 
-            if($currentUser->point >= $parameter['maximumTrip']){
-                 return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
+            if(!empty($currentUser->difference_booking)){
+                 if($currentUser->point >= $currentUser->difference_booking){
+                     return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
+                }
+            }else{
+                if($currentUser->point >= $parameter['maximumTrip']){
+                     return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
+                }
             }
+               
 
             $conditions = array('received_by'=>$currentUser->id);
             $conditions['OR'] = [ 
@@ -1727,8 +1734,8 @@ function cancelBookingApi($input): array
                     $canceledBookingModel->save($canceledBooking);
 
                     // Thông báo cho người nhận cuốc xe
-                    $title = 'Tài xế đăng cuốc xe  đã hủy cuốc xe';
-                    $content = "Tài xế $currentUser->name đăng cuốc xe đã hủy cuốc xe #$booking->id";
+                    $title = 'Tài xế đăng cuốc xe muốn hủy cuốc xe';
+                    $content = "Tài xế $currentUser->name đăng cuốc xe muốn hủy cuốc xe #$booking->id";
                     $received = $modelUser->find()->where(['id' => $booking->received_by])->first();
                     $notification = $modelNotification->newEmptyEntity();
                     $notification->user_id = $received->id;
