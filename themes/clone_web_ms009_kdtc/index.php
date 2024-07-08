@@ -450,7 +450,7 @@ global $urlThemeActive;
 
                 <div class="col-lg-6 form-right">
                     <div class="form-img mt-3">
-                        <img src="<?php echo show_text_clone(@$setting['image_lh']) ?>" alt="">
+                        <img class="img-fluid" src="<?php echo show_text_clone(@$setting['image_lh']) ?>" alt="">
                     </div>
                 </div>
             </div>

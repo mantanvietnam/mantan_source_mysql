@@ -25,7 +25,7 @@
 
                                         $giam = 0;
                                         if(!empty($product->price_old) && !empty($product->price)){
-                                            $giam = 100 - 100*$product->price/$product->price_old;
+                                            $giam = round(100 - 100*$product->price/$product->price_old);
                                         }
 
                                         if($giam>0){

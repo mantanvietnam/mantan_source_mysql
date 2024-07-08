@@ -184,6 +184,13 @@
                 pointer-events: none; /* Ngăn chặn hành vi liên kết */
                 cursor: default; /* Đổi con trỏ chuột */
             }
+
+            .add-home-button{
+                position: relative;
+                top: -46px;
+                right: -150px;
+                font-size: 25px;
+            }
         </style>                            
     </head>
     
@@ -196,7 +203,11 @@
                 <div class="container p-3 d-flex justify-content-center"> 
                     <div class="card p-4"> 
                         <div class=" d-flex flex-column justify-content-center align-items-center"> 
+                            
                             <img onclick="showQRCode();" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.$urlCurrent;?>" id="QRCode" width="30" />
+
+                            <i class="fa fa-cloud-download add-home-button" aria-hidden="true"></i>
+                                
                              
                             <img class="avatar" src="<?php echo $info->avatar;?>" height="150" width="150" />
                             

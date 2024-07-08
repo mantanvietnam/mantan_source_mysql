@@ -559,11 +559,11 @@ function downloadMMTC($input)
                 if(!empty($linkFull)){
                     return $controller->redirect($linkFull);
                 }else{
-                    return $controller->redirect('/listCustomerAgency');        
+                    return $controller->redirect('/listCustomerAgency/?error=emptyLinkDownload');        
                 }
             }
         }else{
-            return $controller->redirect('/listCustomerAgency');
+            return $controller->redirect('/listCustomerAgency/?error=emptyIDCustomer');
         }
     }else{
         return $controller->redirect('/login');
