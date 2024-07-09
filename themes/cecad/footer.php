@@ -47,7 +47,7 @@
                                     <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
 
                                     <div>
-                                        <input type="text" placeholder="Họ và Tên" name="name" id="name" required>
+                                        <input type="text" placeholder="Họ và tên" name="name" id="name" required>
                                         <input type="text" placeholder="Số điện thoại" name="phone"  id="phone" required>
                                     </div>
                                     <input type="email" placeholder="Địa chỉ Email" name="email"  id="email" required>

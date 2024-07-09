@@ -26,11 +26,11 @@ let swiper = new Swiper('.swiper', {
 
 var swiper1 = new Swiper('.swiper1', {
     cssMode: true,
-    slidesPerView: 1.15,
+    slidesPerView: 2,
     spaceBetween: 0,
     breakpoints: {
         1050: {
-            slidesPerView: 2,
+            slidesPerView: 1,
             spaceBetween: 15,
         },
         801: {
