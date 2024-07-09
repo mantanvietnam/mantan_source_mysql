@@ -48,42 +48,42 @@
                         </div>
                     </div>
                 <?php } ?>
-                <div class="pagination">
-                    <nav aria-label="Page navigation">
-                    <?php
-                    if ($totalPage > 0) {
-                        if ($page > 5) {
-                            $startPage = $page - 5;
-                        } else {
-                            $startPage = 1;
-                        }
+                    <div class="pagination">
+                        <nav aria-label="Page navigation">
+                        <?php
+                        if ($totalPage > 0) {
+                            if ($page > 5) {
+                                $startPage = $page - 5;
+                            } else {
+                                $startPage = 1;
+                            }
 
-                        if ($totalPage > $page + 5) {
-                            $endPage = $page + 5;
-                        } else {
-                            $endPage = $totalPage;
+                            if ($totalPage > $page + 5) {
+                                $endPage = $page + 5;
+                            } else {
+                                $endPage = $totalPage;
+                            }
+                        ?>
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="<?php echo $urlPage; ?>1" aria-label="Previous">
+                                        <span aria-hidden="true">«</span>
+                                    </a>
+                                </li>
+                            <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                                <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>"><a class="page-link" href="<?php echo $urlPage . $i; ?>"><?php echo $i; ?></a></li>
+                            <?php endfor; ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="<?php echo $urlPage . $totalPage; ?>" aria-label="Next">
+                                        <span aria-hidden="true">»</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        <?php
                         }
-                    ?>
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="<?php echo $urlPage; ?>1" aria-label="Previous">
-                                    <span aria-hidden="true">«</span>
-                                </a>
-                            </li>
-                        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-                            <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>"><a class="page-link" href="<?php echo $urlPage . $i; ?>"><?php echo $i; ?></a></li>
-                        <?php endfor; ?>
-                            <li class="page-item">
-                                <a class="page-link" href="<?php echo $urlPage . $totalPage; ?>" aria-label="Next">
-                                    <span aria-hidden="true">»</span>
-                                </a>
-                            </li>
-                        </ul>
-                    <?php
-                    }
-                    ?>
-                    </nav>
-                </div>
+                        ?>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </section>
