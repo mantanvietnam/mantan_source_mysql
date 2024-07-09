@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CECAD</title>
     <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/footer.css?time=00000">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/header.css?time=326001">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-plus.css?time=326003">
+    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/header.css?time=326004">
+    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-plus.css?time=326016">
     <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-hoang.css?time=00000">
     <!-- Slick Carousel CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -57,8 +57,8 @@
                                     if (!empty($categoryMenu['sub'])):  
                         ?>
                             <li class="nav-item">
-                                <a class="nav-link dropdown-toggle" aria-current="page" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-                                    <?php echo $categoryMenu['name']; ?>
+                                <a class="nav-link" aria-current="page" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                                    <?php echo $categoryMenu['name']; ?><i class="fa-solid fa-angle-down"></i>
                                 </a>
                                 <div class="abs-dropdown dropdown-menu-1">
                                     <ul class="dropdown-menu ">
@@ -80,9 +80,9 @@
                             endif;  
                         ?>  
                             <li class="nav-item dropdown ">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link language" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="<?=$urlThemeActive?>asset/images/vn.png" alt="">
-                                    <p>Tiếng Việt</p>
+                                    <p>Tiếng Việt <i class="fa-solid fa-angle-down"></i></p>
                                 </a>
                                 <div class="abs-dropdown dropdown-menu-4">
                                     <ul class="dropdown-menu ">

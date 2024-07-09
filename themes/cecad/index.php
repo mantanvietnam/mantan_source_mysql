@@ -42,7 +42,7 @@
                     <div class="counter_wrapper">
                         <div class="counter_item">
                             <div>
-                                <h1 class="counter" data-number="<?= @$settingThemes['countnumber1'];?>" data-speed="100"></h1>
+                                <h1 class="counter" data-number="<?= @$settingThemes['countnumber1'];?>" data-speed="50"></h1>
                                 <i class="fa-solid fa-plus"></i>
                             </div>
                             <p>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="counter_item">
                             <div>
-                                <h1 class="counter" data-number="<?= @$settingThemes['countnumber2'];?>" data-speed="200"></h1>
+                                <h1 class="counter" data-number="<?= @$settingThemes['countnumber2'];?>" data-speed="100"></h1>
                                 <i class="fa-solid fa-plus"></i>
                             </div>
                             <p>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="counter_item">
                             <div>
-                                <h1 class="counter" data-number="<?= @$settingThemes['countnumber3'];?>" data-speed="200"></h1>
+                                <h1 class="counter" data-number="<?= @$settingThemes['countnumber3'];?>" data-speed="100"></h1>
                             </div>
                             <p>
                                 <?= @$settingThemes['contentnumber3'];?>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="counter_item">
                             <div>
-                                <h1 class="counter" data-number="<?= @$settingThemes['countnumber4'];?>" data-speed="200"></h1>
+                                <h1 class="counter" data-number="<?= @$settingThemes['countnumber4'];?>" data-speed="100"></h1>
                             </div>
                             <p>
                                 <?= @$settingThemes['contentnumber4'];?>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="counter_item">
                             <div>
-                                <h1 class="counter" data-number="<?= @$settingThemes['countnumber5'];?>" data-speed="200"></h1>
+                                <h1 class="counter" data-number="<?= @$settingThemes['countnumber5'];?>" data-speed="100"></h1>
                             </div>
                             <p>
                                 <?= @$settingThemes['contentnumber5'];?>
@@ -105,38 +105,38 @@
                             <p>
                                 <?= @$settingThemes['action1'];?>
                             </p>
-                            <img src="<?= @$settingThemes['imageaction1'];?>" alt="">
+                            <img class="fade-img" src="<?= @$settingThemes['imageaction1'];?>" alt="">
                         </div>
                         <div class="majors-items majors-items-left majors-items-2">
                             <p>
                             <?= @$settingThemes['action6'];?>
                             </p>
-                            <img src="<?= @$settingThemes['imageaction6'];?>" alt="">
+                            <img class="fade-img" src="<?= @$settingThemes['imageaction6'];?>" alt="">
                         </div>
                         <div class="majors-items majors-items-left majors-items-3">
                             <p>
                                 <?= @$settingThemes['action5'];?>
                             </p>
-                            <img src="<?= @$settingThemes['imageaction5'];?>" alt="">
+                            <img class="fade-img" src="<?= @$settingThemes['imageaction5'];?>" alt="">
                         </div>
 
                         <div class="majors-items majors-items-right majors-items-4">
                             <p>
                                 <?= @$settingThemes['action2'];?>
                             </p>
-                            <img src="<?= @$settingThemes['imageaction2'];?>" alt="">
+                            <img class="fade-img" src="<?= @$settingThemes['imageaction2'];?>" alt="">
                         </div>
                         <div class="majors-items majors-items-right majors-items-5">
                             <p>
                                 <?= @$settingThemes['action3'];?>
                             </p>
-                            <img src="<?= @$settingThemes['imageaction3'];?>" alt="">
+                            <img class="fade-img" src="<?= @$settingThemes['imageaction3'];?>" alt="">
                         </div>
                         <div class="majors-items majors-items-right majors-items-6">
                             <p>
                                 <?= @$settingThemes['action4'];?>
                             </p>
-                            <img src="<?= @$settingThemes['imageaction4'];?>" alt="">
+                            <img class="fade-img" src="<?= @$settingThemes['imageaction4'];?>" alt="">
                         </div>
                     </div>
                 </div>

@@ -83,7 +83,7 @@ arr.map((item) => {
     let stop = setInterval(
         function() {
             CounterUp();
-        }, 100 / item.dataset.speed
+        }, 10 / item.dataset.speed
     );
 })
 

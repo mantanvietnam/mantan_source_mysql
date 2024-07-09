@@ -26,18 +26,6 @@ let swiper = new Swiper('.swiper', {
 
 var swiper1 = new Swiper('.swiper1', {
     cssMode: true,
-    slidesPerView: 2,
-    spaceBetween: 0,
-    breakpoints: {
-        1050: {
-            slidesPerView: 1,
-            spaceBetween: 15,
-        },
-        801: {
-            slidesPerView: 1,
-            spaceBetween: 15,
-        },
-    },
     navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
@@ -52,10 +40,10 @@ var swiper1 = new Swiper('.swiper1', {
 // Hàm cập nhật Swiper
 function updateSwiper() {
     var width = window.innerWidth;
-    if (width > 850) {
-        swiper1.params.slidesPerView = 1.15; // Ví dụ: cập nhật số slide hiển thị
+    if (width > 1200) { // Màn hình lớn
+        swiper1.params.slidesPerView = 2; // Ví dụ: cập nhật số slide hiển thị
         swiper1.params.spaceBetween = 0; // Ví dụ: cập nhật khoảng cách giữa các slide
-    } else {
+    } else { // Màn hình nhỏ
         swiper1.params.slidesPerView = 1;
         swiper1.params.spaceBetween = 0;
     }
