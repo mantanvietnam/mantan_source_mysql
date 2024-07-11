@@ -893,7 +893,7 @@ function createImageSeries($input)
 		
 		setVariable('dataImage', $dataImage);
 		setVariable('id', $id);
-		setVariable('slug', $product->slug);
+		setVariable('slug', @$product->slug);
 	}else{
 		return $controller->redirect('https://ezpics.vn');
 	}

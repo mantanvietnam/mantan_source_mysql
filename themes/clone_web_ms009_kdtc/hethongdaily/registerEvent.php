@@ -100,7 +100,7 @@
                         <div class="col-lg-12 col-md-12 col-12 contact-box-left">
                             <h2>Đăng ký tham gia sự kiện</h2>
                             <p class="mb-3">
-                                Đăng ký thành công, mã đăng ký của bạn là: 
+                                Chúc mừng bạn đã đăng ký thành công, mã đăng ký của bạn là: 
                                 <b>
                                 <?php 
                                 if($infoCustomer->id<10){

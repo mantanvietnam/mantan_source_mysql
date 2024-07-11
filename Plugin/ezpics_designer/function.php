@@ -35,7 +35,7 @@ $urlsCreateImage = [
                     //'http://14.225.53.136:3000/convert',
                     //'http://14.225.53.107:3000/convert',
                     'http://171.244.16.94:3001/convert',
-                    'http://18.136.118.45:3001//convert',
+                    'http://18.136.118.45:3001/convert',
                     ];
 $randIndex = array_rand($urlsCreateImage);
 $urlCreateImage = $urlsCreateImage[$randIndex];
