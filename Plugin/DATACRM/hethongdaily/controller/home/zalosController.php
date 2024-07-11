@@ -192,7 +192,14 @@ function sendNotificationMobile($input)
 		$mess= '';
 
 		$modelTokenDevices = $controller->loadModel('TokenDevices');
+		
+		$modelZaloTemplates = $controller->loadModel('ZaloTemplates');
 		$modelCampaigns = $controller->loadModel('Campaigns');
+		$modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+		$modelMembers = $controller->loadModel('Members');
+		$modelZalos = $controller->loadModel('Zalos');
+		$modelCustomers = $controller->loadModel('Customers');
+		$modelTransactionHistories = $controller->loadModel('TransactionHistories');
 
 		$infoUser = $session->read('infoUser');
 
@@ -215,7 +222,102 @@ function sendNotificationMobile($input)
 	        	$dataSendNotification= array('title'=>$dataSend['title'],'time'=>date('H:i d/m/Y'),'content'=>$dataSend['content'],'action'=>'notificationAdmin');
                 $token_device = [];
 
-                $listTokenDevice =  $modelTokenDevices->find()->where()->all()->toList();
+	        	if($dataSend['type_user'] == 'customer_campaign'){
+	        		if(!empty($dataSend['id_campaign'])){
+	        			$infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id_campaign'], 'id_member'=>$session->read('infoUser')->id])->first();
+
+	        			if(!empty($infoCampaign)){
+	        				$conditions = array('id_member'=>$session->read('infoUser')->id, 'id_campaign'=>(int) $infoCampaign->id);
+
+	        				$listCampaignCustomers = $modelCampaignCustomers->find()->where($conditions)->all()->toList();
+
+	        				if(!empty($listCampaignCustomers)){
+			                    foreach ($listCampaignCustomers as $key => $value) {
+			                    	// danh sách token
+			                    	$listToken = $modelTokenDevices->find()->where(['id_customer'=>$value->id_customer])->all()->toList();
+
+			                        if(!empty($listToken)){
+			                        	$listTokenDevice += $listToken;
+			                    	}
+			                    }
+			                }
+	        			}
+	        		}
+	        	}elseif($dataSend['type_user'] == 'customer_group'){
+	        		if(!empty($dataSend['id_group_customer'])){
+	        			$infoGroup = $modelCategories->find()->where(['id'=>(int) $dataSend['id_group_customer'], 'parent'=>$session->read('infoUser')->id, 'type' => 'group_customer'])->first();
+
+	        			if(!empty($infoGroup)){
+		        			$customer_in_group = $modelCategoryConnects->find()->where(['keyword'=>'group_customers','id_category'=> (int) $dataSend['id_group_customer']])->all()->toList();
+
+		        			if(!empty($customer_in_group)){
+		        				foreach ($customer_in_group as $key => $value) {
+		        					// danh sách token
+			                    	$listToken = $modelTokenDevices->find()->where(['id_customer'=>$value->id_parent])->all()->toList();
+
+			                        if(!empty($listToken)){
+			                        	$listTokenDevice += $listToken;
+			                    	}
+		        				}
+		        			}
+		        		}
+	        		}
+	        	}elseif($dataSend['type_user'] == 'member_position'){
+	        		if(!empty($dataSend['id_position'])){
+	        			$infoPosition = $modelCategories->find()->where(['id'=>(int) $dataSend['id_position'], 'type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system])->first();
+
+	        			if(!empty($infoPosition)){
+	        				$listMembers = $modelMembers->find()->where(['id_position'=>(int) $dataSend['id_position']])->all()->toList();
+
+	        				if(!empty($listMembers)){
+		        				foreach ($listMembers as $key => $value) {
+		        					// danh sách token
+			                    	$listToken = $modelTokenDevices->find()->where(['id_member'=>$value->id])->all()->toList();
+
+			                        if(!empty($listToken)){
+			                        	$listTokenDevice += $listToken;
+			                    	}
+		        				}
+		        			}
+	        			}
+	        		}
+	        	}elseif($dataSend['type_user'] == 'test_customer'){
+	        		if(!empty($dataSend['phone_test_customer'])){
+	        			$dataSend['phone_test_customer'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone_test_customer']));
+            			$dataSend['phone_test_customer'] = str_replace('+84','0',$dataSend['phone_test_customer']);
+
+
+            			$infoCustomer = $modelCustomers->find()->where(['phone'=>$dataSend['phone_test_customer']])->first();
+
+            			// danh sách token
+                    	$listToken = $modelTokenDevices->find()->where(['id_customer'=>$infoCustomer->id])->all()->toList();
+
+                        if(!empty($listToken)){
+                        	$listTokenDevice += $listToken;
+                    	}
+	        		}
+	        	}elseif($dataSend['type_user'] == 'test_member'){
+	        		if(!empty($dataSend['phone_test_member'])){
+	        			$dataSend['phone_test_member'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone_test_member']));
+            			$dataSend['phone_test_member'] = str_replace('+84','0',$dataSend['phone_test_member']);
+
+
+            			$infoMember = $modelMembers->find()->where(['phone'=>$dataSend['phone_test_member']])->first();
+
+            			// danh sách token
+                    	$listToken = $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                        if(!empty($listToken)){
+                        	$listTokenDevice += $listToken;
+                    	}
+	        		}
+	        	}elseif($dataSend['type_user'] == 'all_customer'){
+	        		$listTokenDevice =  $modelTokenDevices->find()->where(['id_customer >'=>0])->all()->toList();
+	        	}elseif($dataSend['type_user'] == 'all_member'){
+	        		$listTokenDevice =  $modelTokenDevices->find()->where(['id_member >'=>0])->all()->toList();
+	        	}else{
+	        		$listTokenDevice =  $modelTokenDevices->find()->where()->all()->toList();
+	        	}
 
                 if(!empty($listTokenDevice)){
                     foreach ($listTokenDevice as $tokenDevice) {
