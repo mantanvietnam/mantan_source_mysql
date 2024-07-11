@@ -67,10 +67,8 @@
             if(!empty($listData)){
               foreach ($listData as $item) {
 
-                  $request = '';
-                  if(empty($item->link_download)){
-                    $request = '<a onclick="return confirm(\'Bạn tạo lại yêu cầu không?\');" href="/plugins/admin/matmathanhcong-view-admin-regenerateRequestAdmin/?id='.$item->id.'" class="btn btn-danger">Tạo lại yêu cầu</a>';
-                  }
+                  $request = '<a onclick="return confirm(\'Bạn tạo lại yêu cầu không?\');" href="/plugins/admin/matmathanhcong-view-admin-regenerateRequestAdmin/?id='.$item->id.'" class="btn btn-danger">Tạo lại yêu cầu</a>';
+                  
 
                 echo '<tr>
                         <td>'.$item->id.'</td>

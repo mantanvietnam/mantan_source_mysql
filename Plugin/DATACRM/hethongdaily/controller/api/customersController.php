@@ -1096,6 +1096,4 @@ function saveInfoCustomerAjax($input){
         return array('code'=> 0 , 'mess'=> '<p class="text-danger">Bạn chưa đăng nhập</p>');
     }
 }
-
-
 ?>
