@@ -19,6 +19,7 @@ function checkDeadlineOrderAPI($input)
 	$conditions = ['dateEnd >=' => $timeNow, 'dateEnd <='=>$timeNext7p, 'extend_time_use'=>1];
 
 	$listData = $modelOrders->find()->where($conditions)->all()->toList();
+	
 
 	if(!empty($listData)){
 		foreach ($listData as $key => $order) {
@@ -60,22 +61,21 @@ function checkDeadlineOrderAPI($input)
 	if(!empty($listData)){
 		foreach ($listData as $key => $order) {
 			$zoom = $modelZooms->find()->where(['id' => $order->idZoom])->first();
-
-			$order->idZoom = 0;
-			$modelOrders->save($order);
 			
 			if(!empty($zoom)){
-				$zoom->idOrder = 0;
-				$modelZooms->save($zoom);
-
-				$number_deadline[] = $order->id;
-
 				// báo sang Zoom để khóa phòng
 				$room = $modelRooms->find()->where(['id' => $order->idRoom])->first();
 				$room->info = json_decode($room->info, true);
-
 				closeRoom($zoom->client_id, $zoom->client_secret, $zoom->account_id, $room->info['id']);
+			
+				$zoom->idOrder = 0;
+				$modelZooms->save($zoom);
+
+				$number_deadline[] = $order->id;	
 			}
+
+			$order->idZoom = 0;
+			$modelOrders->save($order);
 		}
 	}
 

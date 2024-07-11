@@ -482,7 +482,7 @@
             </div>
 
             <!-- Tab đặt hàng -->
-            <div class="tab-pane fade" id="order">
+            <div class="tab-pane fade" id="order" style="display: none;">
                 <div class="container p-3 d-flex justify-content-center">
                     <div class="card p-4"> 
                         <div class="mb-3">

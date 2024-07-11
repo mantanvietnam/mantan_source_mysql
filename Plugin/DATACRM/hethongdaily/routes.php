@@ -86,6 +86,7 @@
 	$routesPlugin['deleteProductAgency']= 'hethongdaily/view/home/product/deleteProductAgency.php';
 	$routesPlugin['listCategoryProductAgency']= 'hethongdaily/view/home/product/listCategoryProductAgency.php';
 	$routesPlugin['addDataProductAgency']= 'hethongdaily/view/home/product/addDataProductAgency.php';
+	$routesPlugin['editOrderCustomerAgency']= 'hethongdaily/view/home/product/editOrderCustomerAgency.php';
 
 	// yêu cầu mua hàng
 	$routesPlugin['requestProductAgency']= 'hethongdaily/view/home/order/requestProductAgency.php';
@@ -95,6 +96,7 @@
 
 	// tạo đơn hàng cho đại lý tuyến dưới 
 	$routesPlugin['addOrderAgency']= 'hethongdaily/view/home/order/addOrderAgency.php';
+	$routesPlugin['editOrderMemberAgency']= 'hethongdaily/view/home/order/editOrderMemberAgency.php';
 	
 	// kho hàng đại lý
 	$routesPlugin['warehouseProductAgency']= 'hethongdaily/view/home/warehouse/warehouseProductAgency.php';

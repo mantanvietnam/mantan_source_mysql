@@ -62,6 +62,7 @@ function closeRoom($clientId = '', $clientSecret = '', $account_id = '', $meetin
 {
     if(!empty($clientId) && !empty($clientSecret) && !empty($account_id) && !empty($meetingId)){
 
+       
         // Endpoint API Zoom để lấy Access Token
         $tokenUrl = 'https://zoom.us/oauth/token';
 

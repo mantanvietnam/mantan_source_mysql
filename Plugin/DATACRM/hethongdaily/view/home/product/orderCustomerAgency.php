@@ -109,7 +109,7 @@
                 if($item->status=='new'){ 
                  $status= '<p style="color: #00aeee;">Đơn mới</p>';
 
-                 $btnProcess= '<a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                 $btnProcess= '<a class="btn btn-info" href="/editOrderCustomerAgency/?id='.$item->id.'">sửa</a><br/><br/><a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
                 }elseif($item->status=='browser'){
                  $status= '<p style="color: #0333f6;">Đã duyệt</p>';
 
@@ -214,7 +214,7 @@
                 if($item->status=='new'){ 
                  $status= '<p style="color: #00aeee;">Đơn mới</p>';
 
-                 $btnProcess= '<a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                 $btnProcess= '<a class="btn btn-info" href="/editOrderCustomerAgency/?id='.$item->id.'">sửa</a>  <a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
                 }elseif($item->status=='browser'){
                  $status= '<p style="color: #0333f6;">Đã duyệt</p>';
 

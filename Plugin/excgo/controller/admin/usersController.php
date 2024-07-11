@@ -749,8 +749,8 @@ function listUserStatisticAdmin($input)
 
     if(!empty($listData)){
         foreach($listData as $key => $item){
-            $listData[$key]->received = count($modelBooking->find()->where(array('received_by'=>$item->id,'status'=>3))->all()->toList());
-            $listData[$key]->posted = count($modelBooking->find()->where(array('posted_by'=>$item->id,'status'=>3))->all()->toList());
+            $listData[$key]->received = count($modelBooking->find()->where(array('received_by'=>$item->id))->all()->toList());
+            $listData[$key]->posted = count($modelBooking->find()->where(array('posted_by'=>$item->id,))->all()->toList());
         }
     }
 

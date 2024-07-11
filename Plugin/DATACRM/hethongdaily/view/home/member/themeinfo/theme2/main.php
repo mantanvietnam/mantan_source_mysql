@@ -89,7 +89,7 @@
                             <div class="block-2-detail">
                                 <h4 style=" color: <?php echo (!empty($data_value['text_color_Jobtitle']))? $data_value['text_color_Jobtitle']: 'rgb(42 50 127)' ;?>"><?php echo $info->name_position;?> <?php echo $info->name_system;?></h4>
 
-                                <p style=" color: <?php echo (!empty($data_value['text_color_address']))? $data_value['text_color_address']: 'rgb(42 50 127)' ;?>"><i class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
+                                <p style=" color: <?php echo (!empty($data_value['text_color_address']))? $data_value['text_color_address']: 'rgb(42 50 127)' ;?>"><i style=" color: <?php echo (!empty($data_value['text_color_address']))? $data_value['text_color_address']: 'rgb(42 50 127)' ;?>" class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
                             </div>
                         </section>
 

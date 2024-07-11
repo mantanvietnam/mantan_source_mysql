@@ -1,0 +1,849 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+p{
+    margin: 3px;
+}
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.container {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+
+/* font */
+
+@font-face {
+    font-family: "great vibes";
+    src: url("./font/GreatVibes-Regular.ttf") format("truetype");
+    font-weight: 600px;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0 !important;
+}
+
+/* nav-tab */
+
+.tabs{
+    position: fixed;
+    display: flex;
+    text-align: center;
+    z-index: 1000;
+    bottom: 0;
+    width: 100%;
+    justify-content: center;
+}
+
+.tabs .nav-tabs{
+    font-family: 'Oswald';
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: black;
+    width: 380px;
+    height: 70px;
+
+}
+
+.tabs .nav-tabs li a{
+    color: aliceblue;
+    border: 2px solid #DDD;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.tabs .nav-tabs li a:active{
+    background-color: white;
+    color: black;
+}
+
+
+.ladi-wraper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#body-background {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.ladi-section {
+    background-size: cover;
+    background-origin: content-box;
+    background-position: 50% 0%;
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
+
+
+/* main-ladi */
+.ladi-main {
+    position: absolute;
+    top: 0;
+    z-index: 999;
+}
+
+.ladi-main .ladi-bgr {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.ladi-main .white-bgr {
+
+    display: flex;
+    width: 380px;
+    height: 420px;
+    background-color: aliceblue;
+}
+
+.ladi-bgr .box-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ladi-bgr .box-img .box-33 {
+    position: absolute;
+    top: 30px;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: rgb(0, 0, 0) 10px 15px 11px -14px;
+    width: 339.482px;
+    height: 415.166px;
+    background: linear-gradient(180deg, rgba(255, 164, 26, 1) 37%, rgba(0, 0, 0, 1) 37%);
+}
+
+.ladi-bgr .box-img .box-33 .box35 {
+    border-radius: 50%;
+    height: 240px;
+    width: 240px;
+    background-color: white;
+    margin-top: 30px;
+}
+
+.ladi-bgr .box-img .box35 img {
+    height: 223px;
+    border-radius: 50%;
+    margin: 8px;
+    transition: background-color 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.ladi-bgr .box-img .box35 img:hover {
+    transform: scale(1.06);
+}
+
+
+/* text-box */
+
+.ladi-bgr .box-img .box-33 .text-box {
+    position: absolute;
+    display: contents;
+}
+
+.ladi-bgr .box-img .box-33 .text-box .name {
+    margin-top: 10px;
+    color: aliceblue;
+    font-size: 30px;
+    font-family: "Dancing Script", cursive;
+}
+
+.ladi-bgr .box-img .box-33 .text-box .name i {
+    font-size: 15px;
+    padding: 3px;
+}
+
+.ladi-bgr .box-img .box-33 .text-box .text-NDC {
+    font-family: Oswald, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 3.6;
+    color: rgb(92, 230, 173);
+    -webkit-background-clip: text;
+    background-image: linear-gradient(rgb(251, 215, 43), rgb(249, 72, 74));
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* list-58 */
+
+.ladi-main .ladi-bgr .list-58 {
+    position: absolute;
+    top: 530px;
+}
+
+.ladi-main .ladi-bgr .list-58 .img-58 {
+    margin-left: 5px;
+    background-image: url(./anh/box1.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 370px;
+    height: 120px;
+    border-radius: 13px;
+    box-shadow: rgb(0, 0, 0) 10px 15px 11px -14px;
+}
+
+.ladi-main .ladi-bgr .list-58 .img-58 ul {
+    line-height: 30px;
+    font-family: Oswald, sans-serif;
+    color: aliceblue;
+    font-size: 18px;
+    list-style: none ;
+}
+
+.ladi-main .ladi-bgr .list-58 .img-58 ul li {
+    margin: 10px 16px;
+}
+
+.ladi-main .ladi-bgr .list-58 .img-58 ul li i{
+    font-size: 5px;
+    color: #FDAB15;
+}
+
+
+
+/* achievements */
+
+.ladi-main .ladi-bgr .achievements {
+    background-color: black;
+    width: 380px;
+    height: 60px;
+}
+
+.ladi-main .ladi-bgr .achievements .achievements-wt {
+    width: 380px;
+    height: 19px;
+    background-color: aliceblue;
+    position: relative;
+}
+
+.ladi-main .ladi-bgr .achievements .achievements-wt .rectangle {
+    position: absolute;
+    top: -10px;
+    background-image: linear-gradient(rgb(251, 215, 43), rgb(249, 72, 74));
+    height: 45px;
+    width: 210px;
+    clip-path: polygon(0% 0%, 80% 0, 100% 100%, 0 100%)
+}
+
+.ladi-main .ladi-bgr .social .social-img {
+    background-image: url(./anh/box2.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 380px;
+    height: 678px;
+}
+
+.ladi-main .ladi-bgr .social .social-img h4 {
+    color: aliceblue;
+    font-family: Oswald, sans-serif;
+    font-weight: bold;
+    line-height: 1.6;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    position: relative;
+    font-size: 22px;
+}
+
+.ladi-main .ladi-bgr .social .social-img h4::before {
+    position: absolute;
+    content: '';
+    left: 18%;
+    bottom: -12px;
+    height: 3px;
+    width: 60%;
+    background-color: gray;
+}
+
+.ladi-main .ladi-bgr .social .social-app {
+    display: block;
+    justify-content: center;
+}
+
+.ladi-main .ladi-bgr .social .social-app .box84 {
+    margin-top: 20px;
+}
+
+.ladi-main .ladi-bgr .social .social-app .box84 .box-info {
+    position: relative;
+    background-color: black;
+    width: 360px;
+    height: 65px;
+    border-width: 1px;
+    border-radius: 30px;
+    border-style: solid;
+    border-color: rgb(217, 217, 217);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.ladi-main .ladi-bgr .social .social-app .box84 .box-info .box86 {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.ladi-main .ladi-bgr .social .social-app .box84 .text-app {
+    justify-content: center;
+}
+
+.ladi-main .ladi-bgr .social .social-app .box84 .box85:hover {
+    background-color: white;
+    opacity: 0.6;
+}
+
+.ladi-main .ladi-bgr .social .social-app .box84 a i {
+    font-size: 50px;
+    padding: 31px 12px;
+}
+
+.ladi-main .ladi-bgr .social .social-app .box84 a i:hover {
+    scale: 1.2;
+}
+
+.ladi-main .ladi-bgr .social .social-app .box84 .text87 {
+    top: 10px;
+    right: 100px;
+    font-family: Oswald, sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(253, 171, 21);
+}
+
+.ladi-main .ladi-bgr .social .social-app .box84 .text87:hover{
+    scale: 1.5;  
+}
+
+.ladi-main .ladi-bgr .social .social-app .box84 h5 {
+    font-family: Roboto, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgb(217, 217, 217);
+}
+
+/* hotline */
+.ladi-main .ladi-bgr .hotline-bgr{
+    width: 380px;
+    height: 50px;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 75%, rgba(255,164,26,1) 75%);
+}
+
+.ladi-main .ladi-bgr .hotline-bgr .hotline{
+    font-size: 15px;
+    font-weight: bold;
+    font-style: italic;
+    line-height: 1.6;
+    color: rgb(253, 171, 21);
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+/* contact */
+.ladi-main .ladi-bgr .contact{
+    position: absolute;
+    top: 32%;
+    width: 380px;
+    height: 67px;
+    display: flex;
+    align-items: center;
+}
+
+.ladi-main .ladi-bgr .contact .hotline{
+    font-size: 20px;
+    color: #FDAB15;
+    font-weight: 500;
+    font-family: 'Oswald';
+    margin-left: 20px;
+    margin-right: 15px;
+}   
+
+.ladi-main .ladi-bgr .contact a{
+    font-size: 35px;
+    margin-left: 18px;
+}
+
+.ladi-main .ladi-bgr .contact a img{
+
+}
+
+.ladi-main .ladi-bgr .contact .box182 a{
+    font-family: 'Oswald';
+    border: 2px solid #FDAB15;
+    height: 42px;
+    border-radius: 5px;
+    width: 130px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    font-size: 17px;
+}
+
+/* khach hang */
+.block-2{
+    width: 100%;
+    height: 100%;
+    top: 10px;
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+}
+
+ .bgr-kh{
+    padding: 25px;
+    border-radius: 5px;
+    width: 300px;
+    height: 430px;
+    background-color: #f1f1f1;
+    margin-bottom: 100px;
+}
+
+label{
+    font-family: 'Oswald';
+}
+
+.contact-form-container input[type="text"],
+.contact-form-container input[type="number"],
+.contact-form-container input[type="file"]{
+    width: 100%;
+    font-family: 'Oswald';
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.btn-contact{
+    border: 0;
+    margin-left: 20%;
+    margin-bottom: 15px;
+    padding: 11px;
+    border-radius: 9px;
+    background-color: red;
+    color: #DDD;
+}
+
+.btn-contact:hover{
+    background-color:rgb(249, 72, 74) ;
+}
+
+/* sản phẩm */
+.bgr-sp{
+    border-radius: 5px;
+    width: 380px;
+    height: 100%;
+    background-color: #f1f1f1;
+    padding-bottom: 100px;
+
+}
+
+#block-7{
+    width: 100%;
+}
+
+tbody {
+    border: 2px solid white;
+}
+
+tr{
+    border: 2px solid white;
+}
+.qty-input {
+    color: #000;
+    background: transparent;
+    display: grid;
+    align-items: center;
+    overflow: hidden;
+}
+
+.qty-input .product-qty,
+.qty-input .qty-count {
+    background: #f1f1f147;
+    color: inherit;
+    font-weight: bold;
+    font-size: inherit;
+    border: none;
+    display: inline-block;
+    font-weight: 500;
+    height: 30px;
+    font-size: 15px;
+}
+
+.qty-input .product-qty:focus,
+.qty-input .qty-count:focus {
+    outline: none;
+}
+
+.qty-input .product-qty {
+    display: inline-block;
+    text-align: center;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.qty-input .product-qty::-webkit-outer-spin-button,
+.qty-input .product-qty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.qty-input .qty-count {
+    padding: 0;
+    cursor: pointer;
+    font-size: 20px;
+    overflow: hidden;
+    position: relative;
+    font-weight: 500;
+}
+
+.check-input {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.check-input input {
+    width: 14px;
+    height: 14px;
+}
+
+table {
+    background: #f1f1f147 !important;
+}
+
+.table-bordered>tbody>tr>td,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>td,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>thead>tr>th {
+    border: 1px solid #fff !important;
+    font-size: 16px;
+}
+
+
+
+.qty-input .qty-count--add:after {
+    transform: rotate(90deg);
+}
+
+.qty-input .qty-count:disabled {
+    color: #c1c1c1;
+    background: #f1f1f147;
+    cursor: not-allowed;
+    border-color: transparent;
+}
+
+.qty-input {
+    border: 1px solid #e2e2e2;
+}
+
+.qty-input .qty-count:disabled:before,
+.qty-input .qty-count:disabled:after {
+    background: #ccc;
+}
+
+.qty-input {
+    border-radius: 4px;
+}
+
+.table-caption {
+    text-transform: capitalize;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.table>tbody>tr>th.no-padding {
+    padding: 8px 3px !important;
+}
+
+table td {
+    font-weight: 500;
+}
+
+table img {
+    width: 110px;
+    height: 117px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+td a {
+    font-family: monospace;
+    color: #000;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    padding: 5px !important;
+    color: brown;
+}
+
+#block-7 .block-btn{
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    top: 80%;
+    left: 0;
+}
+
+#block-7 .block-btn .buy-btn {
+    background-color: red;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+@media screen and (max-width: 320px){
+    .ladi-main{
+        left: -15px;
+    }
+    .ladi-bgr .box-img .box-33{
+        left: 37px;
+        width: 320.482px;
+    }
+    .ladi-main .ladi-bgr .list-58 .img-58 {
+        margin-left: 24px;
+        width: 340px;
+    }
+
+    .ladi-main .ladi-bgr .social .social-img {
+    }
+    
+    .ladi-main .ladi-bgr .social .social-img h4 {
+        left: 5px;
+        font-size: 21px;
+    }
+
+    .ladi-main .ladi-bgr .social .social-app .box84 .box-info {
+        left: 5px;
+        width: 340px;
+    }
+
+    .ladi-main .ladi-bgr .contact a{
+        margin-left: 10px;
+    }
+
+    .ladi-main .ladi-bgr .contact .tiktok{
+        margin-left: 35px;
+    }
+
+    .ladi-main .ladi-bgr .social .social-app .box84 .db{
+        margin-left: 40px;
+    }
+    .bgr-sp {
+        border-radius: 5px;
+        width: 380px;
+        height: 100%;
+        background-color: #f1f1f1;
+        padding-bottom: 200px;
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px){
+    #block-7 .block-btn {
+        width: 100%;
+        text-align: center;
+        position: fixed;
+        top: 80%;
+        left: 0;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px){
+    #block-7 .block-btn {
+        width: 100%;
+        text-align: center;
+        position: fixed;
+        top: 80%;
+        left: 0;
+    }
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px){
+    #block-7 .block-btn {
+        width: 100%;
+        text-align: center;
+        position: fixed;
+        top: 80%;
+        left: 0;
+    }
+}

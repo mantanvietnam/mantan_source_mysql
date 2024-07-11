@@ -115,7 +115,7 @@
 
                   if($item->status=='new'){ 
                    $status= '<p style="color: #00aeee;">Đơn mới</p>';
-                   $btnProcess= '<a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                   $btnProcess= '<a class="btn btn-info" href="/editOrderMemberAgency/?id='.$item->id.'">sửa</a><br/><br/><a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><br/><br/><a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
                  }elseif($item->status=='browser'){
                    $status= '<p style="color: #0333f6;">Đã duyệt</p>';
                    $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a><br/><br/><a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
@@ -216,7 +216,7 @@
 
                   if($item->status=='new'){ 
                    $status= '<p style="color: #00aeee;">Đơn mới</p>';
-                   $btnProcess= '<a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                   $btnProcess= '<a class="btn btn-info" href="/editOrderMemberAgency/?id='.$item->id.'">sửa</a> <a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
                  }elseif($item->status=='browser'){
                    $status= '<p style="color: #0333f6;">Đã duyệt</p>';
                    $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a><a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
