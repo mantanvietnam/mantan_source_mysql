@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="pt-block-4">
                                     <div class="pt-btn">
-                                        <a href="">Đăng kí ngay</a>
+                                        <a href="https://zalo.me/0816560000">Đăng kí ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="pt-block-4">
                                     <div class="pt-btn">
-                                        <a href="">Đăng kí ngay</a>
+                                        <a href="https://zalo.me/0816560000">Đăng kí ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="pt-block-4">
                                     <div class="pt-btn">
-                                        <a href="">Đăng kí ngay</a>
+                                        <a href="https://zalo.me/0816560000">Đăng kí ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                 </div>
                                 <div class="pt-block-4">
                                     <div class="pt-btn">
-                                        <a href="">Đăng kí ngay</a>
+                                        <a href="https://zalo.me/0816560000">Đăng kí ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                                 </div>
                                 <div class="pt-block-4">
                                     <div class="pt-btn">
-                                        <a href="">Đăng kí ngay</a>
+                                        <a href="https://zalo.me/0816560000">Đăng kí ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +284,7 @@
                                 </div>
                                 <div class="pt-block-4">
                                     <div class="pt-btn">
-                                        <a href="">Đăng kí ngay</a>
+                                        <a href="https://zalo.me/0816560000">Đăng kí ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -336,7 +336,7 @@
                                 </div>
                                 <div class="pt-block-4">
                                     <div class="pt-btn">
-                                        <a href="">Đăng kí ngay</a>
+                                        <a href="https://zalo.me/0816560000">Đăng kí ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -387,7 +387,7 @@
                                 </div>
                                 <div class="pt-block-4">
                                     <div class="pt-btn">
-                                        <a href="">Đăng kí ngay</a>
+                                        <a href="https://zalo.me/0816560000">Đăng kí ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -438,7 +438,7 @@
                                 </div>
                                 <div class="pt-block-4">
                                     <div class="pt-btn">
-                                        <a href="">Đăng kí ngay</a>
+                                        <a href="https://zalo.me/0816560000">Đăng kí ngay</a>
                                     </div>
                                 </div>
                             </div>
