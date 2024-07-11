@@ -1,3 +1,23 @@
+p {
+    margin-bottom: 0 !important;
+}
+
+ol,
+ul {
+    list-style: none;
+    margin-left: 0 !important;
+}
+
+.all-cost {
+    display: grid;
+    align-items: center;
+    height: 96px;
+}
+
+#icham-block-1 {
+    padding: 60px 0 200px 0;
+}
+
 .ib-1-price-list .price-item {
     padding: 30px 30px;
     border-radius: 12px;

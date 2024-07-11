@@ -24,11 +24,13 @@
                                     <div class="pt-name">
                                         <p>Bán lẻ</p>
                                     </div>
-                                    <div class="old-cost">
-                                        <p>1000<i class="fa-solid fa-dong-sign"></i></p>
-                                    </div>
-                                    <div class="new-cost">
-                                        <p>3,500,000<i class="fa-solid fa-dong-sign"></i></p>
+                                    <div class="all-cost">
+                                        <div class="old-cost" style="display: none;">
+                                            <p>1000<i class="fa-solid fa-dong-sign"></i></p>
+                                        </div>
+                                        <div class="new-cost">
+                                            <p>3,500,000<i class="fa-solid fa-dong-sign"></i></p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="pt-block-2">
