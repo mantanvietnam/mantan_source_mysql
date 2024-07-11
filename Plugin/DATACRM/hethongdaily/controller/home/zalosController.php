@@ -201,7 +201,7 @@ function sendNotificationMobile($input)
 		$modelCustomers = $controller->loadModel('Customers');
 		$modelTransactionHistories = $controller->loadModel('TransactionHistories');
 
-		$infoUser = $session->read('infoUser');
+		$infoUser = $modelMembers->find()->where(['id'=>$session->read('infoUser')->id])->first();
 
 		// danh sách chiến dịch
 		$conditions = array('id_member'=>$session->read('infoUser')->id);
@@ -221,6 +221,7 @@ function sendNotificationMobile($input)
 	        if(!empty($dataSend['content']) && !empty($dataSend['title'])){
 	        	$dataSendNotification= array('title'=>$dataSend['title'],'time'=>date('H:i d/m/Y'),'content'=>$dataSend['content'],'action'=>'notificationAdmin');
                 $token_device = [];
+                $listTokenDevice = [];
 
 	        	if($dataSend['type_user'] == 'customer_campaign'){
 	        		if(!empty($dataSend['id_campaign'])){
@@ -342,6 +343,7 @@ function sendNotificationMobile($input)
 	    setVariable('listCampaign', $listCampaign);
 	    setVariable('listGroupCustomer', $listGroupCustomer);
 	    setVariable('listPositions', $listPositions);
+	    setVariable('infoUser', $infoUser);
 	}else{
 		return $controller->redirect('/login');
 	}
