@@ -182,6 +182,7 @@ function listCustomerAgency($input)
         setVariable('back', $back);
         setVariable('next', $next);
         setVariable('urlPage', $urlPage);
+        setVariable('totalData', $totalData);
         
         setVariable('listData', $listData);
         setVariable('listGroup', $listGroup);
@@ -539,6 +540,10 @@ function downloadMMTC($input)
         if(!empty($_GET['id_customer'])){
             $infoCustomer = $modelCustomers->find()->where(['id'=>(int) $_GET['id_customer']])->first();
 
+            if(!empty($infoCustomer->link_download_mmtc)){
+                return $controller->redirect($infoCustomer->link_download_mmtc);
+            }
+
             if(!empty($infoCustomer->birthday_date)){
                 $birthday = $infoCustomer->birthday_date.'/'.$infoCustomer->birthday_month.'/'.$infoCustomer->birthday_year;
                 $linkFull = '';
@@ -556,13 +561,17 @@ function downloadMMTC($input)
                 }
 
                 if(!empty($linkFull)){
+                    $infoCustomer->link_download_mmtc = $linkFull;
+
+                    $modelCustomers->save($infoCustomer);
+
                     return $controller->redirect($linkFull);
                 }else{
-                    return $controller->redirect('/listCustomerAgency');        
+                    return $controller->redirect('/listCustomerAgency/?error=emptyLinkDownload');        
                 }
             }
         }else{
-            return $controller->redirect('/listCustomerAgency');
+            return $controller->redirect('/listCustomerAgency/?error=emptyIDCustomer');
         }
     }else{
         return $controller->redirect('/login');

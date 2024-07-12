@@ -9,12 +9,12 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                                    KHỐI ĐẦU
+                                    KHỐI BANNER
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-2" aria-controls="navs-top-info" aria-selected="false">
-                                    KHỐI THỨ 2
+                                    KHỐI NHỮNG CON SỐ ẤN TƯỢNG
                                 </button>
                             </li>
                             <li class="nav-item">
@@ -24,22 +24,22 @@
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-4" aria-controls="navs-top-info" aria-selected="false">
-                                    KHỐI THỨ 4
+                                    KHỐI LĨNH VỰC HOẠT ĐỘNG
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-5" aria-controls="navs-top-info" aria-selected="false">
-                                    KHỐI THỨ 5
+                                    KHỐI DỰ ÁN
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-6" aria-controls="navs-top-info" aria-selected="false">
-                                    KHỐI THỨ 6
+                                    KHỐI TIN TỨC
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-7" aria-controls="navs-top-info" aria-selected="false">
-                                    KHỐI THỨ 7
+                                    KHỐI ĐỐI TÁC
                                 </button>
                             </li>
                             <li class="nav-item">
@@ -65,10 +65,10 @@
                                     <label class="form-label" for="basic-default-fullname">ID album slide</label>
                                     <input type="text" class="form-control" name="slide_home" value="<?php echo @$data['slide_home'];?>" />
                                 </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <!-- <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">ID album slide albums</label>
                                     <input type="text" class="form-control" name="slide_albums" value="<?php echo @$data['slide_albums'];?>" />
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="tab-pane fade  show" id="navs-2" role="tabpanel">
@@ -266,9 +266,17 @@
                         </div>
                         <div class="tab-pane fade show" id="navs-9" role="tabpanel">
                             <div class="card-body row ">
-                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Image tiêu đề liên hệ</label>
+                                    <?php showUploadFile('imageheadercontact','imageheadercontact', @$data['imageheadercontact'],11);?>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Image liên hệ</label>
                                     <?php showUploadFile('imagecontact','imagecontact', @$data['imagecontact'],10);?>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">map</label>
+                                    <input type="text" class="form-control" name="map" value="<?php echo @$data['map'];?>"/>
                                 </div>
                             </div>
                         </div>

@@ -16,4 +16,6 @@ include('model/documentinfo.php'); // chi tết thư viện
 include('model/bill.php'); // phiếu thu va chi
 include('model/debt.php'); // công nợ
 include('model/discount_product_agency.php'); // công nợ
+include('model/seting_theme_info.php'); // cài đặt theme info
+include('model/link_infos.php'); // cài đặt theme info
 ?>

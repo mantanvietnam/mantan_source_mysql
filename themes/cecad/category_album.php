@@ -16,19 +16,20 @@
                 <div class="row set-padding-top">
                 <?php foreach ($listAlbums as $key => $value) { ?> 
                     <div class="col-md-6 col-lg-4 col-lg-4 col-12 card-albums-all-information">
-                        <div class="image-albums-card">
-                            <a href="/<?= $value->slug?>.html"><img src="<?php echo $value->image; ?>" alt=""></a>
-                        </div>
-                        <div class="information-card-albums">
-                            <div class="main-information-card-albums">
-                                <h3 class="date-content-slide-albums">Post on -<span><?php echo date('d/m/Y', $value->time_create);?></span></h3>
-                                <a class="h2-title-above-slide" href="/<?= $value->slug?>.html"><?php echo $value->title; ?></a>
-                                <p class="paragrap-titleabove-slide"><?php echo $value->description; ?></p>
+                        <div class="cover-box-albums">
+                            <div class="image-albums-card">
+                                <a href="/<?= $value->slug?>.html"><img src="<?php echo $value->image; ?>" alt=""></a>
+                            </div>
+                            <div class="information-card-albums">
+                                <div class="main-information-card-albums">
+                                    <h3 class="date-content-slide-albums"><i class="fa-solid fa-calendar-days"></i><span class="m-1"><?php echo date('d/m/Y', $value->time_create);?></span></h3>
+                                    <a class="h2-title-above-slide" href="/<?= $value->slug?>.html"><?php echo $value->title; ?></a>
+                                    <p class="paragrap-titleabove-slide"><?php echo $value->description; ?></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <?php } ?>
-
                 </div>
                 <div class="pagination">
                     <nav aria-label="Page navigation">

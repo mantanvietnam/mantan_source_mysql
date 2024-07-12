@@ -46,6 +46,7 @@ function searchProductAPI($input)
                                 'code'=>$data->code,
                                 'quantity'=>$data->quantity,
                                 'view'=>$data->view,
+                                'unit'=>$data->unit,
                             );
         }
     }else{
@@ -60,6 +61,7 @@ function searchProductAPI($input)
                                 'code'=>'',
                                 'quantity'=>'',
                                 'view'=>'',
+                                'unit'=>'',
                             )
                 );
     }

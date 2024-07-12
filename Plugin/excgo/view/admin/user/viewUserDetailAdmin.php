@@ -70,7 +70,7 @@
                         </div>
                         
 
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-2 mb-3">
                           <label class="form-label">Loại tài khoản</label>
                           <div class="input-group input-group-merge">
                               <select class="form-select" name="type" id="type">
@@ -79,9 +79,13 @@
                               </select>
                           </div>
                         </div>
-                         <div class="col-md-3 mb-3">
+                         <div class="col-md-2 mb-3">
                             <label class="form-label" for="basic-default-phone">Chuyến nhận tối da</label>
                             <input required type="number" class="form-control phone-mask" name="maximum_trip" id="maximum_trip" value="<?php echo @$data->maximum_trip;?>" />
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label class="form-label" for="basic-default-phone">chênh lệch Chuyến</label>
+                            <input  type="number" class="form-control phone-mask" name="difference_booking" id="difference_booking" value="<?php echo @$data->difference_booking;?>" />
                         </div>
                     </div>
 

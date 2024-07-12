@@ -77,7 +77,7 @@ function sendEmailContact($email='',$fullName='',$phone='', $contacht='')
                         Full name: '.$fullName.'<br/> 
                         Email: '.$email.'<br/> 
                         Phone: '.$phone.'<br/>
-                        contacht: '.$contacht.'<br>
+                        contact: '.$contacht.'<br>
                         <br/>
                         
                         <br><br>

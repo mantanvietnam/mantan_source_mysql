@@ -14,22 +14,28 @@ function listDocument($input){
 
 	    $modelDocument = $controller->loadModel('Documents');
 	    $modelDocumentinfo = $controller->loadModel('Documentinfos');
+
+
 	    
 	    $conditions = array('id_parent'=>$user->id);
+	    $conditioneverybody = array('id_parent !='=>$user->id, 'public'=>'public');
 
 		$url= explode('?', $urlCurrent);	    
 	    if($url[0]=='/listAlbum'){
 	    	$conditions['type']= 'album';
+	    	$conditioneverybody['type']= 'album';
 	    	$title = 'Hình ảnh';
 	    	$slug = 'Album';
 	    	$type ='album';
 	    }elseif($url[0]=='/listVideo'){
 	    	$conditions['type']= 'video';
+	    	$conditioneverybody['type']= 'video';
 	    	$title = 'Video';
 	    	$slug = 'Video';
 	    	$type ='video';
 	    }else{
 	    	$conditions['type']= 'document';
+	    	$conditioneverybody['type']= 'document';
 	    	$title = 'Tài liệu';
 	    	$slug = 'Document';
 	    	$type ='document';
@@ -42,6 +48,7 @@ function listDocument($input){
 	        $key=createSlugMantan($_GET['name']);
 
 	        $conditions['slug LIKE']= '%'.$key.'%';
+	        $conditioneverybody['slug LIKE']= '%'.$key.'%';
 	    }
 
 
@@ -50,13 +57,24 @@ function listDocument($input){
 	    if($page<1) $page = 1;
 	    $order = array('id'=>'desc');
 	    
-	    $listData = $modelDocument->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    $listData = $modelDocument->find()->where($conditions)->order($order)->all()->toList();
+	    $conditioneverybody = $modelDocument->find()->limit($limit)->page($page)->where($conditioneverybody)->order($order)->all()->toList();
+
+	    
 
 	    if(!empty($listData)){
 	        foreach ($listData as $key => $value) {
 	            $conditions_scan = array('id_document'=>$value->id);
 	            $static = $modelDocumentinfo->find()->where($conditions_scan)->all()->toList();
 	            $listData[$key]->number_document = count($static);
+	        }
+	    }
+
+	    if(!empty($conditioneverybody)){
+	        foreach ($conditioneverybody as $key => $value) {
+	            $conditions_scan = array('id_document'=>$value->id);
+	            $static = $modelDocumentinfo->find()->where($conditions_scan)->all()->toList();
+	            $conditioneverybody[$key]->number_document = count($static);
 	        }
 	    }
 
@@ -102,6 +120,7 @@ function listDocument($input){
 	    setVariable('type', $type);
 	    
 	    setVariable('listData', $listData);
+	    setVariable('conditioneverybody', $conditioneverybody);
 	}else{
         return $controller->redirect('/login');
     }

@@ -95,6 +95,8 @@ footer::after {
     color: #fff;
     border: 2.5px solid #427FE3 !important;
     font-weight: 600 !important;
+    border-radius: 200px !important;
+    padding: 10px 0;
 }
 
 .ft-contact-form h3 {
@@ -127,7 +129,22 @@ footer::after {
     width: 100%;
 }
 
-.ft-contact-form form input::placeholder {
+.ft-contact-form form textarea {
+    display: none;
+    height: 120px;
+    padding: 8px 16px;
+    background: transparent;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 20px;
+    border: 2.5px solid #FAF9FF;
+    outline: none;
+    width: 100%;
+}
+
+.ft-contact-form form input::placeholder,
+.ft-contact-form form textarea::placeholder {
     color: #fff;
     font-size: 16px;
     font-weight: 400;
@@ -213,11 +230,19 @@ footer::after {
 }
 
 @media (max-width: 500px) {
+    .ft-logo img {
+        width: 85px;
+    }
+    .ft-logo {
+        width: 100%;
+    }
     .footer-section {
         padding: 60px 20px;
     }
     .ft-company {
         gap: 10px;
+        text-align: center;
+        grid-template-columns: auto;
     }
     .ft-name {
         font-size: 18px;

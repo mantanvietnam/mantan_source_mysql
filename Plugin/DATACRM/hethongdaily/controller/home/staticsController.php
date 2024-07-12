@@ -13,6 +13,7 @@ function businessReport($input)
         $infoMember = $session->read('infoUser');
 
         $modelOrders = $controller->loadModel('Orders');
+        $modelBill = $controller->loadModel('Bills');
         $modelOrderMembers = $controller->loadModel('OrderMembers');
         $modelCustomers = $controller->loadModel('Customers');
 
@@ -21,7 +22,9 @@ function businessReport($input)
         $end_day = mktime(23, 59, 59, 12, 31, $today['year']);
 
         // đơn bán khách lẻ
-        $listOrder = $modelOrders->find()->where(['id_agency'=>$infoMember->id, 'status'=>'done', 'create_at >='=>$start_day, 'create_at <='=>$end_day])->all()->toList();
+        // $listOrder = $modelOrders->find()->where(['id_agency'=>$infoMember->id, 'status'=>'done', 'create_at >='=>$start_day, 'create_at <='=>$end_day])->all()->toList();
+        $listOrder = $modelBill->find()->where(['id_member_sell'=>$infoMember->id, 'type'=>1,'type_order'=> 2,'created_at >='=>$start_day, 'created_at <='=>$end_day])->all()->toList();
+
 
         $staticOrder = [0,0,0,0,0,0,0,0,0,0,0,0,0];
         if(!empty($listOrder)){
@@ -33,7 +36,9 @@ function businessReport($input)
         }
 
         // đơn bán đại lý
-        $listOrderMemberSell = $modelOrderMembers->find()->where(['id_member_sell'=>$infoMember->id, 'status'=>'done', 'create_at >='=>$start_day, 'create_at <='=>$end_day])->all()->toList();
+        // $listOrderMemberSell = $modelOrderMembers->find()->where(['id_member_sell'=>$infoMember->id, 'status'=>'done', 'create_at >='=>$start_day, 'create_at <='=>$end_day])->all()->toList();
+
+        $listOrderMemberSell = $modelBill->find()->where(['id_member_sell'=>$infoMember->id, 'type'=>1,'type_order'=> 1,'created_at >='=>$start_day, 'created_at <='=>$end_day])->all()->toList();
 
         $staticOrderMemberSell = [0,0,0,0,0,0,0,0,0,0,0,0,0];
         if(!empty($listOrderMemberSell)){

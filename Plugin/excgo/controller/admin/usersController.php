@@ -40,6 +40,7 @@ function listUserAdmin($input)
     if(!empty($_GET['excel']) && $_GET['excel']=='Excel'){
             $listData = $modelUser->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
             $titleExcel =   [
+                ['name'=>'ID', 'type'=>'text', 'width'=>10],
                 ['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
                 ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
                 ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
@@ -61,6 +62,7 @@ function listUserAdmin($input)
                     }
                     
                     $dataExcel[] = [
+                                    @$value->id,
                                     $value->created_at->format('H:i d-m-Y'), 
                                     @$value->name,   
                                     @$value->phone_number,   
@@ -172,6 +174,7 @@ function viewUserDetailAdmin($input)
             $data->type = $dataSend['type'];
             $data->email = $dataSend['email'];
             $data->maximum_trip = (int) $dataSend['maximum_trip'];
+            $data->difference_booking = (int) $dataSend['difference_booking'];
 
             $modelUser->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
@@ -258,71 +261,49 @@ function listUpgradeRequestToDriverAdmin($input)
     $modelDriverRequest = $controller->loadModel('DriverRequests');
     $modelUser = $controller->loadModel('Users');
 
-    $requestConditions = [];
-    $requestConditions['status'] = 0;
-    if (isset($_GET['status'])) {
-        $requestConditions['status'] = $_GET['status'];
-    } 
-        
+    $conditions = [];
     
-    $listUserRequest = $modelDriverRequest->find()
-        ->where($requestConditions)
-        ->order(['id' => 'desc'])
-        ->all();
-
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
     if ($page < 1) $page = 1;
 
-    if (count($listUserRequest->toList())) {
-        $listUserId = $listUserRequest->map(function ($item) {
-            return $item->user_id;
-        })->toList();
 
-        $conditions = ['id IN' => $listUserId];
+    $conditions['DriverRequests.status'] = 0;
+    if (isset($_GET['status']) && $_GET['status'] !== '' && is_numeric($_GET['status'])) {
+        $conditions['DriverRequests.status'] = $_GET['status'];
+    } 
 
-        if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
-            $conditions['id'] = $_GET['id'];
-        }
 
-        if (!empty($_GET['status'])) {
-            $conditions['type'] = 2;
-        }else{
-            $conditions['type'] = 1;
-        }
-        
-        
-
-        if (!empty($_GET['name'])) {
-            $conditions['name LIKE'] = '%' . $_GET['name'] . '%';
-        }
-
-        if (!empty($_GET['phone_number'])) {
-            $conditions['phone_number LIKE'] = '%' . $_GET['phone_number'] . '%';
-        }
-
-        if (!empty($_GET['email'])) {
-            $conditions['email LIKE'] = '%' . $_GET['email'] . '%';
-        }
-
-        if (isset($_GET['type']) && $_GET['type'] !== '' && is_numeric($_GET['type'])) {
-            $conditions['type'] = $_GET['type'];
-        }
-
-        $listData = $modelUser->find()
-            ->limit($limit)
-            ->page($page)
-            ->where($conditions)
-            ->order(['id' => 'desc'])
-            ->all()
-            ->toList();
-        $totalUser = $modelUser->find()
-            ->where($conditions)
-            ->count();
-    } else {
-        $listData = [];
-        $totalUser = 0;
+    if (!empty($_GET['name'])) {
+        $conditions['us.name LIKE'] = '%' . $_GET['name'] . '%';
     }
+
+    if (!empty($_GET['phone_number'])) {
+        $conditions['us.phone_number LIKE'] = '%' . $_GET['phone_number'] . '%';
+    }
+
+    if (!empty($_GET['email'])) {
+        $conditions['us.email LIKE'] = '%' . $_GET['email'] . '%';
+    }
+
+    if (isset($_GET['type']) && $_GET['type'] !== '' && is_numeric($_GET['type'])) {
+        $conditions['us.type'] = $_GET['type'];
+    }
+
+    $listData = $modelDriverRequest->find()->select(['DriverRequests.id','us.id','us.name', 'us.phone_number', 'us.email', 'us.avatar','us.total_coin','us.address','DriverRequests.created_at'])->join([
+                            'table' => 'users',
+                            'alias' => 'us',
+                            'type' => 'INNER',
+                            'conditions' => 'us.id = DriverRequests.user_id',
+                        ])->limit($limit)->page($page)->where($conditions)->order(['DriverRequests.created_at' => 'desc'])->all()->toList();
+       
+
+    $totalUser = count($modelDriverRequest->find()->join([
+                            'table' => 'users',
+                            'alias' => 'us',
+                            'type' => 'INNER',
+                            'conditions' => 'us.id = DriverRequests.user_id',
+                        ])->where($conditions)->all()->toList());
 
     $paginationMeta = createPaginationMetaData($totalUser, $limit, $page);
 
@@ -768,8 +749,8 @@ function listUserStatisticAdmin($input)
 
     if(!empty($listData)){
         foreach($listData as $key => $item){
-            $listData[$key]->received = count($modelBooking->find()->where(array('received_by'=>$item->id,'status'=>3))->all()->toList());
-            $listData[$key]->posted = count($modelBooking->find()->where(array('posted_by'=>$item->id,'status'=>3))->all()->toList());
+            $listData[$key]->received = count($modelBooking->find()->where(array('received_by'=>$item->id))->all()->toList());
+            $listData[$key]->posted = count($modelBooking->find()->where(array('posted_by'=>$item->id,))->all()->toList());
         }
     }
 

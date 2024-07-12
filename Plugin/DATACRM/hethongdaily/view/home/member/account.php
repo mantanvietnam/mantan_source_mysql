@@ -30,6 +30,11 @@
                         </button>
                       </li>
                       <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-link" aria-controls="navs-top-info" aria-selected="false">
+                          Danh sách link
+                        </button>
+                      </li>
+                      <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-theme" aria-controls="navs-top-info" aria-selected="false">
                           Theme info
                         </button>
@@ -130,7 +135,16 @@
                             
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-phone">Mã QR của bạn</label><br/>
-                              <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'info/?id='.@$user->id;?>" width="100">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <img class="mb-3" id="QRURLProfile" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'info/?id='.@$user->id;?>" width="100">
+                                </div>
+                                <div class="col-md-6">
+                                  <button type="button" class="btn btn-primary mb-3" onclick="copyToClipboard('<?php echo $urlHomes.'info/?id='.@$user->id;?>');"><i class='bx bx-link'></i> Sao chép liên kết</button>
+
+                                  <button type="button" class="btn btn-danger mb-3" onclick="downloadImageFromSrc('https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'info/?id='.@$user->id;?>', '<?php echo $user->phone;?>');"><i class='bx bx-cloud-download'></i> Tải mã QR</button>
+                                </div>
+                              </div>
                             </div>
                           </div>
 
@@ -159,7 +173,7 @@
                           
                           <div class="col-md-6">
                            <div class="mb-3">
-                            <label class="form-label" for="basic-default-phone">ngân hàng </label>
+                            <label class="form-label" for="basic-default-phone">Ngân hàng </label>
                             <select class="form-select" name="bank_code" id="bank_code">
                               <option value="">Chọn ngân hàng</option>
                               <?php
@@ -176,6 +190,93 @@
                         </div>
                         </div>
                       </div>
+                      <div class="tab-pane fade" id="navs-top-link" role="tabpanel">
+
+                        <div class="row">
+                          <div class="col-md-12"> 
+                            <table class="table table-bordered table-striped table-hover mb-none text-center mb-3">
+                             <thead>
+                              <tr>
+                                <th>Kiểu</th>
+                                <th>Link</th>
+                                <th>Tên link</th>
+                                <th>Mô tả</th>
+                                <th>Xóa</th>
+                              </tr>
+                            </thead>
+                            <tbody id="tbodylink">  
+                              <?php
+                              $i= 0;
+                              if(!empty($dataLink)){
+                                foreach($dataLink as $key => $value){
+                                  $i++;
+                                 
+                                    $delete= '<a onclick="deleteTr('.$i.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
+                                  
+                                  ?>
+                                  <tr class="gradeX" id="trlink-<?php echo $i ?>">
+                                    <td>
+                                      <select name="type[<?php echo $i ?>]" class="form-select color-dropdown">
+                                        <option value="">Chọn kiểu link</option>
+                                        <option value="website" <?php if($value->type=='website') echo 'selected';?> >website</option>
+                                        <option value="facebook" <?php if($value->type=='facebook') echo 'selected';?> >Facebook</option>
+                                        <option value="instagram " <?php if($value->type=='instagram ') echo 'selected';?> >Instagram </option>
+                                        <option value="tiktok" <?php if($value->type=='tiktok') echo 'selected';?> >Tiktok</option>
+                                        <option value="youtube" <?php if($value->type=='youtube') echo 'selected';?> >Youtube</option>
+                                        <option value="zalo" <?php if($value->type=='zalo') echo 'selected';?> >Zalo</option>
+                                        <option value="linkedin" <?php if($value->type=='linkedin') echo 'selected';?> >linkedin</option>
+                                        <option value="twitter" <?php if($value->type=='twitter') echo 'selected';?> >Twitter</option>
+                                      </select>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="link[<?php echo $i ?>]"  value="<?php echo @$value->link;?>"/>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="namelink[<?php echo $i ?>]"  value="<?php echo @$value->namelink;?>"/>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="descriptionlink[<?php echo $i ?>]"  value="<?php echo @$value->description;?>"/>
+                                    </td>
+                                    <td align="center" class="actions"><?php echo $delete ?></td>
+                                  </tr>
+                                <?php }}else{
+                                  $i++;
+                                  ?>
+                                  <tr class="gradeX" id="trlink-<?php echo $i ?>">
+                                    <td>
+                                      <select name="type[<?php echo $i ?>]" class="form-select color-dropdown">
+                                        <option value="">Chọn kiểu link</option>
+                                        <option value="website" >website</option>
+                                        <option value="facebook" >Facebook</option>
+                                        <option value="instagram " >Instagram </option>
+                                        <option value="tiktok" >Tiktok</option>
+                                        <option value="youtube">Youtube</option>
+                                        <option value="zalo">Zalo</option>
+                                        <option value="linkedin" >linkedin</option>
+                                        <option value="twitter" >Twitter</option>
+                                      </select>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="link[<?php echo $i ?>]"  value=""/>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="namelink[<?php echo $i ?>]"  value=""/>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="descriptionlink[<?php echo $i ?>]"  value=""/>
+                                    </td>
+                                    <td align="center" class="actions"></td>
+                                  </tr>
+                                <?php } ?>
+                              </tbody>
+                            </table> 
+
+                            <div class="form-group mb-3 col-md-12">
+                              <button type="button" class="btn btn-danger" onclick="return addRowlink();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm link</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <div class="tab-pane fade content" id="navs-top-theme" role="tabpanel">
                         <div class="row mb-3">
                           
@@ -187,9 +288,9 @@
 
                                   if (in_array($item['id'], $list_theme_info)) {
                                       if($item['id'] == $user->display_info){
-                                        $status = ' <p>Đang sử dụng theme này</p>';
+                                        $status = ' <p>Đang sử dụng theme này <a data-bs-toggle="modal" data-bs-target="#editThemeinfo'.$item['id'].'" class="btn btn-primary" style=" color: #fff; ">chỉnh sửa màu</a></p>     ';
                                       }else{
-                                        $status = ' <a href="/useThemeInfo?id='.$item['id'].'" class="btn btn-success">Sử dụng theme này </a>';
+                                        $status = ' <a href="/useThemeInfo?id='.$item['id'].'" class="btn btn-success">Sử dụng theme này </a> <a data-bs-toggle="modal" data-bs-target="#editThemeinfo'.$item['id'].'" class="btn btn-primary" style=" color: #fff; ">chỉnh sửa màu</a>';
                                       }
                                   }else{
                                      $status = ' <a href="" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal'.$item['id'].'">Đặt mua theme</a>';
@@ -221,6 +322,15 @@
   global $urlTransaction;
   foreach(listThemeInfo() as $key => $item){
      $link = $urlTransaction.'accountName=tran ngọc manh &amount='.$item['price'].'&addInfo='.$boss->phone.' '.$user->id.' '.$item['id'];
+
+
+      $themeinfo = $modelSetingThemeInfo->find()->where(['id_theme'=>(int)$item['id'],'id_member'=>$user->id])->first();
+      
+      $data_value = array();
+    if(!empty($themeinfo->config)){
+        $data_value = json_decode($themeinfo->config, true);
+
+    }
     ?>
     <div class="modal fade" id="basicModal<?php echo $item['id'] ?>"  name="id">
 
@@ -248,9 +358,118 @@
            </div>
          </div>
        </div>
-     </div>
+       <div class="modal fade" id="editThemeinfo<?php echo $item['id'] ?>"  name="id">
+
+      <div class="modal-dialog" role="document" style=" max-width: 45rem;">
+        <div class="modal-content" style="padding: 20px;">
+          <div class="modal-header form-label border-bottom">
+            <h5 class="modal-title" id="exampleModalLabel1">Sửa màu sắc time info </h5>
+            <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form enctype="multipart/form-data" method="post" action="editThemeinfo">
+            <div class="row">
+            <div class="col-md-6">
+                  <img src="<?php echo $item['image']?>" style="width: 100%; height:550px;"/>
+                <div style=" text-align: center; font-size: 20px; padding: 10px 0; ">
+                  <p>Giá : <?php echo number_format($item['price']) ?>đ</p>
+                </div>
+            </div>
+             <div class="col-md-6">
+              <div class="row">
+                <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
+                <input type="hidden"  name="id_theme" id="id_theme" value="<?php echo $item['id'] ?>"/>
+                <div class="col-md-12 mb-3">
+                      <label class="form-label" for="basic-default-phone">ảnh nền</label>
+                      <input type="file" class="form-control phone-mask" name="image_background" id="image_background" value=""/>
+                        <?php if(!empty($data_value['image_background'])){
+                              echo '<img src="'.@$data_value['image_background'].'"  width="80" />';
+                        }?>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label" for="basic-default-phone">màu nền gradien</label></br>
+                      Màu trên <input type="color" class="" name="background_color1" id="background_color1" value="<?php echo @$data_value['background_color1'] ?>" style="border: 1px solid #f9fafa;padding: 0px;"/></br>
+                      Màu dưới<input type="color" class="" name="background_color2" id="background_color2" value="<?php echo @$data_value['background_color2'] ?>" style="border: 1px solid #f9fafa;padding: 0px;"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label" for="basic-default-phone">màu Họ và Tên</label></br>
+                      <input type="color" class="" name="text_color_name" id="text_color_name" value="<?php echo @$data_value['text_color_name'] ?>" style="border: 1px solid #f9fafa;padding: 0px;"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label" for="basic-default-phone">màu Tên Chức danh</label></br>
+                      <input type="color" class="" name="text_color_Jobtitle" id="text_color_Jobtitle" value="<?php echo @$data_value['text_color_Jobtitle'] ?>" style="border: 1px solid #f9fafa;padding: 0px;"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label" for="basic-default-phone">màu  địa chỉ</label></br>
+                      <input type="color" class="" name="text_color_address" id="text_color_address" value="<?php echo @$data_value['text_color_address'] ?>" style="border: 1px solid #f9fafa;padding: 0px;"/>
+                    </div>
+                   
+
+                  </div>
+              </div>
+            </div>
+              <button type="submit" class="btn btn-primary">Lưu</button> 
+          </form>
+             </div>
+           </div>
+         </div>
    <?php  }
  }
  ?>
+
+ <script type="text/javascript">
+  function copyToClipboard(text) {
+      // Create a temporary input to hold the text to copy
+      var $temp = $("<input>");
+      $("body").append($temp);
+      
+      // Select and copy the text
+      $temp.val(text).select();
+      document.execCommand("copy");
+      
+      // Remove the temporary input
+      $temp.remove();
+      
+      // Show success message
+      alert('Đã copy thành công link liên kết ');
+      //$('#copySuccessMessage').show().fadeOut(2000);
+  }
+
+  function downloadImageFromSrc(url, phone){
+      var fileName = 'QR_ICHAM_'+phone+'.jpg';
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url, true);
+      xhr.responseType = "blob";
+      xhr.onload = function(){
+          var urlCreator = window.URL || window.webkitURL;
+          var imageUrl = urlCreator.createObjectURL(this.response);
+          var tag = document.createElement('a');
+          tag.href = imageUrl;
+          tag.download = fileName;
+          document.body.appendChild(tag);
+          tag.click();
+          document.body.removeChild(tag);
+      }
+      xhr.send();
+  }
+   var row= <?php echo $i ;?>;
+   function addRowlink()
+    {
+      console.log(row);
+        row++;
+        $('#tbodylink tr:last').after('<tr class="gradeX" id="trlink-'+row+'"><td><select name="type['+row+']" class="form-select color-dropdown"><option value="">Chọn kiểu link</option><option value="website" >website</option><option value="facebook" >Facebook</option><option value="instagram " >Instagram </option><option value="tiktok" >Tiktok</option><option value="youtube">Youtube</option><option value="zalo">Zalo</option><option value="linkedin" >linkedin</option><option value="twitter" >Twitter</option></select></td><td><input type="text" class="form-control phone-mask" name="link['+row+']"  value=""/></td><td><input type="text" class="form-control phone-mask" name="namelink['+row+']"  value=""/></td><td><input type="text" class="form-control phone-mask" name="descriptionlink['+row+']"  value=""/></td><td align="center" class="actions"><a onclick="deleteTr('+row+')" href="javascript:void(0);"><i class="bx bx-trash"></i></a></td></tr>');
+
+         console.log(row);
+
+        
+    }
+
+    function deleteTr(i)
+    {
+        row--;
+        $('#trlink-'+i).remove();
+       
+    }
+
+ </script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

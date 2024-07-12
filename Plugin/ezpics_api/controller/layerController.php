@@ -120,7 +120,7 @@ function updateLayerAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		if(!empty($dataSend['idlayer']) && !empty($dataSend['idproduct']) && !empty($dataSend['token']) && !empty($dataSend['field']) && !empty($dataSend['value'])){
+		if(!empty($dataSend['idlayer']) && !empty($dataSend['idproduct']) && !empty($dataSend['token']) && !empty($dataSend['field']) && isset($dataSend['value'])){
 
 			$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct']))->first();
 			if(!empty($dataProduct)){

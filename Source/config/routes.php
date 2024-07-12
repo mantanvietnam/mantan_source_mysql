@@ -114,7 +114,7 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/apis/*', ['controller' => 'Apis', 'action' => 'index']);
 
         // Route cho WebSocket server
-        $builder->connect('/websocket', ['controller' => 'WebSocketServer']);
+        $builder->connect('/websockets/startServer', ['controller' => 'Websockets', 'action'=>'startServer']);
 
 
         $builder->connect('/plugins/admin/*', ['controller' => 'Plugins', 'action' => 'admin']);

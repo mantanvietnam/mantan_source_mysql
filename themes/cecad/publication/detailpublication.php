@@ -12,10 +12,13 @@
                         <div class="title-detail-publication">
                             <h1><?= $publication['name'] ?></h1>
                         </div>
-                        <div style="">
-                            <iframe src="<?= $publication['file']?>" width="100%" height="800px">
-                                Trình duyệt của bạn không hỗ trợ iframe.
+                        
+                        <div class="iframe-publication" style="height:800px">
+                            <iframe src="<?= $publication['file']?>" style="width:100%; height:100%;">
                             </iframe>
+                        </div>
+                        <div class="button-dowload-detail-publication text-center">
+                            <a href="<?= $publication['file']?>" dowload>Tải xuống</a>
                         </div>
                            <!-- <div class="image-detail-publication">
                             <img src="<?= $publication['image']?>" alt="">

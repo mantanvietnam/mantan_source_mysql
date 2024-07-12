@@ -4,7 +4,10 @@
     <a href="/list<?php echo $slug ?>"><?php echo $title ?></a> / <?php echo $data->title ?> / Danh sách <?php echo $title ?>
   </h4>
 
-  <p><a href="/add<?php echo $slug ?>info?id_document=<?php echo $data->id; ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  
+     <?php if($data->id_parent==$session->read('infoUser')->id){
+                    echo '<p><a href="/add'.$slug.'info?id_document='.$data->id.'" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>';
+              } ?>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -40,14 +43,18 @@
     <div class="card-body row">
       <div class="table-responsive row">
         <?php  if($type=='document'){ ?>
+          <div id="desktop_view"> 
         <table class="table table-bordered">
           <thead>
             <tr class="">
               <th>ID</th>
               <th>Tiêu đề</th>
               <th><?php echo $title ?></th>
-              <th>Sửa</th>
-              <th>Xóa</th>
+              <?php if($data->id_parent==$session->read('infoUser')->id){
+                    echo '<th>Sửa</th>
+                          <th>Xóa</th>';
+              } ?>
+              
             </tr>
           </thead>
           <tbody>
@@ -68,8 +75,9 @@
                           <td>
                             '.$item->title.'
                           </td>
-                          <td>'.$types.'</td>
-                          <td align="center">
+                          <td>'.$types.'</td>';
+                          if($data->id_parent==$session->read('infoUser')->id){
+                         echo' <td align="center">
                             <a class="dropdown-item" href="/add'.$slug.'info?id_document='.$data->id.'&id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
@@ -78,8 +86,9 @@
                             <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteDocumentinfo/?id_document='.$data->id.'&id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
-                          </td>
-                        </tr>';
+                          </td>';
+                        }
+                        echo '</tr>';
                 }
               }else{
                 echo '<tr>
@@ -89,7 +98,44 @@
             ?>
           </tbody>
         </table>
+        </div>
+    <div id="mobile_view">
+      <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $types ='';
+                  if($type=='album'){
+                    $types='<img src="'.$item->file.'" width="100">';
+                  }elseif($type=='video'){
+                    $types='<iframe width="300" height="150" src="https://www.youtube.com/embed/'.$item->file.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+                  }else{
+                    $types='<a  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >'.$item->file.'</a>';
+                  }
 
+                  echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                          <p><strong>ID: </strong>'.$item->id.'</td>
+                          <p><strong>Tiêu đề: </strong>'.$item->title.'</p>
+                          <p><strong>'.$title.' </strong>'.$types.'</td>';
+                          if($data->id_parent==$session->read('infoUser')->id){
+                         echo' <p align="center">
+                            <a class="dropdown-item" href="/add'.$slug.'info?id_document='.$data->id.'&id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteDocumentinfo/?id_document='.$data->id.'&id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </p>';
+                        }
+                        echo '</div>';
+                }
+              }else{
+                echo '<div>
+                        <p colspan="5" align="center">Chưa có dữ liệu nào! </p>
+                      </div>';
+              }
+            ?>
+
+    </div>
 
         <?php 
       }else{
@@ -108,7 +154,9 @@
                       <div style="border: 1px solid #F0F1F1;">
                        <a  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">'.$types.'
                         <h4 style="text-align: center;">'.$item->title.'</h4>
-                        </a>
+                        </a>';
+                      if($data->id_parent==$session->read('infoUser')->id){
+                         echo'
                         <div class="row">
                          <div class="col-md-6">
                             <a class="dropdown-item" style="text-align: center;"  href="/add'.$slug.'info?id_document='.$data->id.'&id='.$item->id.'">
@@ -120,8 +168,9 @@
                               <i class="bx bx-trash me-1"> Xóa</i>
                             </a>
                           </div>
-                        </div>
-                        </div>
+                        </div>';
+                      }
+                       echo 's</div>
                   </div>';
 
                 }

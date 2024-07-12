@@ -168,13 +168,21 @@ function addCustomerHistoriesAgency($input)
             $data = $modelCustomerHistories->newEmptyEntity();
         }
 
+        $checkCustomer = [];
+        if(!empty($_GET['id_customer'])){
+            $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $_GET['id_customer']])->first();
+        }elseif(!empty($data->id_customer)){
+            $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $data->id_customer])->first();
+        }
+
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
 
             if(!empty($dataSend['id_customer']) && !empty($dataSend['time_now']) && !empty($dataSend['note_now']) && !empty($dataSend['action_now']) && !empty($dataSend['status'])){
                 $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id_customer']])->first();
+                
                 // tạo dữ liệu save
-                if(!empty($checkCustomer) && $checkCustomer->id_parent == $infoUser->id){
+                if(!empty($checkCustomer)){
                     $data->id_customer = (int) $dataSend['id_customer'];
                     $data->note_now = $dataSend['note_now'];
                     $data->action_now = $dataSend['action_now'];
@@ -203,6 +211,7 @@ function addCustomerHistoriesAgency($input)
         setVariable('data', $data);
         setVariable('listGroupCustomer', $listGroupCustomer);
         setVariable('mess', $mess);
+        setVariable('checkCustomer', $checkCustomer);
     }else{
         return $controller->redirect('/login');
     }
@@ -357,6 +366,35 @@ function addCustomerHistoriesAjax($input)
         }
         return array('code'=> 0 , 'mess'=>'<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>');
         
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteCustomerHistoriesAgency(){
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+    if(!empty($session->read('infoUser'))){
+        $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+        if(!empty($_GET['id'])){
+            $data = $modelCustomerHistories->find()->where(['id_staff_now'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id']])->first();
+            
+            if($data){
+                $modelCustomerHistories->delete($data);
+            }
+        }
+        if(@$_GET['status']=='Calendar'){
+
+            return $controller->redirect('/calendarCustomerHistoriesAgency');
+        }else{
+
+            return $controller->redirect('/listCustomerHistoriesAgency');
+        }
     }else{
         return $controller->redirect('/login');
     }

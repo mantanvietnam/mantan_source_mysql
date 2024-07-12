@@ -12,58 +12,58 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-1" aria-controls="navs-top-home" aria-selected="true">
-                        KHỐI ĐẦU TRANG
+                        KHỐI THỨ I
                         </button>
                     </li>
                     
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-2" aria-controls="navs-top-info" aria-selected="false">
-                            KHỐI THỨ 2
+                            KHỐI THỨ II
                         </button>
                     </li>
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-3" aria-controls="navs-top-info" aria-selected="false">
-                        KHỐI THỨ 3
+                        KHỐI THỨ III
                         </button>
                     </li>
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-4" aria-controls="navs-top-image" aria-selected="false">
-                        KHỐI THỨ 4
+                        KHỐI THỨ IV
                         </button>
                     </li>
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-5" aria-controls="navs-top-image" aria-selected="false">
-                        KHỐI THỨ 5
+                        KHỐI THỨ V
                         </button>
                     </li>
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-6" aria-controls="navs-top-image" aria-selected="false">
-                        KHỐI THỨ 6
+                        KHỐI THỨ VI
                         </button>
                     </li>
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-7" aria-controls="navs-top-image" aria-selected="false">
-                            KHỐI THỨ 7
+                            KHỐI THỨ VII
                         </button>
                     </li>
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-8" aria-controls="navs-top-image" aria-selected="false">
-                            KHỐI THỨ 8
+                            KHỐI THỨ VIII
                         </button>
                     </li>
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-9" aria-controls="navs-top-image" aria-selected="false">
-                            KHỐI THỨ 9
+                            KHỐI THỨ IX
                         </button>
                     </li>
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-10" aria-controls="navs-top-image" aria-selected="false">
-                            KHỐI THỨ 10
+                            KHỐI THỨ X
                         </button>
                     </li>
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-11" aria-controls="navs-top-image" aria-selected="false">
-                            FOOTER
+                             KHỐI THỨ XI
                         </button>
                     </li>
                 </ul>

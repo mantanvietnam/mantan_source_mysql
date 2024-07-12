@@ -11,7 +11,7 @@
                   <input type="number" class="form-control" name="pilePercentage" value="<?php echo @$setting['pilePercentage'];?>" />
                 </div>
                 <div class="mb-3 col-md-6">
-                  <label class="form-label" for="basic-default-fullname">chuyến tối đa</label>
+                  <label class="form-label" for="basic-default-fullname">chênh lệch chuyến tối đa</label>
                   <input type="number" class="form-control" name="maximumTrip" value="<?php echo @$setting['maximumTrip'];?>" />
                 </div>
                 <div class="mb-3 col-md-6">
@@ -19,6 +19,8 @@
                   <input type="number" class="form-control" name="moneyUpgradeToDriver" value="<?php echo @$setting['moneyUpgradeToDriver'];?>" />
                 </div> 
                 <div class="mb-3 col-md-6">
+                  <label class="form-label" for="basic-default-fullname">Nội dung thanh toán nâng cấp lên tài xế</label>
+                  <input type="text" class="form-control" name="contentUpgradeToDriver" value='<?php echo @$setting['contentUpgradeToDriver'];?>' />
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
             </div>

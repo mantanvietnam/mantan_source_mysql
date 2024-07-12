@@ -16,6 +16,7 @@
 	$routesPlugin['requestCodeForgotPasswordAPI']= 'hethongdaily/view/api/requestCodeForgotPasswordAPI.php';
 	$routesPlugin['saveNewPassAPI']= 'hethongdaily/view/api/saveNewPassAPI.php';
 	$routesPlugin['updateLastLoginAPI']= 'hethongdaily/view/api/updateLastLoginAPI.php';
+	$routesPlugin['lockAccountAPI']= 'hethongdaily/view/api/lockAccountAPI.php';
 	
 	$routesPlugin['getListMemberDownAPI']= 'hethongdaily/view/api/getListMemberDownAPI.php';
 	$routesPlugin['addMemberDownAPI']= 'hethongdaily/view/api/addMemberDownAPI.php';
@@ -85,6 +86,7 @@
 	$routesPlugin['deleteProductAgency']= 'hethongdaily/view/home/product/deleteProductAgency.php';
 	$routesPlugin['listCategoryProductAgency']= 'hethongdaily/view/home/product/listCategoryProductAgency.php';
 	$routesPlugin['addDataProductAgency']= 'hethongdaily/view/home/product/addDataProductAgency.php';
+	$routesPlugin['editOrderCustomerAgency']= 'hethongdaily/view/home/product/editOrderCustomerAgency.php';
 
 	// yêu cầu mua hàng
 	$routesPlugin['requestProductAgency']= 'hethongdaily/view/home/order/requestProductAgency.php';
@@ -94,6 +96,7 @@
 
 	// tạo đơn hàng cho đại lý tuyến dưới 
 	$routesPlugin['addOrderAgency']= 'hethongdaily/view/home/order/addOrderAgency.php';
+	$routesPlugin['editOrderMemberAgency']= 'hethongdaily/view/home/order/editOrderMemberAgency.php';
 	
 	// kho hàng đại lý
 	$routesPlugin['warehouseProductAgency']= 'hethongdaily/view/home/warehouse/warehouseProductAgency.php';
@@ -155,7 +158,9 @@
 	$routesPlugin['listCollectionDebt']= 'hethongdaily/view/home/debt/listCollectionDebt.php';
 	$routesPlugin['listPayableDebt']= 'hethongdaily/view/home/debt/listPayableDebt.php';
 
-
+	// mã giảm giá 
+	$routesPlugin['addDiscountCodeAgency']= 'hethongdaily/view/home/discountcode/addDiscountCodeAgency.php';
+	$routesPlugin['listDiscountCodeAgency']= 'hethongdaily/view/home/discountcode/listDiscountCodeAgency.php';
 
 	// api khách hàng 
 

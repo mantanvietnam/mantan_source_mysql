@@ -75,83 +75,136 @@ global $type_collection_bill;
     
     <div class="card-body row">
       <?php echo @$mess; ?>
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-            <tr class="">
-              <th>ID</th>
-              <th>Thời gian</th>
-              <th>Thông tin</th>
-              <th>đối tượng</th>
-              <th>Số tiền </th>
-              <th>Số lần thu</th>
-              <th>Nội dung</th>
-              <th>Sửa</th>
-              <th >Thu</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php 
-              if(!empty($listData)){
-                foreach ($listData as $item) {
-                   $type = '';
-                  $link= '';
-                  if($item->type_order==1){
-                    $type = 'Đại lý';
-                    $link = '/orderMemberAgency?id='.$item->id_order;
-                  }elseif($item->type_order==2){
-                    $type = 'Khách hàng';
-                    $link = '/orderCustomerAgency?id='.$item->id_order;
-                  }
+      <div id="desktop_view">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr class="">
+                <th>ID</th>
+                <th>Thời gian</th>
+                <th>Thông tin</th>
+                <th>đối tượng</th>
+                <th>Số tiền </th>
+                <th>Số lần thu</th>
+                <th>Nội dung</th>
+                <!-- <th>Sửa</th> -->
+                <th >Thu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+                if(!empty($listData)){
+                  foreach ($listData as $item) {
+                     $type = '';
+                    $link= '';
+                    if($item->type_order==1){
+                      $type = 'Đại lý';
+                      $link = '/orderMemberAgency?id='.$item->id_order;
+                    }elseif($item->type_order==2){
+                      $type = 'Khách hàng';
+                      $link = '/orderCustomerAgency?id='.$item->id_order;
+                    }
 
-                  $status = ' <td align="center" colspan="2" >đã thu xong';
-                  if($item->status==0){
-                    $status = '<td align="center">
-                            <a class="dropdown-item" href="/addCollectionDebt/?id='.$item->id.'">
-                              <i class="bx bx-edit-alt me-1"></i>
-                            </a>
-                          </td>
-                    <td align="center">Chưa thu xong<br/>
-                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
-                              <i class="bx bxl-paypal me-1"></i>
-                            </a></td>
-                    ';
-                  }
+                    $status = ' <td align="center" colspan="2" >đã thu xong';
+                    if($item->status==0){
+                      $status = '
+                      <td align="center">Chưa thu xong<br/>
+                      <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
+                                <i class="bx bxl-paypal me-1"></i>
+                              </a></td>
+                      ';
+                    }
 
-                    $info = '';
-                  if(!empty($item->member)){
-                    $info = 'Tên đại lý:'.$item->member->name.'<br/>
-                            Số điện thoại:'.$item->member->phone;
-                  }elseif(!empty($item->customer)){
-                    $info = 'Tên khách hàng:'.$item->customer->full_name.'<br/>
-                            Số điện thoại:'.$item->customer->phone;
+                      $info = '';
+                    if(!empty($item->member)){
+                      $info = 'Tên đại lý:'.$item->member->name.'<br/>
+                              Số điện thoại:'.$item->member->phone;
+                    }elseif(!empty($item->customer)){
+                      $info = 'Tên khách hàng:'.$item->customer->full_name.'<br/>
+                              Số điện thoại:'.$item->customer->phone;
+                    }
+                    
+                    echo '<tr>
+                            <td>'.$item->id.'</td>
+                            <td>'.date('d/m/Y H:i', $item->created_at).'</td>
+                            <td>'.$info.'</td>
+                            <td>'.$type.'</td>
+                            <td>
+                            Số tiền Nợ: '.number_format($item->total).'đ<br/>
+                            Số tiền đã thu: '.number_format($item->total_payment).'đ<br/>
+                            Số tiền còn : '.number_format($item->total-$item->total_payment).'đ<br/>
+                            </td>
+                            <td align="center"><a href="/listCollectionBill?id_debt='.$item->id.'" title="chi tiết">'.$item->number_payment.'</a></td>
+                            <td>'.$item->note.'<br/>
+                              <a href="'.$link.'" target="_blank">Xem đơn hàng tại đây</a></td>
+                            '.$status.'
+                          </tr>';
                   }
-                  
+                }else{
                   echo '<tr>
-                          <td>'.$item->id.'</td>
-                          <td>'.date('d/m/Y H:i', $item->created_at).'</td>
-                          <td>'.$info.'</td>
-                          <td>'.$type.'</td>
-                          <td>
-                          Số tiền Nợ: '.number_format($item->total).'đ<br/>
-                          Số tiền đã thu: '.number_format($item->total_payment).'đ<br/>
-                          Số tiền còn : '.number_format($item->total-$item->total_payment).'đ<br/>
-                          </td>
-                          <td align="center"><a href="/listCollectionBill?id_debt='.$item->id.'" title="chi tiết">'.$item->number_payment.'</a></td>
-                          <td>'.$item->note.'<br/>
-                            <a href="'.$link.'" target="_blank">Xem đơn hàng tại đây</a></td>
-                          '.$status.'
+                          <td colspan="10" align="center">Chưa có công nợ thu nào</td>
                         </tr>';
                 }
-              }else{
-                echo '<tr>
-                        <td colspan="10" align="center">Chưa có công nợ thu nào</td>
-                      </tr>';
-              }
-            ?>
-          </tbody>
-        </table>
+              ?>
+            </tbody>
+          </table>
+        </div>
       </div>
+      <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+              foreach ($listData as $item) {
+               $type = '';
+                    $link= '';
+                    if($item->type_order==1){
+                      $type = 'Đại lý';
+                      $link = '/orderMemberAgency?id='.$item->id_order;
+                    }elseif($item->type_order==2){
+                      $type = 'Khách hàng';
+                      $link = '/orderCustomerAgency?id='.$item->id_order;
+                    }
+
+                    $status = ' đã thu xong';
+                    if($item->status==0){
+                      $status = '
+                      Chưa thu xong<br/>
+                      <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
+                                <i class="bx bxl-paypal me-1"></i>
+                              </a>
+                      ';
+                    }
+
+                      $info = '';
+                    if(!empty($item->member)){
+                      $info = 'Tên đại lý:'.$item->member->name.'<br/>
+                              Số điện thoại:'.$item->member->phone;
+                    }elseif(!empty($item->customer)){
+                      $info = 'Tên khách hàng:'.$item->customer->full_name.'<br/>
+                              Số điện thoại:'.$item->customer->phone;
+                    }
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <p><strong>ID: </strong>'.$item->id.'</p>
+                        <p><strong>Thời gian: </strong>'.date('d/m/Y H:i', $item->created_at).'</p>
+                        <p><strong>Thông tin: </strong>'.$info.'</p>
+                        <p><strong>Đối tượng: </strong>'.$type.'</p>
+                        <p><strong>Số tiền Nợ: </strong>'.number_format($item->total).'đ</p>
+                        <p><strong>Số tiền đã thu: </strong>'.number_format($item->total_payment).'đ</p>
+                        <p><strong>Số tiền còn: </strong>'.number_format($item->total-$item->total_payment).'đ</p>
+                        <p><strong>Số lần thu: </strong><a href="/listCollectionBill?id_debt='.$item->id.'" title="chi tiết">'.$item->number_payment.'</a></p>
+                        <p><strong>Nội dung: </strong>'.$item->note.'<br/>
+                              <a href="'.$link.'" target="_blank">Xem đơn hàng tại đây</a></p>
+                          <p>   '.$status.' </p>
+
+                        </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+        }
+      ?>
+    </div>
     </div>
 
     <!-- Phân trang -->

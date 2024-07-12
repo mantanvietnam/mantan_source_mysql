@@ -39,24 +39,6 @@
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Nhà sản xuất</label>
-            <select name="id_manufacturer" class="form-control">
-              <option value="">Tất cả</option>
-              <?php
-                if(!empty($manufacturers)){
-                  foreach($manufacturers as $item){
-                    if(empty($_GET['id_manufacturer']) || $_GET['id_manufacturer']!=$item->id){
-                      echo '<option value="'.$item->id.'">'.$item->name.'</option>';
-                    }else{
-                      echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
-                    }
-                  }
-                }
-              ?>
-            </select>
-          </div>
-
-          <div class="col-md-2">
             <label class="form-label">Ghim lên đầu</label>
             <select name="hot" class="form-select color-dropdown">
               <option value="">Tất cả</option>
@@ -69,15 +51,6 @@
             <label class="form-label">Mã sản phẩm</label>
             <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
           </div>
-
-          <!-- <div class="col-md-2">
-            <label class="form-label">Trạng thái</label>
-            <select name="status" class="form-select color-dropdown">
-             
-              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
-              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
-            </select>
-          </div> -->
           
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
@@ -92,63 +65,103 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách sản phẩm</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Hình minh họa</th>
-            <th>Danh mục</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá bán</th>
-            <th>Số lượng</th>
-            <th>Trạng thái</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                $category_name = [];
-                if(!empty($item->category)){
-                  foreach($item->category as $value){
-                     if(!empty($value->name_category)){
-                      $category_name[]= $value->name_category;
-                     }
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Hình minh họa</th>
+              <th>Danh mục</th>
+              <th>Tên sản phẩm</th>
+              <th>Giá bán</th>
+              <th>Đơn vị</th>
+              <th>Sửa</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $category_name = [];
+                  if(!empty($item->category)){
+                    foreach($item->category as $value){
+                       if(!empty($value->name_category)){
+                        $category_name[]= $value->name_category;
+                       }
+                    }
                   }
+                 
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td><img src="'.$item->image.'" width="100" /></td>
+                          <td>'.implode(', ', $category_name).'</td>
+                          <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
+                          <td> '.number_format($item->price).' đ</td>
+                          <td>'.$item->unit.'</td>
+                          <td align="center">
+                            <a class="dropdown-item" href="/addProductAgency/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn khóa không?\');" href="/deleteProductAgency/?id='.$item->id.'">
+                              <i class="bx bxs-trash me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
                 }
-               
+              }else{
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td><img src="'.$item->image.'" width="100" /></td>
-                        <td>'.implode(', ', $category_name).'</td>
-                        <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
-                        <td> '.number_format($item->price).' đ</td>
-                        <td> Sl còn:'.$item->quantity.'</td>
-                        <td>'.$item->status.'</td>
-                        
-                        <td align="center">
-                          <a class="dropdown-item" href="/addProductAgency/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn khóa không?\');" href="/deleteProductAgency/?id='.$item->id.'">
-                            <i class="bx bxs-trash me-1"></i>
-                          </a>
-                        </td>
+                        <td colspan="10" align="center">Chưa có dữ liệu</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có dữ liệu</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $category_name = [];
+                  if(!empty($item->category)){
+                    foreach($item->category as $value){
+                       if(!empty($value->name_category)){
+                        $category_name[]= $value->name_category;
+                       }
+                    }
+                  }
+                   echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <center><img src="'.$item->image.'" style=" width:50%" /></center><br/>
+                        <p><strong> Tên sản phẩm: </strong>'.$item->title.'</p>
+                        <p><strong> Mã sản phẩm: </strong>'.$item->code.'</p>
+                        <p><strong> Danh mục: </strong>'.implode(', ', $category_name).'</p>
+                        <p><strong> Giá: </strong>'.number_format($item->price).'đ</p>
+                        <p align="center">
+                        
+                          <a class="btn btn-success" href="/addProductAgency/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                          </a>
+                             &nbsp;&nbsp;&nbsp;&nbsp;
+                          
+                          <a class=" btn btn-danger" title="Xóa sản phẩm" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteProductAgency/?id='.$item->id.'">
+                              <i class="bx bxs-trash me-1" style="font-size: 22px;"></i>
+                          </a>
+                        </p>
+
+
+                </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+        }
+      ?>
     </div>
 
     <!-- Phân trang -->

@@ -311,9 +311,9 @@ function upgradeToDriverApi($input): array
         $currentRequest = $modelDriverRequest->find()
             ->where(['user_id' => $currentUser->id])
             ->first();
-
+        $parameter = parameter();
         if (!empty($currentRequest) && !$currentRequest->status) {
-            $money = (int) parameter()['moneyUpgradeToDriver'];
+            $money = (int) $parameter['moneyUpgradeToDriver'];
             $data =array();
             if (!empty($money)) {
                 $addInfo = "$currentUser->phone_number $transactionKey";
@@ -323,7 +323,8 @@ function upgradeToDriverApi($input): array
                     'bank' => 'Ngân hàng Tiên Phong Bank (TPB)',
                     'account_number' => '26689898989',
                     'account_name' => 'CTY CP THUONG MAI VA DV EXC-GO',
-                    'content' => $addInfo
+                    'content' => $addInfo,
+                    'noidung' => @$parameter['contentUpgradeToDriver']
                 ];
             }
 
@@ -986,8 +987,8 @@ function getUserStatisticAdmin($input)
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            $currentUser->nhan_cuoc = count($modelBooking->find()->where(array('received_by'=>$currentUser->id,'status'=>3))->all()->toList());
-            $currentUser->dang_cuoc = count($modelBooking->find()->where(array('posted_by'=>$currentUser->id,'status'=>3))->all()->toList());
+            $currentUser->nhan_cuoc = count($modelBooking->find()->where(array('received_by'=>$currentUser->id,))->all()->toList());
+            $currentUser->dang_cuoc = count($modelBooking->find()->where(array('posted_by'=>$currentUser->id,))->all()->toList());
 
             return apiResponse(0, 'Lấy dữ liệu thành công', $currentUser);
         }
@@ -996,5 +997,42 @@ function getUserStatisticAdmin($input)
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 
 }
+function checkVersionApp($input){
+      global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
 
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+    
+        $ios = sendDataConnectMantan('https://itunes.apple.com/lookup?id='.$dataSend['id_app_ios']);
+        $ios = str_replace('ï»¿', '', utf8_encode($ios));
+        $ios = json_decode($ios, true);
+
+        $ios = $ios['results'][0]['version'];
+
+        $android = sendDataConnectMantan('https://play.google.com/store/apps/details?id='.$dataSend['id_app_android'].'&time='.time());
+        // $android = str_replace('ï»¿', '', utf8_encode($android));
+        debug($android);
+        die;
+        
+        // $pattern = "/version%3D%27([0-9\.]+)%27/";
+         $pattern ='/<div[^>]*>Current Version<\/div>\s*<span[^>]*><div[^>]*><span[^>]*>([^<]*)<\/span>/';
+
+        $version = '';
+        if (preg_match($pattern, $android, $matches)) {
+            $version = $matches;
+        }
+        
+         
+        $data = ['ios'=>$ios,'android'=>$version];
+        return apiResponse(1, 'Lấy dữ liệu thành công', $data);
+      
+
+    }
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+} 
 ?>

@@ -3,7 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/orderCustomerAgency">Khách hàng</a> /</span>
+    <span class="text-muted fw-light"><a href="/listCustomerAgency">Khách hàng</a> /</span>
     Danh sách khách hàng
   </h4>
 
@@ -79,99 +79,173 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách khách hàng</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Hình đại diện</th>
-            <th>Khách hàng</th>
-            <th>Nhóm khách hàng</th>
-            <th>Giới tính</th>
-            <th>Ngày sinh</th>
-            <th>Đơn hàng</th>
-            <th>Chăm sóc</th>
-            <th>Sửa</th>
-            <th>Xoá</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          if(!empty($listData)){
-            foreach ($listData as $item) {
-              $status= '<span class="text-danger">Khóa</span>';
-              if($item->status=='active'){ 
+    <h5 class="card-header">Danh sách khách hàng - <span class="text-danger"><?php echo number_format($totalData);?> khách hàng</span></h5>
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Hình đại diện</th>
+              <th>Khách hàng</th>
+              <th>Nhóm khách hàng</th>
+              <th>Giới tính</th>
+              <th>Ngày sinh</th>
+              <th>Đơn hàng</th>
+              <th>Chăm sóc</th>
+              <th>Sửa</th>
+              <th>Xoá</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+            if(!empty($listData)){
+              foreach ($listData as $item) {
+                $status= '<span class="text-danger">Khóa</span>';
+                if($item->status=='active'){ 
                   $status= '<span class="text-success">Kích hoạt</span>';
-              }
-
-              $sex= 'Nữ';
-              if($item->sex==1){ 
-                  $sex= 'Nam';
-              }
-
-              $birthday = '';
-              if(!empty($item->birthday_date) && !empty($item->birthday_month) && !empty($item->birthday_year)){
-                  $birthday = $item->birthday_date.'/'.$item->birthday_month.'/'.$item->birthday_year;
-              }
-
-              $history = '';
-              if(!empty($item->history)){
-                $status_history = 'text-danger';
-
-                if($item->history->status == 'done'){
-                  $status_history = 'text-success';
                 }
 
-                $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
-              }
+                $sex= 'Nữ';
+                if($item->sex==1){ 
+                  $sex= 'Nam';
+                }
 
-              $infoCustomer = $item->full_name.'<br/>'.$item->phone;
-              if(!empty($item->address)) $infoCustomer .= '<br/>'.$item->address;
-              if(!empty($item->email)) $infoCustomer .= '<br/>'.$item->email;
-              $infoCustomer .= '<br/>'.$status;
-              if(!empty($item->facebook)) $infoCustomer .= '<br/><a href="'.@$item->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>';
-              
-              echo '<tr>
-              <td>'.$item->id.'</td>
-              <td><img class="img_avatar" src="'.$item->avatar.'" width="80" height="80" /></td>
-              <td>'.$infoCustomer.'</td>
-              <td>'.$item->groups.'</td>
-              <td>'.$sex.'</td>
-              <td><a href="/downloadMMTC/?id_customer='.$item->id.'" target="_blank">'.$birthday.'</a></td>
+                $birthday = '';
+                if(!empty($item->birthday_date) && !empty($item->birthday_month) && !empty($item->birthday_year)){
+                  $birthday = $item->birthday_date.'/'.$item->birthday_month.'/'.$item->birthday_year;
+                }
 
-              <td><a href="/orderCustomerAgency/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></td>
+                $history = '';
+                if(!empty($item->history)){
+                  $status_history = 'text-danger';
 
-              <td>
+                  if($item->history->status == 'done'){
+                    $status_history = 'text-success';
+                  }
+
+                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
+                }
+
+                $infoCustomer = $item->full_name.'<br/>'.$item->phone;
+                if(!empty($item->address)) $infoCustomer .= '<br/>'.$item->address;
+                if(!empty($item->email)) $infoCustomer .= '<br/>'.$item->email;
+                $infoCustomer .= '<br/>'.$status;
+                if(!empty($item->facebook)) $infoCustomer .= '<br/><a href="'.@$item->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>';
+                
+                echo '<tr>
+                <td>'.$item->id.'</td>
+                <td><img class="img_avatar" src="'.$item->avatar.'" width="80" height="80" /></td>
+                <td>'.$infoCustomer.'</td>
+                <td>'.$item->groups.'</td>
+                <td>'.$sex.'</td>
+                <td><a href="/downloadMMTC/?id_customer='.$item->id.'" target="_blank">'.$birthday.'</a></td>
+
+                <td><a href="/orderCustomerAgency/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></td>
+
+                <td>
                 '.$history.'
                 <p class="text-center mt-3">
-                  <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
-                  <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-danger"><i class="bx bx-list-ul" ></i></a>
+                <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
+                <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-danger"><i class="bx bx-list-ul" ></i></a>
                 </p>
-              </td>
+                </td>
 
-              <td width="5%" align="center">
+                <td width="5%" align="center">
                 <a class="dropdown-item" href="/editCustomerAgency/?id='.$item->id.'">
-                  <i class="bx bx-edit-alt me-1"></i>
+                <i class="bx bx-edit-alt me-1"></i>
                 </a>
-              </td>
+                </td>
 
-              <td align="center">
+                <td align="center">
                 <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/lockCustomerAgency/?id='.$item->id.'">
-                  <i class="bx bx-trash me-1"></i>
+                <i class="bx bx-trash me-1"></i>
                 </a>
-              </td>
-             </tr>';
-           }
-         }else{
-          echo '<tr>
-          <td colspan="10" align="center">Chưa có dữ liệu</td>
-          </tr>';
+                </td>
+                </tr>';
+              }
+            }else{
+              echo '<tr>
+              <td colspan="10" align="center">Chưa có dữ liệu</td>
+              </tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+              foreach ($listData as $item) {
+                $status= '<span class="text-danger">Khóa</span>';
+                if($item->status=='active'){ 
+                  $status= '<span class="text-success">Kích hoạt</span>';
+                }
+
+                $sex= 'Nữ';
+                if($item->sex==1){ 
+                  $sex= 'Nam';
+                }
+
+                $birthday = '';
+                if(!empty($item->birthday_date) && !empty($item->birthday_month) && !empty($item->birthday_year)){
+                  $birthday = $item->birthday_date.'/'.$item->birthday_month.'/'.$item->birthday_year;
+                }
+
+                $history = '';
+                if(!empty($item->history)){
+                  $status_history = 'text-danger';
+
+                  if($item->history->status == 'done'){
+                    $status_history = 'text-success';
+                  }
+
+                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
+                }
+
+                $infoCustomer = $item->full_name.'<br/>'.$item->phone;
+                if(!empty($item->address)) $infoCustomer .= '<br/>'.$item->address;
+                if(!empty($item->email)) $infoCustomer .= '<br/>'.$item->email;
+                if(!empty($item->facebook)) $infoCustomer .= '<br/><a href="'.@$item->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>';
+                  
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <center><img class="img_avatar" src="'.$item->avatar.'" style=" width:50%" /></center><br/>
+                        <p><strong> Khách hàng: </strong>: '.$item->full_name.' (ID: '.$item->id.')</p>
+                        <p><strong> Điện thoại: </strong>: '.$item->phone.'</p>
+                        <p><strong> Địa chỉ: </strong>: '.$item->address.'</p>
+                        <p><strong> Nhóm: </strong>'.$item->groups.'</p>
+                        <p><strong> Ngày sinh: </strong><a href="/downloadMMTC/?id_customer='.$item->id.'" target="_blank">'.$birthday.'</a></p>
+
+                        <p><a href="/orderCustomerAgency/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></p>
+
+                        <p><strong>Chăm sóc: </strong>'.$history.'</p>
+                        
+                        <p class="text-center mt-3">
+                          <a title="Thêm chăm sóc" href="/addCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
+                          <a title="Lịch sử chăm sóc" href="/listCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-info"><i class="bx bx-list-ul" ></i></a>
+                        </p>
+
+                        <p  class="text-center mt-3">
+                          <a title="Sửa" class="btn btn-success" href="/editCustomerAgency/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a> 
+
+                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/lockCustomerAgency/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
+                        </p>
+
+                        </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
         }
-        ?>
-      </tbody>
-    </table>
-  </div>
+      ?>
+    </div>
 
   <!-- Phân trang -->
   <div class="demo-inline-spacing">

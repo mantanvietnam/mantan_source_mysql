@@ -14,8 +14,8 @@
 
                             <div class="news-left-site">
                                 <div class="news-date">
-                                    <p><a href="">Trang chủ</a>/<a href="">Tin tức</a>/ <?php echo $post->title;?></p>
-                                    <span> <?php echo date('d/m/Y', $post->time);?></span>
+                                    <p><a href="/">Trang chủ</a>/<a href="/posts">Tin tức</a>/ <?php echo $post->title;?></p>
+                                    <span><i class="fa-solid fa-calendar-days"></i> <?php echo date('d/m/Y', $post->time);?></span>
                                 </div>
                                 <div class="news-detail">
                                     <h4><?php echo $post->description;?></h4>
@@ -25,23 +25,23 @@
                             </div>
 
                         </div>
-
+     
                         <div class="col-lg-4">
-
+                            <div><h2 class="title-news-other">Tin tức liên quan</h2></div>
                             <div class="news-right-site">
                         <?php if (!empty($otherPosts)): ?>
                             <?php foreach ($otherPosts as $key => $value): ?>
                                 <div class="news-right-site-img">
-                                    <div class="right-site-img">
-                                        <a href="<?php echo @$value->slug ?>.html">
-                                            <img src="<?php echo $post->image;?>" />
-                                        </a>
-                                    </div>
-                                    <div class="right-site-name-img">
-                                        <p>
-                                        <?php echo $post->title;?>
-                                        </p>
-                                    </div>
+                                    <a href="<?php echo @$value->slug ?>.html">
+                                        <div class="right-site-img">
+                                            <img src="<?php echo $value->image;?>" />
+                                        </div>
+                                        <div class="right-site-name-img">
+                                            <p>
+                                            <?php echo $value->title;?>
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>

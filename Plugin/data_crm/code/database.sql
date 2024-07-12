@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 23, 2024 at 10:20 PM
+-- Generation Time: Jul 08, 2024 at 11:59 PM
 -- Server version: 10.6.12-MariaDB
 -- PHP Version: 8.1.17
 
@@ -345,7 +345,22 @@ CREATE TABLE `discount_codes` (
   `maximum_price_reduction` int(11) DEFAULT NULL,
   `category` int(11) DEFAULT NULL,
   `id_customers` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_products` text DEFAULT NULL
+  `id_products` text DEFAULT NULL,
+  `id_member` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discount_product_agencys`
+--
+
+CREATE TABLE `discount_product_agencys` (
+  `id` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_member_sell` int(11) NOT NULL COMMENT 'id đại lý tuyến trên',
+  `id_member_buy` int(11) NOT NULL COMMENT 'id đại lý tuyến dưới đặt mua',
+  `discount` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -439,6 +454,21 @@ CREATE TABLE `lessons` (
   `time_learn` int(11) NOT NULL,
   `author` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `youtube_code` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `link_infos`
+--
+
+CREATE TABLE `link_infos` (
+  `id` int(11) NOT NULL,
+  `id_member` int(11) NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `namelink` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -686,7 +716,8 @@ CREATE TABLE `products` (
   `idpro_discount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pricepro_discount` int(11) DEFAULT NULL,
   `evaluate` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `price_fash` int(11) DEFAULT NULL
+  `price_fash` int(11) DEFAULT NULL,
+  `unit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -754,6 +785,19 @@ CREATE TABLE `reviews` (
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_customer` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seting_theme_infos`
+--
+
+CREATE TABLE `seting_theme_infos` (
+  `id` int(11) NOT NULL,
+  `id_member` int(11) NOT NULL,
+  `id_theme` int(11) NOT NULL,
+  `config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -1032,6 +1076,12 @@ ALTER TABLE `discount_codes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `discount_product_agencys`
+--
+ALTER TABLE `discount_product_agencys`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `documentinfos`
 --
 ALTER TABLE `documentinfos`
@@ -1059,6 +1109,12 @@ ALTER TABLE `historytests`
 -- Indexes for table `lessons`
 --
 ALTER TABLE `lessons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `link_infos`
+--
+ALTER TABLE `link_infos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1143,6 +1199,12 @@ ALTER TABLE `request_exports`
 -- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `seting_theme_infos`
+--
+ALTER TABLE `seting_theme_infos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1312,6 +1374,12 @@ ALTER TABLE `discount_codes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `discount_product_agencys`
+--
+ALTER TABLE `discount_product_agencys`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `documentinfos`
 --
 ALTER TABLE `documentinfos`
@@ -1339,6 +1407,12 @@ ALTER TABLE `historytests`
 -- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `link_infos`
+--
+ALTER TABLE `link_infos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -1423,6 +1497,12 @@ ALTER TABLE `request_exports`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `seting_theme_infos`
+--
+ALTER TABLE `seting_theme_infos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

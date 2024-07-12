@@ -12,47 +12,76 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách hàng hóa trong kho</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th width="5%">ID</th>
-            <th width="10%">Hình ảnh</th>
-            <th width="30%">Hàng hóa</th>
-            <th width="10%">Số lượng</th>
-            <th width="15%">Giá bán</th>
-            <th width="25%">Xuất nhập lần cuối</th>
-            <th width="5%">Sửa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          if(!empty($listData)){
-            foreach ($listData as $item) {
-               echo '<tr>
-              <td>'.$item->id.'</td>
-              <td align="center"><img src="'.$item->product->image.'" width="100" /></td>
-              <td>'.$item->product->title.'</td>
-              <td>'.number_format($item->quantity).'</td>
-              <td>'.number_format($item->product->price).'</td>
-              <td><a href="/historyWarehouseProductAgency/?id_product='.$item->id_product.'">'.@$item->history->note.'</a></td>
-              <td align="center">
-                <a onclick="editProductWarehouse('.$item->id.');" class="dropdown-item" href="javascript:void(0);">
-                  <i class="bx bx-edit-alt me-1"></i>
-                </a>
-              </td>
-             </tr>';
-           }
-         }else{
-          echo '<tr>
-          <td colspan="10" align="center">Chưa có dữ liệu</td>
-          </tr>';
-        }
-        ?>
-      </tbody>
-    </table>
-  </div>
+    <div id="desktop_view">
+      <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr class="">
+                <th width="5%">ID</th>
+                <th width="10%">Hình ảnh</th>
+                <th width="30%">Hàng hóa</th>
+                <th width="10%">Số lượng</th>
+                <th width="15%">Giá bán</th>
+                <th width="25%">Xuất nhập lần cuối</th>
+                <th width="5%">Sửa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                   echo '<tr>
+                  <td>'.$item->id.'</td>
+                  <td align="center"><img src="'.$item->product->image.'" width="100" /></td>
+                  <td>'.$item->product->title.'</td>
+                  <td>'.number_format($item->quantity).'</td>
+                  <td>'.number_format($item->product->price).'</td>
+                  <td><a href="/historyWarehouseProductAgency/?id_product='.$item->id_product.'">'.@$item->history->note.'</a></td>
+                  <td align="center">
+                    <a onclick="editProductWarehouse('.$item->id.');" class="dropdown-item" href="javascript:void(0);">
+                      <i class="bx bx-edit-alt me-1"></i>
+                    </a>
+                  </td>
+                 </tr>';
+               }
+             }else{
+              echo '<tr>
+              <td colspan="10" align="center">Chưa có dữ liệu</td>
+              </tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+              foreach ($listData as $item) {
+                
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <center><img src="'.$item->product->image.'" style="width:50%;" /></center>
+                        <p><strong>ID: </strong>'.$item->id.'</p>
+                        <p><strong>Sản phẩm: </strong>'.$item->product->title.'</td>
+                        <p><strong>Số lượng: </strong>'.number_format($item->quantity).'</p>
+                        <p><strong>Giá bán: </strong>'.number_format($item->product->price).'</p>
+                        <p><strong>Xuất nhập lần cuối: </strong><a href="/historyWarehouseProductAgency/?id_product='.$item->id_product.'">'.@$item->history->note.'</a></p>
+                        <p align="center">
+                          <a onclick="editProductWarehouse('.$item->id.');" class="dropdown-item" href="javascript:void(0);">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a>
+                        </p>
 
+                        </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+        }
+      ?>
+    </div>
   <!-- Phân trang -->
   <div class="demo-inline-spacing">
     <nav aria-label="Page navigation">

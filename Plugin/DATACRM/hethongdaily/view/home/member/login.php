@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng nhập phần mềm chăm sóc khách hàng ICHAM CRM</title>
+    <title>ICHAM CRM</title>
 
     <meta name="description" content="" />
 

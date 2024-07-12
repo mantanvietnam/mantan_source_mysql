@@ -37,9 +37,9 @@
             <label class="form-label">Loại tài khoản</label>
             <select name="type" class="form-select color-dropdown">
               <option value="">Tất cả</option>
-              <option value="0" <?php if (isset($_GET['type']) && $_GET['type'] == '0') echo 'selected'; ?> >Người dùng
+              <option value="1" <?php if (isset($_GET['type']) && $_GET['type'] == '1') echo 'selected'; ?> >Người dùng
               </option>
-              <option value="1" <?php if (isset($_GET['type']) && $_GET['type'] == '1') echo 'selected'; ?> >Tài xế
+              <option value="2" <?php if (isset($_GET['type']) && $_GET['type'] == '2') echo 'selected'; ?> >Tài xế
               </option>
             </select>
           </div>
@@ -93,7 +93,7 @@
         
         if (!empty($listData)) {
             foreach ($listData as $item) {
-                if ($item->type == 0) {
+                if ($item->type == 1) {
                     $type = 'Người dùng';
                 } else {
                     $type = 'Tài xế';

@@ -42,9 +42,24 @@ header {
 .menu .nav-link {
     font-size: 20px;
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 12px;
     color: #427FE3;
+    font-weight: 500;
+}
+
+.menu .nav-link.language {
+    align-items: center !important;
+}
+
+.menu .nav-link.language p {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+}
+
+.menu .nav-link i {
+    font-size: 14px;
 }
 
 .navbar-collapse {

@@ -139,6 +139,8 @@ function addProductProjectAdmin($input)
             // }
 
             
+
+            
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;

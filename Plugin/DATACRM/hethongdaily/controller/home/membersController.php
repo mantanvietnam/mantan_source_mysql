@@ -133,12 +133,15 @@ function account($input)
 	$metaTitleMantan = 'Đổi thông tin tài khoản';
 
 	$modelMembers = $controller->loadModel('Members');
+	$modelSetingThemeInfo = $controller->loadModel('SetingThemeInfos');
+	$modelLinkInfo = $controller->loadModel('LinkInfos');
 
 	if(!empty($session->read('infoUser'))){
 		$mess = '';
 
 		$user = $modelMembers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
 		$boss = $modelMembers->find()->where(['id_father'=>0])->first();
+		$dataLink = $modelLinkInfo->find()->where(['id_member'=>$user->id])->all()->toList();
 
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
@@ -191,7 +194,28 @@ function account($input)
 				
 				$user->info_system = $modelCategories->find()->where(['id'=>(int) $user->id_system])->first();
 
+				
+		        	$conditions = ['id_member'=>$user->id];
+		        	$modelLinkInfo->deleteAll($conditions);
+		        if(!empty($dataSend['link'])){
+		        	foreach ($dataSend['link'] as $key => $link) {
+		        		if(!empty($link)){
+			        		$LinkInfo = $modelLinkInfo->newEmptyEntity();
+			        		$LinkInfo->link = $link;
+			        		$LinkInfo->namelink = $dataSend['namelink'][$key];
+			        		$LinkInfo->id_member = $user->id;
+			        		$LinkInfo->type = @$dataSend['type'][$key];
+			        		$LinkInfo->description = @$dataSend['descriptionlink'][$key];
+			        		$modelLinkInfo->save($LinkInfo);
+			        	}
+		        	}
+		        }
+
 				$session->write('infoUser', $user);
+
+				$dataLink = $modelLinkInfo->find()->where(['id_member'=>$user->id])->all()->toList();
+
+
 
 				$mess= '<p class="text-success">Đổi thông tin thành công</p>';
 			}else{
@@ -203,6 +227,8 @@ function account($input)
 		setVariable('user', $user);
 		setVariable('boss', $boss);
 		setVariable('displayInfo', $displayInfo);
+		setVariable('dataLink', $dataLink);
+		setVariable('modelSetingThemeInfo', $modelSetingThemeInfo);
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -629,6 +655,10 @@ function info($input)
 
     $modelMembers = $controller->loadModel('Members');
     $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+    
+	$modelSetingThemeInfo = $controller->loadModel('SetingThemeInfos');
+	$modelLinkInfo = $controller->loadModel('LinkInfos');
+
     $session->write('infoUser', []);
 
 	if(!empty($_GET['id'])){
@@ -638,6 +668,9 @@ function info($input)
 			if(empty($info->token)){
 				$info->token = createToken();
 			}
+
+
+			$dataLink = $modelLinkInfo->find()->where(['id_member'=>$info->id])->all()->toList();
 
 			$metaTitleMantan = $info->name;
 			$metaImageMantan = (!empty($info->banner))?$info->banner:$info->avatar;
@@ -657,6 +690,10 @@ function info($input)
 			$info->name_position = @$position->name;
 			$info->name_system = @$system->name;
 			$info->image_system = @$system->image;
+
+			if($info->id_father == 0 && empty($info->name_position)){
+				$info->name_position = 'CO-FOUNDER';
+			}
 
 			if(function_exists('getAllProductActive')){
 				// lấy sản phẩm trong kho
@@ -701,7 +738,9 @@ function info($input)
         	$listGroupCustomer = $modelCategories->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
 		
 			setVariable('info', $info);
+			setVariable('dataLink', $dataLink);
 			setVariable('listGroupCustomer', $listGroupCustomer);
+			setVariable('modelSetingThemeInfo', $modelSetingThemeInfo);
 		}else{
 			return $controller->redirect('/');
 		}
@@ -715,10 +754,6 @@ function useThemeInfo($input){
 	global $session;
 	global $controller;
 	global $metaTitleMantan;
-	global $isRequestPost;
-	global $modelCategories;
-	global $urlHomes;
-	global $displayInfo;
 
 	$metaTitleMantan = 'Đổi thông tin tài khoản';
 
@@ -740,5 +775,62 @@ function useThemeInfo($input){
 		return $controller->redirect('/login');
 	}
 
+}
+
+function editThemeinfo($input){
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+
+	$metaTitleMantan = 'Đổi thông tin tài khoản';
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelSetingThemeInfo = $controller->loadModel('SetingThemeInfos');
+
+	if(!empty($session->read('infoUser'))){
+		$dataSend = $input['request']->getData();
+	
+		$user = $session->read('infoUser');
+		$data = $modelSetingThemeInfo->find()->where(['id_theme'=>(int)$dataSend['id_theme'],'id_member'=>$user->id])->first();
+		$image_background = '';
+		
+		if(empty($data)){
+			$data = $modelSetingThemeInfo->newEmptyEntity();
+			$data->id_theme = (int) @$dataSend['id_theme'];
+			$data->id_member = $user->id;
+		}else{
+			$data_value = array();
+    		if(!empty($data->config)){
+    		    $data_value = json_decode($data->config, true);
+    		}
+    		if(!empty($data_value['image_background'])){
+    			$image_background = @$data_value['image_background'];
+    		}
+		}
+
+		if(isset($_FILES['image_background']) && empty($_FILES['image_background']["error"])){
+			$background = uploadImage($user->id, 'image_background', 'image_background_'.$data->id_theme);
+		}
+		
+		if(!empty($background['linkOnline'])){
+			$image_background = @$background['linkOnline'].'?time='.time();
+		}
+		$value = array('background_color1'=>$dataSend['background_color1'],
+				'background_color2'=>$dataSend['background_color2'],
+				'text_color_name'=>$dataSend['text_color_name'],
+				'text_color_Jobtitle'=>$dataSend['text_color_Jobtitle'],
+				'text_color_address'=>$dataSend['text_color_address'],
+				'image_background'=>$image_background,
+				);
+		 $data->config = json_encode($value);
+
+		 $modelSetingThemeInfo->save($data);	
+
+		return $controller->redirect('/account');
+
+
+	}else{
+		return $controller->redirect('/login');
+	}
 }
 ?>

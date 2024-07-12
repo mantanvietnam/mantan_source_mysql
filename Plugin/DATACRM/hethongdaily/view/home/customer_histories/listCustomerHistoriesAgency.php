@@ -3,11 +3,11 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/orderCustomerAgency">Khách hàng</a> /</span>
+    <span class="text-muted fw-light"><a href="/listCustomerAgency">Khách hàng</a> /</span>
     Lịch sử chăm sóc khách hàng
   </h4>
 
-  <p><a href="/addCustomerHistoriesAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/addCustomerHistoriesAgency/?id_customer=<?php echo @$_GET['id_customer'];?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -34,6 +34,7 @@
               <option value="message" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='message') echo 'selected';?> >Nhắn tin</option>
               <option value="go_meet" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='go_meet') echo 'selected';?> >Đi gặp</option>
               <option value="online_meeting" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='online_meeting') echo 'selected';?> >Họp online</option>
+              <option value="other" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='other') echo 'selected';?> >Khác</option>
             </select>
           </div>
 
@@ -67,50 +68,96 @@
       <a href="/calendarCustomerHistoriesAgency" class="btn btn-danger">Xem dạng Lịch</a>
     </h5>
     <h5 class="card-header">Lịch sử chăm sóc khách hàng</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Thời gian</th>
-            <th>Khách hàng</th>
-            <th>Nội dung</th>
-            <th>Trạng thái</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          if(!empty($listData)){
-            foreach ($listData as $item) {
-              $status= '<span class="text-danger">Chưa xử lý</span>';
-              if($item->status=='done'){ 
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Thời gian</th>
+              <th>Khách hàng</th>
+              <th>Nội dung</th>
+              <th>Trạng thái</th>
+              <th>Sửa</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+            if(!empty($listData)){
+              foreach ($listData as $item) {
+                $status= '<span class="text-danger">Chưa xử lý</span>';
+                if($item->status=='done'){ 
                   $status= '<span class="text-success">Đã hoàn thành</span>';
-              }
-              
-              echo '<tr>
-              <td>'.$item->id.'</td>
-              <td>'.date('H:i d/m/Y', $item->time_now).'</td>
-             
-              <td>
-                <a href="/listCustomerAgency?id='.$item->id_customer.'">'.$item->info_customer->full_name.'</a><br/>
-                '.$item->info_customer->phone.'
-              </td>
-              <td>'.$item->note_now.'</td>
-              
-              <td>'.$status.'</td>
+                }
+                
+                echo '<tr>
+                  <td>'.$item->id.'</td>
+                  <td>'.date('H:i d/m/Y', $item->time_now).'</td>
 
-              
-             </tr>';
-           }
-         }else{
-          echo '<tr>
-          <td colspan="10" align="center">Chưa có dữ liệu</td>
-          </tr>';
+                  <td>
+                  <a href="/listCustomerAgency?id='.$item->id_customer.'">'.$item->info_customer->full_name.'</a><br/>
+                  '.$item->info_customer->phone.'
+                  </td>
+                  <td>'.$item->note_now.'</td>
+                  
+                  <td>'.$status.'</td>
+
+                  <td width="5%" align="center">
+                    <a class="dropdown-item" href="/addCustomerHistoriesAgency/?id='.$item->id.'">
+                    <i class="bx bx-edit-alt me-1"></i>
+                    </a>
+                  </td>
+
+                  <td align="center">
+                    <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerHistoriesAgency/?id='.$item->id.'&status=lists">
+                    <i class="bx bx-trash me-1"></i>
+                    </a>
+                  </td>
+                </tr>';
+              }
+            }else{
+              echo '<tr>
+              <td colspan="10" align="center">Chưa có dữ liệu</td>
+              </tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+              foreach ($listData as $item) {
+                 $status= '<span class="text-danger">Chưa xử lý</span>';
+                if($item->status=='done'){ 
+                  $status= '<span class="text-success">Đã hoàn thành</span>';
+                }
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <p><strong> Thông tin khách hàng: </strong><a href="/listCustomerAgency?id='.$item->id_customer.'">'.$item->info_customer->full_name.'</a><br/>'.$item->info_customer->phone.'</p>
+                        <p><strong> Thời gian: </strong>'.date('H:i d/m/Y', $item->time_now).'</p>
+                        <p><strong> Nội dung: </strong>'.$item->note_now.'</p>
+                        <p><strong> Trạng thái: </strong>'.$status.'</p>
+                        <p  class="text-center mt-3">
+                          <a title="Sửa" class="btn btn-success" href="/addCustomerHistoriesAgency/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a> 
+
+                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCustomerHistoriesAgency/?id='.$item->id.'&status=lists">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
+                        </p>
+                        </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
         }
-        ?>
-      </tbody>
-    </table>
-  </div>
+      ?>
+    </div>
 
   <!-- Phân trang -->
   <div class="demo-inline-spacing">

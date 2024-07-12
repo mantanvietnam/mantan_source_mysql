@@ -14,7 +14,7 @@
                     </div>
                     <div class="featured-news-content">
                         <div class="featured-news-name">
-                            <a href=""><?= $listDatatop2[0]->title;?></a>
+                            <a href="<?php echo  $listDatatop2[0]->slug ?>.html"><?= $listDatatop2[0]->title;?></a>
                         </div>
                         <div class="featured-news-sub">
                             <p><?= $listDatatop2[0]->description;?></p>
@@ -29,7 +29,7 @@
                 <div class="featured-news fn-right">
                     <div class="featured-news-content">
                         <div class="featured-news-name">
-                            <a href=""><?= $listDatatop2[1]->title;?></a>
+                            <a href="<?php echo  $listDatatop2[0]->slug ?>.html"><?= $listDatatop2[1]->title;?></a>
                         </div>
                         <div class="featured-news-sub">
                             <p><?= $listDatatop2[1]->description;?></p>

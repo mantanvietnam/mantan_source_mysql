@@ -1,37 +1,45 @@
 <?php
-	function settingLarkSuite($input)
-	{
-		$today= getdate();
-    	global $modelOptions;
-    	global $metaTitleMantan;
-    	global $isRequestPost;
-		$conditions = array('key_word' => 'lark_suite');
-    	$data = $modelOptions->find()->where($conditions)->first();
-	    if(!empty($data->value)){
-	    	$static = json_decode(@$data->value, true);
-	    }else{
-	    	 $data = $modelOptions->newEmptyEntity();
-	    }
-    	$mess = '';
-    
-		if($isRequestPost){
-			$dataSend = $input['request']->getData();
-			$static = array('get_access_token'=>$dataSend['get_access_token'],
-							'app_id'=> $dataSend['app_id'],
-							'secret'=> $dataSend['secret'],
-							'table_id'=> $dataSend['table_id'],
-							'base_id'=> $dataSend['base_id'],
-						);
+function addMoneySepayBankAPI($input)
+{
 
-				
-			$data->value = json_encode($static);
-			$data->key_word = 'lark_suite';
-		
+	global $controller;
+	global $isRequestPost;
 
-        	$modelOptions->save($data);
+	$modelRequestDatacrms = $controller->loadModel('RequestDatacrms');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['content']) && !empty($dataSend['transferType']) && !empty($dataSend['transferAmount'])){
+			if($dataSend['transferType']=='in'){
+				$content = explode(" ", $dataSend['content']);
+
+				if(!empty($content[0]) && !empty($content[1]) && !empty($content[2])){
+					$boss = $modelRequestDatacrms->find()->where(['boss_phone'=>$content[0]])->first();
+
+					if(!empty($boss->domain)){
+						$dataPost= array('idUser'=>$content[1], 'price'=>$dataSend['transferAmount'], 'idTheme'=>$content[2]);
+            			$info = sendDataConnectMantan('https://'.$boss->domain.'/apis/buyThemeInfo', $dataPost);
+            			$info = str_replace('ï»¿', '', utf8_encode($info));
+            			$info = json_decode($info, true);
+
+            			return array('code'=>$info['code'], 'mess'=>$info['mess']);
+
+					}
+					return array('code'=>0, 'mess'=>'số điện thoạt không phải boss');
+
+				}
+				return array('code'=>0, 'mess'=>'nội dung giao giao dịch bị sai');
+
+			}
+			return array('code'=>0, 'mess'=>'không phải nhận khoản');
+
 		}
-			
-		setVariable('mess',@$mess);
-		setVariable('data',@$static);
+	return array('code'=>0, 'mess'=>'thiếu dữ liệu');
+
 	}
+
+	return array('code'=>0, 'mess'=>'Bắt buộc sử dụng phương thức POST');
+}
+
+
 ?>

@@ -192,7 +192,7 @@ function dashboard($input)
 
 		if(!empty($listDataBill)){
 			foreach ($listDataBill as $item) {
-				$time= @$item->created_at->toDateTimeString();
+				$time= @$item->created_at;
 				$time = strtotime($time);
 				$todayTime= getdate($time);
 

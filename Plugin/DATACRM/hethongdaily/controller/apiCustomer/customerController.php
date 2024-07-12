@@ -1,10 +1,50 @@
 <?php 
+// khóa tài khoản
+function lockAccountAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+    $modelCustomer = $controller->loadModel('Customers');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['token'])){
+            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+
+            if(!empty($user)){
+                $user->status = 'lock';
+                $user->token = '';
+                
+                $modelCustomer->save($user);
+                
+                $return = array('code'=>0);
+            }else{
+                $return = array('code'=>3,
+                                    'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
+                                );
+            }
+        }else{
+            $return = array('code'=>2,
+                    'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+                );
+        }
+    }
+
+    return $return;
+}
+
 // API đăng ký khách hàng 
 function saveRegisterCustomerAPI($input)
 {
     global $isRequestPost;
     global $controller;
     global $session;
+    global $urlHomes;
 
     $modelCustomer = $controller->loadModel('Customers');
     $modelMember = $controller->loadModel('Members');
@@ -14,12 +54,9 @@ function saveRegisterCustomerAPI($input)
         $dataSend = $input['request']->getData();
 
         if( !empty($dataSend['full_name']) && 
-            !empty($dataSend['email']) &&
             !empty($dataSend['pass']) &&
             !empty($dataSend['passAgain']) &&
-            !empty($dataSend['phone']) &&
-            !empty($dataSend['address']) &&
-            !empty($dataSend['birthday'])
+            !empty($dataSend['phone']) 
         ){
 
             if(!empty($dataSend['phone_agency'])){
@@ -39,7 +76,7 @@ function saveRegisterCustomerAPI($input)
             if(!empty($avatars['linkOnline'])){
                 $avatar = $avatars['linkOnline'];
             }else{
-                $avatar = '';
+                $avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";;
             }
 
             if($dataSend['pass'] == $dataSend['passAgain']){
@@ -57,7 +94,7 @@ function saveRegisterCustomerAPI($input)
                         // tạo dữ liệu save
                     $data->full_name = $dataSend['full_name'];
                     $data->phone = $dataSend['phone'];
-                    $data->email = $dataSend['email'];
+                    $data->email = @$dataSend['email'];
                     $data->address = (!empty($dataSend['address']))?$dataSend['address']:'';
                     $data->sex = (int) @$dataSend['sex'];
                     $data->id_city = 0;
@@ -89,20 +126,14 @@ function saveRegisterCustomerAPI($input)
 
                     $modelCustomer->save($data);
 
-                    $conditions = array('phone'=>$dataSend['phone'], 'pass'=>md5($dataSend['pass']));
-                    $info_customer = $modelCustomer->find()->where($conditions)->first();
-
-                    if($info_customer){
-                        $return = array('code'=>1,
-                            'infoUser'=> $info_customer,
-                            'messages'=>'Đăng ký thành công',
-                        );
-                    }else{  
-                        $return = array('code'=>2,
-                            'infoUser'=> $info_customer,
-                            'messages'=>'Đăng ký thất bại do lỗi hệ thống',
-                        );
+                    if(!empty($id_parent)){
+                        saveCustomerMember($data->id, $id_parent);
                     }
+
+                    $return = array('code'=>1,
+                                    'infoUser'=> $data,
+                                    'messages'=>'Đăng ký thành công',
+                                );
                 }else{
                     $return = array('code'=>3,
                         'infoUser'=> null,
@@ -500,5 +531,67 @@ function getInfoUserCustomerAPI($input){
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 }
 
+function getLinkMMTCAPI($input)
+{
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
 
- ?>
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['token'])) {
+            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+
+            if (!empty($user)) {
+                if(!empty($user->link_download_mmtc)){
+                    return array('code'=>1,'link'=>$user->link_download_mmtc);
+                }else{
+                    if(!empty($user->birthday_date) && !empty($user->birthday_month) && !empty($user->birthday_year)){
+                        $birthday = $user->birthday_date.'/'.$user->birthday_month.'/'.$user->birthday_year;
+                        
+                        // lấy thần số học
+                        if(empty($user->email)){
+                            $email = 'datacrmasia@gmail.com';
+                        }else{
+                            $email = $user->email;
+                        }
+
+                        if(empty($user->address)){
+                            $address = '18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội';
+                        }else{
+                            $address = $user->address;
+                        }
+
+                        $linkFull = '';
+                        if(function_exists('getLinkFullMMTCAPI')){
+                            $linkFull = getLinkFullMMTCAPI($user->full_name, $birthday, $user->phone, $email, $address, $user->avatar, (int) $user->sex);
+                        }
+
+                        if(!empty($linkFull)){
+                            $user->link_download_mmtc = $linkFull;
+
+                            $modelCustomer->save($user);
+
+                            return array('code'=>0,'link'=>$user->link_download_mmtc);
+                        }else{
+                            return array('code'=>5,'messages'=>'Hệ thống xuất dữ liệu thần số học bị lỗi');
+                        }
+                    }else{
+                        return array('code'=>4,'messages'=>'Chưa có ngày sinh');
+                    }
+                }
+            }
+
+            return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>1,'messages'=>'Gửi sai kiểu POST');
+}
+
+
+?>

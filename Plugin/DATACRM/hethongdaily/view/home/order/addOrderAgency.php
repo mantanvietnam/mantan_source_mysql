@@ -138,7 +138,7 @@
     <form id="summary-form" action="" method="post" class="form-horizontal">
         <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
         <div class="row">
-            <div class="mb-3 col-md-6">
+            <div class="mb-3 col-md-5">
 
                 <div class="card mb-4">
                     <h4 class="fw-bold m-4 mb-0">Sản phẩm</h4>
@@ -163,14 +163,14 @@
                               <div id="tabs-1">
                                 <div class="row diagram">
                                     <?php foreach($listProduct as $key => $Product){ ?>
-                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price ?>, '');" id='product_<?php echo $Product->id ?>' >
+                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price ?>, '','<?php echo @$Product->unit ?>');" id='product_<?php echo $Product->id ?>' >
                                             <div class="item_produc">
                                                 <div class="customer-name">
-                                                    <span class="service_name"><?php echo $Product->title ?></span>
+                                                    <span class="service_name"><b><?php echo $Product->title ?></b></span>
                                                 </div>
                                                 
                                                 <div class="customer-name">
-                                                    <span class="service_price"><?php echo number_format($Product->price) ?>đ</span>
+                                                    <span class="service_price"><?php echo number_format($Product->price).'đ/'.$Product->unit; ?></span>
                                                 </div>
                                             </div>
                                          </div> 
@@ -180,7 +180,7 @@
                               <div id="tabs-2">
                                 <div class="row diagram">
                                     <?php foreach($listProduct as $key => $Product){ ?>
-                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',0, 'free');" id='product_<?php echo $Product->id ?>_free' >
+                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',0, 'free','<?php echo @$Product->unit ?>');" id='product_<?php echo $Product->id ?>_free' >
                                             <div class="item_produc">
                                                 <div class="customer-name">
                                                     <span class="service_name"><?php echo $Product->title ?></span>
@@ -202,7 +202,7 @@
                 </div>
             </div>
 
-            <div class="mb-3 col-md-6">
+            <div class="mb-3 col-md-7">
                 <div class="card mb-4">
                     <h4 class="fw-bold py-3 mb-4 info-order">Thông tin đơn hàng</h4>
                     
@@ -219,10 +219,11 @@
                         <table class=" table-bordered">
                             <thead>
                                 <tr>
-                                    <th width="30%">Tên sản phẩm</th>
+                                    <th width="20%">Tên sản phẩm</th>
                                     <th  width="15%">Số lượng</th>
-                                    <th  width="20%">Đơn giá</th>
-                                    <th  width="20%">giảm giá</th>
+                                    <th  width="15%">Đơn giá</th>
+                                    <th  width="15%">Đơn vị</th>
+                                    <th  width="15%">Giảm giá</th>
                                     <th  width="15%">Thành tiền</th>
                                     <th  width="5%">Xóa</th>
                                 </tr>
@@ -422,7 +423,7 @@ function checkDiscountConfig(money)
 }
 
 // all sản phầm vào đơn hàng 
-function addProduct(id, name, priceProduct, type)
+function addProduct(id, name, priceProduct, type,unit)
 {
     var keyID = id+type;
 
@@ -456,6 +457,9 @@ function addProduct(id, name, priceProduct, type)
                 </td>\
                 <td>\
                     <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
+                </td>\
+                <td>\
+                    '+unit+'\
                 </td>\
                 <td>\
                     <input type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(1);">\
@@ -511,6 +515,7 @@ function tinhtien(checkDiscount)
     var number;
     var price;
     var idProduct;
+    var discount;
 
     if(row>0){
         for(i=1;i<=row;i++){
@@ -532,14 +537,14 @@ function tinhtien(checkDiscount)
                     money= number*price;
 
                     if(discount>=0 && discount<=100){
-                        discount= money*discount/100;
+                        discount= price*discount/100;
                     }
 
-                    money-= discount;
+                    money-= discount*number;
+                    
                     total+= money;
                 }
                 
-                 
                 money = new Intl.NumberFormat().format(money);
                 $('#totalmoney'+i).html(money+'đ');
             }
@@ -722,7 +727,7 @@ function addCustomer()
                 // add the selected item
                 terms.push( ui.item.label );
 
-                addProduct(ui.item.id,ui.item.title,ui.item.price, '');
+                addProduct(ui.item.id,ui.item.title,ui.item.price, '',ui.item.unit);
                 
                 $( "#searchProduct" ).val('');
                 return false;

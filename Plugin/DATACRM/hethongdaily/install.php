@@ -110,6 +110,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `token_device` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `token` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `reset_password_code`INT NULL DEFAULT NULL,
+  `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -248,12 +249,31 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `id_order` INT NOT NULL DEFAULT '0' ,
    PRIMARY KEY (`id`)
  ) ENGINE = InnoDB;";
+ 
 $sqlInstallDatabase .="CREATE TABLE `discount_product_agencys` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `id_product` INT NOT NULL ,
 `id_member_sell` INT NOT NULL COMMENT 'id đại lý tuyến trên' , 
 `id_member_buy` INT NOT NULL COMMENT 'id đại lý tuyến dưới đặt mua' , 
 `discount` INT NOT NULL DEFAULT '0' ,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `seting_theme_infos` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`id_member` INT NOT NULL ,
+`id_theme` INT NOT NULL ,
+`config` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `link_infos` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`id_member` INT NOT NULL ,
+`type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`link` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`namelink` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -273,15 +293,17 @@ $sqlDeleteDatabase .= "DROP TABLE documentinfos; ";
 $sqlDeleteDatabase .= "DROP TABLE debts; ";
 $sqlDeleteDatabase .= "DROP TABLE bills; ";
 $sqlDeleteDatabase .= "DROP TABLE discount_product_agencys; ";
+$sqlDeleteDatabase .= "DROP TABLE seting_theme_infos; ";
+$sqlDeleteDatabase .= "DROP TABLE link_infos; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
 
 // sửa lỗi
-$sqlFixDatabase .= "ALTER TABLE `order_members` CHANGE `money` `money` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền gốc đơn hàng'; ";
-$sqlFixDatabase .= "ALTER TABLE `order_members` CHANGE `total` `total` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu'; ";
-$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"affiliate\",\"document\",\"cashBook\"]' WHERE `options`.`key_word` = 'crm_module'; ";
-$sqlFixDatabase .= "UPDATE `options` SET `value` = '{\"userAPI\":\"admin\",\"passAPI\":\"Mmtc123!\",\"maxExport\":3,\"numberExport\":0,\"price\":0,\"note_pay\":\"\",\"number_bank\":\"\",\"account_bank\":\"\",\"key_bank\":\"\",\"idBot\":\"\",\"tokenBot\":\"\",\"idBlockConfirm\":\"\",\"idBlockDownload\":\"\"}' WHERE `options`.`key_word` = 'settingMMTCAPI'; ";
+//$sqlFixDatabase .= "ALTER TABLE `order_members` CHANGE `money` `money` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền gốc đơn hàng'; ";
+//$sqlFixDatabase .= "ALTER TABLE `order_members` CHANGE `total` `total` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu'; ";
+//$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"affiliate\",\"document\",\"cashBook\"]' WHERE `options`.`key_word` = 'crm_module'; ";
+//$sqlFixDatabase .= "UPDATE `options` SET `value` = '{\"userAPI\":\"admin\",\"passAPI\":\"Mmtc123!\",\"maxExport\":3,\"numberExport\":0,\"price\":0,\"note_pay\":\"\",\"number_bank\":\"\",\"account_bank\":\"\",\"key_bank\":\"\",\"idBot\":\"\",\"tokenBot\":\"\",\"idBlockConfirm\":\"\",\"idBlockDownload\":\"\"}' WHERE `options`.`key_word` = 'settingMMTCAPI'; ";
 
 // update
 $sqlUpdateDatabase['members']['name'] = "ALTER TABLE `members` ADD `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ;";
@@ -374,6 +396,7 @@ $sqlUpdateDatabase['customers']['id_zalo'] = "ALTER TABLE `customers` ADD `id_za
 $sqlUpdateDatabase['customers']['token_device'] = "ALTER TABLE `customers` ADD `token_device` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customers']['token'] = "ALTER TABLE `customers` ADD `token` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customers']['reset_password_code'] = "ALTER TABLE `customers` ADD `reset_password_code`INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customers']['link_download_mmtc'] = "ALTER TABLE `customers` ADD `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NULL;";
 
 // bảng customer_histories
 $sqlUpdateDatabase['customer_histories']['id_customer'] = "ALTER TABLE `customer_histories` ADD `id_customer` INT NOT NULL;";
@@ -480,6 +503,16 @@ $sqlUpdateDatabase['debts']['updated_at'] = "ALTER TABLE `debts` ADD `updated_at
 $sqlUpdateDatabase['debts']['id_order'] = "ALTER TABLE `debts` ADD `id_order` INT NOT NULL DEFAULT '0'";
 
 $sqlUpdateDatabase['discount_product_agencys']['id_product'] = "ALTER TABLE `discount_product_agencys` ADD `id_product` INT NOT NULL";
-$sqlUpdateDatabase['discount_product_agencys']['id_member_sell'] = "ALTER TABLE `discount_product_agencys` ADD `id_member_sell` INT NOT NULL COMMENT 'id đại lý tuyến trên' , 
-$sqlUpdateDatabase['discount_product_agencys']['id_member_buy'] = "ALTER TABLE `discount_product_agencys` ADD `id_member_buy` INT NOT NULL COMMENT 'id đại lý tuyến dưới đặt mua' , 
+$sqlUpdateDatabase['discount_product_agencys']['id_member_sell'] = "ALTER TABLE `discount_product_agencys` ADD `id_member_sell` INT NOT NULL COMMENT 'id đại lý tuyến trên'"; 
+$sqlUpdateDatabase['discount_product_agencys']['id_member_buy'] = "ALTER TABLE `discount_product_agencys` ADD `id_member_buy` INT NOT NULL COMMENT 'id đại lý tuyến dưới đặt mua'";
 $sqlUpdateDatabase['discount_product_agencys']['discount'] = "ALTER TABLE `discount_product_agencys` ADD `discount` INT NOT NULL DEFAULT '0'";
+
+$sqlUpdateDatabase['seting_theme_infos']['id_member'] = "ALTER TABLE `seting_theme_infos` ADD `id_member` INT NOT NULL";
+$sqlUpdateDatabase['seting_theme_infos']['id_theme'] = "ALTER TABLE `seting_theme_infos` ADD `id_theme` INT NOT NULL";
+$sqlUpdateDatabase['seting_theme_infos']['config'] = "ALTER TABLE `seting_theme_infos` ADD `config` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+
+$sqlUpdateDatabase['link_infos']['id_member'] = "ALTER TABLE `link_infos` ADD `id_member` INT NOT NULL";
+$sqlUpdateDatabase['link_infos']['type'] = "ALTER TABLE `link_infos` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['link_infos']['link'] = "ALTER TABLE `link_infos` ADD `link` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['link_infos']['description'] = "ALTER TABLE `link_infos` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['link_infos']['namelink'] = "ALTER TABLE `link_infos` ADD `namelink` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";

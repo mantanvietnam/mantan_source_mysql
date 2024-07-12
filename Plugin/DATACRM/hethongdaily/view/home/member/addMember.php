@@ -85,14 +85,16 @@
                 </div>
 
                 <div class="col-md-6">
+                  <!--
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Mật khẩu tài khoản</label>
                     <input type="password" autocomplete="off" class="form-control" placeholder="" name="password" id="password" value="" />
                   </div>
+                  -->
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Email</label>
-                    <input type="email" class="form-control" placeholder="" name="email" id="email" value="<?php echo @$data->email;?>" />
+                    <input autocomplete="off" type="text" class="form-control" placeholder="" name="email" id="email" value="<?php echo @$data->email;?>" />
                   </div>
 
                   <div class="mb-3">

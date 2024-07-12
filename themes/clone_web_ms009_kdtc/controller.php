@@ -289,11 +289,11 @@ function registerEvent($input)
 
             if(!empty($settingTheme['id_product_ezpics'])){
                 if($dataSend['location'] == 1){
-                    $time = 'Tháng 6/2024';
-                    $address = '89 Lê Đức Thọ, Mỹ Đình, HN';
+                    $time = 'Ngày 13,14/07';
+                    $address = '20 Thuỵ Khuê, Tây Hồ, HN';
                 }elseif($dataSend['location'] == 2){
-                    $time = 'Tháng 6/2024';
-                    $address = 'Sài Gòn';
+                    $time = 'Ngày 20,21/07';
+                    $address = '21 Hoàng Việt, Tân Bình, HCM';
                 }
                 
                 $qr = 'https://api.qrserver.com/v1/create-qr-code/?data='.$urlHomes;

@@ -28,9 +28,17 @@
 
 
 </div>
+<?php 
+  $themeinfo = $modelSetingThemeInfo->find()->where(['id_theme'=>2,'id_member'=>$info->id])->first();
+      
+      $data_value = array();
+    if(!empty($themeinfo->config)){
+        $data_value = json_decode($themeinfo->config, true);
+    }
 
+ ?>
 <body>
-    <div class="area">
+    <div class="area"  <?php if(!empty($data_value['background_color1']) && !empty($data_value['background_color2'])) echo 'style="background: radial-gradient(circle, '.$data_value['background_color1'].' 0%, '.$data_value['background_color2'].' 100%);"';?>>
         <ul class="circles">
             <li></li>
             <li></li>
@@ -73,14 +81,15 @@
 
                         <section id="block-2">
                             <div class="block-2-img">
-                                <img src="<?php echo $info->avatar;?>" alt="">
+                                <img  src="<?php echo $info->avatar;?>" alt="">
                             </div>
                             <div class="block-2-title">
-                                <h1 style="color: rgb(42 50 127);"><?php echo $info->name;?></h1>
+                                <h1  style=" color: <?php echo (!empty($data_value['text_color_name']))? $data_value['text_color_name']: 'rgb(42 50 127)' ;?>"><?php echo $info->name;?></h1>
                             </div>
                             <div class="block-2-detail">
-                                <h4><?php echo $info->name_position;?> <?php echo $info->name_system;?></h4>
-                                <p><i style="color: rgb(42 50 127);" class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
+                                <h4 style=" color: <?php echo (!empty($data_value['text_color_Jobtitle']))? $data_value['text_color_Jobtitle']: 'rgb(42 50 127)' ;?>"><?php echo $info->name_position;?> <?php echo $info->name_system;?></h4>
+
+                                <p style=" color: <?php echo (!empty($data_value['text_color_address']))? $data_value['text_color_address']: 'rgb(42 50 127)' ;?>"><i style=" color: <?php echo (!empty($data_value['text_color_address']))? $data_value['text_color_address']: 'rgb(42 50 127)' ;?>" class="fa-solid fa-location-dot"></i><?php echo $info->address;?></p>
                             </div>
                         </section>
 
@@ -138,10 +147,39 @@
                             <?php if(!empty($info->instagram)){ ?>
                             <div class="block-4-icon">
                                 <a target="_blank" href="<?php echo $info->instagram;?>">
-                                    <i class="fa-brands fa-instagram"></i>
+                                    <i class="fa-brands fa-s"></i>
                                 </a>
                             </div>
                             <?php }?>
+
+                            <?php if(!empty($dataLink)){
+                                foreach($dataLink as $key => $item){
+                                    $icon = '';
+                                    if($item->type=='website'){
+                                        $icon = '<i class="fa-solid fa-globe"></i>';
+                                    }elseif($item->type=='facebook'){
+                                        $icon = '<i class="fa-brands fa-facebook"></i>';
+                                    }elseif($item->type=='instagram'){
+                                        $icon = '<i class="fa-brands fa-instagram"></i>';
+                                    }elseif($item->type=='tiktok'){
+                                        $icon = ' <i class="fa-brands fa-tiktok"></i>';
+                                    }elseif($item->type=='youtube'){
+                                        $icon = '<i class="fa-brands fa-youtube"></i>';
+                                    }elseif($item->type=='zalo'){
+                                        $icon = '<img src="/plugins/hethongdaily/view/home/member/themeinfo\theme2\Asset/images/zalo-white-d96e.png" alt="">';
+                                    }elseif($item->type=='linkedin'){
+                                        $icon = '<i class="fa-brands fa-linkedin"></i>';
+                                    }
+
+                                    echo '<div class="block-4-icon">
+                                <a target="_blank" href="'.$item->link.'">
+                                    '.$icon.'
+                                </a>
+                            </div>';
+                                }
+                            } 
+
+                             ?>
                         </section>
 
                         <section id="block-6">
@@ -151,8 +189,8 @@
                         <section id="block-5">
                             <div class="accordion accordion-flush" id="accordionFlushExample">
                                 <?php if(!empty($image_qr_pay)){ ?>
-                               <img src="<?php echo @$info->image_qr_pay; ?>">
-                           <?php } ?>
+                                    <center><img width="80%" src="<?php echo @$info->image_qr_pay; ?>"><center>
+                                <?php } ?>
                             </div>
                         </section>
 
@@ -272,14 +310,20 @@
                                   <input type="date" class="form-control datepicker" id="birthday" name="birthday" value="" />
                                 </div>
                                 <div class="mb-3">
-                                  <label for="codeDiscount" class="form-label">Mã giảm giá</label>
-                                  <input type="text" class="form-control" id="codeDiscount" name="codeDiscount" value="" />
+                                  <label for="codeDiscount" class="form-label">Mã giảm giá</label><span id="messdiscount"></span>
+                                  <input type="text" class="form-control" id="discountCode" onchange="searchDiscountCodeAgencyAPI()" name="discountCode" value="" />
                                 </div>
                                 <div class="mb-3">
+                                    <input type="hidden" id="money" value="0">
+                                    <input type="hidden" id="discount" value="0">
+                                    <input type="hidden" id="total" value="0">
+                                    <input type="hidden" id="codeDiscount" value="">
                                     <button type="button" class="btn btn-danger" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button> 
                                 </div>
-                                <div id="list_cart"></div>
-                                
+                                <div id="list_cart" class="mb-3"></div>
+                                <?php if(!empty($image_qr_pay)){ ?>
+                                    <center><img width="80%" src="<?php echo @$info->image_qr_pay; ?>"><center>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -470,11 +514,14 @@
                             }
                         }
                         
-                        list_cart += '</tbody></table> <p><b>Tổng tiền: </b>'+formatNumberWithCommas(total_money)+'đ</p>';
-
-                        console.log(list_cart);
+                        list_cart += '</tbody></table> <p><b>Thành tiền: </b><span id="money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
+                        list_cart += '</tbody></table> <p><b>giảm giá : </b><span id="discountmoney">0 đ</span</p>';
+                        list_cart += '</tbody></table> <p><b>Tổng tiền: </b><span id="total_money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
 
                         $('#list_cart').html(list_cart);
+                        $('#money').val(total_money);
+                        $('#discount').val(0);
+                        $('#total').val(total_money);
 
                         document.getElementById("menu2").classList.remove("active");
                         document.getElementById("menu2").classList.remove("in");
@@ -511,24 +558,37 @@
                 var phone = $('#phone').val();
                 var address = $('#address').val();
                 var birthday = $('#birthday').val();
+                var money = $('#money').val();
+                var discount = $('#discount').val();
+                var total = $('#total').val();
+                var codeDiscount = $('#codeDiscount').val();
+
 
                 $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
 
                 if(full_name != '' && phone != ''){
                     $.ajax({
                       method: "POST",
-                      url: "/pay/?callAPI=1",
-                      data: { full_name: full_name, phone: phone, address: address, _csrfToken: crf, id_agency:id_agency, name_agency:name_agency, name_system:name_system, birthday:birthday }
-                    })
-                    .done(function( msg ) {
+                      url: "/apis/paycreateOrderCustomerPAI",
+                      data: { full_name: full_name, 
+                              phone: phone, 
+                              address: address, 
+                              _csrfToken: crf, 
+                              id_agency:id_agency, 
+                              name_agency:name_agency, 
+                              name_system:name_system, 
+                              birthday:birthday,
+                              money:money,
+                              discount:discount,
+                              total:total,
+                              codeDiscount:codeDiscount,
+                          }
+
+                    }).done(function( msg ) {
+                        console.log(msg);
                         $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
 
-                        // đóng tab về màn home
-                        document.getElementById("order").classList.remove("active");
-                        document.getElementById("order").classList.remove("in");
-
-                        document.getElementById("home").classList.add("active");
-                        document.getElementById("home").classList.add("in");
+                        $('.nav-tabs a[href="#info"]').tab('show');
 
                         alert('Tạo đơn hàng thành công');
                     });
@@ -638,6 +698,58 @@
             
             xhr.send();
         };
+
+        function searchDiscountCodeAgencyAPI()
+        {
+            var code  = $('#discountCode').val();
+            var money  = parseInt($('#money').val());
+            var id_member  = <?php echo $info->id ;?>;
+
+            $.ajax({
+                method: "GET",
+                url: "/apis/searchDiscountCodeAgencyAPI/?code="+code+'&id_member='+id_member,
+            }).done(function(msg) {
+                if(msg.code==0){
+                    if(msg.data.applicable_price <= money){
+
+                        const specifiedTime = new Date(msg.data.deadline_at);
+                        const currentTime = new Date();
+                        var html ='';
+                        if(specifiedTime > currentTime) {
+
+                            if(msg.data.discount>100){
+                                var discount = msg.data.discount;
+                            }else{
+                             var discount =(msg.data.discount / 100) * money;
+                         }
+                         if(msg.data.maximum_price_reduction!=null){
+                            if(discount>msg.data.maximum_price_reduction ){
+                                discount = msg.data.maximum_price_reduction;
+                            }
+                        }
+                        $('#discount').val(discount);
+                        $('#codeDiscount').val(msg.data.code);
+                        $('#total').val(money-discount);
+
+                        $('#discountmoney').html(formatNumberWithCommas(discount)+ 'đ');
+                        $('#total_money').html(formatNumberWithCommas(money-discount)+ 'đ');
+                    }
+                }
+
+                }else{
+                    $('#codeDiscount').val('');
+                    $('#discount').val(0);
+                    $('#total').val(money);
+                    $('#discountmoney').html('0đ');
+                    $('#total_money').html(formatNumberWithCommas(money) + 'đ');
+
+                }
+                $('#messdiscount').html('<p class="text-danger">'+msg.mess+'</p>');   
+
+
+            });
+
+        }
         </script>
 
         <script type="text/javascript">

@@ -31,6 +31,7 @@ $sqlInstallDatabase .= "CREATE TABLE `products` (
     `idpro_discount`  VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     `pricepro_discount` INT NULL DEFAULT NULL,
     `evaluate` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, 
+    `unit` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     `price_fash` INT NULL DEFAULT NULL, 
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
@@ -79,6 +80,7 @@ $sqlInstallDatabase .="CREATE TABLE `discount_codes` (
     `category` INT(11) NULL DEFAULT NULL,
     `id_customers` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL, 
     `id_products` TEXT NULL,
+    `id_member` INT(11) NULL DEFAULT '0',
     PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `question_products` (
@@ -165,6 +167,7 @@ $sqlUpdateDatabase['products']['idpro_discount'] = "ALTER TABLE `products` ADD `
 $sqlUpdateDatabase['products']['pricepro_discount'] = "ALTER TABLE `products` ADD `pricepro_discount` INT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['products']['evaluate'] = "ALTER TABLE `products` ADD `evaluate` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL; ";
 $sqlUpdateDatabase['products']['price_fash'] = "ALTER TABLE `products` ADD `price_fash` INT NULL DEFAULT NULL; ";
+$sqlUpdateDatabase['products']['unit'] = "ALTER TABLE `products` ADD `unit` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
 // Bang orders
 $sqlUpdateDatabase['orders']['id_user'] = "ALTER TABLE `orders` ADD `id_user` INT NULL DEFAULT '0' ; ";
@@ -206,7 +209,7 @@ $sqlUpdateDatabase['discount_codes']['maximum_price_reduction'] = "ALTER TABLE `
 $sqlUpdateDatabase['discount_codes']['category'] = "ALTER TABLE `discount_codes` ADD `category` INT(11) NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['discount_codes']['id_customers'] = "ALTER TABLE `discount_codes` ADD `id_customers` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['discount_codes']['id_products'] = "ALTER TABLE `discount_codes` ADD `id_products` TEXT NULL; ";
-
+$sqlUpdateDatabase['discount_codes']['id_member'] = "ALTER TABLE `discount_codes` ADD `id_member` INT(11) NULL DEFAULT '0';";
 // Bang question_products
 $sqlUpdateDatabase['question_products']['question'] = "ALTER TABLE `question_products` ADD `question` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['question_products']['answer'] = "ALTER TABLE `question_products` ADD `answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";

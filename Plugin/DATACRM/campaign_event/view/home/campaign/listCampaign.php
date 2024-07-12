@@ -38,64 +38,113 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách chiến dịch</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Tên chiến dịch</th>
-            <th>Đăng ký</th>
-            <th>Checkin</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
-            <th>Lựa chọn</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          if(!empty($listData)){
-            foreach ($listData as $item) {
+    <div id="desktop_view">
+      <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr class="">
+                <th>ID</th>
+                <th>Tên chiến dịch</th>
+                <th>Đăng ký</th>
+                <th>Checkin</th>
+                <th>Sửa</th>
+                <th>Xóa</th>
+                <!--
+                <th>Lựa chọn</th>
+                -->
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td>'.$item->name.'</td>
+                          <td><a href="/listCustomerCampaign/?id='.$item->id.'">'.number_format($item->number_reg).' người</a></td>
+                          <td><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=true">'.number_format($item->number_checkin).' người</a></td>
+
+                          <td align="center">
+                            <a class="dropdown-item" href="/addCampaign/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCampaign/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>
+                          <!--
+                          <td>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Primary
+                              </button>
+                              <ul class="dropdown-menu" style="">
+                                <li><a class="dropdown-item" href="javascript:void(0);">Sửa</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0);">Xóa</a></li>
+                              </ul>
+                            </div>
+                          </td>
+                          -->
+                         </tr>';
+               }
+             }else{
               echo '<tr>
-                      <td>'.$item->id.'</td>
-                      <td>'.$item->name.'</td>
-                      <td><a href="/listCustomerCampaign/?id='.$item->id.'">'.number_format($item->number_reg).' người</a></td>
-                      <td><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=true">'.number_format($item->number_checkin).' người</a></td>
+              <td colspan="10" align="center">Chưa có dữ liệu</td>
+              </tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+              foreach ($listData as $item) {
+                 
+                  
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                        <p><strong>ID: </strong>'.$item->id.'</p>
+                        <p><strong>Tên chiến dịch: </strong>'.$item->name.'</p>
+                        <p><strong>Đăng ký: </strong><a href="/listCustomerCampaign/?id='.$item->id.'">'.number_format($item->number_reg).' người</a></p>
+                        <p><strong>Checkin: </strong><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=true">'.number_format($item->number_checkin).' người</a></p>
 
-                      <td align="center">
-                        <a class="dropdown-item" href="/addCampaign/?id='.$item->id.'">
-                          <i class="bx bx-edit-alt me-1"></i>
-                        </a>
-                      </td>
+                        <p align="center">
+                          <a class="dropdown-item" href="/addCampaign/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a>
+                        </p>
 
-                      <td align="center">
-                        <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCampaign/?id='.$item->id.'">
-                          <i class="bx bx-trash me-1"></i>
-                        </a>
-                      </td>
+                          <p align="center">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCampaign/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
+                        </p>
 
-                      <td>
-                        <div class="btn-group">
-                      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Primary
-                      </button>
-                      <ul class="dropdown-menu" style="">
-                        <li><a class="dropdown-item" href="javascript:void(0);">Sửa</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Xóa</a></li>
-                      </ul>
-                    </div>
-                      </td>
-                     </tr>';
-           }
-         }else{
-          echo '<tr>
-          <td colspan="10" align="center">Chưa có dữ liệu</td>
-          </tr>';
+                          <p>
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                              Primary
+                            </button>
+                            <ul class="dropdown-menu" style="">
+                              <li><a class="dropdown-item" href="javascript:void(0);">Sửa</a></li>
+                              <li><a class="dropdown-item" href="javascript:void(0);">Xóa</a></li>
+                            </ul>
+                          </div>
+                        </p>
+                      </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
         }
-        ?>
-      </tbody>
-    </table>
-  </div>
-
+      ?>
+    </div>
   <!-- Phân trang -->
   <div class="demo-inline-spacing">
     <nav aria-label="Page navigation">

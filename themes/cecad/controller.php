@@ -65,6 +65,8 @@ function settingHomececad($input){
             'phone'=>$dataSend['phone'],
             // 
             'imagecontact'=>$dataSend['imagecontact'],
+            'map'=>$dataSend['map'],
+            'imageheadercontact'=>$dataSend['imageheadercontact'],
 
         );
     $data->key_word = 'settingHomececad';
@@ -92,7 +94,7 @@ function indexTheme($input){
 
     $modelproduct_projects = $controller->loadModel('ProductProjects');
     $order = array('id'=>'desc');
-    $listDataproduct_projects= $modelproduct_projects->find()->limit(12)->order($order)->all()->toList();
+    $listDataproduct_projects= $modelproduct_projects->find()->limit(4)->order($order)->all()->toList();
 
 
 
@@ -234,6 +236,79 @@ function publication($input){
 
 
 }
+function project($input){
+    global $controller; 
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $modelpublication;
+    global $urlCurrent;
+    $limit = 8;
+    $conditions = array();
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    $modelproject = $controller->loadModel('ProductProjects');
+    $order = array('id' => 'desc');
+    $listDataproject= $modelproject->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
+    
+    $totalData = $modelproject->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('listDataproject', $listDataproject);
+}
+// function projectDetail($input){
+//     global $controller;
+//     global $modelOptions;
+//     global $modelCategories;
+//     global $urlCurrent;
+//     global $metaTitleMantan;
+//     global $metaKeywordsMantan;
+//     global $metaDescriptionMantan;
+//     global $metaImageMantan;
+//     global $session;
+//     $metaTitleMantan = 'Chi tiết dự án';
+//     $modelproduct_projects = $controller->loadModel('ProductProjects');
+//     $order = array('id'=>'desc');
+//     $listDataproduct_projects= $modelproduct_projects->find()->limit(3)->order($order)->all()->toList();
+//     setVariable('listDataproduct_projects', $listDataproduct_projects);
+    
+// }
 function detailpublication($input){
     global $controller;
     global $isRequestPost;

@@ -795,6 +795,7 @@ function addProductAgency($input)
                 $data->price_old = (int) @$dataSend['price_old'];
                 $data->quantity = 1000000;
                 $data->status = 'active';
+                $data->unit = @$dataSend['unit'];
                 $data->id_category = (int) @$dataSend['id_category'][0];
 
                 $data->hot = 0;
@@ -1026,11 +1027,12 @@ function addDataProductAgency(){
                 foreach ($dataSeries as $key => $value) {
                     if(!empty($value[0]) && !empty($value[1])){
                         $data = $modelProduct->newEmptyEntity();
-                        $id_category = explode(',' , $value[4]);
+                        $id_category = explode(',' , $value[5]);
                         $data->title = str_replace(array('"', "'"), '’', @$value[0]);
-                        $data->description = @$value[5];
-                        $data->info = @$value[6];
-                        $data->image = $value[7];
+                        $data->description = @$value[6];
+                        $data->info = @$value[7];
+                        $data->image = $value[8];
+                        $data->unit = $value[4];
                         $data->evaluate = '';
                         $data->code = @strtoupper($value[1]);
                         $data->price = (int) @$value[2];
@@ -1082,6 +1084,99 @@ function addDataProductAgency(){
             }
         }
 
+        setVariable('mess', $mess);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function editOrderCustomerAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Tạo yêu cầu nhập hàng';
+
+         $modelProducts = $controller->loadModel('Products');
+        $modelOrders = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelCustomers = $controller->loadModel('Customers');
+
+        $mess = '';
+
+        $order =$modelOrders->find()->where(array('id'=>(int)$_GET['id'],'status'=>'new'))->first();
+        if(empty($order)){
+            return $controller->redirect('/orderMemberAgency');
+        }
+
+         $customer = [];
+       
+        if(!empty($order->id_user)){
+            $customer = $modelCustomers->find()->where(array('id'=>(int) $order->id_user))->first();
+        }
+
+        $orderDetail = $modelOrderDetails->find()->where(array('id_order'=>$order->id))->all()->toList();
+
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+            
+            $order->note_buy = $dataSend['note']; // ghi chú người mua  
+            $order->status = 'new';
+            $order->money = (int) $dataSend['total'];
+            $order->total = (int) $dataSend['totalPays'];
+            $order->status_pay = 'wait';
+            $order->discount = $dataSend['promotion'];
+
+            $modelOrders->save($order);
+
+            $modelOrderDetails->deleteAll(array('id_order'=>(int) $order->id));
+            foreach ($dataSend['idHangHoa'] as $key => $value) {
+                $saveDetail = $modelOrderDetails->newEmptyEntity();
+
+                $saveDetail->id_product = $value;
+                $saveDetail->id_order = $order->id;
+                $saveDetail->quantity = (int)$dataSend['soluong'][$key];
+                $saveDetail->price = (int)$dataSend['money'][$key];
+                $saveDetail->discount = (int)$dataSend['discount'][$key];
+
+                $modelOrderDetails->save($saveDetail);
+            }
+            $orderDetail = $modelOrderDetails->find()->where(array('id_order'=>$order->id))->all()->toList();
+
+            $mess= '<p class="text-success">Sửa đơn hàng thành công</p>';                
+        }
+
+         $listProduct = [];
+        if(function_exists('getAllProductActive')){
+            $listProduct = getAllProductActive();
+        }
+    
+        if(!empty($orderDetail)){
+            foreach($orderDetail as $key => $item){
+                $orderDetail[$key]->product = $modelProducts->find()->where(array('id'=>$item->id_product))->first();
+            }
+        }
+
+         $listProduct = [];
+        if(function_exists('getAllProductActive')){
+            $listProduct = getAllProductActive();
+        }
+
+        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
+
+        setVariable('listProduct', $listProduct);
+        setVariable('listGroupCustomer', $listGroupCustomer);
+        
+        setVariable('order', $order);
+        setVariable('orderDetail', $orderDetail);
+        setVariable('customer', $customer);
         setVariable('mess', $mess);
 
     }else{

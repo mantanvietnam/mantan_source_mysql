@@ -16,8 +16,17 @@ function listOrderCustomerAPI($input){
             $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
 
             if (!empty($user)) {
+                $conditions = ['id_user' => $user->id];
 
-            	$listOrder =  $modelOrders->find()->where(['id_user' => $user->id])->order(array('id'=>'desc'))->all()->toList();
+                if(!empty($dataSend['status'])){
+                    if($dataSend['status'] == 'done'){
+                        $conditions['status'] = 'done';
+                    }else{
+                        $conditions['status !='] = 'done';
+                    }
+                }
+
+            	$listOrder =  $modelOrders->find()->where($conditions)->order(array('id'=>'desc'))->all()->toList();
 
             	if(!empty($listOrder)){
 	            	foreach($listOrder as $key => $item){
@@ -69,22 +78,24 @@ function getOrderDetailCustomerAPI($input){
 
             if (!empty($user)) {
 
-            	$order =  $modelOrders->find()->where(['id_user' => $user->id,'id'=>$dataSend['id_order']])->order(array('id'=>'desc'))->all()->toList();
+            	$order =  $modelOrders->find()->where(['id_user' => $user->id,'id'=>$dataSend['id_order']])->first();
 
             	if(!empty($order)){
-		                $detail_order = $modelOrderDetail->find()->where(['id_order'=>$item->id])->all()->toList();
-		                
-		                if(!empty($detail_order)){
-		                    foreach ($detail_order as $k => $value) {
-		                        $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
-		                        if(!empty($product)){
-		                            $detail_order[$k]->product = $product->title;
-		                        }
-		                    }
+	                $detail_order = $modelOrderDetail->find()->where(['id_order'=>$order->id])->all()->toList();
+	                
+	                if(!empty($detail_order)){
+	                    foreach ($detail_order as $k => $value) {
+	                        $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
+	                        
+                            if(!empty($product)){
+	                            $detail_order[$k]->product = $product;
+	                        }
+	                    }
 
 
-		                    $order->detail_order = $detail_order;
-		                }
+	                    $order->detail_order = $detail_order;
+	                }
+
 		            return array('code'=>1,'data'=>$order, 'messages'=>'Lấy dữ liệu thành công');
 	            }
 	            return array('code'=>4,'data'=>$order, 'messages'=>'Đơn này không phải của bạn');

@@ -34,11 +34,17 @@
                         </div>
                         <?php if(!empty($listProvince)){
                             foreach($listProvince as $key => $item){
+                                $checks = '';
+                                if(!empty($listBlock)){
+                                          $checks = (in_array($item->id, $listBlock))? 'checked':'';
+                                        }
                                 echo '<div class="mb-3 col-md-3"> <label class="form-label">'.$item->name.' ('.$item->bsx.')</label></br>';
-                                 $check = '';
+                                 
 
                                 if(!empty($item->lower)){
+
                                     foreach($item->lower as $k => $value){
+                                         $check = '';
                                         if(!empty($listBlock)){
                                           $check = (in_array($value->id, $listBlock))? 'checked':'';
                                         }

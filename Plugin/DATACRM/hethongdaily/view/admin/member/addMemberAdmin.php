@@ -4,7 +4,6 @@
     <span class="text-muted fw-light"><a href="/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin">Hệ thống</a> /</span>
     Thông tin đại lý hệ thống
   </h4>
-
   <!-- Basic Layout -->
     <div class="row">
       <div class="col-xl">

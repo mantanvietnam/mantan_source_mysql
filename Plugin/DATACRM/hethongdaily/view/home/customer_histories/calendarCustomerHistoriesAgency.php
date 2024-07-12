@@ -29,6 +29,7 @@
               <option value="message" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='message') echo 'selected';?> >Nhắn tin</option>
               <option value="go_meet" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='go_meet') echo 'selected';?> >Đi gặp</option>
               <option value="online_meeting" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='online_meeting') echo 'selected';?> >Họp online</option>
+              <option value="other" <?php if(!empty($_GET['action_now']) && $_GET['action_now']=='other') echo 'selected';?> >Khác</option>
             </select>
           </div>
 
@@ -100,6 +101,7 @@
                         <option value="message">Nhắn tin</option>
                         <option value="go_meet">Đi gặp</option>
                         <option value="online_meeting" >Họp online</option>
+                        <option value="other" >Khác</option>
                       </select>
                     </div>
                   </div>
@@ -326,6 +328,10 @@
                 $action_now = 'Họp online';
                 break;
 
+              case 'other':
+                $action_now = 'Khác';
+                break;
+
               case 'create':
                 $action_now = 'Tạo mới';
                 break;
@@ -454,9 +460,9 @@
            </div>\
            <div class="modal-footer">';
            if(info.event.extendedProps.statusnote=="new"){
-             modal += '<a href="/treatmentCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary">Xử lý</a>';
+             modal += '<a href="/treatmentCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary">Xử lý</a>  <a href="/addCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary">Sửa lịch hẹn</a>';
            }
-           
+           modal += '<a href="/deleteCustomerHistoriesAgency/?id='+info.event.extendedProps.idBook+'&status=Calendar" confirm(\'Bạn có chắc chắn muốn xóa không?\');"  class="btn btn-primary">xóa</a>';
 
 
            modal +=  '</div>\
