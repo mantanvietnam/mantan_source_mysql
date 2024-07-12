@@ -987,8 +987,11 @@ function getUserStatisticAdmin($input)
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            $currentUser->nhan_cuoc = count($modelBooking->find()->where(array('received_by'=>$currentUser->id,))->all()->toList());
-            $currentUser->dang_cuoc = count($modelBooking->find()->where(array('posted_by'=>$currentUser->id,))->all()->toList());
+            // $currentUser->nhan_cuoc = count($modelBooking->find()->where(array('received_by'=>$currentUser->id,))->all()->toList());
+            // $currentUser->dang_cuoc = count($modelBooking->find()->where(array('posted_by'=>$currentUser->id,))->all()->toList());
+
+            $currentUser->dang_cuoc = $currentUser->posted;
+            $currentUser->nhan_cuoc = $currentUser->received;
 
             return apiResponse(0, 'Lấy dữ liệu thành công', $currentUser);
         }
@@ -1006,6 +1009,9 @@ function checkVersionApp($input){
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
+        $dataSend['id_app_ios'] = isset($dataSend['id_app_ios']) ? $dataSend['id_app_ios'] : 6470706785;
+        $dataSend['id_app_android'] = isset($dataSend['id_app_android']) ? $dataSend['id_app_android'] : 'com.tasvn.exc';
+
 
     
         $ios = sendDataConnectMantan('https://itunes.apple.com/lookup?id='.$dataSend['id_app_ios']);
@@ -1014,20 +1020,18 @@ function checkVersionApp($input){
 
         $ios = $ios['results'][0]['version'];
 
-        $android = sendDataConnectMantan('https://play.google.com/store/apps/details?id='.$dataSend['id_app_android'].'&time='.time());
-        // $android = str_replace('ï»¿', '', utf8_encode($android));
-        debug($android);
-        die;
+        $android = sendDataConnectMantan('https://play.google.com/store/apps/details?id='.$dataSend['id_app_android'].'&hl=en');
+        $android = str_replace('ï»¿', '', utf8_encode($android));
+        
         
         // $pattern = "/version%3D%27([0-9\.]+)%27/";
-         $pattern ='/<div[^>]*>Current Version<\/div>\s*<span[^>]*><div[^>]*><span[^>]*>([^<]*)<\/span>/';
+         $pattern ='/\[\[\[\"\d+\.\d+\.\d+/';
 
         $version = '';
         if (preg_match($pattern, $android, $matches)) {
-            $version = $matches;
+            $version = ltrim($matches[0],'[[["');
         }
-        
-         
+      
         $data = ['ios'=>$ios,'android'=>$version];
         return apiResponse(1, 'Lấy dữ liệu thành công', $data);
       

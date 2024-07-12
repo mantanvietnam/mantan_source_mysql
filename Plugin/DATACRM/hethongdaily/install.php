@@ -137,6 +137,8 @@ $sqlInstallDatabase .= "CREATE TABLE `order_members` (
   `total` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu',
   `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán' , 
   `discount` DOUBLE NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu',
+  `costsIncurred` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL, 
+  `total_costsIncurred` INT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -417,6 +419,8 @@ $sqlUpdateDatabase['order_members']['money'] = "ALTER TABLE `order_members` ADD 
 $sqlUpdateDatabase['order_members']['total'] = "ALTER TABLE `order_members` ADD `total` BIGINT(11) NOT NULL DEFAULT '0' COMMENT 'tổng tiền sau chiết khấu';";
 $sqlUpdateDatabase['order_members']['status_pay'] = "ALTER TABLE `order_members` ADD `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán';";
 $sqlUpdateDatabase['order_members']['discount'] = "ALTER TABLE `order_members` ADD `discount` DOUBLE NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu';";
+$sqlUpdateDatabase['order_members']['costsIncurred'] = "ALTER TABLE `order_members` ADD `costsIncurred` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
+$sqlUpdateDatabase['order_members']['total_costsIncurred'] = "ALTER TABLE `order_members` ADD `total_costsIncurred` INT NULL DEFAULT '0';";
 
 // bảng order_member_details
 $sqlUpdateDatabase['order_member_details']['id_product'] = "ALTER TABLE `order_member_details` ADD `id_product` INT NOT NULL;";

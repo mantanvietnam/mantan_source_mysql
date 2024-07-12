@@ -192,6 +192,9 @@
                         if(in_array('order_system', $plugins_site_value)){
                           echo '<a class="dropdown-item" href="/orderMemberAgency">Đơn đại lý</a>';
                         }
+                        if(in_array('order_customer', $plugins_site_value)){
+                          echo '<a class="dropdown-item" href="/listDiscountCodeAgency">Mã giảm giá</a>';
+                        }
                           
                 echo    '</div>
                       </li>';
@@ -221,6 +224,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                           <a class="dropdown-item" href="/listProductAgency">Sản phẩm</a>
                           <a class="dropdown-item" href="/listCategoryProductAgency">Danh mục sản phẩm</a>
+                          <a class="dropdown-item" href="/listCostsIncurred">Chi phí phát sinh</a>
                         </div>
                       </li>';
               }

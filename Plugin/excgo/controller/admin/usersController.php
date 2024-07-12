@@ -174,8 +174,11 @@ function viewUserDetailAdmin($input)
             $data->type = $dataSend['type'];
             $data->email = $dataSend['email'];
             $data->maximum_trip = (int) $dataSend['maximum_trip'];
-            $data->difference_booking = (int) $dataSend['difference_booking'];
-
+            $data->difference_booking = (int) @$dataSend['difference_booking'];
+            if(empty($dataSend['difference_booking'])){
+                $data->posted = 0;
+                $data->received = 0;
+            }
             $modelUser->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
 
@@ -747,12 +750,12 @@ function listUserStatisticAdmin($input)
         $page
     );
 
-    if(!empty($listData)){
+  /*  if(!empty($listData)){
         foreach($listData as $key => $item){
             $listData[$key]->received = count($modelBooking->find()->where(array('received_by'=>$item->id))->all()->toList());
             $listData[$key]->posted = count($modelBooking->find()->where(array('posted_by'=>$item->id,))->all()->toList());
         }
-    }
+    }*/
 
     setVariable('page', $page);
     setVariable('totalPage', $paginationMeta['totalPage']);

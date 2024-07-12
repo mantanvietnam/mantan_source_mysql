@@ -59,6 +59,17 @@ function addOrderCustomer($input)
                 $save->promotion = (int) $dataSend['promotion'];
                 $save->id_agency = $session->read('infoUser')->id;
 
+                $costsIncurred = array();
+                $total_costsIncurred = 0;
+                if(!empty($dataSend['costsIncurred'])){      
+                    foreach($dataSend['costsIncurred'] as $key => $item){
+                        $costsIncurred[$dataSend['nameCostsIncurred'][$key]]  = (int) $item;
+                        $total_costsIncurred += (int) $item;
+                    }
+                }
+                $save->costsIncurred = json_encode($costsIncurred);
+                $save->total_costsIncurred = $total_costsIncurred;
+
                 $modelOrders->save($save);
 
                 foreach ($dataSend['idHangHoa'] as $key => $value) {
@@ -87,7 +98,11 @@ function addOrderCustomer($input)
         $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
         $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
 
+        $conditions = array('type' => 'costsIncurred','status'=>'active');
+        $costsIncurred = $modelCategories->find()->where($conditions)->all()->toList();
+
         setVariable('listProduct', $listProduct);
+        setVariable('costsIncurred', $costsIncurred);
         setVariable('listGroupCustomer', $listGroupCustomer);
         setVariable('mess', $mess);
     }
@@ -1133,6 +1148,17 @@ function editOrderCustomerAgency($input)
             $order->status_pay = 'wait';
             $order->discount = $dataSend['promotion'];
 
+             $costsIncurred = array();
+            $total_costsIncurred = 0;
+            if(!empty($dataSend['costsIncurred'])){      
+                foreach($dataSend['costsIncurred'] as $key => $item){
+                    $costsIncurred[$dataSend['nameCostsIncurred'][$key]]  = (int) $item;
+                    $total_costsIncurred += (int) $item;
+                }
+            }
+            $order->costsIncurred = json_encode($costsIncurred);
+            $order->total_costsIncurred = $total_costsIncurred;
+
             $modelOrders->save($order);
 
             $modelOrderDetails->deleteAll(array('id_order'=>(int) $order->id));
@@ -1171,14 +1197,80 @@ function editOrderCustomerAgency($input)
         $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
         $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
 
+        $conditions = array('type' => 'costsIncurred','status'=>'active');
+        $costsIncurred = $modelCategories->find()->where($conditions)->all()->toList();
+
         setVariable('listProduct', $listProduct);
         setVariable('listGroupCustomer', $listGroupCustomer);
         
         setVariable('order', $order);
+        setVariable('costsIncurred', $costsIncurred);
         setVariable('orderDetail', $orderDetail);
         setVariable('customer', $customer);
         setVariable('mess', $mess);
 
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function listCostsIncurred($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Danh sách chi phí phát sinh';
+    if(!empty($session->read('infoUser'))){
+
+         if(!empty($session->read('infoUser')->id_father)){
+            return $controller->redirect('/');
+        }
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            
+            // tính ID category
+            if(!empty($dataSend['idCategoryEdit'])){
+                $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+            }else{
+                $infoCategory = $modelCategories->newEmptyEntity();
+            }
+
+            // tạo dữ liệu save
+            $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $infoCategory->parent = 0;
+            $infoCategory->image = @$dataSend['image'];
+            $infoCategory->status = 'active';
+            $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+            $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+            $infoCategory->type = 'costsIncurred';
+
+            // tạo slug
+            $slug = createSlugMantan($infoCategory->name);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew,'type'=>'costsIncurred');
+                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+
+            $infoCategory->slug = $slugNew;
+
+            $modelCategories->save($infoCategory);
+
+        }
+
+        $conditions = array('type' => 'costsIncurred','status'=>'active');
+        $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+        setVariable('listData', $listData);
     }else{
         return $controller->redirect('/login');
     }

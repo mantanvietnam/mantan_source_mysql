@@ -301,6 +301,25 @@
                                         <span>Chiết khấu (%)</span>
                                         <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien(0);" type="text" name="promotion" id="promotion" placeholder="0" value="<?php echo $order->discount; ?>" autocomplete="off" /></span>
                                     </li>
+
+                                    <?php 
+                                   
+                                        $costs = 0;
+                                    if(!empty($costsIncurred)){ 
+                                        $ordercostsIncurred =  json_decode($order->costsIncurred, true);
+                                        ?>   
+                                        <li>
+                                            <span><strong>chi phí phá sinh</strong></span>
+                                        </li> 
+                                        <?php foreach ($costsIncurred as $key => $value){ 
+                                                $costs++
+                                            ?>
+                                        <li>
+                                            <span><?php echo @$value->name ?></span>
+                                            <input type="hidden" name="nameCostsIncurred[]" id="nameCostsIncurred<?php echo $costs ?>" value="<?php echo @$value->name ?>">
+                                            <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien(0);" type="number" name="costsIncurred[]" id="costsIncurred<?php echo $costs ?>" placeholder="0" value="<?php echo $ordercostsIncurred[$value->name]; ?>" autocomplete="off" /></span>
+                                        </li> 
+                                    <?php }} ?>
                                     
                                     <li class="total-bh">
                                         <p><strong>Tổng thanh toán</strong></p>
@@ -312,11 +331,6 @@
                                         <span>Đại lý mua hàng (*)</span>
                                         <p><?php echo $member_buy->name.' '.$member_buy->phone ?></p>
                                         <input type="hidden" name="id_member_buy" id="id_member_buy" value="<?php echo @$member_buy->id;?>">
-                                        <!-- <span><input class="per-bh form-control" type="text" name="member_buy" id="member_buy" placeholder="Nhập tên hoặc SĐT" value="<?php if(!empty($member_buy)) echo $member_buy->name.' '.$member_buy->phone;?>" autocomplete="off" required /></span>
-                                        
-                                         <a href="javascript:void(0);" onclick="showAddCustom();" title="Thêm đại lý mới" class="btn btn-primary">
-                                            <i class="bx bx-plus"></i>
-                                        </a> -->
                                     </li>
 
                                     <li class="total-bh">
@@ -490,6 +504,18 @@ function tinhtien(checkDiscount)
     var idProduct;
     var discount;
 
+
+    var costs = <?php echo @$costs; ?>;
+    var total_costsIncurred = 0;
+    if(costs>0){
+        for(y=1;y<=costs;y++){
+            costsIncurred= parseFloat($('#costsIncurred'+y).val());
+
+             total_costsIncurred+= costsIncurred;
+
+        }
+    }
+
     if(row>0){
         for(i=1;i<=row;i++){
             if ($('#tr'+i).length > 0) {
@@ -532,7 +558,7 @@ function tinhtien(checkDiscount)
         }
         
         // tổng tiền cần thanh toán
-        totalPay= total-promotion;
+        totalPay= total-promotion+total_costsIncurred;;
 
         // thành tiền
         document.getElementById("total").value = total;

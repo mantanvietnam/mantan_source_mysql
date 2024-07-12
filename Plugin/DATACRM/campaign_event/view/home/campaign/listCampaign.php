@@ -47,6 +47,7 @@
                 <th>Tên chiến dịch</th>
                 <th>Đăng ký</th>
                 <th>Checkin</th>
+                <th>Chưa Checkin</th>
                 <th>Sửa</th>
                 <th>Xóa</th>
                 <!--
@@ -62,7 +63,8 @@
                           <td>'.$item->id.'</td>
                           <td>'.$item->name.'</td>
                           <td><a href="/listCustomerCampaign/?id='.$item->id.'">'.number_format($item->number_reg).' người</a></td>
-                          <td><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=true">'.number_format($item->number_checkin).' người</a></td>
+                          <td><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=1">'.number_format($item->number_checkin).' người</a></td>
+                          <td><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=2">'.number_format($item->yet_checkin).' người</a></td>
 
                           <td align="center">
                             <a class="dropdown-item" href="/addCampaign/?id='.$item->id.'">
@@ -110,7 +112,8 @@
                         <p><strong>ID: </strong>'.$item->id.'</p>
                         <p><strong>Tên chiến dịch: </strong>'.$item->name.'</p>
                         <p><strong>Đăng ký: </strong><a href="/listCustomerCampaign/?id='.$item->id.'">'.number_format($item->number_reg).' người</a></p>
-                        <p><strong>Checkin: </strong><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=true">'.number_format($item->number_checkin).' người</a></p>
+                        <p><strong>Checkin: </strong><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=1">'.number_format($item->number_checkin).' người</a></p>
+                        <p><strong>Checkin: </strong><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=2">'.number_format($item->yet_checkin).' người</a></p>
 
                         <p align="center">
                           <a class="dropdown-item" href="/addCampaign/?id='.$item->id.'">

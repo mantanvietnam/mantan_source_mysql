@@ -32,9 +32,11 @@ function listCampaign($input)
         foreach ($listData as $key => $value) {
             $customer_reg = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$session->read('infoUser')->id])->all()->toList();
             $customer_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$session->read('infoUser')->id, 'time_checkin >'=>0])->all()->toList();
+            $yet_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$session->read('infoUser')->id, 'time_checkin'=>0])->all()->toList();
 
             $listData[$key]->number_reg = count($customer_reg);
             $listData[$key]->number_checkin = count($customer_checkin);
+            $listData[$key]->yet_checkin = count($yet_checkin);
         }
 
         // phân trang

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
     <head>
         <title>Phiếu thu</title>
@@ -15,7 +15,7 @@
 
         <link rel="stylesheet" href="/plugins/hethongdaily/view/home/assets/css/print.css?time=<?php echo time(); ?>"/>   
   
-          
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
           
         
         <style type="text/css">
@@ -38,7 +38,7 @@
         </style>
     </head>
     <body>
-        <div class="container">
+        <div class="container" id="download">
             <header class="text-center mt-3">
                 <h3><?php echo $system->name;?></h3>
                 <h5>Đ/c: <?php echo  $member_sell->address;?></h5>
@@ -82,16 +82,45 @@
                                         }
                                     }
                                 ?>
+
+                              
                                 
                                 <tr>
                                     <td class="text-right" colspan="">Tổng tiền:</td>
-                                    <td colspan="3"><b><?php echo number_format($order->money);?>đ</b></td>
+                                    <td colspan="3"><?php echo number_format($order->money);?>đ</td>
                                 </tr>
 
                                 <tr>
                                     <td class="text-right" colspan="">Giảm giá:</td>
                                     <td colspan="3"><?php echo $order->discount;?>%</td>
                                 </tr>
+
+                                 <?php
+
+                                    $total = 0;
+                                  if(@$order->discount>100){
+                                    $total = $order->money -  $order->discount;
+                                  }else{
+                                     $total = $order->money - ($order->money*$order->discount/100);
+                                  }
+                                 echo' <tr>
+                                    <td class="text-right" colspan="">Thành tiền:</td>
+                                    <td colspan="3">'.number_format($total).'đ</td>
+                                </tr>';
+
+                                 ?>
+
+                                <?php 
+                                    if(!empty($order->costsIncurred)){
+                                        $costsIncurred = json_decode($order->costsIncurred, true);   
+                                        foreach($costsIncurred as $key => $item){
+                                        echo '<tr>
+                                    <td class="text-right" colspan="">'.$key.'</td>
+                                    <td colspan="3">'.number_format($item).'đ</td>
+                                </tr>';
+                                        }
+                                    }
+                                 ?>
                             
                                 
                                 <tr>
@@ -147,6 +176,7 @@
                 
             }
 
+           
             $( "#dialog-confirm" ).dialog({
                                 resizable: false,
                                 height: "auto",
@@ -159,10 +189,25 @@
                                     window.print();
                                     window.location= '<?php echo $url; ?>';
                                 },
+                                 "tải về máy ": function() {
+                                    $( this ).dialog("close");
+                                    var element = document.getElementById('download');
+                                    var opt = {
+                                        margin:       1,
+                                        height:       'auto',
+                                        filename:     'myfile.pdf',
+                                        image:        { type: 'jpeg', quality: 0.98 },
+                                        html2canvas:  { scale: 2 },
+                                        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                                    };
+
+                                    // Gọi hàm html2pdf để chuyển đổi và tải về PDF
+                                    html2pdf().from(element).set(opt).save();
+                                },
                                 Cancel: function() {
                                       //$( this ).dialog( "close" );
                                       window.location= '<?php echo $url; ?>';
-                                  }
+                                }
                               }
                           });
         </script>

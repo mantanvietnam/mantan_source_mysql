@@ -92,6 +92,34 @@
                                     <td class="text-right" colspan="">Giảm giá:</td>
                                     <td colspan="3"><?php echo (int) $order->promotion;?>%</td>
                                 </tr>
+
+                                 <?php
+
+                                    $total = 0;
+                                  if(@$order->discount>100){
+                                    $total = $order->money -  $order->discount;
+                                  }else{
+                                     $total = $order->money - ($order->money*$order->discount/100);
+                                  }
+                                 echo' <tr>
+                                    <td class="text-right" colspan="">Thành tiền:</td>
+                                    <td colspan="3">'.number_format($total).'đ</td>
+                                </tr>';
+
+                                 ?>
+
+                                <?php 
+                                    if(!empty($order->costsIncurred)){
+                                        $costsIncurred = json_decode($order->costsIncurred, true);   
+                                        foreach($costsIncurred as $key => $item){
+                                        echo '<tr>
+                                    <td class="text-right" colspan="">'.$key.'</td>
+                                    <td colspan="3">'.number_format($item).'đ</td>
+                                </tr>';
+                                        }
+                                    }
+                                 ?>
+                            
                             
                                 
                                 <tr>
@@ -157,6 +185,21 @@
                                     $( this ).dialog( "close" );
                                     window.print();
                                     window.location= '<?php echo $url; ?>';
+                                },
+                                "tải về máy ": function() {
+                                    $( this ).dialog("close");
+                                    var element = document.getElementById('download');
+                                    var opt = {
+                                        margin:       1,
+                                        height:       'auto',
+                                        filename:     'myfile.pdf',
+                                        image:        { type: 'jpeg', quality: 0.98 },
+                                        html2canvas:  { scale: 2 },
+                                        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                                    };
+
+                                    // Gọi hàm html2pdf để chuyển đổi và tải về PDF
+                                    html2pdf().from(element).set(opt).save();
                                 },
                                 Cancel: function() {
                                       //$( this ).dialog( "close" );

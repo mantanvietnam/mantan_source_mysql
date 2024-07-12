@@ -210,6 +210,8 @@ function addOrderAgency($input)
 
         if($isRequestPost){
             $dataSend = $input['request']->getData();
+            // debug($dataSend);
+            // die();
 
             if(!empty($dataSend['idHangHoa']) && !empty($dataSend['id_member_buy'])){
                 $member_buy = $modelMembers->find()->where(array('id'=>(int) $dataSend['id_member_buy']))->first();
@@ -227,6 +229,21 @@ function addOrderAgency($input)
                     $save->total = (int) $dataSend['totalPays'];
                     $save->status_pay = 'wait';
                     $save->discount = $dataSend['promotion'];
+
+                    $costsIncurred = array();
+                    $total_costsIncurred = 0;
+                    if(!empty($dataSend['costsIncurred'])){
+                      
+                        foreach($dataSend['costsIncurred'] as $key => $item){
+                            $costsIncurred[$dataSend['nameCostsIncurred'][$key]]  = (int) $item;
+
+                        $total_costsIncurred += (int) $item;
+                        }
+                    }
+                    $save->costsIncurred = json_encode($costsIncurred);
+                    $save->total_costsIncurred = $total_costsIncurred;
+
+                  
 
                     $modelOrderMembers->save($save);
 
@@ -286,12 +303,16 @@ function addOrderAgency($input)
                 $position = $modelCategories->find()->where(array('id'=>$member_buy->id_position))->first();
             }
         }
+
+        $conditions = array('type' => 'costsIncurred','status'=>'active');
+        $costsIncurred = $modelCategories->find()->where($conditions)->all()->toList();
         
 
         setVariable('listProduct', $listProduct);
         setVariable('position', $position);
         setVariable('father', $father);
         setVariable('mess', $mess);
+        setVariable('costsIncurred', $costsIncurred);
         setVariable('member_buy', $member_buy);
         setVariable('listPositions', $listPositions);
     }else{
@@ -942,6 +963,18 @@ function editOrderMemberAgency($input)
             $order->total = (int) $dataSend['totalPays'];
             $order->status_pay = 'wait';
             $order->discount = $dataSend['promotion'];
+            $costsIncurred = array();
+            $total_costsIncurred = 0;
+            
+            if(!empty($dataSend['costsIncurred'])){
+                
+                foreach($dataSend['costsIncurred'] as $key => $item){
+                    $costsIncurred[$dataSend['nameCostsIncurred'][$key]]  = (int) $item;
+                    $total_costsIncurred += (int) $item;
+                }
+            }
+            $order->costsIncurred = json_encode($costsIncurred);
+            $order->total_costsIncurred = $total_costsIncurred;
 
             $modelOrderMembers->save($order);
 
@@ -992,6 +1025,8 @@ function editOrderMemberAgency($input)
                 $orderDetail[$key]->product = $modelProducts->find()->where(array('id'=>$item->id_product))->first();
             }
         }
+        $conditions = array('type' => 'costsIncurred','status'=>'active');
+        $costsIncurred = $modelCategories->find()->where($conditions)->all()->toList();
         
        
         setVariable('order', $order);
@@ -1000,6 +1035,7 @@ function editOrderMemberAgency($input)
         setVariable('listProduct', $listProduct);
         setVariable('position', $position);
         setVariable('father', $father);
+        setVariable('costsIncurred', $costsIncurred);
         setVariable('mess', $mess);
         setVariable('listPositions', $listPositions);
 

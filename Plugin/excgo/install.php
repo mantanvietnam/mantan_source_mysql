@@ -90,6 +90,8 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
   `reset_password_code` VARCHAR(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `difference_booking` INT NULL DEFAULT NULL,
+  `posted` INT NULL DEFAULT 0,
+  `received` INT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;';
 
@@ -344,7 +346,8 @@ $sqlUpdateDatabase['users']['apple_id'] = "ALTER TABLE `users` ADD `apple_id` VA
 $sqlUpdateDatabase['users']['reset_password_code'] = "ALTER TABLE `users` ADD `reset_password_code` VARCHAR(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['users']['deleted_at'] = "ALTER TABLE `users` ADD `deleted_at` timestamp NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['users']['difference_booking'] = "ALTER TABLE `users` ADD `difference_booking` INT NULL DEFAULT NULL;";
-
+$sqlUpdateDatabase['users']['posted'] = "ALTER TABLE `users` ADD `posted` INT NULL DEFAULT 0;";
+$sqlUpdateDatabase['users']['received'] = "ALTER TABLE `users` ADD `received` INT NULL DEFAULT 0;";
 // Bang pinned_provinces
 $sqlUpdateDatabase['pinned_provinces']['user_id'] = "ALTER TABLE `pinned_provinces` ADD `user_id` int NOT NULL; ";
 $sqlUpdateDatabase['pinned_provinces']['province_id'] = "ALTER TABLE `pinned_provinces` ADD `province_id` int NOT NULL; ";

@@ -100,6 +100,10 @@ function createBookingApi($input): array
                 if($currentUser->point>0){
                     $currentUser->point -= 1;
                 }
+
+                if(!empty($currentUser->difference_booking)){
+                    $currentUser->posted += 1;
+                }
                 
                 $modelUser->save($currentUser);
 
@@ -362,6 +366,12 @@ function receiveBookingApi($input): array
                 // Trừ xu của user nhận cuốc xe
                 $currentUser->total_coin = $currentUser->total_coin - $totalFee;
                 $currentUser->point += 1;
+
+                 if(!empty($currentUser->difference_booking)){
+                    $currentUser->received += 1;
+                }
+
+                
                 $modelUser->save($currentUser);
 
                 // Update cuốc xe

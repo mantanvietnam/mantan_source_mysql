@@ -405,7 +405,7 @@ function changeLayerImageAPI($input){
     $modelMember = $controller->loadModel('Members');
     $modelProductDetail = $controller->loadModel('ProductDetails');
     $modelProduct = $controller->loadModel('Products');
-    
+    $return = array('code'=>0);
     if($isRequestPost){
     	$dataSend = $input['request']->getData();
 

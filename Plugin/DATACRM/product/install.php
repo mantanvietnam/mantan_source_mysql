@@ -53,6 +53,8 @@ $sqlInstallDatabase .= "CREATE TABLE `orders` (
     `id_discount` INT NULL DEFAULT NULL, 
     `id_agency` INT NOT NULL DEFAULT '0', 
     `id_aff` INT NULL DEFAULT '0',
+    `costsIncurred` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL, 
+    `total_costsIncurred` INT NULL DEFAULT '0',
     `promotion` INT NOT NULL DEFAULT '0' COMMENT 'Phần trăm giảm giá',
     `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán' , 
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
@@ -188,6 +190,8 @@ $sqlUpdateDatabase['orders']['id_agency'] = "ALTER TABLE `orders` ADD `id_agency
 $sqlUpdateDatabase['orders']['id_aff'] = "ALTER TABLE `orders` ADD `id_aff` INT NULL DEFAULT '0'; ";
 $sqlUpdateDatabase['orders']['status_pay'] = "ALTER TABLE `orders` ADD `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán';";
 $sqlUpdateDatabase['orders']['promotion'] = "ALTER TABLE `orders` ADD `promotion` INT NOT NULL DEFAULT '0' COMMENT 'Phần trăm giảm giá'; ";
+$sqlUpdateDatabase['orders']['costsIncurred'] = "ALTER TABLE `orders` ADD `costsIncurred` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['orders']['total_costsIncurred'] = "ALTER TABLE `orders` ADD `total_costsIncurred` INT NULL DEFAULT '0';";
 
 // Bang order_details
 $sqlUpdateDatabase['order_details']['id_product'] = "ALTER TABLE `order_details` ADD `id_product` INT NOT NULL ; ";

@@ -249,6 +249,21 @@
                                         <span>Chiết khấu (%)</span>
                                         <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="0" autocomplete="off" /></span>
                                     </li>
+                                    <?php 
+                                        $costs = 0;
+                                    if(!empty($costsIncurred)){ ?>   
+                                        <li>
+                                            <span><strong>chi phí phá sinh</strong></span>
+                                        </li> 
+                                        <?php foreach ($costsIncurred as $key => $value){ 
+                                                $costs++
+                                            ?>
+                                        <li>
+                                            <span><?php echo @$value->name ?></span>
+                                            <input type="hidden" name="nameCostsIncurred[]" id="nameCostsIncurred<?php echo $costs ?>" value="<?php echo @$value->name ?>">
+                                            <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien(0);" type="number" name="costsIncurred[]" id="costsIncurred<?php echo $costs ?>" placeholder="0" value="0" autocomplete="off" /></span>
+                                        </li> 
+                                    <?php }} ?>
                                     
                                     <li class="total-bh">
                                         <p><strong>Tổng thanh toán</strong></p>
@@ -508,6 +523,17 @@ function tinhtien()
     var price;
     var idProduct;
 
+    var costs = <?php echo @$costs; ?>;
+    var total_costsIncurred = 0;
+    if(costs>0){
+        for(y=1;y<=costs;y++){
+            costsIncurred= parseFloat($('#costsIncurred'+y).val());
+
+             total_costsIncurred+= costsIncurred;
+
+        }
+    }
+
     if(row>0){
         for(i=1;i<=row;i++){
             if ($('#tr'+i).length > 0) {
@@ -547,7 +573,7 @@ function tinhtien()
         }
         
         // tổng tiền cần thanh toán
-        totalPay= total-promotion;
+        totalPay= total-promotion+total_costsIncurred;
 
         // thành tiền
         document.getElementById("total").value = total;
