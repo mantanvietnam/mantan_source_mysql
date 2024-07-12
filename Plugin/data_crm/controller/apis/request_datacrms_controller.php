@@ -87,9 +87,17 @@ function createDataCRMAPI($input)
 
 		// gửi thông báo Mess
 		if(!empty($data->boss_id_messenger)){
+			/*
+			// page phoenix tech
 			$idBot = '6633df29cec63d36a4ed6e16';
 			$tokenBot = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzNkZjI5Y2VjNjNkMzZhNGVkNmUxNiIsIm5hbWUiOiJCTEFOSyBCT1QgLSBDb3B5IiwiaWF0IjoxNzE0Njc1NDk3LCJleHAiOjIwMzAwMzU0OTd9.3VULeYKNscvvpdTYZzab2QD_LoTSZvTfGn09QNlJXnM';
 			$idBlockRegDataCRM = '664e6fa65129b0f1c1e41bfc';
+			*/
+
+			// page iCham
+			$idBot = '6690d7fbd6f147a3339288fc';
+			$tokenBot = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OTBkN2ZiZDZmMTQ3YTMzMzkyODhmYyIsIm5hbWUiOiJCTEFOSyBCT1QgLSBDb3B5IiwiaWF0IjoxNzIwNzY4NTA3LCJleHAiOjIwMzYxMjg1MDd9.gWFU7cc8xjAZzctTwdKXsyLNlUMbUv32SF7TiEu3owA';
+			$idBlockRegDataCRM = '6690d886bf4f95e96aab9d3f';
 
 			$attributesSmax = [];
             $attributesSmax['linkDataCRM']= 'https://'.$domain;
