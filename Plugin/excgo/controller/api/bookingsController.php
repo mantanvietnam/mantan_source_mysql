@@ -310,11 +310,11 @@ function receiveBookingApi($input): array
             }
 
             if(!empty($currentUser->difference_booking)){
-                 if($currentUser->point >= $currentUser->difference_booking){
+                 if($currentUser->received - $currentUser->posted  > $currentUser->difference_booking){
                      return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
                 }
             }else{
-                if($currentUser->point >= $parameter['maximumTrip']){
+                if($currentUser->received - $currentUser->posted > $parameter['maximumTrip']){
                      return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
                 }
             }
@@ -641,7 +641,10 @@ function acceptCanceledBookingApi($input): array
             //$refundCoin = $bookingFee->received_fee + $bookingFee->service_fee + $bookingFee->deposit;
             $refundCoin = $booking->deposit;
             $cancelUser->total_coin += $refundCoin;
+            $cancelUser->received -=1;
             $modelUser->save($cancelUser);
+
+
 
             // Update trạng thái cuốc xe
             $booking->received_by = null;
@@ -1832,6 +1835,8 @@ function acceptCanceledBookingPostedApi($input): array
             // Cộng lại số tiền chiết khấu cho người đăng 
             $refundCoin = $booking->deposit;
             $cancelUser->total_coin += $refundCoin;
+            $cancelUser->posted -=1;
+
             $modelUser->save($cancelUser);
 
             $newTransaction = $modelTransaction->newEmptyEntity();
@@ -1871,6 +1876,7 @@ function acceptCanceledBookingPostedApi($input): array
 
              // Cộng lại số tiền chiết khấu cho người nhận quốc xe 
             $currentUser->total_coin += $refundCoin;
+            $currentUser->received -=1;
             $modelUser->save($currentUser);
 
             $newTransaction = $modelTransaction->newEmptyEntity();

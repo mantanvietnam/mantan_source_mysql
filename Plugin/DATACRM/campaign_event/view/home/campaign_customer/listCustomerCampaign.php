@@ -192,9 +192,11 @@
       <?php 
          if(!empty($listData)){
               foreach ($listData as $item) {
-                 $checkin = '<a class="btn btn-primary" href="/checkinCampaign/?id='.$item->id.'&checkin=true">Checkin</a>';
+                 $checkin = '<p class="text-center mt-3"><a class="btn btn-primary" href="/checkinCampaign/?id='.$item->id.'&checkin=true">Checkin</a></p>';
                 if(!empty($item->time_checkin)){
-                  $checkin = '<p class="text-danger">'.date("H:i d/m/Y", $item->time_checkin).'</p><br/><a onclick="return confirm(\'Bạn có chắc chắn muốn hủy checkin không?\');" class="btn btn-danger" href="/checkinCampaign/?id='.$item->id.'">Hủy checkin</a>';
+                  $checkin = '<p class="text-danger">'.date("H:i d/m/Y", $item->time_checkin).'</p>
+                       <p class="text-center mt-3">
+                  <a onclick="return confirm(\'Bạn có chắc chắn muốn hủy checkin không?\');" class="btn btn-danger" href="/checkinCampaign/?id='.$item->id.'">Hủy checkin</a></p>';
                 }
 
                 $history = '';
@@ -210,14 +212,17 @@
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
                        <p><strong>ID: </strong>'.$item->id_customer.'</p>
-                       <p><strong>Checkin: </strong>'.date("d/m/Y", $item->create_at).' '.$checkin.'</p>
                        <p><strong>Khách đăng ký: </strong>'.$item->customer_name.'<br/>'.$item->customer_phone.'</p>
                        <p><strong>Khu vực: </strong>'.@$infoCampaign->location[$item->id_location].'</p>
                        <p><strong>Đội nhóm: </strong>'.@$infoCampaign->team[$item->id_team]['name'].'</p>
                        <p><strong>Hạng vé:  </strong>'.@$infoCampaign->ticket[$item->id_ticket]['name'].'</p>
 
                        <p><strong>Chăm sóc </strong>
-                        '.$history.'
+                        '.$history.'</p>
+
+                       <p><strong>Checkin: </strong>'.date("d/m/Y", $item->create_at).' </p>
+                       '.$checkin.'
+
                         <p class="text-center mt-3">
                           <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
                           <a href="/listCustomerHistoriesAgency/?id_customer='.$item->id_customer.'" class="btn btn-info"><i class="bx bx-list-ul" ></i></a>
