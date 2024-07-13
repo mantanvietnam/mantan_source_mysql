@@ -100,10 +100,7 @@ function createBookingApi($input): array
                 if($currentUser->point>0){
                     $currentUser->point -= 1;
                 }
-
-                if(!empty($currentUser->difference_booking)){
-                    $currentUser->posted += 1;
-                }
+                
                 
                 $modelUser->save($currentUser);
 
@@ -310,13 +307,12 @@ function receiveBookingApi($input): array
             }
 
             if(!empty($currentUser->difference_booking)){
-                 if($currentUser->received - $currentUser->posted  > $currentUser->difference_booking){
+                 if($currentUser->received - $currentUser->posted  >= $currentUser->difference_booking){
                      return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
                 }
-            }else{
-                if($currentUser->received - $currentUser->posted > $parameter['maximumTrip']){
-                     return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
-                }
+            }elseif($currentUser->received - $currentUser->posted >= $parameter['maximumTrip']){
+                return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
+                
             }
                
 
@@ -367,9 +363,9 @@ function receiveBookingApi($input): array
                 $currentUser->total_coin = $currentUser->total_coin - $totalFee;
                 $currentUser->point += 1;
 
-                 if(!empty($currentUser->difference_booking)){
-                    $currentUser->received += 1;
-                }
+               
+                $currentUser->received += 1;
+                
 
                 
                 $modelUser->save($currentUser);
@@ -875,10 +871,16 @@ function completeBookingApi($input): array
                     $userBookingModel->save($postedUserBooking);
                 }
 
+
+                $postedUser = $modelUser->find()->where(['id' => $booking->posted_by])->first();
+
+                $postedUser->posted += 1;
+
+                $modelUser->save($postedUser);
+
                 // Thông báo cho người đăng cuốc xe
                 $title = 'Cuốc xe đã hoàn thành';
                 $content = "Cuốc xe #$booking->id đã được hoàn thành bởi tài xế $currentUser->name";
-                $postedUser = $modelUser->find()->where(['id' => $booking->posted_by])->first();
                 $notification = $modelNotification->newEmptyEntity();
                 $notification->user_id = $postedUser->id;
                 $notification->booking_id = $booking->id;
@@ -1835,7 +1837,6 @@ function acceptCanceledBookingPostedApi($input): array
             // Cộng lại số tiền chiết khấu cho người đăng 
             $refundCoin = $booking->deposit;
             $cancelUser->total_coin += $refundCoin;
-            $cancelUser->posted -=1;
 
             $modelUser->save($cancelUser);
 

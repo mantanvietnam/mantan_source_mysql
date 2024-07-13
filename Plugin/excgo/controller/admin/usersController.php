@@ -171,6 +171,7 @@ function viewUserDetailAdmin($input)
             $data->avatar = $dataSend['avatar'];
             $data->phone_number = $dataSend['phone_number'];
             $data->status = $dataSend['status'];
+            $data->address  = $dataSend['address'];
             $data->type = $dataSend['type'];
             $data->email = $dataSend['email'];
             $data->maximum_trip = (int) $dataSend['maximum_trip'];
