@@ -157,7 +157,7 @@
                             
                           </td>
                           <td>'.$thumbnail.'</td>
-                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn rounded-pill btn-icon btn-outline-secondary" href="/plugins/admin/ezpics_admin-view-admin-product-updateProductAdmin?id='.$item->id.'" ><i class="bx bx-edit-alt me-1"></i></a></td>
+                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn rounded-pill btn-icon btn-outline-secondary" href="/plugins/admin/ezpics_admin-view-admin-product-updateProductAdmin?id='.$item->id.'" ><i class="bx bx-edit-alt me-1"></i></a>  <a class="btn rounded-pill btn-icon btn-outline-secondary" href="/plugins/admin/ezpics_admin-view-admin-product-giftProductUsreAdmin?id='.$item->id.'" title="tặng mẫu cho người" ><i class="bx bxs-gift"></i></a></td>
                           <td>
                             Sell: '.number_format($item->sold).'<br/>
                             View: '.number_format($item->views).'<br/>

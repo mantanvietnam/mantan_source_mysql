@@ -661,4 +661,104 @@ function fixPrice($input){
 	debug('ok');
 	die();
 }*/
+
+function giftProductUsreAdmin($input){
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $ftp_server_upload_image;
+	global $ftp_username_upload_image;
+	global $ftp_password_upload_image;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelMember = $controller->loadModel('Members');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelManagerFile = $controller->loadModel('ManagerFile');
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+	
+	if(!empty($_GET['id'])){
+		 $mess = '';
+		$data = $modelProduct->get($_GET['id']);
+		if ($isRequestPost) {
+	        $dataSend = $input['request']->getData();
+
+	        if(!empty($dataSend['phone'])){
+	        	$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+	        	if(!empty($checkPhone)){
+	        		if($data->user_id!=$checkPhone->id){
+ 						$checkProduct = $modelProduct->find()->where(array('product_id'=>$data->id, 'user_id'=>$checkPhone->id))->first();
+ 						if(empty($checkProduct)){
+
+ 							// tạo mẫu thiết kế mới
+			                    $newproduct = $modelProduct->newEmptyEntity();
+
+			                    $newproduct->name = $data->name;
+			                    $newproduct->slug = $data->slug.'-'.time();
+			                    $newproduct->price = 0;
+			                    $newproduct->sale_price = 0;
+			                    $newproduct->content = $data->content;
+			                    //$newproduct->desc = $product->desc;
+			                    $newproduct->sale = $data->sale;
+			                    $newproduct->related_packages = $data->related_packages;
+			                    $newproduct->status = 0;
+			                    $newproduct->type = 'user_edit';
+			                    $newproduct->sold = 0;
+			                    $newproduct->image = $data->image;
+			                    $newproduct->thumn = $data->thumn;
+			                    $newproduct->thumbnail = '';
+			                    $newproduct->user_id = $checkPhone->id;
+			                    $newproduct->product_id = $data->id;
+			                    $newproduct->note_admin = '';
+			                    $newproduct->created_at = date('Y-m-d H:i:s');
+			                    $newproduct->views = 0;
+			                    $newproduct->favorites = 0;
+			                    $newproduct->category_id = $data->category_id;
+			                    $newproduct->width = $data->width;
+			                    $newproduct->height = $data->height;
+			                    $newproduct->display = 1;
+
+			                    $modelProduct->save($newproduct);
+
+			                    // sao chép layer
+			                    $detail = $modelProductDetail->find()->where(array('products_id'=>$data->id))->all()->toList();
+
+			                    if(!empty($detail)){
+				                    foreach($detail as $d){
+				                    	$newLayer = $modelProductDetail->newEmptyEntity();	
+
+				                    	$newLayer->products_id = $newproduct->id;
+				                    	$newLayer->name = $d->name;
+				                    	$newLayer->content = $d->content;
+				                    	$newLayer->sort = $d->sort;
+				                    	
+				                    	$newLayer->created_at = date('Y-m-d H:i:s');
+				                        
+				                        $modelProductDetail->save($newLayer);
+				                    }
+				                }
+
+				             $mess= '<p class="text-success">Tặng mẫu thành công</p>';
+ 						}else{
+ 							$mess= '<p class="text-danger">Số điện thoại này đã mua mẫu này rồi</p>';
+ 						}
+	        		}else{
+	        			$mess= '<p class="text-danger">Số điện thoại này là chủ mẫu này</p>';
+	        		}
+	        	}else{
+	        		$mess= '<p class="text-danger">Số điện thoại không đúng</p>';
+	        	}
+		    }else{
+		    	$mess= '<p class="text-danger">Bạn chưa nhập số điện thoại</p>';
+		    }
+	    }
+
+	   
+	    setVariable('data', $data);
+	    setVariable('mess', $mess);
+	   
+	}
+}
 ?>

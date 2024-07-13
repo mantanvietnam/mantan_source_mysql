@@ -22,6 +22,7 @@ function login($input)
     		}
     	}
 
+
 	    if($isRequestPost){
 	    	$dataSend = $input['request']->getData();
 	    	
@@ -43,6 +44,7 @@ function login($input)
 		    			$session->write('infoUser', $info_customer);
 		    			
 		    			if($info_customer->verify == 'active'){
+		    				 setcookie('id_member',$info_customer->id,time()+365*24*60*60, "/");
 							return $controller->redirect('/listCustomerAgency');
 						}else{
 							return $controller->redirect('/verify');
@@ -56,7 +58,31 @@ function login($input)
 	    	}else{
 	    		$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
 	    	}
-	    }
+	    }elseif(!empty($_COOKIE['id_member'])){
+	    		$conditions = array('id'=>(int) $_COOKIE['id_member']);
+	    		$info_customer = $modelMembers->find()->where($conditions)->first();
+
+	    		if($info_customer){
+    				// nếu tài khoản không bị khóa
+    				if($info_customer->status == 'active'){
+    					$info_customer->info_system = $modelCategories->find()->where(['id'=>(int) $info_customer->id_system])->first();
+
+		    			$session->write('CheckAuthentication', true);
+	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
+
+		    			$session->write('infoUser', $info_customer);
+		    			
+		    			if($info_customer->verify == 'active'){
+							return $controller->redirect('/listCustomerAgency');
+						}else{
+							return $controller->redirect('/verify');
+						}
+					}else{
+						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
+					}
+	    		}
+	    	}
+
 
 	    setVariable('mess', $mess);
 	}else{
@@ -70,6 +96,7 @@ function logout($input)
 	global $controller;
 
 	$session->destroy();
+	 setcookie('id_member','',time()+365*24*60*60, "/");
 
 	return $controller->redirect('/login');
 }
@@ -174,6 +201,7 @@ function account($input)
 				$user->facebook = $dataSend['facebook'];
 				$user->twitter = $dataSend['twitter'];
 				$user->tiktok = $dataSend['tiktok'];
+                $user->id_position = (int) $dataSend['id_position'];
 				$user->youtube = $dataSend['youtube'];
 				$user->web = (!empty($dataSend['web']))?$dataSend['web']:$urlHomes.'/info/?id='.$user->id;
 				$user->instagram = $dataSend['instagram'];
@@ -223,9 +251,13 @@ function account($input)
 			}
 		}
 
+		$conditions = array('type' => 'system_positions', 'parent'=>(int) $user->id_system);
+        $position = $modelCategories->find()->where($conditions)->all()->toList();
+
 		setVariable('mess', $mess);
 		setVariable('user', $user);
 		setVariable('boss', $boss);
+		setVariable('position', $position);
 		setVariable('displayInfo', $displayInfo);
 		setVariable('dataLink', $dataLink);
 		setVariable('modelSetingThemeInfo', $modelSetingThemeInfo);

@@ -94,6 +94,22 @@
                           
                           <div class="col-md-6">
                             <div class="mb-3">
+                              <label class="form-label" for="basic-default-email">Chức danh (*)</label>
+                              <select name="id_position" class="form-select" required id="id_position">
+
+                                <option value="">Chọn chức danh</option>
+                                <?php if(!empty($position)){
+                                  foreach ($position as $key => $value) {
+                                    if(empty($user->id_position) || $user->id_position!=$value->id){
+                                      echo '<option value="'.$value->id.'" >'.$value->name.'</option>';
+                                    }else{
+                                      echo '<option selected value="'.$value->id.'" >'.$value->name.'</option>';
+                                    }
+                                  }
+                                } ?>
+                              </select>
+                          </div>
+                            <div class="mb-3">
                               <label class="form-label">Số điện thoại (*)</label>
                               <input disabled type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$user->phone;?>"/>
                             </div>
@@ -471,5 +487,6 @@
     }
 
  </script>
+
 
 <?php include(__DIR__.'/../footer.php'); ?>

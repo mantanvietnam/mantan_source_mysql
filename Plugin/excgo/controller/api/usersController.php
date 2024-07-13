@@ -358,7 +358,7 @@ function upgradeToDriverApi($input): array
         if (empty($checkIdCardFront) || empty($checkIdCardBack)) {
             return apiResponse(4, 'Bạn cần cập nhật ảnh CCCD');
         }
-
+/*
         $checkCarImage = $modelImage->find()
             ->where([
                 'owner_id' => $currentUser->id,
@@ -368,7 +368,7 @@ function upgradeToDriverApi($input): array
 
         if (empty($checkCarImage)) {
             return apiResponse(4, 'Bạn cần cập nhật ảnh phương tiện');
-        }
+        }*/
 
         if (empty($currentUser->email)
             || empty($currentUser->bank_account)
