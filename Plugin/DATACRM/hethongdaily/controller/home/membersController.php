@@ -201,7 +201,9 @@ function account($input)
 				$user->facebook = $dataSend['facebook'];
 				$user->twitter = $dataSend['twitter'];
 				$user->tiktok = $dataSend['tiktok'];
-                $user->id_position = (int) $dataSend['id_position'];
+				if($user->id_father == 0){
+                	$user->id_position = (int) $dataSend['id_position'];
+				}
 				$user->youtube = $dataSend['youtube'];
 				$user->web = (!empty($dataSend['web']))?$dataSend['web']:$urlHomes.'/info/?id='.$user->id;
 				$user->instagram = $dataSend['instagram'];
@@ -251,7 +253,7 @@ function account($input)
 			}
 		}
 
-		$conditions = array('type' => 'system_positions', 'parent'=>(int) $user->id_system);
+		$conditions = array('type' => 'system_positions', 'parent'=>(int) $user->id_system, 'status'=>'active');
         $position = $modelCategories->find()->where($conditions)->all()->toList();
 
 		setVariable('mess', $mess);
@@ -543,7 +545,7 @@ function addMember($input)
 		    }
 	    }
 
-	    $conditions = array('type' => 'system_positions', 'parent'=>$infoUser->id_system);
+	    $conditions = array('type' => 'system_positions', 'parent'=>$infoUser->id_system, 'status'=>'active');
         $listPositions = $modelCategories->find()->where($conditions)->all()->toList();
 
 	    setVariable('data', $data);

@@ -19,7 +19,8 @@ function settingAdmin($input){
         $value = array( 'pilePercentage' => @$dataSend['pilePercentage'],
                         'maximumTrip' => @$dataSend['maximumTrip'],
                         'moneyUpgradeToDriver' => @$dataSend['moneyUpgradeToDriver'],
-        				'contentUpgradeToDriver' => @$dataSend['contentUpgradeToDriver'],
+                        'contentUpgradeToDriver' => @$dataSend['contentUpgradeToDriver'],
+        				'contentPopupUpgradeToDriver' => @$dataSend['contentPopupUpgradeToDriver'],
                     );
         $data->key_word = 'settingAdmin';
         $data->value = json_encode($value);

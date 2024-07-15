@@ -132,7 +132,7 @@
                       </div>
                     </div>
 
-                    <div class="row">
+                   <!--  <div class="row">
                       <label class="form-label">Hình ảnh xe</label>
                         <?php 
                         if (isset($car) && count($car)){
@@ -149,7 +149,7 @@
                             showUploadFile('car','car[]','',3);
                         echo '   </div>';
                         ?>
-                    </div>
+                    </div> -->
 
                     <button type="submit" class="btn btn-primary">Lưu</button>
                     <?= $this->Form->end() ?>

@@ -60,7 +60,7 @@
 
             <div id="crm-card" style="position: relative;">
                 <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
+                    <div id="info" class="tab-pane fade in active">
 
                         <section id="block-1">
                             <div class="qr-code">
@@ -196,7 +196,7 @@
 
                     </div>
 
-                    <div id="menu2" class="tab-pane fade">
+                    <div id="products" class="tab-pane fade">
 
                         <section id="block-7">
                             <div class="table-produce">
@@ -250,7 +250,7 @@
 
                     </div>
 
-                    <div id="menu3" class="tab-pane fade">
+                    <div id="customer" class="tab-pane fade">
                         <section id="block-8">
                             <div class="card p-4"> 
                                 <form id="uploadFormCustomer" class="form-customer" enctype="multipart/form-data">
@@ -332,9 +332,9 @@
 
                 <div class="tabs-menu">
                     <ul class="nav nav-pills">
-                        <li class="active"><a data-toggle="pill" href="#home"><i class="fa-solid fa-circle-user"></i> <p>Thông tin</p></a></li>
-                        <li><a data-toggle="pill" href="#menu2"><i class="fa-solid fa-wallet"></i> <p>Sản phẩm</p></a></li>
-                        <li><a data-toggle="pill" href="#menu3"><i class="fa-solid fa-circle-user"></i> <p>Khách hàng</p></a></li>
+                        <li class="active"><a data-toggle="pill" href="#info"><i class="fa-solid fa-circle-user"></i> <p>Thông tin</p></a></li>
+                        <li><a data-toggle="pill" href="#products"><i class="fa-solid fa-wallet"></i> <p>Sản phẩm</p></a></li>
+                        <li><a data-toggle="pill" href="#customer"><i class="fa-solid fa-circle-user"></i> <p>Khách hàng</p></a></li>
                     </ul>
                 </div>
 
@@ -523,8 +523,8 @@
                         $('#discount').val(0);
                         $('#total').val(total_money);
 
-                        document.getElementById("menu2").classList.remove("active");
-                        document.getElementById("menu2").classList.remove("in");
+                        document.getElementById("products").classList.remove("active");
+                        document.getElementById("products").classList.remove("in");
 
                         document.getElementById("order").classList.add("active");
                         document.getElementById("order").classList.add("in");
@@ -760,15 +760,15 @@
         </script>
         
         <script type="text/javascript">
-            var tabShow = 'home';
+            var tabShow = 'info';
             <?php
                 if(!empty($_GET['tabShow'])){
                     echo "var tabShow = '".$_GET['tabShow']."';";
                 }
             ?>
 
-            document.getElementById("home").classList.remove("active");
-            document.getElementById("home").classList.remove("in");
+            document.getElementById("info").classList.remove("active");
+            document.getElementById("info").classList.remove("in");
 
             document.getElementById(tabShow).classList.add("active");
             document.getElementById(tabShow).classList.add("in");

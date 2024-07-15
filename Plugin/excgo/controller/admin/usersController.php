@@ -220,7 +220,7 @@ function viewUserDetailAdmin($input)
                 }
 
 
-                $car = $modelImage->deleteAll([ 'owner_id' => $_GET['id'], 'owner_type' => 'users', 'type' => 'car']);
+                /*$car = $modelImage->deleteAll([ 'owner_id' => $_GET['id'], 'owner_type' => 'users', 'type' => 'car']);
                 $domain = 'https://apis.exc-go.vn//';
                 if(!empty($dataSend['car'])){
                     foreach($dataSend['car'] as $key => $item){
@@ -236,7 +236,7 @@ function viewUserDetailAdmin($input)
                         
                     }
                 }
-                $car = $modelImage->find()->where(['owner_id' => $_GET['id'],'owner_type' => 'users','type' => 'car'])->all();
+                $car = $modelImage->find()->where(['owner_id' => $_GET['id'],'owner_type' => 'users','type' => 'car'])->all();*/
 
             }
         } else {
@@ -244,10 +244,10 @@ function viewUserDetailAdmin($input)
         }
     }
 
-    if (isset($idCardFront) && isset($idCardBack) && isset($car)) {
+    if (isset($idCardFront) && isset($idCardBack) ) {
         setVariable('idCardFront', $idCardFront);
         setVariable('idCardBack', $idCardBack);
-        setVariable('car', $car);
+        // setVariable('car', $car); && isset($car)
     }
 
     if (isset($isRequestUpgrade)) {

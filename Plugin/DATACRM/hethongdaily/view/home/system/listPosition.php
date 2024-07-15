@@ -13,52 +13,81 @@
           <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Chức danh hệ thống</h5>
           </div>
-          <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Chức danh</th>
-                      <th>Chiết khấu</th>
-                      <th class="text-center">Sửa</th>
-                      <th class="text-center">Xóa</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table-border-bottom-0">
-                    <?php 
-                      if(!empty($listData)){
-                        foreach ($listData as $item) {
+          <div id="desktop_view">
+            <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Chức danh</th>
+                        <th>Chiết khấu</th>
+                        <th class="text-center">Sửa</th>
+                        <th class="text-center">Xóa</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <?php 
+                        if(!empty($listData)){
+                          foreach ($listData as $item) {
+                            echo '<tr>
+                                    <td align="center">'.$item->id.'</td>
+                                    <td>
+                                      <span class="text-danger">'.$item->name.'</span><br/>
+                                      '.number_format($item->number_member).' đại lý
+                                    </td>
+                                    <td>Giảm <b>'.(int) $item->description.'%</b> khi đơn hàng tối thiểu <b>'.number_format((int) $item->keyword).'đ</b></td>
+                                    <td align="center">
+                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->keyword.'\', \''.$item->description.'\');">
+                                        <i class="bx bx-edit-alt me-1"></i>
+                                      </a>
+                                    </td>
+                                    <td align="center">
+                                      <a class="dropdown-item" onclick="deleteCategory('.$item->id.');" href="javascript:void(0);">
+                                        <i class="bx bx-trash me-1"></i>
+                                      </a>
+                                    </td>
+                                  </tr>';
+                          }
+                        }else{
                           echo '<tr>
-                                  <td align="center">'.$item->id.'</td>
-                                  <td>
-                                    <span class="text-danger">'.$item->name.'</span><br/>
-                                    '.number_format($item->number_member).' đại lý
-                                  </td>
-                                  <td>Giảm <b>'.(int) $item->description.'%</b> khi đơn hàng tối thiểu <b>'.number_format((int) $item->keyword).'đ</b></td>
-                                  <td align="center">
-                                    <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->keyword.'\', \''.$item->description.'\');">
-                                      <i class="bx bx-edit-alt me-1"></i>
-                                    </a>
-                                  </td>
-                                  <td align="center">
-                                    <a class="dropdown-item" onclick="deleteCategory('.$item->id.');" href="javascript:void(0);">
-                                      <i class="bx bx-trash me-1"></i>
-                                    </a>
-                                  </td>
+                                  <td colspan="5" align="center">Chưa có chức danh</td>
                                 </tr>';
                         }
-                      }else{
-                        echo '<tr>
-                                <td colspan="5" align="center">Chưa có chức danh</td>
-                              </tr>';
-                      }
-                    ?>
-                    
-                    
-                  </tbody>
-                </table>
-              </div>
+                      ?>
+                      
+                      
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+          </div>
+          <div id="mobile_view">
+               <?php 
+                        if(!empty($listData)){
+                          foreach ($listData as $item) {
+                            echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                                    <p><strong>ID: </strong>'.$item->id.'</td>
+                                    <p><strong>Chức danh: </strong>'.$item->name.'</span><br/>
+                                      '.number_format($item->number_member).' đại lý
+                                    </p>
+                                    <p><strong>Chiết khấu: </strong>Giảm <b>'.(int) $item->description.'%</b> khi đơn hàng tối thiểu <b>'.number_format((int) $item->keyword).'đ</b></p>
+                                    <p align="center">
+                                      <a class="btn btn-success" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->keyword.'\', \''.$item->description.'\');">
+                                        <i class="bx bx-edit-alt me-1"></i>
+                                      </a> <a class="btn btn-danger" onclick="deleteCategory('.$item->id.');" href="javascript:void(0);">
+                                        <i class="bx bx-trash me-1"></i>
+                                      </a>
+                                    </p>
+                                  </div>';
+                          }
+                        }else{
+                          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+                        }
+                      ?>
+                      
           </div>
         </div>
       </div>
@@ -109,7 +138,7 @@
     if(check){
       $.ajax({
         method: "GET",
-        url: "/categories/delete/?id="+id,
+        url: "/deleteCategoryPosition?id="+id,
         data: {}
       })
         .done(function( msg ) {

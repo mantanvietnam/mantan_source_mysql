@@ -1276,4 +1276,83 @@ function listCostsIncurred($input){
     }
 }
 
+function listUnitConversion($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    if(!empty($session->read('infoUser'))){
+
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
+        $modelProduct = $controller->loadModel('Products');
+
+
+        if(!empty($session->read('infoUser')->id_father)){
+            return $controller->redirect('/');
+        }
+
+        if(!empty($_GET['id_product'])){
+            $product = $modelProduct->find()->where(array('id'=> (int) $_GET['id_product'],'status'=>'active'))->first();
+            if(empty($product)){
+                return $controller->redirect('/listProductAgency');
+            }
+        }else{
+            return $controller->redirect('/listProductAgency');
+        }
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            
+            // tính ID category
+            if(!empty($dataSend['idEdit'])){
+                $save = $modelUnitConversion->get( (int) $dataSend['idEdit']);
+            }else{
+                $save = $modelUnitConversion->newEmptyEntity();
+            }
+
+            // tạo dữ liệu save
+           $save->unit = $dataSend['unit'];
+           $save->id_product = $product->id; 
+           $save->quantity = $dataSend['quantity'];
+           $save->price = $dataSend['price'];
+
+            $modelUnitConversion->save($save);
+
+        }
+
+        $conditions = array('id_product'=>$product->id);
+        $listData = $modelUnitConversion->find()->where($conditions)->all()->toList();
+
+
+        setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteUnitConversion($input){
+    global $controller;
+    global $session;
+
+    global $modelCategories;
+     $modelUnitConversion = $controller->loadModel('UnitConversions');
+    if(!empty($session->read('infoUser'))){
+        if(!empty($_GET['id'])){
+            $data = $modelUnitConversion->get($_GET['id']);
+            
+            if($data){
+                $modelUnitConversion->delete($data);
+            }
+        }
+
+    // return $controller->redirect('/listProductAgency');
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 ?>

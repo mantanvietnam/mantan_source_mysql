@@ -836,6 +836,9 @@ function completeBookingApi($input): array
                 if ($booking->received_by !== $currentUser->id) {
                     return apiResponse(4, 'Bạn không phải người nhận cuốc xe này');
                 }
+                /*if ($booking->status == $bookingStatus['receivedcompleted']) {
+                    return apiResponse(4, 'Cuốc xe đang chờ bên đăng xác nhận hoàn thành');
+                }*/
 
                 if ($booking->status == $bookingStatus['completed']) {
                     return apiResponse(4, 'Cuốc xe đã được hoàn thành rồi');
@@ -846,10 +849,7 @@ function completeBookingApi($input): array
                 $booking->updated_at = date('Y-m-d H:i:s');
                 $modelBooking->save($booking);
 
-                // if($currentUser->point>0){
-                    // $currentUser->point -= 1;
-                // }
-                $modelUser->save($currentUser);
+               
                 // Lưu lịch sử đăng cuốc xe và nhận cuốc xe
                 $receivedUserBooking = $userBookingModel->find()->where([
                     'user_id' => $currentUser->id,
@@ -899,6 +899,119 @@ function completeBookingApi($input): array
                         'booking_id' => $booking->id,
                     );
                     sendNotification($dataSendNotification, $postedUser->device_token);
+                }
+
+                return apiResponse(0, 'Bạn đã hoàn thành cuốc xe');
+            }
+
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function acceptCompleteBookingApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    $modelBooking = $controller->loadModel('Bookings');
+    $modelUser = $controller->loadModel('Users');
+    $modelNotification = $controller->loadModel('Notifications');
+    $userBookingModel = $controller->loadModel('UserBookings');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if ($currentUser->type == 0) {
+                return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
+            }
+
+            if (isset($dataSend['booking_id'])) {
+                $booking = $modelBooking->find()
+                    ->where(['id' => $dataSend['booking_id']])
+                    ->first();
+
+                if ($booking->posted_by !== $currentUser->id) {
+                    return apiResponse(4, 'Bạn không phải người đăng cuốc xe này');
+                }
+
+                
+                if ($booking->status == $bookingStatus['completed']) {
+                    return apiResponse(5, 'Cuốc xe đã được hoàn thành rồi');
+                }elseif ($booking->status !== $bookingStatus['receivedcompleted']) {
+                    return apiResponse(6, 'Cuốc xe này người nhận chưa dc xử lý xong');
+                }
+
+                $booking->status = $bookingStatus['completed'];
+                $booking->completed_at = date('Y-m-d H:i:s');
+                $booking->updated_at = date('Y-m-d H:i:s');
+                $modelBooking->save($booking);
+
+               
+                // Lưu lịch sử đăng cuốc xe và nhận cuốc xe
+                $receivedUserBooking = $userBookingModel->find()->where([
+                    'user_id' => $booking->received_by,
+                    'booking_id' => $booking->id,
+                    'type' => $bookingType['receive'],
+                ])->first();
+                if (!empty($receivedUserBooking)) {
+                    $receivedUserBooking->status = $bookingStatus['completed'];
+                    $userBookingModel->save($receivedUserBooking);
+                }
+
+                $postedUserBooking = $userBookingModel->find()->where([
+                    'user_id' => $currentUser->id,
+                    'booking_id' => $booking->id,
+                    'type' => $bookingType['post'],
+                ])->first();
+                if (!empty($postedUserBooking)) {
+                    $postedUserBooking->status = $bookingStatus['completed'];
+                    $userBookingModel->save($postedUserBooking);
+                }
+
+                $currentUser->posted += 1;
+
+                $modelUser->save($currentUser);
+
+
+                $receivedUser = $modelUser->find()->where(['id' => $booking->received_by])->first();
+
+                
+
+                // Thông báo cho người đăng cuốc xe
+                $title = 'Yêu cầu hoàn thành cuốc xe đã được chấp nhận';
+                $content = "Tài xế $currentUser->name đã chấp nhận hoàn thành cuốc xe #$booking->id";
+                $notification = $modelNotification->newEmptyEntity();
+                $notification->user_id = $receivedUser->id;
+                $notification->booking_id = $booking->id;
+                $notification->title = $title;
+                $notification->content = $content;
+                $notification->created_at = date('Y-m-d H:i:s');
+                $notification->updated_at = date('Y-m-d H:i:s');
+                $modelNotification->save($notification);
+
+                if ($receivedUser->device_token) {
+                    $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'completeBookingSuccess',
+                        'booking_id' => $booking->id,
+                    );
+                    sendNotification($dataSendNotification, $receivedUser->device_token);
                 }
 
                 return apiResponse(0, 'Bạn đã hoàn thành cuốc xe');
@@ -2588,14 +2701,14 @@ function checkBookingReceivedApi($input): array
                return apiResponse(2, 'Cuốc xe có người nhận rồi');  
            }else{
             return apiResponse(1, 'Cuốc xe chưa có người nhận', $booking);
+            }
+
+        }else{
+            return apiResponse(5, 'Gửi thiếu dữ liệu');
         }
 
-    }else{
-        return apiResponse(5, 'Gửi thiếu dữ liệu');
     }
-
-}
-return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 
 }
 

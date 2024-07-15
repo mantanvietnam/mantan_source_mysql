@@ -30,13 +30,13 @@
     <div id="wrapper">
         <div class="tabs">
             <ul class="nav-tabs">
-                <li class="active"><a href="#menu_1">Thông tin</a></li>
-                <li><a href="#menu_2">Sản phẩm</a></li>
-                <li><a href="#menu_3">Khách hàng</a></li>
+                <li class="active"><a href="#info">Thông tin</a></li>
+                <li><a href="#products">Sản phẩm</a></li>
+                <li><a href="#customer">Khách hàng</a></li>
             </ul>
         </div>
         <div class="tab-content">
-            <div id="menu_1" class="tab-content-item">
+            <div id="info" class="tab-content-item">
                 <div class="container">
                     <div class="ladi-wraper">
                         <div id="body-background" class="ladi-section">
@@ -202,7 +202,7 @@
         </div>
 
         <div class="tab-content">
-            <div id="menu_2" class="tab-content-item">
+            <div id="products" class="tab-content-item">
                 <div class="ladi-wraper">
                     <div id="body-background" class="ladi-section">
                         <img src="/plugins/hethongdaily/view/home/member/themeinfo/theme3/anh/5026621-20210708094515.jpg" alt="" style="height: 100%; width:100%; max-height: 100%;background-size: cover;">
@@ -331,7 +331,7 @@
     </div>
 
         <div class="tab-content">
-            <div id="menu_3" class="tab-content-item">
+            <div id="customer" class="tab-content-item">
                 <div class="ladi-wraper">
                     <div id="body-background" class="ladi-section">
                         <img src="/plugins/hethongdaily/view/home/member/themeinfo/theme3/anh/5026621-20210708094515.jpg" alt="" style="height: 100%; width:100%; max-height: 100%;background-size: cover;">
@@ -542,7 +542,7 @@
                     console.log(total_money);
 
                    
-                    document.getElementById('menu_2').style.display = "none";
+                    document.getElementById('products').style.display = "none";
                     document.getElementById('order').style.display = "block";
 
                     // $('.tab-content a[href="#order"]').tab('show'); 

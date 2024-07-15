@@ -202,12 +202,14 @@
             }
 
             if(dataAgency.status == 'active'){
-                status = '<div style="margin-top: 10px;margin-bottom: 10px;" class=""><a href="/updateStatusMember?id='+dataAgency.id+'&status=lock" class="btn btn-danger width-100  mb-3"><i class="fa fa-trash-o"></i>Khóa tài khoản</a> '+edit+'</div>';
+                status = '<div style="margin-top: 10px;margin-bottom: 10px;" class=""> '+edit+'</div>';
+                // <a href="/updateStatusMember?id='+dataAgency.id+'&status=lock" class="btn btn-danger width-100  mb-3"><i class="fa fa-trash-o"></i>Khóa tài khoản</a>
             }else{
                 payFees = '<button type="button" class="btn btn-danger" onclick="popupPayFees('+dataAgency.id+')">Đóng phí</button>';
                 payFees = '';
 
-                status = '<div style="margin-top: 10px;margin-bottom: 10px;" class=""><a href="/updateStatusMember?id='+dataAgency.id+'&status=active" class="btn btn-primary width-100  mb-3"><i class="fa fa-trash-o"></i>Kích hoạt tài khoản</a> '+payFees+' '+edit+'</div>';
+                status = '<div style="margin-top: 10px;margin-bottom: 10px;" class="">'+payFees+' '+edit+'</div>';
+                // <a href="/updateStatusMember?id='+dataAgency.id+'&status=active" class="btn btn-primary width-100  mb-3"><i class="fa fa-trash-o"></i>Kích hoạt tài khoản</a> 
             }
 
             if(dataAgency.verify == 'lock'){

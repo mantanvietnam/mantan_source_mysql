@@ -93,6 +93,7 @@
                           </div>
                           
                           <div class="col-md-6">
+                            <?php if($user->id_father == 0){ ?>
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-email">Chức danh (*)</label>
                               <select name="id_position" class="form-select" required id="id_position">
@@ -109,6 +110,7 @@
                                 } ?>
                               </select>
                           </div>
+                        <?php } ?>
                             <div class="mb-3">
                               <label class="form-label">Số điện thoại (*)</label>
                               <input disabled type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$user->phone;?>"/>

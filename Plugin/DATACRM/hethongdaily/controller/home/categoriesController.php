@@ -29,6 +29,7 @@ function listPosition($input){
             $infoCategory->parent = $session->read('infoUser')->id_system;
             $infoCategory->image = '';
             $infoCategory->keyword = $dataSend['keyword'];
+            $infoCategory->status = 'active';
             $infoCategory->description = $dataSend['description'];
             $infoCategory->type = 'system_positions';
             $infoCategory->slug = createSlugMantan($infoCategory->name);
@@ -38,7 +39,7 @@ function listPosition($input){
 
         }
 
-        $conditions = array('type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system);
+        $conditions = array('type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active');
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         if(!empty($listData)){
@@ -49,6 +50,29 @@ function listPosition($input){
         }
 
         setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteCategoryPosition($input){
+    global $controller;
+    global $session;
+
+    global $modelCategories;
+    if(!empty($session->read('infoUser'))){
+        if(!empty($_GET['id'])){
+            $data = $modelCategories->get($_GET['id']);
+            
+            if($data){
+                $data->status = 'lock';
+                $modelCategories->save($data);
+                //deleteSlugURL($data->slug);
+            }
+        }
+
+    // return $controller->redirect('/listProductAgency');
+
     }else{
         return $controller->redirect('/login');
     }
