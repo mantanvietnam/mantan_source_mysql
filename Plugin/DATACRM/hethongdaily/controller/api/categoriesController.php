@@ -14,7 +14,7 @@ function getListPositionAPI($input)
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['id_system'])){
-            $conditions = array('type' => 'system_positions', 'parent'=>(int) $dataSend['id_system']);
+            $conditions = array('type' => 'system_positions', 'parent'=>(int) $dataSend['id_system'], 'status'=>'active');
             $return = $modelCategories->find()->where($conditions)->all()->toList();
         }
     

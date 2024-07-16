@@ -158,7 +158,7 @@
                                   <img class="mb-3" id="QRURLProfile" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'info/?id='.@$user->id;?>" width="100">
                                 </div>
                                 <div class="col-md-6">
-                                  <button type="button" class="btn btn-primary mb-3" onclick="copyToClipboard('<?php echo $urlHomes.'info/?id='.@$user->id;?>');"><i class='bx bx-link'></i> Sao chép liên kết</button>
+                                  <button type="button" class="btn btn-primary mb-3" onclick="copyToClipboard('<?php echo $urlHomes.'info/?id='.@$user->id;?>', 'Đã copy thành công link liên kết');"><i class='bx bx-link'></i> Sao chép liên kết</button>
 
                                   <button type="button" class="btn btn-danger mb-3" onclick="downloadImageFromSrc('https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'info/?id='.@$user->id;?>', '<?php echo $user->phone;?>');"><i class='bx bx-cloud-download'></i> Tải mã QR</button>
                                 </div>
@@ -435,23 +435,6 @@
  ?>
 
  <script type="text/javascript">
-  function copyToClipboard(text) {
-      // Create a temporary input to hold the text to copy
-      var $temp = $("<input>");
-      $("body").append($temp);
-      
-      // Select and copy the text
-      $temp.val(text).select();
-      document.execCommand("copy");
-      
-      // Remove the temporary input
-      $temp.remove();
-      
-      // Show success message
-      alert('Đã copy thành công link liên kết ');
-      //$('#copySuccessMessage').show().fadeOut(2000);
-  }
-
   function downloadImageFromSrc(url, phone){
       var fileName = 'QR_ICHAM_'+phone+'.jpg';
       var xhr = new XMLHttpRequest();

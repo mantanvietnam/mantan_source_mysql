@@ -409,7 +409,7 @@
                 </div>
             </div>
 
-            <!-- Tab Sản phẩm -->
+            <!-- Tab Sản phẩm khách lẻ -->
             <div class="tab-pane fade" id="products">
                 <div class="container p-3 d-flex justify-content-center">
                     <div class="card p-4"> 
@@ -481,35 +481,59 @@
                 </div>
             </div>
 
-            <!-- Tab đặt hàng -->
-            <div class="tab-pane fade" id="order" style="display: none;">
+            <!-- Tab đặt hàng khách lẻ -->
+            <div class="tab-pane fade" id="order">
                 <div class="container p-3 d-flex justify-content-center">
                     <div class="card p-4"> 
                         <div class="mb-3">
-                          <label for="full_name" class="form-label">Họ tên (*)</label>
-                          <input type="text" class="form-control" id="full_name" name="full_name" value="" required />
+                          <label for="full_name" class="form-label">Đối tượng đặt hàng (*)</label><br/>
+                          <input type="radio" id="typeUser" name="typeUser" value="customer" checked /> Khách lẻ 
+                          &nbsp;&nbsp;&nbsp;
+                          <input type="radio" id="typeUser" name="typeUser" value="member" /> Đại lý 
                         </div>
-                        <div class="mb-3">
-                          <label for="phone" class="form-label">Số điện thoại (*)</label>
-                          <input type="text" class="form-control" id="phone" name="phone" value="" required />
+
+                        <div id="info_customer">
+                            <div class="mb-3">
+                              <label for="full_name" class="form-label">Họ tên (*)</label>
+                              <input type="text" class="form-control" id="full_name" name="full_name" value="" required />
+                            </div>
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Số điện thoại (*)</label>
+                              <input type="text" class="form-control" id="phone" name="phone" value="" required />
+                            </div>
+                            <div class="mb-3">
+                              <label for="address" class="form-label">Địa chỉ nhận hàng</label>
+                              <input type="text" class="form-control" id="address" name="address" value="" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="birthday" class="form-label">Ngày sinh (giảm giá khi đến sinh nhật)</label>
+                              <input type="text" class="form-control datepicker" id="birthday" name="birthday" value="" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="codeDiscount" class="form-label">Mã giảm giá</label><span id="messdiscount"></span>
+                              <input type="text" class="form-control" id="discountCode" onchange="searchDiscountCodeAgencyAPI()" name="discountCode" value="" />
+                            </div>
                         </div>
-                        <div class="mb-3">
-                          <label for="address" class="form-label">Địa chỉ nhận hàng</label>
-                          <input type="text" class="form-control" id="address" name="address" value="" />
+
+                        <div id="info_member" style="display: none;">
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Số điện thoại đại lý (*)</label>
+                              <input type="text" class="form-control" id="phone_member" name="phone_member" value="" onchange="checkMember();" required />
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Ghi chú mua hàng</label>
+                              <textarea name="note_member" id="note_member" class="form-control"></textarea>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                          <label for="birthday" class="form-label">Ngày sinh (giảm giá khi đến sinh nhật)</label>
-                          <input type="text" class="form-control datepicker" id="birthday" name="birthday" value="" />
-                        </div>
-                        <div class="mb-3">
-                          <label for="codeDiscount" class="form-label">Mã giảm giá</label><span id="messdiscount"></span>
-                          <input type="text" class="form-control" id="discountCode" onchange="searchDiscountCodeAgencyAPI()" name="discountCode" value="" />
-                        </div>
+
                         <div class="mb-3">
                             <input type="hidden" id="money" value="0">
                             <input type="hidden" id="discount" value="0">
                             <input type="hidden" id="total" value="0">
                             <input type="hidden" id="codeDiscount" value="">
+                            <input type="hidden" id="promotion" value="0">
+
                             <button type="button" class="btn btn-danger" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button> 
                         </div>
                         <div id="list_cart" class="mb-3"></div>
@@ -576,11 +600,13 @@
 
             <!-- Tab trang cá nhân -->
             <?php 
+            /*
             if(!empty($info->web)){
                 echo '  <div class="tab-pane fade" id="about">
                             <iframe allowfullscreen="" width="100%" height="100%" title="main360" src="'.$info->web.'"></iframe>
                         </div>';
             }
+            */
             ?>
         </div>
 
@@ -691,6 +717,19 @@
             var id_agency = '<?php echo (int) @$_GET['id'];?>';
             var name_agency = '<?php echo $info->name;?>';
             var name_system = '<?php echo $info->name_system;?>';
+            var data_order = {};
+            var listPositions = {}
+
+            <?php
+            if(!empty($listPositions)){
+                foreach ($listPositions as $key => $value) {
+                    echo '  listPositions['.$key.'] = {};
+                            listPositions['.$key.']["minMoney"] = '.(int) $value->keyword.';
+                            listPositions['.$key.']["discount"] = '.(int) $value->description.';
+                        ';
+                }
+            }
+            ?>
 
             <?php 
                 if(!empty($listProduct)){
@@ -757,41 +796,51 @@
                 if(!checkTick){
                     alert('Bạn cần chọn sản phẩm muốn mua thì mới có thể đặt hàng');
                 }else{
-                    $.ajax({
-                      method: "GET",
-                      url: "/clearCart/?callAPI=1",
-                      data: {}
-                    })
-                    .done(function( msg ) {
-                       $('#list_cart').html('');
-                        $('#full_name').val('');
-                        $('#phone').val('');
-                        $('#address').val('');
+                    $('#list_cart').html('');
+                    $('#full_name').val('');
+                    $('#phone').val('');
+                    $('#address').val('');
 
-                        list_cart = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>SL</th><th>Giá</th></tr></thead><tbody>';
-                        for (var key in list_product) {
-                            if (list_product.hasOwnProperty(key)) {
-                                if(list_product[key].buy == 1){
-                                    list_cart += '<tr><td>'+list_product[key].title+'</td><td align="center">'+list_product[key].number+'</td><td>'+formatNumberWithCommas(list_product[key].price)+'đ</td></tr>';
+                    data_order = {};
 
-                                    total_money += list_product[key].price*list_product[key].number;
+                    list_cart = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>SL</th><th>Giá</th></tr></thead><tbody>';
+                    for (var key in list_product) {
+                        if (list_product.hasOwnProperty(key)) {
+                            if(list_product[key].buy == 1){
+                                list_cart += '<tr><td>'+list_product[key].title+'</td><td align="center">'+list_product[key].number+'</td><td>'+formatNumberWithCommas(list_product[key].price)+'đ</td></tr>';
 
-                                    addProducToCart(list_product[key].id, list_product[key].number);
-                                }
+                                total_money += list_product[key].price*list_product[key].number;
+
+                                data_order['p'+list_product[key].id] = {};
+                                data_order['p'+list_product[key].id]['id_product'] = list_product[key].id;
+                                data_order['p'+list_product[key].id]['quantity'] = list_product[key].number;
+                                data_order['p'+list_product[key].id]['price'] = list_product[key].price;
+                                data_order['p'+list_product[key].id]['discount'] = 0;
                             }
                         }
-                        
-                        list_cart += '</tbody></table> <p><b>Thành tiền: </b><span id="money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
-                        list_cart += '</tbody></table> <p><b>giảm giá : </b><span id="discountmoney">0 đ</span</p>';
-                        list_cart += '</tbody></table> <p><b>Tổng tiền: </b><span id="total_money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
+                    }
 
-                        $('#list_cart').html(list_cart);
-                        $('#money').val(total_money);
-                        $('#discount').val(0);
-                        $('#total').val(total_money);
+                    // kiểm tra chiết khấu đại lý
+                    var discountAgency = 0;
 
-                        $('.nav-tabs a[href="#order"]').tab('show'); 
+                    Object.keys(listPositions).forEach(function(key) {
+                        if(total_money >= listPositions[key]['minMoney']){
+                            discountAgency = listPositions[key]['discount'];
+                        }
                     });
+
+                    $('#promotion').val(discountAgency);
+                    
+                    list_cart += '</tbody></table> <p><b>Thành tiền: </b><span id="money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
+                    list_cart += '</tbody></table> <p><b>Giảm giá : </b><span id="discountmoney">0%</span</p>';
+                    list_cart += '</tbody></table> <p><b>Tổng tiền: </b><span id="total_money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
+
+                    $('#list_cart').html(list_cart);
+                    $('#money').val(total_money);
+                    $('#discount').val(0);
+                    $('#total').val(total_money);
+
+                    $('.nav-tabs a[href="#order"]').tab('show'); 
                 }
             }
 
@@ -817,59 +866,92 @@
 
             function createOrder()
             {
-                var full_name = $('#full_name').val();
-                var phone = $('#phone').val();
-                var address = $('#address').val();
-                var birthday = $('#birthday').val();
-                var money = $('#money').val();
-                var discount = $('#discount').val();
-                var total = $('#total').val();
-                var codeDiscount = $('#codeDiscount').val();
+                var typeUser = $('input[name="typeUser"]:checked').val();
+
+                if(typeUser == 'customer'){
+                    var full_name = $('#full_name').val();
+                    var phone = $('#phone').val();
+                    var address = $('#address').val();
+                    var birthday = $('#birthday').val();
+                    var money = $('#money').val();
+                    var discount = $('#discount').val();
+                    var total = $('#total').val();
+                    var codeDiscount = $('#codeDiscount').val();
 
 
-                $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
+                    $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
 
-                if(full_name != '' && phone != ''){
-                    $.ajax({
-                      method: "POST",
-                      url: "/apis/paycreateOrderCustomerPAI",
-                      data: { full_name: full_name, 
-                              phone: phone, 
-                              address: address, 
-                              _csrfToken: crf, 
-                              id_agency:id_agency, 
-                              name_agency:name_agency, 
-                              name_system:name_system, 
-                              birthday:birthday,
-                              money:money,
-                              discount:discount,
-                              total:total,
-                              codeDiscount:codeDiscount,
-                          }
+                    if(full_name != '' && phone != ''){
+                        $.ajax({
+                          method: "POST",
+                          url: "/apis/paycreateOrderCustomerPAI",
+                          data: { full_name: full_name, 
+                                  phone: phone, 
+                                  address: address, 
+                                  _csrfToken: crf, 
+                                  id_agency:id_agency, 
+                                  name_agency:name_agency, 
+                                  name_system:name_system, 
+                                  birthday:birthday,
+                                  money:money,
+                                  discount:discount,
+                                  total:total,
+                                  codeDiscount:codeDiscount,
+                              }
 
-                    }).done(function( msg ) {
-                        console.log(msg);
-                        $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
+                        }).done(function( msg ) {
+                            console.log(msg);
+                            $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
 
-                        $('.nav-tabs a[href="#info"]').tab('show');
+                            $('.nav-tabs a[href="#info"]').tab('show');
 
-                        alert('Tạo đơn hàng thành công');
-                    });
-                }else{
-                    alert('Bạn không được để trống trường Họ tên và Số điện thoại');
-                }
-            }
+                            alert('Tạo đơn hàng thành công');
+                        });
+                    }else{
+                        alert('Bạn không được để trống trường Họ tên và Số điện thoại');
+                    }
+                }else if(typeUser == 'member'){
+                    var phone = $('#phone_member').val();
+                    var note = $('#note_member').val();
 
-            function addProducToCart(idProduct, number)
-            {
-                $.ajax({
-                  method: "POST",
-                  url: "/apis/addProductToCart",
-                  data: { id_product: idProduct, quantity: number, status: true, _csrfToken: crf }
-                })
-                .done(function( msg ) {
+                    var money = $('#money').val();
+                    var total = $('#total').val();
+                    var promotion = $('#promotion').val();
                     
-                });
+                    if(promotion > 0 && promotion < 100){
+                        total = money * (100-promotion)/100;
+                    }else if(promotion > 100){
+                        total = money - promotion;
+                    }
+
+                    $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
+
+                    if(phone != ''){
+                        $.ajax({
+                          method: "POST",
+                          url: "/apis/createOrderMemberAPI",
+                          data: { 
+                                  phone: phone, 
+                                  note: note, 
+                                  _csrfToken: crf, 
+                                  total: money,
+                                  totalPays: total,
+                                  promotion: promotion,
+                                  data_order: JSON.stringify(data_order)
+                              }
+
+                        }).done(function( msg ) {
+                            console.log(msg);
+                            $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
+
+                            $('.nav-tabs a[href="#info"]').tab('show');
+
+                            alert('Tạo đơn hàng thành công');
+                        });
+                    }else{
+                        alert('Bạn không được để trống trường Số điện thoại');
+                    }
+                }
             }
         </script>
 
@@ -931,88 +1013,88 @@
 
         </script>
 
-    <script>
+        <script>
             function downloadCardCustomer(){
                 var image = document.getElementById('imageToDownload');
                 var imageUrl = image.getAttribute('src');
                 var imageName = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
 
-            // Tạo một đối tượng XMLHttpRequest
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', imageUrl, true);
-            xhr.responseType = 'blob'; // Đảm bảo dữ liệu trả về là dạng blob (binary large object)
-            
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    // Tạo một URL dữ liệu từ dữ liệu nhận được
-                    var url = window.URL.createObjectURL(xhr.response);
-                    
-                    // Tạo một liên kết để tải xuống
-                    var a = document.createElement('a');
-                    a.href = url;
-                    a.download = imageName;
-                    
-                    // Simulate click để tải ảnh về
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                }
-            };
-            
-            xhr.send();
-        };
-
-        function searchDiscountCodeAgencyAPI()
-        {
-            var code  = $('#discountCode').val();
-            var money  = parseInt($('#money').val());
-            var id_member  = <?php echo $info->id ;?>;
-
-            $.ajax({
-                method: "GET",
-                url: "/apis/searchDiscountCodeAgencyAPI/?code="+code+'&id_member='+id_member,
-            }).done(function(msg) {
-                if(msg.code==0){
-                    if(msg.data.applicable_price <= money){
-
-                        const specifiedTime = new Date(msg.data.deadline_at);
-                        const currentTime = new Date();
-                        var html ='';
-                        if(specifiedTime > currentTime) {
-
-                            if(msg.data.discount>100){
-                                var discount = msg.data.discount;
-                            }else{
-                             var discount =(msg.data.discount / 100) * money;
-                         }
-                         if(msg.data.maximum_price_reduction!=null){
-                            if(discount>msg.data.maximum_price_reduction ){
-                                discount = msg.data.maximum_price_reduction;
-                            }
-                        }
-                        $('#discount').val(discount);
-                        $('#codeDiscount').val(msg.data.code);
-                        $('#total').val(money-discount);
-
-                        $('#discountmoney').html(formatNumberWithCommas(discount)+ 'đ');
-                        $('#total_money').html(formatNumberWithCommas(money-discount)+ 'đ');
+                // Tạo một đối tượng XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', imageUrl, true);
+                xhr.responseType = 'blob'; // Đảm bảo dữ liệu trả về là dạng blob (binary large object)
+                
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Tạo một URL dữ liệu từ dữ liệu nhận được
+                        var url = window.URL.createObjectURL(xhr.response);
+                        
+                        // Tạo một liên kết để tải xuống
+                        var a = document.createElement('a');
+                        a.href = url;
+                        a.download = imageName;
+                        
+                        // Simulate click để tải ảnh về
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
                     }
-                }
+                };
+                
+                xhr.send();
+            };
 
-                }else{
-                    $('#codeDiscount').val('');
-                    $('#discount').val(0);
-                    $('#total').val(money);
-                    $('#discountmoney').html('0đ');
-                    $('#total_money').html(formatNumberWithCommas(money) + 'đ');
-                }
-                $('#messdiscount').html('<p class="text-danger">'+msg.mess+'</p>');   
+            function searchDiscountCodeAgencyAPI()
+            {
+                var code  = $('#discountCode').val();
+                var money  = parseInt($('#money').val());
+                var id_member  = <?php echo $info->id ;?>;
+
+                $.ajax({
+                    method: "GET",
+                    url: "/apis/searchDiscountCodeAgencyAPI/?code="+code+'&id_member='+id_member,
+                }).done(function(msg) {
+                    if(msg.code==0){
+                        if(msg.data.applicable_price <= money){
+
+                            const specifiedTime = new Date(msg.data.deadline_at);
+                            const currentTime = new Date();
+                            var html ='';
+                            if(specifiedTime > currentTime) {
+
+                                if(msg.data.discount>100){
+                                    var discount = msg.data.discount;
+                                }else{
+                                 var discount =(msg.data.discount / 100) * money;
+                             }
+                             if(msg.data.maximum_price_reduction!=null){
+                                if(discount>msg.data.maximum_price_reduction ){
+                                    discount = msg.data.maximum_price_reduction;
+                                }
+                            }
+                            $('#discount').val(discount);
+                            $('#codeDiscount').val(msg.data.code);
+                            $('#total').val(money-discount);
+
+                            $('#discountmoney').html(formatNumberWithCommas(discount)+ 'đ');
+                            $('#total_money').html(formatNumberWithCommas(money-discount)+ 'đ');
+                        }
+                    }
+
+                    }else{
+                        $('#codeDiscount').val('');
+                        $('#discount').val(0);
+                        $('#total').val(money);
+                        $('#discountmoney').html('0đ');
+                        $('#total_money').html(formatNumberWithCommas(money) + 'đ');
+                    }
+                    $('#messdiscount').html('<p class="text-danger">'+msg.mess+'</p>');   
 
 
-            });
+                });
 
-        }
-    </script>
+            }
+        </script>
 
         <script type="text/javascript">
             function showQRCode()
@@ -1025,7 +1107,7 @@
             var tabShow = 'info';
             <?php
                 if(!empty($_GET['tabShow'])){
-                    echo "var tabShow = '".$_GET['tabShow']."';";
+                    echo "tabShow = '".$_GET['tabShow']."';";
                 }
             ?>
 
@@ -1038,6 +1120,55 @@
               dateFormat: "dd/mm/yy"
             });
           } );
+        </script>
+
+        <script>
+            document.querySelectorAll('input[name="typeUser"]').forEach((elem) => {
+                elem.addEventListener("change", (event) => {
+                    var typeUser = $('input[name="typeUser"]:checked').val();
+                    var promotion = $('#promotion').val();
+                    var discount = $('#discount').val();
+                    var money  = parseInt($('#money').val());
+                    var total = money;
+
+                    $('#info_customer').hide();
+                    $('#info_member').hide();
+
+                    if(typeUser == 'member'){
+                        $('#info_member').show();
+                        $('#discountmoney').html(promotion+'%');
+                        
+                        total = money * (100 - promotion)/100;
+                        $('#total_money').html(formatNumberWithCommas(total)+'đ');
+                        
+                    }else{
+                        $('#info_customer').show();
+                        $('#discountmoney').html(discount+'%');
+
+                        total = money * (100 - discount)/100;
+                        $('#total_money').html(formatNumberWithCommas(total)+'đ');
+                    }
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            function checkMember()
+            {
+                var phone_member = $('#phone_member').val();
+
+                $.ajax({
+                  method: "POST",
+                  url: "/apis/searchMemberAPI",
+                  data: { phone: phone_member }
+
+                }).done(function( msg ) {
+                    if(msg[0].id == 0){
+                        $('#phone_member').val('');
+                        alert('Không tìm thấy đại lý có số điện thoại là '+phone_member);
+                    }
+                });
+            }
         </script>
     </body>
 </html>
