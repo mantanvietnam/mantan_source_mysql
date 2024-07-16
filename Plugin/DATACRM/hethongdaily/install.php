@@ -149,6 +149,7 @@ $sqlInstallDatabase .= "CREATE TABLE `order_member_details` (
   `quantity` INT NOT NULL , 
   `price` INT NOT NULL , 
   `discount` INT NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu',
+  `id_unit` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -422,12 +423,14 @@ $sqlUpdateDatabase['order_members']['discount'] = "ALTER TABLE `order_members` A
 $sqlUpdateDatabase['order_members']['costsIncurred'] = "ALTER TABLE `order_members` ADD `costsIncurred` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
 $sqlUpdateDatabase['order_members']['total_costsIncurred'] = "ALTER TABLE `order_members` ADD `total_costsIncurred` INT NULL DEFAULT '0';";
 
+
 // bảng order_member_details
 $sqlUpdateDatabase['order_member_details']['id_product'] = "ALTER TABLE `order_member_details` ADD `id_product` INT NOT NULL;";
 $sqlUpdateDatabase['order_member_details']['id_order_member'] = "ALTER TABLE `order_member_details` ADD `id_order_member` INT NOT NULL;";
 $sqlUpdateDatabase['order_member_details']['quantity'] = "ALTER TABLE `order_member_details` ADD `quantity` INT NOT NULL;";
 $sqlUpdateDatabase['order_member_details']['price'] = "ALTER TABLE `order_member_details` ADD `price` INT NOT NULL;";
 $sqlUpdateDatabase['order_member_details']['discount'] = "ALTER TABLE `order_member_details` ADD `discount` INT NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu';";
+$sqlUpdateDatabase['order_member_details']['id_unit'] = "ALTER TABLE `order_member_details` ADD `id_unit` INT NOT NULL DEFAULT '0';";
 
 // bảng warehouse_products
 $sqlUpdateDatabase['warehouse_products']['id_member'] = "ALTER TABLE `warehouse_products` ADD `id_member` INT NOT NULL;";

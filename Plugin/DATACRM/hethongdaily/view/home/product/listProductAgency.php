@@ -100,9 +100,7 @@
                           <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
                           <td> '.number_format($item->price).' đ</td>
                           <td align="center" >'.$item->unit.'<br/>
-                          <a class="dropdown-item" href="/listUnitConversion/?id_product='.$item->id.'" title="Quy đổi đơn vị">
-                             <i class="bx bx-transfer"></i>
-                            </a>
+                         
                           </td>
                           <td align="center">
                             <a class="dropdown-item" href="/addProductAgency/?id='.$item->id.'">
