@@ -117,4 +117,19 @@ let menu, animate;
   window.Helpers.setCollapsed(true, false);
 })();
 
-
+function copyToClipboard(text, mess) {
+      // Create a temporary input to hold the text to copy
+      var $temp = $("<input>");
+      $("body").append($temp);
+      
+      // Select and copy the text
+      $temp.val(text).select();
+      document.execCommand("copy");
+      
+      // Remove the temporary input
+      $temp.remove();
+      
+      // Show success message
+      alert(mess);
+      //$('#copySuccessMessage').show().fadeOut(2000);
+  }

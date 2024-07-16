@@ -7,7 +7,10 @@
     Danh sách đơn hàng
   </h4>
 
-  <p><a href="/addOrderCustomer" class="btn btn-primary"><i class="bx bx-plus"></i> Tạo đơn hàng mới</a></p>
+  <p>
+    <a href="/addOrderCustomer" class="btn btn-primary"><i class="bx bx-plus"></i> Tạo đơn hàng mới</a> 
+    <button type="button" class="btn btn-danger" onclick="copyToClipboard('<?php echo $urlHomes.'info/?id='.$session->read('infoUser')->id.'&tabShow=products';?>', 'Đã copy thành công link liên kết để khách hàng tự tạo đơn');"><i class="bx bx-link"></i> Liên kết khách hàng tạo đơn</button>
+  </p>
 
   <!-- Form Search -->
   <form method="get" action="">

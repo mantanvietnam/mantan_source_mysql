@@ -212,7 +212,7 @@ function sendNotificationMobile($input)
         $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
 
         // danh sách chức danh đại lý
-        $conditions = array('type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system);
+        $conditions = array('type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active');
         $listPositions = $modelCategories->find()->where($conditions)->all()->toList();
 
 		if ($isRequestPost) {
@@ -265,7 +265,7 @@ function sendNotificationMobile($input)
 	        		}
 	        	}elseif($dataSend['type_user'] == 'member_position'){
 	        		if(!empty($dataSend['id_position'])){
-	        			$infoPosition = $modelCategories->find()->where(['id'=>(int) $dataSend['id_position'], 'type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system])->first();
+	        			$infoPosition = $modelCategories->find()->where(['id'=>(int) $dataSend['id_position'], 'type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active'])->first();
 
 	        			if(!empty($infoPosition)){
 	        				$listMembers = $modelMembers->find()->where(['id_position'=>(int) $dataSend['id_position']])->all()->toList();
@@ -396,7 +396,7 @@ function sendMessZaloZNS($input)
 	        $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
 
 	        // danh sách chức danh đại lý
-	        $conditions = array('type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system);
+	        $conditions = array('type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active');
 	        $listPositions = $modelCategories->find()->where($conditions)->all()->toList();
 
 			$today = getdate();
@@ -450,7 +450,7 @@ function sendMessZaloZNS($input)
 			        		}
 			        	}elseif($dataSend['type_user'] == 'member_position'){
 			        		if(!empty($dataSend['id_position'])){
-			        			$infoPosition = $modelCategories->find()->where(['id'=>(int) $dataSend['id_position'], 'type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system])->first();
+			        			$infoPosition = $modelCategories->find()->where(['id'=>(int) $dataSend['id_position'], 'type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active'])->first();
 
 			        			if(!empty($infoPosition)){
 			        				$listCustomers = $modelMembers->find()->where(['id_position'=>(int) $dataSend['id_position']])->all()->toList();

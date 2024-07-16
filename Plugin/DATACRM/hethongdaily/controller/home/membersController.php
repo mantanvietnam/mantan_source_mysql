@@ -770,11 +770,15 @@ function info($input)
 			// lấy danh sách nhóm khách hàng
 			$conditions = array('type' => 'group_customer', 'parent'=>$info->id);
         	$listGroupCustomer = $modelCategories->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
+
+        	// lấy danh sách chức danh
+        	$listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$info->id_system, 'status'=>'active'])->all()->toList();
 		
 			setVariable('info', $info);
 			setVariable('dataLink', $dataLink);
 			setVariable('listGroupCustomer', $listGroupCustomer);
 			setVariable('modelSetingThemeInfo', $modelSetingThemeInfo);
+			setVariable('listPositions', $listPositions);
 		}else{
 			return $controller->redirect('/');
 		}
