@@ -67,6 +67,8 @@ function settingHomececad($input){
             'imagecontact'=>$dataSend['imagecontact'],
             'map'=>$dataSend['map'],
             'imageheadercontact'=>$dataSend['imageheadercontact'],
+            // 
+            'logofooter' =>$dataSend['logofooter'],
 
         );
     $data->key_word = 'settingHomececad';
@@ -89,10 +91,11 @@ function indexTheme($input){
 	global $modelAlbuminfos;
 	global $settingThemes;
     global $controller;
-
+    global $modelCategories;
 	$conditions = array('key_word' => 'settingHomececad');
 
     $modelproduct_projects = $controller->loadModel('ProductProjects');
+
     $order = array('id'=>'desc');
     $listDataproduct_projects= $modelproduct_projects->find()->limit(4)->order($order)->all()->toList();
 
@@ -117,11 +120,15 @@ function indexTheme($input){
         $slide_partner = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['slide_partner']])->all()->toList();
     }
 
+    $listDataslugproject= $modelCategories->find()->limit(6)->where(array('type'=>'category_kind'))->order($order)->all()->toList();
+
+
     setVariable('listDataproduct_projects', $listDataproduct_projects);
     setVariable('listDataPost', $listDataPost);
     setVariable('listDatatop', $listDatatop);
     setVariable('slide_home', $slide_home);
     setVariable('slide_partner', $slide_partner);
+    setVariable('listDataslugproject',$listDataslugproject);
 }
 
 function categoryPostTheme($input){
@@ -236,6 +243,7 @@ function publication($input){
 
 
 }
+
 function project($input){
     global $controller; 
     global $modelOptions;

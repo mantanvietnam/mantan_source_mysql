@@ -98,11 +98,10 @@
 
         <section id="all-news-section">
             <div class="container">
-                <h2>Tất cả tin tức</h2>
-
+                <h2><?=$category['name']?></h2>
                 <div class="all-news-list">
                     <div class="row">
-                    <?php foreach ($listDataproject as $key => $value) { ?>
+                    <?php foreach ($list_project as $key => $value) { ?>
                         <div class="col-lg-4 col-md-6">
                             <div class="all-news-item">
                                 <a href="">

@@ -118,7 +118,7 @@
             window.location = '/plugins/admin/product_projects-view-admin-kind-listKindAdmin';
           })
           .fail(function() {
-            window.location = '/plugins/admin/product_projects-view-admin-kind-listKindAdmin';
+            window.location = '/plugins/admin/product_project-view-admin-kind-listKindAdmin';
           });
       }
     }
