@@ -29,7 +29,6 @@
             </div>
           </div>
           <div class="card-body">
-            <p><?php echo $mess;?></p>
             <form enctype="multipart/form-data" method="post" action="">
               <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
               <div class="row">
