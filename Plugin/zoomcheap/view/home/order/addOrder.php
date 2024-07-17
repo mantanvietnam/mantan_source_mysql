@@ -14,6 +14,20 @@
           <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Đơn hàng thuê Zoom</h5>
           </div>
+          <div class="row ms-2">
+            <div class="col-6 col-sm-6 col-md-3">
+              <b>Zoom 100:</b> <?php echo $numberAcc100;?>
+            </div>
+            <div class="col-6 col-sm-6 col-md-3">
+              <b>Zoom 300:</b> <?php echo $numberAcc300;?>
+            </div>
+            <div class="col-6 col-sm-6 col-md-3">
+              <b>Zoom 500:</b> <?php echo $numberAcc500;?>
+            </div>
+            <div class="col-6 col-sm-6 col-md-3">
+              <b>Zoom 1000:</b> <?php echo $numberAcc1000;?>
+            </div>
+          </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
             <form enctype="multipart/form-data" method="post" action="">

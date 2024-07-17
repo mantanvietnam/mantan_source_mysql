@@ -110,12 +110,22 @@ function addOrder($input)
 		$modelZooms = $controller->loadModel('Zooms');
 		$modelPrices = $controller->loadModel('Prices');
 		$modelHistories = $controller->loadModel('Histories');
+		$numberAcc100 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>100, 'status'=>'active'])->all()->toList();
+	    $numberAcc100 = count($numberAcc100);
 
+	    $numberAcc300 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>300, 'status'=>'active'])->all()->toList();
+	    $numberAcc300 = count($numberAcc300);
+
+	    $numberAcc500 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>500, 'status'=>'active'])->all()->toList();
+	    $numberAcc500 = count($numberAcc500);
+
+	    $numberAcc1000 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>1000, 'status'=>'active'])->all()->toList();
+	    $numberAcc1000 = count($numberAcc1000);
 		$mess= '';
 	    
 	    $infoUser = $modelManagers->find()->where(['id'=>$session->read('infoUser')->id])->first();
 	    
-
+		
 		if ($isRequestPost) {
 	        $dataSend = $input['request']->getData();
 
@@ -184,7 +194,10 @@ function addOrder($input)
 	    $session->write('infoUser',$infoUser);
 
 	    $listPrices = $modelPrices->find()->where()->all()->toList();
-
+	    setVariable('numberAcc100', $numberAcc100);
+	    setVariable('numberAcc300', $numberAcc300);
+	    setVariable('numberAcc500', $numberAcc500);
+	    setVariable('numberAcc1000', $numberAcc1000);
 	    setVariable('mess', $mess);
 	    setVariable('listPrices', $listPrices);
 	    setVariable('infoUser', $infoUser);
