@@ -16,16 +16,32 @@
           </div>
           <div class="row ms-2">
             <div class="col-6 col-sm-6 col-md-3">
-              <b>Zoom 100:</b> <?php echo $numberAcc100;?>
+                <b>Zoom 100:</b><?php if ($numberAcc100 > 0): ?>
+                                <span class="text-primary"><?php echo $numberAcc100; ?></span>
+                              <?php else: ?>
+                                <span class="text-danger"><?php echo $numberAcc100; ?> ( Tạm Hết )</span>
+                              <?php endif; ?>
             </div>
             <div class="col-6 col-sm-6 col-md-3">
-              <b>Zoom 300:</b> <?php echo $numberAcc300;?>
+                <b>Zoom 300:</b><?php if ($numberAcc300 > 0): ?>
+                                <span class="text-primary"><?php echo $numberAcc300; ?></span>
+                              <?php else: ?>
+                                <span class="text-danger"><?php echo $numberAcc300; ?> ( Tạm Hết )</span>
+                              <?php endif; ?>
             </div>
             <div class="col-6 col-sm-6 col-md-3">
-              <b>Zoom 500:</b> <?php echo $numberAcc500;?>
+                <b>Zoom 500:</b><?php if ($numberAcc500 > 0): ?>
+                                <span class="text-primary"><?php echo $numberAcc500; ?></span>
+                              <?php else: ?>
+                                <span class="text-danger"><?php echo $numberAcc500; ?> ( Tạm Hết )</span>
+                              <?php endif; ?>
             </div>
             <div class="col-6 col-sm-6 col-md-3">
-              <b>Zoom 1000:</b> <?php echo $numberAcc1000;?>
+                <b>Zoom 1000:</b><?php if ($numberAcc1000 > 0): ?>
+                                <span class="text-primary"><?php echo $numberAcc1000; ?></span>
+                              <?php else: ?>
+                                <span class="text-danger"><?php echo $numberAcc1000; ?> ( Tạm Hết )</span>
+                              <?php endif; ?>
             </div>
           </div>
           <div class="card-body">
