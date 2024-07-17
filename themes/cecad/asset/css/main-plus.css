@@ -1132,11 +1132,62 @@ margin-bottom: 0;
 .majors-list .majors-items img {
     width: 60px;
     height: 60px;
+    transition: all linear 0.2s;
 }
 
 .majors-list .majors-items p {
     font-size: 28px;
     font-weight: 700;
+    color: #43414F;
+    transition: all linear 0.2s;
+}
+
+.majors-list a:hover .majors-items p {
+    transition: all linear 0.2s;
+    color: #427FE3;
+}
+
+.majors-list a:hover .majors-items img {
+    transition: all linear 0.2s;
+    scale: 1.05;
+    animation: bounce 0.6s ease;
+    -webkit-animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+    0% {
+        top: 0px;
+    }
+    25% {
+        top: -10px;
+    }
+    50% {
+        top: 5px;
+    }
+    75% {
+        top: -5px;
+    }
+    100% {
+        top: 0px;
+    }
+}
+
+@-webkit-keyframes bounce {
+    0% {
+        top: 0px;
+    }
+    25% {
+        top: -10px;
+    }
+    50% {
+        top: 5px;
+    }
+    75% {
+        top: -5px;
+    }
+    100% {
+        top: 0px;
+    }
 }
 
 #majors-section .majors {
@@ -1168,22 +1219,6 @@ margin-bottom: 0;
 
 #majors-section .majors .majors-items.majors-items-right img {
     order: 1;
-}
-
-.fade-img {
-    animation: fadeInOut 3s infinite;
-}
-
-@keyframes fadeInOut {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.7;
-    }
-    100% {
-        opacity: 1;
-    }
 }
 
 #majors-section .majors .majors-items.majors-items-1 {
@@ -1230,7 +1265,7 @@ margin-bottom: 0;
     background-size: cover;
     background-position: center;
     padding-top: 80px;
-    padding-bottom: 70px;
+    padding-bottom: 40px;
     padding-left: 100px;
     padding-right: 100px;
 }
@@ -1297,7 +1332,7 @@ margin-bottom: 0;
 }
 
 .projects-items .projects-items-info {
-    padding: 32px;
+    padding: 30px;
 }
 
 .swiper1 .swiper-slide :hover img {
@@ -1311,9 +1346,9 @@ margin-bottom: 0;
 }
 
 .projects-items .projects-items-info a {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 600;
-    margin-bottom: 16px !important;
+    margin-bottom: 12px !important;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -1325,7 +1360,7 @@ margin-bottom: 0;
 
 .projects-items .projects-items-info ul {
     display: grid;
-    gap: 12px;
+    gap: 10px;
 }
 
 .projects-items .projects-items-info li {
@@ -1351,7 +1386,7 @@ margin-bottom: 0;
     border-radius: 16px;
     overflow: hidden;
     background-color: #fff;
-    margin: 0 16px;
+    margin: 0 8px;
 }
 
 .bg-section {
@@ -1418,8 +1453,8 @@ padding-right: 100px; */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    padding-top: 80px;
-    padding-bottom: 70px;
+    padding-top: 40px;
+    padding-bottom: 80px;
     padding-left: 100px;
     padding-right: 100px;
 }
@@ -1602,6 +1637,10 @@ padding-right: 100px; */
     margin: auto auto;
     text-align: center;
     margin-bottom: 48px !important;
+}
+
+.fade-img {
+    animation: bounce .6s ease;
 }
 
 @media (max-width: 1440px) {
