@@ -32,6 +32,14 @@
             <label class="form-label">Điện thoại</label>
             <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
           </div>
+          <div class="col-md-2">
+            <label class="form-label">Trạng thái thanh toán</label>
+            <select name="status_pay" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="wait" <?php if(!empty($_GET['status_pay']) && $_GET['status_pay']=='wait') echo 'selected';?> >Chưa thanh toán</option>
+              <option value="done" <?php if(!empty($_GET['status_pay']) && $_GET['status_pay']=='done') echo 'selected';?> >Đã thanh toán</option>
+            </select>
+          </div>
 
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
@@ -70,7 +78,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách đơn hàng</h5>
+    <h5 class="card-header">Danh sách đơn hàng - <span class="text-danger"><?php echo number_format($totalMoney);?>đ</span></h5>
     <p>Quy trình: đơn mới -> duyệt đơn -> giao hàng -> hoàn thành</p>
     <div id="desktop_view">
       <div class="table-responsive">
@@ -184,11 +192,19 @@
                           }else{
                             $showPrice = number_format($priceBuy).'đ';
                           }
+                           $unit = @$value->product->unit;
+                              if(!empty($value->id_unit) && !empty($value->product->unitConversion)){
+                                foreach($value->product->unitConversion as $keyunti => $value_unit){
+                                  if($value->id_unit==$value_unit->id){
+                                    $unit = @$value_unit->unit;
+                                  }
+                                }
+                              }
 
                           echo '<tr> 
-                                  <td  width="40%">'.$value->product.'</td>
+                                  <td  width="40%">'.$value->product->title.'</td>
                                   <td  width="40%">'.$showPrice.'</td>
-                                  <td  width="20%" align="center">'.number_format($value->quantity).'</td>
+                                  <td  width="20%" align="center">'.number_format($value->quantity).' '.$unit.'</td>
                                 </tr>';
                         }
                       } 
@@ -293,10 +309,19 @@
                                 $discount= number_format($value->discount).'%';
                               }
 
+                               $unit = @$value->product->unit;
+                              if(!empty($value->id_unit) && !empty($value->product->unitConversion)){
+                                foreach($value->product->unitConversion as $keyunti => $value_unit){
+                                  if($value->id_unit==$value_unit->id){
+                                    $unit = @$value_unit->unit;
+                                  }
+                                }
+                              }
+
                               echo '<tr> 
-                              <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->product.'</td>
+                              <td  width="50%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->product->title.'</td>
                               <td  width="30%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.number_format($value->price).'đ</td>
-                              <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->quantity.'</td>
+                              <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$value->quantity.' '.$unit.'</td>
                               <td  width="10%" style="padding: 0.625rem 0.4rem; border-width: 1px;">'.$discount.'</td>
                               </tr>';
                             }
@@ -407,10 +432,19 @@
                   <tbody>
                     <?php  if(!empty($items->detail_order)){ 
                       foreach($items->detail_order as $k => $value){
+
+                       $unit = @$value->product->unit;
+                       if(!empty($value->id_unit) && !empty($value->product->unitConversion)){
+                        foreach($value->product->unitConversion as $keyunti => $value_unit){
+                          if($value->id_unit==$value_unit->id){
+                            $unit = @$value_unit->unit;
+                          }
+                        }
+                      }
                         echo '<tr> 
-                                <td  width="50%">'.$value->product.'</td>
+                                <td  width="50%">'.$value->product->title.'</td>
                                 <td  width="30%">'.number_format($value->price).'đ</td>
-                                <td  width="20%">'.number_format($value->quantity).'</td>
+                                <td  width="20%">'.number_format($value->quantity).' '.$unit.'</td>
                               </tr>';
                       }} ?>
                     </tbody>

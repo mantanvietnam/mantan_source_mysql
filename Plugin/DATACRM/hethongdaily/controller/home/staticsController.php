@@ -29,11 +29,14 @@ function businessReport($input)
         $staticOrder = [0,0,0,0,0,0,0,0,0,0,0,0,0];
         if(!empty($listOrder)){
             foreach ($listOrder as $key => $value) {
-                $time = getdate($value->create_at);
+                // $time = getdate($value->created_at);
 
-                $staticOrder[$time['mon']] += $value->total;
+                // debug($item);
+
+                $staticOrder[(int) date('m', @$value->created_at)] += $value->total;
             }
         }
+    
 
         // đơn bán đại lý
         // $listOrderMemberSell = $modelOrderMembers->find()->where(['id_member_sell'=>$infoMember->id, 'status'=>'done', 'create_at >='=>$start_day, 'create_at <='=>$end_day])->all()->toList();
@@ -44,8 +47,9 @@ function businessReport($input)
         if(!empty($listOrderMemberSell)){
             foreach ($listOrderMemberSell as $key => $value) {
                 $time = getdate($value->create_at);
+                 $staticOrderMemberSell[(int)date('m', @$value->created_at)] += $value->total;
 
-                $staticOrderMemberSell[$time['mon']] += $value->total;
+                // $staticOrderMemberSell[$time['mon']] += $value->total;
             }
         }
 
@@ -57,6 +61,7 @@ function businessReport($input)
             foreach ($listOrderMemberBuy as $key => $value) {
                 $time = getdate($value->create_at);
 
+                // $staticOrderMemberBuy[$time['mon']] += $value->total;
                 $staticOrderMemberBuy[$time['mon']] += $value->total;
             }
         }

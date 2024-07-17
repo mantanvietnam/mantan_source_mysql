@@ -92,6 +92,17 @@
                        }
                     }
                   }
+
+                  $unit =!empty($item->unit)?'<b>Đơn vị gốc:</b> '.$item->unit.'</br>':'';
+                  if(!empty($item->unitConversion)){
+                     $unit .='<b>Đơn vị quy đổi</b> </br>';
+                    foreach($item->unitConversion as $value){
+                       if(!empty($value->unit)){
+                        $unit .=  $value->unit.': '.$value->quantity.'</br>';
+                       }
+                    }
+                  }
+
                  
                   echo '<tr>
                           <td>'.$item->id.'</td>
@@ -99,9 +110,7 @@
                           <td>'.implode(', ', $category_name).'</td>
                           <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
                           <td> '.number_format($item->price).' đ</td>
-                          <td align="center" >'.$item->unit.'<br/>
-                         
-                          </td>
+                          <td align="center" >'.$unit.'</td>
                           <td align="center">
                             <a class="dropdown-item" href="/addProductAgency/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
@@ -136,12 +145,22 @@
                        }
                     }
                   }
+                   $unit =!empty($item->unit)?'<b>Đơn vị gốc:</b> '.$item->unit.'</br>':'';
+                  if(!empty($item->unitConversion)){
+                     $unit .='<b>Đơn vị quy đổi</b> </br>';
+                    foreach($item->unitConversion as $value){
+                       if(!empty($value->unit)){
+                        $unit .=  $value->unit.': '.$value->quantity.'</br>';
+                       }
+                    }
+                  }
                    echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
                         <center><img src="'.$item->image.'" style=" width:50%" /></center><br/>
                         <p><strong> Tên sản phẩm: </strong>'.$item->title.'</p>
                         <p><strong> Mã sản phẩm: </strong>'.$item->code.'</p>
                         <p><strong> Danh mục: </strong>'.implode(', ', $category_name).'</p>
                         <p><strong> Giá: </strong>'.number_format($item->price).'đ</p>
+                        <p><strong> Đơn vị: </strong>'.$unit.'</p>
                         <p align="center">
                         
                           <a class="btn btn-success" href="/addProductAgency/?id='.$item->id.'">

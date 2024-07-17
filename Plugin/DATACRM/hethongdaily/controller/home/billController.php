@@ -175,6 +175,8 @@ function listBill(){
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
         setVariable('next', $next);
+        
+        setVariable('totalMoney', $totalMoney);
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
@@ -412,6 +414,7 @@ function listCollectionBill(){
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
+        setVariable('totalMoney', $totalMoney);
 
 
     }else{
@@ -531,6 +534,139 @@ function printBill(){
     }else{
         return $controller->redirect('/');
     }
+}
+
+function checkBillOrderMember($input){
+
+    global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategories;
+    global $session;
+    global $type_collection_bill;
+    $return = ['code'=>0];
+    $metaTitleMantan = 'Danh sách phiếu chi';
+
+    $modelMember = $controller->loadModel('Members');
+    $modelBill = $controller->loadModel('Bills');
+    $modelDebt = $controller->loadModel('Debts');
+    $modelOrderMembers = $controller->loadModel('OrderMembers');
+
+    $listData = $modelOrderMembers->find()->where(array('status_pay'=>'done'))->all()->toList();
+    $check = 0;
+
+    if(!empty($listData)){
+        foreach($listData as $key =>$item){
+            $checkbill = $modelBill->find()->where(array('id_order'=>$item->id,'type_order'=>1,'id_customer'=>0))->all()->toList();
+            $checkDebt = $modelDebt->find()->where(array('id_order'=>$item->id,'type_order'=>1,'id_customer'=>0))->all()->toList();
+
+            if(!empty($checkbill)){
+                 $check += 0;
+            }elseif(!empty($checkDebt)){
+                 $check += 0;
+            }else{
+                $infoMemberBuy = $modelMember->find()->where(['id'=>$item->id_member_buy])->first();
+                $infoMemberSell = $modelMember->find()->where(['id'=>$item->id_member_sell])->first();
+                 // bill cho người bán 
+                $bill = $modelBill->newEmptyEntity();
+                $bill->id_member_sell =  $item->id_member_sell;
+                $bill->id_member_buy = $item->id_member_buy;
+                $bill->total = $item->total;
+                $bill->id_order = $item->id;
+                $bill->type = 1;
+                $bill->type_order = 1; 
+                $bill->created_at = $item->create_at;
+                $bill->updated_at = $item->create_at;
+                $bill->id_debt = 0;
+                $bill->type_collection_bill = 'tien_mat';
+                $bill->id_customer = 0;
+                $bill->note = 'Thanh toán đơn hàng id:'.$item->id.' bán cho đại lý '.@$infoMemberBuy->name.' '.@$infoMemberBuy->phone.';';
+                $modelBill->save($bill);
+
+                            // bill cho người mua
+                $billbuy = $modelBill->newEmptyEntity();
+                $billbuy->id_member_sell =  $item->id_member_sell;
+                $billbuy->id_member_buy = $item->id_member_buy;
+                $billbuy->total = $item->total;
+                $billbuy->id_order = $item->id;
+                $billbuy->type = 2;
+                $billbuy->type_order = 1; 
+                $billbuy->created_at = $item->create_at;
+                $billbuy->updated_at = $item->create_at;
+                $billbuy->id_debt = 0;
+                $billbuy->type_collection_bill = 'tien_mat';
+                $billbuy->id_customer = 0;
+                $billbuy->note = 'Thanh toán đơn hàng id:'.$item->id.' mua của đại lý '.@$infoMemberSell->name.' '.@$infoMemberSell->phone.';';
+                $modelBill->save($billbuy);
+                $check += 1;
+            }
+
+
+        }
+    }
+    echo  'tạo thành '.$check.' đơn chưa có bill';
+    die;
+}
+
+function checkBillOrderCustomer($input){
+
+    global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategories;
+    global $session;
+    global $type_collection_bill;
+    $return = ['code'=>0];
+    $metaTitleMantan = 'Danh sách phiếu chi';
+
+    $modelMember = $controller->loadModel('Members');
+    $modelBill = $controller->loadModel('Bills');
+    $modelDebt = $controller->loadModel('Debts');
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelOrder = $controller->loadModel('Orders');
+
+    $listData = $modelOrder->find()->where(array('status_pay'=>'done'))->all()->toList();
+    $check = 0;
+
+    if(!empty($listData)){
+        foreach($listData as $key =>$item){
+            $checkbill = $modelBill->find()->where(array('id_order'=>$item->id,'type_order'=>2,'id_member_buy'=>0))->all()->toList();
+            $checkDebt = $modelDebt->find()->where(array('id_order'=>$item->id,'type_order'=>2,'id_member_buy'=>0))->all()->toList();
+
+
+
+            if(!empty($checkbill)){
+                $check += 0;
+            }elseif(!empty($checkDebt)){
+                $check += 0;
+            }else{
+                $customer = $modelCustomers->find()->where(['id'=>$item->id_user])->first();
+                $infoMemberSell = $modelMember->find()->where(['id'=>$item->id_agency])->first();
+                
+                $bill = $modelBill->newEmptyEntity();
+                $bill->id_member_sell = $infoMemberSell->id;
+                $bill->id_member_buy = 0;
+                $bill->total = $item->total;
+                $bill->id_order = $item->id;
+                $bill->type = 1;
+                $bill->type_order = 2; 
+                $bill->created_at = $item->create_at;
+                $bill->updated_at = $item->create_at;
+                $bill->id_debt = 0;
+                $bill->type_collection_bill =  'tien_mat';
+                $bill->id_customer = $item->id_user;
+                $bill->note = 'Thanh toán đơn hàng id:'.$item->id.' của khách '.@$customer->full_name.' '.@$customer->phone.';';
+                $modelBill->save($bill);
+                $check += 1;
+                
+            }
+
+
+        }
+    }
+
+    echo  'tạo thành '.$check.' đơn chưa có bill';
+    die;
 }
 
 ?>

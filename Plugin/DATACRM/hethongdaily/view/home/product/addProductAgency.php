@@ -34,6 +34,11 @@
                           Hình ảnh
                         </button>
                       </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-unit" aria-controls="navs-top-image" aria-selected="false">
+                          Đơn vị quy đổi
+                        </button>
+                      </li>
                       
                     </ul>
 
@@ -135,6 +140,68 @@
                           ?>
                         </div>
                       </div>
+                      <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">
+
+                        <div class="row">
+                          <div class="col-md-12"> 
+                            <table class="table table-bordered table-striped table-hover mb-none text-center mb-3">
+                             <thead>
+                              <tr>
+                                <th>Tên đơn vị</th>
+                                <th>Số lượng đơn vị gốc </th>
+                                <th>Giá</th>
+                                <th>Xóa</th>
+                              </tr>
+                            </thead>
+                            <tbody id="tbodylink">  
+                              <?php
+                              $i= 0;
+                              if(!empty($listUnitConversion)){
+                                foreach($listUnitConversion as $key => $value){
+                                  $i++;
+                                 
+                                    $delete= '<a onclick="deleteTr('.$i.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
+                                  
+                                  ?>
+                                  <tr class="gradeX" id="trlink-<?php echo $i ?>">
+                                    <td>
+                                        <input type="text" class="form-control phone-mask" name="unitConversion[<?php echo $i ?>]" id="unitConversion<?php echo $i ?>" value="<?php echo $value->unit ?>"/>
+                                        <input type="hidden" class="form-control phone-mask" name="id_unit[<?php echo $i ?>]" id="id_unit<?php echo $i ?>" value="<?php echo $value->id ?>"/>
+                                    </td>
+                                    <td>
+                                      <input type="number" class="form-control" placeholder="" name="quantityConversion[<?php echo $i ?>]" id="quantityConversion<?php echo $i ?>" value="<?php echo $value->quantity ?>" />
+                                    </td>
+                                    <td>
+                                      <input type="number" class="form-control" placeholder="" name="priceConversion[<?php echo $i ?>]" id="priceConversion<?php echo $i ?>" value="<?php echo $value->price ?>" />
+                                    </td>
+                                    <td align="center" class="actions"><?php echo $delete ?></td>
+                                  </tr>
+                                <?php }}else{
+                                  $i++;
+                                  ?>
+                                  <tr class="gradeX" id="trlink-<?php echo $i ?>">
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="unitConversion[<?php echo $i ?>]"  value=""/>
+                                       <input type="hidden" class="form-control phone-mask" name="id_unit[<?php echo $i ?>]" id="id_unit<?php echo $i ?>" value=""/>
+                                    </td>
+                                    <td>
+                                      <input type="number" class="form-control phone-mask" name="quantityConversion[<?php echo $i ?>]"  value=""/>
+                                    </td>
+                                    <td>
+                                      <input type="number" class="form-control phone-mask" name="priceConversion[<?php echo $i ?>]"  value=""/>
+                                    </td>
+                                    <td align="center" class="actions"></td>
+                                  </tr>
+                                <?php } ?>
+                              </tbody>
+                            </table> 
+
+                            <div class="form-group mb-3 col-md-12">
+                              <button type="button" class="btn btn-danger" onclick="return addRowlink();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm link</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       
                     </div>
                   </div>
@@ -149,4 +216,33 @@
 
     </div>
 </div>
+<script type="text/javascript">
+     var row= <?php echo $i ;?>;
+   function addRowlink()
+    {
+      console.log(row);
+        row++;
+        $('#tbodylink tr:last').after('<tr class="gradeX" id="trlink-'+row+'">\
+          <td>\
+          <input type="text" class="form-control phone-mask" name="unitConversion['+row+']"  value=""/>\
+          </td>\
+          <input type="hidden" class="form-control phone-mask" name="id_unit['+row+']" id="id_unit'+row+'" value=""/>\
+          <td>\
+          <input type="number" class="form-control phone-mask" name="quantityConversion['+row+']"  value=""/>\
+          </td>\
+          <td>\
+          <input type="number" class="form-control phone-mask" name="priceConversion['+row+']"  value=""/>\
+          </td>\
+          <td align="center" class="actions"><a onclick="deleteTr('+row+')" href="javascript:void(0);"><i class="bx bx-trash"></i></a></td>\
+          </tr>');
+    }
+
+    function deleteTr(i)
+    {
+        row--;
+        $('#trlink-'+i).remove();
+       
+    }
+
+</script>
 <?php include(__DIR__.'/../footer.php'); ?>

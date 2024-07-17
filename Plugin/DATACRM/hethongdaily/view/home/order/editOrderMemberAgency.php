@@ -236,7 +236,7 @@
                                        foreach($orderDetail as $key => $item){
                                         $i++;
                                         $listProductAdd[$item->product->id] = $i;
-                                      $priceBuy = $item->price;
+                                      $priceBuy = $item->price*$item->quantity;
                                         if($item->discount > 0){
                                           $priceDiscount = $item->discount;
 
@@ -245,9 +245,22 @@
                                               $showDiscount = $item->discount.'%';
                                           }else{
                                               $showDiscount = number_format($item->discount).'đ';
+
+                                              $priceDiscount = $priceDiscount*$item->quantity;
                                           }
 
                                           $priceBuy -= $priceDiscount;
+                                        }
+
+                                        $unit = '';
+                                        if(!empty($item->unitConversion)){
+                                            foreach($item->unitConversion as $key => $value){
+                                                if($item->id_unit==$value->id){
+                                                    $unit .= '<option selected value="'.$value->id.'">'.$value->unit.'</option>';
+                                                }else{
+                                                    $unit .= '<option value="'.$value->id.'">'.$value->unit.'</option>';
+                                                }
+                                            }
                                         }
 
                                 echo    '<tr id="tr'.$i.'">
@@ -266,8 +279,9 @@
                                             <td>
                                                 <input type="text" readonly value="'.$item->price.'" class="input_money form-control" name="money['.$i.']" min="1" id="money-'.$i.'" onchange="tinhtien(1);">
                                             </td>
-                                            <td>
-                                                '.$item->product->unit.'
+                                            <td id="tdunit-'.$i.'">
+                                                <select name="id_unit['.$i.']"  class="form-control form-select color-dropdown"  onclick="unitgetPrice('.$item->id_product.','.$i.','.$item->product->price.')"  id="id_unit'.$i.'">
+                                                    <option value="0">'.$item->product->unit.'</option>'.$unit.'</select>
                                             </td>
                                             <td>
                                                 <input type="number" value="'.$item->discount.'" class="input_money form-control" name="discount['.$i.']" min="0" id="discount-'.$i.'" onchange="tinhtien(1);">
@@ -408,8 +422,8 @@ function addProduct(id, name, priceProduct, type,unit)
     
 
 
-    if(listProductAdd.hasOwnProperty(keyID) && priceProduct==$('#money-'+listProductAdd[keyID]).val()){
-        // thêm số lượng vào mặt hàng đã có
+    if(listProductAdd.hasOwnProperty(keyID)){
+        // thêm số lượng vào mặt hàng đã có  && priceProduct==$('#money-'+listProductAdd[keyID]).val()
         var numberProductRow= $('#soluong'+listProductAdd[keyID]).val();
         numberProductRow++;
         $('#soluong'+listProductAdd[keyID]).val(numberProductRow);
@@ -440,7 +454,7 @@ function addProduct(id, name, priceProduct, type,unit)
                 <td>\
                     <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
                 </td>\
-                <td>\
+                <td id="tdunit-'+row+'">\
                     '+unit+'\
                 </td>\
                 <td>\
@@ -453,7 +467,7 @@ function addProduct(id, name, priceProduct, type,unit)
             </tr>');    
             
             //$("#trFirst").hide();
-
+            unitselect(id, row, unit,priceProduct,type);
 
 
             var id_member_buy = $('#id_member_buy').val();
@@ -468,6 +482,53 @@ function addProduct(id, name, priceProduct, type,unit)
 
     tinhtien(1);
 }
+
+
+function unitselect(id_product, i, unit,price,type){
+
+    $.ajax({
+          method: "POST",
+          url: "/apis/listUnitConversionAPI",
+          data: { 
+            id_product: id_product,
+        }
+    }).done(function( msg ) {
+             var select = '<select name="id_unit['+i+']"  class="form-control form-select color-dropdown"  onclick="unitgetPrice('+id_product+','+i+','+price+')"  id="id_unit'+i+'"><option value="0">'+unit+'</option>';
+             if (msg.code === 1 && msg.data.length > 0 && type !=='free') {
+                    msg.data.forEach(item => {
+                        select += '<option value="'+item.id+'">'+item.unit+'</option>';
+                        
+                    });
+                 
+                }
+                select += '</select>';
+                $('#tdunit-'+i).html(select);
+               
+        });
+}
+
+function unitgetPrice(id_product, i,price){
+    var id_unit = $('#id_unit'+i).val();
+    $.ajax({
+          method: "POST",
+          url: "/apis/unitgetPriceAPI",
+          data: { 
+            id_product: id_product,
+            id_unit: id_unit,
+        }
+    }).done(function( msg ) {
+            if (msg.code === 1) {
+                  document.getElementById("money-"+i).value = msg.data.price;
+                   tinhtien(1);
+
+            }else{
+                document.getElementById("money-"+i).value = price;
+                tinhtien(1);
+            }
+        });
+
+}
+
 
 // xóa sản phẩm trong đơn 
 function deleteProduct(number)

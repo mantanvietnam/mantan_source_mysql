@@ -28,6 +28,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `bookings` (
   `received_at` timestamp NULL DEFAULT NULL,
   `completed_at` TIMESTAMP NULL DEFAULT NULL,
   `canceled_at` timestamp NULL DEFAULT NULL,
+  `status_free` TINYINT(11) NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;';
 
@@ -296,7 +297,7 @@ $sqlUpdateDatabase['bookings']['updated_at'] = "ALTER TABLE `bookings` ADD `upda
 $sqlUpdateDatabase['bookings']['received_at'] = "ALTER TABLE `bookings` ADD `received_at` timestamp NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['bookings']['completed_at'] = "ALTER TABLE `bookings` ADD `completed_at` TIMESTAMP NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['bookings']['canceled_at'] = "ALTER TABLE `bookings` ADD `canceled_at` timestamp NULL DEFAULT NULL; ";
-
+$sqlUpdateDatabase['bookings']['status_free'] = "ALTER TABLE `bookings` CHANGE `status_free` `status_free` TINYINT(11) NULL DEFAULT '0';";
 // Bang images
 $sqlUpdateDatabase['images']['path'] = "ALTER TABLE `images` ADD `path` varchar(255) NOT NULL; ";
 $sqlUpdateDatabase['images']['type'] = "ALTER TABLE `images` ADD `type` tinyint(4) NOT NULL; ";
