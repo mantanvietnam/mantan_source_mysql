@@ -280,7 +280,9 @@ h6 {
 }
 
 .ladi-bgr .box-img .box35 img {
+    width: 223px;
     height: 223px;
+    overflow: hidden;
     border-radius: 50%;
     margin: 8px;
     transition: background-color 1s ease-in-out, transform 1s ease-in-out;
