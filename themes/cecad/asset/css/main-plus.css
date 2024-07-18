@@ -979,8 +979,8 @@ margin-bottom: 0;
     position: absolute;
     display: grid;
     gap: 16px;
-    top: 188px;
-    right: 8%;
+    top: 170px;
+    right: 7%;
     z-index: 1;
 }
 
@@ -1003,7 +1003,7 @@ margin-bottom: 0;
     height: 140px;
     position: absolute;
     background: #fff;
-    top: -110%;
+    top: -175%;
     left: 48%;
 }
 
@@ -1013,7 +1013,7 @@ margin-bottom: 0;
     height: 140px;
     position: absolute;
     background: #fff;
-    bottom: -110%;
+    bottom: -175%;
     left: 48%;
 }
 
@@ -1052,7 +1052,7 @@ margin-bottom: 0;
 }
 
 .counter_item h1 {
-    font-size: 64px;
+    font-size: 50px;
     font-weight: 900;
     text-align: center;
     color: #427FE3 !important;
@@ -1060,7 +1060,7 @@ margin-bottom: 0;
 }
 
 .counter_item i {
-    font-size: 34px;
+    font-size: 28px;
     color: #427FE3 !important;
 }
 
@@ -1118,7 +1118,7 @@ margin-bottom: 0;
 }
 
 #majors-section .title-section h2 {
-    font-size: 52px;
+    font-size: 44px;
     font-weight: 800;
     margin: 20px 0;
     text-transform: uppercase;
@@ -1147,46 +1147,33 @@ margin-bottom: 0;
     color: #427FE3;
 }
 
-.majors-list a:hover .majors-items img {
+.majors-list .majors-items:hover img {
     transition: all linear 0.2s;
     scale: 1.05;
-    animation: bounce 0.6s ease;
-    -webkit-animation: bounce 0.6s ease;
+    animation: bounce 1s ease;
 }
 
 @keyframes bounce {
     0% {
-        top: 0px;
+        transform: translateY(0%);
     }
-    25% {
-        top: -10px;
+    20% {
+        transform: translateY(-15%);
     }
-    50% {
-        top: 5px;
+    40% {
+        transform: translateY(0%);
     }
-    75% {
-        top: -5px;
+    65% {
+        transform: translateY(-7%);
     }
-    100% {
-        top: 0px;
+    80% {
+        transform: translateY(0%);
     }
-}
-
-@-webkit-keyframes bounce {
-    0% {
-        top: 0px;
-    }
-    25% {
-        top: -10px;
-    }
-    50% {
-        top: 5px;
-    }
-    75% {
-        top: -5px;
+    90% {
+        transform: translateY(-3%);
     }
     100% {
-        top: 0px;
+        transform: translateY(0);
     }
 }
 
@@ -1296,7 +1283,7 @@ margin-bottom: 0;
 }
 
 #projects-section .title-section h2 {
-    font-size: 52px;
+    font-size: 44px;
     font-weight: 800;
     margin: 20px 0;
     text-transform: uppercase;
@@ -1325,8 +1312,8 @@ margin-bottom: 0;
 }
 
 .projects-items .projects-items-img {
-    width: 270px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     border-radius: 16px;
     overflow: hidden;
 }
@@ -1346,7 +1333,7 @@ margin-bottom: 0;
 }
 
 .projects-items .projects-items-info a {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 12px !important;
     overflow: hidden;
@@ -1369,7 +1356,7 @@ margin-bottom: 0;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     color: #000;
 }
@@ -1485,7 +1472,7 @@ padding-right: 100px; */
 }
 
 #news-section .title-section h2 {
-    font-size: 52px;
+    font-size: 44px;
     font-weight: 800;
     margin-top: 32px;
     text-transform: uppercase;
@@ -1639,10 +1626,6 @@ padding-right: 100px; */
     margin-bottom: 48px !important;
 }
 
-.fade-img {
-    animation: bounce .6s ease;
-}
-
 @media (max-width: 1440px) {
     #majors-section .majors .majors-items.majors-items-1 {
         top: 2%;
@@ -1668,9 +1651,6 @@ padding-right: 100px; */
         top: 2%;
         right: 7%;
     }
-    .projects-items {
-        margin-right: 16px;
-    }
     .projects-items .projects-items-info {
         padding: 32px 26px;
     }
@@ -1681,7 +1661,84 @@ padding-right: 100px; */
         font-size: 16px;
     }
     .projects-items .projects-items-info a {
-        font-size: 22px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 1300px) and (min-width: 1050px) {
+    .col-left {
+        padding-right: 0px;
+    }
+    .ft-info ul li {
+        font-size: 18px;
+    }
+    .projects-items .projects-items-info a {
+        font-size: 20px;
+    }
+    .projects-items .projects-items-info li {
+        font-size: 16px;
+    }
+    .projects-items .projects-items-info ul {
+        gap: 4px;
+    }
+    .projects-items .projects-items-img {
+        width: 200px;
+        height: 230px;
+    }
+    .projects-items .projects-items-info a {
+        margin-bottom: 10px;
+    }
+    .projects-items .projects-items-info {
+        padding: 20px 20px;
+    }
+    .majors-list .majors-items img {
+        width: 50px;
+        height: 50px;
+    }
+    #majors-section .majors .majors-items.majors-items-4 {
+        top: 2%;
+        right: 5%;
+    }
+    #majors-section .majors .majors-items.majors-items-1 {
+        top: 2%;
+        left: 9%;
+    }
+    #majors-section .majors .majors-items.majors-items-2 {
+        top: 45%;
+        left: 7.5%;
+    }
+    #majors-section .majors .majors-items.majors-items-5 {
+        top: 45%;
+        right: 5%;
+    }
+    #majors-section .majors .majors-items.majors-items-3 {
+        bottom: 0%;
+        left: 4%;
+    }
+    #majors-section .majors .majors-items.majors-items-6 {
+        bottom: 0%;
+        right: 5%;
+    }
+    .majors-list .majors-items p {
+        font-size: 26px;
+    }
+    .majors-list .majors-items p {
+        font-size: 26px;
+    }
+    #majors-section .majors .majors-items {
+        max-width: 440px;
+    }
+    .home-news-name {
+        font-size: 20px;
+    }
+    .menu .nav-link {
+        font-size: 18px;
+    }
+    .nav-item .abs-dropdown {
+        left: -40%;
+    }
+    .nav-item .abs-dropdown.dropdown-menu-4 {
+        left: -18%;
     }
 }
 
@@ -1788,7 +1845,7 @@ padding-right: 100px; */
         font-size: 16px;
     }
     .projects-items .projects-items-info a {
-        font-size: 26px;
+        font-size: 22px;
     }
     .projects-items .projects-items-info ul {
         gap: 4px;
@@ -1820,7 +1877,7 @@ padding-right: 100px; */
     #majors-section .title-section h2,
     #projects-section .title-section h2,
     #news-section .title-section h2 {
-        font-size: 45px;
+        font-size: 40px;
     }
     .home-news-name {
         font-size: 20px;
@@ -1982,7 +2039,7 @@ padding-right: 100px; */
         top: 42%;
     }
     .projects-items .projects-items-info a {
-        font-size: 24px;
+        font-size: 22px;
     }
     .projects-items .projects-items-info {
         padding: 16px;

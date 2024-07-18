@@ -59,7 +59,7 @@
                                 <ul>
                                     <li><a href="<?php echo !empty(@$settingThemes['facebook']) ? htmlspecialchars(@$settingThemes['facebook']) : ''; ?>"><i class="fa-brands fa-facebook-f"></i></a></li>
                                     <li><a href="<?php echo !empty(@$settingThemes['youtube']) ? htmlspecialchars(@$settingThemes['youtube']) : ''; ?>"><i class="fa-brands fa-youtube"></i></a></li>
-                                    <li><a href="<?php echo !empty(@$settingThemes['instagram']) ? htmlspecialchars(@$settingThemes['instagram']) : ''; ?>"><i class="fa-brands fa-instagram"></i></a></li>
+                                    <li style="display: none;" ><a href="<?php echo !empty(@$settingThemes['instagram']) ? htmlspecialchars(@$settingThemes['instagram']) : ''; ?>"><i class="fa-brands fa-instagram"></i></a></li>
                                 </ul>
                             </div>
                         </div>
