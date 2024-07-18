@@ -22,6 +22,15 @@ $(document).ready(function () {
     }); 
  });
 
+<script> 
+$(function() { 
+    $( "#my_date_picker" ).datepicker({ 
+        dateFormat: 'dd-mm-yy', 
+        defaultDate:"24-09-2019" 
+    })
+}); 
+</script>
+
 //   document.getElementById("imageLink").addEventListener("click", function(event) {
 //     event.preventDefault();
 //     document.getElementById("popupContainer").style.display = "block";

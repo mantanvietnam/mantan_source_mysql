@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/plugins/hethongdaily/view/home/member/themeinfo/theme3/alicenguyen.css">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href= 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' 
+         rel= 'biểu định kiểu'> 
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -302,7 +304,7 @@
                               </div>
                               <div class="mb-3">
                                   <label for="birthday" class="form-label">Ngày sinh (giảm giá khi đến sinh nhật)</label>
-                                  <input type="text" class="form-control datepicker" id="birthday" name="birthday" value="" />
+                                  <input type="text" class="form-control datepicker" id="my_date_picker" name="birthday" value="" />
                               </div>
                               <div class="mb-3">
                                   <label for="codeDiscount" class="form-label">Mã giảm giá</label><span id="messdiscount"></span>
@@ -374,7 +376,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="/plugins/hethongdaily/view/home/member/themeinfo/theme3/alicenguyen.js"></script>
-
+<script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
