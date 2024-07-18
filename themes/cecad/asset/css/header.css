@@ -30,6 +30,13 @@ header {
     font-weight: 500;
     color: #427FE3;
     white-space: normal;
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(85deg, rgba(229, 229, 234, 1) 10%, rgba(48, 48, 48, 0.397) 50%, rgba(229, 229, 234, 1) 90%);
+    border-image-slice: 1;
+}
+
+.menu .dropdown-menu li:first-child .dropdown-item {
+    border-top: none;
 }
 
 .menu .nav-link img {
@@ -40,12 +47,13 @@ header {
 }
 
 .menu .nav-link {
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     align-items: baseline;
     gap: 12px;
     color: #427FE3;
     font-weight: 500;
+    padding: 22px;
 }
 
 .menu .nav-link.language {
@@ -82,20 +90,18 @@ header {
 
 .nav-item .abs-dropdown {
     position: absolute;
-    top: 90px;
-    left: -13%;
+    top: 70px;
+    left: -46%;
 }
 
-.nav-item .abs-dropdown3.abs-dropdown {
-    position: absolute;
-    top: 90px;
-    left: -13%;
+.nav-item .abs-dropdown.dropdown-menu-4 {
+    left: -8%;
 }
 
 .nav-item .dropdown-menu {
     position: relative;
     border-radius: 16px;
-    width: 212px;
+    width: 220px;
 }
 
 .nav-item .dropdown-menu::after {
@@ -108,6 +114,51 @@ header {
     position: absolute;
     top: -6px;
     left: 45.5%;
+}
+
+.dropdown-menu li {
+    padding: 0px 16px;
+    min-height: 45px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.dropdown-menu {
+    display: none;
+    transition: all 0.3s linear;
+    animation: 0.5s slideup;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    transition: all 0.3s linear;
+    margin-top: 0;
+}
+
+@keyframes slideup {
+    from {
+        transform: translateY(10%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1350px) and (min-width: 1050px) {
+    .menu .nav-link img {
+        width: 32px;
+        height: 32px;
+    }
+    .menu .nav-link {
+        font-size: 18px;
+    }
+    .nav-item .abs-dropdown {
+        left: -40%;
+    }
+    .nav-item .abs-dropdown.dropdown-menu-4 {
+        left: -18%;
+    }
 }
 
 @media (max-width: 1050px) {

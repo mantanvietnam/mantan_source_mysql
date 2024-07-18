@@ -40,7 +40,7 @@
                         <h2><?= @$settingThemes['title2'];?></h2>
                     </div>
                     <div class="counter_wrapper">
-                        <div class="counter_item">
+                        <div class="counter_item count-start">
                             <div>
                                 <h1 class="counter" data-number="<?= @$settingThemes['countnumber1'];?>" data-speed="50"></h1>
                                 <i class="fa-solid fa-plus"></i>
@@ -50,7 +50,7 @@
                             </p>
 
                         </div>
-                        <div class="counter_item">
+                        <div class="counter_item count-start">
                             <div>
                                 <h1 class="counter" data-number="<?= @$settingThemes['countnumber2'];?>" data-speed="100"></h1>
                                 <i class="fa-solid fa-plus"></i>
@@ -59,7 +59,7 @@
                                 <?= @$settingThemes['contentnumber2'];?>
                             </p>
                         </div>
-                        <div class="counter_item">
+                        <div class="counter_item count-start">
                             <div>
                                 <h1 class="counter" data-number="<?= @$settingThemes['countnumber3'];?>" data-speed="100"></h1>
                             </div>
@@ -67,7 +67,7 @@
                                 <?= @$settingThemes['contentnumber3'];?>
                             </p>
                         </div>
-                        <div class="counter_item">
+                        <div class="counter_item count-start">
                             <div>
                                 <h1 class="counter" data-number="<?= @$settingThemes['countnumber4'];?>" data-speed="100"></h1>
                             </div>
@@ -75,7 +75,7 @@
                                 <?= @$settingThemes['contentnumber4'];?>
                             </p>
                         </div>
-                        <div class="counter_item">
+                        <div class="counter_item count-start">
                             <div>
                                 <h1 class="counter" data-number="<?= @$settingThemes['countnumber5'];?>" data-speed="100"></h1>
                             </div>

@@ -189,7 +189,7 @@ table {
     letter-spacing: 1px;
     color: #000;
     margin-bottom: 55px;
-    margin-top: 55px;
+    margin-top: 70px;
 }
 
 #featured-news-section h2:after {
@@ -420,6 +420,7 @@ table {
     letter-spacing: 1px;
     color: #000;
     margin-bottom: 55px;
+    margin-top: 70px;
 }
 
 #all-news-section h2:after {
@@ -442,7 +443,7 @@ table {
 }
 
 .all-news-item .all-news-detail h3 {
-    font-size: 24px;
+    font-size: 22px;
     text-transform: uppercase;
     color: #000;
     font-weight: 700;
@@ -866,13 +867,13 @@ margin-bottom: 0;
     content: "";
     width: 100%;
     height: 100%;
-    background: linear-gradient(85deg, rgba(66, 127, 227, 1) 19%, rgba(66, 127, 227, 0.16850490196078427) 96%);
+    background: linear-gradient(267deg, rgb(66 127 227 / 81%) 19%, rgb(66 127 227 / 20%) 96%);
     left: 0;
     top: 0;
 }
 
 #section-banner-top .banner-contain .desktop-banner {
-    height: 540px;
+    height: 450px;
 }
 
 #section-banner-top .banner-contain .banner-contain-title {
@@ -880,6 +881,7 @@ margin-bottom: 0;
     z-index: 2;
     top: 31%;
     left: 10%;
+    display: none;
 }
 
 #section-banner-top .banner-contain .banner-contain-title p {
@@ -897,6 +899,7 @@ margin-bottom: 0;
     font-weight: 800;
     color: #00008B;
     line-height: 1.4;
+    display: none;
 }
 
 #section-banner-top .banner-contain .banner-contain-title h3 span {
@@ -1665,7 +1668,20 @@ padding-right: 100px; */
     }
 }
 
-@media (max-width: 1300px) and (min-width: 1050px) {
+@media (max-width: 1350px) and (min-width: 1050px) {
+    #partner-section .title-section h3 {
+        font-size: 36px;
+    }
+    .swiper-block .banner-icon {
+        right: 5%;
+    }
+    .counter_wrapper {
+        display: grid;
+        justify-content: space-between;
+        align-items: baseline;
+        grid-template-columns: auto auto auto auto auto;
+        gap: 30px;
+    }
     .col-left {
         padding-right: 0px;
     }
@@ -1730,15 +1746,6 @@ padding-right: 100px; */
     }
     .home-news-name {
         font-size: 20px;
-    }
-    .menu .nav-link {
-        font-size: 18px;
-    }
-    .nav-item .abs-dropdown {
-        left: -40%;
-    }
-    .nav-item .abs-dropdown.dropdown-menu-4 {
-        left: -18%;
     }
 }
 
