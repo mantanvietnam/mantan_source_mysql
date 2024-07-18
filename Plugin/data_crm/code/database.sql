@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 08, 2024 at 11:59 PM
+-- Generation Time: Jul 16, 2024 at 08:58 PM
 -- Server version: 10.6.12-MariaDB
 -- PHP Version: 8.1.17
 
@@ -283,7 +283,8 @@ CREATE TABLE `customers` (
   `id_zalo` varchar(100) DEFAULT NULL,
   `token_device` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reset_password_code` int(11) DEFAULT NULL
+  `reset_password_code` int(11) DEFAULT NULL,
+  `link_download_mmtc` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -612,7 +613,9 @@ CREATE TABLE `orders` (
   `id_agency` int(11) NOT NULL DEFAULT 0,
   `id_aff` int(11) DEFAULT 0,
   `promotion` int(11) NOT NULL DEFAULT 0 COMMENT 'Phần trăm giảm giá',
-  `status_pay` varchar(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán'
+  `status_pay` varchar(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán',
+  `costsIncurred` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total_costsIncurred` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -626,7 +629,9 @@ CREATE TABLE `order_details` (
   `id_product` int(11) NOT NULL,
   `id_order` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `price` int(11) NOT NULL DEFAULT 0
+  `price` int(11) NOT NULL DEFAULT 0,
+  `discount` int(11) NOT NULL DEFAULT 0 COMMENT 'phần trăm chiết khấu',
+  `id_unit` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -646,7 +651,9 @@ CREATE TABLE `order_members` (
   `money` bigint(11) NOT NULL DEFAULT 0 COMMENT 'tổng tiền gốc đơn hàng',
   `total` bigint(11) NOT NULL DEFAULT 0 COMMENT 'tổng tiền sau chiết khấu',
   `status_pay` varchar(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán',
-  `discount` double NOT NULL DEFAULT 0 COMMENT 'phần trăm chiết khấu'
+  `discount` double NOT NULL DEFAULT 0 COMMENT 'phần trăm chiết khấu',
+  `costsIncurred` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total_costsIncurred` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -661,7 +668,8 @@ CREATE TABLE `order_member_details` (
   `id_order_member` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL,
-  `discount` int(11) NOT NULL DEFAULT 0 COMMENT 'phần trăm chiết khấu'
+  `discount` int(11) NOT NULL DEFAULT 0 COMMENT 'phần trăm chiết khấu',
+  `id_unit` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -877,6 +885,20 @@ CREATE TABLE `transaction_histories` (
   `note` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `create_at` int(11) NOT NULL,
   `id_system` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unit_conversions`
+--
+
+CREATE TABLE `unit_conversions` (
+  `id` int(11) NOT NULL,
+  `unit` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `id_product` int(11) NOT NULL DEFAULT 0,
+  `quantity` int(11) NOT NULL DEFAULT 0,
+  `price` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -1238,6 +1260,12 @@ ALTER TABLE `transaction_histories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `unit_conversions`
+--
+ALTER TABLE `unit_conversions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `videos`
 --
 ALTER TABLE `videos`
@@ -1533,6 +1561,12 @@ ALTER TABLE `transaction_affiliate_histories`
 -- AUTO_INCREMENT for table `transaction_histories`
 --
 ALTER TABLE `transaction_histories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `unit_conversions`
+--
+ALTER TABLE `unit_conversions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

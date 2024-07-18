@@ -80,6 +80,7 @@ function addOrderCustomer($input)
                     $saveDetail->quantity = $dataSend['soluong'][$key];
                     $saveDetail->price = $dataSend['money'][$key];
                     $saveDetail->discount = $dataSend['discount'][$key];
+                    $saveDetail->id_unit = (int)$dataSend['id_unit'][$key];
 
                     $modelOrderDetails->save($saveDetail);
                 }
@@ -124,6 +125,7 @@ function orderCustomerAgency($input)
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetail = $controller->loadModel('OrderDetails');
         $modelCustomers = $controller->loadModel('Customers');
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
 
         $conditions = array('id_agency'=>$session->read('infoUser')->id);
         $limit = 20;
@@ -149,6 +151,10 @@ function orderCustomerAgency($input)
 
         if(!empty($_GET['id_user'])){
             $conditions['id_user'] = (int) $_GET['id_user'];
+        }
+
+         if(!empty($_GET['status_pay'])){
+            $conditions['status_pay'] = $_GET['status_pay'];
         }
 
         
@@ -254,7 +260,8 @@ function orderCustomerAgency($input)
                     foreach ($detail_order as $k => $value) {
                         $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
                         if(!empty($product)){
-                            $detail_order[$k]->product = $product->title;
+                             $product->unitConversion =   $modelUnitConversion->find()->where(['id_product'=>$value->id_product])->all()->toList();
+                            $detail_order[$k]->product = $product;
                             //$detail_order[$k]->price = $product->price;
                         }
                     }
@@ -268,6 +275,12 @@ function orderCustomerAgency($input)
 
         // phân trang
         $totalData = $modelOrder->find()->where($conditions)->all()->toList();
+         $totalMoney = 0;
+        if(!empty($totalData)){
+            foreach ($totalData as $key => $value) {
+                $totalMoney += $value->total;
+            }
+        }
         $totalData = count($totalData);
 
         $balance = $totalData % $limit;
@@ -305,6 +318,7 @@ function orderCustomerAgency($input)
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
+        setVariable('totalMoney', $totalMoney);
     }else{
         return $controller->redirect('/login');
     }
@@ -412,6 +426,7 @@ function updateStatusOrderAgency($input){
         $modelOrderDetail = $controller->loadModel('OrderDetails');
         $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
         $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelCustomers = $controller->loadModel('Customers');
         $time = time();
 
@@ -430,6 +445,14 @@ function updateStatusOrderAgency($input){
                 
                         if(!empty($detail_order)){
                             foreach ($detail_order as $k => $value) {
+                                $quantity = $value->quantity;
+                                if(!empty($value->id_unit)){
+                                    $unit = $modelUnitConversion->find()->where(['id_product'=>$value->id_product,'id'=>$value->id_unit])->first();
+                                    if(!empty($unit)){
+                                        $quantity = $value->quantity*$unit->quantity;
+                                    }
+                                }
+
                                 $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_agency])->first();
 
                                 if(empty($checkProductExits)){
@@ -439,7 +462,7 @@ function updateStatusOrderAgency($input){
 
                                 $checkProductExits->id_member = $order->id_agency;
                                 $checkProductExits->id_product = $value->id_product;
-                                $checkProductExits->quantity -= $value->quantity;
+                                $checkProductExits->quantity -= $quantity;
 
                                 $modelWarehouseProducts->save($checkProductExits);
 
@@ -448,7 +471,7 @@ function updateStatusOrderAgency($input){
 
                                 $saveWarehouseHistories->id_member = $order->id_agency;
                                 $saveWarehouseHistories->id_product = $value->id_product;
-                                $saveWarehouseHistories->quantity = $value->quantity;
+                                $saveWarehouseHistories->quantity = $quantity;
                                 $saveWarehouseHistories->note = 'Bán cho khách hàng '.$order->full_name.' '.$order->phone;
                                 $saveWarehouseHistories->create_at = time();
                                 $saveWarehouseHistories->type = 'minus';
@@ -589,7 +612,7 @@ function listProductAgency($input)
         }
 
         $modelProduct = $controller->loadModel('Products');
-
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelCategorieProduct = $controller->loadModel('CategorieProducts');
 
         $conditions = array();
@@ -661,14 +684,13 @@ function listProductAgency($input)
                         foreach ($category as $k => $item) {
                             if(!empty($item->id_category)){
                                 $category[$k]->name_category = @$modelCategories->find()->where(array('id'=>$item->id_category))->first()->name;
-                              
                             }
-
-                             
-        
                         }
                     } 
                     $listData[$key]->category = $category;
+
+                    $listData[$key]->unitConversion = $modelUnitConversion->find()->where(array('id_product'=>$value->id))->all()->toList();
+                    
                 
                 
                 
@@ -743,6 +765,7 @@ function addProductAgency($input)
         $modelProduct = $controller->loadModel('Products');
         $modelCategorieProduct = $controller->loadModel('CategorieProducts');
         $mess= '';
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
 
         if(!empty($session->read('infoUser')->id_father)){
             return $controller->redirect('/');
@@ -855,6 +878,28 @@ function addProductAgency($input)
                     $modelCategorieProduct->deleteAll($conditions);
                 }
 
+                
+                if(!empty($dataSend['unitConversion'])){
+                    foreach ($dataSend['unitConversion'] as $key => $unit) {
+                        if(!empty($unit)){
+                            if(!empty($dataSend['id_unit'][$key])){
+                                $save = $modelUnitConversion->get((int)$dataSend['id_unit'][$key]);
+                            }else{
+                                $save = $modelUnitConversion->newEmptyEntity();
+                            }
+                            $save->unit = $unit;
+                            $save->id_product = $data->id; 
+                            $save->quantity = (int) $dataSend['quantityConversion'][$key];
+                            $save->price = (int) $dataSend['priceConversion'][$key];
+                            $modelUnitConversion->save($save);
+                        }
+                    }
+                }else{
+                    $conditions = ['id_product'=>$data->id];
+                    $modelUnitConversion->deleteAll($conditions);
+
+                }
+
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
             }else{
                 $mess= '<p class="text-danger">Bạn chưa nhập tên sản phẩm</p>';
@@ -877,15 +922,17 @@ function addProductAgency($input)
         $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
 
         $listCategoryCheck = [];
-            if(!empty($data->id)){
-                $listCheck = $modelCategorieProduct->find()->where(['id_product'=>$data->id])->all()->toList();
-
-                if(!empty($listCheck)){
-                    foreach ($listCheck as $check) {
-                        $listCategoryCheck[] = $check->id_category;
-                    }
+        if(!empty($data->id)){
+            $listCheck = $modelCategorieProduct->find()->where(['id_product'=>$data->id])->all()->toList();
+            if(!empty($listCheck)){
+                foreach ($listCheck as $check) {
+                    $listCategoryCheck[] = $check->id_category;
                 }
             }
+        }
+
+         $conditions = array('id_product'=>$data->id);
+        $listUnitConversion = $modelUnitConversion->find()->where($conditions)->all()->toList();
 
         $conditions = array('type' => 'manufacturer_product');
         $listManufacturer = $modelCategories->find()->where($conditions)->all()->toList();
@@ -893,7 +940,8 @@ function addProductAgency($input)
         setVariable('data', $data);
         setVariable('mess', $mess);
         setVariable('listCategory', $listCategory);
-        setVariable('listCategoryCheck', $listCategoryCheck);
+        setVariable('listCategory', $listCategory);
+        setVariable('listUnitConversion', $listUnitConversion);
         setVariable('listManufacturer', $listManufacturer);
     }else{
         return $controller->redirect('/login');
@@ -1099,6 +1147,7 @@ function addDataProductAgency(){
             }
         }
 
+
         setVariable('mess', $mess);
 
     }else{
@@ -1122,6 +1171,7 @@ function editOrderCustomerAgency($input)
         $modelOrders = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelCustomers = $controller->loadModel('Customers');
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
 
         $mess = '';
 
@@ -1170,6 +1220,7 @@ function editOrderCustomerAgency($input)
                 $saveDetail->quantity = (int)$dataSend['soluong'][$key];
                 $saveDetail->price = (int)$dataSend['money'][$key];
                 $saveDetail->discount = (int)$dataSend['discount'][$key];
+                $saveDetail->id_unit = (int)$dataSend['id_unit'][$key];
 
                 $modelOrderDetails->save($saveDetail);
             }
@@ -1186,6 +1237,7 @@ function editOrderCustomerAgency($input)
         if(!empty($orderDetail)){
             foreach($orderDetail as $key => $item){
                 $orderDetail[$key]->product = $modelProducts->find()->where(array('id'=>$item->id_product))->first();
+                $orderDetail[$key]->unitConversion = $modelUnitConversion->find()->where(['id_product'=>$item->id_product])->all()->toList();
             }
         }
 
@@ -1276,83 +1328,75 @@ function listCostsIncurred($input){
     }
 }
 
-function listUnitConversion($input){
+function listUnitConversionAPI($input){
     global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
-
+    $return =array();
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
     if(!empty($session->read('infoUser'))){
 
         $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelProduct = $controller->loadModel('Products');
 
-
-        if(!empty($session->read('infoUser')->id_father)){
-            return $controller->redirect('/');
-        }
-
-        if(!empty($_GET['id_product'])){
-            $product = $modelProduct->find()->where(array('id'=> (int) $_GET['id_product'],'status'=>'active'))->first();
-            if(empty($product)){
-                return $controller->redirect('/listProductAgency');
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            if(!empty($dataSend['id_product'])){
+               $conditions = array('id_product'=>$dataSend['id_product']);
+                $data = $modelUnitConversion->find()->where($conditions)->all()->toList();
+                if(!empty($data)){
+                 $return = array('code'=>1, 'mess'=>'lấy dữ liệu thành công', 'data'=> $data);
+                }else{
+                    $return = array('code'=>2, 'mess'=>'lấy dữ liệu không thành công');
+                }
+            }else{
+                $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
             }
         }else{
-            return $controller->redirect('/listProductAgency');
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
+    }else{
+       $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+    }
+    return $return;
+}
+
+function unitgetPriceAPI($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    $return =array();
+    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    if(!empty($session->read('infoUser'))){
+
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
+        $modelProduct = $controller->loadModel('Products');
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
-            
-            // tính ID category
-            if(!empty($dataSend['idEdit'])){
-                $save = $modelUnitConversion->get( (int) $dataSend['idEdit']);
+            if(!empty($dataSend['id_product']) &&  !empty($dataSend['id_unit'])){
+               $conditions = array('id_product'=>$dataSend['id_product'],'id'=>$dataSend['id_unit']);
+                $data = $modelUnitConversion->find()->where($conditions)->first();
+                if(!empty($data)){
+                 $return = array('code'=>1, 'mess'=>'lấy dữ liệu thành công', 'data'=> $data);
+                }else{
+                    $return = array('code'=>2, 'mess'=>'lấy dữ liệu không thành công');
+                }
             }else{
-                $save = $modelUnitConversion->newEmptyEntity();
+                $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
             }
-
-            // tạo dữ liệu save
-           $save->unit = $dataSend['unit'];
-           $save->id_product = $product->id; 
-           $save->quantity = $dataSend['quantity'];
-           $save->price = $dataSend['price'];
-
-            $modelUnitConversion->save($save);
-
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
-
-        $conditions = array('id_product'=>$product->id);
-        $listData = $modelUnitConversion->find()->where($conditions)->all()->toList();
-
-
-        setVariable('listData', $listData);
     }else{
-        return $controller->redirect('/login');
+       $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
     }
+    return $return;
 }
 
-function deleteUnitConversion($input){
-    global $controller;
-    global $session;
-
-    global $modelCategories;
-     $modelUnitConversion = $controller->loadModel('UnitConversions');
-    if(!empty($session->read('infoUser'))){
-        if(!empty($_GET['id'])){
-            $data = $modelUnitConversion->get($_GET['id']);
-            
-            if($data){
-                $modelUnitConversion->delete($data);
-            }
-        }
-
-    // return $controller->redirect('/listProductAgency');
-
-    }else{
-        return $controller->redirect('/login');
-    }
-}
 
 ?>

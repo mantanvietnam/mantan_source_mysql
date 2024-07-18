@@ -156,7 +156,7 @@ function addRequestProductAgency($input)
                     $saveDetail->quantity = $dataSend['soluong'][$key];
                     $saveDetail->price = $dataSend['money'][$key];
                     $saveDetail->discount = (int) @$dataSend['discount'][$key];
-
+                    $saveDetail->id_unit = (int)$dataSend['id_unit'][$key];
                     $modelOrderMemberDetails->save($saveDetail);
                 }
 
@@ -175,7 +175,7 @@ function addRequestProductAgency($input)
 
         $father = $modelMembers->find()->where(array('id'=>$session->read('infoUser')->id_father))->first();
 
-        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system])->all()->toList();
+        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active'])->all()->toList();
 
         setVariable('listProduct', $listProduct);
         setVariable('position', $position);
@@ -210,8 +210,7 @@ function addOrderAgency($input)
 
         if($isRequestPost){
             $dataSend = $input['request']->getData();
-            // debug($dataSend);
-            // die();
+           
 
             if(!empty($dataSend['idHangHoa']) && !empty($dataSend['id_member_buy'])){
                 $member_buy = $modelMembers->find()->where(array('id'=>(int) $dataSend['id_member_buy']))->first();
@@ -255,6 +254,7 @@ function addOrderAgency($input)
                         $saveDetail->quantity = (int)$dataSend['soluong'][$key];
                         $saveDetail->price = (int)$dataSend['money'][$key];
                         $saveDetail->discount = (int)$dataSend['discount'][$key];
+                        $saveDetail->id_unit = (int)$dataSend['id_unit'][$key];
 
                         if(!empty($dataSend['discount'][$key])){
                             $checkDiscount = $modelDiscountProductAgency->find()->where(['id_product'=>$value,'id_member_buy'=>$member_buy->id,'id_member_sell'=>$member_buy->id_father ])->first();
@@ -293,7 +293,7 @@ function addOrderAgency($input)
         $member_buy = [];
         $father = [];
         
-        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system])->all()->toList();
+        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active'])->all()->toList();
 
         if(!empty($_GET['id_member_buy'])){
             $member_buy = $modelMembers->find()->where(array('id'=>(int) $_GET['id_member_buy']))->first();
@@ -336,6 +336,7 @@ function orderMemberAgency($input)
         $modelProducts = $controller->loadModel('Products');
         $modelOrderMembers = $controller->loadModel('OrderMembers');
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
 
         $conditions = array('id_member_sell'=>$session->read('infoUser')->id);
         $limit = 20;
@@ -388,7 +389,8 @@ function orderMemberAgency($input)
                     foreach ($detail_order as $k => $value) {
                         $product = $modelProducts->find()->where(['id'=>$value->id_product ])->first();
                         if(!empty($product)){
-                            $detail_order[$k]->product = $product->title;
+                            $product->unitConversion =   $modelUnitConversion->find()->where(['id_product'=>$value->id_product])->all()->toList();
+                            $detail_order[$k]->product = $product;
                         }
                     }
 
@@ -472,6 +474,7 @@ function updateOrderMemberAgency($input)
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
         $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelTokenDevices = $controller->loadModel('TokenDevices');
 
         if(!empty($_GET['id'])){
@@ -487,6 +490,15 @@ function updateOrderMemberAgency($input)
                 
                         if(!empty($detail_order)){
                             foreach ($detail_order as $k => $value) {
+                                $quantity = $value->quantity;
+                                if(!empty($value->id_unit)){
+                                    $unit = $modelUnitConversion->find()->where(['id_product'=>$value->id_product,'id'=>$value->id_unit])->first();
+                                    if(!empty($unit)){
+                                        $quantity = $value->quantity*$unit->quantity;
+                                    }
+                                }
+
+
                                 // cộng hàng vào kho người mua
                                 $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_buy])->first();
 
@@ -497,7 +509,7 @@ function updateOrderMemberAgency($input)
 
                                 $checkProductExits->id_member = $order->id_member_buy;
                                 $checkProductExits->id_product = $value->id_product;
-                                $checkProductExits->quantity += $value->quantity;
+                                $checkProductExits->quantity += $quantity;
 
                                 $modelWarehouseProducts->save($checkProductExits);
 
@@ -533,7 +545,7 @@ function updateOrderMemberAgency($input)
 
                                 $checkProductExits->id_member = $order->id_member_sell;
                                 $checkProductExits->id_product = $value->id_product;
-                                $checkProductExits->quantity -= $value->quantity;
+                                $checkProductExits->quantity -= $quantity;
 
                                 $modelWarehouseProducts->save($checkProductExits);
 
@@ -564,7 +576,7 @@ function updateOrderMemberAgency($input)
 
                                 $saveWarehouseHistories->id_member = $order->id_member_buy;
                                 $saveWarehouseHistories->id_product = $value->id_product;
-                                $saveWarehouseHistories->quantity = $value->quantity;
+                                $saveWarehouseHistories->quantity = $quantity;
                                 $saveWarehouseHistories->note = 'Nhập hàng vào kho';
                                 $saveWarehouseHistories->create_at = time();
                                 $saveWarehouseHistories->type = 'plus';
@@ -577,7 +589,7 @@ function updateOrderMemberAgency($input)
 
                                 $saveWarehouseHistories->id_member = $order->id_member_sell;
                                 $saveWarehouseHistories->id_product = $value->id_product;
-                                $saveWarehouseHistories->quantity = $value->quantity;
+                                $saveWarehouseHistories->quantity = $quantity;
                                 $saveWarehouseHistories->note = 'Xuất hàng cho đại lý tuyến dưới';
                                 $saveWarehouseHistories->create_at = time();
                                 $saveWarehouseHistories->type = 'minus';
@@ -743,6 +755,7 @@ function updateMyOrderMemberAgency($input)
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
         $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
 
         if(!empty($_GET['id'])){
             $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id'], 'id_member_buy'=>$session->read('infoUser')->id])->first();
@@ -757,6 +770,14 @@ function updateMyOrderMemberAgency($input)
                 
                         if(!empty($detail_order)){
                             foreach ($detail_order as $k => $value) {
+                                $quantity = $value->quantity;
+                                if(!empty($value->id_unit)){
+                                    $unit = $modelUnitConversion->find()->where(['id_product'=>$value->id_product,'id'=>$value->id_unit])->first();
+                                    if(!empty($unit)){
+                                        $quantity = $value->quantity*$unit->quantity;
+                                    }
+                                }
+
                                 // cộng hàng vào kho người mua
                                 $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_buy])->first();
 
@@ -767,7 +788,7 @@ function updateMyOrderMemberAgency($input)
 
                                 $checkProductExits->id_member = $order->id_member_buy;
                                 $checkProductExits->id_product = $value->id_product;
-                                $checkProductExits->quantity += $value->quantity;
+                                $checkProductExits->quantity += $quantity;
 
                                 $modelWarehouseProducts->save($checkProductExits);
 
@@ -781,7 +802,7 @@ function updateMyOrderMemberAgency($input)
 
                                 $checkProductExits->id_member = $order->id_member_sell;
                                 $checkProductExits->id_product = $value->id_product;
-                                $checkProductExits->quantity -= $value->quantity;
+                                $checkProductExits->quantity -= $quantity;
 
                                 $modelWarehouseProducts->save($checkProductExits);
 
@@ -790,7 +811,7 @@ function updateMyOrderMemberAgency($input)
 
                                 $saveWarehouseHistories->id_member = $order->id_member_buy;
                                 $saveWarehouseHistories->id_product = $value->id_product;
-                                $saveWarehouseHistories->quantity = $value->quantity;
+                                $saveWarehouseHistories->quantity = $quantity;
                                 $saveWarehouseHistories->note = 'Nhập hàng vào kho';
                                 $saveWarehouseHistories->create_at = time();
                                 $saveWarehouseHistories->type = 'plus';
@@ -803,7 +824,7 @@ function updateMyOrderMemberAgency($input)
 
                                 $saveWarehouseHistories->id_member = $order->id_member_sell;
                                 $saveWarehouseHistories->id_product = $value->id_product;
-                                $saveWarehouseHistories->quantity = $value->quantity;
+                                $saveWarehouseHistories->quantity = $quantity;
                                 $saveWarehouseHistories->note = 'Xuất hàng cho đại lý tuyến dưới';
                                 $saveWarehouseHistories->create_at = time();
                                 $saveWarehouseHistories->type = 'minus';
@@ -928,6 +949,7 @@ function editOrderMemberAgency($input)
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelMembers = $controller->loadModel('Members');
         $modelDiscountProductAgency = $controller->loadModel('DiscountProductAgencys');
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
 
         $mess = '';
 
@@ -988,6 +1010,7 @@ function editOrderMemberAgency($input)
                 $saveDetail->quantity = (int)$dataSend['soluong'][$key];
                 $saveDetail->price = (int)$dataSend['money'][$key];
                 $saveDetail->discount = (int)$dataSend['discount'][$key];
+                $saveDetail->id_unit = (int)$dataSend['id_unit'][$key];
 
                 if(!empty($dataSend['discount'][$key])){
                     $checkDiscount = $modelDiscountProductAgency->find()->where(['id_product'=>$value,'id_member_buy'=>$member_buy->id,'id_member_sell'=>$member_buy->id_father ])->first();
@@ -1016,14 +1039,20 @@ function editOrderMemberAgency($input)
 
        
         
-        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system])->all()->toList();
+        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active'])->all()->toList();
 
          $orderDetail = $modelOrderMemberDetails->find()->where(array('id_order_member'=>$order->id))->all()->toList();
 
         if(!empty($orderDetail)){
             foreach($orderDetail as $key => $item){
                 $orderDetail[$key]->product = $modelProducts->find()->where(array('id'=>$item->id_product))->first();
+
+                $orderDetail[$key]->unitConversion = $modelUnitConversion->find()->where(['id_product'=>$item->id_product])->all()->toList();
             }
+
+
+
+
         }
         $conditions = array('type' => 'costsIncurred','status'=>'active');
         $costsIncurred = $modelCategories->find()->where($conditions)->all()->toList();

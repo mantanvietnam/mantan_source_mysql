@@ -167,165 +167,8 @@
         
         <!-- Tabs content -->
         <div class="tab-content">
-            <!-- Tab Thông tin -->
-            <div class="tab-pane fade show active" id="info">
-                <div class="container p-3 d-flex justify-content-center"> 
-                    <div class="card p-4"> 
-                        <div class=" d-flex flex-column justify-content-center align-items-center"> 
-                             
-                            <img class="avatar" src="<?php echo $info->avatar;?>" height="150" width="150" />
-                            
-
-                            <span class="name mt-3"><?php echo $info->name;?></span> 
-                            <span class="idd"><?php echo $info->name_system;?></span> 
-
-                            <div class="d-flex flex-row justify-content-center align-items-center gap-2"> 
-                                <span class="idd1" id="myPhone"><?php echo $info->phone;?></span> 
-                                <span><i class="fa fa-copy" onclick="copyText();"></i></span> 
-                            </div> 
-
-                            <div class="d-flex flex-row justify-content-center align-items-center mt-3"> 
-                                <span class="number"><?php echo number_format($info->view);?><span class="follow"> lượt xem</span></span> 
-                            </div> 
-
-                            <div class=" d-flex mt-2"> 
-                                <button class="btn1 btn-dark" onclick="saveToPhonebook()">LƯU DANH BẠ</button> 
-                            </div> 
-
-                            <div class="text mt-3"> 
-                                <?php echo $info->description;?> 
-                            </div> 
-
-                            <?php if(!empty($info->facebook)){ ?>
-                            <a target="_blank" href="<?php echo $info->facebook;?>">
-                                <div class="row social mb-3">
-                                    <div class="col-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/facebook.svg" height="32" width="32"></image></svg>
-                                    </div>
-
-                                    <div class="col-9 text-center">
-                                        <span class="title">Trang Facebook</span><br/>
-                                        <span class="des">Kết bạn với tôi nhé</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php }?>
-
-                            <?php if(!empty($info->zalo)){ ?>
-                            <a target="_blank" href="<?php echo $info->zalo;?>">
-                                <div class="row social mb-3">
-                                    <div class="col-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/zalo.svg" height="32" width="32"></image></svg>
-                                    </div>
-
-                                    <div class="col-9 text-center">
-                                        <span class="title">Trang Zalo</span><br/>
-                                        <span class="des">Thông tin cá nhân</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php }?>
-
-                            <?php if(!empty($info->tiktok)){ ?>
-                            <a target="_blank" href="<?php echo $info->tiktok;?>">
-                                <div class="row social mb-3">
-                                    <div class="col-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/tiktok.svg" height="32" width="32"></image></svg>
-                                    </div>
-
-                                    <div class="col-9 text-center">
-                                        <span class="title">Kênh TikTok</span><br/>
-                                        <span class="des">Bạn đã bấm theo dõi tôi chưa?</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php }?>
-
-                            <?php if(!empty($info->youtube)){ ?>
-                            <a target="_blank" href="<?php echo $info->youtube;?>">
-                                <div class="row social mb-3">
-                                    <div class="col-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/youtube.svg" height="32" width="32"></image></svg>
-                                    </div>
-
-                                    <div class="col-9 text-center">
-                                        <span class="title">Kênh Youtube</span><br/>
-                                        <span class="des">Kênh chia sẻ kiến thức chuyên sâu</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php }?>
-
-                            <?php if(!empty($info->web)){ ?>
-                            <a target="_blank" href="<?php echo $info->web;?>">
-                                <div class="row social mb-3">
-                                    <div class="col-3">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Circle-icons-global.svg/1024px-Circle-icons-global.svg.png" width="100%">
-                                    </div>
-
-                                    <div class="col-9 text-center">
-                                        <span class="title">Trang website</span><br/>
-                                        <span class="des">Tư vấn, chăm sóc khách hàng</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php }?>
-
-                            <?php if(!empty($info->instagram)){ ?>
-                            <a target="_blank" href="<?php echo $info->instagram;?>">
-                                <div class="row social mb-3">
-                                    <div class="col-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/instagram.svg" height="32" width="32"></image></svg>
-                                    </div>
-
-                                    <div class="col-9 text-center">
-                                        <span class="title">Trang Instagram</span><br/>
-                                        <span class="des">Hãy xem những bức ảnh của tôi</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php }?>
-
-                            <?php if(!empty($info->linkedin)){ ?>
-                            <a target="_blank" href="<?php echo $info->linkedin;?>">
-                                <div class="row social mb-3">
-                                    <div class="col-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/linkedin.svg" height="32" width="32"></image></svg>
-                                    </div>
-
-                                    <div class="col-9 text-center">
-                                        <span class="title">Trang Linkedin</span><br/>
-                                        <span class="des">Kết nối công việc</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php }?>
-
-                            <?php if(!empty($info->twitter)){ ?>
-                            <a target="_blank" href="<?php echo $info->twitter;?>">
-                                <div class="row social mb-3">
-                                    <div class="col-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/twitter.svg" height="32" width="32"></image></svg>
-                                    </div>
-
-                                    <div class="col-9 text-center">
-                                        <span class="title">Trang Twitter</span><br/>
-                                        <span class="des">Chia sẻ quan điểm cá nhân</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php }?>
-
-                            <div class=" px-2 rounded mt-4 date "> 
-                                <span class="join"><?php echo $info->email;?></span> 
-                            </div> 
-                        </div> 
-                    </div>
-                </div>
-            </div>
-
             <!-- Tab Sản phẩm -->
-            <div class="tab-pane fade" id="products">
+            <div class="tab-pane fade show active" id="products">
                 <div class="container p-3 d-flex justify-content-center">
                     <div class="card p-4"> 
                         <?php 
@@ -420,33 +263,15 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Tab trang cá nhân -->
-            <?php 
-            if(!empty($info->web)){
-                echo '  <div class="tab-pane fade" id="about">
-                            <iframe allowfullscreen="" width="100%" height="100%" title="main360" src="'.$info->web.'"></iframe>
-                        </div>';
-            }
-            ?>
         </div>
 
         <!-- Tabs navigation -->
         <ul class="nav nav-tabs justify-content-center mt-3" id="myTabs">
+            
             <li class="nav-item">
-                <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info">Thông tin</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="product-tab" data-toggle="tab" href="#products">Sản phẩm</a>
+                <a class="nav-link active" id="product-tab" data-toggle="tab" href="#products">Sản phẩm</a>
             </li>
             
-            <?php 
-            if(!empty($info->web)){
-                echo '  <li class="nav-item">
-                            <a class="nav-link" id="about-tab" data-toggle="tab" href="#about">Trang cá nhân</a>
-                        </li>';
-            }
-            ?>
             
             <li class="nav-item">
                 <a class="nav-link" id="order-tab" data-toggle="tab" href="#order">Đặt hàng</a>
@@ -656,7 +481,7 @@
                     .done(function( msg ) {
                         $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
 
-                        $('.nav-tabs a[href="#info"]').tab('show');
+                        $('.nav-tabs a[href="#products"]').tab('show');
 
                         alert('Tạo đơn hàng thành công');
                     });

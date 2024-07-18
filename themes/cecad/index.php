@@ -100,44 +100,68 @@
                     <div class="majors-img">
                         <img src="<?= @$settingThemes['imageactionbeetween'];?>" alt="">
                     </div>
-                    <div class="majors-list">
-                        <div class="majors-items majors-items-left majors-items-1">
-                            <p>
-                                <?= @$settingThemes['action1'];?>
-                            </p>
-                            <img class="fade-img" src="<?= @$settingThemes['imageaction1'];?>" alt="">
-                        </div>
-                        <div class="majors-items majors-items-left majors-items-2">
-                            <p>
-                            <?= @$settingThemes['action6'];?>
-                            </p>
-                            <img class="fade-img" src="<?= @$settingThemes['imageaction6'];?>" alt="">
-                        </div>
-                        <div class="majors-items majors-items-left majors-items-3">
-                            <p>
-                                <?= @$settingThemes['action5'];?>
-                            </p>
-                            <img class="fade-img" src="<?= @$settingThemes['imageaction5'];?>" alt="">
-                        </div>
 
-                        <div class="majors-items majors-items-right majors-items-4">
-                            <p>
-                                <?= @$settingThemes['action2'];?>
-                            </p>
-                            <img class="fade-img" src="<?= @$settingThemes['imageaction2'];?>" alt="">
-                        </div>
-                        <div class="majors-items majors-items-right majors-items-5">
-                            <p>
-                                <?= @$settingThemes['action3'];?>
-                            </p>
-                            <img class="fade-img" src="<?= @$settingThemes['imageaction3'];?>" alt="">
-                        </div>
-                        <div class="majors-items majors-items-right majors-items-6">
-                            <p>
-                                <?= @$settingThemes['action4'];?>
-                            </p>
-                            <img class="fade-img" src="<?= @$settingThemes['imageaction4'];?>" alt="">
-                        </div>
+                    <div class="majors-list">
+                        <?php if (!empty($listDataslugproject[0])): ?>
+                            <a href="category-project/<?php echo  $listDataslugproject[0]->slug ?>.html">
+                                <div class="majors-items majors-items-left majors-items-1">
+                                    <p>
+                                        <?= $listDataslugproject[0]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDataslugproject[0]->image;?>" alt="">
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($listDataslugproject[1])): ?>
+                            <a href="category-project/<?php echo  $listDataslugproject[1]->slug ?>.html">
+                                <div class="majors-items majors-items-left majors-items-2">
+                                    <p>
+                                        <?= $listDataslugproject[1]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDataslugproject[1]->image;?>" alt="">
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($listDataslugproject[2])): ?>
+                            <a href="category-project/<?php echo  $listDataslugproject[2]->slug ?>.html">
+                                <div class="majors-items majors-items-left majors-items-3">
+                                    <p>
+                                        <?= $listDataslugproject[2]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDataslugproject[2]->image;?>" alt="">
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($listDataslugproject[3])): ?>
+                            <a href="category-project/<?php echo  $listDataslugproject[3]->slug ?>.html">
+                                <div class="majors-items majors-items-right majors-items-4">
+                                    <p>
+                                        <?= $listDataslugproject[3]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDataslugproject[3]->image;?>" alt="">
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($listDataslugproject[4])): ?>
+                        <a href="category-project/<?php echo  $listDataslugproject[4]->slug ?>.html">
+                                <div class="majors-items majors-items-right majors-items-5">
+                                    <p>
+                                        <?= $listDataslugproject[4]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDataslugproject[4]->image;?>" alt="">
+                                </div>
+                        </a>
+                        <?php endif; ?>
+                        <?php if (!empty($listDataslugproject[5])): ?>
+                        <a href="category-project/<?php echo  $listDataslugproject[5]->slug ?>.html">
+                                <div class="majors-items majors-items-right majors-items-6">
+                                    <p>
+                                        <?= $listDataslugproject[5]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDataslugproject[5]->image;?>" alt="">
+                                </div>
+                        </a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

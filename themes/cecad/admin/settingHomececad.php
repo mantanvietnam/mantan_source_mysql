@@ -58,8 +58,12 @@
                         <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
                             <div class="card-body row ">
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <label class="form-label" for="basic-default-fullname">LOGO</label>
+                                    <label class="form-label" for="basic-default-fullname">LOGO HEADER</label>
                                     <?php showUploadFile('logo','logo', @$data['logo'],8);?>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">LOGO footer</label>
+                                    <?php showUploadFile('logofooter','logofooter', @$data['logofooter'],80);?>
                                 </div>
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">ID album slide</label>

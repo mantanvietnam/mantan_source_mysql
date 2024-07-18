@@ -65,6 +65,8 @@ $sqlInstallDatabase .= "CREATE TABLE `order_details` (
     `id_order` INT NOT NULL , 
     `quantity` INT NOT NULL , 
     `price` INT NOT NULL DEFAULT '0',
+    `discount` INT NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu',
+    `id_unit` INT NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .="CREATE TABLE `discount_codes` ( 
@@ -131,6 +133,14 @@ $sqlInstallDatabase .="CREATE TABLE `address` (
     `address_type` INT NOT NULL , 
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
+$sqlInstallDatabase .="CREATE TABLE `unit_conversions` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `unit`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `id_product` INT NOT NULL DEFAULT '0' , 
+    `quantity` INT NOT NULL DEFAULT '0' , 
+    `price` INT NOT NULL DEFAULT '0' , 
+    PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+
 
 $sqlDeleteDatabase .= "DROP TABLE products; ";
 $sqlDeleteDatabase .= "DROP TABLE orders; ";
@@ -141,6 +151,7 @@ $sqlDeleteDatabase .= "DROP TABLE views; ";
 $sqlDeleteDatabase .= "DROP TABLE reviews; ";
 $sqlDeleteDatabase .= "DROP TABLE categorie_products; ";
 $sqlDeleteDatabase .= "DROP TABLE address; ";
+$sqlDeleteDatabase .= "DROP TABLE unit_conversions; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_product'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='manufacturer_product'; ";
@@ -198,6 +209,8 @@ $sqlUpdateDatabase['order_details']['id_product'] = "ALTER TABLE `order_details`
 $sqlUpdateDatabase['order_details']['id_order'] = "ALTER TABLE `order_details` ADD `id_order` INT NOT NULL ; ";
 $sqlUpdateDatabase['order_details']['quantity'] = "ALTER TABLE `order_details` ADD `quantity` INT NOT NULL; ";
 $sqlUpdateDatabase['order_details']['price'] = "ALTER TABLE `order_details` ADD `price` INT NOT NULL DEFAULT '0'; ";
+$sqlUpdateDatabase['order_details']['discount'] = "ALTER TABLE `order_details` ADD `discount` INT NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu';";
+$sqlUpdateDatabase['order_details']['id_unit'] = "ALTER TABLE `order_details` ADD `id_unit` INT NOT NULL DEFAULT '0';";
 
 // Bang discount_codes
 $sqlUpdateDatabase['discount_codes']['name'] = "ALTER TABLE `discount_codes` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
@@ -245,4 +258,9 @@ $sqlUpdateDatabase['categorie_products']['id_product'] = "ALTER TABLE `categorie
 $sqlUpdateDatabase['address']['address_name'] = "ALTER TABLE `address` ADD `address_name` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['address']['id_customer'] = "ALTER TABLE `address` ADD `id_customer` INT NOT NULL DEFAULT '0'; ";
 $sqlUpdateDatabase['address']['address_type'] = "ALTER TABLE `address` ADD `address_type` INT NOT NULL; ";
+
+$sqlUpdateDatabase['unit_conversions']['unit'] = "ALTER TABLE `unit_conversions` ADD `unit`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['unit_conversions']['id_product'] = "ALTER TABLE `unit_conversions` ADD `id_product` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['unit_conversions']['quantity'] = "ALTER TABLE `unit_conversions` ADD `quantity` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['unit_conversions']['price'] = "ALTER TABLE `unit_conversions` ADD `price` INT NOT NULL DEFAULT '0';";
 ?>

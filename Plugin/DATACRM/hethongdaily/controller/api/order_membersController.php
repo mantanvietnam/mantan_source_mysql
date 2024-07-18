@@ -274,3 +274,86 @@ function getInfoOrderMemberAPI($input)
 
     return $return;
 }
+
+function createOrderMemberAPI($input)
+{
+	global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelMembers = $controller->loadModel('Members');
+    $modelProducts = $controller->loadModel('Products');
+    $modelOrderMembers = $controller->loadModel('OrderMembers');
+    $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if((!empty($dataSend['token']) || !empty($dataSend['phone'])) && !empty($dataSend['data_order'])){
+        	/*
+		        $dataSend['data_order'] = [
+		                                    ['id_product'=>1, 'quantity'=>2, 'price'=>0, 'discount'=>0],
+		                                    ['id_product'=>2, 'quantity'=>2, 'price'=>1000, 'discount'=>0],
+		                                ];
+		    */
+
+        	$dataSend['data_order'] = json_decode($dataSend['data_order'], true);
+
+        	if(!empty($dataSend['data_order'])){
+	            if(!empty($dataSend['token'])){
+	            	$member_buy = getMemberByToken($dataSend['token']);
+	            }else{
+	            	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+	        		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+	            	$member_buy = $modelMembers->find()->where(['phone'=>$dataSend['phone']])->first();
+	            }
+
+	            if(!empty($member_buy)){
+	                $save = $modelOrderMembers->newEmptyEntity();
+
+	                $save->id_member_sell = $member_buy->id_father; // id người bán
+	                $save->id_member_buy = $member_buy->id; // id người mua
+	                $save->note_sell = '';
+	                $save->note_buy = @$dataSend['note']; // ghi chú người mua  
+	                $save->status = 'new';
+	                $save->create_at = time();
+	                $save->money = (int) $dataSend['total'];
+	                $save->total = (int) $dataSend['totalPays'];
+	                $save->status_pay = 'wait';
+	                $save->discount = $dataSend['promotion'];
+
+	                $save->costsIncurred = '[]'; // phụ phí
+	                $save->total_costsIncurred = 0;
+
+	                $modelOrderMembers->save($save);
+
+	                foreach ($dataSend['data_order'] as $key => $value) {
+	                    $saveDetail = $modelOrderMemberDetails->newEmptyEntity();
+
+	                    $saveDetail->id_product = (int) $value['id_product'];
+	                    $saveDetail->id_order_member = $save->id;
+	                    $saveDetail->quantity = (int) $value['quantity'];
+	                    $saveDetail->price = (int) $value['price'];
+	                    $saveDetail->discount = (int) $value['discount'];
+
+	                    $modelOrderMemberDetails->save($saveDetail);
+	                }
+
+	                $return = array('code'=>1, 'mess'=>'Tạo đơn hàng đại lý thành công');
+	            }else{
+	                 $return = array('code'=>3, 'mess'=>'Sai mã token hoặc sai số điện thoại');
+	            }
+	        }else{
+	        	$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+	        }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}

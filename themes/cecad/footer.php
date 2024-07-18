@@ -10,7 +10,7 @@
                             <div class="col-left">
                                 <div class="ft-company">
                                     <div class="ft-logo">
-                                        <img src="<?= @$settingThemes['logo'];?>" alt="">
+                                        <img src="<?= @$settingThemes['logofooter'];?>" alt="">
                                     </div>
                                     <div class="ft-name">
                                         <p><?= @$settingThemes['titlelogofooter'];?></p>

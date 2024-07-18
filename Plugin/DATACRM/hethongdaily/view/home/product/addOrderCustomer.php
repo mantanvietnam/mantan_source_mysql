@@ -443,8 +443,8 @@ function addProduct(id, name, priceProduct, type,unit)
 {
     var keyID = id+type;
 
-    if(listProductAdd.hasOwnProperty(keyID) && priceProduct==$('#money-'+listProductAdd[keyID]).val()){
-        // thêm số lượng vào mặt hàng đã có
+    if(listProductAdd.hasOwnProperty(keyID)){
+        // thêm số lượng vào mặt hàng đã có  && priceProduct==$('#money-'+listProductAdd[keyID]).val()
         var numberProductRow= $('#soluong'+listProductAdd[keyID]).val();
         numberProductRow++;
         $('#soluong'+listProductAdd[keyID]).val(numberProductRow);
@@ -474,7 +474,7 @@ function addProduct(id, name, priceProduct, type,unit)
                 <td>\
                     <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
                 </td>\
-                <td>\
+                <td id="tdunit-'+row+'">\
                     '+unit+'\
                 </td>\
                 <td>\
@@ -487,10 +487,56 @@ function addProduct(id, name, priceProduct, type,unit)
             </tr>');    
             
             $("#trFirst").hide();
+            unitselect(id, row, unit,priceProduct,type);
            
     }
 
     tinhtien();
+}
+
+function unitselect(id_product, i, unit,price,type){
+
+    $.ajax({
+          method: "POST",
+          url: "/apis/listUnitConversionAPI",
+          data: { 
+            id_product: id_product,
+        }
+    }).done(function( msg ) {
+             var select = '<select name="id_unit['+i+']"  class="form-control form-select color-dropdown"  onclick="unitgetPrice('+id_product+','+i+','+price+')"  id="id_unit'+i+'"><option value="0">'+unit+'</option>';
+             if (msg.code === 1 && msg.data.length > 0 && type !=='free') {
+                    msg.data.forEach(item => {
+                        select += '<option value="'+item.id+'">'+item.unit+'</option>';
+                    });
+                 
+                }
+                select += '</select>';
+                $('#tdunit-'+i).html(select);
+               
+        });
+}
+
+function unitgetPrice(id_product, i,price){
+    var id_unit = $('#id_unit'+i).val();
+    $.ajax({
+          method: "POST",
+          url: "/apis/unitgetPriceAPI",
+          data: { 
+            id_product: id_product,
+            id_unit: id_unit,
+        }
+    }).done(function( msg ) {
+            if (msg.code === 1) {
+                  document.getElementById("money-"+i).value = msg.data.price;
+                   tinhtien(1);
+
+            }else{
+                document.getElementById("money-"+i).value = price;
+                tinhtien(1);
+            }
+        });
+
+
 }
 
 // xóa sản phẩm trong đơn 

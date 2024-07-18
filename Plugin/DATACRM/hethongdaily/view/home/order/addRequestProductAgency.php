@@ -317,7 +317,7 @@ function addProduct(id, name, priceProduct, unit)
                 <td>\
                     <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
                 </td>\
-                <td>\
+                <td id="tdunit-'+row+'">\
                     '+unit+'\
                 </td>\
                 <td>\
@@ -327,13 +327,58 @@ function addProduct(id, name, priceProduct, unit)
                 <td>\
                     <a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct(\''+row+'\')"><i class="bx bx-trash me-1" aria-hidden="true"></i></a>\
                 </td>\
-            </tr>');    
+            </tr>');   
+            unitselect(id, row, unit,priceProduct); 
             
             $("#trFirst").hide();
            
     }
 
     tinhtien(1);
+}
+
+function unitselect(id_product, i, unit,price){
+
+    $.ajax({
+          method: "POST",
+          url: "/apis/listUnitConversionAPI",
+          data: { 
+            id_product: id_product,
+        }
+    }).done(function( msg ) {
+             var select = '<select name="id_unit['+i+']"  class="form-control form-select color-dropdown"  onclick="unitgetPrice('+id_product+','+i+','+price+')"  id="id_unit'+i+'"><option value="0">'+unit+'</option>';
+             if (msg.code === 1 && msg.data.length > 0) {
+                    msg.data.forEach(item => {
+                        select += '<option value="'+item.id+'">'+item.unit+'</option>';
+                        
+                    });
+                 
+                }
+                select += '</select>';
+                $('#tdunit-'+i).html(select);
+               
+        });
+}
+
+function unitgetPrice(id_product, i,price){
+    var id_unit = $('#id_unit'+i).val();
+    $.ajax({
+          method: "POST",
+          url: "/apis/unitgetPriceAPI",
+          data: { 
+            id_product: id_product,
+            id_unit: id_unit,
+        }
+    }).done(function( msg ) {
+            if (msg.code === 1) {
+                  document.getElementById("money-"+i).value = msg.data.price;
+                   tinhtien(1);
+
+            }else{
+                document.getElementById("money-"+i).value = price;
+                tinhtien(1);
+            }
+        });
 }
 
 // xóa sản phẩm trong đơn 

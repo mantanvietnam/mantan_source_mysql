@@ -98,25 +98,24 @@
 
         <section id="all-news-section">
             <div class="container">
-                <h2>Tất cả tin tức</h2>
-
+                <h2><?=$category['name']?></h2>
                 <div class="all-news-list">
                     <div class="row">
-                    <?php foreach ($listDataproject as $key => $value) { ?>
+                    <?php foreach ($list_project as $key => $value) { ?>
                         <div class="col-lg-4 col-md-6">
                             <div class="all-news-item">
-                                <a href="">
+                                <a href="/project/<?= $value->slug;?>">
                                     <div class="all-news-img">
                                         <img src="<?=$value->image?>" alt="">
                                     </div>
                                     <div class="all-news-content">
                                         <div class="home-news-thum">
-                                            <p>Chính trị - Xã hội</p>
-                                            <span>11/4/ 2024</span>
+                                            <p><?php echo $value->address; ?></p>
+                                            <span><?php echo $value->year; ?></span>
                                         </div>
                                         <div class="all-news-detail">
-                                            <h3>Chung tay hành động để bảo vệ nguồn nước CECAD</h3>
-                                            <p>The world needs a nature-positive global economy that delivers lasting prosperity, says WWF’s finance lead Aaron Vermeulen.</p>
+                                            <h3><?php echo $value->name; ?></h3>
+                                            <p><?php echo $value->donor; ?></p>
                                         </div>
                                         <div class="all-news-btn">
                                             <i class="fa-solid fa-arrow-right-long"></i>

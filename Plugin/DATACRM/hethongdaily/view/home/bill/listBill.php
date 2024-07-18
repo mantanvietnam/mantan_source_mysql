@@ -77,7 +77,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách phiếu chi</h5>
+    <h5 class="card-header">Danh sách phiếu chi - <span class="text-danger"><?php echo number_format($totalMoney);?>đ</span></h5>
     <?php echo @$mess; ?>
     <div id="desktop_view">
       <div class="card-body row">
