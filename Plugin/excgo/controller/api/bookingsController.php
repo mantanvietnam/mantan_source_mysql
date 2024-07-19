@@ -87,7 +87,7 @@ function createBookingApi($input): array
             $booking->introduce_fee = $dataSend['introduce_fee'];
             $booking->deposit = $dataSend['deposit'] ?? 0;
             $booking->price = $dataSend['price'];
-            $booking->status_free = @$dataSend['status_free'];
+            $booking->status_free = (int) @$dataSend['status_free'] ?? 0;
             $booking->description = $dataSend['description'] ?? null;
             $booking->created_at = date('Y-m-d H:i:s');
             $booking->updated_at = date('Y-m-d H:i:s');
@@ -220,6 +220,8 @@ function getBookingListApi($input): array
             ]];
         }
 
+        // $conditions['Bookings.status_free'] = 0;
+
         /*if (!empty($dataSend['access_token'])) {
             // TH: user đã đăng nhập
             $currentUser = getUserByToken($dataSend['access_token']);
@@ -258,7 +260,7 @@ function getBookingListApi($input): array
                 'Bookings.start_time', 'Bookings.finish_time', 'Bookings.departure', 'Bookings.destination',
                 'Bookings.departure_province_id', 'Bookings.destination_province_id', 'Bookings.description',
                 'Bookings.introduce_fee', 'Bookings.deposit', 'Bookings.price', 'Bookings.created_at',
-                'Bookings.updated_at', 'Bookings.received_at', 'Bookings.canceled_at', 'PostedUsers.name', 'PostedUsers.avatar',
+                'Bookings.updated_at', 'Bookings.received_at', 'Bookings.canceled_at','Bookings.status_free', 'PostedUsers.name', 'PostedUsers.avatar',
             ])->limit($limit)
             ->page($page)
             ->where($conditions)
@@ -1503,7 +1505,7 @@ function getMyBookingListApi($input): array
                 $conditions['UserBookings.created_at <'] = $toDate;
                 $order['Bookings.created_at'] = 'DESC';
             }
-
+            // $conditions['Bookings.status_free'] = 0;
             $listData = $query->select([
                     'UserBookings.id',
                     'UserBookings.status',
@@ -1518,6 +1520,7 @@ function getMyBookingListApi($input): array
                     'Bookings.finish_time',
                     'Bookings.status',
                     'Bookings.created_at',
+                    'Bookings.status_free',
                     'PostedUsers.id',
                     'PostedUsers.name',
                     'PostedUsers.phone_number',

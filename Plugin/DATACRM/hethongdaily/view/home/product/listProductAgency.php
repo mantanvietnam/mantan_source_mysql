@@ -98,7 +98,7 @@
                      $unit .='<b>Đơn vị quy đổi</b> </br>';
                     foreach($item->unitConversion as $value){
                        if(!empty($value->unit)){
-                        $unit .=  $value->unit.': '.$value->quantity.'</br>';
+                        $unit .=  $value->unit.': '.$value->quantity.' '.$item->unit.'</br>';
                        }
                     }
                   }

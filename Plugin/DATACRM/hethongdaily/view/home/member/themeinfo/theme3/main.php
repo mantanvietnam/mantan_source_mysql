@@ -26,6 +26,26 @@
 
     if(function_exists('showSeoHome')) showSeoHome();
     ?>
+    <style type="text/css">
+        .textarea{
+            display: block;
+            width: 90%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            margin: 0px;
+        }
+    </style>
 </head>
 
 <body>
@@ -288,6 +308,14 @@
                 <div class="block-2">
                     <div class="bgr-kh" style="height: auto; display: inline-table;">
                         <div class="contact-form-container">
+                            <div class="mb-3">
+                                <label for="full_name" class="form-label">Đối tượng đặt hàng (*)</label><br/>
+                                <input type="radio" id="typeUser" name="typeUser" value="customer" checked /> Khách lẻ 
+                                &nbsp;&nbsp;&nbsp;
+                                <input type="radio" id="typeUser" name="typeUser" value="member" /> Đại lý 
+                            </div>
+
+                        <div id="info_customer">
                             <div class="card p-4"> 
                                 <div class="mb-3">
 
@@ -310,12 +338,26 @@
                                   <label for="codeDiscount" class="form-label">Mã giảm giá</label><span id="messdiscount"></span>
                                   <input type="text" class="form-control" id="discountCode" onchange="searchDiscountCodeAgencyAPI()" name="discountCode" value="" />
                               </div>
-                              <div class="mb-3">
+                          </div>
+                        </div>
+                        <div id="info_member" style="display: none;">
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Số điện thoại đại lý (*)</label>
+                              <input type="text" class="form-control" id="phone_member" name="phone_member" value="" onchange="checkMember();" required />
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="phone" class="form-label">Ghi chú mua hàng</label>
+                              <textarea name="note_member" id="note_member" class="form-control textarea"></textarea>
+                            </div>
+                        </div>
+                              <div class="mb-3" style="margin-top: 15px;">
                                 <input type="hidden" id="money" value="0">
                                 <input type="hidden" id="discount" value="0">
                                 <input type="hidden" id="total" value="0">
                                 <input type="hidden" id="codeDiscount" value="">
-                                <button type="button" class="btn-contact" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button> 
+                                <input type="hidden" id="promotion" value="0">
+                                <button type="button" class="btn-contact mb-3 mt-3" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button> 
                             </div>
                             <div id="list_cart" class="mb-3"></div>
                             <?php
@@ -443,6 +485,19 @@
             var id_agency = '<?php echo (int) @$_GET['id'];?>';
             var name_agency = '<?php echo $info->name;?>';
             var name_system = '<?php echo $info->name_system;?>';
+            var data_order = {};
+            var listPositions = {}
+
+            <?php
+            if(!empty($listPositions)){
+                foreach ($listPositions as $key => $value) {
+                    echo '  listPositions['.$key.'] = {};
+                            listPositions['.$key.']["minMoney"] = '.(int) $value->keyword.';
+                            listPositions['.$key.']["discount"] = '.(int) $value->description.';
+                        ';
+                }
+            }
+            ?>
 
             <?php 
             if(!empty($listProduct)){
@@ -487,7 +542,7 @@
                 window.getSelection().removeAllRanges();
             }
 
-            function checkSelectProduct()
+            /*function checkSelectProduct()
             {
                 var checkboxes = document.getElementsByName('id_product[]');
                 var checkTick = false;
@@ -549,6 +604,79 @@
 
                     // $('.tab-content a[href="#order"]').tab('show'); 
                 });
+                }
+            }*/
+
+             function checkSelectProduct()
+            {
+                var checkboxes = document.getElementsByName('id_product[]');
+                var checkTick = false;
+                var id_product_check, list_cart;
+                var total_money = 0;
+
+
+                for (var i = 0; i < checkboxes.length; i++) {
+                    // Kiểm tra xem checkbox có được chọn không
+                    if (checkboxes[i].checked) {
+                        checkTick = true;
+
+                        id_product_check = checkboxes[i].getAttribute("data-idProduct");
+
+                        list_product['p'+id_product_check].buy = 1;
+                        list_product['p'+id_product_check].number = parseInt($('#numberProduct'+id_product_check).val());
+                    }
+                }
+
+                if(!checkTick){
+                    alert('Bạn cần chọn sản phẩm muốn mua thì mới có thể đặt hàng');
+                }else{
+                    $('#list_cart').html('');
+                    $('#full_name').val('');
+                    $('#phone').val('');
+                    $('#address').val('');
+
+                    data_order = {};
+
+                    list_cart = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>SL</th><th>Giá</th></tr></thead><tbody>';
+                    for (var key in list_product) {
+                        if (list_product.hasOwnProperty(key)) {
+                            if(list_product[key].buy == 1){
+                                list_cart += '<tr><td>'+list_product[key].title+'</td><td align="center">'+list_product[key].number+'</td><td>'+formatNumberWithCommas(list_product[key].price)+'đ</td></tr>';
+
+                                total_money += list_product[key].price*list_product[key].number;
+
+                                data_order['p'+list_product[key].id] = {};
+                                data_order['p'+list_product[key].id]['id_product'] = list_product[key].id;
+                                data_order['p'+list_product[key].id]['quantity'] = list_product[key].number;
+                                data_order['p'+list_product[key].id]['price'] = list_product[key].price;
+                                data_order['p'+list_product[key].id]['discount'] = 0;
+                            }
+                        }
+                    }
+
+                    // kiểm tra chiết khấu đại lý
+                    var discountAgency = 0;
+
+                    Object.keys(listPositions).forEach(function(key) {
+                        if(total_money >= listPositions[key]['minMoney']){
+                            discountAgency = listPositions[key]['discount'];
+                        }
+                    });
+
+                    $('#promotion').val(discountAgency);
+                    
+                    list_cart += '</tbody></table> <p><b>Thành tiền: </b><span id="money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
+                    list_cart += '</tbody></table> <p><b>Giảm giá : </b><span id="discountmoney">0%</span</p>';
+                    list_cart += '</tbody></table> <p><b>Tổng tiền: </b><span id="total_money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
+
+                    $('#list_cart').html(list_cart);
+                    $('#money').val(total_money);
+                    $('#discount').val(0);
+                    $('#total').val(total_money);
+
+                    // $('.nav-tabs a[href="#order"]').tab('show'); 
+                    document.getElementById('products').style.display = "none";
+                    document.getElementById('order').style.display = "block";
                 }
             }
 
@@ -803,5 +931,54 @@
       });
     });
     </script>
+
+    <script>
+            document.querySelectorAll('input[name="typeUser"]').forEach((elem) => {
+                elem.addEventListener("change", (event) => {
+                    var typeUser = $('input[name="typeUser"]:checked').val();
+                    var promotion = $('#promotion').val();
+                    var discount = $('#discount').val();
+                    var money  = parseInt($('#money').val());
+                    var total = money;
+
+                    $('#info_customer').hide();
+                    $('#info_member').hide();
+
+                    if(typeUser == 'member'){
+                        $('#info_member').show();
+                        $('#discountmoney').html(promotion+'%');
+                        
+                        total = money * (100 - promotion)/100;
+                        $('#total_money').html(formatNumberWithCommas(total)+'đ');
+                        
+                    }else{
+                        $('#info_customer').show();
+                        $('#discountmoney').html(discount+'%');
+
+                        total = money * (100 - discount)/100;
+                        $('#total_money').html(formatNumberWithCommas(total)+'đ');
+                    }
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            function checkMember()
+            {
+                var phone_member = $('#phone_member').val();
+
+                $.ajax({
+                  method: "POST",
+                  url: "/apis/searchMemberAPI",
+                  data: { phone: phone_member }
+
+                }).done(function( msg ) {
+                    if(msg[0].id == 0){
+                        $('#phone_member').val('');
+                        alert('Không tìm thấy đại lý có số điện thoại là '+phone_member);
+                    }
+                });
+            }
+        </script>
 
 </html>
