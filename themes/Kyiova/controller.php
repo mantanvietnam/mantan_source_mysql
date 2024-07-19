@@ -200,7 +200,7 @@ function indexTheme($input){
                             'type' => 'INNER',
                             'conditions' => 'cp.id_product = Products.id',
                         ])
-                        ->where(array('cp.id_category'=>@$data_value['id_category_product1'],'status'=>'active'))->all()->toList();
+                        ->where(array('cp.id_category'=>(int) @$data_value['id_category_product1'],'status'=>'active'))->all()->toList();
 
    // $modelProduct->find()->limit(6)->page(1)->where(['id_category'=>@$data_value['id_category_product1'], 'status'=>'active'])->all()->toList();
    $listproduct2 = $modelProduct->find()

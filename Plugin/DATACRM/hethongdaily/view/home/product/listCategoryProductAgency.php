@@ -8,7 +8,7 @@
         <div class="col-xl">
           <div class="card mb-6">
             <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Chủ đề</h5>
+              <h5 class="mb-0">Danh mục</h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -16,7 +16,7 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Tên chủ đề</th>
+                        <th>Tên danh mục</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
                       </tr>
@@ -42,7 +42,7 @@
                           }
                         }else{
                           echo '<tr>
-                                  <td colspan="5" align="center">Chưa có chủ đề</td>
+                                  <td colspan="5" align="center">Chưa có danh mục sản phẩm</td>
                                 </tr>';
                         }
                       ?>
@@ -64,7 +64,7 @@
               <?= $this->Form->create(); ?>
                 <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Tên chủ đề</label>
+                  <label class="form-label" for="basic-default-phone">Tên danh mục</label>
                   <input type="text" class="form-control phone-mask" name="name" id="name" value=""/>
                 </div>
 

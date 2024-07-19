@@ -97,8 +97,7 @@
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-email">Chức danh (*)</label>
                               <select name="id_position" class="form-select" required id="id_position">
-
-                                <option value="">Chọn chức danh</option>
+                                <option value="0">Chủ hệ thống</option>
                                 <?php if(!empty($position)){
                                   foreach ($position as $key => $value) {
                                     if(empty($user->id_position) || $user->id_position!=$value->id){
@@ -109,8 +108,9 @@
                                   }
                                 } ?>
                               </select>
-                          </div>
-                        <?php } ?>
+                            </div>
+                            <?php } ?>
+                            
                             <div class="mb-3">
                               <label class="form-label">Số điện thoại (*)</label>
                               <input disabled type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$user->phone;?>"/>
