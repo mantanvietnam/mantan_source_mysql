@@ -2,7 +2,7 @@
 global $keyFirebase;
 global $urlCreateImage;
 
-$urlCreateImage = 'http://14.225.238.137:3000/convert';
+$urlCreateImage = 'http://172.16.33.6:3000/convert';
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
 
@@ -288,7 +288,7 @@ global $type_ingredient;
 
 
 $recommenders = 5;
-$ftp_server_upload_image = "171.244.16.96";
+$ftp_server_upload_image = "103.74.123.202";
 $ftp_username_upload_image = "ezpics";
 $ftp_password_upload_image = "uImzVeNYgF";
 

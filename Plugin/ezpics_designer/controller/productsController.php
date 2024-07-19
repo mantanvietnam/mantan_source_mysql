@@ -843,13 +843,15 @@ function createImageSeries($input)
 	        }
 
 			// dùng api flash api
-			$dataImage = screenshotAPIFlash($urlThumb, $product->width, $product->height);
+			//$dataImage = screenshotAPIFlash($urlThumb, $product->width, $product->height);
+			$dataImage = false;
 			
 			if($dataImage === false){
 				// dùng tool xuất ảnh tự code
 				$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
 				
 				$dataImage = sendDataConnectMantan($url);
+				//$dataImage = file_get_contents($url);
 
 				$imageData = base64_decode($dataImage);
 			}else{

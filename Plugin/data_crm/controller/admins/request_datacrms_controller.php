@@ -236,3 +236,20 @@ function fixDatabaseAdmin($input)
 
     die;
 }
+
+function deleteRegAdmin($input)
+{
+    global $controller;
+
+    $modelRequestDatacrms = $controller->loadModel('RequestDatacrms');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelRequestDatacrms->get($_GET['id']);
+        
+        if($data){
+            $modelRequestDatacrms->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/data_crm-views-admin-listRegAdmin');
+}

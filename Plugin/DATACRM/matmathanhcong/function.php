@@ -147,14 +147,14 @@ function getListProductMMTCAPI()
     return [];
 }
 
-function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $address='', $avatar='', $gender=1, $id_category = 0)
+function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $address='', $avatar='', $gender=1, $id_category = 0, $checkMaxConfig = 1)
 {
     global $urlAPI;
     global $maxExport;
     global $numberExport;
     global $modelOptions;
 
-    if($numberExport < $maxExport){
+    if($numberExport < $maxExport || $checkMaxConfig == 0){
         $categories = getListProductMMTCAPI();
         $token = getTokenMMTCAPI();
         
@@ -187,7 +187,7 @@ function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $addr
                 // debug($dataSend);
                 
                 if(!empty($linkFull)){
-                    if(strpos($linkFull, 'https://') !== false){
+                    if(substr($linkFull, 0, 8) === "https://"){
                         // cập nhập lại số lượt xuất
                         $conditions = array('key_word' => 'settingMMTCAPI');
                         $data = $modelOptions->find()->where($conditions)->first();

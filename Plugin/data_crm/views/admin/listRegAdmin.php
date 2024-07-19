@@ -63,7 +63,7 @@
             <th>Người đăng ký</th>
             <th>Tên miền</th>
             <th>Database</th>
-            <th>Trạng thái</th>
+            <th>Xóa</th>
           </tr>
         </thead>
         <tbody>
@@ -92,12 +92,16 @@
                             '.$item->boss_email.'<br/>
                             <a class="btn btn-primary" style="color: #fff;" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >Gia hạn cho đại lý</a>
                         </td>
-                        <td>'.$link.'</td>
+                        <td>'.$link.'<br/><br/>'.$status.'</td>
                         <td>
                             '.$item->user_db.'<br/>
                             '.$item->pass_db.'
                         </td>
-                        <td>'.$status.'</td>
+                        <td align="center">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/data_crm-views-admin-deleteRegAdmin/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
+                        </td>
                       </tr>';
               }
             }else{

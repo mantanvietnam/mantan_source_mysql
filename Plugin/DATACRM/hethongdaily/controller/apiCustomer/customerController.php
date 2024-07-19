@@ -566,7 +566,7 @@ function getLinkMMTCAPI($input)
 
                         $linkFull = '';
                         if(function_exists('getLinkFullMMTCAPI')){
-                            $linkFull = getLinkFullMMTCAPI($user->full_name, $birthday, $user->phone, $email, $address, $user->avatar, (int) $user->sex);
+                            $linkFull = getLinkFullMMTCAPI($user->full_name, $birthday, $user->phone, $email, $address, $user->avatar, (int) $user->sex, 0, 0);
                         }
 
                         if(!empty($linkFull)){
