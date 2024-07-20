@@ -31,7 +31,7 @@ if(!empty($_GET['aff'])){
 	$session->write('aff_phone', $_GET['aff']);
 }
 
-function calculateAffiliate($money=0, $id_order=0)
+function calculateAffiliate($money=0, $id_order=0,$id_aff=0,$id_member=1)
 {
 	global $session;
 	global $modelOptions;
@@ -40,8 +40,13 @@ function calculateAffiliate($money=0, $id_order=0)
 	$modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
 	$modelAffiliaters = $controller->loadModel('Affiliaters');
 	
-	if(!empty($session->read('aff_phone')) && $money>0){
-		$checkAff = $modelAffiliaters->find()->where(['phone' => $session->read('aff_phone')])->first();
+	if($money>0){
+		if(!empty($session->read('aff_phone'))){
+			$checkAff = $modelAffiliaters->find()->where(['phone' => $session->read('aff_phone')])->first();
+		}elseif(!empty($id_aff)){
+			$checkAff = $modelAffiliaters->find()->where(['id' =>$id_aff])->first();
+		}
+		
 	
 		if(!empty($checkAff)){
 			$conditions = array('key_word' => 'settingAffiliateAdmin');
@@ -65,19 +70,20 @@ function calculateAffiliate($money=0, $id_order=0)
 		    	$saveBack->id_order = $id_order;
 		    	$saveBack->create_at = time();
 		    	$saveBack->status = 'new';
+		    	$saveBack->id_member = $id_member;
 
 		    	$modelTransactionAffiliateHistories->save($saveBack);
 
 		    	$level = 2;
 		    	if($checkAff->id_father > 0 && $setting['percent'.$level] > 0){
-		    		calculateAffiliateFather($money, $id_order, $level, $checkAff->id_father);
+		    		calculateAffiliateFather($money, $id_order, $level, $checkAff->id_father,$id_member);
 		    	}
 		    }
 		}
 	}
 }
 
-function calculateAffiliateFather($money=0, $id_order=0, $level=1, $id_father=0)
+function calculateAffiliateFather($money=0, $id_order=0, $level=1, $id_father=0,$id_member=1)
 {
 	global $session;
 	global $modelOptions;
@@ -111,12 +117,12 @@ function calculateAffiliateFather($money=0, $id_order=0, $level=1, $id_father=0)
 		    	$saveBack->id_order = $id_order;
 		    	$saveBack->create_at = time();
 		    	$saveBack->status = 'new';
-
+		    	$saveBack->id_member = $id_member;
 		    	$modelTransactionAffiliateHistories->save($saveBack);
 
 		    	$level ++;
 		    	if($checkAff->id_father > 0 && $setting['percent'.$level] > 0){
-		    		calculateAffiliateFather($money, $id_order, $level, $checkAff->id_father);
+		    		calculateAffiliateFather($money, $id_order, $level, $checkAff->id_father,$id_member);
 		    	}
 		    }
 		}

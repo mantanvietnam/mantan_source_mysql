@@ -173,10 +173,11 @@
                     <div class="card p-4"> 
                         <?php 
                         if(!empty($listProduct)){
+
                             echo '<table class="table table-bordered mb-5"><tbody>';
                             foreach ($listProduct as $item) {
                                 echo '  <tr>
-                                          <th colspan="4">'.$item['category']->name.'</th>
+                                          <th colspan="4">'.@$item['category']->name.'</th>
                                         </tr>';
 
                                 if(!empty($item['product'])){
@@ -256,6 +257,12 @@
                           <input type="text" class="form-control" id="address" name="address" value="" />
                         </div>
                         <div class="mb-3">
+                             <input type="hidden" id="money" value="0">
+                            <input type="hidden" id="discount" value="0">
+                            <input type="hidden" id="total" value="0">
+                            <input type="hidden" id="codeDiscount" value="">
+                            <input type="hidden" id="promotion" value="0">
+
                             <button type="button" class="btn btn-danger" id="buttonCreateOrder" onclick="createOrder();" >TẠO ĐƠN HÀNG</button>
                         </div>
                         <div id="list_cart"></div>
@@ -342,9 +349,10 @@
         <script type="text/javascript">
             var list_product =  {};
             var crf = '<?php echo $csrfToken;?>';
-            var id_agency = '<?php echo $info->id;?>';
-            var name_agency = '<?php echo $info->name;?>';
-            var name_system = '<?php echo $info->name_system;?>';
+            var id_agency = '<?php echo $info->id_member;?>';
+            var id_aff = '<?php echo $info->id;?>';
+            var name_agency = '<?php echo $members->name;?>';
+            var name_system = '<?php echo $members->name_system;?>';
 
             <?php 
                 if(!empty($listProduct)){
@@ -396,6 +404,8 @@
                 var id_product_check, list_cart;
                 var total_money = 0;
 
+                console.log(checkboxes);
+
                 for (var i = 0; i < checkboxes.length; i++) {
                     // Kiểm tra xem checkbox có được chọn không
                     if (checkboxes[i].checked) {
@@ -411,36 +421,40 @@
                 if(!checkTick){
                     alert('Bạn cần chọn sản phẩm muốn mua thì mới có thể đặt hàng');
                 }else{
-                    $.ajax({
-                      method: "GET",
-                      url: "/clearCart",
-                      data: {}
-                    })
-                    .done(function( msg ) {
-                       $('#list_cart').html('');
-                        $('#full_name').val('');
-                        $('#phone').val('');
-                        $('#address').val('');
+                    $('#list_cart').html('');
+                    $('#full_name').val('');
+                    $('#phone').val('');
+                    $('#address').val('');
 
-                        list_cart = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>SL</th><th>Giá</th></tr></thead><tbody>';
-                        for (var key in list_product) {
-                            if (list_product.hasOwnProperty(key)) {
-                                if(list_product[key].buy == 1){
-                                    list_cart += '<tr><td>'+list_product[key].title+'</td><td align="center">'+list_product[key].number+'</td><td>'+formatNumberWithCommas(list_product[key].price)+'đ</td></tr>';
+                    data_order = {};
 
-                                    total_money += list_product[key].price*list_product[key].number;
+                    list_cart = '<table class="table table-bordered"><thead><tr><th>Sản phẩm</th><th>SL</th><th>Giá</th></tr></thead><tbody>';
+                    for (var key in list_product) {
+                        if (list_product.hasOwnProperty(key)) {
+                            if(list_product[key].buy == 1){
+                                list_cart += '<tr><td>'+list_product[key].title+'</td><td align="center">'+list_product[key].number+'</td><td>'+formatNumberWithCommas(list_product[key].price)+'đ</td></tr>';
 
-                                    addProducToCart(list_product[key].id, list_product[key].number);
-                                }
+                                total_money += list_product[key].price*list_product[key].number;
+
+                                data_order['p'+list_product[key].id] = {};
+                                data_order['p'+list_product[key].id]['id_product'] = list_product[key].id;
+                                data_order['p'+list_product[key].id]['quantity'] = list_product[key].number;
+                                data_order['p'+list_product[key].id]['price'] = list_product[key].price;
+                                data_order['p'+list_product[key].id]['discount'] = 0;
                             }
                         }
-                        
-                        list_cart += '</tbody></table> <p><b>Tổng tiền: </b>'+formatNumberWithCommas(total_money)+'đ</p>';
+                    }
+                    
+                    list_cart += '</tbody></table> <p><b>Thành tiền: </b><span id="money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
+                    list_cart += '</tbody></table> <p><b>Giảm giá : </b><span id="discountmoney">0%</span</p>';
+                    list_cart += '</tbody></table> <p><b>Tổng tiền: </b><span id="total_money">'+formatNumberWithCommas(total_money)+'đ</span</p>';
 
-                        $('#list_cart').html(list_cart);
+                    $('#list_cart').html(list_cart);
+                    $('#money').val(total_money);
+                    $('#discount').val(0);
+                    $('#total').val(total_money);
 
-                        $('.nav-tabs a[href="#order"]').tab('show'); 
-                    });
+                    $('.nav-tabs a[href="#order"]').tab('show'); 
                 }
             }
 
@@ -464,7 +478,7 @@
                 return number.toLocaleString('en-US');
             }
 
-            function createOrder()
+           /* function createOrder()
             {
                 var full_name = $('#full_name').val();
                 var phone = $('#phone').val();
@@ -488,7 +502,56 @@
                 }else{
                     alert('Bạn không được để trống trường Họ tên và Số điện thoại');
                 }
+            }*/
+
+            function createOrder()
+            {
+
+                var full_name = $('#full_name').val();
+                var phone = $('#phone').val();
+                var address = $('#address').val();
+                var birthday = $('#birthday').val();
+                var money = $('#money').val();
+                var discount = $('#discount').val();
+                var total = $('#total').val();
+                var codeDiscount = $('#codeDiscount').val();
+
+
+                $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
+
+                if(full_name != '' && phone != ''){
+                    $.ajax({
+                      method: "POST",
+                      url: "/apis/createOrderProductAPI",
+                      data: { full_name: full_name, 
+                          phone: phone, 
+                          data_order: JSON.stringify(data_order),
+                          address: address, 
+                          _csrfToken: crf, 
+                          id_agency:id_agency,
+                          id_aff:id_aff,
+                          name_agency:name_agency, 
+                          name_system:name_system, 
+                          birthday:birthday,
+                          money:money,
+                          discount:discount,
+                          total:total,
+                          codeDiscount:codeDiscount,
+                      }
+
+                  }).done(function( msg ) {
+                    console.log(msg);
+                    $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
+
+                    $('.nav-tabs a[href="#info"]').tab('show');
+
+                    alert('Tạo đơn hàng thành công');
+                });
+              }else{
+                alert('Bạn không được để trống trường Họ tên và Số điện thoại');
             }
+            
+        }
 
             function addProducToCart(idProduct, number)
             {

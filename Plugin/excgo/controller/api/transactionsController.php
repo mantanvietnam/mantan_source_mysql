@@ -220,9 +220,16 @@ function createWithdrawRequestApi($input): array
             $posted = count($modelBooking->find()->where(array('posted_by'=>$currentUser->id))->all()->toList());
             $received = count($modelBooking->find()->where(array('received_by'=>$currentUser->id))->all()->toList());
 
-             if($posted < $received){
-                 return apiResponse(4, 'Số cuốc nhận đang nhiều hơn số cuốc đăng, yêu câu đăng thêm quốc.');
+            $parameter = parameter();
+            if(!empty($currentUser->difference_booking)){
+                 if($currentUser->received - $currentUser->posted  >= $currentUser->difference_booking){
+                     return apiResponse(4, 'Số cuốc nhận đang nhiều hơn số cuốc đăng, yêu câu đăng thêm quốc.');
+                }
             }
+            /*elseif($currentUser->received - $currentUser->posted >= $parameter['maximumTrip']){
+                return apiResponse(4, 'Số cuốc nhận đang nhiều hơn số cuốc đăng, yêu câu đăng thêm quốc. ');
+                
+            }*/
 
 
 

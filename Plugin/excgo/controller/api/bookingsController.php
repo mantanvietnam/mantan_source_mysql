@@ -478,6 +478,7 @@ function receiveBookingApi($input): array
                 $notification = $modelNotification->newEmptyEntity();
                 $notification->user_id = $postedUser->id;
                 $notification->title = $title;
+                $notification->booking_id = $booking->id;
                 $notification->content = $content;
                 $notification->created_at = date('Y-m-d H:i:s');
                 $notification->updated_at = date('Y-m-d H:i:s');
@@ -1505,7 +1506,7 @@ function getMyBookingListApi($input): array
                 $conditions['UserBookings.created_at <'] = $toDate;
                 $order['Bookings.created_at'] = 'DESC';
             }
-            // $conditions['Bookings.status_free'] = 0;
+             $conditions['Bookings.status_free'] = 0;
             $listData = $query->select([
                     'UserBookings.id',
                     'UserBookings.status',
@@ -2623,6 +2624,7 @@ function acceptBookingDealApi($input): array
             $notification = $modelNotification->newEmptyEntity();
             $notification->user_id = $receivedUser->id;
             $notification->title = $title;
+            $notification->booking_id = $booking->id;
             $notification->content = $content;
             $notification->created_at = date('Y-m-d H:i:s');
             $notification->updated_at = date('Y-m-d H:i:s');

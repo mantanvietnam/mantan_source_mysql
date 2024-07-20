@@ -275,7 +275,6 @@ function updateStatusOrderAPI($input)
 
 
 // api tạo đơn hàng ở trang info
-/*
 function paycreateOrderCustomerPAI($input){
 	global $session;
 	global $controller;
@@ -437,5 +436,4 @@ function paycreateOrderCustomerPAI($input){
 	// setVariable('discountCode', $discountCode);
 
 }
-*/
 ?>

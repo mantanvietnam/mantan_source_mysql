@@ -11,6 +11,7 @@ function bookOnline($input)
     global $urlHomes;
 
     $modelAffiliaters = $controller->loadModel('Affiliaters');
+    $modelMembers = $controller->loadModel('Members');
     $session->write('infoUser', []);
 
     if(!empty($_GET['aff'])){
@@ -50,11 +51,19 @@ function bookOnline($input)
                         $listProduct[$product->id_category]['product'][$product->id] = $product;
                     }
                 }
-
+                
                 setVariable('listProduct', $listProduct);
             }
+            $members = $modelMembers->find()->where(array('id'=>@$info->id_member))->first();
+
+            $system = $modelCategories->find()->where(array('id'=>$members->id_system ))->first();
+                
+            $members->name_position = @$position->name;
+            $members->name_system = @$system->name;
+            $members->image_system = @$system->image;
         
             setVariable('info', $info);
+            setVariable('members', $members);
         }else{
             return $controller->redirect('/');
         }

@@ -98,7 +98,7 @@
                      $unit .='<b>Đơn vị quy đổi</b> </br>';
                     foreach($item->unitConversion as $value){
                        if(!empty($value->unit)){
-                        $unit .=  $value->unit.': '.$value->quantity.' '.$item->unit.'</br>';
+                        $unit .=  '1 '.$value->unit.' = '.$value->quantity.' '.$item->unit.'</br>';
                        }
                     }
                   }
@@ -110,7 +110,7 @@
                           <td>'.implode(', ', $category_name).'</td>
                           <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a><br/><br/>Mã: '.$item->code.'</td>
                           <td> '.number_format($item->price).' đ</td>
-                          <td align="center" >'.$unit.'</td>
+                          <td>'.$unit.'</td>
                           <td align="center">
                             <a class="dropdown-item" href="/addProductAgency/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>

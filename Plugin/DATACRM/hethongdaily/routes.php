@@ -163,6 +163,12 @@
 	$routesPlugin['addDiscountCodeAgency']= 'hethongdaily/view/home/discountcode/addDiscountCodeAgency.php';
 	$routesPlugin['listDiscountCodeAgency']= 'hethongdaily/view/home/discountcode/listDiscountCodeAgency.php';
 
+	// Affiliater 
+	$routesPlugin['listAffiliaterAgency']= 'hethongdaily/view/home/affiliater/listAffiliaterAgency.php';
+	$routesPlugin['addAffiliaterAgency']= 'hethongdaily/view/home/affiliater/addAffiliaterAgency.php';
+	$routesPlugin['listTransactionAffiliaterAgency']= 'hethongdaily/view/home/affiliater/listTransactionAffiliaterAgency.php';
+
+
 	// api khách hàng 
 
 	$routesPlugin['saveRegisterCustomerAPI']= 'hethongdaily/view/saveRegisterCustomerAPI.php';

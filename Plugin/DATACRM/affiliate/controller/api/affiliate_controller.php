@@ -24,7 +24,7 @@ function searchAffiliateAPI($input)
         $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
         $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-        $conditions['phone'] = $dataSend['phone'];
+        $conditions['phone LIKE'] = '%'.$dataSend['phone'].'%';
     }
 
     if(!empty($dataSend['email'])){

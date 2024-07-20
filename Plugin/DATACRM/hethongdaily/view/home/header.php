@@ -279,6 +279,19 @@
                         <a class="nav-link" href="/listCampaign">Chiến dịch</a>
                       </li>';
               }
+
+              if(in_array('affiliater', $plugins_site_value)){
+                echo '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Affiliater
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                          <a class="dropdown-item" href="/listAffiliaterAgency">Thành viên tiếp thị</a>
+                          <a class="dropdown-item" href="/listTransactionAffiliaterAgency">Lịch sử  tiếp thị</a>
+                        </div>
+                      </li>';
+              }
             ?>
 
             <li class="nav-item">

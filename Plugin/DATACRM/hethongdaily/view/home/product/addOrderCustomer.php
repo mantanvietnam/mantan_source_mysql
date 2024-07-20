@@ -281,6 +281,14 @@
                                         </a>
                                     </li>
 
+                                    <li>
+                                        <span>Người tiếp thị</span>
+                                        
+                                        <span><input class="per-bh form-control" type="text" name="aff_buy" id="aff_buy" placeholder="Nhập tên người tiếp thị" value="" autocomplete="off" required /></span>
+                                        <input type="hidden" name="id_aff" id="id_aff" value="0">
+                                        
+                                    </li>
+
                                     <li style="display: contents;"><span>Ghi chú</span><br/>
                                         <textarea class="form-control phone-mask" rows="3" name="note"></textarea>
                                     </li>  
@@ -811,6 +819,45 @@ function addCustomer()
                 
                 $( "#customer_buy" ).val(ui.item.label);
                 $( "#id_customer" ).val(ui.item.id);
+
+                return false;
+            }
+        });
+
+        $( "#aff_buy" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchAffiliateAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#aff_buy" ).val(ui.item.label);
+                $( "#id_aff" ).val(ui.item.id);
 
                 return false;
             }

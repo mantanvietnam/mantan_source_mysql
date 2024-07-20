@@ -145,8 +145,8 @@ function createOrderProductAPI($input)
                 }
 
                 // tính hoa hồng cho CTV
-                if(function_exists('calculateAffiliate')){
-                    calculateAffiliate($data->total, $data->id);
+                if(function_exists('calculateAffiliate') && !empty(@$dataSend['id_aff'])){
+                    calculateAffiliate($data->total, $data->id,(int) @$dataSend['id_aff'],(int) @$dataSend['id_agency']);
                 }
 
                 // gửi tin nhắn ZALO OA

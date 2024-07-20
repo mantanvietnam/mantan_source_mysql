@@ -41,6 +41,7 @@ $sqlInstallDatabase .= "CREATE TABLE `transaction_affiliate_histories` (
     `money_total` INT NOT NULL , 
     `money_back` INT NOT NULL , 
     `percent` FLOAT NOT NULL , 
+    `id_member` INT NOT NULL DEFAULT '0',
     `id_order` INT NOT NULL , 
     `create_at` INT NOT NULL , 
     `status` VARCHAR(20) NOT NULL DEFAULT 'new' , 
@@ -83,4 +84,5 @@ $sqlUpdateDatabase['transaction_affiliate_histories']['percent'] = "ALTER TABLE 
 $sqlUpdateDatabase['transaction_affiliate_histories']['id_order'] = "ALTER TABLE `transaction_affiliate_histories` ADD `id_order` INT NOT NULL; ";
 $sqlUpdateDatabase['transaction_affiliate_histories']['create_at'] = "ALTER TABLE `transaction_affiliate_histories` ADD `create_at` INT NOT NULL; ";
 $sqlUpdateDatabase['transaction_affiliate_histories']['status'] = "ALTER TABLE `transaction_affiliate_histories` ADD `status` VARCHAR(20) NOT NULL DEFAULT 'new'; ";
+$sqlUpdateDatabase['transaction_affiliate_histories']['id_member'] = "ALTER TABLE `transaction_affiliate_histories` ADD `id_member` INT NOT NULL DEFAULT '0';";
 ?>

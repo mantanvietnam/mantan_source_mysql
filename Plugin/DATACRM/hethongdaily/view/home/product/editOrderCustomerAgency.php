@@ -330,7 +330,7 @@
                                         <li>
                                             <span><?php echo @$value->name ?></span>
                                             <input type="hidden" name="nameCostsIncurred[]" id="nameCostsIncurred<?php echo $costs ?>" value="<?php echo @$value->name ?>">
-                                            <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien(0);" type="number" name="costsIncurred[]" id="costsIncurred<?php echo $costs ?>" placeholder="0" value="<?php echo $ordercostsIncurred[$value->name]; ?>" autocomplete="off" /></span>
+                                            <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien(0);" type="number" name="costsIncurred[]" id="costsIncurred<?php echo $costs ?>" placeholder="0" value="<?php echo @$ordercostsIncurred[@$value->name]; ?>" autocomplete="off" /></span>
                                         </li> 
                                     <?php }} ?>
                                     

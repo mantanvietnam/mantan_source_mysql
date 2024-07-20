@@ -23,6 +23,7 @@ function addOrderCustomer($input)
         if($isRequestPost){
             $dataSend = $input['request']->getData();
 
+
             if(!empty($dataSend['idHangHoa'])){
                 if(!empty($dataSend['id_customer'])){
                     $customer_buy = $modelCustomers->find()->where(array('id'=>(int) $dataSend['id_customer']))->first();
@@ -55,6 +56,7 @@ function addOrderCustomer($input)
                 $save->status = 'new';
                 $save->create_at = time();
                 $save->money = (int) $dataSend['total'];
+                $save->id_aff = (int) @$dataSend['id_aff'];
                 $save->total = (int) $dataSend['totalPays'];
                 $save->promotion = (int) $dataSend['promotion'];
                 $save->id_agency = $session->read('infoUser')->id;
@@ -86,6 +88,11 @@ function addOrderCustomer($input)
                 }
 
                 $mess= '<p class="text-success">Tạo đơn hàng thành công</p>';
+
+                 // tính hoa hồng cho CTV
+                if(function_exists('calculateAffiliate') && !empty(@$dataSend['id_aff'])){
+                    calculateAffiliate(@$save->total-@$save->total_costsIncurred, $save->id,(int) @$dataSend['id_aff'],$session->read('infoUser')->id);
+                }
 
                 return $controller->redirect('/printBillOrderCustomerAgency/?id_order='.$save->id);
             }
@@ -155,6 +162,10 @@ function orderCustomerAgency($input)
 
          if(!empty($_GET['status_pay'])){
             $conditions['status_pay'] = $_GET['status_pay'];
+        }
+
+        if(!empty($_GET['id_aff'])){
+            $conditions['id_aff'] = $_GET['id_aff'];
         }
 
         
