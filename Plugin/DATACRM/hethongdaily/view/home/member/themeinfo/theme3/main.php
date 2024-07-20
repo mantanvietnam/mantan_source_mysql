@@ -703,49 +703,93 @@
 
             function createOrder()
             {
-                var full_name = $('#full_name').val();
-                var phone = $('#phone').val();
-                var address = $('#address').val();
-                var birthday = $('#birthday').val();
-                var money = $('#money').val();
-                var discount = $('#discount').val();
-                var total = $('#total').val();
-                var codeDiscount = $('#codeDiscount').val();
+                var typeUser = $('input[name="typeUser"]:checked').val();
+
+                if(typeUser == 'customer'){
+                    var full_name = $('#full_name').val();
+                    var phone = $('#phone').val();
+                    var address = $('#address').val();
+                    var birthday = $('#birthday').val();
+                    var money = $('#money').val();
+                    var discount = $('#discount').val();
+                    var total = $('#total').val();
+                    var codeDiscount = $('#codeDiscount').val();
 
 
-                $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
+                    $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
 
-                if(full_name != '' && phone != ''){
-                    $.ajax({
-                      method: "POST",
-                      url: "/apis/createOrderProductAPI",
-                      data: { full_name: full_name, 
-                          phone: phone, 
-                          address: address, 
-                          _csrfToken: crf, 
-                          id_agency:id_agency, 
-                          name_agency:name_agency, 
-                          name_system:name_system, 
-                          birthday:birthday,
-                          money:money,
-                          discount:discount,
-                          total:total,
-                          codeDiscount:codeDiscount,
-                          data_order: JSON.stringify(data_order)
-                      }
+                    if(full_name != '' && phone != ''){
+                        $.ajax({
+                          method: "POST",
+                          url: "/apis/createOrderProductAPI",
+                          data: { full_name: full_name, 
+                                  phone: phone, 
+                                  data_order: JSON.stringify(data_order),
+                                  address: address, 
+                                  _csrfToken: crf, 
+                                  id_agency:id_agency, 
+                                  name_agency:name_agency, 
+                                  name_system:name_system, 
+                                  birthday:birthday,
+                                  money:money,
+                                  discount:discount,
+                                  total:total,
+                                  codeDiscount:codeDiscount,
+                              }
+                    }).done(function( msg ) {
+                            console.log(msg);
+                            $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
 
-                  }).done(function( msg ) {
-                    console.log(msg);
-                    $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
+                            $('.nav-tabs a[href="#info"]').tab('show');
 
-                    $('.nav-tabs a[href="#info"]').tab('show');
+                            alert('Tạo đơn hàng thành công');
+                        });
+                    }else{
+                        alert('Bạn không được để trống trường Họ tên và Số điện thoại');
+                    }
+                }else if(typeUser == 'member'){
+                    var phone = $('#phone_member').val();
+                    var note = $('#note_member').val();
 
-                    alert('Tạo đơn hàng thành công');
-                });
-              }else{
-                alert('Bạn không được để trống trường Họ tên và Số điện thoại');
+                    var money = $('#money').val();
+                    var total = $('#total').val();
+                    var promotion = $('#promotion').val();
+                    
+                    if(promotion > 0 && promotion < 100){
+                        total = money * (100-promotion)/100;
+                    }else if(promotion > 100){
+                        total = money - promotion;
+                    }
+
+                    $('#buttonCreateOrder').html('ĐANG TẠO ĐƠN HÀNG ...');
+
+                    if(phone != ''){
+                        $.ajax({
+                          method: "POST",
+                          url: "/apis/createOrderMemberAPI",
+                          data: { 
+                                  phone: phone, 
+                                  note: note, 
+                                  _csrfToken: crf, 
+                                  total: money,
+                                  totalPays: total,
+                                  promotion: promotion,
+                                  data_order: JSON.stringify(data_order)
+                              }
+
+                        }).done(function( msg ) {
+                            console.log(msg);
+                            $('#buttonCreateOrder').html('TẠO ĐƠN HÀNG');
+
+                            $('.nav-tabs a[href="#info"]').tab('show');
+
+                            alert('Tạo đơn hàng thành công');
+                        });
+                    }else{
+                        alert('Bạn không được để trống trường Số điện thoại');
+                    }
+                }
             }
-        }
 
         function addProducToCart(idProduct, number)
         {

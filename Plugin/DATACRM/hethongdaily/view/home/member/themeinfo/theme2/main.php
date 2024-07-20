@@ -686,6 +686,7 @@
                           url: "/apis/createOrderProductAPI",
                           data: { full_name: full_name, 
                                   phone: phone, 
+                                  data_order: JSON.stringify(data_order),
                                   address: address, 
                                   _csrfToken: crf, 
                                   id_agency:id_agency, 
