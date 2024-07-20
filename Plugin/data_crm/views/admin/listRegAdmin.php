@@ -35,6 +35,19 @@
               <option value="done" <?php if(!empty($_GET['status']) && $_GET['status']=='done') echo 'selected';?> >Đã tạo xong</option>
             </select>
           </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Tên miền</label>
+            <input type="text" class="form-control" name="domain" value="<?php if(!empty($_GET['domain'])) echo $_GET['domain'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Sắp xếp theo</label>
+            <select name="sort" class="form-select color-dropdown">
+              <option value="">Mới đăng ký</option>
+              <option value="deadline_asc" <?php if(!empty($_GET['sort']) && $_GET['sort']=='deadline_asc') echo 'selected';?> >Sắp hết hạn</option>
+            </select>
+          </div>
           
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>

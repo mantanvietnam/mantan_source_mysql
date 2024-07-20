@@ -37,6 +37,16 @@ function listRegAdmin($input)
         $conditions['status'] = $_GET['status'];
     }
 
+    if(!empty($_GET['domain'])){
+        $conditions['domain LIKE'] = '%'.$_GET['domain'].'%';
+    }
+
+    if(!empty($_GET['sort'])){
+        if($_GET['sort'] == 'deadline_asc'){
+            $order = array('deadline'=>'asc');
+        }
+    }
+
     /*
     $listData = $modelRequestDatacrms->find()->all()->toList();
     foreach ($listData as $key => $value) {

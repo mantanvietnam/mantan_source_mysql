@@ -91,7 +91,7 @@ function saveRegisterCustomerAPI($input)
 
 
                 if(empty($checkCustomer)){
-                        // tạo dữ liệu save
+                    // tạo dữ liệu save
                     $data->full_name = $dataSend['full_name'];
                     $data->phone = $dataSend['phone'];
                     $data->email = @$dataSend['email'];
@@ -135,10 +135,29 @@ function saveRegisterCustomerAPI($input)
                                     'messages'=>'Đăng ký thành công',
                                 );
                 }else{
+                    
+                    $checkCustomer->full_name = $dataSend['full_name'];
+                    $checkCustomer->email = (!empty($dataSend['email']))?$dataSend['email']:$checkCustomer->email;
+                    $checkCustomer->address = (!empty($dataSend['address']))?$dataSend['address']:$checkCustomer->address;
+                    $checkCustomer->pass = (!empty($dataSend['pass']))?md5($dataSend['pass']):$checkCustomer->pass;
+                    $checkCustomer->token = createToken();
+                    $checkCustomer->token_device = (!empty($dataSend['token_device']))?$dataSend['token_device']:$checkCustomer->token_device;
+
+                    $modelCustomer->save($checkCustomer);
+
+
+
+                    $return = array('code'=>1,
+                                    'infoUser'=> $checkCustomer,
+                                    'messages'=>'Đăng ký thành công',
+                                );
+                    
+                    /*
                     $return = array('code'=>3,
                         'infoUser'=> null,
                         'messages'=>'Số điện thoại này đã được đăng ký',
                     );
+                    */
                 }
             }else{
                 $return = array('code'=>4,

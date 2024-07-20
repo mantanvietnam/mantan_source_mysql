@@ -12,6 +12,8 @@ function saveRequestCreateDataCRMAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['system_name']) && !empty($dataSend['boss_name']) && !empty($dataSend['boss_phone']) && !empty($dataSend['boss_email'])){
+			$dataSend['system_name'] = substr($dataSend['system_name'], 0, 30);
+			
 			$system_slug = createSlugMantan(str_replace([' ',',','.','_','-'], '', $dataSend['system_name']));
 			$system_slug_old = $system_slug;
 
