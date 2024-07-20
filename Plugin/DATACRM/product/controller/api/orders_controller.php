@@ -65,6 +65,13 @@ function createOrderProductAPI($input)
                 $data->total = (int) @$dataSend['total']; // tổng tiền sau giảm giá
                 $data->discount = '';
 
+                if(!empty($dataSend['codeDiscount'])){
+                    $discount = array( 'code1' => $dataSend['codeDiscount']);
+                    $data->discount = json_encode($discount);
+
+                    $pay = array('code1'=>$dataSend['codeDiscount'],'discount_price1'=>$dataSend['discount']);
+                }
+
                 $modelOrder->save($data);
 
                 // chi tiết đơn hàng
@@ -85,11 +92,13 @@ function createOrderProductAPI($input)
 
                         $modelOrderDetail->save($dataDetail);
 
+                        /*
                         // trừ hàng trong kho tổng
                         $product->quantity -= (int) $data_order['quantity']; // tồn kho
                         $product->sold += (int) $data_order['quantity']; // tổng hàng đã bán
 
                         $modelProduct->save($product);
+                        */
 
                         $product->numberOrder = (int) $data_order['quantity'];
                         $listproduct[] = $product;
@@ -98,11 +107,11 @@ function createOrderProductAPI($input)
 
                 // gửi cho khách 
                 if(!empty($dataSend['email'])){
-                    getContentEmailOrderSuccess(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, [], $data);
+                    getContentEmailOrderSuccess(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
                 }
 
                 // gửi cho admin
-                getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, [], $data);
+                //getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
 
                 // gửi cho đại lý
                 if(!empty($dataSend['id_agency']) && function_exists('sendNotification')){
@@ -128,6 +137,10 @@ function createOrderProductAPI($input)
                                 $return = sendNotification($dataSendNotification, $token_device);
                             }
                         }
+                    }
+
+                    if(!empty($infoMember->email)){
+                        getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data, $infoMember->email);
                     }
                 }
 
