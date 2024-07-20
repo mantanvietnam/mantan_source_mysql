@@ -683,7 +683,7 @@
                     if(full_name != '' && phone != ''){
                         $.ajax({
                           method: "POST",
-                          url: "/apis/paycreateOrderCustomerPAI",
+                          url: "/apis/createOrderProductAPI",
                           data: { full_name: full_name, 
                                   phone: phone, 
                                   address: address, 
@@ -696,6 +696,7 @@
                                   discount:discount,
                                   total:total,
                                   codeDiscount:codeDiscount,
+                                  data_order: JSON.stringify(data_order)
                               }
 
                         }).done(function( msg ) {
