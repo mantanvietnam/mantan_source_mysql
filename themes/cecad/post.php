@@ -5,13 +5,13 @@
 <main>
         <section id="news-details-section">
             <div class="container">
-                <div class="news-title">
-                    <h1><?php echo $post->title;?></h1>
-                </div>
+                
                 <div class="news-main">
                     <div class="row">
-                        <div class="col-lg-7">
-
+                        <div class="col-lg-8">
+                            <div class="news-title">
+                                <h1><?php echo $post->title;?></h1>
+                            </div>
                             <div class="news-left-site">
                                 <div class="news-date">
                                     <p><a href="/">Trang chủ</a>/<a href="/posts">Tin tức</a>/ <?php echo $post->title;?></p>
@@ -27,24 +27,26 @@
                         </div>
      
                         <div class="col-lg-4">
-                            <div><h2 class="title-news-other">Tin tức liên quan</h2></div>
-                            <div class="news-right-site">
-                        <?php if (!empty($otherPosts)): ?>
-                            <?php foreach ($otherPosts as $key => $value): ?>
-                                <div class="news-right-site-img">
-                                    <a href="<?php echo @$value->slug ?>.html">
-                                        <div class="right-site-img">
-                                            <img src="<?php echo $value->image;?>" />
-                                        </div>
-                                        <div class="right-site-name-img">
-                                            <p>
-                                            <?php echo $value->title;?>
-                                            </p>
-                                        </div>
-                                    </a>
+                            <div class="news-right">
+                                <h2 class="title-news-other">Tin tức liên quan</h2>
+                                <div class="news-right-site">
+                            <?php if (!empty($otherPosts)): ?>
+                                <?php foreach ($otherPosts as $key => $value): ?>
+                                    <div class="news-right-site-img">
+                                        <a href="<?php echo @$value->slug ?>.html">
+                                            <div class="right-site-img">
+                                                <img src="<?php echo $value->image;?>" />
+                                            </div>
+                                            <div class="right-site-name-img">
+                                                <p>
+                                                <?php echo $value->title;?>
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
                             </div>
                         </div>
                     </div>

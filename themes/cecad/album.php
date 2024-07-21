@@ -28,14 +28,14 @@ else {
                         </div>
                     </div>
                     <div class=" col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 right-detail-albums">
-                        <div class="describe-detail-albums">
-                            <h2><?= $album->description?></h2>
-                           
-                        </div>
                         <div class="Categories-albums">
-                            <h2>Ngày: <span><?php echo date('d/m/Y', $album->time_create);?></span></h2>
+                            <h2 style="display: none;" >Ngày: <span><?php echo date('d/m/Y', $album->time_create);?></span></h2>
                             <h2>Tên Albums: <span><?= $album->title?></span></h2>
                         </div>
+                        <div class="describe-detail-albums">
+                            <h2><?= $album->description?></h2>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@ else {
                 <?php foreach ($listImages as $image=>$value) { ?>
                     <div class="col-lg-4 col-md-6 col-sm-12 list-image-albums">
                         <div class="img-detail">
-                            <a href="<?php echo $value->image?>" data-fancybox="gallery" data-caption="Caption">
+                            <a href="<?php echo $value->image?>" data-fancybox="gallery">
                                 <img src="<?php echo $value->image?>" alt="">
                             </a>
                         </div>

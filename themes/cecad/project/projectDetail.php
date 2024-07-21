@@ -7,12 +7,13 @@
 <main>
 <section id="news-details-section">
     <div class="container">
-        <div class="news-title">
-            <h1><?= $project['name'] ?></h1>
-        </div>
+        
         <div class="news-main">
             <div class="row">
-                <div class="col-lg-7">
+                <div class="col-lg-8">
+                    <div class="news-title">
+                        <h1><?= $project['name'] ?></h1>
+                    </div>
                     <div class="news-left-site">
                         <div class="news-date">
                             <p><a href="/">Trang chủ</a>/ <a href="/">Dự án</a>/<?= $project['name'] ?></p>
@@ -27,23 +28,26 @@
 
                 </div>
                 <div class="col-lg-4">
-                    <div><h2 class="title-news-other">Tin tức khác</h2></div>
-                    <div class="news-right-site">
-                    <?php if(!empty($listDataproduct_projects)){
-                        foreach($listDataproduct_projects as $item){ ?>
-                        <div class="news-right-site-img">
-                          <a href="<?php echo @$item->slug ?>.html">
-                            <div class="right-site-img">
-                                <img src="<?= $item->image?>" />
+                    <div class="news-right">
+                        <h2 class="title-news-other">Dự án khác</h2>
+                    
+                        <div class="news-right-site">
+                        <?php if(!empty($listDataproduct_projects)){
+                            foreach($listDataproduct_projects as $item){ ?>
+                            <div class="news-right-site-img">
+                            <a href="<?php echo @$item->slug ?>.html">
+                                <div class="right-site-img">
+                                    <img src="<?= $item->image?>" />
+                                </div>
+                                <div class="right-site-name-img">
+                                    <p>
+                                    <?= $item->name?><br>
+                                    </p>
+                                </div>
+                            </a>
                             </div>
-                            <div class="right-site-name-img">
-                                <p>
-                                <?= $item->name?><br>
-                                </p>
-                            </div>
-                          </a>
+                            <?php }} ?>
                         </div>
-                        <?php }} ?>
                     </div>
                 </div>
             </div>
