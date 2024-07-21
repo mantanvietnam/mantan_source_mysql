@@ -36,18 +36,23 @@ function login($input)
 	    		if($info_customer){
     				// nếu tài khoản không bị khóa
     				if($info_customer->status == 'active'){
-    					$info_customer->info_system = $modelCategories->find()->where(['id'=>(int) $info_customer->id_system])->first();
+    					if($info_customer->deadline > time()){
+	    					$info_customer->info_system = $modelCategories->find()->where(['id'=>(int) $info_customer->id_system])->first();
 
-		    			$session->write('CheckAuthentication', true);
-	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
+			    			$session->write('CheckAuthentication', true);
+		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
 
-		    			$session->write('infoUser', $info_customer);
-		    			
-		    			if($info_customer->verify == 'active'){
-		    				 setcookie('id_member',$info_customer->id,time()+365*24*60*60, "/");
-							return $controller->redirect('/listCustomerAgency');
+			    			$session->write('infoUser', $info_customer);
+			    			
+			    			if($info_customer->verify == 'active'){
+			    				setcookie('id_member',$info_customer->id,time()+365*24*60*60, "/");
+								
+								return $controller->redirect('/listCustomerAgency');
+							}else{
+								return $controller->redirect('/verify');
+							}
 						}else{
-							return $controller->redirect('/verify');
+							$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ</p>';
 						}
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
@@ -59,13 +64,14 @@ function login($input)
 	    		$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
 	    	}
 	    }elseif(!empty($_COOKIE['id_member'])){
-	    		$conditions = array('id'=>(int) $_COOKIE['id_member']);
-	    		$info_customer = $modelMembers->find()->where($conditions)->first();
+    		$conditions = array('id'=>(int) $_COOKIE['id_member']);
+    		$info_customer = $modelMembers->find()->where($conditions)->first();
 
-	    		if($info_customer){
-    				// nếu tài khoản không bị khóa
-    				if($info_customer->status == 'active'){
-    					$info_customer->info_system = $modelCategories->find()->where(['id'=>(int) $info_customer->id_system])->first();
+    		if($info_customer){
+				// nếu tài khoản không bị khóa
+				if($info_customer->status == 'active'){
+					if($info_customer->deadline > time()){
+						$info_customer->info_system = $modelCategories->find()->where(['id'=>(int) $info_customer->id_system])->first();
 
 		    			$session->write('CheckAuthentication', true);
 	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
@@ -78,10 +84,13 @@ function login($input)
 							return $controller->redirect('/verify');
 						}
 					}else{
-						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
+						$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ</p>';
 					}
-	    		}
-	    	}
+				}else{
+					$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
+				}
+    		}
+    	}
 
 
 	    setVariable('mess', $mess);
@@ -96,7 +105,7 @@ function logout($input)
 	global $controller;
 
 	$session->destroy();
-	 setcookie('id_member','',time()+365*24*60*60, "/");
+	setcookie('id_member','',time()+365*24*60*60, "/");
 
 	return $controller->redirect('/login');
 }
@@ -510,7 +519,7 @@ function addMember($input)
 						$data->password = md5($dataSend['password']);
 
 						$data->created_at = time();
-						$data->deadline = time()+ 63072000; // 2 năm
+						$data->deadline = time(); // 2 năm
 						$data->status =  'active';
 						
 						if(empty($system->keyword)){

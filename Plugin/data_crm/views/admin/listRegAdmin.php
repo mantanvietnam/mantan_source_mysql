@@ -54,6 +54,11 @@
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
 
+          <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
+            <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
+          </div>
+
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <a href="/updateCodeCRM/?version=7" class="btn btn-danger d-block">Nâng cấp code</a>
@@ -186,7 +191,7 @@
                   <div class="card-body">
                     <div class="row gx-3 gy-2 align-items-center">
                       <div class="col-md-12">
-                        <label class="form-label">Thông tin Boss</label>
+                        <label class="form-label"><b>Thông tin Boss</b></label>
                          <?php echo '<p>Tên boss :'.$item->boss_name.'</p>
                             <p>Điện thoại boss:'.$item->boss_phone.'</p>
                             <p>Emai boss: '.$item->boss_email.'</p>';
@@ -194,8 +199,8 @@
                       </div>
 
                       <div class="col-md-12">
-                        <label class="form-label">Số điện thoại đạt lý gia hạn</label>
-                        <input type="text" class="form-control " id="phone_<?php echo $item->id; ?>" name="phone" value="">
+                        <label class="form-label">Số điện thoại đại lý gia hạn</label>
+                        <input type="text" class="form-control " id="phone_<?php echo $item->id; ?>" name="phone" value="<?php echo $item->boss_phone;?>">
                       </div>
                       <div class="col-md-12">
                         <label class="form-label">Ngày gia hạn</label>
@@ -230,16 +235,38 @@
     function extend(id,link){
         var phone = $('#phone_'+id).val();
         var deadline = $('#deadline_'+id).val();
-       link = "https://"+link+"/apis/extendMemberAPI";
+        link = "https://"+link+"/apis/extendMemberAPI";
 
-         $.ajax({
-          method: "POST",
-          url: link,
-          data: { 
-            phone: phone,
-            deadline: deadline,
+        if(phone != '' && deadline!=''){
+          extendRoot(id,deadline);
+          extendCRM(phone,deadline,link,id);
         }
-    })
+    }
+
+    function extendRoot(id,deadline)
+    {
+        $.ajax({
+              method: "POST",
+              url: '/apis/extendMemberDeadlineAPI',
+              data: { 
+                id: id,
+                deadline: deadline,
+            }
+        })
+        .done(function( msg ) {
+            
+        })
+    }
+
+    function extendCRM(phone,deadline,link,id){
+        $.ajax({
+              method: "POST",
+              url: link,
+              data: { 
+                phone: phone,
+                deadline: deadline,
+            }
+        })
         .done(function( msg ) {
             $('#messAddCustom'+id).html(msg.mess);
             

@@ -135,4 +135,30 @@ function getListSystemCRMAPI($input)
 
 	return $listData;
 }
+
+function extendMemberDeadlineAPI($input)
+{
+	global $isRequestPost;
+	global $controller ;
+
+	$modelRequestDatacrms = $controller->loadModel('RequestDatacrms');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['id']) && !empty($dataSend['deadline'])){
+			$data = $modelRequestDatacrms->find()->where(['id'=>(int) $dataSend['id']])->first();
+
+			if(!empty($data)){
+				$deadline = explode('/', $dataSend['deadline']);
+
+				$data->deadline = mktime(23, 59, 59, $deadline[1], $deadline[0], $deadline[2]);
+
+				$modelRequestDatacrms->save($data);
+			}
+		}
+	}
+
+	return ['code'=>1];
+}
 ?>

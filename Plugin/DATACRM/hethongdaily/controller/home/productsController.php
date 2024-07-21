@@ -942,8 +942,12 @@ function addProductAgency($input)
             }
         }
 
-         $conditions = array('id_product'=>$data->id);
-        $listUnitConversion = $modelUnitConversion->find()->where($conditions)->all()->toList();
+        $listUnitConversion = [];
+
+        if(!empty($data->id)){
+            $conditions = array('id_product'=>$data->id);
+            $listUnitConversion = $modelUnitConversion->find()->where($conditions)->all()->toList();
+        }
 
         $conditions = array('type' => 'manufacturer_product');
         $listManufacturer = $modelCategories->find()->where($conditions)->all()->toList();

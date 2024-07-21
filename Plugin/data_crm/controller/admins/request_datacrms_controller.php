@@ -58,49 +58,78 @@ function listRegAdmin($input)
         }
     }
     */
-    
-    $listData = $modelRequestDatacrms->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+        $listData = $modelRequestDatacrms->find()->where($conditions)->order($order)->all()->toList();
+        
+        $titleExcel =   [
+            ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
+            ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+            ['name'=>'Email', 'type'=>'text', 'width'=>25],
+            ['name'=>'Domain', 'type'=>'text', 'width'=>25],
+            ['name'=>'Deadline', 'type'=>'text', 'width'=>25],
+            ['name'=>'Database', 'type'=>'text', 'width'=>25], 
+            ['name'=>'Pass', 'type'=>'text', 'width'=>25], 
+        ];
 
-    // phân trang
-    $totalData = $modelRequestDatacrms->find()->where($conditions)->all()->toList();
-    $totalData = count($totalData);
-
-    $balance = $totalData % $limit;
-    $totalPage = ($totalData - $balance) / $limit;
-    if ($balance > 0)
-        $totalPage+=1;
-
-    $back = $page - 1;
-    $next = $page + 1;
-    if ($back <= 0)
-        $back = 1;
-    if ($next >= $totalPage)
-        $next = $totalPage;
-
-    if (isset($_GET['page'])) {
-        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
-        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
-    } else {
-        $urlPage = $urlCurrent;
-    }
-    if (strpos($urlPage, '?') !== false) {
-        if (count($_GET) >= 1) {
-            $urlPage = $urlPage . '&page=';
-        } else {
-            $urlPage = $urlPage . 'page=';
+        $dataExcel = [];
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                $dataExcel[] = [
+                    $value->boss_name,   
+                    $value->boss_phone,   
+                    $value->boss_email,   
+                    $value->domain,
+                    date('d/m/Y', $value->deadline),
+                    $value->user_db,
+                    $value->pass_db,
+                ];
+            }
         }
-    } else {
-        $urlPage = $urlPage . '?page=';
-    }
+        export_excel($titleExcel,$dataExcel,'danh_sach_dang_ky_icham');
+    }else{
+        $listData = $modelRequestDatacrms->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-    setVariable('page', $page);
-    setVariable('totalPage', $totalPage);
-    setVariable('back', $back);
-    setVariable('next', $next);
-    setVariable('urlPage', $urlPage);
-    setVariable('totalData', $totalData);
-    
-    setVariable('listData', $listData);
+        // phân trang
+        $totalData = $modelRequestDatacrms->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('totalData', $totalData);
+        
+        setVariable('listData', $listData);
+    }
 }
 
 function updateCodeCRM($input)
