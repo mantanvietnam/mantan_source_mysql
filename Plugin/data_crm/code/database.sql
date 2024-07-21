@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 16, 2024 at 08:58 PM
+-- Generation Time: Jul 22, 2024 at 02:32 AM
 -- Server version: 10.6.12-MariaDB
 -- PHP Version: 8.1.17
 
@@ -868,7 +868,8 @@ CREATE TABLE `transaction_affiliate_histories` (
   `percent` float NOT NULL,
   `id_order` int(11) NOT NULL,
   `create_at` int(11) NOT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'new'
+  `status` varchar(20) NOT NULL DEFAULT 'new',
+  `id_member` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
