@@ -79,7 +79,7 @@
               if($item->status == 'new'){
                   $status = 'Chưa thanh toán';
 
-                  $pay = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn đã thanh toán chưa?\');" href="/payTransactionAffiliaterAgency/?id='.$item->id.'">
+                  $pay = '<a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
                             <i class="bx bxs-credit-card"></i>
                           </a>';
               }
@@ -158,4 +158,65 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+<?php  if(!empty($listData)){
+              foreach ($listData as $items) {
+                 $type = '';
+                  if($items->type_order==1){
+                    $type = 'Đại lý';
+                  }elseif($items->type_order==2){
+                    $type = 'Khách hàng';
+                  }
+
+                   $info = '';
+                  if(!empty($items->aff)){
+                    $info = '<p><label class="form-label">Tên người tiếp thị:</label> '.$items->aff->name.'</p>
+                            <p><label class="form-label">Số điện thoại:</label> '.$items->aff->phone.'</p>';
+                  }
+
+
+               ?>
+                        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header form-label border-bottom">
+                                <h5 class="modal-title" id="exampleModalLabel1">Thanh toán tiền hoa hồng cho CTV  <?php echo $type; ?> </h5>
+                                <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                             <form action="payTransactionAffiliaterAgency" method="GET">
+                               <div class="modal-footer">
+                                <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                                <div class="card-body">
+                                  <div class="row gx-3 gy-2 align-items-center">
+                                    <div class="col-md-12">
+                                      <?php echo $info; ?>
+                                      <p><label class="form-label">Số tiền thanh thoán:</label> <?php echo number_format($items->money_back) ?> đ</p>
+                                      
+                                    </div>
+                                    <div class="col-md-12">
+                                      <label class="form-label">Hình thức thanh toán</label>
+                                      <select name="type_collection_bill" class="form-select color-dropdown" required>
+                                        <option value="">Chọn hình thức thanh toán</option>
+                                        <option value="tien_mat">Tiền mặt</option>
+                                        <option value="chuyen_khoan">Chuyển khoản</option>
+                                        <option value="the_tin_dung">Quẹt thẻ</option>
+                                        <option value="vi_dien_tu">Ví điện tử</option>
+                                        <option value="hinh_thuc_khac">Hình thức khác</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <label class="form-label">Nội dung trả </label>
+                                      <textarea  class="form-control" rows="5" name="note"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Thanh thoán </button>
+                              </div>
+                             </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      <?php }} ?>
 <?php include(__DIR__.'/../footer.php'); ?>

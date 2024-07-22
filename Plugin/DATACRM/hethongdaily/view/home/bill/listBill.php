@@ -45,6 +45,7 @@
               <option value="">Chọn đối tượng thanh toán</option>
               <option value="1" <?php if(!empty($_GET['type_order']) && $_GET['type_order']==1) echo 'selected'; ?>>Đại lý</option>
               <option value="2" <?php if(!empty($_GET['type_order']) && $_GET['type_order']==2) echo 'selected'; ?>>Khách hàng</option>
+              <option value="4" <?php if(!empty($_GET['type_order']) && $_GET['type_order']==4) echo 'selected'; ?>>Cộng tác viên</option>
             </select>
           </div>
 
@@ -105,6 +106,8 @@
                       $type = 'Đại lý';
                     }elseif($item->type_order==2){
                       $type = 'Khách hàng';
+                    }elseif($item->type_order==4){
+                      $type = 'CTV';
                     }
 
                     $type_collection_bill;
@@ -121,12 +124,18 @@
                     }
 
                     $info = '';
+                    $link = '';
                     if(!empty($item->member)){
                       $info = 'Tên đại lý:'.$item->member->name.'<br/>
                               Số điện thoại:'.$item->member->phone;
+                      $link = 'requestProductAgency';
                     }elseif(!empty($item->customer)){
                       $info = 'Tên khách hàng:'.$item->customer->full_name.'<br/>
                               Số điện thoại:'.$item->customer->phone;
+                    }elseif(!empty($item->aff)){
+                      $info = 'Tên CTV:'.$item->aff->name.'<br/>
+                              Số điện thoại: '.$item->aff->phone;
+                      $link = 'listTransactionAffiliaterAgency';
                     }
                     echo '<tr>
                             <td>'.$item->id.'</td>
@@ -136,7 +145,7 @@
                             <td>'.$type_collection_bill.'</td>
                             <td>'.number_format($item->total).'đ</td>
                             <td>'.$item->note.'<br/>
-                              <a href="/requestProductAgency?id='.$item->id_order.'" target="_blank">Xem đơn hàng tại đây</a>
+                              <a href="/'.$link.'?id='.$item->id_order.'" target="_blank">Xem đơn hàng tại đây</a>
                             </td>
                             
                             <td align="center">
@@ -167,7 +176,9 @@
                   $type = 'Đại lý';
                 }elseif($item->type_order==2){
                   $type = 'Khách hàng';
-                }
+                }elseif($item->type_order==4){
+                      $type = 'CTV';
+                    }
 
                 $type_collection_bill;
                 if($item->type_collection_bill=='tien_mat'){
@@ -183,12 +194,18 @@
                 }
 
                 $info = '';
+                $link = '';
                 if(!empty($item->member)){
                   $info = 'Tên đại lý:'.$item->member->name.'<br/>
                   Số điện thoại:'.$item->member->phone;
+                  $link = 'requestProductAgency';
                 }elseif(!empty($item->customer)){
                   $info = 'Tên khách hàng:'.$item->customer->full_name.'<br/>
                   Số điện thoại:'.$item->customer->phone;
+                }elseif(!empty($item->aff)){
+                  $info = 'Tên CTV:'.$item->aff->name.'<br/>
+                  Số điện thoại: '.$item->aff->phone;
+                  $link = 'listTransactionAffiliaterAgency';
                 }
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
@@ -199,7 +216,7 @@
                         <p><strong>Hình thức thanh toán: </strong>'.$type_collection_bill.'</p>
                         <p><strong>Số tiền: </strong>'.number_format($item->total).'đ</p>
                         <p><strong>Nội dung: </strong>'.$item->note.'<br/>
-                          <a href="/requestProductAgency?id='.$item->id_order.'" target="_blank">Xem đơn hàng tại đây</a>
+                          <a href="/'.$link.'?id='.$item->id_order.'" target="_blank">Xem đơn hàng tại đây</a>
                         </p>
 
                           <p align="center">

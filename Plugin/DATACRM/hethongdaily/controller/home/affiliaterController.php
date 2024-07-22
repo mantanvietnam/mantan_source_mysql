@@ -421,16 +421,35 @@ function listTransactionAffiliaterAgency($input)
 function payTransactionAffiliaterAgency($input)
 {
     global $controller;
-
+    global $session;
     $modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
-    
+    $modelAffiliaters = $controller->loadModel('Affiliaters');
+    $modelBill = $controller->loadModel('Bills');
     if(!empty($_GET['id'])){
         $data = $modelTransactionAffiliateHistories->get($_GET['id']);
         
-        if($data){
+        if(!empty($data)){
+            $aff = $modelAffiliaters->get($data->id_affiliater);
             $data->status = 'done';
 
             $modelTransactionAffiliateHistories->save($data);
+            $time= time();
+             // bill cho người mua
+            $billbuy = $modelBill->newEmptyEntity();
+            $billbuy->id_member_sell = 0;
+            $billbuy->id_member_buy =  $session->read('infoUser')->id;
+            $billbuy->total = $data->money_back;
+            $billbuy->id_order = $data->id;
+            $billbuy->type = 2;
+            $billbuy->type_order = 4; 
+            $billbuy->created_at = $time;
+            $billbuy->updated_at = $time;
+            $billbuy->id_debt = 0;
+            $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
+            $billbuy->id_customer = 0;
+            $billbuy->id_aff = $data->id_affiliater;
+            $billbuy->note = 'Thanh toán chiết khấu cho người tiếp thị tên là '.@$aff->name.' '.@$aff->phone.'  giao dịch có id '.$data->id;
+            $modelBill->save($billbuy);
         }
     }
 

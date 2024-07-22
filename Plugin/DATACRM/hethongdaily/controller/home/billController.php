@@ -12,6 +12,7 @@ function listBill(){
 		$modelMembers = $controller->loadModel('Members');
     	$modelCustomers = $controller->loadModel('Customers');
     	$modelBill = $controller->loadModel('Bills');
+        $modelAffiliaters = $controller->loadModel('Affiliaters');
 
 
     	$conditions = array('id_member_buy'=>$session->read('infoUser')->id, 'type'=>2);
@@ -128,6 +129,10 @@ function listBill(){
 
                 if(!empty($item->id_customer) && $item->type_order==2){
                 	$listData[$key]->customer = $modelCustomers->find()->where(['id'=>$item->id_customer])->first();
+                }
+
+                if(!empty($item->id_aff) && $item->type_order==4){
+                    $listData[$key]->aff = $modelAffiliaters->find()->where(['id'=>$item->id_aff])->first();
                 }
             }
         }
