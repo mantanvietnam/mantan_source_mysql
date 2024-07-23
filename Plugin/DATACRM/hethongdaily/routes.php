@@ -167,9 +167,10 @@
 	$routesPlugin['listAffiliaterAgency']= 'hethongdaily/view/home/affiliater/listAffiliaterAgency.php';
 	$routesPlugin['addAffiliaterAgency']= 'hethongdaily/view/home/affiliater/addAffiliaterAgency.php';
 	$routesPlugin['listTransactionAffiliaterAgency']= 'hethongdaily/view/home/affiliater/listTransactionAffiliaterAgency.php';
+	$routesPlugin['settingAffiliateAgency']= 'hethongdaily/view/home/affiliater/settingAffiliateAgency.php';
 
 
-	// api khách hàng 
+	// api khách hàng .php
 
 	$routesPlugin['saveRegisterCustomerAPI']= 'hethongdaily/view/saveRegisterCustomerAPI.php';
 	$routesPlugin['checkLoginCustomerAPI']= 'hethongdaily/view/checkLoginCustomerAPI.php';

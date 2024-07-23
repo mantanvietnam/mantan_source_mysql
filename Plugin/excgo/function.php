@@ -1161,7 +1161,12 @@ function getUserByToken($accessToken, $checkActive = true)
         $conditions['status'] = 1;
     }
 
-    return $modelUser->find()->where($conditions)->first();
+    $user = $modelUser->find()->where($conditions)->first();
+
+    if($user->type==3){
+        $user->type = 2;
+    }
+    return $user;
 }
 
 function parameter(){

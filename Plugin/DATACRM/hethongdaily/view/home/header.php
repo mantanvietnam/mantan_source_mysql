@@ -289,6 +289,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                           <a class="dropdown-item" href="/listAffiliaterAgency">Thành viên tiếp thị</a>
                           <a class="dropdown-item" href="/listTransactionAffiliaterAgency">Lịch sử  tiếp thị</a>
+                          <a class="dropdown-item" href="/settingAffiliateAgency">Cài đặt hoa hồng</a>
                         </div>
                       </li>';
               }

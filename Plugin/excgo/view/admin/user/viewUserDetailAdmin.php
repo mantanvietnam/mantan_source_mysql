@@ -76,6 +76,7 @@
                               <select class="form-select" name="type" id="type">
                                   <option value="1" <?php if (!empty($data->type) && $data->type == '1') echo 'selected'; ?> >Người dùng</option>
                                   <option value="2" <?php if (!empty($data->type) && $data->type == '2') echo 'selected'; ?> >Tài xế</option>
+                                  <option value="3" <?php if (!empty($data->type) && $data->type == '3') echo 'selected'; ?> >Nội bộ</option>
                               </select>
                           </div>
                         </div>

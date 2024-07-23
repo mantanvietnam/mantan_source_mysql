@@ -112,38 +112,25 @@
                   $status= '';
                   $btnProcess= '';
                   $btnPay= '';
-                    $btnProcess = '<select class="form-select form-select-sm" id="handle" onchange="actionSelect(this);" name="handle">
-                    <option value="">Chọn xử lý</option>';
+                 
+
                   if($item->status_pay=='wait' && $item->status!='cancel'){
-                    $btnPay= '<option data-bs-toggle="modal" value="4" data-bs-target="#basicModal'.$item->id.'">Thu tiền</option>';
+                    $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
                   }
 
                   if($item->status=='new'){ 
                    $status= '<p style="color: #00aeee;">Đơn mới</p>';
-                 
-                      $btnProcess .= '   <option data-link="/editOrderMemberAgency/?id='.$item->id.'" value="1">Sửa</option>
-                      <option data-link="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'" value="2">Duyệt</option>
-                      <option data-link="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'" value="3" onclick="return confirm(\'Bạn có chắc chắn muốn huy không?\');">Hủy</option>'.$btnPay.'</select>';
-                 
+                   $btnProcess= '<a class="btn btn-info" href="/editOrderMemberAgency/?id='.$item->id.'">sửa</a> <br/><br/> <a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a> <br/><br/> <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
                  }elseif($item->status=='browser'){
                    $status= '<p style="color: #0333f6;">Đã duyệt</p>';
-                   $btnProcess .= '  <option data-link="/updateOrderMemberAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'" value="2">Giao hàng</option>
-                      <option data-link="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'" value="3" onclick="return confirm(\'Bạn có chắc chắn muốn huy không?\');">Hủy</option>'.$btnPay.'</select>';
+                   $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a> <br/><br/> <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
                  }elseif($item->status=='delivery'){
                    $status= '<p style="color: #7503f6;">Đang giao</p>';
-                   $btnProcess .= '  <option data-link="updateOrderMemberAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'" value="2">Hoàn thành</option>
-                      <option data-link="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'" value="3" onclick="return confirm(\'Bạn có chắc chắn muốn huy không?\');">Hủy</option>'.$btnPay.'</select>';
+                   $btnProcess= '<a class="btn btn-primary" style="bacground-color: #00ee4b;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=done&back='.urlencode($urlCurrent).'">Hoàn thành</a> <br/><br/> <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
                  }elseif($item->status=='done'){
                    $status= '<p style="color: #00ee4b;">Đã xong</p>';
-                     if($item->status_pay=='wait'){
-                       $btnProcess .= $btnPay.'</select>';
-                     }else{
-                       $btnProcess= '';
-                     }
-                     
                  }else{
                    $status= '<p style="color: red;">Đã hủy</p>';
-                      $btnProcess= '';
                  }
 
 
@@ -230,7 +217,7 @@
                 <td>'.$item->discount.'%</td>
 
                 <td align="center">'.$status.$statusPay.'</td>
-                <td align="center">'.$btnProcess.'</td>
+                <td align="center">'.$btnProcess.' '.$btnPay.'</td>
                 </tr>';
               }
             }else{

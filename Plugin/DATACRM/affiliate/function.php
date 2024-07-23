@@ -49,7 +49,8 @@ function calculateAffiliate($money=0, $id_order=0,$id_aff=0,$id_member=1)
 		
 	
 		if(!empty($checkAff)){
-			$conditions = array('key_word' => 'settingAffiliateAdmin');
+
+			$conditions = array('key_word' => 'settingAffiliateAgency'.$id_member);
 	    	$settingAffiliateAdmin = $modelOptions->find()->where($conditions)->first();
 	    
 	    	$setting = array();
@@ -96,7 +97,7 @@ function calculateAffiliateFather($money=0, $id_order=0, $level=1, $id_father=0,
 		$checkAff = $modelAffiliaters->find()->where(['id' => $id_father])->first();
 
 		if(!empty($checkAff)){
-			$conditions = array('key_word' => 'settingAffiliateAdmin');
+			$conditions = array('key_word' => 'settingAffiliateAgency'.$id_member);
 	    	$settingAffiliateAdmin = $modelOptions->find()->where($conditions)->first();
 
 	    	$setting = array();
