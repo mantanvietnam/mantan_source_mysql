@@ -26,6 +26,91 @@ function createPass($length=30)
     return substr(str_shuffle($chars), 0, $length).time();
 }
 
+function listDomain($domain='icham.vn')
+{	
+	global $vst_hostname;
+	global $ftpUser;
+	global $ftpPass;
+
+	if(!empty($domain)){
+		$data = array(
+		    'domain' => $domain
+		);
+
+		$url = 'http://'.$vst_hostname.':2222/CMD_API_SUBDOMAINS';
+
+		// Khởi tạo yêu cầu cURL
+		$ch = curl_init($url);
+
+		// Cấu hình yêu cầu
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt($ch, CURLOPT_USERPWD, "$ftpUser:$ftpPass");
+
+		// Gửi yêu cầu và nhận phản hồi
+		$response = curl_exec($ch);
+
+		// Kiểm tra phản hồi
+		if ($response === false) {
+		    return 'Error: ' . curl_error($ch);
+		} else {
+		    return $response;
+		}
+
+		// Đóng kết nối cURL
+		curl_close($ch);
+	}
+}
+
+function deleteDomain($domain='')
+{	
+	global $vst_hostname;
+	global $ftpUser;
+	global $ftpPass;
+
+	if(!empty($domain)){
+		$domainRoot = explode('.', $domain);
+		$n1 = count($domainRoot)-2;
+		$n2 = count($domainRoot)-1;
+
+		$data = array(
+		    'confirmed' => 'Confirm',
+			'delete' => 'yes',
+		    'select0' => $domain,
+			'action' => 'delete',
+			'contents' => 'yes',
+			'keep_data' => 'no'
+		);
+
+		$url = 'http://'.$vst_hostname.':2222/CMD_API_DOMAIN';
+
+		// Khởi tạo yêu cầu cURL
+		$ch = curl_init($url);
+
+		// Cấu hình yêu cầu
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt($ch, CURLOPT_USERPWD, "$ftpUser:$ftpPass");
+
+		// Gửi yêu cầu và nhận phản hồi
+		$response = curl_exec($ch);
+
+		// Kiểm tra phản hồi
+		if ($response === false) {
+		    return 'Error: ' . curl_error($ch);
+		} else {
+		    return 'Đã xóa thành công tên miền: ' . $domain.'<br/>';
+		}
+
+		// Đóng kết nối cURL
+		curl_close($ch);
+	}
+}
+
 function createDomain($domain='')
 {	
 	global $vst_hostname;
@@ -113,6 +198,51 @@ function createDatabase($domain='', $db_name='', $db_password='')
 		    return 'Error: ' . curl_error($ch);
 		} else {
 		    return 'Đã tạo thành công database: ' . $db_name.'<br/>';
+		}
+
+		// Đóng kết nối cURL
+		curl_close($ch);
+	}
+}
+
+function deleteDatabase($db_name='')
+{
+	global $vst_hostname;
+	global $ftpUser;
+	global $ftpPass;
+
+	if(!empty($db_name)){
+		// Thông tin cơ sở dữ liệu mới
+		$db_user = $db_name;
+
+		// Dữ liệu yêu cầu
+		$data = array(
+		    'action' => 'delete',
+		    'name' => $db_name,
+		    'select0' => $db_name,
+		);
+
+		// URL của API DirectAdmin
+		$url = 'http://'.$vst_hostname.':2222/CMD_API_DATABASES';
+
+		// Khởi tạo yêu cầu cURL
+		$ch = curl_init($url);
+
+		// Cấu hình yêu cầu
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt($ch, CURLOPT_USERPWD, "$ftpUser:$ftpPass");
+
+		// Gửi yêu cầu và nhận phản hồi
+		$response = curl_exec($ch);
+
+		// Kiểm tra phản hồi
+		if ($response === false) {
+		    return 'Error: ' . curl_error($ch);
+		} else {
+		    return 'Đã xóa thành công database: ' . $db_name.'<br/>';
 		}
 
 		// Đóng kết nối cURL

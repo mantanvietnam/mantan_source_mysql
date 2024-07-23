@@ -286,9 +286,16 @@ function deleteRegAdmin($input)
         $data = $modelRequestDatacrms->get($_GET['id']);
         
         if($data){
+            // xóa thư mục code
+            deleteDomain($data->domain);
+
+            // xóa database
+            deleteDatabase($data->user_db);
+
+            // xóa bản ghi trong DB
             $modelRequestDatacrms->delete($data);
         }
     }
-
+   
     return $controller->redirect('/plugins/admin/data_crm-views-admin-listRegAdmin');
 }
