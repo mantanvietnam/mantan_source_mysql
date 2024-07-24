@@ -235,7 +235,7 @@
             <textarea name="note_member" id="note_member" class="form-control"></textarea>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 ">
           <input type="hidden" id="money" value="0">
           <input type="hidden" id="discount" value="0">
           <input type="hidden" id="total" value="0">

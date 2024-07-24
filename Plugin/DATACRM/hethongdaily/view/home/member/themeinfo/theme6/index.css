@@ -503,6 +503,10 @@ table {
     transform: rotate(90deg);
 }
 
+.form-control{
+    width: 320px;
+}
+
 .qty-input .qty-count:disabled {
     color: #c1c1c1;
     background: #f1f1f147;
@@ -584,7 +588,8 @@ td a {
 
 /*  */
 
-.mb-3{
+.btn-tdh{
+    text-align: center;
     margin: 10px 10px;
 }
 
@@ -602,7 +607,7 @@ td a {
     padding: 25px;
     border-radius: 5px;
     width: 380px;
-    height: 540px;
+    height: 580px;
     background-color: #f1f1f1;
     margin-bottom: 100px;
 }

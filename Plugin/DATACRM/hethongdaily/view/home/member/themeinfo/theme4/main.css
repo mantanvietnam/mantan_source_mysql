@@ -32,11 +32,12 @@ body {
 
 .tab-content {
   display: none;
+  padding-bottom: 200px;
 }
 
 .tab-content.active {
   display: block;
-  padding-bottom: 200px;
+
 }
 
 .home-header {
