@@ -160,10 +160,11 @@ function viewUserDetailAdmin($input)
         $dataSend = $input['request']->getData();
 
         /*debug($dataSend);
-        $domain = 'https://apis.exc-go.vn//';
+        
         $del_str=str_replace($domain, '', $dataSend['avatar']);
         debug($del_str);
         die;*/
+        $domain = 'https://apis.exc-go.vn/';
 
 
         if (!empty($dataSend['name'])) {
@@ -196,7 +197,7 @@ function viewUserDetailAdmin($input)
                     }else{
                         $idCardFront = $modelImage->newEmptyEntity();
                         $idCardFront->path = $dataSend['idCardFront'];
-                        $idCardFront->local_path =str_replace($domain, '', $dataSend['idCardFront']);
+                        $idCardFront->local_path =str_replace($domain, '', @$dataSend['idCardFront']);
                         $idCardFront->type = 'users';
                         $idCardFront->owner_id =$_GET['id'];
                         $idCardFront->owner_type = 'id-card-front';

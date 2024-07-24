@@ -9,5 +9,7 @@ if($info->display_info == 1){
    include('themeinfo/theme4/index.php');
 }elseif($info->display_info == 5){
    include('themeinfo/theme5/index.php');
+}elseif($info->display_info == 6){
+   include('themeinfo/theme6/index.php');
 }
 ?>
