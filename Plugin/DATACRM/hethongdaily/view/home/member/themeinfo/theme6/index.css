@@ -584,6 +584,10 @@ td a {
 
 /*  */
 
+.mb-3{
+    margin: 10px 10px;
+}
+
 .block-2{
     width: 100%;
     height: 100%;
@@ -597,7 +601,7 @@ td a {
 .bgr-kh{
     padding: 25px;
     border-radius: 5px;
-    width: 350px;
+    width: 380px;
     height: 540px;
     background-color: #f1f1f1;
     margin-bottom: 100px;
