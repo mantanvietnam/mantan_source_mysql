@@ -275,7 +275,6 @@ body {
 .products-body .product {
   margin-top: 25px;
   background-color: #FFFFFF;
-  height: 170px;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -385,6 +384,7 @@ body {
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  width: 60px;
 }
 
 .btn-buy {
