@@ -154,6 +154,10 @@ function updateCodeCRM($input)
                         echo $domain.'<br/>';
                     }
                 }
+
+                if(file_exists($public.'__MACOSX')){
+                    unlink($public.'__MACOSX');
+                }
             }
 
             foreach ($listFile as $key => $domain) {
@@ -298,4 +302,28 @@ function deleteRegAdmin($input)
     }
    
     return $controller->redirect('/plugins/admin/data_crm-views-admin-listRegAdmin');
+}
+
+function checkFolderDomain($input)
+{
+    global $controller;
+    
+    $modelRequestDatacrms = $controller->loadModel('RequestDatacrms');
+
+    $root = __DIR__.'/../../../../../../';
+    $listFile = list_files($root);
+
+    $domain_error = [];
+
+    if(!empty($listFile)){
+        foreach ($listFile as $key => $domain) {
+            $checkDomain = $modelRequestDatacrms->find()->where(['domain'=>$domain])->first();
+
+            if(empty($checkDomain)){
+                $domain_error[] = $domain;
+            }
+        }
+    }
+
+    echo implode('<br/>', $domain_error);die;
 }
