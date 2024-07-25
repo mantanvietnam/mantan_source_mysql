@@ -132,6 +132,15 @@ function addOrder($input)
 	        if(!empty($dataSend['type']) && !empty($dataSend['id_price'])){
 	        	$checkZoom = $modelZooms->find()->where(['type'=>(int) $dataSend['type'], 'status'=>'active', 'idOrder'=>0])->first();
 
+	        	// kiểm tra phòng họp đang tồn tại trong tài khoản zoom trước khi cấp
+	        	$listRoom = getListRoom($checkZoom->client_id, $checkZoom->client_secret, $checkZoom->account_id);
+
+	        	if(!empty($listRoom['meetings'])){
+	        		foreach ($listRoom['meetings'] as $key => $value) {
+	        			closeRoom($checkZoom->client_id, $checkZoom->client_secret, $checkZoom->account_id, $value['id']);
+	        		}
+	        	}
+
 	        	if(!empty($checkZoom)){
 	        		$checkPrice = $modelPrices->find()->where(['id'=> (int) $dataSend['id_price']])->first();
 
