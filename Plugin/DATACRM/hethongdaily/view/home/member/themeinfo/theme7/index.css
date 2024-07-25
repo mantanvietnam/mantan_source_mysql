@@ -1,0 +1,647 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.container {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+ul{
+    margin-bottom: 0 !important;
+}
+
+
+/* font */
+
+@font-face {
+    font-family: "great vibes";
+    src: url("./font/GreatVibes-Regular.ttf") format("truetype");
+    font-weight: 600px;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0 !important;
+}
+
+/* tabs and fill */
+.active{
+    position: relative;
+    z-index: 100;
+}
+
+
+section{
+    display: flex !important;
+    justify-content: center;
+}
+
+.ladi-wraper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#body-background {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.ladi-section {
+    background-size: cover;
+    background-origin: content-box;
+    background-position: 50% 0%;
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
+
+.tabs{
+    position: fixed;
+    display: flex;
+    text-align: center;
+    z-index: 1000;
+    bottom: 0;
+    width: 100%;
+    justify-content: center;
+}
+
+.tabs .nav-tabs{
+    font-family:monospace;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    width: 380px;
+    height: 70px;
+
+}
+
+.tabs .nav-tabs li a{
+    color: #496f93;
+    border: 2px solid #DDD;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.tabs .nav-tabs li a:active{
+    background-color: black;
+    color: white;
+}
+
+.nav-tabs>li>a:hover{
+
+}
+
+/* Thông tin */
+.block-1{
+    justify-content: center;
+    text-align: center;
+}
+
+.block-1 .block-bgr{
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    position: relative;
+    width: 375px;
+    height: 455px;
+}
+
+.block-1 .block-bgr .layout-1 {
+    border-radius: 50%;
+    z-index: 10;
+    position: absolute;
+    top: 44px;
+    width: 170px;
+    height: 170px;
+    background-color: #496f93;
+}
+
+.block-1 .block-bgr .layout-1 .profile img{
+    border: 4px solid #496f93;
+    border-radius: 50%;
+    margin-top: 5px;
+    width: 160px;
+    height: 160px;
+    background-color: aliceblue;
+}
+
+.block-1 .block-txt-pfl{
+    top: 220px;
+    position: absolute;
+    font-weight: 700;
+    font-size: 28px;
+    width: 100%;
+    color: #f5f5f5;
+}
+
+.block-1 .block-cd{
+    top: 270px;
+    position: absolute;
+    font-weight: 500;
+    font-size: 19px;
+    width: 100%;
+    color: cornflowerblue;
+    font-family: monospace;
+}
+
+.block-1 .home-title{
+    top: 310px;
+    position: absolute;
+    font-size: 15px;
+    color: cornflowerblue;
+    font-family: "Poppins", sans-serif;
+}
+
+.block-1 .hotline{
+    top: 340px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 250px;
+}
+
+.btn-save {
+    background-color: white;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    height: 35px;
+    font-weight: 500;
+    margin: 13px 10px;
+    color: #f1f1f1;
+}
+.hotline p{
+    color: white;
+    font-size: 19px;
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
+
+/* block-social */
+
+.block-1 .block-social{
+    width: 375px;
+    height: 425px;
+    background-color: #f4f5f7;
+    position: absolute;
+}
+
+.block-1 .block-social .social{
+    border-radius: 10px;
+    width: 327px;
+    height: 361px;
+    position: absolute;
+    top: -45px;
+    left: 24px;
+    background-color: white;
+}
+
+.block-1 .block-social .social ul{
+    list-style: none;
+}
+
+.block-1 .block-social .social ul li{
+    width: 100%;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.block-1 .block-social .social ul li a{
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 0;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    color: black;
+}
+
+
+.block-1 .block-social .social ul li a .txt-1{
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between ;
+}
+
+.block-1 .block-social .social ul li a .txt-1 i{
+    margin-top: 3px;
+    margin-right: 5px;
+    width: 19px;
+    height: 19px;
+    font-size: 19px;
+}
+
+.block-1 .block-social .social ul li a .txt-1 p{
+    margin-left: 10px;
+}
+.block-1 .block-social .social ul li a i::before{
+    padding: 0 8px;
+}
+
+/* sản phẩm */
+
+.bgr-sp{
+    border-radius: 5px;
+    width: 380px;
+    height: 120%;
+    background-color: #f1f1f1;
+    padding-bottom: 200px;
+
+}
+
+#block-7{
+    width: 100%;
+} 
+
+tbody {
+    border: 2px solid white;
+}
+
+tr{
+    border: 2px solid white;
+}
+.qty-input {
+    color: #000;
+    background: transparent;
+    display: grid;
+    align-items: center;
+    overflow: hidden;
+}
+
+.qty-input .product-qty,
+.qty-input .qty-count {
+    background: #f1f1f147;
+    color: inherit;
+    font-weight: bold;
+    font-size: inherit;
+    border: none;
+    display: inline-block;
+    font-weight: 500;
+    height: 30px;
+    font-size: 15px;
+}
+
+.qty-input .product-qty:focus,
+.qty-input .qty-count:focus {
+    outline: none;
+}
+
+.qty-input .product-qty {
+    display: inline-block;
+    text-align: center;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.qty-input .product-qty::-webkit-outer-spin-button,
+.qty-input .product-qty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.qty-input .qty-count {
+    padding: 0;
+    cursor: pointer;
+    font-size: 20px;
+    overflow: hidden;
+    position: relative;
+    font-weight: 500;
+}
+
+.check-input {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.check-input input {
+    width: 14px;
+    height: 14px;
+}
+
+table {
+    background: #f1f1f147 !important;
+}
+
+.table-bordered>tbody>tr>td,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>td,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>thead>tr>th {
+    border: 1px solid #f1f1f1 !important;
+    font-size: 16px;
+}
+
+.fade{
+    opacity: 1 !important;
+}
+
+.qty-input .qty-count--add:after {
+    transform: rotate(90deg);
+}
+
+.qty-input .qty-count:disabled {
+    color: #c1c1c1;
+    background: #f1f1f147;
+    cursor: not-allowed;
+    border-color: transparent;
+}
+
+.qty-input {
+    border: 1px solid #e2e2e2;
+}
+
+.qty-input .qty-count:disabled:before,
+.qty-input .qty-count:disabled:after {
+    background: #ccc;
+}
+
+.qty-input {
+    border-radius: 4px;
+}
+
+.table-caption {
+    text-transform: capitalize;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.table>tbody>tr>th.no-padding {
+    padding: 8px 3px !important;
+}
+
+table td {
+    font-weight: 500;
+}
+
+table img {
+    width: 110px;
+    height: 117px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+td a {
+    font-family: monospace;
+    color: #000;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    padding: 5px !important;
+    color: brown;
+}
+
+#block-7 .block-btn{
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    top: 80%;
+    left: 0;
+}
+
+#block-7 .block-btn .buy-btn {
+    background-color: red;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+
+/*  */
+
+.block-2{
+    width: 100%;
+    height: 100%;
+    top: 10px;
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+}
+
+.bgr-kh{
+    padding: 25px;
+    border-radius: 5px;
+    width: 350px;
+    height: 540px;
+    background-color: #f1f1f1;
+    margin-bottom: 100px;
+}
+
+label{
+    font-family: 'Oswald';
+}
+
+.contact-form-container input[type="text"],
+.contact-form-container input[type="number"],
+.contact-form-container input[type="file"],
+.contact-form-container input[type="email"],
+.contact-form-container input[type="date"]
+{
+    width: 100%;
+    font-family: 'Oswald';
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.btn-contact{
+    border: 0;
+    margin-left: 20%;
+    padding: 11px;
+    border-radius: 9px;
+    background-color: red;
+    color: #DDD;
+}
+
+.btn-contact:hover{
+    background-color:rgb(249, 72, 74) ;
+}
+@media screen and (max-width: 320px){
+    .block-1 .block-social .social{
+        width: 300px;
+        left: 51px;
+    }
+}

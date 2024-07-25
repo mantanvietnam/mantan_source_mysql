@@ -1163,9 +1163,9 @@ function getUserByToken($accessToken, $checkActive = true)
 
     $user = $modelUser->find()->where($conditions)->first();
 
-    if($user->type==3){
+    /*if($user->type==3){
         $user->type = 2;
-    }
+    }*/
     return $user;
 }
 

@@ -1,3 +1,4 @@
+
 <?php 
 if($info->display_info == 1){
    include('themeinfo/theme1.php');
@@ -11,5 +12,7 @@ if($info->display_info == 1){
    include('themeinfo/theme5/index.php');
 }elseif($info->display_info == 6){
    include('themeinfo/theme6/index.php');
+}elseif($info->display_info == 7){
+   include('themeinfo/theme7/index.php');
 }
 ?>
