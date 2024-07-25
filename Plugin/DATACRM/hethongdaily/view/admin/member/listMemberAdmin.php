@@ -86,6 +86,7 @@
                 <th>Ảnh đại diện</th>
                 <th>Thông tin đại lý</th>
                 <th>Tuyến trên</th>
+                <th>Đăng nhập</th>
                 <th>Trạng thái</th>
                 <th>Sửa</th>
                 <th>Xóa</th>
@@ -95,6 +96,10 @@
               <?php 
                 if(!empty($listData)){
                   foreach ($listData as $item) {
+                    $last_login = '';
+                if(!empty($item->last_login)){
+                   $last_login = date('H:i d/m/Y', @$item->last_login);
+                }
                     $classActive = 'text-danger';
                     $verify = '<p class="text-danger">Chưa xác thực OTP</p>';
                     if($item->verify ==  'active'){
@@ -134,6 +139,7 @@
                               <a href="/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin/?id='.$item->id_father.'">'.@$item->father->name.'</a><br/>
                               '.@$item->father->phone.'
                             </td>
+                            <td>'.$last_login.'</td>
                             <td>'.$status.$verify.'</td>
                             
                             <td align="center">

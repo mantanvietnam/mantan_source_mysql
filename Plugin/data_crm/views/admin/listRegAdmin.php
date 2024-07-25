@@ -98,6 +98,11 @@
                 if($item->deadline < time()){
                   $status = '<p class="text-danger"><b>Hết hạn</b></p>';
                 }
+                $last_login = '';
+                if(!empty($item->last_login)){
+                   $last_login = date('H:i d/m/Y', @$item->last_login);
+                }
+
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>
@@ -108,6 +113,7 @@
                             '.$item->boss_name.'<br/>
                             '.$item->boss_phone.'<br/>
                             '.$item->boss_email.'<br/>
+                            Đăng nhập: '.@$last_login.'<br/>
                             <a class="btn btn-primary" style="color: #fff;" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >Gia hạn cho đại lý</a>
                         </td>
                         <td>'.$link.'<br/><br/>'.$status.'</td>

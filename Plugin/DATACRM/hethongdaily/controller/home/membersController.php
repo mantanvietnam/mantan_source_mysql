@@ -37,6 +37,9 @@ function login($input)
     				// nếu tài khoản không bị khóa
     				if($info_customer->status == 'active'){
     					if($info_customer->deadline > time()){
+    						$info_customer->last_login = time();
+							$modelMembers->save($info_customer);
+							
 	    					$info_customer->info_system = $modelCategories->find()->where(['id'=>(int) $info_customer->id_system])->first();
 
 			    			$session->write('CheckAuthentication', true);
@@ -46,6 +49,11 @@ function login($input)
 			    			
 			    			if($info_customer->verify == 'active'){
 			    				setcookie('id_member',$info_customer->id,time()+365*24*60*60, "/");
+
+			    				if($info_customer->id_father==0){
+			    					$dataPost= array('boss_phone'=>$info_customer->phone);
+            							sendDataConnectMantan('https://icham.vn/apis/updateLastLoginBossAPI', $dataPost);
+			    				}
 								
 								return $controller->redirect('/listCustomerAgency');
 							}else{
@@ -71,12 +79,22 @@ function login($input)
 				// nếu tài khoản không bị khóa
 				if($info_customer->status == 'active'){
 					if($info_customer->deadline > time()){
+						$info_customer->last_login = time();
+						$modelMembers->save($info_customer);
+
 						$info_customer->info_system = $modelCategories->find()->where(['id'=>(int) $info_customer->id_system])->first();
 
 		    			$session->write('CheckAuthentication', true);
 	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
 
 		    			$session->write('infoUser', $info_customer);
+
+
+
+		    			if($info_customer->id_father==0){
+			    			$dataPost= array('boss_phone'=>$info_customer->phone);
+            					sendDataConnectMantan('https://icham.vn/apis/updateLastLoginBossAPI', $dataPost);
+			    		}
 		    			
 		    			if($info_customer->verify == 'active'){
 							return $controller->redirect('/listCustomerAgency');

@@ -613,7 +613,7 @@ function acceptCanceledBookingApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            if ($currentUser->type != 2) {
+            if ($currentUser->type < 2) {
                 return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
             }
 
@@ -754,7 +754,7 @@ function rejectCanceledBookingApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            if ($currentUser->type != 2) {
+            if ($currentUser->type < 2) {
                 return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
             }
 
@@ -2040,7 +2040,7 @@ function acceptCanceledBookingPostedApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            if ($currentUser->type != 2) {
+            if ($currentUser->type < 2) {
                 return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
             }
 
@@ -2220,7 +2220,7 @@ function rejectCanceledBookingPostedApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            if ($currentUser->type != 2) {
+            if ($currentUser->type < 2) {
                 return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
             }
 
@@ -2353,7 +2353,7 @@ function createBookingDealApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            if ($currentUser->type !== 2) {
+            if ($currentUser->type < 2) {
                 return apiResponse(4, 'Bạn cần trở thành tài xế để nhận chuyến');
             }
 
@@ -2444,7 +2444,7 @@ function getListBookingDealApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            if ($currentUser->type !== 2) {
+            if ($currentUser->type < 2) {
                 return apiResponse(4, 'Bạn cần trở thành tài xế để xem thông tin này');
             }
 
@@ -2512,7 +2512,7 @@ function acceptBookingDealApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            if ($currentUser->type !== 2) {
+            if ($currentUser->type < 2) {
                 return apiResponse(4, 'Bạn cần trở thành tài xế để xem thông tin này');
             }
 
@@ -2673,7 +2673,7 @@ function repostBookingApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            if ($currentUser->type !== 2) {
+            if ($currentUser->type < 2) {
                 return apiResponse(4, 'Bạn cần trở thành tài xế để xem thông tin này');
             }
 

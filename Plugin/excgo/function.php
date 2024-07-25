@@ -1466,29 +1466,29 @@ function checkFinishedBooking(): array
         }
 
         // Thông báo cộng tiền cọc
-        if ($bookingFee->deposit) {
+        if ($booking->deposit) {
             // Người nhận chuyến
             $receivedUser = $modelUser->find()
                 ->where(['id' => $booking->received_by])
                 ->first();
-            $receivedUser->total_coin += $bookingFee->deposit;
+            $receivedUser->total_coin += $booking->deposit;
             $modelUser->save($receivedUser);
 
             // Save transaction
             $newTransaction = $modelTransaction->newEmptyEntity();
             $newTransaction->user_id = $receivedUser->id;
             $newTransaction->booking_id = $booking->id;
-            $newTransaction->amount = $bookingFee->deposit;
+            $newTransaction->amount = $booking->deposit;
             $newTransaction->type = $transactionType['add'];
             $newTransaction->name = "Nhận lại tiền cọc cuốc xe #$booking->id thành công";
-            $newTransaction->description = '+' . number_format($bookingFee->deposit) . ' EXC-xu';
+            $newTransaction->description = '+' . number_format($booking->deposit) . ' EXC-xu';
             $newTransaction->created_at = date('Y-m-d H:i:s');
             $newTransaction->updated_at = date('Y-m-d H:i:s');
             $modelTransaction->save($newTransaction);
 
             // Thông báo cho người nhận
             $title = 'Cộng EXC coin vào tài khoản';
-            $content = "Tài khoản của bạn được trả lại $bookingFee->deposit tiền cọc cho cuốc xe #$booking->id";
+            $content = "Tài khoản của bạn được trả lại $booking->deposit tiền cọc cho cuốc xe #$booking->id";
             $notification = $modelNotification->newEmptyEntity();
             $notification->user_id = $receivedUser->id;
             $notification->booking_id = $booking->id;
@@ -1513,23 +1513,23 @@ function checkFinishedBooking(): array
             $postedUser = $modelUser->find()
                 ->where(['id' => $booking->posted_by])
                 ->first();
-            $postedUser->total_coin += $bookingFee->deposit;
+            $postedUser->total_coin += $booking->deposit;
             $modelUser->save($postedUser);
 
             $newTransaction = $modelTransaction->newEmptyEntity();
             $newTransaction->user_id = $postedUser->id;
             $newTransaction->booking_id = $booking->id;
-            $newTransaction->amount = $bookingFee->deposit;
+            $newTransaction->amount = $booking->deposit;
             $newTransaction->type = $transactionType['add'];
             $newTransaction->name = "Nhận lại tiền cọc cuốc xe #$booking->id thành công";
-            $newTransaction->description = '+' . number_format($bookingFee->deposit) . ' EXC-xu';
+            $newTransaction->description = '+' . number_format($booking->deposit) . ' EXC-xu';
             $newTransaction->created_at = date('Y-m-d H:i:s');
             $newTransaction->updated_at = date('Y-m-d H:i:s');
             $modelTransaction->save($newTransaction);
 
             // Thông báo cho người đăng
             $title = 'Cộng EXC coin vào tài khoản';
-            $content = "Tài khoản của bạn được trả lại $bookingFee->deposit tiền cọc cho cuốc xe #$booking->id";
+            $content = "Tài khoản của bạn được trả lại $booking->deposit tiền cọc cho cuốc xe #$booking->id";
             $notification = $modelNotification->newEmptyEntity();
             $notification->user_id = $postedUser->id;
             $notification->booking_id = $booking->id;
@@ -1553,7 +1553,6 @@ function checkFinishedBooking(): array
 
         $modelBookingFee->save($bookingFee);
     }
-
     return apiResponse(0, 'Thanh toán phí thành công', $bookingList->toList());
 }
 

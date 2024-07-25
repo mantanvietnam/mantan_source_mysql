@@ -161,4 +161,26 @@ function extendMemberDeadlineAPI($input)
 
 	return ['code'=>1];
 }
+
+function updateLastLoginBossAPI($input){
+	global $isRequestPost;
+	global $controller ;
+
+	$modelRequestDatacrms = $controller->loadModel('RequestDatacrms');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['boss_phone'])){
+			$data = $modelRequestDatacrms->find()->where(['boss_phone'=>$dataSend['boss_phone']])->first();
+			if(!empty($data)){
+				$data->last_login = time();
+				$modelRequestDatacrms->save($data);
+			}
+		}
+	}
+
+	return ['code'=>1];
+
+}
 ?>
