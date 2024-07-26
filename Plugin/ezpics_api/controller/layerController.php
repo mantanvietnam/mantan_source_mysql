@@ -341,14 +341,18 @@ function addLayerImageUrlAPI($input){
 		    $user = getMemberByToken($dataSend['token']);
 
 		    if(!empty($user)){
-	            $f = $modelManagerFile->newEmptyEntity();
-	            
-	            $f->link = $dataSend['imageUrl'];
-	            $f->user_id = $user->id;
-	            $f->type = 0; // 0 là user up, 1 là cap, 2 là payment   
-	            $f->created_at = date('Y-m-d H:i:s');
-	            
-	            $modelManagerFile->save($f);
+		    	$checkFileExits = $modelManagerFile->find()->where(['link'=>$dataSend['imageUrl'], 'user_id'=>$user->id])->first();
+
+		    	if(empty($checkFileExits)){
+		            $f = $modelManagerFile->newEmptyEntity();
+		            
+		            $f->link = $dataSend['imageUrl'];
+		            $f->user_id = $user->id;
+		            $f->type = 0; // 0 là user up, 1 là cap, 2 là payment   
+		            $f->created_at = date('Y-m-d H:i:s');
+		            
+		            $modelManagerFile->save($f);
+		        }
 
 	            $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
 	            $idlayer = count($productDetail)+1;

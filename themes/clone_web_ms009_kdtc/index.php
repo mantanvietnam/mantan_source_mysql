@@ -418,7 +418,7 @@ global $urlThemeActive;
 
                                 <?php
                                     if(!empty($infoCampaign->location)){
-                                        echo '  <div class="col-lg-12 input-contact">
+                                        echo '  <div class="col-lg-6 input-contact">
                                                     <label>Khu vực *</label>
                                                     <select class="form-select" name="location" required>
                                                         <option value="">Chọn khu vực tham dự</option>';
@@ -433,12 +433,12 @@ global $urlThemeActive;
                                     }
                                 ?>
                                 
-                                <!--
+                                
                                 <div class="col-lg-6 input-contact">
                                     <label>Ảnh đại diện của bạn *</label>
                                     <input type="file" class="form-control" name="avatar" required="" placeholder="">
                                 </div>
-                                -->
+                                
 
                                 <div class="button-link">
                                     <button type="submit">Đăng ký</button>
