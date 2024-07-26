@@ -19,7 +19,7 @@ function searchDiscountCodeAgencyAPI($input){
     if(!empty($_GET['code']) && !empty($_GET['id_member'])){
         $conditions['code'] = strtoupper($_GET['code']);
         $conditions['status'] = 1;
-        $conditions['status'] = (int) $_GET['id_member'];
+        $conditions['id_member'] = (int) $_GET['id_member'];
         
         $data = $modelDiscountCode->find()->where($conditions)->first();
 

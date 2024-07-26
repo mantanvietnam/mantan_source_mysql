@@ -14,5 +14,9 @@ if($info->display_info == 1){
    include('themeinfo/theme6/index.php');
 }elseif($info->display_info == 7){
    include('themeinfo/theme7/index.php');
+}elseif($info->display_info == 8){
+   include('themeinfo/theme8/index.php');
+}elseif($info->display_info == 9){
+   include('themeinfo/theme9/index.php');
 }
 ?>
