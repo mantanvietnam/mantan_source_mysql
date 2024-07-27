@@ -259,6 +259,10 @@ function editCustomerAgency($input)
                         $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
                         $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
+                        if($dataSend['phone'][0]!='0'){
+                            $dataSend['phone'] = '0'.$dataSend['phone'];
+                        }
+
                         $checkPhone = $modelCustomers->find()->where(['phone'=>$dataSend['phone']])->first();
 
                         if(!empty($checkPhone)){
@@ -613,6 +617,10 @@ function addDataCustomerAgency($input)
               
                         $value[1] = trim(str_replace(array(' ','.','-'), '', $value[1]));
                         $value[1] = str_replace('+84','0',$value[1]);
+
+                        if($value[1][0]!='0'){
+                            $value[1] = '0'.$value[1];
+                        }
 
                         $conditions = ['phone'=>$value[1]];
                         $checkPhone = $modelCustomer->find()->where($conditions)->first();

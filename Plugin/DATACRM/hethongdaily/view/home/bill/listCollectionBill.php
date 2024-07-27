@@ -22,7 +22,7 @@
             <input type="hidden" class="form-control" name="id_member_buy" id="id_member_buy" value="<?php if(!empty($_GET['id_member_buy'])) echo $_GET['id_member_buy'];?>">
           </div>
           <div class="col-md-3">
-            <label class="form-label">Tên Khách hàng</label>
+            <label class="form-label">Tên khách hàng</label>
             <input type="text" class="form-control" name="customer_buy" id="customer_buy" value="<?php if(!empty($_GET['customer_buy'])) echo $_GET['customer_buy'];?>">
             <input type="hidden" class="form-control" name="id_customer" id="id_customer" value="<?php if(!empty($_GET['s'])) echo $_GET['id_customer'];?>">
           </div>
@@ -89,12 +89,11 @@
                 <th>ID</th>
                 <th>Thời gian</th>
                 <th>Thông tin</th>
-                <th>đối tượng</th>
-                <th>hinh thức</th>
+                <th>Đối tượng</th>
+                <th>Hình thức</th>
                 <th>Số tiền</th>
                 <th>Nội dung</th>
-                <!-- <th>Sửa</th> -->
-                <th>in</th>
+                <th>In phiếu</th>
               </tr>
             </thead>
             <tbody>
@@ -157,7 +156,7 @@
                   }
                 }else{
                   echo '<tr>
-                          <td colspan="10" align="center">Chưa có phiếu chi nào</td>
+                          <td colspan="10" align="center">Chưa có phiếu thu nào</td>
                         </tr>';
                 }
               ?>
@@ -187,11 +186,11 @@
                   }elseif($item->type_collection_bill=='chuyen_khoan'){
                     $type_collection_bill = 'Chuyển khoản';
                   }elseif($item->type_collection_bill=='the_tin_dung'){
-                    $type_collection_bill = 'Thẻ tin dụng';
+                    $type_collection_bill = 'Thẻ tín dụng';
                   }elseif($item->type_collection_bill=='vi_dien_tu'){
-                    $type_collection_bill = 'ví điện tử';
+                    $type_collection_bill = 'Ví điện tử';
                   }elseif($item->type_collection_bill=='hinh_thuc_khac'){
-                    $type_collection_bill = 'hình thức khác';
+                    $type_collection_bill = 'Hình thức khác';
                   }
 
                   $info = '';
@@ -279,14 +278,14 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header form-label border-bottom">
-          <h5 class="modal-title" id="exampleModalLabel1">Thêm mới phiêu thu</h5>
+          <h5 class="modal-title" id="exampleModalLabel1">Thêm mới phiếu thu</h5>
           <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="addCollectionBill" method="GET">
           <div class="modal-footer">
             <!-- <input type="hidden" value="<?php echo $items->id; ?>"  name="id"> -->
            <div class="col-md-12">
-              <label class="form-label">Số tiền chi</label>
+              <label class="form-label">Số tiền thu</label>
               <input type="number" value="" class="form-control" placeholder="" name="total">
             </div>
             <div class="col-md-12">
@@ -301,11 +300,11 @@
               </select>
             </div>
             <div class="col-md-12">
-              <label class="form-label">Nội dung trả </label>
+              <label class="form-label">Nội dung thu tiền </label>
               <textarea  class="form-control" rows="5" name="note"></textarea>
             </div>
             <div class="col-md-4">
-              <button type="submit" class="btn btn-primary">Thanh thoán</button>
+              <button type="submit" class="btn btn-primary">Thanh toán</button>
             </div>
           </div>
         </form>

@@ -3,6 +3,7 @@
 
 	// fix bug
 	$routesPlugin['fixBug']= 'hethongdaily/view/api/fixBug.php';
+	$routesPlugin['fixPhoneCustomer']= 'hethongdaily/view/api/fixPhoneCustomer.php';
 
 	// apis
 	$routesPlugin['getListPositionAPI']= 'hethongdaily/view/api/getListPositionAPI.php';

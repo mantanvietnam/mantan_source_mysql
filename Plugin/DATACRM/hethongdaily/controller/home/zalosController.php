@@ -262,6 +262,35 @@ function sendNotificationMobile($input)
 		        				}
 		        			}
 		        		}
+	        		}else{
+	        			// tất cả các nhóm
+	        			$join = [
+						            [
+						                'table' => 'category_connects',
+						                'alias' => 'CategoryConnects',
+						                'type' => 'LEFT',
+						                'conditions' => [
+						                    'Customers.id = CategoryConnects.id_parent'
+						                ],
+						            ]
+						        ];
+
+						$select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+
+						$conditions = array('CategoryConnects.id_category'=>$session->read('infoUser')->id, 'CategoryConnects.keyword'=>'member_customers');
+
+	        			$listCustomers = $modelCustomers->find()->join($join)->select($select)->where($conditions)->all()->toList();
+
+	        			if(!empty($listCustomers)){
+	        				foreach ($listCustomers as $key => $value) {
+	        					// danh sách token
+		                    	$listToken = $modelTokenDevices->find()->where(['id_customer'=>$value->id])->all()->toList();
+
+		                        if(!empty($listToken)){
+		                        	$listTokenDevice += $listToken;
+		                    	}
+	        				}
+	        			}
 	        		}
 	        	}elseif($dataSend['type_user'] == 'member_position'){
 	        		if(!empty($dataSend['id_position'])){
@@ -447,6 +476,23 @@ function sendMessZaloZNS($input)
 				        				}
 				        			}
 				        		}
+			        		}else{
+			        			$join = [
+								            [
+								                'table' => 'category_connects',
+								                'alias' => 'CategoryConnects',
+								                'type' => 'LEFT',
+								                'conditions' => [
+								                    'Customers.id = CategoryConnects.id_parent'
+								                ],
+								            ]
+								        ];
+
+								$select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+
+								$conditions = array('CategoryConnects.id_category'=>$session->read('infoUser')->id, 'CategoryConnects.keyword'=>'member_customers');
+
+			        			$listCustomers = $modelCustomers->find()->join($join)->select($select)->where($conditions)->all()->toList();
 			        		}
 			        	}elseif($dataSend['type_user'] == 'member_position'){
 			        		if(!empty($dataSend['id_position'])){
@@ -505,7 +551,7 @@ function sendMessZaloZNS($input)
                                             $numberSend ++;
                                         }elseif($returnZalo['error']!=0){
                                             $mess = $returnZalo['message'];
-                                            echo $mess;die;
+                                            echo $mess;
                                         }
                                     }else{
                                     	$mess= '<p class="text-danger">Nhập thiếu giá trị biến hoặc sai định dạng số điện thoại '.$customer->phone.'</p>';

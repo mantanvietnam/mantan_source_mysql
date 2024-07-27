@@ -57,4 +57,37 @@ function fixBug()
 	// fix lỗi đội nhóm
 
 }
+
+function fixPhoneCustomer($input)
+{
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Danh sách khách hàng';
+
+        $modelCustomers = $controller->loadModel('Customers');
+
+        $allCustomer = $modelCustomers->find()->where()->all()->toList();
+        $number = 0;
+
+        if(!empty($allCustomer)){
+        	foreach ($allCustomer as $key => $value) {
+        		if($value->phone[0]!='0'){
+                    $value->phone = '0'.$value->phone;
+
+                    $modelCustomers->save($value);
+
+                    $number++;
+                }
+        	}
+        }
+    }
+
+    echo $number;die;
+}
 ?>
