@@ -1,0 +1,367 @@
+/* Reset CSS cho body và html */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-width: 100%;
+  min-height: 100vh;
+  font-family: "Roboto", sans-serif; /* Thay thế bằng font-family bạn muốn */
+  background: linear-gradient(to bottom, #ff4500, #ff8c00, #ffffff); /* Thay thế bằng màu nền bạn muốn */
+  color: #333; /* Thay thế bằng màu chữ bạn muốn */
+  overflow-x: hidden;
+}
+
+/* Thiết lập các thuộc tính cơ bản cho body */
+body {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.container {
+  width: 388px;
+  height: auto;
+  background-color:#E5E5E5;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Home */
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.home-header {
+  height: 302px;
+  width: 365px;
+  background-image: url('assets/images/header.png');
+  background-size: cover; /* Hoặc 'contain' tùy thuộc vào nhu cầu của bạn */
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.avt-container {
+  width: 100px;
+  height: 100px;
+  border: 2px solid white;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avt-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-name {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.home-cty {
+  color: #FFFFFF;
+  font-size: 18px;
+}
+
+.home-title {
+  font-size: 18px;
+  color: #FFFFFF;
+  font-family: "Dancing Script", sans-serif;
+}
+
+.home-phone {
+  display: flex;
+  gap: 4px;
+  color: #FFFFFF;
+  font-weight: 300;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-footer {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-save {
+  background-color: #FF5C00;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Hiệu ứng box-shadow */
+  height: 40px;
+  font-weight: 500;
+}
+
+.btn-save svg {
+  color: white;
+  margin-left: 4px;
+}
+
+.btn-save a {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+
+/*Home body*/
+
+.home-body {
+ margin-top: 21px;
+ display: flex;
+ flex-direction: column;
+ gap: 16px;
+ padding-bottom: 100px;
+}
+
+.body-action {
+  padding: 9px;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  text-decoration: none;
+  border-radius: 5px;
+  color: #333;
+  gap: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.logo-container {
+ width: 50px;
+ height: 50px;
+ overflow: hidden;
+ border-radius: 50%;
+}
+
+.logo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.action-text {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  line-height: 4px;
+  gap: 3px;
+}
+
+.action-text .text {
+  font-family: "Dancing Script", sans-serif;
+  font-size: 20px;
+}
+
+/*tabs*/
+.tabs{
+  position: fixed;
+  display: flex;
+  text-align: center;
+  z-index: 1000;
+  bottom: 0;
+  width: 100%;
+  justify-content: center;
+}
+
+.tabs .nav-tabs{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: 'Oswald';
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #FF5C00;
+  width: 380px;
+  height: 70px;
+
+}
+
+.tabs .nav-tabs li a{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: white;
+  border: 2px solid #DDD;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.tabs .nav-tabs li a:active{
+  background-color: white;
+  color: #FF5C00;
+}
+
+
+/*Sản phẩm*/
+
+#menu_2 {
+  margin-bottom: 80px;
+}
+
+.products-body {
+  margin-top: 25px;
+  width: 365px;
+}
+
+.products-body .product {
+  margin-top: 25px;
+  background-color: #FFFFFF;
+  height: 135px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  gap: 15px;
+}
+
+.product-image-container {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #FF5C00;
+}
+
+.product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.check-input {
+  text-align: center;
+}
+
+.check-input input {
+  width: 14px;
+  height: 14px;
+}
+
+.product-des {
+  font-size: 16px;
+  font-weight: 500;
+  word-wrap: break-word; /* Cho phép từ ngắt và xuống dòng */
+  white-space: normal; /* Đảm bảo không làm ngắt từ quá ngắn */
+  width: 180px;
+  text-align: start;
+  text-wrap: balance;
+}
+
+.qty-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  max-width: 150px; /* Điều chỉnh độ rộng tối đa của input số lượng */
+  margin: 0 auto; /* Căn giữa phần tử */
+}
+
+.qty-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px; /* Điều chỉnh độ rộng của nút + và - */
+  height: 30px; /* Điều chỉnh chiều cao của nút + và - */
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.qty-count:hover {
+  background-color: #e0e0e0;
+}
+
+.product-qty {
+  flex: 1; /* Cân chỉnh input số lượng để chiếm hết không gian còn lại */
+  text-align: center; /* Căn giữa nội dung trong input */
+  font-size: 12px; /* Điều chỉnh kích thước chữ */
+  padding: 5px; /* Điều chỉnh padding cho input */
+  border: 1px solid #ccc;
+}
+
+.qty-count:active {
+  background-color: #d0d0d0;
+}
+
+.btn-buy {
+  bottom: 10px;
+  width: 100%;
+  margin: 20px auto; /* Căn giữa nút theo chiều ngang và đứng */
+  padding: 10px 20px; /* Điều chỉnh khoảng cách padding của nút */
+  background-color: #FF5C00; /* Màu nền */
+  text-align: center; /* Căn giữa nội dung nút */
+  border: none;
+  border-radius: 5px; /* Bo tròn góc */
+  cursor: pointer;
+}
+.btn-buy a {
+  text-decoration: none;
+  color: #fff; /* Màu chữ */
+  font-size: 16px; /
+}
+
+/*  <!--Costomer field-->*/
+#menu_3 {
+  margin-top: 20px;
+}
+
+.form-info {
+  background-color: #FFFFFF;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.btn-submit {
+  bottom: 10px;
+  width: 100%;
+  margin: 20px auto; /* Căn giữa nút theo chiều ngang và đứng */
+  padding: 10px 20px; /* Điều chỉnh khoảng cách padding của nút */
+  background-color: #FF5C00; /* Màu nền */
+  color: #fff; /* Màu chữ */
+  font-size: 16px; /* Kích thước chữ */
+  text-align: center; /* Căn giữa nội dung nút */
+  border: none;
+  border-radius: 5px; /* Bo tròn góc */
+  cursor: pointer;
+}
+
+/*menu 4*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+  word-break: break-word;
+}

@@ -982,6 +982,7 @@ function listThemeInfo(){
         ['id' => 6, 'name' => 'Theme info 6 ', 'code' => 'themeifo6', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them6.png','price'=>499000],
         ['id' => 7, 'name' => 'Theme info 7 ', 'code' => 'themeifo7', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them7.png','price'=>499000],
         ['id' => 8, 'name' => 'Theme info 8 ', 'code' => 'themeifo8', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them8.png','price'=>499000],
+        ['id' => 9, 'name' => 'Theme info 9 ', 'code' => 'themeifo9', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them9.png','price'=>499000],
 
     ];
 }

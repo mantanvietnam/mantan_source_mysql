@@ -761,4 +761,98 @@ function lockCustomerAgency($input)
         return $controller->redirect('/login');
     }
 }
+
+function resultMMTC($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $session;
+
+    $dataSend = $_GET;
+
+    
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Tải thần số học khách hàng';
+
+        $modelCustomers = $controller->loadModel('Customers');
+
+        if(!empty($_GET['id_customer'])){
+              $infoCustomer = $modelCustomers->find()->where(['id'=>(int) $_GET['id_customer']])->first();
+
+            if(!empty($infoCustomer)){
+                // chuẩn hóa dữ liệu
+                $dataSend['day'] = (int) $infoCustomer->birthday_date;
+                $dataSend['month'] = (int) $infoCustomer->birthday_month;
+                $dataSend['year'] = (int) $infoCustomer->birthday_year;
+                
+                $dataSend['birthday'] = $dataSend['day'].'/'.$dataSend['month'].'/'.$dataSend['year'];
+                $dataSend['phone']= str_replace(array(' ','.','-'), '', @$infoCustomer->phone);
+                $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+                if($dataSend['day']<1 || $dataSend['day']>31 || $dataSend['month']<1 || $dataSend['month']>12 || $dataSend['year']<1900 || $dataSend['year']>2124){
+                    return $controller->redirect('/?error=birthday');
+                }
+
+                if(strlen($dataSend['phone']) != 10){
+                    return $controller->redirect('/?error=phone');
+                }
+
+                $age = 0;
+                $date = new \DateTime($dataSend['year'].'/'.$dataSend['month'].'/'.$dataSend['day']);
+                $now = new \DateTime();
+                $diff = $now->diff($date);
+                $age = $diff->y + 1;
+
+                $tach_year = str_split($dataSend['year']);
+                $data_year = implode(' + ', $tach_year);
+                $kq_year = ketquapheptinhcong($tach_year);
+
+                $tach_day = str_split($dataSend['day']);
+                $data_day = implode(' + ', $tach_day);
+                $kq_day = ketquapheptinhcong($tach_day);
+
+                $tach_month = str_split($dataSend['month']);
+                $data_month = implode(' + ', $tach_month);
+                $kq_month = ketquapheptinhcong($tach_month);
+
+                $consoduongdoi = ketquapheptinhcong([$kq_day, $kq_month, $kq_year]);
+
+                $url = 'https://quantri.matmathanhcong.vn/api/Calculate?customer_birthdate='.$dataSend['day'].'/'.$dataSend['month'].'/'.$dataSend['year'].'&customer_name='.urlencode($infoCustomer->full_name);
+                
+                try {
+                    $infoNumber = file_get_contents($url);
+                } catch (Exception $e) {
+                    return $controller->redirect('/?error=api_error');
+
+                    echo "Đã xảy ra lỗi: " . $e->getMessage();
+                }
+                
+                $infoNumber = json_decode($infoNumber, true);
+
+                $full_number = array_merge($tach_year,$tach_month, $tach_day);
+
+                debug($full_number);
+                debug($infoNumber);
+                die();
+
+
+
+                setVariable('age', $age);
+                setVariable('data_year', $data_year);
+                setVariable('kq_year', $kq_year);
+                setVariable('data_day', $data_day);
+                setVariable('kq_day', $kq_day);
+                setVariable('data_month', $data_month);
+                setVariable('kq_month', $kq_month);
+                setVariable('consoduongdoi', $consoduongdoi);
+                setVariable('full_number', $full_number);
+                setVariable('infoNumber', @$infoNumber['Result']);
+            }else{
+                return $controller->redirect('/?error=empty');
+            }
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

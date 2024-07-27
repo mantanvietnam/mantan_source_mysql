@@ -20,6 +20,28 @@ $(document).ready(function () {
     return false;
   });
 
+/*  $(".qty-count--add").click(function () {
+    var currentValue = parseInt($(this).siblings(".product-qty").val());
+    var newValue = currentValue + 1;
+
+    if (newValue > 10) {
+      newValue = 10;
+    }
+
+    $(this).siblings(".product-qty").val(newValue);
+  });
+
+  $(".qty-count--minus").click(function () {
+    var currentValue = parseInt($(this).siblings(".product-qty").val());
+    var newValue = currentValue - 1;
+
+    // Giới hạn giá trị tối thiểu
+    if (newValue < 0) {
+      newValue = 0;
+    }
+
+    $(this).siblings(".product-qty").val(newValue);
+  });*/
 });
 
 $(document).ready(function () {
@@ -55,12 +77,11 @@ $(document).ready(function () {
 });
 
 // datepicker
-$(document).ready(function() {
+/*$(document).ready(function() {
   // Chọn đối tượng input để áp dụng Datepicker
   $('#datepicker').datepicker({
       dateFormat: 'dd/mm/yy',  // Định dạng ngày tháng năm (ngày/tháng/năm)
       changeMonth: true,  // Cho phép thay đổi tháng
       changeYear: true    // Cho phép thay đổi năm
   });
-});
-
+});*/

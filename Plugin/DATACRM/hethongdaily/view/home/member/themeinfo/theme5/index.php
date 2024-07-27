@@ -19,7 +19,12 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
   </style>
-  <title>Trần Mạnh - Ezpics</title>
+<link rel="icon" type="image/x-icon" href="<?php echo $info->image_system;?>" />
+        <?php 
+            mantan_header();
+
+            if(function_exists('showSeoHome')) showSeoHome();
+        ?>
 </head>
 
 <body>
