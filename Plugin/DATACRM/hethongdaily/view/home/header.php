@@ -227,7 +227,7 @@
                       </li>';
               }elseif(in_array('order_customer', $plugins_site_value) || in_array('order_system', $plugins_site_value)){
                 echo '<li class="nav-item">
-                        <a class="dropdown-item" href="/listDiscountCodeAgency">Mã giảm giá</a>
+                        <a class="nav-link" href="/listDiscountCodeAgency">Mã giảm giá</a>
                       </li>';
               }
 
@@ -283,12 +283,12 @@
               if(in_array('affiliater', $plugins_site_value)){
                 echo '<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Affiliater
+                          Cộng tác viên
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                           <a class="dropdown-item" href="/listAffiliaterAgency">Thành viên tiếp thị</a>
-                          <a class="dropdown-item" href="/listTransactionAffiliaterAgency">Lịch sử  tiếp thị</a>
+                          <a class="dropdown-item" href="/listTransactionAffiliaterAgency">Lịch sử thanh toán</a>
                           <a class="dropdown-item" href="/settingAffiliateAgency">Cài đặt hoa hồng</a>
                         </div>
                       </li>';
