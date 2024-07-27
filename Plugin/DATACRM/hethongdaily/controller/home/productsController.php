@@ -955,7 +955,7 @@ function addProductAgency($input)
         setVariable('data', $data);
         setVariable('mess', $mess);
         setVariable('listCategory', $listCategory);
-        setVariable('listCategory', $listCategory);
+        setVariable('listCategoryCheck', $listCategoryCheck);
         setVariable('listUnitConversion', $listUnitConversion);
         setVariable('listManufacturer', $listManufacturer);
     }else{

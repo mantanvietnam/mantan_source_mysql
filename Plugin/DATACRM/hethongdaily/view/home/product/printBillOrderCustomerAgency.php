@@ -181,31 +181,31 @@
                                 modal: true,
                                 close: closeFunction,
                                 buttons: {
-                                  "In hóa đơn": function() {
-                                    $( this ).dialog( "close" );
-                                    window.print();
-                                    window.location= '<?php echo $url; ?>';
-                                },
-                                "tải về máy ": function() {
-                                    $( this ).dialog("close");
-                                    var element = document.getElementById('download');
-                                    var opt = {
-                                        margin:       1,
-                                        height:       'auto',
-                                        filename:     'myfile.pdf',
-                                        image:        { type: 'jpeg', quality: 0.98 },
-                                        html2canvas:  { scale: 2 },
-                                        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-                                    };
+                                    "In hóa đơn": function() {
+                                        $( this ).dialog( "close" );
+                                        window.print();
+                                        window.location= '<?php echo $url; ?>';
+                                    },
+                                    "Tải về máy": function() {
+                                        $( this ).dialog("close");
+                                        var element = document.getElementById('download');
+                                        var opt = {
+                                            margin:       1,
+                                            height:       'auto',
+                                            filename:     'OC<?php echo($order->id); ?>.pdf',
+                                            image:        { type: 'jpeg', quality: 0.98 },
+                                            html2canvas:  { scale: 2 },
+                                            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                                        };
 
-                                    // Gọi hàm html2pdf để chuyển đổi và tải về PDF
-                                    html2pdf().from(element).set(opt).save();
-                                },
-                                Cancel: function() {
+                                        // Gọi hàm html2pdf để chuyển đổi và tải về PDF
+                                        html2pdf().from(element).set(opt).save();
+                                    },
+                                    "Hủy bỏ": function() {
                                       //$( this ).dialog( "close" );
                                       window.location= '<?php echo $url; ?>';
-                                  }
-                              }
+                                    }
+                                }
                           });
         </script>
     </body>

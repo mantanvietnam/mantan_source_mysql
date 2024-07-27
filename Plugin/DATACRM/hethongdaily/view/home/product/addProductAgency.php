@@ -197,7 +197,7 @@
                             </table> 
 
                             <div class="form-group mb-3 col-md-12">
-                              <button type="button" class="btn btn-danger" onclick="return addRowlink();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm link</button>
+                              <button type="button" class="btn btn-danger" onclick="return addRowlink();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm đơn vị</button>
                             </div>
                           </div>
                         </div>

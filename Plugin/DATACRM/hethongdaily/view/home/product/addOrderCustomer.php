@@ -272,13 +272,18 @@
                                     </li>
 
                                     <li>
-                                        <span>Khách mua hàng (*)</span>
-                                        
-                                        <span><input class="per-bh form-control" type="text" name="customer_buy" id="customer_buy" placeholder="Nhập tên hoặc SĐT" value="" autocomplete="off" required /></span>
+                                        <span>
+                                            Khách mua hàng (*) 
+                                            <a href="javascript:void(0);" onclick="showAddCustom();" title="Thêm khách hàng mới" class="btn btn-primary">
+                                                <i class="bx bx-plus"></i>
+                                            </a>
+                                        </span>
+
+                                        <span>
+                                            <input class="per-bh form-control" type="text" name="customer_buy" id="customer_buy" placeholder="Nhập tên hoặc SĐT" value="" autocomplete="off" required />
+                                        </span>
                                         <input type="hidden" name="id_customer" id="id_customer" value="0">
-                                        <a href="javascript:void(0);" onclick="showAddCustom();" title="Thêm khách hàng mới" class="btn btn-primary">
-                                            <i class="bx bx-plus"></i>
-                                        </a>
+                                        
                                     </li>
 
                                     <li>

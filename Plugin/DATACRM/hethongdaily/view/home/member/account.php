@@ -315,7 +315,7 @@
                                   }
 
                                   echo '<div class="col-md-4">
-                                        <img src="'.$item['image'].'" style="width: 100%; height:550px;"/>
+                                        <img src="'.$item['image'].'" style="width: 100%; height:800px;"/>
                                         <div style=" text-align: center; font-size: 20px; padding: 10px 0; ">
                                         <a>Giá : '.number_format($item['price']).'đ</p>
                                         '.$status.'
@@ -360,7 +360,7 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-                  <img src="<?php echo $item['image']?>" style="width: 100%; height:550px;"/>
+                  <img src="<?php echo $item['image']?>" style="width: 100%; height:800px;"/>
                 <div style=" text-align: center; font-size: 20px; padding: 10px 0; ">
                   <p>Giá : <?php echo number_format($item['price']) ?>đ</p>
                 </div>
@@ -387,7 +387,7 @@
           <form enctype="multipart/form-data" method="post" action="editThemeinfo">
             <div class="row">
             <div class="col-md-6">
-                  <img src="<?php echo $item['image']?>" style="width: 100%; height:550px;"/>
+                  <img src="<?php echo $item['image']?>" style="width: 100%;"/>
                 <div style=" text-align: center; font-size: 20px; padding: 10px 0; ">
                   <p>Giá : <?php echo number_format($item['price']) ?>đ</p>
                 </div>
