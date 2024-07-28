@@ -35,6 +35,8 @@
 	$routesPlugin['detail']= 'ezpics_designer/view/home/product/detailProduct.php';
 	$routesPlugin['detail-series']= 'ezpics_designer/view/home/product/detailSeries.php';
 	$routesPlugin['create-image-series']= 'ezpics_designer/view/home/product/createImageSeries.php';
+	$routesPlugin['renderImageFromRabbitMQ']= 'ezpics_designer/view/home/product/renderImageFromRabbitMQ.php';
+
 	$routesPlugin['designer']= 'ezpics_designer/view/home/designer/detailDesigner.php';
 
 	// khách hàng

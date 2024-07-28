@@ -743,9 +743,11 @@ function createImageSeries($input)
 	global $ftp_password_upload_image;
 	global $response;
 	global $urlCurrent;
+	global $urlHomes;
 	
 	$modelProduct = $controller->loadModel('Products');
 	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelRenderImage = $controller->loadModel('RenderImages');
 
 	$dataImage = '';
 	//var_dump($urlCurrent);
@@ -842,63 +844,65 @@ function createImageSeries($input)
 	        	$height = $product->height;
 	        }
 
-			// dùng api flash api
-			//$dataImage = screenshotAPIFlash($urlThumb, $product->width, $product->height);
-			$dataImage = false;
+	        // dùng tool xuất ảnh tự code
+			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
+			$fileName = 'render_'.$product->id.'_'.time().'_'.rand(0,100000).'.jpg';
+
+			// lưu yêu cầu vào database
+			$saveRequest = $modelRenderImage->newEmptyEntity();
+
+			$saveRequest->url = $url;
+			$saveRequest->fileName = $fileName;
+			$saveRequest->create_at = time();
+			$saveRequest->render_at = 0;
+			$saveRequest->linkOnline = '';
+			$saveRequest->listRemoveImage = json_encode($listRemoveImage);
+
+			$modelRenderImage->save($saveRequest);
+
+			// chuyển yêu cầu render sang rabbitmq
+			$rabbitMQClient = new RabbitMQClient();
+
+			$requestMessage = json_encode([	'url' => $url, 
+											'listRemoveImage' => $listRemoveImage,
+											'fileName' => $fileName,
+											'id_request' => $saveRequest->id
+										]);
 			
-			if($dataImage === false){
-				// dùng tool xuất ảnh tự code
-				$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
-				
-				$dataImage = sendDataConnectMantan($url);
-				//$dataImage = file_get_contents($url);
+			$rabbitMQClient->sendMessage('render_image_requests', $requestMessage);
 
-				$imageData = base64_decode($dataImage);
-			}else{
-				$imageData = $dataImage;
-			}
+			setVariable('linkImageRender', $urlHomes.'/upload/admin/images/render_images/'.$fileName);
 
-	        // dùng siterelic api
-			// $urlImage = screenshotProduct($urlThumb, $width, $height);
-			// $dataImage = base64_encode(file_get_contents($urlImage));
-
-			// dùng screenshotmachine api
-			//$urlImage = screenshotProduct2($urlThumb, $width, $height);
-			//$dataImage = base64_encode(file_get_contents($urlImage));
-
-	        // xóa ảnh người dùng up lên sau khi chụp xong
-	        if(!empty($listRemoveImage)){
-	        	foreach ($listRemoveImage as $item) {
-	        		removeFileFTP($item, $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image);
-	        	}
-	        }
-
-	        /*
-	        if(!empty($_GET['id'])){ 
-	        	//$dataImage = compressImageBase64($dataImage);
-
-				// Kiểm tra nếu dữ liệu ảnh hợp lệ
-				if ($imageData !== false) {
-					header('Content-Type: image/png');
-					echo $imageData;
-					$controller->autoRender = false;
-				}
-	        }else{
-	        	$dataImage = 'data:image/png;base64,'.$dataImage;
-	        }
-	        */
-
-	        header('Content-Type: image/png');
-			echo $imageData;
-			$controller->autoRender = false;
 		}
-		
-		setVariable('dataImage', $dataImage);
+
 		setVariable('id', $id);
 		setVariable('slug', @$product->slug);
 	}else{
 		return $controller->redirect('https://ezpics.vn');
 	}
+}
+
+function renderImageFromRabbitMQ($input)
+{
+	// lấy yêu cầu từ rabbitmq
+	$rabbitMQClient = new RabbitMQClient();
+
+	$callback = function ($msg) {
+		
+
+        $messageBody = $msg->body;
+        
+
+        // Xử lý tin nhắn ở đây
+        $data = json_decode($messageBody, true);
+
+        renderImageRabbit($data);
+    };
+
+	// Tiêu thụ tin nhắn từ hàng đợi 'render_image_requests'
+    //$rabbitMQClient->consumeMessage('render_image_requests', $callback);
+    $rabbitMQClient->consumeMessageLimitTime('render_image_requests', $callback, 60);
+    //$rabbitMQClient->consumeOneMessage('render_image_requests', $callback);
 }
 
 function addDataSeries($input)

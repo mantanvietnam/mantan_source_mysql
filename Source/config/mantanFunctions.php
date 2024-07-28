@@ -15,6 +15,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Channel\AMQPChannel;
 
 /**********************************************************
  *  Các file đã sửa
@@ -1074,6 +1077,82 @@ function createZipFromBase64Images($base64Images=[], $fileZip='zipImage')
     // Dừng xử lý của CakePHP
     $controller->autoRender = false;
 	   
+}
+
+require_once __DIR__ . '/../library/php-amqplib/vendor/autoload.php';
+
+class RabbitMQClient
+{
+    private $connection;
+    private $channel;
+
+    public function __construct()
+    {
+        $this->connection = new AMQPStreamConnection('172.16.33.6', 5672, 'guest', 'guest');
+        $this->channel = $this->connection->channel();
+    }
+
+    public function sendMessage($queueName, $messageBody)
+    {
+        $this->channel->queue_declare($queueName, false, false, false, false);
+        $msg = new AMQPMessage($messageBody);
+        $this->channel->basic_publish($msg, '', $queueName);
+    }
+
+    public function consumeMessageLimitTime($queueName, $callback, $timeout = 5)
+	{
+	    $this->channel->queue_declare($queueName, false, false, false, false);
+	    $this->channel->basic_consume($queueName, '', false, true, false, false, $callback);
+
+	    while ($this->channel->is_consuming()) {
+	        try {
+	            // Chờ message với timeout
+	            $this->channel->wait(null, false, $timeout);
+	        } catch (\PhpAmqpLib\Exception\AMQPTimeoutException $e) {
+	            // Nếu timeout, dừng việc tiêu thụ message
+	            echo "No messages in queue for {$timeout} seconds, stopping...\n";
+	            break;
+	        }
+	    }
+	}
+
+	public function consumeOneMessage($queueName, $callback)
+	{
+	    $this->channel->queue_declare($queueName, false, false, false, false);
+
+	    try {
+	        $message = $this->channel->basic_get($queueName);
+
+	        if ($message) {
+	            $callback($message);
+	            $this->channel->basic_ack($message->delivery_info['delivery_tag']);
+	        } else {
+	            echo "No messages in queue\n";
+	        }
+	    } catch (\Exception $e) {
+	        echo "Error: " . $e->getMessage() . "\n";
+	    }
+
+	    $this->channel->close();
+	    $this->connection->close();
+	}
+
+	
+    public function consumeMessage($queueName, $callback)
+    {
+        $this->channel->queue_declare($queueName, false, false, false, false);
+        $this->channel->basic_consume($queueName, '', false, true, false, false, $callback);
+
+        while($this->channel->is_consuming()) {
+            $this->channel->wait();
+        }
+    }
+
+    public function __destruct()
+    {
+        $this->channel->close();
+        $this->connection->close();
+    }
 }
 
 ?>

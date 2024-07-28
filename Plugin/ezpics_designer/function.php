@@ -5,8 +5,8 @@ global $urlCreateImage;
 global $ftp_server_upload_image;
 global $ftp_username_upload_image;
 global $ftp_password_upload_image;
-global $ftp_password_upload_image;
 global $price_warehouses;
+
 $ftp_server_upload_image = "103.74.123.202";
 $ftp_username_upload_image = "ezpics";
 $ftp_password_upload_image = "uImzVeNYgF";
@@ -451,5 +451,51 @@ function getColor(){
          ['name'=>'Silver','code'=>'#C0C0C0'],
          ['name'=>'Orange','code'=>'#FF6D01'],
     );
+}
+
+function renderImageRabbit($data)
+{
+    global $controller;
+    global $urlHomes;
+    global $ftp_server_upload_image;
+    global $ftp_username_upload_image;
+    global $ftp_password_upload_image;
+
+    $modelRenderImage = $controller->loadModel('RenderImages');
+
+    $imageData = '';
+
+    if(!empty($data['url']) && !empty($data['id_request'])){
+        $dataImage = sendDataConnectMantan($data['url']);
+
+        $imageData = base64_decode($dataImage);
+
+        // xóa ảnh người dùng up lên sau khi chụp xong
+        if(!empty($data['listRemoveImage'])){
+            foreach ($data['listRemoveImage'] as $item) {
+                removeFileFTP($item, $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image);
+            }
+        }
+
+        // lưu ảnh vào file
+        $filePath = __DIR__.'/../../upload/admin/images/render_images/'.$data['fileName'];
+        file_put_contents($filePath, $imageData);
+
+        // cập nhập database
+        $requestRender = $modelRenderImage->find()->where(['id'=>(int) $data['id_request']])->first();
+
+        if(!empty($requestRender)){
+            $requestRender->linkOnline = $urlHomes.'upload/admin/images/render_images/'.$data['fileName'];
+            $requestRender->render_at = time();
+
+            $modelRenderImage->save($requestRender);
+        }
+        /*
+        header('Content-Type: image/png');
+        echo $imageData;
+        $controller->autoRender = false;
+        die;
+        */
+    }
 }
 ?>
