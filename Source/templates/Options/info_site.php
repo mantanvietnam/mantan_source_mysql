@@ -159,6 +159,36 @@
           </div>
         </div>
 
+        <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Cài đặt RabbitMQ</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">IP máy chủ</label>
+                  <input type="text" class="form-control" name="rabbitmq_ip" value="<?php echo @$rabbitmq_value['ip'];?>" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Cổng kết nối</label>
+                  <input type="text" class="form-control" name="rabbitmq_port" placeholder="5672" value="<?php echo @$rabbitmq_value['port'];?>" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Tài khoản</label>
+                  <input type="text" class="form-control" name="rabbitmq_user" value="<?php echo @$rabbitmq_value['user'];?>" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Mật khẩu</label>
+                  <input type="text" class="form-control" name="rabbitmq_pass" value="<?php echo @$rabbitmq_value['pass'];?>" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+          </div>
+        </div>
       </div>
     <?= $this->Form->end() ?>
   </div>

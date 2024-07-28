@@ -1088,8 +1088,27 @@ class RabbitMQClient
 
     public function __construct()
     {
-        $this->connection = new AMQPStreamConnection('172.16.33.6', 5672, 'guest', 'guest');
-        $this->channel = $this->connection->channel();
+    	global $modelOptions;
+
+    	$conditions = array('key_word' => 'rabbitmq');
+        $rabbitmq = $modelOptions->find()->where($conditions)->first();
+
+        if(!empty($rabbitmq->value)){
+            $rabbitmq_value = json_decode($rabbitmq->value, true);
+
+            if(	!empty($rabbitmq_value['ip']) && 
+            	!empty($rabbitmq_value['port']) && 
+            	!empty($rabbitmq_value['user']) && 
+            	!empty($rabbitmq_value['pass'])
+        	){
+            	$this->connection = new AMQPStreamConnection($rabbitmq_value['ip'], $rabbitmq_value['port'], $rabbitmq_value['user'], $rabbitmq_value['pass']);
+        		$this->channel = $this->connection->channel();
+        	}else{
+        		echo 'Yêu cầu cài đặt cấu hình RabbitMQ trước khi kết nối';die;
+        	}
+        }else{
+        	echo 'Yêu cầu cài đặt cấu hình RabbitMQ trước khi kết nối';die;
+        }
     }
 
     public function sendMessage($queueName, $messageBody)

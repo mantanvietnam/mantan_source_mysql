@@ -44,6 +44,12 @@ class OptionsController extends AppController{
             $seo_site = $modelOptions->newEmptyEntity();
         }
 
+        $conditions = array('key_word' => 'rabbitmq');
+        $rabbitmq = $modelOptions->find()->where($conditions)->first();
+        if(empty($rabbitmq)){
+            $rabbitmq = $modelOptions->newEmptyEntity();
+        }
+
         if ($this->request->is('post')) {
             $dataSend = $this->request->getData();
 
@@ -77,6 +83,18 @@ class OptionsController extends AppController{
             $contact_site->value = json_encode($value);
 
             $modelOptions->save($contact_site);
+
+            // lưu cài đặt rabbitmq
+            $value = array( 'ip' => $dataSend['rabbitmq_ip'],
+                            'port' => $dataSend['rabbitmq_port'],
+                            'user' => $dataSend['rabbitmq_user'],
+                            'pass' => $dataSend['rabbitmq_pass'],
+                        );
+
+            $rabbitmq->key_word = 'rabbitmq';
+            $rabbitmq->value = json_encode($value);
+
+            $modelOptions->save($rabbitmq);
 
             // lưu smtp site
             $value = array( 'email' => $dataSend['smtp_email'],
@@ -128,9 +146,15 @@ class OptionsController extends AppController{
             $smtp_site_value = json_decode($smtp_site->value, true);
         }
 
+        $rabbitmq_value = array();
+        if(!empty($rabbitmq->value)){
+            $rabbitmq_value = json_decode($rabbitmq->value, true);
+        }
+
         $this->set('contact_site_value', $contact_site_value);
         $this->set('smtp_site_value', $smtp_site_value);
         $this->set('seo_site_value', $seo_site_value);
+        $this->set('rabbitmq_value', $rabbitmq_value);
         
         $this->set('mess', $mess);
     }
