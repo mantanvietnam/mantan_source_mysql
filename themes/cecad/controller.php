@@ -83,6 +83,97 @@ function settingHomececad($input){
     setVariable('data', $data_value);
     setVariable('mess', $mess);
 }
+function settingAboutusTheme($input){
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    $metaTitleMantan = 'Cài đặt giao diện About ';
+    $mess= '';
+    $conditions = array('key_word' => 'settingAboutusTheme');
+    
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        $value = array(
+            'bannerhome'=>$dataSend['bannerhome'],
+            'titlebanner1'=>$dataSend['titlebanner1'],
+            'titlebanner2'=>$dataSend['titlebanner2'],
+            'contentbanner'=>$dataSend['contentbanner'],
+            'buttonbanner'=>$dataSend['buttonbanner'],
+// 
+            'contentdeepbanner1'=>$dataSend['contentdeepbanner1'],
+            'titledeepbanner2'=>$dataSend['titledeepbanner2'],
+            'titlesmall'=>$dataSend['titlesmall'],
+            'contentshort1'=>$dataSend['contentshort1'],
+            'titlelarge'=>$dataSend['titlelarge'],
+            'contentshort2'=>$dataSend['contentshort2'],
+// 
+            'imagehome1'=>$dataSend['imagehome1'],
+            'titleimagehome1'=>$dataSend['titleimagehome1'],
+            'imagehome2'=>$dataSend['imagehome2'],
+            'titleimagehome2'=>$dataSend['titleimagehome2'],
+            'imagehome3'=>$dataSend['imagehome3'],
+            'titleimagehome3'=>$dataSend['titleimagehome3'],
+
+
+// 
+            'idslidenumber1'=>$dataSend['idslidenumber1'],
+            'titleidside1'=>$dataSend['titleidside1'],
+            'idslidenumber2'=>$dataSend['idslidenumber2'],
+            'titleidside2'=>$dataSend['titleidside2'],
+
+
+
+        );
+
+        $data->key_word = 'settingAboutusTheme';
+        $data->value = json_encode($value);
+        $modelOptions->save($data);
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    setVariable('data', $data_value);
+    setVariable('mess', $mess);
+}
+function Aboutus($input){
+    global $controller;
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $modelAlbuminfos;
+    global $data;
+    $metaTitleMantan = 'Trang About';
+
+    $conditions = array('key_word' => 'settingAboutusTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+ 
+    $slide_about1 = [];
+    if(!empty($data_value['idslidenumber1'])){
+        $slide_about1 = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidenumber1']])->all()->toList();
+    }
+
+    $slide_about2 = [];
+    if(!empty($data_value['idslidenumber2'])){
+        $slide_about2 = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidenumber2']])->all()->toList();
+    }
+   
+   
+    setVariable('slide_about1', $slide_about1);
+    setVariable('slide_about2', $slide_about2);
+    setVariable('setting', $data_value);
+   
+}
 function indexTheme($input){
     global $modelAlbums;
 	global $modelOptions;
@@ -142,6 +233,18 @@ function categoryPostTheme($input){
     $listDatatop= $modelPosts->find()->limit(12)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
     setVariable('listDatatop2', $listDatatop2);
     setVariable('listDatatop', $listDatatop);
+    setVariable('category_post', $category_post);
+}
+function field($input){
+    global $modelPosts;
+    global $modelCategories;
+    global $category;
+    $conditions = array('type' => 'post');
+    $category_post = $modelCategories->find()->where($conditions)->all()->toList();
+    $order = array('id'=>'desc');
+    
+    $listDatafield= $modelPosts->find()->limit(12)->where(array('pin'=>0, 'type'=>'post'))->order($order)->all()->toList();
+    setVariable('listDatatop', $listDatafield);
     setVariable('category_post', $category_post);
 }
 function categoryAlbumTheme($input)

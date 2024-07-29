@@ -230,8 +230,8 @@
                     </div>
 
                     <div class="home-news-list">
-                    <?php if(!empty($listDataPost)){
-                            foreach($listDataPost as $item){ ?>
+                    <?php if(!empty($listDatatop)){
+                            foreach($listDatatop as $item){ ?>
                         <div class="home-news-items">
                             <a href="<?php echo @$item->slug ?>.html">
                                 <div class="home-news-img">

@@ -314,8 +314,6 @@ table {
 
 /* card-albums */
 
-
-
 .section-card-albums .card-albums-all-information {
     margin-bottom: 30px;
     margin-top: 0;
@@ -412,7 +410,6 @@ table {
     background: #427FE3;
 }
 
-
 .section-detail-albums {
     background-image: url(../images/Background.png);
     background-repeat: no-repeat;
@@ -423,6 +420,7 @@ table {
     padding-left: 100px;
     padding-right: 100px;
 }
+
 .section-detail-albums .list-slide-detail-albums .card-slide-detail-albums img {
     width: 100%;
     height: 100%;
@@ -554,11 +552,18 @@ table {
 
 .section-publication .image-publication {
     width: 100%;
-    height: 335px;
+    height: 100%;
+    position: absolute;
+    left: -100%;
+    top: 0;
+    transition: all ease-in-out 0.2s;
+    z-index: 1;
 }
-.publication-card .image-publication img{
+
+.publication-card .image-publication img {
     object-fit: fill;
 }
+
 .section-publication .publication-title {
     margin-bottom: 50px;
 }
@@ -582,26 +587,28 @@ table {
 }
 
 .section-publication .infor-publication-title {
-    margin-top: 1em;
+    padding: 30px;
 }
 
 .section-publication .infor-publication-title h2 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
-    margin: 12px 0;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
     color: #000;
-    padding: 0 8px;
     text-transform: uppercase;
     line-height: 1.5;
 }
 
 .section-publication .infor-publication-meta {
     padding: 0 12px 0 12px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
 }
 
 .section-publication .infor-publication-meta span {
@@ -628,6 +635,8 @@ table {
 
 .section-publication .infor-publication-meta .infor-detail-publication {
     padding: 16px 0 20px 0;
+    position: relative;
+    z-index: 3;
 }
 
 .section-publication .infor-publication-meta .infor-detail-publication a {
@@ -645,29 +654,83 @@ table {
     background-color: #063f99;
 }
 
-.section-publication .image-publication {
-    overflow: hidden;
-}
-
-.section-publication .publication-card:hover {
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.438);
-    transition: all linear 0.2s;
-    transform: translateY(-10px);
+.section-publication .publication-card:hover .image-publication {
+    left: 0;
+    transition: all ease-in-out 0.3s;
 }
 
 .section-publication .publication-card {
     padding: 0;
     margin-bottom: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, .175);
     transition: all linear 0.2s;
-    border-radius: 10px;
     overflow: hidden;
+    position: relative;
+    height: 400px;
+    background-color: #F7F7F7;
+}
+
+.image-publication::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: linear-gradient(90deg, rgb(116 169 255 / 58%) 0%, rgba(229, 229, 234, 0) 100%);
+    left: 0;
+    top: 0;
 }
 
 .section-publication .publication-card:hover .infor-publication-title h2 {
     color: #427FE3;
-    transition: all linear 0.2s;
+    transition: all linear 1s;
+}
+
+.detail-publication a {
+    position: relative;
+    transition: all ease-in-out 0.3s;
+}
+
+.detail-publication a::after {
+    content: '';
+    border-right: 2px solid #ee402d;
+    border-top: 2px solid #ee402d;
+    height: 10px;
+    right: -8px;
+    top: 47%;
+    transform: translateY(-50%);
+    position: absolute;
+    width: 10px;
+    rotate: 45deg;
+    transition: all ease-in-out 0.3s;
+}
+
+.detail-publication a::before {
+    content: '';
+    background-color: #e43c4c;
+    top: 51.5%;
+    transform: translateY(-50%);
+    position: absolute;
+    width: 0px;
+    height: 2px;
+    right: -8px;
+    transition: all ease-in-out 0.3s;
+}
+
+.publication-card:hover .detail-publication a::after {
+    right: -55px;
+    transition: all ease-in-out 0.3s;
+}
+
+.publication-card:hover .detail-publication a::before {
+    right: -58px;
+    width: 50px;
+    background-color: #e43c4c;
+    transition: all ease-in-out 0.3s;
+}
+
+.publication-card:hover .detail-publication a {
+    color: #fff;
+    transition: all ease-in-out 0.3s;
 }
 
 .section-publication .search-publication {
@@ -677,11 +740,12 @@ table {
 .section-publication .wrap {}
 
 .section-publication .detail-publication a {
-    color: #427FE3;
+    color: #000;
     border-radius: 3px;
     padding: 6px 7px;
     text-transform: uppercase;
     font-weight: 600;
+    transition: all ease-in-out 0.3s;
 }
 
 .section-publication {

@@ -24,6 +24,7 @@ let swiper = new Swiper('.swiper', {
     }
 });
 
+
 var swiper1 = new Swiper('.swiper1', {
     cssMode: true,
     navigation: {
@@ -50,8 +51,5 @@ function updateSwiper() {
     swiper1.update();
 }
 
-// Gọi hàm khi tải trang
 updateSwiper();
-
-// Gọi hàm khi kích thước cửa sổ thay đổi
 window.addEventListener('resize', updateSwiper);

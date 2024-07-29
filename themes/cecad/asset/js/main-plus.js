@@ -48,10 +48,6 @@ document.addEventListener("scroll", function() {
     }
 });
 
-
-
-
-
 $('.partner-list').slick({
     centerMode: true,
     slidesToShow: 5,
@@ -158,7 +154,14 @@ $('.latest-news-list').slick({
     ]
 });
 
+$('.as4-block-1').slick({
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    prevArrow: `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-chevron-left"></i></button>`,
+    nextArrow: `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
 
+});
 
 
 
@@ -171,4 +174,9 @@ $('[data-fancybox]').fancybox({
     loop: true,
     toolbar: false,
     clickContent: false
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.add('loaded');
 });
