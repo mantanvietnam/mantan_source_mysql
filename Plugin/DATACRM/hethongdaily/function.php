@@ -972,6 +972,19 @@ function listBank()
     ];
 }
 
+function typeLink(){
+    return [
+        ['type'=>'website'],
+        ['type'=>'facebook'],
+        ['type'=>'instagram'],
+        ['type'=>'tiktok'],
+        ['type'=>'youtube'],
+        ['type'=>'zalo'],
+        ['type'=>'linkedin'],
+        ['type'=>'twitter']
+    ];
+}
+
 function listThemeInfo(){
     return [ 
         ['id' => 1, 'name' => 'Theme info 1 ', 'code' => 'themeifo1', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them1.jpg','price'=>0],

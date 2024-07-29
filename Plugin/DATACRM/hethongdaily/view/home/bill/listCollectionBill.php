@@ -1,4 +1,9 @@
 <?php include(__DIR__.'/../header.php'); ?>
+<style type="text/css">
+  .ui-menu{
+    z-index: 100000 !important;
+  }
+</style>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Phiếu thu</h4>
   <p><a class="btn btn-primary"  data-bs-toggle="modal" style="color: white;" data-bs-target="#basicModal" ><i class='bx bx-plus'></i> Thêm mới</a></p>
@@ -132,7 +137,10 @@
                               Số điện thoại:'.$item->customer->phone;
                     }
 
-                    
+                    $aLink = '';
+                  if(!empty($item->id_order)){
+                     $aLink ='<a href="'.$link.'" target="_blank">Xem đơn hàng tại đây</a>';
+                  }
 
 
                     echo '<tr>
@@ -143,7 +151,7 @@
                             <td>'.$type_collection_bill.'</td>
                             <td>'.number_format($item->total).'đ</td>
                             <td>'.$item->note.'<br/>
-                              <a href="'.$link.'" target="_blank">Xem đơn hàng tại đây</a>
+                              '.$aLink.'
                             </td>
                             
                             <td align="center">
@@ -201,6 +209,10 @@
                     $info = 'Tên khách hàng: '.$item->customer->full_name.'<br/>
                             Số điện thoại:'.$item->customer->phone;
                   }
+                  $aLink = '';
+                  if(!empty($item->id_order)){
+                     $aLink ='<a href="'.$link.'" target="_blank">Xem đơn hàng tại đây</a>';
+                  }
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
                         <p><strong>ID: </strong>'.$item->id.'</p>
@@ -210,7 +222,7 @@
                         <p><strong>Hình thức thanh toán: </strong>'.$type_collection_bill.'</p>
                         <p><strong>Số tiền: </strong>'.number_format($item->total).'đ</p>
                         <p><strong>Nội dung: </strong>'.$item->note.'<br/>
-                          <a href="'.$link.'" target="_blank">Xem đơn hàng tại đây</a>
+                          '.$aLink.'
                         </p>
 
                           <p align="center">
@@ -274,16 +286,33 @@
     </div>
     <!--/ Basic Pagination -->
   </div>
-    <div class="modal fade" id="basicModal"  name="id">
-    <div class="modal-dialog" role="document">
+    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div  class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header form-label border-bottom">
           <h5 class="modal-title" id="exampleModalLabel1">Thêm mới phiếu thu</h5>
           <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="addCollectionBill" method="GET">
-          <div class="modal-footer">
-            <!-- <input type="hidden" value="<?php echo $items->id; ?>"  name="id"> -->
+          <div class=" modal-body row">
+            <div class="col-md-12">
+              <label for="full_name" class="form-label">Đối tượng đặt hàng (*)</label><br/>
+              <input type="radio" id="typeUser" name="typeUser" value="customer" checked /> Khách lẻ 
+              &nbsp;&nbsp;&nbsp;
+              <input type="radio" id="typeUser" name="typeUser" value="member" /> Đại lý 
+               &nbsp;&nbsp;&nbsp;
+              <input type="radio" id="typeUser" name="typeUser" value="none" /> không phải là đối tượng nào 
+            </div>
+            <div class="col-md-12" id="member"  style="display: none;">
+              <label class="form-label">Đại lý</label>
+              <input type="text" value="" id="namemember_buy" class="form-control" placeholder="" name="namemember_buy">
+              <input type="hidden" value="" id="idmember_buy" class="form-control" placeholder="" name="idmember_buy">
+            </div>
+            <div class="col-md-12" id="customer">
+              <label class="form-label">Khách hàng </label>
+              <input type="text" value="" id="name_customer_buy" class="form-control" placeholder="" name="name_customer_buy">
+              <input type="hidden" value="" id="id_customer_buy" class="form-control" placeholder="" name="id_customer_buy">
+            </div>
            <div class="col-md-12">
               <label class="form-label">Số tiền thu</label>
               <input type="number" value="" class="form-control" placeholder="" name="total">
@@ -313,6 +342,8 @@
   </div>
   <!--/ Responsive Table -->
 </div>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.5/dist/locale-all.min.js'></script>
 <script type="text/javascript">
     // tìm sản phẩm
     $(function() {
@@ -324,6 +355,8 @@
           return split( term ).pop();
         }
 
+
+        //  tìm kiếm cho from tìm khiếm 
         $( "#member_buy" )
         // don't navigate away from the field on tab when selecting an item
         .bind( "keydown", function( event ) {
@@ -401,7 +434,124 @@
                 return false;
             }
         });
+
+
     });
+</script>
+
+<script type="text/javascript">
+    // tìm sản phẩm
+    $(function() {
+        function split( val ) {
+          return val.split( /,\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+         //  tìm kiếm cho from thêm 
+        $( "#namemember_buy" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchMemberAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+                console.log(term);
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#namemember_buy" ).val(ui.item.name);
+                $( "#idmember_buy" ).val(ui.item.id);
+
+                return false;
+            }
+        });
+
+        $( "#name_customer_buy" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchCustomerAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#name_customer_buy" ).val(ui.item.full_name);
+                $( "#id_customer_buy" ).val(ui.item.id);
+
+                return false;
+            }
+        });
+
+
+    });
+</script>
+
+<script>
+  document.querySelectorAll('input[name="typeUser"]').forEach((elem) => {
+    elem.addEventListener("change", (event) => {
+      var typeUser = $('input[name="typeUser"]:checked').val();
+
+      $('#customer').hide();
+      $('#member').hide();
+
+      if(typeUser == 'member'){
+        $('#member').show();
+      }else if(typeUser == 'customer'){
+        $('#customer').show();
+       
+      }else{
+        $('#customer').hide();
+        $('#member').hide();
+      }
+    });
+  });
 </script>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">

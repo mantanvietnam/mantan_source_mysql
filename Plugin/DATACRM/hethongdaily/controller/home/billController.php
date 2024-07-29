@@ -351,10 +351,7 @@ function listCollectionBill(){
                             ];
                 }
             }
-            debug($titleExcel);
-            debug($dataExcel);
-            die;
-
+            
             export_excel($titleExcel, $dataExcel, 'phieu-thu-'.date('d-m-Y'));
         }else{
 
@@ -440,33 +437,88 @@ function addCollectionBill($input){
     $metaTitleMantan = 'Thông tin phiếu chi';
     
     if(!empty($session->read('infoUser'))){
+        $user = $session->read('infoUser');
         $modelMembers = $controller->loadModel('Members');
+        $modelCustomer = $controller->loadModel('Customers');
         $modelBill = $controller->loadModel('Bills');
 
         $infoUser = $session->read('infoUser');
         $mess= '';
-        
+
         // lấy data edit
         $time =time();
-        if(!empty($_GET['id'])){
-            $bill = $modelBill->get( (int) $_GET['id']);
+
+        if($_GET['typeUser']=='customer'){
+            if(!empty($_GET['id_customer_buy'])){
+                $customer = $modelCustomer->get((int) $_GET['id_customer_buy']);
+                $bill = $modelBill->newEmptyEntity();
+                $bill->id_member_sell =  $user->id;
+                $bill->id_member_buy = 0;
+                $bill->total = (int) @$_GET['total'];
+                $bill->id_order = 0;
+                $bill->type = 1;
+                $bill->type_order = 2; 
+                $bill->updated_at = $time;
+                $bill->id_debt = 0;
+                $bill->type_collection_bill = @$_GET['type_collection_bill'];
+                $bill->id_customer =(int) $_GET['id_customer_buy'];
+                $bill->note = 'Đã thu tiền của khách hàng' .@$customer->full_name.' '.@$customer->phone.' với số tiền là '.number_format($bill->total).'đ lý do là: '.@$_GET['note'];
+                $modelBill->save($bill);
+            }
+        }elseif($_GET['typeUser']=='member'){
+            if(!empty($_GET['idmember_buy'])){
+                $member_buy = $modelMembers->get((int) $_GET['idmember_buy']);
+
+                // bill cho người thu
+                $bill = $modelBill->newEmptyEntity();
+                $bill->id_member_sell =  $user->id;
+                $bill->id_member_buy = (int) $_GET['idmember_buy'];
+                $bill->total = (int) @$_GET['total'];
+                $bill->id_order = 0;
+                $bill->type = 1;
+                $bill->type_order = 1; 
+                $bill->created_at = $time;
+                $bill->updated_at = $time;
+                $bill->id_debt = 0;
+                $bill->type_collection_bill =  @$_GET['type_collection_bill'];
+                $bill->id_customer = 0;
+                $bill->note = 'Đã thu tiền của đại lý' .@$member_buy->name.' '.@$member_buy->phone.' với số tiền là '.number_format($bill->total).'đ lý do thu là:'.@$_GET['note'];
+                $modelBill->save($bill);
+
+                // bill cho người chi
+                $billbuy = $modelBill->newEmptyEntity();
+                $billbuy->id_member_sell =  $user->id;
+                $billbuy->id_member_buy = (int) $_GET['idmember_buy'];
+                $billbuy->total = (int) @$_GET['total'];
+                $billbuy->id_order = 0;
+                $billbuy->type = 2;
+                $billbuy->type_order = 1; 
+                $billbuy->created_at = $time;
+                $billbuy->updated_at = $time;
+                $billbuy->id_debt = 0;
+                $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
+                $billbuy->id_customer = 0;
+                $billbuy->note = 'Đã trả tiền cho đại lý' .@$user->name.' '.@$user->phone.' với số tiền là '.number_format($billbuy->total).'đ lý do trả là:'.@$_GET['note'];
+                $modelBill->save($billbuy);
+            }
         }else{
+            
             $bill = $modelBill->newEmptyEntity();
-            $bill->created_at = $time;
+            $bill->id_member_sell =  $session->read('infoUser')->id;
+            $bill->id_member_buy = 0;
+            $bill->total = (int) @$_GET['total'];
+            $bill->id_order = 0;
+            $bill->type = 1;
+            $bill->type_order = 3; 
+            $bill->updated_at = $time;
+            $bill->id_debt = 0;
+            $bill->type_collection_bill =  @$_GET['type_collection_bill'];
+            $bill->id_customer = 0;
+            $bill->note = @$_GET['note'];
+           
+            $modelBill->save($bill);
+
         }
-        $bill->id_member_sell =  $session->read('infoUser')->id;
-        $bill->id_member_buy = 0;
-        $bill->total = @$_GET['total'];
-        $bill->id_order = 0;
-        $bill->type = 1;
-        $bill->type_order = 3; 
-        $bill->updated_at = $time;
-        $bill->id_debt = 0;
-        $bill->type_collection_bill =  @$_GET['type_collection_bill'];
-        $bill->id_customer = 0;
-        $bill->note =@$_GET['note'];
-       
-        $modelBill->save($bill);
         return $controller->redirect('/listCollectionBill');
     }else{
         return $controller->redirect('/login');

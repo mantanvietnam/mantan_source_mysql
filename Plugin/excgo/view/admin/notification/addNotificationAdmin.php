@@ -38,6 +38,12 @@
                     <input required type="text" class="form-control phone-mask" name="title" id="title" value="" />
                   </div>
                 </div>
+                 <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Id bài viết</label>
+                    <input type="number" class="form-control phone-mask" name="id_post" id="id_post" value="" />
+                  </div>
+                </div>
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Nội dung thông báo (*)</label>

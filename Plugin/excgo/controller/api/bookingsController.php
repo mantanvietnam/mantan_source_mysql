@@ -99,9 +99,7 @@ function createBookingApi($input): array
 
                 // Giữ tiền cọc của người đăng
                 $currentUser->total_coin -= $dataSend['deposit'];
-                if($currentUser->point>0 ){
-                    $currentUser->point -= 1;
-                }
+                
                 
                 
                 $modelUser->save($currentUser);
@@ -310,11 +308,20 @@ function receiveBookingApi($input): array
                 return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
             }
 
-            if(!empty($currentUser->difference_booking)){
+            /*if(!empty($currentUser->difference_booking)){
                  if($currentUser->received - $currentUser->posted  >= $currentUser->difference_booking){
                      return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
                 }
             }elseif($currentUser->received - $currentUser->posted >= $parameter['maximumTrip']){
+                return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
+                
+            }*/
+
+            if(!empty($currentUser->difference_booking)){
+                 if($currentUser->point <= $currentUser->difference_booking){
+                     return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
+                }
+            }elseif($currentUser->point <= -3){
                 return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
                 
             }
@@ -365,11 +372,15 @@ function receiveBookingApi($input): array
                 $totalFee = $receivedFee + $serviceFee + $deposit;
                 // Trừ xu của user nhận cuốc xe
                 $currentUser->total_coin = $currentUser->total_coin - $totalFee;
-                $currentUser->point += 1;
+               
 
                if(@$booking->status_free==0){
                     $currentUser->received += 1;
                }
+
+               $currentUser->point -= 1;
+
+
                 
                 $modelUser->save($currentUser);
 
@@ -642,6 +653,7 @@ function acceptCanceledBookingApi($input): array
             $refundCoin = $booking->deposit;
             $cancelUser->total_coin += $refundCoin;
             $cancelUser->received -=1;
+            $cancelUser->point += 1;
             $modelUser->save($cancelUser);
 
 
@@ -881,6 +893,8 @@ function completeBookingApi($input): array
                     $postedUser->posted += 1;
                 }
 
+                $postedUser->point += 1;
+
                 $modelUser->save($postedUser);
 
                 // Thông báo cho người đăng cuốc xe
@@ -1099,6 +1113,8 @@ function acceptCompleteBookingApi($input): array
                 if(@$booking->status_free==0){
                     $postedUser->posted += 1;
                 }
+
+                $postedUser->point += 1;
 
                 $modelUser->save($currentUser);
 
@@ -1915,6 +1931,7 @@ function cancelBookingApi($input): array
                         // Trả lại tiền cọc nếu có
                         if ($bookingFee->deposit) {
                             $currentUser->total_coin += $booking->deposit;
+
                             $modelUser->save($currentUser);
 
                             $newTransaction = $modelTransaction->newEmptyEntity();
@@ -2108,6 +2125,7 @@ function acceptCanceledBookingPostedApi($input): array
              // Cộng lại số tiền chiết khấu cho người nhận quốc xe 
             $currentUser->total_coin += $refundCoin;
             $currentUser->received -=1;
+            $currentUser->point += 1;
             $modelUser->save($currentUser);
 
             $newTransaction = $modelTransaction->newEmptyEntity();

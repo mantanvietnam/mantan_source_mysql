@@ -86,6 +86,8 @@ function getInfoMemberAPI($input)
 
 	$modelMember = $controller->loadModel('Members');
 
+	$modelLinkInfo = $controller->loadModel('LinkInfos');
+
 	$return = array('code'=>1);
 	
 	if($isRequestPost){
@@ -106,9 +108,11 @@ function getInfoMemberAPI($input)
 		$checkPhone = $modelMember->find()->where($conditions)->first();
 
 		if(!empty($checkPhone)){
+			$dataLink = $modelLinkInfo->find()->where(['id_member'=>$checkPhone->id])->all()->toList();
 			$position = $modelCategories->find()->where(array('id'=>$checkPhone->id_position))->first();
 			
 			$checkPhone->name_position = @$position->name;
+			$checkPhone->ListLink = @$dataLink;
 			$checkPhone->discount_position = @$position->description;
 
 			unset($checkPhone->password);
@@ -446,6 +450,20 @@ function saveInfoMemberAPI($input)
 					$checkPhone->description = $dataSend['description'];
 				}
 
+				if(!empty($dataSend['bank_number'])){
+					$checkPhone->bank_number = $dataSend['bank_number'];
+				}
+				if(!empty($dataSend['bank_name'])){
+					$checkPhone->bank_name = $dataSend['bank_name'];
+				}
+				if(!empty($dataSend['bank_code'])){
+					$checkPhone->bank_code = $dataSend['bank_code'];
+				}
+
+				if(!empty($checkPhone->bank_number) && !empty($checkPhone->bank_name) && !empty($checkPhone->bank_code)){
+					$checkPhone->image_qr_pay = 'https://img.vietqr.io/image/'.$checkPhone->bank_code.'-'.$checkPhone->bank_number.'-compact2.png?amount=&addInfo=&accountName='.$checkPhone->bank_name;
+				}
+
 				$modelMember->save($checkPhone);
 
 				$return = array('code'=>0, 'data'=>$checkPhone);
@@ -465,6 +483,117 @@ function saveInfoMemberAPI($input)
 
 	return $return;
 }
+
+function saveLinkInfoMemberAPI($input){
+		global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelLinkInfo = $controller->loadModel('LinkInfos');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token'])){
+			$checkPhone = getMemberByToken($dataSend['token']);
+
+			if(!empty($checkPhone)){
+				
+				if($dataSend['id']){
+					$LinkInfo = $modelLinkInfo->find()->where(['id'=>(int)$dataSend['id'],'id_member'=>$checkPhone->id])->first();
+					if(empty($LinkInfo)){
+						$LinkInfo = $modelLinkInfo->newEmptyEntity();
+					}
+				}else{
+					$LinkInfo = $modelLinkInfo->newEmptyEntity();
+				}
+
+				if(!empty($dataSend['link'])){
+			    	$LinkInfo->link = $dataSend['link'];
+				}
+			    if(!empty($dataSend['namelink'])){
+			    	$LinkInfo->namelink = $dataSend['namelink'];
+				}
+			    $LinkInfo->id_member = $checkPhone->id;
+			    if(!empty($dataSend['type'])){
+			    	$LinkInfo->type = @$dataSend['type'];
+				}
+			    if(!empty($dataSend['description'])){
+			    	$LinkInfo->description = @$dataSend['description'];
+				}
+			    $modelLinkInfo->save($LinkInfo);
+
+				$return = array('code'=>0, 'data'=>$LinkInfo, 'mess'=> 'Lưu thành công');
+
+				
+			}else{
+				$return = array('code'=>3,
+								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
+							);
+			}
+		}else{
+			$return = array('code'=>2,
+							'mess'=> 'Gửi thiếu dữ liệu'
+						);
+		}
+	}
+
+	return $return;
+}
+
+function getTypeLink(){
+	return typeLink();
+}
+
+function getLinstBank(){
+	return listBank();
+}
+
+function deleteLinkInfoMemberAPI($input){
+		global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelLinkInfo = $controller->loadModel('LinkInfos');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+			$checkPhone = getMemberByToken($dataSend['token']);
+
+			if(!empty($checkPhone)){
+				$LinkInfo = $modelLinkInfo->find()->where(['id'=>(int)$dataSend['id'],'id_member'=>$checkPhone->id])->first();
+				if(!empty($LinkInfo)){
+					$modelLinkInfo->delete($LinkInfo);
+					
+					$return = array('code'=>0,'mess'=> 'Xóa Link thành công');
+				}else{
+					$return = array('code'=>4,
+							'mess'=> 'Link này không tồn tại'
+						);
+				}
+			}else{
+				$return = array('code'=>3,
+								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
+							);
+			}
+		}else{
+			$return = array('code'=>2,
+							'mess'=> 'Gửi thiếu dữ liệu'
+						);
+		}
+	}
+
+	return $return;
+}
+
 
 function saveConfigNotificationAPI($input)
 {

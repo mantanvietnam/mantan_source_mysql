@@ -2,6 +2,7 @@
 function addNotificationAdmin($input)
 {
 	global $controller;
+	 global $modelPosts;
 	global $isRequestPost;
 	global $metaTitleMantan;
 
@@ -28,7 +29,12 @@ function addNotificationAdmin($input)
 			}
 
 			$conditions['device_token IS NOT'] = null;
-			$listUser = $modelUser->find()->where($conditions)->all()->toList();	
+			$listUser = $modelUser->find()->where($conditions)->all()->toList();
+
+
+			if(!empty($dataSend['id_post'])){
+        		$dataPost = $modelPosts->find()->where(['id'=>(int) $dataSend['id_post']])->first();
+        	}	
 			
 			if(!empty($listUser)){
 				$title = $dataSend['title'];
@@ -44,6 +50,7 @@ function addNotificationAdmin($input)
 						$notification->user_id = $value->id;
 						$notification->title = $title;
 						$notification->content = $content;
+						$notification->id_post = $$dataPost->id;
 						$notification->created_at = date('Y-m-d H:i:s');
 						$notification->updated_at = date('Y-m-d H:i:s');
 						$modelNotification->save($notification);
@@ -54,6 +61,7 @@ function addNotificationAdmin($input)
 					'title' => $title,
 					'time' => date('H:i d/m/Y'),
 					'content' => $content,
+					'id_post' => @$dataPost->id,
 					'action' => 'adminSendNotification'
 				);
 
