@@ -255,7 +255,7 @@ $callback = function ($msg) {
 };
 
 // Tiêu thụ tin nhắn từ hàng đợi 'render_image_requests'
-//$rabbitMQClient->consumeMessage('render_image_requests', $callback);
-$rabbitMQClient->consumeMessageLimitTime('render_image_requests', $callback, 60);
+$rabbitMQClient->consumeMessage('render_image_requests', $callback);
+//$rabbitMQClient->consumeMessageLimitTime('render_image_requests', $callback, 60);
 //$rabbitMQClient->consumeOneMessage('render_image_requests', $callback);
 ?>

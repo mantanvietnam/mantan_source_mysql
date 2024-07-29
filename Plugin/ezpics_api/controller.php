@@ -18,4 +18,5 @@ include_once('controller/questionController.php'); // câu hỏi
 include_once('controller/contentController.php'); // Nội dung
 include_once('controller/ingredientController.php'); // Nội dung
 include_once('controller/styleTextController.php'); // Nội dung
+include_once('controller/render_images_controller.php'); // Xuất ảnh in hàng loạt
 ?>
