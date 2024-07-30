@@ -17,5 +17,5 @@ include('model/manager_file.php'); // sản phẩm gắn với kho mẫu thiết
 include('model/ingredients.php'); // thành phần
 include('model/search_keys.php'); // thành phần
 include('model/transaction_ecoin.php'); // thành phần
-include('model/style_texts .php'); // mẫu chữ
+include('model/style_texts.php'); // mẫu chữ
 ?>
