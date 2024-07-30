@@ -24,43 +24,21 @@
             <div class="container">
                 <div class="ms-2-block-1">
                     <div class="row">
+                    <?php foreach ($listDatafield as $key => $value) { ?>
                         <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
-                            <a href="">
+                            <a href="/detailfield/<?php echo $value->slug;?>.html">
                                 <div class="ms-2-block-1-item">
                                     <div class="ms-2-block-1-img">
-                                        <img src="<?= $urlThemeActive?>asset/images/cover-1685677942.webp" alt="">
+                                        <img src="<?php echo $value->imagebanner;?>" alt="">
                                     </div>
                                     <div class="ms-2-block-1-text">
-                                        <p>Bảo tồn đa dạng sinh học </p>
+                                        <p><?php echo $value->name;?></p>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
-                            <a href="">
-                                <div class="ms-2-block-1-item">
-                                    <div class="ms-2-block-1-img">
-                                        <img src="<?= $urlThemeActive?>asset/images/cover-1685678708.webp" alt="">
-                                    </div>
-                                    <div class="ms-2-block-1-text">
-                                        <p>Bảo tồn đa dạng sinh học </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
-                            <a href="">
-                                <div class="ms-2-block-1-item">
-                                    <div class="ms-2-block-1-img">
-                                        <img src="<?= $urlThemeActive?>asset/images/cover-1685677942.webp" alt="">
-                                    </div>
-                                    <div class="ms-2-block-1-text">
-                                        <p>Bảo tồn đa dạng sinh học </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
+                    <?php } ?>
+                        <!-- <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
                             <a href="">
                                 <div class="ms-2-block-1-item">
                                     <div class="ms-2-block-1-img">
@@ -96,6 +74,30 @@
                                 </div>
                             </a>
                         </div>
+                        <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
+                            <a href="">
+                                <div class="ms-2-block-1-item">
+                                    <div class="ms-2-block-1-img">
+                                        <img src="<?= $urlThemeActive?>asset/images/cover-1685677942.webp" alt="">
+                                    </div>
+                                    <div class="ms-2-block-1-text">
+                                        <p>Bảo tồn đa dạng sinh học </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
+                            <a href="">
+                                <div class="ms-2-block-1-item">
+                                    <div class="ms-2-block-1-img">
+                                        <img src="<?= $urlThemeActive?>asset/images/cover-1685678708.webp" alt="">
+                                    </div>
+                                    <div class="ms-2-block-1-text">
+                                        <p>Bảo tồn đa dạng sinh học </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div> -->
 
                     </div>
                 </div>

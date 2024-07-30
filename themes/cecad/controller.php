@@ -239,13 +239,19 @@ function field($input){
     global $modelPosts;
     global $modelCategories;
     global $category;
-    $conditions = array('type' => 'post');
-    $category_post = $modelCategories->find()->where($conditions)->all()->toList();
+    global $controller;
+   
+   
     $order = array('id'=>'desc');
+    $modelfield = $controller->loadModel('field');
+
+    $order = array('id' => 'desc');
+
+    $listDatafield= $modelfield->find()->order($order)->all()->toList();
+
+    setVariable('listDatafield', $listDatafield);
     
-    $listDatafield= $modelPosts->find()->limit(12)->where(array('pin'=>0, 'type'=>'post'))->order($order)->all()->toList();
-    setVariable('listDatatop', $listDatafield);
-    setVariable('category_post', $category_post);
+   
 }
 function categoryAlbumTheme($input)
 {
@@ -420,6 +426,37 @@ function project($input){
 //     setVariable('listDataproduct_projects', $listDataproduct_projects);
     
 // }
+function detailfield($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
+
+    $metaTitleMantan = 'Chi tiết lĩnh lực';
+    $modelfield = $controller->loadModel('field');
+    if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=>$_GET['id']);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('slug'=>$slug);
+        }
+
+
+        
+        $field = $modelfield->find()->where($conditions)->first();
+        setVariable('field', $field);
+
+    }else{
+        return $controller->redirect('/');
+    }
+}
 function detailpublication($input){
     global $controller;
     global $isRequestPost;

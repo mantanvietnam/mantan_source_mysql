@@ -1,0 +1,1 @@
+<?php getFileTheme('field/detailfield.php');?>
