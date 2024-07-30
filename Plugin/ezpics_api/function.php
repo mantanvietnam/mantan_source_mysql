@@ -894,11 +894,6 @@ function getLayerProductForEdit($idProduct=0)
                         $layer->banner = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/avatar-ezpics.png'; 
                     }
 
-                    if(!isset($layer->naturalWidth)){
-                        $layer->naturalWidth = 0;
-                        $layer->naturalHeight = 0;
-                    }
-
                     // link ảnh svg khung
                     if(empty($layer->image_svg)){
                         $layer->image_svg = ''; 
@@ -1076,6 +1071,24 @@ function getLayerProductForEdit($idProduct=0)
                     $layer->postion_y = $layer->postion_top*$heightWindow/100;
                     */
 
+                    if(!isset($layer->naturalWidth)){
+                        $layer->naturalWidth = 0;
+                        $layer->naturalHeight = 0;
+                    }
+
+                    if($layer->type == 'image' && $layer->naturalWidth == 0){
+                        $sizeImage = @getimagesize($layer->banner);
+
+                        if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
+                            $layer->naturalWidth = (int) $sizeImage[0];
+                            $layer->naturalHeight = (int) $sizeImage[1];
+
+                            // cập nhập lại vào db
+                            $item->content = json_encode($layer);
+
+                            $modelProductDetail->save($item);
+                        }
+                    }
                     
                     $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" data-border='.$layer->border.' data-rotate="'.$layer->rotate.'" data-brightness="'.$layer->brightness.'" data-latanh="'.$layer->lat_anh.'" data-giandong="'.$layer->giandong.'" data-latanhdoc="'.$layer->lat_anh_doc.'">
                        
