@@ -6,7 +6,7 @@
 <main>
 
 
-        <section id="banner-projects-section">
+        <section class="screen-banner-project" id="banner-projects-section">
             <div class="bp-block-1">
                 <div class="bp-block-1-title">
                     <p>
@@ -23,7 +23,37 @@
                 <img src="<?= @$settingThemes['imagebannerproject'];?>" alt="">
             </div>
         </section>
+        <section class="screen-banner-news" id="banner-news-section">
+            <div class="bn-block-1">
+                <div class="bn-block-1-img">
+                    <img src="<?= @$settingThemes['imagebannerproject'];?>" alt="">
+                </div>
+                <div class="bp-block-1">
+                    <div class="bp-block-1-title">
+                        <p>
+                            Cecad
+                        </p>
+                        <h1>
+                            <span>Dự</span>
+                            <span>án</span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="bn-block-2">
+                <div id="mouse-scroll">
+                    <div class="mouse">
+                        <div class="mouse-in"></div>
+                    </div>
+                    <div>
+                        <span class="down-arrow-1"></span>
+                        <span class="down-arrow-2"></span>
+                        <span class="down-arrow-3"></span>
+                    </div>
+                </div>
+            </div>
 
+        </section>
         <section id="all-news-section">
             <div class="container">
                 <h2>Tất cả dự án</h2>
