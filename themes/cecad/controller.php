@@ -70,6 +70,11 @@ function settingHomececad($input){
             // 
             'logofooter' =>$dataSend['logofooter'],
 
+
+            //
+            'imagebannernews' =>$dataSend['imagebannernews'],
+            'imagebannerproject' =>$dataSend['imagebannerproject'],
+
         );
     $data->key_word = 'settingHomececad';
 	$data->value = json_encode($value);

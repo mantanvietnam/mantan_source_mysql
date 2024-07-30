@@ -5,17 +5,8 @@
         <div class="row">
             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="mb-4">
-                    <div class="nav-align-top mb-4">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                                    KHỐI BANNER
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="card-body tab-content">
-                        <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
+                        <div class="tab-pane active " id="navs-top-home" role="tabpanel">
                             <div class="card-body row ">
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Banner home</label>

@@ -6,95 +6,23 @@
 <main>
 
 
-        <!--
-        <section id="latest-news-section">
-            <div class="container">
-                <h2>Latest</h2>
-                <div class="latest-news-list">
-                    <div class="latest-news-item">
-                        <a href="">
-                            <div class="latest-news-img">
-                                <img src="../Asset/images/news-1.jpg" alt="">
-                            </div>
-                            <div class="latest-news-content">
-                                <div class="latest-news-date">
-                                    <p>Posted on <span> 17 Apr 2024</span></p>
-                                </div>
-                                <div class="latest-news-detail">
-                                    <h3>Central banks must unlock investment in nature</h3>
-                                    <p>The world needs a nature-positive global economy that delivers lasting prosperity, says WWF’s finance lead Aaron Vermeulen.</p>
-                                </div>
-                                <div class="latest-news-btn">
-                                    <i class="fa-solid fa-arrow-right-long"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="latest-news-item">
-                        <a href="">
-                            <div class="latest-news-img">
-                                <img src="../Asset/images/news-1.jpg" alt="">
-                            </div>
-                            <div class="latest-news-content">
-                                <div class="latest-news-date">
-                                    <p>Posted on <span> 17 Apr 2024</span></p>
-                                </div>
-                                <div class="latest-news-detail">
-                                    <h3>Central banks must unlock investment in nature</h3>
-                                    <p>The world needs a nature-positive global economy that delivers lasting prosperity, says WWF’s finance lead Aaron Vermeulen.</p>
-                                </div>
-                                <div class="latest-news-btn">
-                                    <i class="fa-solid fa-arrow-right-long"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="latest-news-item">
-                        <a href="">
-                            <div class="latest-news-img">
-                                <img src="../Asset/images/news-1.jpg" alt="">
-                            </div>
-                            <div class="latest-news-content">
-                                <div class="latest-news-date">
-                                    <p>Posted on <span> 17 Apr 2024</span></p>
-                                </div>
-                                <div class="latest-news-detail">
-                                    <h3>Central banks must unlock investment in nature</h3>
-                                    <p>The world needs a nature-positive global economy that delivers lasting prosperity, says WWF’s finance lead Aaron Vermeulen.</p>
-                                </div>
-                                <div class="latest-news-btn">
-                                    <i class="fa-solid fa-arrow-right-long"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="latest-news-item">
-                        <a href="">
-                            <div class="latest-news-img">
-                                <img src="../Asset/images/news-1.jpg" alt="">
-                            </div>
-                            <div class="latest-news-content">
-                                <div class="latest-news-date">
-                                    <p>Posted on <span> 17 Apr 2024</span></p>
-                                </div>
-                                <div class="latest-news-detail">
-                                    <h3>Central banks must unlock investment in nature</h3>
-                                    <p>The world needs a nature-positive global economy that delivers lasting prosperity, says WWF’s finance lead Aaron Vermeulen.</p>
-                                </div>
-                                <div class="latest-news-btn">
-                                    <i class="fa-solid fa-arrow-right-long"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
+        <section id="banner-projects-section">
+            <div class="bp-block-1">
+                <div class="bp-block-1-title">
+                    <p>
+                        Cecad
+                    </p>
+                    <h1>
+                        <span>Dự</span>
+                        <span>án</span>
+                    </h1>
                 </div>
             </div>
+
+            <div class="bp-block-2">
+                <img src="<?= @$settingThemes['imagebannerproject'];?>" alt="">
+            </div>
         </section>
-        -->
 
         <section id="all-news-section">
             <div class="container">

@@ -230,9 +230,13 @@
                                     <label class="form-label" for="basic-default-fullname">Title nhỏ khối thứ 6 </label>
                                     <input type="text" class="form-control" name="titlesmal6" value="<?php echo @$data['titlesmal6'];?>"/>
                                 </div>
-                                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">Title lớn khối thứ 6 </label>
                                     <input type="text" class="form-control" name="titlelarge6" value="<?php echo @$data['titlelarge6'];?>"/>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Image banner tin tức</label>
+                                    <?php showUploadFile('imagebannernews','imagebannernews', @$data['imagebannernews'],51);?>
                                 </div>
                             </div>
                         </div>
@@ -245,6 +249,10 @@
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">Slide partner</label>
                                     <input type="text" class="form-control" name="slide_partner" value="<?php echo @$data['slide_partner'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Image banner dự án</label>
+                                    <?php showUploadFile('imagebannerproject','imagebannerproject', @$data['imagebannerproject'],50);?>
                                 </div>
                             </div>
                         </div>

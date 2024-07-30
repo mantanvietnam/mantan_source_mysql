@@ -4,6 +4,38 @@
 ?>
 
 <main>
+        <section id="banner-news-section">
+            <div class="bn-block-1">
+                <div class="bn-block-1-img">
+                    <img src="<?= @$settingThemes['imagebannernews'];?>" alt="">
+                </div>
+                <div class="bn-block-1-title">
+                    <div class="word-1 word">
+                        <span>t</span>
+                        <span>i</span>
+                        <span>n</span>
+                    </div>
+                    <div class="word-2 word">
+                        <span>t</span>
+                        <span>ứ</span>
+                        <span>c</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bn-block-2">
+                <div id="mouse-scroll">
+                    <div class="mouse">
+                        <div class="mouse-in"></div>
+                    </div>
+                    <div>
+                        <span class="down-arrow-1"></span>
+                        <span class="down-arrow-2"></span>
+                        <span class="down-arrow-3"></span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
         <section id="featured-news-section">
             <div class="container">
                 <h2>Tin tức nổi bật</h2>
