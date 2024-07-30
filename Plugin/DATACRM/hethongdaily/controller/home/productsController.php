@@ -929,7 +929,7 @@ function addProductAgency($input)
         }
               
 
-        $conditions = array('type' => 'category_product');
+        $conditions = array('type' => 'category_product','status'=>'active');
         $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
 
         $listCategoryCheck = [];
@@ -949,7 +949,7 @@ function addProductAgency($input)
             $listUnitConversion = $modelUnitConversion->find()->where($conditions)->all()->toList();
         }
 
-        $conditions = array('type' => 'manufacturer_product');
+        $conditions = array('type' => 'manufacturer_product','status'=>'active');
         $listManufacturer = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('data', $data);
