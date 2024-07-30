@@ -222,6 +222,10 @@
                                     <label class="form-label" for="basic-default-fullname">Title lớn khối 5</label>
                                     <input type="text" class="form-control" name="titlelarge5" value="<?php echo @$data['titlelarge5'];?>" />
                                 </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Image banner dự án</label>
+                                    <?php showUploadFile('imagebannerproject','imagebannerproject', @$data['imagebannerproject'],50);?>
+                                </div>
                             </div>
                         </div>
                          <div class="tab-pane fade show" id="navs-6" role="tabpanel">
@@ -250,10 +254,7 @@
                                     <label class="form-label" for="basic-default-fullname">Slide partner</label>
                                     <input type="text" class="form-control" name="slide_partner" value="<?php echo @$data['slide_partner'];?>" />
                                 </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <label class="form-label" for="basic-default-fullname">Image banner dự án</label>
-                                    <?php showUploadFile('imagebannerproject','imagebannerproject', @$data['imagebannerproject'],50);?>
-                                </div>
+                              
                             </div>
                         </div>
                         <div class="tab-pane fade show" id="navs-8" role="tabpanel">
