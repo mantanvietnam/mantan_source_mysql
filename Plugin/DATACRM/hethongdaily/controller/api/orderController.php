@@ -201,8 +201,11 @@ function updateStatusOrderAPI($input)
 
     $modelOrder = $controller->loadModel('Orders');
     $modelOrderDetail = $controller->loadModel('OrderDetails');
+    $modelBill = $controller->loadModel('Bills');
+    $modelDebt = $controller->loadModel('Debts');
     $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
     $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+    $modelCustomers = $controller->loadModel('Customers');
 
     $return = array('code'=>1);
     
@@ -218,7 +221,7 @@ function updateStatusOrderAPI($input)
 		            if(!empty($order)){
 	                    $order->status = $dataSend['status'];
 
-	                    $modelOrder->save($order);
+	                    
 
 	                    // xuất hàng khỏi kho
 	                    if($dataSend['status'] == 'done'){
@@ -254,6 +257,51 @@ function updateStatusOrderAPI($input)
 	                            }
 	                        }
 	                    }
+
+	                    // tạo phiêu thu 
+		                if(!empty($dataSend['status_pay'])){
+		                    $order->status_pay = $dataSend['status_pay'];
+		                    $time = time();
+		                    if($_GET['status_pay']=='done'){
+		                        $customer = $modelCustomers->find()->where(['id'=>(int) $order->id_user])->first();
+		                        if($dataSend['type_collection_bill']!='cong_no'){
+		                            $bill = $modelBill->newEmptyEntity();
+		                            $bill->id_member_sell =  $infoMember->id;
+		                            $bill->id_member_buy = 0;
+		                            $bill->total = $order->total;
+		                            $bill->id_order = $order->id;
+		                            $bill->type = 1;
+		                            $bill->type_order = 2; 
+		                            $bill->created_at = $time;
+		                            $bill->updated_at = $time;
+		                            $bill->id_debt = 0;
+		                            $bill->type_collection_bill =  @$dataSend['type_collection_bill'];
+		                            $bill->id_customer = $order->id_user;
+		                            $bill->note = 'Thanh toán đơn hàng id:'.$order->id.' của khách '.@$customer->full_name.' '.@$customer->phone.'; '.@$dataSend['note'];
+		                            $modelBill->save($bill);
+		                        }else{
+		                            if(!empty($customer)){
+		                                $debt = $modelDebt->newEmptyEntity();
+		                                $debt->id_member_sell =  $infoMember->id;
+		                                $debt->id_member_buy = 0;
+		                                $debt->total = $order->total;
+		                                $debt->id_order = $order->id;
+		                                $debt->number_payment = 0;
+		                                $debt->total_payment = 0;
+		                                $debt->type = 0;
+		                                $debt->status = 0;
+		                                $debt->type_order = 2; 
+		                                $debt->created_at = $time;
+		                                $debt->updated_at = $time;
+		                                $debt->id_customer = $order->id_user;
+		                                $debt->note = 'Thanh toán đơn hàng id:'.$order->id.' của khách '.@$customer->full_name.' '.@$customer->phone.'; '.@$dataSend['note'];
+		                                    $modelDebt->save($debt);
+		                            }
+		                        }
+		                    }
+		                }
+
+                		$modelOrder->save($order);
 
 		                $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công');
 		            }else{

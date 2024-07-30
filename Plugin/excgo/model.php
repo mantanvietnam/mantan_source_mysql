@@ -17,4 +17,5 @@ include('model/canceled_booking_requests.php');
 include('model/bookmarks.php');
 include('model/block_user_provinces.php');
 include('model/reward.php');
+include('model/order_points.php');
 ?>

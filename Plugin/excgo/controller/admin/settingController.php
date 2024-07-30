@@ -20,7 +20,9 @@ function settingAdmin($input){
                         'maximumTrip' => @$dataSend['maximumTrip'],
                         'moneyUpgradeToDriver' => @$dataSend['moneyUpgradeToDriver'],
                         'contentUpgradeToDriver' => @$dataSend['contentUpgradeToDriver'],
-        				'contentPopupUpgradeToDriver' => @$dataSend['contentPopupUpgradeToDriver'],
+                        'contentPopupUpgradeToDriver' => @$dataSend['contentPopupUpgradeToDriver'],
+                        'convertPointMoney' => @$dataSend['convertPointMoney'],
+        				'minimumPointSold' => @$dataSend['minimumPointSold'],
                     );
         $data->key_word = 'settingAdmin';
         $data->value = json_encode($value);

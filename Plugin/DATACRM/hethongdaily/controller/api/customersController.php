@@ -491,281 +491,281 @@ function saveInfoCustomerAPI($input)
                         }
                     }
 
-                $infoCustomer->full_name = $dataSend['full_name'];
+                    $infoCustomer->full_name = $dataSend['full_name'];
 
-                if(empty($infoCustomer->created_at)){
-                    $infoCustomer->created_at = time();
-                }
-
-                if(!empty($dataSend['email'])){
-                    $infoCustomer->email = $dataSend['email'];
-                }elseif(empty($infoCustomer->email)){
-                    $infoCustomer->email  = '';
-                }
-
-                if(!empty($dataSend['address'])){
-                    $infoCustomer->address = $dataSend['address'];
-                }elseif(empty($infoCustomer->address)){
-                    $infoCustomer->address  = '';
-                }
-
-                if(!empty($dataSend['id_messenger'])){
-                    $infoCustomer->id_messenger = $dataSend['id_messenger'];
-                }elseif(empty($infoCustomer->id_messenger)){
-                    $infoCustomer->id_messenger  = '';
-                }
-
-                if(!empty($dataSend['id_zalo'])){
-                    $infoCustomer->id_zalo = $dataSend['id_zalo'];
-                }elseif(empty($infoCustomer->id_zalo)){
-                    $infoCustomer->id_zalo  = '';
-                }
-
-                if(!empty($dataSend['sex'])){
-                    $infoCustomer->sex = (int) $dataSend['sex'];
-                }elseif(empty($infoCustomer->sex)){
-                    $infoCustomer->sex  = 0;
-                }
-
-                if(!empty($dataSend['id_city'])){
-                    $infoCustomer->id_city = (int) $dataSend['id_city'];
-                }elseif(empty($infoCustomer->id_city)){
-                    $infoCustomer->id_city  = 0;
-                }
-
-                if(!empty($dataSend['birthday_date'])){
-                    $infoCustomer->birthday_date = (int) $dataSend['birthday_date'];
-                }elseif(empty($infoCustomer->birthday_date)){
-                    $infoCustomer->birthday_date  = 0;
-                }
-
-                if(!empty($dataSend['birthday_month'])){
-                    $infoCustomer->birthday_month = (int) $dataSend['birthday_month'];
-                }elseif(empty($infoCustomer->birthday_month)){
-                    $infoCustomer->birthday_month  = 0;
-                }
-
-                if(!empty($dataSend['birthday_year'])){
-                    $infoCustomer->birthday_year = (int) $dataSend['birthday_year'];
-                }elseif(empty($infoCustomer->birthday_year)){
-                    $infoCustomer->birthday_year  = 0;
-                }
-
-                if(!empty($dataSend['birthday'])){
-                    $birthday = explode('/', $dataSend['birthday']);
-
-                    if(count($birthday) == 3){
-                        $infoCustomer->birthday_date = (int) $birthday[0];
-                        $infoCustomer->birthday_month = (int) $birthday[1];
-                        $infoCustomer->birthday_year = (int) $birthday[2];
+                    if(empty($infoCustomer->created_at)){
+                        $infoCustomer->created_at = time();
                     }
-                }
 
-                if(!empty($dataSend['id_aff'])){
-                    $infoCustomer->id_aff = (int) $dataSend['id_aff'];
-                }elseif(empty($infoCustomer->id_aff)){
-                    $infoCustomer->id_aff  = 0;
-                }
-
-                if(!empty($dataSend['facebook'])){
-                    $infoCustomer->facebook = $dataSend['facebook'];
-                }elseif(empty($infoCustomer->facebook)){
-                    $infoCustomer->facebook  = '';
-                }
-
-                    // nếu up file ảnh avatar lên
-                if(empty($dataSend['avatar']) || !is_string($dataSend['avatar'])){
-                    $dataSend['avatar'] = '';
-                }
-
-                if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-                    $avatar = uploadImage($infoMember->id, 'avatar', 'avatar_'.$infoCustomer->phone);
-
-                    if(!empty($avatar['linkOnline'])){
-                        $dataSend['avatar'] = $avatar['linkOnline'];
+                    if(!empty($dataSend['email'])){
+                        $infoCustomer->email = $dataSend['email'];
+                    }elseif(empty($infoCustomer->email)){
+                        $infoCustomer->email  = '';
                     }
-                }
 
-                if(empty($dataSend['avatar'])){
-                    if(empty($infoCustomer->avatar)){
-                        $dataSend['avatar'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
-                    }else{
-                        $dataSend['avatar'] = $infoCustomer->avatar;
+                    if(!empty($dataSend['address'])){
+                        $infoCustomer->address = $dataSend['address'];
+                    }elseif(empty($infoCustomer->address)){
+                        $infoCustomer->address  = '';
                     }
-                }
 
-                    // in thẻ thành viên
-                if(!empty($dataSend['id_group'])){
-                    $dataSend['id_group'] = explode(',', $dataSend['id_group']);
+                    if(!empty($dataSend['id_messenger'])){
+                        $infoCustomer->id_messenger = $dataSend['id_messenger'];
+                    }elseif(empty($infoCustomer->id_messenger)){
+                        $infoCustomer->id_messenger  = '';
+                    }
 
-                    $infoCustomer->id_group = (int) $dataSend['id_group'][0];
+                    if(!empty($dataSend['id_zalo'])){
+                        $infoCustomer->id_zalo = $dataSend['id_zalo'];
+                    }elseif(empty($infoCustomer->id_zalo)){
+                        $infoCustomer->id_zalo  = '';
+                    }
 
-                    $infoGroup = $modelCategories->find()->where(['id'=>(int) $dataSend['id_group'][0], 'type' => 'group_customer', 'parent'=>$infoMember->id])->first();
+                    if(!empty($dataSend['sex'])){
+                        $infoCustomer->sex = (int) $dataSend['sex'];
+                    }elseif(empty($infoCustomer->sex)){
+                        $infoCustomer->sex  = 0;
+                    }
 
-                    if(!empty($infoGroup->description)){
-                        $ezpics_config = json_decode($infoGroup->description, true);
+                    if(!empty($dataSend['id_city'])){
+                        $infoCustomer->id_city = (int) $dataSend['id_city'];
+                    }elseif(empty($infoCustomer->id_city)){
+                        $infoCustomer->id_city  = 0;
+                    }
 
-                        if(!empty($ezpics_config['id_ezpics'])){
-                            $img_card_member = "https://designer.ezpics.vn/create-image-series/?id=".$ezpics_config['id_ezpics']."&".$ezpics_config['ezpics_full_name']."=".$infoCustomer->full_name."&".$ezpics_config['ezpics_phone']."=".$infoCustomer->phone."&".$ezpics_config['ezpics_code']."=KH".$infoCustomer->phone."&".$ezpics_config['ezpics_avatar']."=".$infoCustomer->avatar."&".$ezpics_config['ezpics_name_member']."=".$infoMember->name;
+                    if(!empty($dataSend['birthday_date'])){
+                        $infoCustomer->birthday_date = (int) $dataSend['birthday_date'];
+                    }elseif(empty($infoCustomer->birthday_date)){
+                        $infoCustomer->birthday_date  = 0;
+                    }
 
-                                //$image_data = file_get_contents($img_card_member);
-                                //file_put_contents(__DIR__."/../../../../upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png", $image_data);
+                    if(!empty($dataSend['birthday_month'])){
+                        $infoCustomer->birthday_month = (int) $dataSend['birthday_month'];
+                    }elseif(empty($infoCustomer->birthday_month)){
+                        $infoCustomer->birthday_month  = 0;
+                    }
 
-                                //$infoCustomer->img_card_member = $urlHomes."upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png";
-                            $infoCustomer->img_card_member = $img_card_member;
+                    if(!empty($dataSend['birthday_year'])){
+                        $infoCustomer->birthday_year = (int) $dataSend['birthday_year'];
+                    }elseif(empty($infoCustomer->birthday_year)){
+                        $infoCustomer->birthday_year  = 0;
+                    }
+
+                    if(!empty($dataSend['birthday'])){
+                        $birthday = explode('/', $dataSend['birthday']);
+
+                        if(count($birthday) == 3){
+                            $infoCustomer->birthday_date = (int) $birthday[0];
+                            $infoCustomer->birthday_month = (int) $birthday[1];
+                            $infoCustomer->birthday_year = (int) $birthday[2];
                         }
                     }
 
-                }elseif(empty($infoCustomer->id_group)){
-                    $infoCustomer->id_group  = 0;
-                }
+                    if(!empty($dataSend['id_aff'])){
+                        $infoCustomer->id_aff = (int) $dataSend['id_aff'];
+                    }elseif(empty($infoCustomer->id_aff)){
+                        $infoCustomer->id_aff  = 0;
+                    }
 
-                $infoCustomer->avatar = $dataSend['avatar'];
-                $infoCustomer->id_parent = $infoMember->id;
+                    if(!empty($dataSend['facebook'])){
+                        $infoCustomer->facebook = $dataSend['facebook'];
+                    }elseif(empty($infoCustomer->facebook)){
+                        $infoCustomer->facebook  = '';
+                    }
 
-                $modelCustomers->save($infoCustomer);
+                        // nếu up file ảnh avatar lên
+                    if(empty($dataSend['avatar']) || !is_string($dataSend['avatar'])){
+                        $dataSend['avatar'] = '';
+                    }
 
-                    // lưu bảng đại lý
-                saveCustomerMember($infoCustomer->id, $infoMember->id);
+                    if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                        $avatar = uploadImage($infoMember->id, 'avatar', 'avatar_'.$infoCustomer->phone);
 
-                if(!empty($dataSend['clear_group'])){
-                    $modelCategoryConnects->deleteAll(['id_parent'=>$infoCustomer->id, 'keyword'=>'group_customers']);
-                }
-
-                    // lưu bảng nhóm khách hàng
-                if(!empty($dataSend['id_group'])){
-                    foreach ($dataSend['id_group'] as $id_group) {
-                        $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoCustomer->id, 'id_category'=>(int)$id_group])->first();
-
-                        if(empty($categoryConnects)){
-                            $categoryConnects = $modelCategoryConnects->newEmptyEntity();
-
-                            $categoryConnects->keyword = 'group_customers';
-                            $categoryConnects->id_parent = $infoCustomer->id;
-                            $categoryConnects->id_category = (int) $id_group;
-
-                            $modelCategoryConnects->save($categoryConnects);
+                        if(!empty($avatar['linkOnline'])){
+                            $dataSend['avatar'] = $avatar['linkOnline'];
                         }
                     }
-                }
 
-                    // bắn thông báo có dữ liệu khách hàng mới
-                if(!empty($infoMember->noti_new_customer) && empty($dataSend['token'])){
-                    $dataSendNotification= array('title'=>'Khách hàng mới','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã trở thành khách hàng mới của bạn','action'=>'addCustomer');
-                    $token_device = [];
-
-                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
-
-                    if(!empty($listTokenDevice)){
-                        foreach ($listTokenDevice as $tokenDevice) {
-                            if(!empty($tokenDevice->token_device)){
-                                $token_device[] = $tokenDevice->token_device;
-                            }
-                        }
-
-                        if(!empty($token_device)){
-                            $return = sendNotification($dataSendNotification, $token_device);
-                        }
-                    }
-                }
-
-                    // lưu bảng chiến dịch
-                if(!empty($dataSend['id_campaign']) && function_exists('getInfoCampaign')){
-                    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
-
-                    $infoCampaign = getInfoCampaign($dataSend['id_campaign'], $infoMember->id);
-
-                    if(!empty($infoCampaign)){
-                        $checkCampaign = $modelCampaignCustomers->find()->where(['id_member'=>$infoMember->id, 'id_customer'=>(int) $infoCustomer->id, 'id_campaign'=>(int) $dataSend['id_campaign']])->first();
-
-                        if(empty($checkCampaign)){
-                            $checkCampaign = $modelCampaignCustomers->newEmptyEntity();
-
-                            $checkCampaign->id_member = $infoMember->id;
-                            $checkCampaign->id_customer = $infoCustomer->id;
-                            $checkCampaign->id_campaign = (int) $dataSend['id_campaign'];
-                            $checkCampaign->create_at = time();
-                        }
-
-                        $checkCampaign->id_location = (int) @$dataSend['id_location'];
-                        $checkCampaign->id_team = (int) @$dataSend['id_team'];
-                        $checkCampaign->id_ticket = (int) @$dataSend['id_ticket'];
-                        $checkCampaign->note = @$dataSend['note_campaign'];
-
-                        if(!empty($dataSend['checkin'])){
-                            $checkCampaign->time_checkin = time();
+                    if(empty($dataSend['avatar'])){
+                        if(empty($infoCustomer->avatar)){
+                            $dataSend['avatar'] = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
                         }else{
-                            $checkCampaign->time_checkin = 0;
+                            $dataSend['avatar'] = $infoCustomer->avatar;
+                        }
+                    }
+
+                        // in thẻ thành viên
+                    if(!empty($dataSend['id_group'])){
+                        $dataSend['id_group'] = explode(',', $dataSend['id_group']);
+
+                        $infoCustomer->id_group = (int) $dataSend['id_group'][0];
+
+                        $infoGroup = $modelCategories->find()->where(['id'=>(int) $dataSend['id_group'][0], 'type' => 'group_customer', 'parent'=>$infoMember->id])->first();
+
+                        if(!empty($infoGroup->description)){
+                            $ezpics_config = json_decode($infoGroup->description, true);
+
+                            if(!empty($ezpics_config['id_ezpics'])){
+                                $img_card_member = "https://designer.ezpics.vn/create-image-series/?id=".$ezpics_config['id_ezpics']."&".$ezpics_config['ezpics_full_name']."=".$infoCustomer->full_name."&".$ezpics_config['ezpics_phone']."=".$infoCustomer->phone."&".$ezpics_config['ezpics_code']."=KH".$infoCustomer->phone."&".$ezpics_config['ezpics_avatar']."=".$infoCustomer->avatar."&".$ezpics_config['ezpics_name_member']."=".$infoMember->name;
+
+                                    //$image_data = file_get_contents($img_card_member);
+                                    //file_put_contents(__DIR__."/../../../../upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png", $image_data);
+
+                                    //$infoCustomer->img_card_member = $urlHomes."upload/admin/images/".$infoMember->id."/card_member_".$infoCustomer->phone.".png";
+                                $infoCustomer->img_card_member = $img_card_member;
+                            }
                         }
 
-                        $modelCampaignCustomers->save($checkCampaign);
+                    }elseif(empty($infoCustomer->id_group)){
+                        $infoCustomer->id_group  = 0;
+                    }
 
-                            // bắn thông báo khách đăng ký hoặc checkin chiến dịch
-                        if( empty($dataSend['token']) && (
-                            (!empty($infoMember->noti_reg_campaign) && empty($dataSend['checkin'])) ||
-                            (!empty($infoMember->noti_checkin_campaign) && !empty($dataSend['checkin']))
-                        )
-                    ){
-                            $actionCampaign = 'đăng ký tham gia';
-                            if(!empty($dataSend['checkin'])){
-                                $actionCampaign = 'checkin';
+                    $infoCustomer->avatar = $dataSend['avatar'];
+                    $infoCustomer->id_parent = $infoMember->id;
+
+                    $modelCustomers->save($infoCustomer);
+
+                        // lưu bảng đại lý
+                    saveCustomerMember($infoCustomer->id, $infoMember->id);
+
+                    if(!empty($dataSend['clear_group'])){
+                        $modelCategoryConnects->deleteAll(['id_parent'=>$infoCustomer->id, 'keyword'=>'group_customers']);
+                    }
+
+                        // lưu bảng nhóm khách hàng
+                    if(!empty($dataSend['id_group'])){
+                        foreach ($dataSend['id_group'] as $id_group) {
+                            $categoryConnects = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoCustomer->id, 'id_category'=>(int)$id_group])->first();
+
+                            if(empty($categoryConnects)){
+                                $categoryConnects = $modelCategoryConnects->newEmptyEntity();
+
+                                $categoryConnects->keyword = 'group_customers';
+                                $categoryConnects->id_parent = $infoCustomer->id;
+                                $categoryConnects->id_category = (int) $id_group;
+
+                                $modelCategoryConnects->save($categoryConnects);
+                            }
+                        }
+                    }
+
+                        // bắn thông báo có dữ liệu khách hàng mới
+                    if(!empty($infoMember->noti_new_customer) && empty($dataSend['token'])){
+                        $dataSendNotification= array('title'=>'Khách hàng mới','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã trở thành khách hàng mới của bạn','action'=>'addCustomer');
+                        $token_device = [];
+
+                        $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                        if(!empty($listTokenDevice)){
+                            foreach ($listTokenDevice as $tokenDevice) {
+                                if(!empty($tokenDevice->token_device)){
+                                    $token_device[] = $tokenDevice->token_device;
+                                }
                             }
 
-                            $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã '.$actionCampaign.' chiến dịch '.$infoCampaign->name,'action'=>'addCustomerCampaign', 'id_campaign'=>$infoCampaign->id);
-                            $token_device = [];
+                            if(!empty($token_device)){
+                                $return = sendNotification($dataSendNotification, $token_device);
+                            }
+                        }
+                    }
 
-                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+                        // lưu bảng chiến dịch
+                    if(!empty($dataSend['id_campaign']) && function_exists('getInfoCampaign')){
+                        $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
 
-                            if(!empty($listTokenDevice)){
-                                foreach ($listTokenDevice as $tokenDevice) {
-                                    if(!empty($tokenDevice->token_device)){
-                                        $token_device[] = $tokenDevice->token_device;
+                        $infoCampaign = getInfoCampaign($dataSend['id_campaign'], $infoMember->id);
+
+                        if(!empty($infoCampaign)){
+                            $checkCampaign = $modelCampaignCustomers->find()->where(['id_member'=>$infoMember->id, 'id_customer'=>(int) $infoCustomer->id, 'id_campaign'=>(int) $dataSend['id_campaign']])->first();
+
+                            if(empty($checkCampaign)){
+                                $checkCampaign = $modelCampaignCustomers->newEmptyEntity();
+
+                                $checkCampaign->id_member = $infoMember->id;
+                                $checkCampaign->id_customer = $infoCustomer->id;
+                                $checkCampaign->id_campaign = (int) $dataSend['id_campaign'];
+                                $checkCampaign->create_at = time();
+                            }
+
+                            $checkCampaign->id_location = (int) @$dataSend['id_location'];
+                            $checkCampaign->id_team = (int) @$dataSend['id_team'];
+                            $checkCampaign->id_ticket = (int) @$dataSend['id_ticket'];
+                            $checkCampaign->note = @$dataSend['note_campaign'];
+
+                            if(!empty($dataSend['checkin'])){
+                                $checkCampaign->time_checkin = time();
+                            }else{
+                                $checkCampaign->time_checkin = 0;
+                            }
+
+                            $modelCampaignCustomers->save($checkCampaign);
+
+                                // bắn thông báo khách đăng ký hoặc checkin chiến dịch
+                            if( empty($dataSend['token']) && (
+                                (!empty($infoMember->noti_reg_campaign) && empty($dataSend['checkin'])) ||
+                                (!empty($infoMember->noti_checkin_campaign) && !empty($dataSend['checkin']))
+                            )
+                        ){
+                                $actionCampaign = 'đăng ký tham gia';
+                                if(!empty($dataSend['checkin'])){
+                                    $actionCampaign = 'checkin';
+                                }
+
+                                $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$infoCustomer->full_name.' đã '.$actionCampaign.' chiến dịch '.$infoCampaign->name,'action'=>'addCustomerCampaign', 'id_campaign'=>$infoCampaign->id);
+                                $token_device = [];
+
+                                $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMember->id])->all()->toList();
+
+                                if(!empty($listTokenDevice)){
+                                    foreach ($listTokenDevice as $tokenDevice) {
+                                        if(!empty($tokenDevice->token_device)){
+                                            $token_device[] = $tokenDevice->token_device;
+                                        }
+                                    }
+
+                                    if(!empty($token_device)){
+                                        $return = sendNotification($dataSendNotification, $token_device);
                                     }
                                 }
-
-                                if(!empty($token_device)){
-                                    $return = sendNotification($dataSendNotification, $token_device);
-                                }
                             }
                         }
                     }
-                }
 
-                    // lưu lịch sử chăm sóc khách hàng
-                if(empty($dataSend['id'])){
-                    $note_now = 'Đại lý '.$infoMember->name.' ('.$infoMember->phone.') tạo dữ liệu khách hàng';
-                    $action_now = 'create';
+                        // lưu lịch sử chăm sóc khách hàng
+                    if(empty($dataSend['id'])){
+                        $note_now = 'Đại lý '.$infoMember->name.' ('.$infoMember->phone.') tạo dữ liệu khách hàng';
+                        $action_now = 'create';
+                    }else{
+                        $note_now = 'Đại lý '.$infoMember->name.' ('.$infoMember->phone.') sửa dữ liệu khách hàng';
+                        $action_now = 'edit';
+                    }
+
+                    $customer_histories = $modelCustomerHistories->newEmptyEntity();
+
+                    $customer_histories->id_customer = $infoCustomer->id;
+                    $customer_histories->time_now = time();
+                    $customer_histories->note_now = $note_now;
+                    $customer_histories->action_now = $action_now;
+                    $customer_histories->id_staff_now = $infoMember->id;
+                    $customer_histories->status = 'done';
+
+                    $modelCustomerHistories->save($customer_histories);
+
+                    $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
+                    $return['set_attributes']['id_customer_crm']= $infoCustomer->id;
+                    $return['set_attributes']['img_card_member']= $infoCustomer->img_card_member;
                 }else{
-                    $note_now = 'Đại lý '.$infoMember->name.' ('.$infoMember->phone.') sửa dữ liệu khách hàng';
-                    $action_now = 'edit';
+                    $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
                 }
-
-                $customer_histories = $modelCustomerHistories->newEmptyEntity();
-
-                $customer_histories->id_customer = $infoCustomer->id;
-                $customer_histories->time_now = time();
-                $customer_histories->note_now = $note_now;
-                $customer_histories->action_now = $action_now;
-                $customer_histories->id_staff_now = $infoMember->id;
-                $customer_histories->status = 'done';
-
-                $modelCustomerHistories->save($customer_histories);
-
-                $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
-                $return['set_attributes']['id_customer_crm']= $infoCustomer->id;
-                $return['set_attributes']['img_card_member']= $infoCustomer->img_card_member;
             }else{
-                $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
-            }
-        }else{
-           $return = array('code'=>3, 'mess'=>'Sai mã token');
+               $return = array('code'=>3, 'mess'=>'Sai mã token');
+           }
+       }else{
+           $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
        }
-   }else{
-       $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
-   }
-}
+    }
 
-return $return;
+    return $return;
 }
 
 function deleteGroupCustomerAPI($input)

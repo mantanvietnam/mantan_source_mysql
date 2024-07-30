@@ -108,9 +108,12 @@ function updateStatusOrderMemberAPI($input)
     $modelMembers = $controller->loadModel('Members');
     $modelProducts = $controller->loadModel('Products');
     $modelOrderMembers = $controller->loadModel('OrderMembers');
+    $modelBill = $controller->loadModel('Bills');
+    $modelDebt = $controller->loadModel('Debts');
     $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
     $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
     $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+    $modelTokenDevices = $controller->loadModel('TokenDevices');
 
     $return = array('code'=>1);
     
@@ -193,6 +196,123 @@ function updateStatusOrderMemberAPI($input)
 
 		                if(!empty($dataSend['status_pay'])){
 		                    $order->status_pay = $dataSend['status_pay'];
+
+		                    // thanh toán 
+		                    if($dataSend['status_pay'] == 'done'){
+		                        // thông báo cho người mua
+		                        $infoMemberBuy = $modelMembers->find()->where(['id'=>$order->id_member_buy])->first();
+
+		                        if(!empty($infoMemberBuy->noti_new_order)){
+		                            $dataSendNotification= array('title'=>'Thanh toán thành công','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$order->id.' của bạn đã được thanh toán thành công số tiền '.number_format($order->total).'đ','action'=>'deleteProductWarehouse','id_order_member'=>$order->id);
+		                            $token_device = [];
+
+		                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMemberBuy->id])->all()->toList();
+
+		                            if(!empty($listTokenDevice)){
+		                                foreach ($listTokenDevice as $tokenDevice) {
+		                                    if(!empty($tokenDevice->token_device)){
+		                                        $token_device[] = $tokenDevice->token_device;
+		                                    }
+		                                }
+
+		                                if(!empty($token_device)){
+		                                    $return = sendNotification($dataSendNotification, $token_device);
+		                                }
+		                            }
+		                        }
+
+		                        // thông báo cho người bán
+		                        $infoMemberSell = $modelMembers->find()->where(['id'=>$order->id_member_sell])->first();
+
+		                        if(!empty($infoMemberSell->noti_product_warehouse)){
+		                            $dataSendNotification= array('title'=>'Thanh toán thành công','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$order->id.' của đại lý '.$infoMemberBuy->name.' đã được thanh toán thành công số tiền '.number_format($order->total).'đ','action'=>'deleteProductWarehouse','id_order_member'=>$order->id);
+		                            $token_device = [];
+
+		                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMemberSell->id])->all()->toList();
+
+		                            if(!empty($listTokenDevice)){
+		                                foreach ($listTokenDevice as $tokenDevice) {
+		                                    if(!empty($tokenDevice->token_device)){
+		                                        $token_device[] = $tokenDevice->token_device;
+		                                    }
+		                                }
+
+		                                if(!empty($token_device)){
+		                                    $return = sendNotification($dataSendNotification, $token_device);
+		                                }
+		                            }
+		                        }
+		                        $time= time();
+		                        if($dataSend['type_collection_bill']!='cong_no'){
+
+		                            // bill cho người bán 
+		                            $bill = $modelBill->newEmptyEntity();
+		                            $bill->id_member_sell =  $infoMember->id;
+		                            $bill->id_member_buy = $order->id_member_buy;
+		                            $bill->total = $order->total;
+		                            $bill->id_order = $order->id;
+		                            $bill->type = 1;
+		                            $bill->type_order = 1; 
+		                            $bill->created_at = $time;
+		                            $bill->updated_at = $time;
+		                            $bill->id_debt = 0;
+		                            $bill->type_collection_bill =  @$dataSend['type_collection_bill'];
+		                            $bill->id_customer = 0;
+		                            $bill->note = 'Thanh toán đơn hàng id:'.$order->id.' bán cho đại lý '.@$infoMemberBuy->name.' '.@$infoMemberBuy->phone.'; '.@$dataSend['note'];
+		                            $modelBill->save($bill);
+
+		                            // bill cho người mua
+		                            $billbuy = $modelBill->newEmptyEntity();
+		                            $billbuy->id_member_sell =  $infoMember->id;
+		                            $billbuy->id_member_buy = $order->id_member_buy;
+		                            $billbuy->total = $order->total;
+		                            $billbuy->id_order = $order->id;
+		                            $billbuy->type = 2;
+		                            $billbuy->type_order = 1; 
+		                            $billbuy->created_at = $time;
+		                            $billbuy->updated_at = $time;
+		                            $billbuy->id_debt = 0;
+		                            $billbuy->type_collection_bill =  @$dataSend['type_collection_bill'];
+		                            $billbuy->id_customer = 0;
+		                            $billbuy->note = 'Thanh toán đơn hàng id:'.$order->id.' mua của đại lý '.@$infoMemberSell->name.' '.@$infoMemberSell->phone.'; '.@$dataSend['note'];
+		                            $modelBill->save($billbuy);
+		                        }else{
+		                            if(!empty($infoMemberBuy)){
+		                                $debt = $modelDebt->newEmptyEntity();
+		                                $debt->id_member_sell =  $infoMember->id;
+		                                $debt->id_member_buy = $order->id_member_buy;
+		                                $debt->total = $order->total;
+		                                $debt->id_order = $order->id;
+		                                $debt->number_payment = 0;
+		                                $debt->total_payment = 0;
+		                                $debt->type = 1;
+		                                $debt->status = 0;
+		                                $debt->type_order = 1; 
+		                                $debt->created_at = $time;
+		                                $debt->updated_at = $time;
+		                                $debt->id_customer = 0;
+		                                $debt->note = 'Thanh toán đơn hàng id:'.$order->id.' bán cho đại lý '.@$infoMemberBuy->name.' '.@$infoMemberBuy->phone.'; '.@$dataSend['note'];
+		                                    $modelDebt->save($debt);
+		                            }
+
+		                            	$debt = $modelDebt->newEmptyEntity();
+		                                $debt->id_member_sell =  $infoMember->id;
+		                                $debt->id_member_buy = $order->id_member_buy;
+		                                $debt->total = $order->total;
+		                                $debt->id_order = $order->id;
+		                                $debt->number_payment = 0;
+		                                $debt->total_payment = 0;
+		                                $debt->type = 2;
+		                                $debt->status = 0;
+		                                $debt->type_order = 1; 
+		                                $debt->created_at = $time;
+		                                $debt->updated_at = $time;
+		                                $debt->id_customer = 0;
+		                                $debt->note = 'Thanh toán đơn hàng id:'.$order->id.' mua của đại lý '.@$infoMemberSell->name.' '.@$infoMemberSell->phone.'; '.@$dataSend['note'];
+		                                    $modelDebt->save($debt);
+		                        }
+		                    }
+
 		                }
 
 		                $modelOrderMembers->save($order);

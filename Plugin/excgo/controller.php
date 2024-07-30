@@ -25,3 +25,4 @@ include_once('controller/api/supportRequestsController.php'); // Trợ giúp
 include_once('controller/api/postsController.php'); // Bài đăng
 include_once('controller/api/bookmarksController.php'); // Nhóm quan tâm
 include_once('controller/api/rewardController.php'); // phan thuong 
+include_once('controller/api/orderPointController.php'); // đơn mua điểm 
