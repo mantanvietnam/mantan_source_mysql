@@ -227,7 +227,7 @@
                                                 <div class="qty-input">
 
                                                     <button class="qty-count qty-count--minus" data-action="minus" type="button">-</button>
-                                                    <input class="product-qty" type="number" name="product-qty" min="1" max="999" value="1" id="numberProduct'.$product->id.'" >
+                                                    <input class="product-qty" type="number" name="product-qty" min="1" value="1" id="numberProduct'.$product->id.'" >
                                                     <button class="qty-count qty-count--add" data-action="add" type="button">+</button>
                                                 </div>
                                             </th>
