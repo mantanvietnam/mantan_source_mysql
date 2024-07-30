@@ -160,7 +160,24 @@ $('.as4-block-1').slick({
     slidesToScroll: 1,
     prevArrow: `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-chevron-left"></i></button>`,
     nextArrow: `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
-
+    responsive: [{
+            breakpoint: 1050,
+            settings: {
+                slidesToShow: 3,
+            }
+        },
+        {
+            breakpoint: 850,
+            settings: {
+                slidesToShow: 2,
+            }
+        }, {
+            breakpoint: 500,
+            settings: {
+                slidesToShow: 1,
+            }
+        },
+    ]
 });
 
 

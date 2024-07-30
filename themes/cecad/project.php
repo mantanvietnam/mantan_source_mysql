@@ -23,21 +23,19 @@
                 <img src="<?= @$settingThemes['imagebannerproject'];?>" alt="">
             </div>
         </section>
-        <section class="screen-banner-news" id="banner-news-section">
+        <section class="screen-banner-news screen-banner-project-1" id="banner-news-section">
             <div class="bn-block-1">
                 <div class="bn-block-1-img">
                     <img src="<?= @$settingThemes['imagebannerproject'];?>" alt="">
                 </div>
-                <div class="bp-block-1">
-                    <div class="bp-block-1-title">
-                        <p>
-                            Cecad
-                        </p>
-                        <h1>
-                            <span>Dự</span>
-                            <span>án</span>
-                        </h1>
-                    </div>
+                <div class="bp-block-1-title">
+                    <p>
+                        Cecad
+                    </p>
+                    <h1>
+                        <span>Dự</span>
+                        <span>án</span>
+                    </h1>
                 </div>
             </div>
             <div class="bn-block-2">

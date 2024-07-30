@@ -915,7 +915,7 @@ i {
 
 .swiper-block .swiper-slide {
     width: 100%;
-    height: calc(100vh - 104px);
+    height: calc(100vh - 94px);
     position: relative;
 }
 
@@ -1038,7 +1038,7 @@ i {
 
 #count-section .title-section h2 {
     color: #427FE3;
-    font-size: 44px;
+    font-size: 40px;
     font-weight: 800;
     text-align: center;
     text-transform: uppercase;
@@ -1062,7 +1062,7 @@ i {
 }
 
 .counter_item h1 {
-    font-size: 50px;
+    font-size: 46px;
     font-weight: 900;
     text-align: center;
     color: #427FE3 !important;
@@ -1070,7 +1070,7 @@ i {
 }
 
 .counter_item i {
-    font-size: 28px;
+    font-size: 24px;
     color: #427FE3 !important;
 }
 
@@ -1128,7 +1128,7 @@ i {
 }
 
 #majors-section .title-section h2 {
-    font-size: 44px;
+    font-size: 40px;
     font-weight: 800;
     margin: 20px 0;
     text-transform: uppercase;
@@ -1293,7 +1293,7 @@ i {
 }
 
 #projects-section .title-section h2 {
-    font-size: 44px;
+    font-size: 40px;
     font-weight: 800;
     margin: 20px 0;
     text-transform: uppercase;
@@ -1482,7 +1482,7 @@ padding-right: 100px; */
 }
 
 #news-section .title-section h2 {
-    font-size: 44px;
+    font-size: 40px;
     font-weight: 800;
     margin-top: 32px;
     text-transform: uppercase;
@@ -1644,7 +1644,7 @@ padding-right: 100px; */
 }
 
 .bn-block-1-img {
-    height: calc(100vh - 104px);
+    height: calc(100vh - 94px);
 }
 
 .bn-block-1 {
@@ -1715,10 +1715,6 @@ padding-right: 100px; */
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-body.loaded .bn-block-1-title .word span {
-    animation: pop-up 0.5s forwards;
 }
 
 #banner-news-section {
@@ -2040,7 +2036,7 @@ body.loaded .bn-block-1-title .word span {
 }
 
 .dtfs-block-1 {
-    height: 100vh;
+    height: calc(100vh - 94px);
     position: relative;
 }
 
@@ -2182,7 +2178,6 @@ body.loaded .bn-block-1-title .word span {
 }
 
 #dtf-section-5 {
-   
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
@@ -2291,13 +2286,9 @@ body.loaded .bn-block-1-title .word span {
     font-family: auto;
 }
 
-.as1-banner {
-    height: calc(100vh - 104px);
-}
-
 .as1-block-1 {
     position: relative;
-    height: calc(100vh - 104px);
+    height: calc(100vh - 94px);
 }
 
 .as1-block-1::before {
@@ -2346,6 +2337,8 @@ body.loaded .bn-block-1-title .word span {
 }
 
 .as1-block-2 p {
+    width: 64%;
+    margin: auto;
     color: #e9f4ffe0;
     font-weight: bold;
     font-size: 15px;
@@ -2563,7 +2556,7 @@ body.loaded .bn-block-1-title .word span {
 
 #about-section-4 {
     padding: 80px 0;
-    background: linear-gradient(180deg, rgba(226, 234, 235, 1) 0%, rgba(247, 247, 247, 1) 95%);
+    background: linear-gradient(180deg, rgba(226, 234, 235, 1) 50%, rgba(247, 247, 247, 1) 95%);
 }
 
 .as4-swiper-slide {
@@ -2632,8 +2625,8 @@ body.loaded .bn-block-1-title .word span {
     font-size: 38px;
     font-weight: 800;
     position: relative;
-    margin-bottom: 12px!important;
-    padding: 30px 0;
+    margin-bottom: 30px !important;
+    padding: 12px 0;
     z-index: 0;
 }
 
@@ -2711,7 +2704,29 @@ body.loaded .bn-block-1-title .word span {
     color: #ffffff;
 }
 
+.screen-banner-project-1 {
+    display: none;
+}
+
 @media (max-width: 16in) {
+    .swiper-block .swiper-slide {
+        height: calc(100vh - 80px);
+    }
+    .dtfs-block-2 h1 {
+        font-size: 52px;
+    }
+    .bp-block-2 {
+        height: calc(100vh - 80px);
+    }
+    .bn-block-1-img {
+        height: calc(100vh - 80px);
+    }
+    .as1-block-1 {
+        height: calc(100vh - 80px);
+    }
+    .dtfs-block-1 {
+        height: calc(100vh - 80px);
+    }
     #dtf-section-3 .container {
         max-width: 60%;
     }
@@ -2781,7 +2796,7 @@ body.loaded .bn-block-1-title .word span {
     }
 }
 
-@media (max-width: 1350px) and (min-width: 1050px) {
+@media (max-width: 1370px) and (min-width: 1050px) {
     #partner-section .title-section h3 {
         font-size: 36px;
     }
@@ -2863,8 +2878,11 @@ body.loaded .bn-block-1-title .word span {
 }
 
 @media (max-width: 1050px) {
-    #dtf-section-3 .container {
-        max-width: 85%;
+    .as1-block-2 {
+        width: 60%;
+    }
+    .as1-block-2 p {
+        width: auto;
     }
     .news-title h1 {
         font-size: 20px;
@@ -3032,11 +3050,24 @@ body.loaded .bn-block-1-title .word span {
         padding-right: 15px;
         padding-left: 20px;
     }
+    .as4-block-1 .slick-arrow.slick-next {
+        right: -3%;
+    }
+    .as4-block-1 .slick-arrow.slick-prev {
+        left: -3%;
+    }
 }
 
 @media (max-width: 850px) {
-    #dtf-section-3 .container {
-        max-width: 95%;
+    .as1-block-2 {
+        width: 70%;
+    }
+    #dtf-section-3 .container,
+    .dtfs6-block-2 .container {
+        max-width: 100%;
+    }
+    .dtfs6-block-2-gallery img {
+        height: 400px;
     }
     .word {
         font-size: 85px;
@@ -3203,9 +3234,113 @@ body.loaded .bn-block-1-title .word span {
     .news-right {
         padding-left: 0;
     }
+    .as1-block-1 {
+        position: relative;
+        height: calc(100vh - 80px);
+    }
+    .as4-block-1 .slick-arrow.slick-next {
+        right: -3.5%;
+    }
+    .as4-block-1 .slick-arrow.slick-prev {
+        left: -3.5%;
+    }
 }
 
 @media (max-width: 480px) {
+    .dtfs-block-2 h1 {
+        font-size: 30px;
+    }
+    .dtfs2-block-1-title h2 {
+        font-size: 28px;
+    }
+    #dtf-section-5 {
+        height: 350px;
+        max-height: 350px;
+    }
+    .dtfs6-block-2-gallery img {
+        height: 280px;
+    }
+    .dtfs6-block-2-gallery {
+        gap: 6px;
+    }
+    .as1-block-2 p {
+        width: 100%;
+    }
+    .as4-block-1 {
+        padding: 0 30px;
+    }
+    .as4-block-1 .slick-arrow.slick-next {
+        right: 1%;
+    }
+    .as4-block-1 .slick-arrow.slick-prev {
+        left: 1%;
+    }
+    .screen-banner-project-1 {
+        display: block;
+    }
+    .screen-banner-project-1 .bp-block-1-title {
+        bottom: 30%;
+        left: 5%;
+        z-index: 3;
+    }
+    .screen-banner-project-1 .bp-block-1-title p,
+    .screen-banner-project-1 .bp-block-1-title h1 {
+        color: #fff;
+    }
+    .screen-banner-project {
+        display: none !important;
+    }
+    .as4-block-2 h3 {
+        font-size: 28px;
+    }
+    .as3-block-1 h3::after {
+        width: 170px;
+    }
+    .as3-block-1 h3 {
+        font-size: 28px;
+    }
+    .as3-block-2 {
+        display: grid;
+        place-items: center;
+        padding: 10px 0px;
+        justify-content: center;
+        gap: 26px;
+    }
+    .as3-block-2-item {
+        width: auto;
+    }
+    .as3-block-2-item img {
+        width: 200px;
+    }
+    .as5-block-1 a {
+        padding: 14px 50px;
+        font-size: 14px;
+    }
+    .as1-block-2-btn a {
+        padding: 14px 50px;
+        font-size: 14px;
+    }
+    .ms-1-block-1-img img {
+        width: 100px;
+    }
+    .as1-block-2 h1 {
+        font-size: 60px;
+    }
+    .as1-block-2 {
+        width: 100%;
+        padding: 0 12px;
+        max-width: none;
+    }
+    .as1-block-2 p {
+        font-size: 14px;
+    }
+    .as2-block-1,
+    .as2-block-3 {
+        width: 100%;
+    }
+    .as3-block-1 {
+        width: 100%;
+    }
     #dtf-section-3 .container {
         max-width: 100%;
     }
