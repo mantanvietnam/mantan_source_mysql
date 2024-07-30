@@ -203,8 +203,6 @@ function renderImageRabbit($data)
     $user = 'ezpics_home'; // Tên người dùng
     $pass = 'yyZ0lONeM'; // Mật khẩu
 
-    $urlHomes = "https://" . @$_SERVER['HTTP_HOST'].'/';
-
     $conn = mysqli_connect($host, $user, $pass, $db);
 
     if (!$conn) {
@@ -230,7 +228,7 @@ function renderImageRabbit($data)
         file_put_contents($filePath, $imageData);
 
         // cập nhập database
-        $linkOnline = $urlHomes.'upload/admin/images/render_images/'.$data['fileName'];
+        $linkOnline = 'https://designer.ezpics.vn/upload/admin/images/render_images/'.$data['fileName'];
         $render_at = time();
 
         $sql = "UPDATE render_images SET linkOnline='".$linkOnline."', render_at=".$render_at." WHERE id=".(int) $data['id_request'];
