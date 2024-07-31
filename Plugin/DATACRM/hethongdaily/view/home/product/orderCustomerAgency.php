@@ -177,7 +177,7 @@
                 }
                 
                 echo '<tr>
-                <td>'.$item->id.'<br/><br/>'.date('H:i d/m/Y', $item->create_at).'</td>
+                <td><a href="/printBillOrderCustomerAgency/?id_order='.$item->id.'" target="_blank">'.$item->id.'</a><br/><br/>'.date('H:i d/m/Y', $item->create_at).'</td>
                
                 <td>
                   <a href="/listCustomerAgency/?id='.$item->id_user.'">'.$item->full_name.'</a><br/>
