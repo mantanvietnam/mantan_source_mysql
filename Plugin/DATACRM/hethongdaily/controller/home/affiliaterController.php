@@ -462,6 +462,7 @@ function settingAffiliateAgency($input){
     global $isRequestPost;
     global $modelCategories;
     global $session;
+    global $controller;
 
     $metaTitleMantan = 'Cài đặt hoa hồng giới thiệu';
     $mess= '';
