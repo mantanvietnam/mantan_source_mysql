@@ -41,8 +41,8 @@ header {
 }
 
 .menu .nav-link img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 100%;
     overflow: hidden;
 }
@@ -224,6 +224,23 @@ header {
     }
     .nav-item {
         width: 100%;
+    }
+    .navbar-nav .dropdown-menu {
+        border: none;
+        float: right;
+        padding: 0;
+    }
+    .nav-item .dropdown-menu::after {
+        display: none;
+    }
+    .menu .dropdown-menu .dropdown-item {
+        display: flex;
+        border: none;
+        font-size: 16px;
+        justify-content: right;
+    }
+    .menu .nav-link {
+        font-size: 20px;
     }
 }
 

@@ -134,6 +134,7 @@ function settingAboutusTheme($input){
 
 //            
             'titleteam'=>$dataSend['titleteam'],
+            'bannerteam'=>$dataSend['bannerteam'],
             'contenteam'=>$dataSend['contenteam'],
             'namebuttonteam'=>$dataSend['namebuttonteam'],
             'titleslide1'=>$dataSend['titleslide1'],
@@ -145,6 +146,7 @@ function settingAboutusTheme($input){
 
 // 
             'titlevolunteers'=>$dataSend['titlevolunteers'],
+            'bannervolunteers'=>$dataSend['bannervolunteers'],
             'contenvolunteer'=>$dataSend['contenvolunteer'],
             'namebuttonvolunteer'=>$dataSend['namebuttonvolunteer'],
             'titleslidevolunteers'=>$dataSend['titleslidevolunteers'],

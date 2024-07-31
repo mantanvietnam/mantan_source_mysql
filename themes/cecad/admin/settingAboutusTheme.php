@@ -115,12 +115,14 @@
                                     <label class="form-label" for="basic-default-fullname">Tiêu đề albums slide 2</label>
                                     <input type="text" class="form-control" name="titleidside2" value="<?php echo @$data['titleidside2'];?>" />
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="tab-pane fade show" id="navs-top-team" role="tabpanel">
                             <div class="card-body row ">
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Banner team</label>
+                                    <?php showUploadFile('bannerteam','bannerteam', @$data['bannerteam'],60);?>
+                                </div>
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">Tiêu đề khối</label>
                                     <input type="text" class="form-control" name="titleteam" value="<?php echo @$data['titleteam'];?>" />
@@ -162,6 +164,10 @@
                         </div>
                         <div class="tab-pane fade show" id="navs-top-volunteer" role="tabpanel">
                             <div class="card-body row ">
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Banner tình nguyện viên</label>
+                                    <?php showUploadFile('bannervolunteers','bannervolunteers', @$data['bannervolunteers'],61);?>
+                                </div>
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">Tiêu đề khối</label>
                                     <input type="text" class="form-control" name="titlevolunteers" value="<?php echo @$data['titlevolunteers'];?>" />

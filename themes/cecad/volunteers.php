@@ -4,7 +4,7 @@
             <div class="as1-block-1">
                 <div class="as1-banner">
                     <div class="as1-block-1">
-                        <img src="../Asset/images/c-868-1683516505-6215.jpg" alt="">
+                        <img src="<?= @$setting['bannervolunteers'];?>" alt="">
                     </div>
                     <div class="as1-block-2">
                         <div class="as1-block-2-title">
