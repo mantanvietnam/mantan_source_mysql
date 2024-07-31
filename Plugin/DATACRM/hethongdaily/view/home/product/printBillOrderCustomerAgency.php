@@ -99,7 +99,7 @@
                                   if(@$order->discount>100){
                                     $total = $order->money -  $order->discount;
                                   }else{
-                                     $total = $order->money - ($order->money*$order->discount/100);
+                                     $total = $order->money - ($order->money*(int)$order->discount/100);
                                   }
                                  echo' <tr>
                                     <td class="text-right" colspan="">Thành tiền:</td>
