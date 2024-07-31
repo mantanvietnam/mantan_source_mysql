@@ -5,8 +5,28 @@
         <div class="row">
             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="mb-4">
+                    <div class="nav-align-top mb-4">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-banner" aria-controls="navs-top-banner" aria-selected="true">
+                                    KHỐI BANNER
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-team" aria-controls="navs-top-info" aria-selected="false">
+                                    KHỐI TEAMS
+                                </button>
+                                
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-volunteer" aria-controls="navs-top-info" aria-selected="false">
+                                    KHỐI VOLUNTEERS
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="card-body tab-content">
-                        <div class="tab-pane active " id="navs-top-home" role="tabpanel">
+                        <div class="tab-pane active fade show" id="navs-top-banner" role="tabpanel">
                             <div class="card-body row ">
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Banner home</label>
@@ -99,10 +119,71 @@
 
                             </div>
                         </div>
-                       
-                       
-                     
-                     
+                        <div class="tab-pane fade show" id="navs-top-team" role="tabpanel">
+                            <div class="card-body row ">
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tiêu đề khối</label>
+                                    <input type="text" class="form-control" name="titleteam" value="<?php echo @$data['titleteam'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nội dung</label>
+                                    <input type="text" class="form-control" name="contenteam" value="<?php echo @$data['contenteam'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tên nút</label>
+                                    <input type="text" class="form-control" name="namebuttonteam" value="<?php echo @$data['namebuttonteam'];?>" />
+                                </div>
+<!--  -->
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tiêu đề slide đầu</label>
+                                    <input type="text" class="form-control" name="titleslide1" value="<?php echo @$data['titleslide1'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">ID slide đầu</label>
+                                    <input type="text" class="form-control" name="idslidedau" value="<?php echo @$data['idslidedau'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tiêu đề slide hai</label>
+                                    <input type="text" class="form-control" name="titleslide2" value="<?php echo @$data['titleslide2'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">ID slide hai</label>
+                                    <input type="text" class="form-control" name="idslidehai" value="<?php echo @$data['idslidehai'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tiêu đề slide ba</label>
+                                    <input type="text" class="form-control" name="titleslide3" value="<?php echo @$data['titleslide3'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">ID slide ba</label>
+                                    <input type="text" class="form-control" name="idslideba" value="<?php echo @$data['idslideba'];?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show" id="navs-top-volunteer" role="tabpanel">
+                            <div class="card-body row ">
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tiêu đề khối</label>
+                                    <input type="text" class="form-control" name="titlevolunteers" value="<?php echo @$data['titlevolunteers'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nội dung</label>
+                                    <input type="text" class="form-control" name="contenvolunteer" value="<?php echo @$data['contenvolunteer'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tên nút</label>
+                                    <input type="text" class="form-control" name="namebuttonvolunteer" value="<?php echo @$data['namebuttonvolunteer'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tiêu đề slide tình nguyện viên</label>
+                                    <input type="text" class="form-control" name="titleslidevolunteers" value="<?php echo @$data['titleslidevolunteers'];?>" />
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                        <label class="form-label" for="basic-default-fullname">ID slide tình nguyện viên</label>
+                                        <input type="text" class="form-control" name="idslidevolunteers" value="<?php echo @$data['idslidevolunteers'];?>" />
+                                </div>
+                            </div>
+                        </div>
                         
                        
                        

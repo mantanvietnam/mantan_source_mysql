@@ -143,7 +143,7 @@
         <section id="about-section-5">
             <div class="container">
                 <div class="as5-block-1">
-                    <a href=""><i class="fa-solid fa-users"></i> GẶP GỠ ĐỘI NGŨ CECAD</a>
+                    <a href="/team"><i class="fa-solid fa-users"></i> GẶP GỠ ĐỘI NGŨ CECAD</a>
                 </div>
             </div>
         </section>
