@@ -33,6 +33,7 @@ $sqlInstallDatabase .= "CREATE TABLE `products` (
     `evaluate` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, 
     `unit` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     `price_fash` INT NULL DEFAULT NULL, 
+    `price_agency` INT NOT NULL DEFAULT '0', 
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .= "CREATE TABLE `orders` ( 
@@ -139,6 +140,7 @@ $sqlInstallDatabase .="CREATE TABLE `unit_conversions` (
     `id_product` INT NOT NULL DEFAULT '0' , 
     `quantity` INT NOT NULL DEFAULT '0' , 
     `price` INT NOT NULL DEFAULT '0' , 
+    `price_agency` INT NOT NULL DEFAULT '0' , 
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 
@@ -181,6 +183,7 @@ $sqlUpdateDatabase['products']['pricepro_discount'] = "ALTER TABLE `products` AD
 $sqlUpdateDatabase['products']['evaluate'] = "ALTER TABLE `products` ADD `evaluate` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL; ";
 $sqlUpdateDatabase['products']['price_fash'] = "ALTER TABLE `products` ADD `price_fash` INT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['products']['unit'] = "ALTER TABLE `products` ADD `unit` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['products']['price_agency'] = "ALTER TABLE `products` ADD `price_agency` INT NOT NULL DEFAULT '0';";
 
 // Bang orders
 $sqlUpdateDatabase['orders']['id_user'] = "ALTER TABLE `orders` ADD `id_user` INT NULL DEFAULT '0' ; ";
@@ -263,4 +266,5 @@ $sqlUpdateDatabase['unit_conversions']['unit'] = "ALTER TABLE `unit_conversions`
 $sqlUpdateDatabase['unit_conversions']['id_product'] = "ALTER TABLE `unit_conversions` ADD `id_product` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['unit_conversions']['quantity'] = "ALTER TABLE `unit_conversions` ADD `quantity` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['unit_conversions']['price'] = "ALTER TABLE `unit_conversions` ADD `price` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['unit_conversions']['price_agency'] = "ALTER TABLE `unit_conversions` ADD `price_agency` INT NOT NULL DEFAULT '0';";
 ?>

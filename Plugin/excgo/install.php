@@ -260,14 +260,15 @@ $sqlInstallDatabase .='CREATE TABLE `rewards` (
 
 $sqlInstallDatabase .='CREATE TABLE `order_points` ( 
     `id` INT NOT NULL AUTO_INCREMENT ,
-    `ud_user_sell` INT NOT NULL ,
-    `ud_user_buy` INT NOT NULL ,
+    `ud_user_sell` INT  NULL DEFAULT NULL ,
+    `ud_user_buy` INT NULL DEFAULT NULL,
     `point` INT NULL DEFAULT ,
     `total` INT NOT NULL DEFAULT 0 ,
     `created_at` TIMESTAMP NULL DEFAULT NULL ,
     `updated_at` TIMESTAMP NULL DEFAULT NULL ,
     `status` INT NOT NULL DEFAULT 0 COMMENT "0 chư duyện, 1 cấp nhận , 2 hủy" ,
     `not` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+    `type` INT NOT NULL DEFAULT '0' COMMENT "1 bán, 2 mua",
      PRIMARY KEY (`id`)) ENGINE = InnoDB;';
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';
@@ -473,12 +474,13 @@ $sqlUpdateDatabase['rewards']['status'] = "ALTER TABLE `rewards` ADD `status` TI
 $sqlUpdateDatabase['rewards']['note'] = "ALTER TABLE `rewards` ADD `note` TEXT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['rewards']['user_id'] = "ALTER TABLE `rewards` ADD `user_id` TEXT NULL DEFAULT NULL; ";
 
-$sqlUpdateDatabase['order_points']['ud_user_sell'] = "ALTER TABLE `order_points` ADD `ud_user_sell` INT NOT NULL ; ";
-$sqlUpdateDatabase['order_points']['ud_user_buy'] = "ALTER TABLE `order_points` ADD `ud_user_buy` INT NOT NULL ; ";
+$sqlUpdateDatabase['order_points']['ud_user_sell'] = "ALTER TABLE `order_points` ADD `ud_user_sell` INT  NULL DEFAULT NULL ; ";
+$sqlUpdateDatabase['order_points']['ud_user_buy'] = "ALTER TABLE `order_points` ADD `ud_user_buy` INT  NULL DEFAULT NULL ; ";
 $sqlUpdateDatabase['order_points']['point'] = "ALTER TABLE `order_points` ADD `point` INT NULL DEFAULT ; ";
 $sqlUpdateDatabase['order_points']['total'] = "ALTER TABLE `order_points` ADD `total` INT NOT NULL DEFAULT 0 ; ";
 $sqlUpdateDatabase['order_points']['created_at'] = "ALTER TABLE `order_points` ADD `created_at` TIMESTAMP NULL DEFAULT NULL ; ";
-$sqlUpdateDatabase['order_points']['updated_at'] = "ALTER TABLE `order_points` ADD `updated_at` TIMESTAMP NULL DEFAULT NULL ,
-$sqlUpdateDatabase['order_points']['status'] = "ALTER TABLE `order_points` ADD `status` INT NOT NULL DEFAULT 0 COMMENT "0 chư duyện, 1 cấp nhận , 2 hủy" ; ";
+$sqlUpdateDatabase['order_points']['updated_at'] = "ALTER TABLE `order_points` ADD `updated_at` TIMESTAMP NULL DEFAULT NULL ,";
+$sqlUpdateDatabase['order_points']['status'] = "ALTER TABLE `order_points` ADD `status` INT NOT NULL DEFAULT 0 COMMENT '0 chư duyện, 1 cấp nhận , 2 hủy' ; ";
 $sqlUpdateDatabase['order_points']['order_points'] = "ALTER TABLE `order_points` ADD `not` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ; ";
+$sqlUpdateDatabase['order_points']['type'] = "ALTER TABLE `order_points` ADD `type` INT NOT NULL DEFAULT 0 COMMENT '1 bán, 2 mua';";
 ?>

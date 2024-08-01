@@ -35,6 +35,9 @@ function searchProductAPI($input)
         
     if($listData){
         foreach($listData as $data){
+            if(empty($data->price_agency)){
+                $data->price_agency = $data->price;
+            }
             $return[]= array(   'id'=>$data->id,
                                 'label'=>$data->title.' - '.number_format($data->price).'đ',
                                 'value'=>$data->id,
@@ -47,6 +50,7 @@ function searchProductAPI($input)
                                 'quantity'=>$data->quantity,
                                 'view'=>$data->view,
                                 'unit'=>$data->unit,
+                                'price_agency'=>$data->price_agency,
                             );
         }
     }else{
@@ -195,6 +199,10 @@ function getNewProductAPI($input)
             $list_product[$key]->images = json_decode($value->images, true);
             $list_product[$key]->evaluate = json_decode($value->evaluate, true);
             $list_product[$key]->unitConversion = $modelUnitConversion->find()->where(array('id_product'=>$value->id))->all()->toList();
+
+            if(empty($value->price_agency)){
+               $list_product[$key]->price_agency = $value->price; 
+            }
         }
     }
 
@@ -249,6 +257,10 @@ function getInfoProductAPI($input)
 
                 $conditionsCategorie = ['id_product'=>$product->id];
                 $category = $modelCategorieProduct->find()->where(array($conditionsCategorie))->all()->toList();
+
+                if(empty($product->price_agency)){
+                    $product->price_agency = $product->price; 
+                }
                 
                 if(!empty($category)){
                     foreach ($category as $key => $item) {
@@ -495,6 +507,7 @@ function addProductAPI($input)
                         $data->code = @strtoupper($dataSend['code']);
                         $data->price = (int) @$dataSend['price'];
                         $data->price_old = (int) @$dataSend['price_old'];
+                        $data->price_agency = (int) @$dataSend['price_agency'];
                         $data->quantity = 1000000;
                         $data->status = 'active';
                         $data->unit = @$dataSend['unit'];
@@ -580,22 +593,26 @@ function saveUnitConversionProductAPI($input){
             if(!empty($infoMember)){
 
                 if($infoMember->id_father==0){
-                    $product = $modelProduct->find()->where(['id'=>$dataSend['id_product']])->first();
+                    $product = $modelProduct->find()->where(['id'=> (int) $dataSend['id_product']])->first();
                     if(!empty($product)){
                          if(!empty($dataSend['id'])){
-                                $save = $modelUnitConversion->find()->where(['id'=>$dataSend['id']])->first();
+                                $save = $modelUnitConversion->find()->where(['id'=> (int) $dataSend['id'],'id_product'=>$product->id])->first();
+                                if(empty($save)){
+                                    $save = $modelUnitConversion->newEmptyEntity();
+                                }
                             }else{
                                 $save = $modelUnitConversion->newEmptyEntity();
                             }
-                            $save->unit = $unit;
-                            $save->id_product = $data->id; 
+                            $save->unit = $dataSend['unit'];
+                            $save->id_product = $product->id; 
                             $save->quantity = (int) $dataSend['quantity'];
                             $save->price = (int) $dataSend['price'];
+                            $data->price_agency = (int) @$dataSend['price_agency'];
                             $modelUnitConversion->save($save);
 
                             $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công ', 'data' =>$save );
                     }else{
-                        $return = array('code'=>5, 'mess'=>'Sản phẩm này không tồn tại');
+                        $return = array('code'=>6, 'mess'=>'Sản phẩm này không tồn tại');
                     }                        
                 }else{
                     $return = array('code'=>5, 'mess'=>'Tài khoản của bạn không phải boss');
@@ -636,10 +653,10 @@ function deleteUnitConversionProductAPI($input){
             if(!empty($infoMember)){
 
                 if($infoMember->id_father==0){
-                    $product = $modelProduct->find()->where(['id'=>$dataSend['id_product']])->first();
+                    $product = $modelProduct->find()->where(['id'=>(int) $dataSend['id_product']])->first();
                     if(!empty($product)){
-                         $save = $modelUnitConversion->find()->where(['id'=>$dataSend['id']])->first();
-                        if(!empty($dataSend['id'])){
+                         $save = $modelUnitConversion->find()->where(['id'=>(int) $dataSend['id'],'id_product'=>$product->id])->first();
+                        if(!empty($save)){
                                $modelUnitConversion->delete($save); 
                                $return = array('code'=>0, 'mess'=>'Xóa thành công');
 

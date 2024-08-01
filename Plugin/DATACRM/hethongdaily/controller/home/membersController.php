@@ -787,10 +787,16 @@ function info($input)
 
 				if(!empty($allProduct)){
 					foreach ($allProduct as $product) {
+						if(empty($product->price_agency)){
+               				$product->price_agency = $product->price; 
+            			}
+
 						$listProduct[$product->id_category]['product'][$product->id] = $product;
+
+						
 					}
 				}
-
+				
 				setVariable('listProduct', $listProduct);
 			}
 

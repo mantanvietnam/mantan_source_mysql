@@ -163,14 +163,14 @@
                               <div id="tabs-1">
                                 <div class="row diagram">
                                     <?php foreach($listProduct as $key => $Product){ ?>
-                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price ?>, '','<?php echo @$Product->unit ?>');" id='product_<?php echo $Product->id ?>' >
+                                        <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->title ?>',<?php echo $Product->price_agency ?>, '','<?php echo @$Product->unit ?>');" id='product_<?php echo $Product->id ?>' >
                                             <div class="item_produc">
                                                 <div class="customer-name">
                                                     <span class="service_name"><b><?php echo $Product->title ?></b></span>
                                                 </div>
                                                 
                                                 <div class="customer-name">
-                                                    <span class="service_price"><?php echo number_format($Product->price).'đ/'.$Product->unit; ?></span>
+                                                    <span class="service_price"><?php echo number_format($Product->price_agency).'đ/'.$Product->unit; ?></span>
                                                 </div>
                                             </div>
                                          </div> 
@@ -221,10 +221,10 @@
                                 <tr>
                                     <th width="20%">Tên sản phẩm</th>
                                     <th  width="15%">Số lượng</th>
-                                    <th  width="15%">Đơn giá</th>
                                     <th  width="15%">Đơn vị</th>
+                                    <th  width="15%">Niêm Yết</th>
+                                    <th  width="15%">Giá NPP</th>
                                     <th  width="15%">Giảm giá</th>
-                                    <th  width="15%">Thành tiền</th>
                                     <th  width="5%">Xóa</th>
                                 </tr>
                             </thead>
@@ -471,16 +471,18 @@ function addProduct(id, name, priceProduct, type,unit)
                         </div>\
                     </div>\
                 </td>\
-                <td>\
-                    <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
-                </td>\
                 <td id="tdunit-'+row+'">\
                     '+unit+'\
                 </td>\
                 <td>\
+                    <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
+                </td>\
+                <td>\
+                    <input type="text" onchange="tinhgiamgia('+row+');"  value="'+priceProduct+'" class="input_money form-control" name="totalmoney['+row+']" min="1" id="totalmoney-'+row+'" onchange="tinhtien(1);">\
+                </td>\
+                <td>\
                     <input type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(1);">\
                 </td>\
-                <td id="totalmoney'+row+'"></td>\
                 <td>\
                     <a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct(\''+row+'\')"><i class="bx bx-trash me-1" aria-hidden="true"></i></a>\
                 </td>\
@@ -536,7 +538,8 @@ function unitgetPrice(id_product, i,price){
         }
     }).done(function( msg ) {
             if (msg.code === 1) {
-                  document.getElementById("money-"+i).value = msg.data.price;
+                console.log(msg.data);
+                  document.getElementById("money-"+i).value = msg.data.price_agency;
                    tinhtien(1);
 
             }else{
@@ -619,8 +622,10 @@ function tinhtien(checkDiscount)
                     total+= money;
                 }
                 
-                money = new Intl.NumberFormat().format(money);
-                $('#totalmoney'+i).html(money+'đ');
+                //money = new Intl.NumberFormat().format(money);
+                //$('#totalmoney-'+i).html(money);
+
+                document.getElementById("totalmoney-"+i).value = money;
             }
         }
 
@@ -650,6 +655,22 @@ function tinhtien(checkDiscount)
         $('#totalMoney').html('0đ');
         $('#totalPay').html('0đ');
     }
+}
+
+// tính giảm giá 
+function tinhgiamgia(i){
+
+    var number = parseFloat($('#soluong'+i).val());
+    var price = parseFloat($('#money-'+i).val());
+    var totalmoney = parseFloat($('#totalmoney-'+i).val());
+
+    var money= number*price;
+
+    var phamtram = 100 - (totalmoney / money) * 100;
+    
+
+    document.getElementById("discount-"+i).value = Math.round(phamtram);
+    tinhtien(2);
 }
 
 // lấy lịch sử giảm gá từng sản phẩm
@@ -803,7 +824,7 @@ function addCustomer()
                 // add the selected item
                 terms.push( ui.item.label );
 
-                addProduct(ui.item.id,ui.item.title,ui.item.price, '',ui.item.unit);
+                addProduct(ui.item.id,ui.item.title,ui.item.price_agency, '',ui.item.unit);
                 
                 $( "#searchProduct" ).val('');
                 return false;

@@ -830,9 +830,12 @@ function addProductAgency($input)
                         }
                     }
                 }
+              
+               $dataSend['price_agency'] = (int) @$dataSend['price_agency']; 
+                if(empty($dataSend['price_agency'])){
 
-
-
+                    $dataSend['price_agency'] =  (int) @$dataSend['price'];
+                }
                 // tạo dữ liệu save
                 $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
                 $data->description = @$dataSend['description'];
@@ -844,6 +847,9 @@ function addProductAgency($input)
                 $data->price_old = (int) @$dataSend['price_old'];
                 $data->quantity = 1000000;
                 $data->status = 'active';
+
+                $data->price_agency = @$dataSend['price_agency'];
+
                 $data->unit = @$dataSend['unit'];
                 $data->id_category = (int) @$dataSend['id_category'][0];
 
@@ -902,6 +908,7 @@ function addProductAgency($input)
                             $save->id_product = $data->id; 
                             $save->quantity = (int) $dataSend['quantityConversion'][$key];
                             $save->price = (int) $dataSend['priceConversion'][$key];
+                            $save->price_agency = (int) $dataSend['price_agencyConversion'][$key];
                             $modelUnitConversion->save($save);
                         }
                     }
@@ -1351,7 +1358,6 @@ function listUnitConversionAPI($input){
     global $controller;
     $return =array();
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
-    if(!empty($session->read('infoUser'))){
 
         $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelProduct = $controller->loadModel('Products');
@@ -1372,9 +1378,6 @@ function listUnitConversionAPI($input){
         }else{
             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
-    }else{
-       $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
-    }
     return $return;
 }
 
@@ -1385,8 +1388,6 @@ function unitgetPriceAPI($input){
     global $session;
     global $controller;
     $return =array();
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
-    if(!empty($session->read('infoUser'))){
 
         $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelProduct = $controller->loadModel('Products');
@@ -1407,9 +1408,6 @@ function unitgetPriceAPI($input){
         }else{
             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
-    }else{
-       $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
-    }
     return $return;
 }
 

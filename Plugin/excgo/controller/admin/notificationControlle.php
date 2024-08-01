@@ -50,7 +50,7 @@ function addNotificationAdmin($input)
 						$notification->user_id = $value->id;
 						$notification->title = $title;
 						$notification->content = $content;
-						$notification->id_post = $$dataPost->id;
+						$notification->id_post = $dataPost->id;
 						$notification->created_at = date('Y-m-d H:i:s');
 						$notification->updated_at = date('Y-m-d H:i:s');
 						$modelNotification->save($notification);

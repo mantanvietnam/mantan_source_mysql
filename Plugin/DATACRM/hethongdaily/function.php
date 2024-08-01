@@ -637,6 +637,21 @@ function getMemberByToken($token='')
     return $checkData;
 }
 
+function getCustomerByToken($token='')
+{
+    global $controller;
+
+    $modelCustomer = $controller->loadModel('customers');
+    $checkData = [];
+
+    if(!empty($token)){                
+        $conditions = ['token'=>$token];
+        $checkData = $modelCustomer->find()->where($conditions)->first();
+    }
+
+    return $checkData;
+}
+
 function convert_number_to_words($number)
 {
     $hyphen = ' ';
