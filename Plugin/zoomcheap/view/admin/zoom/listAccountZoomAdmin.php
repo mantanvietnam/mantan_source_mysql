@@ -44,45 +44,60 @@
             <th>Pass room</th>
             <th>Sửa</th>
             <th>Xóa</th>
+            <th>Video</th>
           </tr>
         </thead>
         <tbody>
-          <?php 
-            if(!empty($listData)){
-
-              foreach ($listData as $item) {
-                echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td>'.$item->type.'</td>
-                        <td>
-                          '.$item->user.'
-                          </br>
-                          '.$item->status.'
-                        </td>
-                        <td>'.$item->pass.'</td>
-                        <td>
-                          '.$item->key_host.'
-                        </td>
-                        <td>'.@$item->infoRoom->info['id'].'</td>
-                        <td>'.@$item->infoRoom->info['password'].'</td>
-                        <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteZoom/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>
-                        
-                      </tr>';
+        <?php 
+                if (!empty($listData)) {
+                  foreach ($listData as $item) {
+                     
+                      
+                      echo '<tr>
+                              <td>'.$item->id.'</td>
+                              <td>'.$item->type.'</td>
+                              <td>
+                                '.$item->user.'
+                                </br>
+                                '.$item->status.'
+                              </td>
+                              <td>'.$item->pass.'</td>
+                              <td>'.$item->key_host.'</td>';
+                              if (!empty($item->infoRoom->info['id'])) {
+                                  echo '<td>'.$item->infoRoom->info['id'].'</td>';
+                              }
+                              else {
+                                echo '<td></td>';
+                              }
+                              
+                              if (!empty($item->infoRoom->info['password'])) {
+                                  echo '<td>'.$item->infoRoom->info['password'].'</td>';
+                              }  else {
+                                echo '<td></td>';
+                              }
+                      
+                      echo '<td align="center">
+                              <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom/?id='.$item->id.'">
+                                <i class="bx bx-edit-alt me-1"></i>
+                              </a>
+                            </td>
+                            <td align="center">
+                              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteZoom/?id='.$item->id.'">
+                                <i class="bx bx-trash me-1"></i>
+                              </a>
+                            </td>
+                            <td align="center">
+                              <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-listclound/?id='.$item->id.'">
+                                <i class="bx bxs-video"></i>
+                              </a>
+                            </td>
+                          </tr>';
+                  }
+              } else {
+                  echo '<tr>
+                          <td colspan="10" align="center">Chưa có dữ liệu</td>
+                        </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có dữ liệu</td>
-                    </tr>';
-            }
           ?>
         </tbody>
       </table>
