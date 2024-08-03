@@ -17,37 +17,43 @@ function listCoursesCustomerAPI($input)
 
 
 	if($isRequestPost){
-	 $dataSend = $input['request']->getData();
-    $conditions= array('public'=>1);
+		 $dataSend = $input['request']->getData();
+		
+	    $conditions= array('public'=>1);
 
-    $limit = 12;
-    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
-    if($page<1) $page = 1;
-    $order = array('id'=>'desc');
+	    $limit = 20;
+	    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+	    if($page<1) $page = 1;
+	    $order = array('id'=>'desc');
 
-    $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    if(!empty($dataSend['name'])){
+			$key=createSlugMantan($dataSend['name']);
+			$conditions['slug LIKE']= '%'.$key.'%';
+		}
 
-    if(!empty($listData)){
-        foreach ($listData as $key => $value) {
-            if(!empty($value->id_category) && empty($category[$value->id_category])){
-                $category[$value->id_category] = $modelCategories->find()->where(['id' => (int) $value->id_category])->first();
-            }
+	    $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-            $listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
-            $lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
-            $listData[$key]->number_lesson = count($lessons);
-        }
-    }
+	    if(!empty($listData)){
+	        foreach ($listData as $key => $value) {
+	            if(!empty($value->id_category) && empty($category[$value->id_category])){
+	                $category[$value->id_category] = $modelCategories->find()->where(['id' => (int) $value->id_category])->first();
+	            }
 
-    // phân trang
+	            $listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
+	            $lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
+	            $listData[$key]->number_lesson = count($lessons);
+	        }
+	    }
 
-    $totalData = $modelCourses->find()->where($conditions)->all()->toList();
-    $totalData = count($totalData);
-		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
-        
-    }else{
-        $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
-    }
+	    // phân trang
+
+	    $totalData = $modelCourses->find()->where($conditions)->all()->toList();
+	    $totalData = count($totalData);
+			$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+	        
+	}else{
+	    $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
+	}
 
     return $return;
 
@@ -138,7 +144,7 @@ function getCoursesCustomerAPI($input)
 
             		$data->tests = $tests;
 
-            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$data);
+            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$data);
             	}else{
             		$return = array('code'=>3, 'mess'=>'Id không tồn tại');
             	}
@@ -218,7 +224,7 @@ function getlessonCustomerAPI($input)
     return $return;
 }
 
-function gettTestCustomerAPI($input)
+function getTestCustomerAPI($input)
 {
 
     global $controller;
@@ -381,7 +387,7 @@ function resultTestCustomerAPI($input){
 					 $data->answer = $answer;
 		            $data->number_question = $number_question;
 		            // $data->setting_value = $setting_value;
-		            $data->history = $history;
+		            $data->result = $history;
        				$return = array('code'=>1, 'mess'=>'Kiểm tra thành công ', 'data'=>$data);
 				}else{
             		$return = array('code'=>3, 'mess'=>'bai Kiểm tra không tồn tại');

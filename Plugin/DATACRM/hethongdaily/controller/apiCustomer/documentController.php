@@ -68,10 +68,9 @@ function listDocumentinfoCustomerAPI($input){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['type']) && !empty($dataSend['id_document'])){
             $infoCustomer = getCustomerByToken($dataSend['token']);
-
             if(!empty($infoCustomer)){
             	 $boss = $modelMember->find()->where(['id_father'=>0])->first();
-		    	$data = $modelDocument->find()->where(['id_parent'=>$boss->id, 'id'=>(intt)$dataSend['id_document'], 'type'=>$dataSend['type']])->first();
+		    	$data = $modelDocument->find()->where(['id_parent'=>$boss->id, 'id'=>(int)$dataSend['id_document'], 'type'=>$dataSend['type']])->first();
 
 		    	if(empty($data)){
 		    		return array('code'=>3, 'mess'=>'Dữ liệu không tồn tại');
@@ -96,7 +95,49 @@ function listDocumentinfoCustomerAPI($input){
 		    // phân trang
 		    $totalData = $modelDocumentinfo->find()->where($conditions)->all()->toList();
 		    $totalData = count($totalData);
-		    $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+		    $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ','data'=>$data, 'listData'=>$listData, 'totalData'=>$totalData);
+			}else{
+		        $return = array('code'=>3, 'mess'=>'Sai mã token');
+		    }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+        $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
+    }
+
+    return $return;
+}
+
+function getDocumentinfoCustomerAPI($input){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $modelDocument = $controller->loadModel('Documents');
+	$modelDocumentinfo = $controller->loadModel('Documentinfos');
+    $modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);	
+	if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token']) && !empty($dataSend['id_documentilfo'])){
+            $infoCustomer = getCustomerByToken($dataSend['token']);
+            if(!empty($infoCustomer)){
+            	
+		    	$data = $modelDocumentinfo->find()->where(array('id'=>$dataSend['id_documentilfo']))->first();
+
+		    	if(empty($data)){
+		    		return array('code'=>3, 'mess'=>'Dữ liệu không tồn tại');
+		    	}
+		    
+		    $data->document = $modelDocument->find()->where(array('id'=>$data->id_document))->first();
+
+		    // phân trang
+		   
+		    $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ','data'=>$data);
 			}else{
 		        $return = array('code'=>3, 'mess'=>'Sai mã token');
 		    }
