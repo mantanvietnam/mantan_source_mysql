@@ -819,7 +819,7 @@ function getLayerProductForEdit($idProduct=0)
                     if(!isset($layer->size)) $layer->size = '10vw'; 
                     $layer->size = str_replace('px','',$layer->size);
                     $layer->size = str_replace('vw','',$layer->size);
-                    if($layer->size>100) $layer->size= 70;
+                    //if($layer->size>100) $layer->size= 70;
                     $layer->size = $layer->size.'vw';
 
                     // font chữ
@@ -933,7 +933,7 @@ function getLayerProductForEdit($idProduct=0)
                     }
                     $layer->width = str_replace('px','',$layer->width);
                     $layer->width = str_replace('vw','',$layer->width);
-                    if($layer->width>100) $layer->width= 70;
+                    //if($layer->width>100) $layer->width= 70;
                     $layer->width = $layer->width.'vw';
 
                     // cờ đánh dấu việc có dùng hiệu ứng gradient hay không
