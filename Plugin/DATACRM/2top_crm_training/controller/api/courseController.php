@@ -73,10 +73,8 @@ function getCoursesCustomerAPI($input)
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoCustomer = getCustomerByToken($dataSend['token']);
-
-            if(!empty($infoCustomer)){
+        if(!empty($dataSend['id'])){
+           
 
             	$modelLesson = $controller->loadModel('Lessons');
             	$modelCourses = $controller->loadModel('Courses');
@@ -148,9 +146,6 @@ function getCoursesCustomerAPI($input)
             	}else{
             		$return = array('code'=>3, 'mess'=>'Id không tồn tại');
             	}
-			}else{
-		        $return = array('code'=>3, 'mess'=>'Sai mã token');
-		    }
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }

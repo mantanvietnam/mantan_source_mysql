@@ -18,7 +18,7 @@ function getListCustomerHistoriesAPI($input)
 
             if(!empty($infoMember)){
                 if(!empty($dataSend['id_customer'])){
-                    $conditions = array('id_customer'=> (int) $dataSend['id_customer']);
+                    $conditions = array('id_customer'=> (int) $dataSend['id_customer'],'id_staff_now'=>$infoMember->id);
                     $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                     $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                     if($page<1) $page = 1;
@@ -149,6 +149,58 @@ function updateStatusCustomerHistoryAPI($input)
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
     }
+
+    return $return;
+}
+
+function getListCustomerHistoriesTodayAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                // Thời gian đầu ngày
+                $startOfDay = strtotime("today 00:00:00");
+                // Thời gian cuối ngày
+                $endOfDay = strtotime("tomorrow 00:00:00") - 1;
+                    
+                $conditions = array('id_staff_now'=>$infoMember->id, 'time_now >='=>$startOfDay,'time_now <='=>$endOfDay);
+                  
+                $order = array('id'=>'desc');
+
+                $listData = $modelCustomerHistories->find()->where($conditions)->order($order)->all()->toList();
+                    
+                $totalData = $modelCustomerHistories->find()->where($conditions)->all()->toList();
+
+                if(empty($listData)){
+                    foreach($listData as $key => $item){
+                         $listData[$key]->customer = $modelCustomers->find()->where(['id'=> (int) $item->id_customer])->first();
+                    }
+                }
+
+                $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData));
+               
+            }else{
+                $return = array('code'=>3, 'mess'=>'không tồn tại tài khoản đại lý hoặc sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+            $return = array('code'=>1, 'gửi sai kiểu POST');
+        }
 
     return $return;
 }

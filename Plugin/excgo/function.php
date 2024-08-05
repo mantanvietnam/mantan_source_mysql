@@ -52,40 +52,47 @@ $menus[0]['sub'][7] = array('title' => 'Quản lí giao dịch',
     'permission' => 'listTransactionAdmin',
 );
 
-$menus[0]['sub'][8] = array('title' => 'Cài đặt phí sàn',
+$menus[0]['sub'][8] = array('title' => 'Quản lí mua bán điểm',
+    'url' => '/plugins/admin/excgo-view-admin-orderPoint-listOrderPointAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listOrderPointAdmin',
+);
+
+
+$menus[0]['sub'][9] = array('title' => 'Cài đặt phí sàn',
     'url' => '/plugins/admin/excgo-view-admin-config-configServiceFeeAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'configServiceFeeAdmin',
 );
 
-$menus[0]['sub'][9] = array('title' => 'Cài đặt gửi email',
+$menus[0]['sub'][10] = array('title' => 'Cài đặt gửi email',
     'url' => '/plugins/admin/excgo-view-admin-config-configSendEmailAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'configSendEmailAdmin',
 );
 
-$menus[0]['sub'][10] = array('title' => 'Kiểm tra cuốc xe đã hoàn thành',
+$menus[0]['sub'][11] = array('title' => 'Kiểm tra cuốc xe đã hoàn thành',
     'url' => '/plugins/admin/excgo-view-admin-config-checkCompletedBookingAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'checkCompletedBookingAdmin',
 );
 
-$menus[0]['sub'][11] = array('title' => 'Gửi thông báo ',
+$menus[0]['sub'][12] = array('title' => 'Gửi thông báo ',
     'url' => '/plugins/admin/excgo-view-admin-notification-addNotificationAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'addNotificationAdmin',
 );
-$menus[0]['sub'][12] = array('title' => 'Cài đặt thông số',
+$menus[0]['sub'][13] = array('title' => 'Cài đặt thông số',
     'url' => '/plugins/admin/excgo-view-admin-setting-settingAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'settingAdmin',
 );
-$menus[0]['sub'][13] = array('title' => 'Thống kê tài khoản',
+$menus[0]['sub'][14] = array('title' => 'Thống kê tài khoản',
     'url' => '/plugins/admin/excgo-view-admin-user-listUserStatisticAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listUserStatisticAdmin',
 );
-$menus[0]['sub'][14] = array('title' => 'Phần thưởng',
+$menus[0]['sub'][15] = array('title' => 'Phần thưởng',
     'url' => '/plugins/admin/excgo-view-admin-reward-listRewardAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listRewardAdmin',

@@ -11,6 +11,7 @@ function getListOrderMemberAPI($input)
     $modelProducts = $controller->loadModel('Products');
     $modelOrderMembers = $controller->loadModel('OrderMembers');
     $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
+    $modelUnitConversion = $controller->loadModel('UnitConversions');
 
     $return = array('code'=>1);
     
@@ -71,7 +72,18 @@ function getListOrderMemberAPI($input)
 		                        $product = $modelProducts->find()->where(['id'=>$value->id_product ])->first();
 		                        if(!empty($product)){
 		                            $detail_order[$k]->product = $product->title;
+
+		                            if(!empty($value->id_unit)){
+		                            	$unit = $modelUnitConversion->find()->where(['id'=>$value->id_unit ])->first();
+		                            	if(!empty($unit)){
+		                            		$detail_order->unit = $unit->unit;
+		                            	}
+			                        }else{
+			                        	$detail_order->unit = $product->unit;
+			                        }
 		                        }
+
+
 		                    }
 
 		                    $listData[$key]->detail_order = $detail_order;
@@ -113,6 +125,7 @@ function updateStatusOrderMemberAPI($input)
     $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
     $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
     $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+    $modelUnitConversion = $controller->loadModel('UnitConversions');
     $modelTokenDevices = $controller->loadModel('TokenDevices');
 
     $return = array('code'=>1);
@@ -136,6 +149,14 @@ function updateStatusOrderMemberAPI($input)
 		                
 		                        if(!empty($detail_order)){
 		                            foreach ($detail_order as $k => $value) {
+		                            	$quantity = $value->quantity;
+		                            	if(!empty($value->id_unit)){
+		                                    $unit = $modelUnitConversion->find()->where(['id_product'=>$value->id_product,'id'=>$value->id_unit])->first();
+		                                    if(!empty($unit)){
+		                                        $quantity = $value->quantity*$unit->quantity;
+		                                    }
+		                                }
+
 		                                // cộng hàng vào kho người mua
 		                                $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_buy])->first();
 
@@ -146,7 +167,7 @@ function updateStatusOrderMemberAPI($input)
 
 		                                $checkProductExits->id_member = $order->id_member_buy;
 		                                $checkProductExits->id_product = $value->id_product;
-		                                $checkProductExits->quantity += $value->quantity;
+		                                $checkProductExits->quantity += $quantity;
 
 		                                $modelWarehouseProducts->save($checkProductExits);
 
@@ -160,7 +181,7 @@ function updateStatusOrderMemberAPI($input)
 
 		                                $checkProductExits->id_member = $order->id_member_sell;
 		                                $checkProductExits->id_product = $value->id_product;
-		                                $checkProductExits->quantity -= $value->quantity;
+		                                $checkProductExits->quantity -= $quantity;
 
 		                                $modelWarehouseProducts->save($checkProductExits);
 
@@ -169,7 +190,7 @@ function updateStatusOrderMemberAPI($input)
 
 		                                $saveWarehouseHistories->id_member = $order->id_member_buy;
 		                                $saveWarehouseHistories->id_product = $value->id_product;
-		                                $saveWarehouseHistories->quantity = $value->quantity;
+		                                $saveWarehouseHistories->quantity = $quantity;
 		                                $saveWarehouseHistories->note = 'Nhập hàng vào kho';
 		                                $saveWarehouseHistories->create_at = time();
 		                                $saveWarehouseHistories->type = 'plus';
@@ -182,7 +203,7 @@ function updateStatusOrderMemberAPI($input)
 
 		                                $saveWarehouseHistories->id_member = $order->id_member_sell;
 		                                $saveWarehouseHistories->id_product = $value->id_product;
-		                                $saveWarehouseHistories->quantity = $value->quantity;
+		                                $saveWarehouseHistories->quantity = $quantity;
 		                                $saveWarehouseHistories->note = 'Xuất hàng cho đại lý tuyến dưới';
 		                                $saveWarehouseHistories->create_at = time();
 		                                $saveWarehouseHistories->type = 'minus';
@@ -458,6 +479,7 @@ function createOrderMemberAPI($input)
 	                    $saveDetail->id_order_member = $save->id;
 	                    $saveDetail->quantity = (int) $value['quantity'];
 	                    $saveDetail->price = (int) $value['price'];
+	                    $saveDetail->id_unit = (!empty($value['id_unit']))?(int)$value['id_unit']:0;
 	                    $saveDetail->discount = (int) $value['discount'];
 
 	                    $modelOrderMemberDetails->save($saveDetail);
@@ -477,3 +499,79 @@ function createOrderMemberAPI($input)
 
     return $return;
 }
+
+function getListOrderMemberTodayAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelMembers = $controller->loadModel('Members');
+    $modelProducts = $controller->loadModel('Products');
+    $modelOrderMembers = $controller->loadModel('OrderMembers');
+    $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+            	// Thời gian đầu ngày
+                $startOfDay = strtotime("today 00:00:00");
+                // Thời gian cuối ngày
+                $endOfDay = strtotime("tomorrow 00:00:00") - 1;
+                    
+
+                $conditions = array('id_member_sell'=>$infoMember->id,  'create_at >='=>$startOfDay,'create_at <='=>$endOfDay);
+                $order = array('id'=>'desc');
+                $listData = $modelOrderMembers->find()->where($conditions)->order($order)->all()->toList();
+		        if(!empty($listData)){
+		            foreach($listData as $key => $item){
+		                $detail_order = $modelOrderMemberDetails->find()->where(['id_order_member'=>$item->id])->all()->toList();
+		                
+		                if(!empty($detail_order)){
+		                    foreach ($detail_order as $k => $value) {
+		                        $product = $modelProducts->find()->where(['id'=>$value->id_product ])->first();
+		                        if(!empty($product)){
+		                            $detail_order[$k]->product = $product->title;
+
+		                            if(!empty($value->id_unit)){
+		                            	$unit = $modelUnitConversion->find()->where(['id'=>$value->id_unit ])->first();
+		                            	if(!empty($unit)){
+		                            		$detail_order->unit = $unit->unit;
+		                            	}
+			                        }else{
+			                        	$detail_order->unit = $product->unit;
+			                        }
+		                        }
+		                    }
+
+		                    $listData[$key]->detail_order = $detail_order;
+		                }else{
+		                	$listData[$key]->detail_order = [];
+		                }
+
+		                $listData[$key]->buyer = $modelMembers->find()->where(['id'=>$item->id_member_buy ])->first();
+		            }
+		        }
+                
+                $totalData = $modelOrderMembers->find()->where($conditions)->all()->toList();
+                
+                $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData));
+            }else{
+                 $return = array('code'=>3, 'mess'=>'không tồn tại tài khoản đại lý hoặc sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+?>

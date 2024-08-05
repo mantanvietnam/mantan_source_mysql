@@ -13,10 +13,7 @@ function listDocumentCustomerAPI($input){
 	$return = array('code'=>1);	
 	if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token']) && !empty($dataSend['type'])){
-            $infoCustomer = getCustomerByToken($dataSend['token']);
-
-            if(!empty($infoCustomer)){
+        if(!empty($dataSend['type'])){
             	 $boss = $modelMember->find()->where(['id_father'=>0])->first();
                 $conditions = array('id_parent'=>$boss->id, 'public'=>'public','status'=>'active','type'=>$dataSend['type']);
 			    if(!empty($dataSend['name'])){
@@ -38,9 +35,7 @@ function listDocumentCustomerAPI($input){
 
 			    
 			     $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
-			}else{
-		        $return = array('code'=>3, 'mess'=>'Sai mã token');
-		    }
+			
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
@@ -66,9 +61,7 @@ function listDocumentinfoCustomerAPI($input){
 	$return = array('code'=>1);	
 	if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token']) && !empty($dataSend['type']) && !empty($dataSend['id_document'])){
-            $infoCustomer = getCustomerByToken($dataSend['token']);
-            if(!empty($infoCustomer)){
+        if(!empty($dataSend['type']) && !empty($dataSend['id_document'])){
             	 $boss = $modelMember->find()->where(['id_father'=>0])->first();
 		    	$data = $modelDocument->find()->where(['id_parent'=>$boss->id, 'id'=>(int)$dataSend['id_document'], 'type'=>$dataSend['type']])->first();
 
@@ -96,9 +89,7 @@ function listDocumentinfoCustomerAPI($input){
 		    $totalData = $modelDocumentinfo->find()->where($conditions)->all()->toList();
 		    $totalData = count($totalData);
 		    $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ','data'=>$data, 'listData'=>$listData, 'totalData'=>$totalData);
-			}else{
-		        $return = array('code'=>3, 'mess'=>'Sai mã token');
-		    }
+			
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
@@ -123,10 +114,8 @@ function getDocumentinfoCustomerAPI($input){
 	$return = array('code'=>1);	
 	if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token']) && !empty($dataSend['id_documentilfo'])){
-            $infoCustomer = getCustomerByToken($dataSend['token']);
-            if(!empty($infoCustomer)){
-            	
+        if(!empty($dataSend['id_documentilfo'])){
+            
 		    	$data = $modelDocumentinfo->find()->where(array('id'=>$dataSend['id_documentilfo']))->first();
 
 		    	if(empty($data)){
@@ -138,9 +127,7 @@ function getDocumentinfoCustomerAPI($input){
 		    // phân trang
 		   
 		    $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ','data'=>$data);
-			}else{
-		        $return = array('code'=>3, 'mess'=>'Sai mã token');
-		    }
+			
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }

@@ -32,10 +32,11 @@ include_once('controller/api/order_membersController.php'); // đơn hàng hệ 
 include_once('controller/api/orderController.php'); // đơn hàng khách lẻ 
 include_once('controller/api/token_devicesController.php'); // mã thiết bị
 include_once('controller/api/discountCodeController.php'); // mã thiết bị
+include_once('controller/api/billController.php'); // phiếu thu và phieu chi 
 
 include_once('controller/home/transaction_histories_controller.php'); // lịch sử giao dịch nạp tiền
 
-include_once('controller/home/smsController.php'); // gửi tin sms
+include_once('controller/home/smsController.php'); // gửi tin sms 
 
 include_once('controller/fix_controller.php'); // vá lỗi
 

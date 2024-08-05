@@ -1096,4 +1096,51 @@ function saveInfoCustomerAjax($input){
         return array('code'=> 0 , 'mess'=> '<p class="text-danger">Bạn chưa đăng nhập</p>');
     }
 }
+
+function getListCustomerNewTodayAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                // Thời gian đầu ngày
+                $startOfDay = strtotime("today 00:00:00");
+                // Thời gian cuối ngày
+                $endOfDay = strtotime("tomorrow 00:00:00") - 1;
+                    
+                $conditions = array('id_parent'=>$infoMember->id, 'created_at >='=>$startOfDay,'created_at <='=>$endOfDay);
+                  
+                $order = array('id'=>'desc');
+
+                $listData = $modelCustomers->find()->where($conditions)->order($order)->all()->toList();
+                    
+                $totalData = $modelCustomers->find()->where($conditions)->all()->toList();
+
+                $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData));
+               
+            }else{
+                $return = array('code'=>3, 'mess'=>'không tồn tại tài khoản đại lý hoặc sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+            $return = array('code'=>1, 'gửi sai kiểu POST');
+        }
+
+    return $return;
+}
+
 ?>
