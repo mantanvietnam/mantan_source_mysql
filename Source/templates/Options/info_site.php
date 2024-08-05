@@ -182,7 +182,38 @@
 
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Mật khẩu</label>
-                  <input type="text" class="form-control" name="rabbitmq_pass" value="<?php echo @$rabbitmq_value['pass'];?>" />
+                  <input type="password" class="form-control" name="rabbitmq_pass" value="<?php echo @$rabbitmq_value['pass'];?>" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Mạng xã hội</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Facebook</label>
+                  <input type="text" class="form-control" name="facebook" value="<?php echo @$contact_site_value['facebook'];?>" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Youtube</label>
+                  <input type="text" class="form-control" name="youtube" value="<?php echo @$contact_site_value['youtube'];?>" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Tiktok</label>
+                  <input type="text" class="form-control" name="tiktok" value="<?php echo @$contact_site_value['tiktok'];?>" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Instagram</label>
+                  <input type="text" class="form-control" name="instagram" value="<?php echo @$contact_site_value['instagram'];?>" />
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu</button>
