@@ -83,7 +83,6 @@ function listOrder($input)
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
 	    setVariable('totalData', $totalData);
-	    
 	    setVariable('listData', $listData);
 	    setVariable('numberAcc100', $numberAcc100);
 	    setVariable('numberAcc300', $numberAcc300);

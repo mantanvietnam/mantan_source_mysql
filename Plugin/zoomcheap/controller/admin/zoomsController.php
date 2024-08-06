@@ -105,6 +105,9 @@ function listclound($input)
 
     $metaTitleMantan = 'Danh sách clound zoom';
 	$modelZooms = $controller->loadModel('Zooms');
+    $modelRooms = $controller->loadModel('Rooms');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelmanagers = $controller->loadModel('managers');
     if(!empty($_GET['id'])){
         $id = $_GET['id'];
         $zoomAccount = $modelZooms->find()->where(['id' => $id])->first();
@@ -112,8 +115,13 @@ function listclound($input)
         $clientSecret = $zoomAccount->client_secret ?? '';
         $accountId = $zoomAccount->account_id ?? '';
         $cloudRecords = getlistclound($clientId, $clientSecret, $accountId);
+
+        $listData = $modelZooms->find()->where(['id'=>$id])->first();
+        // debug($modelRooms);
+        // die();
         // debug($cloudRecords);
         // die();
+        setVariable('listData', $listData);
         setVariable('zoomAccount', $zoomAccount);
         setVariable('cloudRecords', $cloudRecords);
     }
