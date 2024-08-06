@@ -524,7 +524,7 @@ function updateStatusOrderAgency($input){
                                 $debt->id_order = $order->id;
                                 $debt->number_payment = 0;
                                 $debt->total_payment = 0;
-                                $debt->type = 0;
+                                $debt->type = 1;
                                 $debt->status = 0;
                                 $debt->type_order = 2; 
                                 $debt->created_at = $time;

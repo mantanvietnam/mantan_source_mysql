@@ -34,6 +34,10 @@
                   <label class="form-label" for="basic-default-fullname">Điêm tối thiểu được bán </label>
                   <input type="number" class="form-control" name="minimumPointSold" value="<?php echo @$setting['minimumPointSold'];?>" />
                 </div>
+                 <div class="mb-3 col-md-6">
+                  <label class="form-label" for="basic-default-fullname">Khống chế chêch lệch điểm</label>
+                  <input type="number" class="form-control" name="pointControl" value="<?php echo @$setting['pointControl'];?>" />
+                </div>
                  <div class="mb-3 col-md-12">
                 <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
               </div>

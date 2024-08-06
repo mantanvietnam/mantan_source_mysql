@@ -124,7 +124,7 @@ function listCollectionDebt($input){
                 }
 			}
 		}
-
+		
 		$totalData = $modelDebt->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
 

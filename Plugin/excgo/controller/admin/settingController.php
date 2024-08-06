@@ -22,7 +22,8 @@ function settingAdmin($input){
                         'contentUpgradeToDriver' => @$dataSend['contentUpgradeToDriver'],
                         'contentPopupUpgradeToDriver' => @$dataSend['contentPopupUpgradeToDriver'],
                         'convertPointMoney' => @$dataSend['convertPointMoney'],
-        				'minimumPointSold' => @$dataSend['minimumPointSold'],
+                        'minimumPointSold' => @$dataSend['minimumPointSold'],
+        				'pointControl' => @$dataSend['pointControl'],
                     );
         $data->key_word = 'settingAdmin';
         $data->value = json_encode($value);

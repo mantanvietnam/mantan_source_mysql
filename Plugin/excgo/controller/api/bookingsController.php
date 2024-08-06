@@ -317,11 +317,12 @@ function receiveBookingApi($input): array
                 
             }*/
 
-            if(!empty($currentUser->difference_booking)){
-                 if($currentUser->point <= $currentUser->difference_booking){
-                     return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
-                }
-            }elseif($currentUser->point <= -20){
+            // if(!empty($currentUser->difference_booking)){
+            //      if($currentUser->point <= $currentUser->difference_booking){
+            //          return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
+            //     }
+            // }else
+            if($currentUser->point <= (int)$parameter['pointControl']){
                 return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
                 
             }
