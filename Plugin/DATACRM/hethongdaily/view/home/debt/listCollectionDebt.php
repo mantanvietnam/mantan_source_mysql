@@ -105,13 +105,13 @@ global $type_collection_bill;
                       $link = '/orderCustomerAgency?id='.$item->id_order;
                     }
 
-                    $status = ' <td align="center" colspan="2" >đã thu xong';
+                    $status = ' <td align="center" colspan="2" class="text-success" >Đã thu xong';
                     if($item->status==0){
                       $status = '
-                      <td align="center">Chưa thu xong<br/>
-                      <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
-                                <i class="bx bxl-paypal me-1"></i>
-                              </a></td>
+                      <td align="center">
+                        <p class="text-danger">Chưa thu xong</p>
+                        <a class="btn btn-danger" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >Thu tiền</a>
+                      </td>
                       ';
                     }
 
@@ -164,13 +164,13 @@ global $type_collection_bill;
                       $link = '/orderCustomerAgency?id='.$item->id_order;
                     }
 
-                    $status = ' đã thu xong';
+                    $status = '<p class="text-center text-success">Đã thu xong</p>';
                     if($item->status==0){
                       $status = '
-                      Chưa thu xong<br/>
-                      <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
-                                <i class="bx bxl-paypal me-1"></i>
-                              </a>
+                                  <p class="text-center text-danger">Chưa thu xong</p>
+                                  <p class="text-center">
+                                    <a class="btn btn-danger" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >Thu tiền</a>
+                                  </p>
                       ';
                     }
 
@@ -193,7 +193,7 @@ global $type_collection_bill;
                         <p><strong>Số lần thu: </strong><a href="/listCollectionBill?id_debt='.$item->id.'" title="chi tiết">'.$item->number_payment.'</a></p>
                         <p><strong>Nội dung: </strong>'.$item->note.'<br/>
                               <a href="'.$link.'" target="_blank">Xem đơn hàng tại đây</a></p>
-                          <p>   '.$status.' </p>
+                              '.$status.'
 
                         </div>';
           }
