@@ -230,8 +230,16 @@
                         }
                       } 
                   echo '  </tbody>
-                  </table>
-                </td>
+                  </table>';
+
+                  if(!empty($item->note_user)){
+                    echo '<p style="padding: 20px;"><b>Ghi chú khách hàng</b>: '.$item->note_user.'</p>';
+                  }
+
+                  if(!empty($item->note_admin)){
+                    echo '<p style="padding: 20px;"><b>Ghi chú admin</b>: '.$item->note_admin.'</p>';
+                  }
+                echo '</td>
                 <td>';
               if(!empty($item->costsIncurred)){
                 $costsIncurred =  json_decode($item->costsIncurred, true);
@@ -358,6 +366,14 @@
                               }
                                 echo  '</p>';
                             }
+
+                          if(!empty($item->note_user)){
+                            echo '<p style="padding: 20px;"><b>Ghi chú khách hàng</b>: '.$item->note_user.'</p>';
+                          }
+
+                          if(!empty($item->note_admin)){
+                            echo '<p style="padding: 20px;"><b>Ghi chú admin</b>: '.$item->note_admin.'</p>';
+                          }
 
                           echo'<p><strong>Tổng tiền: </strong>'.number_format($item->total).'</p>
 
