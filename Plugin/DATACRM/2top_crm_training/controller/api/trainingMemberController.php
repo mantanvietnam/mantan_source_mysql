@@ -1,6 +1,6 @@
 <?php 
 // danh sách khóa học
-function listCoursesCustomerAPI($input)
+function listCoursesMemberAPI($input)
 {
 
     global $controller;
@@ -17,9 +17,9 @@ function listCoursesCustomerAPI($input)
 
 
 	if($isRequestPost){
-		 $dataSend = $input['request']->getData();
+		$dataSend = $input['request']->getData();
 		
-	    $conditions= array('public'=>1);
+	    $conditions= array('status'=>'active');
 
 	    $limit = 20;
 	    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
@@ -60,7 +60,7 @@ function listCoursesCustomerAPI($input)
 }
 
 
-function getCoursesCustomerAPI($input)
+function getCoursesMemberAPI($input)
 {
 
     global $controller;
@@ -74,16 +74,11 @@ function getCoursesCustomerAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['id'])){
-           
+            $modelLesson = $controller->loadModel('Lessons');
+           	$modelCourses = $controller->loadModel('Courses');
+           	$modelTests = $controller->loadModel('Tests');
 
-            	$modelLesson = $controller->loadModel('Lessons');
-            	$modelCourses = $controller->loadModel('Courses');
-            	$modelTests = $controller->loadModel('Tests');
-
-            	$conditions = array('id'=>(int)$dataSend['id'],'public'=>1);
-            		
-            	
-
+           	$conditions = array('id'=>(int)$dataSend['id'],'status'=>'active');   	
 
             	$data = $modelCourses->find()->where($conditions)->first();
 
@@ -156,7 +151,7 @@ function getCoursesCustomerAPI($input)
     return $return;
 }
 
-function getlessonCustomerAPI($input)
+function getlessonMemberAPI($input)
 {
     global $controller;
     global $isRequestPost;
@@ -172,9 +167,9 @@ function getlessonCustomerAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoCustomer = getCustomerByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token']);
 
-            if(!empty($infoCustomer)){
+            if(!empty($infoMember)){
 
 		        $conditions = array('id'=>(int)$dataSend['id']);
 		        $data = $modelLesson->find()->where($conditions)->first();
@@ -219,7 +214,7 @@ function getlessonCustomerAPI($input)
     return $return;
 }
 
-function getTestCustomerAPI($input)
+function getTestMemberAPI($input)
 {
 
     global $controller;
@@ -234,9 +229,9 @@ function getTestCustomerAPI($input)
      if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoCustomer = getCustomerByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token']);
 
-            if(!empty($infoCustomer)){
+            if(!empty($infoMember)){
 
            		$conditions = array('id'=>(int)$dataSend['id']);
         		$data = $modelTests->find()->where($conditions)->order(['id' => 'DESC'])->first();
@@ -310,11 +305,11 @@ function resultTestCustomerAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['token']) && !empty($dataSend['id']) && !empty($dataSend['answer']) && !empty($dataSend['time_start'])){
-			$infoCustomer = getCustomerByToken($dataSend['token']);
+			$infoMember = getMemberByToken($dataSend['token']);
 			$answer = json_decode($dataSend['answer'], true);
 		
 			
-			if(!empty($infoCustomer)){
+			if(!empty($infoMember)){
 				$conditions = array('id'=>(int)$dataSend['id']);
         		$data = $modelTests->find()->where($conditions)->order(['id' => 'DESC'])->first();
 
@@ -349,10 +344,10 @@ function resultTestCustomerAPI($input){
 
 	                // lưu lịch sử thi
 					$history = $modelHistoryTests->newEmptyEntity();
-					$history->id_customer = @$infoCustomer->id;
+					$history->id_customer = @$infoMember->id;
 					$history->id_test = $data->id;
 					$history->point = $point;
-					$history->type = 'customer';
+					$history->type = 'member';
 					$history->total_true = $total_true;
 					$history->number_question = $number_question;
 					$history->time_start =  (int)strtotime(@$dataSend['time_start']);
@@ -365,19 +360,6 @@ function resultTestCustomerAPI($input){
 					// debug($history);
 					// die;
 					$modelHistoryTests->save($history);
-					
-
-	                // gửi thông báo cho smax.bot
-					/*$idMessenger = @$_GET['idMessenger'];
-					if(!empty($setting_value['idBot']) && !empty($setting_value['tokenBot']) && !empty($setting_value['idBlock']) && !empty($idMessenger) ){
-						$attributesSmax['point_true'] = $total_true;
-						$attributesSmax['point_total'] = $number_question;
-						$attributesSmax['point'] = $point*10;
-						$urlSmax = 'https://api.smax.bot/bots/' . $setting_value['idBot'] . '/users/' . $idMessenger . '/send?bot_token=' . $setting_value['tokenBot'] . '&block_id=' . $setting_value['idBlock'] . '&messaging_tag="CONFIRMED_EVENT_UPDATE"';
-						$sendSmax = sendDataConnectMantan($urlSmax, $attributesSmax);
-					}
-					setVariable('answer', $dataSend['answer']);
-					setVariable('answer_true', $answer_true);*/
 
 					 $data->questions = $questions;
 					 $data->answer = $answer;

@@ -33,6 +33,7 @@ include_once('controller/api/orderController.php'); // đơn hàng khách lẻ
 include_once('controller/api/token_devicesController.php'); // mã thiết bị
 include_once('controller/api/discountCodeController.php'); // mã thiết bị
 include_once('controller/api/billController.php'); // phiếu thu và phieu chi 
+include_once('controller/api/staticsController.php'); // phiếu thu và phieu chi 
 
 include_once('controller/home/transaction_histories_controller.php'); // lịch sử giao dịch nạp tiền
 
