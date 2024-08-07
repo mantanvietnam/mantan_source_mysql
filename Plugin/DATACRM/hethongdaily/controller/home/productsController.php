@@ -1189,7 +1189,7 @@ function editOrderCustomerAgency($input)
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'Tạo yêu cầu nhập hàng';
 
-         $modelProducts = $controller->loadModel('Products');
+        $modelProducts = $controller->loadModel('Products');
         $modelOrders = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelCustomers = $controller->loadModel('Customers');
@@ -1202,7 +1202,7 @@ function editOrderCustomerAgency($input)
             return $controller->redirect('/orderMemberAgency');
         }
 
-         $customer = [];
+        $customer = [];
        
         if(!empty($order->id_user)){
             $customer = $modelCustomers->find()->where(array('id'=>(int) $order->id_user))->first();
@@ -1213,14 +1213,14 @@ function editOrderCustomerAgency($input)
         if($isRequestPost){
             $dataSend = $input['request']->getData();
             
-            $order->note_buy = $dataSend['note']; // ghi chú người mua  
+            $order->note_user = $dataSend['note']; // ghi chú người mua  
             $order->status = 'new';
             $order->money = (int) $dataSend['total'];
             $order->total = (int) $dataSend['totalPays'];
             $order->status_pay = 'wait';
             $order->discount = $dataSend['promotion'];
 
-             $costsIncurred = array();
+            $costsIncurred = array();
             $total_costsIncurred = 0;
             if(!empty($dataSend['costsIncurred'])){      
                 foreach($dataSend['costsIncurred'] as $key => $item){

@@ -244,12 +244,12 @@
         link = "https://"+link+"/apis/extendMemberAPI";
 
         if(phone != '' && deadline!=''){
-          extendRoot(id,deadline);
+          extendRoot(id,deadline,phone);
           extendCRM(phone,deadline,link,id);
         }
     }
 
-    function extendRoot(id,deadline)
+    function extendRoot(id,deadline,phone)
     {
         $.ajax({
               method: "POST",
@@ -257,6 +257,7 @@
               data: { 
                 id: id,
                 deadline: deadline,
+                phone: phone,
             }
         })
         .done(function( msg ) {

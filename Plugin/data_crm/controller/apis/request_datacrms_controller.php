@@ -149,7 +149,7 @@ function extendMemberDeadlineAPI($input)
 		if(!empty($dataSend['id']) && !empty($dataSend['deadline'])){
 			$data = $modelRequestDatacrms->find()->where(['id'=>(int) $dataSend['id']])->first();
 
-			if(!empty($data)){
+			if(!empty($data) && $data->boss_phone == $dataSend['phone']){
 				$deadline = explode('/', $dataSend['deadline']);
 
 				$data->deadline = mktime(23, 59, 59, $deadline[1], $deadline[0], $deadline[2]);

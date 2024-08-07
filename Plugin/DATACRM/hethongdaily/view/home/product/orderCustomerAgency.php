@@ -102,8 +102,7 @@
               <th width="10%">Chi phí phát sinh</th>
               <th width="10%">Số tiền</th>
               <th width="10%">Trạng thái</th>
-              <th width="15%">Xử lý</th>
-              <th width="5%">Xóa</th>
+              <th width="15%" colspan="2" class="text-center">Xử lý</th>
             </tr>
           </thead>
           <tbody>
@@ -114,6 +113,7 @@
 
                 $btnProcess= '';
                 $btnPay= '';
+                $btnEdit = '';
                /* $btnProcess = '<select class="form-select form-select-sm" id="handle" onchange="actionSelect(this);" name="handle">
                     <option value="">Chọn xử lý</option>';
                   if($item->status_pay=='wait' && $item->status!='cancel'){
@@ -152,9 +152,10 @@
                 }
 
                 if($item->status=='new'){ 
-                 $status= '<p style="color: #00aeee;">Đơn mới</p>';
+                 $status = '<p style="color: #00aeee;">Đơn mới</p>';
+                 $btnEdit = '<a class="dropdown-item" href="/editOrderCustomerAgency/?id='.$item->id.'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/>';
 
-                 $btnProcess= '<a class="btn btn-info" href="/editOrderCustomerAgency/?id='.$item->id.'">sửa</a> <br/><br/><a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a>  <br/><br/> <a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                 $btnProcess= '<a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a>  <br/><br/> <a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
                 }elseif($item->status=='browser'){
                  $status= '<p style="color: #0333f6;">Đã duyệt</p>';
 
@@ -254,6 +255,7 @@
                 <td align="center">'.$status.$statusPay.'</td>
                 <td align="center">'.$btnProcess.''.$btnPay.'</td>
                 <td align="center">
+                  '.$btnEdit.'
                   <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderCustomerAgency/?id='.$item->id.'">
                     <i class="bx bx-trash me-1"></i>
                   </a>
@@ -285,7 +287,7 @@
                 if($item->status=='new'){ 
                  $status= '<p style="color: #00aeee;">Đơn mới</p>';
 
-                 $btnProcess= '<a class="btn btn-info" href="/editOrderCustomerAgency/?id='.$item->id.'">sửa</a>  <a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                 $btnProcess= '<a class="btn btn-info" href="/editOrderCustomerAgency/?id='.$item->id.'">Sửa</a>  <a class="btn btn-primary" href="/updateStatusOrderAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a><a class="btn btn-danger" href="/updateStatusOrderAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
                 }elseif($item->status=='browser'){
                  $status= '<p style="color: #0333f6;">Đã duyệt</p>';
 
