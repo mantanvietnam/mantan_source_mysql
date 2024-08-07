@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th7 31, 2024 lúc 10:44 PM
+-- Thời gian đã tạo: Th8 08, 2024 lúc 12:54 AM
 -- Phiên bản máy phục vụ: 10.6.12-MariaDB
 -- Phiên bản PHP: 8.1.17
 
@@ -433,7 +433,8 @@ CREATE TABLE `historytests` (
   `number_question` int(11) NOT NULL,
   `time_start` int(11) NOT NULL,
   `time_end` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -725,7 +726,8 @@ CREATE TABLE `products` (
   `pricepro_discount` int(11) DEFAULT NULL,
   `evaluate` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `price_fash` int(11) DEFAULT NULL,
-  `unit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `unit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price_agency` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -899,7 +901,8 @@ CREATE TABLE `unit_conversions` (
   `unit` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `id_product` int(11) NOT NULL DEFAULT 0,
   `quantity` int(11) NOT NULL DEFAULT 0,
-  `price` int(11) NOT NULL DEFAULT 0
+  `price` int(11) NOT NULL DEFAULT 0,
+  `price_agency` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
