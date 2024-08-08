@@ -170,7 +170,8 @@
 	$routesPlugin['listTransactionAffiliaterAgency']= 'hethongdaily/view/home/affiliater/listTransactionAffiliaterAgency.php';
 	$routesPlugin['settingAffiliateAgency']= 'hethongdaily/view/home/affiliater/settingAffiliateAgency.php';
 
-
+	// xếp hạn thanh viên
+	$routesPlugin['listRatingPoint']= 'hethongdaily/view/home/ratingPoint/listRatingPoint.php';
 	// api khách hàng .php
 
 	$routesPlugin['saveRegisterCustomerAPI']= 'hethongdaily/view/saveRegisterCustomerAPI.php';

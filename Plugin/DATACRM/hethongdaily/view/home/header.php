@@ -141,7 +141,8 @@
                               echo '<a class="dropdown-item" href="/listPosition">Chức danh</a>';
                               echo '<a class="dropdown-item" href="/settingSystem">Hệ thống</a>';
                             }
-                echo      '</div>
+                echo        '<a class="dropdown-item" href="/listRatingPoint">Xếp hạng thành viên</a>
+                          </div>
                         </li>';
                 
               }
