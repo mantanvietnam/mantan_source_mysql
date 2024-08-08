@@ -119,7 +119,7 @@ function addNotificationPostNewAdmin($input){
 		        if(!empty($token_device)){
 		        	$return = sendNotification($dataSendNotification, $token_device);
 		        }
-
+		        
 		        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format($number).' người dùng</p>';
 		    }else{
 		    	$mess= '<p class="text-danger">Không có thiết bị nào nhận được tin nhắn</p>';

@@ -648,7 +648,8 @@ function listBank()
             ];
 }
 
-function sendNotification($data,$target){
+function sendNotification($data,$target)
+{
     global $keyFirebase;
     $url = 'https://fcm.googleapis.com/fcm/send';
 
@@ -658,21 +659,33 @@ function sendNotification($data,$target){
     $fields['priority'] = 'high';
     $fields['content_available'] = true;
 
-    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content'], 'sound'=>'default'];
+    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
     
     if(is_array($target)){
-        if(count($target)<1000){
+        $number_send = count($target)-1;
+
+        if($number_send < 1000){
             $fields['registration_ids'] = $target;
         }else{
-            $chunkedArrays = [];
-            $chunkSize = 990;
+            $start_count = 0;
+            $end_count = 990;
 
-            for ($i = 0; $i < count($target); $i += $chunkSize) {
-                $chunkedArrays = array_slice($target, $i, $chunkSize);
-                $result = sendNotification($data,$chunkedArrays);
-            }
-            
-            return $result;
+            do{
+                $mini_target = [];
+
+                for($i = $start_count; $i <= $end_count; $i++){
+                    $mini_target[] = $target[$i];
+                }
+
+                sendNotification($data,$mini_target);
+
+                $start_count = $end_count+1;
+                $end_count = $start_count + 990;
+
+                if($start_count < $number_send && $end_count > $number_send){
+                    $end_count = $number_send;
+                }
+            }while ($end_count<=$number_send);
         }
         
     }else{
@@ -697,7 +710,7 @@ function sendNotification($data,$target){
 
     }
     curl_close($ch);
-
+    
     return $result;
 }
 
