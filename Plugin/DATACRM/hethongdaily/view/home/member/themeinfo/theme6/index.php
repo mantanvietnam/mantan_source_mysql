@@ -277,30 +277,30 @@
                             </div>
 
                             <div id="info_customer">
-                                <div class=" p-4 box-info"> 
-                                   <div class="input-group input-group-sm mb-3">
+                                <form > 
+                                   <div class="form-group">
                                       <label class="input-group-text" >Họ tên (*)</label>
                                       <input type="text" class="form-control box" aria-label="Sizing example input" id="full_name" name="full_name" value="" required />
                                   </div>
-                                  <div class="input-group input-group-sm mb-3">
+                                  <div class="form-group">
                                       <label class="input-group-text" >Số điện thoại (*)</label>
                                       <input type="text" class="form-control box" aria-label="Sizing example input" id="phone" name="phone" value="" required />
                                   </div>
-                                  <div class="input-group input-group-sm mb-3">
+                                  <div class="form-group">
                                       <label class="input-group-text" >Địa chỉ nhận hàng</label>
                                       <input type="text" class="form-control box" aria-label="Sizing example input" id="address" name="address" value="" />
                                   </div>
-                                  <div class="input-group input-group-sm mb-3">
+                                  <div class="form-group">
                                       <label class="input-group-text" >Ngày sinh</label>
                                       <!-- <input type="text" class="form-control datepicker" id="birthday" name="birthday" value="" /> -->
                                       <input type="text" class="form-control box datepicker"  name="birthday" id="birthday" />
                                   </div>
-                                  <div class="input-group input-group-sm mb-3">
+                                  <div class="form-group">
                                       <label class="input-group-text" >Mã giảm giá</label>
                                       <input type="text" class="form-control box" aria-label="Sizing example input" id="discountCode" onchange="searchDiscountCodeAgencyAPI()" name="discountCode" value="" />
                                       <label id="messdiscount"></label>
                                   </div>
-                                </div>
+                                </form>
                             </div>
                             <div id="info_member" style="display: none;">
                                  <div class="input-group input-group-sm mb-3">

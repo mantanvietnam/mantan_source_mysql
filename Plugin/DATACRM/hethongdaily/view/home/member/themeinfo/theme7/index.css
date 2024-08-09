@@ -277,6 +277,7 @@ section{
 }
 
 .block-1 .block-bgr .layout-1 .profile img{
+    overflow: hidden;
     border: 4px solid #496f93;
     border-radius: 50%;
     margin-top: 5px;
@@ -408,7 +409,6 @@ section{
     border-radius: 5px;
     width: 380px;
     height: 120%;
-    background-color: #f1f1f1;
     padding-bottom: 200px;
 
 }
@@ -417,13 +417,7 @@ section{
     width: 100%;
 } 
 
-tbody {
-    border: 2px solid white;
-}
 
-tr{
-    border: 2px solid white;
-}
 .qty-input {
     color: #000;
     background: transparent;
@@ -451,6 +445,7 @@ tr{
 }
 
 .qty-input .product-qty {
+    width: 40px;
     display: inline-block;
     text-align: center;
     -webkit-appearance: textfield;
@@ -466,6 +461,7 @@ tr{
 }
 
 .qty-input .qty-count {
+    width: 40px;
     padding: 0;
     cursor: pointer;
     font-size: 20px;
@@ -601,17 +597,18 @@ td a {
     padding: 25px;
     border-radius: 5px;
     width: 380px;
-    height: 540px;
-    background-color: #f1f1f1;
+    height: 650px;
+    border: 1px solid;
     margin-bottom: 100px;
 }
 
 .btn-tdh{
     text-align: center;
-    margin: 10px;
+    margin:40px 10px;
 }
 
 label{
+    color: darkgrey;
     font-family: 'Oswald';
 }
 
@@ -639,6 +636,11 @@ label{
     border-radius: 9px;
     background-color: red;
     color: #DDD;
+}
+
+.input-group-sm>.form-control{ 
+    height: 40px;
+    font-size: 22px;
 }
 
 .btn-contact:hover{

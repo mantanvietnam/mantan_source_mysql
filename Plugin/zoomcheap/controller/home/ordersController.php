@@ -13,7 +13,7 @@ function listOrder($input)
 		$modelManagers = $controller->loadModel('Managers');
 		$modelOrders = $controller->loadModel('Orders');
 		$modelZooms = $controller->loadModel('Zooms');
-
+		$modelRooms = $controller->loadModel('Rooms');
 		$user = $modelManagers->find()->where(['id'=>$session->read('infoUser')->id])->first();
 		$session->write('infoUser',$user);
 
@@ -32,6 +32,32 @@ function listOrder($input)
 		}
 
 	    $listData = $modelOrders->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+		if(!empty($listData)){
+			foreach($listData as $key => $value){
+				if(!empty($value->idManager)){
+					$infoManager = $modelManagers->find()->where(['id'=> $value->idManager])->first(); 
+					$listData[$key]->infoManager = $infoManager;
+				}
+				
+				if(!empty($value->idZoom)){
+					$infoZoom = $modelZooms->find()->where(['id'=> $value->idZoom])->first(); 
+					$listData[$key]->infoZoom = $infoZoom;
+				}
+	
+				if(!empty($value->idRoom)){
+					$infoRoom = $modelRooms->find()->where(['id'=> $value->idRoom])->first(); 
+					if(!empty($infoRoom->info)){
+						$infoRoom->info = json_decode($infoRoom->info, true);
+					}
+					$listData[$key]->infoRoom = $infoRoom;
+					
+					if(!empty($infoRoom->id_zoom)){
+						$infoZoom = $modelZooms->find()->where(['id'=> $infoRoom->id_zoom])->first(); 
+						$listData[$key]->infoZoom = $infoZoom;
+					}
+				}
+			}
+		} 
 
 	    $totalData = $modelOrders->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
