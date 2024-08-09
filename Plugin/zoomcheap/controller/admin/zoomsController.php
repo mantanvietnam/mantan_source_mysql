@@ -42,8 +42,9 @@ function listAccountZoomAdmin($input)
                 $infoOrder = $modelOrders->find()->where(['id'=> $value->idOrder])->first();
                 if(!empty($infoOrder->idRoom)){
                     $infoRoom = $modelRooms->find()->where(['id'=> $infoOrder->idRoom])->first(); 
-                    $infoRoom->info = json_decode($infoRoom->info, true);
-
+                    if(!empty($infoRoom->idRoom)){
+                        $infoRoom->info = json_decode($infoRoom->info, true);
+                    }
                     $listData[$key]->infoRoom = $infoRoom;
                     $listData[$key]->infoOrder = $infoOrder;
                 }
@@ -95,7 +96,41 @@ function listAccountZoomAdmin($input)
     setVariable('listData', $listData);
 
 }
+function listclound($input)
+{
+    global $controller;
+	global $urlCurrent;
+	global $modelCategories;
+    global $metaTitleMantan;
 
+    $metaTitleMantan = 'Danh sách clound zoom';
+	$modelZooms = $controller->loadModel('Zooms');
+    $modelRooms = $controller->loadModel('Rooms');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelmanagers = $controller->loadModel('managers');
+    if(!empty($_GET['id'])){
+        $id = $_GET['id'];
+        $zoomAccount = $modelZooms->find()->where(['id' => $id])->first();
+        $clientId = $zoomAccount->client_id ?? '';
+        $clientSecret = $zoomAccount->client_secret ?? '';
+        $accountId = $zoomAccount->account_id ?? '';
+        $cloudRecords = getlistclound($clientId, $clientSecret, $accountId);
+
+        $listData = $modelZooms->find()->where(['id'=>$id])->first();
+        // debug($modelRooms);
+        // die();
+        // debug($cloudRecords);
+        // die();
+        setVariable('listData', $listData);
+        setVariable('zoomAccount', $zoomAccount);
+        setVariable('cloudRecords', $cloudRecords);
+    }
+    else {
+        return '/plugins/admin/zoomcheap-view-admin-zoom-listAccountZoomAdmin';
+    }
+   
+    
+}
 function addZoom($input)
 {
 	global $controller;

@@ -77,6 +77,11 @@ class OptionsController extends AppController{
             $value = array( 'phone' => $dataSend['phone'],
                             'email' => $dataSend['email'],
                             'address' => $dataSend['address'],
+                            
+                            'facebook' => $dataSend['facebook'],
+                            'youtube' => $dataSend['youtube'],
+                            'tiktok' => $dataSend['tiktok'],
+                            'instagram' => $dataSend['instagram'],
                         );
 
             $contact_site->key_word = 'contact_site';

@@ -1,4 +1,4 @@
-<?php 
+	<?php 
 global $sqlInstallDatabase;
 global $sqlDeleteDatabase;
 global $sqlUpdateDatabase;
@@ -60,7 +60,8 @@ $sqlInstallDatabase .= "CREATE TABLE `historytests` (
 	`number_question` INT NOT NULL , 
 	`time_start` INT NOT NULL , 
 	`time_end` INT NOT NULL , 
-	`status` VARCHAR(255) NOT NULL, 
+	`status` VARCHAR(255) NOT NULL,
+	`type` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL, 
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -133,7 +134,7 @@ $sqlUpdateDatabase['historytests']['number_question'] = "ALTER TABLE `historytes
 $sqlUpdateDatabase['historytests']['time_start'] = "ALTER TABLE `historytests` ADD `time_start` INT NOT NULL;";
 $sqlUpdateDatabase['historytests']['time_end'] = "ALTER TABLE `historytests` ADD `time_end` INT NOT NULL;";
 $sqlUpdateDatabase['historytests']['status'] = "ALTER TABLE `historytests` ADD `status` VARCHAR(255) NOT NULL;";
-
+$sqlUpdateDatabase['historytests']['type'] = "ALTER TABLE `historytests` ADD `type` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
 // bảng courses
 $sqlUpdateDatabase['courses']['title'] = "ALTER TABLE `courses` ADD `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['courses']['image'] = "ALTER TABLE `courses` ADD `image` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";

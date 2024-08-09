@@ -63,6 +63,7 @@ function createOrderCustomerAPI($input)
 	                    $saveDetail->id_order = $save->id;
 	                    $saveDetail->quantity = $value['quantity'];
 	                    $saveDetail->price = $value['price'];
+	                    $saveDetail->id_unit = (!empty($value['id_unit']))?(int)$value['id_unit']:0;
 
 	                    $modelOrderDetails->save($saveDetail);
 	                }
@@ -201,8 +202,11 @@ function updateStatusOrderAPI($input)
 
     $modelOrder = $controller->loadModel('Orders');
     $modelOrderDetail = $controller->loadModel('OrderDetails');
+    $modelBill = $controller->loadModel('Bills');
+    $modelDebt = $controller->loadModel('Debts');
     $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
     $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+    $modelCustomers = $controller->loadModel('Customers');
 
     $return = array('code'=>1);
     
@@ -218,7 +222,7 @@ function updateStatusOrderAPI($input)
 		            if(!empty($order)){
 	                    $order->status = $dataSend['status'];
 
-	                    $modelOrder->save($order);
+	                    
 
 	                    // xuất hàng khỏi kho
 	                    if($dataSend['status'] == 'done'){
@@ -255,6 +259,51 @@ function updateStatusOrderAPI($input)
 	                        }
 	                    }
 
+	                    // tạo phiêu thu 
+		                if(!empty($dataSend['status_pay'])){
+		                    $order->status_pay = $dataSend['status_pay'];
+		                    $time = time();
+		                    if($_GET['status_pay']=='done'){
+		                        $customer = $modelCustomers->find()->where(['id'=>(int) $order->id_user])->first();
+		                        if($dataSend['type_collection_bill']!='cong_no'){
+		                            $bill = $modelBill->newEmptyEntity();
+		                            $bill->id_member_sell =  $infoMember->id;
+		                            $bill->id_member_buy = 0;
+		                            $bill->total = $order->total;
+		                            $bill->id_order = $order->id;
+		                            $bill->type = 1;
+		                            $bill->type_order = 2; 
+		                            $bill->created_at = $time;
+		                            $bill->updated_at = $time;
+		                            $bill->id_debt = 0;
+		                            $bill->type_collection_bill =  @$dataSend['type_collection_bill'];
+		                            $bill->id_customer = $order->id_user;
+		                            $bill->note = 'Thanh toán đơn hàng id:'.$order->id.' của khách '.@$customer->full_name.' '.@$customer->phone.'; '.@$dataSend['note'];
+		                            $modelBill->save($bill);
+		                        }else{
+		                            if(!empty($customer)){
+		                                $debt = $modelDebt->newEmptyEntity();
+		                                $debt->id_member_sell =  $infoMember->id;
+		                                $debt->id_member_buy = 0;
+		                                $debt->total = $order->total;
+		                                $debt->id_order = $order->id;
+		                                $debt->number_payment = 0;
+		                                $debt->total_payment = 0;
+		                                $debt->type = 0;
+		                                $debt->status = 0;
+		                                $debt->type_order = 2; 
+		                                $debt->created_at = $time;
+		                                $debt->updated_at = $time;
+		                                $debt->id_customer = $order->id_user;
+		                                $debt->note = 'Thanh toán đơn hàng id:'.$order->id.' của khách '.@$customer->full_name.' '.@$customer->phone.'; '.@$dataSend['note'];
+		                                    $modelDebt->save($debt);
+		                            }
+		                        }
+		                    }
+		                }
+
+                		$modelOrder->save($order);
+
 		                $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công');
 		            }else{
 		            	$return = array('code'=>4, 'mess'=>'Không tìm thấy đơn hàng');
@@ -272,7 +321,6 @@ function updateStatusOrderAPI($input)
 
     return $return;
 }
-
 
 // api tạo đơn hàng ở trang info
 function paycreateOrderCustomerPAI($input){
@@ -436,4 +484,194 @@ function paycreateOrderCustomerPAI($input){
 	// setVariable('discountCode', $discountCode);
 
 }
+
+// api lấy danh sách đơn hàng khách lẻ hôm nay 
+function getListOrderCustomerTodayAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelProducts = $controller->loadModel('Products');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
+    $modelUnitConversion = $controller->loadModel('UnitConversions');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+            	// Thời gian đầu ngày
+                $startOfDay = strtotime("today 00:00:00");
+                // Thời gian cuối ngày
+                $endOfDay = strtotime("tomorrow 00:00:00") - 1;
+                    
+
+                $conditions = array('id_agency'=>$infoMember->id,  'create_at >='=>$startOfDay,'create_at <='=>$endOfDay);
+                $order = array('id'=>'desc');
+                $listData = $modelOrders->find()->where($conditions)->order($order)->all()->toList();
+		        if(!empty($listData)){
+		            foreach($listData as $key => $item){
+		                $detail_order = $modelOrderDetails->find()->where(['id_order'=>$item->id])->all()->toList();
+		                
+		                if(!empty($detail_order)){
+		                    foreach ($detail_order as $k => $value) {
+		                        $product = $modelProducts->find()->where(['id'=>$value->id_product ])->first();
+		                        if(!empty($product)){
+		                            $detail_order[$k]->product = $product->title;
+
+		                            if(!empty($value->id_unit)){
+		                            	$unit = $modelUnitConversion->find()->where(['id'=>$value->id_unit ])->first();
+		                            	if(!empty($unit)){
+		                            		$detail_order->unit = $unit->unit;
+		                            	}
+			                        }else{
+			                        	$detail_order->unit = $product->unit;
+			                        }
+		                        }
+		                    }
+
+		                    $listData[$key]->detail_order = $detail_order;
+		                }else{
+		                	$listData[$key]->detail_order = [];
+		                }
+
+		                $listData[$key]->customer = $modelCustomers->find()->where(['id'=>$item->id_user ])->first();
+		            }
+		        }
+                
+                $totalData = $modelOrders->find()->where($conditions)->all()->toList();
+                
+                $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData));
+            }else{
+                 $return = array('code'=>3, 'mess'=>'không tồn tại tài khoản đại lý hoặc sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+// api lấy danh sách đơn hàng khách lẻ 
+function getListOrderCustomerAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelProducts = $controller->loadModel('Products');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
+    $modelUnitConversion = $controller->loadModel('UnitConversions');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                $conditions = array('id_agency'=>$infoMember->id);
+                $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+                $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+                if($page<1) $page = 1;
+                $order = array('id'=>'desc');
+
+                if(!empty($dataSend['id'])){
+		            $conditions['id'] = (int) $dataSend['id'];
+		        }
+
+		        if(!empty($dataSend['status_pay'])){
+		            $conditions['status_pay'] = $dataSend['status_pay'];
+		        }
+
+		        if(!empty($dataSend['status'])){
+		            $conditions['status'] = $dataSend['status'];
+		        }
+
+		        if(!empty($dataSend['full_name'])){
+		            $conditions['full_name'] = $dataSend['full_name'];
+		        }
+
+		        if(!empty($dataSend['date_start'])){
+		            $date_start = explode('/', $dataSend['date_start']);
+		            $conditions['create_at >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+		        }
+
+		        if(!empty($dataSend['date_end'])){
+		            $date_end = explode('/', $dataSend['date_end']);
+		            $conditions['create_at <='] = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+		                
+		        }
+
+		        if(!empty($dataSend['phone'])){
+		            $checkCustomer = $modelCustomers->find()->where(['phone'=>$dataSend['phone'] ])->first();
+
+		            if(!empty($checkCustomer)){
+		                $conditions['id_user'] = $checkCustomer->id;
+		            }else{
+		                $conditions['id_user'] = -1;
+		            }
+		        }
+
+                $listData = $modelOrders->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        
+
+		        if(!empty($listData)){
+		            foreach($listData as $key => $item){
+		                $detail_order = $modelOrderDetails->find()->where(['id_order_member'=>$item->id])->all()->toList();
+		                
+		                if(!empty($detail_order)){
+		                    foreach ($detail_order as $k => $value) {
+		                        $product = $modelProducts->find()->where(['id'=>$value->id_product ])->first();
+		                        if(!empty($product)){
+		                            $detail_order[$k]->product = $product->title;
+
+		                            if(!empty($value->id_unit)){
+		                            	$unit = $modelUnitConversion->find()->where(['id'=>$value->id_unit ])->first();
+		                            	if(!empty($unit)){
+		                            		$detail_order->unit = $unit->unit;
+		                            	}
+			                        }else{
+			                        	$detail_order->unit = $product->unit;
+			                        }
+		                        }
+		                    }
+
+		                    $listData[$key]->detail_order = $detail_order;
+		                }else{
+		                	$listData[$key]->detail_order = [];
+		                }
+
+		                $listData[$key]->customer = $modelCustomers->find()->where(['id'=>$item->id_user ])->first();
+		            }
+		        }
+                
+                $totalData = $modelOrderDetails->find()->where($conditions)->all()->toList();
+                
+                $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData));
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
 ?>

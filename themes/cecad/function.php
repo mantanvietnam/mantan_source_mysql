@@ -6,7 +6,7 @@
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingHomececad'
                         );
-    $menus[0]['sub'][1]= array( 'title'=>'Cài đặt trang giới thiệu',
+    $menus[0]['sub'][1]= array( 'title'=>'Cài đặt về chúng tôi',
                         'url'=>'/plugins/admin/cecad-admin-settingAboutusTheme',
                         'classIcon'=>'bx bx-cog',
                         'permission'=>'settingAboutusTheme'

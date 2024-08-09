@@ -298,7 +298,8 @@ function sendEmailNewPass($email='', $fullName='', $pass= '')
     }
 }
 
-function sendNotificationa($data,$target){
+function sendNotification($data,$target)
+{
     global $keyFirebase;
     $url = 'https://fcm.googleapis.com/fcm/send';
 
@@ -311,7 +312,32 @@ function sendNotificationa($data,$target){
     $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
     
     if(is_array($target)){
-        $fields['registration_ids'] = $target;
+        $number_send = count($target)-1;
+
+        if($number_send < 1000){
+            $fields['registration_ids'] = $target;
+        }else{
+            $start_count = 0;
+            $end_count = 990;
+
+            do{
+                $mini_target = [];
+
+                for($i = $start_count; $i <= $end_count; $i++){
+                    $mini_target[] = $target[$i];
+                }
+
+                sendNotification($data,$mini_target);
+
+                $start_count = $end_count+1;
+                $end_count = $start_count + 990;
+
+                if($start_count < $number_send && $end_count > $number_send){
+                    $end_count = $number_send;
+                }
+            }while ($end_count<=$number_send);
+        }
+        
     }else{
         $fields['to'] = $target;
     }
@@ -334,7 +360,7 @@ function sendNotificationa($data,$target){
 
     }
     curl_close($ch);
-
+    
     return $result;
 }
 

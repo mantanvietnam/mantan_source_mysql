@@ -162,6 +162,7 @@ function createRequestImportProductAPI($input)
 	                    $saveDetail->id_order_member = $save->id;
 	                    $saveDetail->quantity = $value['quantity'];
 	                    $saveDetail->price = $value['price'];
+	                    $saveDetail->id_unit = (!empty($value['id_unit']))?(int)$value['id_unit']:0;
 
 	                    $modelOrderMemberDetails->save($saveDetail);
 	                }

@@ -40,6 +40,12 @@
                     </select>
                   </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Đổi điểm hạng thành viên </label>
+                    <input  type="text" class="form-control phone-mask" name="convertPoint" id="convertPoint" value="<?php echo @$data->convertPoint;?>"/>
+                  </div>
+                </div>
               </div>
 
               <button type="submit" class="btn btn-primary">Lưu</button> 

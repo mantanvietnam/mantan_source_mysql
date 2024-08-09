@@ -132,6 +132,25 @@ function settingAboutusTheme($input){
             'titleidside2'=>$dataSend['titleidside2'],
 
 
+//            
+            'titleteam'=>$dataSend['titleteam'],
+            'bannerteam'=>$dataSend['bannerteam'],
+            'contenteam'=>$dataSend['contenteam'],
+            'namebuttonteam'=>$dataSend['namebuttonteam'],
+            'titleslide1'=>$dataSend['titleslide1'],
+            'idslidedau'=>$dataSend['idslidedau'],
+            'titleslide2'=>$dataSend['titleslide2'],
+            'idslidehai'=>$dataSend['idslidehai'],
+            'titleslide3'=>$dataSend['titleslide3'],
+            'idslideba'=>$dataSend['idslideba'],
+
+// 
+            'titlevolunteers'=>$dataSend['titlevolunteers'],
+            'bannervolunteers'=>$dataSend['bannervolunteers'],
+            'contenvolunteer'=>$dataSend['contenvolunteer'],
+            'namebuttonvolunteer'=>$dataSend['namebuttonvolunteer'],
+            'titleslidevolunteers'=>$dataSend['titleslidevolunteers'],
+            'idslidevolunteers'=>$dataSend['idslidevolunteers'],
 
         );
 
@@ -176,6 +195,70 @@ function Aboutus($input){
    
     setVariable('slide_about1', $slide_about1);
     setVariable('slide_about2', $slide_about2);
+    setVariable('setting', $data_value);
+   
+}
+function team($input){
+    global $controller;
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $modelAlbuminfos;
+    global $data;
+    $metaTitleMantan = 'Trang team';
+
+    $conditions = array('key_word' => 'settingAboutusTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+ 
+    $slide_dau = [];
+    if(!empty($data_value['idslidedau'])){
+        $slide_dau = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidedau']])->all()->toList();
+    }
+
+    $slide_hai = [];
+    if(!empty($data_value['idslidehai'])){
+        $slide_hai = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidehai']])->all()->toList();
+    }
+    $slide_ba = [];
+    if(!empty($data_value['idslideba'])){
+        $slide_ba = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslideba']])->all()->toList();
+    }
+   
+    setVariable('slide_dau', $slide_dau);
+    setVariable('slide_hai', $slide_hai);
+    setVariable('slide_ba', $slide_ba);
+    setVariable('setting', $data_value);
+   
+}
+function volunteers($input){
+    global $controller;
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $modelAlbuminfos;
+    global $data;
+    $metaTitleMantan = 'Trang volunteers';
+
+    $conditions = array('key_word' => 'settingAboutusTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+ 
+    $slide_volunteers = [];
+    if(!empty($data_value['idslidevolunteers'])){
+        $slide_volunteers = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidevolunteers']])->all()->toList();
+    }
+
+
+   
+    setVariable('slide_volunteers', $slide_volunteers);
+    
     setVariable('setting', $data_value);
    
 }

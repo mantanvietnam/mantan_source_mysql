@@ -55,19 +55,18 @@
                   <label class="form-label">Link phòng họp</label>
                   <input type="text" class="form-control" disabled name="" value="<?php echo (!empty($link))?$link:$room['join_url'];?>">
                 </div>
-                
               </div>
             </div>
 
             <button type="button" class="btn btn-primary" onclick="copyFormatted('contentShare','mess')">Chia sẻ</button> &nbsp;&nbsp;&nbsp;
-
-            <a target="_blank" href="<?php echo $room['join_url'];?>" class="btn btn-danger">Vào phòng họp</a>
-
+            <!-- <a target="_blank" href="<?php echo $room['join_url'];?>" class="btn btn-danger">Vào phòng họp</a> -->
+            <a target="_blank" href="<?php echo $room['start_url'];?>" class="btn btn-danger">Vào phòng họp với quyền quản trị</a>
             <p id="mess" style="color: red;" class="mt-3"></p>
           </div>
+         
         </div>
       </div>
-
+      
     </div>
 </div>
 

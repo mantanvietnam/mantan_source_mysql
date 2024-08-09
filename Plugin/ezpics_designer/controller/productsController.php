@@ -871,7 +871,30 @@ function createImageSeries($input)
 			
 			$rabbitMQClient->sendMessage('render_image_requests', $requestMessage);
 
-			setVariable('linkImageRender', $urlHomes.'/upload/admin/images/render_images/'.$fileName);
+			$linkImageRender = $urlHomes.'upload/admin/images/render_images/'.$fileName;
+
+			setVariable('linkImageRender', $linkImageRender);
+
+			if(!empty($_GET['id'])){
+				$number = 0;
+				do{	
+					$number ++;
+					$imageData = '';
+					if($number == 10){
+						$linkImageRender = 'https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png';
+					}
+
+					sleep(2);
+					$imageData = file_get_contents($linkImageRender);
+
+					if($imageData != false){
+						header('Content-Type: image/png');
+						echo $imageData;
+						$controller->autoRender = false;
+						die;
+					}
+				} while($imageData == false);
+			}
 
 		}
 

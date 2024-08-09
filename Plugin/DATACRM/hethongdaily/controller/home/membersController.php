@@ -21,8 +21,7 @@ function login($input)
     				break;
     		}
     	}
-
-
+    	
 	    if($isRequestPost){
 	    	$dataSend = $input['request']->getData();
 	    	
@@ -55,7 +54,7 @@ function login($input)
             							sendDataConnectMantan('https://icham.vn/apis/updateLastLoginBossAPI', $dataPost);
 			    				}
 								
-								return $controller->redirect('/listCustomerAgency');
+								return $controller->redirect('/listCustomerAgency/?statusLogin=loginAccount');
 							}else{
 								return $controller->redirect('/verify');
 							}
@@ -97,7 +96,7 @@ function login($input)
 			    		}
 		    			
 		    			if($info_customer->verify == 'active'){
-							return $controller->redirect('/listCustomerAgency');
+							return $controller->redirect('/listCustomerAgency/?statusLogin=loginCookie');
 						}else{
 							return $controller->redirect('/verify');
 						}
@@ -113,7 +112,7 @@ function login($input)
 
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/listCustomerAgency');
+		return $controller->redirect('/listCustomerAgency/?statusLogin=loginDone');
 	}
 }
 
@@ -787,10 +786,16 @@ function info($input)
 
 				if(!empty($allProduct)){
 					foreach ($allProduct as $product) {
+						if(empty($product->price_agency)){
+               				$product->price_agency = $product->price; 
+            			}
+
 						$listProduct[$product->id_category]['product'][$product->id] = $product;
+
+						
 					}
 				}
-
+				
 				setVariable('listProduct', $listProduct);
 			}
 

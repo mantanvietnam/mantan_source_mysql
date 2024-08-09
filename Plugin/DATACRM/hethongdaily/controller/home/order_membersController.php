@@ -306,6 +306,14 @@ function addOrderAgency($input)
 
         $conditions = array('type' => 'costsIncurred','status'=>'active');
         $costsIncurred = $modelCategories->find()->where($conditions)->all()->toList();
+
+        if(!empty($listProduct)){
+            foreach($listProduct as $key => $item){
+                if(empty($item->price_agency)){
+                    $listProduct[$key]->price_agency = $item->price;
+                }
+            }
+        }
         
 
         setVariable('listProduct', $listProduct);

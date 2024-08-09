@@ -280,6 +280,15 @@ $sqlInstallDatabase .="CREATE TABLE `link_infos` (
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .= 'CREATE TABLE `rating_point_customers` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
+`point_min` INT NOT NULL ,
+`created_at` INT NULL DEFAULT NULL ,
+`note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -298,6 +307,7 @@ $sqlDeleteDatabase .= "DROP TABLE bills; ";
 $sqlDeleteDatabase .= "DROP TABLE discount_product_agencys; ";
 $sqlDeleteDatabase .= "DROP TABLE seting_theme_infos; ";
 $sqlDeleteDatabase .= "DROP TABLE link_infos; ";
+$sqlDeleteDatabase .= "DROP TABLE rating_point_customers; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -523,3 +533,8 @@ $sqlUpdateDatabase['link_infos']['type'] = "ALTER TABLE `link_infos` ADD `type` 
 $sqlUpdateDatabase['link_infos']['link'] = "ALTER TABLE `link_infos` ADD `link` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
 $sqlUpdateDatabase['link_infos']['description'] = "ALTER TABLE `link_infos` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
 $sqlUpdateDatabase['link_infos']['namelink'] = "ALTER TABLE `link_infos` ADD `namelink` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+
+$sqlUpdateDatabase['rating_point_customers']['name'] = "ALTER TABLE `rating_point_customers` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['rating_point_customers']['point_min'] = "ALTER TABLE `rating_point_customers` ADD `point_min` INT NOT NULL;";
+$sqlUpdateDatabase['rating_point_customers']['created_at'] = "ALTER TABLE `rating_point_customers` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['rating_point_customers']['note'] = "ALTER TABLE `rating_point_customers` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

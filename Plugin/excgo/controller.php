@@ -12,6 +12,7 @@ include_once('controller/admin/permissionController.php'); // Phân quyên
 include_once('controller/admin/notificationControlle.php'); // Thông báo 
 include_once('controller/admin/settingController.php'); // cài đặt thông số 
 include_once('controller/admin/rewardController.php'); // phan thuong 
+include_once('controller/admin/orderPointController.php'); // đơn mua bán điểm  
 
 // Api .php
 include_once('controller/api/provincesController.php'); // Tỉnh thành
@@ -25,3 +26,4 @@ include_once('controller/api/supportRequestsController.php'); // Trợ giúp
 include_once('controller/api/postsController.php'); // Bài đăng
 include_once('controller/api/bookmarksController.php'); // Nhóm quan tâm
 include_once('controller/api/rewardController.php'); // phan thuong 
+include_once('controller/api/orderPointController.php'); // đơn mua điểm

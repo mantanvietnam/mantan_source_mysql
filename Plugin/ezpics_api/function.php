@@ -648,7 +648,8 @@ function listBank()
             ];
 }
 
-function sendNotification($data,$target){
+function sendNotification($data,$target)
+{
     global $keyFirebase;
     $url = 'https://fcm.googleapis.com/fcm/send';
 
@@ -658,21 +659,33 @@ function sendNotification($data,$target){
     $fields['priority'] = 'high';
     $fields['content_available'] = true;
 
-    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content'], 'sound'=>'default'];
+    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
     
     if(is_array($target)){
-        if(count($target)<1000){
+        $number_send = count($target)-1;
+
+        if($number_send < 1000){
             $fields['registration_ids'] = $target;
         }else{
-            $chunkedArrays = [];
-            $chunkSize = 990;
+            $start_count = 0;
+            $end_count = 990;
 
-            for ($i = 0; $i < count($target); $i += $chunkSize) {
-                $chunkedArrays = array_slice($target, $i, $chunkSize);
-                $result = sendNotification($data,$chunkedArrays);
-            }
-            
-            return $result;
+            do{
+                $mini_target = [];
+
+                for($i = $start_count; $i <= $end_count; $i++){
+                    $mini_target[] = $target[$i];
+                }
+
+                sendNotification($data,$mini_target);
+
+                $start_count = $end_count+1;
+                $end_count = $start_count + 990;
+
+                if($start_count < $number_send && $end_count > $number_send){
+                    $end_count = $number_send;
+                }
+            }while ($end_count<=$number_send);
         }
         
     }else{
@@ -697,7 +710,7 @@ function sendNotification($data,$target){
 
     }
     curl_close($ch);
-
+    
     return $result;
 }
 
@@ -819,7 +832,7 @@ function getLayerProductForEdit($idProduct=0)
                     if(!isset($layer->size)) $layer->size = '10vw'; 
                     $layer->size = str_replace('px','',$layer->size);
                     $layer->size = str_replace('vw','',$layer->size);
-                    if($layer->size>100) $layer->size= 70;
+                    //if($layer->size>100) $layer->size= 70;
                     $layer->size = $layer->size.'vw';
 
                     // font chữ
@@ -894,11 +907,6 @@ function getLayerProductForEdit($idProduct=0)
                         $layer->banner = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/avatar-ezpics.png'; 
                     }
 
-                    if(!isset($layer->naturalWidth)){
-                        $layer->naturalWidth = 0;
-                        $layer->naturalHeight = 0;
-                    }
-
                     // link ảnh svg khung
                     if(empty($layer->image_svg)){
                         $layer->image_svg = ''; 
@@ -938,7 +946,7 @@ function getLayerProductForEdit($idProduct=0)
                     }
                     $layer->width = str_replace('px','',$layer->width);
                     $layer->width = str_replace('vw','',$layer->width);
-                    if($layer->width>100) $layer->width= 70;
+                    //if($layer->width>100) $layer->width= 70;
                     $layer->width = $layer->width.'vw';
 
                     // cờ đánh dấu việc có dùng hiệu ứng gradient hay không
@@ -1076,6 +1084,24 @@ function getLayerProductForEdit($idProduct=0)
                     $layer->postion_y = $layer->postion_top*$heightWindow/100;
                     */
 
+                    if(!isset($layer->naturalWidth)){
+                        $layer->naturalWidth = 0;
+                        $layer->naturalHeight = 0;
+                    }
+
+                    if($layer->type == 'image' && $layer->naturalWidth == 0){
+                        $sizeImage = @getimagesize($layer->banner);
+
+                        if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
+                            $layer->naturalWidth = (int) $sizeImage[0];
+                            $layer->naturalHeight = (int) $sizeImage[1];
+
+                            // cập nhập lại vào db
+                            $item->content = json_encode($layer);
+
+                            $modelProductDetail->save($item);
+                        }
+                    }
                     
                     $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" data-border='.$layer->border.' data-rotate="'.$layer->rotate.'" data-brightness="'.$layer->brightness.'" data-latanh="'.$layer->lat_anh.'" data-giandong="'.$layer->giandong.'" data-latanhdoc="'.$layer->lat_anh_doc.'">
                        

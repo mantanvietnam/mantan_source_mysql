@@ -524,7 +524,7 @@ function updateStatusOrderAgency($input){
                                 $debt->id_order = $order->id;
                                 $debt->number_payment = 0;
                                 $debt->total_payment = 0;
-                                $debt->type = 0;
+                                $debt->type = 1;
                                 $debt->status = 0;
                                 $debt->type_order = 2; 
                                 $debt->created_at = $time;
@@ -830,9 +830,12 @@ function addProductAgency($input)
                         }
                     }
                 }
+              
+               $dataSend['price_agency'] = (int) @$dataSend['price_agency']; 
+                if(empty($dataSend['price_agency'])){
 
-
-
+                    $dataSend['price_agency'] =  (int) @$dataSend['price'];
+                }
                 // tạo dữ liệu save
                 $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
                 $data->description = @$dataSend['description'];
@@ -844,6 +847,9 @@ function addProductAgency($input)
                 $data->price_old = (int) @$dataSend['price_old'];
                 $data->quantity = 1000000;
                 $data->status = 'active';
+
+                $data->price_agency = @$dataSend['price_agency'];
+
                 $data->unit = @$dataSend['unit'];
                 $data->id_category = (int) @$dataSend['id_category'][0];
 
@@ -902,6 +908,7 @@ function addProductAgency($input)
                             $save->id_product = $data->id; 
                             $save->quantity = (int) $dataSend['quantityConversion'][$key];
                             $save->price = (int) $dataSend['priceConversion'][$key];
+                            $save->price_agency = (int) $dataSend['price_agencyConversion'][$key];
                             $modelUnitConversion->save($save);
                         }
                     }
@@ -929,7 +936,7 @@ function addProductAgency($input)
         }
               
 
-        $conditions = array('type' => 'category_product');
+        $conditions = array('type' => 'category_product','status'=>'active');
         $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
 
         $listCategoryCheck = [];
@@ -949,7 +956,7 @@ function addProductAgency($input)
             $listUnitConversion = $modelUnitConversion->find()->where($conditions)->all()->toList();
         }
 
-        $conditions = array('type' => 'manufacturer_product');
+        $conditions = array('type' => 'manufacturer_product','status'=>'active');
         $listManufacturer = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('data', $data);
@@ -1182,7 +1189,7 @@ function editOrderCustomerAgency($input)
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'Tạo yêu cầu nhập hàng';
 
-         $modelProducts = $controller->loadModel('Products');
+        $modelProducts = $controller->loadModel('Products');
         $modelOrders = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelCustomers = $controller->loadModel('Customers');
@@ -1195,7 +1202,7 @@ function editOrderCustomerAgency($input)
             return $controller->redirect('/orderMemberAgency');
         }
 
-         $customer = [];
+        $customer = [];
        
         if(!empty($order->id_user)){
             $customer = $modelCustomers->find()->where(array('id'=>(int) $order->id_user))->first();
@@ -1206,14 +1213,14 @@ function editOrderCustomerAgency($input)
         if($isRequestPost){
             $dataSend = $input['request']->getData();
             
-            $order->note_buy = $dataSend['note']; // ghi chú người mua  
+            $order->note_user = $dataSend['note']; // ghi chú người mua  
             $order->status = 'new';
             $order->money = (int) $dataSend['total'];
             $order->total = (int) $dataSend['totalPays'];
             $order->status_pay = 'wait';
             $order->discount = $dataSend['promotion'];
 
-             $costsIncurred = array();
+            $costsIncurred = array();
             $total_costsIncurred = 0;
             if(!empty($dataSend['costsIncurred'])){      
                 foreach($dataSend['costsIncurred'] as $key => $item){
@@ -1351,7 +1358,6 @@ function listUnitConversionAPI($input){
     global $controller;
     $return =array();
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
-    if(!empty($session->read('infoUser'))){
 
         $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelProduct = $controller->loadModel('Products');
@@ -1372,9 +1378,6 @@ function listUnitConversionAPI($input){
         }else{
             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
-    }else{
-       $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
-    }
     return $return;
 }
 
@@ -1385,8 +1388,6 @@ function unitgetPriceAPI($input){
     global $session;
     global $controller;
     $return =array();
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
-    if(!empty($session->read('infoUser'))){
 
         $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelProduct = $controller->loadModel('Products');
@@ -1407,9 +1408,6 @@ function unitgetPriceAPI($input){
         }else{
             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
-    }else{
-       $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
-    }
     return $return;
 }
 

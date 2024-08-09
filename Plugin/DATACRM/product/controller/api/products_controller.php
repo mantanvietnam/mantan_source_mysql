@@ -35,6 +35,9 @@ function searchProductAPI($input)
         
     if($listData){
         foreach($listData as $data){
+            if(empty($data->price_agency)){
+                $data->price_agency = $data->price;
+            }
             $return[]= array(   'id'=>$data->id,
                                 'label'=>$data->title.' - '.number_format($data->price).'đ',
                                 'value'=>$data->id,
@@ -47,6 +50,7 @@ function searchProductAPI($input)
                                 'quantity'=>$data->quantity,
                                 'view'=>$data->view,
                                 'unit'=>$data->unit,
+                                'price_agency'=>$data->price_agency,
                             );
         }
     }else{
@@ -178,7 +182,7 @@ function getNewProductAPI($input)
     $return = [];
 
     $modelProduct = $controller->loadModel('Products');
-
+    $modelUnitConversion = $controller->loadModel('UnitConversions');
     
     $dataSend = $input['request']->getData();
 
@@ -194,6 +198,11 @@ function getNewProductAPI($input)
         foreach ($list_product as $key => $value) {
             $list_product[$key]->images = json_decode($value->images, true);
             $list_product[$key]->evaluate = json_decode($value->evaluate, true);
+            $list_product[$key]->unitConversion = $modelUnitConversion->find()->where(array('id_product'=>$value->id))->all()->toList();
+
+            if(empty($value->price_agency)){
+               $list_product[$key]->price_agency = $value->price; 
+            }
         }
     }
 
@@ -217,6 +226,7 @@ function getInfoProductAPI($input)
     $modelEvaluate = $controller->loadModel('Evaluates');
     $modelView = $controller->loadModel('Views');
     $modelCategorieProduct = $controller->loadModel('CategorieProducts');
+    $modelUnitConversion = $controller->loadModel('UnitConversions');
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
@@ -236,6 +246,9 @@ function getInfoProductAPI($input)
                 $product->view ++;
                 $modelProduct->save($product);
 
+              
+                $product->unitConversion = $modelUnitConversion->find()->where(array('id_product'=>$product->id))->all()->toList();
+
                 $product->images = json_decode($product->images, true);
                 
                 if(!empty($product->evaluate)){
@@ -244,6 +257,10 @@ function getInfoProductAPI($input)
 
                 $conditionsCategorie = ['id_product'=>$product->id];
                 $category = $modelCategorieProduct->find()->where(array($conditionsCategorie))->all()->toList();
+
+                if(empty($product->price_agency)){
+                    $product->price_agency = $product->price; 
+                }
                 
                 if(!empty($category)){
                     foreach ($category as $key => $item) {
@@ -254,10 +271,14 @@ function getInfoProductAPI($input)
 
                     $product->category = $category;
                 }
-
-                // SẢN PHẨM KHÁC
+                // SẢN PHẨM KHÁC 'cp.id_category'=>@$category->id_category
                 $category = $modelCategorieProduct->find()->where(array('id_product'=> $product->id))->first();
-                $conditions = array('Products.id !='=>$product->id, 'cp.id_category'=>@$category->id_category, 'status'=>'active');
+                if(!empty($category)){
+                    $conditions = array('Products.id !='=>$product->id, 'cp.id_category'=>@$category->id_category, 'status'=>'active');
+                }else{
+                    $conditions = array('Products.id !='=>$product->id, 'status'=>'active');
+                }
+                
                 $limit = 4;
                 $page = 1;
                 $order = array('Products.id'=>'desc');
@@ -406,4 +427,260 @@ function searchDiscountCodeReservedAPI($input){
 
     return $return;
 } 
+
+
+function addProductAPI($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelCategorieProduct = $controller->loadModel('CategorieProducts');
+    $return = array('code'=>1);
+    $modelUnitConversion = $controller->loadModel('UnitConversions');
+    if ($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+
+                if($infoMember->id_father==0){
+
+                    if(!empty($dataSend['id'])){
+                        $data = $modelProduct->get( (int) $dataSend['id']);  
+                    }else{
+                        $data = $modelProduct->newEmptyEntity();
+                        $data->quantity = 10000000;
+                    }
+
+                    if(!empty($dataSend['title'])){
+
+                        if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
+                            if(!empty($data->id)){
+                                $fileName = 'image_product_'.$data->id;
+                            }else{
+                                $fileName = 'image_product_'.time().rand(0,1000000);
+                            }
+
+                            $image = uploadImage($infoMember->id, 'image', $fileName);
+                        }
+
+                        if(!empty($image['linkOnline'])){
+                            $data->image = $image['linkOnline'].'?time='.time();
+                        }else{
+                            if(empty($data->image)){
+                                $data->image = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/default-thumb.jpg';
+                            }
+                        }
+
+                        $listImage = [];
+                        for($i=1;$i<=20;$i++){
+                            if(isset($_FILES['image'.$i]) && empty($_FILES['image'.$i]["error"])){
+                                if(!empty($data->id)){
+                                    $fileName = 'image'.$i.'_product_'.$data->id;
+                                }else{
+                                    $fileName = 'image'.$i.'_product_'.time().rand(0,1000000);
+                                }
+
+                                $image = uploadImage($infoMember->id, 'image'.$i, $fileName);
+
+                                if(!empty($image['linkOnline'])){
+                                    $listImage[$i] = $image['linkOnline'].'?time='.time();
+                                }
+                            }
+                        }
+
+                        if(!empty($dataSend['id_category'])){
+                            $dataSend['id_category'] = explode(',', $dataSend['id_category']);
+                        }
+
+                        // tạo dữ liệu save
+                        $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
+                        $data->description = @$dataSend['description'];
+                        $data->info = @$dataSend['info'];
+                        $data->images = json_encode($listImage);
+                        $data->code = @strtoupper($dataSend['code']);
+                        $data->price = (int) @$dataSend['price'];
+                        $data->price_old = (int) @$dataSend['price_old'];
+                        $data->price_agency = (int) @$dataSend['price_agency'];
+                        $data->quantity = 1000000;
+                        $data->status = 'active';
+                        $data->unit = @$dataSend['unit'];
+                        $data->id_category = (int) @$dataSend['id_category'][0];
+
+                        $data->hot = 0;
+                        $data->keyword = '';
+                        $data->id_manufacturer = 0;
+
+                        // tạo slug
+                        $slug = createSlugMantan($dataSend['title']);
+                        $slugNew = $slug;
+                        $number = 0;
+
+                        if(empty($data->slug) || $data->slug!=$slugNew){
+                            do{
+                                $conditions = array('slug'=>$slugNew);
+                                $listData = $modelProduct->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                                if(!empty($listData)){
+                                    $number++;
+                                    $slugNew = $slug.'-'.$number;
+                                }
+                            }while (!empty($listData));
+                        }
+
+                        $data->slug = $slugNew;
+
+                        $modelProduct->save($data);
+
+                        // lưu danh mục sản phẩm
+                        if(!empty($dataSend['id_category'])){
+                            $conditions = ['id_product'=>$data->id];
+                            $modelCategorieProduct->deleteAll($conditions);
+
+                            foreach ($dataSend['id_category'] as $id_category) {
+                                $category = $modelCategorieProduct->newEmptyEntity();
+
+                                $category->id_product = $data->id;;
+                                $category->id_category = $id_category;
+                                $modelCategorieProduct->save($category);
+                            }
+                        }
+                            $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công ', 'data' =>$data );
+                        }else{
+                             $return = array('code'=>4, 'mess'=>'Bạn chưa nhập tên sản phẩm');
+                        }
+                    }else{
+                        $return = array('code'=>5, 'mess'=>'Tài khoản của bạn không phải boss');
+                    }
+                }else{
+
+                     $return = array('code'=>3, 'mess'=>'Sai mã token');
+                }
+            }else{
+                  $return = array('code'=>3, 'mess'=>'chưa nhập token');
+            }
+        }else{
+            $return  = array('code'=>2,  'mess'=>'Truyền dữ liệu kiểu POST');
+        }
+
+    return $return;
+
+}
+
+function saveUnitConversionProductAPI($input){
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelUnitConversion = $controller->loadModel('UnitConversions');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+
+                if($infoMember->id_father==0){
+                    $product = $modelProduct->find()->where(['id'=> (int) $dataSend['id_product']])->first();
+                    if(!empty($product)){
+                         if(!empty($dataSend['id'])){
+                                $save = $modelUnitConversion->find()->where(['id'=> (int) $dataSend['id'],'id_product'=>$product->id])->first();
+                                if(empty($save)){
+                                    $save = $modelUnitConversion->newEmptyEntity();
+                                }
+                            }else{
+                                $save = $modelUnitConversion->newEmptyEntity();
+                            }
+                            $save->unit = $dataSend['unit'];
+                            $save->id_product = $product->id; 
+                            $save->quantity = (int) $dataSend['quantity'];
+                            $save->price = (int) $dataSend['price'];
+                            $data->price_agency = (int) @$dataSend['price_agency'];
+                            $modelUnitConversion->save($save);
+
+                            $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công ', 'data' =>$save );
+                    }else{
+                        $return = array('code'=>6, 'mess'=>'Sản phẩm này không tồn tại');
+                    }                        
+                }else{
+                    $return = array('code'=>5, 'mess'=>'Tài khoản của bạn không phải boss');
+                }
+            }else{
+
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>3, 'mess'=>'chưa nhập token');
+        }
+    }else{
+        $return  = array('code'=>2,  'mess'=>'Truyền dữ liệu kiểu POST');
+    }
+
+    return $return;
+}
+
+
+
+function deleteUnitConversionProductAPI($input){
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelUnitConversion = $controller->loadModel('UnitConversions');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['token']) && !empty($dataSend['id']) && !empty($dataSend['id_product'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+
+                if($infoMember->id_father==0){
+                    $product = $modelProduct->find()->where(['id'=>(int) $dataSend['id_product']])->first();
+                    if(!empty($product)){
+                         $save = $modelUnitConversion->find()->where(['id'=>(int) $dataSend['id'],'id_product'=>$product->id])->first();
+                        if(!empty($save)){
+                               $modelUnitConversion->delete($save); 
+                               $return = array('code'=>0, 'mess'=>'Xóa thành công');
+
+                        }else{
+                                $return = array('code'=>4, 'mess'=>'Id không tồn tại');
+                            }
+                           
+                    }else{
+                        $return = array('code'=>4, 'mess'=>'Sản phẩm này không tồn tại');
+                    }      
+                }else{
+                    $return = array('code'=>5, 'mess'=>'Tài khoản của bạn không phải boss');
+                    }
+            }else{
+
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>3, 'mess'=>'thiếu dữ liệu');
+        }
+    }else{
+        $return  = array('code'=>2,  'mess'=>'Truyền dữ liệu kiểu POST');
+    }
+
+    return $return;
+}
 ?>

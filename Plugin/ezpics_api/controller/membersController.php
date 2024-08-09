@@ -1109,13 +1109,15 @@ function requestCodeForgotPasswordAPI($input)
 		if(!empty($dataSend['phone'])){
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
-			if(!empty($checkPhone->email)){
+			if(!empty($checkPhone)){
 				$code = rand(1000,9999);
 
 				$checkPhone->otp = $code;
 				$modelMember->save($checkPhone);
 
-				sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code);
+				if(!empty($checkPhone->email)){
+					//sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code);
+				}
 
 				// gửi mã xác thực về Zalo người đăng ký
 				sendOTPZalo($checkPhone->phone, $checkPhone->otp);

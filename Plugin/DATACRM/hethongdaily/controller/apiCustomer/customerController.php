@@ -613,4 +613,10 @@ function getLinkMMTCAPI($input)
 }
 
 
+function getContactSiteAPI(){
+    global $infoSite;
+    global $contactSite;
+
+    return array('infoSite'=>$infoSite, 'contactSite'=>$contactSite);
+}
 ?>

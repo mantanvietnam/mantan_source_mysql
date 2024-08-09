@@ -99,6 +99,8 @@ function settingSystem($input){
                 $data->name = $dataSend['name'];
                 $data->image = $dataSend['image'];
                 $data->keyword = $dataSend['keyword'];
+                $description = array('convertPoint'=> @$dataSend['convertPoint']);
+                $data->description = json_encode($description);
 
                 $modelCategories->save($data);
 
@@ -107,9 +109,15 @@ function settingSystem($input){
                 $info_customer = $session->read('infoUser');
                 $info_customer->info_system = $data;
                 $session->write('infoUser', $info_customer);
+                $data = $modelCategories->find()->where(array('id'=>$session->read('infoUser')->id_system ))->first();
             }else{
                 $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
             }
+        }
+
+        if(!empty($data->description)){
+        $description = json_decode($data->description, true);
+        $data->convertPoint = $description['convertPoint'];
         }
 
         setVariable('data', $data);

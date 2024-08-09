@@ -92,6 +92,10 @@
                               <label class="form-label">Giá bán cũ</label>
                               <input type="text" class="form-control phone-mask" name="price_old" id="price_old" value="<?php echo @$data->price_old;?>" />
                             </div>
+                            <div class="mb-3">
+                              <label class="form-label">Giá bán cho đại lý  (*)</label>
+                              <input type="text" required class="form-control phone-mask" name="price_agency" id="price_agency" value="<?php echo @$data->price_agency;?>" />
+                            </div>
 
                             <div class="mb-3">
                               <label class="form-label">Mô tả ngắn</label>
@@ -149,7 +153,8 @@
                               <tr>
                                 <th>Tên đơn vị</th>
                                 <th>Số lượng đơn vị gốc </th>
-                                <th>Giá</th>
+                                <th>Giá bán lẻ </th>
+                                <th>Giá bán cho dại lý</th>
                                 <th>Xóa</th>
                               </tr>
                             </thead>
@@ -174,6 +179,9 @@
                                     <td>
                                       <input type="number" class="form-control" placeholder="" name="priceConversion[<?php echo $i ?>]" id="priceConversion<?php echo $i ?>" value="<?php echo $value->price ?>" />
                                     </td>
+                                    <td>
+                                      <input type="number" class="form-control" placeholder="" name="price_agencyConversion[<?php echo $i ?>]" id="price_agency<?php echo $i ?>" value="<?php echo $value->price_agency ?>" />
+                                    </td>
                                     <td align="center" class="actions"><?php echo $delete ?></td>
                                   </tr>
                                 <?php }}else{
@@ -189,6 +197,9 @@
                                     </td>
                                     <td>
                                       <input type="number" class="form-control phone-mask" name="priceConversion[<?php echo $i ?>]"  value=""/>
+                                    </td>
+                                     <td>
+                                      <input type="number" class="form-control phone-mask" name="price_agencyConversion[<?php echo $i ?>]"  value=""/>
                                     </td>
                                     <td align="center" class="actions"></td>
                                   </tr>
@@ -232,6 +243,9 @@
           </td>\
           <td>\
           <input type="number" class="form-control phone-mask" name="priceConversion['+row+']"  value=""/>\
+          </td>\
+           <td>\
+          <input type="number" class="form-control phone-mask" name="price_agencyConversion['+row+']"  value=""/>\
           </td>\
           <td align="center" class="actions"><a onclick="deleteTr('+row+')" href="javascript:void(0);"><i class="bx bx-trash"></i></a></td>\
           </tr>');
