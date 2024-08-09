@@ -408,7 +408,7 @@ section{
 .bgr-sp{
     border-radius: 5px;
     width: 380px;
-    height: 120%;
+    height: 135%;
     padding-bottom: 200px;
 
 }
@@ -419,6 +419,7 @@ section{
 
 
 .qty-input {
+    width: 40px;
     color: #000;
     background: transparent;
     display: grid;
@@ -597,7 +598,7 @@ td a {
     padding: 25px;
     border-radius: 5px;
     width: 380px;
-    height: 650px;
+    background-image: url(../theme7/img/Background.png);
     border: 1px solid;
     margin-bottom: 100px;
 }
@@ -608,7 +609,7 @@ td a {
 }
 
 label{
-    color: darkgrey;
+    color: lightgray;
     font-family: 'Oswald';
 }
 

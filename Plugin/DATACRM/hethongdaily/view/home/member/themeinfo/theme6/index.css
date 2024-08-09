@@ -422,6 +422,7 @@ tr{
     border: 2px solid black;
 }
 .qty-input {
+    width: 40px;
     color: #000;
     background: transparent;
     display: grid;
@@ -448,6 +449,7 @@ tr{
 }
 
 .qty-input .product-qty {
+    width: 40px;
     display: inline-block;
     text-align: center;
     -webkit-appearance: textfield;
