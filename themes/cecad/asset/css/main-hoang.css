@@ -552,7 +552,7 @@ table {
 
 .section-publication .image-publication {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 48px);
     position: absolute;
     left: -100%;
     top: 0;
@@ -593,11 +593,6 @@ table {
 .section-publication .infor-publication-title h2 {
     font-size: 22px;
     font-weight: 700;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
     color: #000;
     text-transform: uppercase;
     line-height: 1.5;
@@ -634,7 +629,7 @@ table {
 }
 
 .section-publication .infor-publication-meta .infor-detail-publication {
-    padding: 16px 0 20px 0;
+    padding: 12px 0 12px 0;
     position: relative;
     z-index: 3;
 }
@@ -648,6 +643,7 @@ table {
     background-color: #427FE3;
     padding: 10px 40px;
     color: #fff;
+    display: none;
 }
 
 .section-publication .infor-publication-meta .infor-detail-publication .button-dowload-detail a:hover {
@@ -666,8 +662,9 @@ table {
     transition: all linear 0.2s;
     overflow: hidden;
     position: relative;
-    height: 400px;
+    aspect-ratio: 0.95;
     background-color: #F7F7F7;
+    box-shadow: 0 0 8px -1px #59595963;
 }
 
 .image-publication::after {
@@ -729,7 +726,7 @@ table {
 }
 
 .publication-card:hover .detail-publication a {
-    color: #fff;
+    color: #000000;
     transition: all ease-in-out 0.3s;
 }
 
@@ -1007,7 +1004,14 @@ table {
     padding: 30px 25px;
 }
 
-@media screen and (max-width: 1200px) {}
+@media screen and (max-width: 1200px) {
+    .section-publication .infor-publication-title h2 {
+        font-size: 16px;
+    }
+    .section-publication .infor-publication-title {
+        padding: 16px;
+    }
+}
 
 @media screen and (max-width: 1100px) {
     .section-albums-parent .main-content-slide-albums .h2-title-above-slide {
@@ -1052,6 +1056,9 @@ table {
 }
 
 @media screen and (max-width: 800px) {
+    .section-publication .infor-publication-title h2 {
+        font-size: 18px;
+    }
     .section-video .cover-card-video {
         margin: 0px 0px 50px 0px;
     }
@@ -1104,6 +1111,16 @@ table {
 }
 
 @media screen and (max-width: 500px) {
+    .publication-card .detail-publication a::after {
+        right: -55px;
+    }
+    .publication-card .detail-publication a::before {
+        right: -58px;
+        width: 50px;
+    }
+    .section-publication .infor-publication-title h2 {
+        font-size: 18px;
+    }
     .section-card-albums .h2-title-above-slide {
         font-size: 20px;
     }
