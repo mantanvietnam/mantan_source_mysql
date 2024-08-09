@@ -577,7 +577,6 @@ i {
     font-size: 24px;
     font-weight: 700;
     text-transform: uppercase;
-    text-align: center;
     letter-spacing: 1px;
     color: #000;
     margin-bottom: 16px;
@@ -1926,11 +1925,12 @@ padding-right: 100px; */
 }
 
 .ms-1-block-1-sub p {
-    font-family: auto;
+    /* font-family: auto; */
 }
 
 .ms-1-block-2 {
     text-align: center;
+    display: none;
 }
 
 .ms-1-block-2 a {
@@ -2016,6 +2016,7 @@ padding-right: 100px; */
     left: 1%;
     border-radius: 100px;
     overflow: hidden;
+    display: none;
 }
 
 .banner-home i {
@@ -2095,6 +2096,7 @@ padding-right: 100px; */
 }
 
 .dtfs-block-3 p {
+    display: none;
     font-size: 18px;
     color: #fff;
     transition: all linear .2s;
@@ -2135,11 +2137,9 @@ padding-right: 100px; */
 .dtfs2-block-1-title h2 {
     color: #000;
     border-color: #000;
-    font-style: italic;
     font-size: 31px;
     line-height: 1.5;
     margin: 4% 0;
-    font-family: auto;
 }
 
 .dtfs2-block-1-title {
@@ -2283,7 +2283,7 @@ padding-right: 100px; */
 }
 
 .dtfs7-block-2-sub p {
-    font-family: auto;
+    /* font-family: auto; */
 }
 
 .as1-block-1 {
@@ -2303,7 +2303,7 @@ padding-right: 100px; */
 }
 
 .as1-block-1::after {
-    content: '';
+    content: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -2348,6 +2348,7 @@ padding-right: 100px; */
     transform: translate(0%, 50%);
     opacity: 0;
     animation-delay: 1.8s;
+    display: none;
 }
 
 .as1-block-2 h1 {
@@ -2380,7 +2381,7 @@ padding-right: 100px; */
     animation: linearup2 2s forwards;
     transform: translate(0%, 50%);
     opacity: 0;
-    animation-delay: 2.8s;
+    animation-delay: 1.8s;
 }
 
 @keyframes linearup2 {
@@ -2473,6 +2474,7 @@ padding-right: 100px; */
 
 #about-section-3 {
     padding: 60px 0;
+    display: none;
 }
 
 #about-section-3 .container {
@@ -2496,7 +2498,7 @@ padding-right: 100px; */
 }
 
 .as3-block-1 h3::after {
-    content: '';
+    content: none;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -2555,8 +2557,9 @@ padding-right: 100px; */
 }
 
 #about-section-4 {
-    padding: 80px 0;
-    background: linear-gradient(180deg, rgba(226, 234, 235, 1) 50%, rgba(247, 247, 247, 1) 95%);
+    padding-top: 60px;
+    /* padding: 80px 0; */
+    /* background: linear-gradient(180deg, rgba(226, 234, 235, 1) 50%, rgba(247, 247, 247, 1) 95%); */
 }
 
 .as4-swiper-slide {
@@ -2631,7 +2634,7 @@ padding-right: 100px; */
 }
 
 .as4-block-2 h3::after {
-    content: '';
+    content: none;
     position: absolute;
     left: 50%;
     top: 50%;

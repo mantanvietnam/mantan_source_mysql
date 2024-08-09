@@ -15,7 +15,7 @@ header {
 }
 
 .navbar {
-    padding: 0 !important;
+    padding: 0 50px !important;
 }
 
 .navbar-brand img {
@@ -34,6 +34,7 @@ header {
     border-image: linear-gradient(85deg, rgba(229, 229, 234, 1) 10%, rgba(48, 48, 48, 0.397) 50%, rgba(229, 229, 234, 1) 90%);
     border-image-slice: 1;
     font-size: 14px;
+    transition: all 0.2s linear;
 }
 
 .menu .dropdown-menu li:first-child .dropdown-item {
@@ -102,7 +103,8 @@ header {
 .nav-item .dropdown-menu {
     position: relative;
     border-radius: 16px;
-    width: 220px;
+    width: 200px;
+    padding: 4px 0;
 }
 
 .nav-item .dropdown-menu::after {
@@ -135,6 +137,16 @@ header {
     display: block;
     transition: all 0.3s linear;
     margin-top: 0;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: transparent !important;
+}
+
+.menu .dropdown-menu .dropdown-item:hover {
+    scale: 1.05;
+    transition: all 0.2s linear;
 }
 
 @media (max-width: 16in) {
@@ -241,6 +253,9 @@ header {
     }
     .menu .nav-link {
         font-size: 20px;
+    }
+    .navbar {
+        padding: 0px !important;
     }
 }
 
