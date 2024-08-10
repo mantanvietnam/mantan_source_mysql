@@ -257,6 +257,10 @@
                           <input type="text" class="form-control" id="address" name="address" value="" />
                         </div>
                         <div class="mb-3">
+                            <label for="codeDiscount" class="form-label">Mã giảm giá</label><span id="messdiscount"></span>
+                            <input type="text" class="form-control" id="discountCode" onchange="searchDiscountCodeAgencyAPI()" name="discountCode" value="" />
+                            </div>
+                        <div class="mb-3">
                              <input type="hidden" id="money" value="0">
                             <input type="hidden" id="discount" value="0">
                             <input type="hidden" id="total" value="0">
@@ -563,6 +567,57 @@
                 .done(function( msg ) {
                     
                 });
+            }
+
+         function searchDiscountCodeAgencyAPI()
+            {
+                var code  = $('#discountCode').val();
+                var money  = parseInt($('#money').val());
+                var id_member  = <?php echo $info->id_member;?>;
+
+                $.ajax({
+                    method: "GET",
+                    url: "/apis/searchDiscountCodeAgencyAPI/?code="+code+'&id_member='+id_member,
+                }).done(function(msg) {
+                    if(msg.code==0){
+                        if(msg.data.applicable_price <= money){
+
+                            const specifiedTime = new Date(msg.data.deadline_at);
+                            const currentTime = new Date();
+                            var html ='';
+                            if(specifiedTime > currentTime) {
+
+                                if(msg.data.discount>100){
+                                    var discount = msg.data.discount;
+                                }else{
+                                 var discount =(msg.data.discount / 100) * money;
+                             }
+                             if(msg.data.maximum_price_reduction!=null){
+                                if(discount>msg.data.maximum_price_reduction ){
+                                    discount = msg.data.maximum_price_reduction;
+                                }
+                            }
+                            $('#discount').val(discount);
+                            $('#codeDiscount').val(msg.data.code);
+                            $('#total').val(money-discount);
+
+                            $('#discountmoney').html(formatNumberWithCommas(discount)+ 'đ');
+                            $('#total_money').html(formatNumberWithCommas(money-discount)+ 'đ');
+                        }
+                    }
+
+                    }else{
+                        $('#codeDiscount').val('');
+                        $('#discount').val(0);
+                        $('#total').val(money);
+                        $('#discountmoney').html('0đ');
+                        $('#total_money').html(formatNumberWithCommas(money) + 'đ');
+                    }
+                    $('#messdiscount').html('<p class="text-danger">'+msg.mess+'</p>');   
+
+
+                });
+
             }
         </script>
 

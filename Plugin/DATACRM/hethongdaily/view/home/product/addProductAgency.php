@@ -93,8 +93,8 @@
                               <input type="text" class="form-control phone-mask" name="price_old" id="price_old" value="<?php echo @$data->price_old;?>" />
                             </div>
                             <div class="mb-3">
-                              <label class="form-label">Giá bán cho đại lý  (*)</label>
-                              <input type="text" required class="form-control phone-mask" name="price_agency" id="price_agency" value="<?php echo @$data->price_agency;?>" />
+                              <label class="form-label">Giá bán cho đại lý </label>
+                              <input type="text"  class="form-control phone-mask" name="price_agency" id="price_agency" value="<?php echo @$data->price_agency;?>" />
                             </div>
 
                             <div class="mb-3">

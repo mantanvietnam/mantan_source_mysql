@@ -602,9 +602,18 @@ function paymentCollectionBillAPI($input){
 				$modelBill = $controller->loadModel('Bills');
 				$modelCustomer = $controller->loadModel('Customers');
 				$modelDebts = $controller->loadModel('Debts');
+				$modelPointCustomer = $controller->loadModel('PointCustomers');
+        		$modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
 				$time = time();
 
-				$mess= '';
+				$system = $modelCategories->find()->where(array('id'=>$infoMember->id_system ))->first();
+
+			    if(!empty($system->description)){
+			        $description = json_decode($system->description, true);
+			        $convertPoint = (int) $description['convertPoint'];
+			    }
+
+
 				$debtCollection = $modelDebts->get( (int) $dataSend['id']);
 				if(!empty($debtCollection->id_member_buy)){
 					$conditions = array('id_member_buy'=>$debtCollection->id_member_buy,
@@ -708,6 +717,29 @@ function paymentCollectionBillAPI($input){
 						$debtCollection->updated_at = $time;
 						if($debtCollection->total_payment==$debtCollection->total){
 							$debtCollection->status = 1;
+
+							if(!empty($convertPoint)){
+			        			$point = intval($debtCollection->total / $convertPoint);
+
+			        			$checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$debtCollection->id_member_sell, 'id_customer'=>$debtCollection->id_customer])->first();
+
+			        			if(!empty($checkPointCustomer)){
+			        				$checkPointCustomer->point += (int)$point;
+			        			}else{
+			        				$checkPointCustomer= $modelPointCustomer->newEmptyEntity();
+			        				$checkPointCustomer->point = (int) $point;
+			        				$checkPointCustomer->id_member = $debtCollection->id_member_sell;
+			        				$checkPointCustomer->id_customer = $debtCollection->id_customer;
+			        				$checkPointCustomer->created_at = $time;
+			        				$checkPointCustomer->id_rating = 0;
+			        			}
+			        			$rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
+			        			if(!empty($rating)){
+			        				$checkPointCustomer->id_rating = $rating->id;
+			        			}
+			        			$modelPointCustomer->save($checkPointCustomer);
+			        		}
+
 						}
 						$modelDebts->save($debtCollection);
 					}

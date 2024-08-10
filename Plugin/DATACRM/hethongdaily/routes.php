@@ -113,6 +113,7 @@
 	$routesPlugin['guideAddCustomerAPIAgency']= 'hethongdaily/view/home/customer/guideAddCustomerAPIAgency.php';
 	$routesPlugin['downloadMMTC']= 'hethongdaily/view/home/customer/downloadMMTC.php';
 	$routesPlugin['lockCustomerAgency']= 'hethongdaily/view/home/customer/lockCustomerAgency.php';
+	$routesPlugin['listPointCustomer']= 'hethongdaily/view/home/customer/listPointCustomer.php';
 	
 	// nhóm khách hàng
 	$routesPlugin['groupCustomerAgency']= 'hethongdaily/view/home/customer/groupCustomerAgency.php';

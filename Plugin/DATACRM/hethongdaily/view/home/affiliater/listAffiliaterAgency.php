@@ -6,7 +6,7 @@
     Danh sách người tiếp thị
   </h4>
 
-  <!-- <p><a href="/addAffiliaterAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
+  <p><a href="/addAffiliaterAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">

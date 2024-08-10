@@ -430,6 +430,7 @@ function updateStatusOrderAgency($input){
 
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'Chi tiết đơn hàng';
+        $user = $session->read('infoUser');
 
         $modelOrder = $controller->loadModel('Orders');
         $modelBill = $controller->loadModel('Bills');
@@ -439,12 +440,20 @@ function updateStatusOrderAgency($input){
         $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
         $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelCustomers = $controller->loadModel('Customers');
-        $time = time();
+        $modelPointCustomer = $controller->loadModel('PointCustomers');
+        $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
 
+        $time = time();
+        $system = $modelCategories->find()->where(array('id'=>$user->id_system ))->first();
+
+        if(!empty($system->description)){
+        $description = json_decode($system->description, true);
+        $convertPoint = (int) $description['convertPoint'];
+        }
         if(!empty($_GET['id'])){
             // debug($_GET);
             // die();
-            $order = $modelOrder->find()->where(['id_agency'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id'] ])->first();
+            $order = $modelOrder->find()->where(['id_agency'=>$user->id, 'id'=>(int) $_GET['id'] ])->first();
 
             if(!empty($order)){
                 if(!empty($_GET['status'])){
@@ -502,7 +511,7 @@ function updateStatusOrderAgency($input){
                         $customer = $modelCustomers->find()->where(['id'=>(int) $order->id_user])->first();
                         if($_GET['type_collection_bill']!='cong_no'){
                             $bill = $modelBill->newEmptyEntity();
-                            $bill->id_member_sell =  $session->read('infoUser')->id;
+                            $bill->id_member_sell = $user->id;
                             $bill->id_member_buy = 0;
                             $bill->total = $order->total;
                             $bill->id_order = $order->id;
@@ -515,10 +524,33 @@ function updateStatusOrderAgency($input){
                             $bill->id_customer = $order->id_user;
                             $bill->note = 'Thanh toán đơn hàng id:'.$order->id.' của khách '.@$customer->full_name.' '.@$customer->phone.'; '.@$_GET['note'];
                             $modelBill->save($bill);
+
+                             // tính điểm tích lũy
+                            if(!empty($convertPoint)){
+                                $point = intval($order->total / $convertPoint);
+
+                                $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$user->id, 'id_customer'=>$order->id_user])->first();
+
+                                if(!empty($checkPointCustomer)){
+                                    $checkPointCustomer->point += (int)$point;
+                                }else{
+                                    $checkPointCustomer= $modelPointCustomer->newEmptyEntity();
+                                    $checkPointCustomer->point = (int) $point;
+                                    $checkPointCustomer->id_member = $user->id;
+                                    $checkPointCustomer->id_customer = $order->id_user;
+                                    $checkPointCustomer->created_at = $time;
+                                    $checkPointCustomer->id_rating = 0;
+                                }
+                                $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
+                                if(!empty($rating)){
+                                    $checkPointCustomer->id_rating = $rating->id;
+                                }
+                                $modelPointCustomer->save($checkPointCustomer);
+                            }
                         }else{
                             if(!empty($customer)){
                                 $debt = $modelDebt->newEmptyEntity();
-                                $debt->id_member_sell =  $session->read('infoUser')->id;
+                                $debt->id_member_sell = $user->id;
                                 $debt->id_member_buy = 0;
                                 $debt->total = $order->total;
                                 $debt->id_order = $order->id;
@@ -908,7 +940,12 @@ function addProductAgency($input)
                             $save->id_product = $data->id; 
                             $save->quantity = (int) $dataSend['quantityConversion'][$key];
                             $save->price = (int) $dataSend['priceConversion'][$key];
-                            $save->price_agency = (int) $dataSend['price_agencyConversion'][$key];
+
+                            $dataSend['price_agencyConversion'][$key] = (int) @$dataSend['price_agencyConversion'][$key]; 
+                            if(empty($dataSend['price_agencyConversion'][$key])){
+                                $dataSend['price_agencyConversion'][$key] =  (int) @$dataSend['priceConversion'][$key];
+                            }
+                            $save->price_agency = $dataSend['price_agencyConversion'][$key];
                             $modelUnitConversion->save($save);
                         }
                     }

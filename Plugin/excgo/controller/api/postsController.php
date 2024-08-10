@@ -7,7 +7,7 @@ function getPostListApi($input): array
     $conditions = array('type'=>'post');
     $limit = $_GET['limit'] ?? 10;
     $page = $_GET['page'] ?? 1;
-    $order = array('id'=>'desc');
+    $order = array('pin'=>'desc');
 
     $listData = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 

@@ -206,9 +206,12 @@ function updateStatusOrderAPI($input)
     $modelDebt = $controller->loadModel('Debts');
     $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
     $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
-    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomers = $controller->loadModel('Customers'); 
+    $modelPointCustomer = $controller->loadModel('PointCustomers');
+    $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
 
     $return = array('code'=>1);
+    
     
     if($isRequestPost){
         $dataSend = $input['request']->getData();
@@ -216,6 +219,12 @@ function updateStatusOrderAPI($input)
             $infoMember = getMemberByToken($dataSend['token']);
 
             if(!empty($infoMember)){
+            	$system = $modelCategories->find()->where(array('id'=>$infoMember->id_system ))->first();
+
+			    if(!empty($system->description)){
+			        $description = json_decode($system->description, true);
+			        $convertPoint = (int) $description['convertPoint'];
+			    }
                 if(!empty($dataSend['id']) && !empty($dataSend['status'])){
 		            $order = $modelOrder->find()->where(['id_agency'=>$infoMember->id, 'id'=>(int) $dataSend['id'] ])->first();
 
@@ -280,6 +289,28 @@ function updateStatusOrderAPI($input)
 		                            $bill->id_customer = $order->id_user;
 		                            $bill->note = 'Thanh toán đơn hàng id:'.$order->id.' của khách '.@$customer->full_name.' '.@$customer->phone.'; '.@$dataSend['note'];
 		                            $modelBill->save($bill);
+
+		                            if(!empty($convertPoint)){
+		                                $point = intval($order->total / $convertPoint);
+
+		                                $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$infoMember->id, 'id_customer'=>$order->id_user])->first();
+
+		                                if(!empty($checkPointCustomer)){
+		                                    $checkPointCustomer->point += (int)$point;
+		                                }else{
+		                                    $checkPointCustomer= $modelPointCustomer->newEmptyEntity();
+		                                    $checkPointCustomer->point = (int) $point;
+		                                    $checkPointCustomer->id_member = $infoMember->id;
+		                                    $checkPointCustomer->id_customer = $order->id_user;
+		                                    $checkPointCustomer->created_at = $time;
+		                                    $checkPointCustomer->id_rating = 0;
+		                                }
+		                                $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
+		                                if(!empty($rating)){
+		                                    $checkPointCustomer->id_rating = $rating->id;
+		                                }
+		                                $modelPointCustomer->save($checkPointCustomer);
+		                            }
 		                        }else{
 		                            if(!empty($customer)){
 		                                $debt = $modelDebt->newEmptyEntity();

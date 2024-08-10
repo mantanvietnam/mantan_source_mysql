@@ -289,6 +289,16 @@ $sqlInstallDatabase .= 'CREATE TABLE `rating_point_customers` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .='CREATE TABLE `point_customers` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`id_member` INT NULL DEFAULT 0 ,
+`id_customer` INT NULL DEFAULT 0 ,
+`point` INT NOT NULL DEFAULT 0 ,
+`id_rating` INT NULL DEFAULT 0 ,
+`created_at` INT NULL DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -308,6 +318,7 @@ $sqlDeleteDatabase .= "DROP TABLE discount_product_agencys; ";
 $sqlDeleteDatabase .= "DROP TABLE seting_theme_infos; ";
 $sqlDeleteDatabase .= "DROP TABLE link_infos; ";
 $sqlDeleteDatabase .= "DROP TABLE rating_point_customers; ";
+$sqlDeleteDatabase .= "DROP TABLE point_customers; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -538,3 +549,8 @@ $sqlUpdateDatabase['rating_point_customers']['name'] = "ALTER TABLE `rating_poin
 $sqlUpdateDatabase['rating_point_customers']['point_min'] = "ALTER TABLE `rating_point_customers` ADD `point_min` INT NOT NULL;";
 $sqlUpdateDatabase['rating_point_customers']['created_at'] = "ALTER TABLE `rating_point_customers` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['rating_point_customers']['note'] = "ALTER TABLE `rating_point_customers` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['point_customers']['id_member'] = "ALTER TABLE `point_customers` ADD `id_member` INT NULL DEFAULT '0' ;";
+$sqlUpdateDatabase['point_customers']['id_customer'] = "ALTER TABLE `point_customers` ADD `id_customer` INT NULL DEFAULT '0' ;";
+$sqlUpdateDatabase['point_customers']['point'] = "ALTER TABLE `point_customers` ADD `point` INT NOT NULL DEFAULT'0' ;";
+$sqlUpdateDatabase['point_customers']['id_rating'] = "ALTER TABLE `point_customers` ADD `id_rating` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['point_customers']['created_at'] = "ALTER TABLE `point_customers` ADD `created_at` INT NULL DEFAULT NULL;";

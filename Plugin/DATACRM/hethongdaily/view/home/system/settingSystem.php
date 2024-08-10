@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Đổi điểm hạng thành viên </label>
+                    <label class="form-label">Đổi điểm hạng thành viên <span style=" font-family: sans-serif; text-transform: lowercase; ">(Bao nhiêu tiền thì đổi được 1 điểm tích luỹ?)</span> </label>
                     <input  type="text" class="form-control phone-mask" name="convertPoint" id="convertPoint" value="<?php echo @$data->convertPoint;?>"/>
                   </div>
                 </div>
