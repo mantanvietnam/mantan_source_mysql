@@ -6,6 +6,11 @@ header {
     box-shadow: 0 0 12px rgba(0, 0, 0, .175);
 }
 
+.dropdown-item:focus,
+.dropdown-item:hover {
+    background-color: transparent !important;
+}
+
 .menu .dropdown-menu img {
     width: 28px;
     height: 28px;

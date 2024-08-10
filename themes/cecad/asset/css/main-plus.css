@@ -323,7 +323,6 @@ i {
 .latest-news-item .latest-news-date p,
 .latest-news-item .latest-news-date span {
     font-style: italic;
-    font-family: serif;
 }
 
 .latest-news-item .latest-news-detail h3 {
@@ -560,7 +559,6 @@ i {
     font-size: 14px;
     color: gray;
     font-weight: 400;
-    font-family: serif !important;
     margin-bottom: 20px;
 }
 
@@ -670,7 +668,6 @@ i {
 }
 
 .news-right-site-img span {
-    font-family: serif !important;
     font-style: italic;
 }
 
@@ -1603,7 +1600,7 @@ padding-right: 100px; */
 }
 
 .partner-list .partner-items img {
-    height: 40px;
+    height: 60px;
     object-fit: contain;
 }
 
@@ -1894,9 +1891,9 @@ padding-right: 100px; */
 }
 
 .major-main {
-    background-image: url(../images/4694e67882f40cf2b34b00bd31e469b2.png);
+    /* background-image: url(../images/4694e67882f40cf2b34b00bd31e469b2.png);
     background-repeat: repeat;
-    background-size: 100%;
+    background-size: 100%; */
 }
 
 #major-section-1 {
@@ -1920,7 +1917,7 @@ padding-right: 100px; */
 .ms-1-block-1-sub {
     max-width: 530px;
     margin: auto auto;
-    color: #fff;
+    color: #000000;
     text-align: center;
 }
 
@@ -1952,13 +1949,9 @@ padding-right: 100px; */
 .ms-2-block-1-item {
     width: 100%;
     aspect-ratio: 1.05;
-    background-color: lightblue;
     position: relative;
-}
-
-.ms-2-block-1-item:hover .ms-2-block-1-img::after {
-    background: linear-gradient(0deg, rgb(19 19 27 / 51%) 18%, rgb(20 20 20 / 13%) 54%);
-    transition: all linear .2s;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .175);
+    transition: all linear 0.2s;
 }
 
 .ms-2-block-1-item .ms-2-block-1-img::after {
@@ -1974,6 +1967,12 @@ padding-right: 100px; */
 
 .ms-2-block-1-img {
     height: 100%;
+}
+
+.ms-2-block-1-item:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.438);
+    transition: all linear 0.2s;
+    transform: translateY(-10px);
 }
 
 .ms-2-block-1-text {
@@ -2090,7 +2089,6 @@ padding-right: 100px; */
 }
 
 .dtfs-block-3 span {
-    font-family: auto;
     text-transform: capitalize;
     font-weight: normal;
 }
@@ -3141,7 +3139,7 @@ padding-right: 100px; */
         font-size: 36px;
     }
     .partner-list .partner-items img {
-        height: 35px;
+        height: 60px;
     }
     #section-company-address .company-address {
         padding-right: 15px;
@@ -3369,6 +3367,9 @@ padding-right: 100px; */
 }
 
 @media (max-width: 480px) {
+    .partner-list .partner-items img {
+        height: 45px;
+    }
     .dtfs-block-2 h1 {
         font-size: 30px;
     }
