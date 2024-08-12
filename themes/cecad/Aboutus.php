@@ -23,6 +23,24 @@
                 </div>
             </div>
         </section>
+
+        <section id="about-section-2">
+            <div class="container">
+                <div class="as2-block-1">
+                    <p>
+                    <?= @$setting['contentdeepbanner1'];?>
+                    </p>
+                </div>
+                <div class="as2-block-2">
+                    <h3><?= @$setting['contentdeepbanner2'];?></h3>
+                </div>
+                <div class="as2-block-3">
+                    <strong style="margin-bottom: 12px; display: block;"><?= @$setting['titlesmall'];?></strong>
+                    <p><?= @$setting['contentshort1'];?></p>
+                </div>
+            </div>
+        </section>
+
         <section id="majors-section">
             <div class="container">
                 <div class="title-section">
@@ -97,22 +115,6 @@
                         </a>
                         <?php endif; ?>
                     </div>
-                </div>
-            </div>
-        </section>
-        <section id="about-section-2">
-            <div class="container">
-                <div class="as2-block-1">
-                    <p>
-                    <?= @$setting['contentdeepbanner1'];?>
-                    </p>
-                </div>
-                <div class="as2-block-2">
-                    <h3><?= @$setting['contentdeepbanner2'];?></h3>
-                </div>
-                <div class="as2-block-3">
-                    <strong style="margin-bottom: 12px; display: block;"><?= @$setting['titlesmall'];?></strong>
-                    <p><?= @$setting['contentshort1'];?></p>
                 </div>
             </div>
         </section>

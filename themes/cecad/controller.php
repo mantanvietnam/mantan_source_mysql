@@ -172,8 +172,10 @@ function Aboutus($input){
     global $metaTitleMantan;
     global $modelAlbuminfos;
     global $data;
-    $metaTitleMantan = 'Trang About';
+    
 
+    $order = array('id' => 'asc');
+    $metaTitleMantan = 'Trang About';
     $conditions = array('key_word' => 'settingAboutusTheme');
     $modelfield = $controller->loadModel('field');
     $data = $modelOptions->find()->where($conditions)->first();
@@ -193,7 +195,7 @@ function Aboutus($input){
         $slide_about2 = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidenumber2']])->all()->toList();
     }
    
-    $listDatafield= $modelfield->find()->all()->toList();
+    $listDatafield = $modelfield->find()->order($order)->all()->toList();
 
     setVariable('listDatafield', $listDatafield);
     setVariable('slide_about1', $slide_about1);
@@ -335,7 +337,7 @@ function field($input){
     global $controller;
    
    
-    $order = array('id'=>'desc');
+    $order = array('id'=>'asc');
     $modelfield = $controller->loadModel('field');
     $listDatafield= $modelfield->find()->order($order)->all()->toList();
 

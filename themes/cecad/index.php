@@ -112,13 +112,13 @@
                                 </div>
                             </a>
                         <?php endif; ?>
-                        <?php if (!empty($listDatafield[1])): ?>
-                            <a href="/detailfield/<?php echo  $listDatafield[1]->slug ?>.html">
+                        <?php if (!empty($listDatafield[4])): ?>
+                            <a href="/detailfield/<?php echo  $listDatafield[4]->slug ?>.html">
                                 <div class="majors-items majors-items-left majors-items-2">
                                     <p>
-                                        <?= $listDatafield[1]->name;?>
+                                        <?= $listDatafield[4]->name;?>
                                     </p>
-                                    <img class="fade-img" src="<?= $listDatafield[1]->icon;?>" alt="">
+                                    <img class="fade-img" src="<?= $listDatafield[4]->icon;?>" alt="">
                                 </div>
                             </a>
                         <?php endif; ?>
