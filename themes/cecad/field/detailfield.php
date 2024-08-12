@@ -53,7 +53,9 @@
             <div class="col-lg-6 col-12">
                 <div class="dtfs3-block-1">
                     <a href="<?= $urlThemeActive?>asset/images/oei_company_news.png" data-fancybox="gallery">
+                    <?php if(!empty($field['image1'])): ?>
                         <img src="<?= $field['image1']?>" alt="Thumbnail">
+                    <?php endif;?>
                     </a>
                 </div>
             </div>
@@ -92,10 +94,14 @@
         <div class="container">
             <div class="dtfs6-block-2-gallery">
                 <a href="<?= $urlThemeActive?>asset/images/original.webp" data-fancybox="gallery">
+                <?php if(!empty($field['image3'])):?>
                     <img src="<?= $field['image3']?>" alt="Thumbnail">
+                <?php endif;?>
                 </a>
                 <a href="<?= $urlThemeActive?>asset/images/oei_company_news.png" data-fancybox="gallery">
+                <?php if(!empty($field['image4'])) :?>
                     <img src="<?= $field['image4']?>" alt="Thumbnail">
+                <?php endif;?>
                 </a>
             </div>
         </div>

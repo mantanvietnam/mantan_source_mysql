@@ -102,63 +102,63 @@
                     </div>
 
                     <div class="majors-list">
-                        <?php if (!empty($listDataslugproject[0])): ?>
-                            <a href="category-project/<?php echo  $listDataslugproject[0]->slug ?>.html">
+                        <?php if (!empty($listDatafield[5])): ?>
+                            <a href="/detailfield/<?php echo  $listDatafield[5]->slug ?>.html">
                                 <div class="majors-items majors-items-left majors-items-1">
                                     <p>
-                                        <?= $listDataslugproject[0]->name;?>
+                                        <?= $listDatafield[5]->name;?>
                                     </p>
-                                    <img class="fade-img" src="<?= $listDataslugproject[0]->image;?>" alt="">
+                                    <img class="fade-img" src="<?= $listDatafield[5]->icon;?>" alt="">
                                 </div>
                             </a>
                         <?php endif; ?>
-                        <?php if (!empty($listDataslugproject[1])): ?>
-                            <a href="category-project/<?php echo  $listDataslugproject[1]->slug ?>.html">
+                        <?php if (!empty($listDatafield[1])): ?>
+                            <a href="/detailfield/<?php echo  $listDatafield[1]->slug ?>.html">
                                 <div class="majors-items majors-items-left majors-items-2">
                                     <p>
-                                        <?= $listDataslugproject[1]->name;?>
+                                        <?= $listDatafield[1]->name;?>
                                     </p>
-                                    <img class="fade-img" src="<?= $listDataslugproject[1]->image;?>" alt="">
+                                    <img class="fade-img" src="<?= $listDatafield[1]->icon;?>" alt="">
                                 </div>
                             </a>
                         <?php endif; ?>
-                        <?php if (!empty($listDataslugproject[2])): ?>
-                            <a href="category-project/<?php echo  $listDataslugproject[2]->slug ?>.html">
+                        <?php if (!empty($listDatafield[3])): ?>
+                            <a href="/detailfield/<?php echo  $listDatafield[3]->slug ?>.html">
                                 <div class="majors-items majors-items-left majors-items-3">
                                     <p>
-                                        <?= $listDataslugproject[2]->name;?>
+                                        <?= $listDatafield[3]->name;?>
                                     </p>
-                                    <img class="fade-img" src="<?= $listDataslugproject[2]->image;?>" alt="">
+                                    <img class="fade-img" src="<?= $listDatafield[3]->icon;?>" alt="">
                                 </div>
                             </a>
                         <?php endif; ?>
-                        <?php if (!empty($listDataslugproject[3])): ?>
-                            <a href="category-project/<?php echo  $listDataslugproject[3]->slug ?>.html">
+                        <?php if (!empty($listDatafield[2])): ?>
+                            <a href="/detailfield/<?php echo  $listDatafield[2]->slug ?>.html">
                                 <div class="majors-items majors-items-right majors-items-4">
                                     <p>
-                                        <?= $listDataslugproject[3]->name;?>
+                                        <?= $listDatafield[2]->name;?>
                                     </p>
-                                    <img class="fade-img" src="<?= $listDataslugproject[3]->image;?>" alt="">
+                                    <img class="fade-img" src="<?= $listDatafield[2]->icon;?>" alt="">
                                 </div>
                             </a>
                         <?php endif; ?>
-                        <?php if (!empty($listDataslugproject[4])): ?>
-                        <a href="category-project/<?php echo  $listDataslugproject[4]->slug ?>.html">
+                        <?php if (!empty($listDatafield[1])): ?>
+                        <a href="/detailfield/<?php echo  $listDatafield[1]->slug ?>.html">
                                 <div class="majors-items majors-items-right majors-items-5">
                                     <p>
-                                        <?= $listDataslugproject[4]->name;?>
+                                        <?= $listDatafield[1]->name;?>
                                     </p>
-                                    <img class="fade-img" src="<?= $listDataslugproject[4]->image;?>" alt="">
+                                    <img class="fade-img" src="<?= $listDatafield[1]->icon;?>" alt="">
                                 </div>
                         </a>
                         <?php endif; ?>
-                        <?php if (!empty($listDataslugproject[5])): ?>
-                        <a href="category-project/<?php echo  $listDataslugproject[5]->slug ?>.html">
+                        <?php if (!empty($listDatafield[0])): ?>
+                        <a href="/detailfield/<?php echo  $listDatafield[0]->slug ?>.html">
                                 <div class="majors-items majors-items-right majors-items-6">
                                     <p>
-                                        <?= $listDataslugproject[5]->name;?>
+                                        <?= $listDatafield[0]->name;?>
                                     </p>
-                                    <img class="fade-img" src="<?= $listDataslugproject[5]->image;?>" alt="">
+                                    <img class="fade-img" src="<?= $listDatafield[0]->icon;?>" alt="">
                                 </div>
                         </a>
                         <?php endif; ?>
@@ -274,7 +274,7 @@
                 <div class="partner-list">
                 <?php foreach ($slide_partner as $key => $value) { ?> 
                     <div class="partner-items">
-                        <img src="<?php echo $value->image;?>" alt="">
+                        <a href="<?php echo $value->link?>"><img src="<?php echo $value->image;?>" alt=""></a>
                     </div>
                 <?php } ?>
                 </div>

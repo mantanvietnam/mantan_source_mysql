@@ -175,6 +175,7 @@ function Aboutus($input){
     $metaTitleMantan = 'Trang About';
 
     $conditions = array('key_word' => 'settingAboutusTheme');
+    $modelfield = $controller->loadModel('field');
     $data = $modelOptions->find()->where($conditions)->first();
 
      $data_value = array();
@@ -192,7 +193,9 @@ function Aboutus($input){
         $slide_about2 = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidenumber2']])->all()->toList();
     }
    
-   
+    $listDatafield= $modelfield->find()->all()->toList();
+
+    setVariable('listDatafield', $listDatafield);
     setVariable('slide_about1', $slide_about1);
     setVariable('slide_about2', $slide_about2);
     setVariable('setting', $data_value);
@@ -274,7 +277,7 @@ function indexTheme($input){
 	$conditions = array('key_word' => 'settingHomececad');
 
     $modelproduct_projects = $controller->loadModel('ProductProjects');
-
+    $modelfield = $controller->loadModel('field');
     $order = array('id'=>'desc');
     $listDataproduct_projects= $modelproduct_projects->find()->limit(4)->order($order)->all()->toList();
 
@@ -300,7 +303,9 @@ function indexTheme($input){
     }
 
     $listDataslugproject= $modelCategories->find()->limit(6)->where(array('type'=>'category_kind'))->order($order)->all()->toList();
-
+    
+    $listDatafield= $modelfield->find()->order($order)->all()->toList();
+    setVariable('listDatafield', $listDatafield);
 
     setVariable('listDataproduct_projects', $listDataproduct_projects);
     setVariable('listDataPost', $listDataPost);
@@ -332,9 +337,6 @@ function field($input){
    
     $order = array('id'=>'desc');
     $modelfield = $controller->loadModel('field');
-
-    $order = array('id' => 'desc');
-
     $listDatafield= $modelfield->find()->order($order)->all()->toList();
 
     setVariable('listDatafield', $listDatafield);

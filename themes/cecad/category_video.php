@@ -1,9 +1,45 @@
 
 <?php 
     getheader();
+    global $settingThemes;
 
 ?>
     <main>
+        <section id="banner-news-section">
+            <div class="bn-block-1">
+                <div class="bn-block-1-img">
+                    <img src="<?= @$settingThemes['imagebannernews'];?>" alt="">
+                </div>
+                <div class="bn-block-1-title">
+                    <div class="word-1 word">
+                        <span>v</span>
+                        <span>i</span>
+                        <span>d</span>
+                        <span>e</span>
+                        <span>o</span>
+                    </div>
+                    <!-- <div class="word-2 word">
+                        <span>p</span>
+                        <span>h</span>
+                        <span>ẩ</span>
+                        <span>m</span>
+                    </div> -->
+                </div>
+            </div>
+            <div class="bn-block-2">
+                <div id="mouse-scroll">
+                    <div class="mouse">
+                        <div class="mouse-in"></div>
+                    </div>
+                    <div>
+                        <span class="down-arrow-1"></span>
+                        <span class="down-arrow-2"></span>
+                        <span class="down-arrow-3"></span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
         <section class="section-video">
             <div class="video-title">
                 <h1>Danh Sách Video</h1>

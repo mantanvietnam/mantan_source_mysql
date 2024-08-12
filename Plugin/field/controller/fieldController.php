@@ -86,6 +86,7 @@ function addfield($input)
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['name'])){
+            $data->icon = $dataSend['icon'];
             $data->name = $dataSend['name'];
             $data->imagebanner = $dataSend['imagebanner'];
             $data->title1= $dataSend['title1'];

@@ -64,155 +64,11 @@ function settingHomeThemeSnagGolf($input)
     setVariable('mess', $mess);
 }
 
-function settingAdultCourseThemeSnagGolf($input)
-{
-    global $modelOptions;
-    global $metaTitleMantan;
-    global $isRequestPost;
 
-    $metaTitleMantan = 'Cài đặt giao diện trang khoá học';
-    $mess= '';
 
-    $conditions = array('key_word' => 'settingAdultCourseThemeSnagGolf');
-    $data = $modelOptions->find()->where($conditions)->first();
-    if(empty($data)){
-        $data = $modelOptions->newEmptyEntity();
-    }
 
-    if($isRequestPost){
-        $dataSend = $input['request']->getData();
 
-        $value = array( 'introduction_adult_course' => $dataSend['introduction_adult_course'],
 
-                        'content_info_adult_course' => $dataSend['content_info_adult_course'],
-
-                        'time_adult_course' => $dataSend['time_adult_course'],
-                        'place_adult_course' => $dataSend['place_adult_course'],
-
-                        'title_adult_course_1' => $dataSend['title_adult_course_1'],
-                        'content_adult_course_1' => $dataSend['content_adult_course_1'],
-                        'title_adult_course_2' => $dataSend['title_adult_course_1'],
-                        'content_adult_course_2' => $dataSend['content_adult_course_1'],
-                        'title_adult_course_3' => $dataSend['title_adult_course_3'],
-                        'content_adult_course_3' => $dataSend['content_adult_course_3'],
-                    );
-
-        $data->key_word = 'settingAdultCourseThemeSnagGolf';
-        $data->value = json_encode($value);
-
-        $modelOptions->save($data);
-
-        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-    }
-
-    $data_value = array();
-    if(!empty($data->value)){
-        $data_value = json_decode($data->value, true);
-    }
-
-    setVariable('setting', $data_value);
-    setVariable('mess', $mess);
-}
-
-function settingKidCourseThemeSnagGolf($input)
-{
-    global $modelOptions;
-    global $metaTitleMantan;
-    global $isRequestPost;
-
-    $metaTitleMantan = 'Cài đặt giao diện trang khoá học';
-    $mess= '';
-
-    $conditions = array('key_word' => 'settingKidCourseThemeSnagGolf');
-    $data = $modelOptions->find()->where($conditions)->first();
-    if(empty($data)){
-        $data = $modelOptions->newEmptyEntity();
-    }
-
-    if($isRequestPost){
-        $dataSend = $input['request']->getData();
-
-        $value = array( 'introduction_kid_course' => $dataSend['introduction_kid_course'],
-
-                        'content_info_kid_course' => $dataSend['content_info_kid_course'],
-
-                        'time_kid_course' => $dataSend['time_kid_course'],
-                        'place_kid_course' => $dataSend['place_kid_course'],
-
-                        'title_kid_course_1' => $dataSend['title_kid_course_1'],
-                        'content_kid_course_1' => $dataSend['content_kid_course_1'],
-                        'title_kid_course_2' => $dataSend['title_kid_course_1'],
-                        'content_kid_course_2' => $dataSend['content_kid_course_1'],
-                        'title_kid_course_3' => $dataSend['title_kid_course_3'],
-                        'content_kid_course_3' => $dataSend['content_kid_course_3'],
-                    );
-
-        $data->key_word = 'settingKidCourseThemeSnagGolf';
-        $data->value = json_encode($value);
-
-        $modelOptions->save($data);
-
-        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-    }
-
-    $data_value = array();
-    if(!empty($data->value)){
-        $data_value = json_decode($data->value, true);
-    }
-
-    setVariable('setting', $data_value);
-    setVariable('mess', $mess);
-}
-
-function settingTourCourseThemeSnagGolf($input)
-{
-    global $modelOptions;
-    global $metaTitleMantan;
-    global $isRequestPost;
-
-    $metaTitleMantan = 'Cài đặt giao diện trang khoá học';
-    $mess= '';
-
-    $conditions = array('key_word' => 'settingTourCourseThemeSnagGolf');
-    $data = $modelOptions->find()->where($conditions)->first();
-    if(empty($data)){
-        $data = $modelOptions->newEmptyEntity();
-    }
-
-    if($isRequestPost){
-        $dataSend = $input['request']->getData();
-
-        $value = array( 'introduction_tour_course' => $dataSend['introduction_tour_course'],
-
-                        'content_info_tour_course' => $dataSend['content_info_tour_course'],
-
-                        'time_tour_course' => $dataSend['time_tour_course'],
-                        'place_tour_course' => $dataSend['place_tour_course'],
-
-                        'title_tour_course_1' => $dataSend['title_tour_course_1'],
-                        'content_tour_course_1' => $dataSend['content_tour_course_1'],
-                        'title_tour_course_2' => $dataSend['title_tour_course_1'],
-                        'content_tour_course_2' => $dataSend['content_tour_course_1'],
-                        'title_tour_course_3' => $dataSend['title_tour_course_3'],
-                        'content_tour_course_3' => $dataSend['content_tour_course_3'],
-                    );
-
-        $data->key_word = 'settingTourCourseThemeSnagGolf';
-        $data->value = json_encode($value);
-
-        $modelOptions->save($data);
-
-        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-    }
-
-    $data_value = array();
-    if(!empty($data->value)){
-        $data_value = json_decode($data->value, true);
-    }
-
-    setVariable('setting', $data_value);
-    setVariable('mess', $mess);
-}
 
 function settingTrainerCourseThemeSnagGolf($input)
 {
@@ -267,7 +123,17 @@ function indexTheme($input)
 {
     global $modelPosts;
     global $settingThemes;
+    global $controller;
     global $modelAlbuminfos;
+
+ 
+
+    //SẢN PHẨM MỚI
+    $conditions = array();
+    $limit = 6;
+    $page = 1;
+    $order = array('id'=>'desc');
+
 
     // TIN TỨC MỚI
     $conditions = array('type'=>'post');
@@ -282,6 +148,7 @@ function indexTheme($input)
 
     setVariable('listPosts', $listPosts);
     setVariable('otherPosts', $otherPosts);
+ 
 }
 
 function postTheme($input)
@@ -289,11 +156,22 @@ function postTheme($input)
     global $controller;
     global $modelCategories;
 
+    
+
+     // SẢN PHẨM MỚI
+    $conditions = array();
+    $limit = 6;
+    $page = 1;
+    $order = array('id'=>'desc');
+
+    
+
     // DANH MỤC TIN TỨC
     $conditions = array('type' => 'post');
     $category_post = $modelCategories->find()->where($conditions)->all()->toList();
 
     setVariable('category_post', $category_post);
+    
 }
 
 function searchTheme($input)
@@ -305,25 +183,22 @@ function categoryPostTheme($input)
 {
     global $controller;
     global $modelCategories;
-    global $modelPosts;
 
-    $modelPosts = $controller->loadModel('Posts');
+    
 
-    // $modelProduct = $controller->loadModel('Products');
+    // SẢN PHẨM MỚI
+    $conditions = array();
+    $limit = 6;
+    $page = 1;
+    $order = array('id'=>'desc');
 
-    // // SẢN PHẨM MỚI
-    // $conditions = array();
-    // $limit = 6;
-    // $page = 1;
-    // $order = array('id'=>'desc');
-
-    // $new_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+ 
 
     // DANH MỤC TIN TỨC
     $conditions = array('type' => 'post');
     $category_post = $modelCategories->find()->where($conditions)->all()->toList();
 
-    // setVariable('new_product', $new_product);
+   
     setVariable('category_post', $category_post);
 }
 

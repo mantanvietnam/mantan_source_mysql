@@ -1,6 +1,6 @@
 <?php 
     getheader();
-    
+    global $settingThemes;
 ?>
  <main>
         <section id="about-section-1">
@@ -23,7 +23,83 @@
                 </div>
             </div>
         </section>
+        <section id="majors-section">
+            <div class="container">
+                <div class="title-section">
+                    <h3><?= @$settingThemes['titlesmall'];?></h3>
+                    <h2><?= @$settingThemes['titlelarge'];?></h2>
+                    <p><?= @$settingThemes['contenttitle4'];?></p>
+                </div>
+                <div class="majors">
+                    <div class="majors-img">
+                        <img src="<?= @$settingThemes['imageactionbeetween'];?>" alt="">
+                    </div>
 
+                    <div class="majors-list">
+                        <?php if (!empty($listDatafield[0])): ?>
+                            <a href="/detailfield/<?php echo  $listDatafield[0]->slug ?>.html">
+                                <div class="majors-items majors-items-left majors-items-1">
+                                    <p>
+                                        <?= $listDatafield[0]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDatafield[0]->icon;?>" alt="">
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($listDatafield[1])): ?>
+                            <a href="/detailfield/<?php echo  $listDatafield[1]->slug ?>.html">
+                                <div class="majors-items majors-items-left majors-items-2">
+                                    <p>
+                                        <?= $listDatafield[1]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDatafield[1]->icon;?>" alt="">
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($listDatafield[2])): ?>
+                            <a href="/detailfield/<?php echo  $listDatafield[2]->slug ?>.html">
+                                <div class="majors-items majors-items-left majors-items-3">
+                                    <p>
+                                        <?= $listDatafield[2]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDatafield[2]->icon;?>" alt="">
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($listDatafield[3])): ?>
+                            <a href="/detailfield/<?php echo  $listDatafield[3]->slug ?>.html">
+                                <div class="majors-items majors-items-right majors-items-4">
+                                    <p>
+                                        <?= $listDatafield[3]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDatafield[3]->icon;?>" alt="">
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($listDatafield[4])): ?>
+                        <a href="/detailfield/<?php echo  $listDatafield[4]->slug ?>.html">
+                                <div class="majors-items majors-items-right majors-items-5">
+                                    <p>
+                                        <?= $listDatafield[4]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDatafield[4]->icon;?>" alt="">
+                                </div>
+                        </a>
+                        <?php endif; ?>
+                        <?php if (!empty($listDatafield[5])): ?>
+                        <a href="/detailfield/<?php echo  $listDatafield[5]->slug ?>.html">
+                                <div class="majors-items majors-items-right majors-items-6">
+                                    <p>
+                                        <?= $listDatafield[5]->name;?>
+                                    </p>
+                                    <img class="fade-img" src="<?= $listDatafield[5]->icon;?>" alt="">
+                                </div>
+                        </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="about-section-2">
             <div class="container">
                 <div class="as2-block-1">

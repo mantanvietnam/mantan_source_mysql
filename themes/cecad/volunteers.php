@@ -1,5 +1,8 @@
-<?php getHeader();?>
+<?php getHeader();
+
+?>
 <main>
+
         <section id="about-section-1">
             <div class="as1-block-1">
                 <div class="as1-banner">

@@ -1,7 +1,7 @@
 <?php
     global $routesTheme;
     
-    $routesTheme['khoa-hoc']= 'snaggolf/view/courses.php';
+    $routesTheme['course']= 'snaggolf/courses.php';
     $routesTheme['dat-dung-cu']= 'snaggolf/view/tools.php';
     $routesTheme['dang-ki-huan-luyen-vien']= 'snaggolf/view/trainer.php';
 

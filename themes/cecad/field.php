@@ -4,6 +4,23 @@
 ?>
 
 <main class="major-main">
+        <section class="screen-banner-project" id="banner-projects-section">
+            <div class="bp-block-1">
+                <div class="bp-block-1-title">
+                    <p>
+                        Cecad
+                    </p>
+                    <h1>
+                        <span>Lĩnh</span>
+                        <span>Vực</span>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="bp-block-2">
+                <img src="https://cecad.phoenixtech.asia/upload/admin/files/oei_company_news.png" alt="">
+            </div>
+        </section>
         <section id="major-section-1">
             <div class="container">
                 <div class="ms-1-block-1">
