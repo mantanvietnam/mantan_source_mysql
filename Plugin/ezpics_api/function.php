@@ -1174,8 +1174,8 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
         'font' => $font,
         'status' => '1',
         'text_align' => 'left',
-        'postion_left' => 50,
-        'postion_top' => 50,
+        'postion_left' => 0,
+        'postion_top' => 0,
         'brightness' => '100',
         'contrast' => '100',
         'saturate' => '100',
@@ -1230,6 +1230,7 @@ function zipImage($urlLocalFile='')
 function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='', $color='', $backgroundUpload= '')
 {
     global $controller;
+    global $urlHomes;
 
     $return = array('code'=>1,
                     'messages'=>array(array('text'=>'Không tồn tại tài khoản người dùng'))
@@ -1287,6 +1288,25 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
             }
         }
 
+        // lấy kích cỡ ảnh background
+        $imageWhite = $thumb;
+        $sizeThumb = getimagesize($imageWhite);
+
+        // tạo ảnh nền trắng
+        $fileNameWhite = $sizeThumb[0].'_'.$sizeThumb[1].'.jpg';
+        $imagePath = __DIR__.'/../../upload/admin/images/background_white/'.$fileNameWhite;
+        
+        if(!file_exists($imagePath)){
+            $image = imagecreatetruecolor($sizeThumb[0], $sizeThumb[1]); // Tạo một ảnh trống với kích thước đã xác định
+            $white = imagecolorallocate($image, 255, 255, 255); // Tạo màu trắng
+            imagefilledrectangle($image, 0, 0, $sizeThumb[0], $sizeThumb[1], $white); // Đổ màu trắng lên toàn bộ ảnh
+            imagejpeg($image, $imagePath); // Lưu ảnh dưới dạng JPG
+            imagedestroy($image); // Giải phóng bộ nhớ
+        }
+
+        $imageWhite = $urlHomes.'upload/admin/images/background_white/'.$fileNameWhite;
+
+        // lưu dữ liệu mới
         $newproduct->name = $name;
         $newproduct->price = (int) $price;
         $newproduct->sale_price = (int) $sale_price;
@@ -1297,7 +1317,7 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         $newproduct->type = $type;
         $newproduct->sold = 0;
         $newproduct->image = (!empty($thumbnailUser))?$thumbnailUser:$thumb; // ảnh minh họa
-        $newproduct->thumn = $thumb; // ảnh background
+        $newproduct->thumn = $imageWhite; // ảnh background
         $newproduct->thumbnail = $thumbnailUser;
         $newproduct->user_id = $infoUser->id;
         $newproduct->product_id = 0;
@@ -1307,9 +1327,6 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         $newproduct->favorites = 0;
         $newproduct->color = $color;
         $newproduct->category_id = (int) $category_id;
-
-        $sizeThumb = getimagesize($thumb);
-
         $newproduct->width = $sizeThumb[0];
         $newproduct->height = $sizeThumb[1];
 
@@ -1334,6 +1351,8 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
 
         $modelProduct->save($newproduct);
 
+        // tạo layer ảnh đầu tiên
+
         // tạo deep link
         if($type=='user_create' || $type=='user_series'){
             $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
@@ -1353,22 +1372,19 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         }
 
         // tạo layer mặc định đầu tiên
-        $sizeBackground = getimagesize($thumb);
         
-        /*
         $newLayer = $modelProductDetail->newEmptyEntity();  
 
         $newLayer->products_id = $newproduct->id;
         $newLayer->name = 'Layer 1';
 
-        $content = getLayer(1, 'text', '', 80, 0, 'Layer 1');
+        $content = getLayer(1, 'image', $thumb, '100', '100');
         $newLayer->content = json_encode($content);
         $newLayer->created_at = date('Y-m-d H:i:s');
         $newLayer->sort = 1;
         
         
         $modelProductDetail->save($newLayer);
-        */
        
         if(!empty($warehouse)){
             $conditions = ['product_id'=>$newproduct->id, ];

@@ -1116,7 +1116,7 @@ function requestCodeForgotPasswordAPI($input)
 				$modelMember->save($checkPhone);
 
 				if(!empty($checkPhone->email)){
-					//sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code);
+					sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code);
 				}
 
 				// gửi mã xác thực về Zalo người đăng ký

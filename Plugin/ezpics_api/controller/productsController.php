@@ -438,7 +438,6 @@ function createProductAPI($input)
 				if(!empty($dataSend['warehouse_id'])){
 					$warehouse =  explode(',', @$dataSend['warehouse_id']);
 				}
-				
 
 	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id, $warehouse, $color, $background);
 	        }else{
