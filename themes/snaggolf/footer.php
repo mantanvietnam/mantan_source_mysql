@@ -15,11 +15,12 @@
                     FORM ĐĂNG KÝ
                     HUẤN LUYỆN VIÊN
                 </h2>
-                <form action="">
+                <form action="/action" method="post">
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <div class="form-component">
                                 <label for="" class="mb-1">Họ và tên <sup class="text-custom-red">*</sup></label>
+                                <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                                 <input type="text" name="name" required placeholder="" class="form-control">
                             </div>
                         </div>
@@ -44,7 +45,8 @@
                     </div>
                     <div class="form-component">
                         <label for="" class="mb-1">Giới thiệu bản thân</label>
-                        <textarea name="info-detail" class="form-control" name="info"></textarea>
+                        <textarea name="content" class="form-control"></textarea>
+                        <input type="hidden" placeholder="" name="subject" value="ĐĂNG KÝ LÀM HUẤN LUYỆN VIÊN" class="form-control">  
                     </div>
                     <div class="d-flex justify-content-center mt-5 mb-4">
                         <button class="btn custom-button button-reg">
@@ -67,11 +69,12 @@
                 <h2 class="text-center mb-4">
                     FORM ĐĂNG KÝ TƯ VẤN NGAY
                 </h2>
-                <form action="">
+                <form action="/contact" method="POST">
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <div class="form-component">
                                 <label for="" class="mb-1">Họ và tên <sup class="text-custom-red">*</sup></label>
+                                <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                                 <input type="text" placeholder="" name="name" required class="form-control">
                             </div>
                         </div>
@@ -96,7 +99,8 @@
                     </div>
                     <div class="form-component">
                         <label for="" class="mb-1">Ghi chú</label>
-                        <textarea name="info-detail" class="form-control" name="info"></textarea>
+                        <textarea class="form-control" name="content"></textarea> 
+                        <input type="hidden" placeholder="" name="subject" value=" " class="form-control">                            
                     </div>
                     <div class="d-flex justify-content-center mt-5 mb-4">
                         <button class="btn custom-button button-reg">
@@ -150,9 +154,14 @@
             <div class="col-12 col-lg-4 d-none d-lg-block">
                 <h5 class="form-head">GỬI TIN NHẮN</h5>
                 <div class="form">
-                    <form action="">
-                        <input required type="text" name="" class="form-control" placeholder="Your email address">
-                        <textarea required name="" class="form-control" placeholder="Content"></textarea>
+                    <form action="/contact" method="POST">
+                        <input required type="text" name="name" class="form-control" placeholder="Your name">
+                        <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+                        <textarea required name="content" class="form-control" placeholder="Content"></textarea>
+                        <input type="hidden" placeholder="" name="email" value=" " required class="form-control">
+                        <input type="hidden" placeholder="" name="address" value=" " required class="form-control">
+                        <input type="hidden" placeholder="" name="phone" value=" " required class="form-control">
+                        <input type="hidden" placeholder="" name="subject" value=" " class="form-control">  
                         <button class="custom-button button-reg">GỬI TIN NHẮN</button>
                     </form>
                 </div>

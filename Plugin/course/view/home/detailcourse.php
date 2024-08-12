@@ -1,0 +1,1 @@
+<?php getFileTheme('course/detailcourse.php');?>

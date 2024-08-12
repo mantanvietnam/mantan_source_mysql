@@ -26,23 +26,13 @@ function settingHomeThemeSnagGolf($input)
                         'welcome_title_main' => $dataSend['welcome_title_main'],
 
                         'course_title' => $dataSend['course_title'],
-                        'middle_title_1' => $dataSend['middle_title_1'],
-                        'middle_title_2' => $dataSend['middle_title_2'],
-                        'middle_title_3' => $dataSend['middle_title_3'],
+                       
 
-                        'middle_card_content_1' => $dataSend['middle_card_content_1'],
-                        'middle_card_content_2' => $dataSend['middle_card_content_2'],
-                        'middle_card_content_3' => $dataSend['middle_card_content_3'],
 
                         'trainer_name' => $dataSend['trainer_name'],
 
                         'course_info_header' => $dataSend['course_info_header'],
-                        'course_time_1' => $dataSend['course_time_1'],
-                        'course_place_1' => $dataSend['course_place_1'],
-                        'course_time_2' => $dataSend['course_time_2'],
-                        'course_place_2' => $dataSend['course_place_2'],
-                        'course_time_3' => $dataSend['course_time_3'],
-                        'course_place_3' => $dataSend['course_place_3'],
+                       
 
                         'footer_content' => $dataSend['footer_content'],
                     );
@@ -69,40 +59,106 @@ function settingHomeThemeSnagGolf($input)
 
 
 
-
-function settingTrainerCourseThemeSnagGolf($input)
+function indexTheme($input)
 {
-    global $modelOptions;
-    global $metaTitleMantan;
-    global $isRequestPost;
+    global $modelPosts;
+    global $settingThemes;
+    global $controller;
+    global $modelAlbuminfos;
+    global $urlCurrent;
+    $limit = 8;
+    $conditions = array();
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    $modelcourse = $controller->loadModel('course');
+    $order = array('id' => 'asc');
+    $listDatacourse= $modelcourse->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
+    $totalData = $modelcourse->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
 
-    $metaTitleMantan = 'Cài đặt giao diện trang khoá học';
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+    $listDatatop= $modelPosts->find()->limit(3)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('listDatacourse', $listDatacourse);
+    setVariable('listDatatop', $listDatatop);
+}
+function settingtrainer($input)
+{
+	global $modelOptions;
+	global $metaTitleMantan;
+	global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện trang chủ';
     $mess= '';
 
-    $conditions = array('key_word' => 'settingTrainerCourseThemeSnagGolf');
+    $conditions = array('key_word' => 'settingtrainer');
     $data = $modelOptions->find()->where($conditions)->first();
     if(empty($data)){
         $data = $modelOptions->newEmptyEntity();
     }
 
     if($isRequestPost){
-        $dataSend = $input['request']->getData();
+    	$dataSend = $input['request']->getData();
 
-        $value = array( 'trainer_title' => $dataSend['trainer_title'],
+    	$value = array( 
+            'banner' =>$dataSend['banner'],
+            'contentbanner' =>$dataSend['contentbanner'],
+            'titledeepbanner'=>$dataSend['titledeepbanner'],
+            'contentbanner2'=>$dataSend['contentbanner2'],    
+            'li1' => $dataSend['li1'],
+            'li2' => $dataSend['li2'],
+            'li3' => $dataSend['li3'],
+            'li4' => $dataSend['li4'],
+            'li5' => $dataSend['li5'],
+            'li6' => $dataSend['li6'],
+            'li7' => $dataSend['li7'],
+            'li8' => $dataSend['li8'],
+            'li9' => $dataSend['li9'],
+            'li10' => $dataSend['li10'],
+            'li11' => $dataSend['li11'],
+            'li12' => $dataSend['li12'],
+            'li13' => $dataSend['li13'],
+            'li14' => $dataSend['li14'],
+            'li15' => $dataSend['li15'],
+            'li16' => $dataSend['li16'],
+        
+        );
 
-                        'content_info_trainer_course' => $dataSend['content_info_trainer_course'],
-
-                        'trainer_title_1' => $dataSend['trainer_title_1'],
-                        'trainer_content_1' => $dataSend['trainer_content_1'],
-                        'trainer_title_2' => $dataSend['trainer_title_2'],
-                        'trainer_content_2' => $dataSend['trainer_content_2'],
-                        'trainer_title_3' => $dataSend['trainer_title_3'],
-                        'trainer_content_3' => $dataSend['trainer_content_3'],
-
-                        'trainer_paragraph' => $dataSend['trainer_paragraph'],
-                    );
-
-        $data->key_word = 'settingTrainerCourseThemeSnagGolf';
+        $data->key_word = 'settingtrainer';
         $data->value = json_encode($value);
 
         $modelOptions->save($data);
@@ -118,39 +174,110 @@ function settingTrainerCourseThemeSnagGolf($input)
     setVariable('setting', $data_value);
     setVariable('mess', $mess);
 }
+function trainer($input){
 
-function indexTheme($input)
-{
+}
+function courses($input){
+    global $modelPosts;
+    global $controller;
+    global $urlCurrent;
+    $limit = 8;
+    $conditions = array();
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    $modelcourse = $controller->loadModel('course');
+    $order = array('id' => 'asc');
+    $listDatacourse= $modelcourse->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
+    $totalData = $modelcourse->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('listDatacourse', $listDatacourse);
+   
+
+}
+function detailcourse($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
+    global $modelPosts;
+    $metaTitleMantan = 'Chi tiết khóa học';
+    $modelcourse = $controller->loadModel('course');
+    $order = array('id'=>'desc');
+    $listDatatop= $modelPosts->find()->limit(3)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
+    
+    if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=>$_GET['id']);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('slug'=>$slug);
+        }
+        $course = $modelcourse->find()->where($conditions)->first();
+        setVariable('course', $course);
+
+    }else{
+        return $controller->redirect('/');
+    }
+    setVariable('listDatatop', $listDatatop);
+}
+function tool($input){
     global $modelPosts;
     global $settingThemes;
     global $controller;
     global $modelAlbuminfos;
+    global $modelCategory;
 
- 
-
-    //SẢN PHẨM MỚI
-    $conditions = array();
-    $limit = 6;
-    $page = 1;
-    $order = array('id'=>'desc');
-
-
-    // TIN TỨC MỚI
-    $conditions = array('type'=>'post');
-    $limit = 6;
-    $page = 1;
-    $order = array('id'=>'desc');
-
-    // DANH MỤC TIN TỨC
-    $conditions = array('type' => 'post');
-    $listPosts= $modelPosts->find()->limit(12)->where(array('type'=>'post'))->order($order)->all()->toList();
-    $otherPosts= $modelPosts->find()->limit(12)->where(array('type'=>'post'))->order($order)->all()->toList();
-
-    setVariable('listPosts', $listPosts);
-    setVariable('otherPosts', $otherPosts);
- 
+    $modeltool = $controller->loadModel('products');
+    
+    $listDatatool = $modeltool->find()->all()->toList();
+   
+    setVariable('listDatatool', $listDatatool);
 }
-
 function postTheme($input)
 {
     global $controller;

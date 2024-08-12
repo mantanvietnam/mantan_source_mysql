@@ -6,6 +6,11 @@ $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingHomeThemeSnagGolf'
                         );
+$menus[0]['sub'][1]= array( 'title'=>'Cài đặt HLV',
+                            'url'=>'/plugins/admin/snaggolf-admin-settingtrainer.php',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'settingtrainer'
+                            );
 
 
 
@@ -26,16 +31,14 @@ global $session;
 // CÀI ĐẶT TRANG CHỦ
 $conditions = array('key_word' => 'settingHomeThemeSnagGolf');
 $data = $modelOptions->find()->where($conditions)->first();
-
 $settingThemes = array();
 if(!empty($data->value)){
     $settingThemes = json_decode($data->value, true);
 }
 
-// CÀI ĐẶT KHOÁ HỌC CHO HLV
-$conditions = array('key_word' => 'settingTrainerCourseThemeSnagGolf');
-$data = $modelOptions->find()->where($conditions)->first();
 
+$conditions = array('key_word' => 'settingtrainer');
+$data = $modelOptions->find()->where($conditions)->first();
 $settingTrainer = array();
 if(!empty($data->value)){
     $settingTrainer = json_decode($data->value, true);
