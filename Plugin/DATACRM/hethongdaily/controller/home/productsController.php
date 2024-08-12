@@ -344,13 +344,19 @@ function deleteOrderCustomerAgency($input)
     if(!empty($session->read('infoUser'))){
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetail = $controller->loadModel('OrderDetails');
+
+        $modelBill = $controller->loadModel('Bills');
+        $modelDebt = $controller->loadModel('Debts');
         
         if(!empty($_GET['id'])){
             $data = $modelOrder->find()->where(['id_agency'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id']])->first();
             
             if($data){
+
                 $modelOrder->delete($data);
                 $modelOrderDetail->deleteAll(['id_order'=>$data->id]);
+                $modelBill->deleteAll(['id_order'=>$data->id,'type_order'=>2]);
+                $modelDebt->deleteAll(['id_order'=>$data->id,'type_order'=>2]);
             }
         }
 

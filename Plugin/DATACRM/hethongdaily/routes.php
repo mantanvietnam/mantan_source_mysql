@@ -173,7 +173,22 @@
 
 	// xếp hạn thanh viên
 	$routesPlugin['listRatingPoint']= 'hethongdaily/view/home/ratingPoint/listRatingPoint.php';
-	// api khách hàng .php
+
+
+	// cài đặt đào tạo 
+	$routesPlugin['listCourseAgency']= 'hethongdaily/view/home/training/seting/course/listCourseAgency.php';
+	$routesPlugin['addCourseAgency']= 'hethongdaily/view/home/training/seting/course/addCourseAgency.php';
+	$routesPlugin['deleteCourseAgency']= 'hethongdaily/view/home/training/seting/course/deleteCourseAgency.php';
+	$routesPlugin['listCategoryLessonAgency']= 'hethongdaily/view/home/training/seting/course/listCategoryLessonAgency.php';
+	$routesPlugin['listLessonAgency']= 'hethongdaily/view/home/training/seting/lesson/listLessonAgency.php';
+	$routesPlugin['addLessonAgency']= 'hethongdaily/view/home/training/seting/lesson/addLessonAgency.php';
+	$routesPlugin['listTestAgency']= 'hethongdaily/view/home/training/seting/test/listTestAgency.php';
+	$routesPlugin['addTestAgency']= 'hethongdaily/view/home/training/seting/test/addTestAgency.php';
+	$routesPlugin['listQuestionAgency']= 'hethongdaily/view/home/training/seting/question/listQuestionAgency.php';	
+	$routesPlugin['addQuestionAgency']= 'hethongdaily/view/home/training/seting/question/addQuestionAgency.php';	
+
+
+	// api khách hàng 
 
 	$routesPlugin['saveRegisterCustomerAPI']= 'hethongdaily/view/saveRegisterCustomerAPI.php';
 	$routesPlugin['checkLoginCustomerAPI']= 'hethongdaily/view/checkLoginCustomerAPI.php';
