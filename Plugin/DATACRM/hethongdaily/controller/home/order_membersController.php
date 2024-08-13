@@ -385,9 +385,118 @@ function orderMemberAgency($input)
             }
         }
 
+        if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+            $listData = $modelOrderMembers->find()->where($conditions)->order($order)->all()->toList();
+            $titleExcel =   [
+                ['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
+                ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
+                ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+                ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
+                ['name'=>'Model', 'type'=>'text', 'width'=>15],
+                ['name'=>'Số lượng', 'type'=>'text', 'width'=>35],
+                ['name'=>'Đơn vị', 'type'=>'text', 'width'=>35],
+                ['name'=>'Màu sắc ', 'type'=>'text', 'width'=>15],
+                ['name'=>'Thành tiền ', 'type'=>'text', 'width'=>10],
+                ['name'=>'Thu khách ', 'type'=>'text', 'width'=>15],
+                ['name'=>'NV chốt ', 'type'=>'text', 'width'=>15],
+                ['name'=>'Chú ý', 'type'=>'text', 'width'=>15],
+                ['name'=>'Mã vận đơn', 'type'=>'text', 'width'=>15],
+                ['name'=>'phí shíp', 'type'=>'text', 'width'=>15],
+                ['name'=>'tình trạng', 'type'=>'text', 'width'=>15],    
+            ];
+            $dataExcel = [];
+            if(!empty($listData)){
+                foreach ($listData as $key => $value) {
+                    $discount = '';
+                    if($value->discount){
+                       $pay = json_decode($value->discount, true);
+
+                       if(!empty($pay['code1']) && !empty($pay['discount_price1'])){
+                            $discount .=  $pay['code1'] .': -'.number_format($pay['discount_price1']).'đ';
+                        }
+                        if(!empty($pay['code2']) && !empty($pay['discount_price2'])){
+                            $discount .=  $pay['code2'] .': -'.number_format($pay['discount_price2']).'đ';
+                        }
+                        if(!empty($pay['code3']) && !empty($pay['discount_price3'])){
+                            $discount .=  $pay['code3'] .': -'.number_format($pay['discount_price3']).'đ';
+                        }
+                        if(!empty($pay['code4']) && !empty($pay['discount_price4'])){
+                            $discount .=  $pay['code4'] .': -'.number_format($pay['discount_price4']).'đ';
+                        }
+                    }
+                    $status= '';
+                    if($value->status=='new'){ 
+                        $status= 'Đơn mới';
+                     }elseif($value->status=='browser'){
+                        $status= 'Đã duyệt';
+                     }elseif($value->status=='delivery'){
+                        $status= 'Đang giao';
+                     }elseif($value->status=='done'){
+                        $status= 'Đã xong';
+                     }else{
+                        $status= 'Đã hủy';
+                     }
+                    $buyer = $modelMembers->find()->where(['id'=>$item->id_member_buy ])->first();
+                    $detail_order = $modelOrderMemberDetails->find()->where(['id_order'=>$value->id])->all()->toList();
+                    if(!empty($detail_order)){
+                        foreach ($detail_order as $k => $item) {
+                            $product = $modelProduct->find()->where(['id'=>$item->id_product ])->first();
+                            $priceBuy = $item->price;
+                            $priceOld = $item->price;
+                            $showDiscount = '';
+
+                             if($item->discount > 0){
+                              $priceDiscount = $value->discount;
+
+                              if($priceDiscount<=100){
+                                  $priceDiscount= $priceBuy*$item->discount/100;
+                                  $showDiscount = $value->discount.'%';
+                              }else{
+                                  $showDiscount = number_format($item->discount).'đ';
+                              }
+
+                              $priceBuy -= $priceDiscount;
+                            }
+
+                            if($priceBuy != $priceOld){
+                              $showPrice = $priceOld;
+                            }else{
+                              $showPrice = $priceBuy;
+                            }
+
+                            if(!empty($product)){
+                                $unit = $product->unit;
+                                if(!empty($item->id_unit)){
+                                    $unit = $modelUnitConversion->find()->where(['id_product'=>$value->id_product])->first()->unit;
+                                }
+                            
+                                $dataExcel[] = [
+                                                date('H:i d/m/Y', $value->create_at), 
+                                                @$buyer->name,   
+                                                @$buyer->phone,   
+                                                @$buyer->address,   
+                                                $product->title,
+                                                $item->quantity,
+                                                $unit,
+                                                '',
+                                                $showPrice*$item->quantity,
+                                                '', 
+                                                '',
+                                                @$value->note_user,
+                                                @$value->id,
+                                                '',
+                                                $status,
+                                            ];
+                            }
+                        }
+                    }
+                }
+            }
+           export_excel($titleExcel,$dataExcel,'danh_sach_don_hang');
+        }else{
         
-        $listData = $modelOrderMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-        
+            $listData = $modelOrderMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        }
 
         if(!empty($listData)){
             foreach($listData as $key => $item){

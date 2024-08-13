@@ -90,4 +90,58 @@ function fixPhoneCustomer($input)
 
     echo $number;die;
 }
+
+function fixDeteleBillNoOrder(){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+    // if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Danh sách khách hàng';
+        $modelOrder = $controller->loadModel('Orders');
+        $modelBill = $controller->loadModel('Bills');
+        $modelDebt = $controller->loadModel('Debts');
+
+        $modelCustomers = $controller->loadModel('Customers');
+
+        $allDataBill = $modelBill->find()->where(['type'=>1, 'type_order'=>2, 'id_order >'=>0])->all()->toList();
+        $allDataDebt = $modelDebt->find()->where(['type'=>1, 'type_order'=>2, 'id_order >'=>0])->all()->toList();
+       
+        $number = 0;
+
+        if(!empty($allDataBill)){
+        	foreach ($allDataBill as $key => $value) {
+        		$checkOrder = $modelOrder->find()->where(['id'=>$value->id_order, 'status_pay'=>'done'])->first();
+        		if(empty($checkOrder)){
+        			$number ++;
+        			$bill = $modelBill->get($value->id);
+
+        			$modelBill->delete($bill);
+        		}
+
+
+        	}
+        }
+
+        if(!empty($allDataDebt)){
+        	foreach ($allDataDebt as $key => $value) {
+        		$checkOrder = $modelOrder->find()->where(['id'=>$value->id_order, 'status_pay'=>'done'])->first();
+        		if(empty($checkOrder)){
+        			$number ++;
+        			$bill = $modelDebt->get($value->id);
+
+        			$modelDebt->delete($bill);
+        		}
+
+
+        	}
+        }
+    // }
+
+    echo $number;die;
+
+}
 ?>

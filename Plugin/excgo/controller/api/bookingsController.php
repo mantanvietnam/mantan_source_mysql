@@ -1527,7 +1527,7 @@ function getMyBookingListApi($input): array
                 $conditions['UserBookings.created_at <'] = $toDate;
                 $order['Bookings.created_at'] = 'DESC';
             }
-             $conditions['Bookings.status_free'] = 0;
+             //s$conditions['Bookings.status_free'] = 0;
             $listData = $query->select([
                     'UserBookings.id',
                     'UserBookings.status',

@@ -23,8 +23,35 @@ function warehouseProductAgency($input)
         if(!empty($_GET['id_product'])){
             $conditions['id_product'] = (int) $_GET['id_product'];
         }
+         if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+            $listData = $modelWarehouseProducts->find()->where($conditions)->order($order)->all()->toList();
+            $titleExcel =   [
+                ['name'=>'Hàng hóa', 'type'=>'text', 'width'=>25],
+                ['name'=>'Số lượng', 'type'=>'text', 'width'=>25],
+                ['name'=>'Giá bán', 'type'=>'text', 'width'=>25],
+                ['name'=>'Xuất nhập lần cuối', 'type'=>'text', 'width'=>25],
+            ];
+            $dataExcel = [];
+            if(!empty($listData)){
+                foreach ($listData as $key => $value) {
+                    $product = $modelProducts->find()->where(['id'=>$value->id_product ])->first();
+                    $history = $modelWarehouseHistories->find()->where(['id_product'=>$value->id_product, 'id_member'=>$value->id_member ])->order(['id'=>'desc'])->first();
+                    if(!empty($product)){
+                        $dataExcel[] = [
+                            @$product->title,  
+                            @$value->quantity,  
+                            @$product->price,  
+                            @$history->note,  
+                        ];
+                    }
+                }
+            }
 
-        $listData = $modelWarehouseProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            export_excel($titleExcel,$dataExcel,'danh_sach_tong_kho');
+        }else{
+
+            $listData = $modelWarehouseProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        }
         
 
         if(!empty($listData)){

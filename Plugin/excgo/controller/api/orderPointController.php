@@ -20,7 +20,7 @@ function createOrderSellPointApi($input): array
     if ($isRequestPost){
         $dataSend = $input['request']->getData();
 
-         if (empty($dataSend['access_token']) && empty($dataSend['point'])){
+         if (empty($dataSend['access_token']) && empty($dataSend['point']) && empty($dataSend['price'])){
          	return apiResponse(2, 'Gửi thiếu dữ liệu');
          }
 
@@ -30,16 +30,18 @@ function createOrderSellPointApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
 
-        /*$checkOrderPoint = $modelOrderPoint->find()->where(['user_sell'=>$currentUser->id, 'type'=>1,'status'=>0])->all()->toList();
-
-        if (!empty($checkOrderPoint)) {
-            return apiResponse(5, 'Yêu cầu của bạn chưa dc xử lý xong');
-        }*/
-
-
+        /*$checkOrderPoint = $modelOrderPoint->find()->where(['user_sell'=>$currentUser->id, 'type'=>1,'status'=>0])->all()->toList();*/
+        $price = (int) $dataSend['price'];
         $point = (int)$dataSend['point'];
+        $convert =  $point* $convertPointMoney;
+        if ($price < $convert) {
+            return apiResponse(5, '1 điểm tối thiểu là '.number_format($convertPointMoney) . ' EXC-xu');
+        }
+
+
+       
         if ($currentUser->point < $minimumPointSold && $point < $minimumPointSold && $currentUser->point < $point) {
-            return apiResponse(4, 'Số điểm chưa đủ để bán ');
+            return apiResponse(4, 'Số điểm chưa đủ để bán');
         }
 
         $currentUser->point -= $point;
@@ -48,7 +50,7 @@ function createOrderSellPointApi($input): array
 		$order = $modelOrderPoint->newEmptyEntity();
 		$order->user_sell = $currentUser->id;
 		$order->point = $point;
-		$order->total = $point*$convertPointMoney;
+		$order->total =  $price;
 		$order->created_at = date('Y-m-d H:i:s');
 		$order->updated_at = date('Y-m-d H:i:s');
 		$order->status = 0;
@@ -83,7 +85,7 @@ function createOrderBuyPointApi($input): array
     if ($isRequestPost){
         $dataSend = $input['request']->getData();
 
-         if (empty($dataSend['access_token']) && empty($dataSend['point'])){
+         if (empty($dataSend['access_token']) && empty($dataSend['point'])  && empty($dataSend['price'])){
          	return apiResponse(2, 'Gửi thiếu dữ liệu');
          }
 
@@ -92,10 +94,15 @@ function createOrderBuyPointApi($input): array
         if (empty($currentUser)) {
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
+        $price = (int) $dataSend['price'];
         $point = (int)$dataSend['point'];
+        $convert =  $point* $convertPointMoney;
+        if ($price < $convert) {
+            return apiResponse(6, '1 điểm tối thiểu là '.number_format($convertPointMoney) . ' EXC-xu');
+        }
       
         if ($point < $minimumPointSold) {
-            return apiResponse(4, 'Bạn mua tối thiểu '.$minimumPointSold.' điểm');
+            return apiResponse(5, 'Bạn mua tối thiểu '.$minimumPointSold.' điểm');
         }
 
        /* $checkOrderPoint = $modelOrderPoint->find()->where(['user_buy'=>$currentUser->id, 'type'=>2,'status'=>0])->all()->toList();
@@ -104,16 +111,14 @@ function createOrderBuyPointApi($input): array
             return apiResponse(5, 'Yêu cầu của bạn chưa dc xử lý  xong');
         }*/
 
-        $total =  $point*$convertPointMoney;
-
-        if ($currentUser->total_coin < $total) {
+        if ($currentUser->total_coin < $price) {
             return apiResponse(4, 'Số tiển của bạn chưa đủ');
         }
 
 		$order = $modelOrderPoint->newEmptyEntity();
 		$order->user_buy = $currentUser->id;
 		$order->point = $point;
-		$order->total = $total;
+		$order->total = $price;
 		$order->created_at = date('Y-m-d H:i:s');
 		$order->updated_at = date('Y-m-d H:i:s');
 		$order->status = 0;
@@ -175,11 +180,11 @@ function listOrderPointApi($input): array
         
         $conditions = array('type'=>(int)$dataSend['type'], 'status'=>0);
 
-        if($dataSend['type']==1){
+        /*if($dataSend['type']==1){
              $conditions['user_sell !='] = @$currentUser->id;
         }else{
              $conditions['user_buy !='] = @$currentUser->id;
-        }
+        }*/
 
         $listData = $modelOrderPoint->find()->where($conditions)->all()->toList();
 
@@ -276,6 +281,9 @@ function listOrderPointMyUserApi($input): array
                 
             }
         }
+
+       
+       
 
         return apiResponse(2, 'lấy láy dữ liệu thành công', $listData);
     }
@@ -861,7 +869,7 @@ function updeatOrderSellPointApi($input): array
     if ($isRequestPost){
         $dataSend = $input['request']->getData();
 
-         if (empty($dataSend['access_token']) && empty($dataSend['point']) && empty($dataSend['id'])){
+         if (empty($dataSend['access_token']) && empty($dataSend['point']) && empty($dataSend['id']) && empty($dataSend['price'])){
             return apiResponse(2, 'Gửi thiếu dữ liệu');
          }
 
@@ -877,10 +885,13 @@ function updeatOrderSellPointApi($input): array
             return apiResponse(5, 'Đơn này không tồn tại');
         }
 
-        
-
-
+        $price = (int) $dataSend['price'];
         $point = (int)$dataSend['point'];
+        $convert =  $point* $convertPointMoney;
+        if ($price < $convert) {
+            return apiResponse(6, '1 điểm tối thiểu là '.number_format($convertPointMoney) . ' EXC-xu');
+        }
+
         if ($currentUser->point < $minimumPointSold && $point < $minimumPointSold && $currentUser->point < $point) {
             return apiResponse(4, 'Số điểm chưa đủ để bán ');
         }
@@ -894,7 +905,7 @@ function updeatOrderSellPointApi($input): array
 
 
         $checkOrderPoint->point = $point;
-        $checkOrderPoint->total = $point*$convertPointMoney;
+        $checkOrderPoint->total = $price;
         $checkOrderPoint->updated_at = date('Y-m-d H:i:s');
         
         $modelOrderPoint->save($checkOrderPoint);   
@@ -926,7 +937,7 @@ function updeatOrderBuyPointApi($input): array
       if ($isRequestPost){
         $dataSend = $input['request']->getData();
 
-         if (empty($dataSend['access_token']) && empty($dataSend['point']) && empty($dataSend['id'])){
+         if (empty($dataSend['access_token']) && empty($dataSend['point']) && empty($dataSend['id']) && empty($dataSend['price'])){
             return apiResponse(2, 'Gửi thiếu dữ liệu');
          }
 
@@ -942,25 +953,28 @@ function updeatOrderBuyPointApi($input): array
             return apiResponse(5, 'Đơn này không tồn tại');
         }
 
-
+        $pricecu = $checkOrderPoint->total;
+        $price = (int) $dataSend['price'];
         $point = (int)$dataSend['point'];
-
-         $total =  $point*$convertPointMoney;
-        if ($currentUser->point < $minimumPointSold && $point < $minimumPointSold && $currentUser->point < $point) {
-            return apiResponse(4, 'Số điểm chưa đủ để bán ');
+        $convert =  $point* $convertPointMoney;
+        if ($price < $convert) {
+            return apiResponse(6, '1 điểm tối thiểu là '.number_format($convertPointMoney) . ' EXC-xu');
         }
 
+       
       
         $currentUser->total_coin +=  $checkOrderPoint->total;
-        $currentUser->total_coin -=  $total;
+        if ($currentUser->total_coin < $price) {
+            return apiResponse(4, 'Số tiển của bạn chưa đủ');
+        }
+        $currentUser->total_coin -=  $price;
 
         
         $modelUser->save($currentUser);
 
-        if($point>$checkOrderPoint->point){
+        if($price>$pricecu){
             // Giao dịch trừ phí nhận cuốc xe
-            $p = $point - $checkOrderPoint->point;
-            $tien = $p*$convertPointMoney;
+            $tien = $price - $pricecu;
 
             $receiveTransaction = $modelTransaction->newEmptyEntity();
             $receiveTransaction->user_id = $currentUser->id;
@@ -972,10 +986,9 @@ function updeatOrderBuyPointApi($input): array
             $receiveTransaction->created_at = date('Y-m-d H:i:s');
             $receiveTransaction->updated_at = date('Y-m-d H:i:s');
             $modelTransaction->save($receiveTransaction);  
-        }elseif($point<$checkOrderPoint->point){
+        }elseif($price<$pricecu){
             // Giao dịch trừ phí nhận cuốc xe
-            $p =  $checkOrderPoint->point-$point;
-            $tien = $p*$convertPointMoney;
+            $tien =  $pricecu-$price;
 
             $receiveTransaction = $modelTransaction->newEmptyEntity();
             $receiveTransaction->user_id = $currentUser->id;
@@ -992,7 +1005,7 @@ function updeatOrderBuyPointApi($input): array
 
 
         $checkOrderPoint->point = $point;
-        $checkOrderPoint->total = $point*$convertPointMoney;
+        $checkOrderPoint->total = $price;
         $checkOrderPoint->updated_at = date('Y-m-d H:i:s');
         
         $modelOrderPoint->save($checkOrderPoint);   
@@ -1000,6 +1013,97 @@ function updeatOrderBuyPointApi($input): array
         return apiResponse(0, 'Sửa điểm thành công');
     }
 
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+// thong kên 
+function statisticsMyUserApi($input): array
+{
+    global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    
+    $modelUser = $controller->loadModel('Users');
+    $modelOrderPoint = $controller->loadModel('OrderPoints');
+    $modelBooking = $controller->loadModel('Bookings');
+    
+
+      if ($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+         if(empty($dataSend['access_token']) ){
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+         }
+
+        $currentUser = getUserByToken($dataSend['access_token']);
+
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+
+
+
+
+        $DataPointSell = $modelOrderPoint->find()->where(['user_sell'=>$currentUser->id, 'status <'=>3])->all()->toList();
+
+        $DataPointBuy = $modelOrderPoint->find()->where(['user_buy'=>$currentUser->id, 'status'=>2])->all()->toList();
+
+        $pointSell = 0;
+        if(!empty($DataPointSell)){
+            foreach($DataPointSell as $key => $item){
+                if(!empty($item->point)){
+                   $pointSell +=  $item->point;
+                }
+            }
+        }
+
+        $pointBuy = 0;
+        if(!empty($DataPointBuy)){
+            foreach($DataPointBuy as $key => $item){
+                if(!empty($item->point)){
+                   $pointBuy +=  $item->point;
+                }
+            }
+        }
+
+        $point = $pointBuy - $pointSell;
+
+
+        $posted_by = count($modelBooking->find()->where(['posted_by'=>$currentUser->id, 'status'=>3])->all()->toList());
+
+        $conditions = array('received_by'=>$currentUser->id);
+
+        $conditions['OR'] =  [ 
+                            ['status'=>1],
+                            ['status'=>3],
+                            ['status'=>4],
+                            ['status'=>5],
+                        ];
+        $received_by = count($modelBooking->find()->where(@$conditions)->all()->toList());
+
+
+        // $booking = $posted_by - $received_by;
+        $booking = $currentUser->point;
+
+
+
+        $total = $point+ $booking;
+
+        $data = [
+            // 'chuyen_dang' => $posted_by,
+            // 'chuyen_nhan' => $received_by,
+            'chenh_lech_chuyen' => $booking,
+            'diem_mua' => $pointBuy,
+            'diem_ban' => $pointSell,
+            'chenh_lech_diem' => $point,
+            'tong_chenh_lech' => $total,
+
+        ];
+        return apiResponse(0, 'lấy thông kê thành công', $data);
+
+    }
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 ?>

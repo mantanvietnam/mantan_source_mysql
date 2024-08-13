@@ -9,6 +9,35 @@
 
   <p><a href="/addRequestProductAgency" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập hàng vào kho</a></p>
 
+   <form method="get" action="">
+    <div class="card mb-4">
+      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+      <div class="card-body">
+        <div class="row gx-3 gy-2 align-items-center">
+          
+
+          <div class="col-md-3">
+            <label class="form-label">Tên sản phẩm</label>
+            <input type="text" class="form-control" name="name_product" id="name_product" value="<?php if(!empty($_GET['name_product'])) echo $_GET['name_product'];?>">
+            <input type="hidden" class="form-control" name="id_product" id="id_product" value="<?php if(!empty($_GET['id_product'])) echo $_GET['id_product'];?>">
+          </div>
+
+
+    
+          <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
+          </div>
+            <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
+            <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
+          </div>
+           
+        </div>
+      </div>
+    </div>
+  </form>
+
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách hàng hóa trong kho</h5>
@@ -173,6 +202,58 @@
 
     $('#editProductWarehouse').modal('show');
   }
+</script>
+
+<script type="text/javascript">
+    // tìm sản phẩm
+    $(function() {
+        function split( val ) {
+          return val.split( /,\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+        $( "#name_product" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchProductAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+
+                
+                $( "#name_product" ).val(ui.item.title);
+                $( "#id_product" ).val(ui.item.id);
+                return false;
+            }
+        });
+    });
 </script>
 
 <?php include(__DIR__.'/../footer.php'); ?>
