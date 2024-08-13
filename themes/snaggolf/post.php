@@ -59,42 +59,43 @@
         <div class="container">
             <h3>ĐĂNG KÝ NHẬN ƯU ĐÃI</h3>
             <div class="form-contain">
-                <form action="">
+                <form action="/contact" method="POST">
                     <div class="row g-3">
                         <div class="col-12 col-lg-6 mt-0 mb-2">
                             <div class="form-field">
                                 <label for="">Họ và tên<sup>*</sup></label>
-                                <input required type="text" class="form-control" placeholder="">
+                                <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+                                <input name="name" required type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 mt-0 mb-2">
                             <div class="form-field">
                                 <label for="">Email<sup>*</sup></label>
-                                <input required type="email" class="form-control" placeholder="">
+                                <input name="email" required type="email" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 mt-0 mb-2">
                             <div class="form-field">
                                 <label for="">Số điện thoại<sup>*</sup></label>
-                                <input required type="phone" class="form-control" placeholder="">
+                                <input name="phone" required type="phone" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 mt-0 mb-2">
                             <div class="form-field">
                                 <label for="">Khóa học<sup>*</sup></label>
-                                <input required type="text" class="form-control" placeholder="">
+                                <input name="subject" required type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 mt-0 mb-2">
                             <div class="form-field">
                                 <label for="">Địa chỉ<sup>*</sup></label>
-                                <input required type="text" class="form-control" placeholder="">
+                                <input name="address" required type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 mt-0 mb-2">
                             <div class="form-field">
                                 <label for="">Chọn trung tâm<sup>*</sup></label>
-                                <input required type="text" class="form-control" placeholder="">
+                                <input name="content" required type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>

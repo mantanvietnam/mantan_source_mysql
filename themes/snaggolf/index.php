@@ -253,10 +253,10 @@
                                         <div class="overlay">
                                             <!-- <span>
                                                 2022-11-09</span> -->
-                                            <a href="<?=$value->slug ?>"><button class="rounded-circle"><img src="http://snaggolftour.com/app/Theme/snagGolf/assets/img/greater-than.svg" alt=""></button></a>
+                                            <a href="<?php echo $value->slug ?>.html"><button class="rounded-circle"><img src="<?=$urlThemeActive?>assets/img/greater-than.svg" alt=""></button></a>
                                         </div>
                                     </div>
-                                    <a href="http://snaggolftour.com/3-me-con-hh-jennifer-pham-thang-dam-tai-snag-golf-tour-shining-summer-2023.html">
+                                    <a href="<?php echo $value->slug ?>.html">
                                         <div class="card-body">
                                             <h5 class=""><?=$value->title ?></h5>
                                             <p class=""><?=$value->description ?></p>

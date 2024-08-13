@@ -12,32 +12,32 @@
     <section class="news-post">
         <div class="container">
             <div class="row g-4">
+            <?php if (!empty($listPosts)): ?>
+            <?php foreach ($listPosts as $key => $value): ?>
                 <?php 
-                    if(!empty($listPosts)){
-                        foreach ($listPosts as $key => $value) {
-                            $link = '/'.$value->slug.'.html';
-
-                            echo '<div class="col-12 col-lg-4">
-                                    <div class="card-news">
-                                        <div class="card">
-                                            <div class="head-card">
-                                                <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
-                                                <div class="overlay">
-                                                    <span class="post-author">'.date('d/m/Y', $value->time).'</span>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="">
-                                                    <a href="'.$link.'">'.$value->title.'</a>
-                                                </h5>
-                                                <p>'.$value->content.'</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>';
-                            }
-                        }
-                    ?>
+                    $link = '/' . $value->slug . '.html'; 
+                    $formattedDate = date('d/m/Y', $value->time);
+                ?>
+                <div class="col-12 col-lg-4">
+                    <div class="card-news">
+                        <div class="card">
+                            <div class="head-card">
+                                <a href="<?= $link ?>"><img src="<?= $value->image ?>" alt=""></a>
+                                <div class="overlay">
+                                    <span class="post-author"><?= $formattedDate ?></span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="">
+                                    <a href="<?= $link ?>"><?= $value->title ?></a>
+                                </h5>
+                                <p><?= $value->content ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
             </div>
         </div>
     </section>
