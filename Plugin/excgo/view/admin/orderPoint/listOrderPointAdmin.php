@@ -61,6 +61,7 @@
                 <tr class="">
                     <th>ID</th>
                     <th>Điểm</th>
+                    <th>tiền</th>
                     <th>Người bán</th>
                     <th>Người mua</th>
                     <th>Ngày giao dịch</th>
@@ -90,15 +91,16 @@
                     <tr>
                         <td><?php echo $item->id ?></td>
                         <td><?php echo $item->point ?> điểm</td>
+                        <td><?php echo number_format($item->total) ?> EXC-xu</td>
                         
                         <td>
-                            <a href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=" . $item->infoUser_sell->id; ?>">
-                                <?php echo $item->infoUser_sell->name; ?>
+                            <a href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=" . @$item->infoUser_sell->id; ?>">
+                                <?php echo @$item->infoUser_sell->name; ?>
                             </a>
                         </td>
                         <td>
-                            <a href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=" . $item->infoUser_buy->id; ?>">
-                                <?php echo $item->infoUser_buy->name; ?>
+                            <a href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=" . @$item->infoUser_buy->id; ?>">
+                                <?php echo @$item->infoUser_buy->name; ?>
                             </a>
                         </td>
                         <td class="text-center"><?php echo $item->created_at->format('d-m-Y') ?></td>
