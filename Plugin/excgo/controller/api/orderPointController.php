@@ -40,7 +40,13 @@ function createOrderSellPointApi($input): array
 
 
        
-        if ($currentUser->point < $minimumPointSold && $point < $minimumPointSold && $currentUser->point < $point) {
+        if($currentUser->point < $minimumPointSold) {
+            return apiResponse(4, 'Số điểm chưa đủ để bán');
+        }
+        if ($point < $minimumPointSold) {
+            return apiResponse(4, 'Số điểm chưa đủ để bán');
+        }
+        if ($currentUser->point < $point) {
             return apiResponse(4, 'Số điểm chưa đủ để bán');
         }
 
@@ -764,7 +770,9 @@ function cancelOrderSellPointApi($input): array
             return apiResponse(5, 'Đơn này không tồn tại');
         }
 
-        if (empty($order->status == 2)) {
+
+
+        if ($order->status == 2) {
             return apiResponse(6, 'đơn này có người mua rồi ');
         }elseif($order->status ==3) {
             return apiResponse(4, 'đơn này đã bị hủy');
@@ -892,8 +900,15 @@ function updeatOrderSellPointApi($input): array
             return apiResponse(6, '1 điểm tối thiểu là '.number_format($convertPointMoney) . ' EXC-xu');
         }
 
-        if ($currentUser->point < $minimumPointSold && $point < $minimumPointSold && $currentUser->point < $point) {
-            return apiResponse(4, 'Số điểm chưa đủ để bán ');
+       
+        if($currentUser->point < $minimumPointSold) {
+            return apiResponse(4, 'Số điểm chưa đủ để bán');
+        }
+        if ($point < $minimumPointSold) {
+            return apiResponse(4, 'Số điểm chưa đủ để bán');
+        }
+        if ($currentUser->point < $point) {
+            return apiResponse(4, 'Số điểm chưa đủ để bán');
         }
 
       
@@ -1089,7 +1104,7 @@ function statisticsMyUserApi($input): array
 
 
 
-        $total = $point+ $booking;
+        $total = $point + $booking;
 
         $data = [
             // 'chuyen_dang' => $posted_by,
