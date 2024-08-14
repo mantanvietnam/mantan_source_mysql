@@ -5,4 +5,5 @@
     $routesTheme['tool'] = 'snaggolf/tool.php';
     $routesTheme['method'] = 'snaggolf/method.php';
     $routesTheme['contact'] = 'snaggolf/contact.php';
+    $routesTheme['about'] = 'snaggolf/about.php';
 ?>

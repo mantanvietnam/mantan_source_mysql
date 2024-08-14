@@ -11,7 +11,11 @@ $menus[0]['sub'][1]= array( 'title'=>'Cài đặt HLV',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingtrainer'
                             );
-
+$menus[0]['sub'][2]= array( 'title'=>'Cài đặt trang về chúng tôi',
+                            'url'=>'/plugins/admin/snaggolf-admin-settingabout.php',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'settingabout'
+                            );
 
 
 
@@ -42,6 +46,15 @@ $data = $modelOptions->find()->where($conditions)->first();
 $settingTrainer = array();
 if(!empty($data->value)){
     $settingTrainer = json_decode($data->value, true);
+}
+
+
+
+$conditions = array('key_word' => 'settingabout');
+$data = $modelOptions->find()->where($conditions)->first();
+$settingabout = array();
+if(!empty($data->value)){
+    $settingabout = json_decode($data->value, true);
 }
 
 ?>

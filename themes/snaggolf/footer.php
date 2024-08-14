@@ -15,7 +15,7 @@
                     FORM ĐĂNG KÝ
                     HUẤN LUYỆN VIÊN
                 </h2>
-                <form action="/action" method="post">
+                <form action="/contact" method="post">
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <div class="form-component">

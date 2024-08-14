@@ -35,6 +35,7 @@ function settingHomeThemeSnagGolf($input)
                        
 
                         'footer_content' => $dataSend['footer_content'],
+                        'idmenu' => $dataSend['idmenu'],
                     );
 
         $data->key_word = 'settingHomeThemeSnagGolf';
@@ -66,55 +67,35 @@ function indexTheme($input)
     global $controller;
     global $modelAlbuminfos;
     global $urlCurrent;
+    global $modelOptions;
+    global $modelMenus;
     $limit = 8;
-    $conditions = array();
-    if(!empty($_GET['id'])){
-        $conditions['id'] = (int) $_GET['id'];
+    $conditions = array('key_word' => 'settingHomeThemeSnagGolf');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
     }
-    if(!empty($_GET['name'])){
-        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
-    }
-    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+  
+
     $modelcourse = $controller->loadModel('course');
     $order = array('id' => 'asc');
-    $listDatacourse= $modelcourse->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
-    $totalData = $modelcourse->find()->where($conditions)->all()->toList();
-    $totalData = count($totalData);
-    $balance = $totalData % $limit;
-    $totalPage = ($totalData - $balance) / $limit;
-    if ($balance > 0)
-        $totalPage+=1;
+    $listDatacourse= $modelcourse->find()->order($order)->all()->toList();
+   
+    
 
-    $back = $page - 1;
-    $next = $page + 1;
-    if ($back <= 0)
-        $back = 1;
-    if ($next >= $totalPage)
-        $next = $totalPage;
-
-    if (isset($_GET['page'])) {
-        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
-        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
-    } else {
-        $urlPage = $urlCurrent;
-    }
-    if (strpos($urlPage, '?') !== false) {
-        if (count($_GET) >= 1) {
-            $urlPage = $urlPage . '&page=';
-        } else {
-            $urlPage = $urlPage . 'page=';
-        }
-    } else {
-        $urlPage = $urlPage . '?page=';
-    }
     $listDatatop= $modelPosts->find()->limit(3)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
-    setVariable('page', $page);
-    setVariable('totalPage', $totalPage);
-    setVariable('back', $back);
-    setVariable('next', $next);
-    setVariable('urlPage', $urlPage);
+
+    $idmenu = [];
+    if(!empty($data_value['idmenu'])){
+        $idmenu = $modelMenus->find()->where(['id_menu'=>(int) $data_value['idmenu']])->all()->toList();
+    }
+    setVariable('idmenu', $idmenu);
     setVariable('listDatacourse', $listDatacourse);
     setVariable('listDatatop', $listDatatop);
+
+    
 }
 function settingtrainer($input)
 {
@@ -122,7 +103,7 @@ function settingtrainer($input)
 	global $metaTitleMantan;
 	global $isRequestPost;
 
-    $metaTitleMantan = 'Cài đặt giao diện trang chủ';
+    $metaTitleMantan = 'Cài đặt giao diện trang HLV';
     $mess= '';
 
     $conditions = array('key_word' => 'settingtrainer');
@@ -175,6 +156,98 @@ function settingtrainer($input)
     setVariable('mess', $mess);
 }
 function trainer($input){
+    global $modelMenus;
+    global $modelOptions;
+    $conditions = array('key_word' => 'settingHomeThemeSnagGolf');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    $idmenu = [];
+    if(!empty($data_value['idmenu'])){
+        $idmenu = $modelMenus->find()->where(['id_menu'=>(int) $data_value['idmenu']])->all()->toList();
+    }
+    setVariable('idmenu', $idmenu);
+}
+function settingabout($input){
+	global $modelOptions;
+	global $metaTitleMantan;
+	global $isRequestPost;
+   
+    $metaTitleMantan = 'Cài đặt giao diện trang về chúng tôi';
+    $mess= '';
+   
+    $conditions = array('key_word' => 'settingabout');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+    	$dataSend = $input['request']->getData();
+
+    	$value = array( 'bannerabout' => $dataSend['bannerabout'],
+                        'titleabout'=>$dataSend['titleabout'],
+                        'title1'=>$dataSend['title1'],
+                        'contentabout1'=>$dataSend['contentabout1'],
+                        'title2'=>$dataSend['title2'],
+                        'contentabout2'=>$dataSend['contentabout2'],
+                        'title3'=>$dataSend['title3'],
+                        'contentabout3'=>$dataSend['contentabout3'],
+
+        );
+
+        $data->key_word = 'settingabout';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+  
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
+function about($input){
+    global $controller;
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $modelAlbuminfos;
+    global $data;
+    global $modelPosts;
+    global $modelMenus;
+    $metaTitleMantan = 'Trang About';
+    $order = array('id' => 'desc');
+    $conditions = array('key_word' => 'settingabout');
+    $data = $modelOptions->find()->where($conditions)->first();
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    setVariable('setting', $data_value);
+    $conditions = array('key_word' => 'settingHomeThemeSnagGolf');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    $idmenu = [];
+    if(!empty($data_value['idmenu'])){
+        $idmenu = $modelMenus->find()->where(['id_menu'=>(int) $data_value['idmenu']])->all()->toList();
+    }
+    $listDatatop= $modelPosts->find()->limit(2)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
+    setVariable('idmenu', $idmenu);
+    setVariable('listDatatop', $listDatatop);
+   
 
 }
 function courses($input){
@@ -222,7 +295,20 @@ function courses($input){
     } else {
         $urlPage = $urlPage . '?page=';
     }
+    global $modelMenus;
+    global $modelOptions;
+    $conditions = array('key_word' => 'settingHomeThemeSnagGolf');
+    $data = $modelOptions->find()->where($conditions)->first();
 
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    $idmenu = [];
+    if(!empty($data_value['idmenu'])){
+        $idmenu = $modelMenus->find()->where(['id_menu'=>(int) $data_value['idmenu']])->all()->toList();
+    }
+    setVariable('idmenu', $idmenu);
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
@@ -263,6 +349,20 @@ function detailcourse($input){
     }else{
         return $controller->redirect('/');
     }
+    global $modelMenus;
+    global $modelOptions;
+    $conditions = array('key_word' => 'settingHomeThemeSnagGolf');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    $idmenu = [];
+    if(!empty($data_value['idmenu'])){
+        $idmenu = $modelMenus->find()->where(['id_menu'=>(int) $data_value['idmenu']])->all()->toList();
+    }
+    setVariable('idmenu', $idmenu);
     setVariable('listDatatop', $listDatatop);
 }
 function tool($input){
@@ -271,7 +371,20 @@ function tool($input){
     global $controller;
     global $modelAlbuminfos;
     global $modelCategory;
+    global $modelMenus;
+    global $modelOptions;
+    $conditions = array('key_word' => 'settingHomeThemeSnagGolf');
+    $data = $modelOptions->find()->where($conditions)->first();
 
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    $idmenu = [];
+    if(!empty($data_value['idmenu'])){
+        $idmenu = $modelMenus->find()->where(['id_menu'=>(int) $data_value['idmenu']])->all()->toList();
+    }
+    setVariable('idmenu', $idmenu);
     $modeltool = $controller->loadModel('products');
     
     $listDatatool = $modeltool->find()->all()->toList();
@@ -292,7 +405,20 @@ function postTheme($input)
     $order = array('id'=>'desc');
 
     
+    global $modelMenus;
+    global $modelOptions;
+    $conditions = array('key_word' => 'settingHomeThemeSnagGolf');
+    $data = $modelOptions->find()->where($conditions)->first();
 
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    $idmenu = [];
+    if(!empty($data_value['idmenu'])){
+        $idmenu = $modelMenus->find()->where(['id_menu'=>(int) $data_value['idmenu']])->all()->toList();
+    }
+    setVariable('idmenu', $idmenu);
     // DANH MỤC TIN TỨC
     $conditions = array('type' => 'post');
     $category_post = $modelCategories->find()->where($conditions)->all()->toList();
@@ -300,7 +426,22 @@ function postTheme($input)
     setVariable('category_post', $category_post);
     
 }
+function method($input){
+    global $modelMenus;
+    global $modelOptions;
+    $conditions = array('key_word' => 'settingHomeThemeSnagGolf');
+    $data = $modelOptions->find()->where($conditions)->first();
 
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    $idmenu = [];
+    if(!empty($data_value['idmenu'])){
+        $idmenu = $modelMenus->find()->where(['id_menu'=>(int) $data_value['idmenu']])->all()->toList();
+    }
+    setVariable('idmenu', $idmenu);
+}
 function searchTheme($input)
 {
 

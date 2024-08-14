@@ -1,6 +1,6 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">SnagGolf Theme - Cài đặt trang chủ</h4>
+    <h4 class="fw-bold py-3 mb-4">SnagGolf Theme - Cài đặt trang HLV</h4>
 
     <p><?php echo @$mess;?></p>
     <?= $this->Form->create(); ?>

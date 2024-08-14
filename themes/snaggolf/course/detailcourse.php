@@ -83,14 +83,15 @@
         <div class="container">
             <h3>ĐĂNG KÝ NHẬN ƯU ĐÃI</h3>
             <div class="form-contain">
-                <form action="http://snaggolftour.com/saveOrderProduct_addOrder" method="post">
+                <form action="/contact" method="post">
                     <div class="row g-3">
                         <input type="hidden" name="idProductShow" value="6373b94b2ac5db71478b4567">
                         <input type="hidden" name="numberOrder" value="1">
                         <div class="col-12 col-lg-6 mt-0 mb-2">
                             <div class="form-field">
                                 <label for="">Họ và tên<sup>*</sup></label>
-                                <input required type="text" class="form-control" placeholder="Example: Nguyen Vu Minh Long" name="cus_name">
+                                <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+                                <input required type="text" class="form-control" placeholder="Example: Nguyen Vu Minh Long" name="name">
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 mt-0 mb-2">
@@ -107,8 +108,13 @@
                         </div>
                         <div class="col-12 col-lg-6 mt-0 mb-2">
                             <div class="form-field">
-                                <label for="">Khóa học<sup>*</sup></label>
-                                <input required type="text" class="form-control" value="Khóa học golf người lớn" name="course" disabled>
+                                <label for="subject">Khóa học<sup>*</sup></label>
+                                <select required class="form-control" name="subject" id="subject">
+                                    <option selected>chọn khóa học của bạn</option>
+                                    <option value="golf_nguoi_lon">Khóa học golf người lớn</option>
+                                    <option value="golf_thieu_nhi">Khóa học golf thiếu nhi</option>
+                                    <option value="SNAG GOLF TOUR">SNAG GOLF TOUR</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 mt-0 mb-2">
@@ -120,7 +126,7 @@
                         <div class="col-12 col-lg-6 mt-0 mb-2">
                             <div class="form-field">
                                 <label for="">Chọn trung tâm<sup>*</sup></label>
-                                <input required type="text" class="form-control" placeholder="Example: 191 Bà Triệu" name="center">
+                                <input required type="text" class="form-control" placeholder="Example: 191 Bà Triệu" name="content">
                             </div>
                         </div>
                     </div>

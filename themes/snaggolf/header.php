@@ -26,6 +26,7 @@
 
 <body>
     <!-- Header -->
+  
     <header>
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light py-0">
@@ -41,30 +42,27 @@
                         <div class="navbar-nav">
                             <?php 
                             $menu = getMenusDefault();
-
-                            if(!empty($menu)){
-                                foreach($menu as $key => $value){
-                                    if(!empty($value->sub)){
-                                        echo '  <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        '.$value->name.'
-                                                    </a>
-                                                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">';
-
-                                                        foreach ($value->sub as $sub) {
-                                                            echo '<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a></li>';
-                                                        }
-                                        echo        '</ul>
-                                                </li>';
-                                    }else{
-                                        echo '  <li class="nav-item">
-                                                    <a class="nav-link" href="'.$value->link.'">'.$value->name.'</a>
-                                                </li>';
-                                        }
-                                    }
-                                }
                             ?>
-                            
+                            <?php if(!empty($menu)): ?>
+                                <?php foreach($menu as $key => $value): ?>
+                                    <?php if(!empty($value->sub)): ?>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <?php echo $value->name; ?>
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                                <?php foreach ($value->sub as $sub): ?>
+                                                    <li><a class="dropdown-item" href="<?php echo $sub->link; ?>"><?php echo $sub->name; ?></a></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </li>
+                                    <?php else: ?>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="<?php echo $value->link; ?>"><?php echo $value->name; ?></a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                             <span class="nav-link button-link d-none d-lg-block">
                                 <button class="custom-button button-reg-sm" data-bs-toggle="modal" data-bs-target="#DangKyTuVan">Đăng kí tư vấn</button>
                             </span>
@@ -72,9 +70,6 @@
                                 <button class="custom-button button-reg" data-bs-toggle="modal" data-bs-target="#DangKyTuVan">Đăng kí tư vấn</button>
                             </span>
                             <a class="nav-link d-none d-lg-flex" href="#">
-                                <!-- <button class="border-0 d-flex align-items-center">
-                                    <img src="<?= $urlThemeActive ?>assets/img/nav-icon.png" alt="">
-                                </button> -->
                                 <button class="border-0 d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                     <i class="fa-solid fa-bars"></i>
                                 </button>
@@ -88,16 +83,11 @@
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
             <div class="contain">
-                <?php 
-                    // global $modelOption;
-                    // $listData= $modelOption->getOption('defaultMenuMantan');
-                    // $menus= $modelOption->getOptionById('65c204f10cbee1587e8b4567');
-                    // if(!empty($menus['Option']['value']['category'])){
-                    //     foreach ($menus['Option']['value']['category'] as $categoryMenu) {  
-                    //         echo '<a class="nav-link" href="'.$categoryMenu['url'].'">'.$categoryMenu['name'].'</a>';
-                    //     }
-                    // }
-                ?>
+            <?php if(!empty($idmenu)): ?>
+                <?php foreach($idmenu as $key => $value): ?>
+                <a class="nav-link" href="<?=$value->link?>"><?=$value->name?></a>
+                <?php endforeach; ?>
+            <?php endif; ?>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
