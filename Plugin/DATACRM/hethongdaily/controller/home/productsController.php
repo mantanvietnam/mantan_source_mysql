@@ -74,6 +74,8 @@ function addOrderCustomer($input)
 
                 $modelOrders->save($save);
 
+                $productDetail = [];
+
                 foreach ($dataSend['idHangHoa'] as $key => $value) {
                     $saveDetail = $modelOrderDetails->newEmptyEntity();
 
@@ -85,14 +87,24 @@ function addOrderCustomer($input)
                     $saveDetail->id_unit = (int)$dataSend['id_unit'][$key];
 
                     $modelOrderDetails->save($saveDetail);
-                }
 
+                    $infoProduct = $modelProducts->find()->where(['id'=>$value])->first();
+                    $productDetail[] = $infoProduct->title;
+                }
+                $productDetail = implode(',', $productDetail);
+                
                 $mess= '<p class="text-success">Tạo đơn hàng thành công</p>';
 
-                 // tính hoa hồng cho CTV
+                // tính hoa hồng cho CTV
                 if(function_exists('calculateAffiliate') && !empty(@$dataSend['id_aff'])){
                     calculateAffiliate(@$save->total-@$save->total_costsIncurred, $save->id,(int) @$dataSend['id_aff'],$session->read('infoUser')->id);
                 }
+
+                // gửi thông báo Zalo cho khách
+                if(!empty($customer_buy->id)){
+                    sendZaloUpdateOrder($session->read('infoUser'), $customer_buy, $save, $productDetail);
+                }
+                
 
                 return $controller->redirect('/printBillOrderCustomerAgency/?id_order='.$save->id);
             }

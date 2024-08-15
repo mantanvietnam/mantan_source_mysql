@@ -454,6 +454,8 @@ function createOrderMemberAPI($input)
 	            }
 
 	            if(!empty($member_buy)){
+	            	$member_sell = $modelMembers->find()->where(['id'=>$member_buy->id_father])->first();
+
 	                $save = $modelOrderMembers->newEmptyEntity();
 
 	                $save->id_member_sell = $member_buy->id_father; // id người bán
@@ -472,6 +474,8 @@ function createOrderMemberAPI($input)
 
 	                $modelOrderMembers->save($save);
 
+	                $productDetail = [];
+
 	                foreach ($dataSend['data_order'] as $key => $value) {
 	                    $saveDetail = $modelOrderMemberDetails->newEmptyEntity();
 
@@ -483,6 +487,15 @@ function createOrderMemberAPI($input)
 	                    $saveDetail->discount = (int) $value['discount'];
 
 	                    $modelOrderMemberDetails->save($saveDetail);
+
+	                    $infoProduct = $modelProducts->find()->where(['id'=>$value])->first();
+                    	$productDetail[] = $infoProduct->title;
+	                }
+	                $productDetail = implode(',', $productDetail);
+
+	                // gửi thông báo Zalo cho đại lý
+	                if(!empty($member_buy->id) && !empty($member_sell->id)){
+	                    sendZaloUpdateOrder($member_sell, $member_buy, $save, $productDetail);
 	                }
 
 	                $return = array('code'=>1, 'mess'=>'Tạo đơn hàng đại lý thành công');

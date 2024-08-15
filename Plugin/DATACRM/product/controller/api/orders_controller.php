@@ -76,6 +76,7 @@ function createOrderProductAPI($input)
 
                 // chi tiết đơn hàng
                 $listproduct = [];
+                $productDetail = [];
                 foreach ($dataSend['data_order'] as $data_order) {
                     $product = $modelProduct->find()->where(['id'=>(int) $data_order['id_product']])->first();
 
@@ -102,6 +103,7 @@ function createOrderProductAPI($input)
 
                         $product->numberOrder = (int) $data_order['quantity'];
                         $listproduct[] = $product;
+                        $productDetail[] = $product->title;
                     }
                 }
 
@@ -150,6 +152,13 @@ function createOrderProductAPI($input)
                 }
 
                 // gửi tin nhắn ZALO OA
+                if(!empty($infoUser->id) && !empty($infoMember->id)){
+                    $productDetail = implode(',', $productDetail);
+
+                    sendZaloUpdateOrder($infoMember, $infoUser, $data, $productDetail);
+                }
+
+                /*
                 if(function_exists('sendZNSDataBot')){
                     $product_name = implode(',', $product_name);
                     $product_name = substr($product_name, 0, 100);
@@ -158,6 +167,7 @@ function createOrderProductAPI($input)
 
                     sendZNSDataBot($data, $product_name, $name_system, $agency);
                 }
+                */
 
                 $return = array('code'=>0, 'id_order'=>$data->id);
             }else{

@@ -16,7 +16,7 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Tên hạnh</th>
+                        <th>Hạng thành viên</th>
                         <th>Điểm tích luỹ tối thiểu</th>
                         <?php  if(empty($user->id_father)){ ?>
                         <th class="text-center">Sửa</th>
@@ -48,7 +48,7 @@
                           }
                         }else{
                           echo '<tr>
-                                  <td colspan="5" align="center">Chưa có Xếp hạnh nào</td>
+                                  <td colspan="5" align="center">Chưa có xếp hạng nào</td>
                                 </tr>';
                         }
                       ?>

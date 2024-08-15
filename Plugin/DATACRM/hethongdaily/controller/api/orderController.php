@@ -56,6 +56,8 @@ function createOrderCustomerAPI($input)
 
 	                $modelOrders->save($save);
 
+	                $productDetail = [];
+
 	                foreach ($dataSend['data_order'] as $key => $value) {
 	                    $saveDetail = $modelOrderDetails->newEmptyEntity();
 
@@ -66,6 +68,16 @@ function createOrderCustomerAPI($input)
 	                    $saveDetail->id_unit = (!empty($value['id_unit']))?(int)$value['id_unit']:0;
 
 	                    $modelOrderDetails->save($saveDetail);
+
+	                    $infoProduct = $modelProducts->find()->where(['id'=>$value])->first();
+                    	$productDetail[] = $infoProduct->title;
+	                }
+
+	                $productDetail = implode(',', $productDetail);
+
+	                // gửi thông báo Zalo cho khách
+	                if(!empty($customer_buy->id)){
+	                    sendZaloUpdateOrder($infoMember, $customer_buy, $save, $productDetail);
 	                }
 
 	                $return = array('code'=>0, 'mess'=>'Tạo yêu cầu nhập hàng thành công', 'id_order'=>$save->id);

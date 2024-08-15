@@ -32,18 +32,20 @@ function listRatingPoint($input){
                 $infoCategory->status = 'active';
                 $infoCategory->note = @$dataSend['note'];
                 $modelRatingPointCustomer->save($infoCategory);
-                 $mess = '<p class="text-success">sưa thành công</p>';
+                 $mess = '<p class="text-success">Sửa thành công</p>';
             }else{
                  // Tìm bản ghi có giá trị point_min cao nhất
                 $query = $modelRatingPointCustomer->find()->where(['point_min' => $subquery])->first();
-                if($query->point_min < (int)$dataSend['point_min']){
+                
+                if(empty($query) || $query->point_min < (int)$dataSend['point_min']){
                     $infoCategory = $modelRatingPointCustomer->newEmptyEntity();
+                    
                     $infoCategory->created_at = time(); 
-                    // tạo dữ liệu save
                     $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
                     $infoCategory->point_min = (int) $dataSend['point_min'];
-                    $infoCategory->status = 'active';
+                    //$infoCategory->status = 'active';
                     $infoCategory->note = @$dataSend['note'];
+                    
                     $modelRatingPointCustomer->save($infoCategory);
 
                   $mess = '<p class="text-success">Thêm thành công</p>';
@@ -53,7 +55,7 @@ function listRatingPoint($input){
                 
             }
         }
-        $conditions =array('status'=>'active');
+        $conditions = [];
         $listData = $modelRatingPointCustomer->find()->where($conditions)->all()->toList();
 
 

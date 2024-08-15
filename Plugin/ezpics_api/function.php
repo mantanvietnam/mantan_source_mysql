@@ -936,9 +936,13 @@ function getLayerProductForEdit($idProduct=0)
                     // độ dãn chữ
                     if(!isset($layer->gianchu)) $layer->gianchu = 'normal'; 
                     if($layer->gianchu=='1px' || $layer->gianchu=='0') $layer->gianchu = 'normal';
+                    
+                    $layer->gianchu = (string) $layer->gianchu;
 
                     // độ dãn dòng
                     if(empty($layer->giandong) || $layer->giandong=='0px' || $layer->giandong=='0' || $layer->giandong=='0vh') $layer->giandong = 'normal';
+                    
+                    $layer->giandong = (string) $layer->giandong;
 
                     // chiều ngang của layer
                     if(empty($layer->width) || $layer->width == '0px' || $layer->width == '0vw'){

@@ -136,7 +136,7 @@ function sendEmailNewPassword($email='', $fullName='', $pass= '')
     }
 }
 
-function sendZNSZalo($template_id='', $params='', $phone='', $id_oa='', $app_id='')
+function sendZNSZalo($template_id='', $params=[], $phone='', $id_oa='', $app_id='')
 {
     global $controller;
 
@@ -338,6 +338,66 @@ function sendMessZalo($id_oa='', $app_id='', $user_id_zalo='', $text='', $image=
     }
 
     return ['error'=>1, 'message'=>'Gửi thiếu dữ liệu'];
+}
+
+function sendZaloUpdateOrder($infoMember, $infoCustomer, $infoOrder, $productDetail='')
+{
+    global $controller;
+
+    if(!empty($infoCustomer->name)) $infoCustomer->full_name = $infoCustomer->name;
+
+    $modelZalos = $controller->loadModel('Zalos');
+    $modelMembers = $controller->loadModel('Members');
+    $modelTransactionHistories = $controller->loadModel('TransactionHistories');
+
+    $infoMember = $modelMembers->find()->where(['id'=>$infoMember->id])->first();
+
+    $zaloOA = $modelZalos->find()->where(['id_system'=>$infoMember->id_system])->first();
+
+    if(!empty($zaloOA->template_order) && $infoMember->coin >= 500){
+        $params['name'] = $infoCustomer->full_name;
+        $params['phone_number'] = $infoCustomer->phone;
+        $params['address'] = $infoCustomer->address;
+
+        $params['product'] = substr($productDetail, 0, 100);
+        $params['order_code'] = $infoOrder->id;
+        $params['price'] = number_format($infoOrder->total).'đ';
+        $params['date'] = date('H:i d/m/Y', $infoOrder->create_at);
+
+        $status = 'Đơn hàng mới';
+        switch ($infoOrder->status) {
+            case 'browser': $status = 'Đã duyệt';break;
+            case 'delivery': $status = 'Đang giao hàng';break;
+            case 'done': $status = 'Đã hoàn thành';break;
+            case 'cancel': $status = 'Đã hủy bỏ';break;
+        }
+        $params['status'] = $status;
+
+        if($infoOrder->discount <= 100){
+            $params['discount'] = $infoOrder->discount.'%';
+        }else{
+            $params['discount'] = number_format($infoOrder->discount).'đ';
+        }
+
+        sendZNSZalo($zaloOA->template_order, $params, $infoCustomer->phone, $zaloOA->id_oa, $zaloOA->id_app);
+
+        // trừ tiền tài khoản
+        $infoMember->coin -= 500;
+        $modelMembers->save($infoMember);
+
+        // tạo lịch sử giao dịch
+        $histories = $modelTransactionHistories->newEmptyEntity();
+
+        $histories->id_member = $infoMember->id;
+        $histories->id_system = $infoMember->id_system;
+        $histories->coin = 500;
+        $histories->type = 'minus';
+        $histories->note = 'Gửi thông báo Zalo cho khách hàng '.$infoCustomer->full_name.' ('.$infoCustomer->phone.') cập nhập trạng thái đơn hàng ID '.$infoOrder->id.', số dư tài khoản sau giao dịch là '.number_format($infoMember->coin).'đ';
+        $histories->create_at = time();
+        
+        $modelTransactionHistories->save($histories);
+    }
+    
 }
 
 function getTreeSystem($id_father, $modelMembers)

@@ -216,6 +216,8 @@ function addOrderAgency($input)
                 $member_buy = $modelMembers->find()->where(array('id'=>(int) $dataSend['id_member_buy']))->first();
 
                 if(!empty($member_buy)){
+                    $member_sell = $modelMembers->find()->where(['id'=>$member_buy->id_father])->first();
+
                     $save = $modelOrderMembers->newEmptyEntity();
 
                     $save->id_member_sell = $member_buy->id_father;
@@ -246,6 +248,8 @@ function addOrderAgency($input)
 
                     $modelOrderMembers->save($save);
 
+                    $productDetail = [];
+
                     foreach ($dataSend['idHangHoa'] as $key => $value) {
                         $saveDetail = $modelOrderMemberDetails->newEmptyEntity();
 
@@ -270,9 +274,18 @@ function addOrderAgency($input)
                         }
 
                         $modelOrderMemberDetails->save($saveDetail);
-                    }
 
-                    $mess= '<p class="text-success">Gửi yêu cầu thành công</p>';
+                        $infoProduct = $modelProducts->find()->where(['id'=>$value])->first();
+                        $productDetail[] = $infoProduct->title;
+                    }
+                    $productDetail = implode(',', $productDetail);
+
+                    $mess= '<p class="text-success">Tạo yêu cầu thành công</p>';
+
+                    // gửi thông báo Zalo cho đại lý tuyến dưới
+                    if(!empty($member_buy->id) && !empty($member_sell->id)){
+                        sendZaloUpdateOrder($member_sell, $member_buy, $save, $productDetail);
+                    }
 
                     return $controller->redirect('/printBillOrderMemberAgency/?id_order_member='.$save->id);
                 }else{

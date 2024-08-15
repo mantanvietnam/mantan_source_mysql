@@ -33,6 +33,7 @@ function setttingZaloOA($input)
 		        $data->id_app = trim($dataSend['id_app']);
 		        $data->secret_key = trim($dataSend['secret_key']);
 		        $data->template_otp = (int) $dataSend['template_otp'];
+		        $data->template_order = (int) $dataSend['template_order'];
 		        $data->id_system = $infoUser->id_system;
 
 		        $modelZalos->save($data);

@@ -621,7 +621,7 @@ function addDataCustomerAgency($input)
                         if($value[1][0]!='0'){
                             $value[1] = '0'.$value[1];
                         }
-
+                        
                         $conditions = ['phone'=>$value[1]];
                         $checkPhone = $modelCustomer->find()->where($conditions)->first();
 

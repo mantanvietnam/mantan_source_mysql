@@ -630,6 +630,7 @@ function getPointCustomerAPI($input){
 
     $modelPointCustomer = $controller->loadModel('PointCustomers');
     $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
+    
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -647,49 +648,28 @@ function getPointCustomerAPI($input){
                     $conditions['id_member']=$boss->id; 
                 }
 
+                $point = 0;
+                $membership = 'Chưa xếp hạng';
+                
                 $data = $modelPointCustomer->find()->where($conditions)->first();
 
                 if(!empty($data)){
-                        $data->rating = $modelRatingPointCustomer->find()->where(['id'=>$data->id_rating])->first()->name;
-                        $member = $modelMember->find()->where(['id'=>$data->id_member])->first();
-                        if(!empty($member)){
+                    $membership = $modelRatingPointCustomer->find()->where(['id'=>$data->id_rating])->first()->name;
+                    $point = $data->point;
+                }
 
-                        unset($member->password);
-                        unset($member->id_father);
-                        unset($member->status);
-                        unset($member->deadline);
-                        unset($member->token);
-                        unset($member->token_device);
-                        unset($member->list_theme_info);
-                        unset($member->display_info);
-                        unset($member->otp);
-                        unset($member->id_system);
-                        unset($member->verify);
-                        unset($member->coin);
-                        unset($member->view);
-                        unset($member->id_position);
-                        unset($member->create_agency);
-                        unset($member->banner);
-                        unset($member->instagram);
-                        unset($member->last_login);
-                        unset($member->portrait);
-                        unset($member->create_order_agency);
-                        unset($member->img_card_member);
-                        unset($member->img_logo);
-                        unset($member->noti_new_order);
-                        unset($member->noti_new_customer);
-                        unset($member->noti_checkin_campaign);
-                        unset($member->noti_reg_campaign);
-                        unset($member->noti_product_warehouse);
+                $allPoint = $modelRatingPointCustomer->find()->where()->all()->toList();
+                $point_max = 0;
+
+                if(!empty($allPoint)){
+                    foreach ($allPoint as $key => $value) {
+                        if($point_max < $value->point_min){
+                            $point_max = $value->point_min;
+                        }
                     }
-                        $data->infoMember = $member;
-                        $data->infoUser = $user;
-
-
-
                 }
                
-                return array('code'=>1,'data'=> $data, 'messages'=>'Lấy dữ liệu thành công');
+                return array('code'=>1,'point'=> $point, 'membership'=>$membership, 'point_max'=>$point_max, 'messages'=>'Lấy dữ liệu thành công');
             }
 
             return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
