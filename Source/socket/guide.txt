@@ -1,0 +1,1 @@
+1. Chạy lệnh: php socket/server.php

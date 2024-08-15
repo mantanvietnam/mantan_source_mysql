@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+</head>
+<body>
+    <ul id="student-list"></ul>
+
+    <input type="text" name="" value="" id="messageInput">
+    <input type="button" name="" value="Send" onclick="addMess()">
+
+    
+
+    <script>
+        const socket = new WebSocket('ws://socket.2top.vn:8765');
+
+        // Sự kiện khi kết nối mở
+        socket.onopen = function (event) {
+            console.log('WebSocket connection opened:', event);
+        };
+
+        // Sự kiện khi nhận được dữ liệu từ máy chủ
+        socket.onmessage = function (event) {
+            const studentList = document.getElementById('student-list');
+            const listItem = document.createElement('li');
+            listItem.textContent = event.data;
+            studentList.appendChild(listItem);
+            console.log('Message received:', event);
+        };
+
+        // Sự kiện khi kết nối đóng
+        socket.onclose = function (event) {
+            console.log('WebSocket connection closed:', event);
+        };
+
+        // Sự kiện khi xảy ra lỗi
+        socket.onerror = function (event) {
+            console.error('WebSocket error:', event);
+        };
+
+        socket.addEventListener('error', (event) => {
+            console.error('WebSocket error:', event);
+        });
+
+        socket.addEventListener('close', (event) => {
+            console.log('WebSocket closed:', event);
+        });
+
+        socket.addEventListener('open', (event) => {
+            console.log('WebSocket opened:', event);
+        });
+
+        socket.addEventListener('message', (event) => {
+            // Xử lý thông báo từ máy chủ
+            const data = JSON.parse(event.data);
+
+            // Hiển thị thông báo hoặc cập nhật giao diện người dùng
+            console.log('New record added:', data);
+            // Thực hiện các bước khác để hiển thị thông báo cho người dùng
+        });
+    </script>
+
+    <script type="text/javascript">
+        function addMess() {
+            const message = document.getElementById('messageInput').value;
+            socket.send(message);
+        }
+    </script>
+</body>
+</html>
