@@ -705,6 +705,7 @@ function listUserStatisticAdmin($input)
     $metaTitleMantan = 'Danh sách thành viên';
     $modelBooking = $controller->loadModel('Bookings');
     $modelUser = $controller->loadModel('Users');
+    $modelOrderPoint = $controller->loadModel('OrderPoints');
 
     $conditions = array();
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
@@ -752,13 +753,37 @@ function listUserStatisticAdmin($input)
         $page
     );
 
-  /*  if(!empty($listData)){
+    if(!empty($listData)){
         foreach($listData as $key => $item){
-            $listData[$key]->received = count($modelBooking->find()->where(array('received_by'=>$item->id))->all()->toList());
-            $listData[$key]->posted = count($modelBooking->find()->where(array('posted_by'=>$item->id,))->all()->toList());
-        }
-    }*/
+           $DataPointSell = $modelOrderPoint->find()->where(['user_sell'=>$item->id, 'status <'=>3])->all()->toList();
 
+            $DataPointBuy = $modelOrderPoint->find()->where(['user_buy'=>$item->id, 'status'=>2])->all()->toList();
+
+            $pointSell = 0;
+            if(!empty($DataPointSell)){
+                foreach($DataPointSell as $keys => $value){
+                    if(!empty($value->point)){
+                       $pointSell +=  $value->point;
+                    }
+                }
+            }
+            $item->pointSell = @$pointSell;
+
+            $pointBuy = 0;
+            if(!empty($DataPointBuy)){
+                foreach($DataPointBuy as $keys => $value){
+                    if(!empty($value->point)){
+                       $pointBuy +=  $value->point;
+                    }
+                }
+            }
+            $item->pointBuy = @$pointBuy;
+            $listData[$key]=$item;
+           
+        }
+    }
+    // sdebug($listData);
+    // sdie();
     setVariable('page', $page);
     setVariable('totalPage', $paginationMeta['totalPage']);
     setVariable('back', $paginationMeta['back']);

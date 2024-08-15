@@ -64,7 +64,9 @@
           <th>Họ và tên</th> 
           <th>Quốc đăng</th> 
           <th>Quốc Nhận</th> 
-          <th>Thống kê tổng</th> 
+          <th>Điểm bán</th> 
+          <th>Diểm mua</th> 
+          <th>Tổng điểm</th> 
           <th>LOẠI TÀI KHOẢN</th> 
                
         </tr>
@@ -92,7 +94,9 @@
                   </td>
                   <td align="center">' . $item->posted . '</td>
                   <td align="center">' . $item->received . '</td>
-                  <td align="center">' . $item->posted-$item->received . '</td>
+                  <td align="center">' . $item->pointSell . '</td>
+                  <td align="center">' . $item->pointBuy . '</td>
+                  <td align="center">' . $item->point . '</td>
                   <td align="center">' . $type . '</td>
 
                </tr>';

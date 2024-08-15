@@ -174,7 +174,7 @@ function listOrderPointApi($input): array
     if ($isRequestPost){
         $dataSend = $input['request']->getData();
 
-         if(empty($dataSend['access_token']) && empty($dataSend['type'])){
+         if(empty($dataSend['access_token'])){
             return apiResponse(2, 'Gửi thiếu dữ liệu');
          }
 
@@ -184,7 +184,13 @@ function listOrderPointApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
         
-        $conditions = array('type'=>(int)$dataSend['type'], 'status'=>0);
+        $conditions = array( 'status'=>0);
+
+        if(!empty($dataSend['type'])){
+            $conditions['type']=(int)$dataSend['type'];
+        }
+
+
 
         /*if($dataSend['type']==1){
              $conditions['user_sell !='] = @$currentUser->id;
@@ -249,20 +255,24 @@ function listOrderPointMyUserApi($input): array
          }
 
         $currentUser = getUserByToken($dataSend['access_token']);
-
+        
         if (empty($currentUser)) {
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
         
-        $conditions = array('type'=>(int)$dataSend['type']);
+        $conditions = array();
 
-        if($dataSend['type']==1){
-             $conditions['user_sell'] = @$currentUser->id;
-        }else{
-             $conditions['user_buy'] = @$currentUser->id;
+         if(!empty($dataSend['type'])){
+            $conditions['type']=(int)$dataSend['type'];
         }
 
-        $listData = $modelOrderPoint->find()->where($conditions)->order(['updated_at'=>'desc'])->all()->toList();
+        $conditions['OR'] = [ 
+            ['user_sell'=>$currentUser->id],
+            ['user_buy'=>$currentUser->id],
+        ];
+
+
+        $listData = $modelOrderPoint->find()->where($conditions)->order(['status'=>'asc','updated_at'=>'desc'])->all()->toList();
 
         if(!empty($listData)){
             foreach($listData as $key => $item){
@@ -826,7 +836,7 @@ function cancelOrderBuyPointApi($input): array
             return apiResponse(5, 'Đơn này không tồn tại');
         }
 
-        if (empty($order->status == 2)) {
+        if ($order->status == 2) {
             return apiResponse(5, 'đơn này có người bán điểm rồi ');
         }elseif($order->status ==3) {
             return apiResponse(4, 'đơn này đã bị hủy');

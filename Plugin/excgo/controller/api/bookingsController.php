@@ -381,9 +381,10 @@ function receiveBookingApi($input): array
 
                if(@$booking->status_free==0){
                     $currentUser->received += 1;
+                    $currentUser->point -= 1;
                }
 
-               $currentUser->point -= 1;
+               
 
 
                 
@@ -657,8 +658,10 @@ function acceptCanceledBookingApi($input): array
             //$refundCoin = $bookingFee->received_fee + $bookingFee->service_fee + $bookingFee->deposit;
             $refundCoin = $booking->deposit;
             $cancelUser->total_coin += $refundCoin;
-            $cancelUser->received -=1;
-            $cancelUser->point += 1;
+            if(@$booking->status_free==0){
+                $cancelUser->received -=1;
+                $cancelUser->point += 1;
+            }
             $modelUser->save($cancelUser);
 
 
@@ -896,9 +899,10 @@ function completeBookingApi($input): array
                 $postedUser = $modelUser->find()->where(['id' => $booking->posted_by])->first();
                 if(@$booking->status_free==0){
                     $postedUser->posted += 1;
+                    $postedUser->point += 1;
                 }
 
-                $postedUser->point += 1;
+                
 
                 $modelUser->save($postedUser);
 
@@ -1117,9 +1121,10 @@ function acceptCompleteBookingApi($input): array
 
                 if(@$booking->status_free==0){
                     $postedUser->posted += 1;
+                    $postedUser->point += 1;
                 }
 
-                $postedUser->point += 1;
+                
 
                 $modelUser->save($currentUser);
 
@@ -2129,8 +2134,10 @@ function acceptCanceledBookingPostedApi($input): array
 
              // Cộng lại số tiền chiết khấu cho người nhận quốc xe 
             $currentUser->total_coin += $refundCoin;
-            $currentUser->received -=1;
-            $currentUser->point += 1;
+            if(@$booking->status_free==0){
+                $currentUser->received -=1;
+                $currentUser->point += 1;
+            }
             $modelUser->save($currentUser);
 
             $newTransaction = $modelTransaction->newEmptyEntity();

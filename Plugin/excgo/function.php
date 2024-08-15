@@ -1389,6 +1389,7 @@ function getDetailBooking($id)
             'Bookings.destination',
             'Bookings.description',
             'Bookings.introduce_fee',
+            'Bookings.status_free',
             'Bookings.deposit',
             'Bookings.status',
             'Bookings.created_at',

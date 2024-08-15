@@ -133,9 +133,9 @@ function addDocumentAPI($input){
 			        $data = $modelDocument->newEmptyEntity();
 			        $data->created_at = time();
 			    }
-
+			    $time = time();
 			    if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
-                $images = uploadImage($infoMember->id, 'image', 'image_'.$infoMember->id);
+                $images = uploadImage($infoMember->id, 'image', 'image_'.$time);
 	            }
 	            $image = '';
 	            if(!empty($images['linkOnline'])){
@@ -394,8 +394,9 @@ function addDocumentinfoAPI($input){
 				if($dataSend['type']=='video'){
 					$file = $dataSend['file'];
 				}else{
+					$time = time();
 					if(isset($_FILES['file']) && empty($_FILES['file']["error"])){
-						$images = uploadImage($id_parent, 'file', 'file_'.$id_parent);
+						$images = uploadImage($id_parent, 'file', 'file_'.$time);
 					}
 					if(!empty($images['linkOnline'])){
 						$file = $images['linkOnline'];
