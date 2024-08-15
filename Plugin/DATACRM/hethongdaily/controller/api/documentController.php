@@ -155,7 +155,7 @@ function addDocumentAPI($input){
 
 
 			    $modelDocument->save($data);
-			    $return = array('code'=>2, 'mess'=>'Lưu dữ liệu thành công');
+			    $return = array('code'=>1, 'mess'=>'Lưu dữ liệu thành công');
 		    }else{
                $return = array('code'=>3, 'mess'=>'Sai mã token');
            }
