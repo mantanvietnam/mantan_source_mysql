@@ -446,7 +446,7 @@ i {
 }
 
 .all-news-item .all-news-detail h3 {
-    font-size: 18px;
+    font-size: 20px;
     text-transform: uppercase;
     color: #000;
     font-weight: 700;
@@ -456,12 +456,12 @@ i {
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
-    margin: 20px 0 !important;
+    margin: 14px 0 !important;
     line-height: 1.5;
 }
 
 .all-news-item .all-news-detail p {
-    font-size: 14px;
+    font-size: 16px;
     color: #898989;
     font-weight: 500;
     overflow: hidden;
@@ -469,6 +469,7 @@ i {
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
+    height: 74px;
 }
 
 .all-news-item .all-news-btn {
@@ -1034,7 +1035,7 @@ i {
 
 #count-section .title-section h2 {
     color: #427FE3;
-    font-size: 40px;
+    font-size: 48px;
     font-weight: 800;
     text-align: center;
     text-transform: uppercase;
@@ -1051,14 +1052,14 @@ i {
 }
 
 .counter_item {
-    width: 230px;
+    max-width: 230px;
     display: grid;
     align-items: center;
     justify-content: center;
 }
 
 .counter_item h1 {
-    font-size: 46px;
+    font-size: 56px;
     font-weight: 900;
     text-align: center;
     color: #427FE3 !important;
@@ -1066,7 +1067,7 @@ i {
 }
 
 .counter_item i {
-    font-size: 24px;
+    font-size: 32px;
     color: #427FE3 !important;
 }
 
@@ -1124,7 +1125,7 @@ i {
 }
 
 #majors-section .title-section h2 {
-    font-size: 40px;
+    font-size: 48px;
     font-weight: 800;
     margin: 20px 0;
     text-transform: uppercase;
@@ -1259,8 +1260,8 @@ i {
     background-position: center;
     padding-top: 80px;
     padding-bottom: 40px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 70px;
+    padding-right: 70px;
 }
 
 #projects-section .container {
@@ -1289,7 +1290,7 @@ i {
 }
 
 #projects-section .title-section h2 {
-    font-size: 40px;
+    font-size: 48px;
     font-weight: 800;
     margin: 20px 0;
     text-transform: uppercase;
@@ -1319,13 +1320,13 @@ i {
 
 .projects-items .projects-items-img {
     width: 250px;
-    height: 250px;
+    height: 265px;
     border-radius: 16px;
     overflow: hidden;
 }
 
 .projects-items .projects-items-info {
-    padding: 30px;
+    padding: 25px;
 }
 
 .swiper1 .swiper-slide :hover img {
@@ -1339,7 +1340,7 @@ i {
 }
 
 .projects-items .projects-items-info a {
-    font-size: 20px;
+    font-size: 23px;
     font-weight: 600;
     margin-bottom: 12px !important;
     overflow: hidden;
@@ -1362,7 +1363,7 @@ i {
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     color: #000;
 }
@@ -1478,7 +1479,7 @@ padding-right: 100px; */
 }
 
 #news-section .title-section h2 {
-    font-size: 40px;
+    font-size: 48px;
     font-weight: 800;
     margin-top: 32px;
     text-transform: uppercase;
@@ -1561,7 +1562,7 @@ padding-right: 100px; */
 }
 
 .home-news-sub {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     overflow: hidden;
     display: -webkit-box;
@@ -1570,7 +1571,7 @@ padding-right: 100px; */
     -webkit-line-clamp: 3;
     color: #000;
     text-align: justify;
-    height: 63px;
+    height: 75px;
 }
 
 .home-news-btn {
@@ -1604,6 +1605,11 @@ padding-right: 100px; */
     object-fit: contain;
 }
 
+.partner-list .partner-items:hover img {
+    scale: 1.1;
+    transition: all linear 0.2s;
+}
+
 .partner-list .slick-list.draggable {
     padding: 0 !important;
 }
@@ -1611,6 +1617,7 @@ padding-right: 100px; */
 .partner-list .partner-items {
     display: flex !important;
     justify-content: center;
+    padding: 20px 0;
 }
 
 #partner-section .container {
@@ -1624,12 +1631,12 @@ padding-right: 100px; */
 
 #partner-section .title-section h3 {
     text-transform: uppercase;
-    font-size: 40px;
+    font-size: 46px;
     font-weight: 800;
     max-width: 800px;
     margin: auto auto;
     text-align: center;
-    margin-bottom: 48px !important;
+    margin-bottom: 35px !important;
 }
 
 .news-right {
@@ -2363,7 +2370,7 @@ background-size: 100%; */
 
 .as1-block-2 h1 {
     color: #ffffff;
-    font-size: 75px;
+    font-size: 70px;
     font-weight: 800;
     letter-spacing: 4px;
     text-transform: uppercase;
@@ -2813,7 +2820,7 @@ background-size: 100%; */
         height: calc(100vh - 80px);
     }
     .dtfs-block-2 h1 {
-        font-size: 52px;
+        font-size: 48px;
     }
     .bp-block-2 {
         height: calc(100vh - 80px);
@@ -2883,7 +2890,7 @@ background-size: 100%; */
         right: 7%;
     }
     .projects-items .projects-items-info {
-        padding: 32px 26px;
+        padding: 25px;
     }
     .projects-items .projects-items-info ul {
         gap: 10px;
@@ -2892,11 +2899,27 @@ background-size: 100%; */
         font-size: 16px;
     }
     .projects-items .projects-items-info a {
-        font-size: 20px;
+        font-size: 22px;
     }
 }
 
 @media (max-width: 1370px) and (min-width: 1050px) {
+    #partner-section .title-section h3 {
+        font-size: 46px;
+        margin-bottom: 54px !important;
+    }
+    #majors-section .title-section h2,
+    #projects-section .title-section h2,
+    #news-section .title-section h2,
+    #count-section .title-section h2 {
+        font-size: 40px;
+    }
+    .counter_item h1 {
+        font-size: 46px;
+    }
+    .counter_item i {
+        font-size: 24px;
+    }
     #partner-section .title-section h3 {
         font-size: 36px;
     }
@@ -2975,6 +2998,13 @@ background-size: 100%; */
     .home-news-name {
         font-size: 20px;
     }
+    .home-news-sub {
+        font-size: 14px;
+        height: 65px;
+    }
+    .home-news-name {
+        font-size: 20px;
+    }
 }
 
 @media (max-width: 1300px) and (min-width: 1050px) {
@@ -2991,9 +3021,17 @@ background-size: 100%; */
         grid-template-columns: auto auto auto;
         justify-content: space-around;
     }
+    .counter_item i {
+        font-size: 24px;
+    }
+    #majors-section .title-section h2,
+    #projects-section .title-section h2 {
+        font-size: 40px;
+    }
 }
 
 @media (max-width: 1050px) {
+    .counter_item {}
     .as1-block-2 {
         width: 60%;
     }
@@ -3112,7 +3150,7 @@ background-size: 100%; */
         min-height: 104px;
     }
     .projects-items .projects-items-info {
-        padding: 20px 32px;
+        padding: 25px;
     }
     #projects-section .title-section {
         padding-bottom: 20px;
@@ -3137,7 +3175,7 @@ background-size: 100%; */
     #majors-section .title-section h2,
     #projects-section .title-section h2,
     #news-section .title-section h2 {
-        font-size: 40px;
+        font-size: 36px;
     }
     .home-news-name {
         font-size: 20px;
@@ -3147,8 +3185,8 @@ background-size: 100%; */
         height: 190px;
     }
     .home-news-sub {
-        font-size: 13px;
-        height: 60px;
+        font-size: 14px;
+        height: 65px;
     }
     .home-news-content {
         padding: 15px 20px;
@@ -3175,6 +3213,10 @@ background-size: 100%; */
 }
 
 @media (max-width: 850px) {
+    .counter_item {
+        max-width: 160px;
+        width: auto;
+    }
     .ts-block-1 {
         grid-template-columns: auto auto;
     }
@@ -3252,11 +3294,6 @@ background-size: 100%; */
     #majors-section .title-section {
         padding: 80px 15px;
     }
-    #majors-section .title-section h2,
-    #projects-section .title-section h2,
-    #news-section .title-section h2 {
-        font-size: 40px;
-    }
     #majors-section .title-section h3::after {
         width: 200px;
     }
@@ -3324,7 +3361,7 @@ background-size: 100%; */
         font-size: 22px;
     }
     .projects-items .projects-items-info {
-        padding: 16px;
+        padding: 25px;
     }
     .swiper-block .swiper-slide {
         height: 600px;
@@ -3337,11 +3374,11 @@ background-size: 100%; */
     }
     .swiper-block .banner-icon::before {
         height: 80px;
-        bottom: -64%;
+        bottom: -100%;
     }
     .swiper-block .banner-icon::after {
         height: 80px;
-        top: -64%;
+        top: -100%;
     }
     .swiper-block .banner-icon {
         top: 100px;
@@ -3530,8 +3567,8 @@ background-size: 100%; */
         padding: 0 20px;
     }
     .majors-list .majors-items img {
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
     }
     .swiper-block .banner-title p {
         font-size: 16px;
@@ -3616,11 +3653,11 @@ background-size: 100%; */
         margin-bottom: 40px;
     }
     .counter_item {
-        width: 100%;
+        max-width: 100%;
     }
     .counter_wrapper {
         display: grid;
-        gap: 20px;
+        gap: 40px;
     }
     #majors-section .title-section h3,
     #projects-section .title-section h3,
