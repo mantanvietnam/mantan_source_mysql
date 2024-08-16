@@ -83,6 +83,9 @@ function listAffiliaterAPI($input)
         }else{
             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
+    }else{
+            $return = array('code'=>0, 'mess'=>'gửi sai kiểu POST');
+
     }
 
     return $return;
@@ -183,7 +186,7 @@ function addAffiliaterAPI($input)
 
                     $return = array('code'=>1, 'mess'=>'Lưu dữ liệu thành công','data'=>$data);
                 }else{
-                    $return = array('code'=>3, 'mess'=>'Số điện thoại đã tồn tại');
+                    $return = array('code'=>4, 'mess'=>'Số điện thoại đã tồn tại');
                 }       
 
             }else{
@@ -296,7 +299,7 @@ function deleteAffiliaterAPI($input){
     return $return;
 }
 
-// lấy  danh sách giao dịch công tác viên 
+// lấy danh sách giao dịch công tác viên 
 function listTransactionAffiliaterAPI($input)
 {
     global $controller;
@@ -323,8 +326,15 @@ function listTransactionAffiliaterAPI($input)
                     $conditions['id'] = (int) $dataSend['id'];
                 }
 
-                if(!empty($dataSend['id_affiliater'])){
-                    $conditions['id_affiliater'] = (int) $dataSend['id_affiliater'];
+                if(!empty($dataSend['phone'])){
+                    $conditions = ['phone'=>$dataSend['phone']];
+                    $checkPhone = $modelAffiliaters->find()->where($conditions)->first();
+                    if(!empty($checkPhone)){
+                        $conditions['id_affiliater'] = $checkPhone->id;
+                    }else{
+                        $conditions['id_affiliater'] = 0;
+                    }
+                    
                 }
 
                 if(!empty($dataSend['id_order'])){

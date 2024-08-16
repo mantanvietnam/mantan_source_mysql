@@ -115,8 +115,12 @@
                             '.$item->boss_email.'<br/>
                             Đăng nhập: '.@$last_login.'<br/>
                             <a class="btn btn-primary" style="color: #fff;" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >Gia hạn cho đại lý</a>
+
+                           
                         </td>
-                        <td>'.$link.'<br/><br/>'.$status.'</td>
+                        <td>'.$link.'<br/><br/>'.$status.'<br/><br/> 
+                        <a class="btn btn-success" style="color: #fff;" data-bs-toggle="modal" data-bs-target="#addMoney'.$item->id.'" > + Nạp tiền cho đạt lý</a>
+                        </td>
                         <td>
                             '.$item->user_db.'<br/>
                             '.$item->pass_db.'
@@ -198,10 +202,10 @@
                     <div class="row gx-3 gy-2 align-items-center">
                       <div class="col-md-12">
                         <label class="form-label"><b>Thông tin Boss</b></label>
-                         <?php echo '<p>Tên boss :'.$item->boss_name.'</p>
-                            <p>Điện thoại boss:'.$item->boss_phone.'</p>
-                            <p>Emai boss: '.$item->boss_email.'</p>';
-                            ?>
+                        <?php echo '<p>Tên boss :'.$item->boss_name.'</p>
+                        <p>Điện thoại boss:'.$item->boss_phone.'</p>
+                        <p>Emai boss: '.$item->boss_email.'</p>';
+                        ?>
                       </div>
 
                       <div class="col-md-12">
@@ -217,6 +221,47 @@
                     </div>
                   </div>
                   <a class="btn btn-primary" style="color: #fff;" onclick="extend(<?php echo $item->id; ?>,'<?php echo $item->domain; ?>')">Gia hạn </a>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+         <div class="modal fade" id="addMoney<?php echo $item->id; ?>"  name="id">
+
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header form-label border-bottom">
+                  <h5 class="modal-title" id="exampleModalLabel1">Mạp tiền cho đại lý </h5>
+                  <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="">
+                 <div class="modal-footer">
+                  <input type="hidden" value="<?php echo $item->id; ?>"  name="id">
+                  <div class="card-body">
+                    <div class="row gx-3 gy-2 align-items-center">
+                      <div class="col-md-12">
+                        <label class="form-label"><b>Thông tin Boss</b></label>
+                        <?php echo '<p>Tên boss :'.$item->boss_name.'</p>
+                        <p>Điện thoại boss:'.$item->boss_phone.'</p>
+                        <p>Emai boss: '.$item->boss_email.'</p>';
+                        ?>
+                      </div>
+
+                      <div class="col-md-12">
+                        <label class="form-label">Số điện thoại đại lý Nạp tiền</label>
+                        <input type="text" class="form-control " id="moneyphone_<?php echo $item->id; ?>" name="moneyphone" value="<?php echo $item->boss_phone;?>">
+                      </div>
+                      <div class="col-md-12">
+                        <label class="form-label">Số tiền nạp</label>
+                        <input type="number" class="form-control "  id="total_<?php echo $item->id; ?>" name="" value="">
+
+                      </div>
+                      <div class="col-md-12" id="messAddMoney<?php echo $item->id; ?>"></div>
+                    </div>
+                  </div>
+                  <a class="btn btn-primary" style="color: #fff;" onclick="addMoney(<?php echo $item->id; ?>,'<?php echo $item->domain; ?>')">Nạp tiền </a>
                 </div>
               </form>
 
@@ -278,5 +323,26 @@
             $('#messAddCustom'+id).html(msg.mess);
             
         })
+    }
+
+
+    function addMoney(id,link){
+        var phone = $('#moneyphone_'+id).val();
+        var total = $('#total_'+id).val();
+        link = "https://"+link+"/apis/addMoneyToIcham";
+
+        if(phone != '' && deadline!=''){
+            $.ajax({
+                method: "POST",
+                url: link,
+                data: { 
+                  total: total,
+                  phone: phone,
+              }
+          })
+          .done(function( msg ) {
+              $('#messAddMoney'+id).html(msg.mess);
+          })
+        }
     }
     </script>
