@@ -430,6 +430,7 @@ function sendMessZaloZNS($input)
 	        $listPositions = $modelCategories->find()->where($conditions)->all()->toList();
 
 			$today = getdate();
+			$listSendBug = [];
 
 			if ($isRequestPost) {
 				if($today['hours']<22 && $today['hours']>=6){
@@ -528,21 +529,27 @@ function sendMessZaloZNS($input)
 						    		$params = [];
 
                                     foreach ($dataSend['variable'] as $key => $variable) {
-                                        if(!empty($dataSend['value'][$key])){
-                                        	$name = (!empty($customer->full_name))?$customer->full_name:$customer->name;
-                                        	$nameCampaign = @$infoCampaign->name;
-                                        	$nameGroup = @$infoGroup->name;
-                                        	$namePosition = @$infoPosition->name;
+                                    	if(!empty($variable)){
+	                                        if(!empty($dataSend['value'][$key])){
+	                                        	$name = (!empty($customer->full_name))?$customer->full_name:$customer->name;
+	                                        	$nameCampaign = @$infoCampaign->name;
+	                                        	$nameGroup = @$infoGroup->name;
+	                                        	$namePosition = @$infoPosition->name;
 
-                                            $smsSend = str_replace('%name%', $name, $dataSend['value'][$key]);
-                                            $smsSend = str_replace('%phone%', $customer->phone, $smsSend);
-                                            $smsSend = str_replace('%id_user%', $customer->id, $smsSend);
-                                            $smsSend = str_replace('%campaign_name%', $nameCampaign, $smsSend);
-                                            $smsSend = str_replace('%group_name%', $nameGroup, $smsSend);
-                                            $smsSend = str_replace('%position_name%', $namePosition, $smsSend);
-                                            
-                                            $params[$variable] = $smsSend;
-                                        }
+	                                            $smsSend = str_replace('%name%', $name, $dataSend['value'][$key]);
+	                                            $smsSend = str_replace('%phone%', $customer->phone, $smsSend);
+	                                            $smsSend = str_replace('%id_user%', $customer->id, $smsSend);
+	                                            $smsSend = str_replace('%campaign_name%', $nameCampaign, $smsSend);
+	                                            $smsSend = str_replace('%group_name%', $nameGroup, $smsSend);
+	                                            $smsSend = str_replace('%position_name%', $namePosition, $smsSend);
+	                                            
+
+	                                            $params[$variable] = $smsSend;
+	                                        }else{
+	                                        	$mess= '<p class="text-danger">Nhập thiếu giá trị biến <b>'.$variable.'</b></p>';
+	                                        	echo $mess;die;
+	                                        }
+	                                    }
                                     }
 
                                     if(!empty($params) && strlen($customer->phone)==10){
@@ -551,11 +558,13 @@ function sendMessZaloZNS($input)
                                         if($returnZalo['error']==0){
                                             $numberSend ++;
                                         }elseif($returnZalo['error']!=0){
-                                            $mess = $returnZalo['message'];
-                                            echo $mess;
+                                            //$mess = $returnZalo['message'];
+                                            //echo $mess;
+                                            $listSendBug[$customer->phone] = $returnZalo['message'];
                                         }
                                     }else{
                                     	$mess= '<p class="text-danger">Nhập thiếu giá trị biến hoặc sai định dạng số điện thoại '.$customer->phone.'</p>';
+                                    	echo $mess;die;
                                     }
 						        }
 
@@ -581,6 +590,12 @@ function sendMessZaloZNS($input)
 							        $mess = '<p class="text-success">Gửi thành công '.number_format($numberSend).' tin nhắn Zalo ZNS cho khách hàng</p>';
 						        }else{
 						        	$mess= '<p class="text-danger">Không gửi được tin nhắn cho khách hàng nào</p>';
+
+						        	if(!empty($listSendBug)){
+						        		foreach ($listSendBug as $phoneBug => $messBug) {
+						        			$mess .= '<p class="text-danger">'.$phoneBug.': '.$messBug.'</p>';
+						        		}
+						        	}
 						        }	
 						    }else{
 						    	$mess = '<p class="text-danger">Tài khoản bạn không đủ tiền, vui lòng nạp thêm '.number_format($requestMoney).'đ để gửi tin nhắn Zalo cho '.number_format(count($listCustomers)).' khách hàng. Liên hệ hotline 081.656.000 để được hỗ trợ nạp tiền</p>';	

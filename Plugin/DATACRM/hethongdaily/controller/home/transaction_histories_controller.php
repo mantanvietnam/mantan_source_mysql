@@ -95,7 +95,7 @@ function addMoney($input)
             $number_bank = '0816560000';
             $name_bank = 'Tran Ngoc Manh';
             $code_bank = 'VPB';
-            $content = 'CRM '.$session->read('infoUser')->phone.' '.str_replace('.', ' ', $_SERVER['SERVER_NAME']);
+            $content = 'ICHAM '.$session->read('infoUser')->phone.' '.str_replace('.', ' ', $_SERVER['SERVER_NAME']);
 
             $linkQR = 'https://img.vietqr.io/image/'.$code_bank.'-'.$number_bank.'-compact2.png?amount='.(int) $_GET['money'].'&addInfo='.$content.'&accountName='.$name_bank;
 
