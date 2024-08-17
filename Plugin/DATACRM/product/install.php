@@ -9,14 +9,14 @@ $sqlUpdateDatabase = [];
 
 $sqlInstallDatabase .= "CREATE TABLE `products` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
-    `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
+    `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
     `id_category` INT NOT NULL , 
     `hot` BOOLEAN NOT NULL , 
-    `description` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
-    `keyword` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
-    `info` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
-    `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
-    `code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , 
+    `description` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `keyword` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `info` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
     `price` INT NOT NULL , 
     `price_old` INT NOT NULL , 
     `quantity` INT NOT NULL , 
@@ -41,7 +41,7 @@ $sqlInstallDatabase .= "CREATE TABLE `orders` (
     `id_user` INT NULL DEFAULT '0' , 
     `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
     `email` VARCHAR(255) NULL , 
-    `phone` VARCHAR(255) NOT NULL , 
+    `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL , 
     `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
     `note_user` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , 
     `note_admin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , 
@@ -159,14 +159,14 @@ $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_product';
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='manufacturer_product'; ";
 
 // Bang products
-$sqlUpdateDatabase['products']['title'] = "ALTER TABLE `products` ADD `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL ; ";
+$sqlUpdateDatabase['products']['title'] = "ALTER TABLE `products` ADD `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ; ";
 $sqlUpdateDatabase['products']['id_category'] = "ALTER TABLE `products` ADD `id_category` INT NOT NULL ; ";
 $sqlUpdateDatabase['products']['hot'] = "ALTER TABLE `products` ADD `hot` BOOLEAN NOT NULL; ";
-$sqlUpdateDatabase['products']['description'] = "ALTER TABLE `products` ADD `description` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL ; ";
-$sqlUpdateDatabase['products']['keyword'] = "ALTER TABLE `products` ADD `keyword` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL ; ";
-$sqlUpdateDatabase['products']['info'] = "ALTER TABLE `products` ADD `info` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL; ";
-$sqlUpdateDatabase['products']['image'] = "ALTER TABLE `products` ADD `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL; ";
-$sqlUpdateDatabase['products']['code'] = "ALTER TABLE `products` ADD `code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL; ";
+$sqlUpdateDatabase['products']['description'] = "ALTER TABLE `products` ADD `description` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ; ";
+$sqlUpdateDatabase['products']['keyword'] = "ALTER TABLE `products` ADD `keyword` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ; ";
+$sqlUpdateDatabase['products']['info'] = "ALTER TABLE `products` ADD `info` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['products']['image'] = "ALTER TABLE `products` ADD `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['products']['code'] = "ALTER TABLE `products` ADD `code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['products']['price'] = "ALTER TABLE `products` ADD `price` INT NOT NULL; ";
 $sqlUpdateDatabase['products']['price_old'] = "ALTER TABLE `products` ADD `price_old` INT NOT NULL; ";
 $sqlUpdateDatabase['products']['quantity'] = "ALTER TABLE `products` ADD `quantity` INT NOT NULL ; ";
@@ -189,7 +189,7 @@ $sqlUpdateDatabase['products']['price_agency'] = "ALTER TABLE `products` ADD `pr
 $sqlUpdateDatabase['orders']['id_user'] = "ALTER TABLE `orders` ADD `id_user` INT NULL DEFAULT '0' ; ";
 $sqlUpdateDatabase['orders']['full_name'] = "ALTER TABLE `orders` ADD `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['orders']['email'] = "ALTER TABLE `orders` ADD `email` VARCHAR(255) NULL ; ";
-$sqlUpdateDatabase['orders']['phone'] = "ALTER TABLE `orders` ADD `phone` VARCHAR(255) NOT NULL; ";
+$sqlUpdateDatabase['orders']['phone'] = "ALTER TABLE `orders` ADD `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['orders']['address'] = "ALTER TABLE `orders` ADD `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['orders']['note_user'] = "ALTER TABLE `orders` ADD `note_user` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL; ";
 $sqlUpdateDatabase['orders']['note_admin'] = "ALTER TABLE `orders` ADD `note_admin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ; ";
