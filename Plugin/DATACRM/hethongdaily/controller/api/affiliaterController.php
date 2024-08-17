@@ -69,7 +69,7 @@ function listAffiliaterAPI($input)
                         $listData[$key]->number_customer = count($customer);
                         $listData[$key]->money_back = $money_back;
 
-                        $listData[$key]->aff = $modelAffiliaters->find()->where(['id_father'=>$value->id])->first();
+                        $listData[$key]->aff = $modelAffiliaters->find()->where(['id'=>$value->id_father])->first();
                     }
                 }
             // phân trang
@@ -210,12 +210,18 @@ function getAffiliaterAPI($input)
     global $metaTitleMantan;
     global $modelCategories;
     global $urlHomes;
+    global $session;
 
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+        if(!empty($dataSend['id'])){
+            if(!empty($dataSend['token'])){
+                $infoMember = getMemberByToken($dataSend['token']);
+            }elseif(!empty($session->read('infoUser'))){
+                $infoMember =  $session->read('infoUser');
+            }
+            
 
             if(!empty($infoMember)){
 
@@ -242,7 +248,7 @@ function getAffiliaterAPI($input)
                         $data->number_customer = count($customer);
                         $data->money_back = $money_back;
 
-                        $data->aff = $modelAffiliaters->find()->where(['id_father'=>$data->id])->first();
+                        $data->aff = $modelAffiliaters->find()->where(['id'=>$data->id_father])->first();
 
                         $return = array('code'=>1, 'mess'=>'Lưu dữ liệu thành công','data'=>$data);
 

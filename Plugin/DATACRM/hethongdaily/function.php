@@ -413,6 +413,63 @@ function getTreeSystem($id_father, $modelMembers)
     return $listData;
 }
 
+function getTreeAffiliater($id_father, $number)
+{
+    global $controller;
+    $modelAffiliaters = $controller->loadModel('Affiliaters');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
+
+    $listData = $modelAffiliaters->find()->where(['id_father'=>$id_father])->all()->toList();
+    $number =  (int)$number+1;
+     $percent = getPercentAffiliate();
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $listData[$key]->Affiliater = getTreeAffiliater($value->id, $number);
+            $listData[$key]->level = $number;
+            $order = $modelOrders->find()->where(['id_aff'=>$value->id])->all()->toList();
+            $customer = $modelCustomers->find()->where(['id_aff'=>$value->id])->all()->toList();
+            $moneys = $modelTransactionAffiliateHistories->find()->where(['id_affiliater'=>$value->id, 'status'=>'new'])->all()->toList();
+
+            $money_back = 0;
+            if(!empty($moneys)){
+                foreach ($moneys as $item) {
+                    $money_back += $item->money_back;
+                }
+            }
+
+            $listData[$key]->number_order = count($order);
+            $listData[$key]->number_customer = count($customer);
+            $listData[$key]->money_back = $money_back;
+            $listData[$key]->percent = $percent['percent'.$number];
+
+            $listData[$key]->aff = $modelAffiliaters->find()->where(['id'=>$value->id_father])->first();
+             
+        }
+    }
+
+    return $listData;
+}
+
+function getPercentAffiliate(){
+    global $modelOptions;
+    global $session;
+    global $session;
+    global $controller;
+    $data_value = array();
+    if(!empty($session->read('infoUser'))){
+        $user = $session->read('infoUser');
+        $conditions = array('key_word' => 'settingAffiliateAgency'.$user->id);
+        $data = $modelOptions->find()->where($conditions)->first();        
+        if(!empty($data->value)){
+            $data_value = json_decode($data->value, true);
+        }
+   
+    }
+    return $data_value;
+}
+
 function getInfoCustomerMember($value=0, $type='id')
 {
     global $controller;

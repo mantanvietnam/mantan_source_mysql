@@ -2,6 +2,7 @@
 function listAffiliaterAgency($input)
 {
     global $controller;
+    global $urlHomes;
     global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
@@ -22,27 +23,8 @@ function listAffiliaterAgency($input)
         if($page<1) $page = 1;
         $order = array('id'=>'desc');
 
-        if(!empty($_GET['id'])){
-            $conditions['id'] = (int) $_GET['id'];
-        }
 
-        if(!empty($_GET['name'])){
-            $conditions['name LIKE'] = '%'.$_GET['name'].'%';
-        }
-
-        if(!empty($_GET['phone'])){
-            $conditions['phone'] = $_GET['phone'];
-        }
-
-        if(!empty($_GET['id_father'])){
-            $conditions['id_father'] = $_GET['id_father'];
-        }
-
-        if(!empty($_GET['email'])){
-            $conditions['email'] = $_GET['email'];
-        }
-
-        if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+        /*if(!empty($_GET['action']) && $_GET['action']=='Excel'){
             $listData = $modelAffiliaters->find()->where($conditions)->order($order)->all()->toList();
             
             $titleExcel =   [
@@ -93,10 +75,39 @@ function listAffiliaterAgency($input)
                     $listData[$key]->number_customer = count($customer);
                     $listData[$key]->money_back = $money_back;
 
-                    $listData[$key]->aff = $modelAffiliaters->find()->where(['id_father'=>$value->id])->first();
+                    $listData[$key]->aff = $modelAffiliaters->find()->where(['id'=>$value->id_father])->first();
                 }
             }
+        }*/
+
+        $listData = $modelAffiliaters->find()->where(['id_father'=>0 , 'id_member'=>$user->id])->all()->toList();
+         $percent = getPercentAffiliate();
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                $listData[$key]->Affiliater = getTreeAffiliater($value->id, 1);
+
+                $order = $modelOrders->find()->where(['id_aff'=>$value->id])->all()->toList();
+                $customer = $modelCustomers->find()->where(['id_aff'=>$value->id])->all()->toList();
+                $moneys = $modelTransactionAffiliateHistories->find()->where(['id_affiliater'=>$value->id, 'status'=>'new'])->all()->toList();
+
+                $money_back = 0;
+                if(!empty($moneys)){
+                    foreach ($moneys as $item) {
+                        $money_back += $item->money_back;
+                    }
+                }
+
+                $listData[$key]->number_order = count($order);
+                $listData[$key]->number_customer = count($customer);
+                $listData[$key]->money_back = $money_back;
+                $listData[$key]->percent = $percent['percent1'];
+
+                $listData[$key]->aff = $modelAffiliaters->find()->where(['id'=>$value->id_father])->first();
+
+                $listData[$key]->level = 1;
+            }
         }
+
 
         // phân trang
         $totalData = $modelAffiliaters->find()->where($conditions)->all()->toList();
@@ -134,6 +145,7 @@ function listAffiliaterAgency($input)
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
         setVariable('next', $next);
+        setVariable('urlHomes', $urlHomes);
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
