@@ -235,13 +235,9 @@ function getTestCustomerAPI($input)
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
             $infoCustomer = getCustomerByToken($dataSend['token']);
-
             if(!empty($infoCustomer)){
-
            		$conditions = array('id'=>(int)$dataSend['id']);
         		$data = $modelTests->find()->where($conditions)->order(['id' => 'DESC'])->first();
-
-
 
 		        if(!empty($data)){
 
@@ -250,9 +246,7 @@ function getTestCustomerAPI($input)
 		            if(empty($settingTraining2TOPCRM)){
 
 		                $settingTraining2TOPCRM = $modelOptions->newEmptyEntity();
-
 		            }
-
 		            $setting_value = array();
 		            if(!empty($settingTraining2TOPCRM->value)){
 		                $setting_value = json_decode($settingTraining2TOPCRM->value, true);
@@ -330,7 +324,6 @@ function resultTestCustomerAPI($input){
 		                foreach ($questions as $key => $value) {
 		                    $answer_true[$value->id] = $value->option_true;
 		                }
-
 		            }
 					$submit = true;
 					$point = 0;
@@ -344,8 +337,6 @@ function resultTestCustomerAPI($input){
 					}
 
 					$point = $total_true * 10/$number_question;
-
-					
 
 	                // lưu lịch sử thi
 					$history = $modelHistoryTests->newEmptyEntity();
@@ -397,6 +388,70 @@ function resultTestCustomerAPI($input){
 		}
 	}else{
 		$return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
+	}
+
+	return $return;
+}
+
+
+function historyTestCustomerAPI($input)
+{
+    global $controller;
+    global $isRequestPost;
+
+
+   $return = array('code'=>0);
+    if($isRequestPost){
+
+		$dataSend = $input['request']->getData();
+
+
+		if(!empty($dataSend['token'])){
+			$infoCustomer = getCustomerByToken($dataSend['token']);
+
+			if(!empty($infoCustomer)){
+
+		        $modelHistoryTests = $controller->loadModel('Historytests');
+		        $modelTests = $controller->loadModel('Tests');
+		        $conditions= array('id_customer'=> $infoCustomer->id, 'type'=>'customer');
+
+		        $limit = 20;
+
+		        $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+
+		        if($page<1) $page = 1;
+
+		        $order = array('id'=>'desc');
+		     
+		        $listData = $modelHistoryTests->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+		        if(!empty($listData)){
+		            foreach ($listData as $key => $value) {
+		                if(!empty($value->id_test) && empty($category[$value->id_test])){
+
+		                    $category[$value->id_test] = $modelTests->find()->where(['id' => (int) $value->id_test])->first();
+
+		                }
+		                $listData[$key]->name_test = (!empty($category[$value->id_test]->title))?$category[$value->id_test]->title:'';
+
+		            }
+
+		        }
+		        
+		        // phân trang
+
+		        $totalData = $modelHistoryTests->find()->where($conditions)->all()->toList();
+
+		        $totalData = count($totalData);
+		        $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+		    }else{
+				$return = array('code'=>3, 'mess'=>'Sai mã token');
+			}
+		}else{
+			$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+		}
+	}else{
+		$return = array('code'=>0, 'mess'=>' gửi sai kiểu POST');
 	}
 
 	return $return;
