@@ -41,20 +41,90 @@
             <div class="container">
                 <div class="ms-2-block-1">
                     <div class="row">
-                    <?php foreach ($listDatafield as $key => $value) { ?>
+                    <?php if (!empty($listDatafield[0])): ?>
                         <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
-                            <a href="/detailfield/<?php echo $value->slug;?>.html">
+                            <a href="/detailfield/<?php echo  $listDatafield[0]->slug ?>.html">
                                 <div class="ms-2-block-1-item">
                                     <div class="ms-2-block-1-img">
-                                        <img src="<?php echo $value->imagebanner;?>" alt="">
+                                        <img src="<?php echo $listDatafield[0]->imagebanner;?>" alt="">
                                     </div>
                                     <div class="ms-2-block-1-text">
-                                        <p><?php echo $value->name;?></p>
+                                        <p><?= $listDatafield[0]->name;?></p>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                    <?php } ?>
+                    <?php endif; ?>
+                    <?php if (!empty($listDatafield[1])): ?>
+                        <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
+                            <a href="/detailfield/<?php echo  $listDatafield[1]->slug ?>.html">
+                                <div class="ms-2-block-1-item">
+                                    <div class="ms-2-block-1-img">
+                                        <img src="<?php echo $listDatafield[1]->imagebanner;?>" alt="">
+                                    </div>
+                                    <div class="ms-2-block-1-text">
+                                        <p><?= $listDatafield[1]->name;?></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (!empty($listDatafield[5])): ?>
+                        <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
+                            <a href="/detailfield/<?php echo  $listDatafield[5]->slug ?>.html">
+                                <div class="ms-2-block-1-item">
+                                    <div class="ms-2-block-1-img">
+                                        <img src="<?php echo $listDatafield[5]->imagebanner;?>" alt="">
+                                    </div>
+                                    <div class="ms-2-block-1-text">
+                                        <p><?= $listDatafield[5]->name;?></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (!empty($listDatafield[3])): ?>
+                        <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
+                            <a href="/detailfield/<?php echo  $listDatafield[3]->slug ?>.html">
+                                <div class="ms-2-block-1-item">
+                                    <div class="ms-2-block-1-img">
+                                        <img src="<?php echo $listDatafield[3]->imagebanner;?>" alt="">
+                                    </div>
+                                    <div class="ms-2-block-1-text">
+                                        <p><?= $listDatafield[3]->name;?></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (!empty($listDatafield[4])): ?>
+                        <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
+                            <a href="/detailfield/<?php echo  $listDatafield[4]->slug ?>.html">
+                                <div class="ms-2-block-1-item">
+                                    <div class="ms-2-block-1-img">
+                                        <img src="<?php echo $listDatafield[4]->imagebanner;?>" alt="">
+                                    </div>
+                                    <div class="ms-2-block-1-text">
+                                        <p><?= $listDatafield[4]->name;?></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (!empty($listDatafield[2])): ?>
+                        <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
+                            <a href="/detailfield/<?php echo  $listDatafield[2]->slug ?>.html">
+                                <div class="ms-2-block-1-item">
+                                    <div class="ms-2-block-1-img">
+                                        <img src="<?php echo $listDatafield[2]->imagebanner;?>" alt="">
+                                    </div>
+                                    <div class="ms-2-block-1-text">
+                                        <p><?= $listDatafield[2]->name;?></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                         <!-- <div class="col-lg-4 col-md-6 col-12" style="padding: 8px;">
                             <a href="">
                                 <div class="ms-2-block-1-item">

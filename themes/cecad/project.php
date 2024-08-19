@@ -18,7 +18,6 @@
                     </h1>
                 </div>
             </div>
-
             <div class="bp-block-2">
                 <img src="<?= @$settingThemes['imagebannerproject'];?>" alt="">
             </div>

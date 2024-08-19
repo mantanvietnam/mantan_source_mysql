@@ -122,13 +122,13 @@
                                 </div>
                             </a>
                         <?php endif; ?>
-                        <?php if (!empty($listDatafield[3])): ?>
-                            <a href="/detailfield/<?php echo  $listDatafield[3]->slug ?>.html">
+                        <?php if (!empty($listDatafield[0])): ?>
+                            <a href="/detailfield/<?php echo  $listDatafield[0]->slug ?>.html">
                                 <div class="majors-items majors-items-left majors-items-3">
                                     <p>
-                                        <?= $listDatafield[3]->name;?>
+                                        <?= $listDatafield[0]->name;?>
                                     </p>
-                                    <img class="fade-img" src="<?= $listDatafield[3]->icon;?>" alt="">
+                                    <img class="fade-img" src="<?= $listDatafield[0]->icon;?>" alt="">
                                 </div>
                             </a>
                         <?php endif; ?>
@@ -152,13 +152,13 @@
                                 </div>
                         </a>
                         <?php endif; ?>
-                        <?php if (!empty($listDatafield[0])): ?>
-                        <a href="/detailfield/<?php echo  $listDatafield[0]->slug ?>.html">
+                        <?php if (!empty($listDatafield[3])): ?>
+                        <a href="/detailfield/<?php echo  $listDatafield[3]->slug ?>.html">
                                 <div class="majors-items majors-items-right majors-items-6">
                                     <p>
-                                        <?= $listDatafield[0]->name;?>
+                                        <?= $listDatafield[3]->name;?>
                                     </p>
-                                    <img class="fade-img" src="<?= $listDatafield[0]->icon;?>" alt="">
+                                    <img class="fade-img" src="<?= $listDatafield[3]->icon;?>" alt="">
                                 </div>
                         </a>
                         <?php endif; ?>

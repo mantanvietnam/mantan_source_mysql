@@ -174,7 +174,7 @@ function Aboutus($input){
     global $data;
     
 
-    $order = array('id' => 'asc');
+    $order = array('id' => 'desc');
     $metaTitleMantan = 'Trang About';
     $conditions = array('key_word' => 'settingAboutusTheme');
     $modelfield = $controller->loadModel('field');
