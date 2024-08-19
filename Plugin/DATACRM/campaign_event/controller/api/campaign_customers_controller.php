@@ -330,6 +330,17 @@ function getListCampaignCustomerAPI($input)
             $conditions['name LIKE'] = '%'.$dataSend['name'].'%';
         }
         $listData = $modelCampaigns->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+        foreach ($listData as $key => $value) {
+            $customer_reg = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$boss->id])->all()->toList();
+            $customer_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$boss->id, 'time_checkin >'=>0])->all()->toList();
+            $yet_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$value->id, 'id_member'=>$boss->id, 'time_checkin'=>0])->all()->toList();
+
+            $listData[$key]->number_reg = count($customer_reg);
+            $listData[$key]->number_checkin = count($customer_checkin);
+            $listData[$key]->yet_checkin = count($yet_checkin);
+        }
+
         $totalData = $modelCampaigns->find()->where($conditions)->all()->toList();
         
         $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>count($totalData));
