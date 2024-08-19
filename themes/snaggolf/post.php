@@ -39,7 +39,7 @@
                                                 <div class="card-content-custom">
                                                     <div class="content-contain">
                                                         <h5><a href="'.$link.'">'.$value->title.'</a></h5>
-                                                        <p>'.$value->content.'</p>
+                                                       
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <span class="">'.date('d/m/Y', $value->time).'</span>
                                                         </div>

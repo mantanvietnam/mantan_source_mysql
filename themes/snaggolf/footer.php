@@ -174,7 +174,19 @@
 
 
 <!-- Javascript -->
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script
+    type="text/javascript"
+    src="https://code.jquery.com/jquery-1.11.0.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+  ></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> -->
 <script src="<?php echo $urlThemeActive; ?>assets/js/bootstrap.bundle.js"></script>
 <script src="<?php echo $urlThemeActive; ?>assets/js/forLib.js"></script>
 <script src="<?php echo $urlThemeActive; ?>assets/js/main.js"></script>

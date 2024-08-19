@@ -451,8 +451,8 @@ function categoryPostTheme($input)
 {
     global $controller;
     global $modelCategories;
-
-    
+    global $modelMenus;
+    global $modelOptions;
 
     // SẢN PHẨM MỚI
     $conditions = array();
@@ -460,12 +460,22 @@ function categoryPostTheme($input)
     $page = 1;
     $order = array('id'=>'desc');
 
- 
+    $conditions = array('key_word' => 'settingHomeThemeSnagGolf');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
 
     // DANH MỤC TIN TỨC
     $conditions = array('type' => 'post');
     $category_post = $modelCategories->find()->where($conditions)->all()->toList();
-
+    $idmenu = [];
+    if(!empty($data_value['idmenu'])){
+        $idmenu = $modelMenus->find()->where(['id_menu'=>(int) $data_value['idmenu']])->all()->toList();
+    }
+    setVariable('idmenu', $idmenu);
    
     setVariable('category_post', $category_post);
 }

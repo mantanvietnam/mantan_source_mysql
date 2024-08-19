@@ -31,7 +31,7 @@
                                 <h5 class="">
                                     <a href="<?= $link ?>"><?= $value->title ?></a>
                                 </h5>
-                                <p><?= $value->content ?></p>
+                                <p><?= $value->description ?></p>
                             </div>
                         </div>
                     </div>
@@ -46,12 +46,13 @@
         <div class="container">
             <h3>ĐĂNG KÝ NHẬN ƯU ĐÃI</h3>
             <div class="form-contain">
-                <form action="">
+                <form action="/subscribe" method="post">
                     <div class="row g-3">
                         <div class="col-12 col-lg-12 mt-0 mb-2 justify-content-center">
                             <div class="form-field">
-                                <label for="">Họ và tên <sup>*</sup></label>
-                                <input required type="text" name="name" class="form-control" placeholder="">
+                                <label for="">Email <sup>*</sup></label>
+                                <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+                                <input required type="text" name="email" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
