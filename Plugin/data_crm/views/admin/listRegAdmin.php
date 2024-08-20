@@ -119,7 +119,7 @@
                            
                         </td>
                         <td>'.$link.'<br/><br/>'.$status.'<br/><br/> 
-                        <a class="btn btn-success" style="color: #fff;" data-bs-toggle="modal" data-bs-target="#addMoney'.$item->id.'" > + Nạp tiền cho đạt lý</a>
+                        <a class="btn btn-success" style="color: #fff;" data-bs-toggle="modal" data-bs-target="#addMoney'.$item->id.'" > + Nạp tiền cho đại lý</a>
                         </td>
                         <td>
                             '.$item->user_db.'<br/>
@@ -233,7 +233,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header form-label border-bottom">
-                  <h5 class="modal-title" id="exampleModalLabel1">Mạp tiền cho đại lý </h5>
+                  <h5 class="modal-title" id="exampleModalLabel1">Nạp tiền cho đại lý </h5>
                   <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="">
@@ -331,7 +331,7 @@
         var total = $('#total_'+id).val();
         link = "https://"+link+"/apis/addMoneyToIcham";
 
-        if(phone != '' && deadline!=''){
+        if(phone != ''){
             $.ajax({
                 method: "POST",
                 url: link,

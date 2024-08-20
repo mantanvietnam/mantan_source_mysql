@@ -132,6 +132,9 @@
                               '.$item->email.'<br/>
                               Ngày hết hạn: '.date('d/m/Y', $item->deadline).'<br/>
                               Theme info: '.implode(', ', $theme_info).'<br/>
+                              Số dư: '.number_format($item->coin).'<br/>
+
+                              <br/><br/>
                               <a class="btn btn-danger " href="/plugins/admin/hethongdaily-view-admin-warehouse-listProductWarehouseMemberAdmin/?id_member='.$item->id.'">Xem tồn kho</a>
                               <a class="btn btn-primary" href="/plugins/admin/hethongdaily-view-admin-member-activateThemeMemberAdmin/?id_member='.$item->id.'">Kích hoạt theme</a>
                             </td>
