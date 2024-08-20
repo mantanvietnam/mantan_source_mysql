@@ -526,46 +526,48 @@ function sendMessZaloZNS($input)
 								// gửi tin Zalo 
 				                $numberSend = 0;
 				                foreach ($listCustomers as $customer) {
-						    		$params = [];
+				                	if(strlen($customer->phone) == 10){
+							    		$params = [];
 
-                                    foreach ($dataSend['variable'] as $key => $variable) {
-                                    	if(!empty($variable)){
-	                                        if(!empty($dataSend['value'][$key])){
-	                                        	$name = (!empty($customer->full_name))?$customer->full_name:$customer->name;
-	                                        	$nameCampaign = @$infoCampaign->name;
-	                                        	$nameGroup = @$infoGroup->name;
-	                                        	$namePosition = @$infoPosition->name;
+	                                    foreach ($dataSend['variable'] as $key => $variable) {
+	                                    	if(!empty($variable)){
+		                                        if(!empty($dataSend['value'][$key])){
+		                                        	$name = (!empty($customer->full_name))?$customer->full_name:$customer->name;
+		                                        	$nameCampaign = @$infoCampaign->name;
+		                                        	$nameGroup = @$infoGroup->name;
+		                                        	$namePosition = @$infoPosition->name;
 
-	                                            $smsSend = str_replace('%name%', $name, $dataSend['value'][$key]);
-	                                            $smsSend = str_replace('%phone%', $customer->phone, $smsSend);
-	                                            $smsSend = str_replace('%id_user%', $customer->id, $smsSend);
-	                                            $smsSend = str_replace('%campaign_name%', $nameCampaign, $smsSend);
-	                                            $smsSend = str_replace('%group_name%', $nameGroup, $smsSend);
-	                                            $smsSend = str_replace('%position_name%', $namePosition, $smsSend);
-	                                            
+		                                            $smsSend = str_replace('%name%', $name, $dataSend['value'][$key]);
+		                                            $smsSend = str_replace('%phone%', $customer->phone, $smsSend);
+		                                            $smsSend = str_replace('%id_user%', $customer->id, $smsSend);
+		                                            $smsSend = str_replace('%campaign_name%', $nameCampaign, $smsSend);
+		                                            $smsSend = str_replace('%group_name%', $nameGroup, $smsSend);
+		                                            $smsSend = str_replace('%position_name%', $namePosition, $smsSend);
+		                                            
 
-	                                            $params[$variable] = $smsSend;
-	                                        }else{
-	                                        	$mess= '<p class="text-danger">Nhập thiếu giá trị biến <b>'.$variable.'</b></p>';
-	                                        	echo $mess;die;
-	                                        }
+		                                            $params[$variable] = $smsSend;
+		                                        }else{
+		                                        	$mess= '<p class="text-danger">Nhập thiếu giá trị biến <b>'.$variable.'</b></p>';
+		                                        	echo $mess;die;
+		                                        }
+		                                    }
 	                                    }
-                                    }
 
-                                    if(!empty($params) && strlen($customer->phone)==10){
-                                        $returnZalo = sendZNSZalo($dataSend['id_zns'], $params, $customer->phone, $infoZalo->id_oa, $infoZalo->id_app);
-                                        
-                                        if($returnZalo['error']==0){
-                                            $numberSend ++;
-                                        }elseif($returnZalo['error']!=0){
-                                            //$mess = $returnZalo['message'];
-                                            //echo $mess;
-                                            $listSendBug[$customer->phone] = $returnZalo['message'];
-                                        }
-                                    }else{
-                                    	$mess= '<p class="text-danger">Nhập thiếu giá trị biến hoặc sai định dạng số điện thoại '.$customer->phone.'</p>';
-                                    	echo $mess;die;
-                                    }
+	                                    if(!empty($params) && strlen($customer->phone)==10){
+	                                        $returnZalo = sendZNSZalo($dataSend['id_zns'], $params, $customer->phone, $infoZalo->id_oa, $infoZalo->id_app);
+	                                        
+	                                        if($returnZalo['error']==0){
+	                                            $numberSend ++;
+	                                        }elseif($returnZalo['error']!=0){
+	                                            //$mess = $returnZalo['message'];
+	                                            //echo $mess;
+	                                            $listSendBug[$customer->phone] = $returnZalo['message'];
+	                                        }
+	                                    }else{
+	                                    	$mess= '<p class="text-danger">Nhập thiếu giá trị biến hoặc sai định dạng số điện thoại '.$customer->phone.'</p>';
+	                                    	echo $mess;die;
+	                                    }
+	                                }
 						        }
 
 						        if($numberSend > 0){
