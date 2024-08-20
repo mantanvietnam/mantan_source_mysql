@@ -174,6 +174,12 @@
 	// xếp hạn thanh viên
 	$routesPlugin['listRatingPoint']= 'hethongdaily/view/home/ratingPoint/listRatingPoint.php';
 
+	// quà tặng
+	$routesPlugin['listCustomerGiftAgency']= 'hethongdaily/view/home/customer_gift/listCustomerGiftAgency.php';
+	$routesPlugin['addCustomerGiftAgency']= 'hethongdaily/view/home/customer_gift/addCustomerGiftAgency.php';
+	$routesPlugin['listHistorieCustomerGiftAgency']= 'hethongdaily/view/home/customer_gift/listHistorieCustomerGiftAgency.php';
+	
+
 
 	// cài đặt đào tạo 
 	$routesPlugin['listCourseAgency']= 'hethongdaily/view/home/training/seting/course/listCourseAgency.php';

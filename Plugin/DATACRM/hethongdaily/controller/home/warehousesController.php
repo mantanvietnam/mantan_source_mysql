@@ -290,7 +290,7 @@ function editProductWarehouse($input)
         if($isRequestPost){
             $dataSend = $input['request']->getData();
 
-            if(!empty($dataSend['idWarehouseProduct']) && !empty($dataSend['number']) && !empty($dataSend['note'])){
+            if(!empty($dataSend['idWarehouseProduct']) && isset($dataSend['number']) && !empty($dataSend['note'])){
                 $checkData = $modelWarehouseProducts->find()->where(['id'=>(int) $dataSend['idWarehouseProduct'], 'id_member'=>$session->read('infoUser')->id])->first();
 
                 if(!empty($checkData)){

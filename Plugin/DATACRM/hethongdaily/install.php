@@ -171,6 +171,7 @@ $sqlInstallDatabase .= "CREATE TABLE `warehouse_histories` (
   `type` VARCHAR(20) NOT NULL COMMENT 'plus hoặc minus' , 
   `id_order_member` INT NOT NULL DEFAULT '0',
   `id_order` INT NOT NULL DEFAULT '0' COMMENT 'id đơn hàng khách lẻ',
+  `id_historie_gift` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -299,6 +300,35 @@ $sqlInstallDatabase .='CREATE TABLE `point_customers` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
+$sqlUpdateDatabase .="CREATE TABLE `customer_gifts` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
+`image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`price` INT NOT NULL DEFAULT '0' ,
+`quantity` INT NOT NULL DEFAULT '0' ,
+`slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
+`status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`id_member` INT NOT NULL , 
+`point` INT NOT NULL DEFAULT '0' ,
+`id_rating` INT NOT NULL DEFAULT '0' ,
+`created_at` INT NULL DEFAULT NULL , 
+`id_product` INT NULL DEFAULT '0' ,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlUpdateDatabase .="CREATE TABLE `customer_historie_gifts` (
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_gifts` INT NOT NULL , 
+  `id_customer` INT NOT NULL , 
+  `point` INT NOT NULL , 
+  `id_member` INT NOT NULL , 
+  `created_at` INT NULL DEFAULT NULL , 
+  `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`),
+) ENGINE = InnoDB;";
+
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -319,6 +349,8 @@ $sqlDeleteDatabase .= "DROP TABLE seting_theme_infos; ";
 $sqlDeleteDatabase .= "DROP TABLE link_infos; ";
 $sqlDeleteDatabase .= "DROP TABLE rating_point_customers; ";
 $sqlDeleteDatabase .= "DROP TABLE point_customers; ";
+$sqlDeleteDatabase .= "DROP TABLE customer_gifts; ";
+$sqlUpdateDatabase .= "DROP TABLE customer_historie_gifts; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -472,6 +504,7 @@ $sqlUpdateDatabase['warehouse_histories']['create_at'] = "ALTER TABLE `warehouse
 $sqlUpdateDatabase['warehouse_histories']['type'] = "ALTER TABLE `warehouse_histories` ADD `type` VARCHAR(20) NOT NULL COMMENT 'plus hoặc minus';";
 $sqlUpdateDatabase['warehouse_histories']['id_order_member'] = "ALTER TABLE `warehouse_histories` ADD `id_order_member` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['warehouse_histories']['id_order'] = "ALTER TABLE `warehouse_histories` ADD `id_order` INT NOT NULL DEFAULT '0' COMMENT 'id đơn hàng khách lẻ';";
+$sqlUpdateDatabase['warehouse_histories']['id_historie_gift'] = "ALTER TABLE `warehouse_histories` ADD `id_historie_gift` INT NOT NULL DEFAULT '0';";
 
 // bảng zalo_templates
 $sqlUpdateDatabase['zalo_templates']['id_system'] = "ALTER TABLE `zalo_templates` ADD `id_system` int(11) NOT NULL;";
@@ -559,3 +592,24 @@ $sqlUpdateDatabase['point_customers']['id_customer'] = "ALTER TABLE `point_custo
 $sqlUpdateDatabase['point_customers']['point'] = "ALTER TABLE `point_customers` ADD `point` INT NOT NULL DEFAULT'0' ;";
 $sqlUpdateDatabase['point_customers']['id_rating'] = "ALTER TABLE `point_customers` ADD `id_rating` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['point_customers']['created_at'] = "ALTER TABLE `point_customers` ADD `created_at` INT NULL DEFAULT NULL;";
+
+
+$sqlUpdateDatabase['customer_gifts']['name'] = "ALTER TABLE `customer_gifts` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ;";
+$sqlUpdateDatabase['customer_gifts']['image'] = "ALTER TABLE `customer_gifts` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['customer_gifts']['description'] = "ALTER TABLE `customer_gifts` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['customer_gifts']['price'] = "ALTER TABLE `customer_gifts` ADD `price` INT NOT NULL DEFAULT '0' ;";
+$sqlUpdateDatabase['customer_gifts']['quantity'] = "ALTER TABLE `customer_gifts` ADD `quantity` INT NOT NULL DEFAULT '0' ;";
+$sqlUpdateDatabase['customer_gifts']['slug'] = "ALTER TABLE `customer_gifts` ADD `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ;";
+$sqlUpdateDatabase['customer_gifts']['status'] = "ALTER TABLE `customer_gifts` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['customer_gifts']['id_member'] = "ALTER TABLE `customer_gifts` ADD `id_member` INT NOT NULL ,;";
+$sqlUpdateDatabase['customer_gifts']['point'] = "ALTER TABLE `customer_gifts` ADD `point` INT NOT NULL DEFAULT '0' ;";
+$sqlUpdateDatabase['customer_gifts']['id_rating'] = "ALTER TABLE `customer_gifts` ADD `id_rating` INT NOT NULL DEFAULT '0' ;";
+$sqlUpdateDatabase['customer_gifts']['created_at'] = "ALTER TABLE `customer_gifts` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customer_gifts']['id_product'] = "ALTER TABLE `customer_gifts` ADD `id_product` INT NULL DEFAULT '0';";
+
+$sqlUpdateDatabase['customer_historie_gifts']['id_product'] = "ALTER TABLE `customer_historie_gifts` ADD `id_gifts` INT NOT NULL;"; 
+$sqlUpdateDatabase['customer_historie_gifts']['id_customer'] = "ALTER TABLE `customer_historie_gifts` ADD `id_customer` INT NOT NULL;"; 
+$sqlUpdateDatabase['customer_historie_gifts']['point'] = "ALTER TABLE `customer_historie_gifts` ADD `point` INT NOT NULL;"; 
+$sqlUpdateDatabase['customer_historie_gifts']['id_member'] = "ALTER TABLE `customer_historie_gifts` ADD `id_member` INT NOT NULL;"; 
+$sqlUpdateDatabase['customer_historie_gifts']['created_at'] = "ALTER TABLE `customer_historie_gifts` ADD `created_at` INT NULL DEFAULT NULL;"; 
+$sqlUpdateDatabase['customer_historie_gifts']['note'] = "ALTER TABLE `customer_historie_gifts` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

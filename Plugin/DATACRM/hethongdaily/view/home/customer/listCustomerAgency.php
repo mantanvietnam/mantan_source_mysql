@@ -61,14 +61,66 @@
               <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
             </select>
           </div>
+          <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Ngày sinh</label>
+                    
+                    <div class="row">
+                      <div class="mb-3 col-md-4">
+                        <select name="birthday_date" class="form-select color-dropdown">
+                          <option value="0">Ngày</option>
+                          <?php
+                          for ($i=1; $i <= 31 ; $i++) { 
+                            if(!empty($_GET['birthday_date']) && $_GET['birthday_date']==$i){
+                              echo '<option value="'.$i.'" selected>'.$i.'</option>';
+                            }else{
+                              echo '<option value="'.$i.'">'.$i.'</option>';
+                            }
+                          }
+                          ?>
+                        </select>
+                      </div>
+
+                      <div class="mb-3 col-md-4">
+                        <select name="birthday_month" class="form-select color-dropdown">
+                          <option value="0">Tháng</option>
+                          <?php
+                          for ($i=1; $i <= 12 ; $i++) { 
+                            if(!empty($_GET['birthday_month']) && $_GET['birthday_month']==$i){
+                              echo '<option value="'.$i.'" selected>'.$i.'</option>';
+                            }else{
+                              echo '<option value="'.$i.'">'.$i.'</option>';
+                            }
+                          }
+                          ?>
+                        </select>
+                      </div>
+
+                      <div class="mb-3 col-md-4">
+                        <select name="birthday_year" class="form-select color-dropdown">
+                          <option value="0">Năm</option>
+                          <?php
+                          for ($i = date("Y"); $i >= 1950; $i--) { 
+                            if(!empty($_GET['birthday_year']) && $_GET['birthday_year']==$i){
+                              echo '<option value="'.$i.'" selected>'.$i.'</option>';
+                            }else{
+                              echo '<option value="'.$i.'">'.$i.'</option>';
+                            }
+                          }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
           
           <div class="col-md-2">
-            <label class="form-label">&nbsp;</label>
+            <!-- s<label class="form-label">&nbsp;</label> -->
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
           
           <div class="col-md-1">
-            <label class="form-label">&nbsp;</label>
+            <!-- s<label class="form-label">&nbsp;</label> -->
             <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
           </div>
         </div>

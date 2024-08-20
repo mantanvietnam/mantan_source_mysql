@@ -37,6 +37,9 @@
                 if($item->type == 'minus'){
                   $type= '<p class="text-danger">Xuất</p>';
                   $idOrder = '<a href="/orderCustomerAgency/?id='.$item->id_order.'">'.$item->id_order.'</a>';
+                  if(!empty($item->id_historie_gift)){
+                     $idOrder = '<a href="/listHistorieCustomerGiftAgency/?id='.$item->id_historie_gift.'">'.$item->id_historie_gift.'</a>';
+                  }
                 }elseif($item->type == 'plus'){
                   $type= '<p class="text-success">Nhập</p>';
                   $idOrder = '<a href="/requestProductAgency/?id='.$item->id_order_member.'">'.$item->id_order_member.'</a>';
@@ -75,6 +78,10 @@
                 if($item->type == 'minus'){
                   $type= '<span class="text-danger">Xuất</span>';
                   $idOrder = '<a href="/orderCustomerAgency/?id='.$item->id_order.'">'.$item->id_order.'</a>';
+
+                  if(!empty($item->id_historie_gift)){
+                     $idOrder = '<a href="/listHistorieCustomerGiftAgency/?id='.$item->id_historie_gift.'">'.$item->id_historie_gift.'</a>';
+                  }
                 }elseif($item->type == 'plus'){
                   $type= '<span class="text-success">Nhập</span>';
                   $idOrder = '<a href="/requestProductAgency/?id='.$item->id_order_member.'">'.$item->id_order_member.'</a>';

@@ -1031,7 +1031,7 @@ function statisticsMyUserApi($input): array
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
-// thay đổi luồng 
+// thay đổi luồng mới
 // gửi yêu cầu mua điểm 
 function buyOrderPointNewApi($input): array
 {
@@ -1084,7 +1084,7 @@ function buyOrderPointNewApi($input): array
 
          // Thông báo cho người đăng cuốc xe
         $title = 'Có người mua điểm của bạn';
-        $content = "bạn đã bán $order->total điểm cho tài xế $currentUser->name";
+        $content = "bạn đã bán $order->point điểm cho tài xế $currentUser->name";
         $notification = $modelNotification->newEmptyEntity();
         $notification->user_id = $infoUserSell->id;
         $notification->title = $title;
@@ -1100,7 +1100,7 @@ function buyOrderPointNewApi($input): array
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
                 'id_order' => $order->id,
-                'action' => 'buyOrderPointSuccess'
+                'action' => 'sellOrderPointSuccess'
             );
             sendNotification($dataSendNotification, $infoUserSell->device_token);
         }
@@ -1149,6 +1149,14 @@ function acceptSellPointNewApi($input){
             return apiResponse(5, 'Đơn này không tồn tại');
         }
 
+        if($order->type==2){
+            if($order->point > $currentUser->point){
+                return apiResponse(4, 'Số điểm chưa đủ để bán');  
+            }
+            $currentUser->point -= $order->point;
+            $modelUser->save($currentUser);
+        }
+
         // gửi thông báo bên bán 
         $infoUserBuy = $modelUser->find()->where(['id'=>$order->user_buy])->first();
 
@@ -1163,7 +1171,7 @@ function acceptSellPointNewApi($input){
         $modelUser->save($infoUserBuy);
 
          // Thông báo cho người mua 
-        $title = ' bạn mua điểm thành công ';
+        $title = 'Bạn mua điểm thành công ';
         $content = "Bạn được cộng $order->point điểm bởi tài xế $currentUser->name bán cho bạn ";
         $notification = $modelNotification->newEmptyEntity();
         $notification->user_id = $infoUserBuy->id;
@@ -1251,7 +1259,7 @@ function createOrderBuyPointNewApi($input): array
 
 
 // đơn bán 
-// gửi yêu cầu bán điểm 
+// gửi yêu cầu bán điểm cho đơn người mua đăng
 function sellOrderPointNewApi($input): array
 {
     global $controller, $transactionType;
@@ -1297,7 +1305,7 @@ function sellOrderPointNewApi($input): array
 
         $order->updated_at = date('Y-m-d H:i:s');
         $order->user_sell = $currentUser->id;
-        $order->status = 2;
+        $order->status = 1;
         
         $modelOrderPoint->save($order);   
 
@@ -1327,7 +1335,7 @@ function sellOrderPointNewApi($input): array
             sendNotification($dataSendNotification, $infoUserBuy->device_token);
         }
 
-        return apiResponse(0, 'Bạn bán điểm thành công');
+        return apiResponse(0, 'Bạn bán điểm thành công, bạn vui lòng liên hệ vời người mua ', $order);
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
@@ -1416,7 +1424,452 @@ function cancelUserSellOrderSellPointNewApi($input): array
 }
 
 // người mua xác nhận yêu cầu hủy của người bán đăng
-function acceptUserbuyCancelOrdecPointNewApi($input): array
+function acceptUserbuyCancelOrdeSellPointNewApi($input): array
+{
+    global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    
+    $modelUser = $controller->loadModel('Users');
+    $modelOrderPoint = $controller->loadModel('OrderPoints');
+    $modelNotification = $controller->loadModel('Notifications');
+    $parameter = parameter();
+    $convertPointMoney = (int) $parameter['convertPointMoney'];
+    $minimumPointSold = (int) $parameter['minimumPointSold'];
+
+
+    if ($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['access_token']) && empty($dataSend['id'])){
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        $currentUser = getUserByToken($dataSend['access_token']);
+
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
+
+        if (empty($order)) {
+            return apiResponse(5, 'Đơn này không tồn tại');
+        }
+
+        $order->status = 3;
+        $modelOrderPoint->save($order);
+
+        // thông báo cho người mua 
+        $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
+
+        $infoUserSell->point += $order->point;
+        $modelUser->save($infoUserSell);
+
+
+        $title = 'Yêu cầu hủy mua bán điểm thành công  ';
+        $content = "Tài xế $currentUser->name đồng ý hủy yêu cầu mua bán điểm ";
+        $notification = $modelNotification->newEmptyEntity();
+        $notification->user_id = $infoUserSell->id;
+        $notification->title = $title;
+        $notification->content = $content;
+        $notification->id_order = $order->id;
+        $notification->created_at = date('Y-m-d H:i:s');
+        $notification->updated_at = date('Y-m-d H:i:s');
+        $modelNotification->save($notification);
+
+        if ($infoUserSell->device_token) {
+            $dataSendNotification= array(
+                'title' => $title,
+                'time' => date('H:i d/m/Y'),
+                'content' => $content,
+                'id_order' => $order->id,
+                'action' => 'cancelSellOrderPointSuccess'
+            );
+            sendNotification($dataSendNotification, $infoUserSell->device_token);
+        }
+        $infoUserSell->point += $order->point;
+        $modelUser->save($infoUserSell);
+        return apiResponse(0, 'Bạn xác nhận hủy đơn mua điểm thành công ');
+        
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+// người mua xác từ trối cầu hủy của người bán đăng
+function rejectUserbuyCancelOrderSellPointNewApi($input): array
+{
+    global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    
+    $modelUser = $controller->loadModel('Users');
+    $modelOrderPoint = $controller->loadModel('OrderPoints');
+    $modelNotification = $controller->loadModel('Notifications');
+    $parameter = parameter();
+    $convertPointMoney = (int) $parameter['convertPointMoney'];
+    $minimumPointSold = (int) $parameter['minimumPointSold'];
+
+
+    if ($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['access_token']) && empty($dataSend['id'])){
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        $currentUser = getUserByToken($dataSend['access_token']);
+
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
+
+        if (empty($order)) {
+            return apiResponse(5, 'Đơn này không tồn tại');
+        }
+
+        
+
+        // thông báo cho người mua 
+        $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
+
+
+        $title = 'Yêu cầu hủy mua bán điểm đã từ trối ';
+        $content = "Tài xế $currentUser->name từ trối hủy yêu cầu mua bán điểm ";
+        $notification = $modelNotification->newEmptyEntity();
+        $notification->user_id = $infoUserSell->id;
+        $notification->title = $title;
+        $notification->content = $content;
+        $notification->id_order = $order->id;
+        $notification->created_at = date('Y-m-d H:i:s');
+        $notification->updated_at = date('Y-m-d H:i:s');
+        $modelNotification->save($notification);
+
+        if ($infoUserSell->device_token) {
+            $dataSendNotification= array(
+                'title' => $title,
+                'time' => date('H:i d/m/Y'),
+                'content' => $content,
+                'id_order' => $order->id,
+                'action' => 'cancelSellOrderPointReject'
+            );
+            sendNotification($dataSendNotification, $infoUserSell->device_token);
+        }
+
+        return apiResponse(0, 'Bạn từ trối hủy đơn mua điểm thành công ');
+        
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+//
+// người mua đểm huy đơn người bán đăng
+function cancelUserbuyOrderSellPointNewApi($input): array
+{
+    global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    
+    $modelUser = $controller->loadModel('Users');
+    $modelOrderPoint = $controller->loadModel('OrderPoints');
+    $modelNotification = $controller->loadModel('Notifications');
+    $parameter = parameter();
+    $convertPointMoney = (int) $parameter['convertPointMoney'];
+    $minimumPointSold = (int) $parameter['minimumPointSold'];
+
+
+    if ($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['access_token']) && empty($dataSend['id'])){
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        $currentUser = getUserByToken($dataSend['access_token']);
+
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status'=>1 , 'type'=>1])->first();
+
+        if (empty($order)) {
+            return apiResponse(5, 'Đơn này không tồn tại');
+        }
+            
+        // thông báo cho người mua 
+            $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
+
+
+            $title = 'Yêu cầu hủy mua bán điểm  ';
+            $content = "Tài xế $currentUser->name muốn hủy yêu cầu mua điểm của bạn ";
+            $notification = $modelNotification->newEmptyEntity();
+            $notification->user_id = $infoUserSell->id;
+            $notification->title = $title;
+            $notification->content = $content;
+            $notification->id_order = $order->id;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
+            $modelNotification->save($notification);
+
+            if ($infoUserSell->device_token) {
+                $dataSendNotification= array(
+                    'title' => $title,
+                    'time' => date('H:i d/m/Y'),
+                    'content' => $content,
+                    'id_order' => $order->id,
+                    'action' => 'cancelSellOrderPoint'
+                );
+                sendNotification($dataSendNotification, $infoUserSell->device_token);
+            }
+
+            return apiResponse(0, 'Gửi yêu hủy bán điểm cho tài xế bán điểm thành công ');
+
+        }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+// người bán xác nhận yêu cầu hủy người mua hủy đơn của người bán đăng
+function acceptUserSellCancelOrderSellPointNewApi($input): array
+{
+    global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    
+    $modelUser = $controller->loadModel('Users');
+    $modelOrderPoint = $controller->loadModel('OrderPoints');
+    $modelNotification = $controller->loadModel('Notifications');
+    $parameter = parameter();
+    $convertPointMoney = (int) $parameter['convertPointMoney'];
+    $minimumPointSold = (int) $parameter['minimumPointSold'];
+
+
+    if ($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['access_token']) && empty($dataSend['id'])){
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        $currentUser = getUserByToken($dataSend['access_token']);
+
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_sell'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
+
+        if (empty($order)) {
+            return apiResponse(5, 'Đơn này không tồn tại');
+        }
+
+        $infoUserbuy = $modelUser->find()->where(['id'=>$order->user_buy])->first();
+
+        $order->status = 0;
+        $order->user_buy = null;
+        $modelOrderPoint->save($order);
+
+        // thông báo cho người mua 
+
+        $title = 'Yêu cầu hủy mua bán điểm thành công  ';
+        $content = "Tài xế $currentUser->name đồng ý hủy yêu cầu mua bán điểm ";
+        $notification = $modelNotification->newEmptyEntity();
+        $notification->user_id = $infoUserbuy->id;
+        $notification->title = $title;
+        $notification->content = $content;
+        $notification->id_order = $order->id;
+        $notification->created_at = date('Y-m-d H:i:s');
+        $notification->updated_at = date('Y-m-d H:i:s');
+        $modelNotification->save($notification);
+
+        if ($infoUserbuy->device_token) {
+            $dataSendNotification= array(
+                'title' => $title,
+                'time' => date('H:i d/m/Y'),
+                'content' => $content,
+                'id_order' => $order->id,
+                'action' => 'cancelSellOrderPointSuccess'
+            );
+            sendNotification($dataSendNotification, $infoUserbuy->device_token);
+        }
+
+        return apiResponse(0, 'Bạn xác nhận hủy đơn mua điểm thành công ');
+        
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+// người bán từ trối yêu cầu của người mua hủy đơn của người bán đăng
+function rejectUserSellCancelOrderSellPointNewApi($input): array
+{
+    global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    
+    $modelUser = $controller->loadModel('Users');
+    $modelOrderPoint = $controller->loadModel('OrderPoints');
+    $modelNotification = $controller->loadModel('Notifications');
+    $parameter = parameter();
+    $convertPointMoney = (int) $parameter['convertPointMoney'];
+    $minimumPointSold = (int) $parameter['minimumPointSold'];
+
+
+    if ($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['access_token']) && empty($dataSend['id'])){
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        $currentUser = getUserByToken($dataSend['access_token']);
+
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_sell'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
+
+        if (empty($order)) {
+            return apiResponse(5, 'Đơn này không tồn tại');
+        }
+
+        
+
+        // thông báo cho người mua 
+        $infoUserBuy = $modelUser->find()->where(['id'=>$order->user_buy])->first();
+
+
+        $title = 'Yêu cầu hủy mua bán điểm đã từ trối ';
+        $content = "Tài xế $currentUser->name từ trối hủy yêu cầu mua bán điểm ";
+        $notification = $modelNotification->newEmptyEntity();
+        $notification->user_id = $infoUserBuy->id;
+        $notification->title = $title;
+        $notification->content = $content;
+        $notification->id_order = $order->id;
+        $notification->created_at = date('Y-m-d H:i:s');
+        $notification->updated_at = date('Y-m-d H:i:s');
+        $modelNotification->save($notification);
+
+        if ($infoUserBuy->device_token) {
+            $dataSendNotification= array(
+                'title' => $title,
+                'time' => date('H:i d/m/Y'),
+                'content' => $content,
+                'id_order' => $order->id,
+                'action' => 'cancelSellOrderPointReject'
+            );
+            sendNotification($dataSendNotification, $infoUserBuy->device_token);
+        }
+
+        return apiResponse(0, 'Bạn từ trối hủy đơn mua điểm thành công ');
+        
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+//Đơn mua 
+// người mua hủy đơn của người mua tạo
+function cancelUserBuyOrderBuyPointNewApi($input): array
+{
+    global $controller, $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    
+    $modelUser = $controller->loadModel('Users');
+    $modelOrderPoint = $controller->loadModel('OrderPoints');
+    $modelNotification = $controller->loadModel('Notifications');
+    $modelTransaction = $controller->loadModel('Transactions');
+    $parameter = parameter();
+    $convertPointMoney = (int) $parameter['convertPointMoney'];
+    $minimumPointSold = (int) $parameter['minimumPointSold'];
+
+
+    if ($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['access_token']) && empty($dataSend['id'])){
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        $currentUser = getUserByToken($dataSend['access_token']);
+
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status <'=>2])->first();
+
+        if (empty($order)) {
+            return apiResponse(5, 'Đơn này không tồn tại');
+        }
+
+        if ($order->status == 2) {
+            return apiResponse(5, 'đơn này có người bán điểm rồi ');
+        }elseif($order->status ==3) {
+            return apiResponse(4, 'đơn này đã bị hủy');
+        }
+
+        if($order->status==0){
+            $order->status = 3;
+            $modelOrderPoint->save($order);
+
+            return apiResponse(0, 'Bạn hủy đơn mua điểm thành công ');
+        }else{
+            // thông báo cho người mua 
+            $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
+
+
+            $title = 'Yêu cầu hủy mua bán điểm  ';
+            $content = "Tài xế $currentUser->name muốn hủy yêu cầu mua điểm của bạn ";
+            $notification = $modelNotification->newEmptyEntity();
+            $notification->user_id = $infoUserSell->id;
+            $notification->title = $title;
+            $notification->content = $content;
+            $notification->id_order = $order->id;
+            $notification->created_at = date('Y-m-d H:i:s');
+            $notification->updated_at = date('Y-m-d H:i:s');
+            $modelNotification->save($notification);
+
+            if ($infoUserSell->device_token) {
+                $dataSendNotification= array(
+                    'title' => $title,
+                    'time' => date('H:i d/m/Y'),
+                    'content' => $content,
+                    'id_order' => $order->id,
+                    'action' => 'cancelBuyOrderPoint'
+                );
+                sendNotification($dataSendNotification, $infoUserSell->device_token);
+            }
+
+            return apiResponse(0, 'Gửi yêu hủy bán điểm cho tài xế  mua điểm thành công ');
+        }
+        
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+// người bán xác nhận yêu cầu hủy của người mua đăng
+function acceptUserSellCancelOrdecBuyPointNewApi($input): array
 {
     global $controller, $transactionType;
     global $isRequestPost;
@@ -1489,7 +1942,7 @@ function acceptUserbuyCancelOrdecPointNewApi($input): array
 }
 
 // người mua xác từ trối cầu hủy của người bán đăng
-function rejectUserbuyCancelOrderSellPointNewApi($input): array
+function rejectUserSellCancelOrderBuyPointNewApi($input): array
 {
     global $controller, $transactionType;
     global $isRequestPost;
@@ -1560,7 +2013,7 @@ function rejectUserbuyCancelOrderSellPointNewApi($input): array
 }
 
 // người mua đểm huy đơn người bán đăng
-function cancelUserbuyOrderSellPointNewApi($input): array
+function cancelUserSellOrderBuyPointNewApi($input): array
 {
     global $controller, $transactionType;
     global $isRequestPost;
@@ -1589,20 +2042,20 @@ function cancelUserbuyOrderSellPointNewApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
 
-        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status'=>1 , 'type'=>1])->first();
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status'=>1 , 'type'=>2])->first();
 
         if (empty($order)) {
             return apiResponse(5, 'Đơn này không tồn tại');
         }
             
         // thông báo cho người mua 
-            $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
+            $infoUserBuy = $modelUser->find()->where(['id'=>$order->user_buy])->first();
 
 
-            $title = 'Yêu cầu hủy mua bán điểm  ';
-            $content = "Tài xế $currentUser->name muốn hủy yêu cầu mua điểm của bạn ";
+            $title = 'Yêu cầu hủy mua bán điểm';
+            $content = "Tài xế $currentUser->name muốn hủy yêu cầu bán điểm cho bạn ";
             $notification = $modelNotification->newEmptyEntity();
-            $notification->user_id = $infoUserSell->id;
+            $notification->user_id = $infoUserBuy->id;
             $notification->title = $title;
             $notification->content = $content;
             $notification->id_order = $order->id;
@@ -1610,15 +2063,15 @@ function cancelUserbuyOrderSellPointNewApi($input): array
             $notification->updated_at = date('Y-m-d H:i:s');
             $modelNotification->save($notification);
 
-            if ($infoUserSell->device_token) {
+            if ($infoUserBuy->device_token) {
                 $dataSendNotification= array(
                     'title' => $title,
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'id_order' => $order->id,
-                    'action' => 'cancelSellOrderPoint'
+                    'action' => 'cancelBuyOrderPoint'
                 );
-                sendNotification($dataSendNotification, $infoUserSell->device_token);
+                sendNotification($dataSendNotification, $infoUserBuy->device_token);
             }
 
             return apiResponse(0, 'Gửi yêu hủy bán điểm cho tài xế  mua điểm thành công ');
@@ -1629,7 +2082,7 @@ function cancelUserbuyOrderSellPointNewApi($input): array
 }
 
 // người bán xác nhận yêu cầu hủy người mua hủy đơn của người bán đăng
-function acceptUserSellCancelOrdecPointNewApi($input): array
+function acceptUserBuyCancelOrderBuyPointNewApi($input): array
 {
     global $controller, $transactionType;
     global $isRequestPost;
@@ -1658,24 +2111,24 @@ function acceptUserSellCancelOrdecPointNewApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
 
-        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_sell'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
 
         if (empty($order)) {
             return apiResponse(5, 'Đơn này không tồn tại');
         }
 
-        $infoUserbuy = $modelUser->find()->where(['id'=>$order->user_buy])->first();
+        $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
 
         $order->status = 0;
-        $order->user_buy = null;
+        $order->user_sell = null;
         $modelOrderPoint->save($order);
 
         // thông báo cho người mua 
 
-        $title = 'Yêu cầu hủy mua bán điểm thành công  ';
-        $content = "Tài xế $currentUser->name đồng ý hủy yêu cầu mua bán điểm ";
+        $title = 'Yêu cầu hủy bán điểm thành công  ';
+        $content = "Tài xế $currentUser->name đồng ý hủy yêu cầu bán điểm cho bạn ";
         $notification = $modelNotification->newEmptyEntity();
-        $notification->user_id = $infoUserbuy->id;
+        $notification->user_id = $infoUserSell->id;
         $notification->title = $title;
         $notification->content = $content;
         $notification->id_order = $order->id;
@@ -1683,7 +2136,7 @@ function acceptUserSellCancelOrdecPointNewApi($input): array
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
-        if ($infoUserbuy->device_token) {
+        if ($infoUserSell->device_token) {
             $dataSendNotification= array(
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
@@ -1691,7 +2144,7 @@ function acceptUserSellCancelOrdecPointNewApi($input): array
                 'id_order' => $order->id,
                 'action' => 'cancelbuyOrderPoint'
             );
-            sendNotification($dataSendNotification, $infoUserbuy->device_token);
+            sendNotification($dataSendNotification, $infoUserSell->device_token);
         }
 
         return apiResponse(0, 'Bạn xác nhận hủy đơn mua điểm thành công ');
@@ -1701,8 +2154,8 @@ function acceptUserSellCancelOrdecPointNewApi($input): array
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
-// người bán từ trối yêu cầu hf người mua hủy đơn của người bán đăng
-function rejectUserSellCancelOrderSellPointNewApi($input): array
+// người bán từ trối yêu cầu của người mua hủy đơn của người bán đăng
+function rejectUserBuyCancelOrderBuyPointNewApi($input): array
 {
     global $controller, $transactionType;
     global $isRequestPost;
@@ -1731,7 +2184,7 @@ function rejectUserSellCancelOrderSellPointNewApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
 
-        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_sell'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
 
         if (empty($order)) {
             return apiResponse(5, 'Đơn này không tồn tại');
@@ -1740,13 +2193,13 @@ function rejectUserSellCancelOrderSellPointNewApi($input): array
         
 
         // thông báo cho người mua 
-        $infoUserBuy = $modelUser->find()->where(['id'=>$order->user_buy])->first();
+        $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
 
 
-        $title = 'Yêu cầu hủy mua bán điểm đã từ trối ';
-        $content = "Tài xế $currentUser->name từ trối hủy yêu cầu mua bán điểm ";
+        $title = 'Yêu cầu hủy bán điểm đã từ trối ';
+        $content = "Tài xế $currentUser->name từ trối hủy yêu cầu mua điểm của bạn ";
         $notification = $modelNotification->newEmptyEntity();
-        $notification->user_id = $infoUserBuy->id;
+        $notification->user_id = $infoUserSell->id;
         $notification->title = $title;
         $notification->content = $content;
         $notification->id_order = $order->id;
@@ -1754,7 +2207,7 @@ function rejectUserSellCancelOrderSellPointNewApi($input): array
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
-        if ($infoUserBuy->device_token) {
+        if ($infoUserSell->device_token) {
             $dataSendNotification= array(
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
@@ -1762,7 +2215,7 @@ function rejectUserSellCancelOrderSellPointNewApi($input): array
                 'id_order' => $order->id,
                 'action' => 'cancelSellOrderPoint'
             );
-            sendNotification($dataSendNotification, $infoUserBuy->device_token);
+            sendNotification($dataSendNotification, $infoUserSell->device_token);
         }
 
         return apiResponse(0, 'Bạn từ trối hủy đơn mua điểm thành công ');
@@ -1773,63 +2226,8 @@ function rejectUserSellCancelOrderSellPointNewApi($input): array
 }
 
 
-function cancelOrderBuyPointNewApi($input): array
-{
-    global $controller, $transactionType;
-    global $isRequestPost;
-    global $bookingStatus;
-    global $bookingType;
 
-    
-    $modelUser = $controller->loadModel('Users');
-    $modelOrderPoint = $controller->loadModel('OrderPoints');
-    $modelNotification = $controller->loadModel('Notifications');
-    $modelTransaction = $controller->loadModel('Transactions');
-    $parameter = parameter();
-    $convertPointMoney = (int) $parameter['convertPointMoney'];
-    $minimumPointSold = (int) $parameter['minimumPointSold'];
-
-
-    if ($isRequestPost){
-        $dataSend = $input['request']->getData();
-
-        if (empty($dataSend['access_token']) && empty($dataSend['id'])){
-            return apiResponse(2, 'Gửi thiếu dữ liệu');
-        }
-
-        $currentUser = getUserByToken($dataSend['access_token']);
-
-        if (empty($currentUser)) {
-            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
-        }
-
-        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status <'=>2])->first();
-
-        if (empty($order)) {
-            return apiResponse(5, 'Đơn này không tồn tại');
-        }
-
-        if ($order->status == 2) {
-            return apiResponse(5, 'đơn này có người bán điểm rồi ');
-        }elseif($order->status ==3) {
-            return apiResponse(4, 'đơn này đã bị hủy');
-        }
-
-        $order->status = 3;
-        $modelOrderPoint->save($order);
-
-        
-        
-        return apiResponse(0, 'Bạn hủy đơn mua điểm thành công ');
-    }
-
-    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
-}
-
-
-
-
-// sửa đơn mua điểm của người  
+// sửa đơn mua điểm của người mua đăng 
 function updeatOrderBuyPointNewApi($input): array
 {
     global $controller, $transactionType;

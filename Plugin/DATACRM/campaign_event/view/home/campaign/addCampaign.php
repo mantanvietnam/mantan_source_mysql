@@ -43,6 +43,10 @@
                       <label class="form-label" for="basic-default-phone">Tên chiến dịch (*)</label>
                       <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                     </div>
+                     <div class="mb-3">
+                              <label class="form-label">Hình minh họa </label>
+                               <?php showUploadFile('image','image',@$data->image,3);?>
+                            </div>
                   </div>
 
                   <div class="col-md-6">
@@ -54,6 +58,13 @@
                       </select>
                     </div>
                   </div>
+                    <div class="col-md-12">
+                      <div class="mb-3">
+                        <label class="form-label">Mô tả chiến dịch</label>
+
+                        <?php showEditorInput('description', 'description', @$data->description);?>
+                      </div>
+                    </div>
 
                   <div class="col-md-12 mb-3">
                     <button type="submit" class="btn btn-primary">Lưu cài đặt</button>

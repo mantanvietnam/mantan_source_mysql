@@ -4,7 +4,7 @@
 
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listCustomerAgency">Khách hàng</a> /</span>
-    Danh sách điểm xếp hạng khách hàng
+    Danh sách lịch sử tặng quà cho khách hàng
   </h4>
 
   <!-- <p><a href="/editCustomerAgency" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a>  <a href="/addDataCustomerAgency" class="btn btn-danger" ><i class='bx bx-plus'></i> Thêm mới bằng Excel</a></p> -->
@@ -25,26 +25,6 @@
             <input type="text" class="form-control" name="customer_buy" id="customer_buy" value="<?php if(!empty($_GET['customer_buy'])) echo $_GET['customer_buy'];?>">
             <input type="hidden" class="form-control" name="id_customer" id="id_customer" value="<?php if(!empty($_GET['id_customer'])) echo $_GET['id_customer'];?>">
           </div>
-
-          
-
-          <div class="col-md-2">
-            <label class="form-label">Xếp Hạnh</label>
-            <select name="id_rating" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <?php 
-              if(!empty($rating)){
-                foreach ($rating as $key => $value) {
-                  if(empty($_GET['id_rating']) || $_GET['id_rating']!=$value->id){
-                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
-                  }else{
-                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
-                  }
-                }
-              }
-              ?>
-            </select>
-          </div>
           
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
@@ -63,44 +43,36 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách điểm xếp hạng khách hàng - <span class="text-danger"><?php echo number_format($totalData);?> khách hàng</span></h5>
-    <?php echo @$mess; ?>
+    <h5 class="card-header">Danh sách lịch sử tặng quà cho khách hàng - <span class="text-danger"><?php echo number_format($totalData);?> tổng</span></h5>
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Hình đại diện</th>
+              <th>Quà tặng </th>
               <th>Thông tin khách </th>
               <th>Điểm</th>
-              <th>Xếp Hạng</th>
-              <th>Đổi quà</th>
+              <th>thời gian</th>
+              
             </tr>
           </thead>
           <tbody>
             <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                // /debug($item);               
 
                 $infoCustomer = @$item->customer->full_name.'<br/>'.@$item->customer->phone;
                 if(!empty(@$item->customer->address)) $infoCustomer .= '<br/>'.@$item->customer->address;
                 if(!empty(@$item->customer->email)) $infoCustomer .= '<br/>'.@$item->customer->email;
-                $infoCustomer .= '<br/>';
-                if(!empty(@$item->customer->facebook)) $infoCustomer .= '<br/><a href="'.@@$item->customer->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>';
                 
                 echo '<tr>
                 <td>'.@$item->id.'</td>
-                <td><img class="img_avatar" src="'.@$item->customer->avatar.'" width="80" height="80" /></td>
+                <td>'.$item->gift->name.'</td>
                 <td>'.$infoCustomer.'</td>
                 <td>'.@$item->point.'</td>
-                <td>'.@$item->rating->name.'</td>
-                <td align="center">
-                  <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
-                    <i class="bx bx-gift me-1"></i>
-                            </a>
-                </td>
+                <td>'.date('H:i d/m/Y', $item->create_at).'</td>
+                
                 </tr>';
               }
             }else{
@@ -120,15 +92,12 @@
                 
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                        <center><img class="img_avatar" src="'.@$item->customer->avatar.'" style=" width:50%" /></center><br/>
+                        <p><strong> Quà tặng: </strong>: '.@$item->gift->name.' </p>
                         <p><strong> Khách hàng: </strong>: '.@$item->customer->full_name.' </p>
                         <p><strong> Điện thoại: </strong>: '.@$item->customer->phone.'</p>
                         <p><strong> Địa chỉ: </strong>: '.@$item->customer->address.'</p>
                         <p><strong> Đểm: </strong>'.@$item->point.'</p>
-                        <p><strong> Xếp hạng: '.@$item->rating->name.'</p>
-                          <p align="center"><a class="btn btn-primary mb-3" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
-                    <i class="bx bx-gift me-1"></i> 
-                            </a></p>
+                        <p><strong> Thời gian: '.date('H:i d/m/Y', $item->create_at).'</p>
                         </div>';
           }
          
@@ -186,65 +155,6 @@
 </div>
 <!--/ Responsive Table -->
 </div>
-
-    <?php  if(!empty($listData)){
-              foreach ($listData as $item) {
-                 
-
-
-               ?>
-                        <div class="modal fade" id="basicModal<?php echo $item->id; ?>"  name="id">
-                                
-                          <div class="modal-dialog" role="document" style=" max-width: 45rem;">
-                            <div class="modal-content">
-                              <div class="modal-header form-label border-bottom">
-                                <h5 class="modal-title" id="exampleModalLabel1">Thông tin đổi quà tặng </h5>
-                                <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                               <div class="modal-footer">
-                                <input type="hidden" value="<?php echo $item->id; ?>"  name="id">
-                                <div class="card-body">
-                                  <label class="form-label"> <strong>Thông tin khách hàng </strong></label>
-                                  <div class="row gx-3 gy-2 align-items-center">
-                                    <div class="col-md-6">
-                                      
-                                        <center><img src="<?php echo  @$item->customer->avatar ?>" style=" width:100%" /></center>
-                                    </div>
-                                     <div class="col-md-6">
-                                        <p><label class="form-label">Khách hàng: </label> <?php echo $item->customer->full_name; ?> </p>
-                                        <p><label class="form-label">Điện thoại: </label> <?php echo $item->customer->phone; ?></p>
-                                        <p><label class="form-label">Địa chỉ: </label> <?php echo $item->customer->address; ?></p>
-                                        <p><label class="form-label">Đểm: </label> <?php echo $item->point; ?></p>
-                                        <p><label class="form-label">Xếp hạng: </label> <?php echo $item->rating->name; ?></p>
-                                      </div>
-                                </div>
-                              </div>
-                               </div>
-                               <div class="row mb-3 card-body">
-                                <label class="form-label"> <strong>Quà tặng </strong></label>
-                            <?php
-                              if(!empty($item->gift)){
-                                foreach($item->gift as $key => $value){
-                                  
-
-                          
-                                  echo '<div class="col-md-4">
-                                          <div class="border">
-                                        <img src="'.$value->image.'" style=" width:100%; height: 200px" />
-                                        <p  class="text-center">'.@$value->name.'</p>
-                                        <p  class="text-center">Điểm quy đổi: '.number_format(@$value->point).'đ</p>
-                                         <p align="center"> <a class="btn btn-primary mb-3" href="/giveGiftCustomer?id_gift='.$value->id.'&id_customer='.$item->id_customer.'"  onclick="return confirm(\'Bạn có chắc chắn muốn tặng quà '.@$value->name.' cho khách không ?\');">Đổi quà </a></p>
-                                    </div>
-                                    </div>';
-                                }
-                              }
-                             ?>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-                      <?php }} ?>
-
 <script type="text/javascript">
   $(function() {
     function split( val ) {

@@ -24,6 +24,8 @@ $sqlInstallDatabase .= "CREATE TABLE `campaigns` (
                                 `team` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
                                 `ticket` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
                                 `create_at` INT NOT NULL , 
+                                `image` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
+                                `description` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;
                                 PRIMARY KEY (`id`)
                             ) ENGINE = InnoDB; ";
 
@@ -57,6 +59,8 @@ $sqlUpdateDatabase['campaigns']['img_background'] = "ALTER TABLE `campaigns` ADD
 $sqlUpdateDatabase['campaigns']['id_member'] = "ALTER TABLE `campaigns` ADD `id_member` INT NOT NULL ; ";
 $sqlUpdateDatabase['campaigns']['location'] = "ALTER TABLE `campaigns` ADD `location` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL ; ";
 $sqlUpdateDatabase['campaigns']['img_logo'] = "ALTER TABLE `campaigns` ADD `img_logo` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL ; ";
+$sqlUpdateDatabase['campaigns']['image'] = "ALTER TABLE `campaigns` ADD `image` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL ; ";
+$sqlUpdateDatabase['campaigns']['description'] = "ALTER TABLE `campaigns` ADD `description` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL ; ";
 $sqlUpdateDatabase['campaigns']['team'] = "ALTER TABLE `campaigns` ADD `team` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL; ";
 $sqlUpdateDatabase['campaigns']['ticket'] = "ALTER TABLE `campaigns` ADD `ticket` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL; ";
 $sqlUpdateDatabase['campaigns']['create_at'] = "ALTER TABLE `campaigns` ADD `create_at` INT NOT NULL ; ";

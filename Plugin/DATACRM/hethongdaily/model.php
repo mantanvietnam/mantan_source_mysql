@@ -20,4 +20,6 @@ include('model/seting_theme_info.php'); // cài đặt theme info
 include('model/link_infos.php'); // cài đặt theme info
 include('model/rating_point_customer.php'); // cài đặt theme info
 include('model/point_customers.php'); // cài đặt theme info
+include('model/customer_gift.php'); // cài đặt theme info
+include('model/customer_historie_gift.php'); // cài đặt theme info
 ?>

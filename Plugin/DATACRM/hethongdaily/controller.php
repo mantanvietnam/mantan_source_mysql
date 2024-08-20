@@ -16,6 +16,7 @@ include_once('controller/home/discountCodeController.php'); // Mã giảm giá
 include_once('controller/home/affiliaterController.php'); // affiliater
 include_once('controller/home/ratingPointController.php'); // affiliater
 include_once('controller/home/trainingController.php'); // đào tạo 
+include_once('controller/home/customerGiftController.php'); // đào tạo 
 
 
 include_once('controller/admin/membersController.php'); // đại lý hệ thống

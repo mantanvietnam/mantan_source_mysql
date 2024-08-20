@@ -136,6 +136,21 @@ function addCampaign($input)
                     }
                 }
 
+                $image = '';
+                if(!empty($dataSend['image'])){
+                    $image = $dataSend['image'];
+                }
+
+                if(empty($image)){
+                    $system = $modelCategories->find()->where(['id'=>(int) $session->read('infoUser')->id_system])->first();
+
+                    if(!empty($system->image)){
+                        $image = $system->image;
+                    }else{
+                        $image = $urlHomes.'/plugins/campaign_event/view/home/image/logo-phoenix.png';
+                    }
+                }
+
                 // tạo dữ liệu save
                 $data->name = $dataSend['name'];
                 $data->name_show = $dataSend['name_show'];
@@ -145,8 +160,10 @@ function addCampaign($input)
                 $data->noteCheckin = $dataSend['noteCheckin'];
                 $data->colorText = $dataSend['colorText'];
                 $data->status = $dataSend['status'];
+                $data->description = $dataSend['description'];
                 $data->img_background = $img_background;
                 $data->img_logo = $img_logo;
+                $data->image = $image;
                 $data->id_member = $session->read('infoUser')->id;
                 $data->location = json_encode($dataSend['location']);
 

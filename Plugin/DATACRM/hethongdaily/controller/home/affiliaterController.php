@@ -263,7 +263,7 @@ function addAffiliaterAgency($input)
         if(!empty($_GET['id'])){
             $father =  $modelAffiliaters->find()->where(array('id'=>$data->id_father))->first();
 
-            $data->phone_father = (int) @$father->phone;
+            $data->phone_father = @$father->phone;
         }
 
         setVariable('data', $data);

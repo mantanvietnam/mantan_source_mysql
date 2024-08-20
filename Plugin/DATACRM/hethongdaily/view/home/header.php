@@ -224,6 +224,7 @@
                           <a class="dropdown-item" href="/calendarCustomerHistoriesAgency">Đặt hẹn</a>
                           <a class="dropdown-item" href="/groupCustomerAgency">Nhóm khách hàng</a>
                           <a class="dropdown-item" href="/listPointCustomer">Điểm xếp hạng khách hàng</a>
+                          <a class="dropdown-item" href="/listHistorieCustomerGiftAgency">Lịch sử tặng quà </a>
                           <a class="dropdown-item" href="/guideAddCustomerAPIAgency">Tích hợp API</a>
                         </div>
                       </li>';
@@ -240,6 +241,7 @@
                           <a class="dropdown-item" href="/listCategoryProductAgency">Danh mục sản phẩm</a>
                           <a class="dropdown-item" href="/listCostsIncurred">Chi phí phát sinh</a>
                           <a class="dropdown-item" href="/listDiscountCodeAgency">Mã giảm giá</a>
+                          <a class="dropdown-item" href="/listCustomerGiftAgency">Quà tặng</a>
                         </div>
                       </li>';
               }elseif(in_array('order_customer', $plugins_site_value) || in_array('order_system', $plugins_site_value)){

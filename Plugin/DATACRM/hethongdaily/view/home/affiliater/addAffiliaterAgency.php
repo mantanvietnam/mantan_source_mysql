@@ -87,7 +87,7 @@
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">điện thoại người giới thiệu</label>
-                    <input type="text" class="form-control" placeholder="" name="phone_father" id="phone_father" value="<?php echo (int) @$data->phone_father;?>" />
+                    <input type="text" class="form-control" placeholder="" name="phone_father" id="phone_father" value="<?php echo  @$data->phone_father;?>" />
                   </div>
 
                   <div class="mb-3">

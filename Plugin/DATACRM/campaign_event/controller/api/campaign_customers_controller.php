@@ -379,10 +379,18 @@ function getCampaignCustomerAPI($input)
             $data = $modelCampaigns->find()->where($conditions)->first();
             if(!empty($data)){
 
+                $customer_reg = $modelCampaignCustomers->find()->where(['id_campaign'=>$data->id, 'id_member'=>$boss->id])->all()->toList();
+                $customer_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$data->id, 'id_member'=>$boss->id, 'time_checkin >'=>0])->all()->toList();
+                $yet_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$data->id, 'id_member'=>$boss->id, 'time_checkin'=>0])->all()->toList();
+
+                $data->number_reg = count($customer_reg);
+                $data->number_checkin = count($customer_checkin);
+                $data->yet_checkin = count($yet_checkin);
+
                 $data->location= json_decode($data->location, true);
                 $data->ticket= json_decode($data->ticket, true);
                 $data->team= json_decode($data->team, true);
-                $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'Data'=>$data);
+                $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$data);
             }
             
         }else{

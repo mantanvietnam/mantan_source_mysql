@@ -233,18 +233,18 @@ function createWithdrawRequestApi($input): array
                 
             }*/
 
-            if($currentUser->received > $currentUser->posted){
+            /*if($currentUser->received > $currentUser->posted){
                 return apiResponse(4, 'Số cuốc nhận đang nhiều hơn số cuốc đăng, yêu câu đăng thêm quốc.');
-            }
+            }*/
 
 
 
-            $received = $modelBooking->find()->where(array('received_by'=>$currentUser->id,'status'=>1))->first();
+           /* $received = $modelBooking->find()->where(array('received_by'=>$currentUser->id,'status'=>1))->first();
             if(!empty($received)){
                 if(500000 > $currentUser->total_coin-$dataSend['amount']) {
                     return apiResponse(4, 'Số tiền để lại tối thiểu là 500.000 đ');
                 }
-            }
+            }*/
             
 
 

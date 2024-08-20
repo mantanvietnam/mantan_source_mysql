@@ -60,6 +60,18 @@ function listCustomerAgency($input)
             $conditions['Customers.phone'] = $_GET['phone'];
         }
 
+        if(!empty($_GET['birthday_date'])){
+            $conditions['Customers.birthday_date'] = (int) $_GET['birthday_date'];
+        }
+
+        if(!empty($_GET['birthday_month'])){
+            $conditions['Customers.birthday_month'] = (int) $_GET['birthday_month'];
+        }
+
+        if(!empty($_GET['birthday_year'])){
+            $conditions['Customers.birthday_year'] = (int) $_GET['birthday_year'];
+        }
+
         if(!empty($_GET['status'])){
             $conditions['Customers.status'] = $_GET['status'];
         }
@@ -871,6 +883,7 @@ function listPointCustomer($input){
         $modelPointCustomer = $controller->loadModel('PointCustomers');
         $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
         $modelOrders = $controller->loadModel('Orders');
+        $modelCustomerGifts = $controller->loadModel('CustomerGifts');
 
         
         $conditions = array('id_member'=>$session->read('infoUser')->id);
@@ -900,6 +913,7 @@ function listPointCustomer($input){
             foreach ($listData as $key => $value) {
                 $listData[$key]->rating = $modelRatingPointCustomer->find()->where(['id'=>$value->id_rating])->first();
                 $listData[$key]->customer = $modelCustomers->find()->where(['id'=>$value->id_customer])->first();
+                $listData[$key]->gift = $modelCustomerGifts->find()->where(['point <='=>$value->point])->all()->toList();
                 
             }
         }
@@ -938,6 +952,14 @@ function listPointCustomer($input){
             $urlPage = $urlPage . '?page=';
         }
 
+        $mess = '';
+        if(@$_GET['mess']=='error'){
+            $mess = '<p class="text-danger">Tặng quà có lỗi không thành công</p>';
+        }elseif(@$_GET['mess']=='done'){
+            $mess = '<p class="text-success">Tặng quà thành công</p>';
+
+        }
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
@@ -946,6 +968,7 @@ function listPointCustomer($input){
         setVariable('totalData', $totalData);
         setVariable('listData', $listData);
         setVariable('rating', $rating);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }

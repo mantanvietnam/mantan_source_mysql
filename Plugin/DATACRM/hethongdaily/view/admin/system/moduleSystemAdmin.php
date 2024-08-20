@@ -66,7 +66,7 @@
 
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <input type="checkbox" name="crm_module[]" value="affiliate" <?php if(!empty($data_value) && in_array('affiliate', $data_value)) echo 'checked';?> > Tiếp thị liên kết (Cộng tác viên)
+                    <input type="checkbox" name="crm_module[]" value="affiliater" <?php if(!empty($data_value) && in_array('affiliater', $data_value)) echo 'checked';?> > Tiếp thị liên kết (Cộng tác viên)
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -79,11 +79,11 @@
                     <input type="checkbox" name="crm_module[]" value="cashBook" <?php if(!empty($data_value) && in_array('cashBook', $data_value)) echo 'checked';?> > Sổ Qũy
                   </div>
                 </div>
-                <div class="col-md-3">
+               <!--  <div class="col-md-3">
                   <div class="mb-3">
                     <input type="checkbox" name="crm_module[]" value="affiliater" <?php if(!empty($data_value) && in_array('affiliater', $data_value)) echo 'checked';?> > Tiếp thị liên kết
                   </div>
-                </div>
+                </div> -->
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>
