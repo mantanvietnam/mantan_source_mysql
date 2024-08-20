@@ -66,8 +66,11 @@ function checkDeadlineOrderAPI($input)
 				// báo sang Zoom để khóa phòng
 				if(!empty($order->idRoom)){
 					$room = $modelRooms->find()->where(['id' => $order->idRoom])->first();
-					$room->info = json_decode($room->info, true);
-					closeRoom($zoom->client_id, $zoom->client_secret, $zoom->account_id, $room->info['id']);
+
+					if(!empty($room->info)){
+						$room->info = json_decode($room->info, true);
+						closeRoom($zoom->client_id, $zoom->client_secret, $zoom->account_id, $room->info['id']);
+					}
 				}
 				
 				$zoom->idOrder = 0;
