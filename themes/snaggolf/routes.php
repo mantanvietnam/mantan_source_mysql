@@ -8,4 +8,5 @@
     $routesTheme['about'] = 'snaggolf/about.php';
     $routesTheme['subscribe'] = 'snaggolf/subscribe/addSubscribe.php';
     $routesTheme['tool'] = 'snaggolf/product/allProduct.php';
+    $routesTheme['cart'] = 'snaggolf/product/cart.php';
 ?>

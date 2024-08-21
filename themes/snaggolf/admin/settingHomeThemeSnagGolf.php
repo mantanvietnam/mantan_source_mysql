@@ -145,6 +145,18 @@
                             <label class="form-label" for="basic-default-fullname">Nội Dung</label>
                             <textarea class="form-control" name="footer_content"><?php echo @$setting['footer_content'];?></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">facebook</label>
+                            <textarea class="form-control" name="facebook"><?php echo @$setting['facebook'];?></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Instagram</label>
+                            <textarea class="form-control" name="instagram"><?php echo @$setting['instagram'];?></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Youtube</label>
+                            <textarea class="form-control" name="youtube"><?php echo @$setting['youtube'];?></textarea>
+                        </div>
                     </div>
                     <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <button type="submit" class="btn btn-primary">Lưu</button>

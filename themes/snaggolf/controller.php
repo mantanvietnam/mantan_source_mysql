@@ -36,6 +36,10 @@ function settingHomeThemeSnagGolf($input)
 
                         'footer_content' => $dataSend['footer_content'],
                         'idmenu' => $dataSend['idmenu'],
+
+                        'facebook'=> $dataSend['facebook'],
+                        'instagram'=> $dataSend['instagram'],
+                        'youtube'=> $dataSend['youtube'],
                     );
 
         $data->key_word = 'settingHomeThemeSnagGolf';

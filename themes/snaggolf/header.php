@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="<?php echo $urlThemeActive; ?>/assets/css/bootstrap.css">
     <!-- Main -->
     <link rel="stylesheet" href="<?php echo $urlThemeActive; ?>/assets/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link
     rel="stylesheet"
     type="text/css"

@@ -125,13 +125,13 @@
                     </div>
                     <div class="social">
                         <div class="d-flex">
-                            <a href="">
+                            <a href="<?php echo @$settingThemes['instagram']; ?>">
                                 <img src="<?php echo $urlThemeActive; ?>assets/img/Instagram.png" alt="">
                             </a>
-                            <a href="">
+                            <a href="<?php echo @$settingThemes['youtube']; ?>">
                                 <img src="<?php echo $urlThemeActive; ?>assets/img/Youtube.png" alt="">
                             </a>
-                            <a href="">
+                            <a href="<?php echo @$settingThemes['facebook']; ?>">
                                 <img src="<?php echo $urlThemeActive; ?>assets/img/facebook.png" alt="">
                             </a>
                         </div>
