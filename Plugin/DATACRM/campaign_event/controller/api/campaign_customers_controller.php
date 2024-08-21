@@ -437,7 +437,7 @@ function registerCampaignCustomerAPI($input)
                         $checkCampaignCustomer = $modelCampaignCustomers->newEmptyEntity();
 
                         $checkCampaignCustomer->create_at = time();
-                        $checkCampaignCustomer->id_member = $infoMember->id;
+                        $checkCampaignCustomer->id_member = $boss->id;
                         $checkCampaignCustomer->id_customer = $infoCustomer->id;
                         $checkCampaignCustomer->id_campaign = $data->id;
                         $checkCampaignCustomer->id_location = (int) @$dataSend['id_location'];
