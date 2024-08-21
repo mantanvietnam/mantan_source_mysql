@@ -10,6 +10,7 @@
         mantan_header(); 
 
         if(function_exists('showSeoHome')) showSeoHome();
+        global $settingThemes;
     ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,7 +38,7 @@
             <nav class="navbar navbar-expand-lg navbar-light py-0">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="https://snaggolf.vn/">
-                        <img src="<?php echo $urlThemeActive; ?>/assets/img/Logo.png" alt="">
+                        <img src="<?=$settingThemes['logo']?>" alt="">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa-solid fa-bars"></i>

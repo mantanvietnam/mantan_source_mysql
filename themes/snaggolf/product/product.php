@@ -72,13 +72,13 @@
                                                     </button>
 
                                                     <button type="button" class="product-button-buynow">
-                                                        <a href="tel:<?php echo $contactSite['phone'];?>">
+                                                        <a href="tel:<?php echo $settingThemes['phone'];?>">
                                                             <span>Gọi Hotline</span>
                                                         </a>
                                                     </button>
                                                 </div>
                                                 <div class="product-button-single">
-                                                    <a href="<?php echo @$settingThemes['facebook'];?>" class="button-single">Click vào đây để nhận ưu đãi</a>
+                                                    <a href="<?php echo $settingThemes['facebook'];?>" class="button-single">Click vào đây để nhận ưu đãi</a>
                                                 </div>
                                             </div>
                                         </div>

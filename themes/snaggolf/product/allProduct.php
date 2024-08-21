@@ -1,6 +1,6 @@
 <?php
     getHeader();
-   
+ 
 ?>
 <main>
     <section class="post-head">

@@ -36,7 +36,7 @@ function settingHomeThemeSnagGolf($input)
 
                         'footer_content' => $dataSend['footer_content'],
                         'idmenu' => $dataSend['idmenu'],
-
+                        'phone'=>$dataSend['phone'],
                         'facebook'=> $dataSend['facebook'],
                         'instagram'=> $dataSend['instagram'],
                         'youtube'=> $dataSend['youtube'],
@@ -446,6 +446,8 @@ function method($input){
     }
     setVariable('idmenu', $idmenu);
 }
+
+
 function searchTheme($input)
 {
 

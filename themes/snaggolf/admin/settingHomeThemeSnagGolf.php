@@ -17,6 +17,10 @@
                   <?php showUploadFile('logo','logo', @$setting['logo'],1);?>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Phone</label>
+                    <input type="text" class="form-control" name="phone" value="<?php echo @$setting['phone'];?>" />
+                </div>
+                <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">id menu</label>
                     <input type="text" class="form-control" name="idmenu" value="<?php echo @$setting['idmenu'];?>" />
                 </div>
