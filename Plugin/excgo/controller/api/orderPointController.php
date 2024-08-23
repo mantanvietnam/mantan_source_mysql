@@ -1407,7 +1407,7 @@ function cancelUserSellOrderSellPointNewApi($input): array
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'id_order' => $order->id,
-                    'action' => 'cancelSellOrderPoint'
+                    'action' => 'cancelUserSellOrderSell'
                 );
                 sendNotification($dataSendNotification, $infoUserBuy->device_token);
             }
@@ -1628,7 +1628,7 @@ function cancelUserbuyOrderSellPointNewApi($input): array
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'id_order' => $order->id,
-                    'action' => 'cancelSellOrderPoint'
+                    'action' => 'cancelUserbuyOrderSell'
                 );
                 sendNotification($dataSendNotification, $infoUserSell->device_token);
             }
@@ -1855,7 +1855,7 @@ function cancelUserBuyOrderBuyPointNewApi($input): array
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'id_order' => $order->id,
-                    'action' => 'cancelBuyOrderPoint'
+                    'action' => 'cancelUserBuyOrderBuy'
                 );
                 sendNotification($dataSendNotification, $infoUserSell->device_token);
             }
@@ -2069,7 +2069,7 @@ function cancelUserSellOrderBuyPointNewApi($input): array
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'id_order' => $order->id,
-                    'action' => 'cancelBuyOrderPoint'
+                    'action' => 'cancelUserSellOrderBuy'
                 );
                 sendNotification($dataSendNotification, $infoUserBuy->device_token);
             }

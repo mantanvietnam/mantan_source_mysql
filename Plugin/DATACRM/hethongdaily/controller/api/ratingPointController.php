@@ -2,10 +2,8 @@
 function listRatingPointAPI($input){
     global $isRequestPost;
     global $metaTitleMantan;
-    global $session;
     global $controller;
 
-    $metaTitleMantan = 'Danh sách xếp hạng thành viên';
     $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
     $return = array('code'=>1);
     
@@ -20,13 +18,16 @@ function listRatingPointAPI($input){
                 $listData = $modelRatingPointCustomer->find()->where($conditions)->all()->toList();
 
 
-                $return = array('code'=>0, 'mess'=> 'lấy dữ liệu thành công','listData'=>$listData);  
+                $return = array('code'=>1, 'mess'=> 'lấy dữ liệu thành công','listData'=>$listData);  
             }else{
                  $return = array('code'=>3, 'mess'=>'Sai mã token');
             }
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
+    }else{
+            $return = array('code'=>0, 'mess'=>'gửi sai kiểu POST');
+
     }
 
     return $return;
@@ -35,7 +36,6 @@ function listRatingPointAPI($input){
 function getRatingPointAPI($input){
     global $isRequestPost;
     global $metaTitleMantan;
-    global $session;
     global $controller;
 
     $metaTitleMantan = 'Danh sách xếp hạng thành viên';
@@ -51,7 +51,7 @@ function getRatingPointAPI($input){
          
                 $data = $modelRatingPointCustomer->find()->where(['id'=>(int) $dataSend['id']])->first();
 
-                $return = array('code'=>0, 'mess'=> 'lấy dữ liệu thành công','data'=>$data);  
+                $return = array('code'=>1, 'mess'=> 'lấy dữ liệu thành công','data'=>$data);  
                
                 
             }else{
@@ -60,6 +60,9 @@ function getRatingPointAPI($input){
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
+    }else{
+            $return = array('code'=>0, 'mess'=>'gửi sai kiểu POST');
+
     }
 
     return $return;
@@ -68,7 +71,6 @@ function getRatingPointAPI($input){
 function addRatingPointAPI($input){
     global $isRequestPost;
     global $metaTitleMantan;
-    global $session;
     global $controller;
 
     $metaTitleMantan = 'Danh sách xếp hạng thành viên';
@@ -126,6 +128,9 @@ function addRatingPointAPI($input){
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
+    }else{
+            $return = array('code'=>0, 'mess'=>'gửi sai kiểu POST');
+
     }
 
     return $return;
@@ -133,35 +138,38 @@ function addRatingPointAPI($input){
 
 function deleteRatingPointAPI($input){
     global $controller;
-    global $session;
+    global $isRequestPost;
     $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token'])){
+        if(!empty($dataSend['token']) && !empty($dataSend['id'])){
             $infoMember = getMemberByToken($dataSend['token']);
 
             if(!empty($infoMember)){
                 if(!empty($infoMember->id_father)){
                     return array('code'=>4, 'mess'=>'Bạn không phải là boss');
                 }
-                if(!empty($_GET['id'])){
-                    $data = $modelRatingPointCustomer->get($_GET['id']);
+                
+                    $data = $modelRatingPointCustomer->get($dataSend['id']);
                     
                     if($data){
                         $data->status = 'lock';
                         $modelRatingPointCustomer->save($data);
                         //deleteSlugURL($data->slug);
-                    }
+                        $return = array('code'=>1, 'mess'=>'xóa dữ liệu thành công');
+                   }else{
+                    $return = array('code'=>4, 'mess'=>'xóa dữ liệu không thành công');
                 }
-                 $return = array('code'=>1, 'mess'=>'xóa dữ liệu thành công');
-
             }else{
                  $return = array('code'=>3, 'mess'=>'Sai mã token');
             }
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
-    }
+    }else{
+            $return = array('code'=>0, 'mess'=>'gửi sai kiểu POST');
+
+    }   
 
     return $return;
 }
@@ -171,7 +179,7 @@ function listPointCustomerAPI($input){
     global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
-    global $session;
+    global $isRequestPost;
     global $modelCategoryConnects;
 
     if($isRequestPost){
@@ -228,13 +236,16 @@ function listPointCustomerAPI($input){
                 $totalData = count($modelPointCustomer->find()->where($conditions)->all()->toList());
 
               
-                $return = array('code'=>0, 'mess'=> 'lấy dữ liệu thành công','listData'=>$listData,'totalData'=>$totalData);  
+                $return = array('code'=>1, 'mess'=> 'lấy dữ liệu thành công','listData'=>$listData,'totalData'=>$totalData);  
             }else{
                  $return = array('code'=>3, 'mess'=>'Sai mã token');
             }
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
+    }else{
+            $return = array('code'=>0, 'mess'=>'gửi sai kiểu POST');
+
     }
 
     return $return;

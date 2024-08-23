@@ -41,6 +41,7 @@ include_once('controller/api/staticsController.php'); // phiếu thu và phieu c
 include_once('controller/api/affiliaterController.php'); // phiếu thu và phieu chi 
 include_once('controller/api/transaction_histories_controller.php'); // phiếu thu và phieu chi 
 include_once('controller/api/ratingPointController.php'); // affiliater
+include_once('controller/api/customerGiftController.php'); // đào tạo 
 
 include_once('controller/home/transaction_histories_controller.php'); // lịch sử giao dịch nạp tiền
 

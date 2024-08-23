@@ -25,7 +25,7 @@ function listCustomerGiftAgency($input)
         $order = array('id'=>'desc');
 
         if(!empty($_GET['name'])){
-            $slug = createSlugMantan($dataSend['name']);
+            $slug = createSlugMantan($_GET['name']);
             $conditions['slug LIKE'] = '%'.$slug.'%';
         }
 
