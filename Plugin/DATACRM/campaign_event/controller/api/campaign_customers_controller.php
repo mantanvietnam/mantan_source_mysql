@@ -515,7 +515,7 @@ function  listCampaignCustomerJoinAPI($input)
                     }
                     
                 }
-                $return = array('code'=>1, 'mess'=>'Lưu dữ liệu thành công', 'Data'=>$listData);
+                $return = array('code'=>1, 'mess'=>'lấy dữ liệu thành công', 'listData'=>$listData);
                 
             }else{
              $return = array('code'=>3, 'mess'=>'Sai mã token');

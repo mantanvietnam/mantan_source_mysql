@@ -139,7 +139,10 @@
                     <label class="form-label" for="basic-default-phone">Kênh Youtube</label>
                     <input type="text" class="form-control phone-mask" name="youtube" id="youtube" value="<?php echo @$data->youtube;?>" />
                   </div>
-
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Số điện thoại của Đạt lý gới thiệu </label>
+                    <input type="text" class="form-control phone-mask" name="phone_agency" id="phone_agency" value="<?php echo @$data->phone_agency;?>" />
+                  </div>
                   
                 </div>
 

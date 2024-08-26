@@ -252,10 +252,11 @@ function viewOrderAdmin($input)
                                 $present[] = $presentf;
                             }
                         }
-                        
+                        $product->present = @$present;
                     }
-                    $product->present = $present;
                     $detail_order[$key]->product = $product;
+
+
                 }
             }
 
@@ -292,7 +293,7 @@ function treatmentOrder($input){
         if(!empty($_GET['back'])){
             return $controller->redirect($_GET['back']);
         }else{
-            return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin');
+            return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
         }
         
 

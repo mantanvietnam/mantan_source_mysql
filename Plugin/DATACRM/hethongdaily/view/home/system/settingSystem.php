@@ -46,6 +46,12 @@
                     <input  type="text" class="form-control phone-mask" name="convertPoint" id="convertPoint" value="<?php echo @$data->convertPoint;?>"/>
                   </div>
                 </div>
+                <!-- <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Hoa hông cho đại lý giới thiệu</label>
+                    <input  type="text" class="form-control phone-mask" name="agentCommission" id="agentCommission" value="<?php echo @$data->agentCommission;?>"/>
+                  </div>
+                </div> -->
               </div>
 
               <button type="submit" class="btn btn-primary">Lưu</button> 

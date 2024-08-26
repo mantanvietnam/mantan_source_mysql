@@ -69,6 +69,8 @@ function listComplaintAdmin($input)
             'Complaints.complained_driver_id',
             'Complaints.content',
             'Complaints.status',
+            'Complaints.type',
+            'Complaints.id_order',
             'Complaints.created_at',
             'Complaints.updated_at',
             'Users.id',

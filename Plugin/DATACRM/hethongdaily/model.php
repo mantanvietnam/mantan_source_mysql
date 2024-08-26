@@ -22,4 +22,5 @@ include('model/rating_point_customer.php'); // cài đặt theme info
 include('model/point_customers.php'); // cài đặt theme info
 include('model/customer_gift.php'); // cài đặt theme info
 include('model/customer_historie_gift.php'); // cài đặt theme info
+include('model/transaction_agency_historie.php'); // cài đặt theme info
 ?>

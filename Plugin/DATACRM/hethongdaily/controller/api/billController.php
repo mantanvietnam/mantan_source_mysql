@@ -249,11 +249,11 @@ function listCollectionBillAPI($input){
 
 				if(!empty($listData)){
 					foreach($listData as $key => $item){
-						if(!empty($item->id_member_buy) && $item->type_order==1){
+						if(!empty($item->id_member_buy) ){
 							$listData[$key]->member = $modelMembers->find()->where(['id'=>$item->id_member_buy])->first();
 						}
 
-						if(!empty($item->id_customer) && $item->type_order==2){
+						if(!empty($item->id_customer)){
 							$listData[$key]->customer = $modelCustomers->find()->where(['id'=>$item->id_customer])->first();
 						}
 					}

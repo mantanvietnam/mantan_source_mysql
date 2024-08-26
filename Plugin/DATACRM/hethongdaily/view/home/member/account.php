@@ -39,7 +39,13 @@
                           Theme info
                         </button>
                       </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-commission" aria-controls="navs-top-info" aria-selected="false">
+                          Hoa hông cho đại lý 
+                        </button>
+                      </li>
                     </ul>
+                    
                     <div class="tab-content">
                       <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
                         <div class="row">
@@ -324,6 +330,16 @@
                                 }
                               }
                              ?>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-commission" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Hoa hông cho đại lý giới thiệu</label>
+                              <input  type="text" class="form-control phone-mask" name="agent_commission" id="agent_commission" value="<?php echo @$user->agent_commission;?>"/>
+                            </div>
+                          </div>
                         </div>
                       </div>
 

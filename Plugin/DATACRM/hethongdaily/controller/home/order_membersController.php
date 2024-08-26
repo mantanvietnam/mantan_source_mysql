@@ -595,7 +595,7 @@ function updateOrderMemberAgency($input)
 
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'Cập nhập đơn hàng đại lý';
-
+        $user = $session->read('infoUser');
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelBill = $controller->loadModel('Bills');
@@ -606,11 +606,13 @@ function updateOrderMemberAgency($input)
         $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
         $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelTokenDevices = $controller->loadModel('TokenDevices');
+        $modelTransactionAgencyHistorie = $controller->loadModel('TransactionAgencyHistories');
 
         if(!empty($_GET['id'])){
-            $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id'], 'id_member_sell'=>$session->read('infoUser')->id])->first();
+            $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id'], 'id_member_sell'=>$user->id])->first();
 
             if(!empty($order)){
+                $infoMemberBuy = $modelMembers->find()->where(['id'=>$order->id_member_buy])->first();
                 if(!empty($_GET['status'])){
                     $order->status = $_GET['status'];
 
@@ -644,7 +646,6 @@ function updateOrderMemberAgency($input)
                                 $modelWarehouseProducts->save($checkProductExits);
 
                                 // thông báo cho người mua
-                                $infoMemberBuy = $modelMembers->find()->where(['id'=>$order->id_member_buy])->first();
 
                                 if(!empty($infoMemberBuy->noti_product_warehouse)){
                                     $dataSendNotification= array('title'=>'Nhập hàng vào kho','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$order->id.' của bạn đã được nhập kho','action'=>'addProductWarehouse');
@@ -736,7 +737,6 @@ function updateOrderMemberAgency($input)
 
                     if($_GET['status_pay'] == 'done'){
                         // thông báo cho người mua
-                        $infoMemberBuy = $modelMembers->find()->where(['id'=>$order->id_member_buy])->first();
 
                         if(!empty($infoMemberBuy->noti_new_order)){
                             $dataSendNotification= array('title'=>'Thanh toán thành công','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$order->id.' của bạn đã được thanh toán thành công số tiền '.number_format($order->total).'đ','action'=>'deleteProductWarehouse','id_order_member'=>$order->id);
@@ -783,7 +783,7 @@ function updateOrderMemberAgency($input)
 
                             // bill cho người bán 
                             $bill = $modelBill->newEmptyEntity();
-                            $bill->id_member_sell =  $session->read('infoUser')->id;
+                            $bill->id_member_sell =  $user->id;
                             $bill->id_member_buy = $order->id_member_buy;
                             $bill->total = $order->total;
                             $bill->id_order = $order->id;
@@ -799,7 +799,7 @@ function updateOrderMemberAgency($input)
 
                             // bill cho người mua
                             $billbuy = $modelBill->newEmptyEntity();
-                            $billbuy->id_member_sell =  $session->read('infoUser')->id;
+                            $billbuy->id_member_sell =  $user->id;
                             $billbuy->id_member_buy = $order->id_member_buy;
                             $billbuy->total = $order->total;
                             $billbuy->id_order = $order->id;
@@ -847,6 +847,31 @@ function updateOrderMemberAgency($input)
                                 $debt->note = 'Thanh toán đơn hàng id:'.$order->id.' mua của đại lý '.@$infoMemberSell->name.' '.@$infoMemberSell->phone.'; '.@$_GET['note'];
                                     $modelDebt->save($debt);
                         }
+
+
+                        // cộng hoa hông cho đại lý giời thiệu
+                        if(!empty($infoMemberBuy->id_agency_introduce) && !empty($infoMemberBuy->id_father)  && !empty($user->agent_commission) && !empty($order->total)){
+                            if($infoMemberBuy->id_father == $user->id){
+
+
+                                $money_back = $user->agent_commission * $order->total / 100;
+                
+                                // lưu lịch sử trích hoa hồng
+                                $saveBack = $modelTransactionAgencyHistorie->newEmptyEntity();
+                
+                                $saveBack->id_agency_introduce = $infoMemberBuy->id_agency_introduce;
+                                $saveBack->money_total = $order->total;
+                                $saveBack->money_back = $money_back;
+                                $saveBack->percent = $user->agent_commission;
+                                $saveBack->id_order_member = $order->id;
+                                $saveBack->create_at = time();
+                                $saveBack->status = 'new';
+                                $saveBack->id_member = $user->id;
+                                $modelTransactionAgencyHistorie->save($saveBack);
+
+                            }
+                        }
+
                     }
                 }
 
@@ -1202,4 +1227,191 @@ function editOrderMemberAgency($input)
         return $controller->redirect('/login');
     }
 }
+
+function listTransactionAgencyHistorie(){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Lịch sử giao dịch';
+
+    if(!empty($session->read('infoUser'))){
+
+        $user = $session->read('infoUser');
+
+        $modelMember = $controller->loadModel('Members');
+
+        $modelTransactionAgencyHistorie = $controller->loadModel('TransactionAgencyHistories');
+
+
+        $conditions = array('id_member'=>$user->id);
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+
+        if(!empty($_GET['id_agency_introduce'])){
+            $conditions['id_agency_introduce'] = (int) $_GET['id_agency_introduce'];
+        }
+
+        if(!empty($_GET['id_order_member'])){
+            $conditions['id_order_member'] = (int) $_GET['id_order_member'];
+        }
+
+        if(!empty($_GET['status'])){
+            $conditions['status'] = $_GET['status'];
+        }
+
+        if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+            $listData = $modelTransactionAgencyHistorie->find()->where($conditions)->order($order)->all()->toList();
+            
+            $titleExcel =   [
+                ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
+                ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+                ['name'=>'ID đơn hàng', 'type'=>'text', 'width'=>25],
+                ['name'=>'Giá trị đơn hàng', 'type'=>'text', 'width'=>25],
+                ['name'=>'Tiền hoa hồng', 'type'=>'text', 'width'=>25],
+                ['name'=>'Phần trăm chiết khấu', 'type'=>'text', 'width'=>25],
+                ['name'=>'Trạng thái', 'type'=>'text', 'width'=>25],
+                
+            ];
+
+            $dataExcel = [];
+            if(!empty($listData)){
+                foreach ($listData as $key => $value) {
+                    $agency = $modelMember->find()->where(['id'=>$value->id_agency_introduce])->first();
+
+                    $status = 'Chưa thanh toán';
+                    if($value->status == 'done'){
+                        $status = 'Đã thanh toán';
+                    }
+
+                    $dataExcel[] = [
+                                        @$agency->name,   
+                                        $agency->phone,   
+                                        $value->id_order_member,   
+                                        $value->money_total,   
+                                        $value->money_back,   
+                                        $value->percent,   
+                                        $status
+                                    ];
+                }
+            }
+           export_excel($titleExcel,$dataExcel,'danh_sach_lich_su_giao_dich_hoa_hong_dai_ly_gioi_thieu');
+        }else{
+            $listData = $modelTransactionAgencyHistorie->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+            if(!empty($listData)){
+                foreach ($listData as $key => $value) {
+                    $listData[$key]->agency = $modelMember->find()->where(['id'=>$value->id_agency_introduce])->first();
+                }
+            }
+        }
+
+       
+        // phân trang
+        $totalData = $modelTransactionAgencyHistorie->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        
+        setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+   
+}
+
+function payTransactionAgency($input)
+{
+    global $controller;
+    global $session;
+    $modelMember = $controller->loadModel('Members');
+    $modelTransactionAgencyHistorie = $controller->loadModel('TransactionAgencyHistories');
+    $modelBill = $controller->loadModel('Bills');
+    if(!empty($_GET['id'])){
+        $data = $modelTransactionAgencyHistorie->get($_GET['id']);
+        
+        if(!empty($data)){
+            $aff = $modelMember->get($data->id_agency_introduce);
+            $data->status = 'done';
+
+            $modelTransactionAgencyHistorie->save($data);
+            $time= time();
+             // bill cho người mua
+            $billbuy = $modelBill->newEmptyEntity();
+            $billbuy->id_member_sell = $data->id_agency_introduce;
+            $billbuy->id_member_buy =  $session->read('infoUser')->id;
+            $billbuy->total = $data->money_back;
+            $billbuy->id_order = $data->id;
+            $billbuy->type = 2;
+            $billbuy->type_order = 6; 
+            $billbuy->created_at = $time;
+            $billbuy->updated_at = $time;
+            $billbuy->id_debt = 0;
+            $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
+            $billbuy->id_customer = 0;
+            $billbuy->id_aff = 0;
+            $billbuy->note = 'Thanh toán chiết khấu hoa hông cho đại lý giới thiệu tên là '.@$aff->name.' '.@$aff->phone.'  giao dịch có id '.$data->id;
+            $modelBill->save($billbuy);
+
+             $billbuy = $modelBill->newEmptyEntity();
+            $billbuy->id_member_sell = $data->id_agency_introduce;
+            $billbuy->id_member_buy =  $session->read('infoUser')->id;
+            $billbuy->total = $data->money_back;
+            $billbuy->id_order = $data->id;
+            $billbuy->type = 1;
+            $billbuy->type_order = 6; 
+            $billbuy->created_at = $time;
+            $billbuy->updated_at = $time;
+            $billbuy->id_debt = 0;
+            $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
+            $billbuy->id_customer = 0;
+            $billbuy->id_aff = 0;
+            $billbuy->note = 'Bạn nhận hoa hồng của người đại lý '.@$aff->name.' '.@$aff->phone.', do bạn giới thiệu giao dịch có id '.$data->id;
+            $modelBill->save($billbuy);
+        }
+    }
+
+    return $controller->redirect('/listTransactionAgencyHistorie');
+}
+
 ?>

@@ -100,6 +100,14 @@ function getComplaintListApi($input): array
                         'Complaints.posted_by = PostedUsers.id',
                     ],
                 ],
+                [
+                    'table' => 'order_points',
+                    'alias' => 'OrderPoints',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Complaints.id_order = OrderPoints.id',
+                    ],
+                ],
             ]);
 
         if (!empty($dataSend['type']) && (int) $dataSend['type'] === $complaintType['passive']) {
@@ -131,6 +139,11 @@ function getComplaintListApi($input): array
                 'ComplainedUsers.name',
                 'Complaints.status',
                 'Bookings.name',
+                'ComplainedUsers.name',
+                'OrderPoints.user_sell',
+                'OrderPoints.user_buy',
+                'OrderPoints.total',
+                'OrderPoints.point',
             ])->limit($limit)
             ->page($page)
             ->where($conditions)
@@ -149,3 +162,65 @@ function getComplaintListApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+
+function createComplaintOrdePointApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $complaintModel = $controller->loadModel('Complaints');
+    $bookingModel = $controller->loadModel('Bookings');
+    $modelOrderPoint = $controller->loadModel('OrderPoints');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        if (!empty($dataSend['content']) && !empty($dataSend['id_order'])) {
+            $order = $modelOrderPoint->find()->where(['id' => $dataSend['id_order']])->first();
+
+            if(empty($order)){
+                 return apiResponse(5, 'Đơn này không tồn tại');
+            }
+
+
+
+            if ($order->user_sell !== $currentUser->id && $order->user_buy !== $currentUser->id) {
+                return apiResponse(4, 'Bạn không có quyền khiếu nại');
+            }
+            $newComplaint = $complaintModel->newEmptyEntity();
+            $newComplaint->posted_by = $currentUser->id;
+            $newComplaint->booking_id = 0;
+            $newComplaint->type = 2;
+            $newComplaint->id_order = $order->id;
+            $newComplaint->content = $dataSend['content'];
+            if (!empty($dataSend['complained_driver_id'])) {
+                $newComplaint->complained_driver_id = $dataSend['complained_driver_id'];
+            } else {
+                $newComplaint->complained_driver_id = $order->user_sell === $currentUser->id ?
+                    $order->user_buy : $order->user_sell;
+            }
+            $complaintModel->save($newComplaint);
+
+            sendEmailComplaint($currentUser->name, $newComplaint->id);
+
+            return apiResponse(0, 'Tạo khiếu nại thành công');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+

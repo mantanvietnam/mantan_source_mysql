@@ -102,12 +102,18 @@
                 if(!empty($listData)){
                   foreach ($listData as $item) {
                     $type = '';
+                    $link = '';
                     if($item->type_order==1){
                       $type = 'Đại lý';
+                      $link = 'requestProductAgency';
                     }elseif($item->type_order==2){
                       $type = 'Khách hàng';
                     }elseif($item->type_order==4){
                       $type = 'CTV';
+                      $link = 'listTransactionAffiliaterAgency';
+                    }elseif($item->type_order==6){
+                      $type = 'Hoa hồng đại lý';
+                      $link = 'listTransactionAgencyHistorie';
                     }
 
                     $type_collection_bill;
@@ -124,18 +130,15 @@
                     }
 
                     $info = '';
-                    $link = '';
                     if(!empty($item->member)){
                       $info = 'Tên đại lý:'.$item->member->name.'<br/>
                               Số điện thoại:'.$item->member->phone;
-                      $link = 'requestProductAgency';
                     }elseif(!empty($item->customer)){
                       $info = 'Tên khách hàng:'.$item->customer->full_name.'<br/>
                               Số điện thoại:'.$item->customer->phone;
                     }elseif(!empty($item->aff)){
                       $info = 'Tên CTV:'.$item->aff->name.'<br/>
                               Số điện thoại: '.$item->aff->phone;
-                      $link = 'listTransactionAffiliaterAgency';
                     }
                     echo '<tr>
                             <td>'.$item->id.'</td>
@@ -172,13 +175,19 @@
          if(!empty($listData)){
               foreach ($listData as $item) {
                 $type = '';
+               $link = '';
                 if($item->type_order==1){
                   $type = 'Đại lý';
+                  $link = 'requestProductAgency';
                 }elseif($item->type_order==2){
                   $type = 'Khách hàng';
                 }elseif($item->type_order==4){
-                      $type = 'CTV';
-                    }
+                  $type = 'CTV';
+                  $link = 'listTransactionAffiliaterAgency';
+                }elseif($item->type_order==6){
+                  $type = 'Hoa hồng đại lý';
+                  $link = 'listTransactionAgencyHistorie';
+                }
 
                 $type_collection_bill;
                 if($item->type_collection_bill=='tien_mat'){
@@ -194,18 +203,15 @@
                 }
 
                 $info = '';
-                $link = '';
                 if(!empty($item->member)){
                   $info = 'Tên đại lý:'.$item->member->name.'<br/>
                   Số điện thoại:'.$item->member->phone;
-                  $link = 'requestProductAgency';
                 }elseif(!empty($item->customer)){
                   $info = 'Tên khách hàng:'.$item->customer->full_name.'<br/>
                   Số điện thoại:'.$item->customer->phone;
                 }elseif(!empty($item->aff)){
                   $info = 'Tên CTV:'.$item->aff->name.'<br/>
                   Số điện thoại: '.$item->aff->phone;
-                  $link = 'listTransactionAffiliaterAgency';
                 }
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">

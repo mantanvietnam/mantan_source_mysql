@@ -62,7 +62,8 @@
                     <th>Avatar</th>
                     <th>Người gửi</th>
                     <th>Người bị khiếu nại</th>
-                    <th>Cuốc xe bị kiện</th>
+                    <th>Cuốc xe bị kiện nại</th>
+                    <th>mua bán điểm bị kiện nai</th>
                     <th>Nội dung</th>
                     <th>Trạng thái</th>
                 </tr>
@@ -88,10 +89,15 @@
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Chưa giải quyết ';
                         }
-                        $booking = '
-                        <a href="/plugins/admin/excgo-view-admin-booking-viewBookingDetailAdmin/?id=' . $item->booking_id . '">
-                                ' . $item->booking_id . '
-                        </a>';
+                        $booking = '';
+                        $order = '';
+                        if($item->type == 1){
+                            $booking = '<a href="/plugins/admin/excgo-view-admin-booking-viewBookingDetailAdmin/?id=' . $item->booking_id . '">
+                                ' . $item->booking_id . '</a>';
+                        }else{
+                                $order = '<a href="/plugins/admin/excgo-view-admin-orderPoint-listOrderPointAdmin.php?id=' . $item->id_order . '">
+                                ' . $item->id_order . '</a>';
+                            }
 
                         echo '<tr>
                         <td align="center">' . $item->id .'</td>
@@ -112,6 +118,9 @@
                         </td>
                         <td>
                           ' . $booking . '
+                        </td>
+                         <td>
+                          ' . $order . '
                         </td>
                         <td>
                           ' . $item->content . '

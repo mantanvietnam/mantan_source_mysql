@@ -71,13 +71,13 @@ function listBill(){
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
                     $name = '';
-                    if(!empty($value->id_member_sell) && $value->type_order==1){
+                    if(!empty($value->id_member_sell)){
                         $member = $modelMembers->find()->where(['id'=>$value->id_member_sell])->first();
                         $name = $member->name;
                         $phone = $member->phone;
                     }
 
-                    if(!empty($value->id_customer) && $value->type_order==2){
+                    if(!empty($value->id_customer)){
                         $customer = $modelCustomers->find()->where(['id'=>$value->id_customer])->first();
                         $name = $customer->full_name;
                         $phone = $customer->phone;
@@ -123,15 +123,15 @@ function listBill(){
 
         if(!empty($listData)){
             foreach($listData as $key => $item){
-                if(!empty($item->id_member_sell) && $item->type_order==1){
+                if(!empty($item->id_member_sell)){
                 	$listData[$key]->member = $modelMembers->find()->where(['id'=>$item->id_member_sell])->first();
                 }
 
-                if(!empty($item->id_customer) && $item->type_order==2){
+                if(!empty($item->id_customer)){
                 	$listData[$key]->customer = $modelCustomers->find()->where(['id'=>$item->id_customer])->first();
                 }
 
-                if(!empty($item->id_aff) && $item->type_order==4){
+                if(!empty($item->id_aff)){
                     $listData[$key]->aff = $modelAffiliaters->find()->where(['id'=>$item->id_aff])->first();
                 }
             }
@@ -311,13 +311,13 @@ function listCollectionBill(){
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
                     $name = '';
-                    if(!empty($value->id_member_buy) && $value->type_order==1){
+                    if(!empty($value->id_member_buy)){
                         $member = $modelMembers->find()->where(['id'=>$value->id_member_buy])->first();
                         $name = $member->name;
                         $phone = $member->phone;
                     }
 
-                    if(!empty($value->id_customer) && $value->type_order==2){
+                    if(!empty($value->id_customer)){
                         $customer = $modelCustomers->find()->where(['id'=>$value->id_customer])->first();
                         $name = $customer->full_name;
                         $phone = $customer->phone;
@@ -360,11 +360,11 @@ function listCollectionBill(){
 
         if(!empty($listData)){
             foreach($listData as $key => $item){
-                if(!empty($item->id_member_buy) && $item->type_order==1){
+                if(!empty($item->id_member_buy)){
                     $listData[$key]->member = $modelMembers->find()->where(['id'=>$item->id_member_buy])->first();
                 }
 
-                if(!empty($item->id_customer) && $item->type_order==2){
+                if(!empty($item->id_customer)){
                     $listData[$key]->customer = $modelCustomers->find()->where(['id'=>$item->id_customer])->first();
                 }
             }

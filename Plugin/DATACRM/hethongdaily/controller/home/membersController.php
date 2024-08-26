@@ -226,6 +226,7 @@ function account($input)
 				$user->birthday = $dataSend['birthday'];
 				$user->facebook = $dataSend['facebook'];
 				$user->twitter = $dataSend['twitter'];
+				$user->agent_commission = (int) $dataSend['agent_commission'];
 				$user->tiktok = $dataSend['tiktok'];
 				if($user->id_father == 0){
                 	$user->id_position = (int) $dataSend['id_position'];
@@ -529,6 +530,19 @@ function addMember($input)
 					$data->tiktok = $dataSend['tiktok'];
 					$data->youtube = $dataSend['youtube'];
 					$data->description = $dataSend['description'];
+
+					if(!empty($dataSend['phone_agency'])){
+
+						$dataSend['phone_agency'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone_agency']));
+	        			$dataSend['phone_agency'] = str_replace('+84','0',$dataSend['phone_agency']);
+
+	        			$conditions = ['phone'=>$dataSend['phone_agency']];
+	        			$checkphoneagency = $modelMembers->find()->where($conditions)->first();
+
+	        			if(!empty($checkphoneagency)){
+	        				$data->id_agency_introduce = $checkphoneagency->id;
+	        			}
+					}
 					
 
 					if(empty($_GET['id'])){
@@ -574,6 +588,13 @@ function addMember($input)
 	    $conditions = array('type' => 'system_positions', 'parent'=>$infoUser->id_system, 'status'=>'active');
         $listPositions = $modelCategories->find()->where($conditions)->all()->toList();
 
+        if(!empty($data->id_agency_introduce)){
+	        $conditions = ['id'=>$data->id_agency_introduce];
+	        $checkidagency = $modelMembers->find()->where($conditions)->first();
+			if(!empty($checkidagency)){
+	        	$data->phone_agency = $checkidagency->phone;
+			}
+		}
 	    setVariable('data', $data);
 	    setVariable('mess', $mess);
 	    setVariable('listPositions', $listPositions);

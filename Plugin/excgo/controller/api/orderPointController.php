@@ -184,12 +184,19 @@ function listOrderPointApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
         
-        $conditions = array( 'status'=>0);
+        $conditions = array();
 
         if(!empty($dataSend['type'])){
             $conditions['type']=(int)$dataSend['type'];
         }
-
+        if(!empty($dataSend['status'])){
+            $conditions['status']=(int)$dataSend['status'];
+        }else{
+            $conditions['OR'] = [ 
+                ['status'=>0],
+                ['status'=>2],
+            ];
+        }
 
 
         /*if($dataSend['type']==1){
@@ -262,8 +269,12 @@ function listOrderPointMyUserApi($input): array
         
         $conditions = array();
 
-         if(!empty($dataSend['type'])){
+        if(!empty($dataSend['type'])){
             $conditions['type']=(int)$dataSend['type'];
+        }
+
+        if(!empty($dataSend['status'])){
+            $conditions['status']=(int)$dataSend['status'];
         }
 
         $conditions['OR'] = [ 
@@ -403,6 +414,7 @@ function buyOrderPointApi($input): array
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'buyOrderPointSuccess';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -505,6 +517,7 @@ function sellOrderPointApi($input): array
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'buyOrderPointSuccess';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -1009,11 +1022,11 @@ function statisticsMyUserApi($input): array
 
 
         // $booking = $posted_by - $received_by;
-        $booking = $currentUser->point;
+        $total = $currentUser->point;
 
 
 
-        $total = $point + $booking;
+        $booking = $currentUser->posted - $currentUser->received;
 
         $data = [
             // 'chuyen_dang' => $posted_by,
@@ -1091,6 +1104,7 @@ function buyOrderPointNewApi($input): array
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'sellOrderPointSuccess';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -1149,14 +1163,6 @@ function acceptSellPointNewApi($input){
             return apiResponse(5, 'Đơn này không tồn tại');
         }
 
-        if($order->type==2){
-            if($order->point > $currentUser->point){
-                return apiResponse(4, 'Số điểm chưa đủ để bán');  
-            }
-            $currentUser->point -= $order->point;
-            $modelUser->save($currentUser);
-        }
-
         // gửi thông báo bên bán 
         $infoUserBuy = $modelUser->find()->where(['id'=>$order->user_buy])->first();
 
@@ -1179,6 +1185,7 @@ function acceptSellPointNewApi($input){
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'sellOrderPointSuccess';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -1303,6 +1310,9 @@ function sellOrderPointNewApi($input): array
             return apiResponse(4, 'Số điểm chưa đủ để bán');
         }
 
+        $currentUser->point -= $order->point;
+        $modelUser->save($currentUser); 
+
         $order->updated_at = date('Y-m-d H:i:s');
         $order->user_sell = $currentUser->id;
         $order->status = 1;
@@ -1321,6 +1331,7 @@ function sellOrderPointNewApi($input): array
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'buyOrderPointSuccess';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -1398,6 +1409,7 @@ function cancelUserSellOrderSellPointNewApi($input): array
             $notification->content = $content;
             $notification->id_order = $order->id;
             $notification->created_at = date('Y-m-d H:i:s');
+            $notification->action = 'cancelUserSellOrderSell';
             $notification->updated_at = date('Y-m-d H:i:s');
             $modelNotification->save($notification);
 
@@ -1477,6 +1489,7 @@ function acceptUserbuyCancelOrdeSellPointNewApi($input): array
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'cancelSellOrderPointSuccess';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -1549,6 +1562,7 @@ function rejectUserbuyCancelOrderSellPointNewApi($input): array
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'cancelSellOrderPointReject';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -1619,6 +1633,7 @@ function cancelUserbuyOrderSellPointNewApi($input): array
             $notification->content = $content;
             $notification->id_order = $order->id;
             $notification->created_at = date('Y-m-d H:i:s');
+            $notification->action = 'cancelUserbuyOrderSell';
             $notification->updated_at = date('Y-m-d H:i:s');
             $modelNotification->save($notification);
 
@@ -1692,6 +1707,7 @@ function acceptUserSellCancelOrderSellPointNewApi($input): array
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'cancelSellOrderPointSuccess';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -1763,6 +1779,7 @@ function rejectUserSellCancelOrderSellPointNewApi($input): array
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'cancelSellOrderPointReject';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -1816,7 +1833,7 @@ function cancelUserBuyOrderBuyPointNewApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
 
-        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status <'=>2])->first();
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status <'=>2, 'type'=>2])->first();
 
         if (empty($order)) {
             return apiResponse(5, 'Đơn này không tồn tại');
@@ -1846,6 +1863,7 @@ function cancelUserBuyOrderBuyPointNewApi($input): array
             $notification->content = $content;
             $notification->id_order = $order->id;
             $notification->created_at = date('Y-m-d H:i:s');
+            $notification->action = 'cancelUserBuyOrderBuy';
             $notification->updated_at = date('Y-m-d H:i:s');
             $modelNotification->save($notification);
 
@@ -1898,31 +1916,37 @@ function acceptUserSellCancelOrdecBuyPointNewApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
 
-        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_sell'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
 
         if (empty($order)) {
             return apiResponse(5, 'Đơn này không tồn tại');
         }
 
+        $currentUser->point += $order->point;
+        $modelUser->save($currentUser);
+
+
+
         $order->status = 3;
         $modelOrderPoint->save($order);
 
         // thông báo cho người mua 
-        $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
+        $infoUserBuy = $modelUser->find()->where(['id'=>$order->user_buy])->first();
 
 
         $title = 'Yêu cầu hủy mua bán điểm thành công  ';
-        $content = "Tài xế $currentUser->name đồng ý hủy yêu cầu mua bán điểm ";
+        $content = "Tài xế $currentUser->name đồng ý hủy yêu cầu bán điểm cho bạn  ";
         $notification = $modelNotification->newEmptyEntity();
-        $notification->user_id = $infoUserSell->id;
+        $notification->user_id = $infoUserBuy->id;
         $notification->title = $title;
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'cancelSellOrderPoint';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
-        if ($infoUserSell->device_token) {
+        if ($infoUserBuy->device_token) {
             $dataSendNotification= array(
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
@@ -1930,7 +1954,7 @@ function acceptUserSellCancelOrdecBuyPointNewApi($input): array
                 'id_order' => $order->id,
                 'action' => 'cancelSellOrderPoint'
             );
-            sendNotification($dataSendNotification, $infoUserSell->device_token);
+            sendNotification($dataSendNotification, $infoUserBuy->device_token);
         }
         $infoUserSell->point += $order->point;
         $modelUser->save($infoUserSell);
@@ -1971,7 +1995,7 @@ function rejectUserSellCancelOrderBuyPointNewApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
 
-        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_sell'=> $currentUser->id ,'status '=>1, 'type'=>1])->first();
 
         if (empty($order)) {
             return apiResponse(5, 'Đơn này không tồn tại');
@@ -1980,21 +2004,22 @@ function rejectUserSellCancelOrderBuyPointNewApi($input): array
         
 
         // thông báo cho người mua 
-        $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
+        $infoUserBuy = $modelUser->find()->where(['id'=>$order->user_buy])->first();
 
 
         $title = 'Yêu cầu hủy mua bán điểm đã từ chối ';
         $content = "Tài xế $currentUser->name từ chối hủy yêu cầu mua bán điểm ";
         $notification = $modelNotification->newEmptyEntity();
-        $notification->user_id = $infoUserSell->id;
+        $notification->user_id = $infoUserBuy->id;
         $notification->title = $title;
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'cancelSellOrderPoint';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
-        if ($infoUserSell->device_token) {
+        if ($infoUserBuy->device_token) {
             $dataSendNotification= array(
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
@@ -2002,7 +2027,7 @@ function rejectUserSellCancelOrderBuyPointNewApi($input): array
                 'id_order' => $order->id,
                 'action' => 'cancelSellOrderPoint'
             );
-            sendNotification($dataSendNotification, $infoUserSell->device_token);
+            sendNotification($dataSendNotification, $infoUserBuy->device_token);
         }
 
         return apiResponse(0, 'Bạn từ chối hủy đơn mua điểm thành công ');
@@ -2042,7 +2067,7 @@ function cancelUserSellOrderBuyPointNewApi($input): array
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
 
-        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_buy'=> $currentUser->id ,'status'=>1 , 'type'=>2])->first();
+        $order = $modelOrderPoint->find()->where(['id'=>(int)$dataSend['id'],'user_sell'=> $currentUser->id ,'status'=>1 , 'type'=>2])->first();
 
         if (empty($order)) {
             return apiResponse(5, 'Đơn này không tồn tại');
@@ -2060,6 +2085,7 @@ function cancelUserSellOrderBuyPointNewApi($input): array
             $notification->content = $content;
             $notification->id_order = $order->id;
             $notification->created_at = date('Y-m-d H:i:s');
+            $notification->action = 'cancelUserSellOrderBuy';
             $notification->updated_at = date('Y-m-d H:i:s');
             $modelNotification->save($notification);
 
@@ -2119,6 +2145,9 @@ function acceptUserBuyCancelOrderBuyPointNewApi($input): array
 
         $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
 
+        $infoUserSell->point += $order->point;
+        $modelUser->save($infoUserSell);
+
         $order->status = 0;
         $order->user_sell = null;
         $modelOrderPoint->save($order);
@@ -2126,13 +2155,14 @@ function acceptUserBuyCancelOrderBuyPointNewApi($input): array
         // thông báo cho người mua 
 
         $title = 'Yêu cầu hủy bán điểm thành công  ';
-        $content = "Tài xế $currentUser->name đồng ý hủy yêu cầu bán điểm cho bạn ";
+        $content = "Tài xế $currentUser->name đồng ý hủy yêu cầu mua điểm của bạn ";
         $notification = $modelNotification->newEmptyEntity();
         $notification->user_id = $infoUserSell->id;
         $notification->title = $title;
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'cancelUserSellOrder';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -2142,7 +2172,7 @@ function acceptUserBuyCancelOrderBuyPointNewApi($input): array
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
                 'id_order' => $order->id,
-                'action' => 'cancelbuyOrderPoint'
+                'action' => 'cancelUserSellOrder'
             );
             sendNotification($dataSendNotification, $infoUserSell->device_token);
         }
@@ -2204,6 +2234,7 @@ function rejectUserBuyCancelOrderBuyPointNewApi($input): array
         $notification->content = $content;
         $notification->id_order = $order->id;
         $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'cancelSellOrderPoint';
         $notification->updated_at = date('Y-m-d H:i:s');
         $modelNotification->save($notification);
 
@@ -2341,7 +2372,5 @@ function getOrderPointApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
-
-
 
 ?>

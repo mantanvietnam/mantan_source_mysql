@@ -95,6 +95,7 @@
 	$routesPlugin['addRequestProductAgency']= 'hethongdaily/view/home/order/addRequestProductAgency.php';
 	$routesPlugin['orderMemberAgency']= 'hethongdaily/view/home/order/orderMemberAgency.php';
 	$routesPlugin['printBillOrderMemberAgency']= 'hethongdaily/view/home/order/printBillOrderMemberAgency.php';
+	$routesPlugin['listTransactionAgencyHistorie']= 'hethongdaily/view/home/order/listTransactionAgencyHistorie.php';
 
 	// tạo đơn hàng cho đại lý tuyến dưới 
 	$routesPlugin['addOrderAgency']= 'hethongdaily/view/home/order/addOrderAgency.php';

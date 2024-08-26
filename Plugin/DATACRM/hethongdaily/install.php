@@ -57,6 +57,8 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `bank_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `bank_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `list_theme_info` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL DEFAULT '1',
+  `id_agency_introduce` INT NOT NULL DEFAULT '0' COMMENT 'đại lý giới thiệu' ,
+  `agent_commission` INT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -328,6 +330,19 @@ $sqlUpdateDatabase .="CREATE TABLE `customer_historie_gifts` (
   PRIMARY KEY (`id`),
 ) ENGINE = InnoDB;";
 
+$sqlUpdateDatabase .="CREATE TABLE `transaction_agency_histories` (
+`id` INT NOT NULL AUTO_INCREMENT, 
+`id_member` INT NOT NULL , 
+`id_agency_introduce` INT NOT NULL , 
+`id_order_member` INT NOT NULL , 
+`money_total` INT NOT NULL , 
+`money_back` INT NOT NULL , 
+`create_at` INT NOT NULL , 
+`status` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
+`percent` INT NULL DEFAULT '0',
+PRIMARY KEY (`id`),
+ ) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
@@ -351,6 +366,7 @@ $sqlDeleteDatabase .= "DROP TABLE rating_point_customers; ";
 $sqlDeleteDatabase .= "DROP TABLE point_customers; ";
 $sqlDeleteDatabase .= "DROP TABLE customer_gifts; ";
 $sqlUpdateDatabase .= "DROP TABLE customer_historie_gifts; ";
+$sqlUpdateDatabase .= "DROP TABLE transaction_agency_histories; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -413,7 +429,8 @@ $sqlUpdateDatabase['members']['bank_name'] = "ALTER TABLE `members` ADD `bank_na
 $sqlUpdateDatabase['members']['bank_number'] = "ALTER TABLE `members` ADD `bank_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['members']['bank_code'] = "ALTER TABLE `members` ADD `bank_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
 $sqlUpdateDatabase['members']['list_theme_info'] = "ALTER TABLE `members` ADD `list_theme_info` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL DEFAULT '1';";
-
+$sqlUpdateDatabase['members']['id_agency_introduce'] = "ALTER TABLE `members` ADD `id_agency_introduce` INT NOT NULL DEFAULT '0' COMMENT 'đại lý giới thiệu';";
+$sqlUpdateDatabase['members']['agent_commission'] = "ALTER TABLE `members` ADD `agent_commission` INT NULL DEFAULT '0';";
 // bảng zalos 
 $sqlUpdateDatabase['zalos']['id_oa'] = "ALTER TABLE `zalos` ADD `id_oa` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['zalos']['id_app'] = "ALTER TABLE `zalos` ADD `id_app` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
@@ -613,3 +630,12 @@ $sqlUpdateDatabase['customer_historie_gifts']['point'] = "ALTER TABLE `customer_
 $sqlUpdateDatabase['customer_historie_gifts']['id_member'] = "ALTER TABLE `customer_historie_gifts` ADD `id_member` INT NOT NULL;"; 
 $sqlUpdateDatabase['customer_historie_gifts']['created_at'] = "ALTER TABLE `customer_historie_gifts` ADD `created_at` INT NULL DEFAULT NULL;"; 
 $sqlUpdateDatabase['customer_historie_gifts']['note'] = "ALTER TABLE `customer_historie_gifts` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['transaction_agency_histories']['id_member'] = "ALTER TABLE `transaction_agency_histories` ADD `id_member` INT NOT NULL ;";
+$sqlUpdateDatabase['transaction_agency_histories']['id_agency_introduce'] = "ALTER TABLE `transaction_agency_histories` ADD `id_agency_introduce` INT NOT NULL ;";
+$sqlUpdateDatabase['transaction_agency_histories']['id_order_member'] = "ALTER TABLE `transaction_agency_histories` ADD `id_order_member` INT NOT NULL ;";
+$sqlUpdateDatabase['transaction_agency_histories']['money_total'] = "ALTER TABLE `transaction_agency_histories` ADD `money_total` INT NOT NULL ;";
+$sqlUpdateDatabase['transaction_agency_histories']['money_back'] = "ALTER TABLE `transaction_agency_histories` ADD `money_back` INT NOT NULL ;";
+$sqlUpdateDatabase['transaction_agency_histories']['create_at'] = "ALTER TABLE `transaction_agency_histories` ADD `create_at` INT NOT NULL ;";
+$sqlUpdateDatabase['transaction_agency_histories']['status'] = "ALTER TABLE `transaction_agency_histories` ADD `status` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new';";
+$sqlUpdateDatabase['transaction_agency_histories']['percent'] = "ALTER TABLE `transaction_agency_histories` ADD `percent` INT NULL DEFAULT '0';";

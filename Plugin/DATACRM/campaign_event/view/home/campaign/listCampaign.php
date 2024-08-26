@@ -48,8 +48,8 @@
                 <th>Đăng ký</th>
                 <th>Checkin</th>
                 <th>Chưa Checkin</th>
-                <!-- <th>Sửa</th> -->
-                <!-- <th>Xóa</th> -->
+                <th>Sửa</th> 
+                <th>Xóa</th> 
                 <!--
                 <th>Lựa chọn</th>
                 -->
@@ -65,20 +65,7 @@
                           <td><a href="/listCustomerCampaign/?id='.$item->id.'">'.number_format($item->number_reg).' người</a></td>
                           <td><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=1">'.number_format($item->number_checkin).' người</a></td>
                           <td><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=2">'.number_format($item->yet_checkin).' người</a></td>
-
-                         
-                          
-                         </tr>';
-               }
-             }else{
-              echo '<tr>
-              <td colspan="10" align="center">Chưa có dữ liệu</td>
-              </tr>';
-            }
-            ?>
-
-            <!--
-               <td align="center">
+                           <td align="center">
                             <a class="dropdown-item" href="/addCampaign/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
@@ -89,18 +76,15 @@
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
-                          <td>
-                            <div class="btn-group">
-                              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Primary
-                              </button>
-                              <ul class="dropdown-menu" style="">
-                                <li><a class="dropdown-item" href="javascript:void(0);">Sửa</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0);">Xóa</a></li>
-                              </ul>
-                            </div>
-                          </td>
-                          -->
+                         </tr>';
+               }
+             }else{
+              echo '<tr>
+              <td colspan="10" align="center">Chưa có dữ liệu</td>
+              </tr>';
+            }
+            ?>
+
           </tbody>
         </table>
       </div>
@@ -117,7 +101,17 @@
                         <p><strong>Đăng ký: </strong><a href="/listCustomerCampaign/?id='.$item->id.'">'.number_format($item->number_reg).' người</a></p>
                         <p><strong>Checkin: </strong><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=1">'.number_format($item->number_checkin).' người</a></p>
                         <p><strong>Chưa Checkin: </strong><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=2">'.number_format($item->yet_checkin).' người</a></p>
-
+                        <p align="center">
+                        
+                          <a class="btn btn-success" href="/addCampaign/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                          </a>
+                             &nbsp;&nbsp;&nbsp;&nbsp;
+                          
+                          <a class=" btn btn-danger" title="Xóa sản phẩm" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCampaign/?id='.$item->id.'">
+                              <i class="bx bxs-trash me-1" style="font-size: 22px;"></i>
+                          </a>
+                        </p>
                         
                       </div>';
           }

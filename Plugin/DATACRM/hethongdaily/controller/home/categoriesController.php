@@ -99,7 +99,8 @@ function settingSystem($input){
                 $data->name = $dataSend['name'];
                 $data->image = $dataSend['image'];
                 $data->keyword = $dataSend['keyword'];
-                $description = array('convertPoint'=> @$dataSend['convertPoint']);
+                $description = array('convertPoint'=> @$dataSend['convertPoint'],
+                                    );
                 $data->description = json_encode($description);
 
                 $modelCategories->save($data);
@@ -117,7 +118,7 @@ function settingSystem($input){
 
         if(!empty($data->description)){
         $description = json_decode($data->description, true);
-        $data->convertPoint = $description['convertPoint'];
+        $data->convertPoint = @$description['convertPoint'];
         }
 
         setVariable('data', $data);

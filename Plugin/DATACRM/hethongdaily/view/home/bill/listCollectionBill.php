@@ -113,6 +113,9 @@
                     }elseif($item->type_order==2){
                       $type = 'Khách hàng';
                       $link = '/orderCustomerAgency?id='.$item->id_order;
+                    }elseif($item->type_order==6){
+                      $type = 'Hoa hồng đại lý';
+                      $link = 'listTransactionAgencyHistorie';
                     }
 
                     $type_collection_bill;
@@ -186,7 +189,10 @@
                   }elseif($item->type_order==2){
                     $type = 'Khách hàng';
                     $link = '/orderCustomerAgency?id='.$item->id_order;
-                  }
+                  }elseif($item->type_order==6){
+                      $type = 'Hoa hồng đại lý';
+                      $link = 'listTransactionAgencyHistorie';
+                    }
 
                   $type_collection_bill;
                   if($item->type_collection_bill=='tien_mat'){
