@@ -309,6 +309,94 @@ $infoUser = $session->read('infoUser');
             </div>
         </div>
     </section>
+    <?php     global $session;
+                                 $infoUser = $session->read('infoUser');
+                                    if(!empty($infoUser)){
+                                        ?>
+
+       <section id="place-comment" class="mgt-80">
+            <div class="container">
+                <div class="title-section mgb-32">
+                    <p>Đánh giá</p>
+                </div>
+               
+                <div class="row box-write-comment">
+                    <div class="write-comment">
+                        <button class="button-write-comment" type="button">
+                            <div class="button-icon-comment">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-right-dots" viewBox="0 0 16 16">
+                                    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"></path>
+                                    <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                </svg>
+                            </div>
+                            <p class="button-text-comment">Viết đánh giá</p>
+                        </button>
+                    </div>
+
+                    <!-- viet content  -->
+                    <div class="write-comment-content" style="">
+                        <div class="information-people-write">
+                            <img class="information-people-write-img" src="<?php echo $infoUser['avatar'] ?>" alt="">
+                            <p class="information-people-write-name"><?php echo $infoUser['full_name'] ?>
+                        </p></div>
+                        <div class="form-comment">
+                    
+                            <textarea class="content-post" name="content-post" id="comment" placeholder="Viết suy nghĩ của bạn"></textarea>
+                            <button type="submit" class="send-comment" onclick="addComment()">Đăng bài</button>
+            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+<?php } ?>
+<?php  $comment= getComment($data->id,'tour'); 
+
+    if(!empty($comment)){ ?>
+        <section id="place-post-comment">
+            <div class="container">
+                <div class="row">
+                    <div class="title-post-comment">
+                        <p>Tất cả các bài đánh giá </p>
+                    </div>
+                <?php
+                    foreach($comment as $key => $value){
+                    $custom =  getCustomer($value->idcustomer);
+                
+                     if(!empty($custom)){
+                ?>
+                    <div class="post-comment">
+                        <div class="post-comment-content">
+                            <div class="information-people">
+                                <div class="information-people-img">
+                                    <img src="<?php echo $custom->avatar ?>"
+                                        alt="">
+                                </div>
+                                <div class="information-people-box">
+                                    <div class="information-people-name">
+                                        <span><?php echo $custom->full_name ?></span>
+                                    </div>
+                                    <div class="information-people-hour">
+                                        <span><?php echo date("d/m/Y H:i:s",$value->created); ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-comment-content-text">
+                            <?php echo $value->comment ?>
+                        </div>
+                          <?php  if(@$infoUser['id']==@$value->idcustomer){ ?>
+                         <div class="post-comment-content-text">
+                            <a href="javascript:void(0);" onclick="deteleComment(<?php echo $value->id ?>)">xóa</a>
+                        </div>
+                    <?php } ?>
+                    </div>
+                     <?php }} ?>             
+                </div>
+            </div>
+        </section>
+    <?php }  ?>
      <?php 
 if(@$_GET['status']=='bookTourDone'){ ?>   
 <div class="modal notification" tabindex="-1" role="dialog" style="display: block;">
@@ -464,7 +552,87 @@ if(@$_GET['status']=='bookTourDone'){ ?>
     initMap();
   });
 </script>
+<?php if (!empty(@$infoUser)){ ?>
+<script  type="text/javascript">
+    
+    function addlike(){
+         
 
+       $.ajax({
+            method: 'POST',
+            url: '/apis/addlike',
+            data: { idobject: <?php echo $data->id ?>,
+                type: 'tour',
+                idcustomer: <?php echo $infoUser['id'] ?>,
+            },
+            success:function(res){
+              console.log('res');
+                $('#like_save').load(location.href + ' #like_save>*');
+                $('#place-detail .button-like button').css('background-color', '#188181');
+                $('#place-detail .button-like button').css('color', '#fff')
+                $('.button-like i').css('color', '#fff');
+            }
+        })
+            
+    };
+    function delelelike(){
+
+          $.ajax({
+                method: 'POST',
+                url: '/apis/delelelike',
+                data: { idobject: <?php echo $data->id ?>,
+                    type: 'tour',
+                    idcustomer: <?php echo $infoUser['id'] ?>,
+                },
+                success:function(res){
+                  console.log('res');
+                    $('#like_save').load(location.href + ' #like_save>*');
+                    $('#place-detail .button-like button').css('background-color', 'rgb(24 129 129 / 0%)');
+                    $('#place-detail .button-like button').css('color', '#3F4042')
+                    $('.button-like i').css('color', '#126B66');
+                }
+            })
+               
+        };  
+
+  function addComment() {
+    var comment = $('#comment').val();
+
+    $.ajax({
+        method: 'POST',
+        url: '/apis/addComment',
+        data: {
+            idobject: <?php echo $data->id ?>,
+            type: 'tour',
+            comment: comment,
+            idcustomer: <?php echo $infoUser['id'] ?>,
+        },
+        success: function(res) {
+            console.log(res);
+            // Xóa nội dung bình luận cũ
+            $('#comment').val('');
+
+            // Thực hiện tải lại phần bình luận để cập nhật giao diện
+            $('#place-post-comment').load(location.href + ' #place-post-comment>*');
+        }
+    });
+}
+
+
+    function deteleComment($id){
+    $.ajax({
+                method: 'POST',
+                url: '/apis/deleleComment',
+                data: { id: $id },
+                success:function(res){
+                  console.log(res);
+                  location.reload();
+                }
+            })
+               
+        }; 
+</script>
+<?php } ?>
 <style>
     .fb_iframe_widget {
         scale: 1;

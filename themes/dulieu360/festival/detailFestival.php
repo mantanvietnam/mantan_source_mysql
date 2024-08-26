@@ -194,10 +194,10 @@ global $urlThemeActive;
         </section> 
         <?php } ?>
 
-                <?php     global $session;
-                                 $infoUser = $session->read('infoUser');
-                                    if(!empty($infoUser)){
-                                        ?>
+        <?php    global $session;
+                    $infoUser = $session->read('infoUser');
+                    if(!empty($infoUser)){
+        ?>
 
        <section id="place-comment" class="mgt-80">
             <div class="container">
@@ -267,8 +267,6 @@ global $urlThemeActive;
                                     </div>
                                 </div>
                             </div>
-
-        
                         </div>
 
                         <div class="post-comment-content-text">
@@ -280,14 +278,12 @@ global $urlThemeActive;
                             </div>
                         <?php } ?>
                     </div>
-                   
-
                      <?php }} ?>             
                     
                 </div>
             </div>
         </section>
-    <?php }  ?>
+<?php }  ?>
 
 
     </main>
