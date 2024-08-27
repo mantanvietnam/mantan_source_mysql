@@ -25,6 +25,7 @@
 	$routesPlugin['r']= 'zoomcheap/view/home/link/redirectLink.php';
 	$routesPlugin['wait']= 'zoomcheap/view/home/link/wait.php';
 
+	$routesPlugin['listCloud']= 'zoomcheap/view/home/cloud/listCloud.php';
 
 	$routesPlugin['checkDeadlineOrderAPI']= 'zoomcheap/view/home/checkDeadlineOrderAPI.php';
 	$routesPlugin['addMoneyTPBankAPI']= 'zoomcheap/view/home/addMoneyTPBankAPI.php';

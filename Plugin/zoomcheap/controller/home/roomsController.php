@@ -86,7 +86,7 @@ function createRoom($input)
 									$join_url = explode('?', $room['join_url']);
 									$room['join_url'] = $join_url[0];
 								}
-
+								$start_url = getmeetingstarturl($zoom->client_id, $zoom->client_secret, $zoom->account_id, $room['id']);
 								// tạo link mới
 								$dataLink = $modelLinks->newEmptyEntity();
 
@@ -102,15 +102,17 @@ function createRoom($input)
 
 								// lưu phòng họp mới
 								$dataRoom = $modelRooms->newEmptyEntity();
-
+								
 								$dataRoom->idManager = $session->read('infoUser')->id;
+								
 								$dataRoom->id_order = $order->id;
 								$dataRoom->id_zoom = $zoom->id;
 								$dataRoom->info = json_encode($room);
+								$dataRoom->idmeeting = $room['id'];
 								$dataRoom->link = 'https://vaozoom.us/r/'.$dataLink->code;
-
+								$dataRoom->start_url = $start_url['start_url'];
 								$modelRooms->save($dataRoom);
-
+								
 								// sửa ở đơn hàng
 								$order->idRoom = $dataRoom->id;
 								$modelOrders->save($order);

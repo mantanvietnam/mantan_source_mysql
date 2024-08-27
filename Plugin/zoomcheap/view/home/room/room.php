@@ -30,7 +30,10 @@
                   <label class="form-label">ID phòng họp</label>
                   <input type="text" class="form-control" disabled name="" value="<?php echo $room['id'];?>">
                 </div>
-
+                <div class="mb-3">
+                  <label class="form-label">Link phòng họp cho người tham gia</label>
+                  <input type="text" class="form-control" disabled name="" value="<?php echo $room['join_url'];?>">
+                </div>
                 <div class="mb-3">
                   <label class="form-label">Tự động gia hạn (*)</label><br/>
                   <input type="radio" name="extend_time_use" value="0" onclick="updateInfoRoom();" <?php if(empty($order->extend_time_use)) echo 'checked';?> /> Tắt &nbsp;&nbsp;&nbsp;
@@ -40,7 +43,6 @@
               </div>
 
               <div class="col-md-6">
-                
                 <div class="mb-3">
                   <label class="form-label">Mật khẩu phòng họp (*)</label>
                   <input type="text" onchange="updateInfoRoom();" class="form-control" id="password" value="<?php echo @$room['password'];?>">
@@ -55,9 +57,13 @@
                   <label class="form-label">Link phòng họp</label>
                   <input type="text" class="form-control" disabled name="" value="<?php echo (!empty($link))?$link:$room['join_url'];?>">
                 </div>
+              
+                <div class="mb-3">
+                  <label class="form-label">Link phòng họp với quyền quản trị</label>
+                  <input type="text" class="form-control" disabled name="" value="<?php echo $room['start_url'];?>">
+                </div>
               </div>
             </div>
-
             <button type="button" class="btn btn-primary" onclick="copyFormatted('contentShare','mess')">Chia sẻ</button> &nbsp;&nbsp;&nbsp;
             <!-- <a target="_blank" href="<?php echo $room['join_url'];?>" class="btn btn-danger">Vào phòng họp</a> -->
             <a target="_blank" href="<?php echo $room['start_url'];?>" class="btn btn-danger">Vào phòng họp với quyền quản trị</a>

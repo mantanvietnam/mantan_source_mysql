@@ -199,6 +199,117 @@ function getlistclound($clientId = '', $clientSecret = '', $account_id = '')
     }
     return $return;
 }
+function getmeetingcloud($clientId = '', $clientSecret = '', $account_id = '',$meetingId='')
+{
+    if(!empty($clientId) && !empty($clientSecret) && !empty($account_id) && !empty($meetingId)){
+
+       
+        // Endpoint API Zoom để lấy Access Token
+        $tokenUrl = 'https://zoom.us/oauth/token';
+
+        // Dữ liệu yêu cầu lấy Access Token
+        $data = array(
+            'grant_type' => 'account_credentials',
+            'account_id' => $account_id, 
+        );
+        // Chuỗi mã xác thực Basic (clientId:clientSecret được mã hóa Base64)
+        $authHeader = base64_encode($clientId . ':' . $clientSecret);
+
+        // Gửi yêu cầu POST với thông tin xác thực
+        $httpClient = new Client();
+        $response = $httpClient->post($tokenUrl, [
+            'form_params' => $data,
+            'headers' => [
+                'Authorization' => 'Basic ' . $authHeader,
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        // Xử lý dữ liệu phản hồi nếu cần
+        $responseData = json_decode($response->getBody(), true);
+
+        if(!empty($responseData['access_token'])){
+            
+            $accessToken = $responseData['access_token'];
+            $apiUrl = 'https://api.zoom.us/v2/';
+            $httpClient = new \GuzzleHttp\Client(['base_uri' => $apiUrl]);
+            try {
+                $response = $httpClient->get("meetings/{$meetingId}/recordings", [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $accessToken,
+                        'Content-Type' => 'application/json',
+                        'Accept' => 'application/json',
+                    ]
+                ]);
+
+                // Xử lý dữ liệu phản hồi nếu cần
+                $return = json_decode($response->getBody(), true);
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
+                return [];
+
+                // Xử lý lỗi nếu có
+                echo 'Error: ' . $e->getMessage();
+            }
+        }
+    }
+    return $return;
+}
+function getmeetingstarturl($clientId = '', $clientSecret = '', $account_id = '',$meetingId='')
+{
+    if(!empty($clientId) && !empty($clientSecret) && !empty($account_id) && !empty($meetingId)){
+
+       
+        // Endpoint API Zoom để lấy Access Token
+        $tokenUrl = 'https://zoom.us/oauth/token';
+
+        // Dữ liệu yêu cầu lấy Access Token
+        $data = array(
+            'grant_type' => 'account_credentials',
+            'account_id' => $account_id, 
+        );
+        // Chuỗi mã xác thực Basic (clientId:clientSecret được mã hóa Base64)
+        $authHeader = base64_encode($clientId . ':' . $clientSecret);
+
+        // Gửi yêu cầu POST với thông tin xác thực
+        $httpClient = new Client();
+        $response = $httpClient->post($tokenUrl, [
+            'form_params' => $data,
+            'headers' => [
+                'Authorization' => 'Basic ' . $authHeader,
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        // Xử lý dữ liệu phản hồi nếu cần
+        $responseData = json_decode($response->getBody(), true);
+
+        if(!empty($responseData['access_token'])){
+            
+            $accessToken = $responseData['access_token'];
+            $apiUrl = 'https://api.zoom.us/v2/';
+            $httpClient = new \GuzzleHttp\Client(['base_uri' => $apiUrl]);
+            try {
+                $response = $httpClient->get("meetings/{$meetingId}", [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $accessToken,
+                        'Content-Type' => 'application/json',
+                        'Accept' => 'application/json',
+                    ]
+                ]);
+
+                // Xử lý dữ liệu phản hồi nếu cần
+                $return = json_decode($response->getBody(), true);
+                
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
+                return [];
+
+                // Xử lý lỗi nếu có
+                echo 'Error: ' . $e->getMessage();
+            }
+        }
+    }
+    return $return;
+}
 function createNewRoom($clientId = '', $clientSecret = '', $account_id = '', $topic= '' , $start_time=0 , $duration = 60, $pass = '')
 {
 	$return = [];

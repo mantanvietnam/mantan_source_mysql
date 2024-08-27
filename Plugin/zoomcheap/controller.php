@@ -8,7 +8,7 @@ include('controller/home/roomsController.php');
 include('controller/home/apisController.php');
 include('controller/home/historiesController.php');
 include('controller/home/linksController.php');
-
+include('controller/home/cloudController.php');
 // admin
 include('controller/admin/managersController.php');
 include('controller/admin/zoomsController.php');

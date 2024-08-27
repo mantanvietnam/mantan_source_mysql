@@ -2,10 +2,9 @@
 <?php if (!empty($cloudRecords) && isset($cloudRecords['meetings'])): ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card row">
-        <h5 class="card-header">Danh sách tài khoản zoom</h5>
-  
+        <h5 class="card-header">Danh sách bản ghi cloud zoom</h5>
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered mb-4">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>

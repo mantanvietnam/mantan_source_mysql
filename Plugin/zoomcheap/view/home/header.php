@@ -143,14 +143,12 @@
                 <div data-i18n="Add">Nạp tiền</div>
               </a>
             </li>
-            
             <li class="menu-item">
               <a href="/listHistories" class="menu-link">
                 <i class='bx bx-history'></i> 
                 <div data-i18n="Add">Lịch sử giao dịch</div>
               </a>
             </li>
-            
             <!--
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Mua tài khoản</span></li>
             <li class="menu-item">

@@ -52,52 +52,73 @@
               <th>Loại Zoom</th>
               <th>Giá thuê</th>
               <th>Phòng họp</th>
+              <th>Cloud Recording</th>
             </tr>
           </thead>
           <tbody>
-            <?php 
-              if(!empty($listData)){
-                foreach ($listData as $item) {
-                  if($item->dateEnd > time()){
-                    if(empty($item->idRoom)){
-                      $room = '<a href="/createRoom/?idOrder='.$item->id.'" class="btn btn-primary">Tạo phòng</a>';
-                    }else{
-                      $room = '<a href="/room/?id='.$item->idRoom.'">Xem phòng</a>';
-                    }
-                  }else{
-                    $room = '<p class="text-danger">Đơn hết hạn</p>';
-                  }
+          <?php 
+              if (!empty($listData)) : 
+                  foreach ($listData as $item) : 
+                      if ($item->dateEnd > time()) {
+                          if (empty($item->idRoom)) {
+                              $room = '<a href="/createRoom/?idOrder=' . $item->id . '" class="btn btn-primary">Tạo phòng</a>';
+                          } else {
+                              $room = '<a href="/room/?id=' . $item->idRoom . '">Xem phòng</a>';
+                          }
+                      } else {
+                          $room = '<p class="text-danger">Đơn hết hạn</p>';
+                      }
 
-                  $extend_time_use= '';
-                  if($item->extend_time_use) $extend_time_use= 'Bật gia hạn tự động';
+                      $extend_time_use = '';
+                      if ($item->extend_time_use) $extend_time_use = 'Bật gia hạn tự động';
 
-                  $timeBuy = ($item->dateEnd-$item->dateStart)/3600;
+                      $timeBuy = ($item->dateEnd - $item->dateStart) / 3600;
 
-                  if($timeBuy<24){
-                    $timeBuy = $timeBuy.' giờ';
-                  }else{
-                    $timeBuy = $timeBuy/24;
-                    $timeBuy = $timeBuy.' ngày';
-                  }
-
-                  echo '<tr>
-                          <td>'.$item->id.'</td>
+                      if ($timeBuy < 24) {
+                          $timeBuy = $timeBuy . ' giờ';
+                      } else {
+                          $timeBuy = $timeBuy / 24;
+                          $timeBuy = $timeBuy . ' ngày';
+                      }
+                      ?>
+                      <tr>
+                          <td><?php echo $item->id; ?></td>
                           <td>
-                            <p class="text-success">'.date('H:i d/m/Y', $item->dateStart).'</p>
-                            <p class="text-danger">'.date('H:i d/m/Y', $item->dateEnd).'</p>
-                            <p>'.$timeBuy.'</p>
-                            '.$extend_time_use.'
+                              <p class="text-success"><?php echo date('H:i d/m/Y', $item->dateStart); ?></p>
+                              <p class="text-danger"><?php echo date('H:i d/m/Y', $item->dateEnd); ?></p>
+                              <p><?php echo $timeBuy; ?></p>
+                              <?php echo $extend_time_use; ?>
                           </td>
-                          <td>'.$item->type.'</td>
-                          <td>'.number_format($item->price).'đ</td>
-                          <td>'.$room.'</td>
-                        </tr>';
-                }
-              }else{
-                echo '<tr>
-                        <td colspan="10" align="center">Chưa có đơn thuê nào</td>
-                      </tr>';
-              }
+                          <td><?php echo $item->type; ?></td>
+                          <td><?php echo number_format($item->price); ?>đ</td>
+                          <td><?php echo $room; ?></td>
+                         
+                          <td class="text-center">
+                            <?php if (
+                                isset($item->infoRoom->info['id']) &&
+                                isset($item->infoZoom->client_id) &&
+                                isset($item->infoZoom->client_secret) &&
+                                isset($item->infoZoom->account_id)
+                            ): ?>
+                                <a href="/listCloud/?clientid=<?= urlencode($item->infoZoom->client_id) ?>&clientsecret=<?= urlencode($item->infoZoom->client_secret) ?>&accountid=<?= urlencode($item->infoZoom->account_id) ?>&idmeeting=<?= urlencode($item->infoRoom->info['id']) ?>">
+                                    <i class="bx bx-cloud fs-1"></i>
+                                </a>  
+                            <?php else: ?>
+                                <a href="/listCloud/">
+                                    <i class="bx bx-cloud fs-1"></i>
+                                </a> 
+                            <?php endif; ?>
+                        </td>
+                      </tr>
+                      <?php 
+                  endforeach;
+              else :
+                  ?>
+                  <tr>
+                      <td colspan="10" align="center">Chưa có đơn thuê nào</td>
+                  </tr>
+              <?php 
+            endif; 
             ?>
           </tbody>
         </table>
