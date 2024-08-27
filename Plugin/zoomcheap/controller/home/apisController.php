@@ -241,38 +241,38 @@ function updateInfoRoomAPI($input)
 
 	return ['code'=>1, 'order'=>$order, 'room'=>$room];
 }
-function updateStarturl($input) {
-    global $isRequestPost;
+function updateStartUrlAPI($input) {
     global $controller;
-    global $session;
-    $modelManagers = $controller->loadModel('Managers');
     $modelOrders = $controller->loadModel('Orders');
     $modelRooms = $controller->loadModel('Rooms');
     $modelZooms = $controller->loadModel('Zooms');
 	$updatedRooms = [];
     $timeNow = time();
 
+
     $conditions = [
     	'dateEnd >=' => $timeNow,
     ];
     $listData = $modelOrders->find()->where($conditions)->all()->toList();
+    $allRooms = $modelRooms->find()->all();
 
-    $allRooms = $modelRooms->find('all');
     foreach ($allRooms as $room) {
         $info = json_decode($room->info, true);
-        $roomInOrderList = array_filter($listData, function($order) use ($room) {
-            return $order->id == $room->id_order; 
-        });
+		$roomInOrderList = array_filter($listData, function($order) use ($room) {
+			return $order->id == $room->id_order; 
+		});
         if (!empty($roomInOrderList)) {
-            $zoomAccount = $modelZooms->find()->where(['id' => $room->id_zoom])->first();
-            if ($zoomAccount) {
+            $zoomAccounts = $modelZooms->find()->where(['id' => $room->id_zoom])->all();
+			
+            foreach ($zoomAccounts as $zoomAccount ) {
+
                 $newStartUrlData = getmeetingstarturl(
                     $zoomAccount->client_id,
                     $zoomAccount->client_secret,
                     $zoomAccount->account_id,
-                    $room->idmeeting,
-
+                    $room->idmeeting
                 );
+				
                 if (!empty($newStartUrlData) && isset($newStartUrlData['start_url'])) {
                     $newStartUrl = $newStartUrlData['start_url'];
                     $info['start_url'] = $newStartUrl;
@@ -285,8 +285,9 @@ function updateStarturl($input) {
                 }
             }
         }
+
     }
-	return ['code' => 1, 'updated_rooms' => $updatedRooms];
+    return ['code' => 1, 'updated_rooms' => $updatedRooms];
 }
 
 

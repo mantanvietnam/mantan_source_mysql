@@ -95,6 +95,8 @@ $sqlInstallDatabase .= "CREATE TABLE `rooms` (
 	`idManager` INT NOT NULL , 
 	`id_order` INT NOT NULL , 
 	`id_zoom` INT NOT NULL , 
+	`idmeeting` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  	`start_url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
 	`info` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
@@ -178,5 +180,7 @@ $sqlUpdateDatabase['prices']['hour'] = "ALTER TABLE `prices` ADD `hour` INT NOT 
 $sqlUpdateDatabase['rooms']['idManager'] = "ALTER TABLE `rooms` ADD `idManager` INT NOT NULL;";
 $sqlUpdateDatabase['rooms']['id_order'] = "ALTER TABLE `rooms` ADD `id_order` INT NOT NULL;";
 $sqlUpdateDatabase['rooms']['id_zoom'] = "ALTER TABLE `rooms` ADD `id_zoom` INT NOT NULL;";
+$sqlUpdateDatabase['rooms']['idmeeting'] = "ALTER TABLE `rooms` ADD `idmeeting` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['rooms']['start_url'] = "ALTER TABLE `rooms` ADD `start_url` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['rooms']['info'] = "ALTER TABLE `rooms` ADD `info` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 ?>

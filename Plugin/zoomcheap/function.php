@@ -256,6 +256,8 @@ function getmeetingcloud($clientId = '', $clientSecret = '', $account_id = '',$m
 }
 function getmeetingstarturl($clientId = '', $clientSecret = '', $account_id = '',$meetingId='')
 {
+    $return = [];
+    
     if(!empty($clientId) && !empty($clientSecret) && !empty($account_id) && !empty($meetingId)){
 
        
