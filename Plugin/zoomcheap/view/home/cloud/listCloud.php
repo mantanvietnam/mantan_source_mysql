@@ -25,7 +25,7 @@
                                 <td><?=$cloudRecords['topic']?></td>
                                 <td><?=date('d/m/Y H:i:s', strtotime($record['recording_start']))?></td>
                                 <td><?=date('d/m/Y H:i:s', strtotime($record['recording_end']))?></td>
-                                <td><?=$record['download_url']?></td>
+                                <td><p style="max-width:280px"><?=$record['download_url']?></p></td>
                                 <td>
                                     <video width="320" height="240" controls>
                                         <source src="<?=$record['download_url']?>" type="video/mp4">
