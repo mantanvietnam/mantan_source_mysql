@@ -214,7 +214,7 @@ function team($input){
     global $data;
     global $modelAlbums;
     $metaTitleMantan = 'Trang team';
-
+    $order = array('id'=>'desc');
     $conditions = array('key_word' => 'settingAboutusTheme');
     $data = $modelOptions->find()->where($conditions)->first();
 
@@ -225,16 +225,16 @@ function team($input){
  
     $slide_dau = [];
     if(!empty($data_value['idslidedau'])){
-        $slide_dau = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidedau']])->all()->toList();
+        $slide_dau = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidedau']])->order($order)->all()->toList();
     }
 
     $slide_hai = [];
     if(!empty($data_value['idslidehai'])){
-        $slide_hai = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidehai']])->all()->toList();
+        $slide_hai = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidehai']])->order($order)->all()->toList();
     }
     $slide_ba = [];
     if(!empty($data_value['idslideba'])){
-        $slide_ba = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslideba']])->all()->toList();
+        $slide_ba = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslideba']])->order($order)->all()->toList();
     }
     $modeltitlealbum1 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidedau']])->first();
     $modeltitlealbum2 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidehai']])->first();

@@ -78,7 +78,7 @@
             </div>
         </section>
 
-        <section id="team-section-1" style="padding-bottom: 80px;">
+        <section id="team-section-1" style="padding: 80px 0;">
             <div class="container">
                 <div class="as4-block-2">
                     <h3><?= $modeltitlealbum3['title'];?></h3>

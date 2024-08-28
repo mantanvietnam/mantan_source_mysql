@@ -2763,11 +2763,16 @@ background-size: 100%; */
     padding: 16px;
 }
 
+.dtfs3-block-1 {
+    height: 100%;
+}
+
 .ts-item-text h4 {
     text-transform: capitalize;
     color: #fff;
     font-weight: bold;
     text-align: center;
+    font-size: 18px;
 }
 
 .ts-item-text p {
