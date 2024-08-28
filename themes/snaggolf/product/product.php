@@ -45,7 +45,7 @@
                                                 </div>
 
                                                 <?php if (!empty($product->price) && !empty($product->price_old)):
-                                                        $giam = 100 - 100 * $product->price / $product->price_old;?>
+                                                        $giam = round(100 - 100 * $product->price / $product->price_old,0);?>
                                                         <div class="product-price-promotion">
                                                             <div class="item-sale">
                                                                 <span>

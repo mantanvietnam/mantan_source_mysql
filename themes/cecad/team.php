@@ -26,7 +26,7 @@
             <div class="container">
 
                 <div class="as4-block-2">
-                    <h3><?= @$setting['titleslide1'];?></h3>
+                    <h3><?= $modeltitlealbum1['title'];?></h3>
                 </div>
 
                 <div class="as4-block-1">
@@ -53,7 +53,7 @@
             <div class="container">
 
                 <div class="as4-block-2">
-                    <h3><?= @$setting['titleslide2'];?></h3>
+                    <h3><?= $modeltitlealbum2['title'];?></h3>
                 </div>
 
                 <div class="as4-block-1">
@@ -81,7 +81,7 @@
         <section id="team-section-1" style="padding-bottom: 80px;">
             <div class="container">
                 <div class="as4-block-2">
-                    <h3><?= @$setting['titleslide3'];?></h3>
+                    <h3><?= $modeltitlealbum3['title'];?></h3>
                 </div>
 
                 <div class="ts-block-1">

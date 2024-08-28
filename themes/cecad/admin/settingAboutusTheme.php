@@ -104,16 +104,8 @@
                                     <input type="text" class="form-control" name="idslidenumber1" value="<?php echo @$data['idslidenumber1'];?>" />
                                 </div>
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Tiêu đề albums slide 1</label>
-                                    <input type="text" class="form-control" name="titleidside1" value="<?php echo @$data['titleidside1'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">ID album slide trang about 2</label>
                                     <input type="text" class="form-control" name="idslidenumber2" value="<?php echo @$data['idslidenumber2'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Tiêu đề albums slide 2</label>
-                                    <input type="text" class="form-control" name="titleidside2" value="<?php echo @$data['titleidside2'];?>" />
                                 </div>
                             </div>
                         </div>
@@ -137,24 +129,12 @@
                                 </div>
 <!--  -->
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Tiêu đề slide đầu</label>
-                                    <input type="text" class="form-control" name="titleslide1" value="<?php echo @$data['titleslide1'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">ID slide đầu</label>
                                     <input type="text" class="form-control" name="idslidedau" value="<?php echo @$data['idslidedau'];?>" />
                                 </div>
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Tiêu đề slide hai</label>
-                                    <input type="text" class="form-control" name="titleslide2" value="<?php echo @$data['titleslide2'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">ID slide hai</label>
                                     <input type="text" class="form-control" name="idslidehai" value="<?php echo @$data['idslidehai'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Tiêu đề slide ba</label>
-                                    <input type="text" class="form-control" name="titleslide3" value="<?php echo @$data['titleslide3'];?>" />
                                 </div>
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">ID slide ba</label>
@@ -179,10 +159,6 @@
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">Tên nút</label>
                                     <input type="text" class="form-control" name="namebuttonvolunteer" value="<?php echo @$data['namebuttonvolunteer'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Tiêu đề slide tình nguyện viên</label>
-                                    <input type="text" class="form-control" name="titleslidevolunteers" value="<?php echo @$data['titleslidevolunteers'];?>" />
                                 </div>
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                         <label class="form-label" for="basic-default-fullname">ID slide tình nguyện viên</label>

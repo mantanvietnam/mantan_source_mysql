@@ -155,9 +155,8 @@
         </section>
         <section id="about-section-4">
             <div class="container">
-
                 <div class="as4-block-2">
-                    <h3><?= @$setting['titleidside1'];?></h3>
+                    <h3><?= $modeltitlealbum1['title'];?></h3>
                 </div>
                 <div class="as4-block-1">
                 <?php if(!empty($slide_about1)){
@@ -185,7 +184,7 @@
             <div class="container">
 
                 <div class="as4-block-2">
-                    <h3><?= @$setting['titleidside2'];?></h3>
+                    <h3><?= $modeltitlealbum2['title'];?></h3>
                 </div>
 
                 <div class="as4-block-1">

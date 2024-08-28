@@ -74,7 +74,7 @@
 
                                     $giam = 0;
                                     if (!empty($product->price_old) && !empty($product->price)) {
-                                        $giam = 100 - 100 * $product->price / $product->price_old;
+                                        $giam = round(100 - 100 * $product->price / $product->price_old,0);
                                     }
 
                                     if ($giam > 0) {
@@ -231,5 +231,33 @@ $(document).ready(function() {
     }
 });
 </script>
+<script type="text/javascript">
+    function plusQuantity()
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+        quantity++;
+        $('#quantity_buy').val(quantity);
+    }
 
+    function minusQuantity()
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+        quantity--;
+        if(quantity<1) quantity=1;
+        $('#quantity_buy').val(quantity);
+    }
+
+    function addProductCart(idProduct)
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+
+        $.ajax({
+            method: "GET",
+            url: "/addProductToCart/?id_product="+idProduct+"&quantity="+quantity
+        })
+        .done(function( msg ) {
+            window.location = '/cart';
+        });
+    }
+</script>
 <?php getFooter();?>

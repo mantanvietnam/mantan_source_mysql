@@ -29,7 +29,7 @@
         <section id="vlt-section-1" style="padding-bottom: 80px;">
             <div class="container">
                 <div class="as4-block-2">
-                    <h3><?= @$setting['titleslidevolunteers'];?></h3>
+                    <h3><?= $modeltitlealbum1['title'];?></h3>
                 </div>
 
                 <div class="ts-block-1">
