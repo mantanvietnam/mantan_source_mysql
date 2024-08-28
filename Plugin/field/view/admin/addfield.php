@@ -18,6 +18,33 @@
               <div class="row">
                 <div class="col-12">
                   <div class="nav-align-top mb-4">
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item">
+                        <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
+                          Mô tả dự án
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
+                          Thông tin dự án 1
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info2" aria-controls="navs-top-info2" aria-selected="false">
+                          Thông tin dự án 2 
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info3" aria-controls="navs-top-info3" aria-selected="false">
+                          Thông tin dự án 3
+                        </button>
+                      </li>
+                      <!-- <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-image" aria-controls="navs-top-image" aria-selected="false">
+                          Hình ảnh
+                        </button>
+                      </li> -->
+                    </ul>
                     <div class="tab-content">
                       <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
                         <div class="row">
@@ -48,27 +75,8 @@
                               <div class="mb-3">
                                 <label class="form-label">nội dung bên phải image1</label>
                                 <input  type="text" class="form-control phone-mask" name="content2" id="content2" value="<?php echo @$data->content2;?>" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label">nội dung dưới image1</label>
-                                <input  type="text" class="form-control phone-mask" name="content3" id="content3" value="<?php echo @$data->content3;?>" />
-                              </div>   
-                              <div class="mb-3">
-                                <label class="form-label">nội dung thứ 1</label>
-                                <input  type="text" class="form-control phone-mask" name="content1" id="content1" value="<?php echo @$data->content1;?>" />
-                              </div>                          
-                          </div>
-                          <div class="col-md-6">
-                              <div class="mb-3">
-                                <label class="form-label">image 2</label>
-                                <?php showUploadFile('image2','image2',@$data->image2,2);?>
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label">nội dung dưới image2</label>
-                                <input  type="text" class="form-control phone-mask" name="content4" id="content4" value="<?php echo @$data->content4;?>" />
-                              </div>
-                          </div>
-                          <div class="col-md-6">
+                              </div> 
+             
                               <div class="mb-3">
                                 <label class="form-label">image 3</label>
                                 <?php showUploadFile('image3','image3',@$data->image3,3);?>
@@ -77,8 +85,45 @@
                                 <label class="form-label">image 4</label>
                                 <?php showUploadFile('image4','image4',@$data->image4,4);?>
                               </div>
+                                              
+                          </div>
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">image 2</label>
+                                <?php showUploadFile('image2','image2',@$data->image2,2);?>
+                              </div>
                           </div>
                         </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-info">
+                          <div class="row">
+                              <div class="col-md-12">
+                                <div class="mb-3">
+                                  <label class="form-label">Thông tin mô tả về dự án 1</label>
+                                  <?php showEditorInput('content1', 'content1', @$data->content1);?>
+                                </div> 
+                              </div>
+                          </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-info2">
+                          <div class="row">
+                              <div class="col-md-12">
+                                <div class="mb-3">
+                                  <label class="form-label">Thông tin mô tả về dự án 2</label>
+                                  <?php showEditorInput('content3', 'content3', @$data->content3);?>
+                                </div> 
+                              </div>
+                          </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-info3">
+                          <div class="row">
+                              <div class="col-md-12">
+                                <div class="mb-3">
+                                  <label class="form-label">Thông tin mô tả về dự án 3</label>
+                                  <?php showEditorInput('content4', 'content4', @$data->content4);?>
+                                </div> 
+                              </div>
+                          </div>
                       </div>
                     </div>
                   </div>
