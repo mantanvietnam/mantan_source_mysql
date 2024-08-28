@@ -49,9 +49,10 @@
                                         <div class="table-product-item-price">
                                             <span><?= number_format($price_buy) ?>₫</span>
                                             <div class="cart-button-group">
-                                                <button>+</button>
+                                                <!-- <button>+</button> -->
+                                                <label for="">Số lượng:</label>
                                                 <input type="text" value="<?= $value->numberOrder ?>">
-                                                <button>-</button>
+                                                <!-- <button>-</button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -148,13 +149,13 @@
                             </div>
                         <?php endif; ?>
                     </div>  
-
+<!-- 
                     <div class="policy-purchase">
                         <div class="summary-warning alert-order">						
                             <p><strong>Chính sách mua hàng</strong>:</p>
                             <p>Hiện chúng tôi chỉ áp dụng thanh toán với đơn hàng có giá trị tối thiểu <strong>100.000₫ </strong> trở lên.</p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
