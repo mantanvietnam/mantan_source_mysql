@@ -1406,7 +1406,7 @@ function payTransactionAgency($input)
             $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
             $billbuy->id_customer = 0;
             $billbuy->id_aff = 0;
-            $billbuy->note = 'Bạn nhận hoa hồng của người đại lý '.@$aff->name.' '.@$aff->phone.', do bạn giới thiệu giao dịch có id '.$data->id;
+            $billbuy->note = 'Bạn nhận hoa hồng của người đại lý '.@$session->read('infoUser')->name.' '.@$session->read('infoUser')->phone.', do bạn giới thiệu giao dịch có id '.$data->id;
             $modelBill->save($billbuy);
         }
     }

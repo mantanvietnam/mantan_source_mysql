@@ -127,7 +127,7 @@ function updateStatusOrderMemberAPI($input)
     $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
     $modelUnitConversion = $controller->loadModel('UnitConversions');
     $modelTokenDevices = $controller->loadModel('TokenDevices');
-
+	$modelTransactionAgencyHistorie = $controller->loadModel('TransactionAgencyHistories');
     $return = array('code'=>1);
     
     if($isRequestPost){
@@ -331,6 +331,29 @@ function updateStatusOrderMemberAPI($input)
 		                                $debt->id_customer = 0;
 		                                $debt->note = 'Thanh toán đơn hàng id:'.$order->id.' mua của đại lý '.@$infoMemberSell->name.' '.@$infoMemberSell->phone.'; '.@$dataSend['note'];
 		                                    $modelDebt->save($debt);
+		                        }
+
+		                        // cộng hoa hông cho đại lý giời thiệu
+		                        if(!empty($infoMemberBuy->id_agency_introduce) && !empty($infoMemberBuy->id_father)  && !empty($infoMember->agent_commission) && !empty($order->total)){
+		                            if($infoMemberBuy->id_father == $infoMember->id){
+
+
+		                                $money_back = $user->agent_commission * $order->total / 100;
+		                
+		                                // lưu lịch sử trích hoa hồng
+		                                $saveBack = $modelTransactionAgencyHistorie->newEmptyEntity();
+		                
+		                                $saveBack->id_agency_introduce = $infoMemberBuy->id_agency_introduce;
+		                                $saveBack->money_total = $order->total;
+		                                $saveBack->money_back = $money_back;
+		                                $saveBack->percent = $user->agent_commission;
+		                                $saveBack->id_order_member = $order->id;
+		                                $saveBack->create_at = time();
+		                                $saveBack->status = 'new';
+		                                $saveBack->id_member = $infoMember->id;
+		                                $modelTransactionAgencyHistorie->save($saveBack);
+
+		                            }
 		                        }
 		                    }
 
@@ -582,6 +605,143 @@ function getListOrderMemberTodayAPI($input)
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
+    }
+
+    return $return;
+}
+
+function listTransactionAgencyHistorieAPI(){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Lịch sử giao dịch';
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+
+		        $modelMember = $controller->loadModel('Members');
+
+		        $modelTransactionAgencyHistorie = $controller->loadModel('TransactionAgencyHistories');
+
+
+		        $conditions = array('id_member'=>$infoMember->id);
+		        $limit = 20;
+		        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+		        if($page<1) $page = 1;
+		        $order = array('id'=>'desc');
+
+		        if(!empty($_GET['id'])){
+		            $conditions['id'] = (int) $_GET['id'];
+		        }
+
+		        if(!empty($_GET['id_agency_introduce'])){
+		            $conditions['id_agency_introduce'] = (int) $_GET['id_agency_introduce'];
+		        }
+
+		        if(!empty($_GET['id_order_member'])){
+		            $conditions['id_order_member'] = (int) $_GET['id_order_member'];
+		        }
+
+		        if(!empty($_GET['status'])){
+		            $conditions['status'] = $_GET['status'];
+		        }
+
+		       
+		        $listData = $modelTransactionAgencyHistorie->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+		        if(!empty($listData)){
+		            foreach ($listData as $key => $value) {
+		                $listData[$key]->agency = $modelMember->find()->where(['id'=>$value->id_agency_introduce])->first();
+		            }
+		        }
+		       
+		        // phân trang
+		        $totalData = $modelTransactionAgencyHistorie->find()->where($conditions)->all()->toList();
+		        $totalData = count($totalData);
+
+         		$return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData));
+            }else{
+                 $return = array('code'=>3, 'mess'=>'không tồn tại tài khoản đại lý hoặc sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+       
+
+function payTransactionAgencyAPI($input)
+{
+    global $controller;
+    global $session;
+    $modelMember = $controller->loadModel('Members');
+    $modelTransactionAgencyHistorie = $controller->loadModel('TransactionAgencyHistories');
+    $modelBill = $controller->loadModel('Bills');
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+		        $data = $modelTransactionAgencyHistorie->get($dataSend['id']);
+		        
+		        if(!empty($data)){
+		            $aff = $modelMember->get($data->id_agency_introduce);
+		            $data->status = 'done';
+
+		            $modelTransactionAgencyHistorie->save($data);
+		            $time= time();
+		             // bill cho người mua
+		            $billbuy = $modelBill->newEmptyEntity();
+		            $billbuy->id_member_sell = $data->id_agency_introduce;
+		            $billbuy->id_member_buy =  $infoMember->id;
+		            $billbuy->total = $data->money_back;
+		            $billbuy->id_order = $data->id;
+		            $billbuy->type = 2;
+		            $billbuy->type_order = 6; 
+		            $billbuy->created_at = $time;
+		            $billbuy->updated_at = $time;
+		            $billbuy->id_debt = 0;
+		            $billbuy->type_collection_bill =  @$dataSend['type_collection_bill'];
+		            $billbuy->id_customer = 0;
+		            $billbuy->id_aff = 0;
+		            $billbuy->note = 'Thanh toán chiết khấu hoa hông cho đại lý giới thiệu tên là '.@$aff->name.' '.@$aff->phone.'  giao dịch có id '.$data->id;
+		            $modelBill->save($billbuy);
+
+		             $billbuy = $modelBill->newEmptyEntity();
+		            $billbuy->id_member_sell = $data->id_agency_introduce;
+		            $billbuy->id_member_buy =  $infoMember->id;
+		            $billbuy->total = $data->money_back;
+		            $billbuy->id_order = $data->id;
+		            $billbuy->type = 1;
+		            $billbuy->type_order = 6; 
+		            $billbuy->created_at = $time;
+		            $billbuy->updated_at = $time;
+		            $billbuy->id_debt = 0;
+		            $billbuy->type_collection_bill =  @$dataSend['type_collection_bill'];
+		            $billbuy->id_customer = 0;
+		            $billbuy->id_aff = 0;
+		            $billbuy->note = 'Bạn nhận hoa hồng của người đại lý '.@$infoMember->name.' '.@$infoMember->phone.', do bạn giới thiệu giao dịch có id '.$data->id;
+		            $modelBill->save($billbuy);
+		        }
+		    }else{
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+         $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
     }
 
     return $return;

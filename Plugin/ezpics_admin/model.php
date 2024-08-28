@@ -18,4 +18,5 @@ include('model/ingredients.php'); // thành phần
 include('model/search_keys.php'); // thành phần
 include('model/transaction_ecoin.php'); // thành phần
 include('model/style_texts.php'); // mẫu chữ
+include('model/extend_pro_historie.php'); // mẫu chữ
 ?>

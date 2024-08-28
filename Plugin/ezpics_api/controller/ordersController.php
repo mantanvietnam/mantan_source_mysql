@@ -495,6 +495,7 @@ function memberBuyProAPI($input){
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
 	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
+	$modelExtendProHistorie = $controller->loadModel('ExtendProHistories');
 	$return = array('code'=>0);
 	
 	if($isRequestPost){
@@ -587,6 +588,16 @@ function memberBuyProAPI($input){
 							$modelWarehouseUsers->save($WarehouseUser);
 						}
 
+						$data = $modelExtendProHistorie->newEmptyEntity();
+			            // tạo dữ liệu sav
+						$data->user_id = $user->id;
+						$data->price = 0;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->deadline_pro = $user->deadline_pro;
+						$data->type = 2;
+						$data->ecoin = $ecoin;
+						$modelExtendProHistorie->save($data);
+
 						$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
 					}else{
 						$return = array('code'=>7, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
@@ -660,6 +671,16 @@ function memberBuyProAPI($input){
 							}
 						}
 
+						$data = $modelExtendProHistorie->newEmptyEntity();
+			            // tạo dữ liệu sav
+						$data->user_id = $user->id;
+						$data->price = $price_pro;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->deadline_pro = $user->deadline_pro;
+						$data->type = 1;
+						$data->ecoin = 0;
+						$modelExtendProHistorie->save($data);
+
 						$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
 					}else{
 						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
@@ -687,6 +708,7 @@ function memberExtendProAPI($input){
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
 	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
+	$modelExtendProHistorie = $controller->loadModel('ExtendProHistories');
 
 	$return = array('code'=>0);
 	
@@ -781,6 +803,16 @@ function memberExtendProAPI($input){
 							$modelWarehouseUsers->save($WarehouseUser);
 						}
 
+						$data = $modelExtendProHistorie->newEmptyEntity();
+			            // tạo dữ liệu sav
+						$data->user_id = $user->id;
+						$data->price = 0;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->deadline_pro = $user->deadline_pro;
+						$data->type = 2;
+						$data->ecoin = $ecoin;
+						$modelExtendProHistorie->save($data);
+
 						$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
 					}else{
 						$return = array('code'=>7, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
@@ -860,6 +892,16 @@ function memberExtendProAPI($input){
 
 							}
 						}
+
+						$data = $modelExtendProHistorie->newEmptyEntity();
+			            // tạo dữ liệu sav
+						$data->user_id = $user->id;
+						$data->price = $price_pro;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->deadline_pro = $user->deadline_pro;
+						$data->type = 1;
+						$data->ecoin = 0;
+						$modelExtendProHistorie->save($data);
 
 
 						$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');

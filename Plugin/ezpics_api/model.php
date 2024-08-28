@@ -24,4 +24,5 @@ include('model/search_keys.php'); // nội dung sản phẩm
 include('model/transaction_ecoin.php'); // nội dung sản phẩm 
 include('model/style_texts.php'); // nội dung sản phẩm 
 include('model/render_images.php'); // xuất ảnh hàng loạt
+include('model/extend_pro_historie.php'); // mẫu chữ
 ?>

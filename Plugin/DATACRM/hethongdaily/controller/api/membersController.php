@@ -900,6 +900,19 @@ function addMemberDownAPI($input)
 		        		if(empty($data->id_father)){
 		        			$data->id_father = (!empty($dataSend['id_father']))? (int) $dataSend['id_father']:(int) $infoMember->id;
 		        		}
+
+		        		if(!empty($dataSend['phone_agency_introduce'])){
+
+							$dataSend['phone_agency_introduce'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone_agency_introduce']));
+	        				$dataSend['phone_agency_introduce'] = str_replace('+84','0',$dataSend['phone_agency_introduce']);
+
+	        				$conditions = ['phone'=>$dataSend['phone_agency_introduce']];
+	        				$checkphoneagency = $modelMembers->find()->where($conditions)->first();
+
+	        				if(!empty($checkphoneagency)){
+		        				$data->id_agency_introduce = $checkphoneagency->id;
+		        			}
+						}
 				        
 				        $data->name = $dataSend['name'];
 				        $data->address = $dataSend['address'];

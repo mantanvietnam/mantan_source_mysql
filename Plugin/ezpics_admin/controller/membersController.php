@@ -576,6 +576,7 @@ function memberExtendProAdmin($input){
 	$modelOrder = $controller->loadModel('Orders');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelExtendProHistorie = $controller->loadModel('ExtendProHistories');
 
 	$return = array('code'=>0);
 
@@ -633,7 +634,11 @@ function memberExtendProAdmin($input){
 					$data->deadline_at = $user->deadline_pro;
 					$modelWarehouseUsers->save($data);
 				}else{
+					// debug($user);
+					// debug($WarehouseUser);
 					$WarehouseUser->deadline_at = $user->deadline_pro;
+					// debug($WarehouseUser);
+					// die();
 					$modelWarehouseUsers->save($WarehouseUser);
 				}
 				$dataSendNotification= array('title'=>'Tài khoản của bạn đã lên bản EZPICS PRO! ','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn, tài khoản của bạn đã được nâng cấp lên bản EZPICS PRO, thời gian sử dụng đến ngày '. date('d/m/Y', strtotime($user->deadline_pro)).'!','action'=>'memberBuyPro',);
@@ -645,6 +650,17 @@ function memberExtendProAdmin($input){
               	if(!empty($user->email)){
                		sendEmailBuyPro($user->email, $user->name);
               	}
+
+              	$data = $modelExtendProHistorie->newEmptyEntity();
+			            // tạo dữ liệu sav
+				$data->user_id = $user->id;
+				$data->price = @$price;
+				$data->created_at = date('Y-m-d H:i:s');
+				$data->deadline_pro = $user->deadline_pro;
+				$data->type = 1;
+				$data->ecoin = 0;
+				$modelExtendProHistorie->save($data);
+			
 				return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin?statuss=6');
 			}
 		}
