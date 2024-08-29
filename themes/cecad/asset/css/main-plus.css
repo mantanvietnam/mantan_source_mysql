@@ -2174,6 +2174,15 @@ background-size: 100%; */
     text-align: justify;
 }
 
+.dtfs2-block-1-text p:first-child,
+.dtfs2-block-1-text p:last-child,
+.dtfs4-block-1-text p:first-child,
+.dtfs4-block-1-text p:last-child,
+.dtfs6-block-1 p:first-child,
+.dtfs6-block-1 p:last-child {
+    display: none;
+}
+
 #dtf-section-3 .container {
     max-width: 55%;
 }
