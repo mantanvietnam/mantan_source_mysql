@@ -1163,7 +1163,7 @@ function acceptSellPointNewApi($input){
             return apiResponse(5, 'Đơn này không tồn tại');
         }
 
-        if ($order->status_accept=2) {
+        if ($order->status_accept==2) {
             return apiResponse(5, 'Đơn này bạn đã xác nhận rồi');
         }
 
