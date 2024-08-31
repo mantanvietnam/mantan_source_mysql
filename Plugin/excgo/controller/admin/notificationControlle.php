@@ -39,7 +39,9 @@ function addNotificationAdmin($input)
 			
 			$paginationMeta = createPaginationMetaData(count($totalData),1000,$page);
 
-			if($page<$paginationMeta['totalPage']){
+			
+
+			if($page<=$paginationMeta['totalPage']){
 			
 
 				if(!empty($dataSend['id_post'])){
@@ -47,6 +49,8 @@ function addNotificationAdmin($input)
 	        	}	
 
 	        	$listUser = $modelUser->find()->limit(1000)->page($page)->where($conditions)->all()->toList();
+	      
+			
 	       
 				
 				if(!empty($listUser)){
@@ -86,15 +90,19 @@ function addNotificationAdmin($input)
 				}else{
 					$mess= '<p class="text-danger">Không có thiết bị nào nhận được tin nhắn</p>';
 				}
+
+				if($page==$paginationMeta['totalPage']){
+					$paginationMeta['next'] +=1;
+				}
 			}else{
 				$mess= '<p class="text-success">Đã gửi thông báo xong</p>';
 			}
 		}else{
 			$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
 		}
-
 		
 	}
+
 	setVariable('next', $paginationMeta['next']);
 		setVariable('totalPage', $paginationMeta['totalPage']);
 		setVariable('dataSend', $dataSend);

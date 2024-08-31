@@ -14,7 +14,7 @@ function searchCustomerAPI($input)
     $conditions = [];
 
     if(!empty($dataSend['term'])){
-        $conditions['full_name LIKE'] = '%'.$dataSend['term'].'%';
+        $conditions['OR'] = ['full_name LIKE' => '%'.$dataSend['term'].'%', 'phone LIKE' => '%'.$dataSend['term'].'%'];
     }
 
     if(!empty($dataSend['id'])){

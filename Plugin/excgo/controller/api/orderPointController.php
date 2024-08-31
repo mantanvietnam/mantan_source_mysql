@@ -1163,17 +1163,29 @@ function acceptSellPointNewApi($input){
             return apiResponse(5, 'Đơn này không tồn tại');
         }
 
+        if ($order->status_accept=2) {
+            return apiResponse(5, 'Đơn này bạn đã xác nhận rồi');
+        }
+
         // gửi thông báo bên bán 
         $infoUserBuy = $modelUser->find()->where(['id'=>$order->user_buy])->first();
 
+        $accept = $order->status_accept;
 
+        if($accept==1){
+            $order->status = 2;
+            $order->status_accept = 3;
+        }else{
+            $order->status_accept = 2;
+        }
+            
         $order->updated_at = date('Y-m-d H:i:s');
-        $order->status = 2;
-
         $modelOrderPoint->save($order);
 
+        if($accept==1){
+            $infoUserBuy->point += $order->point;
+        }
 
-        $infoUserBuy->point += $order->point;
         $modelUser->save($infoUserBuy);
 
          // Thông báo cho người mua 
@@ -2373,4 +2385,100 @@ function getOrderPointApi($input): array
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
+
+// xác nhận yêu cầu bán điểm 
+function acceptBuyPointNewApi($input){
+    global $controller;
+    global $transactionType;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingType;
+
+    
+    $modelUser = $controller->loadModel('Users');
+    $modelOrderPoint = $controller->loadModel('OrderPoints');
+    $modelNotification = $controller->loadModel('Notifications');
+
+    $parameter = parameter();
+    $convertPointMoney = (int) $parameter['convertPointMoney'];
+    $minimumPointSold = (int) $parameter['minimumPointSold'];
+    $modelNotification = $controller->loadModel('Notifications');
+
+
+    if ($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+         if (empty($dataSend['access_token']) && empty($dataSend['id'])){
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+         }
+
+        $currentUser = getUserByToken($dataSend['access_token']);
+
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+
+        $order = $modelOrderPoint->find()->where(['user_buy'=>$currentUser->id,'id'=>(int)$dataSend['id'], 'status'=>1])->first();
+
+        if (empty($order)) {
+            return apiResponse(5, 'Đơn này không tồn tại');
+        }
+
+        if ($order->status_accept==1) {
+            return apiResponse(5, 'Đơn này bạn đã xác nhận rồi');
+        }
+
+
+
+        // gửi thông báo bên bán 
+        $infoUserSell = $modelUser->find()->where(['id'=>$order->user_sell])->first();
+
+
+        $accept = $order->status_accept;
+
+        if($accept==2){
+            $order->status = 2;
+            $order->status_accept = 3;
+        }else{
+            $order->status_accept = 1;
+        }
+            
+        $order->updated_at = date('Y-m-d H:i:s');
+        $modelOrderPoint->save($order);
+
+        if($accept==2){
+            $currentUser->point += $order->point;
+        }
+        
+        $modelUser->save($currentUser);
+
+         // Thông báo cho người mua 
+        $title = 'Bạn bán điểm thành công ';
+        $content = "Bạn bán $order->point điểm cho tài xế $currentUser->name ";
+        $notification = $modelNotification->newEmptyEntity();
+        $notification->user_id = $infoUserSell->id;
+        $notification->title = $title;
+        $notification->content = $content;
+        $notification->id_order = $order->id;
+        $notification->created_at = date('Y-m-d H:i:s');
+        $notification->action = 'sellOrderPointSuccess';
+        $notification->updated_at = date('Y-m-d H:i:s');
+        $modelNotification->save($notification);
+
+        if ($infoUserSell->device_token) {
+            $dataSendNotification= array(
+                'title' => $title,
+                'time' => date('H:i d/m/Y'),
+                'content' => $content,
+                'id_order' => $order->id,
+                'action' => 'buyOrderPointSuccess'
+            );
+            sendNotification($dataSendNotification, $infoUserSell->device_token);
+        }
+
+        return apiResponse(0, ' Xác nhận mua điểm thành công',$order);
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+} 
 ?>

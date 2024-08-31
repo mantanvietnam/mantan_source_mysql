@@ -39,7 +39,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách <?php echo $title ?></h5>
+    <h5 class="card-header">Danh sách <?php echo $title ?></h5><?php echo @$mess;?>
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">

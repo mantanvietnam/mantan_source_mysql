@@ -132,6 +132,7 @@
 
 	// báo cáo kinh doanh
 	$routesPlugin['businessReport']= 'hethongdaily/view/home/static/businessReport.php';
+	$routesPlugin['statisticAgency']= 'hethongdaily/view/home/static/statisticAgency.php';
 
 	// lịch sử giao dịch tiền
 	$routesPlugin['listTransactionHistories']= 'hethongdaily/view/home/transaction_histories/listTransactionHistories.php';

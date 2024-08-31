@@ -113,7 +113,7 @@
                   }
 
                   if($item->member_pro==1){
-                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.date('H:i d/m/Y', strtotime($item->deadline_pro)).'<br/><a  style="color: #60bc2f; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicPro'.$item->id.'">Gia hạn bản Pro
+                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.date('H:i d/m/Y', strtotime($item->deadline_pro)).' <a  href="/plugins/admin/ezpics_admin-view-admin-transaction-listHistorieProEzpics?user_id='.$item->id.'"> Chi tiết lịch sửa nâng cấp</a><br/><a  style="color: #60bc2f; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicPro'.$item->id.'">Gia hạn bản Pro
                               <i class="bx bxs-chevrons-up" style="font-size: 22px;"></i>
                             </a>&ensp;<a  style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#downPro'.$item->id.'">Hạ bản Pro
                               <i class="bx bx-chevrons-down" style="font-size: 22px;"></i>

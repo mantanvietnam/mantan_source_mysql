@@ -538,7 +538,7 @@ function getInfoUserCustomerAPI($input){
 
             if (!empty($user)) {
                
-                return array('code'=>1,'infoUser'=> $user, 'messages'=>'Lấy dữ liệu thành công');
+                return array('code'=>1,'data'=> $user, 'messages'=>'Lấy dữ liệu thành công');
             }
 
             return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');

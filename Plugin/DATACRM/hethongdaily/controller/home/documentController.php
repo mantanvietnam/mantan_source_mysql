@@ -9,7 +9,7 @@ function listDocument($input){
     if(!empty($session->read('infoUser'))){
 
 
-	    
+	    $mess = "";
 	    $user = $session->read('infoUser');
 
 	    $modelDocument = $controller->loadModel('Documents');
@@ -109,6 +109,14 @@ function listDocument($input){
 	    } else {
 	        $urlPage = $urlPage . '?page=';
 	    }
+
+	    if(@$_GET['mess']=='saveSuccess'){
+	    	$mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+	    }elseif(@$_GET['mess']=='deleteSuccess'){
+	    	$mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+	    }elseif(@$_GET['mess']=='deleteError'){
+	    	$mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+	    }
 	    
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -118,6 +126,7 @@ function listDocument($input){
 	    setVariable('title', $title);
 	    setVariable('slug', $slug);
 	    setVariable('type', $type);
+	    setVariable('mess', $mess);
 	    
 	    setVariable('listData', $listData);
 	    setVariable('conditioneverybody', $conditioneverybody);
@@ -140,20 +149,23 @@ function addDocument($input){
     	if($url[0]=='/addAlbum'){
 	    	$type= 'album';
 	    	$title = 'Hình ảnh';
+	    	$name = 'file ảnh';
 	    	$slug = 'Album';
 	    }elseif($url[0] == '/addVideo'){
 	    	$type= 'video';
 	    	$title = 'Video';
+	    	$name = 'Mã youtube';
 	    	$slug = 'Video';
 	    }else{
 	    	$type= 'document';
 	    	$title = 'Tài liệu';
+	    	$name = 'file tài liệu';
 	    	$slug = 'Document';
 	    }
 
 	    $metaTitleMantan = 'Thông tin '.$title;
 	    $user = $session->read('infoUser');
-
+	    $modelDocumentinfo = $controller->loadModel('Documentinfos');
 	    $modelDocument = $controller->loadModel('Documents');
 	    $mess= '';
 	    // lấy data edit
@@ -184,19 +196,81 @@ function addDocument($input){
 
 	            $modelDocument->save($data);
 
+	            // lưu thông tin file
+                if(!empty($dataSend['title_info'])){
+                    $conditions = ['id_document'=>$data->id];
+                    $modelDocumentinfo->deleteAll($conditions);
+                    
+                    foreach ($dataSend['title_info'] as $key => $title_info) {
+                    	$file = '';
+                    	if(@$type=='video'){
+                    		$file = $dataSend['file'][$key];
+                    	}else{
+                    		if(isset($_FILES['file'.$key]) && empty($_FILES['file'.$key]["error"])){
+		                        if(!empty($data->id)){
+		                            $fileName = 'file'.$key.'_file_'.$data->id;
+		                        }else{
+		                            $fileName = 'file'.$key.'_file_'.time().rand(0,1000000);
+		                        }
+
+		                        $image = uploadImage($user->id, 'file'.$key, $fileName);
+                    	
+
+		                        if(!empty($image['linkOnline'])){
+		                            $file= $image['linkOnline'].'?time='.time();
+		                        }
+		                    }elseif(!empty($dataSend['file_cu'])){
+		                    	$file = $dataSend['file_cu'][$key];
+		                    }
+                    	}
+                    	
+	   
+                    	
+                        $info = $modelDocumentinfo->newEmptyEntity();
+
+                        $info->title = @$title_info;
+	            		$info->file = $file;
+	            		$info->id_document = $data->id;
+	            		$info->description = @$dataSend['description_info'][$key];
+	            		$info->slug = createSlugMantan(trim(@$title_info));
+
+
+	            		$modelDocumentinfo->save($info);
+                    }
+                }else{
+                    $conditions = ['id_product'=>$data->id];
+                    $modelCategorieProduct->deleteAll($conditions);
+                }
+
+
 	            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
-	             
+	            if($type=='album'){
+    				return $controller->redirect('/listAlbum?mess=saveSuccess');
+    			}elseif($type=='video'){
+    				return $controller->redirect('/listVideo?mess=saveSuccess');
+    			}else{
+    				return $controller->redirect('/listDocument?mess=saveSuccess');
+    			}
 	            
 	        }else{
 	            $mess= '<p class="text-danger">Bạn chưa nhập tiêu đề</p>';
 	        }
 	    }
+
+        if(!empty($data->id)){
+            $conditions = array('id_document'=>$data->id);
+            $data->info = $modelDocumentinfo->find()->where($conditions)->all()->toList();
+        }
+
+
 	    setVariable('mess', $mess);
 	    setVariable('data', $data);
 
 	    setVariable('title', $title);
+	    setVariable('type', $type);
 		setVariable('slug', $slug);
+		setVariable('name', $name);
 	   
 	}else{
         return $controller->redirect('/login');

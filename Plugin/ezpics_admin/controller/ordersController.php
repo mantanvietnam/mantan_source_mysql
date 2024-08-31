@@ -1643,4 +1643,116 @@ function listTransactionHistoryMinusEcoinEzpics($input)
     setVariable('mess', $mess);
 }
 
+function listHistorieProEzpics(){
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+
+    $metaTitleMantan = 'Danh sách giao dịch nâng cấp Pro';
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelOrders = $controller->loadModel('Orders');
+	$modelProducts = $controller->loadModel('Products');
+	$modelExtendProHistorie = $controller->loadModel('ExtendProHistories');
+
+	$conditions = array();
+	$limit = 20;
+	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+	if($page<1) $page = 1;
+	$order = array('id'=>'desc');
+
+	if(!empty($_GET['code'])){
+		$conditions['code'] = $_GET['code'];
+	}
+
+	if(!empty($_GET['phone'])){
+		$conditionsMember['phone'] = str_replace([' ','.','-'],'',$_GET['phone']);
+		$member = $modelMembers->find()->where($conditionsMember)->first();
+		if(!empty($member)){
+			$conditions['user_id'] = (int) $member->id;
+		}else{
+			$conditions['user_id'] = 0;
+		}
+	}
+
+	if(isset($_GET['type'])){
+		if($_GET['type']!=''){
+			$conditions['type'] = $_GET['type'];
+		}
+	}
+
+	if(!empty($_GET['user_id'])){
+		$conditions['user_id'] = $_GET['user_id'];
+	}
+
+	if(!empty($_GET['date_start'])){
+		$date_start = explode('/', $_GET['date_start']);
+		$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+		$conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
+	}
+
+	if(!empty($_GET['date_end'])){
+		$date_end = explode('/', $_GET['date_end']);
+		$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+		$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
+	}
+
+    $listData = $modelExtendProHistorie->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($listData)){
+    	foreach ($listData as $key => $value) {
+    		$listData[$key]->member = $modelMembers->get($value->user_id);
+    		//$listData[$key]->product = $modelProducts->find()->where(['id'=>$value->product_id])->first();
+    	}
+    }
+
+    $totalData = $modelExtendProHistorie->find()->where($conditions)->all()->toList();
+    $totalMoney = 0;
+    if(!empty($totalData)){
+    	foreach($totalData as $key => $item){
+    		$totalMoney += $item->total;
+    	}
+    }
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    setVariable('page', $page);
+    setVariable('totalData', $totalData);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    
+    setVariable('listData', $listData);
+    setVariable('totalMoney', $totalMoney);
+}
+
 ?>

@@ -13,7 +13,7 @@ function searchMemberAPI($input)
     $conditions = [];
 
 	if(!empty($dataSend['term'])){
-        $conditions['OR'] = ['name LIKE' => '%'.$dataSend['term'].'%', 'phone' => $dataSend['term']];
+        $conditions['OR'] = ['name LIKE' => '%'.$dataSend['term'].'%', 'phone LIKE' => '%'.$dataSend['term'].'%'];
     }
 
     if(!empty($dataSend['id'])){
@@ -105,6 +105,10 @@ function getInfoMemberAPI($input)
         	$conditions['phone'] = $dataSend['phone'];
 		}
 
+		if(!empty($dataSend['token'])){
+			$conditions['token'] = $dataSend['token'];
+		}
+
 		$checkPhone = $modelMember->find()->where($conditions)->first();
 
 		if(!empty($checkPhone)){
@@ -127,10 +131,71 @@ function getInfoMemberAPI($input)
 						);
 		}
 	
+	}else{
+		$return = array('code'=>1,
+						'mess'=> 'Gửi sai phương thức POST'
+						);
 	}
 
 	return $return;
 }
+
+function getInfoMemberMyAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	global $modelCategories;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$modelLinkInfo = $controller->loadModel('LinkInfos');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+
+		if(!empty($dataSend['token'])){
+			$conditions['token'] = $dataSend['token'];
+		}else{
+			return  array('code'=>4,
+							'mess'=> 'Thiếu dữ liệu'
+						);
+		}
+
+		$checkPhone = $modelMember->find()->where($conditions)->first();
+
+		if(!empty($checkPhone)){
+			$dataLink = $modelLinkInfo->find()->where(['id_member'=>$checkPhone->id])->all()->toList();
+			$position = $modelCategories->find()->where(array('id'=>$checkPhone->id_position))->first();
+			
+			$checkPhone->name_position = @$position->name;
+			$checkPhone->ListLink = @$dataLink;
+			$checkPhone->discount_position = @$position->description;
+
+			unset($checkPhone->password);
+			
+			$return = array('code'=>0,
+							 'data'=>$checkPhone,
+							 'mess'=> 'Bạn lấy dữ liệu thành công'
+							);
+		}else{
+			$return = array('code'=>3,
+							'mess'=> 'Tài khoản không tồn tại'
+						);
+		}
+	
+	}else{
+		$return = array('code'=>1,
+						'mess'=> 'Gửi sai phương thức POST'
+						);
+	}
+
+	return $return;
+}
+
 
 function resendOTPAPI($input)
 {

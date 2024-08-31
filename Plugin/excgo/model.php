@@ -18,4 +18,5 @@ include('model/bookmarks.php');
 include('model/block_user_provinces.php');
 include('model/reward.php');
 include('model/order_points.php');
+include('model/post_provinces.php');
 ?>
