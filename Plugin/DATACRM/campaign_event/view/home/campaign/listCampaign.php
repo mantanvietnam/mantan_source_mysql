@@ -59,9 +59,13 @@
               <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
+                  $image = '';
+                  if(!empty($item->image)){
+                    $image = '<br/><br/><img src="'.$item->image.'" width="100"/>';
+                  }
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>'.$item->name.'</td>
+                          <td>'.$item->name.''.$image.'</td>
                           <td><a href="/listCustomerCampaign/?id='.$item->id.'">'.number_format($item->number_reg).' người</a></td>
                           <td><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=1">'.number_format($item->number_checkin).' người</a></td>
                           <td><a href="/listCustomerCampaign/?id='.$item->id.'&checkin=2">'.number_format($item->yet_checkin).' người</a></td>

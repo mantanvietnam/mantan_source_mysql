@@ -818,11 +818,12 @@ function updateListLayerAPI($input){
 							 	$datalayer->content = json_encode($item['content']);
 							 	$datalayer->updated_at = date('Y-m-d H:i:s');
 							 	$datalayer->sort = @$item['sort'];
+							 	
 							 	$modelProductDetail->save($datalayer);
 						 	}
 						}
 
-						//$returnExport = exportImageThumb($dataSend['idProduct']);
+						$returnExport = exportImageThumb($dataSend['idProduct']);
 							
 						$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công', 'link'=>@$returnExport['link']);
 					}else{
@@ -956,7 +957,7 @@ function addListLayerAPI($input){
 				            $modelProductDetail->save($new);
 						}
 
-						//$returnExport = exportImageThumb($dataSend['idProduct']);
+						$returnExport = exportImageThumb($dataSend['idProduct']);
 							
 						$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công');
 					}else{

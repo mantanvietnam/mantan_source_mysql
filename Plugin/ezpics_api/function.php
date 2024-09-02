@@ -1231,7 +1231,7 @@ function zipImage($urlLocalFile='')
     }
 }
 
-function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='', $color='', $backgroundUpload= '')
+function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='', $color='', $backgroundUpload= '', $type_editor=0)
 {
     global $controller;
     global $urlHomes;
@@ -1330,6 +1330,7 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         $newproduct->views = 0;
         $newproduct->favorites = 0;
         $newproduct->color = $color;
+        $newproduct->type_editor = $type_editor;
         $newproduct->category_id = (int) $category_id;
         $newproduct->width = $sizeThumb[0];
         $newproduct->height = $sizeThumb[1];

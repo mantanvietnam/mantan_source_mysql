@@ -439,7 +439,9 @@ function createProductAPI($input)
 					$warehouse =  explode(',', @$dataSend['warehouse_id']);
 				}
 
-	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id, $warehouse, $color, $background);
+				$type_editor = (int) @$dataSend['type_editor']; // 1 là thư mời
+
+	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id, $warehouse, $color, $background, $type_editor);
 	        }else{
 	        	$return = array('code'=>3,
 							'messages'=>array(array('text'=>'Không tồn tại tài khoản người dùng'))
@@ -537,6 +539,7 @@ function updateProductAPI($input)
 			        		}
 			        	}
 					}
+
 					if(!empty($_FILES['background']['name']) && empty($_FILES['background']["error"])){
 			            $background = uploadImage($infoUser->id, 'background');
 
@@ -558,6 +561,7 @@ function updateProductAPI($input)
 			                $product->image = $thumb;
 			            }
 			        }
+
 			        if(!empty($_FILES['thumbnail']['name']) && empty($_FILES['thumbnail']["error"])){
 			            $thumbnail = uploadImage($infoUser->id, 'thumbnail');
 			            
@@ -577,7 +581,12 @@ function updateProductAPI($input)
 			                $product->thumbnail = $thumbnails;
 			            }
 			        }
+
 			        $modelProduct->save($product);
+
+			        // update ảnh chụp màn hình thiết kế
+			        exportImageThumb($product->id);
+			        
 			        $return = array('code'=>1,
 							'mess'=>'bạn sửa thành công!'
 							);
@@ -673,7 +682,7 @@ function buyProductAPI($input)
 		                    $newproduct->price = 0;
 		                    $newproduct->sale_price = 0;
 		                    $newproduct->content = $product->content;
-		                    //$newproduct->desc = $product->desc;
+		                    $newproduct->description  = $product->description;
 		                    $newproduct->sale = $product->sale;
 		                    $newproduct->related_packages = $product->related_packages;
 		                    $newproduct->status = 0;
@@ -692,6 +701,8 @@ function buyProductAPI($input)
 		                    $newproduct->width = $product->width;
 		                    $newproduct->height = $product->height;
 		                    $newproduct->display = 1;
+		                    $newproduct->color = $product->color;
+		                    $newproduct->type_editor = $product->type_editor;
 
 		                    $modelProduct->save($newproduct);
 
@@ -777,7 +788,7 @@ function buyProductAPI($input)
 			                    $newproduct->price = 0;
 			                    $newproduct->sale_price = 0;
 			                    $newproduct->content = $product->content;
-			                    //$newproduct->desc = $product->desc;
+			                    $newproduct->description = $product->description;
 			                    $newproduct->sale = $product->sale;
 			                    $newproduct->related_packages = $product->related_packages;
 			                    $newproduct->status = 0;
@@ -796,6 +807,8 @@ function buyProductAPI($input)
 			                    $newproduct->width = $product->width;
 			                    $newproduct->height = $product->height;
 			                    $newproduct->display = 1;
+			                    $newproduct->color = $product->color;
+		                    	$newproduct->type_editor = $product->type_editor;
 
 			                    $modelProduct->save($newproduct);
 
@@ -915,7 +928,7 @@ function buyProductAPI($input)
 			                    $newproduct->price = 0;
 			                    $newproduct->sale_price = 0;
 			                    $newproduct->content = $product->content;
-			                    //$newproduct->desc = $product->desc;
+			                    $newproduct->description = $product->description;
 			                    $newproduct->sale = $product->sale;
 			                    $newproduct->related_packages = $product->related_packages;
 			                    $newproduct->status = 0;
@@ -934,6 +947,9 @@ function buyProductAPI($input)
 			                    $newproduct->width = $product->width;
 			                    $newproduct->height = $product->height;
 			                    $newproduct->display = 1;
+			                    $newproduct->color = $product->color;
+		                    	$newproduct->type_editor = $product->type_editor;
+
 
 			                    $modelProduct->save($newproduct);
 
