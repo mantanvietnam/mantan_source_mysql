@@ -18,7 +18,7 @@ function getListCampaignAPI($input)
             $infoMember = getMemberByToken($dataSend['token']);
 
             if(!empty($infoMember)){
-                $conditions = array('id_member'=>$infoMember->id, 'status'=>'active');
+                $conditions = array('id_member'=>$infoMember->id);
                 $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                 if($page<1) $page = 1;

@@ -340,44 +340,35 @@ function resetPasswordCustomerApi($input)
             && isset($dataSend['password_confirmation'])
         ) {
             $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
-        $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
-        $user = $modelCustomer->find()->where([
-            'phone' => $dataSend['phone'],
-        ])->first();
+            $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
+            
+            $user = $modelCustomer->find()->where(['phone' => $dataSend['phone']])->first();
 
-        if (!$user) {
-            return  array('code'=>3,
-                'messages'=>'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào',
-            );
+            if (!$user) {
+                return  array('code'=>3,'messages'=>'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
+            }
+
+            if ($user->status != 'active') {
+                return array('code'=>4,'messages'=>'Tài khoản đang bị khóa'); 
+            }
+
+            if ($user->reset_password_code != $dataSend['code']) {
+                return array('code'=>5,'messages'=>'Mã cấp lại mật khẩu không chính xác');
+            }
+
+            if ($dataSend['new_password'] != $dataSend['password_confirmation']) {
+                return array('code'=>6,'messages'=>'Mật khẩu nhập lại không chính xác');
+            }
+
+            $user->pass = md5($dataSend['new_password']);
+            $user->reset_password_code = null;
+            $user->access_token = createToken();
+            $user->device_token = @$dataSend['device_token'];
+            
+            $modelCustomer->save($user);
+
+            return array('code'=>1,'messages'=>'Đổi mật khẩu thành công');
         }
-
-        if ($user->status != 'active') {
-            return array('code'=>4,
-                'messages'=>'Tài khoản đang bị khóa',
-            ); 
-        }
-
-        if ($user->reset_password_code != $dataSend['code']) {
-            return array('code'=>5,
-                'messages'=>'Mã cấp lại mật khẩu không chính xác',);
-        }
-
-        if ($dataSend['new_password'] != $dataSend['password_confirmation']) {
-            return array('code'=>6,
-                'messages'=>'Mật khẩu nhập lại không chính xác',
-            );
-        }
-
-        $user->password = md5($dataSend['new_password']);
-        $user->reset_password_code = null;
-        $user->access_token = createToken();
-        $user->device_token = @$dataSend['device_token'];
-        $modelCustomer->save($user);
-
-        return array('code'=>1,
-                'messages'=>'Đổi mật khẩu thành công',
-            );
-    }
 
         return array('code'=> 2,'messages'=> 'Gửi thiếu dữ liệu');
     }else{

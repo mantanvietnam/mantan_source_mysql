@@ -183,11 +183,11 @@
                               Cài đặt Khóa học
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownSubmenu">
-                              <a class="dropdown-item" href="/listCategoryLessonAgency">Danh mục đào tạo</a>
                               <a class="dropdown-item" href="/listCourseAgency">Khóa học</a>
                               <a class="dropdown-item" href="/listLessonAgency">Bài học</a>
                               <a class="dropdown-item" href="/listTestAgency">Bài thi</a>
                               <a class="dropdown-item" href="/listQuestionAgency">Câu hỏi</a>
+                              <a class="dropdown-item" href="/listCategoryLessonAgency">Danh mục đào tạo</a>
                             </div>';
                           }
 

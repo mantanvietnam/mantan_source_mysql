@@ -17,12 +17,12 @@ function listCoursesCustomerAPI($input)
 
 
 	if($isRequestPost){
-		 $dataSend = $input['request']->getData();
+		$dataSend = $input['request']->getData();
 		
 	    $conditions= array('public'=>1);
 
-	    $limit = 20;
 	    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+	    $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
 	    if($page<1) $page = 1;
 	    $order = array('id'=>'desc');
 
@@ -30,7 +30,7 @@ function listCoursesCustomerAPI($input)
 			$key=createSlugMantan($dataSend['name']);
 			$conditions['slug LIKE']= '%'.$key.'%';
 		}
-
+		
 	    $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
 	    if(!empty($listData)){
@@ -49,7 +49,8 @@ function listCoursesCustomerAPI($input)
 
 	    $totalData = $modelCourses->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
-			$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+		
+		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
 	        
 	}else{
 	    $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');

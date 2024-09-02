@@ -316,7 +316,7 @@ function getListCampaignCustomerAPI($input)
         $dataSend = $input['request']->getData();
         
         $boss = $modelMember->find()->where(['id_father'=>0])->first();
-        $conditions = array('id_member'=>$boss->id);
+        $conditions = array('id_member'=>$boss->id, 'status'=>'active');
         $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
         $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
         if($page<1) $page = 1;
@@ -482,6 +482,7 @@ function registerCampaignCustomerAPI($input)
 return $return;
 }
 
+// lấy danh sách các chiến dịch người dùng tham gia
 function  listCampaignCustomerJoinAPI($input)
 {
     global $isRequestPost;
@@ -500,6 +501,7 @@ function  listCampaignCustomerJoinAPI($input)
     
     if($isRequestPost){
         $dataSend = $input['request']->getData();
+        
         if(!empty($dataSend['token'])){
             $infoCustomer = getCustomerByToken($dataSend['token']);
 
@@ -508,25 +510,29 @@ function  listCampaignCustomerJoinAPI($input)
                 $data = $modelCampaignCustomers->find()->where(['id_member'=>$boss->id, 'id_customer'=>$infoCustomer->id])->all()->toList();
 
                 $listData = array();
+                
                 if(!empty($data)){
-                     // tạo dữ liệu save-
                     foreach($data as $key => $item){
-                        $listData[$key] = $modelCampaigns->find()->where(['id'=>$item->id_campaign])->first();
+                        $infoCampaignJoin = $modelCampaigns->find()->where(['id'=>$item->id_campaign, 'status'=>'active'])->first();
+
+                        if(!empty($infoCampaignJoin)){
+                            $listData[$key] = $infoCampaignJoin;
+                        } 
                     }
-                    
                 }
+
                 $return = array('code'=>1, 'mess'=>'lấy dữ liệu thành công', 'listData'=>$listData);
                 
             }else{
-             $return = array('code'=>3, 'mess'=>'Sai mã token');
-         }
-     }else{
-         $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
-     }
- }else{
-    $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
-}
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+        $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
+    }
 
-return $return;
+    return $return;
 }
 ?>
