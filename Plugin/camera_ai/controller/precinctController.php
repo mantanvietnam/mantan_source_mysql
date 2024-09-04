@@ -68,7 +68,7 @@ function addPrecinctAdmin($input)
 	global $isRequestPost;
 	global $modelCategories;
     global $metaTitleMantan;
-    $metaTitleMantan = 'Danh sách xã/phường';
+    $metaTitleMantan = 'thêm xã/phường';
 
     $modelprecinct = $controller->loadModel('precinct');
 	$mess= '';
