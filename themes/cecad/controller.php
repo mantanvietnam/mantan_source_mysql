@@ -16,7 +16,7 @@ function settingHomececad($input){
         $value = array(
             'logo' =>$dataSend['logo'],
             'slide_home' => $dataSend['slide_home'],
-            'slide_albums'=>$dataSend['slide_albums'],
+   
             // 
             'title2'=>$dataSend['title2'],
             'countnumber1'=>$dataSend['countnumber1'],
@@ -31,24 +31,12 @@ function settingHomececad($input){
             'contentnumber5' => $dataSend['contentnumber5'],
             // 
             'facebook'=>$dataSend['facebook'],
-            'instagram'=>$dataSend['instagram'],
             'youtube'=>$dataSend['youtube'],
             // 
             'titlesmall'=>$dataSend['titlesmall'],
             'titlelarge'=>$dataSend['titlelarge'],
             'contenttitle4'=>$dataSend['contenttitle4'],
-            'action1'=>$dataSend['action1'],
-            'imageaction1'=>$dataSend['imageaction1'],
-            'action2'=>$dataSend['action2'],
-            'imageaction2'=>$dataSend['imageaction2'],
-            'action3'=>$dataSend['action3'],
-            'imageaction3'=>$dataSend['imageaction3'],
-            'action4'=>$dataSend['action4'],
-            'imageaction4'=>$dataSend['imageaction4'],
-            'action5'=>$dataSend['action5'],
-            'imageaction5'=>$dataSend['imageaction5'],
-            'action6'=>$dataSend['action6'],
-            'imageaction6'=>$dataSend['imageaction6'],
+
             'imageactionbeetween'=>$dataSend['imageactionbeetween'],
             // 
             'titlesmal5'=>$dataSend['titlesmal5'],
@@ -107,50 +95,53 @@ function settingAboutusTheme($input){
             'bannerhome'=>$dataSend['bannerhome'],
             'titlebanner1'=>$dataSend['titlebanner1'],
             'titlebanner2'=>$dataSend['titlebanner2'],
-            'contentbanner'=>$dataSend['contentbanner'],
+      
             'buttonbanner'=>$dataSend['buttonbanner'],
 // 
             'contentdeepbanner1'=>$dataSend['contentdeepbanner1'],
-            'titledeepbanner2'=>$dataSend['titledeepbanner2'],
+        
             'titlesmall'=>$dataSend['titlesmall'],
             'contentshort1'=>$dataSend['contentshort1'],
-            'titlelarge'=>$dataSend['titlelarge'],
-            'contentshort2'=>$dataSend['contentshort2'],
+          
+          
 // 
-            'imagehome1'=>$dataSend['imagehome1'],
-            'titleimagehome1'=>$dataSend['titleimagehome1'],
-            'imagehome2'=>$dataSend['imagehome2'],
-            'titleimagehome2'=>$dataSend['titleimagehome2'],
-            'imagehome3'=>$dataSend['imagehome3'],
-            'titleimagehome3'=>$dataSend['titleimagehome3'],
+            
+            // 'titleimagehome1'=>$dataSend['titleimagehome1'],
+            // 'imagehome2'=>$dataSend['imagehome2'],
+            // 'titleimagehome2'=>$dataSend['titleimagehome2'],
+            // 'imagehome3'=>$dataSend['imagehome3'],
+            // 'titleimagehome3'=>$dataSend['titleimagehome3'],
 
 
 // 
             'idslidenumber1'=>$dataSend['idslidenumber1'],
-            'titleidside1'=>$dataSend['titleidside1'],
+           
             'idslidenumber2'=>$dataSend['idslidenumber2'],
-            'titleidside2'=>$dataSend['titleidside2'],
-
+        
 
 //            
             'titleteam'=>$dataSend['titleteam'],
             'bannerteam'=>$dataSend['bannerteam'],
             'contenteam'=>$dataSend['contenteam'],
             'namebuttonteam'=>$dataSend['namebuttonteam'],
-            'titleslide1'=>$dataSend['titleslide1'],
+  
+            // 
             'idslidedau'=>$dataSend['idslidedau'],
-            'titleslide2'=>$dataSend['titleslide2'],
             'idslidehai'=>$dataSend['idslidehai'],
-            'titleslide3'=>$dataSend['titleslide3'],
             'idslideba'=>$dataSend['idslideba'],
+           
+            'idslidevolunteers'=>$dataSend['idslidevolunteers'],
+      
+           
+          
 
 // 
             'titlevolunteers'=>$dataSend['titlevolunteers'],
             'bannervolunteers'=>$dataSend['bannervolunteers'],
             'contenvolunteer'=>$dataSend['contenvolunteer'],
             'namebuttonvolunteer'=>$dataSend['namebuttonvolunteer'],
-            'titleslidevolunteers'=>$dataSend['titleslidevolunteers'],
-            'idslidevolunteers'=>$dataSend['idslidevolunteers'],
+      
+        
 
         );
 
@@ -365,11 +356,7 @@ function categoryAlbumTheme($input)
     global $controller;
     $conditions = array('key_word' => 'settingHomececad');
 
-    $slide_albums = [];
-    if(!empty($settingThemes['slide_albums'])){
-        $slide_albums = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['slide_albums']])->all()->toList();
-    }
-    setVariable('slide_albums', $slide_albums);
+
 }
 function categoryVideoTheme($input)
 {

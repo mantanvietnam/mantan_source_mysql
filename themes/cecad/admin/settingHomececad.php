@@ -135,10 +135,6 @@
                                     <input type="text" class="form-control" name="facebook" value="<?php echo @$data['facebook'];?>" />
                                 </div>
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Instagram</label>
-                                    <input type="text" class="form-control" name="instagram" value="<?php echo @$data['instagram'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">Youtube</label>
                                     <input type="text" class="form-control" name="youtube" value="<?php echo @$data['youtube'];?>" />
                                 </div>
@@ -157,54 +153,6 @@
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">Nội dung tiêu đề</label>
                                     <input type="text" class="form-control" name="contenttitle4" value="<?php echo @$data['contenttitle4'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Hoạt động thứ nhất</label>
-                                    <input type="text" class="form-control" name="action1" value="<?php echo @$data['action1'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <label class="form-label" for="basic-default-fullname">Image hoạt động thứ nhất</label>
-                                    <?php showUploadFile('imageaction1','imageaction1', @$data['imageaction1'],1);?>
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Hoạt động thứ hai</label>
-                                    <input type="text" class="form-control" name="action2" value="<?php echo @$data['action2'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <label class="form-label" for="basic-default-fullname">Image hoạt động thứ hai</label>
-                                    <?php showUploadFile('imageaction2','imageaction2', @$data['imageaction2'],2);?>
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Hoạt động thứ ba</label>
-                                    <input type="text" class="form-control" name="action3" value="<?php echo @$data['action3'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <label class="form-label" for="basic-default-fullname">Image hoạt động thứ ba</label>
-                                    <?php showUploadFile('imageaction3','imageaction3', @$data['imageaction3'],3);?>
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Hoạt động thứ tư</label>
-                                    <input type="text" class="form-control" name="action4" value="<?php echo @$data['action4'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <label class="form-label" for="basic-default-fullname">Image hoạt động thứ tư</label>
-                                    <?php showUploadFile('imageaction4','imageaction4', @$data['imageaction4'],4);?>
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Hoạt động thứ năm</label>
-                                    <input type="text" class="form-control" name="action5" value="<?php echo @$data['action5'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <label class="form-label" for="basic-default-fullname">Image hoạt động thứ năm</label>
-                                    <?php showUploadFile('imageaction5','imageaction5', @$data['imageaction5'],5);?>
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">Hoạt động thứ sáu</label>
-                                    <input type="text" class="form-control" name="action6" value="<?php echo @$data['action6'];?>" />
-                                </div>
-                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <label class="form-label" for="basic-default-fullname">Image hoạt động thứ sáu</label>
-                                    <?php showUploadFile('imageaction6','imageaction6', @$data['imageaction6'],6);?>
                                 </div>
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label class="form-label" for="basic-default-fullname">Image hoạt động giữa</label>

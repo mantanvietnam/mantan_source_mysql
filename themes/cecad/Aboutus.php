@@ -27,6 +27,7 @@
         <section id="about-section-2">
             <div class="container">
                 <div class="as2-block-1">
+                    <strong style="margin-bottom: 12px; display: block;">Thông tin chung</strong>
                     <p>
                     <?= @$setting['contentdeepbanner1'];?>
                     </p>

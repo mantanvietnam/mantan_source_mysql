@@ -2433,13 +2433,18 @@ background-size: 100%; */
 .as2-block-1 {
     width: 80%;
     margin: auto auto;
-    color: rgba(129, 129, 129);
+    color: rgba(50, 50, 50);
     text-align: center;
+}
+
+.as2-block-1 strong,
+.as2-block-3 strong {
+    font-size: 18px;
 }
 
 .as2-block-2 {
     margin: 30px auto 40px auto;
-    color: rgba(129, 129, 129);
+    color: rgba(50, 50, 50);
     text-align: center;
     padding: 0 80px;
     position: relative;
@@ -2494,7 +2499,7 @@ background-size: 100%; */
 .as2-block-3 {
     width: 80%;
     margin: auto auto;
-    color: rgba(129, 129, 129);
+    color: rgba(50, 50, 50);
     text-align: center;
 }
 
