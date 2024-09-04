@@ -176,11 +176,20 @@ function listBill(){
             $urlPage = $urlPage . '?page=';
         }
 
+        $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
         setVariable('next', $next);
-        
+        setVariable('mess', $mess);        
         setVariable('totalMoney', $totalMoney);
         setVariable('urlPage', $urlPage);
         
@@ -232,7 +241,7 @@ function addBill($input){
         $bill->note =@$_GET['note'];
        
         $modelBill->save($bill);
-        return $controller->redirect('/listBill');
+        return $controller->redirect('/listBill?mess=saveSuccess');
     }else{
         return $controller->redirect('/login');
     }
@@ -409,10 +418,21 @@ function listCollectionBill(){
             $urlPage = $urlPage . '?page=';
         }
 
+
+         $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
         setVariable('next', $next);
+        setVariable('mess', $mess);
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
@@ -519,7 +539,7 @@ function addCollectionBill($input){
             $modelBill->save($bill);
 
         }
-        return $controller->redirect('/listCollectionBill');
+        return $controller->redirect('/listCollectionBill?mess=saveSuccess');
     }else{
         return $controller->redirect('/login');
     }

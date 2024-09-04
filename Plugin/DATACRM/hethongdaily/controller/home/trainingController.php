@@ -80,10 +80,20 @@ function listCourseAgency($input)
 	    $conditions = array('type' => '2top_crm_training', 'status'=>'active');
 	    $categories = $modelCategories->find()->where($conditions)->all()->toList();
 
+	    $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
 
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('back', $back);
+	    setVariable('mess', $mess);
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
 	    setVariable('categories', $categories);
@@ -150,7 +160,7 @@ function addCourseAgency($input)
 	            $data->slug = $slugNew;
 	            $modelCourses->save($data);
 
-	            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+	            return $controller->redirect('/listCourseAgency?mess=saveSuccess');
 	        }else{
 	            $mess= '<p class="text-danger">Bạn chưa nhập tên bài học</p>';
 	        }
@@ -181,9 +191,10 @@ function deleteCourseAgency($input){
 	        $data = $modelCourses->find()->where(['id'=>(int) $_GET['id']])->first();
 	        if($data){
 	            $modelCourses->delete($data);
+	            return $controller->redirect('/listCourseAgency?mess=deleteSuccess');
 	        }
 	    }
-	    return $controller->redirect('/listCourseAgency');
+	    return $controller->redirect('/listCourseAgency?mess=deleteError');
     }else{
         return $controller->redirect('/login');
     }
@@ -324,11 +335,22 @@ function listLessonAgency($input)
 	    }
 	    $category = $modelCourses->find()->where()->order(['id'=>'desc'])->all()->toList();
 
+	    $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('back', $back);
+	    setVariable('mess', $mess);
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
+	    setVariable('mess', $mess);
 	    setVariable('listData', $listData);
 	    setVariable('category', $category);
 
@@ -397,7 +419,7 @@ function addLessonAgency($input)
 	            }
 	            $data->slug = $slugNew;
 		        $modelLesson->save($data);
-		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+		        return $controller->redirect('/listLessonAgency?mess=saveSuccess');
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập tên bài học</p>';
 		    }
@@ -429,9 +451,10 @@ function deleteLessonAgency($input){
 			$data = $modelLesson->find()->where(['id'=>(int) $_GET['id']])->first();
 			if($data){
 	         	$modelLesson->delete($data);
+	         	return $controller->redirect('/listLessonAgency?mess=deleteSuccess');
 	        }
 		}
-		return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM');
+		return $controller->redirect('/listLessonAgency?mess=deleteError');
 	}else{
         return $controller->redirect('/login');
     }
@@ -515,8 +538,18 @@ function listTestAgency($input)
 	     $conditions = array();
 	    $category = $modelCourses->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
 
+	    $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
+	    setVariable('mess', $mess);
 	    setVariable('back', $back);
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
@@ -607,7 +640,7 @@ function addTestAgency($input)
 	            $data->time_end = $time_end;
 		        $modelTests->save($data);
 
-		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+		        return $controller->redirect('/listTestAgency?mess=saveSuccess');
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập tên bài thi</p>';
 		    }
@@ -643,9 +676,10 @@ function deleteTestAgency($input){
 			if($data){
 	         	$modelTests->delete($data);
 	         	deleteSlugURL($data->slug);
+	         	return $controller->redirect('/listTestAgency?mess=deleteSuccess');
 	        }
 		}
-		return $controller->redirect('/listTestAgency');
+		return $controller->redirect('/listTestAgency?mess=deleteError');
 	}else{
         return $controller->redirect('/login');
     }
@@ -709,7 +743,17 @@ function listQuestionAgency($input)
 	        $urlPage = $urlPage . '?page=';
 	    }
 
+	    $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
 	    setVariable('page', $page);
+	    setVariable('mess', $mess);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('back', $back);
 	    setVariable('next', $next);
@@ -763,6 +807,7 @@ function addQuestionAgency($input)
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
 	            $_SESSION['id_test_choose'] = $dataSend['id_test'];
+	            return $controller->redirect('/listQuestionAgency?mess=saveSuccess');
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập câu hỏi</p>';
 		    }
@@ -798,10 +843,10 @@ function deleteQuestionAgency($input){
 			$data = $modelQuestions->find()->where(['id'=>(int) $_GET['id']])->first();
 			if($data){
 	         	$modelQuestions->delete($data);
+	         	return $controller->redirect('/listQuestionAgency?mess=deleteSuccess');
 	        }
 		}
-
-		return $controller->redirect('/listQuestionAgency');
+		return $controller->redirect('/listQuestionAgency?mess=deleteError');
 	}else{
         return $controller->redirect('/login');
     }

@@ -61,6 +61,7 @@
   <div class="card">
     <h5 class="card-header">
       <a href="/listCustomerHistoriesAgency" class="btn btn-danger">Xem dạng danh sách</a>
+     <?php echo @$mess;?>
     </h5>
     
     <div class="card-body row">

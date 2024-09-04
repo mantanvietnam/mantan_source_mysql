@@ -65,6 +65,7 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách sản phẩm</h5>
+    <?php echo @$mess; ?>
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">

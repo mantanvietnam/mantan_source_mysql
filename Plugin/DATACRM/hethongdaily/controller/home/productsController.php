@@ -794,6 +794,15 @@ function listProductAgency($input)
         $conditions = array('type' => 'manufacturer_product');
         $manufacturers = $modelCategories->find()->where($conditions)->all()->toList();
 
+        $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
@@ -973,7 +982,7 @@ function addProductAgency($input)
 
                 }
 
-                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                 return $controller->redirect('/listProductAgency?mess=saveSuccess');
             }else{
                 $mess= '<p class="text-danger">Bạn chưa nhập tên sản phẩm</p>';
             }
@@ -1042,11 +1051,11 @@ function deleteProductAgency($input){
             if($data){
                 $data->status = 'lock';
                 $modelProduct->save($data);
-                //deleteSlugURL($data->slug);
+                return $controller->redirect('/listProductAgency?mess=deleteSuccess');
             }
         }
 
-    return $controller->redirect('/listProductAgency');
+    return $controller->redirect('/listProductAgency?mess=deleteError');
 
     }else{
         return $controller->redirect('/login');

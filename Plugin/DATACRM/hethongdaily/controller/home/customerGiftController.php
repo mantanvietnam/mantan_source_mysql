@@ -74,9 +74,19 @@ function listCustomerGiftAgency($input)
             $urlPage = $urlPage . '?page=';
         }
 
+        $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
+        setVariable('mess', $mess);
         setVariable('next', $next);
         setVariable('urlHomes', $urlHomes);
         setVariable('urlPage', $urlPage);
@@ -173,7 +183,7 @@ function addCustomerGiftAgency($input)
             
             $modelCustomerGifts->save($data);
 
-            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            return $controller->redirect('/listCustomerGiftAgency?mess=saveSuccess');
         }
     
         $conditions = array('status' => 'active');
@@ -203,10 +213,12 @@ function deleteCustomerGiftAgency($input){
             
             if($data){
                 $modelCustomerGift->delete($data);
+                return $controller->redirect('/listCustomerGiftAgency?mess=deleteSuccess');
             }
+            return $controller->redirect('/listCustomerGiftAgency?mess=deleteError');
         }
+        return $controller->redirect('/listCustomerGiftAgency?mess=deleteError');
 
-        return $controller->redirect('/listCustomerGiftAgency');
 
     }else{
         return $controller->redirect('/login');

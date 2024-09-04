@@ -125,9 +125,11 @@ function listCustomerHistoriesAgency($input)
             $urlPage = $urlPage . '?page=';
         }
 
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
+        setVariable('mess', $mess);
         setVariable('next', $next);
         setVariable('urlPage', $urlPage);
         
@@ -196,7 +198,7 @@ function addCustomerHistoriesAgency($input)
 
                     $modelCustomerHistories->save($data);
 
-                    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                    return $controller->redirect('/calendarCustomerHistoriesAgency?mess=saveSuccess');
                 }else{
                     $mess= '<p class="text-danger">Đây không phải khách hàng của bạn</p>';
                 }
@@ -269,8 +271,18 @@ function calendarCustomerHistoriesAgency(){
         
         $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
         $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
+
+        $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
        
         
+        setVariable('mess', $mess);
         setVariable('listData', $listData);
         setVariable('listGroupCustomer', $listGroupCustomer);
     }else{
@@ -303,7 +315,7 @@ function treatmentCustomerHistoriesAgency(){
                 $data->status= 'done';
                 $modelCustomerHistories->save($data);
             }            
-            return $controller->redirect('/calendarCustomerHistoriesAgency');
+            return $controller->redirect('/calendarCustomerHistoriesAgency?mess=saveSuccess');
         }else{
             return $controller->redirect('/calendarCustomerHistoriesAgency');
         }

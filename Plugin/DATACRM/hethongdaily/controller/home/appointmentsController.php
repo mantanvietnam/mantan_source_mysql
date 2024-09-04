@@ -135,7 +135,8 @@ function addAppointmentAgency($input){
 	        $save->id_parent =$session->read('infoUser')->id;
 
 	        $modelAppointment->save($save);
-	        $mess= '<p class="text-success">Đặt lịch hẹn thành công</p>'; 
+
+	        return $controller->redirect('/calendarAppointmentAgency?mess=saveSuccess');
 	        $save = $modelAppointment->get( (int) $save->id);
 	    }
 
@@ -203,8 +204,17 @@ function calendarAppointmentAgency(){
                 } 
             }
         }
+
+         if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
 	    
 	    setVariable('listData', $listData);
+	    setVariable('mess', $mess);
 	}else{
 		return $controller->redirect('/');
 	}

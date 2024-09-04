@@ -48,6 +48,7 @@
   <!--/ Form Search -->
   <div class="card row">
     <h5 class="card-header">Khóa học</h5>
+    <?php echo @$mess; ?>
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">

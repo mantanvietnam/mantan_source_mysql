@@ -14,7 +14,7 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách cộng tác viên</h5>
-    
+    <?php echo @$mess;?>
     <div class="card-body row">
       <form id="" action="" class="form-horizontal" method="post" enctype="multipart/form-data">
         <div class="row">
@@ -48,7 +48,7 @@
             <div class="col-md-7 col-sm-12 col-xs-12 agency-info">
                 <div class="x_panel form-horizontal" id="agency_info">
 
-                    <div class="x_content" id="infoAgency"><?php echo @$mess;?></div>
+                    <div class="x_content" id="infoAgency"></div>
                 </div>
             </div>
         </div>

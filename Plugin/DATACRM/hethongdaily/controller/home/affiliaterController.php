@@ -140,11 +140,21 @@ function listAffiliaterAgency($input)
         } else {
             $urlPage = $urlPage . '?page=';
         }
+        $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
 
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
         setVariable('next', $next);
+        setVariable('mess', $mess);
         setVariable('urlHomes', $urlHomes);
         setVariable('urlPage', $urlPage);
         
@@ -248,7 +258,7 @@ function addAffiliaterAgency($input)
 
                     $modelAffiliaters->save($data);
 
-                    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                    return $controller->redirect('/listAffiliaterAgency?mess=saveSuccess');
                 }else{
                     $mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
                 }
@@ -288,10 +298,11 @@ function deleteAffiliaterAgency($input){
             
             if($data){
                 $modelAffiliaters->delete($data);
+                return $controller->redirect('/listAffiliaterAgency?mess=deleteSuccess');
             }
+            return $controller->redirect('/listAffiliaterAgency?mess=deleteError');
         }
-
-        return $controller->redirect('/listAffiliaterAgency');
+        return $controller->redirect('/listAffiliaterAgency?mess=deleteError');
 
     }else{
         return $controller->redirect('/login');

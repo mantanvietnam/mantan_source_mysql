@@ -66,15 +66,13 @@ function listDiscountCodeAgency($input)
             $urlPage = $urlPage . '?page=';
         }
         
-        if(@$_GET['status']==1){
-            $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mới dữ liệu thành công</p>';
-
-        }elseif(@$_GET['status']==2){
-            $mess= '<p class="text-success" style="padding-left: 1.5em;">Sửa dữ liệu thành công</p>';
-
-        }elseif(@$_GET['status']==3){
-
-            $mess= '<p class="text-success" style="padding-left: 1.5em;">Xóa dữ liệu thành công</p>';
+        $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
         }
 
         $conditions = array('type' => 'category_product');
@@ -147,7 +145,7 @@ function addDiscountCodeAgency($input)
                 $data->applicable_price = @$dataSend['applicable_price'];
                 $modelDiscountCode->save($data);
 
-                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                 return $controller->redirect('/listDiscountCodeAgency/mess=saveSuccess');
                 $data = $modelDiscountCode->find()->where(array('id'=>(int) $data->id,'id_member'=>$user->id))->first();
                
                 
@@ -177,8 +175,10 @@ function deleteDiscountCodeAgency($input){
             
             if($data){
                 $modelDiscountCode->delete($data);
+                return $controller->redirect('/listDiscountCodeAgency/mess=deleteSuccess');
             }
         }
+        return $controller->redirect('/listDiscountCodeAgency/mess=deleteError');
 
         return $controller->redirect('/listDiscountCodeAgency');
     }else{
