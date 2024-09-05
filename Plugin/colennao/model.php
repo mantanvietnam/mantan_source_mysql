@@ -1,3 +1,8 @@
 <?php
 include('model/users.php');
+include('model/courses.php'); 
+include('model/lessons.php'); 
+include('model/tests.php'); 
+include('model/questions.php'); 
+include('model/historytests.php'); 
 ?>

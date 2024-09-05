@@ -9,9 +9,32 @@ $menus[0]['sub'][0] = array(
     'classIcon' => 'bx bx-cog',
     'permission' => 'listUserAdmin',
 );
+$menus[0]['sub'][1]= array(	'title'=>'Khóa học',
+							'url'=>'/plugins/admin/colennao-view-admin-courses-listCourse',
+							'classIcon'=>'bx bxs-graduation',
+							'permission'=>'listCourse'
+						);
+$menus[0]['sub'][2]= array(	'title'=>'Bài học',
+							'url'=>'/plugins/admin/colennao-view-admin-lesson-listLesson',
+							'classIcon'=>'bx bx-list-ul',
+							'permission'=>'listLesson'
+						);
+$menus[0]['sub'][]= array(	'title'=>'Bài khảo sát',
+                            'url'=>'/plugins/admin/colennao-view-admin-test-listTest',
+                            'classIcon'=>'bx bx-timer',
+                            'permission'=>'listTest'
+                    );
+$menus[0]['sub'][3]= array(	'title'=>'Câu hỏi',
+							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestion',
+							'classIcon'=>'bx bx-question-mark',
+							'permission'=>'listQuestion'
+						);
 
-
-
+$menus[0]['sub'][4]= array(	'title'=>'Lịch sử thi',
+                            'url'=>'/plugins/admin/colennao-view-admin-historytests-listHistoryTest',
+                            'classIcon'=>'bx bx-history',
+                            'permission'=>'listHistoryTest'
+                        );
 addMenuAdminMantan($menus);
 
 function createPaginationMetaData($totalItem, $itemPerPage, $currentPage): array
