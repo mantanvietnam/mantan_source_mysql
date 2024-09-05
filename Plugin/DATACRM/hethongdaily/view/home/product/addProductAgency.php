@@ -101,6 +101,15 @@
                               <label class="form-label">Mô tả ngắn</label>
                               <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
+                            <div class="mb-3">
+                              <label class="form-label">Hình minh họa (*)</label>
+                              <input type="file" class="form-control phone-mask" name="image" id="image" value=""/>
+                              <?php
+                              if(!empty($data->image)){
+                                echo '<br/><img src="'.$data->image.'" width="80" />';
+                              }
+                              ?>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -116,30 +125,37 @@
                       </div>
                       
                       <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
-                        <div class="row">
-                          <div class="col-md-4">
-                            <div class="mb-3">
-                              <label class="form-label">Hình minh họa (*)</label>
-                              <input type="file" class="form-control phone-mask" name="image" id="image" value=""/>
-                              <?php
-                              if(!empty($data->image)){
-                                echo '<br/><img src="'.$data->image.'" width="80" />';
-                              }
-                              ?>
+                       
+                        <div class="row" style="margin-top: 15px;">
+                          
+                          <div class="form-group col-md-12 dropzone" style="margin-bottom: 10px;">
+                            <div class="fallback">
+                              <?php if (@$_GET['status']=='loianh') {?>
+                                <p style="color: red;">dung lượng ảnh không quá 1MB</p>
+                              <?php } ?>
+                              <input name="listImage[]" type="file" multiple="multiple" />
                             </div>
                           </div>
-
                           <?php
-                          for($i=1;$i<=20;$i++){
-                            echo '<div class="col-md-4">
-                                    <div class="mb-3">
-                                      <label class="form-label">Hình '.$i.'</label>
-                                      <input type="file" class="form-control phone-mask" name="image'.$i.'" id="image'.$i.'" value=""/>';
-                                      if(!empty($data->images[$i])){
-                                        echo '<br/><img src="'.$data->images[$i].'" width="80" />';
-                                      }
-                            echo    '</div>
-                                  </div>';
+                          if(!empty($data->images)){
+                            $n= count($data->images);
+                            for($i=0;$i<$n;$i++){
+                              if(!isset($data->images[$i])){
+                                $listImage= $urlHomes.'/app/Plugin/mantanHotel/images/no-thumb.png';
+                              }else{ 
+                                $listImage= $data->images[$i];
+                              }
+                              $so = $i+1;
+                              $title='<p>&nbsp;</p>';
+                              echo '<div class="col-md-6" id="hinh-'.$i.'">
+                              '.$title.'
+                              <label class="form-label" >Hình '.$so.'</label>
+                                      <input type="file" class="form-control phone-mask" name="image'.$i.'" id="image'.$i.'" value=""/>
+                                      <input type="hidden" class="form-control phone-mask" name="anh['.$i.']" id="anh'.$i.'" value="'.@$data->images[$i].'"/></p>
+                                      <p><img src="'.@$data->images[$i].'" width="80" /></p>
+                                      <p><a href="javascript:void(0);" title="xóa" style="color: #0ea1e4;" onclick="clearImage(\''.$i.'\');"><i class="bx bxs-trash me-1" aria-hidden="true"></i></a>
+                                      </div>';
+                            }
                           }
                           ?>
                         </div>
@@ -256,6 +272,10 @@
         row--;
         $('#trlink-'+i).remove();
        
+    }
+
+    function clearImage(i){
+      $('#hinh-'+i).remove();
     }
 
 </script>

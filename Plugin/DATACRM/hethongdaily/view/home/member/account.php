@@ -94,6 +94,10 @@
                               <label class="form-label" for="basic-default-phone">Trang Linkedin</label>
                               <input type="text" class="form-control phone-mask" name="linkedin" id="linkedin" value="<?php echo @$user->linkedin;?>" />
                             </div>
+                            <div class="mb-3">
+                              <label class="form-label">Ngày hết hạn</label>
+                              <input disabled type="text" class="form-control phone-mask" name="" id="" value="<?php echo date('d/m/Y ', @$user->deadline);?>"/>
+                            </div>
 
                             
                           </div>

@@ -535,4 +535,58 @@ function  listCampaignCustomerJoinAPI($input)
 
     return $return;
 }
+
+function  checkCustomerJoinCampaignAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+    $modelMember = $controller->loadModel('Members');
+    
+    $modelCustomers = $controller->loadModel('Customers');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        
+        if(!empty($dataSend['token']) && !empty($dataSend['id_campaign'])){
+            $infoCustomer = getCustomerByToken($dataSend['token']);
+
+            if(!empty($infoCustomer)){
+                $boss = $modelMember->find()->where(['id_father'=>0])->first();
+                $conditions = array('id_member'=>$boss->id);
+                $conditions['id'] = (int) $dataSend['id_campaign'];
+
+                $data = $modelCampaigns->find()->where($conditions)->first();
+                if(!empty($data)){
+                    $checkCampaignCustomer = $modelCampaignCustomers->find()->where(['id_campaign'=>(int) $data->id, 'id_member'=>$boss->id, 'id_customer'=>$infoCustomer->id])->first();
+
+                    if(!empty($checkCampaignCustomer)){
+                        $return = array('code'=>1, 'mess'=>'bạn đã tham gia sự kiện này rồi ');
+                    }else{
+                        $return = array('code'=>2, 'mess'=>'bạn chưa tham gia sự kiện này ');
+                    }
+                }else{
+                    $return = array('code'=>5, 'mess'=>'Sự kiện này không tồn tại');
+
+                }
+                
+            }else{
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>4, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+        $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
+    }
+
+    return $return;
+}
 ?>

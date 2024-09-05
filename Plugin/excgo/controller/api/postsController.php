@@ -123,7 +123,7 @@ function getPostLisProvinceApi($input): array
 }
 
 
-function getBannerListApi($input): array
+function getBannerListhomeApi($input): array
 {
     global $modelPosts;
 

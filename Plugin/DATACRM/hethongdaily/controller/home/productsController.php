@@ -807,6 +807,7 @@ function listProductAgency($input)
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
         setVariable('next', $next);
+        setVariable('mess', $mess);
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
@@ -872,24 +873,82 @@ function addProductAgency($input)
                         $data->image = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/default-thumb.jpg';
                     }
                 }
+                $image = array();
+                if(!empty($_FILES['listImage']['name'][0])){
+                    foreach($_FILES['listImage']['name'] as $key => $value){
+                        $_FILES['listImages'.$key]['name'] = $value;
+                        $_FILES['listImages'.$key]['type'] = $_FILES['listImage']['type'][$key];
+                        $_FILES['listImages'.$key]['tmp_name'] = $_FILES['listImage']['tmp_name'][$key];
+                        $_FILES['listImages'.$key]['error'] = $_FILES['listImage']['error'][$key];
+                        $_FILES['listImages'.$key]['size'] = $_FILES['listImage']['size'][$key];
 
+
+
+                    }
+                }
+                
                 $listImage = [];
-                for($i=1;$i<=20;$i++){
-                    if(isset($_FILES['image'.$i]) && empty($_FILES['image'.$i]["error"])){
+                if(!empty($data->images)){
+                    $listImage = json_decode($data->images, true);
+                } 
+
+                $totalImage = count($listImage);
+                
+
+                $listImages = [];
+                for($y=0;$y<$totalImage;$y++){
+                    if(!empty($dataSend['anh'][$y])){
+                        $listImages[$y] = $dataSend['anh'][$y];
+                    }
+                    
+                    if(isset($_FILES['image'.$y]) && empty($_FILES['image'.$y]["error"])){
+                        if(!empty($data->id)){
+                            $fileName = 'image'.$y.'_product_'.$data->id;
+                        }else{
+                            $fileName = 'image'.$y.'_product_'.time().rand(0,1000000);
+                        }
+
+                        $image = uploadImage($user->id, 'image'.$y, $fileName);
+
+                        if(!empty($image['linkOnline'])){
+                            $listImages[$y] = $image['linkOnline'].'?time='.time();
+                        }
+                    }
+                }
+              
+
+
+
+
+                $total = count($_FILES['listImage']['name']);
+                
+                for($i=0;$i<=$total;$i++){
+                    if(isset($_FILES['listImages'.$i]) && empty($_FILES['listImages'.$i]["error"])){
                         if(!empty($data->id)){
                             $fileName = 'image'.$i.'_product_'.$data->id;
                         }else{
                             $fileName = 'image'.$i.'_product_'.time().rand(0,1000000);
                         }
-
-                        $image = uploadImage($user->id, 'image'.$i, $fileName);
-
+                        $image = uploadImage($user->id, 'listImages'.$i, $fileName);
                         if(!empty($image['linkOnline'])){
-                            $listImage[$i] = $image['linkOnline'].'?time='.time();
+                            $listImages[$i+$totalImage] = $image['linkOnline'].'?time='.time();
                         }
                     }
                 }
-              
+
+                $listanh =array();
+
+                if(!empty($listImages)){
+                    foreach($listImages as $key => $image){
+                        if(!empty($listImages)){
+                            $listanh[] =$image;
+
+                        }  
+                    }
+                }
+            
+
+                
                $dataSend['price_agency'] = (int) @$dataSend['price_agency']; 
                 if(empty($dataSend['price_agency'])){
 
@@ -899,7 +958,7 @@ function addProductAgency($input)
                 $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
                 $data->description = @$dataSend['description'];
                 $data->info = @$dataSend['info'];
-                $data->images = json_encode($listImage);
+                $data->images = json_encode($listanh);
                 $data->evaluate = json_encode(@$dataSend['evaluate']);
                 $data->code = @strtoupper($dataSend['code']);
                 $data->price = (int) @$dataSend['price'];
