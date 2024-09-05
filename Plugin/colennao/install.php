@@ -26,13 +26,13 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `apple_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `info` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `last_login` INT NULL DEFAULT NULL , 
-`total_coin` INT NULL DEFAULT "0",
+`total_coin` INT NULL DEFAULT 0,
 `current_weight` INT NULL DEFAULT NULL , 
 `target_weight` INT NULL DEFAULT NULL ,
 `height` INT NULL DEFAULT NULL , 
 `deadline` INT NULL DEFAULT NULL ,
 `reset_password_code` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
-`sex` INT NULL DEFAULT '1' COMMENT '1 nam, 2 nu ' , 
+`sex` INT NULL DEFAULT 1 COMMENT "1 nam, 2 nu" , 
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 

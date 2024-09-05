@@ -1,8 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thành viên</h4>
-  <?php if(checkPermission('exportarexcel')){ ?>
-  <p><a href="#" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập excel</a></p>
-<?php } ?>
+ 
+  <!-- <p><a href="#" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập excel</a></p> -->
+
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
@@ -74,15 +74,14 @@
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
-        <tr class="">
-          <?php if(checkPermission('idadmin')){ echo '<th>ID</th>';} 
-                if(checkPermission('avatar')){ echo '<th>Avatar</th>';} 
-                if(checkPermission('fullname')){ echo '<th>Họ và tên</th>';} 
-                if(checkPermission('info')){ echo '<th>Thông tin</th>';} 
-                if(checkPermission('type')){ echo '<th>Loại tài khoản</th>';} 
-                if(checkPermission('coin')){ echo '<th>Cộng/Trừ coin</th>';} 
-                if(checkPermission('edit')){ echo '<th>Sửa</th>';} 
-                if(checkPermission('status')){ echo '<th>Trạng thái</th>';} ?>
+        <tr class=""><th>ID</th>
+              <th>Avatar</th>
+              <th>Họ và tên</th>
+              <th>Thông tin</th>
+              <th>Loại tài khoản</th>
+              <th>Cộng/Trừ coin</th>
+              <th>Sửa</th> 
+              <th>Trạng thái</th>
         </tr>
         </thead>
         <tbody>
@@ -118,58 +117,37 @@
                   </a><br/> Đã khóa ';
                 }
 
-              echo '<tr>';
-                if(checkPermission('idadmin')){
-                  echo '<td align="center">' . $item->id . '
-                  </td>';
-                }
-                if(checkPermission('avatar')){
-                  echo  '<td align="center"><img src="' . $item->avatar . '" width="100" /></td>';
-                }
-
-                if(checkPermission('fullname')){
-                  echo '<td>'.$item->name . '
+              echo '<tr>
+                 <td align="center">' . $item->id . '
+                  </td><td align="center"><img src="' . $item->avatar . '" width="100" />
+                  </td>
+                  <td>'.$item->name . '
                   </br>'. $item->phone_number . ' 
                   </br>' . $item->email.'
-                  </td>';
-                }
-
-                if(checkPermission('info')){
-                  echo '<td>
+                  </td>
+                  <td>
                   Số dư: ' . number_format($item->total_coin) . ' đ
                   <br>
                   Địa chỉ: ' . $item->address . '
                   <br>
                   Sl chuyến xe có thể nhận: ' . $item->maximum_trip . '</br>
                     thời gian tạo : '.$item->created_at->format('H:i d-m-Y').'
-                  </td>';
-                }
-
-                if(checkPermission('type')){
-                 echo '
+                  </td>
                  <td align="center">
                  ' . $type . '
                  </br> 
                  <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-blockUserProvince/?id='.$item->id.'">
                  Block khu vực
                  </a>
-                 </td>';
-               }
-
-               if(checkPermission('coin')){
-                 echo '
-                 <td>
+                 </td>
+                  <td>
                  <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=plus&id='.$item->id.'">
                  Cộng coin 
                  </a>
                  <a class="btn btn-danger" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=minus&id='.$item->id.'">
                  Trừ coin 
                  </a>
-                 </td>';
-               }
-             
-               if(checkPermission('edit')){
-                 echo '
+                 </td>
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 
@@ -178,14 +156,8 @@
                  <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>
-                 </td>';
-               }
-
-               if(checkPermission('status')){
-                 echo '<td align="center">' . $status . '</td>';
-               } 
-
-             echo '</tr>';
+                 </td>
+                 </tr>';
             }
         } else {
             echo '<tr>
