@@ -35,7 +35,64 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `sex` INT NULL DEFAULT 1 COMMENT "1 nam, 2 nu" , 
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
+$sqlInstallDatabase .="CREATE TABLE `tests` (
+  `id` int(11) NOT NULL,
+  `description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `id_course` int(11) DEFAULT NULL,
+  `point_min` float NOT NULL DEFAULT 10
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
+$sqlDeleteDatabase .="CREATE TABLE `questions` (
+  `id` int(11) NOT NULL,
+  `question` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `option_a` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `option_b` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `option_c` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `option_d` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `option_true` varchar(255) NOT NULL,
+  `id_test` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+$sqlDeleteDatabase .="CREATE TABLE `lessons` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `id_course` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `view` int(11) NOT NULL DEFAULT 0,
+  `youtube_code` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+$sqlDeleteDatabase .="CREATE TABLE `courses` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `image` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `view` int(11) NOT NULL DEFAULT 0,
+  `youtube_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `public` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+$sqlDeleteDatabase .="CREATE TABLE `historytests` (
+  `id` int(11) NOT NULL,
+  `id_customer` int(11) NOT NULL,
+  `id_test` int(11) NOT NULL,
+  `point` float NOT NULL,
+  `total_true` int(11) NOT NULL,
+  `number_question` int(11) NOT NULL,
+  `time_start` int(11) NOT NULL,
+  `time_end` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
 
 
