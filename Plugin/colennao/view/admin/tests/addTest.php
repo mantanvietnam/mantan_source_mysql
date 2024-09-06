@@ -17,7 +17,7 @@
             <?= $this->Form->create(); ?>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="mb-3">
+                  <div class="mb-3 d-none">
                     <label class="form-label">Khóa học</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="id_course" id="id_course" onchange="selectCourse();">

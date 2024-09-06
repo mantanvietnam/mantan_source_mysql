@@ -18,13 +18,13 @@ $menus[0]['sub'][2]= array(	'title'=>'Bài học',
 							'url'=>'/plugins/admin/colennao-view-admin-lesson-listLesson',
 							'classIcon'=>'bx bx-list-ul',
 							'permission'=>'listLesson'
-						);
-$menus[0]['sub'][]= array(	'title'=>'Bài khảo sát',
-                            'url'=>'/plugins/admin/colennao-view-admin-test-listTest',
-                            'classIcon'=>'bx bx-timer',
+                    );
+$menus[0]['sub'][3]= array(	'title'=>'Bài khảo sát',
+                            'url'=>'/plugins/admin/colennao-view-admin-tests-listTest',
+                            'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listTest'
                     );
-$menus[0]['sub'][3]= array(	'title'=>'Câu hỏi bài khảo sát',
+$menus[0]['sub'][4]= array(	'title'=>'Câu hỏi bài khảo sát',
 							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestion',
 							'classIcon'=>'bx bx-question-mark',
 							'permission'=>'listQuestion'
@@ -32,7 +32,6 @@ $menus[0]['sub'][3]= array(	'title'=>'Câu hỏi bài khảo sát',
 
 
 addMenuAdminMantan($menus);
-
 function createPaginationMetaData($totalItem, $itemPerPage, $currentPage): array
 {
     global $urlCurrent;
