@@ -93,46 +93,12 @@ function addTest($input)
 	        $data->title = $dataSend['title'];
 	        $data->description = $dataSend['description'];
 	        $data->id_course = (int) $dataSend['id_course'];
-            $data->id_lesson = (int) $dataSend['id_lesson'];
-	        $data->time_test = $dataSend['time_test'];
+            // $data->id_lesson = (int) $dataSend['id_lesson'];
 	        $data->status = $dataSend['status'];
-            $data->point_min = $dataSend['point_min'];
-	        // tạo slug
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;
-            $number = 0;
-            if(empty($data->slug) || $data->slug!=$slugNew){
-                do{
-                	$conditions = array('slug'=>$slugNew);
-        			$listData = $modelTests->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-        			if(!empty($listData)){
-        				$number++;
-        				$slugNew = $slug.'-'.$number;
-        			}
-                }while (!empty($listData));
-            }
+      
             $data->slug = $slugNew;
-            // tính thời gian
-            $time_start = explode(' ', $dataSend['time_start']); 
-            $time = explode(':', $time_start[0]);
-            $date = explode('/', $time_start[1]);
-            if(!empty($time) && !empty($date))
-            {
-                $time_start= mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
-            }else{
-                $time_start= time();
-            }
-            $time_end = explode(' ', $dataSend['time_end']); 
-            $time = explode(':', $time_end[0]);
-            $date = explode('/', $time_end[1]);
-            if(!empty($time) && !empty($date))
-            {
-                $time_end= mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
-            }else{
-                $time_end= time();
-            }
-            $data->time_start = $time_start;
-            $data->time_end = $time_end;
 	        $modelTests->save($data);
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{

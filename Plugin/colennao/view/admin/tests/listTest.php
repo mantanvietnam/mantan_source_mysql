@@ -1,16 +1,17 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">BÀI THI</h4>
+  <h4 class="fw-bold py-3 mb-4">BÀI KHẢO SÁT</h4>
   <p><a href="/plugins/admin/colennao-view-admin-tests-addTest" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Bài thi</h5>
+    <h5 class="card-header">Bài khảo sát</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Tên bài thi</th>
-            <th>Thời gian thi</th>
+            <th>Tên</th>
+            <!-- <th>Thời gian thi</th> -->
+            <!-- <td>'.$time_test.'</td> -->
             <th>Số câu hỏi</th>
             <th>Trạng thái</th>
             <th>Sửa</th>
@@ -36,7 +37,7 @@
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td><a href="/test/'.$item->slug.'.html">'.$item->title.'</a></td>
-                        <td>'.$time_test.'</td>
+                        
                         <td><a href="/plugins/admin/colennao-view-admin-questions-listQuestion/?id_test='.$item->id.'">'.$item->question.' câu hỏi</a></td>
                         <td>'.$item->status.'</td>
                         <td align="center">

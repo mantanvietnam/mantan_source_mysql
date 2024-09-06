@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-tests-listTest">Bài thi</a> /</span>
-    Thông tin bài thi
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-tests-listTest">Bài khảo sát</a> /</span>
+    Thông tin bài khảo sát
   </h4>
 
   <!-- Basic Layout -->
@@ -10,7 +10,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin bài thi</h5>
+            <h5 class="mb-0">Thông tin bài khảo sát</h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
@@ -37,32 +37,32 @@
                     </div>
                   </div>
 
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label">Bài học</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="id_lesson" id="id_lesson">
                         <option value="0">Chọn bài học</option>
                       </select>
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="mb-3">
-                    <label class="form-label">Tên bài thi (*)</label>
+                    <label class="form-label">Tên bài khảo sát (*)</label>
                     <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
                   </div>
-
+<!-- 
                   <div class="mb-3">
                     <label class="form-label">Thời gian bắt đầu thi (*)</label>
                     <input required type="text" class="form-control datetimepicker" placeholder="" name="time_start" id="time_start" value="<?php if(!empty($data->time_start)) echo date('H:i d/m/Y', $data->time_start);?>" />
-                  </div>
+                  </div> -->
 
                 </div>
 
                 <div class="col-md-6">
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label">Thời gian thi (phút)</label>
                     <input required type="text" class="form-control" placeholder="" name="time_test" id="time_test" value="<?php echo @$data->time_test;?>" />
-                  </div>
+                  </div> -->
 
                   <div class="mb-3">
                     <label class="form-label">Trạng thái</label>
@@ -74,20 +74,20 @@
                     </div>
                   </div>
 
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label">Số điểm tối thiểu để đạt (*)</label>
                     <input required type="text" class="form-control" placeholder="" name="point_min" id="point_min" value="<?php echo @$data->point_min;?>" />
-                  </div>
+                  </div> -->
 
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label">Thời gian kết thúc thi (*)</label>
                     <input required type="text" class="form-control datetimepicker" placeholder="" name="time_end" id="time_end" value="<?php if(!empty($data->time_end)) echo date('H:i d/m/Y', $data->time_end);?>" />
-                  </div>
+                  </div> -->
 
                 </div>
                 <div class="col-md-12">
                   <div class="mb-3">
-                    <label class="form-label">Ghi chú bài thi</label>
+                    <label class="form-label">Ghi chú bài khảo sát</label>
                     <?php showEditorInput('description', 'description', @$data->description);?>
                   </div>
                 </div>

@@ -67,15 +67,15 @@
                     <?php showUploadFile('image','image',@$data->image,0);?>
                   </div>
 
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label">Người đào tạo</label>
                     <input type="text" class="form-control phone-mask" name="author" id="author" value="<?php echo @$data->author;?>" />
-                  </div>
+                  </div> -->
 
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label">Thời gian học (phút)</label>
                     <input required type="number" class="form-control phone-mask" name="time_learn" id="time_learn" value="<?php echo @$data->time_learn;?>" />
-                  </div>
+                  </div> -->
 
                   <div class="mb-3">
                     <label class="form-label">Mô tả ngắn</label>

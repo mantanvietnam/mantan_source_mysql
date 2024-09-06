@@ -22,7 +22,7 @@
                     <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
                   </div>
 
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label">Danh mục</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="id_category" id="id_category">
@@ -38,7 +38,7 @@
                         ?>
                       </select>
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="mb-3">
                     <label class="form-label">Trạng thái</label>
@@ -55,7 +55,7 @@
                     <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" />
                   </div>
 
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label">Hiển thị</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="public" id="public">
@@ -63,7 +63,7 @@
                         <option value="1" <?php if(!empty($data->public)) echo 'selected'; ?> >Chung cho cộng đồng</option>
                       </select>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="col-md-6">

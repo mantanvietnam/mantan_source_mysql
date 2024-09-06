@@ -90,24 +90,24 @@ function addCourse($input)
             $data->image = $dataSend['image'];
             $data->description = $dataSend['description'];
             $data->youtube_code = $dataSend['youtube_code'];
-            $data->id_category = $dataSend['id_category'];
+            // $data->id_category = $dataSend['id_category'];
             $data->status = $dataSend['status'];
             $data->content = $dataSend['content'];
-            $data->public = $dataSend['public'];
+            // $data->public = $dataSend['public'];
             // tạo slug
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;
-            $number = 0;
-            if(empty($data->slug) || $data->slug!=$slugNew){
-                do{
-                    $conditions = array('slug'=>$slugNew);
-                    $listData = $modelCourses->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-                    if(!empty($listData)){
-                        $number++;
-                        $slugNew = $slug.'-'.$number;
-                    }
-                }while (!empty($listData));
-            }
+            // $number = 0;
+            // if(empty($data->slug) || $data->slug!=$slugNew){
+            //     do{
+            //         $conditions = array('slug'=>$slugNew);
+            //         $listData = $modelCourses->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+            //         if(!empty($listData)){
+            //             $number++;
+            //             $slugNew = $slug.'-'.$number;
+            //         }
+            //     }while (!empty($listData));
+            // }
             $data->slug = $slugNew;
             $modelCourses->save($data);
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';

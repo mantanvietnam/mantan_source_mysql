@@ -12,7 +12,8 @@
             <th>Hình minh họa</th>
             <th>Khóa học</th>
             <th>Tên bài học</th>
-            <th>Số bài thi</th>
+            <!-- <th>Số bài thi</th> -->
+            <!-- <td><a href="/plugins/admin/colennao-view-admin-test-listTest/?id_lesson='.$item->id.'">'.number_format($item->number_test).' bài thi</a></td> -->
             <th>Trạng thái</th>
             <th>Sửa</th>
             <th>Xóa</th>
@@ -27,7 +28,7 @@
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$item->name_course.'</td>
                         <td>'.$item->title.'</td>
-                        <td><a href="/plugins/admin/colennao-view-admin-test-listTest/?id_lesson='.$item->id.'">'.number_format($item->number_test).' bài thi</a></td>
+                       
                         <td>'.$item->status.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-lesson-addLesson/?id='.$item->id.'">

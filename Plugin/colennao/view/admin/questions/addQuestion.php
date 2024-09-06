@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-questions-listQuestion">Câu hỏi trắc nghiệm</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-questions-listQuestion">Câu hỏi</a> /</span>
     Nội dung câu hỏi
   </h4>
 
@@ -60,10 +60,10 @@
 
                 <div class="col-md-4">
                   <div class="mb-3">
-                    <label class="form-label">Bài thi (*)</label>
+                    <label class="form-label">Bài khảo sát (*)</label>
                     <div class="input-group input-group-merge">
                       <select required class="form-select" name="id_test" id="id_test">
-                        <option value="">Chọn bài thi</option>
+                        <option value="">Chọn bài khảo sát</option>
                         <?php 
                         if(!empty($listTest)){
                           foreach ($listTest as $key => $item) {
