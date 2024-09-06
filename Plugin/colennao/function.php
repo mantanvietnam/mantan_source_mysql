@@ -24,17 +24,13 @@ $menus[0]['sub'][]= array(	'title'=>'Bài khảo sát',
                             'classIcon'=>'bx bx-timer',
                             'permission'=>'listTest'
                     );
-$menus[0]['sub'][3]= array(	'title'=>'Câu hỏi',
+$menus[0]['sub'][3]= array(	'title'=>'Câu hỏi bài khảo sát',
 							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestion',
 							'classIcon'=>'bx bx-question-mark',
 							'permission'=>'listQuestion'
 						);
 
-$menus[0]['sub'][4]= array(	'title'=>'Lịch sử thi',
-                            'url'=>'/plugins/admin/colennao-view-admin-historytests-listHistoryTest',
-                            'classIcon'=>'bx bx-history',
-                            'permission'=>'listHistoryTest'
-                        );
+
 addMenuAdminMantan($menus);
 
 function createPaginationMetaData($totalItem, $itemPerPage, $currentPage): array

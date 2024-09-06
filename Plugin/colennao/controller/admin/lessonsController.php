@@ -25,8 +25,8 @@ function listLesson($input)
                 $category[$value->id_course] = $modelCourses->find()->where(['id' => (int) $value->id_course])->first();
             }
     		$listData[$key]->name_course = (!empty($category[$value->id_course]->title))?$category[$value->id_course]->title:'';
-            $tests = $modelTests->find()->where(['id_lesson'=>$value->id])->all()->toList();
-            $listData[$key]->number_test = count($tests);
+           
+          
     	}
     }
     $totalData = $modelLesson->find()->where($conditions)->all()->toList();

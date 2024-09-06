@@ -38,7 +38,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 $sqlInstallDatabase .="CREATE TABLE `tests` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL  AUTO_INCREMENT,
   `description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `status` varchar(255) NOT NULL,
@@ -48,7 +48,7 @@ $sqlInstallDatabase .="CREATE TABLE `tests` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 $sqlDeleteDatabase .="CREATE TABLE `questions` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL  AUTO_INCREMENT,
   `question` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `option_a` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `option_b` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
@@ -59,7 +59,7 @@ $sqlDeleteDatabase .="CREATE TABLE `questions` (
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 $sqlDeleteDatabase .="CREATE TABLE `lessons` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL  AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `id_course` int(11) NOT NULL,
@@ -72,7 +72,7 @@ $sqlDeleteDatabase .="CREATE TABLE `lessons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 $sqlDeleteDatabase .="CREATE TABLE `courses` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL  AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `image` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -84,7 +84,7 @@ $sqlDeleteDatabase .="CREATE TABLE `courses` (
   `public` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 $sqlDeleteDatabase .="CREATE TABLE `historytests` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL  AUTO_INCREMENT,
   `id_customer` int(11) NOT NULL,
   `id_test` int(11) NOT NULL,
   `point` float NOT NULL,
