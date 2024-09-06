@@ -76,6 +76,7 @@ function addQuestion($input)
 	        $data->option_b = trim($dataSend['option_b']);
 	        $data->option_c = trim($dataSend['option_c']);
             $data->option_d = trim($dataSend['option_d']);
+            $data->type = $dataSend['type'];
             // $data->option_true = $dataSend['option_true'];
             $data->id_test = $dataSend['id_test'];
 	        $data->status = $dataSend['status'];
@@ -96,7 +97,7 @@ function addQuestion($input)
 
 
 
-function deleteQuestionCRM($input){
+function deleteQuestion($input){
 	global $controller;
 	$modelQuestions = $controller->loadModel('Questions');
 	if(!empty($_GET['id'])){
@@ -105,7 +106,7 @@ function deleteQuestionCRM($input){
          	$modelQuestions->delete($data);
         }
 	}
-	return $controller->redirect('/plugins/admin/colennao-view-admin-question-listQuestion');
+	return $controller->redirect('/plugins/admin/colennao-view-admin-questions-listQuestion');
 
 }
 ?>

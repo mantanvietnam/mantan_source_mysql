@@ -190,15 +190,9 @@ function listquestionAPI($input)
         $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
         if ($page < 1) $page = 1;
         $order = array('id' => 'desc');
-        if (!empty($dataSend['id_test'])) {
-            $idTest = (int)$dataSend['id_test'];
-            $test = $modelTests->find()->where(['id' => $idTest])->first();
-            if ($test) {
-                $testName = $test->title; 
-                $conditions['title LIKE'] = '%' . $testName . '%';
-            } else {
-                return array('code' => 3, 'mess' => 'ID test không tồn tại');
-            }
+        if (!empty($dataSend['type'])) {
+            $name = $dataSend['type'];
+            $conditions['type LIKE'] = '%'. $name.'%';
         }
         $listData = $modelQuestions->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         $totalData = $modelQuestions->find()->where($conditions)->count(); 

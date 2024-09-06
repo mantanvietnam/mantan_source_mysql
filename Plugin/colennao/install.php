@@ -47,7 +47,7 @@ $sqlInstallDatabase .="CREATE TABLE `tests` (
   `point_min` float NOT NULL DEFAULT 10
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
-$sqlDeleteDatabase .="CREATE TABLE `questions` (
+$sqlInstallDatabase .="CREATE TABLE `questions` (
   `id` int(11) NOT NULL  AUTO_INCREMENT,
   `question` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `option_a` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
@@ -58,7 +58,7 @@ $sqlDeleteDatabase .="CREATE TABLE `questions` (
   `id_test` int(11) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-$sqlDeleteDatabase .="CREATE TABLE `lessons` (
+$sqlInstallDatabase .="CREATE TABLE `lessons` (
   `id` int(11) NOT NULL  AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
@@ -71,7 +71,7 @@ $sqlDeleteDatabase .="CREATE TABLE `lessons` (
   `youtube_code` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
-$sqlDeleteDatabase .="CREATE TABLE `courses` (
+$sqlInstallDatabase .="CREATE TABLE `courses` (
   `id` int(11) NOT NULL  AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `image` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -83,7 +83,7 @@ $sqlDeleteDatabase .="CREATE TABLE `courses` (
   `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `public` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-$sqlDeleteDatabase .="CREATE TABLE `historytests` (
+$sqlInstallDatabase .="CREATE TABLE `historytests` (
   `id` int(11) NOT NULL  AUTO_INCREMENT,
   `id_customer` int(11) NOT NULL,
   `id_test` int(11) NOT NULL,
@@ -95,6 +95,15 @@ $sqlDeleteDatabase .="CREATE TABLE `historytests` (
   `status` varchar(255) NOT NULL,
   `type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+$sqlInstallDatabase .= "CREATE TABLE `fasting` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `time_star` int(11) NOT NULL,
+  `tiem_end` int(11) NOT NULL,
+  `complete` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
 
 
