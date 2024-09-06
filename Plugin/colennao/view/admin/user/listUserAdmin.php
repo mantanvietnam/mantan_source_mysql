@@ -34,22 +34,12 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Loại tài khoản</label>
-            <select name="type" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="1" <?php if (isset($_GET['type']) && $_GET['type'] == '1') echo 'selected'; ?> >Người dùng</option>
-              <option value="2" <?php if (isset($_GET['type']) && $_GET['type'] == '2') echo 'selected'; ?> >Tài xế</option>
-              <option value="3" <?php if (isset($_GET['type']) && $_GET['type'] == '3') echo 'selected'; ?> >Nội bộ</option>
-            </select>
-          </div>
-
-          <div class="col-md-3">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="">Tất cả</option>
-              <option value="1" <?php if (isset($_GET['status']) && $_GET['status'] == '1') echo 'selected'; ?> >Kích hoạt
+              <option value="active" <?php if (isset($_GET['status']) && $_GET['status'] == 'active') echo 'selected'; ?> >Kích hoạt
               </option>
-              <option value="0" <?php if (isset($_GET['status']) && $_GET['status'] == '0') echo 'selected'; ?> >Khóa
+              <option value="lock" <?php if (isset($_GET['status']) && $_GET['status'] == 'lock') echo 'selected'; ?> >Khóa
               </option>
             </select>
           </div>
@@ -78,8 +68,6 @@
               <th>Avatar</th>
               <th>Họ và tên</th>
               <th>Thông tin</th>
-              <th>Loại tài khoản</th>
-              <th>Cộng/Trừ coin</th>
               <th>Sửa</th> 
               <th>Trạng thái</th>
         </tr>
@@ -91,19 +79,13 @@
         
         if (!empty($listData)) {
             foreach ($listData as $item) {
-                if ($item->type == 1) {
-                    $type = 'Người dùng';
-                }elseif($item->type == 2){
-                    $type = 'Tài xế';
-                }else{
-                  $type ='Nội bộ';
-                }
+                
 
-                if ($item->status == 1) {
+                if ($item->status == 'active') {
                     $status = '
                   <a class="btn btn-success"  title="Khóa tài khoản" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');"
-                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=0"
+                    href="/plugins/admin/colennao-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=lock"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Đã kích hoạt ';
@@ -111,7 +93,7 @@
                     $status = '
                   <a class=" btn btn-danger"  title="Kích hoạt tài khoản" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt người dùng không?\');" 
-                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=1"
+                    href="/plugins/admin/colennao-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=active"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Đã khóa ';
@@ -126,37 +108,23 @@
                   </br>' . $item->email.'
                   </td>
                   <td>
-                  Số dư: ' . number_format($item->total_coin) . ' đ
+
                   <br>
                   Địa chỉ: ' . $item->address . '
                   <br>
-                  Sl chuyến xe có thể nhận: ' . $item->maximum_trip . '</br>
-                    thời gian tạo : '.$item->created_at->format('H:i d-m-Y').'
+                    thời gian tạo : '.date('H:i d-m-Y', $item->created_at).'
                   </td>
-                 <td align="center">
-                 ' . $type . '
-                 </br> 
-                 <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-blockUserProvince/?id='.$item->id.'">
-                 Block khu vực
-                 </a>
-                 </td>
-                  <td>
-                 <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=plus&id='.$item->id.'">
-                 Cộng coin 
-                 </a>
-                 <a class="btn btn-danger" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=minus&id='.$item->id.'">
-                 Trừ coin 
-                 </a>
-                 </td>
+                 
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 
-                 href="/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=' . $item->id . '"
+                 href="/plugins/admin/colennao-view-admin-user-viewUserDetailAdmin/?id=' . $item->id . '"
                  >
                  <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>
                  </td>
+                 <td>'.$status.'</td>
                  </tr>';
             }
         } else {

@@ -109,7 +109,7 @@ function updateStatusUserAdmin($input)
         }
     }
 
-    return $controller->redirect('/plugins/admin/excgo-view-admin-user-listUserAdmin');
+    return $controller->redirect('/plugins/admin/colennao-view-admin-user-listUserAdmin');
 }
 
 function viewUserDetailAdmin($input)
@@ -119,8 +119,6 @@ function viewUserDetailAdmin($input)
     global $isRequestPost;
 
     $modelUser = $controller->loadModel('Users');
-    $modelImage = $controller->loadModel('Images');
-    $modelDriverRequest = $controller->loadModel('DriverRequests');
     $metaTitleMantan = 'Thông tin người dùng';
     $mess = '';
 
@@ -129,29 +127,6 @@ function viewUserDetailAdmin($input)
             ->where([
                 'id' => (int)$_GET['id']
             ])->first();
-        $idCardFront = $modelImage->find()
-            ->where([
-                'owner_id' => $_GET['id'],
-                'owner_type' => 'users',
-                'type' => 'id-card-front'
-            ])->first();
-        $idCardBack = $modelImage->find()
-            ->where([
-                'owner_id' => $_GET['id'],
-                'owner_type' => 'users',
-                'type' => 'id-card-back'
-            ])->first();
-        $car = $modelImage->find()
-            ->where([
-                'owner_id' => $_GET['id'],
-                'owner_type' => 'users',
-                'type' => 'car'
-            ])->all();
-
-        $isRequestUpgrade = $modelDriverRequest->find()
-            ->where(['user_id' => $_GET['id']])
-            ->where(['status' => 0])
-            ->first();
     } else {
         $data = $modelUser->newEmptyEntity();
     }
@@ -167,79 +142,24 @@ function viewUserDetailAdmin($input)
         $domain = 'https://apis.exc-go.vn/';
 
 
-        if (!empty($dataSend['name'])) {
-            $data->name = $dataSend['name'];
-            $data->avatar = $dataSend['avatar'];
-            $data->phone_number = $dataSend['phone_number'];
-            $data->status = $dataSend['status'];
-            $data->address  = $dataSend['address'];
-            $data->type = $dataSend['type'];
-            $data->email = $dataSend['email'];
-            $data->maximum_trip = (int) $dataSend['maximum_trip'];
-            $data->difference_booking = (int) @$dataSend['difference_booking'];
-            if(empty($dataSend['difference_booking'])){
-                $data->posted = 0;
-                $data->received = 0;
+        if (!empty($dataSend['full_name'])) {
+            $data->full_name = $dataSend['full_name'];
+            $data->avatar = @$dataSend['avatar'];
+            $data->phone = @$dataSend['phone'];
+            if(!empty($dataSend['password'])){
+                $data->password = md5($dataSend['password']);
             }
+            $data->status = @$dataSend['status'];
+            $data->sex = (int) $dataSend['sex']?? 1;
+            //$data->birthday = (int) strtotime($dataSend['birthday']);
+            $data->email = @$dataSend['email'] ?? null;
+            $data->address = @$dataSend['address'] ?? null;
+            $data->current_weight =  (int) @$dataSend['current_weight'];
+            $data->target_weight =  (int) @$dataSend['target_weight'];
+            $data->height =  (int) @$dataSend['height'];
             $modelUser->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
 
-
-
-
-            if (!empty($_GET['id'])) {
-                $data = $modelUser->find()->where(['id' => (int)$_GET['id']])->first();
-                if(!empty($dataSend['idCardFront'])){
-                    $idCardFront = $modelImage->find()->where(['owner_id' => $_GET['id'], 'owner_type' => 'users', 'type' => 'id-card-front'])->first();
-                    if(!empty($idCardFront)){
-                        $idCardFront->path = $dataSend['idCardFront'];
-                        $modelImage->save($idCardFront);
-                    }else{
-                        $idCardFront = $modelImage->newEmptyEntity();
-                        $idCardFront->path = $dataSend['idCardFront'];
-                        $idCardFront->local_path =str_replace($domain, '', @$dataSend['idCardFront']);
-                        $idCardFront->type = 'users';
-                        $idCardFront->owner_id =$_GET['id'];
-                        $idCardFront->owner_type = 'id-card-front';
-                        $modelImage->save($idCardFront);
-                    }
-                }
-                if(!empty($dataSend['idCardBack'])){
-                    $idCardBack = $modelImage->find()->where(['owner_id' => $_GET['id'], 'owner_type' => 'users', 'type' => 'id-card-back'])->first();
-                    if(!empty($idCardBack)){
-                        $idCardBack->path = $dataSend['idCardBack'];
-                        $modelImage->save($idCardBack);
-                    }else{
-                        $idCardBack = $modelImage->newEmptyEntity();
-                        $idCardBack->path = $dataSend['idCardBack'];
-                        $idCardBack->local_path =str_replace($domain, '', $dataSend['idCardBack']);
-                        $idCardBack->type = 'users';
-                        $idCardBack->owner_id =$_GET['id'];
-                        $idCardBack->owner_type = 'id-card-back';
-                        $modelImage->save($idCardBack);
-                    }
-                }
-
-
-                /*$car = $modelImage->deleteAll([ 'owner_id' => $_GET['id'], 'owner_type' => 'users', 'type' => 'car']);
-                $domain = 'https://apis.exc-go.vn//';
-                if(!empty($dataSend['car'])){
-                    foreach($dataSend['car'] as $key => $item){
-                        if(!empty($item)){
-                            $save = $modelImage->newEmptyEntity();
-                            $save->path = $item;
-                            $save->local_path =str_replace($domain, '', $item);
-                            $save->type = 'car';
-                            $save->owner_id =$_GET['id'];
-                            $save->owner_type = 'users';
-                            $modelImage->save($save);
-                        }
-                        
-                    }
-                }
-                $car = $modelImage->find()->where(['owner_id' => $_GET['id'],'owner_type' => 'users','type' => 'car'])->all();*/
-
-            }
         } else {
             $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
         }

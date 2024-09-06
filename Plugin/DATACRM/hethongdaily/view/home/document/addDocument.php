@@ -74,98 +74,134 @@
                     </div>
                   </div>
                   <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
+                    <?php if(@$type !='album'){ ?>
+                    <div class="row">
+                      <div class="col-md-12"> 
+                        <table class="table table-bordered table-striped table-hover mb-none text-center mb-3">
+                         <thead>
+                          <tr>
+                            <th>Tiêu đề *</th>
+                            <th><?php echo $name ?> * </th>
+                            <th>Mô tả ngắn </th>
+                            <th>Xóa</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tbodylink">  
+                          <?php
+                          $i= 0;
+                          if(!empty($data->info)){
+                            foreach($data->info as $key => $value){
+                              $i++;
 
-                        <div class="row">
-                          <div class="col-md-12"> 
-                            <table class="table table-bordered table-striped table-hover mb-none text-center mb-3">
-                             <thead>
-                              <tr>
-                                <th>Tiêu đề *</th>
-                                <th><?php echo $name ?> * </th>
-                                <th>Mô tả ngắn </th>
-                                <th>Xóa</th>
+                              $delete= '<a onclick="deleteTr('.$i.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
+
+                              ?>
+                              <tr class="gradeX" id="trlink-<?php echo $i ?>">
+                                <td>
+                                  <input type="text" class="form-control phone-mask" name="title_info[<?php echo $i ?>]" id="title_info<?php echo $i ?>" value="<?php echo $value->title ?>"/>
+                                </td>
+                                <td>
+                                  <?php if(@$type=='album'){ ?>
+                                    <input type="file" class="form-control phone-mask" name="file<?php echo $i ?>" id="file<?php echo $i ?>" value=""/>
+                                    <?php
+                                    if(!empty($value->file)){
+                                      echo '<input type="hidden" class="form-control phone-mask" name="file_cu['.$i.']" id="file_cu'.$i.'" value="'.$value->file.'"/>
+                                      <br/><img src="'.$value->file.'" width="80" />';
+
+                                    }
+                                  }elseif(@$type=='document'){
+
+                                    ?>
+                                    <input type="file" class="form-control phone-mask" name="file<?php echo $i ?>" id="file<?php echo $i ?>" value=""/>
+                                    <?php
+                                    if(!empty($value->file)){
+                                      echo '<input type="hidden" class="form-control phone-mask" name="file_cu['.$i.']" id="file_cu'.$i.'" value="'.$value->file.'"/>
+                                      <br/><a target="_blank" href="'.$value->file.'">'.$value->file.'</a>';
+
+                                    }
+
+
+                                  }elseif(@$type=='video'){?>
+                                    <input type="text" class="form-control phone-mask" name="file[<?php echo $i ?>]" id="file<?php echo $i ?>" value="<?php echo @$value->file ?>"/>
+                                  <?php }
+
+
+                                  ?>
+
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control" placeholder="" name="description_info[<?php echo $i ?>]" id="description_info<?php echo $i ?>" value="<?php echo $value->description ?>" />
+                                </td>
+
+                                <td align="center" class="actions"><?php echo $delete ?></td>
                               </tr>
-                            </thead>
-                            <tbody id="tbodylink">  
-                              <?php
-                              $i= 0;
-                              if(!empty($data->info)){
-                                foreach($data->info as $key => $value){
-                                  $i++;
-                                 
-                                    $delete= '<a onclick="deleteTr('.$i.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
-                                  
-                                  ?>
-                                  <tr class="gradeX" id="trlink-<?php echo $i ?>">
-                                    <td>
-                                        <input type="text" class="form-control phone-mask" name="title_info[<?php echo $i ?>]" id="title_info<?php echo $i ?>" value="<?php echo $value->title ?>"/>
-                                    </td>
-                                    <td>
-                                      <?php if(@$type=='album'){ ?>
-                                      <input type="file" class="form-control phone-mask" name="file<?php echo $i ?>" id="file<?php echo $i ?>" value=""/>
-                                          <?php
-                                          if(!empty($value->file)){
-                                            echo '<input type="hidden" class="form-control phone-mask" name="file_cu['.$i.']" id="file_cu'.$i.'" value="'.$value->file.'"/>
-                                              <br/><img src="'.$value->file.'" width="80" />';
-                                            
-                                          }
-                                            }elseif(@$type=='document'){
+                            <?php }}else{
+                              $i++;
+                              ?>
+                              <tr class="gradeX" id="trlink-<?php echo $i ?>">
+                                <td>
+                                  <input type="text" class="form-control phone-mask" name="title_info[<?php echo $i ?>]"  value=""/>
+                                </td>
+                                <td>
+                                  <?php if(@$type=='video'){?>
+                                    <input type="text" class="form-control phone-mask" name="file[<?php echo $i ?>]" id="file<?php echo $i ?>" value=""/>
+                                  <?php }else{?>
+                                    <input type="file" class="form-control phone-mask" name="file<?php echo $i ?>" id="file<?php echo $i ?>" value=""/>
+                                    <input type="hidden" class="form-control phone-mask" name="file_cu[<?php echo $i ?>]" id="file_cu<?php echo $i ?>" value=""/>
+                                  <?php } ?> 
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control phone-mask" name="description_info[<?php echo $i ?>]"  value=""/>
+                                </td>
 
-                                            ?>
-                                              <input type="file" class="form-control phone-mask" name="file<?php echo $i ?>" id="file<?php echo $i ?>" value=""/>
-                                          <?php
-                                          if(!empty($value->file)){
-                                            echo '<input type="hidden" class="form-control phone-mask" name="file_cu['.$i.']" id="file_cu'.$i.'" value="'.$value->file.'"/>
-                                              <br/><a target="_blank" href="'.$value->file.'">'.$value->file.'</a>';
-                                            
-                                          }
+                                <td align="center" class="actions"></td>
+                              </tr>
+                            <?php } ?>
+                          </tbody>
+                        </table> 
 
-
-                                            }elseif(@$type=='video'){?>
-                                              <input type="text" class="form-control phone-mask" name="file[<?php echo $i ?>]" id="file<?php echo $i ?>" value="<?php echo @$value->file ?>"/>
-                                          <?php }
-
-                                            
-                                          ?>
-
-                                    </td>
-                                    <td>
-                                      <input type="text" class="form-control" placeholder="" name="description_info[<?php echo $i ?>]" id="description_info<?php echo $i ?>" value="<?php echo $value->description ?>" />
-                                    </td>
-                                    
-                                    <td align="center" class="actions"><?php echo $delete ?></td>
-                                  </tr>
-                                <?php }}else{
-                                  $i++;
-                                  ?>
-                                  <tr class="gradeX" id="trlink-<?php echo $i ?>">
-                                    <td>
-                                      <input type="text" class="form-control phone-mask" name="title_info[<?php echo $i ?>]"  value=""/>
-                                    </td>
-                                    <td>
-                                      <?php if(@$type=='video'){?>
-                                              <input type="text" class="form-control phone-mask" name="file[<?php echo $i ?>]" id="file<?php echo $i ?>" value=""/>
-                                          <?php }else{?>
-                                            <input type="file" class="form-control phone-mask" name="file<?php echo $i ?>" id="file<?php echo $i ?>" value=""/>
-                                            <input type="hidden" class="form-control phone-mask" name="file_cu[<?php echo $i ?>]" id="file_cu<?php echo $i ?>" value=""/>
-                                         <?php } ?> 
-                                    </td>
-                                    <td>
-                                      <input type="text" class="form-control phone-mask" name="description_info[<?php echo $i ?>]"  value=""/>
-                                    </td>
-                                     
-                                    <td align="center" class="actions"></td>
-                                  </tr>
-                                <?php } ?>
-                              </tbody>
-                            </table> 
-
-                            <div class="form-group mb-3 col-md-12">
-                              <button type="button" class="btn btn-danger" onclick="return addRowlink();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm đơn vị</button>
-                            </div>
-                          </div>
+                        <div class="form-group mb-3 col-md-12">
+                          <button type="button" class="btn btn-danger" onclick="return addRowlink();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm </button>
                         </div>
                       </div>
+                    </div>
+                  <?php }else{ ?>
+                    <div class="row" style="margin-top: 15px;">
+                          <div class="form-group col-md-12 dropzone" style="margin-bottom: 10px;">
+                            <div class="fallback">
+                              <?php if (@$_GET['status']=='loianh') {?>
+                                <p style="color: red;">dung lượng ảnh không quá 1MB</p>
+                              <?php } ?>
+                              <input name="listImage[]" type="file" multiple="multiple" />
+                            </div>
+                          </div>
+                          <?php
+                          if(!empty($data->info)){
+                            $n= count($data->info);
+                            $i= 0;
+                            foreach($data->info as $key => $value){
+                              $i++;
+                              if(!isset($data->images[$i])){
+                                $listImage= $urlHomes.'/app/Plugin/mantanHotel/images/no-thumb.png';
+                              }else{ 
+                                $listImage= $data->images[$i];
+                              }
+                              $so = $i+1;
+                              $title='<p>&nbsp;</p>';
+                              echo '<div class="col-md-6" id="hinh-'.$i.'">
+                              '.$title.'
+                              <label class="form-label" >Hình '.$so.'</label>
+                                      <input type="file" class="form-control phone-mask" name="image'.$i.'" id="image'.$i.'" value=""/>
+                                      <input type="hidden" class="form-control phone-mask" name="anh['.$i.']" id="anh'.$i.'" value="'.$value->file.'"/></p>
+                                      <p><img src="'.$value->file.'" width="80" /></p>
+                                      <p><a href="javascript:void(0);" title="xóa" style="color: #0ea1e4;" onclick="clearImage(\''.$i.'\');"><i class="bx bxs-trash me-1" aria-hidden="true"></i></a>
+                                      </div>';
+                            }
+                          }
+                          ?>
+                        </div>
+                      <?php } ?>
+                  </div>
               </div>
             </div>
           </div>
@@ -208,6 +244,10 @@
         row--;
         $('#trlink-'+i).remove();
        
+    }
+
+    function clearImage(i){
+      $('#hinh-'+i).remove();
     }
 
 </script>

@@ -197,50 +197,117 @@ function addDocument($input){
 	            $modelDocument->save($data);
 
 	            // lưu thông tin file
-                if(!empty($dataSend['title_info'])){
-                    $conditions = ['id_document'=>$data->id];
-                    $modelDocumentinfo->deleteAll($conditions);
-                    
-                    foreach ($dataSend['title_info'] as $key => $title_info) {
-                    	$file = '';
-                    	if(@$type=='video'){
-                    		$file = $dataSend['file'][$key];
-                    	}else{
-                    		if(isset($_FILES['file'.$key]) && empty($_FILES['file'.$key]["error"])){
-		                        if(!empty($data->id)){
-		                            $fileName = 'file'.$key.'_file_'.$data->id;
-		                        }else{
-		                            $fileName = 'file'.$key.'_file_'.time().rand(0,1000000);
-		                        }
 
-		                        $image = uploadImage($user->id, 'file'.$key, $fileName);
-                    	
+                if(@$type !='album'){
+               	 	if(!empty($dataSend['title_info'])){
+                    	$conditions = ['id_document'=>$data->id];
+                    	$modelDocumentinfo->deleteAll($conditions);
+	                    foreach ($dataSend['title_info'] as $key => $title_info) {
+	                    	$file = '';
+	                    	if(@$type=='video'){
+	                    		$file = $dataSend['file'][$key];
+	                    	}else{
+	                    		if(isset($_FILES['file'.$key]) && empty($_FILES['file'.$key]["error"])){
+			                        if(!empty($data->id)){
+			                            $fileName = 'file'.$key.'_file_'.$data->id;
+			                        }else{
+			                            $fileName = 'file'.$key.'_file_'.time().rand(0,1000000);
+			                        }
 
-		                        if(!empty($image['linkOnline'])){
-		                            $file= $image['linkOnline'].'?time='.time();
-		                        }
-		                    }elseif(!empty($dataSend['file_cu'])){
-		                    	$file = $dataSend['file_cu'][$key];
+			                        $image = uploadImage($user->id, 'file'.$key, $fileName);
+	                    	
+
+			                        if(!empty($image['linkOnline'])){
+			                            $file= $image['linkOnline'].'?time='.time();
+			                        }
+			                    }elseif(!empty($dataSend['file_cu'])){
+			                    	$file = $dataSend['file_cu'][$key];
+			                    }
+	                    	}
+
+	                        $info = $modelDocumentinfo->newEmptyEntity();
+
+	                        $info->title = @$title_info;
+		            		$info->file = $file;
+		            		$info->id_document = $data->id;
+		            		$info->description = @$dataSend['description_info'][$key];
+		            		$info->slug = createSlugMantan(trim(@$title_info));
+
+
+		            		$modelDocumentinfo->save($info);
+	                    }
+	                }else{
+                    	$conditions = ['id_document'=>$data->id];
+                    	$modelDocumentinfo->deleteAll($conditions);
+                	}
+	            }else{
+		            if(!empty($_FILES['listImage']['name'][0])){
+		                foreach($_FILES['listImage']['name'] as $key => $value){
+		                    $_FILES['listImages'.$key]['name'] = $value;
+		                    $_FILES['listImages'.$key]['type'] = $_FILES['listImage']['type'][$key];
+		                    $_FILES['listImages'.$key]['tmp_name'] = $_FILES['listImage']['tmp_name'][$key];
+		                    $_FILES['listImages'.$key]['error'] = $_FILES['listImage']['error'][$key];
+		                    $_FILES['listImages'.$key]['size'] = $_FILES['listImage']['size'][$key];
+		                }
+	                }	                
+		            $totalImage = count($dataSend['anh'])+1;
+		            $listImages = [];
+		           
+		            for($y=0;$y<=$totalImage;$y++){
+		                if(!empty($dataSend['anh'][$y])){
+		                    $listImages[$y] = $dataSend['anh'][$y];
+		                }
+		                    
+		                 if(isset($_FILES['image'.$y]) && empty($_FILES['image'.$y]["error"])){
+		                    if(!empty($data->id)){
+		                        $fileName = 'image'.$y.'_product_'.$data->id;
+		                    }else{
+		                        $fileName = 'image'.$y.'_product_'.time().rand(0,1000000);
+	                        }
+		                    $image = uploadImage($user->id, 'image'.$y, $fileName);
+
+		                    if(!empty($image['linkOnline'])){
+		                        $listImages[$y] = $image['linkOnline'].'?time='.time();
 		                    }
-                    	}
-                    	
-	   
-                    	
-                        $info = $modelDocumentinfo->newEmptyEntity();
+		                }
+		            }
+		            $total = count($_FILES['listImage']['name']);
+		                
+		            for($i=0;$i<=$total;$i++){
+		            	if(isset($_FILES['listImages'.$i]) && empty($_FILES['listImages'.$i]["error"])){
+		            		if(!empty($data->id)){
+		            			$fileName = 'image'.$i.'_product_'.$data->id;
+		            		}else{
+		            			$fileName = 'image'.$i.'_product_'.time().rand(0,1000000);
+		            		}
+		            		$image = uploadImage($user->id, 'listImages'.$i, $fileName);
+		            		if(!empty($image['linkOnline'])){
+		            			$listImages[$i+$totalImage] = $image['linkOnline'].'?time='.time();
+		            		}
+		            	}
+		            }
+		            $so = 0;
+		            if(!empty($listImages)){
+		            	$conditions = ['id_document'=>$data->id];
+                    	$modelDocumentinfo->deleteAll($conditions);
+		            	foreach($listImages as $key => $image){
+		            		$so++;
+		            		$info = $modelDocumentinfo->newEmptyEntity();
+		            		$info->title = 'hình '.$so;
+		            		$info->file = $image;
+		            		$info->id_document = $data->id;
+		            		$info->description = '';
+		            		$info->slug = createSlugMantan(trim( 'hình '.$so));
+		            		$modelDocumentinfo->save($info);
 
-                        $info->title = @$title_info;
-	            		$info->file = $file;
-	            		$info->id_document = $data->id;
-	            		$info->description = @$dataSend['description_info'][$key];
-	            		$info->slug = createSlugMantan(trim(@$title_info));
+		            	}
+		            }else{
+		            	$conditions = ['id_document'=>$data->id];
+                    	$modelDocumentinfo->deleteAll($conditions);
+		            }
 
-
-	            		$modelDocumentinfo->save($info);
-                    }
-                }else{
-                    $conditions = ['id_product'=>$data->id];
-                    $modelCategorieProduct->deleteAll($conditions);
-                }
+		        }
+                
 
 
 	            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';

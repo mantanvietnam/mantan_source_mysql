@@ -40,9 +40,7 @@ function registerUserApi($input): array
                 if(!empty($avatar['linkOnline'])){
                     $avatars = $avatar['linkOnline'].'?time='.time();
                 }
-                $current_date = new DateTime();
-                $current_date->modify('+30 days');
-                 (int) $current_date->getTimestamp();
+
                   $user = $modelUser->newEmptyEntity();
                 if(!empty($dataSend['affsource'])){
                     $affsource = $modelUser->find()->where(array('phone'=>$dataSend['affsource']))->first();
@@ -57,12 +55,13 @@ function registerUserApi($input): array
                 $user->phone = @$dataSend['phone'];
                 $user->password = md5($dataSend['password']);
                 $user->info = @$dataSend['info'];
-                $user->sex = (int) $dataSend['sex'];
+                $user->sex = (int) $dataSend['sex']?? 1;
                 $user->birthday = (int) strtotime($dataSend['birthday']);
                 $user->email = @$dataSend['email'] ?? null;
                 $user->address = @$dataSend['address'] ?? null;
                 $user->status = 'active';
                 $user->created_at = time();
+                $user->deadline =  strtotime("+30 days", time());
                 $user->updated_at = time();
                 $user->last_login = time();
                 $user->token = createToken();
@@ -289,7 +288,7 @@ function resetPasswordApi($input): array
 
             $user->password = md5($dataSend['new_password']);
             $user->reset_password_code = null;
-            $user->access_token = createToken();
+            $user->token = createToken();
             $user->device_token = @$dataSend['device_token'];
             $modelUser->save($user);
 
@@ -316,10 +315,10 @@ function checkLoginFacebookApi($input): array
             $user = $modelUser->find()->where(['facebook_id' => $dataSend['facebook_id']])->first();
 
             if ($user) {
-                $user->last_login = date('Y-m-d H:i:s');
-                $user->access_token = createToken();
+                $user->last_login = time();
+                $user->token = createToken();
                 $user->avatar = $dataSend['avatar'] ?? $user->avatar;
-                $user->name = $dataSend['name'] ?? $user->name;
+                $user->full_name = $dataSend['full_name'] ?? $user->name;
                 $modelUser->save($user);
 
                 return apiResponse(0, 'Đăng nhập thành công', $user);
@@ -331,10 +330,10 @@ function checkLoginFacebookApi($input): array
                     if (!empty($checkPhone)) {
                         $checkPhone->facebook_id = $dataSend['facebook_id'];
                         $checkPhone->avatar = $dataSend['avatar'] ?? $checkPhone->avatar;
-                        $checkPhone->name = $dataSend['name'] ?? $checkPhone->name;
+                        $checkPhone->full_name = $dataSend['full_name'] ?? $checkPhone->full_name;
                         $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
-                        $checkPhone->last_login = date('Y-m-d H:i:s');
-                        $checkPhone->access_token = createToken();
+                        $checkPhone->last_login = time();
+                        $checkPhone->token = createToken();
                         $modelUser->save($checkPhone);
 
                         return apiResponse(0, 'Đăng nhập thành công', $checkPhone);
@@ -348,10 +347,10 @@ function checkLoginFacebookApi($input): array
                     if (!empty($checkEmail)) {
                         $checkEmail->facebook_id = $dataSend['facebook_id'];
                         $checkEmail->avatar = $dataSend['avatar'] ?? $checkEmail->avatar;
-                        $checkEmail->name = $dataSend['name'] ?? $checkEmail->name;
+                        $checkEmail->full_name = $dataSend['full_name'] ?? $checkEmail->full_name;
                         $checkEmail->phone = $dataSend['phone'] ?? $checkEmail->phone;
-                        $checkEmail->last_login = date('Y-m-d H:i:s');
-                        $checkEmail->access_token = createToken();
+                        $checkEmail->last_login = time();
+                        $checkEmail->token = createToken();
                         $modelUser->save($checkEmail);
 
                         return apiResponse(0, 'Đăng nhập thành công', $checkEmail);
@@ -362,17 +361,19 @@ function checkLoginFacebookApi($input): array
 
                 if (!empty($dataSend['email']) || !empty($dataSend['phone'])) {
                     $newUser = $modelUser->newEmptyEntity();
-                    $newUser->name = $dataSend['name'] ?? 'Người dùng';
+                    $newUser->full_name = $dataSend['full_name'] ?? 'Người dùng';
                     $newUser->avatar = $dataSend['avatar'] ?? $defaultAvatar;
                     $newUser->phone = $dataSend['phone'] ?? 'FB' . $dataSend['facebook_id'];
-                    $newUser->is_verified = 1;
                     $newUser->email = $dataSend['email'] ?? null;
+                    $newUser->birthday = (int) strtotime($dataSend['birthday']);
                     $newUser->address = $dataSend['address'] ?? null;
-                    $newUser->status = isset($dataSend['status']) ? (int) $dataSend['status'] : 1;
-                    $newUser->created_at = date('Y-m-d H:i:s');
-                    $newUser->updated_at = date('Y-m-d H:i:s');
-                    $newUser->last_login = date('Y-m-d H:i:s');
-                    $newUser->access_token = createToken();
+                    $newUser->status = 'active';
+                    $newUser->created_at = time();
+                    $newUser->updated_at = time();
+                    $newUser->facebook_id = $dataSend['facebook_id'];
+                    $newUser->last_login = time();
+                    $newUser->deadline =  strtotime("+30 days", time());
+                    $newUser->token = createToken();
                     $newUser->device_token = $dataSend['device_token'] ?? null;
                     $modelUser->save($newUser);
 
@@ -389,18 +390,42 @@ function checkLoginFacebookApi($input): array
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
-function checkLoginGoogleApi($input): a'])) {
-                    $checkPhone = $modelUser->find()->where(['phone' => $dataSend['phone']])->first();
+function checkLoginGoogleApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $defaultAvatar;
+
+    $userModel = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['google_id'])) {
+            $user = $userModel->find()->where(['google_id' => $dataSend['google_id']])->first();
+
+            if ($user) {
+                $user->last_login = time();
+                $user->token = createToken();
+                $user->avatar = $dataSend['avatar'] ?? $user->avatar;
+                $user->full_name = $dataSend['full_name'] ?? $user->full_name;
+                $user->device_token = $dataSend['device_token'] ?? $user->device_token;
+                $userModel->save($user);
+
+                return apiResponse(0, 'Đăng nhập thành công', $user);
+            } else {
+                // Kiểm tra user phone đã tồn tại chưa
+                if (!empty($dataSend['phone'])) {
+                    $checkPhone = $userModel->find()->where(['phone' => $dataSend['phone']])->first();
 
                     if (!empty($checkPhone)) {
                         $checkPhone->google_id = $dataSend['google_id'];
                         $checkPhone->avatar = $dataSend['avatar'] ?? $checkPhone->avatar;
-                        $checkPhone->name = $dataSend['name'] ?? $checkPhone->name;
+                        $checkPhone->full_name = $dataSend['full_name'] ?? $checkPhone->full_name;
                         $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
-                        $checkPhone->last_login = date('Y-m-d H:i:s');
-                        $checkPhone->access_token = createToken();
+                        $checkPhone->last_login = time();
+                        $checkPhone->token = createToken();
                         $checkPhone->device_token = $dataSend['device_token'] ?? $checkPhone->device_token;
-                        $modelUser->save($checkPhone);
+                        $userModel->save($checkPhone);
 
                         return apiResponse(0, 'Đăng nhập thành công', $checkPhone);
                     }
@@ -408,17 +433,17 @@ function checkLoginGoogleApi($input): a'])) {
 
                 // Kiểm tra user email đã tồn tại chưa
                 if (!empty($dataSend['email'])) {
-                    $checkEmail = $modelUser->find()->where(['email' => $dataSend['email']])->first();
+                    $checkEmail = $userModel->find()->where(['email' => $dataSend['email']])->first();
 
                     if (!empty($checkEmail)) {
                         $checkEmail->google_id = $dataSend['google_id'];
                         $checkEmail->avatar = $dataSend['avatar'] ?? $checkEmail->avatar;
-                        $checkEmail->name = $dataSend['name'] ?? $checkEmail->name;
+                        $checkEmail->full_name = $dataSend['full_name'] ?? $checkEmail->full_name;
                         $checkEmail->phone = $dataSend['phone'] ?? $checkEmail->phone;
-                        $checkEmail->last_login = date('Y-m-d H:i:s');
-                        $checkEmail->access_token = createToken();
+                        $checkEmail->last_login = time();
+                        $checkEmail->token = createToken();
                         $checkEmail->device_token = $dataSend['device_token'] ?? $checkEmail->device_token;
-                        $modelUser->save($checkEmail);
+                        $userModel->save($checkEmail);
 
                         return apiResponse(0, 'Đăng nhập thành công', $checkEmail);
                     }
@@ -426,31 +451,24 @@ function checkLoginGoogleApi($input): a'])) {
 
                 // Tạo user mới
                 if (!empty($dataSend['email']) || !empty($dataSend['phone'])) {
-                    $newUser = $modelUser->newEmptyEntity();
-                    $newUser->name = $dataSend['name'] ?? 'Người dùng';
-                    $newUser->avatar = $dataSend['avatar'] ?? $defaultAvatar;
+                    $newUser = $userModel->newEmptyEntity();
+                    $newUser->full_name = $dataSend['full_name'] ?? 'Người dùng';
+                    $newUser->avatar = $dataSend['avatar'] ?? '';
                     $newUser->phone = $dataSend['phone'] ?? 'GG' . $dataSend['google_id'];
                     $newUser->is_verified = 1;
                     $newUser->email = $dataSend['email'] ?? null;
                     $newUser->address = $dataSend['address'] ?? null;
-                    $newUser->status = isset($dataSend['status']) ? (int) $dataSend['status'] : 1;
-                    $newUser->created_at = date('Y-m-d H:i:s');
-                    $newUser->updated_at = date('Y-m-d H:i:s');
-                    $newUser->last_login = date('Y-m-d H:i:s');
-                    $newUser->access_token = createToken();
+                    $newUser->status = 'active';
+                    $newUser->birthday = (int) strtotime($dataSend['birthday']);
+                    $newUser->created_at = time();
+                    $newUser->updated_at = time();
+                    $newUser->google_id = $dataSend['google_id'];
+                    $newUser->last_login = time();
+                    $newUser->deadline =  strtotime("+30 days", time());
+                    $newUser->token = createToken();
                     $newUser->device_token = $dataSend['device_token'] ?? null;
-                    $modelUser->save($newUser);
-
-                    if (!empty($dataSend['avatar'])) {
-                        $newImage = [
-                            'path' => $dataSend['avatar'],
-                            'local_path' => null,
-                            'type' => 'avatar',
-                            'owner_id' => $newUser->id,
-                            'owner_type' => 'users',
-                        ];
-                        $imageModel->save($newImage);
-                    }
+                    $userModel->save($newUser);
+                    
 
                     return apiResponse(0, 'Đăng nhập thành công', $newUser);
                 }
@@ -479,11 +497,11 @@ function checkLoginAppleApi($input): array
             $user = $modelUser->find()->where(['apple_id' => $dataSend['apple_id']])->first();
 
             if ($user) {
-                $user->last_login = date('Y-m-d H:i:s');
-                $user->access_token = createToken();
+                $user->last_login = time();
+                $user->token = createToken();
                 $user->device_token = $dataSend['device_token'] ?? null;
                 $user->avatar = $dataSend['avatar'] ?? $user->avatar;
-                $user->name = $dataSend['name'] ?? $user->name;
+                $user->full_name = $dataSend['full_name'] ?? $user->full_name;
                 $modelUser->save($user);
 
                 return apiResponse(0, 'Đăng nhập thành công', $user);
@@ -491,10 +509,9 @@ function checkLoginAppleApi($input): array
                 $user = $modelUser->newEmptyEntity();
                 $user->apple_id = $dataSend['apple_id'];
                 $user->device_token = $dataSend['device_token'] ?? null;
-                $user->avatar = $dataSend['avatar'] ?? $defaultAvatar;
+                $user->avatar = $dataSend['avatar'] ?? '';
                 $user->last_login = date('Y-m-d H:i:s');
-                $user->access_token = createToken();
-                $user->is_verified = 1;
+                $user->token = createToken();
                 $modelUser->save($user);
 
                 return apiResponse(0, 'Đăng nhập thành công', $user);
@@ -507,47 +524,74 @@ function checkLoginAppleApi($input): array
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
-function getUserDetailApi($input): a',
-                    'Users.bank_account',
-                    'Users.account_number',
-                    'Users.avatar',
-                    'Users.address',
-                    'Users.type',
-                    'Users.birthday',
-                    'Users.total_coin',
-                    'IdCardFront.id',
-                    'IdCardFront.path',
-                    'IdCardBack.id',
-                    'IdCardBack.path',
-                ])->where([
-                    'access_token' => $dataSend['access_token'],
-                    'status' => 1
-                ])->first();
+function getUserDetailApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $ownerType;
 
-            if (empty($user)) {
-                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['token'])) {
+            return apiResponse(3, 'thiếu dữ liệu');
+        }
+
+            $user = getUserByToken($dataSend['token']);
+         
+            if(!empty($user)){
+                return apiResponse(0, 'Láy thông tin người dùng thành công', $user);
             }
 
-            $carImage = $modelImage->find()
-                ->select(['id', 'path'])
-                ->where([
-                    'owner_id' => $user->id,
-                    'owner_type' => 'users',
-                    'type' => 'car'
-                ])->all()->toArray();
-            $user->carImages = $carImage;
-
-            return apiResponse(0, 'Láy thông tin người dùng thành công', $user);
-        }
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
-function updateUserApi($input): a'])) {
+function updateUserApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $ownerType;
+
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        $currentUser = getUserByToken($dataSend['token']);
+
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+
+       
+        if (!empty($dataSend['full_name'])) {
+            $currentUser->full_name = $dataSend['full_name'];
+        }
+
+        if (!empty($dataSend['email'])) {
+            $checkEmail = $modelUser->find()
+                ->where([
+                    'email' => $dataSend['email'],
+                    'id <>' => $currentUser->id,
+                ])->first();
+
+            if (!empty($checkEmail)) {
+                return apiResponse(4, 'Email đã được sử dụng');
+            }
+            $currentUser->email = $dataSend['email'];
+        }
+
+        if (!empty($dataSend['phone'])) {
             $checkPhone = $modelUser->find()
                 ->where([
-                    'email' => $dataSend['phone'],
+                    'phone' => $dataSend['phone'],
                     'id <>' => $currentUser->id,
                 ])->first();
 
@@ -557,143 +601,44 @@ function updateUserApi($input): a'])) {
             $currentUser->phone = $dataSend['phone'];
         }
 
-        if (isset($dataSend['birthday'])) {
-            $currentUser->birthday = DateTime::createFromFormat('d/m/Y', $dataSend['birthday']);
+        if (!empty($dataSend['birthday'])) {
+            $currentUser->birthday = (int) strtotime($dataSend['birthday']);
         }
 
-        if (isset($dataSend['address'])) {
+        if (!empty($dataSend['sex'])) {
+            $currentUser->sex = (int) strtotime($dataSend['sex']);
+        }
+
+        if (!empty($dataSend['address'])) {
             $currentUser->address = $dataSend['address'];
         }
 
-        if (isset($dataSend['bank_account'])) {
-            $currentUser->bank_account = $dataSend['bank_account'];
+        if (!empty($dataSend['target_weight'])) {
+            $currentUser->target_weight = $dataSend['target_weight'];
         }
 
-        if (isset($dataSend['account_number'])) {
-            $currentUser->account_number = $dataSend['account_number'];
+        if (!empty($dataSend['height'])) {
+            $currentUser->height = (int) $dataSend['height'];
         }
 
-        $newImages = [];
-        $oldImages = [];
+        if (isset($dataSend['current_weight'])) {
+            $currentUser->current_weight = (int) $dataSend['current_weight'];
+        }
 
         // avatar
-        if (isset($_FILES['avatar'])) {
-            // Old image
-            $oldAvatar = $modelImage->find()->where([
-                'owner_id' => $currentUser->id,
-                'owner_type' => $ownerType['users'],
-                'type' => $imageType['avatar']
-            ])->first();
-            $oldImages[] = $oldAvatar;
-
+        if (!empty($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
             // New image
-            $newAvatar = uploadImage($currentUser->id, 'avatar', "avatar_$currentUser->id" . '_' . time());
-            $currentUser->avatar = $newAvatar['linkOnline'];
-            $newImages[] = [
-                'path' => $newAvatar['linkOnline'],
-                'local_path' => $newAvatar['linkLocal'],
-                'type' => $imageType['avatar'],
-                'owner_id' => $currentUser->id,
-                'owner_type' => $ownerType['users']
-            ];
-
-            $currentUser->avatar = $newAvatar['linkOnline'];
-        }
-
-        // Id card front
-        if (isset($_FILES['id_card_front'])) {
-            $oldCardFront = $modelImage->find()->where([
-                'owner_id' => $currentUser->id,
-                'owner_type' => $ownerType['users'],
-                'type' => $imageType['id-card-front']
-            ])->first();
-
-            if (!empty($oldCardFront)) {
-                $oldImages[] = $oldCardFront;
+            $avatar = uploadImage($currentUser->phone, 'avatar', 'avatar_'.$currentUser->phone);
+            if(!empty($avatar['linkOnline'])){
+                $currentUser->avatar = $avatar['linkOnline'];
             }
-
-            $newCardFront = uploadImage($currentUser->id, 'id_card_front', "id_card_front_$currentUser->id" . '_' . time());
-            $newImages[] = [
-                'path' => $newCardFront['linkOnline'],
-                'local_path' => $newCardFront['linkLocal'],
-                'type' => $imageType['id-card-front'],
-                'owner_id' => $currentUser->id,
-                'owner_type' => $ownerType['users']
-            ];
+            
         }
 
-        // Id card back
-        if (isset($_FILES['id_card_back'])) {
-            $oldCardBack = $modelImage->find()->where([
-                'owner_id' => $currentUser->id,
-                'owner_type' => $ownerType['users'],
-                'type' => $imageType['id-card-back']
-            ])->first();
 
-            if (!empty($oldCardBack)) {
-                $oldImages[] = $oldCardBack;
-            }
-
-            $newCardFront = uploadImage($currentUser->id, 'id_card_back', "id_card_back_$currentUser->id" . '_' . time());
-            $newImages[] = [
-                'path' => $newCardFront['linkOnline'],
-                'local_path' => $newCardFront['linkLocal'],
-                'type' => $imageType['id-card-back'],
-                'owner_id' => $currentUser->id,
-                'owner_type' => $ownerType['users']
-            ];
-        }
-
-        // new car image
-        for ($i = 1; $i <= 10; $i++) {
-            if (isset($_FILES["car_image_$i"])) {
-                $carImage = uploadImage($currentUser->id, "car_image_$i", "car_$i" . "_$currentUser->id" . '_' . time());
-                if ($carImage['code']) {
-                    return apiResponse(4, $carImage['mess']);
-                }
-                $newImages[] = [
-                    'path' => $carImage['linkOnline'],
-                    'local_path' => $carImage['linkLocal'],
-                    'type' => $imageType['car'],
-                    'owner_id' => $currentUser->id,
-                    'owner_type' => $ownerType['users']
-                ];
-            } else {
-                break;
-            }
-        }
-
-        // old car image
-        if (!empty($dataSend['delete_car_images']) && is_array($dataSend['delete_car_images'])) {
-            $oldCarImages = $modelImage->find()
-                ->where([
-                    'id IN' => $dataSend['delete_car_images'],
-                    'owner_id' => $currentUser->id,
-                    'owner_type' => $ownerType['users']
-                ])->all();
-            $oldImages = array_merge($oldImages, $oldCarImages->toList());
-        }
-
-        // Insert new image
-        $modelImage->saveMany($modelImage->newEntities($newImages));
         $modelUser->save($currentUser);
 
-        // Delete old image
-        if (count(array_filter($oldImages))) {
-            $deleteImageIds = array_map(function ($item) {
-                return $item->id;
-            }, $oldImages);
-
-            $modelImage->deleteAll(['id IN' => $deleteImageIds]);
-
-            foreach ($oldImages as $item) {
-                if (!empty($item->local_path)) {
-                    removeFile($item->local_path);
-                }
-            }
-        }
-
-        return apiResponse(0, 'Cập nhật thông tin thành công');
+        return apiResponse(0, 'Cập nhật thông tin thành công',$currentUser);
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
