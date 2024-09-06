@@ -29,7 +29,11 @@ $menus[0]['sub'][4]= array(	'title'=>'Câu hỏi bài khảo sát',
 							'classIcon'=>'bx bx-question-mark',
 							'permission'=>'listQuestion'
 						);
-
+$menus[0]['sub'][5]= array(	'title'=>'Giảm cân',
+                            'url'=>'/plugins/admin/colennao-view-admin-fasting-listfastingadmin',
+                            'classIcon'=>'bx bxs-wink-tongue',
+                            'permission'=>'listfastingadmin'
+                    );
 
 addMenuAdminMantan($menus);
 function createPaginationMetaData($totalItem, $itemPerPage, $currentPage): array

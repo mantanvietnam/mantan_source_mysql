@@ -5,4 +5,5 @@ include('model/lessons.php');
 include('model/tests.php'); 
 include('model/questions.php'); 
 include('model/historytests.php'); 
+include('model/fasting.php'); 
 ?>
