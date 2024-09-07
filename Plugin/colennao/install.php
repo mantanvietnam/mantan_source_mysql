@@ -37,6 +37,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `id_affsource` INT NULL DEFAULT 0 COMMENT "id người giới thiệu	" , 
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
+
 $sqlInstallDatabase .="CREATE TABLE `tests` (
   `id` int(11) NOT NULL  AUTO_INCREMENT,
   `description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
@@ -56,8 +57,10 @@ $sqlInstallDatabase .="CREATE TABLE `questions` (
   `option_d` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `option_true` varchar(255) NOT NULL,
   `id_test` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+  `status` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlInstallDatabase .="CREATE TABLE `lessons` (
   `id` int(11) NOT NULL  AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
@@ -68,7 +71,8 @@ $sqlInstallDatabase .="CREATE TABLE `lessons` (
   `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,
   `slug` varchar(255) NOT NULL,
   `view` int(11) NOT NULL DEFAULT 0,
-  `youtube_code` varchar(255) NOT NULL
+  `youtube_code` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 $sqlInstallDatabase .="CREATE TABLE `courses` (
@@ -82,7 +86,9 @@ $sqlInstallDatabase .="CREATE TABLE `courses` (
   `status` varchar(255) NOT NULL,
   `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `public` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlInstallDatabase .="CREATE TABLE `historytests` (
   `id` int(11) NOT NULL  AUTO_INCREMENT,
   `id_customer` int(11) NOT NULL,
@@ -94,7 +100,9 @@ $sqlInstallDatabase .="CREATE TABLE `historytests` (
   `time_end` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
   `type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlInstallDatabase .= "CREATE TABLE `fasting` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -102,9 +110,16 @@ $sqlInstallDatabase .= "CREATE TABLE `fasting` (
   `tiem_end` int(11) NOT NULL,
   `complete` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `tests`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `questions`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `lessons`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `courses`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `historytests`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `fasting`;';
 
 
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
