@@ -9,15 +9,17 @@ $menus[0]['sub'][0] = array('title' => 'Danh sách đăng ký',
 addMenuAdminMantan($menus);
 
 global $vst_hostname;
+global $vst_port;
 global $ftpUser;
 global $ftpPass;
 global $ftpIP;
 global $ftpPort;
 
-$vst_hostname = '171.244.16.96';
+$vst_hostname = 'da.phoenixtech.vn';
+$vst_port = '2244';
 $ftpUser = 'datacrm';
 $ftpPass = 'fkkREZMmxj';
-$ftpIP= '171.244.16.96';
+$ftpIP= '103.74.123.202';
 $ftpPort= 21;
 
 function createPass($length=30)
@@ -29,6 +31,7 @@ function createPass($length=30)
 function listDomain($domain='icham.vn')
 {	
 	global $vst_hostname;
+	global $vst_port;
 	global $ftpUser;
 	global $ftpPass;
 
@@ -37,7 +40,7 @@ function listDomain($domain='icham.vn')
 		    'domain' => $domain
 		);
 
-		$url = 'http://'.$vst_hostname.':2222/CMD_API_SUBDOMAINS';
+		$url = 'https://'.$vst_hostname.':'.$vst_port.'/CMD_API_SUBDOMAINS';
 
 		// Khởi tạo yêu cầu cURL
 		$ch = curl_init($url);
@@ -67,6 +70,7 @@ function listDomain($domain='icham.vn')
 function deleteDomain($domain='')
 {	
 	global $vst_hostname;
+	global $vst_port;
 	global $ftpUser;
 	global $ftpPass;
 
@@ -84,7 +88,7 @@ function deleteDomain($domain='')
 			'keep_data' => 'no'
 		);
 
-		$url = 'http://'.$vst_hostname.':2222/CMD_API_DOMAIN';
+		$url = 'https://'.$vst_hostname.':'.$vst_port.'/CMD_API_DOMAIN';
 
 		// Khởi tạo yêu cầu cURL
 		$ch = curl_init($url);
@@ -114,6 +118,7 @@ function deleteDomain($domain='')
 function createDomain($domain='')
 {	
 	global $vst_hostname;
+	global $vst_port;
 	global $ftpUser;
 	global $ftpPass;
 
@@ -128,7 +133,7 @@ function createDomain($domain='')
 			"php" => "ON",
 		);
 
-		$url = 'http://'.$vst_hostname.':2222/CMD_API_DOMAIN';
+		$url = 'https://'.$vst_hostname.':'.$vst_port.'/CMD_API_DOMAIN';
 
 		// Khởi tạo yêu cầu cURL
 		$ch = curl_init($url);
@@ -142,7 +147,7 @@ function createDomain($domain='')
 
 		// Gửi yêu cầu và nhận phản hồi
 		$response = curl_exec($ch);
-
+		
 		// Kiểm tra phản hồi
 		if ($response === false) {
 		    return 'Error: ' . curl_error($ch);
@@ -158,6 +163,7 @@ function createDomain($domain='')
 function createDatabase($domain='', $db_name='', $db_password='')
 {
 	global $vst_hostname;
+	global $vst_port;
 	global $ftpUser;
 	global $ftpPass;
 
@@ -178,7 +184,7 @@ function createDatabase($domain='', $db_name='', $db_password='')
 		);
 
 		// URL của API DirectAdmin
-		$url = 'http://'.$vst_hostname.':2222/CMD_API_DATABASES';
+		$url = 'https://'.$vst_hostname.':'.$vst_port.'/CMD_API_DATABASES';
 
 		// Khởi tạo yêu cầu cURL
 		$ch = curl_init($url);
@@ -208,6 +214,7 @@ function createDatabase($domain='', $db_name='', $db_password='')
 function deleteDatabase($db_name='')
 {
 	global $vst_hostname;
+	global $vst_port;
 	global $ftpUser;
 	global $ftpPass;
 
@@ -223,7 +230,7 @@ function deleteDatabase($db_name='')
 		);
 
 		// URL của API DirectAdmin
-		$url = 'http://'.$vst_hostname.':2222/CMD_API_DATABASES';
+		$url = 'https://'.$vst_hostname.':'.$vst_port.'/CMD_API_DATABASES';
 
 		// Khởi tạo yêu cầu cURL
 		$ch = curl_init($url);
@@ -252,13 +259,33 @@ function deleteDatabase($db_name='')
 
 function downloadCode($domain)
 {
-	unlink(__DIR__.'/../../../../'.$domain.'/public_html/index.html');
-	unlink(__DIR__.'/../../../../'.$domain.'/public_html/400.shtml');
-	unlink(__DIR__.'/../../../../'.$domain.'/public_html/401.shtml');
-	unlink(__DIR__.'/../../../../'.$domain.'/public_html/403.shtml');
-	unlink(__DIR__.'/../../../../'.$domain.'/public_html/404.shtml');
-	unlink(__DIR__.'/../../../../'.$domain.'/public_html/500.shtml');
-	unlink(__DIR__.'/../../../../'.$domain.'/public_html/logo.png');
+	if(file_exists(__DIR__.'/../../../../'.$domain.'/public_html/index.html')){
+		unlink(__DIR__.'/../../../../'.$domain.'/public_html/index.html');
+	}
+
+	if(file_exists(__DIR__.'/../../../../'.$domain.'/public_html/400.shtml')){
+		unlink(__DIR__.'/../../../../'.$domain.'/public_html/400.shtml');
+	}
+
+	if(file_exists(__DIR__.'/../../../../'.$domain.'/public_html/401.shtml')){
+		unlink(__DIR__.'/../../../../'.$domain.'/public_html/401.shtml');
+	}
+
+	if(file_exists(__DIR__.'/../../../../'.$domain.'/public_html/403.shtml')){
+		unlink(__DIR__.'/../../../../'.$domain.'/public_html/403.shtml');
+	}
+
+	if(file_exists(__DIR__.'/../../../../'.$domain.'/public_html/404.shtml')){
+		unlink(__DIR__.'/../../../../'.$domain.'/public_html/404.shtml');
+	}
+
+	if(file_exists(__DIR__.'/../../../../'.$domain.'/public_html/500.shtml')){
+		unlink(__DIR__.'/../../../../'.$domain.'/public_html/500.shtml');
+	}
+
+	if(file_exists(__DIR__.'/../../../../'.$domain.'/public_html/logo.png')){
+		unlink(__DIR__.'/../../../../'.$domain.'/public_html/logo.png');
+	}
 
 	// copy file zip
 	$source = __DIR__.'/code/data_crm_code.zip'; // Đường dẫn tới file ZIP nguồn

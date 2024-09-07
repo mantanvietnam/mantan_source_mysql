@@ -65,6 +65,7 @@ function createOrderProductAPI($input)
                 $data->total = (int) @$dataSend['total']; // tổng tiền sau giảm giá
                 $data->discount = '';
 
+                $pay = [];
                 if(!empty($dataSend['codeDiscount'])){
                     $discount = array( 'code1' => $dataSend['codeDiscount']);
                     $data->discount = json_encode($discount);
