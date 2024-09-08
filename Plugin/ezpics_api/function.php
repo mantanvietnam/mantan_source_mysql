@@ -50,6 +50,7 @@ $recommenders = 5;
 $price_min_create_warehouses = 300000;
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
+$projectId = 'ezpics-91e75';
 
 function createToken($length=30)
 {
@@ -648,9 +649,11 @@ function listBank()
             ];
 }
 
+/*
 function sendNotification($data,$target)
 {
     global $keyFirebase;
+
     $url = 'https://fcm.googleapis.com/fcm/send';
 
     $fields = array();
@@ -713,6 +716,129 @@ function sendNotification($data,$target)
     
     return $result;
 }
+*/
+
+// Hàm chia nhỏ mảng thành các nhóm 100 token
+function splitArrayIntoChunks($array=[], $chunkSize=100) {
+    $chunks = [];
+    for ($i = 0; $i < count($array); $i += $chunkSize) {
+        $chunks[] = array_slice($array, $i, $chunkSize);
+    }
+    return $chunks;
+}
+
+function getTokenFirebaseV1()
+{
+    require __DIR__.'/library/google-auth-library-php/vendor/autoload.php';
+
+    $linkFileJson = __DIR__.'/library/ezpics-91e75-firebase-adminsdk-gjyts-e0c16579ba.json';
+
+    // Đường dẫn tới file JSON bạn đã tải về từ Firebase
+    putenv('GOOGLE_APPLICATION_CREDENTIALS='.$linkFileJson);
+
+    // Tạo một handler cho Guzzle
+    $handler = HandlerStack::create();
+
+    // Tạo client Guzzle với handler
+    $client = new Client(['handler' => $handler]);
+
+    // Sử dụng ServiceAccountCredentials với HTTP handler đúng
+    $scopes = ['https://www.googleapis.com/auth/firebase.messaging'];
+    $creds = new ServiceAccountCredentials($scopes, $linkFileJson);
+
+    // Lấy Access Token với HTTP handler là callable hợp lệ
+    $authToken = $creds->fetchAuthToken(function ($request) use ($client) {
+        try {
+            // Trả về đối tượng phản hồi (ResponseInterface) thay vì mảng đã giải mã
+            return $client->send($request);
+        } catch (RequestException $e) {
+            // Xử lý lỗi nếu có
+            return null;
+        }
+    });
+
+    return $authToken['access_token'];
+}
+
+function sendNotification($data=[], $deviceTokens)
+{
+    /*
+    $data = [
+                'title'=>'Bạn được cộng tiền hoa hồng giới thiệu',
+                'time'=>date('H:i d/m/Y'),
+                'content'=>'Trần Mạnh ơi. Bạn được cộng 100.000 VND do thành viên Kim Oanh đã nạp tiền. Bấm vào đây để kiểm tra ngay nhé.',
+                'action'=>'addMoneySuccess',
+                'image'=>'',
+            ];
+    */
+
+
+    global $keyFirebase;
+    global $projectId;
+
+    $tokenFirebase = getTokenFirebaseV1(); // Bearer token
+    $number_error = 0;
+    
+    if(!empty($tokenFirebase)){
+        // Chia danh sách token thành các nhóm 100
+        if(is_string($deviceTokens)){
+            $deviceTokens = [$deviceTokens];
+        }
+
+        $chunks = splitArrayIntoChunks($deviceTokens, 100);
+        
+
+        $headers = [
+            'Authorization: Bearer ' . $tokenFirebase,
+            'Content-Type: application/json'
+        ];
+
+        $url = 'https://fcm.googleapis.com/v1/projects/' . $projectId . '/messages:send';
+
+        foreach ($chunks as $chunk) {
+            // Tạo thông báo cho mỗi nhóm 100 thiết bị
+            $messages = [];
+            foreach ($chunk as $token) {
+                $messages[] = [
+                    "message" => [
+                        "token" => $token,
+                        "notification" => [
+                                            'title' => $data['title'],
+                                            'body' => $data['content'],
+                                            //'sound' => "default",
+                                        ],
+                        "data" => $data,
+                    ]
+                ];
+            }
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+            // Gửi từng tin nhắn cho nhóm thiết bị hiện tại
+            foreach ($messages as $message) {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($message));
+                $result = curl_exec($ch);
+
+                debug($message);
+                debug($result);die;
+                // Xử lý kết quả
+                if ($result === FALSE) {
+                    $number_error ++;
+                }
+            }
+
+            curl_close($ch);
+        }
+    }
+
+    return $number_error;
+}
+
 
 function getLinearposition()
 {
