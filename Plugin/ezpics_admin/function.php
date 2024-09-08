@@ -474,9 +474,10 @@ function sendNotification($data=[], $deviceTokens)
             foreach ($messages as $message) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($message));
                 $result = curl_exec($ch);
-
+                /*
                 debug($message);
                 debug($result);die;
+                */
                 // Xử lý kết quả
                 if ($result === FALSE) {
                     $number_error ++;

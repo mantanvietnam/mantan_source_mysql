@@ -1,4 +1,11 @@
 <?php 
+use Google\Auth\Credentials\ServiceAccountCredentials;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\RequestException;
+
 global $price_remove_background;
 global $price_create_content;
 global $name_bank;
@@ -824,8 +831,6 @@ function sendNotification($data=[], $deviceTokens)
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($message));
                 $result = curl_exec($ch);
 
-                debug($message);
-                debug($result);die;
                 // Xử lý kết quả
                 if ($result === FALSE) {
                     $number_error ++;
