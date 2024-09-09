@@ -1,4 +1,10 @@
 <?php
+use Google\Auth\Credentials\ServiceAccountCredentials;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\RequestException;
 
 $menus = array();
 $menus[0]['title'] = 'Exc-go';
@@ -101,8 +107,10 @@ $menus[0]['sub'][15] = array('title' => 'Phần thưởng',
 addMenuAdminMantan($menus);
 
 global $keyFirebase;
- $keyFirebase = 'AAAAo-cvWGs:APA91bGtlvHuQ-Dj2bW6KdWNfWkp3fmYZDLv13HfEzevZJ-rSWNs9Ut0wCy6iGF4DKvqNTleRdFYFg4Xx1ry_2x5uQcCOJ8phOxKOVZIDZ1KIJ3ZMafVkGcSELTUEPAd6taLHk27dbBw';
+global $projectId;
 
+$keyFirebase = 'AAAAo-cvWGs:APA91bGtlvHuQ-Dj2bW6KdWNfWkp3fmYZDLv13HfEzevZJ-rSWNs9Ut0wCy6iGF4DKvqNTleRdFYFg4Xx1ry_2x5uQcCOJ8phOxKOVZIDZ1KIJ3ZMafVkGcSELTUEPAd6taLHk27dbBw';
+$projectId = 'exc-go';
 
 global $typeCar;
 
@@ -994,70 +1002,131 @@ function listBank(): array
     ];
 }
 
-function sendNotification($data,$target)
-{
-    global $keyFirebase;
-    $url = 'https://fcm.googleapis.com/fcm/send';
-
-    $fields = array();
+// Hàm chia nhỏ mảng thành các nhóm 100 token
+function splitArrayIntoChunks($array=[], $chunkSize=100) {
+    $chunks = [];
     
-    $fields['data'] = $data;
-    $fields['priority'] = 'high';
-    $fields['content_available'] = true;
-
-    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
-    
-    if(is_array($target)){
-        $number_send = count($target)-1;
-
-        if($number_send < 1000){
-            $fields['registration_ids'] = $target;
+    if(is_array($array)){
+        if(count($array)>=$chunkSize){
+            for ($i = 0; $i < count($array); $i += $chunkSize) {
+                $chunks[] = array_slice($array, $i, $chunkSize);
+            }
         }else{
-            $start_count = 0;
-            $end_count = 990;
-
-            do{
-                $mini_target = [];
-
-                for($i = $start_count; $i <= $end_count; $i++){
-                    $mini_target[] = $target[$i];
-                }
-
-                sendNotification($data,$mini_target);
-
-                $start_count = $end_count+1;
-                $end_count = $start_count + 990;
-
-                if($start_count < $number_send && $end_count > $number_send){
-                    $end_count = $number_send;
-                }
-            }while ($end_count<=$number_send);
+            $chunks[] = $array;
         }
-        
-    }else{
-        $fields['to'] = $target;
     }
 
-    $headers = array(
-        'Content-Type:application/json',
-        'Authorization:key='.$keyFirebase
-    );
+    return $chunks;
+}
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-    $result = curl_exec($ch);
-    if ($result === FALSE) {
+function getTokenFirebaseV1()
+{
+    require __DIR__.'/library/google-auth-library-php/vendor/autoload.php';
 
-    }
-    curl_close($ch);
+    $linkFileJson = __DIR__.'/library/exc-go-firebase-adminsdk-7k0ab-7956b0d38a.json';
+
+    // Đường dẫn tới file JSON bạn đã tải về từ Firebase
+    putenv('GOOGLE_APPLICATION_CREDENTIALS='.$linkFileJson);
+
+    // Tạo một handler cho Guzzle
+    $handler = HandlerStack::create();
+
+    // Tạo client Guzzle với handler
+    $client = new Client(['handler' => $handler]);
+
+    // Sử dụng ServiceAccountCredentials với HTTP handler đúng
+    $scopes = ['https://www.googleapis.com/auth/firebase.messaging'];
+    $creds = new ServiceAccountCredentials($scopes, $linkFileJson);
+
+    // Lấy Access Token với HTTP handler là callable hợp lệ
+    $authToken = $creds->fetchAuthToken(function ($request) use ($client) {
+        try {
+            // Trả về đối tượng phản hồi (ResponseInterface) thay vì mảng đã giải mã
+            return $client->send($request);
+        } catch (RequestException $e) {
+            // Xử lý lỗi nếu có
+            return null;
+        }
+    });
+
+    return $authToken['access_token'];
+}
+
+function sendNotification($data=[], $deviceTokens)
+{
+    /*
+    $data = [
+                'title'=>'Bạn được cộng tiền hoa hồng giới thiệu',
+                'time'=>date('H:i d/m/Y'),
+                'content'=>'Trần Mạnh ơi. Bạn được cộng 100.000 VND do thành viên Kim Oanh đã nạp tiền. Bấm vào đây để kiểm tra ngay nhé.',
+                'action'=>'addMoneySuccess',
+                'image'=>'',
+            ];
+    */
+
+
+    global $keyFirebase;
+    global $projectId;
+
+    $tokenFirebase = getTokenFirebaseV1(); // Bearer token
+    $number_error = 0;
     
-    return $result;
+    if(!empty($tokenFirebase)){
+        // Chia danh sách token thành các nhóm 100
+        if(is_string($deviceTokens)){
+            $deviceTokens = [$deviceTokens];
+        }
+
+        $chunks = splitArrayIntoChunks($deviceTokens, 100);
+        
+
+        $headers = [
+            'Authorization: Bearer ' . $tokenFirebase,
+            'Content-Type: application/json'
+        ];
+
+        $url = 'https://fcm.googleapis.com/v1/projects/' . $projectId . '/messages:send';
+
+        foreach ($chunks as $chunk) {
+            // Tạo thông báo cho mỗi nhóm 100 thiết bị
+            $messages = [];
+            foreach ($chunk as $token) {
+                $messages[] = [
+                    "message" => [
+                        "token" => $token,
+                        "notification" => [
+                                            'title' => $data['title'],
+                                            'body' => $data['content'],
+                                            //'sound' => "default",
+                                        ],
+                        "data" => $data,
+                    ]
+                ];
+            }
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+            // Gửi từng tin nhắn cho nhóm thiết bị hiện tại
+            foreach ($messages as $message) {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($message));
+                $result = curl_exec($ch);
+
+                // Xử lý kết quả
+                if ($result === FALSE) {
+                    $number_error ++;
+                }
+            }
+
+            curl_close($ch);
+        }
+    }
+
+    return $number_error;
 }
 
 function getListCity(): array
