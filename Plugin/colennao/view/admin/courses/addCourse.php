@@ -22,24 +22,6 @@
                     <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
                   </div>
 
-                  <!-- <div class="mb-3">
-                    <label class="form-label">Danh mục</label>
-                    <div class="input-group input-group-merge">
-                      <select class="form-select" name="id_category" id="id_category">
-                        <option value="0">Chọn danh mục</option>
-                        <?php 
-                          foreach ($listCategory as $key => $item) {
-                            if(empty($data->id_category) || $data->id_category!=$item->id){
-                              echo '<option value="'.$item->id.'">'.$item->name.'</option>';
-                            }else{
-                              echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
-                            }
-                          }
-                        ?>
-                      </select>
-                    </div>
-                  </div> -->
-
                   <div class="mb-3">
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">
@@ -54,7 +36,10 @@
                     <label class="form-label">Mã video Youtube</label>
                     <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" />
                   </div>
-
+                  <div class="mb-3">
+                    <label class="form-label">Giá</label>
+                    <input  type="number" class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price;?>" />
+                  </div>
                   <!-- <div class="mb-3">
                     <label class="form-label">Hiển thị</label>
                     <div class="input-group input-group-merge">
@@ -76,7 +61,7 @@
                     <label class="form-label">Mô tả ngắn</label>
                     <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                   </div>
-
+                
                   <div class="mb-3">
                     <label class="form-label">Số lượt xem</label>
                     <input disabled type="number" class="form-control phone-mask" name="view" id="view" value="<?php echo (int) @$data->view;?>" />

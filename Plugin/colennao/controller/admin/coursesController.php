@@ -94,6 +94,7 @@ function addCourse($input)
             $data->status = $dataSend['status'];
             $data->content = $dataSend['content'];
             // $data->public = $dataSend['public'];
+            $data->price = $dataSend['price'];
             // tạo slug
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;

@@ -22,13 +22,13 @@
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Thời gian bắt đầu</label>
-                    <input type="datetime-local" class="form-control" name="time_start" id="time_start" value="<?php echo date('Y-m-d\TH:i', @$data->time_start); ?>" />
-                </div>
-                <div class="mb-3">
                     <label class="form-label">Thời gian kết thúc</label>
-                    <input type="datetime-local" class="form-control" name="time_end" id="time_end" value="<?php echo date('Y-m-d\TH:i', @$data->time_end); ?>" />
-                </div>
+                    <input type="datetime-local" class="form-control" name="time_start" id="time_start" value="<?php echo isset($data->time_start) ? date('Y-m-d\TH:i', $data->time_start) : ''; ?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Thời gian kết thúc</label>
+                    <input type="datetime-local" class="form-control" name="time_end" id="time_end" value="<?php echo isset($data->time_end) ? date('Y-m-d\TH:i', $data->time_end) : ''; ?>" />
+                  </div>
                   <div class="mb-3">
                     <label class="form-label">complete</label>
                     <input type="text" class="form-control phone-mask" name="complete" id="complete" value="<?php echo @$data->complete;?>" />
@@ -44,10 +44,25 @@
                     <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                   </div>
 
-                  <div class="mb-3">
-                    <label class="form-label">method</label>
+                  <!-- <div class="mb-3">
+                    <label class="form-label">phương pháp</label>
                     <input  type="text" class="form-control phone-mask" name="method" id="method" value="<?php echo @$data->method;?>" />
+                  </div> -->
+
+                  <div class="mb-3 form-group col-sm-6">
+                    <i>Phương pháp</i>
+                    <select required name="method" id="method" class="form-control">
+                        <option value="">Chọn phương pháp</option>
+                        <?php if (!empty($listlosingweight)): ?>
+                            <?php foreach ($listlosingweight as $key => $value): ?>
+                                <option value="<?php echo $value->id; ?>" <?php echo ($data->method == $value->id) ? 'selected' : ''; ?>>
+                                    <?php echo $value->name; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
                   </div>
+
                 </div>
               </div>
 

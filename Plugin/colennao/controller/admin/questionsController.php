@@ -77,6 +77,7 @@ function addQuestion($input)
 	        $data->option_c = trim($dataSend['option_c']);
             $data->option_d = trim($dataSend['option_d']);
             $data->type = $dataSend['type'];
+            $data->is_checked = $dataSend['is_checked'];
             // $data->option_true = $dataSend['option_true'];
             $data->id_test = $dataSend['id_test'];
 	        $data->status = $dataSend['status'];

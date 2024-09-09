@@ -10,7 +10,7 @@
           <tr class="">
             <th>ID</th>
             <th>Hình minh họa</th>
-            <th>Chủ đề</th>
+            <th>Giá</th>
             <th>Tên khóa học</th>
             <th>Số bài học</th>
             <th>Trạng thái</th>
@@ -25,7 +25,7 @@
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td><img src="'.$item->image.'" width="100" /></td>
-                        <td>'.$item->name_category.'</td>
+                        <td>'.$item->price.'</td>
                         <td>'.$item->title.'</td>
                         <td><a href="/plugins/admin/colennao-view-admin-lesson-listLesson/?id_course='.$item->id.'">'.number_format($item->number_lesson).' bài học</a></td>
                         <td>'.$item->status.'</td>

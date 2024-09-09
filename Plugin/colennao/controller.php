@@ -7,10 +7,11 @@ include_once('controller/admin/lessonsController.php');
 include_once('controller/admin/questionsController.php'); 
 include_once('controller/admin/testsController.php'); 
 include_once('controller/admin/fastingController.php'); 
+include_once('controller/admin/categoryController.php');
 // Api .php
 include_once('controller/api/usersController.php'); // Tài xế
 include_once('controller/api/coursesController.php');
-
+include_once('controller/api/fastingController.php');
 
 
 

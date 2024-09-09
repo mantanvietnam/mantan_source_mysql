@@ -34,6 +34,19 @@ $menus[0]['sub'][5]= array(	'title'=>'Giảm cân',
                             'classIcon'=>'bx bxs-wink-tongue',
                             'permission'=>'listfastingadmin'
                     );
+$menus[0]['sub'][10]= array('title'=>'Cài đặt',
+        'url'=>'/',
+        'classIcon'=>'bx bx-cog',
+        'permission'=>'settings',
+        'sub'=> array(  
+                        array(	'title'=>'Phương pháp',
+                                'url'=>'/plugins/admin/colennao-view-admin-category-listCategorylosingweight',
+                                'classIcon'=>'bx bxs-data',
+                                'permission'=>'listCategorylosingweight'
+                                ),
+        )
+
+    );
 
 addMenuAdminMantan($menus);
 function createPaginationMetaData($totalItem, $itemPerPage, $currentPage): array
@@ -191,6 +204,17 @@ function sendEmailCodeForgotPassword($email = '', $fullName = '', $code = '')
         sendEmail($to, $cc, $bcc, $subject, $content);
     }
 }
+function getNameFromIdlosingweight($id) {
+    global $controller;
+    $modelCategories = $controller->loadModel('Categories');
+	$conditions = array('type' => 'category_losingweight');
+    $data = $modelCategories->find()->where(['id' => (int)$id],$conditions)->first();
 
+    if ($data) {
+        return $data->name;
+    }
+    
+    return null; 
+}
 
 ?>

@@ -50,12 +50,18 @@
                           <div class="row">
                             <div class="col-md-12">
                               <div class="mb-3">
+                                <label class="form-label">Câu hỏi nhiều đáp án</label>
+                                <input type="hidden" name="is_checked" value="0">
+                                <input type="checkbox" name="is_checked" value="1" <?php echo (@$data->is_checked == 1) ? 'checked' : ''; ?>>
+                              </div>
+                              <div class="mb-3">
                                 <label class="form-label">Câu hỏi (*)</label>
                                 <?php showEditorInput('question', 'question', @$data->question);?>
                               </div>
                             </div>
                           </div>
                         </div>
+                       
                         <div class="tab-pane fade" id="navs-top-answer1" role="tabpanel">
                           <div class="row">
                             <div class="col-md-12">

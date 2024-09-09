@@ -36,6 +36,7 @@
           <tr class="">
             <th>ID</th>
             <th>Tên</th>
+            <th>Phương pháp</th>
             <th>Thời gian bắt đầu</th>
             <th>Thời gian kết thúc</th>
             <th>sửa</th>
@@ -48,10 +49,11 @@
                     <td><?php echo $item->id; ?></td>
                     <td>
                         <a target="_blank" href="/product/<?php echo $item->slug; ?>.html"><?php echo $item->name; ?></a>
-                        <br/><br/>Phương pháp <?php echo $item->method; ?>
+                        
                     </td>
-                    <td>Thời gian bắt đầu: <?php echo date('H:i:s',$item->time_start); ?></td>
-                    <td>thời gian kết thúc: <?php echo date('H:i:s',$item->time_end); ?></td>
+                    <td> <?=$losingweightname = getNameFromIdlosingweight($item->method);?></td>
+                    <td>Thời gian bắt đầu: <?php echo date('d-m-Y H:i',$item->time_start); ?></td>
+                    <td>thời gian kết thúc: <?php echo date('d-m-Y H:i',$item->time_end); ?></td>
                     <td align="center">
                         <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-fasting-addtypefasting/?id=<?php echo urlencode($item->id); ?>">
                             <i class="bx bx-edit-alt me-1"></i>

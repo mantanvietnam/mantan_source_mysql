@@ -72,6 +72,8 @@ function addtypefasting($input){
     $metaTitleMantan = 'Thông tin ke hoach giam can';
 	$modelfasting = $controller->loadModel('fasting');
 	$mess= '';
+    $conditions = array('type' => 'category_losingweight');
+    $listlosingweight = $modelCategories->find()->where($conditions)->all()->toList();
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelfasting->get( (int) $_GET['id']);
@@ -86,8 +88,8 @@ function addtypefasting($input){
             
             $data->name = $dataSend['name'];
             $data->description= $dataSend['description'];
-            $data->time_end = intval($dataSend['time_end']);
-            $data->time_start= intval($dataSend['time_start']);
+            $data->time_end = (new DateTime($dataSend['time_end']))->getTimestamp();
+            $data->time_start = (new DateTime($dataSend['time_start']))->getTimestamp();
             $data->image = $dataSend['image'];
             $data->method = $dataSend['method'];
             $data->complete = $dataSend['complete'];
@@ -118,7 +120,7 @@ function addtypefasting($input){
 	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin/p>';
 	    }
     }
-
+    setVariable('listlosingweight', $listlosingweight);
     setVariable('data', $data);
     setVariable('mess', $mess);
 }
