@@ -49,12 +49,12 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
     );
 $menus[0]['sub'][6]= array( 'title'=>'Bảng giá ',
                             'url'=>'/plugins/admin/colennao-view-admin-pricelist-listPriceList',
-                            'classIcon'=>'bx bxs-money',
+                            'classIcon'=>'bx bx-money',
                             'permission'=>'listPriceList'
                     );
 $menus[0]['sub'][8]= array( 'title'=>'Thử thách  ',
-                            'url'=>'/plugins/admin/colennao-view-admin-challenge-s',
-                            'classIcon'=>'bx bxs-money',
+                            'url'=>'/plugins/admin/colennao-view-admin-challenge-listChallenge',
+                            'classIcon'=>'bx bxs-bolt',
                             'permission'=>'listChallenge'
                     );
 

@@ -132,17 +132,27 @@ $sqlInstallDatabase .="CREATE TABLE `challenges` (
 `price_old` INT NULL DEFAULT NULL , 
 `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`created_at` INT(11) NULL DEFAULT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `feedback_challenges` ( 
 `id` INT NOT NULL AUTO_INCREMENT , 
-`id_challenges` INT NOT NULL , 
+`id_challenge` INT NOT NULL , 
 `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `weight` INT NULL DEFAULT NULL , 
 `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `feedback` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `result_challenges` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`id_challenge` INT NOT NULL , 
+PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
 
@@ -154,6 +164,8 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `courses`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `historytests`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `fasting`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `challenges`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `feedback_challenges`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `result_challenges`;';
 
 
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
@@ -196,10 +208,16 @@ $sqlUpdateDatabase['users']['id_affsource'] = "ALTER TABLE `users` ADD `id_affso
  $sqlUpdateDatabase['challenges']['price_old'] = "ALTER TABLE `challenges` ADD `price_old` INT NULL DEFAULT NULL;";
  $sqlUpdateDatabase['challenges']['image'] = "ALTER TABLE `challenges` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['challenges']['description'] = "ALTER TABLE `challenges` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+ $sqlUpdateDatabase['challenges']['created_at'] = "ALTER TABLE `challenges` ADD `created_at` INT(11) NULL DEFAULT NULL;";
 
- $sqlUpdateDatabase['feedback_challenges']['id_challenges'] = "ALTER TABLE `feedback_challenges` ADD `id_challenges` INT NOT NULL ;";
+ $sqlUpdateDatabase['feedback_challenges']['id_challenge'] = "ALTER TABLE `feedback_challenges` ADD `id_challenge` INT NOT NULL ;";
  $sqlUpdateDatabase['feedback_challenges']['full_name'] = "ALTER TABLE `feedback_challenges` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
  $sqlUpdateDatabase['feedback_challenges']['weight'] = "ALTER TABLE `feedback_challenges` ADD `weight` INT NULL DEFAULT NULL ;";
  $sqlUpdateDatabase['feedback_challenges']['image'] = "ALTER TABLE `feedback_challenges` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
  $sqlUpdateDatabase['feedback_challenges']['feedback'] = "ALTER TABLE `feedback_challenges` ADD `feedback` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+ $sqlUpdateDatabase['result_challenges']['title'] = "ALTER TABLE `result_challenges` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+ $sqlUpdateDatabase['result_challenges']['image'] = "ALTER TABLE `result_challenges` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+ $sqlUpdateDatabase['result_challenges']['description'] = "ALTER TABLE `result_challenges` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+ $sqlUpdateDatabase['result_challenges']['id_challenge'] = "ALTER TABLE `result_challenges` ADD `id_challenge` INT NOT NULL;";
 ?>
