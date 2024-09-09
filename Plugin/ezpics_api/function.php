@@ -1342,6 +1342,9 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
         'variableLabel' => $variableLabel,
         'typeShowTextVariable' => $typeShowTextVariable,
         'removeBackgroundAuto' => (int) $removeBackgroundAuto,
+        'lat_anh_doc' => 0,
+        'lock' => 0,
+        'lat_anh' => 0,
     ];
 
     if(isset($naturalWidth)){
