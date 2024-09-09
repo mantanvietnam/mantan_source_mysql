@@ -142,6 +142,7 @@
                               echo '<a class="dropdown-item" href="/settingSystem">Hệ thống</a>';
                             }
                 echo        '<a class="dropdown-item" href="/listRatingPoint">Hạng thành viên</a>
+                            <a class="dropdown-item" href="/listStaff">Nhân viên</a>
                             <a class="dropdown-item" href="/listTransactionAgencyHistorie">Hoa hồng đại lý giới thiệu</a>
                           </div>
                         </li>';

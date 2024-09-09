@@ -182,6 +182,10 @@
 	$routesPlugin['listHistorieCustomerGiftAgency']= 'hethongdaily/view/home/customer_gift/listHistorieCustomerGiftAgency.php';
 	
 
+	// nhân viên
+	$routesPlugin['listStaff']= 'hethongdaily/view/home/staff/listStaff.php';
+	$routesPlugin['addStaff']= 'hethongdaily/view/home/staff/addStaff.php';
+
 
 	// cài đặt đào tạo 
 	$routesPlugin['listCourseAgency']= 'hethongdaily/view/home/training/seting/course/listCourseAgency.php';

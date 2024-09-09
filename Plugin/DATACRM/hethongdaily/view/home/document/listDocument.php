@@ -280,6 +280,7 @@
         </div>
       </div>
     </div>
+    
   </div>
   <!--/ Responsive Table -->
 </div>

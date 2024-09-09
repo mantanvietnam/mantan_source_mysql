@@ -47,6 +47,16 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
         )
 
     );
+$menus[0]['sub'][6]= array( 'title'=>'Bảng giá ',
+                            'url'=>'/plugins/admin/colennao-view-admin-pricelist-listPriceList',
+                            'classIcon'=>'bx bxs-money',
+                            'permission'=>'listPriceList'
+                    );
+$menus[0]['sub'][8]= array( 'title'=>'Thử thách  ',
+                            'url'=>'/plugins/admin/colennao-view-admin-challenge-s',
+                            'classIcon'=>'bx bxs-money',
+                            'permission'=>'listChallenge'
+                    );
 
 addMenuAdminMantan($menus);
 function createPaginationMetaData($totalItem, $itemPerPage, $currentPage): array

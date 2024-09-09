@@ -343,6 +343,27 @@ $sqlUpdateDatabase .="CREATE TABLE `transaction_agency_histories` (
 PRIMARY KEY (`id`),
  ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `staffs` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+`avatar` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL , 
+`phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+`id_member` INT NOT NULL , 
+`email` VARCHAR(255) NULL DEFAULT NULL , 
+`password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+`status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'active' , 
+`created_at` INT NOT NULL , 
+`id_system` INT NULL DEFAULT NULL , 
+`otp` INT NULL DEFAULT NULL , 
+`address` INT NULL DEFAULT NULL , 
+`deadline` INT NULL DEFAULT NULL , 
+`verify` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`birthday` INT NULL DEFAULT NULL , 
+`token_device` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
@@ -367,6 +388,7 @@ $sqlDeleteDatabase .= "DROP TABLE point_customers; ";
 $sqlDeleteDatabase .= "DROP TABLE customer_gifts; ";
 $sqlUpdateDatabase .= "DROP TABLE customer_historie_gifts; ";
 $sqlUpdateDatabase .= "DROP TABLE transaction_agency_histories; ";
+$sqlUpdateDatabase .= "DROP TABLE staffs; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -639,3 +661,20 @@ $sqlUpdateDatabase['transaction_agency_histories']['money_back'] = "ALTER TABLE 
 $sqlUpdateDatabase['transaction_agency_histories']['create_at'] = "ALTER TABLE `transaction_agency_histories` ADD `create_at` INT NOT NULL ;";
 $sqlUpdateDatabase['transaction_agency_histories']['status'] = "ALTER TABLE `transaction_agency_histories` ADD `status` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new';";
 $sqlUpdateDatabase['transaction_agency_histories']['percent'] = "ALTER TABLE `transaction_agency_histories` ADD `percent` INT NULL DEFAULT '0';";
+
+$sqlUpdateDatabase['staffs']['name'] = "ALTER TABLE `staffs` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['staffs']['avatar'] = "ALTER TABLE `staffs` ADD `avatar` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staffs']['phone'] = "ALTER TABLE `staffs` ADD `phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['staffs']['id_member'] = "ALTER TABLE `staffs` ADD `id_member` INT NOT NULL;";
+$sqlUpdateDatabase['staffs']['email'] = "ALTER TABLE `staffs` ADD `email` VARCHAR(255)  NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staffs']['password'] = "ALTER TABLE `staffs` ADD `password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['staffs']['status'] = "ALTER TABLE `staffs` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'active';";
+$sqlUpdateDatabase['staffs']['created_at'] = "ALTER TABLE `staffs` ADD `created_at` INT NOT NULL;";
+$sqlUpdateDatabase['staffs']['id_system'] = "ALTER TABLE `staffs` ADD `id_system` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staffs']['otp'] = "ALTER TABLE `staffs` ADD `otp` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staffs']['address'] = "ALTER TABLE `staffs` ADD `address` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staffs']['deadline'] = "ALTER TABLE `staffs` ADD `deadline` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['staffs']['verify'] = "ALTER TABLE `staffs` ADD `verify` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staffs']['birthday'] = "ALTER TABLE `staffs` ADD `birthday` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staffs']['token_device'] = "ALTER TABLE `staffs` ADD `token_device` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staffs']['token'] = "ALTER TABLE `staffs` ADD `token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
