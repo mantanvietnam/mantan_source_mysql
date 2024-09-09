@@ -64,6 +64,7 @@ $menus[1]['sub'][]= array( 'title'=>'Đơn trong hệ thống',
 addMenuAdminMantan($menus);
 
 global $keyFirebase;
+global $projectId;
 global $displayInfo;
 
 $displayInfo = array(   1 =>'Giao diện 1',
@@ -797,6 +798,8 @@ function sendNotification($data=[], $deviceTokens)
                 // Xử lý kết quả
                 if ($result === FALSE) {
                     $number_error ++;
+                }else{
+                    //var_dump($result);
                 }
             }
 
