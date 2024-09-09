@@ -372,9 +372,17 @@ function sendNotification($data,$target)
 // Hàm chia nhỏ mảng thành các nhóm 100 token
 function splitArrayIntoChunks($array=[], $chunkSize=100) {
     $chunks = [];
-    for ($i = 0; $i < count($array); $i += $chunkSize) {
-        $chunks[] = array_slice($array, $i, $chunkSize);
+    
+    if(is_array($array)){
+        if(count($array)>=$chunkSize){
+            for ($i = 0; $i < count($array); $i += $chunkSize) {
+                $chunks[] = array_slice($array, $i, $chunkSize);
+            }
+        }else{
+            $chunks[] = $array;
+        }
     }
+
     return $chunks;
 }
 
