@@ -60,7 +60,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách khách hàng</h5>
+    <h5 class="card-header">Danh sách thử thánh </h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -71,8 +71,8 @@
               <th>Số ngày</th>
               <th>kết quả</th>
               <th>Feedback</th>
-              <th>Sửa</th> 
               <th>Trạng thái</th>
+              <th>Hàng động</th> 
         </tr>
         </thead>
         <tbody>
@@ -100,7 +100,7 @@
                   <td>' . $item->result.'  </td>
                   <td>' . $item->feedback.'  </td>
                  
-                 
+                 <td>'.$status.'</td>
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 
@@ -110,14 +110,12 @@
                  </a>
                  </p>
                  <p align="center">
-                 <a class="btn btn-primary" 
-                 href="/plugins/admin/colennao-view-admin-challenge-deleteChallenge/?id=' . $item->id . '"
-                 >
-                 <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                 <a class="btn btn-success" href="/plugins/admin/colennao-view-admin-challenge-deleteChallenge/?id=' . $item->id . '">
+                 <i class="bx bx-trash me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>
                  </td>
-                 <td>'.$status.'</td>
+                 
                  </tr>';
             }
         } else {

@@ -73,12 +73,16 @@ function addNotificationAdmin($input)
 							$modelNotification->save($notification);
 						}
 					}
+					$id_post = null;
+					if(!empty($dataPost)){
+						$id_post = "$dataPost->id";
+					}
 
 					$dataSendNotification= array(
 						'title' => $title,
 						'time' => date('H:i d/m/Y'),
 						'content' => $content,
-						'id_post' => @$dataPost->id,
+						'id_post' => $id_post,
 						'action' => 'adminSendNotification'
 					);
 

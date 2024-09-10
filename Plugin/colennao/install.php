@@ -163,6 +163,13 @@ $sqlInstallDatabase .="CREATE TABLE `result_challenges` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlUpdateDatabase .="CREATE TABLE `tip_challenges` ( 
+`id` INT NOT NULL AUTO_INCREMENT ,
+`tip` VARCHAR(255) NULL DEFAULT NULL ,
+`id_challenge` INT NOT NULL ,
+`day` INT NULL DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `tests`;';
@@ -174,6 +181,7 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `fasting`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `challenges`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `feedback_challenges`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `result_challenges`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `tip_challenges`;';
 
 
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
@@ -228,4 +236,9 @@ $sqlUpdateDatabase['users']['id_affsource'] = "ALTER TABLE `users` ADD `id_affso
  $sqlUpdateDatabase['result_challenges']['image'] = "ALTER TABLE `result_challenges` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['result_challenges']['description'] = "ALTER TABLE `result_challenges` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['result_challenges']['id_challenge'] = "ALTER TABLE `result_challenges` ADD `id_challenge` INT NOT NULL;";
+
+
+ $sqlUpdateDatabase['tip_challenges']['tip'] = "ALTER TABLE `tip_challenges` ADD  `tip` VARCHAR(255) NULL DEFAULT NULL ;";
+ $sqlUpdateDatabase['tip_challenges']['id_challenge'] = "ALTER TABLE `tip_challenges` ADD `id_challenge` INT NOT NULL ;";
+ $sqlUpdateDatabase['tip_challenges']['day'] = "ALTER TABLE `tip_challenges` ADD `day` INT NULL DEFAULT NULL;";
 ?>

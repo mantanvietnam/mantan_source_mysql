@@ -8,6 +8,7 @@ function listChallenge($input)
     $modelChallenge = $controller->loadModel('Challenges');
     $modelFeedbackChallenge = $controller->loadModel('FeedbackChallenges');
     $modelResultChallenges = $controller->loadModel('ResultChallenges');
+    $modelTipChallenges = $controller->loadModel('TipChallenges');
 
     $conditions = array();
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
@@ -59,6 +60,7 @@ function addChallenge($input){
     $modelChallenge = $controller->loadModel('Challenges');
     $modelFeedbackChallenge = $controller->loadModel('FeedbackChallenges');
     $modelResultChallenges = $controller->loadModel('ResultChallenges');
+    $modelTipChallenges = $controller->loadModel('TipChallenges');
         $mess= '';
         // lấy data edit
         if(!empty($_GET['id'])){
@@ -186,6 +188,26 @@ function addChallenge($input){
                         $conditions = ['id_challenge'=>$data->id];
                         $modelFeedbackChallenge->deleteAll($conditions);
                     }
+                    if(!empty($dataSend['tip'])){
+                        foreach ($dataSend['tip'] as $key => $tip) {
+                            if(!empty($tip)){
+                               if(!empty($dataSend['id_tip'][$key])){
+                                    $save = $modelTipChallenges->find()->where(['id'=>(int)$dataSend['id_tip'][$key], 'id_challenge'=>$data->id])->first();
+                                }else{
+                                    $save = $modelTipChallenges->newEmptyEntity();
+                                }
+
+                                $save->tip = @$tip;
+                                $save->id_challenge = $data->id;
+                                $save->day = (int)$dataSend['day_number'][$key];
+                                $modelTipChallenges->save($save);
+                            }
+                                
+                        }
+                    }else{
+                        $conditions = ['id_challenge'=>$data->id];
+                        $modelTipChallenges->deleteAll($conditions);
+                    }
                 
 
                 }
@@ -199,20 +221,49 @@ function addChallenge($input){
         if(!empty($data->id)){
             $listFeedback = $modelFeedbackChallenge->find()->where(['id_challenge'=>$data->id])->all()->toList();
             $listResult = $modelResultChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
+            $listTip = $modelTipChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
 
             setVariable('listFeedback', $listFeedback);
             setVariable('listResult', $listResult);
+            setVariable('listTip', $listTip);
         }
 
 
         setVariable('mess', $mess);
-        setVariable('data', $data);
-
-       
-       
+        setVariable('data', $data);       
     
 }
 
+
+function deleteChallenge(){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Thông tin thách thức';
+    
+    $modelChallenge = $controller->loadModel('Challenges');
+    $modelFeedbackChallenge = $controller->loadModel('FeedbackChallenges');
+    $modelResultChallenges = $controller->loadModel('ResultChallenges');
+
+
+    if(!empty($_GET['id'])){
+        $data = $modelChallenge->find()->where(['id'=>(int) $_GET['id']])->first();
+        if($data){
+            $conditions = ['id_challenge'=>$data->id];
+            $modelFeedbackChallenge->deleteAll($conditions);
+            $modelResultChallenges->deleteAll($conditions);
+
+            $modelChallenge->delete($data);
+        }
+    }
+    return $controller->redirect('/plugins/admin/colennao-view-admin-challenge-listChallenge');
+
+
+}
 
 
 ?>

@@ -423,7 +423,7 @@ function buyOrderPointApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'buyOrderPointSuccess'
             );
             sendNotification($dataSendNotification, $infoUserSell->device_token);
@@ -526,7 +526,7 @@ function sellOrderPointApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'buyOrderPointSuccess'
             );
             sendNotification($dataSendNotification, $infoUserBuy->device_token);
@@ -1113,7 +1113,7 @@ function buyOrderPointNewApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'sellOrderPointSuccess'
             );
             sendNotification($dataSendNotification, $infoUserSell->device_token);
@@ -1206,7 +1206,7 @@ function acceptSellPointNewApi($input){
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'buyOrderPointSuccess'
             );
             sendNotification($dataSendNotification, $infoUserBuy->device_token);
@@ -1352,7 +1352,7 @@ function sellOrderPointNewApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'buyOrderPointSuccess'
             );
             sendNotification($dataSendNotification, $infoUserBuy->device_token);
@@ -1430,7 +1430,7 @@ function cancelUserSellOrderSellPointNewApi($input): array
                     'title' => $title,
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
-                    'id_order' => $order->id,
+                    'id_order' => "$order->id",
                     'action' => 'cancelUserSellOrderSell'
                 );
                 sendNotification($dataSendNotification, $infoUserBuy->device_token);
@@ -1510,7 +1510,7 @@ function acceptUserbuyCancelOrdeSellPointNewApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'cancelSellOrderPointSuccess'
             );
             sendNotification($dataSendNotification, $infoUserSell->device_token);
@@ -1583,7 +1583,7 @@ function rejectUserbuyCancelOrderSellPointNewApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'cancelSellOrderPointReject'
             );
             sendNotification($dataSendNotification, $infoUserSell->device_token);
@@ -1654,7 +1654,7 @@ function cancelUserbuyOrderSellPointNewApi($input): array
                     'title' => $title,
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
-                    'id_order' => $order->id,
+                    'id_order' => "$order->id",
                     'action' => 'cancelUserbuyOrderSell'
                 );
                 sendNotification($dataSendNotification, $infoUserSell->device_token);
@@ -1728,7 +1728,7 @@ function acceptUserSellCancelOrderSellPointNewApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'cancelSellOrderPointSuccess'
             );
             sendNotification($dataSendNotification, $infoUserbuy->device_token);
@@ -1800,7 +1800,7 @@ function rejectUserSellCancelOrderSellPointNewApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'cancelSellOrderPointReject'
             );
             sendNotification($dataSendNotification, $infoUserBuy->device_token);
@@ -1884,7 +1884,7 @@ function cancelUserBuyOrderBuyPointNewApi($input): array
                     'title' => $title,
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
-                    'id_order' => $order->id,
+                    'id_order' => "$order->id",
                     'action' => 'cancelUserBuyOrderBuy'
                 );
                 sendNotification($dataSendNotification, $infoUserSell->device_token);
@@ -1963,7 +1963,7 @@ function acceptUserSellCancelOrdecBuyPointNewApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'cancelSellOrderPoint'
             );
             sendNotification($dataSendNotification, $infoUserBuy->device_token);
@@ -2036,7 +2036,7 @@ function rejectUserSellCancelOrderBuyPointNewApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'cancelSellOrderPoint'
             );
             sendNotification($dataSendNotification, $infoUserBuy->device_token);
@@ -2106,7 +2106,7 @@ function cancelUserSellOrderBuyPointNewApi($input): array
                     'title' => $title,
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
-                    'id_order' => $order->id,
+                    'id_order' => "$order->id",
                     'action' => 'cancelUserSellOrderBuy'
                 );
                 sendNotification($dataSendNotification, $infoUserBuy->device_token);
@@ -2183,7 +2183,7 @@ function acceptUserBuyCancelOrderBuyPointNewApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'cancelUserSellOrder'
             );
             sendNotification($dataSendNotification, $infoUserSell->device_token);
@@ -2255,7 +2255,7 @@ function rejectUserBuyCancelOrderBuyPointNewApi($input): array
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'cancelSellOrderPoint'
             );
             sendNotification($dataSendNotification, $infoUserSell->device_token);
@@ -2470,7 +2470,7 @@ function acceptBuyPointNewApi($input){
                 'title' => $title,
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
-                'id_order' => $order->id,
+                'id_order' => "$order->id",
                 'action' => 'buyOrderPointSuccess'
             );
             sendNotification($dataSendNotification, $infoUserSell->device_token);

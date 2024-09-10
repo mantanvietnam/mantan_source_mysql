@@ -145,7 +145,7 @@ function createBookingApi($input): array
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
                 'action' => 'newBookingCreated',
-                'booking_id' => $booking->id,
+                'booking_id' => "$booking->id",
             );
 
             $now = date('Y-m-d H:i:s');
@@ -589,9 +589,9 @@ function cancelReceiveBookingApi($input): array
                         'time' => date('H:i d/m/Y'),
                         'content' => $content,
                         'action' => 'cancelReceiveBookingSuccess',
-                        'user_id' => $currentUser->id,
-                        'booking_id' => $booking->id,
-                        'request_id' => $canceledBooking->id
+                        'user_id' => "$currentUser->id",
+                        'booking_id' => "$booking->id",
+                        'request_id' => "$canceledBooking->id"
                     );
                     sendNotification($dataSendNotification, $postedUser->device_token);
                 }
@@ -740,8 +740,8 @@ function acceptCanceledBookingApi($input): array
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'action' => 'cancelReceiveBookingSuccess',
-                    'booking_id' => $booking->id,
-                    'request_id' => $request->id
+                    'booking_id' => "$booking->id",
+                    'request_id' => "$request->id"
                 );
                 sendNotification($dataSendNotification, $cancelUser->device_token);
             }
@@ -812,7 +812,7 @@ function rejectCanceledBookingApi($input): array
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'action' => 'cancelReceiveBookingFailed',
-                    'booking_id' => $booking->id,
+                    'booking_id' => "$booking->id",
                 );
                 sendNotification($dataSendNotification, $cancelUser->device_token);
             }
@@ -924,7 +924,7 @@ function completeBookingApi($input): array
                         'time' => date('H:i d/m/Y'),
                         'content' => $content,
                         'action' => 'completeBookingSuccess',
-                        'booking_id' => $booking->id,
+                        'booking_id' => "$booking->id",
                     );
                     sendNotification($dataSendNotification, $postedUser->device_token);
                 }
@@ -1033,7 +1033,7 @@ function rejectCompleteBookingApi($input): array
                         'time' => date('H:i d/m/Y'),
                         'content' => $content,
                         'action' => 'completeBookingSuccess',
-                        'booking_id' => $booking->id,
+                        'booking_id' => "$booking->id",
                     );
                     sendNotification($dataSendNotification, $postedUser->device_token);
                 }
@@ -1151,7 +1151,7 @@ function acceptCompleteBookingApi($input): array
                         'time' => date('H:i d/m/Y'),
                         'content' => $content,
                         'action' => 'completeBookingSuccess',
-                        'booking_id' => $booking->id,
+                        'booking_id' => "$booking->id",
                     );
                     sendNotification($dataSendNotification, $receivedUser->device_token);
                 }
@@ -1232,7 +1232,7 @@ function confirmFinishedBookingApi($input): array
                         'time' => date('H:i d/m/Y'),
                         'content' => $content,
                         'action' => 'confirmBookingSuccess',
-                        'booking_id' => $booking->id,
+                        'booking_id' => "$booking->id",
                     );
                     sendNotification($dataSendNotification, $receivedUser->device_token);
                 }
@@ -1802,8 +1802,8 @@ function updateBookingApi($input): array
                             'time' => date('H:i d/m/Y'),
                             'content' => $content,
                             'action' => 'addMoneySuccess',
-                            'user_id' => $currentUser->id,
-                            'booking_id' => $booking->id,
+                            'user_id' => "$currentUser->id",
+                            'booking_id' => "$booking->id",
                         );
                         sendNotification($dataSendNotification, $currentUser->device_token);
                     }
@@ -1848,8 +1848,8 @@ function updateBookingApi($input): array
                             'time' => date('H:i d/m/Y'),
                             'content' => $content,
                             'action' => 'addMoneySuccess',
-                            'user_id' => $currentUser->id,
-                            'booking_id' => $booking->id,
+                            'user_id' => "$currentUser->id",
+                            'booking_id' => "$booking->id",
                         );
                         sendNotification($dataSendNotification, $currentUser->device_token);
                     }
@@ -1972,8 +1972,8 @@ function cancelBookingApi($input): array
                                     'time' => date('H:i d/m/Y'),
                                     'content' => $content,
                                     'action' => 'addMoneySuccess',
-                                    'user_id' => $currentUser->id,
-                                    'booking_id' => $booking->id,
+                                    'user_id' => "$currentUser->id",
+                                    'booking_id' => "$booking->id",
                                 );
                                 sendNotification($dataSendNotification, $currentUser->device_token);
                             }
@@ -2025,9 +2025,9 @@ function cancelBookingApi($input): array
                             'time' => date('H:i d/m/Y'),
                             'content' => $content,
                             'action' => 'cancelReceiveBookingSuccess',
-                            'user_id' => $currentUser->id,
-                            'booking_id' => $booking->id,
-                            'posted_id' => $canceledBooking->id
+                            'user_id' => "$currentUser->id",
+                            'booking_id' => "$booking->id",
+                            'posted_id' => "$canceledBooking->id"
                         );
                         sendNotification($dataSendNotification, $received->device_token);
                     }
@@ -2125,8 +2125,8 @@ function acceptCanceledBookingPostedApi($input): array
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'action' => 'addMoneySuccess',
-                    'user_id' => $currentUser->id,
-                    'booking_id' => $booking->id,
+                    'user_id' => "$currentUser->id",
+                    'booking_id' => "$booking->id",
                 );
                 sendNotification($dataSendNotification, $cancelUser->device_token);
             }
@@ -2168,8 +2168,8 @@ function acceptCanceledBookingPostedApi($input): array
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'action' => 'addMoneySuccess',
-                    'user_id' => $currentUser->id,
-                    'booking_id' => $booking->id,
+                    'user_id' => "$currentUser->id",
+                    'booking_id' => "$booking->id",
                 );
                 sendNotification($dataSendNotification, $currentUser->device_token);
             }
@@ -2288,7 +2288,7 @@ function rejectCanceledBookingPostedApi($input): array
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'action' => 'cancelReceiveBookingFailed',
-                    'booking_id' => $booking->id,
+                    'booking_id' => "$booking->id",
                 );
                 sendNotification($dataSendNotification, $cancelUser->device_token);
             }
@@ -2441,8 +2441,8 @@ function createBookingDealApi($input): array
                     'time' => date('H:i d/m/Y'),
                     'content' => $content,
                     'action' => 'createBookingDealSuccess',
-                    'user_id' => $currentUser->id,
-                    'booking_id' => $booking->id,
+                    'user_id' => "$currentUser->id",
+                    'booking_id' => "$booking->id",
                 );
                 sendNotification($dataSendNotification, $postedUser->device_token);
             }
@@ -2772,7 +2772,7 @@ function repostBookingApi($input): array
                 'time' => date('H:i d/m/Y'),
                 'content' => $content,
                 'action' => 'newBookingCreated',
-                'booking_id' => $booking->id,
+                'booking_id' => "$booking->id",
             );
 
             $now = date('Y-m-d H:i:s');

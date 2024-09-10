@@ -355,12 +355,13 @@ $sqlInstallDatabase .="CREATE TABLE `staffs` (
 `created_at` INT NOT NULL , 
 `id_system` INT NULL DEFAULT NULL , 
 `otp` INT NULL DEFAULT NULL , 
-`address` INT NULL DEFAULT NULL , 
+`address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL, 
 `deadline` INT NULL DEFAULT NULL , 
 `verify` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `birthday` INT NULL DEFAULT NULL , 
 `token_device` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -672,9 +673,10 @@ $sqlUpdateDatabase['staffs']['status'] = "ALTER TABLE `staffs` ADD `status` VARC
 $sqlUpdateDatabase['staffs']['created_at'] = "ALTER TABLE `staffs` ADD `created_at` INT NOT NULL;";
 $sqlUpdateDatabase['staffs']['id_system'] = "ALTER TABLE `staffs` ADD `id_system` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staffs']['otp'] = "ALTER TABLE `staffs` ADD `otp` INT NULL DEFAULT NULL;";
-$sqlUpdateDatabase['staffs']['address'] = "ALTER TABLE `staffs` ADD `address` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staffs']['address'] = "ALTER TABLE `staffs` ADD `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staffs']['deadline'] = "ALTER TABLE `staffs` ADD `deadline` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['staffs']['verify'] = "ALTER TABLE `staffs` ADD `verify` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staffs']['birthday'] = "ALTER TABLE `staffs` ADD `birthday` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staffs']['token_device'] = "ALTER TABLE `staffs` ADD `token_device` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staffs']['token'] = "ALTER TABLE `staffs` ADD `token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staffs']['description'] = "ALTER TABLE `staffs` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

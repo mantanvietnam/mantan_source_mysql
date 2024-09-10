@@ -33,7 +33,7 @@ function listStaff($input)
         }
 
         if(!empty($_GET['phone'])){
-            $conditions['name.phone'] = $_GET['phone'];
+            $conditions['phone'] = $_GET['phone'];
         }
 
         if(!empty($_GET['birthday_date'])){
@@ -122,6 +122,16 @@ function listStaff($input)
             $urlPage = $urlPage . '?page=';
         }
 
+        $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
+        setVariable('mess', $mess);
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
@@ -131,6 +141,143 @@ function listStaff($input)
         
         setVariable('listData', $listData);
        // / setVariable('listGroup', $listGroup);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function addStaff($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+
+    if(!empty($session->read('infoUser'))){
+        if($session->read('infoUser')->create_agency == 'lock'){
+            return $controller->redirect('/listStaff');
+        }
+
+        $metaTitleMantan = 'Thông tin nhân viên';
+        $modelStaff = $controller->loadModel('Staffs');
+
+        $mess= '';
+
+        $infoUser = $session->read('infoUser');
+
+        // lấy data edit
+        if(!empty($_GET['id'])){
+            $data = $modelStaff->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$infoUser->id])->first();
+
+            if(empty($data)){
+                return $controller->redirect('/listMember');
+            }
+        }else{
+            $data = $modelStaff->newEmptyEntity();
+            $data->created_at = time();
+        }
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
+                $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+                $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+                $conditions = ['phone'=>$dataSend['phone'],'id_member'=>$infoUser->id];
+                $checkPhone = $modelStaff->find()->where($conditions)->first();
+
+                if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
+                  
+
+                    if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                        if(!empty($data->id)){
+                            $fileName = 'avatar_staff_'.$data->id;
+                        }else{
+                            $fileName = 'avatar_staff_'.time().rand(0,1000000);
+                        }
+
+                        $avatar = uploadImage($infoUser->id, 'avatar', $fileName);
+                    }
+
+                    if(!empty($avatar['linkOnline'])){
+                        $data->avatar = $avatar['linkOnline'].'?time='.time();
+                    }else{
+                        if(empty($data->avatar)){
+                            if(!empty($system->image)){
+                                $data->avatar = $system->image;
+                            }
+
+                            if(empty($data->avatar)){
+                                $data->avatar = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+                            }
+                        }
+                    }
+                    
+                    $data->name = $dataSend['name'];
+                    $data->address = $dataSend['address'];
+                    $data->phone = $dataSend['phone'];
+                    $data->id_system = (int) $infoUser->id_system;
+                    $data->id_member = (int) $infoUser->id;
+                    $data->email = $dataSend['email'];
+                    if(!empty($dataSend['birthday'])){
+                        $birthday = explode('/', $dataSend['birthday']);
+                         $data->birthday  = mktime(0,0,0,$birthday[1],$birthday[0],$birthday[2]);
+                    }
+                    $data->status = $dataSend['status']; 
+                    $data->description = $dataSend['description']; 
+
+                    if(empty($_GET['id'])){
+                        if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
+                        $data->password = md5($dataSend['password']);
+
+                        $data->created_at = time();
+                        $data->deadline = $infoUser->deadline; 
+                         
+                    }else{
+                        if(!empty($dataSend['password'])){
+                            $data->password = md5($dataSend['password']);
+                        }
+                    }
+
+                    $modelStaff->save($data);
+                     return $controller->redirect('/listStaff?mess=saveSuccess');
+                }else{
+                    $mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
+                }
+            
+            }else{
+                $mess= '<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>';
+            }
+        }
+        
+        setVariable('data', $data);
+        setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteStaff($input){
+      global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+    if(!empty($session->read('infoUser'))){
+         $modelStaff = $controller->loadModel('Staffs');
+        if(!empty($_GET['id'])){
+            $data = $modelStaff->find()->where(['id_member'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id']])->first();
+            
+            if($data){
+                $modelStaff->delete($data);
+                 return $controller->redirect('/listStaff?mess=deleteSuccess');
+            }
+        }
+         return $controller->redirect('/listStaff?mess=deleteError');
     }else{
         return $controller->redirect('/login');
     }

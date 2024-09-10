@@ -35,23 +35,7 @@
             <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
           </div>
 
-          <!-- <div class="col-md-2">
-            <label class="form-label">Nhóm khách hàng</label>
-            <select name="id_group" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <?php 
-              if(!empty($listGroup)){
-                foreach ($listGroup as $key => $value) {
-                  if(empty($_GET['id_group']) || $_GET['id_group']!=$value->id){
-                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
-                  }else{
-                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
-                  }
-                }
-              }
-              ?>
-            </select>
-          </div> -->
+          
 
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
@@ -63,14 +47,13 @@
           </div>
                    
           <div class="col-md-2">
-            <!-- s<label class="form-label">&nbsp;</label> -->
+          <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
           
-          <div class="col-md-1">
-            <!-- s<label class="form-label">&nbsp;</label> -->
+         <!--  <div class="col-md-1">
             <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -80,6 +63,7 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách nhân viên - <span class="text-danger"><?php echo number_format(@$totalData);?> nhân viên</span></h5>
+    <?php echo @$mess;?>
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -87,12 +71,10 @@
             <tr class="">
               <th>ID</th>
               <th>Hình đại diện</th>
-              <th>Khách hàng</th>
-              <th>Nhóm khách hàng</th>
-              <th>Giới tính</th>
-              <th>Ngày sinh</th>
-              <th>Đơn hàng</th>
-              <th>Chăm sóc</th>
+              <th>tên nhân viên </th>
+              <th>số điện thoạt</th>
+              <th>đia chỉ</th>
+              <th>Email</th>
               <th>Sửa</th>
               <th>Xoá</th>
             </tr>
@@ -116,16 +98,11 @@
                 echo '<tr>
                 <td>'.$item->id.'</td>
                 <td><img class="img_avatar" src="'.$item->avatar.'" width="80" height="80" /></td>
-                <td>'.$infoStaff.'</td>
-                <td>'.date('d/m/Y',$item->birthday).'</td>
-                <td><a href="/orderCustomerAgency/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></td>
-
-                <td>
-                '.$history.'
-                <p class="text-center mt-3">
-                <a href="/addCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
-                </p>
-                </td>
+                <td>'.$item->name.'</td>
+                <td>'.$item->phone.'</td>
+                <td>'.$item->address.'</td>
+                <td>'.$item->email.'</td>
+               
 
                 <td width="5%" align="center">
                 <a class="dropdown-item" href="/addStaff/?id='.$item->id.'">
@@ -134,7 +111,7 @@
                 </td>
 
                 <td align="center">
-                <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/lockCustomerAgency/?id='.$item->id.'">
+                <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteStaff/?id='.$item->id.'">
                 <i class="bx bx-trash me-1"></i>
                 </a>
                 </td>
@@ -159,26 +136,7 @@
                   $status= '<span class="text-success">Kích hoạt</span>';
                 }
 
-                $sex= 'Nữ';
-                if($item->sex==1){ 
-                  $sex= 'Nam';
-                }
-
-                $birthday = '';
-                if(!empty($item->birthday_date) && !empty($item->birthday_month) && !empty($item->birthday_year)){
-                  $birthday = $item->birthday_date.'/'.$item->birthday_month.'/'.$item->birthday_year;
-                }
-
-                $history = '';
-                if(!empty($item->history)){
-                  $status_history = 'text-danger';
-
-                  if($item->history->status == 'done'){
-                    $status_history = 'text-success';
-                  }
-
-                  $history = '<span class="'.$status_history.'">'.date('H:i d/m/Y', $item->history->time_now).'</span>: '.$item->history->note_now;
-                }
+               
 
                 $infoStaff = $item->full_name.'<br/>'.$item->phone;
                 if(!empty($item->address)) $infoStaff .= '<br/>'.$item->address;
@@ -187,27 +145,15 @@
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
                         <center><img class="img_avatar" src="'.$item->avatar.'" style=" width:50%" /></center><br/>
-                        <p><strong> Khách hàng: </strong>: '.$item->full_name.' (ID: '.$item->id.')</p>
+                        <p><strong> Nhân viên: </strong>: '.$item->full_name.' (ID: '.$item->id.')</p>
                         <p><strong> Điện thoại: </strong>: '.$item->phone.'</p>
                         <p><strong> Địa chỉ: </strong>: '.$item->address.'</p>
-                        <p><strong> Nhóm: </strong>'.$item->groups.'</p>
-                        <p><strong> Ngày sinh: </strong><a href="/downloadMMTC/?id_customer='.$item->id.'" target="_blank">'.$birthday.'</a></p>
-
-                        <p><a href="/orderCustomerAgency/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></p>
-
-                        <p><strong>Chăm sóc: </strong>'.$history.'</p>
-                        
-                        <p class="text-center mt-3">
-                          <a title="Thêm chăm sóc" href="/addCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-primary"><i class="bx bx-plus-medical"></i></a> 
-                          <a title="Lịch sử chăm sóc" href="/listCustomerHistoriesAgency/?id_customer='.$item->id.'" class="btn btn-info"><i class="bx bx-list-ul" ></i></a>
-                        </p>
-
                         <p  class="text-center mt-3">
-                          <a title="Sửa" class="btn btn-success" href="/editCustomerAgency/?id='.$item->id.'">
+                          <a title="Sửa" class="btn btn-success" href="/addStaff/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a> 
 
-                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/lockCustomerAgency/?id='.$item->id.'">
+                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteStaff/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </p>
