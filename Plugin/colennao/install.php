@@ -47,7 +47,15 @@ $sqlInstallDatabase .="CREATE TABLE `tests` (
   `id_course` int(11) DEFAULT NULL,
   `point_min` float NOT NULL DEFAULT 10
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-
+	$sqlInstallDatabase .= 'CREATE TABLE `contacts`(
+		`id` INT(11) NOT NULL AUTO_INCREMENT,
+		`name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+		`email` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+		`phone_number` VARCHAR(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+		`object` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+		`message` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+		PRIMARY KEY(`id`)
+	) ENGINE = InnoDB;';
 $sqlInstallDatabase .="CREATE TABLE `questions` (
   `id` int(11) NOT NULL  AUTO_INCREMENT,
   `question` text CHARACTER SET utf8mb3 COLLATE utf8mb3_vietnamese_ci NOT NULL,

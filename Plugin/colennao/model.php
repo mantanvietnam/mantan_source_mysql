@@ -10,4 +10,5 @@ include('model/price_lists.php');
 include('model/challenges.php'); 
 include('model/feedback_challenges.php'); 
 include('model/result_challenges.php'); 
+include('model/contact.php');
 ?>
