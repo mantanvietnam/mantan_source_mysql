@@ -1,3 +1,4 @@
+// Hàm kiểm tra xem phần tử có nằm trong khung nhìn không
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     return (
@@ -12,32 +13,28 @@ function isInViewport(element) {
 document.addEventListener("scroll", function() {
     const countSection = document.getElementById("count-section");
 
-    // Kiểm tra nếu phần tử count-section đã xuất hiện trong viewport
+    // Kiểm tra nếu phần tử count-section đã xuất hiện trong khung nhìn
     if (isInViewport(countSection)) {
         // Lặp qua tất cả các phần tử .counter có class count-start và kích hoạt bộ đếm
         document.querySelectorAll(".counter_item.count-start").forEach((item) => {
             let count = 0;
             let targetNumber = parseInt(item.querySelector(".counter").dataset.number);
-            let duration = 3000; // Thời gian chạy bộ đếm trong mili giây (2 giây)
-            let increment = 6; // Số lượng giá trị tăng mỗi lần
+            let duration = 4000; // Thời gian chạy bộ đếm trong mili giây (3 giây)
+            let increment = 1; // Số lượng giá trị tăng mỗi lần
+
+            // Tính thời gian giữa các lần đếm
+            let interval = Math.ceil(duration / (targetNumber / increment));
 
             function CounterUp() {
                 count += increment;
                 item.querySelector(".counter").innerHTML = Math.min(count, targetNumber);
                 if (count >= targetNumber) {
-                    clearInterval(stop);
+                    clearInterval(stop); // Dừng đếm khi đạt tới giá trị mục tiêu
                 }
             }
 
-            let steps = Math.ceil(duration / (100 / item.querySelector(".counter").dataset.speed)); // Số lần lặp trong thời gian cho trước
-
-            let stop = setInterval(function() {
-                CounterUp();
-                steps--;
-                if (steps <= 0) {
-                    clearInterval(stop);
-                }
-            }, 100 / item.querySelector(".counter").dataset.speed);
+            // Tạo một khoảng thời gian cố định để tăng số đếm
+            let stop = setInterval(CounterUp, interval);
 
             // Loại bỏ class count-start để không kích hoạt lại bộ đếm khi cuộn lại
             item.classList.remove("count-start");

@@ -1047,12 +1047,12 @@ i {
 
 .counter_wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-start;
 }
 
 .counter_item {
-    max-width: 230px;
+    max-width: 300px;
     display: grid;
     align-items: center;
     justify-content: center;

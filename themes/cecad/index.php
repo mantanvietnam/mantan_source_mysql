@@ -43,6 +43,7 @@
                         <div class="counter_item count-start">
                             <div>
                                 <h1 class="counter" data-number="<?= @$settingThemes['countnumber1'];?>" data-speed="50"></h1>
+                                <h1>k</h1>
                                 <i class="fa-solid fa-plus"></i>
                             </div>
                             <p>
@@ -70,12 +71,13 @@
                         <div class="counter_item count-start">
                             <div>
                                 <h1 class="counter" data-number="<?= @$settingThemes['countnumber4'];?>" data-speed="100"></h1>
+                                <i class="fa-solid fa-plus"></i>
                             </div>
                             <p>
                                 <?= @$settingThemes['contentnumber4'];?>
                             </p>
                         </div>
-                        <div class="counter_item count-start">
+                        <div class="counter_item count-start" style="display:none;">
                             <div>
                                 <h1 class="counter" data-number="<?= @$settingThemes['countnumber5'];?>" data-speed="100"></h1>
                             </div>
