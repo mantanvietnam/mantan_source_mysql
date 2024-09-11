@@ -185,6 +185,7 @@
 	// nhân viên
 	$routesPlugin['listStaff']= 'hethongdaily/view/home/staff/listStaff.php';
 	$routesPlugin['addStaff']= 'hethongdaily/view/home/staff/addStaff.php';
+	$routesPlugin['timesheetStaff']= 'hethongdaily/view/home/staff/timesheetStaff.php';
 
 
 	// cài đặt đào tạo 

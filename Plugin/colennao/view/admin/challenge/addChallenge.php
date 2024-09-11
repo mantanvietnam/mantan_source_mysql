@@ -81,6 +81,21 @@
                               <label class="form-label">Giá bán cũ</label>
                               <input type="text" class="form-control phone-mask" name="price_old" id="price_old" value="<?php echo @$data->price_old;?>" />
                             </div>
+                            <div class="mb-3">
+                              <label class="form-label">Huấn Luyện viên (*)</label>
+                              <select class="form-select" name="id_coach" id="id_coach" >
+                                <option value="">Chọn huấn Luyện viên</option>
+                                <?php 
+                                  foreach ($coach as $key => $item) {
+                                    if(empty($data->id_coach) || $data->id_coach!=$item->id){
+                                      echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                                    }else{
+                                      echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                                    }
+                                  }
+                                ?>
+                              </select>
+                            </div>
                            
 
                             <div class="mb-3">

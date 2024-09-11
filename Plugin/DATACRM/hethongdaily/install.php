@@ -365,6 +365,16 @@ $sqlInstallDatabase .="CREATE TABLE `staffs` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `staff_timekeepers` ( 
+`id` INT NOT NULL AUTO_INCREMENT ,
+`day` INT NOT NULL ,
+`shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`month` INT NULL DEFAULT NULL , `year` INT NULL DEFAULT NULL ,
+`id_staff` INT NOT NULL ,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
@@ -390,6 +400,7 @@ $sqlDeleteDatabase .= "DROP TABLE customer_gifts; ";
 $sqlUpdateDatabase .= "DROP TABLE customer_historie_gifts; ";
 $sqlUpdateDatabase .= "DROP TABLE transaction_agency_histories; ";
 $sqlUpdateDatabase .= "DROP TABLE staffs; ";
+$sqlUpdateDatabase .= "DROP TABLE staff_timekeepers; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -680,3 +691,9 @@ $sqlUpdateDatabase['staffs']['birthday'] = "ALTER TABLE `staffs` ADD `birthday` 
 $sqlUpdateDatabase['staffs']['token_device'] = "ALTER TABLE `staffs` ADD `token_device` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staffs']['token'] = "ALTER TABLE `staffs` ADD `token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staffs']['description'] = "ALTER TABLE `staffs` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['staff_timekeepers']['day'] = "ALTER TABLE `staff_timekeepers` ADD `day` INT NOT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['shift'] = "ALTER TABLE `staff_timekeepers` ADD `shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['note'] = "ALTER TABLE `staff_timekeepers` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['month'] = "ALTER TABLE `staff_timekeepers` ADD `month` INT NULL DEFAULT NULL , `year` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['staff_timekeepers']['id_staff'] = "ALTER TABLE `staff_timekeepers` ADD `id_staff` INT NOT NULL;";

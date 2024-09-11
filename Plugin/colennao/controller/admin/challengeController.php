@@ -61,6 +61,7 @@ function addChallenge($input){
     $modelFeedbackChallenge = $controller->loadModel('FeedbackChallenges');
     $modelResultChallenges = $controller->loadModel('ResultChallenges');
     $modelTipChallenges = $controller->loadModel('TipChallenges');
+    $modelcoach = $controller->loadModel('coach');
         $mess= '';
         // lấy data edit
         if(!empty($_GET['id'])){
@@ -98,6 +99,7 @@ function addChallenge($input){
 
                 // tạo dữ liệu save
                 $data->title = @$dataSend['title'];
+                $data->id_coach =(int) @$dataSend['id_coach'];
                 $data->status = @$dataSend['status'];
                 $data->day =(int) @$dataSend['day'];
                 $data->price =(int)  @$dataSend['price'];
@@ -217,7 +219,7 @@ function addChallenge($input){
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
         }
-
+        $coach = $modelcoach->find()->where()->all()->toList();
         if(!empty($data->id)){
             $listFeedback = $modelFeedbackChallenge->find()->where(['id_challenge'=>$data->id])->all()->toList();
             $listResult = $modelResultChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
@@ -231,6 +233,7 @@ function addChallenge($input){
 
         setVariable('mess', $mess);
         setVariable('data', $data);       
+        setVariable('coach', $coach);       
     
 }
 

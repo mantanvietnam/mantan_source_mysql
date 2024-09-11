@@ -24,4 +24,5 @@ include('model/customer_gift.php'); // cài đặt theme info
 include('model/customer_historie_gift.php'); // cài đặt theme info
 include('model/transaction_agency_historie.php'); // cài đặt theme info
 include('model/staffs.php'); // cài đặt theme info
+include('model/staff_timekeepers.php'); // cài đặt theme info
 ?>

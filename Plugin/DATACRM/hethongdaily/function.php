@@ -1211,4 +1211,18 @@ function listThemeInfo(){
     ];
 }
 
+ // Hàm chuyển đổi tên thứ từ tiếng Anh sang tiếng Việt
+function thu_tieng_viet($thu_tieng_anh) {
+    $thu_dich = [
+        'Monday' => 'Thứ2',
+        'Tuesday' => 'Thứ3',
+        'Wednesday' => 'Thứ4',
+        'Thursday' => 'Thứ5',
+        'Friday' => 'Thứ6',
+        'Saturday' => 'Thứ7',
+        'Sunday' => 'CN'
+    ];
+    return $thu_dich[$thu_tieng_anh];
+}
+
 ?>

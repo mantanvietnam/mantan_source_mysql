@@ -62,7 +62,7 @@ $menus[0]['sub'][7]= array( 'title'=>'cài đặt ngân hàng  ',
                             'classIcon'=>'bx bxs-bank',
                             'permission'=>'setingBankAccount'
                     );
-$menus[0]['sub'][8]= array( 'title'=>'Huấn luyện viên',
+$menus[0]['sub'][9]= array( 'title'=>'Huấn luyện viên',
                             'url'=>'/plugins/admin/colennao-view-admin-coach-listcoach',
                             'classIcon'=>'bx bxs-meh-blank',
                             'permission'=>'listcoach'
@@ -74,6 +74,11 @@ $menus[1]['sub'][1]= array( 'title'=>'Thông tin liên hệ  ',
                             'permission'=>'listContactAdmin'
                     );
 addMenuAdminMantan($menus);
+
+global $transactionKey;
+$transactionKey = 'COLENNAO';
+
+
 function createPaginationMetaData($totalItem, $itemPerPage, $currentPage): array
 {
     global $urlCurrent;
@@ -297,6 +302,116 @@ function listBank(): array
         ['id' => 49, 'name' => 'Xuất Nhập Khẩu', 'code' => 'Eximbank'],
 
     ];
+}
+
+function getBankAccount(){
+    global $controller;
+    global $modelOptions;
+    $conditions = array('key_word' => 'setingBankAccount');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    return $data_value;
+}
+
+function processAddMoney($money, $id_ransaction): string
+{
+    global $controller;
+    global $transactionType;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelTransactions = $controller->loadModel('Transactions');
+
+    if ($money >= 1000) {
+        if(!empty($id_ransaction)) {
+            $transactions = $modelTransactions->find()->where(['id' =>(int)$id_ransaction, 'status'=>1])->first();
+
+            if(!empty($transactions)){
+                    if($transactions->total<= $money){
+                        $transactions->status = 2;
+                        $modelTransactions->save($transactions);
+
+                        if($transactions->type==2){
+                            createChallengeUser($transactions->id_user, $transactions->id_challenge, $transactions->id);
+                        }
+                    }
+                    return 'bạn mua thành công';
+                }
+
+               return 'số tiền bạn cưa đù';
+            }
+
+            return 'id không tồn tại';
+        }
+
+    return 'Số tiền nạp phải lớn hơn 1.000đ';
+}
+
+function createChallengeUser($id_user, $id_challenge,$id_transaction){
+
+    global $controller;
+    $modelChallenge = $controller->loadModel('Challenges');
+    $modelUser = $controller->loadModel('Users');
+    $modelFeedbackChallenge = $controller->loadModel('FeedbackChallenges');
+    $modelResultChallenges = $controller->loadModel('ResultChallenges');
+    $modelUserChallenges = $controller->loadModel('UserChallenges');
+
+    $modelTipChallenges = $controller->loadModel('TipChallenges');
+
+    if(!empty($id_user) && !empty($id_challenge)) {
+
+        $Challenge = $modelChallenge->find()->where(array('id'=>(int)$id_challenge,'status'=>'active'))->first();
+        $user = $modelUser->find()->where(array('id'=>(int)$id_user))->first();
+
+        if(!empty($Challenge) && !empty($user)){
+            $tip = $modelTipChallenges->find()->where(['id_challenge'=>$Challenge->id])->all()->toList();
+            $checkUserChallenge = $modelUserChallenges->find()->where(['id_challenge'=>$Challenge->id,'id_user'=>$user->id])->first();
+            if(empty($checkUserChallenge)){
+                    $checkUserChallenge = $modelUserChallenges->newEmptyEntity();
+                    $checkUserChallenge->id_user = $user->id;
+                    $checkUserChallenge->name = $Challenge->title;
+                    $checkUserChallenge->id_challenge = $Challenge->id;
+
+                    $checkUserChallenge->totalDay = $Challenge->day;
+                    $checkUserChallenge->status = 0;
+                    $checkUserChallenge->date_start = time();
+                    $checkUserChallenge->created_at = time();
+                    $checkUserChallenge->id_transaction = (int)$id_transaction;
+                    $checkUserChallenge->note = '';
+
+                    $listTip = array();
+
+                    if(!empty($tip)){
+                        foreach($tip as $key => $value){
+                            $listTip[] = array('id'=>$value->id,
+                                            'tip'=>$value->tip,
+                                            'status'=>''
+
+                            );
+                        }
+                    }
+
+                    $checkUserChallenge->tip = json_encode($listTip);
+
+                    $modelUserChallenges->save($checkUserChallenge);
+
+                }
+
+
+
+
+
+        }
+
+    }
+
+     return 'id không tồn tại';
+
+
+
 }
 
 ?>

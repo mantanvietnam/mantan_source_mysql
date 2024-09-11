@@ -12,19 +12,16 @@ function listStaff($input)
         $metaTitleMantan = 'Danh sách nhân viên';
 
         $modelStaff = $controller->loadModel('Staffs');
-
-        // danh sách nhóm khách hàng
-        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
         
         $order = array('id'=>'desc');
 
-        $conditions = array('id_member'=>$session->read('infoUser')->id,);
+        $conditions = array('id_member'=>$session->read('infoUser')->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
         
         if(!empty($_GET['id'])){
-            $conditions['Customers.id'] = (int) $_GET['id'];
+            $conditions['id'] = (int) $_GET['id'];
         }
 
 
@@ -34,10 +31,6 @@ function listStaff($input)
 
         if(!empty($_GET['phone'])){
             $conditions['phone'] = $_GET['phone'];
-        }
-
-        if(!empty($_GET['birthday_date'])){
-            $conditions['name.birthday_date'] = (int) $_GET['birthday_date'];
         }
 
        
@@ -282,5 +275,68 @@ function deleteStaff($input){
         return $controller->redirect('/login');
     }
 }
+
+function timesheetStaff(){
+
+        global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Danh sách nhân viên';
+
+        $modelStaff = $controller->loadModel('Staffs');
+        
+        $order = array('id'=>'desc');
+
+        $conditions = array('id_member'=>$session->read('infoUser')->id);
+
+        // phân trang
+        $listStaff = $modelStaff->find()->where($conditions)->all()->toList();
+        // Thiết lập tháng và năm
+
+        if(!empty($_GET['month'])){
+            $thang = (int) $_GET['month'];
+        }else{
+            $thang = date('m');
+        }
+
+        if(!empty($_GET['year'])){
+            $nam = (int) $_GET['year'];
+        }else{
+            $nam = date('Y');
+        }
+
+        // Lấy số ngày trong tháng
+        $so_ngay_trong_thang = cal_days_in_month(CAL_GREGORIAN, $thang, $nam);
+
+        $date = array();
+
+        // Lặp qua các ngày trong tháng
+        for ($ngay = 1; $ngay <= $so_ngay_trong_thang; $ngay++) {
+            // Tạo chuỗi ngày định dạng Y-m-d
+            $ngay_dang = sprintf("%04d-%02d-%02d", $nam, $thang, $ngay);;
+            
+            // Lấy tên thứ bằng tiếng Anh và chuyển sang tiếng Việt
+            $thu = thu_tieng_viet(date('l', strtotime($ngay_dang)));
+            
+            // In ra ngày và thứ
+          //  echo $ngay_dang . " - " . $thu . "<br>";
+            $date[$ngay] = $thu;
+
+        }
+
+ 
+    setVariable('date', $date);
+    setVariable('listStaff', $listStaff);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 
  ?>

@@ -13,4 +13,6 @@ include('model/result_challenges.php');
 include('model/tip_challenges.php'); 
 include('model/contact.php');
 include('model/coach.php');
+include('model/transactions.php');
+include('model/user_challenges.php');
 ?>
