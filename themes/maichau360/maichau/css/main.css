@@ -2914,7 +2914,7 @@ width: 578px !important; */
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 930px) {
     #map360 .map360-iframe {
         height: 650px;
     }

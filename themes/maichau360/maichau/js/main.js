@@ -28,16 +28,23 @@ $('.destinations-slide').slick({
 });
 
 
-// Fixed Menu
 const fixedElement = document.getElementById('fixedNav');
-
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 90) {
-        fixedElement.style.position = 'fixed';
+    const screenWidth = window.innerWidth;
+
+    // Chỉ áp dụng khi chiều rộng màn hình ngoài khoảng 500px - 950px
+    if (screenWidth < 500 || screenWidth > 950) {
+        if (window.scrollY > 90) {
+            fixedElement.style.position = 'fixed';
+        } else {
+            fixedElement.style.position = 'relative';
+        }
     } else {
+        // Đảm bảo khi vào khoảng 500px - 950px thì luôn đặt lại vị trí ban đầu
         fixedElement.style.position = 'relative';
     }
 });
+
 
 //Slick Places
 $('.places-slide').slick({
