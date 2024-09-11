@@ -37,6 +37,14 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `id_affsource` INT NULL DEFAULT 0 COMMENT "id người giới thiệu	" , 
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
+$sqlInstallDatabase .="CREATE TABLE `coach` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ifcontact` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 $sqlInstallDatabase .="CREATE TABLE `tests` (
   `id` int(11) NOT NULL  AUTO_INCREMENT,

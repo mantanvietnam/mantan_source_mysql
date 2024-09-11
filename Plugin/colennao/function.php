@@ -62,6 +62,11 @@ $menus[0]['sub'][7]= array( 'title'=>'cài đặt ngân hàng  ',
                             'classIcon'=>'bx bxs-bank',
                             'permission'=>'setingBankAccount'
                     );
+$menus[0]['sub'][8]= array( 'title'=>'Huấn luyện viên',
+                            'url'=>'/plugins/admin/colennao-view-admin-coach-listcoach',
+                            'classIcon'=>'bx bxs-meh-blank',
+                            'permission'=>'listcoach'
+                    );
 $menus[1]['title'] = 'Liên hệ';
 $menus[1]['sub'][1]= array( 'title'=>'Thông tin liên hệ  ',
                             'url'=>'/plugins/admin/colennao-view-admin-contacts-listContactAdmin',

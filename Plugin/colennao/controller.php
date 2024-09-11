@@ -11,13 +11,14 @@ include_once('controller/admin/categoryController.php');
 include_once('controller/admin/challengeController.php');
 include_once('controller/admin/contactsController.php');
 include_once('controller/admin/setingController.php');
+include_once('controller/admin/coachController.php');
 // Api .php
 include_once('controller/api/usersController.php'); 
 include_once('controller/api/coursesController.php');
 include_once('controller/api/fastingController.php');
 include_once('controller/api/postController.php');
 include_once('controller/api/challengeController.php');
-
+include_once('controller/api/coachController.php');
 
 include_once('controller/admin/pricelistController.php'); 
 // Api .php
