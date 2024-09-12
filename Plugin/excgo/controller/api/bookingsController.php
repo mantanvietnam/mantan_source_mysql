@@ -1768,6 +1768,12 @@ function updateBookingApi($input): array
                 $booking->description = $dataSend['description'];
             }
 
+            if(isset($dataSend['status_free'])){
+                $booking->status_free = (int) @$dataSend['status_free'];
+            }
+
+
+
             if (!empty($dataSend['deposit'])) {
                 if($booking->deposit >$dataSend['deposit']){
                     $deposit = $booking->deposit - $dataSend['deposit'];

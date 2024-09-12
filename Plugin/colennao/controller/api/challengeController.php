@@ -131,7 +131,7 @@ function paymentChallengeAPI($input){
 	    		$sms = $checkTransaction->id.' '.$transactionKey;
 
                 $link_qr_bank = 'https://img.vietqr.io/image/'.$bank['bank_code'].'-'.$bank['bank_number'].'-compact2.png?amount='.$data->price.'&addInfo='.$sms.'&accountName='.$bank['bank_name'];
-                $data->ipfoQR =   array('name_bank'=>$bank['bank_code'],
+                $data->infoQR =   array('name_bank'=>$bank['bank_code'],
                 				'account_holders_bank'=>$bank['bank_name'],
                 				'link_qr_bank'=>$link_qr_bank,
                 				'money'=>$bank['bank_number'],
