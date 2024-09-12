@@ -46,7 +46,7 @@ $setting = setting();
     <script src="<?= $urlThemeActive ?>tayho/js/slick.js"></script>
 
 <?php }else{ ?>
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>maichau/css/main.css?time=100001">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>maichau/css/main.css?time=100002">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
     <link rel="shortcut icon" type="image/png" href="../images/logo.png" />
     <!-- SLick -->

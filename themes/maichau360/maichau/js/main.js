@@ -28,6 +28,37 @@ $('.destinations-slide').slick({
 });
 
 
+// Hàm đóng navbar
+function closeNavbar() {
+    var navbar = document.querySelector('.navbar-collapse');
+    var navbarToggler = document.querySelector('.navbar-toggler');
+
+    // Kiểm tra nếu navbar đang mở (class 'show')
+    if (navbar.classList.contains('show')) {
+        navbarToggler.click(); // Đóng navbar
+    }
+}
+
+// Sự kiện click: đóng navbar nếu bấm ra ngoài
+document.addEventListener('click', function(event) {
+    var navbar = document.querySelector('.navbar-collapse');
+    var isClickInside = navbar.contains(event.target);
+    var isTogglerButton = event.target.classList.contains('navbar-toggler');
+
+    // Kiểm tra nếu click ra ngoài navbar và nút toggle không được bấm
+    if (!isClickInside && !isTogglerButton) {
+        closeNavbar(); // Đóng navbar
+    }
+});
+
+// Sự kiện scroll: đóng navbar nếu cuộn xuống hơn 100px
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 100) {
+        closeNavbar(); // Đóng navbar
+    }
+});
+
+
 const fixedElement = document.getElementById('fixedNav');
 window.addEventListener('scroll', () => {
     const screenWidth = window.innerWidth;
