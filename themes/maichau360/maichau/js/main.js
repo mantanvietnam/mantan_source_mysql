@@ -27,6 +27,20 @@ $('.destinations-slide').slick({
     ]
 });
 
+const iframeLayer = document.querySelector('.iframe-360-layer');
+const show360 = document.querySelector('.banner360-1');
+const stop360 = document.querySelector('.banner360-2');
+
+show360.addEventListener('click', function() {
+    iframeLayer.style.display = 'none'; // Ẩn lớp iframe-360-layer
+    stop360.style.display = 'block'; // Hiển thị nút "Dừng xem 360"
+});
+
+stop360.addEventListener('click', function() {
+    iframeLayer.style.display = 'block'; // Hiển thị lại lớp iframe-360-layer
+    stop360.style.display = 'none'; // Ẩn nút "Dừng xem 360"
+});
+
 
 // Hàm đóng navbar
 function closeNavbar() {
@@ -64,7 +78,7 @@ window.addEventListener('scroll', () => {
     const screenWidth = window.innerWidth;
 
     // Chỉ áp dụng khi chiều rộng màn hình ngoài khoảng 500px - 950px
-    if (screenWidth < 500 || screenWidth > 950) {
+    if (screenWidth > 950) {
         if (window.scrollY > 90) {
             fixedElement.style.position = 'fixed';
         } else {
