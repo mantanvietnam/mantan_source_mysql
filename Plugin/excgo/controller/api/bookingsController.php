@@ -131,12 +131,6 @@ function createBookingApi($input): array
             $userBooking->status = $bookingStatus['unreceived'];
             $userBookingModel->save($userBooking);
 
-            $listUserId = $modelBookmark->find()->where([
-                'province_id' => $booking->departure_province_id
-            ])->all()->map(function ($item) {
-                return $item->user_id;
-            })->toArray();
-
             // Thông báo cho những tài xế quan tâm nhóm
             $title = 'Có một cuốc xe mới được đăng trong nhóm bạn quan tâm';
             $content = "Cuốc xe #$booking->id mới được đăng trong nhóm $province->name";
@@ -149,29 +143,51 @@ function createBookingApi($input): array
             );
 
             $now = date('Y-m-d H:i:s');
-            foreach (array_chunk($listUserId, 1000) as $userIds) {
-                $listUser = $modelUser->find()->where(['id IN' => $userIds])->all()->toArray();
-                $listToken = [];
-                $listNewNotification = [];
+            $listToken = [];
+            $listNewNotification = [];
 
-                foreach ($listUser as $user) {
-                    if (!empty($user['device_token'])) {
-                        $listToken[] = $user['device_token'];
+            // lấy danh sách tài xế quan tâm nhóm
+            $listUserId = $modelBookmark
+                            ->find()
+                            ->join([
+                                    'table' => 'users',
+                                    'alias' => 'Users',
+                                    'type' => 'INNER',
+                                    'conditions' => 'Users.id = Bookmarks.user_id',
+                                ])
+                            ->select(['Users.id', 'Users.device_token'])
+                            ->where(['Bookmarks.province_id' => $booking->departure_province_id])
+                            ->all()
+                            ->toList();
+
+            if(!empty($listUserId)){
+                foreach ($listUserId as $userBookmark) {
+                    if(!empty($userBookmark->device_token)){
+                        $listToken[] = $userBookmark->device_token;
+
+                        // lưu thông báo
+                        $notification = $modelNotification->newEmptyEntity();
+                        
+                        $notification->user_id = $userBookmark->id;
+                        $notification->booking_id = $booking->id;
+                        $notification->title = $title;
+                        $notification->content = $content;
+                        $notification->created_at = $now;
+                        $notification->updated_at = $now;
+
+                        $listNewNotification[] = $notification;
                     }
-
-                    $notification = $modelNotification->newEmptyEntity();
-                    $notification->user_id = $user['id'];
-                    $notification->booking_id = $booking->id;
-                    $notification->title = $title;
-                    $notification->content = $content;
-                    $notification->created_at = $now;
-                    $notification->updated_at = $now;
-                    $listNewNotification[] = $notification;
                 }
+            }
 
-                sendNotification($dataSendNotification, $listToken);
+            if(!empty($listNewNotification)){
                 $modelNotification->saveMany($listNewNotification);
             }
+
+            if(!empty($listToken)){
+                sendNotification($dataSendNotification, $listToken);
+            }
+
 
             return apiResponse(0, 'Lưu thông tin thành công', $booking);
         }

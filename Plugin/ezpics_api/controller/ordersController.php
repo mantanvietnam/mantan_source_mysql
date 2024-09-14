@@ -235,7 +235,8 @@ function addMoneyApplePayAPI($input)
 			$transactionDate = $dataSend['transactionDate']/1000;
 
 			// cộng tiền vào tài khoản
-			$dataSend['money'] = (int) $dataSend['money'] * 0.7;
+			//$dataSend['money'] = (int) $dataSend['money'] * 0.7;
+			$dataSend['money'] = (int) $dataSend['money'];
 			$infoUser->account_balance += $dataSend['money'];
 			$modelMember->save($infoUser);
 
@@ -245,7 +246,7 @@ function addMoneyApplePayAPI($input)
 			$order->code = 'AM'.time().$infoUser->id.rand(0,10000);
             $order->member_id = $infoUser->id;
             $order->product_id = ''; 
-            $order->meta_payment = 'Nạp tiền qua Apple Pay. Mã giao dịch '.$dataSend['purchaseID']; // id giao dịch của Apple
+            $order->meta_payment = 'Nạp tiền qua tài khoản Apple. Mã giao dịch '.$dataSend['purchaseID']; // id giao dịch của Apple
             $order->payment_type = 2;
             $order->note = 'Thời gian giao dịch với Apple: '.date('H:i d/m/Y',$transactionDate).' ('.$transactionDate.')';
             $order->total = $dataSend['money'];
