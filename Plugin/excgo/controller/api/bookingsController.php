@@ -6,6 +6,8 @@ function createBookingApi($input): array
     global $isRequestPost;
     global $bookingStatus;
     global $bookingType;
+    global $keyFirebase;
+    global $projectId;
 
     $modelBooking = $controller->loadModel('Bookings');
     $modelProvince = $controller->loadModel('Provinces');
@@ -185,8 +187,18 @@ function createBookingApi($input): array
             }
 
             if(!empty($listToken)){
+                // chuyển yêu cầu render sang rabbitmq
+                $rabbitMQClient = new RabbitMQClient();
+
+                $requestMessage = json_encode([ 'dataSendNotification' => $dataSendNotification, 
+                                                'listToken' => $listToken,
+                                                'keyFirebase' => $keyFirebase,
+                                                'projectId' => $projectId
+                                            ]);
                 
-                sendNotification($dataSendNotification, $listToken);
+                $rabbitMQClient->sendMessage('send_notification_firebase', $requestMessage);
+                
+                //sendNotification($dataSendNotification, $listToken);
             }
 
 
