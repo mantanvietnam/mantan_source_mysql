@@ -162,13 +162,13 @@ function createBookingApi($input): array
 
             if(!empty($listUserId)){
                 foreach ($listUserId as $userBookmark) {
-                    if(!empty($userBookmark->device_token)){
-                        $listToken[] = $userBookmark->device_token;
+                    if(!empty($userBookmark->Users['device_token'])){
+                        $listToken[] = $userBookmark->Users['device_token'];
 
                         // lưu thông báo
                         $notification = $modelNotification->newEmptyEntity();
                         
-                        $notification->user_id = $userBookmark->id;
+                        $notification->user_id = $userBookmark->Users['id'];
                         $notification->booking_id = $booking->id;
                         $notification->title = $title;
                         $notification->content = $content;
@@ -185,6 +185,7 @@ function createBookingApi($input): array
             }
 
             if(!empty($listToken)){
+                
                 sendNotification($dataSendNotification, $listToken);
             }
 
