@@ -215,6 +215,14 @@ function addStaff($input)
                     $data->id_system = (int) $infoUser->id_system;
                     $data->id_member = (int) $infoUser->id;
                     $data->email = $dataSend['email'];
+                    $data->linkedin = $dataSend['linkedin'];
+                    $data->web = $dataSend['web'];
+                    $data->instagram = $dataSend['instagram'];
+                    $data->zalo = $dataSend['zalo'];
+                    $data->twitter = $dataSend['twitter'];
+                    $data->tiktok = $dataSend['tiktok'];
+                    $data->youtube = $dataSend['youtube'];
+                    $data->facebook = $dataSend['facebook'];
                     if(!empty($dataSend['birthday'])){
                         $birthday = explode('/', $dataSend['birthday']);
                          $data->birthday  = mktime(0,0,0,$birthday[1],$birthday[0],$birthday[2]);
