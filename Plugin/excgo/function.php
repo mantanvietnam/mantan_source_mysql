@@ -1119,6 +1119,8 @@ function sendNotification($data=[], $deviceTokens)
                 // Xử lý kết quả
                 if ($result === FALSE) {
                     $number_error ++;
+                }else{
+                    //debug($result);
                 }
             }
 

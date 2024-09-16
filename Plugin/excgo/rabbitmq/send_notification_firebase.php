@@ -7,6 +7,13 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Channel\AMQPChannel;
 
+use Google\Auth\Credentials\ServiceAccountCredentials;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\RequestException;
+
 require_once __DIR__ . '/../../../library/php-amqplib/vendor/autoload.php';
 
 class RabbitMQClient
@@ -201,6 +208,8 @@ function sendNotification($dataSend = [])
                 // Xử lý kết quả
                 if ($result === FALSE) {
                     $number_error ++;
+                }else{
+                    //var_dump($result);
                 }
             }
 
@@ -220,12 +229,12 @@ $callback = function ($msg) {
     
     // Xử lý tin nhắn ở đây
     $data = json_decode($messageBody, true);
-
+   
     sendNotification($data);
 };
 
-// Tiêu thụ tin nhắn từ hàng đợi 'render_image_requests'
+// Tiêu thụ tin nhắn từ hàng đợi 'send_notification_firebase'
 $rabbitMQClient->consumeMessage('send_notification_firebase', $callback);
-//$rabbitMQClient->consumeMessageLimitTime('render_image_requests', $callback, 60);
-//$rabbitMQClient->consumeOneMessage('render_image_requests', $callback);
+//$rabbitMQClient->consumeMessageLimitTime('send_notification_firebase', $callback, 60);
+//$rabbitMQClient->consumeOneMessage('send_notification_firebase', $callback);
 ?>
