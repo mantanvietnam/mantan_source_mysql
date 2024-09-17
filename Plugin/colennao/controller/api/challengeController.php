@@ -400,7 +400,7 @@ function updateStatusTipUserChallengeAPI($input)
 }
 function checkprocessAddMoney(){
 
-	$mess = processAddMoney(500000, 1);
+	$mess = processAddMoney(755000, 2);
 
 	debug($mess);
 

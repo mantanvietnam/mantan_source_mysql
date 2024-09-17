@@ -15,4 +15,5 @@ include('model/contact.php');
 include('model/coach.php');
 include('model/transactions.php');
 include('model/user_challenges.php');
+include('model/user_courses.php');
 ?>

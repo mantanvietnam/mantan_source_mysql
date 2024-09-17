@@ -336,12 +336,14 @@ function processAddMoney($money, $id_ransaction): string
 
                         if($transactions->type==2){
                             createChallengeUser($transactions->id_user, $transactions->id_challenge, $transactions->id);
+                        }elseif($transactions->type==1){
+                            createCourseUser($transactions->id_user, $transactions->id_course, $transactions->id);
                         }
                     }
                     return 'bạn mua thành công';
                 }
 
-               return 'số tiền bạn cưa đù';
+               return 'số tiền bạn chưa đủ';
             }
 
             return 'id không tồn tại';
@@ -351,7 +353,6 @@ function processAddMoney($money, $id_ransaction): string
 }
 
 function createChallengeUser($id_user, $id_challenge,$id_transaction){
-
     global $controller;
     $modelChallenge = $controller->loadModel('Challenges');
     $modelUser = $controller->loadModel('Users');
@@ -370,48 +371,88 @@ function createChallengeUser($id_user, $id_challenge,$id_transaction){
             $tip = $modelTipChallenges->find()->where(['id_challenge'=>$Challenge->id])->all()->toList();
             $checkUserChallenge = $modelUserChallenges->find()->where(['id_challenge'=>$Challenge->id,'id_user'=>$user->id])->first();
             if(empty($checkUserChallenge)){
-                    $checkUserChallenge = $modelUserChallenges->newEmptyEntity();
-                    $checkUserChallenge->id_user = $user->id;
-                    $checkUserChallenge->name = $Challenge->title;
-                    $checkUserChallenge->id_challenge = $Challenge->id;
+                $checkUserChallenge = $modelUserChallenges->newEmptyEntity();
+                $checkUserChallenge->id_user = $user->id;
+                $checkUserChallenge->name = $Challenge->title;
+                $checkUserChallenge->id_challenge = $Challenge->id;
 
-                    $checkUserChallenge->totalDay = $Challenge->day;
-                    $checkUserChallenge->status = 0;
-                    $checkUserChallenge->date_start = time();
-                    $checkUserChallenge->created_at = time();
-                    $checkUserChallenge->id_transaction = (int)$id_transaction;
-                    $checkUserChallenge->note = '';
+                $checkUserChallenge->totalDay = $Challenge->day;
+                $checkUserChallenge->status = 0;
+                $checkUserChallenge->date_start = time();
+                $checkUserChallenge->created_at = time();
+                $checkUserChallenge->id_transaction = (int)$id_transaction;
+                $checkUserChallenge->note = '';
 
-                    $listTip = array();
+                $listTip = array();
 
-                    if(!empty($tip)){
-                        foreach($tip as $key => $value){
-                            $listTip[] = array('id'=>$value->id,
-                                            'tip'=>$value->tip,
-                                            'status'=>''
+                if(!empty($tip)){
+                    foreach($tip as $key => $value){
+                        $listTip[] = array('id'=>$value->id,
+                            'tip'=>$value->tip,
+                            'status'=>''
 
-                            );
-                        }
+                        );
                     }
-
-                    $checkUserChallenge->tip = json_encode($listTip);
-
-                    $modelUserChallenges->save($checkUserChallenge);
-
                 }
 
+                $checkUserChallenge->tip = json_encode($listTip);
 
+                $modelUserChallenges->save($checkUserChallenge);
 
+            }
+        }
+    }
+    return 'id không tồn tại';
+}
 
+function createCourseUser($id_user, $id_Courses,$id_transaction){
 
+    global $controller;
+    $modelUser = $controller->loadModel('Users');
+    $modelCourses = $controller->loadModel('Courses');
+    $modelUserCourse = $controller->loadModel('UserCourses');
+    $modelLesson = $controller->loadModel('Lessons');
+
+    if(!empty($id_user) && !empty($id_Courses)) {
+
+        $courses = $modelCourses->find()->where(array('id'=>(int)$id_Courses))->first();
+        $user = $modelUser->find()->where(array('id'=>(int)$id_user))->first();
+
+        if(!empty($courses) && !empty($user)){
+            $lessons = $modelLesson->find()->where(['id_course'=>$courses->id])->all()->toList();
+            $checkUsercourses = $modelUserCourse->find()->where(['id_course'=>$courses->id,'id_user'=>$user->id])->first();
+            if(empty($checkUsercourses)){
+                $checkUsercourses = $modelUserCourse->newEmptyEntity();
+                $checkUsercourses->id_user = $user->id;
+                $checkUsercourses->name = $courses->title;
+                $checkUsercourses->id_course = $courses->id;
+                $checkUsercourses->created_at = time();
+                $checkUsercourses->id_transaction = (int)$id_transaction;
+                $checkUsercourses->note = '';
+
+                $listlessons = array();
+
+                if(!empty($lessons)){
+                    foreach($lessons as $key => $value){
+                        $listlessons[] = array('id'=>$value->id,
+                            'title'=>$value->title,
+                            'status'=>'not',
+                            'youtube_code'=>$value->youtube_code,
+
+                        );
+                    }
+                }
+                $checkUsercourses->status_lesson = json_encode($listlessons);
+                $modelUserCourse->save($checkUsercourses);
+            }
         }
 
     }
-
-     return 'id không tồn tại';
-
-
+    return 'id không tồn tại';
 
 }
+
+
+
 
 ?>

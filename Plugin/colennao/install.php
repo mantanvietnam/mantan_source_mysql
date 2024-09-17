@@ -196,7 +196,7 @@ $sqlUpdateDatabase .="CREATE TABLE `transactions` (
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
-$sqlUpdateDatabase ,="CREATE TABLE `user_challenges` ( 
+$sqlUpdateDatabase .="CREATE TABLE `user_challenges` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
 `id_user` INT NOT NULL ,
 `name` VARCHAR(255) NULL DEFAULT NULL ,
@@ -208,6 +208,16 @@ $sqlUpdateDatabase ,="CREATE TABLE `user_challenges` (
 `created_at` INT NULL DEFAULT NULL ,
 `id_transaction` INT NULL DEFAULT NULL ,
 `note` VARCHAR(255) NULL DEFAULT NULL , 
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlUpdateDatabase .="CREATE TABLE `user_courses` ( `id` INT NOT NULL ,
+`id_user` INT NOT NULL AUTO_INCREMENT,
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`id_course` INT NOT NULL ,
+`status_lesson` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '[]' ,
+`created_at` INT NULL DEFAULT NULL ,
+`id_transaction` INT NULL DEFAULT NULL ,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -224,6 +234,7 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `result_challenges`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `tip_challenges`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `transactions`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `user_challenges`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `user_courses`;';
 
 
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
@@ -307,4 +318,12 @@ $sqlUpdateDatabase['user_challenges']['date_start'] = "ALTER TABLE `user_challen
 $sqlUpdateDatabase['user_challenges']['created_at'] = "ALTER TABLE `user_challenges` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['user_challenges']['id_transaction'] = "ALTER TABLE `user_challenges` ADD `id_transaction` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['user_challenges']['note'] = "ALTER TABLE `user_challenges` ADD `note` VARCHAR(255) NULL DEFAULT NULL ;";
+
+$sqlUpdateDatabase['user_courses']['name'] = "ALTER TABLE `user_courses` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['user_courses']['id_course'] = "ALTER TABLE `user_courses` ADD `id_course` INT NOT NULL;";
+$sqlUpdateDatabase['user_courses']['status_lesson'] = "ALTER TABLE `user_courses` ADD `status_lesson` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '[]';";
+$sqlUpdateDatabase['user_courses']['created_at'] = "ALTER TABLE `user_courses` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['user_courses']['id_transaction'] = "ALTER TABLE `user_courses` ADD `id_transaction` INT NULL DEFAULT NULL;";
+
+
 ?>
