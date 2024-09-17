@@ -286,7 +286,7 @@ function deleteStaff($input){
 
 function timesheetStaff(){
 
-        global $controller;
+    global $controller;
     global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
@@ -294,7 +294,7 @@ function timesheetStaff(){
     global $modelCategoryConnects;
 
     if(!empty($session->read('infoUser'))){
-        $metaTitleMantan = 'Danh sách nhân viên';
+        $metaTitleMantan = 'Bản châm  nhân viên';
 
         $modelStaff = $controller->loadModel('Staffs');
         
@@ -326,23 +326,114 @@ function timesheetStaff(){
         // Lặp qua các ngày trong tháng
         for ($ngay = 1; $ngay <= $so_ngay_trong_thang; $ngay++) {
             // Tạo chuỗi ngày định dạng Y-m-d
-            $ngay_dang = sprintf("%04d-%02d-%02d", $nam, $thang, $ngay);;
+            $ngay_dang = sprintf("%04d-%02d-%02d", $nam, $thang, $ngay);
             
             // Lấy tên thứ bằng tiếng Anh và chuyển sang tiếng Việt
             $thu = thu_tieng_viet(date('l', strtotime($ngay_dang)));
             
             // In ra ngày và thứ
           //  echo $ngay_dang . " - " . $thu . "<br>";
-            $date[$ngay] = $thu;
+            $date[$ngay] = array('thu'=>$thu, 'ngay'=>$ngay.'/'.$thang.'/'.$nam);
 
         }
 
  
     setVariable('date', $date);
+    setVariable('thang', $thang);
+    setVariable('nam', $nam);
     setVariable('listStaff', $listStaff);
 
     }else{
         return $controller->redirect('/login');
+    }
+}
+
+function checktimesheet(){
+     global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Danh sách nhân viên';
+
+        $modelStaff = $controller->loadModel('Staffs');
+        $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
+
+        $conditions = array('id_member'=>$session->read('infoUser')->id, 'id'=>(int)$_GET['id_staff']);
+        $staff = $modelStaff->find()->where($conditions)->first();
+        // Thiết lập tháng và năm
+
+         $date = explode('/', $_GET['date']);
+        $date = mktime(0,0,0,$date[1],$date[0],$date[2]);
+        
+        $checkdate = $modelStaffTimekeepers->find()->where(['date'=>$date,'id_staff'=>$staff->id])->first();
+        if(!empty($_GET['shift'])){
+            if(empty($checkdate)){
+                $checkdate = $modelStaffTimekeepers->newEmptyEntity();
+                $checkdate->date = $date;
+                $checkdate->id_staff = $staff->id;
+            }
+
+            $checkdate->shift = implode(', ', $_GET['shift']);
+
+
+            $modelStaffTimekeepers->save($checkdate);
+        }elseif(!empty($checkdate)){
+            $modelStaffTimekeepers->delete($checkdate);
+        }
+        return $controller->redirect('/timesheetStaff');
+        
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function infoStaff(){
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $metaImageMantan;
+    global $metaDescriptionMantan;
+    global $session;
+    global $urlHomes;
+
+    $modelMembers = $controller->loadModel('Members');
+    $modelStaff = $controller->loadModel('Staffs');
+
+    $session->write('infoUser', []);
+
+    if(!empty($_GET['id'])){
+        $info = $modelStaff->find()->where(['id'=>(int) $_GET['id'], 'status'=>'active'])->first();
+
+        if(!empty($info)){
+            if(empty($info->token)){
+                $info->token = createToken();
+            }
+
+
+            
+            if(!empty($info->description)){
+                $metaDescriptionMantan = strip_tags($info->description);
+            }
+
+            // tăng lượt xem
+            $info->view ++;
+            $modelStaff->save($info);
+            $info->view += 1000;
+
+            
+        
+            setVariable('info', $info);
+        }else{
+            return $controller->redirect('/');
+        }
+    }else{
+        return $controller->redirect('/');
     }
 }
 

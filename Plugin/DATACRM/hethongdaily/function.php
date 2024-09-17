@@ -1225,4 +1225,16 @@ function thu_tieng_viet($thu_tieng_anh) {
     return $thu_dich[$thu_tieng_anh];
 }
 
+function checkStaffTimekeepers($date,$id_staff){
+    global $controller;
+
+    $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
+    $date = explode('/', $date);
+    $date = mktime(0,0,0,$date[1],$date[0],$date[2]);
+
+    $checkdate = $modelStaffTimekeepers->find()->where(['date'=>$date,'id_staff'=>(int)$id_staff])->first();
+
+    return $checkdate;
+}
+
 ?>

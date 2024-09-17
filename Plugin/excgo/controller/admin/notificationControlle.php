@@ -5,6 +5,8 @@ function addNotificationAdmin($input)
 	 global $modelPosts;
 	global $isRequestPost;
 	global $metaTitleMantan;
+	global $keyFirebase;
+    global $projectId;
 
 	$metaTitleMantan = 'Gửi thông báo cho người dùng';
 
@@ -87,7 +89,18 @@ function addNotificationAdmin($input)
 					);
 
 					if(!empty($device_token)){
-						$return = sendNotification($dataSendNotification, $device_token);
+						 $rabbitMQClient = new RabbitMQClient();
+
+                		$requestMessage = json_encode([ 'dataSendNotification' => $dataSendNotification, 
+                                                'listToken' => $device_token,
+                                                'keyFirebase' => $keyFirebase,
+                                                'projectId' => $projectId
+                                            ]);
+                
+                $rabbitMQClient->sendMessage('send_notification_firebase', $requestMessage);
+
+
+						//$return = sendNotification($dataSendNotification, $device_token);
 					}
 
 					$mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format($number).' người dùng</p>';

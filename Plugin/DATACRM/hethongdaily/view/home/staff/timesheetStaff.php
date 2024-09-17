@@ -1,4 +1,4 @@
-<?php include(__DIR__.'/../header.php'); ?>
+  <?php include(__DIR__.'/../header.php'); ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
 <style type="text/css">
@@ -11,7 +11,7 @@
             border-color: inherit;
             border-style: solid;
         }
-
+     
 </style>
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listStaff">Nhân viên</a> /</span>
@@ -45,7 +45,7 @@
             <select name="year" class="form-select color-dropdown">
               <option value="0">Năm</option>
               <?php
-              for ($i = date("Y"); $i >= 1950; $i--) { 
+              for ($i = date("Y"); $i >= 2020; $i--) { 
                 if(!empty($_GET['year']) && $_GET['year']==$i){
                   echo '<option value="'.$i.'" selected>'.$i.'</option>';
                 }else{
@@ -73,16 +73,16 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Bảng chấm công nhân viên - <span class="text-danger"></h5>
+    <h5 class="card-header">Bảng chấm công nhân viên tháng <?php echo @$thang.'/'.$nam ?></h5>
     <?php echo @$mess;?>
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
             <tr class="">
-              <th class="sticky">Nhân viên</th>
+              <th class="sticky"  width="40%" colspan="3">Nhân viên</th>
               <?php foreach($date as $key => $item){
-                echo ' <th align="center" class="" style="text-align: -webkit-center;">'.$key.'</br>'.$item.'</th>';
+                echo ' <th align="center" class="" style="text-align: -webkit-center;">'.$key.'</br>'.$item['thu'].'</th>';
 
               } ?>
              
@@ -96,9 +96,16 @@
                 
                 
                 echo '<tr>
-                <td class="sticky">'.$item->name.'</td>';
-                foreach($date as $key => $item){
-                  echo ' <td align="center"> </td>';
+                <td class="sticky"  colspan="3">'.$item->name.'</td>';
+                foreach($date as $key => $value){
+                  $checkdate = checkStaffTimekeepers($value['ngay'],$item->id);
+                  if(!empty($checkdate)){
+                    echo ' <td align="center ngaychamcong" style="background-color: #d7fada;">'.$checkdate->shift.  '</td>';
+                  }else{
+                    echo ' <td align="center"> </td>';
+                  }
+
+                  
 
                 } 
                 echo '</tr>';
@@ -116,46 +123,54 @@
       </div>
     </div>
     <div id="mobile_view">
-      <?php 
-         if(!empty($listData)){
-              foreach ($listData as $item) {
-                $status= '<span class="text-danger">Khóa</span>';
-                if($item->status=='active'){ 
-                  $status= '<span class="text-success">Kích hoạt</span>';
-                }
-
-               
-
-                $infoStaff = $item->full_name.'<br/>'.$item->phone;
-                if(!empty($item->address)) $infoStaff .= '<br/>'.$item->address;
-                if(!empty($item->email)) $infoStaff .= '<br/>'.$item->email;
-                if(!empty($item->facebook)) $infoStaff .= '<br/><a href="'.@$item->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>';
-                  
-                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                        <center><img class="img_avatar" src="'.$item->avatar.'" style=" width:50%" /></center><br/>
-                        <p><strong> Nhân viên: </strong>: '.$item->full_name.' (ID: '.$item->id.')</p>
-                        <p><strong> Điện thoại: </strong>: '.$item->phone.'</p>
-                        <p><strong> Địa chỉ: </strong>: '.$item->address.'</p>
-                        <p  class="text-center mt-3">
-                          <a title="Sửa" class="btn btn-success" href="/addStaff/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a> 
-
-                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteStaff/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </p>
-
-                        </div>';
-          }
-         
-        }else{
-          echo '<div class="col-sm-12 item">
-                  <p class="text-danger">Chưa có dữ liệu</p>
-                </div>';
-        }
-      ?>
+    
     </div>
+
+    <div class="modal fade" id="basicModal"  name="id">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header form-label border-bottom">
+            <h5 class="modal-title" id="exampleModalLabel1">Bản chấm công nhân viên</h5>
+            <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="/checktimesheet" method="GET">
+            <div class="modal-footer">
+              
+              <div class="card-body">
+                <div class="row gx-3 gy-2 align-items-center">
+                  <div class="col-md-12">
+                    <label class="form-label">Nhân viên </label>
+                    <select class="form-select" name="id_staff" id="id_staff" required="">
+                                <option value="">Chọn nhân viên</option>
+                                <?php 
+                                  foreach ($listStaff as $key => $item) {
+                                   echo '<option  value="'.$item->id.'">'.$item->name.'</option>';
+                                    
+                                  }
+                                ?>
+                              </select>
+                  </div>
+                  <div class="col-md-12">
+                    <label class="form-label">ca làm việc</label> &nbsp; &nbsp;
+                    <input type="checkbox" name="shift[]" value="sáng"> Sáng  &nbsp; &nbsp;
+                    <input type="checkbox" name="shift[]" value="chiều"> Chiều  &nbsp; &nbsp;
+                    <input type="checkbox" name="shift[]" value="tối"> Tối
+                  </div>
+                  <div class="col-md-12">
+                    <label class="form-label">ngày làm việc</label>
+                    <input type="text" class="form-control datepicker" name="date" value="<?php echo date('d/m/Y'); ?>">
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Chấm công</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
 
   <!-- Phân trang -->
   <div class="demo-inline-spacing">
