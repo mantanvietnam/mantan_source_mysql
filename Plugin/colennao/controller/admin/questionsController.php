@@ -44,6 +44,10 @@ function listQuestion($input)
     } else {
         $urlPage = $urlPage . '?page=';
     }
+    $conditions = array();
+    $listquestion = $modelQuestions->find()->where($conditions)->all()->toList();
+
+    setVariable('listquestion', $listquestion);
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -57,8 +61,10 @@ function addQuestion($input)
 	global $controller;
 	global $isRequestPost;
     global $metaTitleMantan;
+    global $session;
     $metaTitleMantan = 'Thông tin câu hỏi';
 	$modelQuestions = $controller->loadModel('Questions');
+    $modelanswerquetions = $controller->loadModel('answerquestion');
     $modelTests = $controller->loadModel('Tests');
 	$mess= '';
 	// lấy data edit
@@ -69,30 +75,82 @@ function addQuestion($input)
     }
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['question'])){
-	        // tạo dữ liệu save
-	        $data->question = trim($dataSend['question']);
-	        $data->option_a = trim($dataSend['option_a']);
-	        $data->option_b = trim($dataSend['option_b']);
-	        $data->option_c = trim($dataSend['option_c']);
-            $data->option_d = trim($dataSend['option_d']);
+    
+        if (!empty($dataSend['name'])) {
+            // Tạo dữ liệu save
+            $data->name = trim($dataSend['name']);  
+            $data->id_next = !empty($dataSend['id_next'][0]) ? (int)$dataSend['id_next'][0] : 'null';  
             $data->type = $dataSend['type'];
-            $data->is_checked = $dataSend['is_checked'];
-            // $data->option_true = $dataSend['option_true'];
             $data->id_test = $dataSend['id_test'];
-	        $data->status = $dataSend['status'];
-	        $modelQuestions->save($data);
-	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-            $_SESSION['id_test_choose'] = $dataSend['id_test'];
-	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập câu hỏi</p>';
-	    }
+            $data->status = $dataSend['status'];
+            $namequestion = $dataSend['name'];
+            
+            $modelQuestions->save($data);
+            $idquestion = $data->id;
+            if (!empty($dataSend['answername'])) {
+                if (isset($dataSend['answername']) && is_array($dataSend['answername'])) {
+                    foreach ($dataSend['answername'] as $key => $answername) {
+                        $answerData = $modelanswerquetions->newEmptyEntity();
+                        $answerData->answername = !empty($dataSend['answername'][$key]) ? trim($dataSend['answername'][$key]) : 'null'; 
+                        $answerData->id_next = !empty($dataSend['id_next'][$key]) ? $dataSend['id_next'][$key] : '0';  
+                        $answerData->namequestion = $namequestion;
+                        $answerData->id_question = $idquestion;
+                        $modelanswerquetions->save($answerData);
+                    }
+                }
+            }
+            
+
+
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';              
+        }else{
+            $mess= '<p class="text-danger">Bạn chưa nhập tên câu hỏi</p>';
+        }
+
     }
+    
+    
+
     $conditions = array();
     $listTest = $modelTests->find()->where($conditions)->all()->toList();
+    $currentAnswerId = isset($_GET['id']) ? $_GET['id'] : null;
+
+    if (!empty($currentAnswerId)) {
+        $conditions = ['id !=' => $currentAnswerId]; 
+    } else {
+        $conditions = []; 
+    }
+    $listquestion = $modelQuestions->find()->where($conditions)->all()->toList();
+
+    
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+    if (!empty($id)) {
+        $listanswerquestion = $modelQuestions->find()
+            ->join([
+                'answerquestion' => [
+                    'table' => 'answerquestion',
+                    'type' => 'INNER', 
+                    'conditions' => 'Questions.id = answerquestion.id_question',
+                ]
+            ])
+            ->select([
+                'Questions.id', 
+                'Questions.name', 
+                'answerquestion.namequestion',
+                'answerquestion.answername'
+            ])
+            ->where(['Questions.id' => $id]) 
+            ->all();
+            setVariable('listanswerquestion', $listanswerquestion);
+    }
+
+    
+
+    setVariable('listquestion', $listquestion);
     setVariable('data', $data);
     setVariable('mess', $mess);
     setVariable('listTest', $listTest);
+
 
 }
 

@@ -181,6 +181,6 @@ $sqlUpdateDatabase['rooms']['idManager'] = "ALTER TABLE `rooms` ADD `idManager` 
 $sqlUpdateDatabase['rooms']['id_order'] = "ALTER TABLE `rooms` ADD `id_order` INT NOT NULL;";
 $sqlUpdateDatabase['rooms']['id_zoom'] = "ALTER TABLE `rooms` ADD `id_zoom` INT NOT NULL;";
 $sqlUpdateDatabase['rooms']['idmeeting'] = "ALTER TABLE `rooms` ADD `idmeeting` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['rooms']['start_url'] = "ALTER TABLE `rooms` ADD `start_url` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['rooms']['start_url'] = "ALTER TABLE `rooms` ADD `start_url` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL;";
 $sqlUpdateDatabase['rooms']['info'] = "ALTER TABLE `rooms` ADD `info` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 ?>

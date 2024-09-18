@@ -10,6 +10,7 @@
           <tr class="">
             <th>ID</th>
             <th>Câu hỏi</th>
+            <th>Câu hỏi tiếp theo</th>
             <th>Trạng thái</th>
             <th>Sửa</th>
             <th>Xóa</th>
@@ -19,9 +20,12 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+                
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td>'.$item->question.'</td>
+                        <td>'.$item->name.'</td>
+                         <td>'.$item->answer.'</td>
+              
                         <td>'.$item->status.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-questions-addQuestion/?id='.$item->id.'">

@@ -26,144 +26,153 @@
                         </li>
                         <li class="nav-item">
                           <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-answer1" aria-controls="navs-top-answer1" aria-selected="false">
-                            Đáp án 1
+                            Lựa chọn
                           </button>
                         </li>
                         <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-answer2" aria-controls="navs-top-answer2" aria-selected="false">
-                            Đáp án 2
-                          </button>
-                        </li>
-                        <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-answer3" aria-controls="navs-top-answer3" aria-selected="false">
-                            Đáp án 3
-                          </button>
-                        </li>
-                        <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-answer4" aria-controls="navs-top-answer4" aria-selected="false">
-                            Đáp án 4
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-unit" aria-controls="navs-top-unit" aria-selected="false">
+                            Lựa chọn  
                           </button>
                         </li>
                       </ul>
                       <div class="tab-content">
                         <div class="tab-pane fade active show" id="navs-top-question" role="tabpanel">
                           <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">Câu hỏi nhiều đáp án</label>
-                                <input type="hidden" name="is_checked" value="0">
-                                <input type="checkbox" name="is_checked" value="1" <?php echo (@$data->is_checked == 1) ? 'checked' : ''; ?>>
-                              </div>
+                            <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">Câu hỏi (*)</label>
-                                <?php showEditorInput('question', 'question', @$data->question);?>
+                                <input  type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" required/>
                               </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                  <label class="form-label">Bài khảo sát (*)</label>
+                                  <div class="input-group input-group-merge">
+                                    <select required class="form-select" name="id_test" id="id_test">
+                                      <option value="">Chọn bài khảo sát</option>
+                                      <?php 
+                                      if(!empty($listTest)){
+                                        foreach ($listTest as $key => $item) {
+                                          if(!empty($data->id_test) && $data->id_test==$item->id){
+                                            echo '<option selected value="'.$item->id.'">'.$item->title.'</option>';
+                                          }else{
+                                            echo '<option value="'.$item->id.'">'.$item->title.'</option>';
+                                          }
+                                        }
+                                      }
+                                      ?>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 d-none">
+                                <div class="mb-3">
+                                    <label class="form-label">Type</label>
+                                    <div class="input-group input-group-merge">
+                                        <input class="form-control" name="type" id="type" readonly>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="mb-3">
+                                  <label class="form-label">Trạng thái</label>
+                                  <div class="input-group input-group-merge">
+                                    <select class="form-select" name="status" id="status">
+                                      <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
+                                      <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
                           </div>
                         </div>
-                       
                         <div class="tab-pane fade" id="navs-top-answer1" role="tabpanel">
                           <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">Phương án A</label>
-                                <?php showEditorInput('option_a', 'option_a', @$data->option_a);?>
+                            <div class="col-md-7">
+                              
+                              <select class="form-control" name="id_next" id="id_next" >
+                                <option value="">Câu hỏi tiếp theo</option>
+                                <?php foreach ($listquestion as $item): ?>
+                                    <option value="<?= $item->id ?>" <?= (@$data->id_next == $item->id) ? 'selected' : '' ?>>
+                                        <?= $item->name ?>
+                                    </option>
+                                <?php endforeach; ?>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">
+                          <div class="row">
+                            <div class="col-md-12"> 
+                              <table class="table table-bordered table-striped table-hover mb-none text-center mb-3" id="answerTable">
+                                <thead>
+                                    <tr>
+                                        <th>Câu trả lời</th>
+                                        <th>ID Câu hỏi tiếp theo</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                 
+                                <?php if (!empty($listanswerquestion)): ?>
+                                    <?php foreach ($listanswerquestion as $value): ?>
+                                        <tr class="gradeX" id="trlink">
+                                            <td>
+                                                <input type="text" class="form-control" placeholder="" name="answername[]" id="answername" value="<?= $value->answerquestion['answername'] ?>" required/>
+                                                <input type="hidden" class="form-control" placeholder="" name="namequestion" id="namequestion" value=""/>
+                                                <input type="hidden" class="form-control" placeholder="" name="id_question" id="id_question" value=""/>
+                                            </td>
+                                            <td>
+                                              <select class="form-control" name="id_next[]" id="id_next" required>
+                                                <option value="">Câu hỏi tiếp theo</option>
+                                                <?php foreach ($listquestion as $item): ?>
+                                                    <option value="<?= $item->id ?>" <?= (@$data->id_next == $item->id) ? 'selected' : '' ?>>
+                                                        <?= $item->name ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr class="gradeX" id="trlink">
+                                          <td>
+                                              <input type="text" class="form-control" placeholder="" name="answername[]" id="answername" value="" required/>
+                                              <input type="hidden" class="form-control" placeholder="" name="namequestion" id="namequestion" value=""/>
+                                              <input type="hidden" class="form-control" placeholder="" name="id_question" id="id_question" value=""/>
+                                          </td>
+                                          <td>
+                                            <select class="form-control" name="id_next[]" id="id_next" required>
+                                              <option value="">Câu hỏi tiếp theo</option>
+                                              <?php foreach ($listquestion as $item): ?>
+                                                  <option value="<?= $item->id ?>">
+                                                      <?= $item->name ?>
+                                                  </option>
+                                              <?php endforeach; ?>
+                                            </select>
+                                          </td>
+                                          <td>
+                                              <button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>
+                                          </td>
+                                      </tr>
+                                <?php endif; ?>
+                                </tbody>
+                              </table> 
+
+                              <div class="form-group mb-3 col-md-12">
+                                <button type="button" id="addRowBtn" class="btn btn-primary">Thêm hàng</button>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="navs-top-answer2" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                            <div class="mb-3">
-                              <label class="form-label">Phương án B</label>
-                              <?php showEditorInput('option_b', 'option_b', @$data->option_b);?>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="tab-pane fade" id="navs-top-answer3" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">Phương án C</label>
-                                <?php showEditorInput('option_c', 'option_c', @$data->option_c);?>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="tab-pane fade" id="navs-top-answer4" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">Phương án D</label>
-                                <?php showEditorInput('option_d', 'option_d', @$data->option_d);?>
-                              </div>
-                            </div>
-                          </div>
-                        </div>  
                       </div>              
                   </div>
                 </div>
-
-                <!-- <div class="col-md-4">
-                  <div class="mb-3">
-                    <label class="form-label">Phương án đúng (*)</label>
-                    <div class="input-group input-group-merge">
-                      <select class="form-select" name="option_true" id="option_true" required>
-                        <option value="">Chọn phương án đúng</option>
-                        <option value="a" <?php if(!empty($data->option_true) && $data->option_true=='a') echo 'selected'; ?> >Phương án A</option>
-                        <option value="b" <?php if(!empty($data->option_true) && $data->option_true=='b') echo 'selected'; ?> >Phương án B</option>
-                        <option value="c" <?php if(!empty($data->option_true) && $data->option_true=='c') echo 'selected'; ?> >Phương án C</option>
-                        <option value="d" <?php if(!empty($data->option_true) && $data->option_true=='d') echo 'selected'; ?> >Phương án D</option>
-                      </select>
-                    </div>
-                  </div>
-                </div> -->
-
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label class="form-label">Bài khảo sát (*)</label>
-                    <div class="input-group input-group-merge">
-                      <select required class="form-select" name="id_test" id="id_test">
-                        <option value="">Chọn bài khảo sát</option>
-                        <?php 
-                        if(!empty($listTest)){
-                          foreach ($listTest as $key => $item) {
-                            if(!empty($data->id_test) && $data->id_test==$item->id){
-                              echo '<option selected value="'.$item->id.'">'.$item->title.'</option>';
-                            }else{
-                              echo '<option value="'.$item->id.'">'.$item->title.'</option>';
-                            }
-                          }
-                        }
-                        ?>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-4 d-none">
-                  <div class="mb-3">
-                      <label class="form-label">Type</label>
-                      <div class="input-group input-group-merge">
-                          <input class="form-control" name="type" id="type" readonly>
-                      </div>
-                  </div>
               </div>
-
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label class="form-label">Trạng thái</label>
-                    <div class="input-group input-group-merge">
-                      <select class="form-select" name="status" id="status">
-                        <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
-                        <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                </div>
 
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>
@@ -202,3 +211,43 @@
         }
     });
 </script>
+<script>
+document.getElementById('addRowBtn').addEventListener('click', function() {
+    // Lấy bảng và tạo hàng mới
+    var table = document.getElementById('answerTable').getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow();
+
+    // Tạo các ô và chèn vào hàng mới
+    var cell1 = newRow.insertCell(0);
+    var cell2 = newRow.insertCell(1);
+    var cell3 = newRow.insertCell(2);
+
+    // Tạo nội dung cho từng ô
+    cell1.innerHTML = '<input type="text" class="form-control" placeholder="" name="answername[]" />' +
+                      '<input type="hidden" class="form-control" placeholder="" name="namequestion" />';
+    cell2.innerHTML = '<select class="form-control" name="id_next[]">' +
+                      '<option value="">Câu hỏi tiếp theo</option>' +
+                      <?php foreach ($listquestion as $item): ?>
+                          '<option value="<?= $item->id ?>"><?= $item->name ?></option>' +
+                      <?php endforeach; ?>
+                      '</select>';
+    cell3.innerHTML = '<button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>';
+});
+
+// Hàm xóa hàng, chỉ cho phép xóa nếu có hơn 1 hàng
+function removeRow(button) {
+    var table = document.getElementById('answerTable').getElementsByTagName('tbody')[0];
+    var rowCount = table.rows.length;
+
+    // Kiểm tra số lượng hàng, chỉ xóa nếu có hơn 1 hàng
+    if (rowCount > 1) {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    } else {
+        alert("Bảng phải có ít nhất một hàng.");
+    }
+}
+
+
+</script>
+
