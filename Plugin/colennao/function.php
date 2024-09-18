@@ -34,19 +34,6 @@ $menus[0]['sub'][5]= array(	'title'=>'Giảm cân',
                             'classIcon'=>'bx bxs-wink-tongue',
                             'permission'=>'listfastingadmin'
                     );
-$menus[0]['sub'][10]= array('title'=>'Cài đặt',
-        'url'=>'/',
-        'classIcon'=>'bx bx-cog',
-        'permission'=>'settings',
-        'sub'=> array(  
-                        array(	'title'=>'Phương pháp',
-                                'url'=>'/plugins/admin/colennao-view-admin-category-listCategorylosingweight',
-                                'classIcon'=>'bx bxs-data',
-                                'permission'=>'listCategorylosingweight'
-                                ),
-        )
-
-    );
 $menus[0]['sub'][6]= array( 'title'=>'Bảng giá ',
                             'url'=>'/plugins/admin/colennao-view-admin-pricelist-listPriceList',
                             'classIcon'=>'bx bx-money',
@@ -67,8 +54,28 @@ $menus[0]['sub'][9]= array( 'title'=>'Huấn luyện viên',
                             'classIcon'=>'bx bxs-meh-blank',
                             'permission'=>'listcoach'
                     );
-$menus[1]['title'] = 'Liên hệ';
-$menus[1]['sub'][1]= array( 'title'=>'Thông tin liên hệ  ',
+
+$menus[0]['sub'][10]= array('title'=>'Cài đặt',
+        'url'=>'/',
+        'classIcon'=>'bx bx-cog',
+        'permission'=>'settings',
+        'sub'=> array(  
+                        array(  'title'=>'Phương pháp',
+                                'url'=>'/plugins/admin/colennao-view-admin-category-listCategorylosingweight',
+                                'classIcon'=>'bx bxs-data',
+                                'permission'=>'listCategorylosingweight'
+                                ),
+        )
+
+    );
+$menus[1]['title'] = 'Gói luyện tập';
+$menus[1]['sub'][1]= array( 'title'=>'Bài luyện tập  ',
+                            'url'=>'/plugins/admin/colennao-view-admin-workout-listWorkout',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listContactAdmin'
+                    );
+$menus[2]['title'] = 'Liên hệ';
+$menus[2]['sub'][1]= array( 'title'=>'Thông tin liên hệ  ',
                             'url'=>'/plugins/admin/colennao-view-admin-contacts-listContactAdmin',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listContactAdmin'

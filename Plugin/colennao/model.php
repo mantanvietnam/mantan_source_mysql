@@ -16,4 +16,6 @@ include('model/coach.php');
 include('model/transactions.php');
 include('model/user_challenges.php');
 include('model/user_courses.php');
+include('model/workout.php');
+include('model/exercise_workouts.php');
 ?>

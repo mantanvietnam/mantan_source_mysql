@@ -13,6 +13,7 @@ include_once('controller/admin/notificationControlle.php'); // Thông báo
 include_once('controller/admin/settingController.php'); // cài đặt thông số 
 include_once('controller/admin/rewardController.php'); // phan thuong 
 include_once('controller/admin/orderPointController.php'); // đơn mua bán điểm  
+include_once('controller/admin/postsController.php'); // đơn mua bán điểm  
 
 // Api .php
 include_once('controller/api/provincesController.php'); // Tỉnh thành

@@ -12,6 +12,7 @@ include_once('controller/admin/challengeController.php');
 include_once('controller/admin/contactsController.php');
 include_once('controller/admin/setingController.php');
 include_once('controller/admin/coachController.php');
+include_once('controller/admin/workoutController.php');
 // Api .php
 include_once('controller/api/usersController.php'); 
 include_once('controller/api/coursesController.php');

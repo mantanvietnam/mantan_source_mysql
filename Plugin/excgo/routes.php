@@ -22,6 +22,7 @@ $routesPlugin['deleteUserApi'] = 'excgo/view/deleteUserApi.php';
 // Province 
 $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';
 $routesPlugin['listIdProvinceBLock'] = 'excgo/view/listIdProvinceBLock.php';
+$routesPlugin['addPostAdmin'] = 'excgo//view/admin/post/addPostAdmin.php';
 
 // Pinned Province
 $routesPlugin['addPinnedProvinceApi'] = 'excgo/view/addPinnedProvinceApi.php';
