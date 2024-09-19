@@ -250,4 +250,44 @@ function activateThemeMemberAdmin($input){
     setVariable('listSystem', $listSystem);
 }
 
+
+function listThemeInfoAdmin(){
+	InstallistThemeInfo();
+	 global $modelOptions;
+    $conditions = array('key_word' => 'themeinfo');
+
+    $data = $modelOptions->find()->where($conditions)->first();
+    $value = [];
+    if(!empty($data->value)){
+        $value = json_decode($data->value,true);
+    }
+
+    setVariable('data', $value);
+
+
+
+}
+
+function editPriceAdmin(){
+	global $controller;
+	global $modelOptions;
+    $conditions = array('key_word' => 'themeinfo');
+
+    $data = $modelOptions->find()->where($conditions)->first();
+    $value = [];
+    if(!empty($data->value)){
+        $value = json_decode($data->value,true);
+        foreach ($value as $key => $item) {
+        	if($item['id']==(int)$_GET['id']){
+        		$item['price']= (int)$_GET['price'];
+        		$value[$key]=$item;
+        	}
+        }
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+    }
+
+    return $controller->redirect('/plugins/admin/hethongdaily-view-admin-member-listThemeInfoAdmin');																
+}
 ?>

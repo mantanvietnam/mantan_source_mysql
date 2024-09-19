@@ -3,6 +3,18 @@ function listThemeCLoneWebAdmin($input)
 {
     global $controller;
     global $isRequestPost;
+    InstallistCloneWeb();
+
+    global $modelOptions;
+    $conditions = array('key_word' => 'price_clone_web');
+
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    if(!empty($data->value)){
+        $price = json_decode($data->value,true);
+    }
+
+    
     
     $modelMemberWebs = $controller->loadModel('MemberWebs');
 
@@ -16,7 +28,7 @@ function listThemeCLoneWebAdmin($input)
 
                 $number_theme = $modelMemberWebs->find()->where($conditions)->all()->toList();
 
-                $static[$value] = count($number_theme);
+                $static[$value] =array('number_theme'=> count($number_theme), 'price'=>$price[$value]);
             }else{
                 unset($listFolder[$key]);
             }
@@ -45,5 +57,28 @@ function settingThemeCloneWebAdmin($input)
     }else{
         return $controller->redirect('/plugins/admin/clone_web-view-admin-theme-listThemeCLoneWebAdmin');
     }
+}
+
+function editPriceThemeCloneWebAdmin(){
+    global $controller;
+    global $modelOptions;
+    $conditions = array('key_word' => 'price_clone_web');
+
+    $data = $modelOptions->find()->where($conditions)->first();
+    $value = [];
+    if(!empty($data->value)){
+        $value = json_decode($data->value,true);
+        foreach ($value as $key => $item) {
+            if($key==$_GET['theme']){
+                $value[$key]= (int)$_GET['price'];
+               
+            }
+        }
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+    }
+
+    return $controller->redirect('/plugins/admin/clone_web-view-admin-theme-listThemeCLoneWebAdmin');                                                               
 }
 ?>

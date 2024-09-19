@@ -39,7 +39,11 @@ $menus[0]['sub'][]= array(  'title'=>'Module chức năng',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'moduleSystemAdmin'
                         );
-
+$menus[0]['sub'][]= array(  'title'=>'Danh sách trang info',
+                            'url'=>'/plugins/admin/hethongdaily-view-admin-member-listThemeInfoAdmin',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listThemeInfoAdmin'
+                        );
 $menus[1]['title']= "Đơn hàng hệ thống";
 $menus[1]['sub'] = [];
 
@@ -1197,18 +1201,17 @@ function typeLink(){
 }
 
 function listThemeInfo(){
-    return [ 
-        ['id' => 1, 'name' => 'Theme info 1 ', 'code' => 'themeifo1', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them1.jpg','price'=>0],
-        ['id' => 2, 'name' => 'Theme info 2 ', 'code' => 'themeifo2', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them2.jpg','price'=>499000],
-        ['id' => 3, 'name' => 'Theme info 3 ', 'code' => 'themeifo3', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them3.jpg','price'=>499000],
-        ['id' => 4, 'name' => 'Theme info 4 ', 'code' => 'themeifo4', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them4.png','price'=>499000],
-        ['id' => 5, 'name' => 'Theme info 5 ', 'code' => 'themeifo5', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them5.png','price'=>499000],
-        ['id' => 6, 'name' => 'Theme info 6 ', 'code' => 'themeifo6', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them6.png','price'=>499000],
-        ['id' => 7, 'name' => 'Theme info 7 ', 'code' => 'themeifo7', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them7.png','price'=>499000],
-        ['id' => 8, 'name' => 'Theme info 8 ', 'code' => 'themeifo8', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them8.png','price'=>499000],
-        ['id' => 9, 'name' => 'Theme info 9 ', 'code' => 'themeifo9', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them9.png','price'=>499000],
+     global $modelOptions;
+    $conditions = array('key_word' => 'themeinfo');
 
-    ];
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    if(!empty($data->value)){
+        return json_decode($data->value,true);
+    }else{
+        return themeInfo();
+    }
+   
 }
 
  // Hàm chuyển đổi tên thứ từ tiếng Anh sang tiếng Việt
@@ -1235,6 +1238,35 @@ function checkStaffTimekeepers($date,$id_staff){
     $checkdate = $modelStaffTimekeepers->find()->where(['date'=>$date,'id_staff'=>(int)$id_staff])->first();
 
     return $checkdate;
+}
+
+function InstallistThemeInfo(){
+    global $modelOptions;
+    $conditions = array('key_word' => 'themeinfo');
+
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+        $value = themeInfo();
+        $data->key_word = 'themeinfo';
+        $data->value = json_encode($value);
+        $modelOptions->save($data);
+    }
+}
+
+function themeInfo(){
+    return [ 
+        ['id' => 1, 'name' => 'Theme info 1 ', 'code' => 'themeifo1', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them1.jpg','price'=>0],
+        ['id' => 2, 'name' => 'Theme info 2 ', 'code' => 'themeifo2', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them2.jpg','price'=>499000],
+        ['id' => 3, 'name' => 'Theme info 3 ', 'code' => 'themeifo3', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them3.jpg','price'=>499000],
+        ['id' => 4, 'name' => 'Theme info 4 ', 'code' => 'themeifo4', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them4.png','price'=>499000],
+        ['id' => 5, 'name' => 'Theme info 5 ', 'code' => 'themeifo5', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them5.png','price'=>499000],
+        ['id' => 6, 'name' => 'Theme info 6 ', 'code' => 'themeifo6', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them6.png','price'=>499000],
+        ['id' => 7, 'name' => 'Theme info 7 ', 'code' => 'themeifo7', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them7.png','price'=>499000],
+        ['id' => 8, 'name' => 'Theme info 8 ', 'code' => 'themeifo8', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them8.png','price'=>499000],
+        ['id' => 9, 'name' => 'Theme info 9 ', 'code' => 'themeifo9', 'image'=> '/plugins/hethongdaily/view/home/member/themeinfo/image/them9.png','price'=>499000],
+
+    ];
 }
 
 ?>

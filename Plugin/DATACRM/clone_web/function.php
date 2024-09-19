@@ -125,4 +125,32 @@ function check_domain_clone()
 }
 
 check_domain_clone();
+
+function InstallistCloneWeb(){
+    global $modelOptions;
+    $conditions = array('key_word' => 'price_clone_web');
+
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $listFolder = list_files(__DIR__.'/../../themes');
+    
+
+        $static = [];
+    if(!empty($listFolder)){
+        foreach ($listFolder as $key => $value) {
+            if(strpos($value, 'clone_web') !== false){
+                $static[$value] = 0;
+            }else{
+                unset($listFolder[$key]);
+            }
+        }
+    }
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+        
+        $data->key_word = 'price_clone_web';
+        $data->value = json_encode($static);
+        $modelOptions->save($data);
+    }
+}
 ?>
