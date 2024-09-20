@@ -415,7 +415,7 @@ function sendZaloUpdateOrder($infoMember, $infoCustomer, $infoOrder, $productDet
 
 function getTreeSystem($id_father, $modelMembers)
 {
-    $listData = $modelMembers->find()->where(['id_father'=>$id_father])->all()->toList();
+    $listData = $modelMembers->find()->where(['id_father'=>$id_father,'status !='=>'delete'])->all()->toList();
 
     if(!empty($listData)){
         foreach ($listData as $key => $value) {
@@ -424,6 +424,28 @@ function getTreeSystem($id_father, $modelMembers)
     }
 
     return $listData;
+}
+
+function checkDuplicateSystem($id_father, $modelMembers, $id_check, $i)
+{
+    $listData = $modelMembers->find()->where(['id_father'=>$id_father])->all()->toList();
+   
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            if($id_check==$value->id){
+                 $i +=1;
+            }else{
+               checkDuplicateSystem($value->id, $modelMembers, $id_check, $i);
+        
+            }
+            
+        }
+    }
+    return $i;
+
+
+
+     
 }
 
 function getTreeAffiliater($id_father, $number)

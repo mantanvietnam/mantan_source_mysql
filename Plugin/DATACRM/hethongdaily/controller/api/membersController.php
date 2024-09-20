@@ -114,10 +114,12 @@ function getInfoMemberAPI($input)
 		if(!empty($checkPhone)){
 			$dataLink = $modelLinkInfo->find()->where(['id_member'=>$checkPhone->id])->all()->toList();
 			$position = $modelCategories->find()->where(array('id'=>$checkPhone->id_position))->first();
+			$checkAgencyDownline = $modelMember->find()->where(array('id_father'=>$checkPhone->id))->first();
 			
 			$checkPhone->name_position = @$position->name;
 			$checkPhone->ListLink = @$dataLink;
 			$checkPhone->discount_position = @$position->description;
+			$checkPhone->checkAgencyDownline = (!empty($checkAgencyDownline))?1:0;
 
 			unset($checkPhone->password);
 			
@@ -131,6 +133,80 @@ function getInfoMemberAPI($input)
 						);
 		}
 	
+	}else{
+		$return = array('code'=>1,
+						'mess'=> 'Gửi sai phương thức POST'
+						);
+	}
+
+	return $return;
+}
+
+function deteleMemberAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	global $modelCategories;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$deteleMember = $modelMember->find()->where(array('id'=>$dataSend['id_agency']))->first();
+		$checkAgency = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'status'=>'active'))->first();
+
+		if(empty($checkAgency)){
+			return array('code'=>1,
+						'mess'=> 'Đại lý này không tồn tại'
+						);
+		}
+
+		if($deteleMember->id==$checkAgency->id){
+			return array('code'=>1,
+						'mess'=> 'Đại lý này không phải '
+						);
+		}
+
+		$listData = $modelMember->find()->where(['id_father'=>$deteleMember->id])->all()->toList();
+		$array =0;
+		if(!empty($listData)){
+	        foreach ($listData as $key => $value) {
+	            if($checkAgency->id==$value->id){
+	                return array('code'=>1,
+	                        'mess'=> 'Đại lý này không phải'
+	                        );
+	            }else{
+	            	$array = checkDuplicateSystem($value->id, $modelMember, $checkAgency->id,0);
+	            	//return 100;
+	            }
+	            
+	        }
+	    }
+	     // return $array;
+
+
+	    if($array==0){
+	    	if(!empty($listData)){
+		        foreach ($listData as $key => $value) {
+		            $value->id_father =  $checkAgency->id;
+		            $modelMember->save($value);
+		        }
+		    }
+
+		    $deteleMember->status = 'delete';
+		    $modelMember->save($deteleMember);
+		    return array('code'=>0,
+	                        'mess'=> 'bạn xóa thành công'
+	                        );
+	    }else{
+	    	return array('code'=>1,
+	                        'mess'=> 'Đại lý này không phải '
+	                        );
+	    }
+
 	}else{
 		$return = array('code'=>1,
 						'mess'=> 'Gửi sai phương thức POST'

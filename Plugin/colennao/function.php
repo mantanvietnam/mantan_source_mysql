@@ -177,7 +177,7 @@ function sendEmailCodeForgotPassword($email = '', $fullName = '', $code = '')
 
         $cc = array();
         $bcc = array();
-        $subject = 'Mã xác thực cấp lại mật khẩu mới';
+        $subject = 'Mã xác thực ';
 
         $content = '<!DOCTYPE html>
         <html lang="en">
@@ -220,7 +220,7 @@ function sendEmailCodeForgotPassword($email = '', $fullName = '', $code = '')
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào ' . $fullName . ' !</em> <br>
                         <br/>
-                        Mã xác thực cấp lại mật khẩu mới của bạn là: <b>' . $code . '</b>
+                        Mã xác thực của bạn là: <b>' . $code . '</b>
                         
                         <br><br>
                         

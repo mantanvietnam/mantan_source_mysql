@@ -262,6 +262,7 @@ $sqlInstallDatabase .="CREATE TABLE `child_exercise_workouts` (
 `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `id_exercise` INT NULL DEFAULT NULL,
+`id_group` INT NULL DEFAULT NULL,
 `youtube_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -417,6 +418,7 @@ $sqlUpdateDatabase['child_exercise_workouts']['description'] = "ALTER TABLE `chi
 $sqlUpdateDatabase['child_exercise_workouts']['content'] = "ALTER TABLE `child_exercise_workouts` ADD `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['child_exercise_workouts']['youtube_code'] = "ALTER TABLE `child_exercise_workouts` ADD `youtube_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['child_exercise_workouts']['id_exercise'] = "ALTER TABLE `child_exercise_workouts` ADD `id_exercise` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['child_exercise_workouts']['id_group'] = "ALTER TABLE `child_exercise_workouts` ADD `id_group` INT NULL DEFAULT NULL;";
 
 $sqlUpdateDatabase['devices']['name'] = "ALTER TABLE `devices` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['devices']['image'] = "ALTER TABLE `devices` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

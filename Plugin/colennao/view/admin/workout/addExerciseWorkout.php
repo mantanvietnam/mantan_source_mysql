@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-challenge-listChallenge">Thách thức </a> /</span>
-    Thông tin sản phẩm
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Bài luyện tập </a> / <a href="/plugins/admin/colennao-view-admin-workout-listExerciseWorkout/?id_workout=<?php echo @$_GET['id_workout'] ?>"><?php echo $checkWorkout->title; ?></a> /</span>
+    Thông tin bài luyện tập
   </h4>
 
   <!-- Basic Layout nav-align-top-->
@@ -98,7 +98,7 @@
                                 global $listArea;
 
                                   foreach ($listArea as $key => $item) {
-                                    if(empty($data->area) || $data->level!=$area){
+                                    if(empty($data->area) || $data->area!=$item){
                                       echo '<option value="'.$item.'">'.$item.'</option>';
                                     }else{
                                       echo '<option selected value="'.$item.'">'.$item.'</option>';
@@ -137,9 +137,12 @@
                            <?php if(!empty($listdevice)){
                                 foreach($listdevice as $key => $item){
                                     $checks = '';
-                                    if(in_array($item->id, $data->device)){
+                                    if(!empty($data->device)){
+                                      if(in_array($item->id, @$data->device)){
                                               $checks = 'checked';
                                             }
+                                    }
+                                    
                                     echo '<div class="mb-3 col-md-3"><input type="checkbox" '.$checks.' name="device[]" value="'.$item->id.'"> <label class="form-label">'.$item->name.'</label></br>
                                             <img src="' . $item->image . '" width="60" />';
 
@@ -171,7 +174,8 @@
                                   ?>
                                   <tr class="gradeX" id="trfeedback-<?php echo $y ?>">
                                     <td>
-                                        <input type="text" class="form-control phone-mask" name="group_exercise[<?php echo $y ?>]" id="group_exercise<?php echo $y ?>" value="<?php echo $item ?>"/>
+                                        <input type="text" class="form-control phone-mask" name="group_exercise[<?php echo $y ?>]" id="group_exercise<?php echo $y ?>" value="<?php echo @$item['name'] ?>"/>
+                                        <input type="hidden" class="form-control phone-mask" name="id_group[<?php echo $y ?>]" id="id_group<?php echo $y ?>" value="<?php echo @$item['id'] ?>"/>
                                     </td>
                                     
                                     <td align="center" class="actions"><?php echo $delete ?></td>
@@ -182,6 +186,7 @@
                                   <tr class="gradeX" id="trfeedback-<?php echo $y ?>">
                                     <td>
                                       <input type="text" class="form-control phone-mask" name="group_exercise[<?php echo $y ?>]"  value=""/>
+                                      <input type="hidden" class="form-control phone-mask" name="id_group[<?php echo $y ?>]"  value="<?php echo $y ?>"/>
                                     </td>
                                     <td align="center" class="actions"></td>
                                   </tr>
@@ -218,6 +223,7 @@
         $('#tbodyfeedback tr:last').after('<tr class="gradeX" id="trfeedback-'+f+'">\
           <td>\
           <input type="text" class="form-control phone-mask" name="group_exercise['+f+']"  value=""/>\
+          <input type="hidden" class="form-control phone-mask" name="id_group['+f+']"  value="'+f+'"/>\
           </td>\
           <td align="center" class="actions"><a onclick="deletefeedbackTr('+f+')" href="javascript:void(0);"><i class="bx bx-trash"></i></a></td>\
           </tr>');

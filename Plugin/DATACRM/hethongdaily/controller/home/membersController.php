@@ -378,6 +378,7 @@ function listMember($input)
 	$modelMembers = $controller->loadModel('Members');
 
 	if(!empty($session->read('infoUser'))){
+		$user = $session->read('infoUser');
 		$mess = '';
 		if(!empty($_GET['status'])){
 			switch($_GET['status']){
@@ -407,15 +408,16 @@ function listMember($input)
 			}
 		}
 
-		$listData = $modelMembers->find()->where(['id_father'=>$session->read('infoUser')->id])->all()->toList();
+		$listData = $modelMembers->find()->where(['id_father'=>$user->id, 'status !='=>'delete'])->all()->toList();
 
 		if(!empty($listData)){
 	        foreach ($listData as $key => $value) {
 	            $listData[$key]->agentSystem = getTreeSystem($value->id, $modelMembers);
 	        }
 	    }
-
+	    
 		setVariable('listData', $listData);
+		setVariable('user', $user);
 		setVariable('mess', $mess);
 	}else{
 		return $controller->redirect('/login');

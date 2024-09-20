@@ -99,6 +99,41 @@
   </div>
 </div>
 
+<div class="modal fade" id="deleteAgency"  name="deleteAgency">         
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Bạn có muống xoá tài khoản không?</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+     
+         <div class="modal-body mb-3">
+        <input type="hidden" value="" name="id_agency" id="id_agency">
+
+        <div class="row">
+            <div class="col-md-12 mt-3 mb-3 ">
+               <div id='agency'></div>
+               <div id="mess"></div>
+            </div>
+
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary" onclick="deleteAgency()">Xóa</button>
+            </div>
+        </div>
+      </div>
+     
+      
+     
+      
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="popupQRCode"  name="popupQRCode">         
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -180,6 +215,8 @@
         .done(function( msg ) {
             dataAgency = msg.data;
 
+
+
             var dateCreate = new Date(dataAgency.created_at*1000).toLocaleString();
             var dateDealine = new Date(dataAgency.deadline*1000).toLocaleString();
             var status, payFees, verify, edit;
@@ -201,12 +238,17 @@
                 edit += ' <a href="/viewWarehouseProductAgency/?id_member='+dataAgency.id+'" class="btn btn-warning  mb-3">Xem tồn kho</a> ';
             }
 
+            if(<?php echo $user->id_father ?>==0){
+                edit += ' <a onclick="modalAgency('+dataAgency.id+','+dataAgency.checkAgencyDownline+')"  class="btn btn-warning  mb-3">Xóa đại lý</a> ';
+            }
+
+
             if(dataAgency.status == 'active'){
                 status = '<div style="margin-top: 10px;margin-bottom: 10px;" class=""> '+edit+'</div>';
                 // <a href="/updateStatusMember?id='+dataAgency.id+'&status=lock" class="btn btn-danger width-100  mb-3"><i class="fa fa-trash-o"></i>Khóa tài khoản</a>
             }else{
                 payFees = '<button type="button" class="btn btn-danger" onclick="popupPayFees('+dataAgency.id+')">Đóng phí</button>';
-                payFees = '';
+                //payFees = '';
 
                 status = '<div style="margin-top: 10px;margin-bottom: 10px;" class="">'+payFees+' '+edit+'</div>';
                 // <a href="/updateStatusMember?id='+dataAgency.id+'&status=active" class="btn btn-primary width-100  mb-3"><i class="fa fa-trash-o"></i>Kích hoạt tài khoản</a> 
@@ -330,6 +372,20 @@
 
         });
 }
+
+
+    function modalAgency(id,checkAgencyDownline){
+        $('#id_agency').val(id);
+        $('#deleteAgency').modal('show');
+        html = '';
+        if(checkAgencyDownline==1){
+            html = '<p>Đại lý này muốn xóa thì yêu cầu chuyển các đại lý tuyến dưới sang một đại lý khác</p>\
+                <label class="form-label" for="basic-default-phone">Số điện thoại của đạt lý  (*)</label>\
+                    <input required type="text" class="form-control phone-mask" name="phone" id="phone" value="" />\
+                    <input required type="hidden" class="form-control phone-mask" name="id_agency_introduce" id="id_agency_introduce" value="" />'
+        }
+        $('#agency').html(html);
+    }
 </script>
 
 <script>
@@ -417,6 +473,7 @@
     });
 </script>
 
+
 <script type="text/javascript">
     function popupPayFees(idMember)
     {
@@ -459,5 +516,92 @@
         }
     }
 </script>
+
+<script type="text/javascript">
+    
+    function  deleteAgency(){
+        var id_agency = $('#id_agency').val();
+        var phone = $('#phone').val();
+
+
+        $.ajax({
+            method: "POST",
+            url: "/apis/deteleMemberAPI",
+            data: { id_agency: id_agency, phone:phone }
+        })
+        .done(function(msg) {
+
+            console.log(msg.code);
+            if(msg.code==0){
+                location.reload();
+            }else{
+                 text = '<p class="text-danger">'+msg.mess+'</p>';
+                $('#mess').html(text);
+            }
+
+        });
+
+
+         console.log(id_agency);
+         console.log(phone);
+    }
+</script>
+
+<!-- <script type="text/javascript">  
+
+       // tìm sản phẩm
+    $(function() {
+        function split( val ) {
+          return val.split( /,\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+        $( "#name_agency" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+             console.log(event);
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchMemberAPI", {
+                    term: extractLast( request.term )
+                }, response );
+
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#name_agency" ).val(ui.item.name);
+                $( "#id_agency_introduce" ).val(ui.item.id);
+
+                return false;
+            }
+        });
+    });
+</script> -->
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> -->
 
 <?php include(__DIR__.'/../footer.php'); ?>

@@ -59,12 +59,14 @@ function registerUserApi($input): array
                 $user->birthday = (int) strtotime($dataSend['birthday']);
                 $user->email = @$dataSend['email'] ?? null;
                 $user->address = @$dataSend['address'] ?? null;
-                $user->status = 'active';
+                $user->status = 'lock';
                 $user->created_at = time();
                 $user->deadline =  strtotime("+30 days", time());
                 $user->updated_at = time();
                 $user->last_login = time();
                 $user->token = createToken();
+                $code = rand(100000, 999999);
+                $user->reset_password_code = $code;
                 $user->device_token = @$dataSend['device_token'];
                 $user->current_weight =  (int) @$dataSend['current_weight'];
                 $user->target_weight =  (int) @$dataSend['target_weight'];
@@ -74,15 +76,57 @@ function registerUserApi($input): array
                 $loginUser = $modelUser->find()->where([
                     'phone' => $dataSend['phone'],
                     'password' => md5($dataSend['password']),
-                    'status' => 'active'
+                    'status' => 'lock'
                 ])->first();
 
                 // sendEmailnewUserRegistration($user->name, $user->id);
+                if($loginUser->email){
+                    sendEmailCodeForgotPassword($loginUser->email, $loginUser->name, $loginUser->code);
+                }
+                
 
                 return apiResponse(0, 'Lưu thông tin thành công', $loginUser);
             }
 
             return apiResponse(3, 'Số điện thoại đã tồn tại');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function confirmotpcodeApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['phone']) && isset($dataSend['code'])  && isset($dataSend['device_token'])) {
+            $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
+            $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
+            $user = $modelUser->find()->where(['phone' => $dataSend['phone'],])->first();
+
+            if (empty($user)) {
+                return apiResponse(3, 'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
+            }
+
+            if ($user->reset_password_code !== $dataSend['code']) {
+                return apiResponse(4, 'Mã cấp lại mật khẩu không chính xác');
+            }
+
+            $user->reset_password_code = null;
+            $user->token = createToken();
+            $user->status = 'active';
+            $user->device_token = @$dataSend['device_token'];
+            $modelUser->save($user);
+
+            return apiResponse(0, 'Đổi mật khẩu thành công', $user);
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');
@@ -227,7 +271,7 @@ function forgotPasswordApi($input): array
                 return apiResponse(3, 'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
             }
 
-            if ($user->status != 1) {
+            if ($user->status != 'active') {
                 return apiResponse(3, 'Tài khoản đang bị khóa');
             }
 
