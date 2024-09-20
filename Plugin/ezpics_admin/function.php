@@ -444,7 +444,7 @@ function sendNotification($data=[], $deviceTokens)
             $deviceTokens = [$deviceTokens];
         }
 
-        $chunks = splitArrayIntoChunks($deviceTokens, 100);
+        $chunks = splitArrayIntoChunks($deviceTokens, 1000);
         
 
         $headers = [
