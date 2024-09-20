@@ -29,15 +29,15 @@
         }
 
         if(!empty($data_value['title_web'])){
-            $metaTitleMantan = $data_value['title_web'];
+            $metaTitleMantan = show_text_clone($data_value['title_web']);
         }
 
         if(!empty($data_value['des_web'])){
-            $metaDescriptionMantan = $data_value['des_web'];
+            $metaDescriptionMantan = show_text_clone($data_value['des_web']);
         }
 
         if(!empty($data_value['image_web'])){
-            $metaImageMantan = $data_value['image_web'];
+            $metaImageMantan = show_text_clone($data_value['image_web']);
         }
 
         return $data_value;
