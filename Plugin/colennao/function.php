@@ -65,6 +65,11 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
                                 'classIcon'=>'bx bxs-data',
                                 'permission'=>'listCategorylosingweight'
                                 ),
+                        array(  'title'=>'Thiết bị',
+                                'url'=>'/plugins/admin/colennao-view-admin-device-listDevice',
+                                'classIcon'=>'bx bxs-data',
+                                'permission'=>'listDevice'
+                                ),
         )
 
     );
@@ -460,6 +465,21 @@ function createCourseUser($id_user, $id_Courses,$id_transaction){
 }
 
 
+global $listArea;
 
+$listArea = [1=> 'Toàn thân',
+    2 => 'Vũ khí',
+    3=> 'Mông',
+    4=> 'Cơ bụng',
+    5=> 'Chân',
+    6=> 'Mặt sau',
+];
+
+global $listLevel;
+
+$listLevel = [1=> 'Người mới',
+    2 => 'Trung bình',
+    3=> 'Trình độ cao',
+];
 
 ?>

@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Bài luyện tập </h4>
+  <h4 class="fw-bold py-3 mb-4"> <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Bài luyện tập </a> / <?php echo @$data->title; ?> </h4>
  
-  <p><a href="/plugins/admin/colennao-view-admin-workout-addWorkout" class="btn btn-primary"><i class='bx bx-plus'></i>Thêm mới</a></p> 
+  <p><a href="/plugins/admin/colennao-view-admin-workout-addExerciseWorkout?id_workout=<?php echo @$_GET['id_workout']; ?>" class="btn btn-primary"><i class='bx bx-plus'></i>Thêm mới</a></p> 
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -11,14 +11,13 @@
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-3">
             <label class="form-label">ID</label>
-            <input type="text" class="form-control" name="id"
-                   value="<?php if (!empty($_GET['id'])) echo $_GET['id']; ?>">
+            <input type="text" class="form-control" name="id" value="<?php if (!empty($_GET['id'])) echo $_GET['id']; ?>">
+            <input type="hidden" class="form-control" name="id_workout" value="<?php if (!empty($_GET['id_workout'])) echo $_GET['id_workout']; ?>">
           </div>
 
           <div class="col-md-3">
             <label class="form-label">Tiêu đề</label>
-            <input type="text" class="form-control" name="name"
-                   value="<?php if (!empty($_GET['name'])) echo $_GET['name']; ?>">
+            <input type="text" class="form-control" name="name" value="<?php if (!empty($_GET['name'])) echo $_GET['name']; ?>">
           </div>
 
 
@@ -56,7 +55,7 @@
         <tr class=""><th>ID</th>
               <th>Hình Ảnh</th>
               <th>tiêu đề</th>
-              <th>sô bài tập</th>
+              <th>sô bài tập luyện</th>
               <th>Trạng thái</th>
               <th>Hàng động</th> 
         </tr>
@@ -82,19 +81,19 @@
                   </td>
                   <td>'.$item->title . '  </td>
                   <td> <a href="/plugins/admin/colennao-view-admin-workout-listExerciseWorkout/?id_workout=' . $item->id . '"
-                 >'.$item->total_exercise . '</a> </td>
+                 >'.$item->total_child . '</a> </td>
                  
                  <td>'.$status.'</td>
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 
-                 href="plugins/admin/colennao-view-admin-workout-addWorkout/?id=' . $item->id . '"
+                 href="/plugins/admin/colennao-view-admin-workout-addExerciseWorkout/?id_workout='.@$_GET['id_workout'].'&id=' . $item->id . '"
                  >
                  <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>
                  <p align="center">
-                 <a class="btn btn-success" href="/plugins/admin/colennao-view-admin-workout-addWorkout/?id=' . $item->id . '">
+                 <a class="btn btn-success" href="/plugins/admin/colennao-view-admin-workout-deleteExerciseWorkout/?id_workout='.@$_GET['id_workout'].'&id=' . $item->id . '">
                  <i class="bx bx-trash me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>

@@ -19,4 +19,6 @@ include('model/user_courses.php');
 include('model/workout.php');
 include('model/exercise_workouts.php');
 include('model/answerquestion.php');
+include('model/child_exercise_workouts.php');
+include('model/devices.php');
 ?>
