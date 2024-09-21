@@ -13,9 +13,7 @@ function listQuestion($input)
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
     $order = array('id'=>'desc');
-    if(!empty($_GET['id_test'])){
-        $conditions['id_test'] = (int) $_GET['id_test'];
-    }
+    $conditions = array();
     $listData = $modelQuestions->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
     $totalData = $modelQuestions->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
@@ -65,11 +63,11 @@ function addQuestion($input)
     $metaTitleMantan = 'Thông tin câu hỏi';
 	$modelQuestions = $controller->loadModel('Questions');
     $modelanswerquetions = $controller->loadModel('answerquestion');
-    $modelTests = $controller->loadModel('Tests');
+
 	$mess= '';
     if(!empty($_GET['id'])){
         $idanswer = $_GET['id'];
-        $dulieu = $modelanswerquetions->find()->select(['id','namequestion','answername','id_next'])->where(['id_question' => $idanswer])->toArray();
+        $dulieu = $modelanswerquetions->find()->select(['id','namequestion','answername'])->where(['id_question' => $idanswer])->toArray();
         // debug($dulieu);
         // die();
     }
@@ -89,9 +87,6 @@ function addQuestion($input)
         if (!empty($dataSend['name'])) {
             // Tạo dữ liệu save
             $data->name = trim($dataSend['name']);  
-            $data->id_next = !empty($dataSend['id_next'][0]) ? (int)$dataSend['id_next'][0] : 'null';  
-            $data->type = $dataSend['type'];
-            $data->id_test = $dataSend['id_test'];
             $data->status = $dataSend['status'];
             $namequestion = $dataSend['name'];
             $modelQuestions->save($data);
@@ -105,7 +100,6 @@ function addQuestion($input)
                                     if (isset($item->id)) {
                                         $answerData = $modelanswerquetions->get($item->id);
                                         $answerData->answername = !empty($dataSend['answername'][$key]) ? trim($dataSend['answername'][$key]) : 'null'; 
-                                        $answerData->id_next = !empty($dataSend['id_next'][$key]) ? $dataSend['id_next'][$key] : '0';  
                                         $answerData->namequestion = $namequestion; 
                                         $answerData->id_question = $idquestion; 
                                         $modelanswerquetions->save($answerData);
@@ -113,8 +107,7 @@ function addQuestion($input)
                                 }
                             } else {
                                 $answerData = $modelanswerquetions->newEmptyEntity();
-                                $answerData->answername = !empty($dataSend['answername'][$key]) ? trim($dataSend['answername'][$key]) : 'null'; 
-                                $answerData->id_next = !empty($dataSend['id_next'][$key]) ? $dataSend['id_next'][$key] : '0';  
+                                $answerData->answername = !empty($dataSend['answername'][$key]) ? trim($dataSend['answername'][$key]) : 'null';  
                                 $answerData->namequestion = $namequestion; 
                                 $answerData->id_question = $idquestion; 
                                 $modelanswerquetions->save($answerData);
@@ -124,11 +117,8 @@ function addQuestion($input)
                     }
                 }
             }
-            
-            
-
-
-            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';              
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>'; 
+            return $controller->redirect('/plugins/admin/colennao-view-admin-questions-listQuestion');             
         }else{
             $mess= '<p class="text-danger">Bạn chưa nhập tên câu hỏi</p>';
         }
@@ -137,8 +127,6 @@ function addQuestion($input)
     
     
 
-    $conditions = array();
-    $listTest = $modelTests->find()->where($conditions)->all()->toList();
     $currentAnswerId = isset($_GET['id']) ? $_GET['id'] : null;
 
     if (!empty($currentAnswerId)) {
@@ -164,7 +152,6 @@ function addQuestion($input)
                 'Questions.name', 
                 'answerquestion.namequestion',
                 'answerquestion.answername',
-                'answerquestion.id_next',
                 'answerquestion.id',
             ])
             ->where(['Questions.id' => $id]) 
@@ -177,7 +164,6 @@ function addQuestion($input)
     setVariable('listquestion', $listquestion);
     setVariable('data', $data);
     setVariable('mess', $mess);
-    setVariable('listTest', $listTest);
 
 
 }

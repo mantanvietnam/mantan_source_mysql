@@ -25,13 +25,8 @@
                           </button>
                         </li>
                         <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-answer1" aria-controls="navs-top-answer1" aria-selected="false">
-                            Lựa chọn
-                          </button>
-                        </li>
-                        <li class="nav-item">
                           <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-unit" aria-controls="navs-top-unit" aria-selected="false">
-                            Lựa chọn  
+                            Danh sách các kết quả câu hỏi  
                           </button>
                         </li>
                       </ul>
@@ -44,35 +39,6 @@
                                 <input  type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" required/>
                               </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                  <label class="form-label">Bài khảo sát (*)</label>
-                                  <div class="input-group input-group-merge">
-                                    <select required class="form-select" name="id_test" id="id_test">
-                                      <option value="">Chọn bài khảo sát</option>
-                                      <?php 
-                                      if(!empty($listTest)){
-                                        foreach ($listTest as $key => $item) {
-                                          if(!empty($data->id_test) && $data->id_test==$item->id){
-                                            echo '<option selected value="'.$item->id.'">'.$item->title.'</option>';
-                                          }else{
-                                            echo '<option value="'.$item->id.'">'.$item->title.'</option>';
-                                          }
-                                        }
-                                      }
-                                      ?>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-4 d-none">
-                                <div class="mb-3">
-                                    <label class="form-label">Type</label>
-                                    <div class="input-group input-group-merge">
-                                        <input class="form-control" name="type" id="type" readonly>
-                                    </div>
-                                </div>
-                              </div>
                               <div class="col-md-4">
                                 <div class="mb-3">
                                   <label class="form-label">Trạng thái</label>
@@ -86,21 +52,6 @@
                               </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="navs-top-answer1" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-7">
-                              
-                              <select class="form-control" name="id_next" id="id_next" >
-                                <option value="">Câu hỏi tiếp theo</option>
-                                <?php foreach ($listquestion as $item): ?>
-                                    <option value="<?= $item->id ?>" <?= (@$data->id_next == $item->id) ? 'selected' : '' ?>>
-                                        <?= $item->name ?>
-                                    </option>
-                                <?php endforeach; ?>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
                         <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">
                           <div class="row">
                             <div class="col-md-12"> 
@@ -109,7 +60,6 @@
                                     <tr>
                                
                                         <th>Câu trả lời</th>
-                                        <th>ID Câu hỏi tiếp theo</th>
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
@@ -126,16 +76,6 @@
                                                 <input type="hidden" class="form-control" placeholder="" name="id_question" id="id_question" value=""/>
                                             </td>
                                             <td>
-                                              <select class="form-control" name="id_next[]" id="id_next" required>
-                                                <option value="">Câu hỏi tiếp theo</option>
-                                                <?php foreach ($listquestion as $item): ?>
-                                                    <option value="<?= $item->id ?>" <?= ($value->answerquestion['id_next'] == $item->id) ? 'selected' : '' ?>>
-                                                        <?= $item->name ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                              </select>
-                                            </td>
-                                            <td>
                                               <a href="/plugins/admin/colennao-view-admin-questions-deleteanswerquestion/?id=<?= $value->answerquestion['id'] ?>" class="btn btn-danger">Xóa</a>
                                             </td>
                                         </tr>
@@ -146,16 +86,6 @@
                                               <input type="text" class="form-control" placeholder="" name="answername[]" id="answername" value="" required/>
                                               <input type="hidden" class="form-control" placeholder="" name="namequestion" id="namequestion" value=""/>
                                               <input type="hidden" class="form-control" placeholder="" name="id_question" id="id_question" value=""/>
-                                          </td>
-                                          <td>
-                                            <select class="form-control" name="id_next[]" id="id_next" required>
-                                              <option value="">Câu hỏi tiếp theo</option>
-                                              <?php foreach ($listquestion as $item): ?>
-                                                  <option value="<?= $item->id ?>">
-                                                      <?= $item->name ?>
-                                                  </option>
-                                              <?php endforeach; ?>
-                                            </select>
                                           </td>
                                           <td>
                                             
@@ -192,35 +122,6 @@
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const idTestSelect = document.getElementById('id_test');
-        const typeInput = document.getElementById('type');
-
-        // Cập nhật input 'type' khi chọn một 'id_test'
-        idTestSelect.addEventListener('change', function () {
-            const selectedId = idTestSelect.value;
-            // Tìm tiêu đề tương ứng với ID được chọn
-            for (let option of idTestSelect.options) {
-                if (option.value === selectedId) {
-                    typeInput.value = option.text;
-                    break;
-                }
-            }
-        });
-
-        // Nếu cần khôi phục giá trị khi trang được tải lại
-        const selectedId = idTestSelect.value;
-        if (selectedId) {
-            for (let option of idTestSelect.options) {
-                if (option.value === selectedId) {
-                    typeInput.value = option.text;
-                    break;
-                }
-            }
-        }
-    });
-</script>
-<script>
 document.getElementById('addRowBtn').addEventListener('click', function() {
     // Lấy bảng và tạo hàng mới
     var table = document.getElementById('answerTable').getElementsByTagName('tbody')[0];
@@ -229,18 +130,11 @@ document.getElementById('addRowBtn').addEventListener('click', function() {
     // Tạo các ô và chèn vào hàng mới
     var cell1 = newRow.insertCell(0);
     var cell2 = newRow.insertCell(1);
-    var cell3 = newRow.insertCell(2);
 
     // Tạo nội dung cho từng ô
     cell1.innerHTML = '<input type="text" class="form-control" placeholder="" name="answername[]" />' +
                       '<input type="hidden" class="form-control" placeholder="" name="namequestion" />';
-    cell2.innerHTML = '<select class="form-control" name="id_next[]">' +
-                      '<option value="">Câu hỏi tiếp theo</option>' +
-                      <?php foreach ($listquestion as $item): ?>
-                          '<option value="<?= $item->id ?>"><?= $item->name ?></option>' +
-                      <?php endforeach; ?>
-                      '</select>';
-    cell3.innerHTML = '<button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>';
+    cell2.innerHTML = '<button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>';
 });
 
 
