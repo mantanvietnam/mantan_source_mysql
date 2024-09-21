@@ -1,6 +1,6 @@
 <?php
    global $routesPlugin;
-
+   $routesPlugin['contributecomments'] = 'tayho360/view/contributecomments.php';
    $routesPlugin['su_kien'] = 'tayho360/view/listEvent.php';
    $routesPlugin['chi_tiet_su_kien'] = 'tayho360/view/detailEvent.php';
    $routesPlugin['di_tich_lich_su'] = 'tayho360/view/listHistoricalSites.php';
