@@ -371,8 +371,9 @@ function createChallengeUser($id_user, $id_challenge,$id_transaction){
     $modelFeedbackChallenge = $controller->loadModel('FeedbackChallenges');
     $modelResultChallenges = $controller->loadModel('ResultChallenges');
     $modelUserChallenges = $controller->loadModel('UserChallenges');
-
+    $modelTransactions = $controller->loadModel('Transactions');
     $modelTipChallenges = $controller->loadModel('TipChallenges');
+    $transactions = $modelTransactions->find()->where(['id' =>(int)$id_ransaction])->first();
 
     if(!empty($id_user) && !empty($id_challenge)) {
 
@@ -394,6 +395,18 @@ function createChallengeUser($id_user, $id_challenge,$id_transaction){
                 $checkUserChallenge->created_at = time();
                 $checkUserChallenge->id_transaction = (int)$id_transaction;
                 $checkUserChallenge->note = '';
+
+                if(@$transactions->id_user){
+                    $month = 1;
+                    if(!empty($Challenge->time_trial)){
+                        $month = $Challenge->time_trial;
+                    }
+                    
+                    $checkUserChallenge->deadline = strtotime('+'.$month.' month', time());
+                }else{
+                    $checkUserChallenge->deadline = 0;
+                }
+                
 
                 $listTip = array();
 

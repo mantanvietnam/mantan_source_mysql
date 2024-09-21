@@ -103,7 +103,8 @@ function addChallenge($input){
                 $data->status = @$dataSend['status'];
                 $data->day =(int) @$dataSend['day'];
                 $data->price =(int)  @$dataSend['price'];
-                $data->price_old =(int)  @$dataSend['price_old'];
+                $data->price_trial =(int)  @$dataSend['price_trial'];
+                $data->time_trial =(int)  @$dataSend['time_trial'];
                 $data->description = @$dataSend['description'];
 
 

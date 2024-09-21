@@ -143,8 +143,13 @@
                             }
                 echo        '<a class="dropdown-item" href="/listRatingPoint">Hạng thành viên</a>
                             <a class="dropdown-item" href="/listStaff">Nhân viên</a>
-                            <a class="dropdown-item" href="/listTransactionAgencyHistorie">Hoa hồng đại lý giới thiệu</a>
-                          </div>
+                            <a class="dropdown-item" href="/listTransactionAgencyHistorie">Hoa hồng đại lý giới thiệu</a>';
+                            if(empty($session->read('infoUser')->id_father)){
+                              echo '<a class="dropdown-item" href="/listWebMember">Website đại lý</a>';
+                              echo '<a class="dropdown-item" href="/listThemeCLoneWeb">Kho giao diện</a>';
+                            }
+
+                 echo     '</div>
                         </li>';
                 
               }

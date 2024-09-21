@@ -531,7 +531,7 @@
         })
         .done(function(msg) {
 
-            console.log(msg.code);
+            console.log(msg);
             if(msg.code==0){
                 location.reload();
             }else{

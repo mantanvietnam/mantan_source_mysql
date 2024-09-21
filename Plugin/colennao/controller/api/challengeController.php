@@ -30,8 +30,14 @@ function listChallengeAPI($input)
 			        $conditions['title LIKE'] = '%' . $dataSend['title'] . '%';
 			    }
 
-			    $checkUserChallenges = $modelUserChallenges->find()->where(array('id_user'=> $user->id))->order(['id' => 'desc'])->all()->toList();
+			    $conditionChallenge = array('id_user'=> $user->id);
+
+			    $conditionChallenge['OR'] = ['deadline =' => 0,'deadline >' => time()];
+
+			    $checkUserChallenges = $modelUserChallenges->find()->where($conditionChallenge)->order(['id' => 'desc'])->all()->toList();
 			    $listid = array();
+
+			   
 
 			    if(!empty($checkUserChallenges)){
 			    	foreach($checkUserChallenges as $key => $item){
@@ -43,7 +49,7 @@ function listChallengeAPI($input)
 			    	$conditions['id NOT IN'] = $listid;
 			    }
 			    
-			    $listData = $modelChallenge->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();		   
+			    $listData = $modelChallenge->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();		  
 			   
 			    $totalData = count($modelChallenge->find()->where($conditions)->all()->toList());
 			        
@@ -109,9 +115,11 @@ function paymentChallengeAPI($input){
 
     $modelTipChallenges = $controller->loadModel('TipChallenges');
 
+
+
     if($isRequestPost){
     	$dataSend = $input['request']->getData();
-    	 if (!empty($dataSend['token']) && !empty($dataSend['id'])) {
+    	 if (!empty($dataSend['token']) && !empty($dataSend['id']) && !empty($dataSend['type_use'])) {
             $user = getUserByToken($dataSend['token']);
 
             
@@ -121,17 +129,25 @@ function paymentChallengeAPI($input){
 	    	$data = $modelChallenge->find()->where($conditions)->first();
 
 	    	if(!empty($data)){
+
+	    		if(@$dataSend['type_use']=='trial'){
+	    			$price = $data->price_trial;
+	    		}else{
+	    			$price = $data->price;
+	    		}
+
 	    		$checkTransaction = $modelTransactions->find()->where(['id_challenge'=>$data->id,'id_user'=>$user->id])->first();
 	    		if(empty($checkTransaction)){
 	    			$checkTransaction = $modelTransactions->newEmptyEntity();
 	    			$checkTransaction->id_user = $user->id;
 	    			$checkTransaction->name = $data->title;
-	    			$checkTransaction->total = $data->price;
+	    			$checkTransaction->total = $price;
 	    			$checkTransaction->id_course = 0;
 	    			$checkTransaction->id_challenge = $data->id;
 	    			$checkTransaction->status = 1;
 	    			$checkTransaction->type = 2;
 	    			$checkTransaction->created_at = time();
+	    			$checkTransaction->type_use = @$dataSend['type_use'];
 	    			$checkTransaction->updated_at = time();
 	    			$checkTransaction->code = time().$user->id.rand(0,10000);
 
@@ -140,15 +156,16 @@ function paymentChallengeAPI($input){
 	    		}
 	    		$bank = getBankAccount();
 
+
 	    		$sms = $checkTransaction->id.' '.$transactionKey;
 
-                $link_qr_bank = 'https://img.vietqr.io/image/'.$bank['bank_code'].'-'.$bank['bank_number'].'-compact2.png?amount='.$data->price.'&addInfo='.$sms.'&accountName='.$bank['bank_name'];
+                $link_qr_bank = 'https://img.vietqr.io/image/'.$bank['bank_code'].'-'.$bank['bank_number'].'-compact2.png?amount='.$price.'&addInfo='.$sms.'&accountName='.$bank['bank_name'];
                 $data->infoQR =   array('name_bank'=>$bank['bank_code'],
                 				'account_holders_bank'=>$bank['bank_name'],
                 				'link_qr_bank'=>$link_qr_bank,
                 				'money'=>$bank['bank_number'],
                 				'content'=>$sms,
-                				'money'=>$data->price
+                				'money'=>$price
 							);
 
   
@@ -194,6 +211,8 @@ function listUserChallengeAPI($input)
 			    if (!empty($dataSend['title'])) {
 			        $conditions['title LIKE'] = '%' . $dataSend['title'] . '%';
 			    }
+
+			    $conditions['OR'] = ['deadline =' => 0,'deadline >' => time()];
 
 			    
 			    $data = $modelUserChallenges->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();

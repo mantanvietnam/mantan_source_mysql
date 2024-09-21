@@ -78,8 +78,12 @@
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label">Giá bán cũ</label>
-                              <input type="text" class="form-control phone-mask" name="price_old" id="price_old" value="<?php echo @$data->price_old;?>" />
+                              <label class="form-label">Giá dùng thử </label>
+                              <input type="text" class="form-control phone-mask" name="price_trial" id="price_trial" value="<?php echo @$data->price_trial;?>" />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Thời gian dùng </label>
+                              <input type="text" class="form-control phone-mask" name="time_trial" id="time_trial" value="<?php echo @$data->time_trial;?>" />
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Huấn Luyện viên (*)</label>

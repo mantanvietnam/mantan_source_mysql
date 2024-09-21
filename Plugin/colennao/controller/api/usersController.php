@@ -117,11 +117,12 @@ function confirmotpcodeApi($input): array
             }
 
             if ($user->reset_password_code !== $dataSend['code']) {
-                return apiResponse(4, 'Mã cấp lại mật khẩu không chính xác');
+                return apiResponse(4, 'Mã xác nhận không chính xác');
             }
 
             $user->reset_password_code = null;
             $user->token = createToken();
+            $user->last_login = time();
             $user->status = 'active';
             $user->device_token = @$dataSend['device_token'];
             $modelUser->save($user);
@@ -494,23 +495,29 @@ function checkLoginGoogleApi($input): array
                 }
 
                 // Tạo user mới
-                if (!empty($dataSend['email']) || !empty($dataSend['phone'])) {
+                if (!empty($dataSend['email'])){
                     $newUser = $userModel->newEmptyEntity();
+
+                    if(empty($dataSend['phone'])){
+                        $dataSend['phone'] = 'GG' . $dataSend['google_id'];
+                    }
                     $newUser->full_name = $dataSend['full_name'] ?? 'Người dùng';
                     $newUser->avatar = $dataSend['avatar'] ?? '';
-                    $newUser->phone = $dataSend['phone'] ?? 'GG' . $dataSend['google_id'];
+                    $newUser->phone =  $dataSend['phone'];
                     $newUser->is_verified = 1;
                     $newUser->email = $dataSend['email'] ?? null;
                     $newUser->address = $dataSend['address'] ?? null;
                     $newUser->status = 'active';
-                    $newUser->birthday = (int) strtotime($dataSend['birthday']);
+                    $newUser->birthday = (int) strtotime(@$dataSend['birthday']);
                     $newUser->created_at = time();
                     $newUser->updated_at = time();
+                    $newUser->password = md5($newUser->phone);
                     $newUser->google_id = $dataSend['google_id'];
                     $newUser->last_login = time();
                     $newUser->deadline =  strtotime("+30 days", time());
                     $newUser->token = createToken();
                     $newUser->device_token = $dataSend['device_token'] ?? null;
+                   
                     $userModel->save($newUser);
                     
 
