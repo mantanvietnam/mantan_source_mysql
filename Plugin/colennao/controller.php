@@ -26,5 +26,6 @@ include_once('controller/admin/pricelistController.php');
 // Api .php
 include_once('controller/api/usersController.php'); 
 include_once('controller/api/coursesController.php');
+include_once('controller/api/questionsController.php');
 
 ?>

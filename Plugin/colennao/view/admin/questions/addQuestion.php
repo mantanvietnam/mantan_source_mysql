@@ -107,6 +107,7 @@
                               <table class="table table-bordered table-striped table-hover mb-none text-center mb-3" id="answerTable">
                                 <thead>
                                     <tr>
+                               
                                         <th>Câu trả lời</th>
                                         <th>ID Câu hỏi tiếp theo</th>
                                         <th>Hành động</th>
@@ -117,6 +118,7 @@
                                  
                                 <?php if (!empty($listanswerquestion)): ?>
                                     <?php foreach ($listanswerquestion as $value): ?>
+                         
                                         <tr class="gradeX" id="trlink">
                                             <td>
                                                 <input type="text" class="form-control" placeholder="" name="answername[]" id="answername" value="<?= $value->answerquestion['answername'] ?>" required/>
@@ -127,14 +129,14 @@
                                               <select class="form-control" name="id_next[]" id="id_next" required>
                                                 <option value="">Câu hỏi tiếp theo</option>
                                                 <?php foreach ($listquestion as $item): ?>
-                                                    <option value="<?= $item->id ?>" <?= (@$data->id_next == $item->id) ? 'selected' : '' ?>>
+                                                    <option value="<?= $item->id ?>" <?= ($value->answerquestion['id_next'] == $item->id) ? 'selected' : '' ?>>
                                                         <?= $item->name ?>
                                                     </option>
                                                 <?php endforeach; ?>
                                               </select>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>
+                                              <a href="/plugins/admin/colennao-view-admin-questions-deleteanswerquestion/?id=<?= $value->answerquestion['id'] ?>" class="btn btn-danger">Xóa</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -156,16 +158,23 @@
                                             </select>
                                           </td>
                                           <td>
-                                              <button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>
+                                            
+                                            <a href="/plugins/admin/colennao-view-admin-questions-deleteanswerquestion/?id=<?= @$value->answerquestion['id'] ?>" class="btn btn-danger">Xóa</a>
                                           </td>
                                       </tr>
                                 <?php endif; ?>
                                 </tbody>
                               </table> 
 
-                              <div class="form-group mb-3 col-md-12">
-                                <button type="button" id="addRowBtn" class="btn btn-primary">Thêm hàng</button>
-                              </div>
+                              <?php if(empty($_GET['id'])):?>
+                                <div class="form-group mb-3 col-md-12">
+                                  <button type="button" id="addRowBtn" class="btn btn-primary">Thêm hàng</button>
+                                </div>
+                              <?php else :?>
+                                <div class="form-group mb-3 col-md-12 d-none" >
+                                  <button type="button" id="addRowBtn" class="btn btn-primary">Thêm hàng</button>
+                                </div>
+                              <?php endif; ?>
                             </div>
                           </div>
                         </div>
@@ -234,19 +243,7 @@ document.getElementById('addRowBtn').addEventListener('click', function() {
     cell3.innerHTML = '<button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>';
 });
 
-// Hàm xóa hàng, chỉ cho phép xóa nếu có hơn 1 hàng
-function removeRow(button) {
-    var table = document.getElementById('answerTable').getElementsByTagName('tbody')[0];
-    var rowCount = table.rows.length;
 
-    // Kiểm tra số lượng hàng, chỉ xóa nếu có hơn 1 hàng
-    if (rowCount > 1) {
-        var row = button.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-    } else {
-        alert("Bảng phải có ít nhất một hàng.");
-    }
-}
 
 
 </script>

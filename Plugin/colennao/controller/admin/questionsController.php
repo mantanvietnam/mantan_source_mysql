@@ -67,9 +67,19 @@ function addQuestion($input)
     $modelanswerquetions = $controller->loadModel('answerquestion');
     $modelTests = $controller->loadModel('Tests');
 	$mess= '';
+    if(!empty($_GET['id'])){
+        $idanswer = $_GET['id'];
+        $dulieu = $modelanswerquetions->find()->select(['id','namequestion','answername','id_next'])->where(['id_question' => $idanswer])->toArray();
+        // debug($dulieu);
+        // die();
+    }
+   
+
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelQuestions->find()->where(['id'=>(int) $_GET['id']])->first();
+        // debug($data);
+        // die();
     }else{
         $data = $modelQuestions->newEmptyEntity();
     }
@@ -84,21 +94,37 @@ function addQuestion($input)
             $data->id_test = $dataSend['id_test'];
             $data->status = $dataSend['status'];
             $namequestion = $dataSend['name'];
-            
             $modelQuestions->save($data);
             $idquestion = $data->id;
             if (!empty($dataSend['answername'])) {
                 if (isset($dataSend['answername']) && is_array($dataSend['answername'])) {
                     foreach ($dataSend['answername'] as $key => $answername) {
-                        $answerData = $modelanswerquetions->newEmptyEntity();
-                        $answerData->answername = !empty($dataSend['answername'][$key]) ? trim($dataSend['answername'][$key]) : 'null'; 
-                        $answerData->id_next = !empty($dataSend['id_next'][$key]) ? $dataSend['id_next'][$key] : '0';  
-                        $answerData->namequestion = $namequestion;
-                        $answerData->id_question = $idquestion;
-                        $modelanswerquetions->save($answerData);
+                        if (!empty($answername)) {
+                            if (!empty($dulieu) && isset($dulieu)) {
+                                foreach ($dulieu as $key => $item) {
+                                    if (isset($item->id)) {
+                                        $answerData = $modelanswerquetions->get($item->id);
+                                        $answerData->answername = !empty($dataSend['answername'][$key]) ? trim($dataSend['answername'][$key]) : 'null'; 
+                                        $answerData->id_next = !empty($dataSend['id_next'][$key]) ? $dataSend['id_next'][$key] : '0';  
+                                        $answerData->namequestion = $namequestion; 
+                                        $answerData->id_question = $idquestion; 
+                                        $modelanswerquetions->save($answerData);
+                                    }
+                                }
+                            } else {
+                                $answerData = $modelanswerquetions->newEmptyEntity();
+                                $answerData->answername = !empty($dataSend['answername'][$key]) ? trim($dataSend['answername'][$key]) : 'null'; 
+                                $answerData->id_next = !empty($dataSend['id_next'][$key]) ? $dataSend['id_next'][$key] : '0';  
+                                $answerData->namequestion = $namequestion; 
+                                $answerData->id_question = $idquestion; 
+                                $modelanswerquetions->save($answerData);
+                            }
+                        }
+                        
                     }
                 }
             }
+            
             
 
 
@@ -137,7 +163,9 @@ function addQuestion($input)
                 'Questions.id', 
                 'Questions.name', 
                 'answerquestion.namequestion',
-                'answerquestion.answername'
+                'answerquestion.answername',
+                'answerquestion.id_next',
+                'answerquestion.id',
             ])
             ->where(['Questions.id' => $id]) 
             ->all();
@@ -168,4 +196,19 @@ function deleteQuestion($input){
 	return $controller->redirect('/plugins/admin/colennao-view-admin-questions-listQuestion');
 
 }
+function deleteanswerquestion($input) {
+    global $controller;
+    $modelanswerquestion = $controller->loadModel('answerquestion');
+
+    if (!empty($_GET['id'])) {
+        $data = $modelanswerquestion->find()->where(['id' => (int) $_GET['id']])->first();
+        if ($data) {
+            $idurl = $data->id_question;
+            $modelanswerquestion->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/colennao-view-admin-questions-addQuestion/?id='.$idurl);
+}
+
 ?>

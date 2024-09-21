@@ -16,7 +16,6 @@ function listCoursesAPI($input)
     if($isRequestPost){
 		$dataSend = $input['request']->getData();
 	    $conditions= array('public'=>0);
-
 	    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	    $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
 	    if($page<1) $page = 1;
@@ -26,7 +25,6 @@ function listCoursesAPI($input)
 			$key=createSlugMantan($dataSend['title']);
 			$conditions['slug LIKE']= '%'.$key.'%';
 		}
-		
 	    $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 	    if(!empty($listData)){
 	        foreach ($listData as $key => $value) {
@@ -39,9 +37,7 @@ function listCoursesAPI($input)
 	            $listData[$key]->number_lesson = count($lessons);
 	        }
 	    }
-
 	    // phân trang
-
 	    $totalData = $modelCourses->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
 		

@@ -14,7 +14,6 @@ function listcoachAPI($input)
     $modelcoach = $controller->loadModel('coach');
     if($isRequestPost){
 		$dataSend = $input['request']->getData();
-
 	    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	    $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
 	    if($page<1) $page = 1;
@@ -24,12 +23,8 @@ function listcoachAPI($input)
 			$key=createSlugMantan($dataSend['name']);
 			$conditions['slug LIKE']= '%'.$key.'%';
 		}
-		
 	    $listData = $modelcoach->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
-
 	    // phân trang
-
 	    $totalData = $modelcoach->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
 		

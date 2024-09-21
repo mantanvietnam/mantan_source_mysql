@@ -10,7 +10,6 @@ function listfastingAPI($input)
     global $metaTitleMantan;
 
     $metaTitleMantan = 'Danh sách các kiểu giảm cân';
-
     $modelfasting = $controller->loadModel('fasting');
     if($isRequestPost){
 		$dataSend = $input['request']->getData();
@@ -19,14 +18,11 @@ function listfastingAPI($input)
 	    $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
 	    if($page<1) $page = 1;
 	    $order = array('id'=>'desc');
-
 	    if (!empty($dataSend['name'])) {
             $name = $dataSend['name'];
             $conditions['name LIKE'] = '%'. $name.'%';
         }
-		
 	    $listData = $modelfasting->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
 	    // phân trang
 
 	    $totalData = $modelfasting->find()->where($conditions)->all()->toList();
@@ -37,7 +33,6 @@ function listfastingAPI($input)
 	}else{
 	    $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
 	}
-
     return $return;
 
 	
