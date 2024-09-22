@@ -5,6 +5,7 @@ function listRegAdmin($input)
     global $controller;
     global $urlCurrent;
     global $modelCategories;
+    global $modelOptions;
     global $metaTitleMantan;
 
     $metaTitleMantan = 'Danh sách đăng ký';
@@ -47,17 +48,6 @@ function listRegAdmin($input)
         }
     }
 
-    /*
-    $listData = $modelRequestDatacrms->find()->all()->toList();
-    foreach ($listData as $key => $value) {
-        if(empty($value->create_at)){
-            $value->create_at = 1721618183;
-            $value->deadline = 1721618183 + 30*24*60*60;
-
-            $modelRequestDatacrms->save($value);
-        }
-    }
-    */
     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
         $listData = $modelRequestDatacrms->find()->where($conditions)->order($order)->all()->toList();
         

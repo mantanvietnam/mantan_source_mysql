@@ -67,6 +67,50 @@ function listDomain($domain='icham.vn')
 	}
 }
 
+function updatePHPVersion($domain='', $php_version='2')
+{
+	global $vst_hostname;
+	global $vst_port;
+	global $ftpUser;
+	global $ftpPass;
+
+	// Thông tin kết nối
+	$directadmin_url = 'https://'.$vst_hostname.':'.$vst_port;
+	$username = $ftpUser;
+	$password = $ftpPass;
+
+	// Tạo yêu cầu cURL để cập nhật phiên bản PHP
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, $directadmin_url . '/CMD_API_DOMAIN');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+
+	// Dữ liệu gửi đi để thay đổi phiên bản PHP
+	$data = [
+	    'action' => 'php_selector',
+	    'domain' => $domain,
+	    'php1_select' => $php_version
+	];
+
+	// Cấu hình gửi dữ liệu
+	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+
+	// Thực thi và lấy phản hồi
+	$response = curl_exec($ch);
+
+	if ($response === false) {
+	    return 'Lỗi cURL: ' . curl_error($ch);
+	} else {
+	    return 'Phản hồi từ DirectAdmin: ' . $response;
+	}
+
+	// Đóng kết nối
+	curl_close($ch);
+}
+
 function deleteDomain($domain='')
 {	
 	global $vst_hostname;
@@ -131,6 +175,7 @@ function createDomain($domain='')
 			"ssl" => "ON",
 			"cgi" => "ON",
 			"php" => "ON",
+			'php1_select' => 2,
 		);
 
 		$url = 'https://'.$vst_hostname.':'.$vst_port.'/CMD_API_DOMAIN';

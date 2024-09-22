@@ -50,6 +50,13 @@ function saveRequestCreateDataCRMAPI($input)
 
 			$modelRequestDatacrms->save($data);
 
+			// đưa yêu cầu tạo tài khoản lên rabbitmq
+			$rabbitMQClient = new RabbitMQClient();
+
+            $requestMessage = json_encode([ 'id_request' => $data->id ]);
+            
+            $rabbitMQClient->sendMessage('create_account_icham', $requestMessage);
+
 			$return['messages']= array(array('text'=>'Hệ thống đang tạo tài khoản cho bạn, vui lòng đợi ít phút'));
 		}else{
 			$return['messages']= array(array('text'=>'Gửi thiếu dữ liệu'));
@@ -109,7 +116,7 @@ function createDataCRMAPI($input)
             $returnSmax= sendDataConnectMantan($urlSmax, $attributesSmax);
 		}
 
-		return $controller->redirect('/createDataCRMAPI');
+		//return $controller->redirect('/createDataCRMAPI');
 	}
 	
 
@@ -181,6 +188,35 @@ function updateLastLoginBossAPI($input){
 	}
 
 	return ['code'=>1];
+}
 
+function updatePHPVersionAPI($input)
+{
+	global $modelOptions;
+
+	$conditions = array('key_word' => 'updatePHPVersion');
+    $data = $modelOptions->find()->where($conditions)->first();
+    
+    $listFile = json_decode($data->value, true);
+    $return = [];
+
+    if(!empty($listFile)){
+    	$dem = 0;
+        foreach ($listFile as $key => $domain) {
+        	$dem++;
+            if($dem<=1){
+                updatePHPVersion($domain, '2');
+                $return[] = $domain;
+
+                unset($listFile[$key]);
+            }
+        }
+
+        $data->value = json_encode($listFile);
+
+        $modelOptions->save($data);
+    }
+
+    return $return;
 }
 ?>
