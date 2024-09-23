@@ -10,8 +10,6 @@ function listquestionAPI($input)
 
     $metaTitleMantan = 'Danh sách câu hỏi';
     $modelQuestions = $controller->loadModel('Questions');
-    $modelTests = $controller->loadModel('Tests'); 
-
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
         $conditions = array();

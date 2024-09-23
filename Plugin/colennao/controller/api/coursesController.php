@@ -26,17 +26,17 @@ function listCoursesAPI($input)
 			$conditions['slug LIKE']= '%'.$key.'%';
 		}
 	    $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-	    if(!empty($listData)){
-	        foreach ($listData as $key => $value) {
-	            if(!empty($value->id_category) && empty($category[$value->id_category])){
-	                $category[$value->id_category] = $modelCategories->find()->where(['id' => (int) $value->id_category])->first();
-	            }
+	    // if(!empty($listData)){
+	    //     foreach ($listData as $key => $value) {
+	    //         if(!empty($value->id_category) && empty($category[$value->id_category])){
+	    //             $category[$value->id_category] = $modelCategories->find()->where(['id' => (int) $value->id_category])->first();
+	    //         }
 
-	            $listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
-	            $lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
-	            $listData[$key]->number_lesson = count($lessons);
-	        }
-	    }
+	    //         $listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
+	    //         $lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
+	    //         $listData[$key]->number_lesson = count($lessons);
+	    //     }
+	    // }
 	    // phân trang
 	    $totalData = $modelCourses->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
@@ -66,8 +66,7 @@ function getCoursesAPI($input)
         if(!empty($dataSend['id'])){
             	$modelLesson = $controller->loadModel('Lessons');
             	$modelCourses = $controller->loadModel('Courses');
-            	$modelTests = $controller->loadModel('Tests');
-            	$conditions = array('id'=>(int)$dataSend['id'],'public'=>0);	
+            	$conditions = array('id'=>(int)$dataSend['id']);	
             	$data = $modelCourses->find()->where($conditions)->first();
             	if(!empty($data)){
             		$category = $modelCategories->find()->where(['id' => (int) $data->id_category])->first();    
