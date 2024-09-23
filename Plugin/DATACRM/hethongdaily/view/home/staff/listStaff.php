@@ -7,7 +7,7 @@
     Danh sách nhân viên
   </h4>
 
-  <p><a href="/addStaff" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a>  &nbsp; &nbsp;<a href="/timesheetStaff" class="btn btn-primary">Chấm công</a></p> 
+  <p><a href="/addStaff" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a>  &nbsp; &nbsp;<a href="/timesheetStaff" class="btn btn-danger">Bảng chấm công</a></p> 
 
   </p>
 

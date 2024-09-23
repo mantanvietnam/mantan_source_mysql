@@ -63,7 +63,7 @@
           
           <div class="col-md-2">
           <label class="form-label">&nbsp;</label></br>
-            <a class="btn btn-primary"  data-bs-toggle="modal" style="color: white;" data-bs-target="#basicModal" ><i class='bx bx-plus'></i>Chấm công</a>
+            <a class="btn btn-danger"  data-bs-toggle="modal" style="color: white;" data-bs-target="#basicModal" ><i class='bx bx-plus'></i> Chấm công</a>
           </div> 
         </div>
       </div>
@@ -99,6 +99,7 @@
                 <td class="sticky"  colspan="3">'.$item->name.'</td>';
                 foreach($date as $key => $value){
                   $checkdate = checkStaffTimekeepers($value['ngay'],$item->id);
+                 
                   if(!empty($checkdate)){
                     echo ' <td align="center ngaychamcong" style="background-color: #d7fada;">'.$checkdate->shift.  '</td>';
                   }else{
@@ -130,7 +131,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header form-label border-bottom">
-            <h5 class="modal-title" id="exampleModalLabel1">Bản chấm công nhân viên</h5>
+            <h5 class="modal-title" id="exampleModalLabel1">Chấm công nhân viên</h5>
             <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form action="/checktimesheet" method="GET">
@@ -139,7 +140,7 @@
               <div class="card-body">
                 <div class="row gx-3 gy-2 align-items-center">
                   <div class="col-md-12">
-                    <label class="form-label">Nhân viên </label>
+                    <label class="form-label"><b>Nhân viên</b></label>
                     <select class="form-select" name="id_staff" id="id_staff" required="">
                                 <option value="">Chọn nhân viên</option>
                                 <?php 
@@ -151,13 +152,13 @@
                               </select>
                   </div>
                   <div class="col-md-12">
-                    <label class="form-label">ca làm việc</label> &nbsp; &nbsp;
+                    <label class="form-label"><b>Ca làm việc</b></label> <br/>
                     <input type="checkbox" name="shift[]" value="sáng"> Sáng  &nbsp; &nbsp;
                     <input type="checkbox" name="shift[]" value="chiều"> Chiều  &nbsp; &nbsp;
                     <input type="checkbox" name="shift[]" value="tối"> Tối
                   </div>
                   <div class="col-md-12">
-                    <label class="form-label">ngày làm việc</label>
+                    <label class="form-label"><b>Ngày làm việc</b></label>
                     <input type="text" class="form-control datepicker" name="date" value="<?php echo date('d/m/Y'); ?>">
                   </div>
                 </div>

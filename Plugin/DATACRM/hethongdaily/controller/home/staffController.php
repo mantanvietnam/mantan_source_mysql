@@ -294,7 +294,7 @@ function timesheetStaff(){
     global $modelCategoryConnects;
 
     if(!empty($session->read('infoUser'))){
-        $metaTitleMantan = 'Bản châm  nhân viên';
+        $metaTitleMantan = 'Bảng chấm công nhân viên';
 
         $modelStaff = $controller->loadModel('Staffs');
         
@@ -366,14 +366,14 @@ function checktimesheet(){
         $staff = $modelStaff->find()->where($conditions)->first();
         // Thiết lập tháng và năm
 
-         $date = explode('/', $_GET['date']);
+        $date = explode('/', $_GET['date']);
         $date = mktime(0,0,0,$date[1],$date[0],$date[2]);
         
-        $checkdate = $modelStaffTimekeepers->find()->where(['date'=>$date,'id_staff'=>$staff->id])->first();
+        $checkdate = $modelStaffTimekeepers->find()->where(['day'=>$date,'id_staff'=>$staff->id])->first();
         if(!empty($_GET['shift'])){
             if(empty($checkdate)){
                 $checkdate = $modelStaffTimekeepers->newEmptyEntity();
-                $checkdate->date = $date;
+                $checkdate->day = $date;
                 $checkdate->id_staff = $staff->id;
             }
 

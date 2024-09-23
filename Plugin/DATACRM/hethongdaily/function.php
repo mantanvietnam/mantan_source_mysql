@@ -1258,7 +1258,7 @@ function checkStaffTimekeepers($date,$id_staff){
     $date = explode('/', $date);
     $date = mktime(0,0,0,$date[1],$date[0],$date[2]);
 
-    $checkdate = $modelStaffTimekeepers->find()->where(['date'=>$date,'id_staff'=>(int)$id_staff])->first();
+    $checkdate = $modelStaffTimekeepers->find()->where(['day'=>$date,'id_staff'=>(int)$id_staff])->first();
 
     return $checkdate;
 }
