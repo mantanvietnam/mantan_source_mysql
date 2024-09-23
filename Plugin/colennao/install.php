@@ -173,7 +173,7 @@ $sqlInstallDatabase .="CREATE TABLE `result_challenges` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
-$sqlUpdateDatabase .="CREATE TABLE `tip_challenges` ( 
+$sqlInstallDatabase .="CREATE TABLE `tip_challenges` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
 `tip` VARCHAR(255) NULL DEFAULT NULL ,
 `id_challenge` INT NOT NULL ,
@@ -181,7 +181,7 @@ $sqlUpdateDatabase .="CREATE TABLE `tip_challenges` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
-$sqlUpdateDatabase .="CREATE TABLE `transactions` ( 
+$sqlInstallDatabase .="CREATE TABLE `transactions` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
 `id_user` INT NOT NULL ,
 `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
@@ -190,15 +190,16 @@ $sqlUpdateDatabase .="CREATE TABLE `transactions` (
 `id_challenge` INT NOT NULL DEFAULT '0' COMMENT 'id thử thách' ,
 `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `status` INT NOT NULL DEFAULT '1' COMMENT ' 1: chưa xử lý, 2 đã xử lý' ,
-`type` INT NULL DEFAULT '1' COMMENT '1: khóa học , 2 thử thách' ,
+`type` INT NULL DEFAULT '1' COMMENT '1: khóa học , 2 thử thách, 3 gói luyên tập' ,
 `created_at` INT NULL DEFAULT NULL ,
 `updated_at` INT NULL DEFAULT NULL ,
 `code` VARCHAR(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `type_use` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`id_package` INT NOT NULL DEFAULT '0',
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
-$sqlUpdateDatabase .="CREATE TABLE `user_challenges` ( 
+$sqlInstallDatabase .="CREATE TABLE `user_challenges` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
 `id_user` INT NOT NULL ,
 `name` VARCHAR(255) NULL DEFAULT NULL ,
@@ -214,7 +215,7 @@ $sqlUpdateDatabase .="CREATE TABLE `user_challenges` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
-$sqlUpdateDatabase .="CREATE TABLE `user_courses` ( `id` INT NOT NULL ,
+$sqlInstallDatabase .="CREATE TABLE `user_courses` ( `id` INT NOT NULL ,
 `id_user` INT NOT NULL AUTO_INCREMENT,
 `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `id_course` INT NOT NULL ,
@@ -394,6 +395,7 @@ $sqlUpdateDatabase['transactions']['created_at'] = "ALTER TABLE `transactions` A
 $sqlUpdateDatabase['transactions']['updated_at'] = "ALTER TABLE `transactions` ADD `updated_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transactions']['code'] = "ALTER TABLE `transactions` ADD `code` VARCHAR(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transactions']['type_use'] = "ALTER TABLE `transactions` ADD `type_use` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transactions']['id_package'] = "ALTER TABLE `transactions` ADD `id_package` INT NOT NULL DEFAULT '0';";
 
 $sqlUpdateDatabase['user_challenges']['id_user'] = "ALTER TABLE `user_challenges` ADD `id_user` INT NOT NULL;";
 $sqlUpdateDatabase['user_challenges']['name'] = "ALTER TABLE `user_challenges` ADD `name` VARCHAR(255) NULL DEFAULT NULL;";

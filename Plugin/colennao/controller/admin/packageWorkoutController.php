@@ -1,8 +1,10 @@
 <?php 
 function listPackageWorkouts(){
-	{
     global $controller;
     global $metaTitleMantan;
+
+
+
 
     $metaTitleMantan = 'Danh sách gói luyên tập';
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
@@ -25,7 +27,7 @@ function listPackageWorkouts(){
     $listData = $modelPackageWorkout->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
     if(!empty($listData)){
         foreach($listData as $key => $item){
-            $listData[$key]->Workout = count($modelIntermePackageWorkout->find()->where(['id_package'=>$item->id])->all()->toList());
+            $listData[$key]->workout = count($modelIntermePackageWorkout->find()->where(['id_package'=>$item->id])->all()->toList());
         }
     }
     
@@ -51,7 +53,6 @@ function addPackageWorkouts($input){
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
-
 
     $metaTitleMantan = 'Thông tin thách thức';
     
@@ -103,11 +104,11 @@ function addPackageWorkouts($input){
                 	$price_package = array();
                     foreach ($dataSend['price'] as $key => $price) {
                     	if(!empty($price)){
-                       		$price_package[$key] = array( 'id' => $dataSend['id_price'][$key],
+                       		$price_package[$key] = array( 'id' => $key,
                        			 'price' => $price,
                        			 'status' =>  $dataSend['status_price'][$key],
                        			 'title' => $dataSend['title_price'][$key],
-                       			 'number_day' => $number_day,
+                       			 'number_day' => $dataSend['number_day'][$key],
                        			);
                         }
                     }
@@ -115,6 +116,8 @@ function addPackageWorkouts($input){
                    $data->price_package = json_encode(@$price_package);
 
                 }	
+
+               
 
                 $modelPackageWorkout->save($data);
                     if(!empty($dataSend['id_workout'])){
@@ -124,32 +127,35 @@ function addPackageWorkouts($input){
                        		$save = $modelIntermePackageWorkout->newEmptyEntity();
                             $save->id_workout = @$id_workout;
                             $save->id_package = $data->id;
-                            $modelTipChallenges->save($save);
+                            $modelIntermePackageWorkout->save($save);
                         }
                     }else{
                         $conditions = ['id_package'=>$data->id];
                         $modelIntermePackageWorkout->deleteAll($conditions);
                     }
-                
-
                 }
-                
-
 
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
         }
 
-         if(!empty($data->price_package)){
+        if(!empty($data->price_package)){
         	$data->price_package = json_decode($data->price_package, true);
     	}
 
         if(!empty($data->id)){
-            $data->Workouts = $modelIntermePackageWorkout->find()->where(['id_package'=>$data->id])->all()->toList();
+            $Workouts = $modelIntermePackageWorkout->find()->where(['id_package'=>$data->id])->all()->toList();
+            $id_workout = array();
+            foreach($Workouts as $key => $item){
+            $id_workout[] = $item->id_workout;
+            }
+
+
+            $data->workout = $id_workout;
         }
 
-         $dataWorkout = $modelWorkout->find()->where(array())->order(['id' => 'desc'])->all()->toList();
-
+        $dataWorkout = $modelWorkout->find()->where(array())->order(['id' => 'desc'])->all()->toList();
+       
 
         setVariable('mess', $mess);
         setVariable('dataWorkout', $dataWorkout);
@@ -157,7 +163,32 @@ function addPackageWorkouts($input){
     
 }
 
+function deletePackageWorkouts(){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+
+    $modelPackageWorkout = $controller->loadModel('ExerciseWorkouts');
+    $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
+
+
+
+    if(!empty($_GET['id'])){
+        $data = $modelPackageWorkout->find()->where(['id'=>(int) $_GET['id']])->first();
+        if($data){
+            $conditions = ['id_package'=>$data->id];
+            $modelIntermePackageWorkout->deleteAll($conditions);
+            $modelPackageWorkout->delete($data);
+        }
+    }
+    return $controller->redirect('/plugins/admin/colennao-view-admin-packageworkouts-listPackageWorkouts');
 
 
 }
+
+
+
  ?>

@@ -88,13 +88,13 @@
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 
-                 href="plugins/admin/colennao-view-admin-workout-addWorkout/?id=' . $item->id . '"
+                 href="/plugins/admin/colennao-view-admin-workout-addWorkout/?id=' . $item->id . '"
                  >
                  <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>
                  <p align="center">
-                 <a class="btn btn-success" href="/plugins/admin/colennao-view-admin-workout-addWorkout/?id=' . $item->id . '">
+                 <a class="btn btn-success" href="/plugins/admin/colennao-view-admin-workout-deleteWorkout/?id=' . $item->id . '">
                  <i class="bx bx-trash me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>

@@ -107,6 +107,20 @@
                     <label class="form-label" for="basic-default-phone">Trang Zalo</label>
                     <input type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$data->zalo;?>" />
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Mã QR của bạn</label><br/>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <img class="mb-3" id="QRURLProfile" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'staff/?id='.@$data->id;?>" width="100">
+                      </div>
+                      <div class="col-md-6">
+                        <button type="button" class="btn btn-primary mb-3" onclick="copyToClipboard('<?php echo $urlHomes.'staff/?id='.@$data->id;?>', 'Đã copy thành công link liên kết');"><i class='bx bx-link'></i> Sao chép liên kết</button>
+
+                        <button type="button" class="btn btn-danger mb-3" onclick="downloadImageFromSrc('https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?php echo $urlHomes.'staff/?id='.@$data->id;?>', '<?php echo $data->phone;?>');"><i class='bx bx-cloud-download'></i> Tải mã QR</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="col-md-12">
@@ -124,5 +138,24 @@
 
     </div>
 </div>
+<script type="text/javascript">
+    function downloadImageFromSrc(url, phone){
+      var fileName = 'QR_ICHAM_'+phone+'.jpg';
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url, true);
+      xhr.responseType = "blob";
+      xhr.onload = function(){
+          var urlCreator = window.URL || window.webkitURL;
+          var imageUrl = urlCreator.createObjectURL(this.response);
+          var tag = document.createElement('a');
+          tag.href = imageUrl;
+          tag.download = fileName;
+          document.body.appendChild(tag);
+          tag.click();
+          document.body.removeChild(tag);
+      }
+      xhr.send();
+  }
+</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

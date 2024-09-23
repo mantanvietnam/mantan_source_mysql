@@ -126,6 +126,7 @@ function deleteWorkout(){
     
     $modelWorkout = $controller->loadModel('Workouts');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
+    $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
 
 
     if(!empty($_GET['id'])){
@@ -133,7 +134,7 @@ function deleteWorkout(){
         if($data){
             $conditions = ['id_workout'=>$data->id];
             $modelExerciseWorkouts->deleteAll($conditions);
-
+            $modelIntermePackageWorkout->deleteAll($conditions);
             $modelWorkout->delete($data);
         }
     }

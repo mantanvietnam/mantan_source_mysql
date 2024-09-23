@@ -392,7 +392,7 @@ function checktimesheet(){
     }
 }
 
-function infoStaff(){
+function staff(){
     global $controller;
     global $isRequestPost;
     global $modelCategories;
