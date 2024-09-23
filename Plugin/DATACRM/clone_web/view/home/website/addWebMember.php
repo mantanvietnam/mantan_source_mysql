@@ -1,7 +1,8 @@
+<?php include(__DIR__.'/../../../../hethongdaily/view/home/header.php'); ?>
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/clone_web-view-admin-website-listWebMemberAdmin">Website đại lý</a> /</span>
+    <span class="text-muted fw-light"><a href="/listWebMember">Website đại lý</a> /</span>
     Cài đặt website đại lý
   </h4>
 
@@ -201,3 +202,4 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<?php include(__DIR__.'/../../../../hethongdaily/view/home/footer.php'); ?>

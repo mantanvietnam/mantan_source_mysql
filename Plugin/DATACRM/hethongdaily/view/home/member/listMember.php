@@ -239,7 +239,7 @@
             }
 
             if(<?php echo $user->id_father ?>==0){
-                edit += ' <a onclick="modalAgency('+dataAgency.id+','+dataAgency.checkAgencyDownline+')"  class="btn btn-warning  mb-3">Xóa đại lý</a> ';
+                edit += ' <a onclick="modalAgency('+dataAgency.id+','+dataAgency.checkAgencyDownline+')"  class="btn btn-danger mb-3" style="color: white;">Xóa đại lý</a> ';
             }
 
 

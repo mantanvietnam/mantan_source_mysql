@@ -280,6 +280,25 @@ $sqlInstallDatabase .="CREATE TABLE `devices` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `toptopweb_colennao`.`package_workouts` ( 
+`id` INT NOT NULL AUTO_INCREMENT ,
+`title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`price_package` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '[]' ,
+`image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
+`status` VARCHAR(255) NULL DEFAULT NULL ,
+`created_at` INT NULL DEFAULT NULL ,
+`description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
+
+$sqlInstallDatabase .="CREATE TABLE `interme_package_workouts` ( 
+`id` INT NOT NULL AUTO_INCREMENT ,
+`id_package` INT NOT NULL ,
+`id_workout` INT NOT NULL , 
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `tests`;';
@@ -299,6 +318,8 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `workouts`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `exercise_workouts`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `child_exercise_workouts`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `devices`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `package_workouts`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `interme_package_workouts`;';
 
 
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
@@ -431,4 +452,15 @@ $sqlUpdateDatabase['devices']['image'] = "ALTER TABLE `devices` ADD `image` VARC
 $sqlUpdateDatabase['devices']['link'] = "ALTER TABLE `devices` ADD `link` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['devices']['created_at'] = "ALTER TABLE `devices` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['devices']['description'] = "ALTER TABLE `devices` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NUL;";
+
+$sqlUpdateDatabase['package_workouts']['title'] = "ALTER TABLE `package_workouts` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['package_workouts']['price_package'] = "ALTER TABLE `package_workouts` ADD `price_package` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '[]';";
+$sqlUpdateDatabase['package_workouts']['image'] = "ALTER TABLE `package_workouts` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['package_workouts']['status'] = "ALTER TABLE `package_workouts` ADD `status` VARCHAR(255) NULL DEFAULT NULL;";
+$sqlUpdateDatabase['package_workouts']['created_at'] = "ALTER TABLE `package_workouts` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['package_workouts']['description'] = "ALTER TABLE `package_workouts` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['package_workouts']['content'] = "ALTER TABLE `package_workouts` ADD `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['interme_package_workouts']['id_package'] = "ALTER TABLE `interme_package_workouts` ADD `id_package` INT NOT NULL;";
+$sqlUpdateDatabase['interme_package_workouts']['id_workout'] = "ALTER TABLE `interme_package_workouts` ADD `id_workout` INT NOT NULL;";
 ?>

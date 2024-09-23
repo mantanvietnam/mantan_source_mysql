@@ -1,6 +1,7 @@
-<?php include(__DIR__.'/../../../../hethongdaily/view/home/header.php'); ?>
+
 <?php
 if(file_exists(__DIR__.'/../../../../../themes/'.$theme.'/setting_theme_clone_web.php')){
+    include(__DIR__.'/../../../../hethongdaily/view/home/header.php'); 
     include(__DIR__.'/../../../../../themes/'.$theme.'/setting_theme_clone_web.php');
 
     echo '<div class="container-xxl flex-grow-1">

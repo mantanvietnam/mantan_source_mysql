@@ -175,19 +175,19 @@ function deteleMemberAPI($input)
 		if(!empty($listData)){
 	        foreach ($listData as $key => $value) {
 	            if($checkAgency->id==$value->id){
-	                $array =1;
+	                $array ++;
 	            }else{
-	            	$array = checkDuplicateSystem($value->id, $modelMember, $checkAgency->id,0);
+	            	$array += checkDuplicateSystem($value->id, $modelMember, $checkAgency->id,0);
 	            	//return 100;
 	            }
 	            
 	        }
 	    }
-	    // return $array;
+	    //s return $array;
 
 
 	   if($array==0){
-	    	/*if(!empty($listData)){
+	    	if(!empty($listData)){
 		        foreach ($listData as $key => $value) {
 		            $value->id_father =  $checkAgency->id;
 		            $modelMember->save($value);
@@ -195,7 +195,7 @@ function deteleMemberAPI($input)
 		    }
 
 		    $deteleMember->status = 'delete';
-		    $modelMember->save($deteleMember);*/
+		    $modelMember->save($deteleMember);
 		    return array('code'=>0,
 	                        'mess'=> 'bạn xóa thành công'
 	                        );

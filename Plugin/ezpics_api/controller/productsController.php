@@ -1537,6 +1537,49 @@ function createImageSeriesAPI($input)
 
 }
 
+function addExportImageSeriesAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $urlCreateImage;
+	global $ftp_server_upload_image;
+	global $ftp_username_upload_image;
+	global $ftp_password_upload_image;
+	global $response;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+
+	$dataImage = '';
+	$return = array('code'=>0);
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['idProduct'])){
+			$id = (int) $dataSend['idProduct'];
+
+			$product = $modelProduct->find()->where(['id'=>$id])->first();
+
+			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+				$product->export_image ++;
+				$modelProduct->save($product);
+
+				
+				$return = array('code'=>1,
+								'data' => $product,
+						'mess'=>'Bạn lấy data thành công');
+			}else{
+				$return = array('code'=>2,
+						'mess'=>'Không tìm thấy sản phẩm này');
+			}
+		}else{
+			$return = array('code'=>3,
+						'mess'=>'bạn chuyền thiếu dữ liệu');
+		}
+	}
+	return $return;
+
+}
+
 function updateInfoProductAPI($input)
 {
     global $session;

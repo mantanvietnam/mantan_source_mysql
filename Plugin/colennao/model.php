@@ -20,4 +20,6 @@ include('model/exercise_workouts.php');
 include('model/answerquestion.php');
 include('model/child_exercise_workouts.php');
 include('model/devices.php');
+include('model/package_workouts.php');
+include('model/interme_package_workouts.php');
 ?>

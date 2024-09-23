@@ -13,6 +13,7 @@ include_once('controller/admin/setingController.php');
 include_once('controller/admin/coachController.php');
 include_once('controller/admin/workoutController.php');
 include_once('controller/admin/deviceController.php');
+include_once('controller/admin/packageWorkout.php');
 // Api 
 include_once('controller/api/usersController.php'); 
 include_once('controller/api/coursesController.php');

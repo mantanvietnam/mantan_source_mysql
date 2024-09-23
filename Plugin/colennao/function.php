@@ -74,7 +74,12 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
 
     );
 $menus[1]['title'] = 'Gói luyện tập';
-$menus[1]['sub'][1]= array( 'title'=>'Bài luyện tập  ',
+$menus[1]['sub'][]= array( 'title'=>'Gói luyện tập',
+                            'url'=>'/plugins/admin/colennao-view-admin-packageworkouts-listPackageWorkouts',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listPackageWorkouts'
+                    );
+$menus[1]['sub'][]= array( 'title'=>'Bài luyện tập  ',
                             'url'=>'/plugins/admin/colennao-view-admin-workout-listWorkout',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listContactAdmin'

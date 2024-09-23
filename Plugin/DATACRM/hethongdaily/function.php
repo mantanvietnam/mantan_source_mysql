@@ -429,18 +429,19 @@ function getTreeSystem($id_father, $modelMembers)
 function checkDuplicateSystem($id_father, $modelMembers, $id_check, $i)
 {
     $listData = $modelMembers->find()->where(['id_father'=>$id_father])->all()->toList();
-   
-    if(!empty($listData)){
-        foreach ($listData as $key => $value) {
-            if($id_check==$value->id){
-                 $i +=1;
-            }else{
-               checkDuplicateSystem($value->id, $modelMembers, $id_check, $i);
-        
-            }
+  
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                if($id_check==$value->id){
+                     $i ++;
+                }else{
+                   $i += checkDuplicateSystem($value->id, $modelMembers, $id_check, $i);
             
+                }
+                
+            }
         }
-    }
+     
     return $i;
 
 

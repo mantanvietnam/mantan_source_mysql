@@ -6,7 +6,7 @@
     Danh sách website
   </h4>
 
-  <p><a href="/addWebMemberAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/addWebMember" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -74,7 +74,7 @@
               <td>'.$item->id.'</td>
              
               <td>
-                <a href="/listMemberAdmin/?id='.$item->member->id.'">'.$item->member->name.'</a><br/>
+                <a href="/listMember/?id='.$item->member->id.'">'.$item->member->name.'</a><br/>
                 '.$item->member->phone.'
               </td>
 
@@ -86,13 +86,13 @@
               <td>'.$status.'</td>
 
               <td align="center">
-                <a class="dropdown-item" href="/addWebMemberAdmin/?id='.$item->id.'">
+                <a class="dropdown-item" href="/addWebMember/?id='.$item->id.'">
                   <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                 </a>
               </td>
 
               <td align="center">
-                <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteWebMemberAdmin/?id='.$item->id.'">
+                <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteWebMember/?id='.$item->id.'">
                   <i class="bx bx-trash me-1"></i>
                 </a>
               </td>
