@@ -302,7 +302,7 @@ $sqlInstallDatabase .='CREATE TABLE `point_customers` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
-$sqlUpdateDatabase .="CREATE TABLE `customer_gifts` (
+$sqlInstallDatabase .="CREATE TABLE `customer_gifts` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
 `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
@@ -319,7 +319,7 @@ $sqlUpdateDatabase .="CREATE TABLE `customer_gifts` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
-$sqlUpdateDatabase .="CREATE TABLE `customer_historie_gifts` (
+$sqlInstallDatabase .="CREATE TABLE `customer_historie_gifts` (
   `id` INT NOT NULL AUTO_INCREMENT , 
   `id_gifts` INT NOT NULL , 
   `id_customer` INT NOT NULL , 
@@ -330,7 +330,7 @@ $sqlUpdateDatabase .="CREATE TABLE `customer_historie_gifts` (
   PRIMARY KEY (`id`),
 ) ENGINE = InnoDB;";
 
-$sqlUpdateDatabase .="CREATE TABLE `transaction_agency_histories` (
+$sqlInstallDatabase .="CREATE TABLE `transaction_agency_histories` (
 `id` INT NOT NULL AUTO_INCREMENT, 
 `id_member` INT NOT NULL , 
 `id_agency_introduce` INT NOT NULL , 
@@ -405,15 +405,16 @@ $sqlDeleteDatabase .= "DROP TABLE link_infos; ";
 $sqlDeleteDatabase .= "DROP TABLE rating_point_customers; ";
 $sqlDeleteDatabase .= "DROP TABLE point_customers; ";
 $sqlDeleteDatabase .= "DROP TABLE customer_gifts; ";
-$sqlUpdateDatabase .= "DROP TABLE customer_historie_gifts; ";
-$sqlUpdateDatabase .= "DROP TABLE transaction_agency_histories; ";
-$sqlUpdateDatabase .= "DROP TABLE staffs; ";
-$sqlUpdateDatabase .= "DROP TABLE staff_timekeepers; ";
+$sqlDeleteDatabase .= "DROP TABLE customer_historie_gifts; ";
+$sqlDeleteDatabase .= "DROP TABLE transaction_agency_histories; ";
+$sqlDeleteDatabase .= "DROP TABLE staffs; ";
+$sqlDeleteDatabase .= "DROP TABLE staff_timekeepers; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
 
 // sửa lỗi
+/*
 $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `info` `info` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `description` `description` VARCHAR(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL;";
 $sqlFixDatabase .= "ALTER TABLE `customers` CHANGE `full_name` `full_name` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
@@ -422,10 +423,11 @@ $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `title` `title` VARCHAR(255) C
 
 
 $sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"affiliate\",\"document\",\"cashBook\",\"affiliater\"]' WHERE `options`.`key_word` = 'crm_module'; ";
-//$sqlFixDatabase .= "UPDATE `options` SET `value` = '{\"userAPI\":\"admin\",\"passAPI\":\"Mmtc123!\",\"maxExport\":3,\"numberExport\":0,\"price\":0,\"note_pay\":\"\",\"number_bank\":\"\",\"account_bank\":\"\",\"key_bank\":\"\",\"idBot\":\"\",\"tokenBot\":\"\",\"idBlockConfirm\":\"\",\"idBlockDownload\":\"\"}' WHERE `options`.`key_word` = 'settingMMTCAPI'; ";
 
+//$sqlFixDatabase .= "UPDATE `options` SET `value` = '{\"userAPI\":\"admin\",\"passAPI\":\"Mmtc123!\",\"maxExport\":3,\"numberExport\":0,\"price\":0,\"note_pay\":\"\",\"number_bank\":\"\",\"account_bank\":\"\",\"key_bank\":\"\",\"idBot\":\"\",\"tokenBot\":\"\",\"idBlockConfirm\":\"\",\"idBlockDownload\":\"\"}' WHERE `options`.`key_word` = 'settingMMTCAPI'; ";
+*/
 // update
-$sqlUpdateDatabase['members']['name'] = "ALTER TABLE `members` ADD `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ;";
+$sqlUpdateDatabase['members']['name'] = "ALTER TABLE `members` ADD `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['members']['avatar'] = "ALTER TABLE `members` ADD `avatar` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['members']['phone'] = "ALTER TABLE `members` ADD `phone` VARCHAR(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['members']['id_father'] = "ALTER TABLE `members` ADD `id_father` int(11) NOT NULL COMMENT 'id member cha';";
@@ -660,13 +662,13 @@ $sqlUpdateDatabase['customer_gifts']['price'] = "ALTER TABLE `customer_gifts` AD
 $sqlUpdateDatabase['customer_gifts']['quantity'] = "ALTER TABLE `customer_gifts` ADD `quantity` INT NOT NULL DEFAULT '0' ;";
 $sqlUpdateDatabase['customer_gifts']['slug'] = "ALTER TABLE `customer_gifts` ADD `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ;";
 $sqlUpdateDatabase['customer_gifts']['status'] = "ALTER TABLE `customer_gifts` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
-$sqlUpdateDatabase['customer_gifts']['id_member'] = "ALTER TABLE `customer_gifts` ADD `id_member` INT NOT NULL ,;";
+$sqlUpdateDatabase['customer_gifts']['id_member'] = "ALTER TABLE `customer_gifts` ADD `id_member` INT NOT NULL;";
 $sqlUpdateDatabase['customer_gifts']['point'] = "ALTER TABLE `customer_gifts` ADD `point` INT NOT NULL DEFAULT '0' ;";
 $sqlUpdateDatabase['customer_gifts']['id_rating'] = "ALTER TABLE `customer_gifts` ADD `id_rating` INT NOT NULL DEFAULT '0' ;";
 $sqlUpdateDatabase['customer_gifts']['created_at'] = "ALTER TABLE `customer_gifts` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customer_gifts']['id_product'] = "ALTER TABLE `customer_gifts` ADD `id_product` INT NULL DEFAULT '0';";
 
-$sqlUpdateDatabase['customer_historie_gifts']['id_product'] = "ALTER TABLE `customer_historie_gifts` ADD `id_gifts` INT NOT NULL;"; 
+$sqlUpdateDatabase['customer_historie_gifts']['id_gifts'] = "ALTER TABLE `customer_historie_gifts` ADD `id_gifts` INT NOT NULL;"; 
 $sqlUpdateDatabase['customer_historie_gifts']['id_customer'] = "ALTER TABLE `customer_historie_gifts` ADD `id_customer` INT NOT NULL;"; 
 $sqlUpdateDatabase['customer_historie_gifts']['point'] = "ALTER TABLE `customer_historie_gifts` ADD `point` INT NOT NULL;"; 
 $sqlUpdateDatabase['customer_historie_gifts']['id_member'] = "ALTER TABLE `customer_historie_gifts` ADD `id_member` INT NOT NULL;"; 
