@@ -22,4 +22,9 @@ include('model/child_exercise_workouts.php');
 include('model/devices.php');
 include('model/package_workouts.php');
 include('model/interme_package_workouts.php');
+include('model/breakfast.php');
+include('model/food.php');
+include('model/dinner.php');
+include('model/lunch.php');
+include('model/snacks.php');
 ?>

@@ -189,7 +189,7 @@
                                         </a>
                                     </div>
                                     <div class="projects-items-info">
-                                        <a href=""><?php echo $item->name; ?></a>
+                                        <a href="/project/<?= $item->slug;?>"><?php echo $item->name; ?></a>
                                         <ul>
                                             <li>
                                                 Thời gian thực hiện: <span><?php echo $item->year; ?></span>

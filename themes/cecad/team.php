@@ -24,81 +24,263 @@
 
         <section id="team-section-2" class="team-block-1">
             <div class="container">
-
                 <div class="as4-block-2">
-                    <h3><?= $modeltitlealbum1['title'];?></h3>
+                    <h3><?=$modeltitlealbum1['title']?></h3>
                 </div>
-
-                <div class="as4-block-1">
-                <?php if(!empty($slide_dau)){
-                                        foreach($slide_dau as $item){ ?>
-                        <div class="as4-swiper-slide">
-                            <div class="as4-swiper-img">
-                                <img src="<?= $item->image?>" alt="">
+                <div class="tms-block-1">
+                    <div class="row" style="justify-content: center;">
+                    <?php foreach ($slide_dau as $key =>$value){?>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="tms-item d-grid" style="grid-template-columns: auto auto;">
+                                <div class="tms-img" style="aspect-ratio: 1 !important;">
+                                    <img src="<?=$value->image?>" alt="">
+                                </div>
+                                <div class="tms-text" style="padding: 20px;">
+                                    <div class="tms-name" style="margin-bottom: 20px;">
+                                        <h4><strong><?= $value->title?></strong></h4>
+                                        <!-- <p style="font-weight: 500; font-size: 18px;">Chu tich hoi dong quan tri</p> -->
+                                    </div>
+                                    <div class="tms-sub">
+                                        <p><?=$value->description?></p>
+                                    </div>
+                                    <div class="tms-btn">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#modalTmsSub">
+                                            <i class="fa-solid fa-arrow-right-long"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="as4-swiper-info">
-                                <h4><?= $item->title?></h4>
-                                <p><?= $item->description?></p>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalTmsSub" tabindex="-1" aria-labelledby="modalTmsSubLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-body" style="line-height: 1.75;">
+                                            <?=$value->description?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                <?php }} ?>
+                    <?php }?>
+                    </div>
                 </div>
+            </div>
+
+            </div>
+        </section>
+
+        <section class="team-block-2" style="margin-bottom: 80px;">
+            <div class="container">
+                <div class="as4-block-2">
+                    <h3><?=$modeltitlealbum2['title']?></h3>
+                </div>
+                <div class="tms-block-1">
+                    <div class="row" style="justify-content: center;">
+                    <?php foreach($slide_hai as $key => $value) {?>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="tms-item d-grid" style="padding: 16px;">
+                                <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
+                                    <img src="<?=$value->image?>" alt="">
+                                </div>
+                                <div class="tms-text">
+                                    <div class="tms-name" style="margin-bottom: 20px;">
+                                        <h4><strong><?= $value->title?></strong></h4>
+                                        <!-- <p style="font-weight: 500; font-size: 18px;">Chu tich hoi dong quan tri</p> -->
+                                    </div>
+                                    <div class="tms-sub">
+                                        <p><?=$value->description?></p>
+                                    </div>
+                                    <div class="tms-btn">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-1">
+                                            <i class="fa-solid fa-arrow-right-long"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="tts-block-1" tabindex="-1" aria-labelledby="modalTmsSubLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-body" style="line-height: 1.75;">
+                                        <?=$value->description?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php }?>
+
+                    </div>
+                </div>
+
+
 
             </div>
 
             </div>
         </section>
 
-        <section id="about-section-4" style="background: transparent; padding-top: 0;">
+
+        <section class="team-block-2" style="margin-bottom: 80px;">
             <div class="container">
-
                 <div class="as4-block-2">
-                    <h3><?= $modeltitlealbum2['title'];?></h3>
+                    <h3><?=$modeltitlealbum3['title']?></h3>
                 </div>
+                <div class="tms-block-1">
+                    <div class="row" style="justify-content: center;">
 
-                <div class="as4-block-1">
-                <?php if(!empty($slide_hai)){
-                                        foreach($slide_hai as $item){ ?>
-                    <div class="as4-swiper-slide">
-                        <div class="as4-swiper-img">
-                            <img src="<?= $item->image?>" alt="">
+                    <?php foreach($slide_ba as $key => $value) {?>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="tms-item d-grid" style="padding: 16px;">
+                                <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
+                                    <img src="<?=$value->image?>" alt="">
+                                </div>
+                                <div class="tms-text">
+                                    <div class="tms-name" style="margin-bottom: 20px;">
+                                        <h4><strong><?= $value->title?></strong></h4>
+                                        <!-- <p style="font-weight: 500; font-size: 18px;">Chu tich hoi dong quan tri</p> -->
+                                    </div>
+                                    <div class="tms-sub">
+                                        <p><?=$value->description?></p>
+                                    </div>
+                                    <div class="tms-btn">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-1">
+                                            <i class="fa-solid fa-arrow-right-long"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="tts-block-1" tabindex="-1" aria-labelledby="modalTmsSubLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-body" style="line-height: 1.75;">
+                                        <?=$value->description?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="as4-swiper-info">
-                            <h4><?= $item->title?></h4>
-                            <p><?= $item->description?></p>
-                        </div>
+
+                    <?php }?>
+
                     </div>
-                <?php }} ?>
-                
-
                 </div>
-
-            </div>
-
             </div>
         </section>
 
-        <section id="team-section-1" style="padding: 80px 0;">
+        <section class="team-block-2" style="margin-bottom: 80px;">
             <div class="container">
                 <div class="as4-block-2">
-                    <h3><?= $modeltitlealbum3['title'];?></h3>
+                    <h3><?=$modeltitlealbum4['title']?></h3>
                 </div>
+                <div class="tms-block-1">
+                    <div class="row" style="justify-content: center;">
 
-                <div class="ts-block-1">
-                <?php if(!empty($slide_ba)){
-                                        foreach($slide_ba as $item){ ?>
-                    <div class="ts-item">
-                        <div class="ts-item-img">
-                            <img src="<?= $item->image?>" alt="">
+                    <?php foreach($slide_bon as $key => $value) {?>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="tms-item d-grid" style="padding: 16px;">
+                                <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
+                                    <img src="<?=$value->image?>" alt="">
+                                </div>
+                                <div class="tms-text">
+                                    <div class="tms-name" style="margin-bottom: 20px;">
+                                        <h4><strong><?= $value->title?></strong></h4>
+                                        <!-- <p style="font-weight: 500; font-size: 18px;">Chu tich hoi dong quan tri</p> -->
+                                    </div>
+                                    <div class="tms-sub">
+                                        <p><?=$value->description?></p>
+                                    </div>
+                                    <div class="tms-btn">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-1">
+                                            <i class="fa-solid fa-arrow-right-long"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="tts-block-1" tabindex="-1" aria-labelledby="modalTmsSubLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-body" style="line-height: 1.75;">
+                                        <?=$value->description?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ts-item-text">
-                            <h4><?= $item->title?></h4>
-                            <p><?= $item->description?></p>
-                        </div>
+
+                    <?php }?>
+
                     </div>
-                <?php }} ?>
-                   
+                </div>
+            </div>
+        </section>
 
+        <section class="team-block-2" style="margin-bottom: 80px;">
+            <div class="container">
+                <div class="as4-block-2">
+                    <h3><?=$modeltitlealbum5['title']?></h3>
+                </div>
+                <div class="tms-block-1">
+                    <div class="row" style="justify-content: center;">
+                    <?php foreach($slide_nam as $key => $value) {?>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="tms-item d-grid" style="padding: 16px;">
+                                <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
+                                    <img src="<?=$value->image?>" alt="">
+                                </div>
+                                <div class="tms-text">
+                                    <div class="tms-name" style="margin-bottom: 20px;">
+                                        <h4><strong><?= $value->title?></strong></h4>
+                                        <!-- <p style="font-weight: 500; font-size: 18px;">Chu tich hoi dong quan tri</p> -->
+                                    </div>
+                                    <div class="tms-sub">
+                                        <p><?=$value->description?></p>
+                                    </div>
+                                    <div class="tms-btn">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-1">
+                                            <i class="fa-solid fa-arrow-right-long"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="tts-block-1" tabindex="-1" aria-labelledby="modalTmsSubLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-body" style="line-height: 1.75;">
+                                        <?=$value->description?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php }?>
+
+                    </div>
                 </div>
             </div>
         </section>

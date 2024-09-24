@@ -90,6 +90,38 @@ $menus[2]['sub'][1]= array( 'title'=>'Thông tin liên hệ  ',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listContactAdmin'
                     );
+
+$menus[3]['title'] = 'FOOD';
+$menus[3]['sub'][1]= array( 'title'=>'GROUP FOOD',
+                            'url'=>'/plugins/admin/colennao-view-admin-food-listgroupfood',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listgroupfood'
+                        );
+$menus[3]['sub'][2]= array( 'title'=>'BREAKFAST',
+                            'url'=>'/plugins/admin/colennao-view-admin-breakfastfood-listbreakfastfood',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listbreakfastfood'
+                        );
+$menus[3]['sub'][3]= array( 'title'=>'LUCH',
+                            'url'=>'/plugins/admin/colennao-view-admin-lunchfood-listlunchfood',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listlunchfood'
+                        );
+$menus[3]['sub'][4]= array( 'title'=>'DINNER',
+                            'url'=>'/plugins/admin/colennao-view-admin-dinnerfood-listdinnerfood',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listdinnerfood'
+                        );
+$menus[3]['sub'][4]= array( 'title'=>'DINNER',
+                            'url'=>'/plugins/admin/colennao-view-admin-snackfood-listdinnerfood',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listdinnerfood'
+                        );
+
+
+
+
+
 addMenuAdminMantan($menus);
 
 global $transactionKey;

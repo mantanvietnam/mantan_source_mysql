@@ -91,7 +91,6 @@ function getCoursesAPI($input)
             			}
             		}
             		$data->otherData = $otherData;
-	            // lấy số bài học
             		$conditions = array('id_course'=>$data->id);
             		$order = array('id'=>'desc');
             		$lesson = $modelLesson->find()->where($conditions)->order($order)->all()->toList();

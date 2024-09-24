@@ -95,28 +95,24 @@ function settingAboutusTheme($input){
             'bannerhome'=>$dataSend['bannerhome'],
             'titlebanner1'=>$dataSend['titlebanner1'],
             'titlebanner2'=>$dataSend['titlebanner2'],
-      
             'buttonbanner'=>$dataSend['buttonbanner'],
-// 
             'contentdeepbanner1'=>$dataSend['contentdeepbanner1'],
-        
-            'titlesmall'=>$dataSend['titlesmall'],
-            'contentshort1'=>$dataSend['contentshort1'],
-          
+            'imageleftabout'=>$dataSend['imageleftabout'],
+            'Vision'=>$dataSend['Vision'],
+            'bannerfull'=>$dataSend['bannerfull'],
+            'ttd'=>$dataSend['ttd'],
+            'doimoi'=>$dataSend['doimoi'],
+            'ppln'=>$dataSend['ppln'],
+            'hieuqua'=>$dataSend['hieuqua'],
+          'imagettd'=>$dataSend['imagettd'],
+          'imagedm'=>$dataSend['imagedm'],
+          'imageppln'=>$dataSend['imageppln'],
+          'imagehq'=>$dataSend['imagehq'],
           
 // 
-            
-            // 'titleimagehome1'=>$dataSend['titleimagehome1'],
-            // 'imagehome2'=>$dataSend['imagehome2'],
-            // 'titleimagehome2'=>$dataSend['titleimagehome2'],
-            // 'imagehome3'=>$dataSend['imagehome3'],
-            // 'titleimagehome3'=>$dataSend['titleimagehome3'],
 
 
 // 
-            'idslidenumber1'=>$dataSend['idslidenumber1'],
-           
-            'idslidenumber2'=>$dataSend['idslidenumber2'],
         
 
 //            
@@ -124,12 +120,13 @@ function settingAboutusTheme($input){
             'bannerteam'=>$dataSend['bannerteam'],
             'contenteam'=>$dataSend['contenteam'],
             'namebuttonteam'=>$dataSend['namebuttonteam'],
-  
-            // 
             'idslidedau'=>$dataSend['idslidedau'],
             'idslidehai'=>$dataSend['idslidehai'],
             'idslideba'=>$dataSend['idslideba'],
-           
+            'idslidebon'=>$dataSend['idslidebon'],
+            'idslidenam'=>$dataSend['idslidenam'],
+  
+            // 
             'idslidevolunteers'=>$dataSend['idslidevolunteers'],
       
            
@@ -163,10 +160,12 @@ function Aboutus($input){
     global $metaTitleMantan;
     global $modelAlbuminfos;
     global $data;
+    global $settingThemes;
     global $modelAlbums;
     global $category;
     $order = array('id' => 'desc');
     $metaTitleMantan = 'Trang About';
+
     $conditions = array('key_word' => 'settingAboutusTheme');
     $modelfield = $controller->loadModel('field');
     $data = $modelOptions->find()->where($conditions)->first();
@@ -175,25 +174,18 @@ function Aboutus($input){
     if(!empty($data->value)){
         $data_value = json_decode($data->value, true);
     }
- 
-    $slide_about1 = [];
-    if(!empty($data_value['idslidenumber1'])){
-        $slide_about1 = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidenumber1']])->all()->toList();
+    $data = $modelOptions->find()->where($conditions)->first();
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
     }
-
-    $slide_about2 = [];
-    if(!empty($data_value['idslidenumber2'])){
-        $slide_about2 = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidenumber2']])->all()->toList();
+    $slide_partner = [];
+    if(!empty($settingThemes['slide_partner'])){
+        $slide_partner = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['slide_partner']])->all()->toList();
     }
     $listDatafield = $modelfield->find()->order($order)->all()->toList();
-    $modeltitlealbum1 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidenumber1']])->first();
-    $modeltitlealbum2 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidenumber2']])->first();
-
-    setVariable('modeltitlealbum1', $modeltitlealbum1);
-    setVariable('modeltitlealbum2', $modeltitlealbum2);
+    setVariable('slide_partner', $slide_partner);
     setVariable('listDatafield', $listDatafield);
-    setVariable('slide_about1', $slide_about1);
-    setVariable('slide_about2', $slide_about2);
     setVariable('setting', $data_value);
    
 }
@@ -227,15 +219,29 @@ function team($input){
     if(!empty($data_value['idslideba'])){
         $slide_ba = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslideba']])->order($order)->all()->toList();
     }
+    $slide_bon = [];
+    if(!empty($data_value['idslidebon'])){
+        $slide_bon = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidebon']])->order($order)->all()->toList();
+    }
+    $slide_nam = [];
+    if(!empty($data_value['idslidenam'])){
+        $slide_nam = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidenam']])->order($order)->all()->toList();
+    }
     $modeltitlealbum1 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidedau']])->first();
     $modeltitlealbum2 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidehai']])->first();
     $modeltitlealbum3 = $modelAlbums->find()->where(['id' => (int)$data_value['idslideba']])->first();
+    $modeltitlealbum4 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidebon']])->first();
+    $modeltitlealbum5 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidenam']])->first();
     setVariable('modeltitlealbum1', $modeltitlealbum1);
     setVariable('modeltitlealbum2', $modeltitlealbum2);
     setVariable('modeltitlealbum3', $modeltitlealbum3);
+    setVariable('modeltitlealbum4', $modeltitlealbum4);
+    setVariable('modeltitlealbum5', $modeltitlealbum5);
     setVariable('slide_dau', $slide_dau);
     setVariable('slide_hai', $slide_hai);
     setVariable('slide_ba', $slide_ba);
+    setVariable('slide_bon', $slide_bon);
+    setVariable('slide_nam', $slide_nam);
     setVariable('setting', $data_value);
    
 }
