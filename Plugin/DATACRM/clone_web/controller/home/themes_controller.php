@@ -32,7 +32,7 @@ function listThemeCLoneWeb($input)
 
                     $number_theme = $modelMemberWebs->find()->where($conditions)->all()->toList();
 
-                    $static[$value] =array('number_theme'=> count($number_theme), 'price'=>$price[$value]);
+                    $static[$value] =array('number_theme'=> count($number_theme), 'price'=>@$price[$value]);
                 }else{
                     unset($listFolder[$key]);
                 }

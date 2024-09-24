@@ -27,4 +27,5 @@ include('model/food.php');
 include('model/dinner.php');
 include('model/lunch.php');
 include('model/snacks.php');
+include('model/user_packages.php');
 ?>

@@ -101,7 +101,7 @@
                   $checkdate = checkStaffTimekeepers($value['ngay'],$item->id);
                  
                   if(!empty($checkdate)){
-                    echo ' <td align="center ngaychamcong" style="background-color: #d7fada;">'.$checkdate->shift.  '</td>';
+                    echo ' <td align="center ngaychamcong" style="background-color: #d7fada;"  onclick="upadetimesheet('.$item->id.', \''.$value['ngay'].'\', \''.$checkdate->shift.'\');">'.$checkdate->shift.  '</td>';
                   }else{
                     echo ' <td align="center"> </td>';
                   }
@@ -153,13 +153,13 @@
                   </div>
                   <div class="col-md-12">
                     <label class="form-label"><b>Ca làm việc</b></label> <br/>
-                    <input type="checkbox" name="shift[]" value="sáng"> Sáng  &nbsp; &nbsp;
-                    <input type="checkbox" name="shift[]" value="chiều"> Chiều  &nbsp; &nbsp;
-                    <input type="checkbox" name="shift[]" value="tối"> Tối
+                    <input type="checkbox" name="shift[]" id="sang" value="sáng"> Sáng  &nbsp; &nbsp;
+                    <input type="checkbox" name="shift[]" id="chieu" value="chiều"> Chiều  &nbsp; &nbsp;
+                    <input type="checkbox" name="shift[]" id="toi" value="tối"> Tối
                   </div>
                   <div class="col-md-12">
                     <label class="form-label"><b>Ngày làm việc</b></label>
-                    <input type="text" class="form-control datepicker" name="date" value="<?php echo date('d/m/Y'); ?>">
+                    <input type="text" class="form-control datepicker" name="date" id="ngay" value="<?php echo date('d/m/Y'); ?>">
                   </div>
                 </div>
               </div>
@@ -185,5 +185,41 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+
+<script type="text/javascript">
+  function upadetimesheet(id_staff,ngay,shift){
+    let ca = shift.split(', ');
+    $('#ngay').val(ngay);
+    $('#id_staff').val(id_staff);
+
+    if (ca.includes('sáng')) {
+      let checkbox = document.getElementById('sang');
+      checkbox.checked = true;
+    }else{
+      let checkbox = document.getElementById('sang');
+      checkbox.checked = false;
+    }
+
+    if (ca.includes('chiều')) {
+      let checkbox = document.getElementById('chieu');
+      checkbox.checked = true;
+    }else{
+      let checkbox = document.getElementById('chieu');
+      checkbox.checked = false;
+    }
+
+    if (ca.includes('tối')) {
+      let checkbox = document.getElementById('toi');
+      checkbox.checked = true;
+    }else{
+      let checkbox = document.getElementById('toi');
+      checkbox.checked = false;
+    }
+
+
+     console.log(ca);
+      $('#basicModal').modal('show');
+  }
+</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

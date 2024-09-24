@@ -89,18 +89,22 @@ function addNotificationAdmin($input)
 					);
 
 					if(!empty($device_token)){
-						 $rabbitMQClient = new RabbitMQClient();
 
-                		$requestMessage = json_encode([ 'dataSendNotification' => $dataSendNotification, 
+						if(empty($dataSend['idUser'])){
+						 	$rabbitMQClient = new RabbitMQClient();
+
+                			$requestMessage = json_encode([ 'dataSendNotification' => $dataSendNotification, 
                                                 'listToken' => $device_token,
                                                 'keyFirebase' => $keyFirebase,
                                                 'projectId' => $projectId
                                             ]);
                 
-                $rabbitMQClient->sendMessage('send_notification_firebase', $requestMessage);
+                			$rabbitMQClient->sendMessage('send_notification_firebase', $requestMessage);
+                		}else{
+                			$return = sendNotification($dataSendNotification, $device_token);
+                		}
 
-
-						//$return = sendNotification($dataSendNotification, $device_token);
+						
 					}
 
 					$mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format($number).' người dùng</p>';
