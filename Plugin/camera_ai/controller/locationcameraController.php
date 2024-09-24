@@ -143,7 +143,7 @@ function addLocationCamera($input){
     $mess ="";
     $modelcameralocation = $controller->loadModel('cameralocation');
     $modelprecinct = $controller->loadModel('precinct');
-    $listData = $listData = $modelprecinct->find()->all()->toList();
+    $listData =  $modelprecinct->find()->all()->toList();
     $conditions = array('type' => 'category_groupcamera');
     $listgroupcamera = $modelCategories->find()->where($conditions)->all()->toList();
     $conditions = array('type' => 'Category_deportment');

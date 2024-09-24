@@ -9,7 +9,6 @@ function listLesson($input)
     $metaTitleMantan = 'Danh sách bài học';
 	$modelLesson = $controller->loadModel('Lessons');
     $modelCourses = $controller->loadModel('Courses');
-    $modelTests = $controller->loadModel('Tests');
 	$conditions = array();
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;

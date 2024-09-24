@@ -19,11 +19,6 @@ $menus[0]['sub'][2]= array(	'title'=>'Bài học',
 							'classIcon'=>'bx bx-list-ul',
 							'permission'=>'listLesson'
                     );
-$menus[0]['sub'][3]= array(	'title'=>'Bài khảo sát',
-                            'url'=>'/plugins/admin/colennao-view-admin-tests-listTest',
-                            'classIcon'=>'bx bxs-meh-alt',
-                            'permission'=>'listTest'
-                    );
 $menus[0]['sub'][4]= array(	'title'=>'Câu hỏi bài khảo sát',
 							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestion',
 							'classIcon'=>'bx bx-question-mark',
@@ -112,10 +107,10 @@ $menus[3]['sub'][4]= array( 'title'=>'DINNER',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listdinnerfood'
                         );
-$menus[3]['sub'][4]= array( 'title'=>'DINNER',
-                            'url'=>'/plugins/admin/colennao-view-admin-snackfood-listdinnerfood',
+$menus[3]['sub'][5]= array( 'title'=>'SNACKS',
+                            'url'=>'/plugins/admin/colennao-view-admin-snackfood-listsnacksfood',
                             'classIcon'=>'bx bxs-meh-alt',
-                            'permission'=>'listdinnerfood'
+                            'permission'=>'listsnacksfood'
                         );
 
 
@@ -296,6 +291,7 @@ function getNameFromIdlosingweight($id) {
     
     return null; 
 }
+
 
 function listBank(): array
 {

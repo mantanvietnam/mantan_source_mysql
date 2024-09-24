@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-breakfastfood-listbreakfastfood">breakfast</a> /</span>
-    Nội dung câu hỏi
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-lunchfood-listlunchfood">lunch</a> /</span>
+    Nội dung bữa ăn
   </h4>
 
   <!-- Basic Layout -->
@@ -10,7 +10,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Nội dung bữa sáng</h5>
+            <h5 class="mb-0">Nội dung bữa trưa</h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>

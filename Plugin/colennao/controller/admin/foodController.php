@@ -87,6 +87,7 @@ function addgroupfood($input){
             $data->name = $dataSend['name'];
             $data->description= $dataSend['description'];
             $data->image = $dataSend['image'];
+            $data->month = $dataSend['month'];
             // tạo slug
             // $slug = createSlugMantan($dataSend['name']);
             // $slugNew = $slug;
@@ -204,12 +205,13 @@ function addbreakfastfood($input){
     global $metaTitleMantan;
     $metaTitleMantan = 'Thêm bữa sáng';
 	$modelfood = $controller->loadModel('food');
+    $modelbreakfast = $controller->loadModel('breakfast');
 	$mess= '';
 
     if(!empty($_GET['id'])){
-        $data = $modelfood->get( (int) $_GET['id']);
+        $data = $modelbreakfast->get( (int) $_GET['id']);
     }else{
-        $data = $modelfood->newEmptyEntity();
+        $data = $modelbreakfast->newEmptyEntity();
     }
 
 	if ($isRequestPost) {
@@ -218,11 +220,12 @@ function addbreakfastfood($input){
         if(!empty($dataSend['name'])){
             
             $data->name = $dataSend['name'];
-            $data->description= $dataSend['content'];
+            $data->content= $dataSend['content'];
             $data->image = $dataSend['image'];
             $data->Ingredients = $dataSend['Ingredients'];
             $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
+            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -231,7 +234,7 @@ function addbreakfastfood($input){
             if(empty($data->slug) || $data->slug!=$slugNew){
                 do{
                 	$conditions = array('slug'=>$slugNew);
-        			$listData = $modelfood->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+        			$listData = $modelbreakfast->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
         			if(!empty($listData)){
         				$number++;
@@ -241,7 +244,7 @@ function addbreakfastfood($input){
             }
             $data->slug = $slugNew;
 
-            $modelfood->save($data);   
+            $modelbreakfast->save($data);   
 
           
 
@@ -250,7 +253,447 @@ function addbreakfastfood($input){
 	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin/p>';
 	    }
     }
+    $listData =  $modelfood->find()->all()->toList();
+    setVariable('listData', $listData);
     setVariable('data', $data);
     setVariable('mess', $mess);
+}
+function deletebreakfast($input){
+    global $controller;
+
+    $modelbreakfast = $controller->loadModel('breakfast');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelbreakfast->get($_GET['id']);
+        
+        if($data){
+            $modelbreakfast->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/colennao-view-admin-breakfastfood-listbreakfastfood');
+}
+
+
+function listlunchfood($input){
+    
+    global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategories;
+
+    $metaTitleMantan = 'Danh sách bữa sáng';
+
+    $modelfood = $controller->loadModel('food');
+    $modellunch = $controller->loadModel('lunch');
+    $conditions = array();
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'asc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    
+    $listData = $modellunch->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+ 
+    // phân trang
+    $totalData = $modellunch->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
+    setVariable('listData', $listData);
+
+}
+function addlunchfood($input){
+    global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Thêm bữa sáng';
+	$modelfood = $controller->loadModel('food');
+    $modellunch = $controller->loadModel('lunch');
+	$mess= '';
+
+    if(!empty($_GET['id'])){
+        $data = $modellunch->get( (int) $_GET['id']);
+    }else{
+        $data = $modellunch->newEmptyEntity();
+    }
+
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['name'])){
+            
+            $data->name = $dataSend['name'];
+            $data->content= $dataSend['content'];
+            $data->image = $dataSend['image'];
+            $data->Ingredients = $dataSend['Ingredients'];
+            $data->eatformat = $dataSend['eatformat'];
+            $data->id_food = $dataSend['id_food'];
+            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
+            // tạo slug
+            $slug = createSlugMantan($dataSend['name']);
+            $slugNew = $slug;
+            $number = 0;
+
+            if(empty($data->slug) || $data->slug!=$slugNew){
+                do{
+                	$conditions = array('slug'=>$slugNew);
+        			$listData = $modellunch->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        			if(!empty($listData)){
+        				$number++;
+        				$slugNew = $slug.'-'.$number;
+        			}
+                }while (!empty($listData));
+            }
+            $data->slug = $slugNew;
+
+            $modellunch->save($data);   
+
+          
+
+	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+	    }else{
+	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin/p>';
+	    }
+    }
+    $listData =  $modelfood->find()->all()->toList();
+    setVariable('listData', $listData);
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+function deletelunch($input){
+    global $controller;
+
+    $modellunch = $controller->loadModel('lunch');
+    
+    if(!empty($_GET['id'])){
+        $data = $modellunch->get($_GET['id']);
+        
+        if($data){
+            $modellunch->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/colennao-view-admin-lunchfood-listlunchfood');
+}
+
+function listdinnerfood($input){
+    
+    global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategories;
+
+    $metaTitleMantan = 'Danh sách bữa sáng';
+
+    $modelfood = $controller->loadModel('food');
+    $modeldinner = $controller->loadModel('dinner');
+    $conditions = array();
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'asc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    
+    $listData = $modeldinner->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+ 
+    // phân trang
+    $totalData = $modeldinner->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
+    setVariable('listData', $listData);
+
+}
+function adddinnerfood($input){
+    global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Thêm bữa sáng';
+	$modelfood = $controller->loadModel('food');
+    $modeldinner = $controller->loadModel('dinner');
+	$mess= '';
+
+    if(!empty($_GET['id'])){
+        $data = $modeldinner->get( (int) $_GET['id']);
+    }else{
+        $data = $modeldinner->newEmptyEntity();
+    }
+
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['name'])){
+            
+            $data->name = $dataSend['name'];
+            $data->content= $dataSend['content'];
+            $data->image = $dataSend['image'];
+            $data->Ingredients = $dataSend['Ingredients'];
+            $data->eatformat = $dataSend['eatformat'];
+            $data->id_food = $dataSend['id_food'];
+            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
+            // tạo slug
+            $slug = createSlugMantan($dataSend['name']);
+            $slugNew = $slug;
+            $number = 0;
+
+            if(empty($data->slug) || $data->slug!=$slugNew){
+                do{
+                	$conditions = array('slug'=>$slugNew);
+        			$listData = $modeldinner->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        			if(!empty($listData)){
+        				$number++;
+        				$slugNew = $slug.'-'.$number;
+        			}
+                }while (!empty($listData));
+            }
+            $data->slug = $slugNew;
+
+            $modeldinner->save($data);   
+
+          
+
+	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+	    }else{
+	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin/p>';
+	    }
+    }
+    $listData =  $modelfood->find()->all()->toList();
+    setVariable('listData', $listData);
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+function deletedinner($input){
+    global $controller;
+
+    $modeldinner = $controller->loadModel('dinner');
+    
+    if(!empty($_GET['id'])){
+        $data = $modeldinner->get($_GET['id']);
+        
+        if($data){
+            $modeldinner->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/colennao-view-admin-dinnerfood-listdinnerfood');
+}
+function listsnacksfood($input){
+    
+    global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategories;
+
+    $metaTitleMantan = 'Danh sách bữa sáng';
+
+    $modelfood = $controller->loadModel('food');
+    $modelsnacks = $controller->loadModel('snacks');
+    $conditions = array();
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'asc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    
+    $listData = $modelsnacks->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+ 
+    // phân trang
+    $totalData = $modelsnacks->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
+    setVariable('listData', $listData);
+
+}
+function addsnacksfood($input){
+    global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Thêm bữa sáng';
+	$modelfood = $controller->loadModel('food');
+    $modelsnacks = $controller->loadModel('snacks');
+	$mess= '';
+
+    if(!empty($_GET['id'])){
+        $data = $modelsnacks->get( (int) $_GET['id']);
+    }else{
+        $data = $modelsnacks->newEmptyEntity();
+    }
+
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['name'])){
+            
+            $data->name = $dataSend['name'];
+            $data->content= $dataSend['content'];
+            $data->image = $dataSend['image'];
+            $data->Ingredients = $dataSend['Ingredients'];
+            $data->eatformat = $dataSend['eatformat'];
+            $data->id_food = $dataSend['id_food'];
+            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
+            // tạo slug
+            $slug = createSlugMantan($dataSend['name']);
+            $slugNew = $slug;
+            $number = 0;
+
+            if(empty($data->slug) || $data->slug!=$slugNew){
+                do{
+                	$conditions = array('slug'=>$slugNew);
+        			$listData = $modelsnacks->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        			if(!empty($listData)){
+        				$number++;
+        				$slugNew = $slug.'-'.$number;
+        			}
+                }while (!empty($listData));
+            }
+            $data->slug = $slugNew;
+
+            $modelsnacks->save($data);   
+
+          
+
+	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+	    }else{
+	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin/p>';
+	    }
+    }
+    $listData =  $modelfood->find()->all()->toList();
+    setVariable('listData', $listData);
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+function deletesnacks($input){
+    global $controller;
+
+    $modelsnacks = $controller->loadModel('snacks');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelsnacks->get($_GET['id']);
+        
+        if($data){
+            $modelsnacks->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/colennao-view-admin-snacksfood-listsnacksfood');
 }
 ?>
