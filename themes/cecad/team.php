@@ -38,13 +38,13 @@
                                 <div class="tms-text" style="padding: 20px;">
                                     <div class="tms-name" style="margin-bottom: 20px;">
                                         <h4><strong><?= $value->title?></strong></h4>
-                                        <!-- <p style="font-weight: 500; font-size: 18px;">Chu tich hoi dong quan tri</p> -->
+                                        <p style="font-weight: 500; font-size: 18px;"><?=$value->link?></p>
                                     </div>
                                     <div class="tms-sub">
                                         <p><?=$value->description?></p>
                                     </div>
                                     <div class="tms-btn">
-                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#modalTmsSub">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#modalTmsSub<?= $key ?>">
                                             <i class="fa-solid fa-arrow-right-long"></i>
                                         </a>
                                     </div>
@@ -52,7 +52,7 @@
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="modalTmsSub" tabindex="-1" aria-labelledby="modalTmsSubLabel" aria-hidden="true">
+                            <div class="modal fade" id="modalTmsSub<?= $key ?>" tabindex="-1" aria-labelledby="modalTmsSubLabel<?= $key ?>" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-body" style="line-height: 1.75;">
@@ -89,13 +89,13 @@
                                 <div class="tms-text">
                                     <div class="tms-name" style="margin-bottom: 20px;">
                                         <h4><strong><?= $value->title?></strong></h4>
-                                        <!-- <p style="font-weight: 500; font-size: 18px;">Chu tich hoi dong quan tri</p> -->
+                                        <p style="font-weight: 500; font-size: 18px;"><?=$value->link?></p>
                                     </div>
                                     <div class="tms-sub">
                                         <p><?=$value->description?></p>
                                     </div>
                                     <div class="tms-btn">
-                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-1">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-1<?=$key?>">
                                             <i class="fa-solid fa-arrow-right-long"></i>
                                         </a>
                                     </div>
@@ -103,11 +103,11 @@
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="tts-block-1" tabindex="-1" aria-labelledby="modalTmsSubLabel" aria-hidden="true">
+                            <div class="modal fade" id="tts-block-1<?=$key?>" tabindex="-1" aria-labelledby="modalTmsSubLabel<?=$key?>" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-body" style="line-height: 1.75;">
-                                        <?=$value->description?>
+                                            <?=$value->description?>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -147,13 +147,13 @@
                                 <div class="tms-text">
                                     <div class="tms-name" style="margin-bottom: 20px;">
                                         <h4><strong><?= $value->title?></strong></h4>
-                                        <!-- <p style="font-weight: 500; font-size: 18px;">Chu tich hoi dong quan tri</p> -->
+                                        <p style="font-weight: 500; font-size: 18px;"><?=$value->link?></p>
                                     </div>
                                     <div class="tms-sub">
                                         <p><?=$value->description?></p>
                                     </div>
                                     <div class="tms-btn">
-                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-1">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-8<?=$key?>">
                                             <i class="fa-solid fa-arrow-right-long"></i>
                                         </a>
                                     </div>
@@ -161,7 +161,7 @@
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="tts-block-1" tabindex="-1" aria-labelledby="modalTmsSubLabel" aria-hidden="true">
+                            <div class="modal fade" id="tts-block-8<?=$key?>" tabindex="-1" aria-labelledby="modalTmsSubLabel<?=$key?>" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-body" style="line-height: 1.75;">
@@ -199,13 +199,13 @@
                                 <div class="tms-text">
                                     <div class="tms-name" style="margin-bottom: 20px;">
                                         <h4><strong><?= $value->title?></strong></h4>
-                                        <!-- <p style="font-weight: 500; font-size: 18px;">Chu tich hoi dong quan tri</p> -->
+                                        <p style="font-weight: 500; font-size: 18px;"><?=$value->link?></p>
                                     </div>
                                     <div class="tms-sub">
                                         <p><?=$value->description?></p>
                                     </div>
                                     <div class="tms-btn">
-                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-1">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-3<?=$key?>">
                                             <i class="fa-solid fa-arrow-right-long"></i>
                                         </a>
                                     </div>
@@ -213,7 +213,7 @@
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="tts-block-1" tabindex="-1" aria-labelledby="modalTmsSubLabel" aria-hidden="true">
+                            <div class="modal fade" id="tts-block-3<?=$key?>" tabindex="-1" aria-labelledby="modalTmsSubLabel<?=$key?>" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-body" style="line-height: 1.75;">
@@ -250,13 +250,13 @@
                                 <div class="tms-text">
                                     <div class="tms-name" style="margin-bottom: 20px;">
                                         <h4><strong><?= $value->title?></strong></h4>
-                                        <!-- <p style="font-weight: 500; font-size: 18px;">Chu tich hoi dong quan tri</p> -->
+                                        <p style="font-weight: 500; font-size: 18px;"><?=$value->link?></p>
                                     </div>
                                     <div class="tms-sub">
                                         <p><?=$value->description?></p>
                                     </div>
                                     <div class="tms-btn">
-                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-1">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-2<?=$key?>">
                                             <i class="fa-solid fa-arrow-right-long"></i>
                                         </a>
                                     </div>
@@ -264,7 +264,7 @@
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="tts-block-1" tabindex="-1" aria-labelledby="modalTmsSubLabel" aria-hidden="true">
+                            <div class="modal fade" id="tts-block-2<?=$key?>" tabindex="-1" aria-labelledby="modalTmsSubLabel<?=$key?>" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-body" style="line-height: 1.75;">
