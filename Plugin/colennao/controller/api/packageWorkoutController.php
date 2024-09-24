@@ -29,7 +29,7 @@ function getPackageWorkoutAPI($input)
     			}
 		   
 		        
-		    	return apiResponse(0, 'lấy dữ liệu thành công công', $data);
+		    	return apiResponse(0, 'lấy dữ liệu thành công', $data);
 			}
 			return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
 		} 
@@ -111,7 +111,7 @@ function paymentPackageWorkoutAPI($input){
         	}
 	   
 	        
-	    	return apiResponse(0, 'Tạo yêu câu thành công công', $data);
+	    	return apiResponse(0, 'Tạo yêu câu thành công', $data);
 			}
 			return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
 		} 

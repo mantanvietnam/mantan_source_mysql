@@ -387,6 +387,8 @@ function processAddMoney($money, $id_ransaction): string
                             createChallengeUser($transactions->id_user, $transactions->id_challenge, $transactions->id);
                         }elseif($transactions->type==1){
                             createCourseUser($transactions->id_user, $transactions->id_course, $transactions->id);
+                        }elseif($transactions->type==3){
+                             createPackageUser($transactions->id_user, $transactions->id_package, $transactions->id);
                         }
                     }
                     return 'bạn mua thành công';
@@ -433,7 +435,7 @@ function createChallengeUser($id_user, $id_challenge,$id_transaction){
                 $checkUserChallenge->id_transaction = (int)$id_transaction;
                 $checkUserChallenge->note = '';
 
-                if(@$transactions->id_user){
+                if(@$transactions->type_use=='trial'){
                     $month = 1;
                     if(!empty($Challenge->time_trial)){
                         $month = $Challenge->time_trial;
@@ -512,6 +514,61 @@ function createCourseUser($id_user, $id_Courses,$id_transaction){
     }
     return 'id không tồn tại';
 
+}
+
+function createPackageUser($id_user, $id_package,$id_transaction){
+    global $controller;
+    $modelUserPackages = $controller->loadModel('UserPackages');
+    $modelUser = $controller->loadModel('Users');
+
+    $modelTransactions = $controller->loadModel('Transactions');
+    $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
+    $transactions = $modelTransactions->find()->where(['id' =>(int)$id_ransaction])->first();
+
+    if(!empty($id_user) && !empty($id_challenge)) {
+
+        $package = $modelPackageWorkout->find()->where(array('id'=>(int)$id_package,'status'=>'active'))->first();
+        $user = $modelUser->find()->where(array('id'=>(int)$id_user))->first();
+
+        if(!empty($package) && !empty($user)){
+
+            $checkUserPackages = $modelUserPackages->find()->where(['id_package'=>$package->id,'id_user'=>$user->id])->first();
+            if(empty($checkUserPackages)){
+                $checkUserPackages = $modelUserPackages->newEmptyEntity();
+                $checkUserPackages->id_user = $user->id;
+                $checkUserPackages->name = $package->title;
+                $checkUserPackages->id_package = $package->id;
+
+                $checkUserPackages->date_start = time();
+                $checkUserPackages->created_at = time();
+                $checkUserPackages->id_transaction = (int)$id_transaction;
+                $checkUserPackages->note = '';
+
+                if(!empty($transactions->type_use)){
+                    $number_day = 0;
+                    if(!empty($package->price_package)){
+                        $price_package = json_decode($package->price_package, true);
+                        foreach($price_package as $key => $item){
+                            if($item['id']==(int)$transactions->type_use){
+                                $number_day = (int)$item['number_day'];
+                            }
+                        }
+                    }
+                    
+                    $checkUserPackages->deadline = strtotime('+'.$number_day.' days', time());
+                }else{
+                    $checkUserPackages->deadline = 0;
+                }
+                
+
+                $checkUserPackages->tip = json_encode($listTip);
+
+                $modelUserPackages->save($checkUserPackages);
+
+            }
+        }
+    }
+    return 'id không tồn tại';
 }
 
 

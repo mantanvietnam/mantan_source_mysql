@@ -72,7 +72,7 @@
                   -->
                    <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Ngày sinh</label>
-                    <input autocomplete="off" type="text" class="form-control datepicker" name="birthday" id="name" value="<?php echo date('d/m/Y',@$data->birthday);?>" />
+                    <input autocomplete="off" type="text" class="form-control datepicker" name="birthday" id="name" value="<?php if(!empty($data->status)) echo  date('d/m/Y',@$data->birthday);?>" />
                   </div>
 
                   <div class="mb-3">
