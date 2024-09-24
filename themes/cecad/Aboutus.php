@@ -72,13 +72,13 @@
         <section id="about-section-6">
             <div class="container">
                 <div class="row" style="align-items: center;">
-                    <div class="col-md-7">
+                    <div class="col-lg-7 col-md-12">
                         <div class="abs6-block-1">
                             <img src="<?= @$setting['imageleftabout'];?>" alt="">
                         </div>
                     </div>
 
-                    <div class="col-md-5">
+                    <div class="col-lg-5 col-md-12">
                         <div class="as6-block-2">
                             <h1>Tầm nhìn</h1>
                             <p><?= @$setting['Vision'];?></p>
@@ -97,7 +97,7 @@
                 <h1 class="text-center text-uppercase" style="font-size: 46px; margin-bottom: 50px !important; font-weight: 800;">Giá trị cốt lõi </h1>
 
                 <div class="row">
-                    <div class="col-md-6 col-lg-3 col-sm-6">
+                    <div class="col-md-6 col-lg-3 col-sm-6" style="margin-bottom: 30px">
                         <div class="as8-block-1">
                             <div class="as8-block-1-img">
                                 <img src="<?= @$setting['imagettd'];?>" alt="">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-3 col-sm-6">
+                    <div class="col-md-6 col-lg-3 col-sm-6" style="margin-bottom: 30px">
                         <div class="as8-block-1">
                             <div class="as8-block-1-img">
                                 <img src="<?= @$setting['imagedm'];?>" alt="">
@@ -121,7 +121,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-3 col-sm-6">
+                    <div class="col-md-6 col-lg-3 col-sm-6" style="margin-bottom: 30px">
                         <div class="as8-block-1">
                             <div class="as8-block-1-img">
                                 <img src="<?= @$setting['imageppln'];?>" alt="">
@@ -133,7 +133,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-3 col-sm-6">
+                    <div class="col-md-6 col-lg-3 col-sm-6" style="margin-bottom: 30px">
                         <div class="as8-block-1">
                             <div class="as8-block-1-img">
                                 <img src="<?= @$setting['imagehq'];?>" alt="">

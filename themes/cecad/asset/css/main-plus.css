@@ -1313,6 +1313,11 @@ i {
     height: 12px;
 }
 
+.projects-items:hover .projects-items-info p {
+    color: #427FE3;
+    transition: all linear 0.3s;
+}
+
 .swiper1 .swiper-button-next,
 .swiper1 .swiper-button-prev {
     z-index: 11;
@@ -1339,7 +1344,7 @@ i {
     color: #427FE3;
 }
 
-.projects-items .projects-items-info a {
+.projects-items .projects-items-info p {
     font-size: 23px;
     font-weight: 600;
     margin-bottom: 12px !important;
@@ -3071,7 +3076,7 @@ background-size: 100%; */
     .projects-items .projects-items-info li {
         font-size: 16px;
     }
-    .projects-items .projects-items-info a {
+    .projects-items .projects-items-info p {
         font-size: 22px;
     }
 }
@@ -3125,7 +3130,7 @@ background-size: 100%; */
         width: 200px;
         height: 230px;
     }
-    .projects-items .projects-items-info a {
+    .projects-items .projects-items-info p {
         margin-bottom: 10px;
     }
     .projects-items .projects-items-info {
@@ -3315,7 +3320,7 @@ background-size: 100%; */
     .projects-items .projects-items-info li {
         font-size: 16px;
     }
-    .projects-items .projects-items-info a {
+    .projects-items .projects-items-info p {
         font-size: 22px;
     }
     .projects-items .projects-items-info ul {
@@ -3530,7 +3535,7 @@ background-size: 100%; */
         left: 0%;
         top: 42%;
     }
-    .projects-items .projects-items-info a {
+    .projects-items .projects-items-info p {
         font-size: 22px;
     }
     .projects-items .projects-items-info {
@@ -3595,9 +3600,33 @@ background-size: 100%; */
     .featured-news .featured-news-content .featured-news-btn a {
         font-size: 14px;
     }
+    .abs6-block-1 {
+        margin-bottom: 40px;
+    }
+    .as6-block-2 {
+        margin-left: 0;
+    }
 }
 
 @media (max-width: 480px) {
+    .as2-block-1 h1 {
+        font-size: 50px;
+    }
+    .as2-block-1,
+    .as6-block-2 p {
+        font-size: 16px;
+    }
+    .tms-sub p {
+        height: auto;
+    }
+    .tms-item {
+        grid-template-columns: none !important;
+    }
+    .tms-img {
+        height: 220px;
+        aspect-ratio: auto !important;
+        width: 100% !important;
+    }
     .partner-list .partner-items img {
         height: 45px;
     }
@@ -3727,7 +3756,7 @@ background-size: 100%; */
     .title-news-other {
         font-size: 22px;
     }
-    .projects-items .projects-items-info a {
+    .projects-items .projects-items-info p {
         font-size: 22px;
     }
     .majors-img {

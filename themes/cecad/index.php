@@ -181,28 +181,30 @@
                         <?php if(!empty($listDataproduct_projects)){
                                         foreach($listDataproduct_projects as $item){ ?>
                             <div class="swiper-slide">
-
-                                <div class="projects-items">
-                                    <div class="projects-items-img">
-                                        <a href="/project/<?= $item->slug;?>">
-                                            <img src="<?php echo $item->image; ?>" alt="">
-                                        </a>
+                
+                                <a href="/project/<?= $item->slug;?>">
+                                    <div class="projects-items">
+                                        
+                                            <div class="projects-items-img">
+                                                    <img src="<?php echo $item->image; ?>" alt=""> 
+                                            </div>
+                                            <div class="projects-items-info">
+                                                <p><?php echo $item->name; ?></p>
+                                                <ul>
+                                                    <li>
+                                                        Thời gian thực hiện: <span><?php echo $item->year; ?></span>
+                                                    </li>
+                                                    <li>
+                                                        Địa điểm: <span><?php echo $item->address; ?></span>
+                                                    </li>
+                                                    <li>
+                                                        Cơ quan tài trợ: <span><?php echo $item->donor; ?></span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        
                                     </div>
-                                    <div class="projects-items-info">
-                                        <a href="/project/<?= $item->slug;?>"><?php echo $item->name; ?></a>
-                                        <ul>
-                                            <li>
-                                                Thời gian thực hiện: <span><?php echo $item->year; ?></span>
-                                            </li>
-                                            <li>
-                                                Địa điểm: <span><?php echo $item->address; ?></span>
-                                            </li>
-                                            <li>
-                                                Cơ quan tài trợ: <span><?php echo $item->donor; ?></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                </a>
 
                             </div>
                         <?php }} ?>
