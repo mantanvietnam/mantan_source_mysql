@@ -65,6 +65,11 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
                                 'classIcon'=>'bx bxs-data',
                                 'permission'=>'listDevice'
                                 ),
+                         array(  'title'=>'khu vực tập',
+                                'url'=>'/plugins/admin/colennao-view-admin-area-listArea',
+                                'classIcon'=>'bx bxs-data',
+                                'permission'=>'listArea'
+                                ),
         )
 
     );
@@ -385,8 +390,6 @@ function processAddMoney($money, $id_ransaction): string
                             createCourseUser($transactions->id_user, $transactions->id_course, $transactions->id);
                         }elseif($transactions->type==3){
                              createPackageUser($transactions->id_user, $transactions->id_package, $transactions->id);
-                             debug($transactions->id);
-                             die();
                         }
                     }
                     return 'bạn mua thành công';
@@ -521,9 +524,9 @@ function createPackageUser($id_user, $id_package,$id_transaction){
 
     $modelTransactions = $controller->loadModel('Transactions');
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
-    $transactions = $modelTransactions->find()->where(['id' =>(int)$id_transaction])->first();
+    $transactions = $modelTransactions->find()->where(['id' =>(int)$id_ransaction])->first();
 
-    if(!empty($id_user) && !empty($id_package)) {
+    if(!empty($id_user) && !empty($id_challenge)) {
 
         $package = $modelPackageWorkout->find()->where(array('id'=>(int)$id_package,'status'=>'active'))->first();
         $user = $modelUser->find()->where(array('id'=>(int)$id_user))->first();
@@ -557,6 +560,9 @@ function createPackageUser($id_user, $id_package,$id_transaction){
                 }else{
                     $checkUserPackages->deadline = 0;
                 }
+                
+
+                $checkUserPackages->tip = json_encode($listTip);
 
                 $modelUserPackages->save($checkUserPackages);
 
@@ -582,6 +588,12 @@ global $listLevel;
 $listLevel = [1=> 'Người mới',
     2 => 'Trung bình',
     3=> 'Trình độ cao',
+];
+
+global $listUnit;
+
+$listUnit = [array('id'=>1,'title'=> 'Hệ mét' , 'unit'=>'kg, m, cm và gam'),
+            array('id'=>2,'title'=> 'Hệ thống đế quốc' , 'unit'=>'lbs, ft, in và oz'),
 ];
 
 ?>

@@ -17,7 +17,6 @@ include('model/user_challenges.php');
 include('model/user_courses.php');
 include('model/workout.php');
 include('model/exercise_workouts.php');
-include('model/answerquestion.php');
 include('model/child_exercise_workouts.php');
 include('model/devices.php');
 include('model/package_workouts.php');
@@ -28,4 +27,5 @@ include('model/dinner.php');
 include('model/lunch.php');
 include('model/snacks.php');
 include('model/user_packages.php');
+include('model/areas.php');
 ?>

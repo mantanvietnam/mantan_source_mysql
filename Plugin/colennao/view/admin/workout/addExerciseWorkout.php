@@ -22,6 +22,11 @@
                           Thông tin bài tập
                         </button>
                       </li>
+                       <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-area" aria-controls="navs-top-area" aria-selected="false">
+                          Khu vực tập
+                        </button>
+                      </li>
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
                           Thiết bị
@@ -90,24 +95,8 @@
                               </select>
                             </div>
 
+                            
                             <div class="mb-3">
-                              <label class="form-label">Khu vực (*)</label>
-                              <select class="form-select" name="area" id="area" >
-                                <option value="">Chọn khu vực</option>
-                                <?php 
-                                global $listArea;
-
-                                  foreach ($listArea as $key => $item) {
-                                    if(empty($data->area) || $data->area!=$item){
-                                      echo '<option value="'.$item.'">'.$item.'</option>';
-                                    }else{
-                                      echo '<option selected value="'.$item.'">'.$item.'</option>';
-                                    }
-                                  }
-                                ?>
-                              </select>
-                            </div>
-                             <div class="mb-3">
                               <label class="form-label">đối cháy kcal</label>
                               <input type="number" class="form-control phone-mask" name="kcal" id="kcal" value="<?php echo @$data->kcal;?>" required />
                             </div>
@@ -130,6 +119,25 @@
                             </div>
                             
                           </div>
+                        </div>
+                      </div>
+                       <div class="tab-pane fade" id="navs-top-area" role="tabpanel">
+                          <div class="row">
+                           <?php if(!empty($listarea)){
+                                foreach($listarea as $key => $item){
+                                    $checks = '';
+                                    if(!empty($data->area)){
+                                      if(in_array($item->id, @$data->area)){
+                                              $checks = 'checked';
+                                            }
+                                    }
+                                    
+                                    echo '<div class="mb-3 col-md-3"><input type="checkbox" '.$checks.' name="area[]" value="'.$item->id.'"> <label class="form-label">'.$item->name.'</label></br>
+                                            <img src="' . $item->image . '" width="60" />';
+
+                                echo '</div>';
+                                }
+                            } ?>
                         </div>
                       </div>
                       <div class="tab-pane fade" id="navs-top-info" role="tabpanel">

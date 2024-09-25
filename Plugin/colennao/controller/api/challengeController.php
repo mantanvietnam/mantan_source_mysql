@@ -113,13 +113,14 @@ function paymentChallengeAPI($input){
     $modelResultChallenges = $controller->loadModel('ResultChallenges');
     $modelTransactions = $controller->loadModel('Transactions');
 
+    $modelUserChallenges = $controller->loadModel('UserChallenges');
     $modelTipChallenges = $controller->loadModel('TipChallenges');
 
 
 
     if($isRequestPost){
     	$dataSend = $input['request']->getData();
-    	 if (!empty($dataSend['token']) && !empty($dataSend['id']) && !empty($dataSend['type_use'])) {
+    	 if (!empty($dataSend['token']) && !empty($dataSend['id'])) {
             $user = getUserByToken($dataSend['token']);
 
             
@@ -130,45 +131,84 @@ function paymentChallengeAPI($input){
 
 	    	if(!empty($data)){
 
+	    		if(empty($dataSend['type_use'])){
+	    			$dataSend['type_use'] = 'forever';
+	    		}
+	    		$price =0;
 	    		if(@$dataSend['type_use']=='trial'){
-	    			$price = $data->price_trial;
+	   				if(!empty($data->price_trial)){
+	   					$price = $data->price_trial;
+	    			
 	    		}else{
-	    			$price = $data->price;
+	    			if(!empty($data->price)){
+	    				$price = $data->price;
+	    			}
 	    		}
 
-	    		$checkTransaction = $modelTransactions->find()->where(['id_challenge'=>$data->id,'id_user'=>$user->id])->first();
-	    		if(empty($checkTransaction)){
-	    			$checkTransaction = $modelTransactions->newEmptyEntity();
-	    			$checkTransaction->id_user = $user->id;
-	    			$checkTransaction->name = $data->title;
-	    			$checkTransaction->total = $price;
-	    			$checkTransaction->id_course = 0;
-	    			$checkTransaction->id_challenge = $data->id;
-	    			$checkTransaction->status = 1;
-	    			$checkTransaction->type = 2;
-	    			$checkTransaction->created_at = time();
-	    			$checkTransaction->type_use = @$dataSend['type_use'];
-	    			$checkTransaction->updated_at = time();
-	    			$checkTransaction->code = time().$user->id.rand(0,10000);
+	    		if(!empty($price)){
+	    			$checkTransaction = $modelTransactions->find()->where(['id_challenge'=>$data->id,'id_user'=>$user->id])->first();
+		    		if(empty($checkTransaction)){
+		    			$checkTransaction = $modelTransactions->newEmptyEntity();
+		    			$checkTransaction->id_user = $user->id;
+		    			$checkTransaction->name = $data->title;
+		    			$checkTransaction->total = $price;
+		    			$checkTransaction->id_course = 0;
+		    			$checkTransaction->id_challenge = $data->id;
+		    			$checkTransaction->status = 1;
+		    			$checkTransaction->type = 2;
+		    			$checkTransaction->created_at = time();
+		    			$checkTransaction->type_use = @$dataSend['type_use'];
+		    			$checkTransaction->updated_at = time();
+		    			$checkTransaction->code = time().$user->id.rand(0,10000);
 
-	    			$modelTransactions->save($checkTransaction);
+		    			$modelTransactions->save($checkTransaction);
 
+		    		}
+		    		$bank = getBankAccount();
+
+
+		    		$sms = $checkTransaction->id.' '.$transactionKey;
+
+	                $link_qr_bank = 'https://img.vietqr.io/image/'.$bank['bank_code'].'-'.$bank['bank_number'].'-compact2.png?amount='.$price.'&addInfo='.$sms.'&accountName='.$bank['bank_name'];
+	                $data->infoQR =   array('name_bank'=>$bank['bank_code'],
+	                				'account_holders_bank'=>$bank['bank_name'],
+	                				'link_qr_bank'=>$link_qr_bank,
+	                				'money'=>$bank['bank_number'],
+	                				'content'=>$sms,
+	                				'money'=>$price
+								);
+	    		}else{
+	    			$tip = $modelTipChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
+		            $checkUserChallenge = $modelUserChallenges->find()->where(['id_challenge'=>$data->id,'id_user'=>$user->id])->first();
+		            if(empty($checkUserChallenge)){
+		                $checkUserChallenge = $modelUserChallenges->newEmptyEntity();
+		                $checkUserChallenge->id_user = $user->id;
+		                $checkUserChallenge->name = $data->title;
+		                $checkUserChallenge->id_challenge = $data->id;
+		                $checkUserChallenge->totalDay = $data->day;
+		                $checkUserChallenge->status = 0;
+		                $checkUserChallenge->date_start = time();
+		                $checkUserChallenge->created_at = time();
+		                $checkUserChallenge->id_transaction = 0;
+		                $checkUserChallenge->note = '';
+						$checkUserChallenge->deadline = 0;
+		                $listTip = array();
+
+		                if(!empty($tip)){
+		                    foreach($tip as $key => $value){
+		                        $listTip[] = array('id'=>$value->id,
+		                            'tip'=>$value->tip,
+		                            'status'=>''
+
+		                        );
+		                    }
+		                }
+
+		                $checkUserChallenge->tip = json_encode($listTip);
+		                $modelUserChallenges->save($checkUserChallenge);
+
+		            }
 	    		}
-	    		$bank = getBankAccount();
-
-
-	    		$sms = $checkTransaction->id.' '.$transactionKey;
-
-                $link_qr_bank = 'https://img.vietqr.io/image/'.$bank['bank_code'].'-'.$bank['bank_number'].'-compact2.png?amount='.$price.'&addInfo='.$sms.'&accountName='.$bank['bank_name'];
-                $data->infoQR =   array('name_bank'=>$bank['bank_code'],
-                				'account_holders_bank'=>$bank['bank_name'],
-                				'link_qr_bank'=>$link_qr_bank,
-                				'money'=>$bank['bank_number'],
-                				'content'=>$sms,
-                				'money'=>$price
-							);
-
-  
         	}
 	   
 	        

@@ -438,5 +438,147 @@ function staff(){
     }
 }
 
+function accountStaff($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+
+    if(!empty($session->read('infoStaff'))){
+        $metaTitleMantan = 'Thông tin Tài khoản';
+        $modelStaff = $controller->loadModel('Staffs');
+
+        $mess= '';
+
+        $infoUser = $session->read('infoStaff');
+
+        // lấy data edit
+            $data = $modelStaff->find()->where(['id'=> $infoUser->id])->first();
+        
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['name'])){
+                
+                  
+
+                    if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                        if(!empty($data->id)){
+                            $fileName = 'avatar_staff_'.$data->id;
+                        }else{
+                            $fileName = 'avatar_staff_'.time().rand(0,1000000);
+                        }
+
+                        $avatar = uploadImage($infoUser->id, 'avatar', $fileName);
+                    }
+
+                    if(!empty($avatar['linkOnline'])){
+                        $data->avatar = $avatar['linkOnline'].'?time='.time();
+                    }else{
+                        if(empty($data->avatar)){
+                            if(!empty($system->image)){
+                                $data->avatar = $system->image;
+                            }
+
+                            if(empty($data->avatar)){
+                                $data->avatar = $urlHomes.'/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png';
+                            }
+                        }
+                    }
+                    
+                    $data->name = $dataSend['name'];
+                    $data->address = $dataSend['address'];
+                    $data->email = $dataSend['email'];
+                    $data->linkedin = $dataSend['linkedin'];
+                    $data->web = $dataSend['web'];
+                    $data->instagram = $dataSend['instagram'];
+                    $data->zalo = $dataSend['zalo'];
+                    $data->twitter = $dataSend['twitter'];
+                    $data->tiktok = $dataSend['tiktok'];
+                    $data->youtube = $dataSend['youtube'];
+                    $data->facebook = $dataSend['facebook'];
+                    if(!empty($dataSend['birthday'])){
+                        $birthday = explode('/', $dataSend['birthday']);
+                         $data->birthday  = mktime(0,0,0,$birthday[1],$birthday[0],$birthday[2]);
+                    }
+                    $data->status = $dataSend['status']; 
+                    $data->description = $dataSend['description']; 
+
+                    $modelStaff->save($data);
+
+                    $data->info_system = $modelCategories->find()->where(['id'=>(int) $data->id_system])->first();
+
+                            $session->write('CheckAuthentication', true);
+                            $session->write('urlBaseUpload', '/upload/admin/images/'.$data->id.'/');
+
+
+                    $session->write('infoStaff', $data);
+                     $mess= '<p class="text-success">Đổi thông tin thành công</p>';
+            }else{
+                $mess= '<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>';
+            }
+        }
+        
+        setVariable('data', $data);
+        setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function changePassStaff($input)
+{
+    global $session;
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Đổi mật khẩu';
+
+     if(!empty($session->read('infoStaff'))){
+        $modelStaff = $controller->loadModel('Staffs');
+        $mess = '';
+
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['passOld']) && !empty($dataSend['passNew']) && !empty($dataSend['passAgain'])){
+                if($dataSend['passNew'] == $dataSend['passAgain']){
+                    $user = $modelStaff->find()->where(['id'=>(int) $session->read('infoStaff')->id])->first();
+
+                    if($user->password == md5($dataSend['passOld'])){
+                        $user->password = md5($dataSend['passNew']);
+
+                        $modelStaff->save($user);
+                         $user->info_system = $modelCategories->find()->where(['id'=>(int) $user->id_system])->first();
+
+                            $session->write('CheckAuthentication', true);
+                            $session->write('urlBaseUpload', '/upload/admin/images/'.$user->id.'/');
+
+                        $session->write('infoStaff', $user);
+
+                        $mess= '<p class="text-success">Đổi mật khẩu thành công</p>';
+                    }else{
+                        $mess= '<p class="text-danger">Sai mật khẩu cũ</p>';
+                    }
+                }else{
+                    $mess= '<p class="text-danger">Mật khẩu nhập lại chưa đúng</p>';
+                }
+            }else{
+                $mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+            }
+        }
+
+        setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+
 
  ?>

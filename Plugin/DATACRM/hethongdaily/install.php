@@ -370,6 +370,7 @@ $sqlInstallDatabase .="CREATE TABLE `staffs` (
 `linkedin` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `instagram` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `view` INT NOT NULL DEFAULT '0',
+`last_login` INT NULL DEFAULT '0',
 `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -380,6 +381,17 @@ $sqlInstallDatabase .="CREATE TABLE `staff_timekeepers` (
 `shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `id_staff` INT NOT NULL ,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `activity_historys` ( 
+`id` INT NOT NULL AUTO_INCREMENT,
+`note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`time` INT NOT NULL DEFAULT '0',
+`id_staff` INT NOT NULL DEFAULT '0',
+`id_member` INT NULL DEFAULT '0',
+`type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`part` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -711,8 +723,17 @@ $sqlUpdateDatabase['staffs']['linkedin'] = "ALTER TABLE `staffs` ADD `linkedin` 
 $sqlUpdateDatabase['staffs']['instagram'] = "ALTER TABLE `staffs` ADD `instagram` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staffs']['zalo'] = "ALTER TABLE `staffs` ADD `zalo` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staffs']['view'] = "ALTER TABLE `staffs` ADD `view` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['staffs']['last_login'] = "ALTER TABLE `staffs` ADD `last_login` INT NULL DEFAULT '0';";
 
 $sqlUpdateDatabase['staff_timekeepers']['day'] = "ALTER TABLE `staff_timekeepers` ADD `day` INT NOT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['shift'] = "ALTER TABLE `staff_timekeepers` ADD `shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['note'] = "ALTER TABLE `staff_timekeepers` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['id_staff'] = "ALTER TABLE `staff_timekeepers` ADD `id_staff` INT NOT NULL;";
+
+$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNULL DEFAULT NULL;";
+$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `time` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `id_staff` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `id_member` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `part` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+?>

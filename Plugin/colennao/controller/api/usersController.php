@@ -676,6 +676,18 @@ function updateUserApi($input): array
             $currentUser->current_weight = (int) $dataSend['current_weight'];
         }
 
+        if (isset($dataSend['id_workout'])) {
+            $currentUser->id_workout = (int) $dataSend['id_workout'];
+        }
+
+        if (isset($dataSend['id_mealplan'])) {
+            $currentUser->id_mealplan = (int) $dataSend['id_mealplan'];
+        }
+
+        if (isset($dataSend['id_unit'])) {
+            $currentUser->id_unit = (int) $dataSend['id_unit'];
+        }
+
         // avatar
         if (!empty($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
             // New image
@@ -811,4 +823,10 @@ function checkVersionApp($input){
     }
     return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 } 
+
+
+function listUnitApi(){
+    global $listUnit; 
+    return apiResponse(1, 'Lấy dữ liệu thành công', $listUnit);
+}
 ?>

@@ -96,10 +96,10 @@
   </head>
 
   <body>
-
+    <?php $user = checklogin() ?>
     <section id="header-menu" class="container-xxl">
       <nav class="navbar navbar-expand-lg">
-        <a title="<?php echo $session->read('infoUser')->info_system->name;?>" class="navbar-brand" href="/listMember"><img src="<?php echo @$session->read('infoUser')->info_system->image;?>" width="50"></a>
+        <a title="<?php echo $user->info_system->name;?>" class="navbar-brand" href="/listMember"><img src="<?php echo @$user->info_system->image;?>" width="50"></a>
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"><i class="bx bx-menu bx-sm"></i></span>
@@ -137,14 +137,14 @@
 
                           <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                             <a class="dropdown-item" href="/listMember">Tuyến dưới</a>';
-                            if(empty($session->read('infoUser')->id_father)){
+                            if(empty($user->id_father)){
                               echo '<a class="dropdown-item" href="/listPosition">Chức danh</a>';
                               echo '<a class="dropdown-item" href="/settingSystem">Hệ thống</a>';
                             }
                 echo        '<a class="dropdown-item" href="/listRatingPoint">Hạng thành viên</a>
                             <a class="dropdown-item" href="/listStaff">Nhân viên</a>
                             <a class="dropdown-item" href="/listTransactionAgencyHistorie">Hoa hồng đại lý giới thiệu</a>';
-                            if(empty($session->read('infoUser')->id_father)){
+                            if(empty($user->id_father)){
                               echo '<a class="dropdown-item" href="/listWebMember">Website đại lý</a>';
                               echo '<a class="dropdown-item" href="/listThemeCLoneWeb">Kho giao diện</a>';
                             }
@@ -154,7 +154,7 @@
                 
               }
 
-              if(empty($session->read('infoUser')->id_father) && in_array('zalo_zns', $plugins_site_value)){
+              if(empty($user->id_father) && in_array('zalo_zns', $plugins_site_value)){
                 echo '  <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Gửi tin nhắn
@@ -184,7 +184,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                           <a class="dropdown-item" href="/courses">Khóa học</a>
                           <a class="dropdown-item" href="/history-test">Lịch sử thi</a>';
-                           if(empty($session->read('infoUser')->id_father)){
+                           if(empty($user->id_father)){
                          echo '<a class="dropdown-item dropdown-toggle" href="javascript:void(0);" id="dropdownSubmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Cài đặt Khóa học
                             </a>
@@ -237,7 +237,7 @@
                       </li>';
               }
 
-              if(empty($session->read('infoUser')->id_father) && (in_array('order_customer', $plugins_site_value) || in_array('order_system', $plugins_site_value))){
+              if(empty($user->id_father) && (in_array('order_customer', $plugins_site_value) || in_array('order_system', $plugins_site_value))){
                 echo '<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Sản phẩm
@@ -329,10 +329,16 @@
               <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Tài khoản
               </a>
-
               <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <a class="dropdown-item" href="/changePass">Đổi mật khẩu</a>
-                <a class="dropdown-item" href="/account">Đổi thông tin</a>
+                <?php if($user->type=='member'){
+                    echo '<a class="dropdown-item" href="/changePass">Đổi mật khẩu</a>
+                <a class="dropdown-item" href="/account">Đổi thông tin</a>';
+
+                }elseif($user->type=='staff'){
+                    echo '<a class="dropdown-item" href="/changePassStaff">Đổi mật khẩu</a>
+                <a class="dropdown-item" href="/accountStaff">Đổi thông tin</a>';
+                } ?>
+                
                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
               </div>
             </li>

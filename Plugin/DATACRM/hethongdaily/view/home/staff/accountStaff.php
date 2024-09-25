@@ -3,7 +3,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listStaff">Hệ thống nhân viên</a> /</span>
+    <span class="text-muted fw-light"><a href="/listStaff"><a href="/accountStaff">Tài khoản</a> /</span>
+    Đổi thông tin</span>
     Thông tin nhân viên
   </h4>
   <!-- Basic Layout -->
@@ -64,12 +65,6 @@
                 </div>
 
                 <div class="col-md-6">
-                  
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Mật khẩu tài khoản</label>
-                    <input type="password" autocomplete="off" class="form-control" placeholder="" name="password" id="password" value="" />
-                  </div>
-                 
                    <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Ngày sinh</label>
                     <input autocomplete="off" type="text" class="form-control datepicker" name="birthday" id="name" value="<?php if(!empty($data->status)) echo  date('d/m/Y',@$data->birthday);?>" />

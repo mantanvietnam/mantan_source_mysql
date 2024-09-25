@@ -34,7 +34,10 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `deadline` INT NULL DEFAULT NULL ,
 `reset_password_code` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `sex` INT NULL DEFAULT 1 COMMENT "1 nam, 2 nu" , 
-`id_affsource` INT NULL DEFAULT 0 COMMENT "id người giới thiệu	" , 
+`id_affsource` INT NULL DEFAULT 0 COMMENT "id người giới thiệu  " , 
+`id_workout` INT NULL DEFAULT 0 , 
+`id_mealplan` INT NULL DEFAULT 0 , 
+`id_unit` INT NULL DEFAULT 1 , 
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 $sqlInstallDatabase .="CREATE TABLE `coach` (
@@ -248,10 +251,9 @@ $sqlInstallDatabase .="CREATE TABLE `exercise_workouts` (
 `id_workout` INT NULL DEFAULT NULL ,
 `time` INT NULL DEFAULT NULL ,
 `kcal` INT NULL DEFAULT NULL ,
-`area` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`area` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]' ,
 `device` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]' ,
 `group` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]' ,
-`area_image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -280,6 +282,17 @@ $sqlInstallDatabase .="CREATE TABLE `devices` (
 `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `areas` ( 
+`id` INT NOT NULL AUTO_INCREMENT ,
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`created_at` INT NULL DEFAULT NULL ,
+`description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+
 
 $sqlInstallDatabase .="CREATE TABLE `package_workouts` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
@@ -363,6 +376,9 @@ $sqlUpdateDatabase['users']['deadline'] = "ALTER TABLE `users` ADD `deadline` IN
 $sqlUpdateDatabase['users']['reset_password_code'] = "ALTER TABLE `users` ADD `reset_password_code` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;"; 
 $sqlUpdateDatabase['users']['sex'] = "ALTER TABLE `users` ADD `sex` INT NULL DEFAULT '1' COMMENT '1 nam, 2 nu ' ;";
 $sqlUpdateDatabase['users']['id_affsource'] = "ALTER TABLE `users` ADD `id_affsource` INT NULL DEFAULT 0 COMMENT 'id người giới thiệu';";
+$sqlUpdateDatabase['users']['id_workout'] = "ALTER TABLE `users` ADD `id_workout` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['users']['id_mealplan'] = "ALTER TABLE `users` ADD `id_mealplan` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['users']['id_unit'] = "ALTER TABLE `users` ADD `id_unit` INT NULL DEFAULT '1';";
 
  $sqlUpdateDatabase['price_lists']['name'] = "ALTER TABLE `price_lists` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['price_lists']['price'] = "ALTER TABLE `price_lists` ADD `price` INT NULL DEFAULT NULL;";
@@ -446,10 +462,9 @@ $sqlUpdateDatabase['exercise_workouts']['created_at'] = "ALTER TABLE `exercise_w
 $sqlUpdateDatabase['exercise_workouts']['id_workout'] = "ALTER TABLE `exercise_workouts` ADD `id_workout` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['exercise_workouts']['time'] = "ALTER TABLE `exercise_workouts` ADD `time` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['exercise_workouts']['kcal'] = "ALTER TABLE `exercise_workouts` ADD `kcal` INT NULL DEFAULT NULL;";
-$sqlUpdateDatabase['exercise_workouts']['area'] = "ALTER TABLE `exercise_workouts` ADD `area` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['exercise_workouts']['area'] = "ALTER TABLE `exercise_workouts` ADD `area` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]';";
 $sqlUpdateDatabase['exercise_workouts']['device'] = "ALTER TABLE `exercise_workouts` ADD `device` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]';";
 $sqlUpdateDatabase['exercise_workouts']['group'] = "ALTER TABLE `exercise_workouts` ADD `group` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]';";
-$sqlUpdateDatabase['exercise_workouts']['area_image'] = "ALTER TABLE `exercise_workouts` ADD `area_image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['exercise_workouts']['description'] = "ALTER TABLE `exercise_workouts` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
 $sqlUpdateDatabase['child_exercise_workouts']['title'] = "ALTER TABLE `child_exercise_workouts` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
@@ -488,4 +503,9 @@ $sqlUpdateDatabase['user_packages']['id_transaction'] = "ALTER TABLE `user_packa
 $sqlUpdateDatabase['user_packages']['note'] = "ALTER TABLE `user_packages` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['user_packages']['created_at'] = "ALTER TABLE `user_packages` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['user_packages']['id_package'] = "ALTER TABLE `user_packages` ADD `id_package` INT NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['areas']['name'] = "ALTER TABLE `areas` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['areas']['image'] = "ALTER TABLE `areas` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['areas']['created_at'] = "ALTER TABLE `areas` ADD `created_at` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['areas']['description'] = "ALTER TABLE `areas` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 ?>

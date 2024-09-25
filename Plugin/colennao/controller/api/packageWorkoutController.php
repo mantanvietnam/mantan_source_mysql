@@ -43,6 +43,8 @@ function paymentPackageWorkoutAPI($input){
     global $isRequestPost;
     global $transactionKey;
 
+
+
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
     $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
     $modelWorkout = $controller->loadModel('Workouts');
@@ -258,7 +260,8 @@ function getUserWorkoutAPI($input){
 			    $data = $modelWorkout->find()->where($conditions)->order(['id' => 'desc'])->first();
 			   
 			    if(!empty($data)){
-		    		$data->ExerciseWorkouts = $modelExerciseWorkouts->find()->where(array('id_workout'=> $data->id))->all()->toList();
+		    		$data->ExerciseWorkout = $modelExerciseWorkouts->find()->where(array('id_workout'=> $data->id))->all()->toList();
+		    		$data->total_exercise = count($data->ExerciseWorkouts);
 			    }
 
 
@@ -271,4 +274,124 @@ function getUserWorkoutAPI($input){
 	 return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
+function getUserExerciseWorkoutAPI($input){
+	global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
+    $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
+    $modelWorkout = $controller->loadModel('Workouts');
+    $modelUserPackages = $controller->loadModel('UserPackages');
+    $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
+    $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
+    $modelAreas = $controller->loadModel('Areas');
+    $modelDevices = $controller->loadModel('Devices');
+
+    if($isRequestPost){
+    	$dataSend = $input['request']->getData();	
+    	if(!empty($dataSend['token'])){
+            $user = getUserByToken($dataSend['token']);
+            if (!empty($user)) {
+		    	$dataSend = $input['request']->getData();
+			    $conditions = array();
+			    $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
+			    $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
+			    if ($page < 1) $page = 1;
+			    if (!empty($dataSend['id'])) {
+			        $conditions['id'] = $dataSend['id'];
+			    }
+			    
+			    $data = $modelExerciseWorkouts->find()->where($conditions)->order(['id' => 'desc'])->first();
+			   
+			    if(!empty($data)){
+                    if(!empty($data->group_exercise)){
+                    	$group = json_decode($data->group_exercise, true);
+                    	foreach($group as $key => $item){
+								$item['exercise'] = $modelChildExerciseWorkouts->find()->where(['id_exercise'=>$data->id, 'id_group'=>$item['id']])->all()->toList();
+
+								$item['total'] = count($item['exercise']);
+								$group[$key] = $item;
+                    	}
+                    	$data->group_exercise = $group;
+                    }	
+
+                    if(!empty($data->device)){
+            			$device = json_decode($data->device, true);
+
+            			foreach($device as $k => $value){
+								$value =  $modelDevices->find()->where(['id'=>$value])->first();
+								$device[$k] = $value;
+                    	}
+                    	$data->device = $device;
+        			}
+
+        			if(!empty($data->area)){
+            			$area = json_decode($data->area, true);
+
+            			foreach($area as $k => $value){
+								$value =  $modelAreas->find()->where(['id'=>$value])->first();
+								$area[$k] = $value;
+                    	}
+                    	$data->area = $area;
+        			}
+			    }
+
+			    return apiResponse(0, 'lấy dữ liệu thành công', $data);
+			}
+			 return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+		} 
+		return apiResponse(2, 'Gửi thiếu dữ liệu');  
+	}
+	 return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function getUserChildExerciseWorkoutAPI($input){
+	global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $urlHomes;
+
+    $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
+    $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
+    $modelWorkout = $controller->loadModel('Workouts');
+    $modelUserPackages = $controller->loadModel('UserPackages');
+    $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
+    $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
+
+    $modelDevices = $controller->loadModel('Devices');
+
+    if($isRequestPost){
+    	$dataSend = $input['request']->getData();	
+    	if(!empty($dataSend['token']) && (!empty($dataSend['id']))){
+            $user = getUserByToken($dataSend['token']);
+            if (!empty($user)) {
+		    	$dataSend = $input['request']->getData();
+			    $conditions = array();
+			  
+			        $conditions['id'] = (int)$dataSend['id'];
+			    
+			    
+			    $data = $modelChildExerciseWorkouts->find()->where($conditions)->order(['id' => 'desc'])->first();
+			   
+			    if(!empty($data)){
+                  if(!empty($data->device)){
+            			$device = json_decode($data->device, true);
+
+            			foreach($device as $k => $value){
+								$value =  $modelDevices->find()->where(['id'=>$value])->first();
+								$device[$k] = $value;
+                    	}
+                    	$data->device = $device;
+        			}
+			    }
+
+			    return apiResponse(0, 'lấy dữ liệu thành công', $data);
+			}
+			 return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+		} 
+		return apiResponse(2, 'Gửi thiếu dữ liệu');  
+	}
+	 return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+
+}
 ?>

@@ -1292,4 +1292,21 @@ function themeInfo(){
     ];
 }
 
+function checklogin(){
+    global $session;
+     $user = '';
+    if(!empty($session->read('infoUser'))){
+        $user = $session->read('infoUser');
+        $user->id_member = $user->id;
+        $user->type = 'member';
+    }elseif(!empty($session->read('infoStaff'))){
+        $user = $session->read('infoStaff');
+        $user->type = 'staff';
+    }
+
+
+
+    return $user;
+}
+
 ?>

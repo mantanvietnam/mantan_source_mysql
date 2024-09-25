@@ -8,7 +8,10 @@ function listCustomerAgency($input)
     global $session;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checklogin())){
+        $user = checklogin();
+
+
         $metaTitleMantan = 'Danh sách khách hàng';
 
         $modelCustomers = $controller->loadModel('Customers');
@@ -16,7 +19,7 @@ function listCustomerAgency($input)
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
         // danh sách nhóm khách hàng
-        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $conditions = array('type' => 'group_customer', 'parent'=>$user->id_member);
         $listGroup = $modelCategories->find()->where($conditions)->all()->toList();
         $listNameGroup = [];
         if(!empty($listGroup)){
@@ -25,7 +28,7 @@ function listCustomerAgency($input)
             }
         }
 
-        $conditions = array('CategoryConnects.id_category'=>$session->read('infoUser')->id, 'CategoryConnects.keyword'=>'member_customers');
+        $conditions = array('CategoryConnects.id_category'=>$user->id_member, 'CategoryConnects.keyword'=>'member_customers');
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -129,11 +132,11 @@ function listCustomerAgency($input)
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
                     // thống kê đơn hàng
-                    $order = $modelOrders->find()->where(['id_user'=>$value->id, 'id_agency'=>$session->read('infoUser')->id])->all()->toList();
+                    $order = $modelOrders->find()->where(['id_user'=>$value->id, 'id_agency'=>$user->id_member])->all()->toList();
                     $listData[$key]->number_order = count($order);
 
                     // lịch sử chăm sóc
-                    $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id, 'id_staff_now'=>$session->read('infoUser')->id])->order(['id'=>'desc'])->first();
+                    $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id, 'id_staff_now'=>$user->id_member])->order(['id'=>'desc'])->first();
 
                     // nhóm khách hàng
                     $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $value->id])->all()->toList();

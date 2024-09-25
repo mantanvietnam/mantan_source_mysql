@@ -215,6 +215,7 @@ function addExerciseWorkout($input){
     $modelWorkout = $controller->loadModel('Workouts');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
     $modelDevices = $controller->loadModel('Devices');
+    $modelAreas = $controller->loadModel('Areas');
 
 
     if(!empty($_GET['id_workout'])) {
@@ -263,34 +264,16 @@ function addExerciseWorkout($input){
                     }
                 }
 
-                if(isset($_FILES['area_image']) && empty($_FILES['area_image']["error"])){
-                    if(!empty($data->id)){
-                        $fileName = 'image__workout'.$data->id;
-                    }else{
-                        $fileName = 'image__workout'.time().rand(0,1000000);
-                    }
-
-                    $area_image = uploadImage(1, 'area_image', $fileName);
-                }
-
-                if(!empty($area_image['linkOnline'])){
-                    $data->area_image = $area_image['linkOnline'].'?time='.time();
-                }else{
-                    if(empty($data->area_image)){
-                        $data->area_image = '';
-                    }
-                }
-
                 // tạo dữ liệu save
                 $data->title = @$dataSend['title'];
                 $data->status = @$dataSend['status'];
                 $data->description = @$dataSend['description'];
                 $data->youtube_code = @$dataSend['youtube_code'];
                 $data->time =(int) @$dataSend['time'];
-                $data->area = @$dataSend['area'];
                 $data->level = @$dataSend['level'];
                 $data->kcal =(int)@$dataSend['kcal'];
                 $data->device = json_encode(@$dataSend['device']);
+                $data->area = json_encode(@$dataSend['area']);
 
                 $group_exercise = [];
                 if(!empty($dataSend['group_exercise'])){
@@ -327,9 +310,13 @@ function addExerciseWorkout($input){
         if(!empty($data->device)){
             $data->device = json_decode($data->device, true);
         }
+        if(!empty($data->area)){
+            $data->area = json_decode($data->area, true);
+        }
 
          $conditions = array();
         $listdevice = $modelDevices->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
+        $listarea = $modelAreas->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
         
         // debug($data);
         // die();
@@ -338,6 +325,7 @@ function addExerciseWorkout($input){
         setVariable('data', $data);         
         setVariable('checkWorkout', $checkWorkout);         
         setVariable('listdevice', $listdevice);         
+        setVariable('listarea', $listarea);         
     
 }
 
@@ -540,7 +528,7 @@ function addChildExerciseWorkout($input){
             $data->device = json_decode($data->device, true);
         }
 
-         if(!empty($dataExercise->device)){
+        if(!empty($dataExercise->device)){
             $dataExercise->device = json_decode($dataExercise->device, true);
         }
 

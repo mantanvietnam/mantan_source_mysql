@@ -10,6 +10,7 @@ function login($input)
     $metaTitleMantan = 'Đăng nhập phần mềm quản lý đại lý';
 
     $modelMembers = $controller->loadModel('Members');
+    $modelStaff = $controller->loadModel('Staffs');
 
     if(empty($session->read('infoUser'))){
     	$mess = '';
@@ -31,8 +32,9 @@ function login($input)
 
 	    		$conditions = array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']));
 	    		$info_customer = $modelMembers->find()->where($conditions)->first();
+	    		$info_staff = $modelStaff->find()->where($conditions)->first();
 
-	    		if($info_customer){
+	    		if(!empty($info_customer)){
     				// nếu tài khoản không bị khóa
     				if($info_customer->status == 'active'){
     					if($info_customer->deadline > time()){
@@ -64,6 +66,39 @@ function login($input)
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 					}
+	    		}elseif(!empty($info_staff)){
+	    			if($info_staff->status == 'active'){
+	    				$members = $modelMembers->find()->where(array('id'=>$info_staff->id_member))->first();
+
+
+    					if($members->deadline > time()){
+    						$info_staff->last_login = time();
+							$modelStaff->save($info_staff);
+							
+	    					$info_staff->info_system = $modelCategories->find()->where(['id'=>(int) $info_staff->id_system])->first();
+
+			    			$session->write('CheckAuthentication', true);
+		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$members->id.'/');
+
+			    			$session->write('infoStaff', $info_staff);
+			    			
+
+			    				setcookie('id_staff',$info_staff->id,time()+365*24*60*60, "/");
+
+			    				if($members->id_father==0){
+			    					$dataPost= array('boss_phone'=>$members->phone);
+            							sendDataConnectMantan('https://icham.vn/apis/updateLastLoginBossAPI', $dataPost);
+			    				}
+								
+								return $controller->redirect('/listCustomerAgency/?statusLogin=loginAccount');
+							
+						}else{
+							$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ</p>';
+						}
+					}else{
+						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
+					}
+
 	    		}else{
 	    			$mess= '<p class="text-danger">Sai số điện thoại hoặc mật khẩu</p>';
 	    		}
@@ -74,7 +109,7 @@ function login($input)
     		$conditions = array('id'=>(int) $_COOKIE['id_member']);
     		$info_customer = $modelMembers->find()->where($conditions)->first();
 
-    		if($info_customer){
+    		if(!empty($info_customer)){
 				// nếu tài khoản không bị khóa
 				if($info_customer->status == 'active'){
 					if($info_customer->deadline > time()){
@@ -87,9 +122,6 @@ function login($input)
 	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
 
 		    			$session->write('infoUser', $info_customer);
-
-
-
 		    			if($info_customer->id_father==0){
 			    			$dataPost= array('boss_phone'=>$info_customer->phone);
             					sendDataConnectMantan('https://icham.vn/apis/updateLastLoginBossAPI', $dataPost);
@@ -100,6 +132,38 @@ function login($input)
 						}else{
 							return $controller->redirect('/verify');
 						}
+					}else{
+						$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ</p>';
+					}
+				}else{
+					$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
+				}
+    		}
+    	}elseif(!empty($_COOKIE['id_staff'])){
+    		$conditions = array('id'=>(int) $_COOKIE['id_staff']);
+    		$info_staff = $modelStaff->find()->where($conditions)->first();
+    		$members = $modelMembers->find()->where(array('id'=>$info_staff->id_member))->first();
+
+    		if(!empty($info_staff)){
+				// nếu tài khoản không bị khóa
+				if($members->status == 'active'){
+					if($members->deadline > time()){
+						$info_staff->last_login = time();
+						$modelStaff->save($info_staff);
+
+						$info_staff->info_system = $modelCategories->find()->where(['id'=>(int) $info_staff->id_system])->first();
+
+		    			$session->write('CheckAuthentication', true);
+	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$members->id.'/');
+
+		    			$session->write('infoStaff', $info_staff);
+		    			if($members->id_father==0){
+			    			$dataPost= array('boss_phone'=>$members->phone);
+            					sendDataConnectMantan('https://icham.vn/apis/updateLastLoginBossAPI', $dataPost);
+			    		}
+		    			
+						return $controller->redirect('/listCustomerAgency/?statusLogin=loginCookie');
+					
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ</p>';
 					}
@@ -123,6 +187,7 @@ function logout($input)
 
 	$session->destroy();
 	setcookie('id_member','',time()+365*24*60*60, "/");
+	setcookie('id_staff','',time()+365*24*60*60, "/");
 
 	return $controller->redirect('/login');
 }
