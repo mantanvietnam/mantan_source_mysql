@@ -385,6 +385,8 @@ function processAddMoney($money, $id_ransaction): string
                             createCourseUser($transactions->id_user, $transactions->id_course, $transactions->id);
                         }elseif($transactions->type==3){
                              createPackageUser($transactions->id_user, $transactions->id_package, $transactions->id);
+                             debug($transactions->id);
+                             die();
                         }
                     }
                     return 'bạn mua thành công';
@@ -519,9 +521,9 @@ function createPackageUser($id_user, $id_package,$id_transaction){
 
     $modelTransactions = $controller->loadModel('Transactions');
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
-    $transactions = $modelTransactions->find()->where(['id' =>(int)$id_ransaction])->first();
+    $transactions = $modelTransactions->find()->where(['id' =>(int)$id_transaction])->first();
 
-    if(!empty($id_user) && !empty($id_challenge)) {
+    if(!empty($id_user) && !empty($id_package)) {
 
         $package = $modelPackageWorkout->find()->where(array('id'=>(int)$id_package,'status'=>'active'))->first();
         $user = $modelUser->find()->where(array('id'=>(int)$id_user))->first();
@@ -555,9 +557,6 @@ function createPackageUser($id_user, $id_package,$id_transaction){
                 }else{
                     $checkUserPackages->deadline = 0;
                 }
-                
-
-                $checkUserPackages->tip = json_encode($listTip);
 
                 $modelUserPackages->save($checkUserPackages);
 

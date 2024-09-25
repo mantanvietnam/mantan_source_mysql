@@ -402,6 +402,8 @@ function staff(){
     global $session;
     global $urlHomes;
 
+    
+
     $modelMembers = $controller->loadModel('Members');
     $modelStaff = $controller->loadModel('Staffs');
 
@@ -425,8 +427,7 @@ function staff(){
             $info->view ++;
             $modelStaff->save($info);
             $info->view += 1000;
-
-            
+           
         
             setVariable('info', $info);
         }else{

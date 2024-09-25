@@ -307,6 +307,7 @@ $sqlInstallDatabase .="CREATE TABLE `user_packages` (
 `date_start` INT NULL DEFAULT NULL ,
 `deadline` INT NULL DEFAULT NULL ,
 `id_transaction` INT NULL DEFAULT NULL ,
+`id_package` INT NULL DEFAULT NULL,
 `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `created_at` INT NULL DEFAULT NULL ,
 PRIMARY KEY (`id`)
@@ -486,4 +487,5 @@ $sqlUpdateDatabase['user_packages']['deadline'] = "ALTER TABLE `user_packages` A
 $sqlUpdateDatabase['user_packages']['id_transaction'] = "ALTER TABLE `user_packages` ADD `id_transaction` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['user_packages']['note'] = "ALTER TABLE `user_packages` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['user_packages']['created_at'] = "ALTER TABLE `user_packages` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['user_packages']['id_package'] = "ALTER TABLE `user_packages` ADD `id_package` INT NULL DEFAULT NULL;";
 ?>
