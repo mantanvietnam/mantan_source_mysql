@@ -21,17 +21,27 @@
                       <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                           <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-question" aria-controls="navs-top-question" aria-selected="true">
-                            Câu hỏi
+                           Thôn tin
                           </button>
                         </li>
                         <li class="nav-item">
                           <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-answer1" aria-controls="navs-top-answer1" aria-selected="false">
-                            Lựa chọn
+                          things achieved after the course
                           </button>
                         </li>
                         <li class="nav-item">
                           <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-unit" aria-controls="navs-top-unit" aria-selected="false">
-                            Lựa chọn  1
+                            Try this course if you want to
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-4" aria-controls="navs-top-4" aria-selected="false">
+                            BANNER
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-5" aria-controls="navs-top-5" aria-selected="false">
+                            What you will get
                           </button>
                         </li>
                       </ul>
@@ -57,6 +67,10 @@
                               <div class="mb-3">
                                 <label class="form-label">Mã video Youtube</label>
                                 <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" />
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">màu chủ đạo</label>
+                                <input type="text" class="form-control phone-mask" name="color" id="color" value="<?php echo @$data->color;?>" />
                               </div>
                               <div class="mb-3">
                                 <label class="form-label">Giá</label>
@@ -113,6 +127,30 @@
                                   <div class="mb-3">
                                     <label class="form-label">Try this course if you want to</label>
                                     <?php showEditorInput('trycourse', 'trycourse', @$data->trycourse);?>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="navs-top-4" role="tabpanel">
+                            <div class="row">
+                              <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label class="form-label">Nội dung trong banner</label>
+                                    <input required type="text" class="form-control phone-mask" name="textbanner" id="textbanner" value="<?php echo @$data->textbanner;?>" />
+                                  </div>
+                                  <div class="mb-3">
+                                    <label class="form-label">ảnh banner</label>
+                                    <?php showUploadFile('imagebanner','imagebanner',@$data->imagebanner,1);?>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="navs-top-5" role="tabpanel">
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="mb-3">
+                                    <label class="form-label">Try this course if you want to</label>
+                                    <?php showEditorInput('willyouget', 'willyouget', @$data->willyouget);?>
                                   </div>
                                 </div>
                             </div>

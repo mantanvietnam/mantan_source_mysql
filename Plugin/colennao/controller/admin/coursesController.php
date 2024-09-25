@@ -90,7 +90,10 @@ function addCourse($input)
             $data->image = $dataSend['image'];
             $data->description = $dataSend['description'];
             $data->youtube_code = $dataSend['youtube_code'];
-          
+            $data->color = $dataSend['color'];
+            $data->textbanner = $dataSend['textbanner'];
+            $data->imagebanner = $dataSend['imagebanner'];
+            $data->willyouget = $dataSend['willyouget'];
             $data->status = $dataSend['status'];
             $data->content = $dataSend['content'];
             $data->achieved = $dataSend['achieved'];

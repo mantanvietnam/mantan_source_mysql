@@ -22,7 +22,7 @@ include_once('controller/api/fastingController.php');
 include_once('controller/api/postController.php');
 include_once('controller/api/challengeController.php');
 include_once('controller/api/coachController.php');
-
+include_once('controller/api/foodController.php');
 include_once('controller/admin/pricelistController.php'); 
 // Api .php
 include_once('controller/api/usersController.php'); 
