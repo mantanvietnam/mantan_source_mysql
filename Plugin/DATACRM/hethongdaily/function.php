@@ -1297,16 +1297,58 @@ function checklogin(){
      $user = '';
     if(!empty($session->read('infoUser'))){
         $user = $session->read('infoUser');
-        $user->id_member = $user->id;
+        // $user->id_member = $user->id;
         $user->type = 'member';
+        $user->id_staff = 0;
     }elseif(!empty($session->read('infoStaff'))){
         $user = $session->read('infoStaff');
         $user->type = 'staff';
+        $user->id_staff = $user->id;
+        $user->id = $user->id_member;
+    }else{
+        return $controller->redirect('/login');
     }
 
 
 
     return $user;
+}
+
+function getListPermission()
+{
+    global $session;
+
+    $permission = [];
+       
+    $permission[] = array( 'name'=>'Quản lý Khách hàng ',
+                    'sub'=>array(   array('name'=>'Danh sách khách hàng','permission'=>'listCustomerAgency'),
+                                    array('name'=>'Thêm và sửa khách hàng ','permission'=>'editCustomerAgency'),
+                                    array('name'=>'Thêm khách hàng bằng Excel ','permission'=>'addDataCustomerAgency'),
+                                    array('name'=>'Danh sách nhóm khách hàng ','permission'=>'groupCustomerAgency'),
+                                    array('name'=>'Thêm và sửa nhóm khách hàng ','permission'=>'groupCustomerAgency'),
+                                    array('name'=>'Xóa nhóm khách hàng ','permission'=>'deleteGroupCustomerAgency'),
+                                    array('name'=>'Khóa tài khoản khách hàng','permission'=>'lockCustomerAgency'),
+                                    array('name'=>'Danh sách Điểm khách hàng ','permission'=>'listPointCustomer'),
+                                    array('name'=>'Danh sách lịch hẹn khách hàng','permission'=>'listCustomerHistoriesAgency'),
+                                    array('name'=>'Xem dạng lịch lịch hẹn khách hàng','permission'=>'calendarCustomerHistoriesAgency'),
+                                    array('name'=>'Xử lý lịch hẹn khách hàng ','permission'=>'treatmentCustomerHistoriesAgency'),
+                                    array('name'=>'Thêm và sửa lịch hẹn khách hàng ','permission'=>'addCustomerHistoriesAgency'),
+                                    array('name'=>'Xóa lịch hẹn khách hàng ','permission'=>'deleteCustomerHistoriesAgency'),
+                            ),
+                    );
+    $permission[] = array( 'name'=>'Quản lý Đơn hàng của đại lý ',
+                    'sub'=>array(   array('name'=>'Danh sách yêu cầu nhập hàng vào kho','permission'=>'requestProductAgency'),
+                                    array('name'=>'Tạo yêu cầu nhập hàng vào kho','permission'=>'addRequestProductAgency'),
+                                    array('name'=>'Tạo đơn hàng cho đại lý tuyến dưới','permission'=>'addOrderAgency'),
+                                    array('name'=>'Danh sách đơn hàng của hệ thống','permission'=>'orderMemberAgency'),
+                                    array('name'=>'Cập nhập trạng thái đơn hàng','permission'=>'updateOrderMemberAgency'),
+                                    array('name'=>'Tự cập nhập trạng thái đơn hàng của mình','permission'=>'updateMyOrderMemberAgency'),
+                                    array('name'=>'tạo phiếu in bill','permission'=>'printBillOrderMemberAgency'),
+                                    array('name'=>'Sửa đơn hàng','permission'=>'editOrderMemberAgency'),
+                            ),
+                    );   
+    
+    return $permission;
 }
 
 ?>

@@ -37,6 +37,21 @@
                     }
                     ?>
                   </div>
+
+                  <div class="mb-3">
+                      <label class="form-label">nhóm nhân viên</label>
+                      <select class="form-control" name="id_group" id="month" required>
+                          <option value="" >Chọn nhóm nhân viên</option>
+                          <?php foreach ($dataGroupStaff as $key => $item){
+                            $selected = '';
+                            if(!empty($data->id_group) && $data->id_group==$item->id){
+                              $selected = 'selected';
+                            }
+
+                            echo '<option value="'.$item->id.'" '.$selected.'>.'$item->name.'</option>';
+                          } ?>
+                      </select>
+                  </div>
                   <div class="mb-3">
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">

@@ -148,17 +148,15 @@ function addStaff($input)
     global $session;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
-        if($session->read('infoUser')->create_agency == 'lock'){
-            return $controller->redirect('/listStaff');
-        }
+    if(!empty(checklogin())){
+        $infoUser = checklogin();
+        $mess = '';
 
         $metaTitleMantan = 'Thông tin nhân viên';
         $modelStaff = $controller->loadModel('Staffs');
+        $modelGroupStaff = $controller->loadModel('GroupStaffs');
 
         $mess= '';
-
-        $infoUser = $session->read('infoUser');
 
         // lấy data edit
         if(!empty($_GET['id'])){
@@ -223,6 +221,8 @@ function addStaff($input)
                     $data->tiktok = $dataSend['tiktok'];
                     $data->youtube = $dataSend['youtube'];
                     $data->facebook = $dataSend['facebook'];
+                    $data->id_group = $dataSend['id_group'];
+
                     if(!empty($dataSend['birthday'])){
                         $birthday = explode('/', $dataSend['birthday']);
                          $data->birthday  = mktime(0,0,0,$birthday[1],$birthday[0],$birthday[2]);
@@ -253,8 +253,17 @@ function addStaff($input)
                 $mess= '<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>';
             }
         }
-        
+
+        if(!empty($data->permission)){
+            $data->permission = json_decode($data->permission, true);
+        }
+
+
+        $listPermissionMenu = getListPermission();
+        $dataGroupStaff = $modelGroupStaff->find()->where()->all()->toList();
         setVariable('data', $data);
+        setVariable('listPermissionMenu', $listPermissionMenu);
+        setVariable('dataGroupStaff', $dataGroupStaff);
         setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
@@ -579,6 +588,208 @@ function changePassStaff($input)
     }
 }
 
+
+function listGroupStaff(){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+     
+    $metaTitleMantan = 'Danh sách nhóm nhân viên';
+
+    $modelMember = $controller->loadModel('Members');
+    
+    $modelGroupStaff = $controller->loadModel('GroupStaffs');
+    
+    if(!empty(checklogin())){
+        $user = checklogin();
+        $mess = '';
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestGroupStaff':
+                    $mess= '<p class="text-danger">Bạn cần tạo nhóm nhân viên trước</p>';
+                    break;
+                    case 'requestDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa nhóm nhân viên này</p>';
+                    break;
+                    case 'requestDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
+                    break;
+            }
+        }
+
+        $infoUser = $session->read('infoUser');
+        $listPermissionMenu = getListPermission();
+        $conditions = array('id_member'=>$user->id);
+        $limit = 20;
+        $order = ['id' => 'DESC'];
+
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+
+        
+
+        if(!empty($_GET['name'])){
+            $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+        }
+        
+        $listData = $modelGroupStaff->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+
+        if($listData){
+            foreach($listData as $key => $item){
+                if(!empty($item->permission)){
+                    $listData[$key]->permission = json_decode($item->permission, true);
+                }
+            }
+        }
+
+        $totalData = $modelGroupStaff->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+       
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('totalData', $totalData);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('mess', $mess);
+
+        setVariable('listPermissionMenu', $listPermissionMenu);
+        
+        setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/');
+    }
+}
+
+function addGroupStaff($input){ 
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $metaTitleMantan = 'Thông tin Nhóm nhân viên';
+
+    $modelMembers = $controller->loadModel('Members');
+    $modelGroupStaff = $controller->loadModel('GroupStaffs');
+    
+    if(!empty(checklogin())){
+        $user = checklogin();
+
+        // lấy data edit
+        if(!empty($_GET['id'])){
+            $data = $modelGroupStaff->get( (int) $_GET['id']);
+        }else{
+            $data = $modelGroupStaff->newEmptyEntity();
+            $data->created_at = time();
+        }
+
+        $mess ='';
+
+        if($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['name'])){
+                // tạo dữ liệu save
+                $data->name = @$dataSend['name'];
+                $data->permission = json_encode(@$dataSend['check_list_permission']);
+                $data->id_member = $user->id;   
+                $modelGroupStaff->save($data);
+
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                
+            }else{
+                $mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
+            }
+        }
+
+        if(!empty($data->permission)){
+            $data->permission = json_decode($data->permission, true);
+        }
+
+        $listPermissionMenu = getListPermission();
+
+        setVariable('data', $data);
+        setVariable('mess', $mess);
+        setVariable('listPermissionMenu', $listPermissionMenu);
+
+    }else{
+        return $controller->redirect('/');
+    }
+}
+
+function deteleGroupStaff($input){  
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $metaTitleMantan = 'Thông tin Nhóm nhân viên';
+    
+    if(!empty(checkLoginManager('deteleGroupStaff', 'staff'))){
+       
+        $modelGroupStaff = $controller->loadModel('GroupStaffs');
+
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
+            
+            $data = $modelCategories->find()->where($conditions)->first();
+            $checkMember = $modelMembers->find()->where(array('id_group'=>$data->id))->all()->toList();
+
+            if(!empty($checkMember)){
+                return $controller->redirect('/listGroupStaff?error=requestDelete');
+
+            }
+
+            if(!empty($data)){
+                $modelCategories->delete($data);
+                return $controller->redirect('/listGroupStaff?error=requestDeleteSuccess');
+            }
+        }
+    }else{
+        return $controller->redirect('/');
+    }
+}
 
 
  ?>

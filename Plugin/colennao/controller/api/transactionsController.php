@@ -70,4 +70,49 @@ function addMoneyTPBankApi($input): array
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
+function listTransactionApi($input)
+{
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Danh sách thách thức';
+    $modelTransactions = $controller->loadModel('Transactions');
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();   
+         if(!empty($dataSend['token'])){
+            $user = getUserByToken($dataSend['token']);
+
+            if (!empty($user)) {
+                $dataSend = $input['request']->getData();
+                $conditions = array('id_user'=>$user->id);
+                $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
+                $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
+                if ($page < 1) $page = 1;
+                if (!empty($dataSend['id']) && is_numeric($dataSend['id'])) {
+                    $conditions['id'] = $dataSend['id'];
+                }
+
+                if (!empty($dataSend['title'])) {
+                    $conditions['title LIKE'] = '%' . $dataSend['title'] . '%';
+                }
+
+                $condition = array('id_user'=> $user->id);
+
+               
+                
+                $listData = $modelTransactions->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();        
+               
+                $totalData = count($modelTransactions->find()->where($conditions)->all()->toList());
+                    
+                return apiResponse(0, 'lấy dữ liệu thành công', $listData, $totalData);
+            }
+             return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        } 
+        return apiResponse(2, 'Gửi thiếu dữ liệu');  
+    }
+     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
  ?>

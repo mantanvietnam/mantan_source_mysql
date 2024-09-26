@@ -153,6 +153,12 @@
                     $thumbnail = '<img src="'.$item->thumbnail.'" width="100" />';
                   }
 
+                  $chuyendoi = 0;
+
+                  if(!empty($item->sold) && !empty($item->views)){
+                    $chuyendoi = 100*($item->sold/$item->views);
+                  }
+
                   echo '<tr>
                           <td>
                             <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$item->designer->token.'">'.$item->id.'</a><br/>
@@ -171,6 +177,7 @@
                             Sell: '.number_format($item->sold).'<br/>
                             View: '.number_format($item->views).'<br/>
                             Like: '.number_format($item->favorites).'<br/>
+                            Conversion: '.number_format($chuyendoi).'%<br/>
                           </td>
                           <td>
                             '.number_format($item->sale_price).'<br/>

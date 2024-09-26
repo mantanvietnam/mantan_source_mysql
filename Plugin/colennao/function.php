@@ -9,48 +9,59 @@ $menus[0]['sub'][0] = array(
     'classIcon' => 'bx bx-cog',
     'permission' => 'listUserAdmin',
 );
-$menus[0]['sub'][1]= array(	'title'=>'course',
+$menus[0]['sub'][]= array(	'title'=>'course',
 							'url'=>'/plugins/admin/colennao-view-admin-courses-listCourse',
 							'classIcon'=>'bx bxs-graduation',
 							'permission'=>'listCourse'
 						);
-$menus[0]['sub'][2]= array(	'title'=>'lesson',
+$menus[0]['sub'][]= array(	'title'=>'lesson',
 							'url'=>'/plugins/admin/colennao-view-admin-lesson-listLesson',
 							'classIcon'=>'bx bx-list-ul',
 							'permission'=>'listLesson'
                     );
-$menus[0]['sub'][4]= array(	'title'=>'survey questions',
+$menus[0]['sub'][]= array(	'title'=>'survey questions',
 							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestion',
 							'classIcon'=>'bx bx-question-mark',
 							'permission'=>'listQuestion'
 						);
-$menus[0]['sub'][5]= array(	'title'=>'fasting',
+$menus[0]['sub'][]= array(	'title'=>'fasting',
                             'url'=>'/plugins/admin/colennao-view-admin-fasting-listfastingadmin',
                             'classIcon'=>'bx bxs-wink-tongue',
                             'permission'=>'listfastingadmin'
                     );
-$menus[0]['sub'][6]= array( 'title'=>'Bảng giá ',
+$menus[0]['sub'][]= array( 'title'=>'Bảng giá ',
                             'url'=>'/plugins/admin/colennao-view-admin-pricelist-listPriceList',
                             'classIcon'=>'bx bx-money',
                             'permission'=>'listPriceList'
                     );
-$menus[0]['sub'][8]= array( 'title'=>'Thử thách  ',
+$menus[0]['sub'][]= array( 'title'=>'Thử thách  ',
                             'url'=>'/plugins/admin/colennao-view-admin-challenge-listChallenge',
                             'classIcon'=>'bx bxs-bolt',
                             'permission'=>'listChallenge'
                     );
-$menus[0]['sub'][7]= array( 'title'=>'cài đặt ngân hàng  ',
+$menus[0]['sub'][]= array( 'title'=>'cài đặt ngân hàng  ',
                             'url'=>'/plugins/admin/colennao-view-admin-seting-setingBankAccount',
                             'classIcon'=>'bx bxs-bank',
                             'permission'=>'setingBankAccount'
                     );
-$menus[0]['sub'][9]= array( 'title'=>'coach',
+$menus[0]['sub'][]= array( 'title'=>'cài đặt ngân hàng  ',
+                            'url'=>'/plugins/admin/colennao-view-admin-seting-setingBankAccount',
+                            'classIcon'=>'bx bxs-bank',
+                            'permission'=>'setingBankAccount'
+                    );
+$menus[0]['sub'][]= array( 'title'=>'coach',
                             'url'=>'/plugins/admin/colennao-view-admin-coach-listcoach',
                             'classIcon'=>'bx bxs-meh-blank',
                             'permission'=>'listcoach'
                     );
 
-$menus[0]['sub'][10]= array('title'=>'Cài đặt',
+$menus[0]['sub'][]= array( 'title'=>'Giao dịch thanh toán',
+                            'url'=>'/plugins/admin/colennao-view-admin-transaction-listTransactionAdmin',
+                            'classIcon'=>'bx bx-history',
+                            'permission'=>'listTransactionAdmin'
+                    );
+
+$menus[0]['sub'][]= array('title'=>'Cài đặt',
         'url'=>'/',
         'classIcon'=>'bx bx-cog',
         'permission'=>'settings',

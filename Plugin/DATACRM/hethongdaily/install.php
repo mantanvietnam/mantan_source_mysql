@@ -371,6 +371,8 @@ $sqlInstallDatabase .="CREATE TABLE `staffs` (
 `instagram` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `view` INT NOT NULL DEFAULT '0',
 `last_login` INT NULL DEFAULT '0',
+`id_group` INT NULL DEFAULT NULL, 
+`permission` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]',
 `zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -392,6 +394,15 @@ $sqlInstallDatabase .="CREATE TABLE `activity_historys` (
 `id_member` INT NULL DEFAULT '0',
 `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `part` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `group_staffs` ( 
+`id` INT NOT NULL AUTO_INCREMENT,
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`created_at` INT NOT NULL ,
+`id_member` INT NULL DEFAULT NULL ,
+`permission` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '[]' ,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -421,6 +432,8 @@ $sqlDeleteDatabase .= "DROP TABLE customer_historie_gifts; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_agency_histories; ";
 $sqlDeleteDatabase .= "DROP TABLE staffs; ";
 $sqlDeleteDatabase .= "DROP TABLE staff_timekeepers; ";
+$sqlDeleteDatabase .= "DROP TABLE activity_historys; ";
+$sqlDeleteDatabase .= "DROP TABLE group_staffs; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -724,6 +737,8 @@ $sqlUpdateDatabase['staffs']['instagram'] = "ALTER TABLE `staffs` ADD `instagram
 $sqlUpdateDatabase['staffs']['zalo'] = "ALTER TABLE `staffs` ADD `zalo` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staffs']['view'] = "ALTER TABLE `staffs` ADD `view` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['staffs']['last_login'] = "ALTER TABLE `staffs` ADD `last_login` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['staffs']['id_group'] = "ALTER TABLE `staffs` ADD `id_group` INT NULL DEFAULT NULL;"; 
+$sqlUpdateDatabase['staffs']['permission'] = "ALTER TABLE `staffs` ADD `permission` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]';";
 
 $sqlUpdateDatabase['staff_timekeepers']['day'] = "ALTER TABLE `staff_timekeepers` ADD `day` INT NOT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['shift'] = "ALTER TABLE `staff_timekeepers` ADD `shift` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
@@ -736,4 +751,9 @@ $sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_his
 $sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `id_member` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `part` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+
+$sqlUpdateDatabase['group_staffs']['name'] = "ALTER TABLE `group_staffs` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['group_staffs']['created_at'] = "ALTER TABLE `group_staffs` ADD `created_at` INT NOT NULL;";
+$sqlUpdateDatabase['group_staffs']['id_member'] = "ALTER TABLE `group_staffs` ADD `id_member` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['group_staffs']['permission'] = "ALTER TABLE `group_staffs` ADD `permission` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '[]';";
 ?>
