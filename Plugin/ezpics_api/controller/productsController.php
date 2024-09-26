@@ -512,6 +512,11 @@ function updateProductAPI($input)
 						$product->display = (int) @$dataSend['display'];
 					}
 
+					if(isset($dataSend['free_pro'])){
+
+						$product->free_pro = (int) @$dataSend['free_pro'];
+					}
+
 					if(!empty($dataSend['description'])){
 
 						$product->description = @$dataSend['description'];
@@ -1565,8 +1570,7 @@ function addExportImageSeriesAPI($input)
 
 				
 				$return = array('code'=>1,
-								'data' => $product,
-						'mess'=>'Bạn lấy data thành công');
+						'mess'=>'Bạn cộng thành công');
 			}else{
 				$return = array('code'=>2,
 						'mess'=>'Không tìm thấy sản phẩm này');

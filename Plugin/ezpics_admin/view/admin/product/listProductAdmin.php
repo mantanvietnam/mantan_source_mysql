@@ -80,6 +80,15 @@
               <option value="2" <?php if(!empty($_GET['order']) && $_GET['order']=='2') echo 'selected';?> >Mấu xem nhiêu nhất</option>              
             </select>
           </div>
+          <div class="col-md-2">
+            <label class="form-label">Free PRO</label>
+            <select name="free_pro" class="form-select color-dropdown">
+              <option value="" <?php if(isset($_GET['free_pro']) && $_GET['free_pro']=='') echo 'selected';?> >Tất cả</option>
+              <option value="1" <?php if(!empty($_GET['free_pro']) && $_GET['free_pro']=='1') echo 'selected';?> >Free</option>
+              <option value="0" <?php if(isset($_GET['free_pro']) && $_GET['free_pro']=='0') echo 'selected';?> >Không</option>
+              
+            </select>
+          </div>
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>

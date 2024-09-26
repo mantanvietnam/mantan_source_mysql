@@ -56,6 +56,12 @@ function listProductAdmin($input)
 		}
 	}
 
+	if(isset($_GET['free_pro'])){
+		if($_GET['free_pro']!=''){
+			$conditions['free_pro'] = $_GET['free_pro'];
+		}
+	}
+
 	if(!empty($_GET['name'])){
 		$conditions['OR'] = [
 								['name LIKE'=>'%'.$_GET['name'].'%'],

@@ -352,7 +352,7 @@ function receiveBookingApi($input): array
             //     }
             // }else
 
-            if(isset($currentUser->difference_booking)){
+            if(!empty($currentUser->difference_booking)){
                 if($currentUser->point < $difference_booking){
                 return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
                 }
