@@ -139,7 +139,6 @@ function paymentChallengeAPI($input){
 	   				if(!empty($data->price_trial)){
 	   					$price = $data->price_trial;
 	   				}
-	    			
 	    		}else{
 	    			if(!empty($data->price)){
 	    				$price = $data->price;
