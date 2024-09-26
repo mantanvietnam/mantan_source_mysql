@@ -62,14 +62,11 @@ function addQuestion($input)
     global $session;
     $metaTitleMantan = 'Thông tin câu hỏi';
 	$modelQuestions = $controller->loadModel('Questions');
-    $modelanswerquetions = $controller->loadModel('answerquestion');
 
 	$mess= '';
     if(!empty($_GET['id'])){
         $idanswer = $_GET['id'];
-        $dulieu = $modelanswerquetions->find()->select(['id','namequestion','answername'])->where(['id_question' => $idanswer])->toArray();
-        // debug($dulieu);
-        // die();
+
     }
    
 
@@ -88,37 +85,21 @@ function addQuestion($input)
             // Tạo dữ liệu save
             $data->name = trim($dataSend['name']);  
             $data->status = $dataSend['status'];
-            $namequestion = $dataSend['name'];
+            $data->answer1 = $dataSend['answer1'];
+            $data->answer2 = $dataSend['answer2'];
+            $data->answer3 = $dataSend['answer3'];
+            $data->answer4 = $dataSend['answer4'];
+            $data->answer5 = $dataSend['answer5'];
+            $data->answer6 = $dataSend['answer6'];
+            $data->answer7 = $dataSend['answer7'];
+            $data->answer8 = $dataSend['answer8'];
+          
+
             $modelQuestions->save($data);
-            $idquestion = $data->id;
-            if (!empty($dataSend['answername'])) {
-                if (isset($dataSend['answername']) && is_array($dataSend['answername'])) {
-                    foreach ($dataSend['answername'] as $key => $answername) {
-                        if (!empty($answername)) {
-                            if (!empty($dulieu) && isset($dulieu)) {
-                                foreach ($dulieu as $key => $item) {
-                                    if (isset($item->id)) {
-                                        $answerData = $modelanswerquetions->get($item->id);
-                                        $answerData->answername = !empty($dataSend['answername'][$key]) ? trim($dataSend['answername'][$key]) : 'null'; 
-                                        $answerData->namequestion = $namequestion; 
-                                        $answerData->id_question = $idquestion; 
-                                        $modelanswerquetions->save($answerData);
-                                    }
-                                }
-                            } else {
-                                $answerData = $modelanswerquetions->newEmptyEntity();
-                                $answerData->answername = !empty($dataSend['answername'][$key]) ? trim($dataSend['answername'][$key]) : 'null';  
-                                $answerData->namequestion = $namequestion; 
-                                $answerData->id_question = $idquestion; 
-                                $modelanswerquetions->save($answerData);
-                            }
-                        }
-                        
-                    }
-                }
-            }
+
+            
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>'; 
-            return $controller->redirect('/plugins/admin/colennao-view-admin-questions-listQuestion');             
+                        
         }else{
             $mess= '<p class="text-danger">Bạn chưa nhập tên câu hỏi</p>';
         }
@@ -137,27 +118,7 @@ function addQuestion($input)
     $listquestion = $modelQuestions->find()->where($conditions)->all()->toList();
 
     
-    $id = isset($_GET['id']) ? $_GET['id'] : null;
-    if (!empty($id)) {
-        $listanswerquestion = $modelQuestions->find()
-            ->join([
-                'answerquestion' => [
-                    'table' => 'answerquestion',
-                    'type' => 'INNER', 
-                    'conditions' => 'Questions.id = answerquestion.id_question',
-                ]
-            ])
-            ->select([
-                'Questions.id', 
-                'Questions.name', 
-                'answerquestion.namequestion',
-                'answerquestion.answername',
-                'answerquestion.id',
-            ])
-            ->where(['Questions.id' => $id]) 
-            ->all();
-            setVariable('listanswerquestion', $listanswerquestion);
-    }
+
 
     
 

@@ -44,6 +44,11 @@
                             What you will get
                           </button>
                         </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-6" aria-controls="navs-top-6" aria-selected="false">
+                            question 
+                          </button>
+                        </li>
                       </ul>
                       <div class="tab-content">
                         <div class="tab-pane fade active show" id="navs-top-question" role="tabpanel">
@@ -71,6 +76,10 @@
                               <div class="mb-3">
                                 <label class="form-label">màu chủ đạo</label>
                                 <input type="text" class="form-control phone-mask" name="color" id="color" value="<?php echo @$data->color;?>" />
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">màu text</label>
+                                <input type="text" class="form-control phone-mask" name="colortext" id="colortext" value="<?php echo @$data->colortext;?>" />
                               </div>
                               <div class="mb-3">
                                 <label class="form-label">Giá</label>
@@ -151,6 +160,16 @@
                                   <div class="mb-3">
                                     <label class="form-label">Try this course if you want to</label>
                                     <?php showEditorInput('willyouget', 'willyouget', @$data->willyouget);?>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="navs-top-6" role="tabpanel">
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="mb-3">
+                                    <label class="form-label">thông tin câu hỏi</label>
+                                    <?php showEditorInput('questioncourse', 'questioncourse', @$data->questioncourse);?>
                                   </div>
                                 </div>
                             </div>

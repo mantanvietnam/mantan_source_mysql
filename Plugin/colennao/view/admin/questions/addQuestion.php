@@ -25,8 +25,8 @@
                           </button>
                         </li>
                         <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-unit" aria-controls="navs-top-unit" aria-selected="false">
-                            Danh sách các kết quả câu hỏi  
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-2" aria-controls="navs-top-2" aria-selected="false">
+                            Đáp án  
                           </button>
                         </li>
                       </ul>
@@ -39,72 +39,68 @@
                                 <input  type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" required/>
                               </div>
                             </div>
-                              <div class="col-md-4">
-                                <div class="mb-3">
-                                  <label class="form-label">Trạng thái</label>
-                                  <div class="input-group input-group-merge">
-                                    <select class="form-select" name="status" id="status">
-                                      <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
-                                      <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
-                                    </select>
-                                  </div>
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label class="form-label">Trạng thái</label>
+                                <div class="input-group input-group-merge">
+                                  <select class="form-select" name="status" id="status">
+                                    <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
+                                    <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
+                                  </select>
                                 </div>
                               </div>
+                            </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">
+                        <div class="tab-pane fade active show" id="navs-top-2" role="tabpanel">
                           <div class="row">
-                            <div class="col-md-12"> 
-                              <table class="table table-bordered table-striped table-hover mb-none text-center mb-3" id="answerTable">
-                                <thead>
-                                    <tr>
-                               
-                                        <th>Câu trả lời</th>
-                                        <th>Hành động</th>
-                                    </tr>
-                                </thead>
-                                
-                                <tbody>
-                                 
-                                <?php if (!empty($listanswerquestion)): ?>
-                                    <?php foreach ($listanswerquestion as $value): ?>
-                         
-                                        <tr class="gradeX" id="trlink">
-                                            <td>
-                                                <input type="text" class="form-control" placeholder="" name="answername[]" id="answername" value="<?= $value->answerquestion['answername'] ?>" required/>
-                                                <input type="hidden" class="form-control" placeholder="" name="namequestion" id="namequestion" value=""/>
-                                                <input type="hidden" class="form-control" placeholder="" name="id_question" id="id_question" value=""/>
-                                            </td>
-                                            <td>
-                                              <a href="/plugins/admin/colennao-view-admin-questions-deleteanswerquestion/?id=<?= $value->answerquestion['id'] ?>" class="btn btn-danger">Xóa</a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <tr class="gradeX" id="trlink">
-                                          <td>
-                                              <input type="text" class="form-control" placeholder="" name="answername[]" id="answername" value="" required/>
-                                              <input type="hidden" class="form-control" placeholder="" name="namequestion" id="namequestion" value=""/>
-                                              <input type="hidden" class="form-control" placeholder="" name="id_question" id="id_question" value=""/>
-                                          </td>
-                                          <td>
-                                            
-                                            <a href="/plugins/admin/colennao-view-admin-questions-deleteanswerquestion/?id=<?= @$value->answerquestion['id'] ?>" class="btn btn-danger">Xóa</a>
-                                          </td>
-                                      </tr>
-                                <?php endif; ?>
-                                </tbody>
-                              </table> 
-
-                              <?php if(empty($_GET['id'])):?>
-                                <div class="form-group mb-3 col-md-12">
-                                  <button type="button" id="addRowBtn" class="btn btn-primary">Thêm hàng</button>
-                                </div>
-                              <?php else :?>
-                                <div class="form-group mb-3 col-md-12 d-none" >
-                                  <button type="button" id="addRowBtn" class="btn btn-primary">Thêm hàng</button>
-                                </div>
-                              <?php endif; ?>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">đáp án 1</label>
+                                <input  type="text" class="form-control phone-mask" name="answer1" id="answer1" value="<?php echo @$data->answer1;?>" required/>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">đáp án 2</label>
+                                <input  type="text" class="form-control phone-mask" name="answer2" id="answer2" value="<?php echo @$data->answer2;?>" required/>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">đáp án 3</label>
+                                <input  type="text" class="form-control phone-mask" name="answer3" id="answer3" value="<?php echo @$data->answer3;?>" required/>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">đáp án 4</label>
+                                <input  type="text" class="form-control phone-mask" name="answer4" id="answer4" value="<?php echo @$data->answer4;?>" required/>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">đáp án 5</label>
+                                <input  type="text" class="form-control phone-mask" name="answer5" id="answer5" value="<?php echo @$data->answer5;?>" required/>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">đáp án 6</label>
+                                <input  type="text" class="form-control phone-mask" name="answer6" id="answer6" value="<?php echo @$data->answer6;?>" required/>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">đáp án 7</label>
+                                <input  type="text" class="form-control phone-mask" name="answer7" id="answer7" value="<?php echo @$data->answer7;?>" required/>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">đáp án 8</label>
+                                <input  type="text" class="form-control phone-mask" name="answer8" id="answer8" value="<?php echo @$data->answer8;?>" required/>
+                              </div>
                             </div>
                           </div>
                         </div>

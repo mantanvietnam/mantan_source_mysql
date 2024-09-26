@@ -95,6 +95,8 @@ function addCourse($input)
             $data->imagebanner = $dataSend['imagebanner'];
             $data->willyouget = $dataSend['willyouget'];
             $data->status = $dataSend['status'];
+            $data->colortext = $dataSend['colortext'];
+            $data->questioncourse = $dataSend['questioncourse'];
             $data->content = $dataSend['content'];
             $data->achieved = $dataSend['achieved'];
             $data->price = $dataSend['price'];
