@@ -45,22 +45,16 @@
 </head>
 
 <body>
-    <div class="intro">
-        <h1 class="logo-header">
-            <div class="loader">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-        </h1>
+    <!--
+    <div class="overflow dark" id="preload"> 
+        <div class="circle-line">
+            <div class="circle-red">&nbsp;</div>
+            <div class="circle-blue">&nbsp;</div>
+            <div class="circle-green">&nbsp;</div>
+            <div class="circle-yellow">&nbsp;</div>
+        </div>
     </div>
-
+    -->
     <header>
         <section id="menu">
             <nav class="navbar navbar-expand-lg bg-body-tertiary">

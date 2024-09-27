@@ -9,7 +9,7 @@
 
     <main>
 
-        <section id="icham-block-1">
+        <section id="icham-block-1" style="margin-bottom: 130px;">
             <div class="container">
                 <div class="ib-1-title">
                     <h1>
@@ -49,11 +49,7 @@
                                     </div>
 
                                 </div>
-                                <div class="pt-block-3">
-                                    <p>
-                                        -28%
-                                    </p>
-                                </div>
+                                
                                 <div class="pt-block-4">
                                     <div class="pt-btn">
                                         <a href="https://zalo.me/0816560000">Đăng kí ngay</a>
