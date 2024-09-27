@@ -128,7 +128,11 @@ $menus[3]['sub'][5]= array( 'title'=>'snacks',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listsnacksfood'
                         );
-
+ $menus[3]['sub'][6]= array( 'title'=>'conditions',
+                            'url'=>'/plugins/admin/colennao-view-admin-condition-listcondition',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listcondition'
+                            );
 
 
 

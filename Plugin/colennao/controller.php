@@ -17,6 +17,7 @@ include_once('controller/admin/foodController.php');
 include_once('controller/admin/packageWorkoutController.php');
 include_once('controller/admin/transactionsController.php');
 include_once('controller/admin/areaController.php');
+include_once('controller/admin/conditionController.php');
 // Api 
 include_once('controller/api/usersController.php'); 
 include_once('controller/api/coursesController.php');

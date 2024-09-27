@@ -52,54 +52,54 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade active show" id="navs-top-2" role="tabpanel">
+                        <div class="tab-pane fade  show" id="navs-top-2" role="tabpanel">
                           <div class="row">
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 1</label>
-                                <input  type="text" class="form-control phone-mask" name="answer1" id="answer1" value="<?php echo @$data->answer1;?>" required/>
+                                <input  type="text" class="form-control phone-mask" name="answer1" id="answer1" value="<?php echo @$data->answer1;?>" />
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 2</label>
-                                <input  type="text" class="form-control phone-mask" name="answer2" id="answer2" value="<?php echo @$data->answer2;?>" required/>
+                                <input  type="text" class="form-control phone-mask" name="answer2" id="answer2" value="<?php echo @$data->answer2;?>" />
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 3</label>
-                                <input  type="text" class="form-control phone-mask" name="answer3" id="answer3" value="<?php echo @$data->answer3;?>" required/>
+                                <input  type="text" class="form-control phone-mask" name="answer3" id="answer3" value="<?php echo @$data->answer3;?>" />
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 4</label>
-                                <input  type="text" class="form-control phone-mask" name="answer4" id="answer4" value="<?php echo @$data->answer4;?>" required/>
+                                <input  type="text" class="form-control phone-mask" name="answer4" id="answer4" value="<?php echo @$data->answer4;?>" />
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 5</label>
-                                <input  type="text" class="form-control phone-mask" name="answer5" id="answer5" value="<?php echo @$data->answer5;?>" required/>
+                                <input  type="text" class="form-control phone-mask" name="answer5" id="answer5" value="<?php echo @$data->answer5;?>" />
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 6</label>
-                                <input  type="text" class="form-control phone-mask" name="answer6" id="answer6" value="<?php echo @$data->answer6;?>" required/>
+                                <input  type="text" class="form-control phone-mask" name="answer6" id="answer6" value="<?php echo @$data->answer6;?>" />
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 7</label>
-                                <input  type="text" class="form-control phone-mask" name="answer7" id="answer7" value="<?php echo @$data->answer7;?>" required/>
+                                <input  type="text" class="form-control phone-mask" name="answer7" id="answer7" value="<?php echo @$data->answer7;?>" />
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 8</label>
-                                <input  type="text" class="form-control phone-mask" name="answer8" id="answer8" value="<?php echo @$data->answer8;?>" required/>
+                                <input  type="text" class="form-control phone-mask" name="answer8" id="answer8" value="<?php echo @$data->answer8;?>" />
                               </div>
                             </div>
                           </div>

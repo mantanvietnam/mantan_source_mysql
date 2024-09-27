@@ -88,6 +88,7 @@ function addgroupfood($input){
             $data->description= $dataSend['description'];
             $data->image = $dataSend['image'];
             $data->month = $dataSend['month'];
+            $data->icon = $dataSend['icon'];
             // tạo slug
             // $slug = createSlugMantan($dataSend['name']);
             // $slugNew = $slug;
@@ -225,7 +226,8 @@ function addbreakfastfood($input){
             $data->Ingredients = $dataSend['Ingredients'];
             $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
-            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
+            $data->timeeat = $dataSend['timeeat'];
+            $data->time = $dataSend['time'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -367,7 +369,9 @@ function addlunchfood($input){
             $data->Ingredients = $dataSend['Ingredients'];
             $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
-            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
+
+            $data->timeeat = $dataSend['timeeat'];
+            $data->time = $dataSend['time'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -508,7 +512,9 @@ function adddinnerfood($input){
             $data->Ingredients = $dataSend['Ingredients'];
             $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
-            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
+
+            $data->timeeat = $dataSend['timeeat'];
+            $data->time = $dataSend['time'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -626,7 +632,7 @@ function addsnacksfood($input){
 	global $isRequestPost;
 	global $modelCategories;
     global $metaTitleMantan;
-    $metaTitleMantan = 'Thêm bữa sáng';
+    $metaTitleMantan = 'Thêm bữa ăn nhẹ';
 	$modelfood = $controller->loadModel('food');
     $modelsnacks = $controller->loadModel('snacks');
 	$mess= '';
@@ -648,7 +654,9 @@ function addsnacksfood($input){
             $data->Ingredients = $dataSend['Ingredients'];
             $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
-            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
+
+            $data->timeeat = $dataSend['timeeat'];
+            $data->time = $dataSend['time'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;

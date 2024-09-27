@@ -33,6 +33,96 @@ function listfoodAPI($input)
     return $return;
 }
 
+function getfoodAPI($input) {
+    global $controller;
+    global $isRequestPost;
+
+    $modelfood = $controller->loadModel('food');
+    $modelbreakfast = $controller->loadModel('breakfast');
+    $modellunch = $controller->loadModel('lunch');
+    $modeldinner = $controller->loadModel('dinner');
+    $modelsnacks = $controller->loadModel('snacks');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['id']) ) {
+            $conditions = array('id' => (int)$dataSend['id']);
+            $data = $modelfood->find()->where($conditions)->first();
+
+            if (!empty($data)) {
+                $idFood = $data->id_food;
+                $breakfastData = $modelbreakfast->find()->where(['id_food' => $dataSend['id']])->all();
+                $lunchData = $modellunch->find()->where(['id_food' => $dataSend['id']])->all();
+                $dinnerData = $modeldinner->find()->where(['id_food' => $dataSend['id']])->all();
+                $snacksData = $modelsnacks->find()->where(['id_food' => $dataSend['id']])->all();
+
+                $return = array(
+                    'code' => 1,
+                    'mess' => 'Lấy dữ liệu thành công',
+                    'data' => $data,
+                    'breakfast' => $breakfastData,
+                    'lunch' => $lunchData,
+                    'dinner' => $dinnerData,
+                    'snacks' => $snacksData
+                );
+            } else {
+                $return = array('code' => 3, 'mess' => 'Id không tồn tại');
+            }
+        } else {
+            $return = array('code' => 2, 'mess' => 'Gửi thiếu dữ liệu hoặc ID không hợp lệ');
+        }
+    } else {
+        $return = array('code' => 0, 'mess' => 'Gửi sai kiểu POST');
+    }
+
+    return $return;
+}
+function getdayfoodAPI($input) {
+    global $controller;
+    global $isRequestPost;
+
+    $modelfood = $controller->loadModel('food');
+    $modelbreakfast = $controller->loadModel('breakfast');
+    $modellunch = $controller->loadModel('lunch');
+    $modeldinner = $controller->loadModel('dinner');
+    $modelsnacks = $controller->loadModel('snacks');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['id']) && !empty($dataSend['time'])) {
+            $conditions = array('id' => (int)$dataSend['id']);
+            $data = $modelfood->find()->where($conditions)->first();
+
+            if (!empty($data)) {
+                $idFood = $data->id_food;
+                $breakfastData = $modelbreakfast->find()->where(['id_food' => $dataSend['id'],'time'=>$dataSend['time']])->all();
+                $lunchData = $modellunch->find()->where(['id_food' => $dataSend['id'],'time'=>$dataSend['time']])->all();
+                $dinnerData = $modeldinner->find()->where(['id_food' => $dataSend['id'],'time'=>$dataSend['time']])->all();
+                $snacksData = $modelsnacks->find()->where(['id_food' => $dataSend['id'],'time'=>$dataSend['time']])->all();
+
+                $return = array(
+                    'code' => 1,
+                    'mess' => 'Lấy dữ liệu thành công',
+                    'data' => $data,
+                    'breakfast' => $breakfastData,
+                    'lunch' => $lunchData,
+                    'dinner' => $dinnerData,
+                    'snacks' => $snacksData
+                );
+            } else {
+                $return = array('code' => 3, 'mess' => 'Id không tồn tại');
+            }
+        } else {
+            $return = array('code' => 2, 'mess' => 'Gửi thiếu dữ liệu hoặc ID không hợp lệ');
+        }
+    } else {
+        $return = array('code' => 0, 'mess' => 'Gửi sai kiểu POST');
+    }
+
+    return $return;
+}
 function listbreakfastAPI($input)
 {
 

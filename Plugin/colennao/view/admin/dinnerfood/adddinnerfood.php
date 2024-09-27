@@ -52,10 +52,21 @@
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
-                                <label class="form-label">Thời gian</label>
-                                <input type="datetime-local" class="form-control" name="time" id="time" value="<?php echo isset($data->time) ? date('Y-m-d\TH:i', $data->time) : ''; ?>" />
+                                <label class="form-label">Ngày</label>
+                                <input type="number" class="form-control" name="time" id="time" value="<?php echo $data->time ?>" />
                               </div>
                             </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">Thời gian nấu ăn</label>
+                                <input type="number" class="form-control" name="timeeat" id="timeeat" value="<?=$data->timeeat?>" />
+                              </div>
+                            </div>
+
+
+
+
+
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">lượng thức ăn</label>
