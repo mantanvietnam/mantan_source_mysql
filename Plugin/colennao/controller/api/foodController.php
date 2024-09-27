@@ -32,7 +32,33 @@ function listfoodAPI($input)
 
     return $return;
 }
+function updatefoodApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $ownerType;
 
+    $modelfood = $controller->loadModel('food');
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        $currentUser = getUserByToken($dataSend['token']);
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+        if (isset($dataSend['timestart'])) {
+            $currentUser->timestart = (int) $dataSend['timestart'];
+        }
+        if (isset($dataSend['timenow'])) {
+            $currentUser->timenow = (int) $dataSend['timenow'];
+        }
+        $modelfood->save($currentUser);
+
+        return apiResponse(0, 'Cập nhật thông tin thành công',$currentUser);
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
 function getfoodAPI($input) {
     global $controller;
     global $isRequestPost;

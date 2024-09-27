@@ -22,8 +22,16 @@
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                   </div>
                   <div class="mb-3">
-                      <label class="form-label">Só lượng ngày</label>
+                      <label class="form-label">Số lượng ngày</label>
                       <input required type="text" class="form-control phone-mask" name="month" id="month" value="<?php echo @$data->month;?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Thời gian kết thúc</label>
+                    <input type="datetime-local" class="form-control" name="timestart" id="timestart" value="<?php echo isset($data->timestart) ? date('Y-m-d\TH:i', $data->timestart) : ''; ?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Thời gian hiện tại</label>
+                    <input type="datetime-local" class="form-control" name="timenow" id="timenow" value="<?php echo isset($data->timenow) ? date('Y-m-d\TH:i', $data->timenow) : ''; ?>" />
                   </div>
                 </div>
                 <div class="col-md-6">

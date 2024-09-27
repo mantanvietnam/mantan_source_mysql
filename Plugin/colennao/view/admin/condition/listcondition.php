@@ -46,7 +46,6 @@
           <?php foreach ($groupconditiondata as $item => $question): ?>
               <tr>
                   <td align="center"><?php echo $item; ?></td>
-                  <!-- <td><?= $item->id_groupfile; ?></td> -->
                   <?php 
                       $idQuestions = [];
                       $answers = [];
@@ -59,10 +58,10 @@
                       $answersString = implode(',', $answers);
                   ?>
                   <td>
-                      <a target="_blank" href=""><?php echo $idQuestionsString; ?></a>
+                      <p target="_blank" href=""><?php echo $idQuestionsString; ?></p>
                   </td>
                   <td>
-                      <a target="_blank" href=""><?php echo $answersString; ?></a>
+                      <p target="_blank" href=""><?php echo $answersString; ?></p>
                   </td>
                   <td align="center">
                       <a class="dropdown-item" href="">

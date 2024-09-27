@@ -8,6 +8,28 @@ function listcondition($input){
     $metaTitleMantan = 'Danh sách điều kiện';
 
     $modeltbcondition = $controller->loadModel('tbcondition');
+    $modelQuestions = $controller->loadModel('Questions');
+    $modelWorkout = $controller->loadModel('Workouts');
+    // $groupconditiondata = [];
+    // foreach ($datacondition as $conditiondata) {
+    //     $groupconditiondata[$conditiondata->id_groupfile]['questions'][] = [
+    //         'id_question' => $conditiondata->id_question,
+    //         'answer' => $conditiondata->answer,
+    //     ];
+    
+    //     if (!isset($groupconditiondata[$conditiondata->id_groupfile]['title'])) {
+    //         $workout = $modelWorkout->find()
+    //             ->select(['title']) 
+    //             ->where(['id' => $conditiondata->id_groupfile]) 
+    //             ->first();
+    
+    //         if ($workout) {
+    //             $groupconditiondata[$conditiondata->id_groupfile]['title'] = $workout->name;
+    //         } else {
+    //             $groupconditiondata[$conditiondata->id_groupfile]['title'] = 'Chưa có tên bài tập';
+    //         }
+    //     }
+    // }
     $conditions = array();
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;

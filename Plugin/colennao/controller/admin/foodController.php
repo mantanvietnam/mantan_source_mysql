@@ -89,23 +89,9 @@ function addgroupfood($input){
             $data->image = $dataSend['image'];
             $data->month = $dataSend['month'];
             $data->icon = $dataSend['icon'];
-            // tạo slug
-            // $slug = createSlugMantan($dataSend['name']);
-            // $slugNew = $slug;
-            // $number = 0;
+            $data->timestart = (new DateTime($dataSend['timestart']))->getTimestamp();
+            $data->timenow = (new DateTime($dataSend['timenow']))->getTimestamp();
 
-            // if(empty($data->slug) || $data->slug!=$slugNew){
-            //     do{
-            //     	$conditions = array('slug'=>$slugNew);
-        	// 		$listData = $modelfood->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-        	// 		if(!empty($listData)){
-        	// 			$number++;
-        	// 			$slugNew = $slug.'-'.$number;
-        	// 		}
-            //     }while (!empty($listData));
-            // }
-            // $data->slug = $slugNew;
 
             $modelfood->save($data);   
 
