@@ -124,6 +124,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customer_histories` (
   `action_now` VARCHAR(255) NOT NULL , 
   `id_staff_now` INT NOT NULL , 
   `status` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new',
+  `id_staff` INT NULL DEFAULT '0' COMMENT 'id nhân viên ',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -141,6 +142,8 @@ $sqlInstallDatabase .= "CREATE TABLE `order_members` (
   `discount` DOUBLE NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu',
   `costsIncurred` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL, 
   `total_costsIncurred` INT NULL DEFAULT '0',
+  `id_staff_sell` INT NOT NULL DEFAULT '0' COMMENT 'id nhân viên bán', 
+  `id_staff_buy` INT NOT NULL DEFAULT '0' COMMENT 'id nhân viên mua',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -392,8 +395,9 @@ $sqlInstallDatabase .="CREATE TABLE `activity_historys` (
 `time` INT NOT NULL DEFAULT '0',
 `id_staff` INT NOT NULL DEFAULT '0',
 `id_member` INT NULL DEFAULT '0',
+`id_key` INT NOT NULL DEFAULT '0',
 `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-`part` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+`keyword` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -552,6 +556,7 @@ $sqlUpdateDatabase['customer_histories']['note_now'] = "ALTER TABLE `customer_hi
 $sqlUpdateDatabase['customer_histories']['action_now'] = "ALTER TABLE `customer_histories` ADD `action_now` VARCHAR(255) NOT NULL;";
 $sqlUpdateDatabase['customer_histories']['id_staff_now'] = "ALTER TABLE `customer_histories` ADD `id_staff_now` INT NOT NULL;";
 $sqlUpdateDatabase['customer_histories']['status'] = "ALTER TABLE `customer_histories` ADD `status` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'new';";
+$sqlUpdateDatabase['customer_histories']['id_staff'] = "ALTER TABLE `customer_histories` ADD `id_staff` INT NULL DEFAULT '0' COMMENT 'id nhân viên ';";
 
 // bảng order_members
 $sqlUpdateDatabase['order_members']['id_member_sell'] = "ALTER TABLE `order_members` ADD `id_member_sell` INT NOT NULL COMMENT 'id đại lý tuyến trên';";
@@ -566,7 +571,8 @@ $sqlUpdateDatabase['order_members']['status_pay'] = "ALTER TABLE `order_members`
 $sqlUpdateDatabase['order_members']['discount'] = "ALTER TABLE `order_members` ADD `discount` DOUBLE NOT NULL DEFAULT '0' COMMENT 'phần trăm chiết khấu';";
 $sqlUpdateDatabase['order_members']['costsIncurred'] = "ALTER TABLE `order_members` ADD `costsIncurred` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
 $sqlUpdateDatabase['order_members']['total_costsIncurred'] = "ALTER TABLE `order_members` ADD `total_costsIncurred` INT NULL DEFAULT '0';";
-
+$sqlUpdateDatabase['order_members']['id_staff_sell'] = "ALTER TABLE `order_members` ADD `id_staff_sell` INT NOT NULL DEFAULT '0' COMMENT 'id nhân viên bán';";
+$sqlUpdateDatabase['order_members']['id_staff_buy'] = "ALTER TABLE `order_members` ADD `id_staff_buy` INT NOT NULL DEFAULT '0' COMMENT 'id nhân viên mua';";
 
 // bảng order_member_details
 $sqlUpdateDatabase['order_member_details']['id_product'] = "ALTER TABLE `order_member_details` ADD `id_product` INT NOT NULL;";
@@ -745,12 +751,13 @@ $sqlUpdateDatabase['staff_timekeepers']['shift'] = "ALTER TABLE `staff_timekeepe
 $sqlUpdateDatabase['staff_timekeepers']['note'] = "ALTER TABLE `staff_timekeepers` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['id_staff'] = "ALTER TABLE `staff_timekeepers` ADD `id_staff` INT NOT NULL;";
 
-$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNULL DEFAULT NULL;";
-$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `time` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['activity_historys']['note'] = "ALTER TABLE `activity_historys` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNULL DEFAULT NULL;";
+$sqlUpdateDatabase['activity_historys']['time'] = "ALTER TABLE `activity_historys` ADD `time` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `id_staff` INT NOT NULL DEFAULT '0';";
-$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `id_member` INT NULL DEFAULT '0';";
-$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `part` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['activity_historys']['id_member'] = "ALTER TABLE `activity_historys` ADD `id_member` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['activity_historys']['type'] = "ALTER TABLE `activity_historys` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['activity_historys']['keyword'] = "ALTER TABLE `activity_historys` ADD `keyword` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['activity_historys']['id_key'] = "ALTER TABLE `activity_historys` ADD `id_key` INT NOT NULL DEFAULT '0';";
 
 $sqlUpdateDatabase['group_staffs']['name'] = "ALTER TABLE `group_staffs` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['group_staffs']['created_at'] = "ALTER TABLE `group_staffs` ADD `created_at` INT NOT NULL;";

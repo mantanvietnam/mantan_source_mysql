@@ -728,6 +728,16 @@ function listUserStatisticAdmin($input)
         $conditions['email LIKE'] = '%' . $_GET['email'] . '%';
     }
 
+    if (!empty($_GET['point'])) {
+        if ($_GET['point']==1) {
+            $conditions['point >'] = 0; 
+        }elseif($_GET['point']==2){
+            $conditions['point <'] = 0; 
+        }else{
+            $conditions['point'] = 0; 
+        }
+    }
+
     if (isset($_GET['type']) && $_GET['type'] !== '' && is_numeric($_GET['type'])) {
         $conditions['type'] = $_GET['type'];
     }

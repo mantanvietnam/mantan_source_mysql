@@ -6,7 +6,7 @@
         <div class="d-flex align-items-end row">
           <div class="col-sm-10">
             <div class="card-body">
-              <h5 class="card-title text-primary">Xin chào <?php echo $session->read('infoUser')->name;?> 🎉</h5>
+              <h5 class="card-title text-primary">Xin chào <?php echo $user->name;?> 🎉</h5>
               <p class="mb-4">
                 Chào mừng bạn quay trở lại với phần mềm quản lý ICHAM CRM.
               </p>
@@ -107,7 +107,7 @@
     <div class="col-md-5 col-lg-5 order-2 mb-4">
       <div class="card h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
-          <h5 class="card-title m-0 me-2">Khách đơn Khách lẻ hôm này </h5>
+          <h5 class="card-title m-0 me-2">Khách đơn Khách lẻ hôm nay </h5>
         </div>
         <div class="card-body">
           <table class="table table-bordered">

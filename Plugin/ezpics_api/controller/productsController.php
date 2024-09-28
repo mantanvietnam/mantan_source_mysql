@@ -122,6 +122,38 @@ function searchProductAPI($input)
 	return 	array('listData'=>$listProduct);
 }
 
+function listProductRandomAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelMember = $controller->loadModel('Members');
+	$modelSearchKeys = $controller->loadModel('SearchKeys');
+
+	$dataSend = $input['request']->getData();
+
+	$conditions = array('status'=>2, 'type'=>'user_create', 'display'=>1);
+	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:10;
+	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+	$order = array();
+
+	$listProduct = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order('RAND()')->all()->toList();
+
+
+	if(!empty($listProduct)){
+		foreach ($listProduct as $key => $value) {
+			if(empty($value->thumbnail)){
+				$listProduct[$key]->thumbnail = $value->image;
+				$listProduct[$key]->ecoin = $value->sale_price/1000;
+			}
+		}
+	}
+
+	return 	array('listData'=>$listProduct);
+}
+
 function getProductByCategoryAPI($input)
 {
 	global $isRequestPost;

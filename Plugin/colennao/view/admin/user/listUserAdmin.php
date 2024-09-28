@@ -103,8 +103,8 @@
                  <td align="center">' . $item->id . '
                   </td><td align="center"><img src="' . $item->avatar . '" width="100" />
                   </td>
-                  <td>'.$item->name . '
-                  </br>'. $item->phone_number . ' 
+                  <td>'.$item->full_name . '
+                  </br>'. $item->phone . ' 
                   </br>' . $item->email.'
                   </td>
                   <td>

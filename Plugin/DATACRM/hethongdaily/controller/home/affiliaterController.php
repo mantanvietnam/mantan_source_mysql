@@ -100,7 +100,7 @@ function listAffiliaterAgency($input)
                 $listData[$key]->number_order = count($order);
                 $listData[$key]->number_customer = count($customer);
                 $listData[$key]->money_back = $money_back;
-                $listData[$key]->percent = $percent['percent1'];
+                $listData[$key]->percent = @$percent['percent1'];
 
                 $listData[$key]->aff = $modelAffiliaters->find()->where(['id'=>$value->id_father])->first();
 

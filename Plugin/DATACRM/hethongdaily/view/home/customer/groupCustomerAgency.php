@@ -10,8 +10,11 @@
           <div class="card mb-6">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Cài đặt nhóm khách hàng</h5>
+
             </div>
+
             <div class="card-body">
+              <p><?php echo $mess;?></p>
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>

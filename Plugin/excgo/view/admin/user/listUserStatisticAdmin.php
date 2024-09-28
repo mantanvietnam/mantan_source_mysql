@@ -31,7 +31,7 @@
                    value="<?php if (!empty($_GET['email'])) echo $_GET['email']; ?>">
           </div>
 
-          <div class="col-md-3">
+        <div class="col-md-3">
             <label class="form-label">Loại tài khoản</label>
             <select name="type" class="form-select color-dropdown">
               <option value="">Tất cả</option>
@@ -40,7 +40,20 @@
               <option value="1" <?php if (isset($_GET['type']) && $_GET['type'] == '1') echo 'selected'; ?> >Tài xế
               </option>
             </select>
-          </div>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">lọc điểm </label>
+            <select name="point" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="1" <?php if (isset($_GET['point']) && $_GET['point'] == '1') echo 'selected'; ?> >Điểm dương
+              </option>
+              <option value="2" <?php if (isset($_GET['point']) && $_GET['point'] == '2') echo 'selected'; ?> >Điểm âm
+              </option>
+               <option value="3" <?php if (isset($_GET['point']) && $_GET['point'] == '3') echo 'selected'; ?> >Điểm 0
+              </option>
+            </select>
+        </div>
 
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>

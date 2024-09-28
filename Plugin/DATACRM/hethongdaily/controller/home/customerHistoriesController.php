@@ -7,7 +7,13 @@ function listCustomerHistoriesAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $mess = '';
+
+    $user = checklogin('listCustomerHistoriesAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerAgency');
+        }
         
         $metaTitleMantan = 'Lịch sử chăm sóc khách hàng';
 
@@ -16,7 +22,7 @@ function listCustomerHistoriesAgency($input)
         $modelOrders = $controller->loadModel('Orders');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
-        $conditions = array('id_staff_now'=>$session->read('infoUser')->id);
+        $conditions = array('id_staff_now'=>$user->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -148,20 +154,24 @@ function addCustomerHistoriesAgency($input)
     global $session;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
+     $user = checklogin('addCustomerHistoriesAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerHistoriesAgency');
+        }
 
         $metaTitleMantan = 'Thông tin chăm sóc khách hàng';
 
+        $modelActivityHistory = $controller->loadModel('ActivityHistorys');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
         $modelCustomers = $controller->loadModel('Customers');
 
         $mess= '';
 
-        $infoUser = $session->read('infoUser');
 
         // lấy data edit
         if(!empty($_GET['id'])){
-            $data = $modelCustomerHistories->find()->where(['id'=>(int) $_GET['id'], 'id_staff_now'=>$infoUser->id])->first();
+            $data = $modelCustomerHistories->find()->where(['id'=>(int) $_GET['id'], 'id_staff_now'=>$user->id])->first();
 
             if(empty($data)){
                 return $controller->redirect('/listCustomerHistoriesAgency');
@@ -188,7 +198,8 @@ function addCustomerHistoriesAgency($input)
                     $data->id_customer = (int) $dataSend['id_customer'];
                     $data->note_now = $dataSend['note_now'];
                     $data->action_now = $dataSend['action_now'];
-                    $data->id_staff_now = $infoUser->id;
+                    $data->id_staff_now = $user->id;
+                    $data->id_staff = $user->id_staff;
                     $data->status = $dataSend['status'];
 
                     $time_now = explode(' ', $dataSend['time_now']);
@@ -197,6 +208,22 @@ function addCustomerHistoriesAgency($input)
                     $data->time_now = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
 
                     $modelCustomerHistories->save($data);
+
+                    $history = $modelActivityHistory->newEmptyEntity();
+
+                    if(!empty($_GET['id'])){
+                        $history->note = $user->type_tv.' '. $user->name.' sửa lịch hẹn khách hàng '.$checkCustomer->full_name.' có id lịch hẹn là:'.$data->id;
+                    }else{
+                        $history->note = $user->type_tv.' '. $user->name.' tạo mới lịch hẹn khách hàng '.$checkCustomer->full_name.' có id lịch hẹn là:'.$data->id;
+                    }
+
+                    $history->type = $user->type;
+                    $history->id_staff = $user->id_staff;
+                    $history->id_member = $user->id;
+                    $history->keyword = 'CustomerHistories';
+                    $history->time = time();
+                    $history->id_key = $data->id;
+                    $modelActivityHistory->save($history);
 
                     return $controller->redirect('/calendarCustomerHistoriesAgency?mess=saveSuccess');
                 }else{
@@ -207,7 +234,7 @@ function addCustomerHistoriesAgency($input)
             }
         }
 
-        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $conditions = array('type' => 'group_customer', 'parent'=>$user->id);
         $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('data', $data);
@@ -226,7 +253,12 @@ function calendarCustomerHistoriesAgency(){
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    
+     $user = checklogin('calendarCustomerHistoriesAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerHistoriesAgency');
+        }
         
         $metaTitleMantan = 'Lịch sử chăm sóc khách hàng';
 
@@ -235,7 +267,7 @@ function calendarCustomerHistoriesAgency(){
         $modelOrders = $controller->loadModel('Orders');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
-        $conditions = array('id_staff_now'=>$session->read('infoUser')->id);
+        $conditions = array('id_staff_now'=>$user->id);
 
         if(!empty($_GET['id'])){
             $conditions['id'] = (int) $_GET['id'];
@@ -269,7 +301,7 @@ function calendarCustomerHistoriesAgency(){
             }
         }
         
-        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $conditions = array('type' => 'group_customer', 'parent'=>$suser->id);
         $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
 
         $mess ='';
@@ -297,23 +329,38 @@ function treatmentCustomerHistoriesAgency(){
     global $metaTitleMantan;
     global $session;
     global $urlHomes;
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('treatmentCustomerHistoriesAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/calendarCustomerHistoriesAgency');
+        }
 
         $metaTitleMantan = 'Thông tin chăm sóc khách hàng';
 
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
         $modelCustomers = $controller->loadModel('Customers');
-
+        $modelActivityHistory = $controller->loadModel('ActivityHistorys');
         $mess= '';
 
-        $infoUser = $session->read('infoUser');
 
         // lấy data edit
         if(!empty($_GET['id'])){
-            $data = $modelCustomerHistories->find()->where(['id'=>(int) $_GET['id'], 'id_staff_now'=>$infoUser->id])->first();
+            $data = $modelCustomerHistories->find()->where(['id'=>(int) $_GET['id'], 'id_staff_now'=>$user->id])->first();
+            $checkCustomer = $modelCustomers->find()->where(['id'=>$data->id_customer])->first();
             if(!empty($data)){
                 $data->status= 'done';
                 $modelCustomerHistories->save($data);
+
+                $history = $modelActivityHistory->newEmptyEntity();
+                $history->note = $user->type_tv.' '. $user->name.' đã sử lý lịch hẹn của khách hàng '.$checkCustomer->full_name.' có id lịch hẹn là:'.$data->id;
+                $history->type = $user->type;
+                $history->id_staff = $user->id_staff;
+                $history->id_member = $user->id;
+                $history->keyword = 'CustomerHistories';
+                $history->time = time();
+                $history->id_key = $data->id;
+                $modelActivityHistory->save($history);
+
             }            
             return $controller->redirect('/calendarCustomerHistoriesAgency?mess=saveSuccess');
         }else{
@@ -333,16 +380,20 @@ function addCustomerHistoriesAjax($input)
     global $session;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addCustomerHistoriesAjax');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+           return array('code'=> 0 , 'mess'=>'<p class="text-danger">Bạn không có quyền thêm nhân viên mới</p>');
+        }
 
         $metaTitleMantan = 'Thông tin chăm sóc khách hàng';
 
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
         $modelCustomers = $controller->loadModel('Customers');
+        $modelActivityHistory = $controller->loadModel('ActivityHistorys');
 
         $mess= '';
 
-        $infoUser = $session->read('infoUser');
 
         // lấy data edit
         
@@ -354,11 +405,12 @@ function addCustomerHistoriesAjax($input)
             if(!empty($dataSend['id_customer']) && !empty($dataSend['time_now']) && !empty($dataSend['note_now']) && !empty($dataSend['action_now']) && !empty($dataSend['status'])){
                 $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $dataSend['id_customer']])->first();
                 // tạo dữ liệu save
-                if(!empty($checkCustomer) && $checkCustomer->id_parent == $infoUser->id){
+                if(!empty($checkCustomer) && $checkCustomer->id_parent == $user->id){
                     $data->id_customer = (int) $dataSend['id_customer'];
                     $data->note_now = $dataSend['note_now'];
                     $data->action_now = $dataSend['action_now'];
-                    $data->id_staff_now = $infoUser->id;
+                    $data->id_staff_now = $user->id;
+                    $data->id_staff = $user->id_staff;
                     $data->status = $dataSend['status'];
 
                     $time_now = explode(' ', $dataSend['time_now']);
@@ -367,6 +419,19 @@ function addCustomerHistoriesAjax($input)
                     $data->time_now = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
 
                     $modelCustomerHistories->save($data);
+
+                    $history = $modelActivityHistory->newEmptyEntity();
+
+                    
+                    $history->note = $user->type_tv.' '. $user->name.' tạo mới lịch hẹn khách hàng '.$checkCustomer->full_name.' có id lịch hẹn là:'.$data->id;
+
+                    $history->type = $user->type;
+                    $history->id_staff = $user->id_staff;
+                    $history->id_member = $user->id;
+                    $history->keyword = 'CustomerHistories';
+                    $history->time = time();
+                    $history->id_key = $data->id;
+                    $modelActivityHistory->save($history);
 
                     return array('code'=> 1 , 'mess'=>'<p class="text-success">Lưu dữ liệu thành công</p>','data'=>$data,'customer'=>$checkCustomer);
                 }else{
@@ -390,13 +455,36 @@ function deleteCustomerHistoriesAgency(){
     global $metaTitleMantan;
     global $session;
     global $urlHomes;
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('deleteCustomerHistoriesAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+           if(@$_GET['status']=='Calendar'){
+                return $controller->redirect('/calendarCustomerHistoriesAgency');
+            }else{
+                return $controller->redirect('/listCustomerHistoriesAgency');
+            }
+        }
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
+        $modelActivityHistory = $controller->loadModel('ActivityHistorys');
+
         if(!empty($_GET['id'])){
-            $data = $modelCustomerHistories->find()->where(['id_staff_now'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id']])->first();
-            
-            if($data){
+            $data = $modelCustomerHistories->find()->where(['id_staff_now'=>$user->id, 'id'=>(int) $_GET['id']])->first();
+              $checkCustomer = $modelCustomers->find()->where(['id'=>(int) $data->id_customer])->first();
+            if(!empty($data) && !empty($checkCustomer)){
+                 $history = $modelActivityHistory->newEmptyEntity();
+
+                    
+                    $history->note = $user->type_tv.' '. $user->name.' tạo mới lịch hẹn khách hàng '.$checkCustomer->full_name.' có nội dung là '.@$data->note.', id lịch hẹn là:'.$data->id;
+
+                    $history->type = $user->type;
+                    $history->id_staff = $user->id_staff;
+                    $history->id_member = $user->id;
+                    $history->keyword = 'CustomerHistories';
+                    $history->time = time();
+                    $history->id_key = $data->id;
+                    $modelActivityHistory->save($history);
+
                 $modelCustomerHistories->delete($data);
             }
         }

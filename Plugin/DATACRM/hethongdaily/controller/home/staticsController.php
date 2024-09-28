@@ -109,10 +109,14 @@ function statisticAgency($input){
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin();   
+
+    if(!empty($user)){
+      if(empty($user->grant_permission)){
+        return $controller->redirect('/statisticAgency');
+      }
         $metaTitleMantan = 'Báo cáo kinh doanh';
 
-        $infoMember = $session->read('infoUser');
 
         $modelOrders = $controller->loadModel('Orders');
         $modelBill = $controller->loadModel('Bills');
@@ -129,7 +133,7 @@ function statisticAgency($input){
 
         // đơn bán khách lẻ
         // $listOrder = $modelOrders->find()->where(['id_agency'=>$infoMember->id, 'status'=>'done', 'create_at >='=>$start_day, 'create_at <='=>$end_day])->all()->toList();
-        $listOrder = $modelBill->find()->where(['id_member_sell'=>$infoMember->id, 'type'=>1,'type_order'=> 2,'created_at >='=>$start_day, 'created_at <='=>$end_day])->all()->toList();
+        $listOrder = $modelBill->find()->where(['id_member_sell'=>$user->id, 'type'=>1,'type_order'=> 2,'created_at >='=>$start_day, 'created_at <='=>$end_day])->all()->toList();
 
 
         $staticOrder = array();
@@ -146,7 +150,7 @@ function statisticAgency($input){
         // đơn bán đại lý
         // $listOrderMemberSell = $modelOrderMembers->find()->where(['id_member_sell'=>$infoMember->id, 'status'=>'done', 'create_at >='=>$start_day, 'create_at <='=>$end_day])->all()->toList();
 
-        $listOrderMemberSell = $modelBill->find()->where(['id_member_sell'=>$infoMember->id, 'type'=>1,'type_order'=> 1,'created_at >='=>$start_day, 'created_at <='=>$end_day])->all()->toList();
+        $listOrderMemberSell = $modelBill->find()->where(['id_member_sell'=>$user->id, 'type'=>1,'type_order'=> 1,'created_at >='=>$start_day, 'created_at <='=>$end_day])->all()->toList();
 
         $staticOrderMemberSell = array();
         if(!empty($listOrderMemberSell)){
@@ -159,7 +163,7 @@ function statisticAgency($input){
         }
 
         // đơn nhập hệ thống
-        $listOrderMemberBuy = $modelOrderMembers->find()->where(['id_member_buy'=>$infoMember->id, 'status'=>'done', 'create_at >='=>$start_day, 'create_at <='=>$end_day])->all()->toList();
+        $listOrderMemberBuy = $modelOrderMembers->find()->where(['id_member_buy'=>$user->id, 'status'=>'done', 'create_at >='=>$start_day, 'create_at <='=>$end_day])->all()->toList();
 
         $staticOrderMemberBuy = array();
         if(!empty($listOrderMemberBuy)){
@@ -185,7 +189,7 @@ function statisticAgency($input){
                 
         $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
 
-        $listCustomer = $modelCustomers->find()->join($join)->select($select)->where(['Customers.created_at >='=>$start_day, 'Customers.created_at <='=>$end_day, 'CategoryConnects.id_category'=>$infoMember->id, 'CategoryConnects.keyword'=>'member_customers'])->all()->toList();
+        $listCustomer = $modelCustomers->find()->join($join)->select($select)->where(['Customers.created_at >='=>$start_day, 'Customers.created_at <='=>$end_day, 'CategoryConnects.id_category'=>$user->id, 'CategoryConnects.keyword'=>'member_customers'])->all()->toList();
 
         $staticCustomer = array();
         if(!empty($listCustomer)){
@@ -201,7 +205,7 @@ function statisticAgency($input){
         $endOfDay = strtotime("tomorrow 00:00:00") - 1;
                     
 
-        $conditions = array('id_agency'=>$infoMember->id,  'create_at >='=>$startOfDay,'create_at <='=>$endOfDay);
+        $conditions = array('id_agency'=>$user->id,  'create_at >='=>$startOfDay,'create_at <='=>$endOfDay);
         $order = array('id'=>'desc');
         // lấy danh sách đơn hàng khách hàng trong ngày hôn nay
         $listDataOrder = $modelOrders->find()->where($conditions)->order($order)->all()->toList();
@@ -218,10 +222,12 @@ function statisticAgency($input){
                             if(!empty($value->id_unit)){
                                 $unit = $modelUnitConversion->find()->where(['id'=>$value->id_unit ])->first();
                                 if(!empty($unit)){
-                                    $detail_order->unit = $unit->unit;
+                                    $detail_order[$k]->unit = $unit->unit;
                                 }
                             }else{
-                                $detail_order->unit = $product->unit;
+                                if(!empty($product->unit)){
+                                    $detail_order[$k]->unit = @$product->unit;
+                                }   
                             }
                         }
                     }
@@ -238,7 +244,7 @@ function statisticAgency($input){
         $totalDataOrder = count($listDataOrder);
 
         // lấy danh sách đơn hang của đại lý 
-        $conditions = array('id_member_sell'=>$infoMember->id,  'create_at >='=>$startOfDay,'create_at <='=>$endOfDay);
+        $conditions = array('id_member_sell'=>$user->id,  'create_at >='=>$startOfDay,'create_at <='=>$endOfDay);
         $order = array('id'=>'desc');
         $listDataOrderMembers = $modelOrderMembers->find()->where($conditions)->order($order)->all()->toList();
         if(!empty($listDataOrderMembers)){
@@ -273,7 +279,7 @@ function statisticAgency($input){
 
         $totalDataOrderMembers = count($listDataOrderMembers);
 
-        $conditions = array('id_parent'=>$infoMember->id, 'created_at >='=>$startOfDay,'created_at <='=>$endOfDay);
+        $conditions = array('id_parent'=>$user->id, 'created_at >='=>$startOfDay,'created_at <='=>$endOfDay);
                   
         $order = array('id'=>'desc');
 
@@ -282,6 +288,7 @@ function statisticAgency($input){
         $totalDataCustomer = count($listDataCustomer);
         
         setVariable('today', $today);
+        setVariable('user', $user);
         setVariable('staticOrder', $staticOrder);
         setVariable('staticOrderMemberSell', $staticOrderMemberSell);
         setVariable('staticOrderMemberBuy', $staticOrderMemberBuy);

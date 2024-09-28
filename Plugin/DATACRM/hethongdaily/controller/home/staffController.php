@@ -221,7 +221,18 @@ function addStaff($input)
                     $data->tiktok = $dataSend['tiktok'];
                     $data->youtube = $dataSend['youtube'];
                     $data->facebook = $dataSend['facebook'];
-                    $data->id_group = $dataSend['id_group'];
+                    $data->id_group = (int) $dataSend['id_group'];
+
+                    if(!empty($dataSend['check_list_permission'])){
+                        $data->permission = json_encode(@$dataSend['check_list_permission']);
+                    }else{
+                        if(!empty($data->id_group)){ 
+                            $data->permission = $modelGroupStaff->find()->where(['id'=>$data->id_group])->first()->permission;
+                        }else{
+                             $data->permission = json_encode(array());
+                        }
+                    }
+                    
 
                     if(!empty($dataSend['birthday'])){
                         $birthday = explode('/', $dataSend['birthday']);

@@ -92,6 +92,7 @@ function listTransactionApi($input)
                 if ($page < 1) $page = 1;
                 if (!empty($dataSend['id']) && is_numeric($dataSend['id'])) {
                     $conditions['id'] = $dataSend['id'];
+
                 }
 
                 if (!empty($dataSend['title'])) {
@@ -103,6 +104,12 @@ function listTransactionApi($input)
                
                 
                 $listData = $modelTransactions->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();        
+
+                if(!empty($listData)){
+                    foreach($listData as $key => $item){
+                        $listData[$key]->email = $user->email;
+                    }
+                }
                
                 $totalData = count($modelTransactions->find()->where($conditions)->all()->toList());
                     

@@ -8,14 +8,19 @@ function requestProductAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('requestProductAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
+        
         $metaTitleMantan = 'Danh sách yêu cầu nhập hàng';
 
         $modelProducts = $controller->loadModel('Products');
         $modelOrderMembers = $controller->loadModel('OrderMembers');
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
 
-        $conditions = array('id_member_buy'=>$session->read('infoUser')->id);
+        $conditions = array('id_member_buy'=>$user->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -119,7 +124,11 @@ function addRequestProductAgency($input)
     global $session;
     global $isRequestPost;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addRequestProductAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/requestProductAgency');
+        }
         $metaTitleMantan = 'Tạo yêu cầu nhập hàng';
 
         $modelProducts = $controller->loadModel('Products');

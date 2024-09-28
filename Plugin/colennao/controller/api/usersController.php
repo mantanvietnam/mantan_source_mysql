@@ -81,7 +81,7 @@ function registerUserApi($input): array
 
                 // sendEmailnewUserRegistration($user->name, $user->id);
                 if($loginUser->email){
-                    sendEmailCodeForgotPassword($loginUser->email, $loginUser->name, $loginUser->code);
+                    sendEmailCodeForgotPassword($loginUser->email, $loginUser->full_name, $code);
                 }
                 
 
@@ -283,7 +283,7 @@ function forgotPasswordApi($input): array
             $code = rand(100000, 999999);
             $user->reset_password_code = $code;
             $modelUser->save($user);
-            sendEmailCodeForgotPassword($user->email, $user->name, $code);
+            sendEmailCodeForgotPassword($user->email, $user->full_name, $code);
 
             return apiResponse(0, 'Tạo mã cấp lại mật khẩu thành công');
         }
@@ -828,5 +828,40 @@ function checkVersionApp($input){
 function listUnitApi(){
     global $listUnit; 
     return apiResponse(1, 'Lấy dữ liệu thành công', $listUnit);
+}
+
+function listUserGetAffsource($input){
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+    $modelMember = $controller->loadModel('Members');
+
+    $return = array('code'=>0);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $checkUser = getMemberByToken($dataSend['token']);
+        if(!empty($checkUser)){
+            $data = $modelMember->find()->where(array('id_affsource'=>$checkUser->id))->all()->toList();
+            if(!empty($data)){
+                $return = array('code'=>1,
+                                'data'=>$data,
+                                'messages'=>'lấy data thành công'
+                                );
+            }else{
+                $return = array('code'=>2,
+                                    'messages'=>'không có data'
+                                );
+            }
+        }else{
+                $return = array('code'=>3,
+                                    'messages'=>'Tài khoản không tồn tại hoặc sai token'
+                                );
+            }
+
+    }
+    return $return;
 }
 ?>

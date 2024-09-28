@@ -56,7 +56,7 @@ function login($input)
             							sendDataConnectMantan('https://icham.vn/apis/updateLastLoginBossAPI', $dataPost);
 			    				}
 								
-								return $controller->redirect('/listCustomerAgency/?statusLogin=loginAccount');
+								return $controller->redirect('/statisticAgency/?statusLogin=loginAccount');
 							}else{
 								return $controller->redirect('/verify');
 							}
@@ -90,7 +90,7 @@ function login($input)
             							sendDataConnectMantan('https://icham.vn/apis/updateLastLoginBossAPI', $dataPost);
 			    				}
 								
-								return $controller->redirect('/listCustomerAgency/?statusLogin=loginAccount');
+								return $controller->redirect('/statisticAgency/?statusLogin=loginAccount');
 							
 						}else{
 							$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ</p>';
@@ -128,7 +128,7 @@ function login($input)
 			    		}
 		    			
 		    			if($info_customer->verify == 'active'){
-							return $controller->redirect('/listCustomerAgency/?statusLogin=loginCookie');
+							return $controller->redirect('/statisticAgency/?statusLogin=loginCookie');
 						}else{
 							return $controller->redirect('/verify');
 						}
@@ -162,7 +162,7 @@ function login($input)
             					sendDataConnectMantan('https://icham.vn/apis/updateLastLoginBossAPI', $dataPost);
 			    		}
 		    			
-						return $controller->redirect('/listCustomerAgency/?statusLogin=loginCookie');
+						return $controller->redirect('/statisticAgency/?statusLogin=loginCookie');
 					
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ</p>';
@@ -176,7 +176,7 @@ function login($input)
 
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/listCustomerAgency/?statusLogin=loginDone');
+		return $controller->redirect('/statisticAgency/?statusLogin=loginDone');
 	}
 }
 

@@ -7,9 +7,12 @@ function listCustomerAgency($input)
     global $metaTitleMantan;
     global $session;
     global $modelCategoryConnects;
+    $user = checklogin('listCustomerAgency');   
 
-    if(!empty(checklogin())){
-        $user = checklogin();
+    if(!empty($user)){
+      if(empty($user->grant_permission)){
+        return $controller->redirect('/statisticAgency');
+      }
 
 
         $metaTitleMantan = 'Danh sách khách hàng';
@@ -19,7 +22,7 @@ function listCustomerAgency($input)
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
         // danh sách nhóm khách hàng
-        $conditions = array('type' => 'group_customer', 'parent'=>$user->id_member);
+        $conditions = array('type' => 'group_customer', 'parent'=>$user->id);
         $listGroup = $modelCategories->find()->where($conditions)->all()->toList();
         $listNameGroup = [];
         if(!empty($listGroup)){
@@ -28,7 +31,7 @@ function listCustomerAgency($input)
             }
         }
 
-        $conditions = array('CategoryConnects.id_category'=>$user->id_member, 'CategoryConnects.keyword'=>'member_customers');
+        $conditions = array('CategoryConnects.id_category'=>$user->id, 'CategoryConnects.keyword'=>'member_customers');
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -132,11 +135,11 @@ function listCustomerAgency($input)
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
                     // thống kê đơn hàng
-                    $order = $modelOrders->find()->where(['id_user'=>$value->id, 'id_agency'=>$user->id_member])->all()->toList();
+                    $order = $modelOrders->find()->where(['id_user'=>$value->id, 'id_agency'=>$user->id])->all()->toList();
                     $listData[$key]->number_order = count($order);
 
                     // lịch sử chăm sóc
-                    $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id, 'id_staff_now'=>$user->id_member])->order(['id'=>'desc'])->first();
+                    $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id, 'id_staff_now'=>$user->id])->order(['id'=>'desc'])->first();
 
                     // nhóm khách hàng
                     $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $value->id])->all()->toList();
@@ -217,10 +220,16 @@ function editCustomerAgency($input)
     global $urlHomes;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('editCustomerAgency');   
+
+    if(!empty($user)){
+      if(empty($user->grant_permission)){
+        return $controller->redirect('/listCustomerAgency');
+      }
         $metaTitleMantan = 'Thông tin khách hàng';
 
         $modelCustomers = $controller->loadModel('Customers');
+        $modelActivityHistory = $controller->loadModel('ActivityHistorys');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
         $modelTokenDevices = $controller->loadModel('TokenDevices');
 
@@ -238,14 +247,15 @@ function editCustomerAgency($input)
 
             $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
 
-            $data = $modelCustomers->find()->join($join)->select($select)->where(['Customers.id'=>(int) $_GET['id'], 'CategoryConnects.id_category'=>$session->read('infoUser')->id, 'CategoryConnects.keyword'=>'member_customers'])->first();
+            $data = $modelCustomers->find()->join($join)->select($select)->where(['Customers.id'=>(int) $_GET['id'], 'CategoryConnects.id_category'=>$user->id, 'CategoryConnects.keyword'=>'member_customers'])->first();
 
             if(empty($data)){
                 return $controller->redirect('/listCustomerAgency');
             }
-
-            $note_now = 'Đại lý '.$session->read('infoUser')->name.' sửa thông tin khách hàng';
+            $note_now = $user->type_tv.' '. $user->name.'('.$user->phone.') sửa thông tin khách hàng';
+            
             $action_now = 'edit';
+            
 
             
             $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $data->id])->all()->toList();
@@ -258,8 +268,9 @@ function editCustomerAgency($input)
             }
         }else{
             $data = $modelCustomers->newEmptyEntity();
+                $note_now = $user->type_tv.' '. $user->name.'('.$user->phone.') tạo mới thông tin khách hàng';
+           
 
-            $note_now = 'Đại lý '.$session->read('infoUser')->name.' tạo mới thông tin khách hàng';
             $action_now = 'create';
         }
 
@@ -289,7 +300,7 @@ function editCustomerAgency($input)
                             $data->id_messenger = '';
                             $data->id_zalo = '';
                             $data->pass = md5($data->phone);
-                            $data->id_parent = $session->read('infoUser')->id;
+                            $data->id_parent = $user->id;
                             $data->created_at = time();
                         }
                     }else{
@@ -331,7 +342,7 @@ function editCustomerAgency($input)
                             $fileName = 'avatar_'.time().rand(0,1000000);
                         }
 
-                        $avatar = uploadImage($session->read('infoUser')->id, 'avatar', $fileName);
+                        $avatar = uploadImage($user->id, 'avatar', $fileName);
                     }
 
                     if(!empty($avatar['linkOnline'])){
@@ -376,11 +387,11 @@ function editCustomerAgency($input)
 
                     // bắn thông báo có dữ liệu khách hàng mới
                     if(empty($_GET['id'])){
-                        if(!empty($session->read('infoUser')->noti_new_customer)){
+                        if(!empty($user->noti_new_customer)){
                             $dataSendNotification= array('title'=>'Khách hàng mới','time'=>date('H:i d/m/Y'),'content'=>$data->full_name.' đã trở thành khách hàng mới của bạn','action'=>'addCustomer');
                             $token_device = [];
 
-                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$session->read('infoUser')->id])->all()->toList();
+                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$user->id])->all()->toList();
 
                             if(!empty($listTokenDevice)){
                                 foreach ($listTokenDevice as $tokenDevice) {
@@ -397,7 +408,7 @@ function editCustomerAgency($input)
                     }
 
                     // lưu bảng đại lý
-                    saveCustomerMember($data->id, $session->read('infoUser')->id);
+                    saveCustomerMember($data->id, $user->id);
 
                     // tạo dữ liệu bảng chuyên mục
                     $modelCategoryConnects->deleteAll(['id_parent'=>$data->id, 'keyword'=>'group_customers']);
@@ -424,19 +435,40 @@ function editCustomerAgency($input)
                     $customer_histories->time_now = time();
                     $customer_histories->note_now = $note_now;
                     $customer_histories->action_now = $action_now;
-                    $customer_histories->id_staff_now = $session->read('infoUser')->id;
+                    $customer_histories->id_staff_now = $user->id;
+                    $customer_histories->id_staff = $user->id_staff;
                     $customer_histories->status = 'done';
 
                     $modelCustomerHistories->save($customer_histories);
 
-                    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                   
                 }
+
+
+                $history = $modelActivityHistory->newEmptyEntity();
+
+                if(!empty($_GET['id'])){
+                    $history->note = $user->type_tv.' '. $user->name.' sửa thông tin khách hàng '.$data->full_name.' có id là:'.$data->id;
+                }else{
+                    $history->note = $user->type_tv.' '. $user->name.' tạo mới thông tin khách hàng '.$data->full_name.' có id là:'.$data->id;
+                }
+
+                $history->type = $user->type;
+                $history->id_staff = $user->id_staff;
+                $history->id_member = $user->id;
+                $history->keyword = 'customers';
+                $history->time = time();
+                $history->id_key = $data->id;
+                $modelActivityHistory->save($history);
+
+
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
             }else{
                 $mess= '<p class="text-danger">Bạn không được để trống các trường bắt buộc</p>';
             }
         }
 
-        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $conditions = array('type' => 'group_customer', 'parent'=>$user->id);
         $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('data', $data);
@@ -459,43 +491,75 @@ function groupCustomerAgency($input)
     global $modelCategoryConnects;
 
     $modelCustomers = $controller->loadModel('Customers');
+    $modelActivityHistory = $controller->loadModel('ActivityHistorys');
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('groupCustomerAgency');   
+    $mess = '';
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerAgency');
+        }
         $metaTitleMantan = 'Nhóm khách hàng';
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
-            
-            // tính ID category
-            if(!empty($dataSend['idCategoryEdit'])){
-                $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+            $_GET['mess'] = '';
+            $edit = checklogin('editGroupCustomerAgency');
+            if(!empty($edit->grant_permission)){
+                // tính ID category
+                if(!empty($dataSend['idCategoryEdit'])){
+                    $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+                }else{
+                    $infoCategory = $modelCategories->newEmptyEntity();
+                }
+
+                // tạo dữ liệu save
+                $ezpics_config = [];
+                $ezpics_config['id_ezpics'] = $dataSend['id_ezpics'];
+                $ezpics_config['ezpics_full_name'] = $dataSend['ezpics_full_name'];
+                $ezpics_config['ezpics_phone'] = $dataSend['ezpics_phone'];
+                $ezpics_config['ezpics_code'] = $dataSend['ezpics_code'];
+                $ezpics_config['ezpics_avatar'] = $dataSend['ezpics_avatar'];
+                $ezpics_config['ezpics_name_member'] = $dataSend['ezpics_name_member'];
+
+
+                $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+                $infoCategory->parent = $user->id;
+                $infoCategory->image = '';
+                $infoCategory->keyword = '';
+                $infoCategory->description = json_encode($ezpics_config);
+                $infoCategory->type = 'group_customer';
+                $infoCategory->slug = createSlugMantan($infoCategory->name);
+
+                $modelCategories->save($infoCategory);
+
+                $history = $modelActivityHistory->newEmptyEntity();
+
+                if(!empty($_GET['id'])){
+                        $history->note = $user->type_tv.' '. $user->name.' sửa thông tin nhóm khách hàng '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                    
+                }else{
+                    $history->note = $user->type_tv.' '. $user->name.' tạo mới thông tin nhóm khách hàng '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                }
+
+                $history->type = $user->type;
+                $history->time = time();
+                $history->id_staff = $user->id_staff;
+                $history->id_member = $user->id;
+                $history->keyword = 'group_customer';
+                $history->id_key = $infoCategory->id;
+                $modelActivityHistory->save($history);
+
+
+                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
             }else{
-                $infoCategory = $modelCategories->newEmptyEntity();
+               $mess= '<p class="text-danger">Bạn không có quyền thêm sửa </p>'; 
+
             }
-
-            // tạo dữ liệu save
-            $ezpics_config = [];
-            $ezpics_config['id_ezpics'] = $dataSend['id_ezpics'];
-            $ezpics_config['ezpics_full_name'] = $dataSend['ezpics_full_name'];
-            $ezpics_config['ezpics_phone'] = $dataSend['ezpics_phone'];
-            $ezpics_config['ezpics_code'] = $dataSend['ezpics_code'];
-            $ezpics_config['ezpics_avatar'] = $dataSend['ezpics_avatar'];
-            $ezpics_config['ezpics_name_member'] = $dataSend['ezpics_name_member'];
-
-
-            $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-            $infoCategory->parent = $session->read('infoUser')->id;
-            $infoCategory->image = '';
-            $infoCategory->keyword = '';
-            $infoCategory->description = json_encode($ezpics_config);
-            $infoCategory->type = 'group_customer';
-            $infoCategory->slug = createSlugMantan($infoCategory->name);
-
-            $modelCategories->save($infoCategory);
 
         }
 
-        $conditions = array('type' => 'group_customer', 'parent'=>$session->read('infoUser')->id);
+        $conditions = array('type' => 'group_customer', 'parent'=>$user->id);
         $listData = $modelCategories->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
 
         if(!empty($listData)){
@@ -505,8 +569,13 @@ function groupCustomerAgency($input)
                 $listData[$key]->number_customer = count($customers);
             }
         }
+
+        if(!empty($_GET['mess']) && $_GET['mess']=='noPermissiondelete'){
+             $mess= '<p class="text-danger">Bạn không có quyền xóa</p>'; 
+        }
         
         setVariable('listData', $listData);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }
@@ -522,17 +591,39 @@ function deleteGroupCustomerAgency($input)
     global $isRequestPost;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('deleteGroupCustomerAgency'); 
+
+    $modelActivityHistory = $controller->loadModel('ActivityHistorys');  
+    $mess = '';
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/groupCustomerAgency?mess=noPermissiondelete');
+        }
         $metaTitleMantan = 'Nhóm khách hàng';
 
         if ($_GET['id']) {
             $infoCategory = $modelCategories->find()->where(['id'=>(int) $_GET['id'], 'parent'=>$session->read('infoUser')->id])->first();
 
             if(!empty($infoCategory)){
+                $history = $modelActivityHistory->newEmptyEntity();
+                $history->note = $user->type_tv.' '. $user->name.' xóa thông tin nhóm khách hàng '.$infoCategory->name.' có id là:'.$infoCategory->id;
+               
+                $history->type = $user->type;
+                $history->time = time();
+                $history->id_staff = $user->id_staff;
+                $history->id_member = $user->id;
+                $history->keyword = 'deletegroupcustomer';
+                $history->id_key = $infoCategory->id;
+
+                $modelActivityHistory->save($history);
+
+
                 $modelCategories->delete($infoCategory);
                 $modelCategoryConnects->deleteAll(['keyword'=>'group_customers', 'id_category'=>(int)$_GET['id']]);
             }
         }
+        
+
 
         return $controller->redirect('/groupCustomerAgency');
     }else{
@@ -551,9 +642,13 @@ function downloadMMTC($input)
     global $urlHomes;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('downloadMMTC');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerAgency');
+        }
         $metaTitleMantan = 'Tải thần số học khách hàng';
-
+        $modelActivityHistory = $controller->loadModel('ActivityHistorys'); 
         $modelCustomers = $controller->loadModel('Customers');
 
         if(!empty($_GET['id_customer'])){
@@ -584,6 +679,16 @@ function downloadMMTC($input)
 
                     $modelCustomers->save($infoCustomer);
 
+                    $history = $modelActivityHistory->newEmptyEntity();
+                    $history->note = $user->type_tv.' '. $user->name.' tải file thần số học của khách hàng '.$infoCustomer->full_name.' có id là:'.$infoCustomer->id;
+                    $history->type = $user->type;
+                    $history->time = time();
+                    $history->id_staff = $user->id_staff;
+                    $history->id_member = $user->id;
+                    $history->keyword = 'downloadMMTC';
+                    $history->id_key = $infoCustomer->id;
+                    $modelActivityHistory->save($history);
+
                     return $controller->redirect($linkFull);
                 }else{
                     return $controller->redirect('/listCustomerAgency/?error=emptyLinkDownload');        
@@ -608,12 +713,17 @@ function addDataCustomerAgency($input)
     global $urlHomes;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addDataCustomerAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerAgency');
+        }
         $metaTitleMantan = 'Thông tin khách hàng';
 
         $modelCustomer = $controller->loadModel('Customers');
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
         $modelTokenDevices = $controller->loadModel('TokenDevices');
+        $modelActivityHistory = $controller->loadModel('ActivityHistorys');
 
         
 
@@ -649,7 +759,7 @@ function addDataCustomerAgency($input)
                             $data->id_messenger = '';
                             $data->id_zalo = '';
                             $data->pass = md5($data->phone);
-                            $data->id_parent = $session->read('infoUser')->id;
+                            $data->id_parent = $user->id;
                             $data->created_at = time();
 
                             if(!empty($value[2])){
@@ -729,7 +839,7 @@ function addDataCustomerAgency($input)
                     $dataSendNotification= array('title'=>'Khách hàng mới','time'=>date('H:i d/m/Y'),'content'=>'Đã nhập file excel dữ liệu khách hàng mới thành công','action'=>'addCustomer');
                     $token_device = [];
 
-                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$session->read('infoUser')->id])->all()->toList();
+                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$user->id])->all()->toList();
 
                     if(!empty($listTokenDevice)){
                         foreach ($listTokenDevice as $tokenDevice) {
@@ -743,6 +853,21 @@ function addDataCustomerAgency($input)
                         }
                     }
                 }
+
+
+                $history = $modelActivityHistory->newEmptyEntity();
+           
+                $history->note = $user->type_tv.' '. $user->name.' thêm thông tin khách băng Excel số lượng khách hàng Lưu là: '.$number.' khách hàng';
+                
+
+                $history->type = $user->type;
+                $history->time = time();
+                $history->id_staff = $user->id_staff;
+                $history->id_member = $user->id;
+                $history->keyword = 'deletegroupcustomer';
+                $history->id_key = $infoCategory->id;
+
+                $modelActivityHistory->save($history);
 
                 $mess .= '<p class="text-success">Lưu dữ liệu thành công</p>';
             }
@@ -761,12 +886,27 @@ function lockCustomerAgency($input)
     global $session;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('lockCustomerAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerAgency');
+        }
+        $modelCustomers = $controller->loadModel('Customers');
+        $modelActivityHistory = $controller->loadModel('ActivityHistorys'); 
         if(!empty($_GET['id'])){
             // id_parent: id khách hàng, id_category: id đại lý
-            $data = $modelCategoryConnects->find()->where(['keyword'=>'member_customers', 'id_parent'=>(int) $_GET['id'], 'id_category'=>(int) $session->read('infoUser')->id])->first();
-
+            $data = $modelCategoryConnects->find()->where(['keyword'=>'member_customers', 'id_parent'=>(int) $_GET['id'], 'id_category'=>(int) $user->id])->first();
+            $infoCustomer = $modelCustomers->find()->where(['id'=>(int)$_GET['id']])->first();
             if($data){
+                 $history = $modelActivityHistory->newEmptyEntity();
+                    $history->note = $user->type_tv.' '. $user->name.' Xóa tài khoản khách hàng '.$infoCustomer->full_name.' có id là:'.$infoCustomer->id;
+                    $history->type = $user->type;
+                    $history->time = time();
+                    $history->id_staff = $user->id_staff;
+                    $history->id_member = $user->id;
+                    $history->keyword = 'lockCustomerAgency';
+                    $history->id_key = $infoCustomer->id;
+                    $modelActivityHistory->save($history);
                 $modelCategoryConnects->delete($data);
             }
         }
@@ -785,8 +925,11 @@ function resultMMTC($input)
 
     $dataSend = $_GET;
 
-    
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('resultMMTC');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerAgency');
+        }
         $metaTitleMantan = 'Tải thần số học khách hàng';
 
         $modelCustomers = $controller->loadModel('Customers');

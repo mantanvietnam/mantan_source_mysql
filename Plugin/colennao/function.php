@@ -204,6 +204,8 @@ function getUserByToken($accessToken, $checkActive = true)
     }
 
     $user = $modelUser->find()->where($conditions)->first();
+
+    $user->link_affiliate = '/affiliater?affsource='.$user->phone;
     return $user;
 }
 
