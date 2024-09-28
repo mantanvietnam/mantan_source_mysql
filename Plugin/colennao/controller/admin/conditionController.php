@@ -10,26 +10,6 @@ function listcondition($input){
     $modeltbcondition = $controller->loadModel('tbcondition');
     $modelQuestions = $controller->loadModel('Questions');
     $modelWorkout = $controller->loadModel('Workouts');
-    // $groupconditiondata = [];
-    // foreach ($datacondition as $conditiondata) {
-    //     $groupconditiondata[$conditiondata->id_groupfile]['questions'][] = [
-    //         'id_question' => $conditiondata->id_question,
-    //         'answer' => $conditiondata->answer,
-    //     ];
-    
-    //     if (!isset($groupconditiondata[$conditiondata->id_groupfile]['title'])) {
-    //         $workout = $modelWorkout->find()
-    //             ->select(['title']) 
-    //             ->where(['id' => $conditiondata->id_groupfile]) 
-    //             ->first();
-    
-    //         if ($workout) {
-    //             $groupconditiondata[$conditiondata->id_groupfile]['title'] = $workout->name;
-    //         } else {
-    //             $groupconditiondata[$conditiondata->id_groupfile]['title'] = 'Chưa có tên bài tập';
-    //         }
-    //     }
-    // }
     $conditions = array();
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -42,14 +22,51 @@ function listcondition($input){
     if(!empty($_GET['name'])){
         $conditions['name LIKE'] = '%'.$_GET['name'].'%';
     }
-    $datacondition = $modeltbcondition->find()->all();
+    $datacondition = $modeltbcondition->find()->order(['id' => 'ASC'])->all();
+
+ 
+    $idGroupFileList = [];
+    $idQuestionList = [];
+
+    foreach ($datacondition as $conditiondata) {
+        $idGroupFileList[] = $conditiondata->id_groupfile;
+        $idQuestionList[] = $conditiondata->id_question;
+    }
+
+    $idGroupFileList = array_unique($idGroupFileList);
+    $idQuestionList = array_unique($idQuestionList);
+
+
+    $workoutData = $modelWorkout->find()
+        ->where(['id IN' => $idGroupFileList])
+        ->order(['id' => 'asc'])
+        ->all()
+        ->combine('id', 'title') 
+        ->toArray();
+
+
+    $questionsData = $modelQuestions->find()
+        ->where(['id IN' => $idQuestionList])
+        ->order(['id' => 'asc'])
+        ->all()
+        ->combine('id', 'name') 
+        ->toArray();
+
+
     $groupconditiondata = [];
-    foreach ($datacondition as $conditiondata){
-        $groupconditiondata[$conditiondata->id_groupfile][] = [
-            'id_question' =>$conditiondata->id_question,
-            'answer'=>$conditiondata->answer,
+    foreach ($datacondition as $conditiondata) {
+        $groupconditiondata[$conditiondata->id_groupfile]['title'] = $workoutData[$conditiondata->id_groupfile] ?? 'Unknown';
+        
+
+        $questionText = $questionsData[$conditiondata->id_question] ?? 'Câu hỏi không tìm thấy';
+
+        $groupconditiondata[$conditiondata->id_groupfile]['data'][] = [
+            'id_question' => $conditiondata->id_question,
+            'question' => $questionText, 
+            'answer' => $conditiondata->answer,
         ];
     }
+
     $listData = $modeltbcondition->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
  
     // phân trang
@@ -101,7 +118,7 @@ function addcondition($input){
     $modelQuestions = $controller->loadModel('Questions');
     $modeltbcondition = $controller->loadModel('tbcondition');
 	$mess= '';
-
+    $order = array('id'=>'asc');
     if (!empty($_GET['id'])) {
         $data = $modeltbcondition->get((int) $_GET['id']);
     } else {
@@ -139,8 +156,8 @@ function addcondition($input){
     
     
     
-    $dataWorkout = $modelWorkout->find()->where(array())->order(['id' => 'desc'])->all()->toList();
-    $dataquestion = $modelQuestions->find()->where(array())->order(['id' => 'desc'])->all()->toList();
+    $dataWorkout = $modelWorkout->find()->where(array())->order(['id' => 'asc'])->all()->toList();
+    $dataquestion = $modelQuestions->find()->where(array())->order(['id' => 'asc'])->all()->toList();
     setVariable('dataWorkout', $dataWorkout);
     setVariable('dataquestion', $dataquestion);
     setVariable('data', $data);

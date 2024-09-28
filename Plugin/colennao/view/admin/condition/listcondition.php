@@ -3,28 +3,28 @@
   <p><a href="/plugins/admin/colennao-view-admin-condition-addcondition" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
-  <form method="get" action="">
-    <div class="card mb-4">
-      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
-      <div class="card-body">
-        <div class="row gx-3 gy-2 align-items-center">
-          <div class="col-md-1">
+  <!-- <form method="get" action="">
+    <div class="card mb-4"> -->
+      <!-- <h5 class="card-header">Tìm kiếm dữ liệu</h5> -->
+      <!-- <div class="card-body">
+        <div class="row gx-3 gy-2 align-items-center"> -->
+          <!-- <div class="col-md-1">
             <label class="form-label">ID</label>
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
-          </div>
+          </div> -->
 
           <!-- <div class="col-md-3">
             <label class="form-label">Tên condition</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>           -->
-          <div class="col-md-2">
+          <!-- <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
-          </div>
-        </div>
+          </div> -->
+        <!-- </div>
       </div>
     </div>
-  </form>
+  </form> -->
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
@@ -44,24 +44,27 @@
         </thead>
         <tbody>
           <?php foreach ($groupconditiondata as $item => $question): ?>
+             
               <tr>
-                  <td align="center"><?php echo $item; ?></td>
+                  <td align="center"><?php echo $question['title']; ?></td>
                   <?php 
-                      $idQuestions = [];
+                      $questions = [];
                       $answers = [];
-
-                      foreach ($question as $detailquestion) {
-                          $idQuestions[] = $detailquestion['id_question'];
-                          $answers[] = $detailquestion['answer'];
+                      
+                      foreach ($question['data'] as $detail) {
+                          $questions[] = $detail['question']; 
+                          $answers[] = $detail['answer'];     
                       }
-                      $idQuestionsString = implode(',', $idQuestions);
-                      $answersString = implode(',', $answers);
+
+                      // Gộp các câu hỏi và câu trả lời lại
+                      $questionsString = implode('<br>', $questions);
+                      $answersString = implode(';', $answers);
                   ?>
                   <td>
-                      <p target="_blank" href=""><?php echo $idQuestionsString; ?></p>
+                    <p><?php echo $questionsString; ?></p>
                   </td>
                   <td>
-                      <p target="_blank" href=""><?php echo $answersString; ?></p>
+                  <p><?php echo $answersString; ?></p>
                   </td>
                   <td align="center">
                       <a class="dropdown-item" href="">

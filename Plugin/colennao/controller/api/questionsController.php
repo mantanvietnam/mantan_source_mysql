@@ -30,5 +30,67 @@ function listquestionAPI($input)
 
     return $return;
 }
+function groupingexercisesuserAPI($input) {
+    global $controller;
+    global $isRequestPost;
+    
+    $modelTbcondition = $controller->loadModel('tbcondition');
+    $modelWorkout = $controller->loadModel('workouts');
+    
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        $answers = $dataSend['answers']; 
+        $conditions = [];
+        foreach ($answers as $id_question => $answer) {
+            $conditions[] = [
+                'id_question' => $id_question,
+                'answer' => $answer
+            ];
+        }
+        $groupFiles = [];
+        foreach ($conditions as $condition) {
+            $results = $modelTbcondition->find()
+                ->where(['id_question' => $condition['id_question'], 'answer' => $condition['answer']])
+                ->all();
+            foreach ($results as $result) {
+                $groupFiles[$result->id_groupfile] = true;
+            }
+        }
+        $validGroupFiles = [];
+        if (!empty($groupFiles)) {
+            $groupFileIds = array_keys($groupFiles);
+            $workouts = $modelWorkout->find()
+                ->where(['id IN' => $groupFileIds])
+                ->all()
+                ->combine('id', 'title')
+                ->toArray();
+            if (!empty($workouts)) {
+                $validGroupFiles = $workouts[array_rand($workouts)];
+            }
+        }
+        if (!empty($validGroupFiles)) {
+            return [
+                'code' => 1,
+                'mess' => 'Lấy dữ liệu thành công',
+                'validGroupFiles' => $validGroupFiles
+            ];
+        } else {
+            return [
+                'code' => 0,
+                'mess' => 'Không tìm thấy bài tập phù hợp'
+            ];
+        }
+    } else {
+        return [
+            'code' => 0,
+            'mess' => 'Gửi sai kiểu POST'
+        ];
+    }
+}
+
+
+
+
+
 
 ?>
