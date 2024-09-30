@@ -88,6 +88,8 @@ function addcoach($input){
             $data->description= $dataSend['description'];
             $data->avatar = $dataSend['avatar'];
             $data->ifcontact = $dataSend['ifcontact'];
+            $data->nameen = $dataSend['nameen'];
+            $data->descriptionen = $dataSend['descriptionen'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -112,7 +114,7 @@ function addcoach($input){
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin/p>';
+	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin</p>';
 	    }
     }
     setVariable('data', $data);

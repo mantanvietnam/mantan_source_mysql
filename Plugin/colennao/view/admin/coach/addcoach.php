@@ -22,7 +22,11 @@
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Thông tin liên hệ</label>
+                    <label class="form-label">Tên Huấn luyện viên tiếng anh</label>
+                    <input type="text" class="form-control phone-mask" name="nameen" id="nameen" value="<?php echo @$data->nameen;?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Số điện thoại</label>
                     <input type="text" class="form-control phone-mask" name="ifcontact" id="ifcontact" value="<?php echo @$data->ifcontact;?>" />
                   </div>
                 </div>
@@ -35,7 +39,10 @@
                     <label class="form-label">Mô tả ngắn</label>
                     <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                   </div>
-
+                  <div class="mb-3">
+                    <label class="form-label">Mô tả ngắn tiếng anh</label>
+                    <textarea maxlength="160" rows="5" class="form-control" name="descriptionen" id="descriptionen"><?php echo @$data->descriptionen;?></textarea>
+                  </div>
                 </div>
               </div>
 

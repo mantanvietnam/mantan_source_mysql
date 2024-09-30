@@ -43,6 +43,10 @@
                                 <label class="form-label">Tên food (*)</label>
                                 <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                               </div>
+                              <div class="mb-3">
+                                <label class="form-label">Tên food tiếng anh</label>
+                                <input  type="text" class="form-control phone-mask" name="nameen" id="nameen" value="<?php echo @$data->nameen;?>" />
+                              </div>
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
@@ -65,13 +69,17 @@
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">lượng thức ăn</label>
-                                <input required type="text" class="form-control phone-mask" name="eatformat" id="eatformat" value="<?php echo @$data->eatformat;?>" />
+                                <input  type="text" class="form-control phone-mask" name="eatformat" id="eatformat" value="<?php echo @$data->eatformat;?>" />
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">lượng thức ăn tiếng anh</label>
+                                <input  type="text" class="form-control phone-mask" name="eatformaten" id="eatformaten" value="<?php echo @$data->eatformaten;?>" />
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
                                   <label class="form-label">id_food</label>
-                                  <select name="id_food" id="id_food" class="form-control" required>
+                                  <select name="id_food" id="id_food" class="form-control" >
                                       <option value="">Chọn nhóm thức ăn</option>
                                       <?php if (!empty($listData)): ?>
                                           <?php foreach ($listData as $key => $value): ?>
@@ -87,20 +95,32 @@
                         </div>
                         <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">
                           <div class="row">
-                            <div class="col-md-12"> 
+                            <div class="col-md-6"> 
                               <div class="mb-3">
-                                <label class="form-label">Mô tả ngắn</label>
+                                <label class="form-label">Nội dung làm thế nào</label>
                                 <?php showEditorInput('content', 'content', @$data->content);?>
+                              </div>
+                            </div>
+                            <div class="col-md-6"> 
+                              <div class="mb-3">
+                                <label class="form-label">Nội dung làm thế nào tiếng anh</label>
+                                <?php showEditorInput('contenten', 'contenten', @$data->contenten);?>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="tab-pane fade" id="navs-top-3" role="tabpanel">
                           <div class="row">
-                            <div class="col-md-12"> 
+                            <div class="col-md-6"> 
                               <div class="mb-3">
-                                <label class="form-label">Mô tả ngắn</label>
+                                <label class="form-label">Thành phần</label>
                                 <?php showEditorInput('Ingredients', 'Ingredients', @$data->Ingredients);?>
+                              </div>
+                            </div>
+                            <div class="col-md-6"> 
+                              <div class="mb-3">
+                                <label class="form-label">Thành phần tiếng anh</label>
+                                <?php showEditorInput('ingredientsen', 'ingredientsen', @$data->ingredientsen);?>
                               </div>
                             </div>
                           </div>

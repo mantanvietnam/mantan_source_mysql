@@ -38,7 +38,6 @@
             <th>id_group</th>
             <th>id_question</th>
             <th>answer</th>
-            <th>sửa</th>
             <th>xóa</th>
           </tr>
         </thead>
@@ -65,11 +64,6 @@
                   </td>
                   <td>
                   <p><?php echo $answersString; ?></p>
-                  </td>
-                  <td align="center">
-                      <a class="dropdown-item" href="">
-                          <i class="bx bx-edit-alt me-1"></i>
-                      </a>
                   </td>
                   <td align="center">
                       <a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="">

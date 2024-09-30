@@ -22,8 +22,12 @@
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                   </div>
                   <div class="mb-3">
+                    <label class="form-label">Tên food tiếng anh</label>
+                    <input  type="text" class="form-control phone-mask" name="nameen" id="nameen" value="<?php echo @$data->nameen;?>" />
+                  </div>
+                  <div class="mb-3">
                       <label class="form-label">Số lượng ngày</label>
-                      <input required type="text" class="form-control phone-mask" name="month" id="month" value="<?php echo @$data->month;?>" />
+                      <input  type="text" class="form-control phone-mask" name="month" id="month" value="<?php echo @$data->month;?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Thời gian kết thúc</label>
@@ -47,7 +51,10 @@
                     <label class="form-label">Mô tả ngắn</label>
                     <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                   </div>
-
+                  <div class="mb-3">
+                    <label class="form-label">Mô tả ngắn tiếng anh</label>
+                    <textarea maxlength="160" rows="5" class="form-control" name="contenten" id="contenten"><?php echo @$data->contenten;?></textarea>
+                  </div>
                 </div>
               </div>
 

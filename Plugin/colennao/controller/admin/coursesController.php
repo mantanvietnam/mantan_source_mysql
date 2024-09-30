@@ -101,6 +101,17 @@ function addCourse($input)
             $data->achieved = $dataSend['achieved'];
             $data->price = $dataSend['price'];
             $data->trycourse = $dataSend['trycourse'];
+
+            $data->titleen = $dataSend['titleen'];
+            $data->descriptionen = $dataSend['descriptionen'];
+            $data->introduceen = $dataSend['introduceen'];
+            $data->achieveden = $dataSend['achieveden'];
+            $data->trycourseen = $dataSend['trycourseen'];
+            $data->textbanneren = $dataSend['textbanneren'];
+            $data->wgeten = $dataSend['wgeten'];
+            $data->questionen = $dataSend['questionen'];
+
+
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;
 

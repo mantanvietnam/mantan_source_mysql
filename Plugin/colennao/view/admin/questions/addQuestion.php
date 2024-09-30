@@ -25,8 +25,43 @@
                           </button>
                         </li>
                         <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-1" aria-controls="navs-top-2" aria-selected="false">
+                            Đáp án 1
+                          </button>
+                        </li>
+                        <li class="nav-item">
                           <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-2" aria-controls="navs-top-2" aria-selected="false">
-                            Đáp án  
+                            Đáp án 2
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-3" aria-controls="navs-top-2" aria-selected="false">
+                            Đáp án 3
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-4" aria-controls="navs-top-2" aria-selected="false">
+                            Đáp án 4
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-5" aria-controls="navs-top-2" aria-selected="false">
+                            Đáp án 5
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-6" aria-controls="navs-top-2" aria-selected="false">
+                            Đáp án 6
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-7" aria-controls="navs-top-2" aria-selected="false">
+                            Đáp án 7
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-8" aria-controls="navs-top-2" aria-selected="false">
+                            Đáp án 8
                           </button>
                         </li>
                       </ul>
@@ -52,54 +87,82 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade  show" id="navs-top-2" role="tabpanel">
+                        <div class="tab-pane fade  show" id="navs-top-1" role="tabpanel">
                           <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 1</label>
-                                <input  type="text" class="form-control phone-mask" name="answer1" id="answer1" value="<?php echo @$data->answer1;?>" />
+                                <?php showEditorInput('answer1', 'answer1', @$data->answer1);?>
                               </div>
                             </div>
-                            <div class="col-md-6">
+                          </div>
+                        </div>
+                        <div class="tab-pane fade  show" id="navs-top-2" role="tabpanel">
+                          <div class="row">
+                            <div class="col-md-12">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 2</label>
-                                <input  type="text" class="form-control phone-mask" name="answer2" id="answer2" value="<?php echo @$data->answer2;?>" />
+                                <?php showEditorInput('answer2', 'answer2', @$data->answer2);?>
                               </div>
                             </div>
-                            <div class="col-md-6">
+                          </div>
+                        </div>
+                        <div class="tab-pane fade  show" id="navs-top-3" role="tabpanel">
+                          <div class="row">
+                            <div class="col-md-12">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 3</label>
-                                <input  type="text" class="form-control phone-mask" name="answer3" id="answer3" value="<?php echo @$data->answer3;?>" />
+                                <?php showEditorInput('answer3', 'answer3', @$data->answer3);?>
                               </div>
                             </div>
-                            <div class="col-md-6">
+                          </div>
+                        </div>
+                        <div class="tab-pane fade  show" id="navs-top-4" role="tabpanel">
+                          <div class="row">
+                            <div class="col-md-12">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 4</label>
-                                <input  type="text" class="form-control phone-mask" name="answer4" id="answer4" value="<?php echo @$data->answer4;?>" />
+                                <?php showEditorInput('answer4', 'answer4', @$data->answer4);?>
                               </div>
                             </div>
-                            <div class="col-md-6">
+                          </div>
+                        </div>
+                        <div class="tab-pane fade  show" id="navs-top-5" role="tabpanel">
+                          <div class="row">
+                            <div class="col-md-12">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 5</label>
-                                <input  type="text" class="form-control phone-mask" name="answer5" id="answer5" value="<?php echo @$data->answer5;?>" />
+                                <?php showEditorInput('answer5', 'answer5', @$data->answer5);?>
                               </div>
                             </div>
-                            <div class="col-md-6">
+                          </div>
+                        </div>
+                        <div class="tab-pane fade  show" id="navs-top-6" role="tabpanel">
+                          <div class="row">
+                            <div class="col-md-12">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 6</label>
-                                <input  type="text" class="form-control phone-mask" name="answer6" id="answer6" value="<?php echo @$data->answer6;?>" />
+                                <?php showEditorInput('answer6', 'answer6', @$data->answer6);?>
                               </div>
                             </div>
-                            <div class="col-md-6">
+                          </div>
+                        </div>
+                        <div class="tab-pane fade  show" id="navs-top-7" role="tabpanel">
+                          <div class="row">
+                            <div class="col-md-12">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 7</label>
-                                <input  type="text" class="form-control phone-mask" name="answer7" id="answer7" value="<?php echo @$data->answer7;?>" />
+                                <?php showEditorInput('answer7', 'answer7', @$data->answer7);?>
                               </div>
                             </div>
-                            <div class="col-md-6">
+                          </div>
+                        </div>
+                        <div class="tab-pane fade  show" id="navs-top-8" role="tabpanel">
+                          <div class="row">
+                            <div class="col-md-12">
                               <div class="mb-3">
                                 <label class="form-label">đáp án 8</label>
-                                <input  type="text" class="form-control phone-mask" name="answer8" id="answer8" value="<?php echo @$data->answer8;?>" />
+                                <?php showEditorInput('answer8', 'answer8', @$data->answer8);?>
                               </div>
                             </div>
                           </div>

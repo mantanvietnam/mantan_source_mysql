@@ -49,30 +49,27 @@ function groupingexercisesuserAPI($input) {
         }
         $groupFiles = [];
         foreach ($conditions as $condition) {
-            $results = $modelTbcondition->find()
-                ->where(['id_question' => $condition['id_question'], 'answer' => $condition['answer']])
-                ->all();
+            $results = $modelTbcondition->find()->where(['id_question' => $condition['id_question'], 'answer' => $condition['answer']])->all();
             foreach ($results as $result) {
                 $groupFiles[$result->id_groupfile] = true;
             }
         }
         $validGroupFiles = [];
+        $selectedWorkoutId = null;
         if (!empty($groupFiles)) {
             $groupFileIds = array_keys($groupFiles);
-            $workouts = $modelWorkout->find()
-                ->where(['id IN' => $groupFileIds])
-                ->all()
-                ->combine('id', 'title')
-                ->toArray();
+            $workouts = $modelWorkout->find()->where(['id IN' => $groupFileIds])->all()->combine('id', 'title')->toArray();
             if (!empty($workouts)) {
                 $validGroupFiles = $workouts[array_rand($workouts)];
+                $selectedWorkoutId = array_search($validGroupFiles, $workouts);
             }
         }
         if (!empty($validGroupFiles)) {
             return [
                 'code' => 1,
                 'mess' => 'Lấy dữ liệu thành công',
-                'validGroupFiles' => $validGroupFiles
+                'id'=>$selectedWorkoutId,
+                'Nhóm bài tập' => $validGroupFiles
             ];
         } else {
             return [

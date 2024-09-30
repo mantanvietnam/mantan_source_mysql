@@ -87,6 +87,8 @@ function addgroupfood($input){
             $data->name = $dataSend['name'];
             $data->description= $dataSend['description'];
             $data->image = $dataSend['image'];
+            $data->nameen = $dataSend['nameen'];
+            $data->contenten = $dataSend['contenten'];
             $data->month = $dataSend['month'];
             $data->icon = $dataSend['icon'];
             $data->timestart = (new DateTime($dataSend['timestart']))->getTimestamp();
@@ -118,7 +120,7 @@ function deletefood($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/colennao-view-admin-food-listfoodadmin');
+    return $controller->redirect('/plugins/admin/colennao-view-admin-food-listgroupfood');
 }
 function listbreakfastfood($input){
     
@@ -214,6 +216,10 @@ function addbreakfastfood($input){
             $data->id_food = $dataSend['id_food'];
             $data->timeeat = $dataSend['timeeat'];
             $data->time = $dataSend['time'];
+            $data->nameen = $dataSend['nameen'];
+            $data->contenten = $dataSend['contenten'];
+            $data->ingredientsen = $dataSend['ingredientsen'];
+            $data->eatformaten = $dataSend['eatformaten'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -238,7 +244,7 @@ function addbreakfastfood($input){
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin/p>';
+	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin</p>';
 	    }
     }
     $listData =  $modelfood->find()->all()->toList();
@@ -355,9 +361,12 @@ function addlunchfood($input){
             $data->Ingredients = $dataSend['Ingredients'];
             $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
-
             $data->timeeat = $dataSend['timeeat'];
             $data->time = $dataSend['time'];
+            $data->nameen = $dataSend['nameen'];
+            $data->contenten = $dataSend['contenten'];
+            $data->ingredientsen = $dataSend['ingredientsen'];
+            $data->eatformaten = $dataSend['eatformaten'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -498,9 +507,12 @@ function adddinnerfood($input){
             $data->Ingredients = $dataSend['Ingredients'];
             $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
-
             $data->timeeat = $dataSend['timeeat'];
             $data->time = $dataSend['time'];
+            $data->nameen = $dataSend['nameen'];
+            $data->contenten = $dataSend['contenten'];
+            $data->ingredientsen = $dataSend['ingredientsen'];
+            $data->eatformaten = $dataSend['eatformaten'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -640,9 +652,12 @@ function addsnacksfood($input){
             $data->Ingredients = $dataSend['Ingredients'];
             $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
-
             $data->timeeat = $dataSend['timeeat'];
             $data->time = $dataSend['time'];
+            $data->nameen = $dataSend['nameen'];
+            $data->contenten = $dataSend['contenten'];
+            $data->ingredientsen = $dataSend['ingredientsen'];
+            $data->eatformaten = $dataSend['eatformaten'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -688,6 +703,6 @@ function deletesnacks($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/colennao-view-admin-snacksfood-listsnacksfood');
+    return $controller->redirect('/plugins/admin/colennao-view-admin-snackfood-listsnacksfood');
 }
 ?>
