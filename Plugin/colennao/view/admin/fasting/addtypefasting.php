@@ -22,6 +22,10 @@
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                   </div>
                   <div class="mb-3">
+                    <label class="form-label">Tên kế hoạch giảm cân tiếng anh</label>
+                    <input  type="text" class="form-control phone-mask" name="nameen" id="nameen" value="<?php echo @$data->nameen;?>" />
+                  </div>
+                  <div class="mb-3">
                     <label class="form-label">Thời gian kết thúc</label>
                     <input type="datetime-local" class="form-control" name="time_start" id="time_start" value="<?php echo isset($data->time_start) ? date('Y-m-d\TH:i', $data->time_start) : ''; ?>" />
                   </div>
@@ -43,7 +47,10 @@
                     <label class="form-label">Mô tả ngắn</label>
                     <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                   </div>
-
+                  <div class="mb-3">
+                    <label class="form-label">Mô tả ngắn tiếng anh</label>
+                    <textarea maxlength="160" rows="5" class="form-control" name="descriptionen" id="descriptionen"><?php echo @$data->descriptionen;?></textarea>
+                  </div>
                   <!-- <div class="mb-3">
                     <label class="form-label">phương pháp</label>
                     <input  type="text" class="form-control phone-mask" name="method" id="method" value="<?php echo @$data->method;?>" />
@@ -51,7 +58,7 @@
 
                   <div class="mb-3 form-group col-sm-6">
                     <i>Phương pháp</i>
-                    <select required name="method" id="method" class="form-control">
+                    <select name="method" id="method" class="form-control">
                         <option value="">Chọn phương pháp</option>
                         <?php if (!empty($listlosingweight)): ?>
                             <?php foreach ($listlosingweight as $key => $value): ?>
@@ -62,7 +69,19 @@
                         <?php endif; ?>
                     </select>
                   </div>
-
+                  <div class="mb-3 form-group col-sm-6">
+                    <i>Phương pháp tiếng anh</i>
+                    <select name="methoden" id="methoden" class="form-control">
+                        <option value="">Chọn phương pháp</option>
+                        <?php if (!empty($listlosingweight)): ?>
+                            <?php foreach ($listlosingweight as $key => $value): ?>
+                                <option value="<?php echo $value->id; ?>" <?php echo ($data->method == $value->id) ? 'selected' : ''; ?>>
+                                    <?php echo $value->name; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                  </div>
                 </div>
               </div>
 

@@ -25,7 +25,40 @@ function listfoodAPI($input)
             $listData = $modelfood->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
             $totalData = $modelfood->find()->where($conditions)->all()->toList();
             $totalData = count($totalData);
-            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+            $formattedData = [];
+            foreach ($listData as $item) {
+                $formattedData[] = [
+                    'vi' => [
+                        'id' => $item->id,
+                        'image' => $item->image,
+                        'name' => $item->name,
+
+                        'description' => $item->description,
+                        'numberday' => $item->month,
+                        'icon' => $item->icon,
+                        'timestart' => $item->timestart,
+                        'timenow' => $item->timenow,
+                        
+                    ],
+    
+                    'en' => [
+                        'id' => $item->id,
+                        'image' => $item->image,
+                        'nameen' => $item->nameen,
+
+                        'description' => $item->contenten,
+                        'numberday' => $item->month,
+                        'icon' => $item->icon,
+                        'timestart' => $item->timestart,
+                        'timenow' => $item->timenow,
+                        
+                    ],
+                ];
+            }
+
+
+
+            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$formattedData, 'totalData'=>$totalData);
     }else{
         $return = array('code'=>0, 'mess'=>'gửi sai kiểu dữ liệu');
     }
@@ -82,15 +115,155 @@ function getfoodAPI($input) {
                 $lunchData = $modellunch->find()->where(['id_food' => $dataSend['id']])->all();
                 $dinnerData = $modeldinner->find()->where(['id_food' => $dataSend['id']])->all();
                 $snacksData = $modelsnacks->find()->where(['id_food' => $dataSend['id']])->all();
-
+                $datafood = []; 
+                if (!empty($data)) {
+                    $datafood[] = [
+                        'vi' => [
+                            'id' => $data->id,
+                            'image' => $data->image,
+                            'name' => $data->name,
+                            'description' => $data->description,
+                            'numberday' => $data->month,
+                            'icon' => $data->icon,
+                            'timestart' => $data->timestart,
+                            'timenow' => $data->timenow,
+                        ],
+                        'en' => [
+                            'id' => $data->id,
+                            'image' => $data->image,
+                            'nameen' => $data->nameen,
+                            'description' => $data->contenten,
+                            'numberday' => $data->month,
+                            'icon' => $data->icon,
+                            'timestart' => $data->timestart,
+                            'timenow' => $data->timenow,
+                        ],
+                    ];
+                }
+                $databreakfast = []; 
+                if (!empty($breakfastData)) {
+                    foreach ($breakfastData as $data) {
+                        $databreakfast[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    }
+                }
+                $datalunch = []; 
+                if (!empty($lunchData)) {
+                    foreach ($lunchData as $data) {
+                        $datalunch[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    }
+                }
+                $datadinner = []; 
+                if (!empty($dinnerData)) {
+                    foreach ($dinnerData as $data) {
+                        $datadinner[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    }
+                }
+                $datasnacks = []; 
+                if (!empty($snacksData)) {
+                    foreach ($snacksData as $data) {
+                        $datasnacks[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    }
+                }
                 $return = array(
                     'code' => 1,
                     'mess' => 'Lấy dữ liệu thành công',
-                    'data' => $data,
-                    'breakfast' => $breakfastData,
-                    'lunch' => $lunchData,
-                    'dinner' => $dinnerData,
-                    'snacks' => $snacksData
+                    'data' => $datafood,
+                    'breakfast' => $databreakfast,
+                    'lunch' => $datalunch,
+                    'dinner' => $datadinner,
+                    'snacks' => $datasnacks
                 );
             } else {
                 $return = array('code' => 3, 'mess' => 'Id không tồn tại');
@@ -127,15 +300,155 @@ function getdayfoodAPI($input) {
                 $lunchData = $modellunch->find()->where(['id_food' => $dataSend['id'],'time'=>$dataSend['time']])->all();
                 $dinnerData = $modeldinner->find()->where(['id_food' => $dataSend['id'],'time'=>$dataSend['time']])->all();
                 $snacksData = $modelsnacks->find()->where(['id_food' => $dataSend['id'],'time'=>$dataSend['time']])->all();
-
+                $datafood = []; 
+                if (!empty($data)) {
+                    $datafood[] = [
+                        'vi' => [
+                            'id' => $data->id,
+                            'image' => $data->image,
+                            'name' => $data->name,
+                            'description' => $data->description,
+                            'numberday' => $data->month,
+                            'icon' => $data->icon,
+                            'timestart' => $data->timestart,
+                            'timenow' => $data->timenow,
+                        ],
+                        'en' => [
+                            'id' => $data->id,
+                            'image' => $data->image,
+                            'nameen' => $data->nameen,
+                            'description' => $data->contenten,
+                            'numberday' => $data->month,
+                            'icon' => $data->icon,
+                            'timestart' => $data->timestart,
+                            'timenow' => $data->timenow,
+                        ],
+                    ];
+                }
+                $databreakfast = []; 
+                if (!empty($breakfastData)) {
+                    foreach ($breakfastData as $data) {
+                        $databreakfast[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    }
+                }
+                $datalunch = []; 
+                if (!empty($lunchData)) {
+                    foreach ($lunchData as $data) {
+                        $datalunch[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    }
+                }
+                $datadinner = []; 
+                if (!empty($dinnerData)) {
+                    foreach ($dinnerData as $data) {
+                        $datadinner[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    }
+                }
+                $datasnacks = []; 
+                if (!empty($snacksData)) {
+                    foreach ($snacksData as $data) {
+                        $datasnacks[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    }
+                }
                 $return = array(
                     'code' => 1,
                     'mess' => 'Lấy dữ liệu thành công',
-                    'data' => $data,
-                    'breakfast' => $breakfastData,
-                    'lunch' => $lunchData,
-                    'dinner' => $dinnerData,
-                    'snacks' => $snacksData
+                    'data' => $datafood,
+                    'breakfast' => $databreakfast,
+                    'lunch' => $datalunch,
+                    'dinner' => $datadinner,
+                    'snacks' => $datasnacks
                 );
             } else {
                 $return = array('code' => 3, 'mess' => 'Id không tồn tại');
@@ -175,8 +488,36 @@ function listbreakfastAPI($input)
         $listData = $modelbreakfast->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         $totalData = $modelbreakfast->find()->where($conditions)->all()->toList();
         $totalData = count($totalData);
-        
-        $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+        $databreakfast = []; 
+        if (!empty($listData)) {
+            foreach ($listData as $data) {
+                $databreakfast[] = [
+                    'vi' => [
+                        'id' => $data->id,
+                        'image' => $data->image,
+                        'name' => $data->name,
+                        'content' => $data->content,
+                        'ingredients' => $data->ingredients,
+                        'eatformat' => $data->eatformat,
+                        'id_food' => $data->id_food,
+                        'time' => $data->time,
+                        'timeeat' => $data->timeeat,
+                    ],
+                    'en' => [
+                        'id' => $data->id,
+                        'image' => $data->image,
+                        'nameen' => $data->nameen,
+                        'contenten' => $data->contenten,
+                        'ingredientsen' => $data->ingredientsen,
+                        'eatformaten' => $data->eatformaten,
+                        'id_food' => $data->id_food,
+                        'time' => $data->time,
+                        'timeeat' => $data->timeeat,
+                    ],
+                ];
+            }
+        }
+        $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$databreakfast, 'totalData'=>$totalData);
     }else{
         $return = array('code'=>0, 'mess'=>'gửi sai kiêu dữ liệu');
     }
@@ -198,8 +539,36 @@ function getbreakfastAPI($input)
             	$modelbreakfast = $controller->loadModel('breakfast');
             	$conditions = array('id'=>(int)$dataSend['id']);	
             	$data = $modelbreakfast->find()->where($conditions)->first();
+                $databreakfast = []; 
+                if (!empty($data)) {
+                        $databreakfast[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    
+                }
             	if(!empty($data)){
-            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$data);
+            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$databreakfast);
             	}else{
             		$return = array('code'=>3, 'mess'=>'Id không tồn tại');
             	}
@@ -238,8 +607,36 @@ function listlunchAPI($input)
             $listData = $modellunch->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
             $totalData = $modellunch->find()->where($conditions)->all()->toList();
             $totalData = count($totalData);
-            
-            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+            $datalunch = []; 
+            if (!empty($listData)) {
+                foreach ($listData as $data) {
+                    $datalunch[] = [
+                        'vi' => [
+                            'id' => $data->id,
+                            'image' => $data->image,
+                            'name' => $data->name,
+                            'content' => $data->content,
+                            'ingredients' => $data->ingredients,
+                            'eatformat' => $data->eatformat,
+                            'id_food' => $data->id_food,
+                            'time' => $data->time,
+                            'timeeat' => $data->timeeat,
+                        ],
+                        'en' => [
+                            'id' => $data->id,
+                            'image' => $data->image,
+                            'nameen' => $data->nameen,
+                            'contenten' => $data->contenten,
+                            'ingredientsen' => $data->ingredientsen,
+                            'eatformaten' => $data->eatformaten,
+                            'id_food' => $data->id_food,
+                            'time' => $data->time,
+                            'timeeat' => $data->timeeat,
+                        ],
+                    ];
+                }
+            }
+            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$datalunch, 'totalData'=>$totalData);
     }else{
         $return = array('code'=>0, 'mess'=>'gửi sai dữ liệu kiểu');
     }
@@ -261,8 +658,36 @@ function getlunchAPI($input)
             	$modellunch = $controller->loadModel('lunch');
             	$conditions = array('id'=>(int)$dataSend['id']);	
             	$data = $modellunch->find()->where($conditions)->first();
+                $datalunch = []; 
+                if (!empty($data)) {
+                        $datalunch[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    
+                }
             	if(!empty($data)){
-            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$data);
+            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$datalunch);
             	}else{
             		$return = array('code'=>3, 'mess'=>'Id không tồn tại');
             	}
@@ -301,8 +726,36 @@ function listdinnerAPI($input)
             $listData = $modeldinner->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
             $totalData = $modeldinner->find()->where($conditions)->all()->toList();
             $totalData = count($totalData);
-            
-            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+            $datadinner = []; 
+            if (!empty($listData)) {
+                foreach ($listData as $data) {
+                    $datadinner[] = [
+                        'vi' => [
+                            'id' => $data->id,
+                            'image' => $data->image,
+                            'name' => $data->name,
+                            'content' => $data->content,
+                            'ingredients' => $data->ingredients,
+                            'eatformat' => $data->eatformat,
+                            'id_food' => $data->id_food,
+                            'time' => $data->time,
+                            'timeeat' => $data->timeeat,
+                        ],
+                        'en' => [
+                            'id' => $data->id,
+                            'image' => $data->image,
+                            'nameen' => $data->nameen,
+                            'contenten' => $data->contenten,
+                            'ingredientsen' => $data->ingredientsen,
+                            'eatformaten' => $data->eatformaten,
+                            'id_food' => $data->id_food,
+                            'time' => $data->time,
+                            'timeeat' => $data->timeeat,
+                        ],
+                    ];
+                }
+            }
+            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$datadinner, 'totalData'=>$totalData);
     }else{
         $return = array('code'=>0, 'mess'=>'gửi sai dữ liệu kiểu');
     }
@@ -324,8 +777,37 @@ function getdinnerAPI($input)
             	$modeldinner = $controller->loadModel('dinner');
             	$conditions = array('id'=>(int)$dataSend['id']);	
             	$data = $modeldinner->find()->where($conditions)->first();
+                $datadinner = []; 
+                if (!empty($data)) {
+                 
+                        $datadinner[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    
+                }
             	if(!empty($data)){
-            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$data);
+            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$datadinner);
             	}else{
             		$return = array('code'=>3, 'mess'=>'Id không tồn tại');
             	}
@@ -364,8 +846,36 @@ function listsnacksAPI($input)
         $listData = $modelsnacks->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         $totalData = $modelsnacks->find()->where($conditions)->all()->toList();
         $totalData = count($totalData);
-        
-        $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+        $datasnacks = []; 
+        if (!empty($listData)) {
+            foreach ($listData as $data) {
+                $datasnacks[] = [
+                    'vi' => [
+                        'id' => $data->id,
+                        'image' => $data->image,
+                        'name' => $data->name,
+                        'content' => $data->content,
+                        'ingredients' => $data->ingredients,
+                        'eatformat' => $data->eatformat,
+                        'id_food' => $data->id_food,
+                        'time' => $data->time,
+                        'timeeat' => $data->timeeat,
+                    ],
+                    'en' => [
+                        'id' => $data->id,
+                        'image' => $data->image,
+                        'nameen' => $data->nameen,
+                        'contenten' => $data->contenten,
+                        'ingredientsen' => $data->ingredientsen,
+                        'eatformaten' => $data->eatformaten,
+                        'id_food' => $data->id_food,
+                        'time' => $data->time,
+                        'timeeat' => $data->timeeat,
+                    ],
+                ];
+            }
+        }
+        $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$datasnacks, 'totalData'=>$totalData);
                 
     }else{
         $return = array('code'=>0, 'mess'=>'gửi sai dữ liệu kiểu');
@@ -388,8 +898,36 @@ function getsnacksAPI($input)
             	$modelsnacks = $controller->loadModel('snacks');
             	$conditions = array('id'=>(int)$dataSend['id']);	
             	$data = $modelsnacks->find()->where($conditions)->first();
+                $datasnacks = []; 
+                if (!empty($data)) {
+                        $datasnacks[] = [
+                            'vi' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'name' => $data->name,
+                                'content' => $data->content,
+                                'ingredients' => $data->ingredients,
+                                'eatformat' => $data->eatformat,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                            'en' => [
+                                'id' => $data->id,
+                                'image' => $data->image,
+                                'nameen' => $data->nameen,
+                                'contenten' => $data->contenten,
+                                'ingredientsen' => $data->ingredientsen,
+                                'eatformaten' => $data->eatformaten,
+                                'id_food' => $data->id_food,
+                                'time' => $data->time,
+                                'timeeat' => $data->timeeat,
+                            ],
+                        ];
+                    
+                }
             	if(!empty($data)){
-            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$data);
+            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$datasnacks);
             	}else{
             		$return = array('code'=>3, 'mess'=>'Id không tồn tại');
             	}

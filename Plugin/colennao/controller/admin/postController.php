@@ -1,14 +1,14 @@
 <?php 
-function listfastingadmin($input){
+function listtablepost($input){
     
         global $controller;
         global $urlCurrent;
         global $metaTitleMantan;
         global $modelCategories;
     
-        $metaTitleMantan = 'Danh sách kiểu giảm cân';
+        $metaTitleMantan = 'Danh sách huấn luyện viên';
     
-        $modelfasting = $controller->loadModel('fasting');
+        $modeltablepost = $controller->loadModel('tablepost');
     
         $conditions = array();
         $limit = 20;
@@ -23,10 +23,10 @@ function listfastingadmin($input){
             $conditions['name LIKE'] = '%'.$_GET['name'].'%';
         }
         
-        $listData = $modelfasting->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        $listData = $modeltablepost->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
      
         // phân trang
-        $totalData = $modelfasting->find()->where($conditions)->all()->toList();
+        $totalData = $modeltablepost->find()->where($conditions)->all()->toList();
         $totalData = count($totalData);
     
         $balance = $totalData % $limit;
@@ -64,81 +64,64 @@ function listfastingadmin($input){
         setVariable('listData', $listData);
 
 }
-function addtypefasting($input){
+function addtablepost($input){
     global $controller;
 	global $isRequestPost;
 	global $modelCategories;
     global $metaTitleMantan;
-    $metaTitleMantan = 'Thông tin ke hoach giam can';
-	$modelfasting = $controller->loadModel('fasting');
+    $metaTitleMantan = 'Thông tin tin tức';
+	$modeltablepost = $controller->loadModel('tablepost');
 	$mess= '';
-    $conditions = array('type' => 'category_losingweight');
-    $listlosingweight = $modelCategories->find()->where($conditions)->all()->toList();
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelfasting->get( (int) $_GET['id']);
+        $data = $modeltablepost->get( (int) $_GET['id']);
     }else{
-        $data = $modelfasting->newEmptyEntity();
+        $data = $modeltablepost->newEmptyEntity();
     }
 
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['name'])){
+        if(!empty($dataSend['title'])){
             
-            $data->name = $dataSend['name'];
-            $data->description= $dataSend['description'];
-            $data->time_end = (new DateTime($dataSend['time_end']))->getTimestamp();
-            $data->time_start = (new DateTime($dataSend['time_start']))->getTimestamp();
+            $data->title = $dataSend['title'];
+            $data->author= $dataSend['author'];
+            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
             $data->image = $dataSend['image'];
-            $data->method = $dataSend['method'];
-            $data->complete = $dataSend['complete'];
-            $data->nameen = $dataSend['nameen'];
+            $data->description = $dataSend['description'];
+            $data->content = $dataSend['content'];
+
+            $data->titleen = $dataSend['titleen'];
+            $data->authoren= $dataSend['authoren'];
             $data->descriptionen = $dataSend['descriptionen'];
-            // tạo slug
-            $slug = createSlugMantan($dataSend['name']);
-            $slugNew = $slug;
-            $number = 0;
+            $data->contentenen = $dataSend['contentenen'];
 
-            if(empty($data->slug) || $data->slug!=$slugNew){
-                do{
-                	$conditions = array('slug'=>$slugNew);
-        			$listData = $modelfasting->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-        			if(!empty($listData)){
-        				$number++;
-        				$slugNew = $slug.'-'.$number;
-        			}
-                }while (!empty($listData));
-            }
-            $data->slug = $slugNew;
-
-            $modelfasting->save($data);   
+            $modeltablepost->save($data);   
 
           
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin/p>';
+	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin</p>';
 	    }
     }
-    setVariable('listlosingweight', $listlosingweight);
     setVariable('data', $data);
     setVariable('mess', $mess);
 }
-function deletefasting($input){
+function deletepost($input){
     global $controller;
 
-    $modelfasting = $controller->loadModel('fasting');
+    $modeltablepost = $controller->loadModel('tablepost');
     
     if(!empty($_GET['id'])){
-        $data = $modelfasting->get($_GET['id']);
+        $data = $modeltablepost->get($_GET['id']);
         
         if($data){
-            $modelfasting->delete($data);
+            $modeltablepost->delete($data);
         }
     }
 
-    return $controller->redirect('/plugins/admin/colennao-view-admin-fasting-listfastingadmin');
+    return $controller->redirect('/plugins/admin/colennao-view-admin-post-listtablepost');
 }
 ?>

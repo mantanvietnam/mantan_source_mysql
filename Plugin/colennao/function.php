@@ -139,7 +139,11 @@ $menus[3]['sub'][7]= array( 'title'=>'Điều kiện tiếng anh',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listconditioneng'
                             );
-
+$menus[3]['sub'][8]= array( 'title'=>'Tin tức',
+                            'url'=>'/plugins/admin/colennao-view-admin-post-listtablepost',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listtablepost'
+                            );
 
 
 addMenuAdminMantan($menus);

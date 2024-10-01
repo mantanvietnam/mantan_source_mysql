@@ -31,4 +31,5 @@ include('model/areas.php');
 include('model/tbcondition.php');
 include('model/questionsenglish.php');
 include('model/tbconditionenglish.php');
+include('model/tablepost.php');
 ?>

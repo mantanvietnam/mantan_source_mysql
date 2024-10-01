@@ -31,84 +31,67 @@
   <div class="card row">
     <h5 class="card-header">Danh sách Đơn hàng thuê Zoom</h5>
     <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
+    <table class="table table-bordered">
+    <thead>
+        <tr class="">
             <th>ID</th>
             <th>Loại Zoom</th>
             <th width="200">Thời gian thuê</th>
             <th>Khách hàng</th>
             <th>Tài khoản Zoom</th>
             <th>Phòng họp</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($listData)): ?>
+            <?php foreach ($listData as $item): ?>
+                <?php
+                    $timeBuy = ($item->dateEnd - $item->dateStart) / 3600;
+                    $timeBuy = ($timeBuy < 24) ? $timeBuy . ' giờ' : ($timeBuy / 24) . ' ngày';
+                    $extend_time_use = $item->extend_time_use ? 'Bật gia hạn tự động' : '';
 
-              foreach ($listData as $item) {
-                $timeBuy = ($item->dateEnd-$item->dateStart)/3600;
+                    $infoZoom = '';
+                    if (!empty($item->infoZoom->user)) {
+                        $infoZoom = 'ID: ' . $item->infoZoom->id . '
+                                    <p>' . $item->infoZoom->user . '</p>
+                                    <p>' . $item->infoZoom->pass . '</p>
+                                    <p>' . $item->infoZoom->key_host . '</p>';
+                    }
 
-                if($timeBuy<24){
-                  $timeBuy = $timeBuy.' giờ';
-                }else{
-                  $timeBuy = $timeBuy/24;
-                  $timeBuy = $timeBuy.' ngày';
-                }
+                    $infoRoom = '';
+                    if (!empty($item->infoRoom->info['id'])) {
+                        $infoRoom = '<p>ID: ' . $item->infoRoom->info['id'] . '</p>
+                                    <p>Mật khẩu: ' . $item->infoRoom->info['password'] . '</p>
+                                    <p class="text-center"><a onclick="return confirm(\'Bạn có chắc chắn muốn xóa phòng họp không?\');" href="/plugins/admin/zoomcheap-view-admin-order-deleteRoomAdmin?idOrder=' . $item->id . '"><i class="bx bx-trash"></i></a></p>';
+                    }
+                ?>
+                <tr>
+                    <td><?= $item->id ?></td>
+                    <td><?= $item->type ?></td>
+                    <td>
+                        <p class="text-success"><?= date("H:i d/m/Y", $item->dateStart) ?></p>
+                        <p class="text-danger"><?= date("H:i d/m/Y", $item->dateEnd) ?></p>
+                        <p><?= $timeBuy ?></p>
+                        <?= $extend_time_use ?>
+                    </td>
+                    <td>
+                        <?php if (!empty($item->infoManager->fullname)) echo $item->infoManager->fullname . '<br>'; ?>
+                        <?php if (!empty($item->infoManager->phone)) echo $item->infoManager->phone . '<br>'; ?>
+                        <?php if (!empty($item->infoManager->email)) echo $item->infoManager->email . '<br>'; ?>
+                        <?php if (!empty($item->infoManager->coin)) echo number_format($item->infoManager->coin) . ' đ'; ?>
+                    </td>
+                    <td><?= $infoZoom ?></td>
+                    <td><?= $infoRoom ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="10" align="center">Chưa có dữ liệu</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
 
-                $extend_time_use= '';
-                if($item->extend_time_use) $extend_time_use= 'Bật gia hạn tự động';
-
-                $infoZoom = '';
-                $infoRoom = '';
-
-                if(!empty($item->infoZoom->user)){
-                  $infoZoom = 'ID: '.@$item->infoZoom->id.'
-                              <p>'.@$item->infoZoom->user.'</p>
-                              <p>'.@$item->infoZoom->pass.'</p>
-                              <p>'.@$item->infoZoom->key_host.'</p>';
-                  
-                  if(!empty($item->infoRoom->info['id'])){
-                    $infoRoom = '<p>ID: '.@$item->infoRoom->info['id'].'</p>
-                              <p>Mật khẩu: '.@$item->infoRoom->info['password'].'</p>
-                              <p class="text-center"><a onclick="return confirm(\'Bạn có chắc chắn muốn xóa phòng họp không?\');" href="/plugins/admin/zoomcheap-view-admin-order-deleteRoomAdmin?idOrder='.$item->id.'"><i class="bx bx-trash"></i></a></p>';
-                  }
-                }
-
-                echo  '<tr>
-                          <td>'.$item->id.'</td>
-                          <td>'.$item->type.'</td>
-                          <td>
-                            <p class="text-success">'.date("H:i d/m/Y",$item->dateStart).'</p>
-                            <p class="text-danger">'.date("H:i d/m/Y",$item->dateEnd).'</p>
-                            <p>'.$timeBuy.'</p>
-                            '.$extend_time_use.'
-                          </td>
-                          <td>
-                            '.$item->infoManager->fullname.'
-                            </br>
-                            '.$item->infoManager->phone.'
-                            </br>
-                            '.$item->infoManager->email.'
-                            </br>
-                            '.number_format($item->infoManager->coin).' đ
-                          </td>
-                          <td>
-                            '.$infoZoom.'
-                          </td>
-                          <td>
-                            '.$infoRoom.'
-                          </td>
-                        </tr>';
-              }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có dữ liệu</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
     </div>
 
     <!-- Phân trang -->

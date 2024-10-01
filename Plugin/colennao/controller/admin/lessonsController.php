@@ -92,6 +92,11 @@ function addLesson($input)
 	        $data->image = $dataSend['image'];
 	        $data->status = $dataSend['status'];
 	        $data->description = $dataSend['description'];
+
+            $data->titleen = $dataSend['titleen'];
+	        $data->contenten = $dataSend['contenten'];
+	        $data->descriptionen = $dataSend['descriptionen'];
+	        $data->id_courseen = $dataSend['id_courseen'];
             // $data->author = $dataSend['author'];
             $data->youtube_code = $dataSend['youtube_code'];
             // $data->time_learn = (int) @$dataSend['time_learn'];

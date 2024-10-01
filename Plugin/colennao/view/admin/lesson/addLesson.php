@@ -34,12 +34,31 @@
                       </select>
                     </div>
                   </div>
-
+                  <div class="mb-3">
+                    <label class="form-label">Khóa học tiếng anh</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="id_courseen" id="id_courseen" >
+                        <option value="">Chọn khóa học</option>
+                        <?php 
+                          foreach ($listCategory as $key => $item) {
+                            if(empty($data->id_course) || $data->id_course!=$item->id){
+                              echo '<option value="'.$item->id.'">'.$item->titleen.'</option>';
+                            }else{
+                              echo '<option selected value="'.$item->id.'">'.$item->titleen.'</option>';
+                            }
+                          }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
                   <div class="mb-3">
                     <label class="form-label">Tên bài học (*)</label>
                     <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
                   </div>
-
+                  <div class="mb-3">
+                    <label class="form-label">Tên bài học tiêng anh</label>
+                    <input type="text" class="form-control phone-mask" name="titleen" id="titleen" value="<?php echo @$data->titleen;?>" />
+                  </div>
                   <div class="mb-3">
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">
@@ -81,11 +100,21 @@
                     <label class="form-label">Mô tả ngắn</label>
                     <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                   </div>
+                  <div class="mb-3">
+                    <label class="form-label">Mô tả ngắn tiếng anh</label>
+                    <textarea maxlength="160" rows="5" class="form-control" name="descriptionen" id="descriptionen"><?php echo @$data->descriptionen;?></textarea>
+                  </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Nội dung bài học</label>
                     <?php showEditorInput('content', 'content', @$data->content);?>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Nội dung bài học tiếng anh</label>
+                    <?php showEditorInput('contenten', 'contenten', @$data->contenten);?>
                   </div>
                 </div>
               </div>

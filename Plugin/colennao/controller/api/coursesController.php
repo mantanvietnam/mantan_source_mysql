@@ -13,39 +13,81 @@ function listCoursesAPI($input)
 
     $modelLesson = $controller->loadModel('Lessons');
     $modelCourses = $controller->loadModel('Courses');
-    if($isRequestPost){
-		$dataSend = $input['request']->getData();
-	    $conditions= array('public'=>0);
-	    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
-	    $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
-	    if($page<1) $page = 1;
-	    $order = array('id'=>'desc');
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        $conditions = array('public' => 0);
+        $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
+        $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
+        if ($page < 1) $page = 1;
+        $order = array('id' => 'desc');
+    
+        if (!empty($dataSend['title'])) {
+            $key = createSlugMantan($dataSend['title']);
+            $conditions['slug LIKE'] = '%' . $key . '%';
+        }
+    
+        $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        $totalData = $modelCourses->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+    
+        $formattedData = [];
+        foreach ($listData as $item) {
+            $lessonCount = $modelLesson->find()->where(['id_course' => $item->id])->count();
+            $formattedData[] = [
+                'vi' => [
+                    'id' => $item->id,
+                    'image' => $item->image,
+                    'slug' => $item->slug,
+                    'view' => $item->view,      
+                    'status' => $item->status,
+                    'public' => $item->public,
+                    'color' => $item->color,
+                    'imagebanner' => $item->imagebanner,
+                    'colortext' => $item->colortext,
+                    'youtube_code' => $item->youtube_code,
+                    'price' => $item->price,
+                    'title' => $item->title,
+                    'description' => $item->description,
+                    'content' => $item->content,
+                    'achieved' => $item->achieved,
+                    'trycourse' => $item->trycourse,
+                    'textbanner' => $item->textbanner,
+                    'willyouget' => $item->willyouget,
+                    'questioncourse' => $item->questioncourse,
+                    'numberOfLessons' => $lessonCount,
+                    
+                ],
 
-	    if(!empty($dataSend['title'])){
-			$key=createSlugMantan($dataSend['title']);
-			$conditions['slug LIKE']= '%'.$key.'%';
-		}
-	    $listData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-	    // if(!empty($listData)){
-	    //     foreach ($listData as $key => $value) {
-	    //         if(!empty($value->id_category) && empty($category[$value->id_category])){
-	    //             $category[$value->id_category] = $modelCategories->find()->where(['id' => (int) $value->id_category])->first();
-	    //         }
-
-	    //         $listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
-	    //         $lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
-	    //         $listData[$key]->number_lesson = count($lessons);
-	    //     }
-	    // }
-	    // phân trang
-	    $totalData = $modelCourses->find()->where($conditions)->all()->toList();
-	    $totalData = count($totalData);
-		
-		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
-	        
-	}else{
-	    $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
-	}
+                'en' => [
+                    'id' => $item->id,
+                    'image' => $item->image,
+                    'slug' => $item->slug,
+                    'view' => $item->view,      
+                    'status' => $item->status,
+                    'public' => $item->public,
+                    'color' => $item->color,
+                    'imagebanner' => $item->imagebanner,
+                    'colortext' => $item->colortext,
+                    'youtube_code' => $item->youtube_code,
+                    'price' => $item->price,
+                    'titleen' => $item->titleen,
+                    'descriptionen' => $item->descriptionen,
+                    'introduceen' => $item->introduceen,
+                    'achieveden' => $item->achieveden,
+                    'trycourseen' => $item->trycourseen,
+                    'textbanneren' => $item->textbanneren,
+                    'wgeten' => $item->wgeten,
+                    'questionen' => $item->questionen,
+                    'numberOfLessons' => $lessonCount,
+                ]
+            ];
+        }
+    
+        $return = array('code' => 1, 'mess' => 'Lấy dữ liệu thành công', 'listData' => $formattedData, 'totalData' => $totalData);
+    } else {
+        $return = array('code' => 0, 'mess' => 'Gửi sai kiểu POST');
+    }
+    
 
     return $return;
 
@@ -63,46 +105,75 @@ function getCoursesAPI($input)
     global $metaTitleMantan;
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['id'])){
-            	$modelLesson = $controller->loadModel('Lessons');
-            	$modelCourses = $controller->loadModel('Courses');
-            	$conditions = array('id'=>(int)$dataSend['id']);	
-            	$data = $modelCourses->find()->where($conditions)->first();
-            	if(!empty($data)){
-            		$category = $modelCategories->find()->where(['id' => (int) $data->id_category])->first();    
-            		$data->name_category = @$category->name;
-            		$data->view ++;
-            		$modelCourses->save($data);
-            		$conditions = array('id !='=>$data->id);
-            		$limit = 4;
-            		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-            		if($page<1) $page = 1;
-            		$order = array('id'=>'desc');
-            		$otherData = $modelCourses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-            		if(!empty($otherData)){
-            			$category = [];
-            			foreach ($otherData as $key => $value) {
-            				if(!empty($value->id_category) && empty($category[$value->id_category])){
-            					$category[$value->id_category] = $modelCategories->find()->where(['id' => (int) $value->id_category])->first();
-            				}
-            				$otherData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
-            				$lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
-            				$otherData[$key]->number_lesson = count($lessons);
-            			}
-            		}
-            		$data->otherData = $otherData;
-            		$conditions = array('id_course'=>$data->id);
-            		$order = array('id'=>'desc');
-            		$lesson = $modelLesson->find()->where($conditions)->order($order)->all()->toList();
-            		$data->lesson = $lesson;
-
-            		$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$data);
-            	}else{
-            		$return = array('code'=>3, 'mess'=>'Id không tồn tại');
-            	}
-        }else{
-             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        if (!empty($dataSend['id'])) {
+            $modelLesson = $controller->loadModel('Lessons');
+            $modelCourses = $controller->loadModel('Courses');
+            $conditions = array('id' => (int)$dataSend['id']);	
+            $data = $modelCourses->find()->where($conditions)->first();
+            if (!empty($data)) { 
+                $lessons = $modelLesson->find()->where(['id_course' => (int)$data->id])->all()->toList();  
+                $lessonCount = count($lessons);  
+        
+                // $data->name_category = @$category->name;
+                $data->view++;
+                $data->numberlesson = $lessonCount;
+                $modelCourses->save($data);
+                $formattedData = [
+                    'vi' => [
+                        'id' => $data->id,
+                        'image' => $data->image,
+                        'slug' => $data->slug,
+                        'view' => $data->view,      
+                        'status' => $data->status,
+                        'public' => $data->public,
+                        'color' => $data->color,
+                        'imagebanner' => $data->imagebanner,
+                        'colortext' => $data->colortext,
+                        'youtube_code' => $data->youtube_code,
+                        'price' => $data->price,
+                        'title' => $data->title,
+                        'description' => $data->description,
+                        'content' => $data->content,
+                        'achieved' => $data->achieved,
+                        'trycourse' => $data->trycourse,
+                        'textbanner' => $data->textbanner,
+                        'willyouget' => $data->willyouget,
+                        'questioncourse' => $data->questioncourse,
+                        'numberOfLessons' => $lessonCount,
+                        
+                    ],
+                    
+                    'en' => [
+                        'id' => $data->id,
+                        'image' => $data->image,
+                        'slug' => $data->slug,
+                        'view' => $data->view,      
+                        'status' => $data->status,
+                        'public' => $data->public,
+                        'color' => $data->color,
+                        'imagebanner' => $data->imagebanner,
+                        'colortext' => $data->colortext,
+                        'youtube_code' => $data->youtube_code,
+                        'price' => $data->price,
+                        'titleen' => $data->titleen,
+                        'descriptionen' => $data->descriptionen,
+                        'introduceen' => $data->introduceen,
+                        'achieveden' => $data->achieveden,
+                        'trycourseen' => $data->trycourseen,
+                        'textbanneren' => $data->textbanneren,
+                        'wgeten' => $data->wgeten,
+                        'questionen' => $data->questionen,
+                        'numberOfLessons' => $lessonCount,
+                    ]
+                ];
+                $return = array('code' => 1, 'mess' => 'Lấy dữ liệu thành công', 'data' => $formattedData,);
+            } else {
+                $return = array('code' => 3, 'mess' => 'Id không tồn tại');
+            }
+        } else {
+            $return = array('code' => 2, 'mess' => 'Gửi thiếu dữ liệu');
         }
+        
     }else{
         $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
     }
@@ -120,35 +191,50 @@ function getlessonAPI($input)
     global $metaTitleMantan;
 
     $modelLesson = $controller->loadModel('Lessons');
-	$modelTest = $controller->loadModel('Tests');
-
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
             $inforuser = getUserByToken($dataSend['token']);
-
             if(!empty($inforuser)){
 
 		        $conditions = array('id'=>(int)$dataSend['id']);
 		        $data = $modelLesson->find()->where($conditions)->first();
 		        if(!empty($data)){
-
 		            $metaTitleMantan = $data->title;
-
 		            // tăng lượt xem
 		            $data->view ++;
 		            $modelLesson->save($data);
-
-		            $conditions = array('id !='=>$data->id);
-		            $limit = 4;
-		            $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-		            if($page<1) $page = 1;
-		            $order = array('id'=>'desc');
-
-		            $otherData = $modelLesson->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-		            $data->otherData =$otherData;
-
-					$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$data);
+                    $formattedData = [
+                        'vi' => [
+                            'id' => $data->id,
+                            'image' => $data->image,
+                            'title' => $data->title,
+                            'youtube_code' => $data->youtube_code,
+                            'content' => $data->content,      
+                            'status' => $data->status,
+                            'id_course' => $data->id_course,
+                            'description' => $data->description,
+                            'slug' => $data->slug,
+                            'view' => $data->view,
+                            
+                            
+                        ],
+                        
+                        'en' => [
+                            'id' => $data->id,
+                            'image' => $data->image,
+                            'slug' => $data->slug,
+                            'view' => $data->view,      
+                            'status' => $data->status,
+                            'youtube_code' => $data->youtube_code,
+                            'titleen' => $data->titleen,
+                            'contenten' => $data->contenten,
+                            'descriptionen' => $data->descriptionen,
+                            'id_courseen' => $data->id_courseen,
+                      
+                        ]
+                    ];
+					$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'data'=>$formattedData);
             	}else{
             		$return = array('code'=>3, 'mess'=>'Id không tồn tại');
             	}
