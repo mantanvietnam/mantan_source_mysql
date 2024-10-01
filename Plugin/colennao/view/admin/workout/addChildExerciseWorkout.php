@@ -28,8 +28,13 @@
                         </button>
                       </li>
                       <li class="nav-item">
-                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-unit" aria-controls="navs-top-image" aria-selected="false">
-                          Nội dung tập
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-vn" aria-controls="navs-top-image" aria-selected="false">
+                          Nội dung tập Tiếng Việt
+                        </button>
+                      </li>
+                       <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-en" aria-controls="navs-top-image" aria-selected="false">
+                          Nội dung tập Tiếng Anh
                         </button>
                       </li>
                     </ul>
@@ -39,8 +44,12 @@
                         <div class="row">
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label">Tiêu đề</label>
-                              <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
+                              <label class="form-label">Tiêu đề tiếng Việt</label>
+                              <input required type="text" class="form-control phone-mask" placeholder="Tiêu đề tiếng Việt" name="title" id="title" value="<?php echo @$data->title;?>" />
+                            </div>
+                             <div class="mb-3">
+                              <label class="form-label">Tiêu đề tiếng Anh</label>
+                              <input required type="text" class="form-control phone-mask" placeholder="Tiêu đề tiếng Anh" name="title_en" id="title_en" value="<?php echo @$data->title_en;?>" />
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Mã Youtube(*)</label>
@@ -79,9 +88,13 @@
                                 ?>
                               </select>
                             </div>
-                            <div class="mb-3">
-                              <label class="form-label">Mô tả ngắn</label>
+                             <div class="mb-3">
+                              <label class="form-label">Mô tả ngắn tiếng Việt</label>
                               <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Mô tả ngắn tiếng Việt</label>
+                              <textarea maxlength="160" rows="5" class="form-control" name="description_en" id="description"><?php echo @$data->description_en;?></textarea>
                             </div>
                             
                           </div>
@@ -108,12 +121,21 @@
                             } ?>
                         </div>
                       </div>
-                      <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">
+                      <div class="tab-pane fade" id="navs-top-vn" role="tabpanel">
 
                         <div class="row">
                           <div class="col-md-12"> 
-                             <label class="form-label">Nội dung tập</label>
+                             <label class="form-label">Nội dung tập tiếng Việt</label>
                             <?php showEditorInput('content', 'content', @$data->content);?>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-en" role="tabpanel">
+
+                        <div class="row">
+                          <div class="col-md-12"> 
+                             <label class="form-label">Nội dung tập tiếng Anh</label>
+                            <?php showEditorInput('content_en', 'content_en', @$data->content_en);?>
                           </div>
                         </div>
                       </div>

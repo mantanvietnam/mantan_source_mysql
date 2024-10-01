@@ -31,6 +31,16 @@
                         giá gói tập
                         </button>
                       </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-vn" aria-controls="navs-top-image" aria-selected="false">
+                        Nội dung tập tiếng Việt
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-en" aria-controls="navs-top-image" aria-selected="false">
+                        Nội dung tập tiếng Anh
+                        </button>
+                      </li>
                     </ul>
 
                     <div class="tab-content">
@@ -38,8 +48,12 @@
                         <div class="row">
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label">Tiêu đề</label>
-                              <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
+                              <label class="form-label">Tiêu đề tiếng Việt</label>
+                              <input required type="text" class="form-control phone-mask" name="title" id="title" placeholder="tiên đề tiếng Việt" value="<?php echo @$data->title;?>" />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Tiêu đề tiếng Anh</label>
+                              <input required type="text" class="form-control phone-mask" name="title_en" id="title_en" placeholder="tiên đề tiếng Anh" value="<?php echo @$data->title_en;?>" />
                             </div>
                            
                           <div class="mb-3">
@@ -66,15 +80,17 @@
                           <div class="col-md-6">
                             
                             <div class="mb-3">
-                              <label class="form-label">Mô tả ngắn</label>
-                              <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
+                              <label class="form-label">Mô tả ngắn tiếng việt</label>
+                              <textarea maxlength="160" rows="5" class="form-control" name="description" placeholder="Mô tả ngắn tiếng Vệt" id="description"><?php echo @$data->description;?></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Mô tả ngắn tiếng anh</label>
+                              <textarea maxlength="160" rows="5" class="form-control" name="description_en" placeholder="Mô tả ngắn tiếng Anh" id="description_en"><?php echo @$data->description_en;?></textarea>
                             </div>
                             
                           </div>
-                          <div class="col-md-12"> 
-                             <label class="form-label">Nội dung tập</label>
-                            <?php showEditorInput('content', 'content', @$data->content);?>
-                          </div>
+                          
                         </div>
                       </div>
                       <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
@@ -114,7 +130,8 @@
                              
                                   <tr class="gradeX" id="trfeedback-">
                                     <td>
-                                      <input type="text" class="form-control phone-mask" name="title_price[1]"  value="<?php echo @$data->price_package[1]['title']; ?>"/>
+                                      <input type="text" class="form-control phone-mask mb-3" name="title_price[1]"  value="<?php echo @$data->price_package[1]['title']; ?>" placeholder=" tiêu đề giá tiếng việt"/>
+                                      <input type="text" class="form-control phone-mask" name="title_price_en[1]"  value="<?php echo @$data->price_package[1]['title_en']; ?>" placeholder=" tiêu đề giá tiếng Anh"/>
                                     </td>
                                     <td>
                                       <input type="text" class="form-control phone-mask" name="price[1]"  value="<?php echo @$data->price_package[1]['price']; ?>"/>
@@ -131,7 +148,8 @@
                                   </tr>
                                   <tr class="gradeX" id="trfeedback-">
                                     <td>
-                                      <input type="text" class="form-control phone-mask" name="title_price[2]"  value="<?php echo @$data->price_package[2]['title']; ?>"/>
+                                      <input type="text" class="form-control phone-mask mb-3" name="title_price[2]"  value="<?php echo @$data->price_package[2]['title']; ?>" placeholder=" tiêu đề giá tiếng việt"/>
+                                      <input type="text" class="form-control phone-mask" name="title_price_en[2]"  value="<?php echo @$data->price_package[2]['title_en']; ?>" placeholder=" tiêu đề giá tiếng Anh"/>
                                     </td>
                                     <td>
                                       <input type="text" class="form-control phone-mask" name="price[2]"  value="<?php echo @$data->price_package[2]['price']; ?>"/>
@@ -148,7 +166,8 @@
                                   </tr>
                                   <tr class="gradeX" id="trfeedback-">
                                     <td>
-                                      <input type="text" class="form-control phone-mask" name="title_price[3]"  value="<?php echo @$data->price_package[3]['title']; ?>"/>
+                                      <input type="text" class="form-control phone-mask mb-3" name="title_price[3]"  value="<?php echo @$data->price_package[3]['title']; ?>" placeholder=" tiêu đề giá tiếng việt"/>
+                                      <input type="text" class="form-control phone-mask" name="title_price_en[3]"  value="<?php echo @$data->price_package[3]['title_en']; ?>" placeholder=" tiêu đề giá tiếng Anh"/>
                                     </td>
                                     <td>
                                       <input type="text" class="form-control phone-mask" name="price[3]"  value="<?php echo @$data->price_package[3]['price']; ?>"/>
@@ -167,6 +186,23 @@
                             </table>
                           </div>
                         </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-vn" role="tabpanel">
+                         <div class="row">
+                            <div class="col-md-12"> 
+                             <label class="form-label">Nội dung gói tập tiếng việt</label>
+                            <?php showEditorInput('content', 'content', @$data->content);?>
+                          </div>
+                         
+                         </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-en" role="tabpanel">
+                           <div class="row">
+                              <div class="col-md-12"> 
+                                 <label class="form-label">Nội dung tập Tiếng anh </label>
+                                <?php showEditorInput('content_en', 'content_en', @$data->content_en);?>
+                              </div>
+                           </div>
                       </div>
                     </div>
                   </div>

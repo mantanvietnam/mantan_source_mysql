@@ -58,6 +58,7 @@ $sqlInstallDatabase .= "CREATE TABLE `orders` (
     `total_costsIncurred` INT NULL DEFAULT '0',
     `promotion` INT NOT NULL DEFAULT '0' COMMENT 'Phần trăm giảm giá',
     `status_pay` VARCHAR(100) NOT NULL DEFAULT 'wait' COMMENT 'trạng thái thanh toán' , 
+    `id_staff` INT NULL DEFAULT '0';
     PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .= "CREATE TABLE `order_details` ( 
@@ -193,6 +194,8 @@ $sqlUpdateDatabase['orders']['phone'] = "ALTER TABLE `orders` ADD `phone` VARCHA
 $sqlUpdateDatabase['orders']['address'] = "ALTER TABLE `orders` ADD `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
 $sqlUpdateDatabase['orders']['note_user'] = "ALTER TABLE `orders` ADD `note_user` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL; ";
 $sqlUpdateDatabase['orders']['note_admin'] = "ALTER TABLE `orders` ADD `note_admin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ; ";
+$sqlUpdateDatabase['orders']['id_staff'] = "ALTER TABLE `orders` ADD `id_staff` INT NULL DEFAULT '0';";
+
 $sqlUpdateDatabase['orders']['status'] = "ALTER TABLE `orders` ADD `status` VARCHAR(255) NOT NULL; ";
 $sqlUpdateDatabase['orders']['create_at'] = "ALTER TABLE `orders` ADD `create_at` INT NOT NULL; ";
 $sqlUpdateDatabase['orders']['money'] = "ALTER TABLE `orders` ADD `money` INT NOT NULL; ";

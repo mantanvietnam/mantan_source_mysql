@@ -522,6 +522,7 @@ function createCourseUser($id_user, $id_Courses,$id_transaction){
                 $checkUsercourses = $modelUserCourse->newEmptyEntity();
                 $checkUsercourses->id_user = $user->id;
                 $checkUsercourses->name = $courses->title;
+                $checkUsercourses->titleen = $courses->titleen;
                 $checkUsercourses->id_course = $courses->id;
                 $checkUsercourses->created_at = time();
                 $checkUsercourses->id_transaction = (int)$id_transaction;
@@ -533,6 +534,7 @@ function createCourseUser($id_user, $id_Courses,$id_transaction){
                     foreach($lessons as $key => $value){
                         $listlessons[] = array('id'=>$value->id,
                             'title'=>$value->title,
+                            'title_en'=>$value->titleen,
                             'status'=>'not',
                             'youtube_code'=>$value->youtube_code,
 
@@ -570,6 +572,7 @@ function createPackageUser($id_user, $id_package,$id_transaction){
                 $checkUserPackages = $modelUserPackages->newEmptyEntity();
                 $checkUserPackages->id_user = $user->id;
                 $checkUserPackages->name = $package->title;
+                $checkUserPackages->name_en = $package->title_en;
                 $checkUserPackages->id_package = $package->id;
 
                 $checkUserPackages->date_start = time();

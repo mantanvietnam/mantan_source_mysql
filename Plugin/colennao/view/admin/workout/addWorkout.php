@@ -19,8 +19,12 @@
                         <div class="row">
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label">Tiêu đê</label>
-                              <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
+                              <label class="form-label">Tiêu đê tiếng Việt</label>
+                              <input required type="text" class="form-control phone-mask" name="title" placeholder="Tiêu đề tiếng Việt" id="title" value="<?php echo @$data->title;?>" />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Tiêu đê tiếng Anh</label>
+                              <input required type="text" class="form-control phone-mask" name="title_en" placeholder="Tiêu đề tiếng Anh" id="title_en" value="<?php echo @$data->title_en;?>" />
                             </div>
                           <div class="mb-3">
                               <label class="form-label">Trạng thái</label>
@@ -48,10 +52,13 @@
                               <input type="text" required class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" />
                             </div>
                             <div class="mb-3">
-                              <label class="form-label">Mô tả ngắn</label>
-                              <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
+                              <label class="form-label">Mô tả ngắn tiếng Vệt </label>
+                              <textarea maxlength="160" rows="5" class="form-control" placeholder="Mô tả ngắn tiếng Vệt" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
-                            
+                              <div class="mb-3">
+                              <label class="form-label">Mô tả ngắn tiếng Anh </label>
+                              <textarea maxlength="160" rows="5" class="form-control" placeholder="Mô tả ngắn tiếng Anh" name="description_en" id="description_en"><?php echo @$data->description_en;?></textarea>
+                            </div>
                         </div>
                       </div>
                       

@@ -44,6 +44,8 @@ function listArea($input)
             }
             $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
             $data->description = $dataSend['description'];
+            $data->name_en = str_replace(array('"', "'"), '’', $dataSend['name_en']);
+            $data->description_en = $dataSend['description_en'];
 
 
 

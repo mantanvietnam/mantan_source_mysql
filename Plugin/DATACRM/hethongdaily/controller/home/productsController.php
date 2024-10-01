@@ -10,7 +10,11 @@ function addOrderCustomer($input)
     global $isRequestPost;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addOrderCustomer');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderCustomerAgency');
+        }
         $metaTitleMantan = 'Tạo đơn hàng khách lẻ';
 
         $modelProducts = $controller->loadModel('Products');
@@ -51,6 +55,7 @@ function addOrderCustomer($input)
                 $save->email = @$customer_buy->email;
                 $save->phone = @$customer_buy->phone;
                 $save->address = @$customer_buy->address;
+                $save->id_staff = @$user->id_staff;
                 $save->note_user = $dataSend['note'];
                 $save->note_admin = '';
                 $save->status = 'new';
@@ -104,6 +109,10 @@ function addOrderCustomer($input)
                 if(!empty($customer_buy->id)){
                     sendZaloUpdateOrder($session->read('infoUser'), $customer_buy, $save, $productDetail);
                 }
+
+                 $note = $user->type_tv.' '. $user->name.' tạo đơn hàng cho khách hàng '.$customer_buy->full_name.'('.$customer_buy->phone.') có id đơn là:'.$save->id;
+
+                addActivityHistory($user,$note,'addOrderCustomer',$save->id);
                 
 
                 return $controller->redirect('/printBillOrderCustomerAgency/?id_order='.$save->id);
@@ -137,7 +146,11 @@ function orderCustomerAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('orderCustomerAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         $metaTitleMantan = 'Danh sách đơn hàng';
 
         $modelProduct = $controller->loadModel('Products');
@@ -146,7 +159,7 @@ function orderCustomerAgency($input)
         $modelCustomers = $controller->loadModel('Customers');
         $modelUnitConversion = $controller->loadModel('UnitConversions');
 
-        $conditions = array('id_agency'=>$session->read('infoUser')->id);
+        $conditions = array('id_agency'=>$user->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -353,7 +366,11 @@ function deleteOrderCustomerAgency($input)
     global $controller;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('deleteOrderCustomerAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderCustomerAgency');
+        }
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetail = $controller->loadModel('OrderDetails');
 
@@ -361,9 +378,14 @@ function deleteOrderCustomerAgency($input)
         $modelDebt = $controller->loadModel('Debts');
         
         if(!empty($_GET['id'])){
-            $data = $modelOrder->find()->where(['id_agency'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id']])->first();
+            $data = $modelOrder->find()->where(['id_agency'=>$user->id, 'id'=>(int) $_GET['id']])->first();
             
-            if($data){
+            if(!empty($data)){
+                 $customer_buy = $modelCustomers->find()->where(array('id'=>(int) $dataSend['id_customer']))->first();
+
+                  $note = $user->type_tv.' '. $user->name.' đã xóa đơn hàng của khách hàng '.@$customer_buy->full_name.'('.@$customer_buy->phone.') có id đơn là:'.$data->id;
+
+                addActivityHistory($user,$note,'deleteOrderCustomerAgency',$data->id);
 
                 $modelOrder->delete($data);
                 $modelOrderDetail->deleteAll(['id_order'=>$data->id]);
@@ -387,7 +409,11 @@ function viewOrderCustomerAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+     $user = checklogin('viewOrderCustomerAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderCustomerAgency');
+        }
         $metaTitleMantan = 'Chi tiết đơn hàng';
 
         $modelProduct = $controller->loadModel('Products');
@@ -446,9 +472,13 @@ function updateStatusOrderAgency($input){
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('updateStatusOrderAgency');  
+
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderCustomerAgency');
+        }
         $metaTitleMantan = 'Chi tiết đơn hàng';
-        $user = $session->read('infoUser');
 
         $modelOrder = $controller->loadModel('Orders');
         $modelBill = $controller->loadModel('Bills');
@@ -462,6 +492,7 @@ function updateStatusOrderAgency($input){
         $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
 
         $time = time();
+       
         $system = $modelCategories->find()->where(array('id'=>$user->id_system ))->first();
 
         if(!empty($system->description)){
@@ -472,7 +503,7 @@ function updateStatusOrderAgency($input){
             // debug($_GET);
             // die();
             $order = $modelOrder->find()->where(['id_agency'=>$user->id, 'id'=>(int) $_GET['id'] ])->first();
-
+             $note = '';
             if(!empty($order)){
                 if(!empty($_GET['status'])){
                     $order->status = $_GET['status'];
@@ -519,6 +550,14 @@ function updateStatusOrderAgency($input){
                             }
                         }
 
+                        $note = $user->type_tv.' '. $user->name.'đã xử lý hoàn thành đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
+
+                    }elseif($_GET['status'] == 'browser'){
+                     $note = $user->type_tv.' '. $user->name.' đã xử lý phê duyệt đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
+                    }elseif($_GET['status'] == 'delivery'){
+                     $note = $user->type_tv.' '. $user->name.' đã xử lý giao hàng đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
+                    }elseif($_GET['status'] == 'cancel'){
+                     $note = $user->type_tv.' '. $user->name.' đã xử lý hủy đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
                     }
                 }
 
@@ -531,6 +570,7 @@ function updateStatusOrderAgency($input){
                             $bill = $modelBill->newEmptyEntity();
                             $bill->id_member_sell = $user->id;
                             $bill->id_member_buy = 0;
+                            $bill->id_staff_sell =  $user->id_staff;
                             $bill->total = $order->total;
                             $bill->id_order = $order->id;
                             $bill->type = 1;
@@ -570,6 +610,7 @@ function updateStatusOrderAgency($input){
                                 $debt = $modelDebt->newEmptyEntity();
                                 $debt->id_member_sell = $user->id;
                                 $debt->id_member_buy = 0;
+                                $debt->id_staff_sell =  $user->id_staff;
                                 $debt->total = $order->total;
                                 $debt->id_order = $order->id;
                                 $debt->number_payment = 0;
@@ -584,10 +625,14 @@ function updateStatusOrderAgency($input){
                                     $modelDebt->save($debt);
                             }
                         }
+                         $note = $user->type_tv.' '. $user->name.' đã xử lý Thanh toán đơn hàng cho đại lý '.@$customer->full_name.'('.@$customer->phone.') có id đơn là:'.$order->id;
                     }
                 }
                 $modelOrder->save($order);
+
                 
+
+                addActivityHistory($user,$note,'updateStatusOrderAgency',$order->id);
 
                 if(!empty($_GET['back'])){
                     return $controller->redirect($_GET['back']);
@@ -610,7 +655,12 @@ function printBillOrderCustomerAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('printBillOrderCustomerAgency');  
+
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderCustomerAgency');
+        }
         $metaTitleMantan = 'Phiếu đơn hàng';
 
         $modelProducts = $controller->loadModel('Products');
@@ -666,9 +716,14 @@ function listProductAgency($input)
 
     $metaTitleMantan = 'Danh sách sản phẩm';
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('listProductAgency');  
 
-        if(!empty($session->read('infoUser')->id_father)){
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderCustomerAgency');
+        }
+
+        if(!empty($user->id_father)){
             return $controller->redirect('/');
         }
 
@@ -828,8 +883,13 @@ function addProductAgency($input)
     global $urlHomes;
 
     $metaTitleMantan = 'Thông tin sản phẩm';
-    if(!empty($session->read('infoUser'))){
-        if(!empty($session->read('infoUser')->id_father)){
+    $user = checklogin('addProductAgency');  
+
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listProductAgency');
+        }
+        if(!empty($user->id_father)){
             return $controller->redirect('/');
         }
 
@@ -838,9 +898,7 @@ function addProductAgency($input)
         $mess= '';
         $modelUnitConversion = $controller->loadModel('UnitConversions');
 
-        if(!empty($session->read('infoUser')->id_father)){
-            return $controller->redirect('/');
-        }
+        
 
         // lấy data edit
         if(!empty($_GET['id'])){
@@ -1041,6 +1099,16 @@ function addProductAgency($input)
 
                 }
 
+                if(!empty($_GET['id'])){
+                      $note = $user->type_tv.' '. $user->name.' sửa thông tin sản phẩm '.$data->title.' có id là:'.$data->id;
+                }else{
+                      $note = $user->type_tv.' '. $user->name.' thêm thông tin sản phẩm '.$data->title.' có id là:'.$data->id;
+                }
+
+
+                addActivityHistory($user,$note,'updateStatusOrderAgency',$data->id);
+
+
                  return $controller->redirect('/listProductAgency?mess=saveSuccess');
             }else{
                 $mess= '<p class="text-danger">Bạn chưa nhập tên sản phẩm</p>';
@@ -1096,9 +1164,14 @@ function addProductAgency($input)
 function deleteProductAgency($input){
     global $controller;
     global $session;
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('deleteProductAgency');  
 
-        if(!empty($session->read('infoUser')->id_father)){
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listProductAgency');
+        }
+
+        if(!empty($user->id_father)){
             return $controller->redirect('/');
         }
 
@@ -1110,6 +1183,10 @@ function deleteProductAgency($input){
             if($data){
                 $data->status = 'lock';
                 $modelProduct->save($data);
+
+                $note = $user->type_tv.' '. $user->name.' xóa thông tin sản phẩm '.$data->title.' có id là:'.$data->id;
+                addActivityHistory($user,$note,'updateStatusOrderAgency',$data->id);
+
                 return $controller->redirect('/listProductAgency?mess=deleteSuccess');
             }
         }
@@ -1129,48 +1206,68 @@ function listCategoryProductAgency($input){
     global $controller;
 
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('listCategoryProductAgency');  
 
-         if(!empty($session->read('infoUser')->id_father)){
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listProductAgency');
+        }
+
+         if(!empty($user->id_father)){
             return $controller->redirect('/');
         }
 
         if ($isRequestPost) {
-            $dataSend = $input['request']->getData();
-            
-            // tính ID category
-            if(!empty($dataSend['idCategoryEdit'])){
-                $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
-            }else{
-                $infoCategory = $modelCategories->newEmptyEntity();
-            }
-
-            // tạo dữ liệu save
-            $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-            $infoCategory->parent = 0;
-            $infoCategory->image = @$dataSend['image'];
-            $infoCategory->status = 'active';
-            $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
-            $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
-            $infoCategory->type = 'category_product';
-
-            // tạo slug
-            $slug = createSlugMantan($infoCategory->name);
-            $slugNew = $slug;
-            $number = 0;
-            do{
-                $conditions = array('slug'=>$slugNew,'type'=>'category_product');
-                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-                if(!empty($listData)){
-                    $number++;
-                    $slugNew = $slug.'-'.$number;
+            $checluser = checklogin('editCategoryCustomerAgency'); 
+            if(!empty($checluser->grant_permission)){
+                $dataSend = $input['request']->getData();
+                
+                // tính ID category
+                if(!empty($dataSend['idCategoryEdit'])){
+                    $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+                }else{
+                    $infoCategory = $modelCategories->newEmptyEntity();
                 }
-            }while (!empty($listData));
 
-            $infoCategory->slug = $slugNew;
+                // tạo dữ liệu save
+                $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+                $infoCategory->parent = 0;
+                $infoCategory->image = @$dataSend['image'];
+                $infoCategory->status = 'active';
+                $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+                $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+                $infoCategory->type = 'category_product';
 
-            $modelCategories->save($infoCategory);
+                // tạo slug
+                $slug = createSlugMantan($infoCategory->name);
+                $slugNew = $slug;
+                $number = 0;
+                do{
+                    $conditions = array('slug'=>$slugNew,'type'=>'category_product');
+                    $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                    if(!empty($listData)){
+                        $number++;
+                        $slugNew = $slug.'-'.$number;
+                    }
+                }while (!empty($listData));
+
+                $infoCategory->slug = $slugNew;
+
+                $modelCategories->save($infoCategory);
+
+                if(!empty($dataSend['idCategoryEdit'])){
+                        $history->note = $user->type_tv.' '. $user->name.' sửa thông tin nhóm sản phẩm '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                    
+                }else{
+                    $history->note = $user->type_tv.' '. $user->name.' tạo mới thông tin nhóm sản phẩm '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                }
+
+
+             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }else{
+               $mess= '<p class="text-danger">Bạn không có quyền thêm sửa </p>'; 
+            }
 
         }
 
@@ -1309,7 +1406,12 @@ function editOrderCustomerAgency($input)
     global $session;
     global $isRequestPost;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('editOrderCustomerAgency');  
+
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderCustomerAgency');
+        }
         $metaTitleMantan = 'Tạo yêu cầu nhập hàng';
 
         $modelProducts = $controller->loadModel('Products');
@@ -1371,7 +1473,13 @@ function editOrderCustomerAgency($input)
             }
             $orderDetail = $modelOrderDetails->find()->where(array('id_order'=>$order->id))->all()->toList();
 
-            $mess= '<p class="text-success">Sửa đơn hàng thành công</p>';                
+            $mess= '<p class="text-success">Sửa đơn hàng thành công</p>'; 
+
+            $note = $user->type_tv.' '. $user->name.' đã xử lý sửa đơn hàng cho đại lý '.$customer->name.'('.$customer->phone.') có id đơn là:'.$order->id;
+
+            addActivityHistory($user,$note,'editOrderCustomerAgency',$order->id);
+
+
         }
 
          $listProduct = [];

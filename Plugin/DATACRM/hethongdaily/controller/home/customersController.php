@@ -535,7 +535,7 @@ function groupCustomerAgency($input)
 
                 $history = $modelActivityHistory->newEmptyEntity();
 
-                if(!empty($_GET['id'])){
+                if(!empty($dataSend['idCategoryEdit'])){
                         $history->note = $user->type_tv.' '. $user->name.' sửa thông tin nhóm khách hàng '.$infoCategory->name.' có id là:'.$infoCategory->id;
                     
                 }else{

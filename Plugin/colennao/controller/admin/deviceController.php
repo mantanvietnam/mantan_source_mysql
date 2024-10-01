@@ -43,8 +43,10 @@ function listDevice($input)
             	}
             }
             $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $data->name_en = str_replace(array('"', "'"), '’', $dataSend['name_en']);
             $data->link = $dataSend['link'];
             $data->description = $dataSend['description'];
+            $data->description_en = $dataSend['description_en'];
 
 
 

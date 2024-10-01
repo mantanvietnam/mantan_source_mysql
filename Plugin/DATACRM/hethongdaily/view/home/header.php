@@ -144,6 +144,7 @@
                 echo        '<a class="dropdown-item" href="/listRatingPoint">Hạng thành viên</a>
                             <a class="dropdown-item" href="/listStaff">Nhân viên</a>
                             <a class="dropdown-item" href="/listGroupStaff">Nhóm nhân viên</a>
+                            <a class="dropdown-item" href="/listActivityHistory">Lịch sử Hoạt động nhân viên</a>
                             <a class="dropdown-item" href="/listTransactionAgencyHistorie">Hoa hồng đại lý giới thiệu</a>';
                             if(empty($user->id_father)){
                               echo '<a class="dropdown-item" href="/listWebMember">Website đại lý</a>';

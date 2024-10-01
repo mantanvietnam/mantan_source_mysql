@@ -33,7 +33,7 @@
                                       
                                     </td>
                                     <td align="center">
-                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->link.'\',\''.$item->description.'\',  );">
+                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->link.'\',\''.$item->description.'\',\''.$item->name_en.'\',\''.$item->description_en.'\'  );">
                                         <i class="bx bx-edit-alt me-1"></i>
                                       </a>
                                     </td>
@@ -69,10 +69,13 @@
               <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
                 <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Tên thiết bị</label>
-                  <input type="text" class="form-control phone-mask" name="name" id="name" value="" />
+                  <label class="form-label" for="basic-default-phone">Tên thiết bị tiếng Việt</label>
+                  <input type="text" class="form-control phone-mask" name="name" id="name" placeholder="tên thiết bị tiếng Việt" value="" />
                 </div>
-
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Tên thiết bị tiếng Anh</label>
+                  <input type="text" class="form-control phone-mask" name="name_en" id="name_en" placeholder="tên thiết bị tiếng Anh" value="" />
+                </div>
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-phone">hình ảnh</label>
                   <input type="file" class="form-control phone-mask" name="image" id="image" value=""/>
@@ -84,8 +87,12 @@
                 </div>
 
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Mô tả ngắn </label>
-                  <input type="text" class="form-control phone-mask" name="description" id="description" value="" />
+                  <label class="form-label" for="basic-default-phone">Mô tả ngắn tiếng Việt</label>
+                  <input type="text" class="form-control phone-mask" name="description" placeholder="Mô tả ngắn tiếng Vệt" id="description" value="" />
+                </div>
+                 <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Mô tả ngắn tiếng anh</label>
+                  <input type="text" class="form-control phone-mask" name="description_en" placeholder="Mô tả ngắn tiếng Anh" id="description_en" value="" />
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu</button>
@@ -99,10 +106,12 @@
   </div>
 
   <script type="text/javascript">
-    function editData(id, name, link, description){
+    function editData(id, name, link, description,name_en,description_en){
       $('#idCategoryEdit').val(id);
       $('#name').val(name);
+      $('#name_en').val(name_en);
       $('#link').val(link);
       $('#description').val(description);
+      $('#description_en').val(description_en);
     }
   </script>

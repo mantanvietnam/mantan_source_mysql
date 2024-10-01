@@ -48,7 +48,7 @@
                               <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>"  placeholder="tiêu đền tiếng Việt"/>
                              </div>
                             <div class="mb-3">
-                              <label class="form-label">Số ngày tiếng Anh (*)</label>
+                              <label class="form-label">Tiêu đề tiếng Anh (*)</label>
                               <input required type="text" class="form-control phone-mask" name="title_en" id="title_en" value="<?php echo @$data->title_en;?>" placeholder="tiêu đền tiếng anh "/>
                             </div>
                             <div class="mb-3">

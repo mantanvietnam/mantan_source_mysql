@@ -13,9 +13,9 @@ function registerUserApi($input): array
         if (isset($dataSend['full_name'])
             && isset($dataSend['phone'])
             && isset($dataSend['password'])
+            && isset($dataSend['email'])
             && isset($dataSend['password_confirmation'])
-            && isset($dataSend['device_token'])
-        ) {
+        ){
             $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
             $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
             $checkDuplicatePhone = $modelUser->find()->where([
@@ -55,8 +55,8 @@ function registerUserApi($input): array
                 $user->phone = @$dataSend['phone'];
                 $user->password = md5($dataSend['password']);
                 $user->info = @$dataSend['info'];
-                $user->sex = (int) $dataSend['sex']?? 1;
-                $user->birthday = (int) strtotime($dataSend['birthday']);
+                $user->sex = (int) @$dataSend['sex']?? 1;
+                $user->birthday = (int) strtotime(@$dataSend['birthday']);
                 $user->email = @$dataSend['email'] ?? null;
                 $user->address = @$dataSend['address'] ?? null;
                 $user->status = 'lock';
@@ -66,7 +66,7 @@ function registerUserApi($input): array
                 $user->last_login = time();
                 $user->token = createToken();
                 $code = rand(100000, 999999);
-                $user->reset_password_code = $code;
+                $user->reset_password_code = @$code;
                 $user->device_token = @$dataSend['device_token'];
                 $user->current_weight =  (int) @$dataSend['current_weight'];
                 $user->target_weight =  (int) @$dataSend['target_weight'];

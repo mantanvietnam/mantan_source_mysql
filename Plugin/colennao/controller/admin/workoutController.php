@@ -92,8 +92,10 @@ function addWorkout($input){
 
                 // tạo dữ liệu save
                 $data->title = @$dataSend['title'];
+                $data->title_en = @$dataSend['title_en'];
                 $data->status = @$dataSend['status'];
                 $data->description = @$dataSend['description'];
+                $data->description_en = @$dataSend['description_en'];
                 $data->youtube_code = @$dataSend['youtube_code'];
                 
 
@@ -266,8 +268,10 @@ function addExerciseWorkout($input){
 
                 // tạo dữ liệu save
                 $data->title = @$dataSend['title'];
+                $data->title_en = @$dataSend['title_en'];
                 $data->status = @$dataSend['status'];
                 $data->description = @$dataSend['description'];
+                $data->description_en = @$dataSend['description_en'];
                 $data->youtube_code = @$dataSend['youtube_code'];
                 $data->time =(int) @$dataSend['time'];
                 $data->level = @$dataSend['level'];
@@ -279,7 +283,8 @@ function addExerciseWorkout($input){
                 if(!empty($dataSend['group_exercise'])){
                     foreach($dataSend['group_exercise'] as $key => $item){
                          $group_exercise[] = ['id'=>(int)$dataSend['id_group'][$key],
-                                            'name' =>$item
+                                            'name' =>$item,
+                                            'name_en' =>@$dataSend['group_exercise_en'][$key],
 
                                 ];
                     }
@@ -503,10 +508,13 @@ function addChildExerciseWorkout($input){
 
                 // tạo dữ liệu save
                 $data->title = @$dataSend['title'];
+                $data->title_en = @$dataSend['title_en'];
                 $data->time =(int) @$dataSend['time'];
                 $data->description = @$dataSend['description'];
+                $data->description_en = @$dataSend['description_en'];
                 $data->youtube_code = @$dataSend['youtube_code'];
                 $data->content = @$dataSend['content'];
+                $data->content_en = @$dataSend['content_en'];
                 $data->id_group =(int) @$dataSend['id_group'];
                 $data->device = json_encode(@$dataSend['device']);
                

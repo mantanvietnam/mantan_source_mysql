@@ -191,6 +191,7 @@
 	$routesPlugin['changePassStaff']= 'hethongdaily/view/home/staff/changePassStaff.php';
 	$routesPlugin['listGroupStaff']= 'hethongdaily/view/home/staff/listGroupStaff.php';
 	$routesPlugin['addGroupStaff']= 'hethongdaily/view/home/staff/addGroupStaff.php';
+	$routesPlugin['listActivityHistory']= 'hethongdaily/view/home/staff/listActivityHistory.php';
 
 
 	// cài đặt đào tạo 

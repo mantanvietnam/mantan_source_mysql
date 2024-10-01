@@ -802,5 +802,188 @@ function deteleGroupStaff($input){
     }
 }
 
+function listActivityHistory(){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+     $user = checklogin('requestProductAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
+        $metaTitleMantan = 'Danh sách lịch sử hàng động nhân viên';
+
+        $modelStaff = $controller->loadModel('Staffs');
+        $modelMembers = $controller->loadModel('Members');
+        $modelActivityHistory = $controller->loadModel('ActivityHistorys');
+        
+        $order = array('id'=>'desc');
+
+        $conditions = array('id_member'=>$user->id);
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+
+        if(!empty($_GET['id_staff'])){
+            $conditions['id_staff'] = (int) $_GET['id_staff'];
+        }
+
+
+        $listData = $modelActivityHistory->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                if(!empty($item->id_staff)){
+                    $item->infoStaff = $modelStaff->find()->where(array('id'=>$item->id_staff))->first();
+                }else{
+                    $item->infoStaff = $modelMembers->find()->where(array('id'=>$item->id_member))->first();
+                }
+                $listData[$key] = $item;
+            }
+        }
+        
+        
+
+        // phân trang
+        $totalData = $modelActivityHistory->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
+        setVariable('mess', $mess);
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('totalData', $totalData);
+        
+        setVariable('listData', $listData);
+       // / setVariable('listGroup', $listGroup);
+    }else{
+        return $controller->redirect('/login');
+    }
+
+}
+
+function searchStaffAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $modelCategories;
+
+
+    $user = checklogin('');   
+    if(!empty($user)){
+       
+
+    $return= array();
+    $modelStaff = $controller->loadModel('Staffs');
+
+    $dataSend = $_REQUEST;
+    
+    $conditions = ['id_member'=>$user->id];
+
+    if(!empty($dataSend['term'])){
+        $conditions['OR'] = ['name LIKE' => '%'.$dataSend['term'].'%', 'phone LIKE' => '%'.$dataSend['term'].'%'];
+    }
+
+    if(!empty($dataSend['id'])){
+        $conditions['id'] = (int) $dataSend['id'];
+    }
+
+    if(!empty($dataSend['phone'])){
+        $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+        $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+        $conditions['phone'] = $dataSend['phone'];
+    }
+
+    if(!empty($dataSend['email'])){
+        $conditions['email'] = $dataSend['email'];
+    }
+
+    if(!empty($dataSend['status'])){
+        $conditions['status'] = $dataSend['status'];
+    }
+
+    if(!empty($dataSend['id_father'])){
+        $conditions['id_father'] = (int) $dataSend['id_father'];
+    }
+
+    $listData= $modelStaff->find()->where($conditions)->all()->toList();
+    
+
+    if($listData){
+        foreach($listData as $data){
+     
+            $return[]= array(   'id'=>$data->id,
+                                'label'=>$data->name.' '.$data->phone,
+                                'value'=>$data->id,
+                                'name'=>$data->name,
+                                'avatar'=>$data->avatar,
+                                'phone'=>$data->phone,
+                                'id_father'=>$data->id_father,
+                                'email'=>$data->email,
+                                'status'=>$data->status,
+                                'created_at'=>$data->created_at,
+                                'address'=>$data->address,
+                                'birthday'=>$data->birthday,
+                                'id_position'=>$data->id_position,
+                            );
+        }
+    }else{
+        $return= array(array(   'id'=>0, 
+                                'label'=>'Không tìm được nhân viên, hãy tạo thông tin cho đại lý mới', 
+                                'value'=>'', 
+                            )
+                );
+    }
+
+    return $return;
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 
  ?>
+
+ 

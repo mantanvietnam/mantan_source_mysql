@@ -33,7 +33,7 @@
                                       
                                     </td>
                                     <td align="center">
-                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\',\''.$item->description.'\',  );">
+                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\',\''.$item->description.'\',\''.$item->name_en.'\',\''.$item->description_en.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
                                       </a>
                                     </td>
@@ -70,7 +70,11 @@
                 <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-phone">Tên khu vực tập</label>
-                  <input type="text" class="form-control phone-mask" name="name" id="name" value="" />
+                  <input type="text" class="form-control phone-mask" name="name" id="name" value="" placeholder="Tên khu vực tập tiềng Việt " />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Tên khu vực tập</label>
+                  <input type="text" class="form-control phone-mask" name="name_en" id="name_en" value="" placeholder="Tên khu vực tập tiềng Anh " />
                 </div>
 
                 <div class="mb-3">
@@ -79,7 +83,11 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-phone">Mô tả ngắn </label>
-                  <input type="text" class="form-control phone-mask" name="description" id="description" value="" />
+                  <input type="text" class="form-control phone-mask" name="description" id="description" value="" placeholder="Mô tả ngắn tiềng Việt " />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Mô tả ngắn </label>
+                  <input type="text" class="form-control phone-mask" name="description_en" id="description_en" value="" placeholder="Mô tả ngắn tiềng Anh " />
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu</button>
@@ -93,9 +101,11 @@
   </div>
 
   <script type="text/javascript">
-    function editData(id, name, description){
+    function editData(id, name, description, name_en, description_en){
       $('#idCategoryEdit').val(id);
       $('#name').val(name);
       $('#description').val(description);
+      $('#name_en').val(name_en);
+      $('#description_en').val(description_en);
     }
   </script>

@@ -106,7 +106,8 @@ function addPackageWorkouts($input){
                        		$price_package[$key] = array( 'id' => $key,
                        			 'price' => $price,
                        			 'status' =>  $dataSend['status_price'][$key],
-                       			 'title' => $dataSend['title_price'][$key],
+                                 'title' => $dataSend['title_price'][$key],
+                       			 'title_en' => $dataSend['title_price_en'][$key],
                        			 'number_day' => $dataSend['number_day'][$key],
                        			);
                         }

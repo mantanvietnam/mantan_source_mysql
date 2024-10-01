@@ -1359,7 +1359,27 @@ function getListPermission()
                                     array('name'=>'tạo phiếu in bill','permission'=>'printBillOrderMemberAgency'),
                                     array('name'=>'Sửa đơn hàng','permission'=>'editOrderMemberAgency'),
                             ),
-                    );   
+                    );
+    $permission[] = array( 'name'=>'Quản lý Đơn hàng của khách lẻ ',
+                    'sub'=>array(   array('name'=>'Tạo đơn hàng cho khách lẻ','permission'=>'addOrderCustomer'),
+                                    array('name'=>'Danh sách đơn hàng của khách lẻ','permission'=>'orderCustomerAgency'),
+                                    array('name'=>'Xóa đơn hàng cho khách lẻ','permission'=>'deleteOrderCustomerAgency'),
+                                    array('name'=>'cập nhập trạng thái đơn hàng','permission'=>'updateStatusOrderAgency'),
+                                    array('name'=>'xem chi tiết đơn hàng','permission'=>'viewOrderCustomerAgency'),
+                                    array('name'=>'Sửa đơn hàng','permission'=>'editOrderCustomerAgency'),
+                                    array('name'=>'tạo phiếu in bill','permission'=>'printBillOrderCustomerAgency')
+                            )
+                    );
+    $permission[] = array( 'name'=>'Quản lý Sản phẩm ',
+                    'sub'=>array(   array('name'=>'Danh sách sản phẩm','permission'=>'listProductAgency'),
+                                    array('name'=>'Thêm và sửa sản phẩm','permission'=>'addProductAgency'),
+                                    array('name'=>'Xóa sản phẩn','permission'=>'deleteProductAgency'),
+                                    array('name'=>'Thêm sản phẩn bằng Excel','permission'=>'addDataProductAgency'),
+                                    array('name'=>'Danh sách nhóm sản phẩm','permission'=>'listCategoryProductAgency'),
+                                    array('name'=>'Thêm và sửa nhóm sản phẩm','permission'=>'editCategoryCustomerAgency'),
+                                    array('name'=>'Xóa nhóm sản phẩn','permission'=>'deleteCategoryProductAgency')
+                            )
+                    );
     
     return $permission;
 }

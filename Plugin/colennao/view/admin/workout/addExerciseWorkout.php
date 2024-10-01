@@ -44,8 +44,12 @@
                         <div class="row">
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label">Tiêu đề</label>
-                              <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
+                              <label class="form-label">Tiêu đề tiếng Việt </label>
+                              <input required type="text" class="form-control phone-mask" placeholder="Tiêu đề tiếng Việt" name="title" id="title" value="<?php echo @$data->title;?>" />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Tiêu đề tiếng Anh</label>
+                              <input required type="text" class="form-control phone-mask" placeholder="Tiêu đề tiếng Anh" name="title_en" id="title_en" value="<?php echo @$data->title_en;?>" />
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Mã Youtube(*)</label>
@@ -114,8 +118,12 @@
                            
 
                             <div class="mb-3">
-                              <label class="form-label">Mô tả ngắn</label>
+                              <label class="form-label">Mô tả ngắn tiếng Việt</label>
                               <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Mô tả ngắn tiếng Việt</label>
+                              <textarea maxlength="160" rows="5" class="form-control" name="description_en" id="description"><?php echo @$data->description_en;?></textarea>
                             </div>
                             
                           </div>
@@ -166,7 +174,8 @@
                             <table class="table table-bordered table-striped table-hover mb-none text-center mb-3">
                              <thead>
                               <tr>
-                                <th>Tên nhóm tập</th>
+                                <th>Tên nhóm tập tiêng Việt</th>
+                                <th>Tên nhóm tập Tiềng Việt</th>
                                 <th>Xóa</th>
                               </tr>
                             </thead>
@@ -174,6 +183,7 @@
                               <?php
                               $y= 0;
                               if(!empty($data->group_exercise)){
+                                
                                 foreach($data->group_exercise as $key => $item){
                                   $y++;
                                  
@@ -182,7 +192,10 @@
                                   ?>
                                   <tr class="gradeX" id="trfeedback-<?php echo $y ?>">
                                     <td>
-                                        <input type="text" class="form-control phone-mask" name="group_exercise[<?php echo $y ?>]" id="group_exercise<?php echo $y ?>" value="<?php echo @$item['name'] ?>"/>
+                                        <input type="text" class="form-control phone-mask" name="group_exercise[<?php echo $y ?>]" id="group_exercise<?php echo $y ?>" value="<?php echo @$item['name'] ?>" placeholder="Tên nhóm tâp tiếng Việt"/>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control phone-mask" name="group_exercise_en[<?php echo $y ?>]" id="group_exercise_en<?php echo $y ?>" value="<?php echo @$item['name_en'] ?>" placeholder="Tên nhóm tâp tiếng Anh"/>
                                         <input type="hidden" class="form-control phone-mask" name="id_group[<?php echo $y ?>]" id="id_group<?php echo $y ?>" value="<?php echo @$item['id'] ?>"/>
                                     </td>
                                     
@@ -193,7 +206,10 @@
                                   ?>
                                   <tr class="gradeX" id="trfeedback-<?php echo $y ?>">
                                     <td>
-                                      <input type="text" class="form-control phone-mask" name="group_exercise[<?php echo $y ?>]"  value=""/>
+                                      <input type="text" class="form-control phone-mask" name="group_exercise[<?php echo $y ?>]"  value="" placeholder="Tên nhóm tâp tiếng Việt"/>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control phone-mask" name="group_exercise_en[<?php echo $y ?>]"  value="" placeholder="Tên nhóm tâp tiếng Anh"/>
                                       <input type="hidden" class="form-control phone-mask" name="id_group[<?php echo $y ?>]"  value="<?php echo $y ?>"/>
                                     </td>
                                     <td align="center" class="actions"></td>
@@ -230,7 +246,10 @@
         f++;
         $('#tbodyfeedback tr:last').after('<tr class="gradeX" id="trfeedback-'+f+'">\
           <td>\
-          <input type="text" class="form-control phone-mask" name="group_exercise['+f+']"  value=""/>\
+          <input type="text" class="form-control phone-mask" name="group_exercise['+f+']"  value="" placeholder="Tên nhóm tâp tiếng Việt"/>\
+          </td>\
+          <td>\
+              <input type="text" class="form-control phone-mask" name="group_exercise_en['+f+']" id="group_exercise_en'+f+'" value="" placeholder="Tên nhóm tâp tiếng Anh"/>\
           <input type="hidden" class="form-control phone-mask" name="id_group['+f+']"  value="'+f+'"/>\
           </td>\
           <td align="center" class="actions"><a onclick="deletefeedbackTr('+f+')" href="javascript:void(0);"><i class="bx bx-trash"></i></a></td>\
