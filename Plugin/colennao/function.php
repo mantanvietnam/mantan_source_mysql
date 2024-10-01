@@ -134,6 +134,11 @@ $menus[3]['sub'][5]= array( 'title'=>'Bữa ăn nhẹ',
                             'permission'=>'listcondition'
                             );
 
+$menus[3]['sub'][7]= array( 'title'=>'Điều kiện tiếng anh',
+                            'url'=>'/plugins/admin/colennao-view-admin-condition-listconditioneng',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listconditioneng'
+                            );
 
 
 
