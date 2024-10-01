@@ -75,7 +75,9 @@ function login($input)
     						$info_staff->last_login = time();
 							$modelStaff->save($info_staff);
 							
-	    					$info_staff->info_system = $modelCategories->find()->where(['id'=>(int) $info_staff->id_system])->first();
+	    					$info_staff->info_system = $modelCategories->find()->where(['id'=>(int) $members->id_system])->first();
+	    					$info_staff->id_father = $members->id_father;
+	    					$info_staff->create_order_agency = $members->create_order_agency;
 
 			    			$session->write('CheckAuthentication', true);
 		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$members->id.'/');
@@ -152,7 +154,8 @@ function login($input)
 						$modelStaff->save($info_staff);
 
 						$info_staff->info_system = $modelCategories->find()->where(['id'=>(int) $info_staff->id_system])->first();
-
+						$info_staff->id_father = $members->id_father;
+	    				$info_staff->create_order_agency = $members->create_order_agency;
 		    			$session->write('CheckAuthentication', true);
 	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$members->id.'/');
 

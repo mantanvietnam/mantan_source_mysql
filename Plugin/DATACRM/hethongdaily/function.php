@@ -1364,4 +1364,24 @@ function getListPermission()
     return $permission;
 }
 
+function addActivityHistory($user=array(),$note='',$keyword='',$id_key=0){
+
+
+    global $controller;
+    $modelActivityHistory = $controller->loadModel('ActivityHistorys');
+
+    $history = $modelActivityHistory->newEmptyEntity();
+    $history->note = $note;
+    $history->type = $user->type;
+    $history->id_staff = $user->id_staff;
+    $history->id_member = $user->id;
+    $history->keyword = $keyword;
+    $history->time = time();
+    $history->id_key = $id_key;
+    $modelActivityHistory->save($history);
+
+
+}
+
+
 ?>

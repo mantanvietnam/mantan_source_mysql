@@ -144,8 +144,9 @@ function addRequestProductAgency($input)
             if(!empty($dataSend['idHangHoa'])){
                 $save = $modelOrderMembers->newEmptyEntity();
 
-                $save->id_member_sell = $session->read('infoUser')->id_father;
-                $save->id_member_buy = $session->read('infoUser')->id;
+                $save->id_member_sell = $user->id_father;
+                $save->id_member_buy = $user->id;
+                $save->id_staff_buy = $user->id_staff;
                 $save->note_sell = ''; // ghi chú người bán
                 $save->note_buy = $dataSend['note']; // ghi chú người mua 
                 $save->status = 'new';
@@ -153,6 +154,7 @@ function addRequestProductAgency($input)
                 $save->money = (int) $dataSend['total'];
                 $save->total = (int) $dataSend['totalPays'];
                 $save->status_pay = 'wait';
+                $save->discount = $dataSend['promotion'];
                 $save->discount = $dataSend['promotion'];
 
                 $modelOrderMembers->save($save);
@@ -168,6 +170,9 @@ function addRequestProductAgency($input)
                     $saveDetail->id_unit = (int)$dataSend['id_unit'][$key];
                     $modelOrderMemberDetails->save($saveDetail);
                 }
+                $note = $user->type_tv.' '. $user->name.' tạo yêu cầu nhập hàng vào kho có id đơn là:'.$save->id;
+
+                addActivityHistory($user,$note,'addRequestProductAgency',$save->id);
 
                 $mess= '<p class="text-success">Gửi yêu cầu thành công</p>';
             }else{
@@ -180,11 +185,11 @@ function addRequestProductAgency($input)
             $listProduct = getAllProductActive();
         }
 
-        $position = $modelCategories->find()->where(array('id'=>$session->read('infoUser')->id_position))->first();
+        $position = $modelCategories->find()->where(array('id'=>$user->id_position))->first();
 
-        $father = $modelMembers->find()->where(array('id'=>$session->read('infoUser')->id_father))->first();
+        $father = $modelMembers->find()->where(array('id'=>$user->id_father))->first();
 
-        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active'])->all()->toList();
+        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$user->id_system, 'status'=>'active'])->all()->toList();
 
         setVariable('listProduct', $listProduct);
         setVariable('position', $position);
@@ -206,7 +211,12 @@ function addOrderAgency($input)
     global $session;
     global $isRequestPost;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addOrderAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderMemberAgency');
+        }
+
         $metaTitleMantan = 'Tạo yêu cầu nhập hàng';
 
         $modelProducts = $controller->loadModel('Products');
@@ -232,6 +242,9 @@ function addOrderAgency($input)
                     $save->id_member_sell = $member_buy->id_father;
                     $save->id_member_buy = $member_buy->id;
                     $save->note_sell = '';
+                    if($member_sell->id==$user->id){
+                         $save->id_staff_sell = $user->id_staff;
+                    }
                     $save->note_buy = $dataSend['note']; // ghi chú người mua  
                     $save->status = 'new';
                     $save->create_at = time();
@@ -296,6 +309,10 @@ function addOrderAgency($input)
                         sendZaloUpdateOrder($member_sell, $member_buy, $save, $productDetail);
                     }
 
+                    $note = $user->type_tv.' '. $user->name.' tạo đơn hàng cho đại lý '.$member_buy->name.'('.$member_buy->phone.') có id đơn là:'.$save->id;
+
+                    addActivityHistory($user,$note,'addOrderAgency',$save->id);
+
                     return $controller->redirect('/printBillOrderMemberAgency/?id_order_member='.$save->id);
                 }else{
                     $mess= '<p class="text-danger">Không tìm thấy đại lý mua hàng</p>';
@@ -315,7 +332,7 @@ function addOrderAgency($input)
         $member_buy = [];
         $father = [];
         
-        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active'])->all()->toList();
+        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$user->id_system, 'status'=>'active'])->all()->toList();
 
         if(!empty($_GET['id_member_buy'])){
             $member_buy = $modelMembers->find()->where(array('id'=>(int) $_GET['id_member_buy']))->first();
@@ -359,7 +376,11 @@ function orderMemberAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('orderMemberAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         $metaTitleMantan = 'Danh sách đơn hàng đại lý';
 
         $modelMembers = $controller->loadModel('Members');
@@ -368,7 +389,7 @@ function orderMemberAgency($input)
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelUnitConversion = $controller->loadModel('UnitConversions');
 
-        $conditions = array('id_member_sell'=>$session->read('infoUser')->id);
+        $conditions = array('id_member_sell'=>$user->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -602,9 +623,12 @@ function updateOrderMemberAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('updateOrderMemberAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderMemberAgency');
+        }
         $metaTitleMantan = 'Cập nhập đơn hàng đại lý';
-        $user = $session->read('infoUser');
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelBill = $controller->loadModel('Bills');
@@ -619,12 +643,12 @@ function updateOrderMemberAgency($input)
 
         if(!empty($_GET['id'])){
             $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id'], 'id_member_sell'=>$user->id])->first();
-
+              $note = '';
             if(!empty($order)){
                 $infoMemberBuy = $modelMembers->find()->where(['id'=>$order->id_member_buy])->first();
                 if(!empty($_GET['status'])){
                     $order->status = $_GET['status'];
-
+                   
                     // nhập hàng vào kho
                     if($_GET['status'] == 'done'){
                         $detail_order = $modelOrderMemberDetails->find()->where(['id_order_member'=>$order->id])->all()->toList();
@@ -738,7 +762,18 @@ function updateOrderMemberAgency($input)
                                 $modelWarehouseHistories->save($saveWarehouseHistories);
                             }
                         }
+
+                        $note = $user->type_tv.' '. $user->name.'đã xử lý hoàn thành đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
+
+                    }elseif($_GET['status'] == 'browser'){
+                     $note = $user->type_tv.' '. $user->name.' đã xử lý phê duyệt đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
+                    }elseif($_GET['status'] == 'delivery'){
+                     $note = $user->type_tv.' '. $user->name.' đã xử lý giao hàng đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
+                    }elseif($_GET['status'] == 'cancel'){
+                     $note = $user->type_tv.' '. $user->name.' đã xử lý hủy đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
                     }
+
+                    
                 }
 
                 if(!empty($_GET['status_pay'])){
@@ -793,6 +828,8 @@ function updateOrderMemberAgency($input)
                             // bill cho người bán 
                             $bill = $modelBill->newEmptyEntity();
                             $bill->id_member_sell =  $user->id;
+                            $bill->id_staff_sell =  $user->id_staff;
+                            $bill->id_staff_buy =  $order->id_staff_buy;
                             $bill->id_member_buy = $order->id_member_buy;
                             $bill->total = $order->total;
                             $bill->id_order = $order->id;
@@ -810,6 +847,8 @@ function updateOrderMemberAgency($input)
                             $billbuy = $modelBill->newEmptyEntity();
                             $billbuy->id_member_sell =  $user->id;
                             $billbuy->id_member_buy = $order->id_member_buy;
+                            $billbuy->id_staff_sell =  $user->id_staff;
+                            $billbuy->id_staff_buy =  $order->id_staff_buy;
                             $billbuy->total = $order->total;
                             $billbuy->id_order = $order->id;
                             $billbuy->type = 2;
@@ -824,8 +863,10 @@ function updateOrderMemberAgency($input)
                         }else{
                             if(!empty($infoMemberBuy)){
                                 $debt = $modelDebt->newEmptyEntity();
-                                $debt->id_member_sell =  $session->read('infoUser')->id;
+                                $debt->id_member_sell =  $user->id;
                                 $debt->id_member_buy = $order->id_member_buy;
+                                $bill->id_staff_sell =  $user->id_staff;
+                                $bill->id_staff_buy =  $order->id_staff_buy;
                                 $debt->total = $order->total;
                                 $debt->id_order = $order->id;
                                 $debt->number_payment = 0;
@@ -841,8 +882,10 @@ function updateOrderMemberAgency($input)
                             }
 
                             $debt = $modelDebt->newEmptyEntity();
-                                $debt->id_member_sell =  $session->read('infoUser')->id;
+                                $debt->id_member_sell =  $user->id;
                                 $debt->id_member_buy = $order->id_member_buy;
+                                $bill->id_staff_sell =  $user->id_staff;
+                                $bill->id_staff_buy =  $order->id_staff_buy;
                                 $debt->total = $order->total;
                                 $debt->id_order = $order->id;
                                 $debt->number_payment = 0;
@@ -881,8 +924,12 @@ function updateOrderMemberAgency($input)
                             }
                         }
 
+                        $note = $user->type_tv.' '. $user->name.' đã xử lý Thanh toán đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
+
                     }
                 }
+
+                addActivityHistory($user,$note,'updateOrderMemberAgency',$order->id);
 
                 $modelOrderMembers->save($order);
 
@@ -910,7 +957,11 @@ function updateMyOrderMemberAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+        $user = checklogin('updateMyOrderMemberAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/requestProductAgency');
+        }
         $metaTitleMantan = 'Cập nhập đơn hàng đại lý';
 
         $modelMembers = $controller->loadModel('Members');
@@ -922,9 +973,10 @@ function updateMyOrderMemberAgency($input)
         $modelUnitConversion = $controller->loadModel('UnitConversions');
 
         if(!empty($_GET['id'])){
-            $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id'], 'id_member_buy'=>$session->read('infoUser')->id])->first();
+            $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id'], 'id_member_buy'=>$user->id])->first();
 
             if(!empty($order)){
+                $note = '';
                 if(!empty($_GET['status'])){
                     $order->status = $_GET['status'];
 
@@ -998,7 +1050,13 @@ function updateMyOrderMemberAgency($input)
                             }
                         }
                     }
+
+                    $note = $user->type_tv.' '. $user->name.' đã xử lý nhập đơn hàng vào kho, có id đơn là:'.$order->id;
+
+
                 }
+
+                addActivityHistory($user,$note,'updateOrderMemberAgency',$order->id);
 
                 $modelOrderMembers->save($order);
 
@@ -1017,7 +1075,7 @@ function updateMyOrderMemberAgency($input)
     }
 }
 
-// tạo phiếu in bill
+// tạo phiếu in bill 
 function printBillOrderMemberAgency($input)
 {
     global $controller;
@@ -1026,7 +1084,11 @@ function printBillOrderMemberAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('printBillOrderMemberAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderMemberAgency');
+        }
         $metaTitleMantan = 'Phiếu đơn hàng';
 
         $modelMembers = $controller->loadModel('Members');
@@ -1035,7 +1097,7 @@ function printBillOrderMemberAgency($input)
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
 
         if(!empty($_GET['id_order_member'])){
-            $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id_order_member'], 'id_member_sell'=>$session->read('infoUser')->id])->first();
+            $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id_order_member'], 'id_member_sell'=>$user->id])->first();
 
             if(!empty($order)){
                 $detail_order = $modelOrderMemberDetails->find()->where(['id_order_member'=>$order->id])->all()->toList();
@@ -1050,7 +1112,7 @@ function printBillOrderMemberAgency($input)
                     }
                 }
 
-                $system = $modelCategories->find()->where(['id'=>(int) $session->read('infoUser')->id_system])->first();
+                $system = $modelCategories->find()->where(['id'=>(int) $user->id_system])->first();
 
                 $member_sell = $modelMembers->find()->where(['id'=>(int) $order->id_member_sell])->first();
                 $member_buy = $modelMembers->find()->where(['id'=>(int) $order->id_member_buy])->first();
@@ -1105,7 +1167,11 @@ function editOrderMemberAgency($input)
     global $session;
     global $isRequestPost;
 
-    if(!empty($session->read('infoUser'))){
+        $user = checklogin('editOrderMemberAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderMemberAgency');
+        }
         $metaTitleMantan = 'Tạo yêu cầu nhập hàng';
 
         $modelProducts = $controller->loadModel('Products');
@@ -1193,6 +1259,10 @@ function editOrderMemberAgency($input)
             }
             $orderDetail = $modelOrderMemberDetails->find()->where(array('id_order_member'=>$order->id))->all()->toList();
 
+            $note = $user->type_tv.' '. $user->name.' đã xử lý sửa đơn hàng cho đại lý '.$member_buy->name.'('.$member_buy->phone.') có id đơn là:'.$order->id;
+
+            addActivityHistory($user,$note,'editOrderMemberAgency',$order->id);
+
             $mess= '<p class="text-success">Sửa đơn hàng thành công</p>';                
         }
 
@@ -1203,7 +1273,7 @@ function editOrderMemberAgency($input)
 
        
         
-        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active'])->all()->toList();
+        $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$user->id_system, 'status'=>'active'])->all()->toList();
 
          $orderDetail = $modelOrderMemberDetails->find()->where(array('id_order_member'=>$order->id))->all()->toList();
 
@@ -1246,9 +1316,12 @@ function listTransactionAgencyHistorie(){
 
     $metaTitleMantan = 'Lịch sử giao dịch';
 
-    if(!empty($session->read('infoUser'))){
+   $user = checklogin('editOrderMemberAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderMemberAgency');
+        }
 
-        $user = $session->read('infoUser');
 
         $modelMember = $controller->loadModel('Members');
 

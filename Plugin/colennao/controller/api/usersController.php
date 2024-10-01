@@ -127,7 +127,7 @@ function confirmotpcodeApi($input): array
             $user->device_token = @$dataSend['device_token'];
             $modelUser->save($user);
 
-            return apiResponse(0, 'Đổi mật khẩu thành công', $user);
+            return apiResponse(0, 'xác nhận thành công', $user);
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');

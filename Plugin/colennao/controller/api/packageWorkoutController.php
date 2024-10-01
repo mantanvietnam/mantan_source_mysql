@@ -184,6 +184,70 @@ function listUserWorkoutAPI($input){
     $modelWorkout = $controller->loadModel('Workouts');
     $modelUserPackages = $controller->loadModel('UserPackages');
 
+    $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
+
+    if($isRequestPost){
+    	$dataSend = $input['request']->getData();	
+    	 if(!empty($dataSend['token'])){
+            $user = getUserByToken($dataSend['token']);
+
+            if (!empty($user)) {
+		    	$dataSend = $input['request']->getData();
+			    $conditions = array('id_user'=> $user->id);
+			    $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
+			    $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
+			    if ($page < 1) $page = 1;
+			    if (!empty($dataSend['id'])) {
+			        $conditions['id'] = $dataSend['id'];
+			    }
+
+			    if (!empty($dataSend['title'])) {
+			        $conditions['title LIKE'] = '%' . $dataSend['title'] . '%';
+			    }
+
+			    $conditions['OR'] = ['deadline =' => 0,'deadline >' => time()];
+
+			    
+			    $data = $modelUserPackages->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
+
+			   
+			    $tota = 0;
+			    $listData = array();
+			    if(!empty($data)){
+			    	foreach ($data as $key => $value) {
+		    			$interme = $modelIntermePackageWorkout->find()->where(array('id_package'=> $value->id_package))->all()->toList();
+		    			if(!empty($interme)){
+		    				foreach($interme as $k => $item){
+		    					$workouts =  $modelWorkout->find()->where(array('id'=> $item->id_workout))->first();
+		    					$workouts->total_exercise = count($modelExerciseWorkouts->find()->where(['id_workout'=>$item->id_workout])->all()->toList());
+
+		    					$listData[] = $workouts;
+		    					$tota++;
+		    				}
+		    				
+		    			}
+			    	}
+			    }
+
+
+			    return apiResponse(0, 'lấy dữ liệu thành công', $listData, $tota);
+			}
+			 return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+		} 
+		return apiResponse(2, 'Gửi thiếu dữ liệu');  
+	}
+	 return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function listAllWorkoutAPI($input){
+	global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
+    $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
+    $modelWorkout = $controller->loadModel('Workouts');
+    $modelUserPackages = $controller->loadModel('UserPackages');
+
     if($isRequestPost){
     	$dataSend = $input['request']->getData();	
     	 if(!empty($dataSend['token'])){
@@ -212,16 +276,11 @@ function listUserWorkoutAPI($input){
 
 			    $listData = array();
 			    if(!empty($data)){
-			    	foreach ($data as $key => $value) {
-		    			$interme = $modelIntermePackageWorkout->find()->where(array('id_package'=> $value->id_package))->all()->toList();
-		    			if(!empty($interme)){
-		    				foreach($interme as $k => $item){
-		    					$listData[]=  $modelWorkout->find()->where(array('id'=> $item->id_workout))->first();
-		    				}
-		    				
-		    			}
+		    			$listData = $modelWorkout->find()->where(array('id_package'=> $value->id_package))->all()->toList();
+		    			
 			    	}
-			    }
+			    	return apiResponse(0, 'lấy dữ liệu thành công', $listData,count($listData));
+			    
 
 
 			    return apiResponse(0, 'lấy dữ liệu thành công', $listData);
@@ -261,7 +320,7 @@ function getUserWorkoutAPI($input){
 			   
 			    if(!empty($data)){
 		    		$data->ExerciseWorkout = $modelExerciseWorkouts->find()->where(array('id_workout'=> $data->id))->all()->toList();
-		    		$data->total_exercise = count($data->ExerciseWorkouts);
+		    		$data->total_exercise = count($data->ExerciseWorkout);
 			    }
 
 

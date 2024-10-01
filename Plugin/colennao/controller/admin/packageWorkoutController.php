@@ -69,7 +69,6 @@ function addPackageWorkouts($input){
             $data->created_at = time();
         }
 
-
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
             

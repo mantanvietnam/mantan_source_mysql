@@ -99,6 +99,7 @@ function addChallenge($input){
 
                 // tạo dữ liệu save
                 $data->title = @$dataSend['title'];
+                $data->title_en = @$dataSend['title_en'];
                 $data->id_coach =(int) @$dataSend['id_coach'];
                 $data->status = @$dataSend['status'];
                 $data->day =(int) @$dataSend['day'];
@@ -106,7 +107,7 @@ function addChallenge($input){
                 $data->price_trial =(int)  @$dataSend['price_trial'];
                 $data->time_trial =(int)  @$dataSend['time_trial'];
                 $data->description = @$dataSend['description'];
-
+                $data->description_en = @$dataSend['description_en'];
 
                 $modelChallenge->save($data);
 
@@ -140,6 +141,8 @@ function addChallenge($input){
                                 $info->image = $image;
                                 $info->id_challenge = $data->id;
                                 $info->description = @$dataSend['description_result'][$key];
+                                $info->description_en = @$dataSend['description_result_en'][$key];
+                                $info->title_en = @$dataSend['title_reult_en'][$key];
                                 $info->slug = createSlugMantan(trim(@$title_info));
                                 $modelResultChallenges->save($info);
                             }
@@ -181,6 +184,7 @@ function addChallenge($input){
                                 $info->id_challenge = $data->id;
                                 $info->weight = (int) @$dataSend['weight'][$key];
                                 $info->feedback = @$dataSend['feedback'][$key];
+                                $info->feedback_en = @$dataSend['feedback_en'][$key];
                                 $info->slug = createSlugMantan(trim(@$title_info));
 
 
@@ -201,6 +205,7 @@ function addChallenge($input){
                                 }
 
                                 $save->tip = @$tip;
+                                $save->tip_en = @$dataSend['tip_en'][$key];
                                 $save->id_challenge = $data->id;
                                 $save->day = (int)$dataSend['day_number'][$key];
                                 $modelTipChallenges->save($save);

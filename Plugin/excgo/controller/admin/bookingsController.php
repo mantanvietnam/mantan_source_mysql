@@ -88,6 +88,7 @@ function listBookingAdmin($input)
             'Bookings.id',
             'Bookings.created_at',
             'Bookings.status',
+            'Bookings.status_free',
             'PostedUsers.id',
             'PostedUsers.name',
             'ReceivedUsers.id',

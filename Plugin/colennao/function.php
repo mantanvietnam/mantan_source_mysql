@@ -204,8 +204,10 @@ function getUserByToken($accessToken, $checkActive = true)
     }
 
     $user = $modelUser->find()->where($conditions)->first();
-
-    $user->link_affiliate = '/affiliater?affsource='.$user->phone;
+    if(!empty($user->phone)){
+         $user->link_affiliate = '/affiliater?affsource='.@$user->phone;
+    }
+   
     return $user;
 }
 
@@ -392,6 +394,7 @@ function processAddMoney($money, $id_ransaction): string
     $modelUser = $controller->loadModel('Users');
     $modelTransactions = $controller->loadModel('Transactions');
 
+
     if ($money >= 1000) {
         if(!empty($id_ransaction)) {
             $transactions = $modelTransactions->find()->where(['id' =>(int)$id_ransaction, 'status'=>1])->first();
@@ -414,6 +417,7 @@ function processAddMoney($money, $id_ransaction): string
 
                return 'số tiền bạn chưa đủ';
             }
+
 
             return 'id không tồn tại';
         }
@@ -444,6 +448,7 @@ function createChallengeUser($id_user, $id_challenge,$id_transaction){
                 $checkUserChallenge = $modelUserChallenges->newEmptyEntity();
                 $checkUserChallenge->id_user = $user->id;
                 $checkUserChallenge->name = $Challenge->title;
+                $checkUserChallenge->name_en = $Challenge->title_en;
                 $checkUserChallenge->id_challenge = $Challenge->id;
 
                 $checkUserChallenge->totalDay = $Challenge->day;
@@ -471,6 +476,7 @@ function createChallengeUser($id_user, $id_challenge,$id_transaction){
                     foreach($tip as $key => $value){
                         $listTip[] = array('id'=>$value->id,
                             'tip'=>$value->tip,
+                            'tip_en'=>$value->tip_en,
                             'status'=>''
 
                         );

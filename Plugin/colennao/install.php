@@ -153,6 +153,8 @@ $sqlInstallDatabase .="CREATE TABLE `challenges` (
 `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `created_at` INT(11) NULL DEFAULT NULL,
+`title_en` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`description_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `id_coach` INT NULL DEFAULT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -164,6 +166,7 @@ $sqlInstallDatabase .="CREATE TABLE `feedback_challenges` (
 `weight` INT NULL DEFAULT NULL , 
 `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `feedback` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`feedback_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -172,6 +175,8 @@ $sqlInstallDatabase .="CREATE TABLE `result_challenges` (
 `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`title_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`description_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `id_challenge` INT NOT NULL , 
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -179,6 +184,7 @@ PRIMARY KEY (`id`)
 $sqlInstallDatabase .="CREATE TABLE `tip_challenges` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
 `tip` VARCHAR(255) NULL DEFAULT NULL ,
+`tip_en` VARCHAR(255) NULL DEFAULT NULL ,
 `id_challenge` INT NOT NULL ,
 `day` INT NULL DEFAULT NULL,
 PRIMARY KEY (`id`)
@@ -188,6 +194,7 @@ $sqlInstallDatabase .="CREATE TABLE `transactions` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `id_user` INT NOT NULL ,
 `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`name_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
 `total` INT NULL DEFAULT '0' ,
 `id_course` INT NOT NULL DEFAULT '0' COMMENT 'id khoa học' ,
 `id_challenge` INT NOT NULL DEFAULT '0' COMMENT 'id thử thách' ,
@@ -206,6 +213,7 @@ $sqlInstallDatabase .="CREATE TABLE `user_challenges` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `id_user` INT NOT NULL ,
 `name` VARCHAR(255) NULL DEFAULT NULL ,
+`name_en` VARCHAR(255) NULL DEFAULT NULL ,
 `id_challenge` INT NOT NULL ,
 `tip` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]' ,
 `totalDay` INT NOT NULL ,
@@ -396,25 +404,35 @@ $sqlUpdateDatabase['users']['id_unit'] = "ALTER TABLE `users` ADD `id_unit` INT 
  $sqlUpdateDatabase['challenges']['description'] = "ALTER TABLE `challenges` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['challenges']['created_at'] = "ALTER TABLE `challenges` ADD `created_at` INT(11) NULL DEFAULT NULL;";
  $sqlUpdateDatabase['challenges']['id_coach'] = "ALTER TABLE `challenges` ADD `id_coach` INT NULL DEFAULT NULL;";
+ $sqlUpdateDatabase['challenges']['title_en'] = "ALTER TABLE `challenges` ADD `title_en` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+ $sqlUpdateDatabase['challenges']['description_en'] = "ALTER TABLE `challenges` ADD `description_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
  $sqlUpdateDatabase['feedback_challenges']['id_challenge'] = "ALTER TABLE `feedback_challenges` ADD `id_challenge` INT NOT NULL ;";
  $sqlUpdateDatabase['feedback_challenges']['full_name'] = "ALTER TABLE `feedback_challenges` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
  $sqlUpdateDatabase['feedback_challenges']['weight'] = "ALTER TABLE `feedback_challenges` ADD `weight` INT NULL DEFAULT NULL ;";
  $sqlUpdateDatabase['feedback_challenges']['image'] = "ALTER TABLE `feedback_challenges` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
  $sqlUpdateDatabase['feedback_challenges']['feedback'] = "ALTER TABLE `feedback_challenges` ADD `feedback` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+ $sqlUpdateDatabase['feedback_challenges']['feedback_en'] = "ALTER TABLE `feedback_challenges` ADD `feedback_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
  $sqlUpdateDatabase['result_challenges']['title'] = "ALTER TABLE `result_challenges` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+ $sqlUpdateDatabase['result_challenges']['title_en'] = "ALTER TABLE `result_challenges` ADD `title_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['result_challenges']['image'] = "ALTER TABLE `result_challenges` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['result_challenges']['description'] = "ALTER TABLE `result_challenges` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['result_challenges']['id_challenge'] = "ALTER TABLE `result_challenges` ADD `id_challenge` INT NOT NULL;";
 
+ $sqlUpdateDatabase['result_challenges']['title_en'] = "ALTER TABLE `result_challenges` ADD `title_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+ $sqlUpdateDatabase['result_challenges']['description_en'] = "ALTER TABLE `result_challenges` ADD `description_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+
 
  $sqlUpdateDatabase['tip_challenges']['tip'] = "ALTER TABLE `tip_challenges` ADD  `tip` VARCHAR(255) NULL DEFAULT NULL ;";
+ $sqlUpdateDatabase['tip_challenges']['tip_en'] = "ALTER TABLE `tip_challenges` ADD  `tip_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
  $sqlUpdateDatabase['tip_challenges']['id_challenge'] = "ALTER TABLE `tip_challenges` ADD `id_challenge` INT NOT NULL ;";
  $sqlUpdateDatabase['tip_challenges']['day'] = "ALTER TABLE `tip_challenges` ADD `day` INT NULL DEFAULT NULL;";
 
 $sqlUpdateDatabase['transactions']['id_user'] = "ALTER TABLE `transactions` ADD `id_user` INT NOT NULL;";
 $sqlUpdateDatabase['transactions']['name'] = "ALTER TABLE `transactions` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['transactions']['name_en'] = ALTER TABLE `transactions` ADD `name_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transactions']['total'] = "ALTER TABLE `transactions` ADD `total` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['transactions']['id_course'] = "ALTER TABLE `transactions` ADD `id_course` INT NOT NULL DEFAULT '0' COMMENT 'id khoa học';";
 $sqlUpdateDatabase['transactions']['id_challenge'] = "ALTER TABLE `transactions` ADD `id_challenge` INT NOT NULL DEFAULT '0' COMMENT 'id thử thách';";
@@ -429,6 +447,7 @@ $sqlUpdateDatabase['transactions']['id_package'] = "ALTER TABLE `transactions` A
 
 $sqlUpdateDatabase['user_challenges']['id_user'] = "ALTER TABLE `user_challenges` ADD `id_user` INT NOT NULL;";
 $sqlUpdateDatabase['user_challenges']['name'] = "ALTER TABLE `user_challenges` ADD `name` VARCHAR(255) NULL DEFAULT NULL;";
+$sqlUpdateDatabase['user_challenges']['name_en'] = "ALTER TABLE `user_challenges` ADD `name_en` VARCHAR(255) NULL DEFAULT NULL;";
 $sqlUpdateDatabase['user_challenges']['id_challenge'] = "ALTER TABLE `user_challenges` ADD `id_challenge` INT NOT NULL;";
 $sqlUpdateDatabase['user_challenges']['tip'] = "ALTER TABLE `user_challenges` ADD `tip` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]';";
 $sqlUpdateDatabase['user_challenges']['totalDay'] = "ALTER TABLE `user_challenges` ADD `totalDay` INT NOT NULL;";

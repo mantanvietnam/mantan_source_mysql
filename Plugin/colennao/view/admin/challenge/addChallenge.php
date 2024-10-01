@@ -44,8 +44,12 @@
                         <div class="row">
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label">Tiêu đền</label>
-                              <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
+                              <label class="form-label">Tiêu đề tiếng Việt(*)</label>
+                              <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>"  placeholder="tiêu đền tiếng Việt"/>
+                             </div>
+                            <div class="mb-3">
+                              <label class="form-label">Số ngày tiếng Anh (*)</label>
+                              <input required type="text" class="form-control phone-mask" name="title_en" id="title_en" value="<?php echo @$data->title_en;?>" placeholder="tiêu đền tiếng anh "/>
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Số ngày  (*)</label>
@@ -68,6 +72,10 @@
                                 echo '<br/><img src="'.$data->image.'" width="80" />';
                               }
                               ?>
+                            </div>
+                             <div class="mb-3">
+                              <label class="form-label">Mô tả ngắn tiếng anh</label>
+                              <textarea maxlength="160" rows="5" class="form-control" name="description_en" id="description_en"><?php echo @$data->description_en;?></textarea>
                             </div>
                           </div>
 
@@ -103,9 +111,9 @@
                            
 
                             <div class="mb-3">
-                              <label class="form-label">Mô tả ngắn</label>
+                              <label class="form-label">Mô tả ngắn Tiến việt </label>
                               <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
-                            </div>
+                            </div>                         
                             
                           </div>
                         </div>
@@ -133,11 +141,13 @@
                                   ?>
                                   <tr class="gradeX" id="trResult-<?php echo $i ?>">
                                     <td>
-                                        <input type="text" class="form-control phone-mask" name="title_reult[<?php echo $i ?>]" id="title_reult<?php echo $i ?>" value="<?php echo $value->title ?>"/>
+                                        <input type="text" class="form-control phone-mask mb-3" name="title_reult[<?php echo $i ?>]" id="title_reult<?php echo $i ?>" value="<?php echo $value->title ?>" placeholder="tiêu đề tiếng Việt"/>
+                                        <input type="text" class="form-control phone-mask mb-3" name="title_reult_en[<?php echo $i ?>]" id="title_reult<?php echo $i ?>" value="<?php echo $value->title_en ?>" placeholder="tiêu đề tiếng Anh"/>
                                         <input type="hidden" class="form-control phone-mask" name="id_result[<?php echo $i ?>]" id="id_result<?php echo $i ?>" value="<?php echo $value->id ?>"/>
                                     </td>
                                     <td>
-                                      <input type="text" class="form-control" placeholder="" name="description_result[<?php echo $i ?>]" id="description_result<?php echo $i ?>" value="<?php echo $value->description ?>" />
+                                      <input type="text" class="form-control mb-3" placeholder="" name="description_result[<?php echo $i ?>]" id="description_result<?php echo $i ?>" value="<?php echo $value->description ?>" placeholder="Mô tả ngắn tiếng Việt" />
+                                      <input type="text" class="form-control mb-3" placeholder="" name="description_result_en[<?php echo $i ?>]" id="description_result_en<?php echo $i ?>" value="<?php echo $value->description_en ?>" placeholder="Mô tả ngắn tiếng Anh" />
                                     </td>
                                     <td>
                                       <input type="file" class="form-control phone-mask" name="image_result<?php echo $i ?>" id="image_result<?php echo $i ?>" value=""/>
@@ -151,11 +161,13 @@
                                   ?>
                                   <tr class="gradeX" id="trResult-<?php echo $i ?>">
                                     <td>
-                                      <input type="text" class="form-control phone-mask" name="title_reult[<?php echo $i ?>]"  value=""/>
+                                      <input type="text" class="form-control phone-mask mb-3" name="title_reult[<?php echo $i ?>]"  value="" placeholder="tiêu đề tiếng Việt"/>
+                                        <input type="text" class="form-control phone-mask mb-3" name="title_reult_en[<?php echo $i ?>]" id="title_reult<?php echo $i ?>" value="" placeholder="tiêu đề tiếng Anh"/>
                                        <input type="hidden" class="form-control phone-mask" name="id_result[<?php echo $i ?>]" id="id_result<?php echo $i ?>" value=""/>
                                     </td>
                                     <td>
-                                      <input type="text" class="form-control phone-mask" name="description_result[<?php echo $i ?>]"  value=""/>
+                                      <input type="text" class="form-control phone-mask mb-3" name="description_result[<?php echo $i ?>]"  value="" placeholder="Mô tả ngắn tiếng Việt" />
+                                      <input type="text" class="form-control mb-3" name="description_result_en[<?php echo $i ?>]" id="description_result_en<?php echo $i ?>" value="" placeholder="Mô tả ngắn tiếng Anh" />
                                     </td>
                                     <td>
                                       <input type="file" class="form-control phone-mask" name="image_result<?php echo $i ?>" id="image_result<?php echo $i ?>" value=""/>
@@ -203,7 +215,8 @@
                                         <input type="hidden" class="form-control phone-mask" name="id_feedback[<?php echo $y ?>]" id="id_feedback<?php echo $y ?>" value="<?php echo $item->id ?>"/>
                                     </td>
                                     <td>
-                                      <input type="text" class="form-control" placeholder="" name="feedback[<?php echo $y ?>]" id="feedback<?php echo $y ?>" value="<?php echo $item->feedback ?>" />
+                                      <input type="text" class="form-control mb-3" placeholder="" name="feedback[<?php echo $y ?>]" id="feedback<?php echo $y ?>" value="<?php echo $item->feedback ?>" placeholder="Feedback tiếng Việt" />
+                                      <input type="text" class="form-control mb-3" placeholder="" name="feedback_en[<?php echo $y ?>]" id="feedback_en<?php echo $y ?>" value="<?php echo $item->feedback_en ?>" placeholder="Feedback tiếng Anh" />
                                     </td>
                                     <td>
                                       <input type="number" class="form-control" placeholder="" name="weight[<?php echo $y ?>]" id="weight<?php echo $y ?>" value="<?php echo $item->weight ?>" />
@@ -224,7 +237,8 @@
                                        <input type="hidden" class="form-control phone-mask" name="id_feedback[<?php echo $y ?>]" id="id_feedback<?php echo $y ?>" value=""/>
                                     </td>
                                     <td>
-                                      <input type="text" class="form-control phone-mask" name="feedback[<?php echo $y ?>]"  value=""/>
+                                      <input type="text" class="form-control phone-mask mb-3" name="feedback[<?php echo $y ?>]"  value="" placeholder="Feedback tiếng Việt" />
+                                      <input type="text" class="form-control mb-3" name="feedback_en[<?php echo $y ?>]" id="feedback_en<?php echo $y ?>" value="" placeholder="Feedback tiếng Anh" />
                                     </td>
                                     <td>
                                       <input type="number" class="form-control phone-mask" name="weight[<?php echo $y ?>]"  value=""/>
@@ -270,7 +284,8 @@
                                   ?>
                                   <tr class="gradeX" id="trtip-<?php echo $t ?>">
                                     <td>
-                                        <input type="text" class="form-control phone-mask" name="tip[<?php echo $t ?>]" id="tip<?php echo $t ?>" value="<?php echo $item->tip ?>"/>
+                                        <input type="text" class="form-control phone-mask mb-3" name="tip[<?php echo $t ?>]" id="tip<?php echo $t ?>" value="<?php echo $item->tip ?>" placeholder="tip tiếng Việt"/>
+                                        <input type="text" class="form-control phone-mask mb-3" name="tip_en[<?php echo $t ?>]" id="tip<?php echo $t ?>" value="<?php echo $item->tip_en ?>" placeholder="tip tiếng Anh"/>
                                         <input type="hidden" class="form-control phone-mask" name="id_tip[<?php echo $t ?>]" id="id_tip<?php echo $t ?>" value="<?php echo $item->id ?>"/>
                                     </td>
                                     <td>
@@ -284,7 +299,8 @@
                                   ?>
                                   <tr class="gradeX" id="trtip-<?php echo $t ?>">
                                     <td>
-                                      <input type="text" class="form-control phone-mask" name="tip[<?php echo $t ?>]"  value=""/>
+                                      <input type="text" class="form-control phone-mask mb-3" name="tip[<?php echo $t ?>]"  value="" placeholder="tip tiếng Việt"/>
+                                      <input type="text" class="form-control phone-mask mb-3" name="tip_en[<?php echo $t ?>]"  value="" placeholder="tip tiếng Anh"/>
                                        <input type="hidden" class="form-control phone-mask" name="id_tip[<?php echo $t ?>]" id="id_tip<?php echo $t ?>" value=""/>
                                     </td>
                                     <td>
@@ -325,11 +341,13 @@
         row++;
         $('#tbodyresult tr:last').after('<tr class="gradeX" id="trResult-'+row+'">\
           <td>\
-          <input type="text" class="form-control phone-mask" name="title_reult['+row+']"  value=""/>\
+          <input type="text" class="form-control phone-mask mb-3" name="title_reult['+row+']"  value="" placeholder="tiêu đề tiếng Việt"/>\
+          <input type="text" class="form-control phone-mask mb-3" name="title_reult_en['+row+']"  value="" placeholder="tiêu đề tiếng Anh"/>\
           </td>\
           <input type="hidden" class="form-control phone-mask" name="id_result['+row+']" id="id_result'+row+'" value=""/>\
           <td>\
-          <input type="text" class="form-control phone-mask" name="description_result['+row+']"  value=""/>\
+          <input type="text" class="form-control phone-mask mb-3" name="description_result['+row+']"  value="" placeholder="Mô tả ngắn tiếng Việt"/>\
+          <input type="text" class="form-control phone-mask mb-3" name="description_result_en['+row+']"  value="" placeholder="Mô tả ngắn tiếng Anh"/>\
           </td>\
           <td>\
           <input type="file" class="form-control phone-mask" name="image_result'+row+'" id="image_result'+row+'" value=""/>\
@@ -354,11 +372,12 @@
         f++;
         $('#tbodyfeedback tr:last').after('<tr class="gradeX" id="trfeedback-'+f+'">\
           <td>\
-          <input type="text" class="form-control phone-mask" name="full_name['+f+']"  value=""/>\
+          <input type="text" class="form-control phone-mask mb-3" name="full_name['+f+']"  value=""/>\
           </td>\
           <input type="hidden" class="form-control phone-mask" name="id_feedback['+f+']" id="id_feedback'+f+'" value=""/>\
           <td>\
-          <input type="text" class="form-control phone-mask" name="feedback['+f+']"  value=""/>\
+          <input type="text" class="form-control phone-mask mb-3" name="feedback['+f+']"  value="" placeholder="Feedback tiếng Việt"/>\
+          <input type="text" class="form-control phone-mask mb-3" name="feedback_en['+f+']"  value="" placeholder="Feedback tiếng Anh"/>\
           </td>\
           <td>\
           <input type="number" class="form-control phone-mask" name="weight['+f+']"  value=""/>\
@@ -383,10 +402,11 @@
    function addRowtip()
     {
 
-        t+;
+        t++;
         $('#tbodytip tr:last').after('<tr class="gradeX" id="trtip-'+t+'">\
           <td>\
-          <input type="text" class="form-control phone-mask" name="tip['+t+']"  value=""/>\
+          <input type="text" class="form-control phone-mask mb-3" name="tip['+t+']"  value="" placeholder="tip tiếng Việt"/>\
+          <input type="text" class="form-control phone-mask mb-3" name="tip_en['+t+']"  value="" placeholder="tip tiếng Anh"/>\
           </td>\
           <input type="hidden" class="form-control phone-mask" name="id_tip['+t+']" id="id_tip'+f+'" value=""/>\
           <td>\

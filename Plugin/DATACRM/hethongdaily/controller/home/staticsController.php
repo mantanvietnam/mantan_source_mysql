@@ -119,6 +119,7 @@ function statisticAgency($input){
 
 
         $modelOrders = $controller->loadModel('Orders');
+        $modelMembers = $controller->loadModel('Members');
         $modelBill = $controller->loadModel('Bills');
         $modelOrderMembers = $controller->loadModel('OrderMembers');
         $modelCustomers = $controller->loadModel('Customers');
@@ -248,7 +249,7 @@ function statisticAgency($input){
         $order = array('id'=>'desc');
         $listDataOrderMembers = $modelOrderMembers->find()->where($conditions)->order($order)->all()->toList();
         if(!empty($listDataOrderMembers)){
-            foreach($listData as $key => $item){
+            foreach($listDataOrderMembers as $key => $item){
                 $detail_order = $modelOrderMemberDetails->find()->where(['id_order_member'=>$item->id])->all()->toList();
 
                 if(!empty($detail_order)){
@@ -263,7 +264,9 @@ function statisticAgency($input){
                                     $detail_order->unit = $unit->unit;
                                 }
                             }else{
-                                $detail_order->unit = $product->unit;
+                                if(!empty($product->unit)){
+                                    $detail_order[$k]->unit = @$product->unit;
+                                }
                             }
                         }
                     }
@@ -275,6 +278,7 @@ function statisticAgency($input){
 
                 $listDataOrderMembers[$key]->buyer = $modelMembers->find()->where(['id'=>$item->id_member_buy ])->first();
             }
+            
         }
 
         $totalDataOrderMembers = count($listDataOrderMembers);

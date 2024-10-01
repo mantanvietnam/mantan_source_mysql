@@ -8,10 +8,10 @@
   </h4>
 
   <?php 
-  if($session->read('infoUser')->create_order_agency == 1){
+  if($user->create_order_agency == 1){
     echo '<p>
             <a href="/addOrderAgency" class="btn btn-primary"><i class="bx bx-plus"></i> Tạo đơn hàng mới</a> 
-            <button type="button" class="btn btn-danger" onclick="copyToClipboard(\''.$urlHomes.'info/?id='.$session->read('infoUser')->id.'&tabShow=productAgency\', \'Đã copy thành công link liên kết để đại lý tự tạo đơn\');"><i class="bx bx-link"></i> Liên kết đại lý tạo đơn</button>
+            <button type="button" class="btn btn-danger" onclick="copyToClipboard(\''.$urlHomes.'info/?id='.$user->id.'&tabShow=productAgency\', \'Đã copy thành công link liên kết để đại lý tự tạo đơn\');"><i class="bx bx-link"></i> Liên kết đại lý tạo đơn</button>
           </p>';
   }
   ?>

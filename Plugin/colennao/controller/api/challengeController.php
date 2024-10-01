@@ -151,6 +151,7 @@ function paymentChallengeAPI($input){
 		    			$checkTransaction = $modelTransactions->newEmptyEntity();
 		    			$checkTransaction->id_user = $user->id;
 		    			$checkTransaction->name = $data->title;
+		    			$checkTransaction->name_en = $data->title_en;
 		    			$checkTransaction->total = $price;
 		    			$checkTransaction->id_course = 0;
 		    			$checkTransaction->id_challenge = $data->id;

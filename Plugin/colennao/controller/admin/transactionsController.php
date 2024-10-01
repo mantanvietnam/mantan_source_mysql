@@ -84,4 +84,27 @@ function listTransactionAdmin($input)
     setVariable('totalMoney', $totalMoney);
     setVariable('totalData', count($totalData));
 }
+
+function confirmReceiptMoney(){
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+
+    $metaTitleMantan = 'Danh sách giao dịch thanh toán';
+
+	
+    $modelTransactions = $controller->loadModel('Transactions');
+    $modelUser = $controller->loadModel('Users');
+
+
+    if(!empty($_GET['id'])){
+    	$data = $modelTransactions->find()->where(array('id'=>(int)$_GET['id'], 'status'=>1))->first();
+
+    	 if(!empty($data)){
+    	 	 $mess = processAddMoney($data->total, $data->id);
+    	 }
+    }
+    return $controller->redirect('/plugins/admin/colennao-view-admin-transaction-listTransactionAdmin?page='.@$_GET['page']);
+}
  ?>

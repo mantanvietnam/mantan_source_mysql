@@ -189,21 +189,21 @@
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel1">Thông tin nạp tiền </h5>
+                                <h5 class="modal-title" id="exampleModalLabel1">Thông sử lý giao dịch </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"aria-label="Close"></button>
                               </div>
 
                             <div style=" padding: 20px; ">
                               <p><label>ID:</label> <?php echo $items->id ?></p>
                               <p><label>MÃ giao dịch:</label> <?php echo $items->code ?></p>
-                              <p><label>Tên:</label> <?php echo $items->member->name ?></p>
-                              <p><label>Điện thoại:</label> <?php echo $items->member->phone ?></p>
-                              <p><label>Email:</label> <?php echo $items->member->email ?></p>
+                              <p><label>Tên:</label> <?php echo $items->user->full_name ?></p>
+                              <p><label>Điện thoại:</label> <?php echo $items->user->phone ?></p>
+                              <p><label>Email:</label> <?php echo $items->user->email ?></p>
                               <p><?php echo $items->note; ?></p>
-                              <p><label>Số dư tài khoản:</label> <?php echo number_format($items->member->account_balance); ?>  VNĐ</p>
-                              <p><label>Số tiền nạp:</label> <?php echo number_format($items->total); ?>  VNĐ</p>
+                              <p><label>dịch vụ :</label> <?php echo $items->name; ?>  VNĐ</p>
+                              <p><label>tiền :</label> <?php echo number_format($items->total); ?>  VNĐ</p>
                               
-                                <a class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn muốn sử lý giao dịch này không?');" href="/plugins/admin/ezpics_admin-view-admin-transaction-confirmReceiptMoneyEzpics/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển tiền  ">Xác nhận nạp tiền cho khách</a>
+                                <a class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn muốn sử lý giao dịch này không?');" href="/plugins/admin/ezpics_admin-view-admin-transaction-confirmReceiptMoney/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển tiền  ">Xác nhận cho khách</a>
                             </div>
                              
                               

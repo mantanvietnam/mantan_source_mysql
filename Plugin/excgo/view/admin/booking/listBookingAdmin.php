@@ -79,6 +79,7 @@
                     <th>Người đăng</th>
                     <th>Người nhận</th>
                     <th>Ngày đăng</th>
+                    <th>Free</th>
                     <th>Trạng thái</th>
                     <th>Sửa</th>
                 </tr>
@@ -96,6 +97,12 @@
                         } else {
                             $status = '';
                         }
+
+                        if($item->status_free==1){
+                            $free = 'Free';
+                        }else{
+                            $free = 'không Free';
+                        }
                 ?>
                     <tr>
                         <td><?php echo $item->id ?></td>
@@ -111,6 +118,7 @@
                             </a>
                         </td>
                         <td class="text-center"><?php echo $item->created_at->format('d-m-Y') ?></td>
+                        <td class="text-center"><?php echo $free ?></td>
                         <td class="text-center"><?php echo $status ?></td>
                         <td>
                           <p align="center">
