@@ -247,6 +247,7 @@ function listAllWorkoutAPI($input){
     $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
     $modelWorkout = $controller->loadModel('Workouts');
     $modelUserPackages = $controller->loadModel('UserPackages');
+    $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
 
     if($isRequestPost){
     	$dataSend = $input['request']->getData();	
@@ -276,14 +277,18 @@ function listAllWorkoutAPI($input){
 
 			    $listData = array();
 			    if(!empty($data)){
-		    			$listData = $modelWorkout->find()->where(array('id_package'=> $value->id_package))->all()->toList();
-		    			
-			    	}
+		    		$listData =  $modelWorkout->find()->where(array('status'=>'active'))->all()->toList();
+		    		if(!empty($listData)){
+		    			foreach($listData as $key => $item){
+		    				$listData[$key]->total_exercise = count($modelExerciseWorkouts->find()->where(['id_workout'=>$item->id])->all()->toList());
+		    			}
+		    		}
+		    				
 			    	return apiResponse(0, 'lấy dữ liệu thành công', $listData,count($listData));
-			    
+			    }
 
 
-			    return apiResponse(0, 'lấy dữ liệu thành công', $listData);
+			    return apiResponse(1, 'bạn chưa mua gói nào');
 			}
 			 return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
 		} 

@@ -29,12 +29,12 @@
                       </li>
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-vn" aria-controls="navs-top-image" aria-selected="false">
-                          Nội dung tập Tiếng Việt
+                          Nội dung tập tiếng Việt
                         </button>
                       </li>
                        <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-en" aria-controls="navs-top-image" aria-selected="false">
-                          Nội dung tập Tiếng Anh
+                          Nội dung tập tiếng Anh
                         </button>
                       </li>
                     </ul>
@@ -93,7 +93,7 @@
                               <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
                             <div class="mb-3">
-                              <label class="form-label">Mô tả ngắn tiếng Việt</label>
+                              <label class="form-label">Mô tả ngắn tiếng Anh</label>
                               <textarea maxlength="160" rows="5" class="form-control" name="description_en" id="description"><?php echo @$data->description_en;?></textarea>
                             </div>
                             

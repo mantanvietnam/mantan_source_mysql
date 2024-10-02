@@ -78,38 +78,75 @@ function addRewardAdmin($input){
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelReward->get( (int) $_GET['id']);
-        $data->created_at = date('Y-m-d H:i:s');
 
     }else{
         $data = $modelReward->newEmptyEntity();
+        $data->created_at = time();
     }
+
+    // Tạo subquery để tìm giá trị point_min cao nhất
+        $subquery = $modelReward->find();
+        $subquery->select(['max_end_date' => $subquery->func()->max('end_date')]);
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['name'])){
 	        // tạo dữ liệu save
             $data->name = @$dataSend['name'];
-            if(!empty($dataSend['start_date'])){
-                $data->start_date = DateTime::createFromFormat('d/m/Y', @$dataSend['start_date'])->format('Y-m-d 00:00:00');
+             if(!empty($dataSend['start_date'])){
+                $date_start = explode('/', $dataSend['start_date']);
+                $start_date = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
             }
 
-              if(!empty($dataSend['end_date'])){
-                $data->end_date = DateTime::createFromFormat('d/m/Y', @$dataSend['end_date'])->format('Y-m-d 23:59:59');
+            if(!empty($dataSend['end_date'])){
+                $date_end = explode('/', $dataSend['end_date']);
+                $end_date = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+                    
             }
-            $data->updated_at = date('Y-m-d H:i:s');
-            $data->quantity_booking = (int) @$dataSend['quantity_booking'];
-            $data->money = (int) @$dataSend['money'];
-            $data->status = @$dataSend['status'];
-            $data->note = @$dataSend['note'];
-	        $modelReward->save($data);
+            $query = $modelReward->find()->where(['end_date' => $subquery])->first();
 
-	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+
+            if($start_date > @$query->end_date){
+                if($start_date < $end_date){
+                    $data->updated_at = time();
+                    $data->quantity_booking = (int) @$dataSend['quantity_booking'];
+                    $data->money = (int) @$dataSend['money'];
+                    $data->type = (int) @$dataSend['type'];
+                    $data->status =(int) @$dataSend['status'];
+                    $data->note = @$dataSend['note'];
+                    $data->end_date = @$end_date;
+                    $data->start_date = @$start_date;
+
+                    $bonu = [];
+                    if(!empty($dataSend['soluong_cuoc'])){
+                        foreach($dataSend['soluong_cuoc'] as $key => $item){
+                         $bonu[]=['soluong_cuoc' =>(int)$item,
+                           'tien_thuong' =>(int)@$dataSend['tien_thuong'][$key],
+                            ];
+                        }
+                    }
+
+                    $data->bonu = json_encode(@$bonu);                 
+        	        $modelReward->save($data);
+
+        	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                }else{
+                     $mess= '<p class="text-success">Thời gian bắt đầu nhỏ hơi thời gian kết thúc </p>';
+                }
+            }else{
+                $mess= '<p class="text-success">Thời gian bắt đầu nhỏ hơi thời gian kết thúc </p>';
+            }
             
 	    }else{
 	    	$mess= '<p class="text-danger">Bạn chưa nhập tên </p>';
 	    }
 	      $data = $modelReward->get($data->id);
     }
+
+    if(!empty($data->bonu)){
+            $data->bonu = json_decode($data->bonu, true);
+        }   
 
 
 

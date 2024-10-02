@@ -610,19 +610,13 @@ function createPackageUser($id_user, $id_package,$id_transaction){
 
 global $listArea;
 
-$listArea = [1=> 'Toàn thân',
-    2 => 'Vũ khí',
-    3=> 'Mông',
-    4=> 'Cơ bụng',
-    5=> 'Chân',
-    6=> 'Mặt sau',
-];
+
 
 global $listLevel;
 
-$listLevel = [1=> 'Người mới',
-    2 => 'Trung bình',
-    3=> 'Trình độ cao',
+$listLevel = [1=> array('id'=> 1, 'name'=> 'Người mới', 'name_en'=>''),
+    2 => array( 'id'=> 2,'name'=> 'Trung bình', 'name_en'=>''),
+    3=> array( 'id'=> 3,'name'=> 'Trình độ cao', 'name_en'=>''),
 ];
 
 global $listUnit;

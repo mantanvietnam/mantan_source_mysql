@@ -57,12 +57,12 @@
               foreach ($listData as $item) {
                 $start_date = '';
                 if(!empty($item->start_date)){
-                  $start_date = $item->start_date->format('d/m/Y');
+                  $start_date = date('d/m/Y',$item->start_date);
                 }
 
                 $end_date = '';
                 if(!empty($item->end_date)){
-                  $end_date = $item->end_date->format('d/m/Y');
+                  $end_date = date('d/m/Y',$item->end_date);
                 }
                
                 $status = 'Khóa';
