@@ -42,7 +42,7 @@
                                         <?php foreach ($dataWorkout as $item): ?>
                                             <option value="<?php echo $item['id']; ?>" 
                                                 <?php echo isset($data->id) && $data->id == $item['id'] ? 'selected' : ''; ?>>
-                                                <?php echo $item['title']; ?>
+                                                <?php echo $item['name']; ?>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>

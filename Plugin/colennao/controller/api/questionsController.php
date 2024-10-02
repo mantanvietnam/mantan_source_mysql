@@ -66,7 +66,7 @@ function groupingexercisesuserAPI($input) {
     global $isRequestPost;
 
     $modelTbcondition = $controller->loadModel('tbcondition');
-    $modelPackageWorkouts = $controller->loadModel('PackageWorkouts');
+    $modeluserpeople = $controller->loadModel('userpeople');
 
     if (!$isRequestPost) {
         return [
@@ -76,49 +76,45 @@ function groupingexercisesuserAPI($input) {
     }
 
     $dataSend = $input['request']->getData();
-    $answers = $dataSend['answers']; 
-    $validGroupFiles = []; 
-    $allGroupFileIds = []; 
+    $answers = $dataSend['answers'];
+    $validGroupFiles = [];
+    $allGroupFileIds = [];
 
     foreach ($answers as $id_question => $userAnswer) {
         $results = $modelTbcondition->find()->where(['id_question' => $id_question])->all();
-        
-
         if (!$results) {
             continue; 
         }
 
-        $userAnswers = array_flip(str_split($userAnswer)); 
-
-
-        $groupFilesForThisQuestion = []; 
-
         foreach ($results as $result) {
-            $correctAnswers = array_flip(str_split($result->answer)); 
+            $groupFileId = $result->id_groupfile;
+            $correctAnswers = str_split($result->answer); 
+            
 
-     
-            if (array_intersect_key($userAnswers, $correctAnswers)) {
-                $groupFilesForThisQuestion[$result->id_groupfile] = true;
+            if (!in_array($userAnswer, $correctAnswers)) {
+
+                $allGroupFileIds[$groupFileId] = false; 
+            } else {
+
+                if (!isset($allGroupFileIds[$groupFileId])) {
+                    $allGroupFileIds[$groupFileId] = true; 
+                }
             }
         }
-
-   
-        if (empty($groupFilesForThisQuestion)) {
-            return [
-                'code' => 0,
-                'mess' => "Không tìm thấy bài tập phù hợp cho câu hỏi ID: $id_question"
-            ];
-        }
-
-
-        $allGroupFileIds = !empty($allGroupFileIds) ? array_intersect_key($allGroupFileIds, $groupFilesForThisQuestion) : $groupFilesForThisQuestion;
     }
 
-  
-    if (!empty($allGroupFileIds)) {
-        $workouts = $modelPackageWorkouts->find()->where(['id IN' => array_keys($allGroupFileIds)])->all()->combine('id', 'title')->toArray();
+    foreach ($allGroupFileIds as $groupFileId => $isValid) {
+        if ($isValid) {
+            $validGroupFiles[] = $groupFileId; 
+        }
+    }
+
+ 
+    if (!empty($validGroupFiles)) {
+        $workouts = $modeluserpeople->find()->where(['id IN' => $validGroupFiles])->all()->combine('id', 'name')->toArray();
         
         if (!empty($workouts)) {
+
             $validGroupFiles = $workouts[array_rand($workouts)];
             $selectedWorkoutId = array_search($validGroupFiles, $workouts);
         }
@@ -140,66 +136,133 @@ function groupingexercisesuserAPI($input) {
 
 
 
+function listuserpeoplePI($input)
+{
 
-
-
-
-
-function groupingexercisesuserenglishAPI($input) {
     global $controller;
     global $isRequestPost;
-    
-    $modelTbcondition = $controller->loadModel('tbconditionenglish');
-    $modelPackageWorkouts = $controller->loadModel('PackageWorkouts');
-    
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách userpeople';
+
+    $modeluserpeople = $controller->loadModel('userpeople');
+    if($isRequestPost){
+		    $dataSend = $input['request']->getData();
+            $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+            $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+            $conditions = array();
+            if($page<1) $page = 1;
+            $order = array('id'=>'desc');
+            if (!empty($dataSend['name'])) {
+                $conditions['name LIKE'] = '%' . $dataSend['name'] . '%';
+            }
+            $listData = $modeluserpeople->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            $totalData = $modeluserpeople->find()->where($conditions)->all()->toList();
+            $totalData = count($totalData);
+
+            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+    }else{
+        $return = array('code'=>0, 'mess'=>'gửi sai kiểu dữ liệu');
+    }
+
+    return $return;
+}
+function getuserpeopleAPI($input) {
+    global $controller;
+    global $isRequestPost;
+
+    $modeluserpeople = $controller->loadModel('userpeople');
+
+
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-        $answers = $dataSend['answers']; 
-        $conditions = [];
-        foreach ($answers as $id_question => $answer) {
-            $conditions[] = [
-                'id_question' => $id_question,
-                'answer' => $answer
-            ];
-        }
-        $groupFiles = [];
-        foreach ($conditions as $condition) {
-            $results = $modelTbcondition->find()->where(['id_question' => $condition['id_question'], 'answer' => $condition['answer']])->all();
-            foreach ($results as $result) {
-                $groupFiles[$result->id_groupfile] = true;
+
+        if (!empty($dataSend['id']) ) {
+            $conditions = array('id' => (int)$dataSend['id']);
+            $data = $modeluserpeople->find()->where($conditions)->first();
+
+            if (!empty($data)) {
+                $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$data);
+
+            } else {
+                $return = array('code' => 3, 'mess' => 'Id không tồn tại');
             }
-        }
-        $validGroupFiles = [];
-        $selectedWorkoutId = null;
-        if (!empty($groupFiles)) {
-            $groupFileIds = array_keys($groupFiles);
-            $workouts = $modelPackageWorkouts->find()->where(['id IN' => $groupFileIds])->all()->combine('id', 'title_en')->toArray();
-            if (!empty($workouts)) {
-                $validGroupFiles = $workouts[array_rand($workouts)];
-                $selectedWorkoutId = array_search($validGroupFiles, $workouts);
-            }
-        }
-        if (!empty($validGroupFiles)) {
-            return [
-                'code' => 1,
-                'mess' => 'Lấy dữ liệu thành công',
-                'id'=>$selectedWorkoutId,
-                'groupworkout' => $validGroupFiles
-            ];
         } else {
-            return [
-                'code' => 0,
-                'mess' => 'Không tìm thấy bài tập phù hợp'
-            ];
+            $return = array('code' => 2, 'mess' => 'Gửi thiếu dữ liệu hoặc ID không hợp lệ');
         }
     } else {
-        return [
-            'code' => 0,
-            'mess' => 'Gửi sai kiểu POST'
-        ];
+        $return = array('code' => 0, 'mess' => 'Gửi sai kiểu POST');
     }
+
+    return $return;
+}
+function listmyplanAPI($input)
+{
+
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách myplane';
+
+    $modelmyplane = $controller->loadModel('myplane');
+    if($isRequestPost){
+		    $dataSend = $input['request']->getData();
+            $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+            $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+            $conditions = array();
+            if($page<1) $page = 1;
+            $order = array('id'=>'desc');
+            if (!empty($dataSend['name'])) {
+                $conditions['name LIKE'] = '%' . $dataSend['name'] . '%';
+            }
+            $listData = $modelmyplane->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            $totalData = $modelmyplane->find()->where($conditions)->all()->toList();
+            $totalData = count($totalData);
+
+            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+    }else{
+        $return = array('code'=>0, 'mess'=>'gửi sai kiểu dữ liệu');
+    }
+
+    return $return;
 }
 
+function getmyplaneAPI($input) {
+    global $controller;
+    global $isRequestPost;
+
+    $modelmyplane = $controller->loadModel('myplane');
+
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['id']) ) {
+            $conditions = array('id' => (int)$dataSend['id']);
+            $data = $modelmyplane->find()->where($conditions)->first();
+
+            if (!empty($data)) {
+                $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$data);
+
+            } else {
+                $return = array('code' => 3, 'mess' => 'Id không tồn tại');
+            }
+        } else {
+            $return = array('code' => 2, 'mess' => 'Gửi thiếu dữ liệu hoặc ID không hợp lệ');
+        }
+    } else {
+        $return = array('code' => 0, 'mess' => 'Gửi sai kiểu POST');
+    }
+
+    return $return;
+}
 
 
 ?>

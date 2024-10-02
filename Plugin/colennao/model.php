@@ -32,4 +32,6 @@ include('model/tbcondition.php');
 include('model/questionsenglish.php');
 include('model/tbconditionenglish.php');
 include('model/tablepost.php');
+include('model/myplane.php');
+include('model/userpeople.php');
 ?>

@@ -32,7 +32,17 @@ function listCoursesAPI($input)
     
         $formattedData = [];
         foreach ($listData as $item) {
-            $lessonCount = $modelLesson->find()->where(['id_course' => $item->id])->count();
+            $lessons = $modelLesson->find()
+                ->select(['title']) 
+                ->where(['id_course' => $item->id])
+                ->all(); 
+            $lessonNames = [];
+
+            foreach ($lessons as $lesson) {
+                $lessonNames[] = $lesson->title; 
+            }
+            
+            $lessonCount = count($lessonNames);
             $formattedData[] = [
                 'vi' => [
                     'id' => $item->id,
@@ -55,6 +65,7 @@ function listCoursesAPI($input)
                     'willyouget' => $item->willyouget,
                     'questioncourse' => $item->questioncourse,
                     'numberOfLessons' => $lessonCount,
+                    'lessonNames' => $lessonNames,
                     
                 ],
 
@@ -79,6 +90,7 @@ function listCoursesAPI($input)
                     'wgeten' => $item->wgeten,
                     'questionen' => $item->questionen,
                     'numberOfLessons' => $lessonCount,
+                    'lessonNames' => $lessonNames,
                 ]
             ];
         }
@@ -118,6 +130,15 @@ function getCoursesAPI($input)
                 $data->view++;
                 $data->numberlesson = $lessonCount;
                 $modelCourses->save($data);
+                $lessons = $modelLesson->find()
+                ->select(['title']) 
+                ->where(['id_course' => $dataSend['id']])
+                ->all(); 
+                $lessonNames = [];
+
+                foreach ($lessons as $lesson) {
+                    $lessonNames[] = $lesson->title; 
+                }
                 $formattedData = [
                     'vi' => [
                         'id' => $data->id,
@@ -140,7 +161,7 @@ function getCoursesAPI($input)
                         'willyouget' => $data->willyouget,
                         'questioncourse' => $data->questioncourse,
                         'numberOfLessons' => $lessonCount,
-                        
+                        'lessonname' => $lessonNames,
                     ],
                     
                     'en' => [
@@ -164,6 +185,7 @@ function getCoursesAPI($input)
                         'wgeten' => $data->wgeten,
                         'questionen' => $data->questionen,
                         'numberOfLessons' => $lessonCount,
+                        'lessonname' => $lessonNames,
                     ]
                 ];
                 $return = array('code' => 1, 'mess' => 'Lấy dữ liệu thành công', 'data' => $formattedData,);

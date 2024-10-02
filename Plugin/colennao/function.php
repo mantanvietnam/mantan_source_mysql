@@ -144,6 +144,16 @@ $menus[3]['sub'][8]= array( 'title'=>'Tin tức',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listtablepost'
                             );
+$menus[3]['sub'][9]= array( 'title'=>'danh sách bài luyện tập người dùng',
+                            'url'=>'/plugins/admin/colennao-view-admin-listuserpeople-listuserpeople',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listuserpeople'
+                            );
+$menus[3]['sub'][10]= array( 'title'=>'kế hoạch',
+                            'url'=>'/plugins/admin/colennao-view-admin-myplane-listmyplane',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listmyplane'
+                            );
 
 
 addMenuAdminMantan($menus);
@@ -151,7 +161,14 @@ addMenuAdminMantan($menus);
 global $transactionKey;
 $transactionKey = 'COLENNAO';
 
+function getUserNameById($userId) {
+    global $controller;
+    $modeluserpeople = $controller->loadModel('userpeople');
 
+    $user = $modeluserpeople->find()->where(['id' => $userId])->first();
+
+    return $user ? $user->name : null;
+}
 function createPaginationMetaData($totalItem, $itemPerPage, $currentPage): array
 {
     global $urlCurrent;

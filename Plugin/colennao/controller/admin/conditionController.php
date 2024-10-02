@@ -9,7 +9,7 @@ function listcondition($input){
 
     $modeltbcondition = $controller->loadModel('tbcondition');
     $modelQuestions = $controller->loadModel('Questions');
-    $modelPackageWorkouts = $controller->loadModel('PackageWorkouts');
+    $modeluserpeople = $controller->loadModel('userpeople');
     $conditions = array();
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -38,7 +38,7 @@ function listcondition($input){
 
 
     if(!empty($idGroupFileList)){
-        $workoutData = $modelPackageWorkouts->find()->where(['id IN' => $idGroupFileList])->order(['id' => 'asc'])->all()->combine('id', 'title') ->toArray();
+        $workoutData = $modeluserpeople->find()->where(['id IN' => $idGroupFileList])->order(['id' => 'asc'])->all()->combine('id', 'name') ->toArray();
     }else{
         $workoutData= [];
     }
@@ -53,7 +53,7 @@ function listcondition($input){
 
     $groupconditiondata = [];
     foreach ($datacondition as $conditiondata) {
-        $groupconditiondata[$conditiondata->id_groupfile]['title'] = $workoutData[$conditiondata->id_groupfile] ?? 'Unknown';
+        $groupconditiondata[$conditiondata->id_groupfile]['name'] = $workoutData[$conditiondata->id_groupfile] ?? 'Unknown';
         
 
         $questionText = $questionsData[$conditiondata->id_question] ?? 'Câu hỏi không tìm thấy';
@@ -112,7 +112,7 @@ function addcondition($input){
 	global $modelCategories;
     global $metaTitleMantan;
     $metaTitleMantan = 'Thêm điều kiện';
-    $PackageWorkouts = $controller->loadModel('PackageWorkouts');
+    $userpeople = $controller->loadModel('userpeople');
     $modelQuestions = $controller->loadModel('Questions');
     $modeltbcondition = $controller->loadModel('tbcondition');
 	$mess= '';
@@ -154,7 +154,7 @@ function addcondition($input){
     
     
     
-    $dataWorkout = $PackageWorkouts->find()->where(array())->order(['id' => 'asc'])->all()->toList();
+    $dataWorkout = $userpeople->find()->where(array())->order(['id' => 'asc'])->all()->toList();
     $dataquestion = $modelQuestions->find()->where(array())->order(['id' => 'asc'])->all()->toList();
     setVariable('dataWorkout', $dataWorkout);
     setVariable('dataquestion', $dataquestion);

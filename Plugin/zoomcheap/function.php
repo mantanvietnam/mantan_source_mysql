@@ -41,7 +41,11 @@ $menus[0]['sub'][4]= array(	'title'=>'Cài đặt giá',
 							'classIcon'=>'bx bxl-zoom',
 							'permission'=>'listPriceAdmin'
 						);
-
+$menus[0]['sub'][5]= array(	'title'=>'Số lượng đơn',
+                            'url'=>'/plugins/admin/zoomcheap-view-admin-numberzoom-numberorderzoom',
+                            'classIcon'=>'bx bxs-meh',
+                            'permission'=>'numberorderzoom'
+                    );
 
 addMenuAdminMantan($menus);
 
