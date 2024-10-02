@@ -74,7 +74,7 @@
                             <div class="input-group input-group-merge">
                               <select class="form-select" name="type" id="type">
                                 <option value="1" <?php if(!empty($data->type) && $data->type=='1') echo 'selected'; ?> >Thưởng cả tổng số cuốc</option>
-                                <option value="2" <?php if(!empty($data->type) && $data->type=='2') echo 'selected'; ?> >Thưởng tường cuốc</option>
+                                <option value="2" <?php if(!empty($data->type) && $data->type=='2') echo 'selected'; ?> >Thưởng từng cuốc</option>
                               </select>
                             </div>
                           </div>

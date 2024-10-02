@@ -103,7 +103,12 @@ function addRewardAdmin($input){
                 $end_date = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
                     
             }
-            $query = $modelReward->find()->where(['end_date' => $subquery])->first();
+            if(!empty($_GET['id'])){
+                $conditions =array('end_date' => $subquery, 'id !='=>$data->id);
+            }else{
+                 $conditions =array('end_date' => $subquery);
+            }
+            $query = $modelReward->find()->where($conditions)->first();
 
 
 

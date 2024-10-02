@@ -11,6 +11,7 @@
               <h5 class="mb-0">Danh mục</h5>
             </div>
             <div class="card-body">
+              <?php echo @$mess;  ?>
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -34,7 +35,7 @@
                                       </a>
                                     </td>
                                     <td align="center">
-                                      <a class="dropdown-item" onclick="deleteCategory('.$item->id.');" href="javascript:void(0);">
+                                      <a class="dropdown-item"  href="/deleteCategoryProductAgency?id='.$item->id.'">
                                         <i class="bx bx-trash me-1"></i>
                                       </a>
                                     </td>

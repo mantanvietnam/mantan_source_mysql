@@ -1165,7 +1165,6 @@ function deleteProductAgency($input){
     global $controller;
     global $session;
     $user = checklogin('deleteProductAgency');  
-
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/listProductAgency');
@@ -1257,11 +1256,13 @@ function listCategoryProductAgency($input){
                 $modelCategories->save($infoCategory);
 
                 if(!empty($dataSend['idCategoryEdit'])){
-                        $history->note = $user->type_tv.' '. $user->name.' sửa thông tin nhóm sản phẩm '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                        $note = $user->type_tv.' '. $user->name.' sửa thông tin nhóm sản phẩm '.$infoCategory->name.' có id là:'.$infoCategory->id;
                     
                 }else{
-                    $history->note = $user->type_tv.' '. $user->name.' tạo mới thông tin nhóm sản phẩm '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                    $note = $user->type_tv.' '. $user->name.' tạo mới thông tin nhóm sản phẩm '.$infoCategory->name.' có id là:'.$infoCategory->id;
                 }
+
+            addActivityHistory($user,$note,'listCategoryProductAgency',$infoCategory->id);
 
 
              $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
@@ -1271,10 +1272,15 @@ function listCategoryProductAgency($input){
 
         }
 
+        if(!empty($_GET['mess']) && $_GET['mess']=='noPermissiondelete'){
+             $mess= '<p class="text-danger">Bạn không có quyền xóa</p>'; 
+        }
+
         $conditions = array('type' => 'category_product','status'=>'active');
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
+        setVariable('mess', @$mess);
     }else{
         return $controller->redirect('/login');
     }
@@ -1285,18 +1291,28 @@ function deleteCategoryProductAgency($input){
     global $session;
 
     global $modelCategories;
-    if(!empty($session->read('infoUser'))){
+     $user = checklogin('deleteCategoryProductAgency');  
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCategoryProductAgency?mess=noPermissiondelete');
+        }
+
+
         if(!empty($_GET['id'])){
             $data = $modelCategories->get($_GET['id']);
             
             if($data){
                 $data->status = 'lock';
                 $modelCategories->save($data);
+                $note = $user->type_tv.' '. $user->name.' xóa thông tin nhóm sản phẩm '.$data->name.' có id là:'.$data->id;
+                
+
+            addActivityHistory($user,$note,'deleteCategoryProductAgency',$data->id);
                 //deleteSlugURL($data->slug);
             }
         }
 
-    // return $controller->redirect('/listProductAgency');
+     return $controller->redirect('/listCategoryProductAgency');
 
     }else{
         return $controller->redirect('/login');
@@ -1313,7 +1329,12 @@ function addDataProductAgency(){
     global $urlHomes;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addDataProductAgency');  
+
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listProductAgency');
+        }
         $metaTitleMantan = 'Thêm thông tin sản phẩm ';
 
         $modelProduct = $controller->loadModel('Products');
@@ -1329,6 +1350,7 @@ function addDataProductAgency(){
 
                 $double = [];
                 $number = 0;
+                $numbers = 0;
                 foreach ($dataSeries as $key => $value) {
                     if(!empty($value[0]) && !empty($value[1])){
                         $data = $modelProduct->newEmptyEntity();
@@ -1368,7 +1390,7 @@ function addDataProductAgency(){
                         }
 
                         $data->slug = $slugNew;
-
+                        $numbers++;
                         $modelProduct->save($data);
 
                         // lưu danh mục sản phẩm
@@ -1385,6 +1407,10 @@ function addDataProductAgency(){
                     
                     
                 }
+                $note = $user->type_tv.' '. $user->name.' thêm thông tin sản phẩm bằng Excel số lượng sản phẩm Lưu là: '.$numbers.' sản phẩm';
+                
+
+                addActivityHistory($user,$note,'addDataProductAgency',0);
                 $mess .= '<p class="text-success">Lưu dữ liệu thành công</p>';
             }
         }

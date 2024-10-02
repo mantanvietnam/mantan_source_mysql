@@ -46,7 +46,7 @@
             <th>Số Cuốc xe</th>
             <th>Tiền thưởng</th>
             <th>Trạng thái</th>
-            <th>Nội dung</th>
+            <th>Kiểu thưởng</th>
             <th>sữa</th>
             <th>Xóa</th>
           </tr>
@@ -70,6 +70,11 @@
                   $status = 'Kích hoạt';
                 }
 
+                $type = 'Thưởng cả tổng số cuốc';
+                if(!empty($item->type)){
+                  $type = 'Thưởng từng cuốc';
+                }
+
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>'.@$item->name.'</td>
@@ -78,7 +83,7 @@
                         <td>'.$item->quantity_booking.'</td>
                         <td>'.number_format(@$item->money).'đ</td>
                         <td>'.@$status.'</td>
-                        <td>'.@$item->note.'</td>
+                        <td>'.@$type.'</td>
                          <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/excgo-view-admin-reward-addRewardAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

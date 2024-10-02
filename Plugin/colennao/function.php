@@ -210,6 +210,7 @@ function getUserByToken($accessToken, $checkActive = true)
 
     if ($checkActive) {
         $conditions['status'] = 'active';
+        $conditions['status_pay_package'] = 1;
     }
 
     $user = $modelUser->find()->where($conditions)->first();
@@ -395,13 +396,15 @@ function getBankAccount(){
     return $data_value;
 }
 
-function processAddMoney($money, $id_ransaction): string
+function processAddMoney($money, $id_ransaction= 0): string
 {
     global $controller;
     global $transactionType;
 
     $modelUser = $controller->loadModel('Users');
     $modelTransactions = $controller->loadModel('Transactions');
+
+    
 
 
     if ($money >= 1000) {
@@ -410,16 +413,18 @@ function processAddMoney($money, $id_ransaction): string
 
             if(!empty($transactions)){
                     if($transactions->total<= $money){
-                        $transactions->status = 2;
-                        $modelTransactions->save($transactions);
+                       
 
                         if($transactions->type==2){
                             createChallengeUser($transactions->id_user, $transactions->id_challenge, $transactions->id);
                         }elseif($transactions->type==1){
                             createCourseUser($transactions->id_user, $transactions->id_course, $transactions->id);
                         }elseif($transactions->type==3){
-                             createPackageUser($transactions->id_user, $transactions->id_package, $transactions->id);
+                             createPackageUser($transactions->id_user,$transactions->id_package,$transactions->id);
                         }
+
+                         $transactions->status = 2;
+                        $modelTransactions->save($transactions);
                     }
                     return 'bạn mua thành công';
                 }
@@ -551,16 +556,17 @@ function createCourseUser($id_user, $id_Courses,$id_transaction){
 
 }
 
-function createPackageUser($id_user, $id_package,$id_transaction){
+function createPackageUser($id_user, $id_package,$id_transaction=0){
     global $controller;
     $modelUserPackages = $controller->loadModel('UserPackages');
     $modelUser = $controller->loadModel('Users');
 
     $modelTransactions = $controller->loadModel('Transactions');
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
-    $transactions = $modelTransactions->find()->where(['id' =>(int)$id_ransaction])->first();
 
-    if(!empty($id_user) && !empty($id_challenge)) {
+    $transactions = $modelTransactions->find()->where(['id' =>(int)$id_transaction])->first();
+
+    if(!empty($id_user) && !empty($transactions)) {
 
         $package = $modelPackageWorkout->find()->where(array('id'=>(int)$id_package,'status'=>'active'))->first();
         $user = $modelUser->find()->where(array('id'=>(int)$id_user))->first();
@@ -595,10 +601,8 @@ function createPackageUser($id_user, $id_package,$id_transaction){
                 }else{
                     $checkUserPackages->deadline = 0;
                 }
-                
-
-                $checkUserPackages->tip = json_encode($listTip);
-
+                $user->status_pay_package = 1;
+                $modelUser->save($user);
                 $modelUserPackages->save($checkUserPackages);
 
             }

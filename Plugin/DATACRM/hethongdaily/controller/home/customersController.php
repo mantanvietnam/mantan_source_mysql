@@ -864,8 +864,8 @@ function addDataCustomerAgency($input)
                 $history->time = time();
                 $history->id_staff = $user->id_staff;
                 $history->id_member = $user->id;
-                $history->keyword = 'deletegroupcustomer';
-                $history->id_key = $infoCategory->id;
+                $history->keyword = 'addDataCustomerAgency';
+                $history->id_key = 0;
 
                 $modelActivityHistory->save($history);
 

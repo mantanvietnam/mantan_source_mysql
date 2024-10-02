@@ -445,8 +445,11 @@ function listMember($input)
 
 	$modelMembers = $controller->loadModel('Members');
 
-	if(!empty($session->read('infoUser'))){
-		$user = $session->read('infoUser');
+	$user = checklogin('listMember');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
 		$mess = '';
 		if(!empty($_GET['status'])){
 			switch($_GET['status']){
@@ -501,10 +504,11 @@ function addMember($input)
     global $session;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
-    	if($session->read('infoUser')->create_agency == 'lock'){
-			return $controller->redirect('/listMember');
-		}
+    $user = checklogin('addMember');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listMember');
+        }
 
 	    $metaTitleMantan = 'Thông tin đại lý tuyến dưới';
 
@@ -517,7 +521,7 @@ function addMember($input)
 
 		// lấy data edit
 		if(!empty($_GET['id'])){
-			$data = $modelMembers->find()->where(['id'=>(int) $_GET['id'], 'id_father'=>$infoUser->id])->first();
+			$data = $modelMembers->find()->where(['id'=>(int) $_GET['id'], 'id_father'=>$user->id])->first();
 
 			if(empty($data)){
 				return $controller->redirect('/listMember');
@@ -644,6 +648,13 @@ function addMember($input)
 					}
 
 			        $modelMembers->save($data);
+
+			        if(!empty($_GET['id'])){
+                        $note = $user->type_tv.' '. $user->name.' sửa thông tin đại lý '.$data->name.'('.$data->phone.') có id đơn là:'.$data->id;
+                    }else{
+                        $note = $user->type_tv.' '. $user->name.' tạo đại lý '.$data->name.'('.$data->phone.') có id đơn là:'.$data->id;
+                    }
+                    addActivityHistory($user,$note,'addMember',$data->id);
 
 			        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 			    }else{

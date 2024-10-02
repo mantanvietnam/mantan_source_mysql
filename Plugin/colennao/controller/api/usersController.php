@@ -127,6 +127,7 @@ function confirmotpcodeApi($input): array
             $user->device_token = @$dataSend['device_token'];
             $modelUser->save($user);
 
+
             return apiResponse(0, 'xác nhận thành công', $user);
         }
 
@@ -163,7 +164,13 @@ function loginUserApi($input): array
                 $user->device_token = $dataSend['device_token'];
                 $modelUser->save($user);
 
-                return apiResponse(0, 'Đăng nhập thành công', $user);
+                if(!empty($user->status_pay_package)){
+                     return apiResponse(0, 'Đăng nhập thành công', $user);
+                 }else{
+                    return apiResponse(4, 'Bạn chưa thanh toán gói tập', $user);
+                 }
+
+               
             }
 
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mật khẩu');

@@ -1,4 +1,5 @@
 <?php 
+
 function listStaff($input)
 {
     global $controller;
@@ -8,14 +9,18 @@ function listStaff($input)
     global $session;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+     $user = checklogin('listStaff');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         $metaTitleMantan = 'Danh sách nhân viên';
 
         $modelStaff = $controller->loadModel('Staffs');
         
         $order = array('id'=>'desc');
 
-        $conditions = array('id_member'=>$session->read('infoUser')->id);
+        $conditions = array('id_member'=>$user->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -148,8 +153,11 @@ function addStaff($input)
     global $session;
     global $urlHomes;
 
-    if(!empty(checklogin())){
-        $infoUser = checklogin();
+     $user = checklogin('addStaff');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listStaff');
+        }
         $mess = '';
 
         $metaTitleMantan = 'Thông tin nhân viên';
@@ -160,7 +168,7 @@ function addStaff($input)
 
         // lấy data edit
         if(!empty($_GET['id'])){
-            $data = $modelStaff->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$infoUser->id])->first();
+            $data = $modelStaff->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$user->id])->first();
 
             if(empty($data)){
                 return $controller->redirect('/listMember');
@@ -177,7 +185,7 @@ function addStaff($input)
                 $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
                 $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-                $conditions = ['phone'=>$dataSend['phone'],'id_member'=>$infoUser->id];
+                $conditions = ['phone'=>$dataSend['phone'],'id_member'=>$user->id];
                 $checkPhone = $modelStaff->find()->where($conditions)->first();
 
                 if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
@@ -190,7 +198,7 @@ function addStaff($input)
                             $fileName = 'avatar_staff_'.time().rand(0,1000000);
                         }
 
-                        $avatar = uploadImage($infoUser->id, 'avatar', $fileName);
+                        $avatar = uploadImage($user->id, 'avatar', $fileName);
                     }
 
                     if(!empty($avatar['linkOnline'])){
@@ -210,8 +218,8 @@ function addStaff($input)
                     $data->name = $dataSend['name'];
                     $data->address = $dataSend['address'];
                     $data->phone = $dataSend['phone'];
-                    $data->id_system = (int) $infoUser->id_system;
-                    $data->id_member = (int) $infoUser->id;
+                    $data->id_system = (int) $user->id_system;
+                    $data->id_member = (int) $user->id;
                     $data->email = $dataSend['email'];
                     $data->linkedin = $dataSend['linkedin'];
                     $data->web = $dataSend['web'];
@@ -255,6 +263,16 @@ function addStaff($input)
                     }
 
                     $modelStaff->save($data);
+
+                    if(!empty($_GET['id'])){
+                        $note = $user->type_tv.' '. $user->name.' sửa thông tin nhân viên '.$data->name.'('.$data->phone.') có id đơn là:'.$data->id;
+                    }else{
+                        $note = $user->type_tv.' '. $user->name.' tạo nhân viên '.$data->name.'('.$data->phone.') có id đơn là:'.$data->id;
+                    }
+
+
+                    addActivityHistory($user,$note,'addOrderCustomer',$data->id);
+
                      return $controller->redirect('/listStaff?mess=saveSuccess');
                 }else{
                     $mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
@@ -271,7 +289,7 @@ function addStaff($input)
 
 
         $listPermissionMenu = getListPermission();
-        $dataGroupStaff = $modelGroupStaff->find()->where()->all()->toList();
+        $dataGroupStaff = $modelGroupStaff->find()->where(['id_member'=>$user->id])->all()->toList();
         setVariable('data', $data);
         setVariable('listPermissionMenu', $listPermissionMenu);
         setVariable('dataGroupStaff', $dataGroupStaff);
@@ -288,13 +306,22 @@ function deleteStaff($input){
     global $metaTitleMantan;
     global $session;
     global $urlHomes;
-    if(!empty($session->read('infoUser'))){
+
+    $user = checklogin('deleteStaff');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listStaff');
+        }
          $modelStaff = $controller->loadModel('Staffs');
         if(!empty($_GET['id'])){
             $data = $modelStaff->find()->where(['id_member'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id']])->first();
             
             if($data){
-                $modelStaff->delete($data);
+                $data->status = 'delete';
+                $modelStaff->save($data);
+
+                $note = $user->type_tv.' '. $user->name.' xóa thông tin nhân viên '.$data->name.' có id là:'.$data->id;
+                addActivityHistory($user,$note,'deleteStaff',$data->id);
                  return $controller->redirect('/listStaff?mess=deleteSuccess');
             }
         }
@@ -313,14 +340,18 @@ function timesheetStaff(){
     global $session;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('timesheetStaff');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listStaff');
+        }
         $metaTitleMantan = 'Bảng chấm công nhân viên';
 
         $modelStaff = $controller->loadModel('Staffs');
         
         $order = array('id'=>'desc');
 
-        $conditions = array('id_member'=>$session->read('infoUser')->id);
+        $conditions = array('id_member'=>$user->id);
 
         // phân trang
         $listStaff = $modelStaff->find()->where($conditions)->all()->toList();
@@ -376,13 +407,17 @@ function checktimesheet(){
     global $session;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('checktimesheet');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/timesheetStaff');
+        }
         $metaTitleMantan = 'Danh sách nhân viên';
 
         $modelStaff = $controller->loadModel('Staffs');
         $modelStaffTimekeepers = $controller->loadModel('StaffTimekeepers');
 
-        $conditions = array('id_member'=>$session->read('infoUser')->id, 'id'=>(int)$_GET['id_staff']);
+        $conditions = array('id_member'=>$user->id, 'id'=>(int)$_GET['id_staff']);
         $staff = $modelStaff->find()->where($conditions)->first();
         // Thiết lập tháng và năm
 
@@ -404,6 +439,11 @@ function checktimesheet(){
         }elseif(!empty($checkdate)){
             $modelStaffTimekeepers->delete($checkdate);
         }
+
+        $note = $user->type_tv.' '. $user->name.' đã chấm công cho nhân viên '.$data->name.' ngày :'.date('d/m/Y',$date);
+        addActivityHistory($user,$note,'checktimesheet',$staff->id);
+
+
         return $controller->redirect('/timesheetStaff');
         
 
@@ -614,8 +654,11 @@ function listGroupStaff(){
     
     $modelGroupStaff = $controller->loadModel('GroupStaffs');
     
-    if(!empty(checklogin())){
-        $user = checklogin();
+    $user = checklogin('listGroupStaff');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listStaff');
+        }
         $mess = '';
         if(!empty($_GET['error'])){
             switch ($_GET['error']) {
@@ -722,8 +765,11 @@ function addGroupStaff($input){
     $modelMembers = $controller->loadModel('Members');
     $modelGroupStaff = $controller->loadModel('GroupStaffs');
     
-    if(!empty(checklogin())){
-        $user = checklogin();
+    $user = checklogin('addGroupStaff');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listGroupStaff');
+        }
 
         // lấy data edit
         if(!empty($_GET['id'])){
@@ -732,9 +778,7 @@ function addGroupStaff($input){
             $data = $modelGroupStaff->newEmptyEntity();
             $data->created_at = time();
         }
-
         $mess ='';
-
         if($isRequestPost) {
             $dataSend = $input['request']->getData();
 
@@ -744,6 +788,13 @@ function addGroupStaff($input){
                 $data->permission = json_encode(@$dataSend['check_list_permission']);
                 $data->id_member = $user->id;   
                 $modelGroupStaff->save($data);
+
+                if(!empty($_GET['id'])){
+                    $note = $user->type_tv.' '. $user->name.' sửa thông tin nhóm nhân viên '.$data->name.' có id đơn là:'.$data->id;
+                }else{
+                    $note = $user->type_tv.' '. $user->name.' tạo mới nhóm nhân viên '.$data->name.' có id đơn là:'.$data->id;
+                }
+               addActivityHistory($user,$note,'addGroupStaff',$data->id);
 
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
                 
@@ -777,22 +828,31 @@ function deteleGroupStaff($input){
 
     $metaTitleMantan = 'Thông tin Nhóm nhân viên';
     
-    if(!empty(checkLoginManager('deteleGroupStaff', 'staff'))){
+    $user = checklogin('deteleGroupStaff');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listGroupStaff');
+        }
        
         $modelGroupStaff = $controller->loadModel('GroupStaffs');
+        $modelStaff = $controller->loadModel('Staffs');
 
         if(!empty($_GET['id'])){
-            $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
+            $conditions = array('id'=> $_GET['id'], 'id_member'=>$user->id);
             
-            $data = $modelCategories->find()->where($conditions)->first();
-            $checkMember = $modelMembers->find()->where(array('id_group'=>$data->id))->all()->toList();
+            $data = $modelGroupStaff->find()->where($conditions)->first();
+            $checkStaff = $modelStaff->find()->where(array('id_group'=>$data->id))->all()->toList();
 
-            if(!empty($checkMember)){
+            if(!empty($checkStaff)){
                 return $controller->redirect('/listGroupStaff?error=requestDelete');
 
             }
 
             if(!empty($data)){
+                 $note = $user->type_tv.' '. $user->name.' xóa thông tin nhóm sản phẩm '.$data->name.' có id là:'.$data->id;
+                
+
+            addActivityHistory($user,$note,'deteleGroupStaff',$data->id);
                 $modelCategories->delete($data);
                 return $controller->redirect('/listGroupStaff?error=requestDeleteSuccess');
             }
@@ -810,10 +870,10 @@ function listActivityHistory(){
     global $session;
     global $modelCategoryConnects;
 
-     $user = checklogin('requestProductAgency');   
+     $user = checklogin('listActivityHistory');   
     if(!empty($user)){
         if(empty($user->grant_permission)){
-            return $controller->redirect('/statisticAgency');
+            return $controller->redirect('/listStaff');
         }
         $metaTitleMantan = 'Danh sách lịch sử hàng động nhân viên';
 

@@ -8,19 +8,27 @@ function getPackageWorkoutAPI($input)
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
     $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
     $modelWorkout = $controller->loadModel('Workouts');
-
+    $modelUser = $controller->loadModel('Users');
     if($isRequestPost){
     	$dataSend = $input['request']->getData();
     	 if (!empty($dataSend['token']) && !empty($dataSend['id'])) {
-            $user = getUserByToken($dataSend['token']);
+            $conditions = ['token' => $dataSend['token']];
+        	$conditions['status'] = 'active';
+    		$user = $modelUser->find()->where($conditions)->first();
 
             if (!empty($user)) {
+
+
+
 	    		$conditions = array('id'=>(int) $dataSend['id'],'status'=>'active');
 	    		
 		    	$data = $modelPackageWorkout->find()->where($conditions)->first();
 
 		    	if(!empty($data->id)){
-	            $data->workout = $modelIntermePackageWorkout->find()->where(['id_package'=>$data->id])->all()->toList();
+		    		$checkUser = $modelUser->get($user->id);
+            		$checkUser->id_package =(int) $data->id;
+            		$modelUser->save($checkUser);
+	            	$data->workout = $modelIntermePackageWorkout->find()->where(['id_package'=>$data->id])->all()->toList();
 	        	}
 
 	        	if(!empty($data->price_package)){
@@ -48,14 +56,14 @@ function paymentPackageWorkoutAPI($input){
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
     $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
     $modelWorkout = $controller->loadModel('Workouts');
-
     $modelTransactions = $controller->loadModel('Transactions');
-
-
+    $modelUser = $controller->loadModel('Users');
     if($isRequestPost){
     	$dataSend = $input['request']->getData();
     	 if (!empty($dataSend['token']) && !empty($dataSend['id']) && !empty($dataSend['id_price'])) {
-            $user = getUserByToken($dataSend['token']);
+            $conditions = ['token' => $dataSend['token']];
+        	$conditions['status'] = 'active';
+    		$user = $modelUser->find()->where($conditions)->first();
 
             
             if (!empty($user)) {
@@ -74,7 +82,7 @@ function paymentPackageWorkoutAPI($input){
     				}
     			}
 
-	    		$checkTransaction = $modelTransactions->find()->where(['id_package'=>$data->id,'id_user'=>$user->id])->first();
+	    		$checkTransaction = $modelTransactions->find()->where(['id_package'=>$data->id,'id_user'=>$user->id, 'status'=>1])->first();
 	    		if(empty($checkTransaction)){
 	    			$checkTransaction = $modelTransactions->newEmptyEntity();
 	    			$checkTransaction->id_user = $user->id;
@@ -87,12 +95,18 @@ function paymentPackageWorkoutAPI($input){
 	    			$checkTransaction->type = 3;
 	    			$checkTransaction->created_at = time();
 	    			$checkTransaction->type_use = @$dataSend['id_price'];
-	    			$checkTransaction->updated_at = time();
 	    			$checkTransaction->code = time().$user->id.rand(0,10000);
 
-	    			$modelTransactions->save($checkTransaction);
+	    			
 
+	    		}else{
+	    			$checkTransaction->total = $price;
+	    			$checkTransaction->type_use = @$dataSend['id_price'];
+	    			$checkTransaction->updated_at = time();
 	    		}
+
+
+	    		$modelTransactions->save($checkTransaction);
 	    		$bank = getBankAccount();
 
 

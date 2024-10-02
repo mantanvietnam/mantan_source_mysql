@@ -1380,6 +1380,26 @@ function getListPermission()
                                     array('name'=>'Xóa nhóm sản phẩn','permission'=>'deleteCategoryProductAgency')
                             )
                     );
+
+     $permission[] = array( 'name'=>'Quản lý đại lý ',
+                    'sub'=>array(   array('name'=>'Danh sách đại lý','permission'=>'listMember'),
+                                    array('name'=>'Thêm và sửa thông tin đạt lý','permission'=>'addMember'),
+                                    array('name'=>'Xóa thông tin đạt lý ','permission'=>'deteleMember'),
+                            )
+                    );
+    $permission[] = array( 'name'=>'Quản lý nhân viên ',
+                    'sub'=>array(   array('name'=>'Danh sách nhân viên','permission'=>'listStaff'),
+                                    array('name'=>'Thêm và sửa thông tin nhân viên','permission'=>'addStaff'),
+                                    array('name'=>'Xóa nhân viên','permission'=>'deleteStaff'),
+                                    array('name'=>'Xem băng chấm công nhân viên','permission'=>'timesheetStaff'),
+                                    array('name'=>'Chấm công nhân viên','permission'=>'checktimesheet'),
+                                    array('name'=>'Danh sách nhóm nhân viên','permission'=>'listGroupStaff'),
+                                    array('name'=>'Thêm và sửa nhóm thông tin nhân viên','permission'=>'addGroupStaff'),
+                                    array('name'=>'Xóa nhóm nhân viên','permission'=>'deteleGroupStaff'),
+                                    array('name'=>'Xem băng lịch sử hành dộng nhân viên','permission'=>'listActivityHistory'),
+                            )
+                    );
+   
     
     return $permission;
 }
