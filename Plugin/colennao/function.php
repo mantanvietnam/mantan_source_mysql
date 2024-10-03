@@ -635,9 +635,9 @@ global $listArea;
 
 global $listLevel;
 
-$listLevel = [1=> array('id'=> 1, 'name'=> 'Người mới', 'name_en'=>''),
-    2 => array( 'id'=> 2,'name'=> 'Trung bình', 'name_en'=>''),
-    3=> array( 'id'=> 3,'name'=> 'Trình độ cao', 'name_en'=>''),
+$listLevel = [1=> array('id'=> 1, 'name'=> 'Người mới', 'name_en'=>'Newbie'),
+    2 => array( 'id'=> 2,'name'=> 'Trung bình', 'name_en'=>'Medium'),
+    3=> array( 'id'=> 3,'name'=> 'Trình độ cao', 'name_en'=>'High level'),
 ];
 
 global $listUnit;

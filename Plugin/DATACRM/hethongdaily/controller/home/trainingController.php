@@ -13,8 +13,11 @@ function listCourseAgency($input)
     $modelCourses = $controller->loadModel('Courses');
     $modelLesson = $controller->loadModel('Lessons');
 
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+    $user = checklogin('listCourseAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
@@ -118,8 +121,11 @@ function addCourseAgency($input)
     $modelSlugs = $controller->loadModel('Slugs');
     $mess= '';
 
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+    $user = checklogin('addCourseAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCourseAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
@@ -160,6 +166,14 @@ function addCourseAgency($input)
 	            $data->slug = $slugNew;
 	            $modelCourses->save($data);
 
+	            if(!empty($_GET['id'])){
+                      $note = $user->type_tv.' '. $user->name.' sửa thông tin khóa học '.$data->title.' có id là:'.$data->id;
+                }else{
+                      $note = $user->type_tv.' '. $user->name.' thêm thông tin khóa học '.$data->title.' có id là:'.$data->id;
+                }
+
+                addActivityHistory($user,$note,'addCourseAgency',$data->id);
+
 	            return $controller->redirect('/listCourseAgency?mess=saveSuccess');
 	        }else{
 	            $mess= '<p class="text-danger">Bạn chưa nhập tên bài học</p>';
@@ -181,8 +195,11 @@ function deleteCourseAgency($input){
     global $controller;
     global $session;
     $modelCourses = $controller->loadModel('Courses');
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+    $user = checklogin('deleteCourseAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCourseAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
@@ -190,6 +207,8 @@ function deleteCourseAgency($input){
 	    if(!empty($_GET['id'])){
 	        $data = $modelCourses->find()->where(['id'=>(int) $_GET['id']])->first();
 	        if($data){
+	         	$note = $user->type_tv.' '. $user->name.' xóa thông tin khóa học '.$data->title.' có id là:'.$data->id;
+                addActivityHistory($user,$note,'deleteCourseAgency',$data->id);
 	            $modelCourses->delete($data);
 	            return $controller->redirect('/listCourseAgency?mess=deleteSuccess');
 	        }
@@ -208,50 +227,111 @@ function listCategoryLessonAgency($input){
     global $session;
 
     $metaTitleMantan = 'Danh sách danh mục đào tạo';
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+     $user = checklogin('listCategoryLessonAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCourseAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
-
+        $mess = '';
 	    if ($isRequestPost) {
-	        $dataSend = $input['request']->getData();     
+	    	 $user = checklogin('addCategoryLessonAgency');   
+		     if(!empty($user->grant_permission)){
+		        
+		        $dataSend = $input['request']->getData();     
 
-	        // tính ID category
-	        if(!empty($dataSend['idCategoryEdit'])){
-	            $infoCategory = $modelCategories->find()->where(['id'=>(int) $dataSend['idCategoryEdit']])->first();
-	        }else{
-	            $infoCategory = $modelCategories->newEmptyEntity();
-	        }
+		        // tính ID category
+		        if(!empty($dataSend['idCategoryEdit'])){
+		            $infoCategory = $modelCategories->find()->where(['id'=>(int) $dataSend['idCategoryEdit']])->first();
+		        }else{
+		            $infoCategory = $modelCategories->newEmptyEntity();
+		        }
 
-	        // tạo dữ liệu save
-	        $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-	        $infoCategory->parent = 0;
-	        $infoCategory->image = $dataSend['image'];
-	        $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
-	        $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
-	        $infoCategory->type = '2top_crm_training';
-	        $infoCategory->status = 'active';
+		        // tạo dữ liệu save
+		        $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+		        $infoCategory->parent = 0;
+		        $infoCategory->image = $dataSend['image'];
+		        $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+		        $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+		        $infoCategory->type = '2top_crm_training';
+		        $infoCategory->status = 'active';
 
-	        // tạo slug 
-	        $slug = createSlugMantan($infoCategory->name);
-	        $slugNew = $slug;
-	        $number = 0;
-	        do{
-	            $conditions = array('slug'=>$slugNew,'type'=>'2top_crm_training');
-	            $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-	            if(!empty($listData)){
-	                $number++;
-	                $slugNew = $slug.'-'.$number;
-	            }
-	        }while (!empty($listData));
-	        $infoCategory->slug = $slugNew;
-	        $modelCategories->save($infoCategory);
+		        // tạo slug 
+		        $slug = createSlugMantan($infoCategory->name);
+		        $slugNew = $slug;
+		        $number = 0;
+		        do{
+		            $conditions = array('slug'=>$slugNew,'type'=>'2top_crm_training');
+		            $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+		            if(!empty($listData)){
+		                $number++;
+		                $slugNew = $slug.'-'.$number;
+		            }
+		        }while (!empty($listData));
+		        $infoCategory->slug = $slugNew;
+		        $modelCategories->save($infoCategory);
+
+		        if(!empty($dataSend['idCategoryEdit'])){
+                      $note = $user->type_tv.' '. $user->name.' sửa thông tin nhóm bài học '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                }else{
+                      $note = $user->type_tv.' '. $user->name.' thêm thông tin nhóm bài học '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                }
+
+                addActivityHistory($user,$note,'addCourseAgency',$infoCategory->id);
+		       $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }else{
+               $mess= '<p class="text-danger">Bạn không có quyền thêm sửa </p>'; 
+
+            }
 	    }
 	    $conditions = array('type' => '2top_crm_training', 'status'=>'active');
 	    $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+	    if(!empty($_GET['mess']) && $_GET['mess']=='noPermissiondelete'){
+             $mess= '<p class="text-danger">Bạn không có quyền xóa</p>'; 
+        }
 	    setVariable('listData', $listData);
+	    setVariable('mess', $mess);
 	}else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteCategoryLessonAgency($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+    global $modelCategoryConnects;
+
+    $user = checklogin('deleteCategoryLessonAgency');  
+    $mess = '';
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCategoryLessonAgency?mess=noPermissiondelete');
+        }
+
+        if ($_GET['id']) {
+            $infoCategory = $modelCategories->find()->where(['id'=>(int) $_GET['id'],'type'=>'2top_crm_training'])->first();
+
+            if(!empty($infoCategory)){
+                $note = $user->type_tv.' '. $user->name.' xóa thông tin nhóm bài học '.$infoCategory->name.' có id là:'.$infoCategory->id;
+
+                 addActivityHistory($user,$note,'deleteCategoryLessonAgency',$infoCategory->id);
+                $modelCategories->delete($infoCategory);
+                $modelCategoryConnects->deleteAll(['keyword'=>'2top_crm_training', 'id_category'=>(int)$_GET['id']]);
+            }
+        }
+        
+
+
+        return $controller->redirect('/groupCustomerAgency');
+    }else{
         return $controller->redirect('/login');
     }
 }
@@ -271,7 +351,11 @@ function listLessonAgency($input)
     $modelCourses = $controller->loadModel('Courses');
     $modelTests = $controller->loadModel('Tests');
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('listLessonAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCourseAgency');
+        }
         $user = $session->read('infoUser');
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
@@ -375,8 +459,11 @@ function addLessonAgency($input)
     $modelCourses = $controller->loadModel('Courses');
 	$mess= '';
 
-	if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+	$user = checklogin('addLessonAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listLessonAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
@@ -419,6 +506,15 @@ function addLessonAgency($input)
 	            }
 	            $data->slug = $slugNew;
 		        $modelLesson->save($data);
+
+		        if(!empty($_GET['id'])){
+                      $note = $user->type_tv.' '. $user->name.' sửa thông tin bài học '.$data->title.' có id là:'.$data->id;
+                }else{
+                      $note = $user->type_tv.' '. $user->name.' thêm thông tin bài học '.$data->title.' có id là:'.$data->id;
+                }
+
+                addActivityHistory($user,$note,'addLessonAgency',$data->id);
+
 		        return $controller->redirect('/listLessonAgency?mess=saveSuccess');
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập tên bài học</p>';
@@ -440,8 +536,12 @@ function deleteLessonAgency($input){
 	global $controller;
 	global $session;
 
-	if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+	$user = checklogin('deleteLessonAgency');  
+    $mess = '';
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listLessonAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
@@ -449,7 +549,11 @@ function deleteLessonAgency($input){
 		$modelLesson = $controller->loadModel('Lessons');
 		if(!empty($_GET['id'])){
 			$data = $modelLesson->find()->where(['id'=>(int) $_GET['id']])->first();
-			if($data){
+			if(!empty($data)){
+				$note = $user->type_tv.' '. $user->name.' xóa thông tin bài học '.$infoCategory->name.' có id là:'.$infoCategory->id;
+
+                 addActivityHistory($user,$note,'deleteLessonAgency',$infoCategory->id);
+
 	         	$modelLesson->delete($data);
 	         	return $controller->redirect('/listLessonAgency?mess=deleteSuccess');
 	        }
@@ -474,9 +578,11 @@ function listTestAgency($input)
     $modelTests = $controller->loadModel('Tests');
     $modelQuestions = $controller->loadModel('Questions');
     $modelCourses = $controller->loadModel('Courses');
-
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+ 	$user = checklogin('listTestAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCourseAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
@@ -575,8 +681,12 @@ function addTestAgency($input)
     $modelTests = $controller->loadModel('Tests');
     $modelCourses = $controller->loadModel('Courses');
 
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+   	$user = checklogin('addTestAgency');  
+    $mess = '';
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listTestAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
@@ -640,6 +750,14 @@ function addTestAgency($input)
 	            $data->time_end = $time_end;
 		        $modelTests->save($data);
 
+		        if(!empty($_GET['id'])){
+                      $note = $user->type_tv.' '. $user->name.' sửa thông tin bài thi '.$data->title.' có id là:'.$data->id;
+                }else{
+                      $note = $user->type_tv.' '. $user->name.' thêm thông tin bài thi '.$data->title.' có id là:'.$data->id;
+                }
+
+                addActivityHistory($user,$note,'addTestAgency',$data->id);
+
 		        return $controller->redirect('/listTestAgency?mess=saveSuccess');
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập tên bài thi</p>';
@@ -665,15 +783,23 @@ function deleteTestAgency($input){
 	$modelLesson = $controller->loadModel('Lessons');
     $modelTests = $controller->loadModel('Tests');
 
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+    $user = checklogin('deleteTestAgency');  
+    $mess = '';
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listTestAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
 	
 		if(!empty($_GET['id'])){
 			$data = $modelTests->find()->where(['id'=>(int) $_GET['id']])->first();	
-			if($data){
+			if(!empty($data)){
+
+				$note = $user->type_tv.' '. $user->name.' xóa thông tin bài thi '.$data->name.' có id là:'.$data->id;
+
+                 addActivityHistory($user,$note,'deleteTestAgency',$data->id);
 	         	$modelTests->delete($data);
 	         	deleteSlugURL($data->slug);
 	         	return $controller->redirect('/listTestAgency?mess=deleteSuccess');
@@ -696,8 +822,11 @@ function listQuestionAgency($input)
     $metaTitleMantan = 'Danh sách câu hỏi';
 
     $modelQuestions = $controller->loadModel('Questions');
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+    $user = checklogin('listQuestionAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCourseAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
@@ -773,7 +902,12 @@ function addQuestionAgency($input)
 	global $session;
 
     $metaTitleMantan = 'Thông tin câu hỏi';
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addQuestionAgency');  
+    $mess = '';
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listQuestionAgency');
+        }
         $user = $session->read('infoUser');
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
@@ -807,6 +941,16 @@ function addQuestionAgency($input)
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
 	            $_SESSION['id_test_choose'] = $dataSend['id_test'];
+
+	              if(!empty($_GET['id'])){
+                      $note = $user->type_tv.' '. $user->name.' sửa thông tin câu hỏi '.$data->question.' có id là:'.$data->id;
+                }else{
+                      $note = $user->type_tv.' '. $user->name.' thêm thông tin câu hỏi '.$data->question.' có id là:'.$data->id;
+                }
+
+                addActivityHistory($user,$note,'addQuestionAgency',$data->id);
+
+
 	            return $controller->redirect('/listQuestionAgency?mess=saveSuccess');
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập câu hỏi</p>';
@@ -834,14 +978,22 @@ function deleteQuestionAgency($input){
 
 	$modelQuestions = $controller->loadModel('Questions');
 
-	if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+	$user = checklogin('deleteQuestionAgency');  
+    $mess = '';
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listQuestionAgency');
+        }
         if(!empty($user->id_father)){
         	 return $controller->redirect('/');
         }
 		if(!empty($_GET['id'])){
 			$data = $modelQuestions->find()->where(['id'=>(int) $_GET['id']])->first();
 			if($data){
+
+				$note = $user->type_tv.' '. $user->name.' xóa thông tin câu hỏi '.$data->question.' có id là:'.$data->id;
+
+                 addActivityHistory($user,$note,'deleteQuestionAgency',$data->id);
 	         	$modelQuestions->delete($data);
 	         	return $controller->redirect('/listQuestionAgency?mess=deleteSuccess');
 	        }

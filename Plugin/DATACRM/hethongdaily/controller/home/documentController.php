@@ -6,11 +6,11 @@ function listDocument($input){
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('');   
+    if(!empty($user)){
 
 
 	    $mess = "";
-	    $user = $session->read('infoUser');
 
 	    $modelDocument = $controller->loadModel('Documents');
 	    $modelDocumentinfo = $controller->loadModel('Documentinfos');
@@ -22,18 +22,30 @@ function listDocument($input){
 
 		$url= explode('?', $urlCurrent);	    
 	    if($url[0]=='/listAlbum'){
+	    	$user = checklogin('listAlbum');   
+    		if(empty($user->grant_permission)){
+    			return $controller->redirect('/statisticAgency');
+    		}
 	    	$conditions['type']= 'album';
 	    	$conditioneverybody['type']= 'album';
 	    	$title = 'Hình ảnh';
 	    	$slug = 'Album';
 	    	$type ='album';
 	    }elseif($url[0]=='/listVideo'){
+	    	$user = checklogin('listVideo');   
+    		if(empty($user->grant_permission)){
+    			return $controller->redirect('/statisticAgency');
+    		}
 	    	$conditions['type']= 'video';
 	    	$conditioneverybody['type']= 'video';
 	    	$title = 'Video';
 	    	$slug = 'Video';
 	    	$type ='video';
 	    }else{
+	    	$user = checklogin('listDocument');   
+    		if(empty($user->grant_permission)){
+    			return $controller->redirect('/statisticAgency');
+    		}
 	    	$conditions['type']= 'document';
 	    	$conditioneverybody['type']= 'document';
 	    	$title = 'Tài liệu';
@@ -143,20 +155,33 @@ function addDocument($input){
     global $session;
     global $isRequestPost;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('');   
+    if(!empty($user)){
 
     	$url= explode('?', $urlCurrent);
     	if($url[0]=='/addAlbum'){
+    		$user = checklogin('addAlbum');   
+    		if(empty($user->grant_permission)){
+    			return	$controller->redirect('/listAlbum');
+    		}
 	    	$type= 'album';
 	    	$title = 'Hình ảnh';
 	    	$name = 'file ảnh';
 	    	$slug = 'Album';
 	    }elseif($url[0] == '/addVideo'){
+	    	$user = checklogin('addVideo');   
+    		if(empty($user->grant_permission)){
+    			return	$controller->redirect('/listAlbum');
+    		}
 	    	$type= 'video';
 	    	$title = 'Video';
 	    	$name = 'Mã youtube';
 	    	$slug = 'Video';
 	    }else{
+	    	$user = checklogin('addDocument');   
+    		if(empty($user->grant_permission)){
+    			return	$controller->redirect('/listDocument');
+    		}
 	    	$type= 'document';
 	    	$title = 'Tài liệu';
 	    	$name = 'file tài liệu';
@@ -164,7 +189,6 @@ function addDocument($input){
 	    }
 
 	    $metaTitleMantan = 'Thông tin '.$title;
-	    $user = $session->read('infoUser');
 	    $modelDocumentinfo = $controller->loadModel('Documentinfos');
 	    $modelDocument = $controller->loadModel('Documents');
 	    $mess= '';
@@ -176,7 +200,6 @@ function addDocument($input){
 	        $data = $modelDocument->newEmptyEntity();
 	        $data->created_at = time();
 	    }
-
 
 	    if ($isRequestPost) {
 	        $dataSend = $input['request']->getData();
@@ -250,7 +273,7 @@ function addDocument($input){
 		                    $_FILES['listImages'.$key]['size'] = $_FILES['listImage']['size'][$key];
 		                }
 	                }	                
-		            $totalImage = count($dataSend['anh'])+1;
+		            $totalImage = count(@$dataSend['anh'])+1;
 		            $listImages = [];
 		           
 		            for($y=0;$y<=$totalImage;$y++){
@@ -307,8 +330,27 @@ function addDocument($input){
 		            }
 
 		        }
-                
 
+		        if(!empty($_GET['id'])){
+		        	if($type=='album'){
+    					 $note = $user->type_tv.' '. $user->name.' sửa thông tin hình ảnh '.$data->title.' có id là:'.$data->id;
+    				}elseif($type=='video'){
+    					 $note = $user->type_tv.' '. $user->name.' sửa thông tin Video '.$data->title.' có id là:'.$data->id;
+    				}else{
+    					 $note = $user->type_tv.' '. $user->name.' sửa thông tin thành liệu  '.$data->title.' có id là:'.$data->id;
+    				}
+                   
+                }else{
+                	if($type=='album'){
+    					 $note = $user->type_tv.' '. $user->name.' thêm mới thông tin hình ảnh '.$data->title.' có id là:'.$data->id;
+    				}elseif($type=='video'){
+    					 $note = $user->type_tv.' '. $user->name.' thêm mới thông tin Video  '.$data->title.' có id là:'.$data->id;
+    				}else{
+    					 $note = $user->type_tv.' '. $user->name.' thêm mới thông tin thành liệu  '.$data->title.' có id là:'.$data->id;
+    				}
+                    
+                }
+                addActivityHistory($user,$note,'add'.$slug,$data->id);            
 
 	            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
@@ -346,27 +388,58 @@ function addDocument($input){
 
 function deleteDocument($input){
     global $controller;
-   
-	$modelDocument = $controller->loadModel('Documents');
 
-	$modelDocumentinfo = $controller->loadModel('Documentinfos');
-    if(!empty($_GET['id'])){
-        $data = $modelDocument->get($_GET['id']);
-        
-        if($data){
-        	$modelDocumentinfo->deleteAll((['id_document'=>$data->id]));
+    $user = checklogin('');   
+    if(!empty($user)){
 
-            $modelDocument->delete($data);
+	    if($_GET['type']=='album'){
+	    	$user = checklogin('deleteAlbum');   
+    		if(empty($user->grant_permission)){
+    			return	$controller->redirect('/listAlbum');
+    		}
+	    }elseif($_GET['type']=='video'){
+	    	$user = checklogin('deleteVideo');   
+    		if(empty($user->grant_permission)){
+    			return	$controller->redirect('/listVideo');
+    		}
+	    }else{
+	    	$user = checklogin('deleteAlDocument');   
+    		if(empty($user->grant_permission)){
+    			return	$controller->redirect('/listDocument');
+    		}
+	    }
+	   
+		$modelDocument = $controller->loadModel('Documents');
+
+		$modelDocumentinfo = $controller->loadModel('Documentinfos');
+	    if(!empty($_GET['id'])){
+	        $data = $modelDocument->get($_GET['id']);
+	        
+	        if($data){
+	        	if($type=='album'){
+    				$note = $user->type_tv.' '. $user->name.' xóa thông tin hình ảnh'.$data->title.' có id là:'.$data->id;
+    			}elseif($type=='video'){
+    				$note = $user->type_tv.' '. $user->name.' xóa thông tin Video  '.$data->title.' có id là:'.$data->id;
+    			}else{
+    				$note = $user->type_tv.' '. $user->name.' xóa thông tin thành liệu  '.$data->title.' có id là:'.$data->id;
+    			}
+                    
+                addActivityHistory($user,$note,'deleteDocument',$data->id);
+	        	$modelDocumentinfo->deleteAll((['id_document'=>$data->id]));
+	            $modelDocument->delete($data);
+	        }
+	    }
 
 
-        }
-    }
-    if($_GET['type']=='album'){
-    	return $controller->redirect('/listAlbum');
-    }elseif($_GET['type']=='video'){
-    	return $controller->redirect('/listVideo');
+	    if($_GET['type']=='album'){
+	    	return $controller->redirect('/listAlbum');
+	    }elseif($_GET['type']=='video'){
+	    	return $controller->redirect('/listVideo');
+	    }else{
+	    	return $controller->redirect('/listDocument');
+	    }
     }else{
-    	return $controller->redirect('/listDocument');
+        return $controller->redirect('/login');
     }
     
 }
@@ -378,20 +451,33 @@ function listDocumentinfo($input){
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('');   
+    if(!empty($user)){
 
     	$url= explode('?', $urlCurrent);	    
 	    if($url[0]=='/listAlbuminfo'){
+	    	$user = checklogin('listAlbuminfo');   
+    		if(empty($user->grant_permission)){
+    			return $controller->redirect('/listAlbum');
+    		}
 	    	$conditions['type']= 'album';
 	    	$title = 'Hình ảnh';
 	    	$slug = 'Album';
 	    	$type ='album';
 	    }elseif($url[0]=='/listVideoinfo'){
+	    	$user = checklogin('listVideoinfo');   
+    		if(empty($user->grant_permission)){
+    			return $controller->redirect('/listVideo');
+    		}
 	    	$conditions['type']= 'video';
 	    	$title = 'Video';
 	    	$slug = 'Video';
 	    	$type ='video';
 	    }else{
+	    	$user = checklogin('listAlDocumentinfo');   
+    		if(empty($user->grant_permission)){
+    			return $controller->redirect('/listDocument');
+    		}
 	    	$conditions['type']= 'document';
 	    	$title = 'Tài liệu';
 	    	$slug = 'Document';

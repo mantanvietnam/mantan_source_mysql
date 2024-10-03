@@ -90,9 +90,9 @@
 
                                   foreach ($listLevel as $key => $item) {
                                     if(empty($data->level) || $data->level!=$item){
-                                      echo '<option value="'.$item.'">'.$item.'</option>';
+                                      echo '<option value="'.$item['id'].'">'.$item['name'].'</option>';
                                     }else{
-                                      echo '<option selected value="'.$item.'">'.$item.'</option>';
+                                      echo '<option selected value="'.$item['id'].'">'.$item['name'].'</option>';
                                     }
                                   }
                                 ?>

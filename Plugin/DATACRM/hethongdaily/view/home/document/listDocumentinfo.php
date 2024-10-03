@@ -5,9 +5,9 @@
   </h4>
 
   
-     <?php if($data->id_parent==$session->read('infoUser')->id){
+     <!-- <?php if($data->id_parent==$session->read('infoUser')->id){
                     echo '<p><a href="/add'.$slug.'info?id_document='.$data->id.'" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>';
-              } ?>
+              } ?> -->
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -63,7 +63,7 @@
                 foreach ($listData as $item) {
                   $types ='';
                   if($type=='album'){
-                    $types='<img src="'.$item->file.'" width="100">';
+                    $types='<img src="'.$item->file.'" width="100" style="height :400px">';
                   }elseif($type=='video'){
                     $types='<iframe width="300" height="150" src="https://www.youtube.com/embed/'.$item->file.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
                   }else{
@@ -76,7 +76,7 @@
                             '.$item->title.'
                           </td>
                           <td>'.$types.'</td>';
-                          if($data->id_parent==$session->read('infoUser')->id){
+                          /*if($data->id_parent==$session->read('infoUser')->id){
                          echo' <td align="center">
                             <a class="dropdown-item" href="/add'.$slug.'info?id_document='.$data->id.'&id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
@@ -87,7 +87,7 @@
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>';
-                        }
+                        }*/
                         echo '</tr>';
                 }
               }else{
@@ -105,7 +105,7 @@
                 foreach ($listData as $item) {
                   $types ='';
                   if($type=='album'){
-                    $types='<img src="'.$item->file.'" width="100">';
+                    $types='<img src="'.$item->file.'" width="100"style="height :300px">';
                   }elseif($type=='video'){
                     $types='<iframe width="300" height="150" src="https://www.youtube.com/embed/'.$item->file.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
                   }else{
@@ -116,7 +116,7 @@
                           <p><strong>ID: </strong>'.$item->id.'</td>
                           <p><strong>Tiêu đề: </strong>'.$item->title.'</p>
                           <p><strong>'.$title.' </strong>'.$types.'</td>';
-                          if($data->id_parent==$session->read('infoUser')->id){
+                          /*if($data->id_parent==$session->read('infoUser')->id){
                          echo' <p align="center">
                             <a class="dropdown-item" href="/add'.$slug.'info?id_document='.$data->id.'&id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
@@ -125,7 +125,7 @@
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </p>';
-                        }
+                        }*/
                         echo '</div>';
                 }
               }else{
@@ -143,19 +143,19 @@
                 foreach ($listData as $item) {
                   $types ='';
                   if($type=='album'){
-                    $types='<img src="'.$item->file.'" style="width:100%">';
+                    $types='<img src="'.$item->file.'" style="width:100%; height:400px">';
                   }elseif($type=='video'){
                     $types='<iframe style="width:100%" height="300" src="https://www.youtube.com/embed/'.$item->file.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
                   }else{
                     $types='<embed src="'.$item->file.'"  style="width:100%" height="250" type="application/pdf">';
                   }
 
-                  echo '<div class="col-md-4" >
+                  echo '<div class="col-md-4 mb-4" >
                       <div style="border: 1px solid #F0F1F1;">
                        <a  data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">'.$types.'
                         <h4 style="text-align: center;">'.$item->title.'</h4>
                         </a>';
-                      if($data->id_parent==$session->read('infoUser')->id){
+                      /*if($data->id_parent==$session->read('infoUser')->id){
                          echo'
                         <div class="row">
                          <div class="col-md-6">
@@ -169,8 +169,8 @@
                             </a>
                           </div>
                         </div>';
-                      }
-                       echo 's</div>
+                      }*/
+                       echo '</div>
                   </div>';
 
                 }

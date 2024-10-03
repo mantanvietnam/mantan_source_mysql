@@ -1295,6 +1295,8 @@ function themeInfo(){
 function checklogin($permission=''){
     global $session;
     global $controller;
+
+    $modelStaff = $controller->loadModel('Staffs');
      $user = '';
     if(!empty($session->read('infoUser'))){
         $user = $session->read('infoUser');
@@ -1305,6 +1307,10 @@ function checklogin($permission=''){
         $user->grant_permission = 1;
     }elseif(!empty($session->read('infoStaff'))){
         $user = $session->read('infoStaff');
+        $info_staff = $modelStaff->find()->where(['id'=>$user->id])->first();
+        if(!empty($info_staff)){
+            $user->permission = $info_staff->permission;
+        }
         $user->type = 'staff';
         $user->type_tv = 'Nhân viên';
         $user->id_staff = $user->id;
@@ -1398,6 +1404,39 @@ function getListPermission()
                                     array('name'=>'Xóa nhóm nhân viên','permission'=>'deteleGroupStaff'),
                                     array('name'=>'Xem băng lịch sử hành dộng nhân viên','permission'=>'listActivityHistory'),
                             )
+                    );
+    $permission[] = array( 'name'=>'Quản lý Thư viện ',
+                    'sub'=>array(   array('name'=>'Danh sách hình ảnh','permission'=>'listAlbum'),
+                                    array('name'=>'Thêm và sửa thông tin hình ảnh','permission'=>'addAlbum'),
+                                    array('name'=>'Xóa thông tin hình ảnh ','permission'=>'deleteAlbum'),
+                                    array('name'=>'xem thông tin chi tiết hình ảnh ','permission'=>'listAlbuminfo'),
+                                    array('name'=>'Danh sách Video','permission'=>'listVideo'),
+                                    array('name'=>'Thêm và sửa thông tin Video','permission'=>'addVideo'),
+                                    array('name'=>'Xóa thông tin Video ','permission'=>'deleteVideo'),
+                                    array('name'=>'xem thông tin chi tiết Video ','permission'=>'listVideoinfo'),
+                                 array('name'=>'Danh sách tài liệu','permission'=>'listAlDocument'),
+                                    array('name'=>'Thêm và sửa thông tin tài liệu','permission'=>'addAlDocument'),
+                                    array('name'=>'Xóa thông tin tài liệu ','permission'=>'deleteAlDocument'),
+                                    array('name'=>'xem thông tin chi tiết tài liệu ','permission'=>'listAlDocumentinfo'),
+                            )
+                    );
+    $permission[] = array( 'name'=>'Quản lý Đào tạo ',
+                    'sub'=>array(   array('name'=>'danh sách khóa học','permission'=>'listCourseAgency'),
+                                    array('name'=>'thêm và sửa khóa học','permission'=>'addCourseAgency'),
+                                    array('name'=>'xóa khóa học','permission'=>'deleteCourseAgency'),
+                                    array('name'=>'danh mục đào tạo ','permission'=>'listCategoryLessonAgency'),
+                                    array('name'=>'Thêm và sửa danh mục bài tập ','permission'=>'addCategoryLessonAgency'),
+                                    array('name'=>'xóa danh mục bài tập ','permission'=>'deleteCategoryLessonAgency'),
+                                    array('name'=>'Danh sách bài học','permission'=>'listLessonAgency'),
+                                    array('name'=>'thêm sửa bài học','permission'=>'addLessonAgency'),
+                                    array('name'=>'xóa khóa học','permission'=>'deleteLessonAgency'),
+                                    array('name'=>'Danh sách bài kiểm tra','permission'=>'listTestAgency'),
+                                    array('name'=>'thêm sửa bài kiểm tra ','permission'=>'addTestAgency'),
+                                    array('name'=>'xóa bài kiểm tra','permission'=>'deleteTestAgency'),
+                                    array('name'=>'danh sách câu hỏi','permission'=>'listQuestionAgency'),
+                                    array('name'=>'thêm sửa câu hỏi','permission'=>'addQuestionAgency'),
+                                    array('name'=>'xóa câu hỏi','permission'=>'deleteQuestionAgency'),
+                            ),
                     );
    
     

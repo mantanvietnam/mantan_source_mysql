@@ -315,6 +315,7 @@ function getUserWorkoutAPI($input){
 	global $controller;
     global $metaTitleMantan;
     global $isRequestPost;
+    global $listLevel;
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
     $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
     $modelWorkout = $controller->loadModel('Workouts');
@@ -338,7 +339,25 @@ function getUserWorkoutAPI($input){
 			    $data = $modelWorkout->find()->where($conditions)->order(['id' => 'desc'])->first();
 			   
 			    if(!empty($data)){
-		    		$data->ExerciseWorkout = $modelExerciseWorkouts->find()->where(array('id_workout'=> $data->id))->all()->toList();
+		    		$exerciseWorkout = $modelExerciseWorkouts->find()->where(array('id_workout'=> $data->id))->all()->toList();
+		    		if(!empty($exerciseWorkout)){
+		    			foreach($exerciseWorkout as $key => $item){
+		    				if(!empty($item->level)){
+		        				foreach($listLevel as $k => $value){
+		        					if($item->level ==$value['id']){
+		        						$item->level_en = $value['name_en'];
+		        						$item->level = $value['name'];
+		        					}
+		        				}
+		        			}else{
+		        				$item->level_en = null;
+		        				$item->level = null;
+		        			}
+		    			}
+		    			$exerciseWorkout[$key] = $item;
+		    		}
+
+		    		$data->ExerciseWorkout = $exerciseWorkout;
 		    		$data->total_exercise = count($data->ExerciseWorkout);
 			    }
 
@@ -356,6 +375,7 @@ function getUserExerciseWorkoutAPI($input){
 	global $controller;
     global $metaTitleMantan;
     global $isRequestPost;
+    global $listLevel;
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
     $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
     $modelWorkout = $controller->loadModel('Workouts');
@@ -412,6 +432,18 @@ function getUserExerciseWorkoutAPI($input){
                     	}
                     	$data->area = $area;
         			}
+
+        			if(!empty($data->level)){
+        				foreach($listLevel as $key => $item){
+        					if($data->level ==$item['id']){
+        						$data->level_en = $item['name_en'];
+        						$data->level = $item['name'];
+        					}
+        				}
+        			}else{
+        				$data->level_en = null;
+        				$data->level = null;
+        			}
 			    }
 
 			    return apiResponse(0, 'lấy dữ liệu thành công', $data);
@@ -428,6 +460,8 @@ function getUserChildExerciseWorkoutAPI($input){
     global $metaTitleMantan;
     global $isRequestPost;
     global $urlHomes;
+    global $listLevel;
+
 
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
     $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
@@ -435,6 +469,7 @@ function getUserChildExerciseWorkoutAPI($input){
     $modelUserPackages = $controller->loadModel('UserPackages');
     $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
+
 
     $modelDevices = $controller->loadModel('Devices');
 
@@ -452,6 +487,7 @@ function getUserChildExerciseWorkoutAPI($input){
 			    $data = $modelChildExerciseWorkouts->find()->where($conditions)->order(['id' => 'desc'])->first();
 			   
 			    if(!empty($data)){
+
                   if(!empty($data->device)){
             			$device = json_decode($data->device, true);
 
@@ -461,6 +497,9 @@ function getUserChildExerciseWorkoutAPI($input){
                     	}
                     	$data->device = $device;
         			}
+
+
+
 			    }
 
 			    return apiResponse(0, 'lấy dữ liệu thành công', $data);
