@@ -66,7 +66,7 @@ function groupingexercisesuserAPI($input) {
     global $isRequestPost;
 
     $modelTbcondition = $controller->loadModel('tbcondition');
-    $modeluserpeople = $controller->loadModel('userpeople');
+    $modeluserpeople = $controller->loadModel('userpeople'); 
 
     if (!$isRequestPost) {
         return [
@@ -77,59 +77,74 @@ function groupingexercisesuserAPI($input) {
 
     $dataSend = $input['request']->getData();
     $answers = $dataSend['answers'];
-    $validGroupFiles = [];
-    $allGroupFileIds = [];
 
-    foreach ($answers as $id_question => $userAnswer) {
-        $results = $modelTbcondition->find()->where(['id_question' => $id_question])->all();
-        if (!$results) {
-            continue; 
+    $groupedConditions = $modelTbcondition->find()->order(['id_groupfile', 'id_question'])->all();
+
+    $validGroupFiles = [];
+    $groupConditions = [];
+    
+    foreach ($groupedConditions as $condition) {
+        $groupConditions[$condition->id_groupfile][] = $condition;
+    }
+
+    foreach ($groupConditions as $id_groupfile => $conditions) {
+        $isValidGroup = true;
+
+        foreach ($conditions as $condition) {
+            $id_question = $condition->id_question;
+            $correctAnswers = str_split($condition->answer);  
+            if (isset($answers[$id_question])) {
+                $userAnswer = $answers[$id_question];
+
+                if (!in_array($userAnswer, $correctAnswers)) {
+                    $isValidGroup = false;  
+                    break;
+                }
+            } else {
+                $isValidGroup = false;
+                break;
+            }
         }
 
-        foreach ($results as $result) {
-            $groupFileId = $result->id_groupfile;
-            $correctAnswers = str_split($result->answer); 
-            
+        if ($isValidGroup) {
+            $groupTitle = $modeluserpeople->find()
+                ->where(['id' => $id_groupfile])
+                ->first();
 
-            if (!in_array($userAnswer, $correctAnswers)) {
-
-                $allGroupFileIds[$groupFileId] = false; 
+            if ($groupTitle) {
+                $validGroupFiles[] = [
+                    'id_groupfile' => $id_groupfile,
+                    'name' => $groupTitle->name 
+                ];
             } else {
-
-                if (!isset($allGroupFileIds[$groupFileId])) {
-                    $allGroupFileIds[$groupFileId] = true; 
-                }
+                $validGroupFiles[] = [
+                    'id_groupfile' => $id_groupfile,
+                    'name' => 'Không có tên' 
+                ];
             }
         }
     }
 
-    foreach ($allGroupFileIds as $groupFileId => $isValid) {
-        if ($isValid) {
-            $validGroupFiles[] = $groupFileId; 
-        }
+    if (count($validGroupFiles) == 2) {
+        $randomIndex = array_rand($validGroupFiles); 
+        $validGroupFiles = [$validGroupFiles[$randomIndex]]; 
     }
-
- 
     if (!empty($validGroupFiles)) {
-        $workouts = $modeluserpeople->find()->where(['id IN' => $validGroupFiles])->all()->combine('id', 'name')->toArray();
-        
-        if (!empty($workouts)) {
-
-            $validGroupFiles = $workouts[array_rand($workouts)];
-            $selectedWorkoutId = array_search($validGroupFiles, $workouts);
-        }
+        return [
+            'code' => 1,
+            'mess' => 'Lấy dữ liệu thành công',
+            'valid_groups' => $validGroupFiles
+        ];
+    } else {
+        return [
+            'code' => 0,
+            'mess' => 'Không tìm thấy nhóm bài tập phù hợp'
+        ];
     }
-
-    return !empty($validGroupFiles) ? [
-        'code' => 1,
-        'mess' => 'Lấy dữ liệu thành công',
-        'id' => $selectedWorkoutId,
-        'groupworkout' => $validGroupFiles
-    ] : [
-        'code' => 0,
-        'mess' => 'Không tìm thấy bài tập phù hợp'
-    ];
 }
+
+
+
 
 
 
