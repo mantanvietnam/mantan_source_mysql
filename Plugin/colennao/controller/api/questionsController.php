@@ -243,7 +243,7 @@ function listmyplanAPI($input)
     $modelmyplane = $controller->loadModel('myplane');
     if($isRequestPost){
 		    $dataSend = $input['request']->getData();
-            if(!empty($dataSend['token']) && !empty($dataSend['iduserpeople'])){
+            if(!empty($dataSend['token']) && !empty($dataSend['id_userpeople'])){
                 $user = getUserByToken($dataSend['token']);
 
              if(!empty($user)){

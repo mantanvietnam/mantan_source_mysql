@@ -94,22 +94,31 @@ function detailPostAPI($input){
 
    return $return;
 }
-function listcategoryPostAPI($input){
-    
+function listcategoryPostAPI($input) {
     global $controller;
     global $isRequestPost;
     $modelPost = $controller->loadModel('categorypost');
-    if($isRequestPost){
+    $modelTbpost = $controller->loadModel('tablepost'); 
+
+    if ($isRequestPost) {
         $dataSend = $input['request']->getData();
+
+ 
         $totalData = $modelPost->find()->all()->toList();
         $formattedData = [];
+
         foreach ($totalData as $item) {
+            $postCount = $modelTbpost->find()
+                ->where(['id_categorypost' => $item->id])
+                ->count(); 
+
             $formattedData[] = [
                 'vi' => [
                     'id' => $item->id,
                     'image' => $item->image,
                     'title' => $item->title,
                     'description' => $item->description,
+                    'post_count' => $postCount, 
                 ],
 
                 'en' => [
@@ -117,59 +126,78 @@ function listcategoryPostAPI($input){
                     'image' => $item->image,
                     'title' => $item->titleen,
                     'description' => $item->descriptionen,
+                    'post_count' => $postCount, 
                 ]
             ];
         }
-        $return = array('code'=>1,'listData'=>$formattedData);
-    }else{
-        return array('code'=>0,'mess'=>'gửi sai kiểu post');
+
+        $return = array('code' => 1, 'listData' => $formattedData);
+    } else {
+        $return = array('code' => 0, 'mess' => 'gửi sai kiểu post');
     }
-   
-       return $return;
+
+    return $return;
 }
 
-function detailcategoryPostAPI($input){
-   
-   $return= array('code'=>0);
-   global $controller;
-   global $isRequestPost;
-   $metaTitleMantan = 'chi tiết danh mục tin tức';
-   $modelPost = $controller->loadModel('categorypost');
-   
-   if($isRequestPost){
-        $dataSend =$input['request']->getData(); 
-        if(!empty($dataSend['id'])){
-            $data = $modelPost->get($dataSend['id']);
+
+function detailcategoryPostAPI($input) {
+    $return = array('code' => 0);
+    global $controller;
+    global $isRequestPost;
+    
+    $modelcategoryPost = $controller->loadModel('categorypost');
+    $modelpost = $controller->loadModel('tablepost');
+    
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData(); 
+        if (!empty($dataSend['id'])) {
+            $categoryData = $modelcategoryPost->get($dataSend['id']);
             $formattedData = [];
-            if (!empty($data)) {
+            $dataPosts = [];
+            $datapost = $modelpost->find()
+                ->select(['id', 'title']) 
+                ->where(['id_categorypost' => $dataSend['id']])
+                ->all(); 
+            
+            foreach ($datapost as $post) {
+                $dataPosts[] = [
+                    'id' => $post->id,
+                    'title' => $post->title
+                ];
+            }
+            if (!empty($categoryData)) {
                 $formattedData[] = [
                     'vi' => [
-                        'id' => $data->id,
-                        'image' => $data->image,
-                        'name' => $data->name,
-                        'description' => $data->description,    
+                        'id' => $categoryData->id,
+                        'image' => $categoryData->image,
+                        'name' => $categoryData->name,
+                        'description' => $categoryData->description,    
                     ],
                     'en' => [
-                        'id' => $data->id,
-                        'image' => $data->image,
-                        'name' => $data->nameen,
-                        'description' => $data->descriptionen, 
-                    ]
+                        'id' => $categoryData->id,
+                        'image' => $categoryData->image,
+                        'name' => $categoryData->nameen,
+                        'description' => $categoryData->descriptionen, 
+                    ],
+                    'posts' => $dataPosts // Thêm danh sách các bài viết (id và title)
                 ];
-            }else{
-                $return = array('code'=>0,'mess'=>'Không có dữ liệu');
+            } else {
+                $return = array('code' => 0, 'mess' => 'Không có dữ liệu');
             }
-            $return = array('code'=>1,'data'=>$formattedData,);
-        }else{
-            $return = array('code'=>0,'mess'=>'gửi thiếu dữ liệu');
+
+            // Trả về dữ liệu nếu tìm thấy danh mục
+            $return = array('code' => 1, 'data' => $formattedData);
+        } else {
+            $return = array('code' => 0, 'mess' => 'Gửi thiếu dữ liệu');
         }
+    } else {
+        $return = array('code' => 0, 'mess' => 'Gửi sai kiểu POST');
+    }
 
-   }else{
-        $return = array('code'=>0,'mess'=>'gửi sai kiểu post');
-   }
-
-   return $return;
+    return $return;
 }
+
+
 function listPostLegalPrivacyghimAPI($input){
     
     global $controller;
