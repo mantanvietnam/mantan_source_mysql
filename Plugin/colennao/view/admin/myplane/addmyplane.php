@@ -2,7 +2,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-myplane-listmyplane">myplane</a> /</span>
-    Nội dung câu hỏi
+    Nội dung 
   </h4>
 
   <!-- Basic Layout -->
@@ -10,7 +10,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Nội dung bữa sáng</h5>
+            <h5 class="mb-0">Nội dung</h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
@@ -22,6 +22,11 @@
                         <li class="nav-item">
                           <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-question" aria-controls="navs-top-question" aria-selected="true">
                             thông tin
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-1" aria-controls="navs-top-1" aria-selected="true">
+                            Nhập danh sách ngày
                           </button>
                         </li>
                       </ul>
@@ -42,8 +47,13 @@
                                       <?php endif; ?>
                                   </select>
                               </div>
+                              <div class="mb-3">
+                                <label class="form-label">time start</label>
+                                <input type="datetime-local" class="form-control" name="time" id="time" value="<?php echo isset($data->time) ? date('Y-m-d\TH:i', $data->time) : ''; ?>" />
+                              </div>
                             </div>
-                            <div class="col-md-6">
+                
+                            <!-- <div class="col-md-6">
                               <div class="mb-3">
                                   <label class="form-label">id_breakfast</label>
                                   <select name="id_breakfast" id="id_breakfast" class="form-control" >
@@ -57,8 +67,8 @@
                                       <?php endif; ?>
                                   </select>
                               </div>
-                            </div>
-                            <div class="col-md-6">
+                            </div> -->
+                            <!-- <div class="col-md-6">
                               <div class="mb-3">
                                   <label class="form-label">id_lunch</label>
                                   <select name="id_lunch" id="id_lunch" class="form-control" >
@@ -72,8 +82,8 @@
                                       <?php endif; ?>
                                   </select>
                               </div>
-                            </div>
-                            <div class="col-md-6">
+                            </div> -->
+                            <!-- <div class="col-md-6">
                               <div class="mb-3">
                                   <label class="form-label">id_dinner</label>
                                   <select name="id_dinner" id="id_dinner" class="form-control" >
@@ -87,8 +97,8 @@
                                       <?php endif; ?>
                                   </select>
                               </div>
-                            </div>
-                            <div class="col-md-6">
+                            </div> -->
+                            <!-- <div class="col-md-6">
                               <div class="mb-3">
                                   <label class="form-label">id_snacks</label>
                                   <select name="id_snack" id="id_snack" class="form-control" >
@@ -102,26 +112,45 @@
                                       <?php endif; ?>
                                   </select>
                               </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="mb-3">
-                                <label class="form-label">water</label>
-                                <input  type="text" class="form-control phone-mask" name="water" id="water" value="<?php echo @$data->water;?>" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label">meal</label>
-                                <input  type="text" class="form-control phone-mask" name="meal" id="meal" value="<?php echo @$data->meal;?>" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label">workout</label>
-                                <input  type="text" class="form-control phone-mask" name="workout" id="workout" value="<?php echo @$data->workout;?>" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label">day</label>
-                                <input  type="number" class="form-control phone-mask" name="day" id="day" value="<?php echo @$data->day;?>" />
-                              </div>
-                            </div>
+                            </div> -->
+
                           </div>
+                        </div>
+                        <div class="tab-pane fade show " id="navs-top-1" role="tabpanel">
+                          <div class="row">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Ngày</th>
+                                        <th>Water</th>
+                                        <th>Meal</th>
+                                        <th>Workout</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php for ($i = 0; $i < 30; $i++): ?>
+                                        <tr class="gradeX" id="trfeedback-">
+                                            <td>
+                                                <input type="text" class="form-control phone-mask mb-3" name="day[<?php echo $i; ?>]" value="<?php echo isset($alldata[$i]['day']) ? htmlspecialchars($alldata[$i]['day']) : ''; ?>" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control phone-mask" name="water[<?php echo $i; ?>]" value="<?php echo isset($alldata[$i]['water']) ? htmlspecialchars($alldata[$i]['water']) : ''; ?>" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control phone-mask" name="meal[<?php echo $i; ?>]" value="<?php echo isset($alldata[$i]['meal']) ? htmlspecialchars($alldata[$i]['meal']) : ''; ?>" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control phone-mask" name="workout[<?php echo $i; ?>]" value="<?php echo isset($alldata[$i]['workout']) ? htmlspecialchars($alldata[$i]['workout']) : ''; ?>" />
+                                            </td>
+                                        </tr>
+                                    <?php endfor; ?>
+                                </tbody>
+                            </table>
+                          </div>
+
+
+
+
                         </div>
                       </div>              
                   </div>

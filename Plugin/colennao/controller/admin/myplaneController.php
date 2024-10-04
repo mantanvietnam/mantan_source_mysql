@@ -71,47 +71,51 @@ function addmyplane($input){
     global $metaTitleMantan;
     $metaTitleMantan = 'Thêm myplane';
     $modelmyplane = $controller->loadModel('myplane');
-    $modelbreakfast = $controller->loadModel('breakfast');
     $modeluserpeople = $controller->loadModel('userpeople');
-    $modellunch = $controller->loadModel('lunch');
-    $modeldinner = $controller->loadModel('dinner');
-    $modelsnacks = $controller->loadModel('snacks');
     $mess= '';
     $listDatamyplane =  $modelmyplane->find()->all()->toList();
-    $listDatabreakfast =  $modelbreakfast->find()->all()->toList();
     $listDatauserpeople =  $modeluserpeople->find()->all()->toList();
-    $listDatalunch =  $modellunch->find()->all()->toList();
-    $listDatadinner =  $modeldinner->find()->all()->toList();
-    $listDatasnacks =  $modelsnacks->find()->all()->toList();
     if (!empty($_GET['id'])) {
         $data = $modelmyplane->get((int)$_GET['id']);
     } else {
         $data = $modelmyplane->newEmptyEntity();
     }
-    
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
     
         if (!empty($dataSend['id_userpeople'])) {
             $data->id_userpeople = $dataSend['id_userpeople'];
-            $data->id_breakfast = $dataSend['id_breakfast'];
-            $data->id_lunch = $dataSend['id_lunch'];
-            $data->id_dinner = $dataSend['id_dinner'];
-            $data->id_snack = $dataSend['id_snack'];
-            $data->water = $dataSend['water'];
-            $data->meal = $dataSend['meal'];
-            $data->workout = $dataSend['workout'];
-            $data->day = $dataSend['day'];
+            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
+    
+
+            if (!empty($dataSend['day'])) {
+                $alldata = array(); 
+                
+                foreach ($dataSend['day'] as $key => $dayValue) {
+                    if (!empty($dayValue)) {
+
+                        $alldata[$key] = array( 
+                            'day' =>  $dayValue,
+                            'water' => !empty($dataSend['water'][$key]) ? $dataSend['water'][$key] : 0,
+                            'meal' => !empty($dataSend['meal'][$key]) ? $dataSend['meal'][$key] : 0,
+                            'workout' => !empty($dataSend['workout'][$key]) ? $dataSend['workout'][$key] : 0,
+                        );
+                    }
+                }
+    
+
+                $data->alldata = json_encode($alldata);
+            }
+    
+
             $modelmyplane->save($data);
-            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
         }
     }
-    setVariable('listDatabreakfast', $listDatabreakfast);
+    $alldata = json_decode($data->alldata, true);
+    setVariable('alldata', $alldata);
     setVariable('listDatamyplane', $listDatamyplane);
     setVariable('listDatauserpeople', $listDatauserpeople);
-    setVariable('listDatalunch', $listDatalunch);
-    setVariable('listDatadinner', $listDatadinner);
-    setVariable('listDatasnacks', $listDatasnacks);
     setVariable('data', $data);
     setVariable('mess', $mess);
 }

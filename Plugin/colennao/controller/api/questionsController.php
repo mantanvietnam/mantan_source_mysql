@@ -74,9 +74,8 @@ function groupingexercisesuserAPI($input) {
             'mess' => 'Gửi sai kiểu POST'
         ];
     }
-
     $dataSend = $input['request']->getData();
-    $answers = $dataSend['answers'];
+    $answers = $dataSend['answers'] ?? []; 
 
     $groupedConditions = $modelTbcondition->find()->order(['id_groupfile', 'id_question'])->all();
 
@@ -93,55 +92,65 @@ function groupingexercisesuserAPI($input) {
         foreach ($conditions as $condition) {
             $id_question = $condition->id_question;
             $correctAnswers = str_split($condition->answer);  
-            if (isset($answers[$id_question])) {
-                $userAnswer = $answers[$id_question];
-
-                if (!in_array($userAnswer, $correctAnswers)) {
-                    $isValidGroup = false;  
-                    break;
-                }
-            } else {
-                $isValidGroup = false;
+            if (!isset($answers[$id_question]) || !in_array($answers[$id_question], $correctAnswers)) {
+                $isValidGroup = false;  
                 break;
             }
         }
 
         if ($isValidGroup) {
-            $groupTitle = $modeluserpeople->find()
-                ->where(['id' => $id_groupfile])
-                ->first();
-
-            if ($groupTitle) {
-                $validGroupFiles[] = [
-                    'id_groupfile' => $id_groupfile,
-                    'name' => $groupTitle->name 
-                ];
-            } else {
-                $validGroupFiles[] = [
-                    'id_groupfile' => $id_groupfile,
-                    'name' => 'Không có tên' 
-                ];
-            }
+   
+            $groupTitle = $modeluserpeople->find()->where(['id' => $id_groupfile])->first();
+            $validGroupFiles[$id_groupfile] = [
+                'id_groupfile' => $id_groupfile,
+                'name' => $groupTitle ? $groupTitle->name : 'Không có tên' 
+            ];
         }
     }
 
-    if (count($validGroupFiles) == 2) {
-        $randomIndex = array_rand($validGroupFiles); 
-        $validGroupFiles = [$validGroupFiles[$randomIndex]]; 
-    }
+
     if (!empty($validGroupFiles)) {
+     
+        $randomKey = array_rand($validGroupFiles);
+        $selectedGroup = $validGroupFiles[$randomKey];
+
         return [
             'code' => 1,
             'mess' => 'Lấy dữ liệu thành công',
-            'valid_groups' => $validGroupFiles
+            'valid_groups' => [$selectedGroup] 
         ];
     } else {
-        return [
-            'code' => 0,
-            'mess' => 'Không tìm thấy nhóm bài tập phù hợp'
-        ];
+
+        $activeGroup = $modelTbcondition->find()
+            ->select(['id_groupfile'])
+            ->where(['status' => 'active'])
+            ->first(); 
+
+        if ($activeGroup) {
+            $groupTitle = $modeluserpeople->find()->where(['id' => $activeGroup->id_groupfile])->first();
+
+            $activeGroupFile = [
+                'id_groupfile' => $activeGroup->id_groupfile,
+                'name' => $groupTitle ? $groupTitle->name : 'Không có tên'
+            ];
+
+            return [
+                'code' => 0,
+                'mess' => 'Bài tập nhóm này là mặc định',
+                'valid_groups' => [$activeGroupFile] 
+            ];
+        } else {
+            return [
+                'code' => 0,
+                'mess' => 'Không tìm thấy nhóm bài tập phù hợp và không có nhóm nào active',
+                'valid_groups' => [] 
+            ];
+        }
     }
 }
+
+
+
 
 
 
@@ -177,6 +186,9 @@ function listuserpeoplePI($input)
             $listData = $modeluserpeople->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
             $totalData = $modeluserpeople->find()->where($conditions)->all()->toList();
             $totalData = count($totalData);
+            foreach ($listData as $key => $data){
+                $listData[$key]->id_lesson = json_decode($data->id_lesson, true);
+            }
 
             $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
     }else{
@@ -197,13 +209,15 @@ function getuserpeopleAPI($input) {
 
         if (!empty($dataSend['id']) ) {
             $conditions = array('id' => (int)$dataSend['id']);
-            $data = $modeluserpeople->find()->where($conditions)->first();
+            $listData = $modeluserpeople->find()->where($conditions)->first();
+            if ($listData) {
+                $listData->id_lesson = json_decode($listData->id_lesson, true);
+            }
+            if (!empty($listData)) {
+                $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData);
 
-            if (!empty($data)) {
-                $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$data);
-
-            } else {
-                $return = array('code' => 3, 'mess' => 'Id không tồn tại');
+            }else{
+                $return = array('code'=>0, 'mess'=>'id không hợp lệ ');
             }
         } else {
             $return = array('code' => 2, 'mess' => 'Gửi thiếu dữ liệu hoặc ID không hợp lệ');
@@ -229,19 +243,28 @@ function listmyplanAPI($input)
     $modelmyplane = $controller->loadModel('myplane');
     if($isRequestPost){
 		    $dataSend = $input['request']->getData();
-            $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
-            $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
-            $conditions = array();
-            if($page<1) $page = 1;
-            $order = array('id'=>'desc');
-            if (!empty($dataSend['name'])) {
-                $conditions['name LIKE'] = '%' . $dataSend['name'] . '%';
-            }
-            $listData = $modelmyplane->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-            $totalData = $modelmyplane->find()->where($conditions)->all()->toList();
-            $totalData = count($totalData);
+            if(!empty($dataSend['token']) && !empty($dataSend['iduserpeople'])){
+                $user = getUserByToken($dataSend['token']);
 
-            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+             if(!empty($user)){
+                    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+                    $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+                    $conditions = array();
+                    if($page<1) $page = 1;
+                    $order = array('id'=>'desc');
+                    if (!empty($dataSend['name'])) {
+                        $conditions['name LIKE'] = '%' . $dataSend['name'] . '%';
+                    }
+                    $listData = $modelmyplane->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+                    $totalData = $modelmyplane->find()->where($conditions)->all()->toList();
+                    $totalData = count($totalData);
+                    foreach ($listData as $key => $data){
+                        $listData[$key]->alldata = json_decode($data->alldata, true);
+                    }
+                    $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
+             }
+            }
+
     }else{
         $return = array('code'=>0, 'mess'=>'gửi sai kiểu dữ liệu');
     }
@@ -261,14 +284,11 @@ function getmyplaneAPI($input) {
 
         if (!empty($dataSend['id']) ) {
             $conditions = array('id' => (int)$dataSend['id']);
-            $data = $modelmyplane->find()->where($conditions)->first();
-
-            if (!empty($data)) {
-                $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$data);
-
-            } else {
-                $return = array('code' => 3, 'mess' => 'Id không tồn tại');
+            $listData = $modelmyplane->find()->where($conditions)->first();
+            if ($listData) {
+                $listData->alldata = json_decode($listData->alldata, true);
             }
+            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData);
         } else {
             $return = array('code' => 2, 'mess' => 'Gửi thiếu dữ liệu hoặc ID không hợp lệ');
         }

@@ -26,6 +26,20 @@
                     <input type="text" class="form-control phone-mask" name="titleen" id="titleen" value="<?php echo @$data->titleen;?>" />
                   </div>
                   <div class="mb-3">
+                      <label class="form-label">Chọn danh mục tin tức</label>
+                      <select class="form-control" name="id_categorypost" id="id_categorypost">
+                          <option value="">Chọn danh mục</option>
+                          <?php if (!empty($datacategorypost)): ?>
+                              <?php foreach ($datacategorypost as $category): ?>
+                                  <option value="<?php echo $category->id; ?>" <?php echo (isset($data->id_categorypost) && $data->id_categorypost == $category->id) ? 'selected' : ''; ?>>
+                                      <?php echo $category->name; // Hoặc tên danh mục bạn muốn hiển thị ?>
+                                  </option>
+                              <?php endforeach; ?>
+                          <?php endif; ?>
+                      </select>
+                  </div>
+
+                  <div class="mb-3">
                     <label class="form-label">Tên tác giả</label>
                     <input type="text" class="form-control phone-mask" name="author" id="author" value="<?php echo @$data->author;?>" />
                   </div>

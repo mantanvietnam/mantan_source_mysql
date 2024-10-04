@@ -45,6 +45,7 @@
           <?php foreach ($groupconditiondata as $item => $question): ?>
              
               <tr>
+                  <!-- <td align="center"><?php echo $question['id']; ?></td> -->
                   <td align="center"><?php echo $question['name']; ?></td>
                   <?php 
                       $questions = [];

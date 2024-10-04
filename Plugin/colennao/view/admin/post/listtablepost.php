@@ -35,6 +35,7 @@
         <thead>
           <tr class="">
             <th>ID</th>
+            <th>Danh mục tin tức</th>
             <th>Tên</th>
             <th>sửa</th>
             <th>xóa</th>
@@ -45,8 +46,12 @@
                 <tr>
                     <td><?php echo $item->id; ?></td>
                     <td>
+                        <p><?php echo getUserNamepostById($item->id_categorypost); ?></p>
+                    </td>
+                    <td>
                         <a target="_blank" href="/product/<?php echo $item->slug; ?>.html"><?php echo $item->title; ?></a>
                     </td>
+               
                     <td align="center">
                         <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-post-addtablepost/?id=<?php echo urlencode($item->id); ?>">
                             <i class="bx bx-edit-alt me-1"></i>

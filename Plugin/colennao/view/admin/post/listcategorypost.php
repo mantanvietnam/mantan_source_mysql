@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">userpeople</h4>
-  <p><a href="/plugins/admin/colennao-view-admin-listuserpeople-adduserpeople" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Tin tức</h4>
+  <p><a href="/plugins/admin/colennao-view-admin-post-addcategorypost" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -14,7 +14,7 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên </label>
+            <label class="form-label">Tiêu đề danh mục bài viết</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>          
           <div class="col-md-2">
@@ -29,13 +29,12 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách </h5>
+    <h5 class="card-header">Danh sách danh mục tin tức</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>image</th>
             <th>Tên</th>
             <th>sửa</th>
             <th>xóa</th>
@@ -45,17 +44,16 @@
             <?php foreach ($listData as $item): ?>
                 <tr>
                     <td><?php echo $item->id; ?></td>
-                    <td><img src="<?=$item->image?>" alt="" style="width:100px"></td>
                     <td>
-                        <p ><?php echo $item->name; ?></p>
+                        <p><?php echo $item->name; ?></p>
                     </td>
                     <td align="center">
-                        <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-listuserpeople-adduserpeople/?id=<?php echo urlencode($item->id); ?>">
+                        <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-post-addcategorypost/?id=<?php echo urlencode($item->id); ?>">
                             <i class="bx bx-edit-alt me-1"></i>
                         </a>
                     </td>
                     <td align="center">
-                        <a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/plugins/admin/colennao-view-admin-deletebreakfast/?id=<?php echo urlencode($item->id); ?>">
+                        <a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/plugins/admin/colennao-view-admin-post-deletecategorypost/?id=<?php echo urlencode($item->id); ?>">
                             <i class="bx bx-trash me-1"></i>
                         </a>
                     </td>

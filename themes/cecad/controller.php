@@ -227,11 +227,16 @@ function team($input){
     if(!empty($data_value['idslidenam'])){
         $slide_nam = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidenam']])->order($order)->all()->toList();
     }
+    $slide_sau = [];
+    if(!empty($data_value['idslidesau'])){
+        $slide_sau = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['idslidesau']])->order($order)->all()->toList();
+    }
     $modeltitlealbum1 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidedau']])->first();
     $modeltitlealbum2 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidehai']])->first();
     $modeltitlealbum3 = $modelAlbums->find()->where(['id' => (int)$data_value['idslideba']])->first();
     $modeltitlealbum4 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidebon']])->first();
     $modeltitlealbum5 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidenam']])->first();
+    $modeltitlealbum6 = $modelAlbums->find()->where(['id' => (int)$data_value['idslidesau']])->first();
     setVariable('modeltitlealbum1', $modeltitlealbum1);
     setVariable('modeltitlealbum2', $modeltitlealbum2);
     setVariable('modeltitlealbum3', $modeltitlealbum3);

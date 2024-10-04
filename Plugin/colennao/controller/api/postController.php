@@ -18,18 +18,19 @@ function listPostAPI($input){
                     'author' => $item->author,
 					'time' => $item->time,
 					'content' => $item->content,
+                    'id_categorypost'=>$item->id_categorypost,
 
                 ],
 
                 'en' => [
                     'id' => $item->id,
                     'image' => $item->image,
-                    'titleen' => $item->titleen,
-                    'descriptionen' => $item->descriptionen,
-                    'authoren' => $item->authoren,
+                    'title' => $item->titleen,
+                    'description' => $item->descriptionen,
+                    'author' => $item->authoren,
 					'time' => $item->time,
-					'contentenen' => $item->contentenen,
-
+					'content' => $item->contentenen,
+                    'id_categorypost'=>$item->id_categorypost,
                 ]
             ];
         }
@@ -64,16 +65,18 @@ function detailPostAPI($input){
                         'author' => $data->author,
                         'time' => $data->time,
                         'content' => $data->content,
+                        'id_categorypost'=>$data->id_categorypost,
     
                     ],
                     'en' => [
                         'id' => $data->id,
                         'image' => $data->image,
-                        'titleen' => $data->titleen,
-                        'descriptionen' => $data->descriptionen,
-                        'authoren' => $data->authoren,
+                        'title' => $data->titleen,
+                        'description' => $data->descriptionen,
+                        'author' => $data->authoren,
                         'time' => $data->time,
-                        'contentenen' => $data->contentenen,
+                        'content' => $data->contentenen,
+                        'id_categorypost'=>$data->id_categorypost,
     
                     ]
                 ];
@@ -91,7 +94,82 @@ function detailPostAPI($input){
 
    return $return;
 }
+function listcategoryPostAPI($input){
+    
+    global $controller;
+    global $isRequestPost;
+    $modelPost = $controller->loadModel('categorypost');
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        $totalData = $modelPost->find()->all()->toList();
+        $formattedData = [];
+        foreach ($totalData as $item) {
+            $formattedData[] = [
+                'vi' => [
+                    'id' => $item->id,
+                    'image' => $item->image,
+                    'title' => $item->title,
+                    'description' => $item->description,
+                ],
 
+                'en' => [
+                    'id' => $item->id,
+                    'image' => $item->image,
+                    'title' => $item->titleen,
+                    'description' => $item->descriptionen,
+                ]
+            ];
+        }
+        $return = array('code'=>1,'listData'=>$formattedData);
+    }else{
+        return array('code'=>0,'mess'=>'gửi sai kiểu post');
+    }
+   
+       return $return;
+}
+
+function detailcategoryPostAPI($input){
+   
+   $return= array('code'=>0);
+   global $controller;
+   global $isRequestPost;
+   $metaTitleMantan = 'chi tiết danh mục tin tức';
+   $modelPost = $controller->loadModel('categorypost');
+   
+   if($isRequestPost){
+        $dataSend =$input['request']->getData(); 
+        if(!empty($dataSend['id'])){
+            $data = $modelPost->get($dataSend['id']);
+            $formattedData = [];
+            if (!empty($data)) {
+                $formattedData[] = [
+                    'vi' => [
+                        'id' => $data->id,
+                        'image' => $data->image,
+                        'name' => $data->name,
+                        'description' => $data->description,    
+                    ],
+                    'en' => [
+                        'id' => $data->id,
+                        'image' => $data->image,
+                        'name' => $data->nameen,
+                        'description' => $data->descriptionen, 
+                    ]
+                ];
+            }else{
+                $return = array('code'=>0,'mess'=>'Không có dữ liệu');
+            }
+            $return = array('code'=>1,'data'=>$formattedData,);
+        }else{
+            $return = array('code'=>0,'mess'=>'gửi thiếu dữ liệu');
+        }
+
+   }else{
+        $return = array('code'=>0,'mess'=>'gửi sai kiểu post');
+   }
+
+   return $return;
+}
 function listPostLegalPrivacyghimAPI($input){
     
     global $controller;

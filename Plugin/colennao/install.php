@@ -40,6 +40,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `id_unit` INT NULL DEFAULT 1 , 
 `id_package` INT NOT NULL DEFAULT 0,
 `status_pay_package` INT NULL DEFAULT 0 COMMENT "0 chưa thanh toán , 1 dã thanh toán",
+`id_group_user` INT NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 $sqlInstallDatabase .="CREATE TABLE `coach` (
@@ -405,6 +406,7 @@ $sqlUpdateDatabase['users']['id_mealplan'] = "ALTER TABLE `users` ADD `id_mealpl
 $sqlUpdateDatabase['users']['id_unit'] = "ALTER TABLE `users` ADD `id_unit` INT NULL DEFAULT '1';";
 $sqlUpdateDatabase['users']['id_package'] = "ALTER TABLE `users` ADD `id_package` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['users']['status_pay_package'] = "ALTER TABLE `users` ADD `status_pay_package` INT NULL DEFAULT '0' COMMENT '0 chưa thanh toán , 1 dã thanh toán'";
+$sqlUpdateDatabase['users']['id_group_user'] = "ALTER TABLE `users` ADD `id_group_user` INT NOT NULL DEFAULT '0';";
 
  $sqlUpdateDatabase['price_lists']['name'] = "ALTER TABLE `price_lists` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['price_lists']['price'] = "ALTER TABLE `price_lists` ADD `price` INT NULL DEFAULT NULL;";

@@ -81,6 +81,11 @@ $menus[0]['sub'][]= array('title'=>'Cài đặt',
                                 'classIcon'=>'bx bxs-data',
                                 'permission'=>'listArea'
                                 ),
+                        array(  'title'=>'danh mục tin tức',
+                                'url'=>'/plugins/admin/colennao-view-admin-post-listcategorypost',
+                                'classIcon'=>'bx bxs-data',
+                                'permission'=>'listcategorypost'
+                                ),
         )
 
     );
@@ -166,6 +171,14 @@ function getUserNameById($userId) {
     $modeluserpeople = $controller->loadModel('userpeople');
 
     $user = $modeluserpeople->find()->where(['id' => $userId])->first();
+
+    return $user ? $user->name : null;
+}
+function getUserNamepostById($userId) {
+    global $controller;
+    $modelcategorypost = $controller->loadModel('categorypost');
+
+    $user = $modelcategorypost->find()->where(['id' => $userId])->first();
 
     return $user ? $user->name : null;
 }

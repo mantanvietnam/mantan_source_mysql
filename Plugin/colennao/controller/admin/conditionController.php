@@ -127,14 +127,18 @@ function addcondition($input){
         $dataSend = $input['request']->getData();
     
         if (!empty($dataSend['id_groupfile']) && !empty($dataSend['id_question'])) {
+            $status = $dataSend['status']; 
+    
             foreach ($dataSend['id_question'] as $questionId) {
                 $existingData = $modeltbcondition->find()
                     ->where(['id_groupfile' => $dataSend['id_groupfile'], 'id_question' => $questionId])
                     ->first();
+    
                 if ($existingData) {
                     $existingData->answer = isset($dataSend['answer'][$questionId]) 
                         ? implode('', $dataSend['answer'][$questionId]) 
                         : ''; 
+                    $existingData->status = $status;
                     $modeltbcondition->save($existingData);
                 } else {
                     $data = $modeltbcondition->newEmptyEntity();
@@ -143,6 +147,7 @@ function addcondition($input){
                     $data->answer = isset($dataSend['answer'][$questionId]) 
                         ? implode('', $dataSend['answer'][$questionId]) 
                         : ''; 
+                    $data->status = $status; 
                     $modeltbcondition->save($data);
                 }
             }
@@ -150,6 +155,7 @@ function addcondition($input){
             $mess = '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin</p>';
         }
     }
+    
     
     
     

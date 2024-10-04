@@ -24,11 +24,6 @@
                             Câu hỏi
                           </button>
                         </li>
-                        <!-- <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-2" aria-controls="navs-top-2" aria-selected="false">
-                            Đáp án  
-                          </button>
-                        </li> -->
                       </ul>
                       <div class="tab-content">
                         <div class="tab-pane fade active show" id="navs-top-question" role="tabpanel">
@@ -48,6 +43,18 @@
                                     </select>
                                 </div>
                             </div>
+                          </div>
+                          <div class="row mb-4">
+                              <div class="col-md-6">
+                                  <div class="mb-2">
+                                      <label class="form-label">đây là bài tập mặc định</label>
+                                  </div>
+                                  <select class="form-control" name="status" required>
+                                      <option value="">Chọn trạng thái</option>
+                                      <option value="active" <?php echo (isset($data->status) && $data->status == 'active') ? 'selected' : ''; ?>>Kích hoạt</option>
+                                      <option value="inactive" <?php echo (isset($data->status) && $data->status == 'inactive') ? 'selected' : ''; ?>>Không kích hoạt</option>
+                                  </select>
+                              </div>
                           </div>
                           <?php if (!empty($dataquestion) && is_array($dataquestion)): ?>
                             <?php foreach ($dataquestion as $questionData): ?>
