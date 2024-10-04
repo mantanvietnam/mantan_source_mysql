@@ -71,7 +71,7 @@
                 }
 
                 $type = 'Thưởng cả tổng số cuốc';
-                if(!empty($item->type)){
+                if(!empty($item->type==2)){
                   $type = 'Thưởng từng cuốc';
                 }
 

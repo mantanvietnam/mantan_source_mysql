@@ -1022,7 +1022,11 @@ function listPointCustomer($input){
     global $session;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('listPointCustomer');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerAgency');
+        }
         $metaTitleMantan = 'Danh sách điểm xếp hạng khách hàng';
 
         $modelCustomers = $controller->loadModel('Customers');
@@ -1032,7 +1036,7 @@ function listPointCustomer($input){
         $modelCustomerGifts = $controller->loadModel('CustomerGifts');
 
         
-        $conditions = array('id_member'=>$session->read('infoUser')->id);
+        $conditions = array('id_member'=>$user->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -1057,9 +1061,10 @@ function listPointCustomer($input){
 
         if(!empty($listData)){
             foreach ($listData as $key => $value) {
+                $point = $value->point-$value->point_now;
                 $listData[$key]->rating = $modelRatingPointCustomer->find()->where(['id'=>$value->id_rating])->first();
                 $listData[$key]->customer = $modelCustomers->find()->where(['id'=>$value->id_customer])->first();
-                $listData[$key]->gift = $modelCustomerGifts->find()->where(['point <='=>$value->point])->all()->toList();
+                $listData[$key]->gift = $modelCustomerGifts->find()->where(['point <='=>$point])->all()->toList();
                 
             }
         }

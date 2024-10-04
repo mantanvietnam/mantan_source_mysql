@@ -7,7 +7,11 @@ function listBill(){
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('listBill');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         $metaTitleMantan = 'Danh sách phiếu chi';
 		$modelMembers = $controller->loadModel('Members');
     	$modelCustomers = $controller->loadModel('Customers');
@@ -15,7 +19,7 @@ function listBill(){
         $modelAffiliaters = $controller->loadModel('Affiliaters');
 
 
-    	$conditions = array('id_member_buy'=>$session->read('infoUser')->id, 'type'=>2);
+    	$conditions = array('id_member_buy'=>$user->id, 'type'=>2);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -213,11 +217,13 @@ function addBill($input){
 
     $metaTitleMantan = 'Thông tin phiếu chi';
     
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addBill');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listBill');
+        }
         $modelMembers = $controller->loadModel('Members');
         $modelBill = $controller->loadModel('Bills');
-
-        $infoUser = $session->read('infoUser');
         $mess= '';
         
         // lấy data edit
@@ -229,18 +235,25 @@ function addBill($input){
             $bill->created_at = $time;
         }
         $bill->id_member_sell =  0;
-        $bill->id_member_buy = $session->read('infoUser')->id;
+        $bill->id_member_buy = $user->id;
+        $bill->id_staff_buy = $user->id_staff;
         $bill->total = @$_GET['total'];
         $bill->id_order = 0;
         $bill->type = 2;
         $bill->type_order = 3; 
         $bill->updated_at = $time;
         $bill->id_debt = 0;
+        $bill->id_staff_sell = 0;
         $bill->type_collection_bill =  @$_GET['type_collection_bill'];
         $bill->id_customer = 0;
         $bill->note =@$_GET['note'];
        
         $modelBill->save($bill);
+
+        $note = $user->type_tv.' '. $user->name.' tạo phiếu thu nội dung thu là '.@$bill->note.' có id là:'.$bill->id;
+
+        addActivityHistory($user,$note,'addBill',$bill->id);
+
         return $controller->redirect('/listBill?mess=saveSuccess');
     }else{
         return $controller->redirect('/login');
@@ -255,14 +268,18 @@ function listCollectionBill(){
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('listCollectionBill');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         $metaTitleMantan = 'Danh sách phiếu thu';
         $modelMembers = $controller->loadModel('Members');
         $modelCustomers = $controller->loadModel('Customers');
         $modelBill = $controller->loadModel('Bills');
 
 
-        $conditions = array('id_member_sell'=>$session->read('infoUser')->id, 'type'=>1);
+        $conditions = array('id_member_sell'=>$user->id, 'type'=>1);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -473,6 +490,7 @@ function addCollectionBill($input){
                 $customer = $modelCustomer->get((int) $_GET['id_customer_buy']);
                 $bill = $modelBill->newEmptyEntity();
                 $bill->id_member_sell =  $user->id;
+                $bill->id_staff_sell = $user->id_staff;
                 $bill->id_member_buy = 0;
                 $bill->total = (int) @$_GET['total'];
                 $bill->id_order = 0;
@@ -492,6 +510,7 @@ function addCollectionBill($input){
                 // bill cho người thu
                 $bill = $modelBill->newEmptyEntity();
                 $bill->id_member_sell =  $user->id;
+                $bill->id_staff_sell = $user->id_staff;
                 $bill->id_member_buy = (int) $_GET['idmember_buy'];
                 $bill->total = (int) @$_GET['total'];
                 $bill->id_order = 0;
@@ -508,6 +527,7 @@ function addCollectionBill($input){
                 // bill cho người chi
                 $billbuy = $modelBill->newEmptyEntity();
                 $billbuy->id_member_sell =  $user->id;
+                $billbuy->id_staff_sell = $user->id_staff;
                 $billbuy->id_member_buy = (int) $_GET['idmember_buy'];
                 $billbuy->total = (int) @$_GET['total'];
                 $billbuy->id_order = 0;
@@ -539,6 +559,12 @@ function addCollectionBill($input){
             $modelBill->save($bill);
 
         }
+
+        $note = $user->type_tv.' '. $user->name.' '.@$bill->note.' có id là:'.$bill->id;
+
+        addActivityHistory($user,$note,'addBill',$bill->id);
+
+
         return $controller->redirect('/listCollectionBill?mess=saveSuccess');
     }else{
         return $controller->redirect('/login');
@@ -553,7 +579,11 @@ function printCollectionBill(){
     global $session;
     global $type_collection_bill;
 
-     if(!empty($session->read('infoUser'))){
+    $user = checklogin('printCollectionBill');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCollectionBill');
+        }
         $metaTitleMantan = 'Danh sách phiếu thu';
 
         $modelMember = $controller->loadModel('Members');
@@ -587,7 +617,11 @@ function printBill(){
     global $session;
     global $type_collection_bill;
 
-     if(!empty($session->read('infoUser'))){
+    $user = checklogin('printBill');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listBill');
+        }
        $metaTitleMantan = 'Danh sách phiếu chi';
 
         $modelMember = $controller->loadModel('Members');

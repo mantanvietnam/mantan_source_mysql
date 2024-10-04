@@ -75,6 +75,7 @@ function addChallenge($input){
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
+
             
 
             if(!empty($dataSend['title'])){
@@ -208,6 +209,8 @@ function addChallenge($input){
                                 $save->tip_en = @$dataSend['tip_en'][$key];
                                 $save->id_challenge = $data->id;
                                 $save->day = (int)$dataSend['day_number'][$key];
+
+
                                 $modelTipChallenges->save($save);
                             }
                                 

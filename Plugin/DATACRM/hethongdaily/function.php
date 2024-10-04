@@ -1353,6 +1353,11 @@ function getListPermission()
                                     array('name'=>'Xóa lịch hẹn khách hàng ','permission'=>'deleteCustomerHistoriesAgency'),
                                     array('name'=>'Tải file mật mã thành công','permission'=>'downloadMMTC'),
                                     array('name'=>'Tải mật mã thành công','permission'=>'resultMMTC'),
+                                    array('name'=>' Danh sách điểm xếp hạng khách hàng','permission'=>'listPointCustomer'),
+                                    array('name'=>' Tặng quà cho khách hàng','permission'=>'giveGiftCustomer'),
+                                    array('name'=>'Danh sách quà tặng khách hàng','permission'=>'listCustomerGiftAgency'),
+                                    array('name'=>'Thêm và sửa quà tặng khách hàng','permission'=>'addCustomerGiftAgency'),
+                                    array('name'=>'Xóa quà tặng khách hàng','permission'=>'deleteCustomerGiftAgency'),
                             ),
                     );
     $permission[] = array( 'name'=>'Quản lý Đơn hàng của đại lý ',
@@ -1437,6 +1442,19 @@ function getListPermission()
                                     array('name'=>'thêm sửa câu hỏi','permission'=>'addQuestionAgency'),
                                     array('name'=>'xóa câu hỏi','permission'=>'deleteQuestionAgency'),
                             ),
+                    );
+    $permission[] = array( 'name'=>'Quản lý sổ quỹ ',
+                    'sub'=>array(   array('name'=>'Danh sách phiếu thu','permission'=>'listCollectionBill'),
+                                    array('name'=>'thêm phiếu thu','permission'=>'addCollectionBill'),
+                                    array('name'=>'Danh sách phiếu chi','permission'=>'listBill'),
+                                    array('name'=>'Thêm phiếu chi','permission'=>'addBill'),
+                                    array('name'=>'In phiếu thu','permission'=>'printCollectionBill'),
+                                    array('name'=>'In phiếu chi','permission'=>'printBill'),
+                                    array('name'=>'Danh sách công nợ phải thu','permission'=>'listCollectionDebt'),
+                                    array('name'=>'Danh sách công nợ phải chi','permission'=>'listPayableDebt'),
+                                    array('name'=>'Thu tiền công nợ ','permission'=>'paymentCollectionBill'),
+
+                                )
                     );
    
     

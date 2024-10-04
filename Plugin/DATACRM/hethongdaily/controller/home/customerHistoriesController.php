@@ -301,7 +301,7 @@ function calendarCustomerHistoriesAgency(){
             }
         }
         
-        $conditions = array('type' => 'group_customer', 'parent'=>$suser->id);
+        $conditions = array('type' => 'group_customer', 'parent'=>$user->id);
         $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
 
         $mess ='';

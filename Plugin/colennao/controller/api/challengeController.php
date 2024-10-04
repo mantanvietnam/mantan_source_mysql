@@ -185,6 +185,7 @@ function paymentChallengeAPI($input){
 		                $checkUserChallenge = $modelUserChallenges->newEmptyEntity();
 		                $checkUserChallenge->id_user = $user->id;
 		                $checkUserChallenge->name = $data->title;
+		                $checkUserChallenge->name_en = $data->title_en;
 		                $checkUserChallenge->id_challenge = $data->id;
 		                $checkUserChallenge->totalDay = $data->day;
 		                $checkUserChallenge->status = 0;
@@ -199,6 +200,7 @@ function paymentChallengeAPI($input){
 		                    foreach($tip as $key => $value){
 		                        $listTip[] = array('id'=>$value->id,
 		                            'tip'=>$value->tip,
+		                            'tip_en'=>$value->tip_en,
 		                            'status'=>''
 
 		                        );

@@ -10,8 +10,11 @@ function listCustomerGiftAgency($input)
 
     $metaTitleMantan = 'Danh sách quà tặng';
 
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+     $user = checklogin('listCustomerGiftAgency'); 
+    if(!empty($user)){
+      if(empty($user->grant_permission)){
+        return $controller->redirect('/statisticAgency');
+      }
         
         $modelCustomerGifts = $controller->loadModel('CustomerGifts');
         $modelProducts = $controller->loadModel('Products');
@@ -229,8 +232,11 @@ function giveGiftCustomer($input){
     global $controller;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+    $user = checklogin('giveGiftCustomer'); 
+    if(!empty($user)){
+      if(empty($user->grant_permission)){
+        return $controller->redirect('/listPointCustomer');
+      }
         $modelCustomerGifts = $controller->loadModel('CustomerGifts');
         $modelCustomer = $controller->loadModel('Customers');
         $modelPointCustomer = $controller->loadModel('PointCustomers');
@@ -245,8 +251,8 @@ function giveGiftCustomer($input){
             $pointCustomer = $modelPointCustomer->find()->where(['id_customer'=>(int)$_GET['id_customer'], 'id_member'=>$user->id])->first();
             $customer =$modelCustomer->find()->where(['id'=>(int)$_GET['id_customer']])->first();
             if(!empty($gift->point) && !empty($pointCustomer->point)){
-                if($gift->point < $pointCustomer->point){
-                    $pointCustomer->point -= $gift->point;
+                if(($gift->point+$pointCustomer->point_now) <= $pointCustomer->point){
+                    $pointCustomer->point_now += $gift->point;
 
                     $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $pointCustomer->point])->order(['point_min' => 'DESC'])->first();
                     if(!empty($rating)){
@@ -299,6 +305,10 @@ function giveGiftCustomer($input){
 
                        }
                     }
+
+                    $note = $user->type_tv.' '. $user->name.' đổi quà '.$gift->name.' cho khách hàng '.$data->full_name.' có id lịch sử đổi quà là:'.$historieGift->id;
+
+                    addActivityHistory($user,$note,'giveGiftCustomer',$historieGift->id);
                     return $controller->redirect('/listPointCustomer?mess=done');
                 }
             }

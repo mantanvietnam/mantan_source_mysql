@@ -90,6 +90,7 @@ function addRewardAdmin($input){
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
+
         if(!empty($dataSend['name'])){
 	        // tạo dữ liệu save
             $data->name = @$dataSend['name'];
@@ -113,6 +114,8 @@ function addRewardAdmin($input){
             if(!empty($query->end_date)){
                 $time = $query->end_date;
             }
+
+
 
 
             if($start_date > $time){
@@ -146,13 +149,15 @@ function addRewardAdmin($input){
                      $mess= '<p class="text-success">Thời gian bắt đầu nhỏ hơi thời gian kết thúc </p>';
                 }
             }else{
-                $mess= '<p class="text-success">Thời gian bắt đầu nhỏ hơi thời gian kết thúc </p>';
+                $mess= '<p class="text-success">Thời gian này có dang có chương trình đang diễn ra rồi  </p>';
             }
-            
+
 	    }else{
 	    	$mess= '<p class="text-danger">Bạn chưa nhập tên </p>';
 	    }
-	      $data = $modelReward->get($data->id);
+        if(!empty($data->id)){
+	      $data = $modelReward->get(@$data->id);
+        }
     }
 
     if(!empty($data->bonu)){

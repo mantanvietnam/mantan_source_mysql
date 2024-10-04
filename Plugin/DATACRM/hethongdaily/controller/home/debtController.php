@@ -7,16 +7,20 @@ function listCollectionDebt($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty($session->read('infoUser'))){
+	
+    $user = checklogin('listCollectionDebt');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
 	    $metaTitleMantan = 'Danh sách công nợ phải thu';
 
 	    $modelMember = $controller->loadModel('Members');
 	    $modelCustomers = $controller->loadModel('Customers');
 		$modelDebt = $controller->loadModel('Debts');
 		
-		$user = $session->read('infoUser');
 
-		$conditions = array('id_member_sell'=>$session->read('infoUser')->id, 'type'=>1);
+		$conditions = array('id_member_sell'=>$user->id, 'type'=>1);
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
@@ -267,18 +271,20 @@ function paymentCollectionBill($input){
 
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
-    if(!empty($session->read('infoUser'))){
+     $user = checklogin('paymentCollectionBill');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCollectionDebt');
+        }
         $modelMember = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 		$modelCustomer = $controller->loadModel('Customers');
 		$modelDebts = $controller->loadModel('Debts');
 		$modelPointCustomer = $controller->loadModel('PointCustomers');
         $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
-
-        $infoUser = $session->read('infoUser');
         $time = time();
 
-        $system = $modelCategories->find()->where(array('id'=>$infoUser->id_system ))->first();
+        $system = $modelCategories->find()->where(array('id'=>$user->id_system ))->first();
 
 	    if(!empty($system->description)){
 	        $description = json_decode($system->description, true);
@@ -313,6 +319,7 @@ function paymentCollectionBill($input){
 		             // bill cho người thu nợ
 	        		$billsell = $modelBill->newEmptyEntity();
 	        		$billsell->id_member_sell = $debtCollection->id_member_sell;
+	        		$billsell->id_staff_sell = $user->id_staff;
 	        		$billsell->id_member_buy = $debtCollection->id_member_buy;
 	        		$billsell->total = (int)$_GET['total'];
 	        		$billsell->id_order = @$debtCollection->id_order;
@@ -342,6 +349,7 @@ function paymentCollectionBill($input){
 		             // bill cho đại lý trả nợ
 	        		$billsell = $modelBill->newEmptyEntity();
 	        		$billsell->id_member_sell = $debtPayable->id_member_sell;
+	        		$billsell->id_staff_sell = $user->id_staff;
 	        		$billsell->id_member_buy = $debtPayable->id_member_buy;
 	        		$billsell->total = (int)$_GET['total'];
 	        		$billsell->id_order = @$debtPayable->id_order;
@@ -370,6 +378,7 @@ function paymentCollectionBill($input){
 		             // bill cho người thu nợ
 	        	$billsell = $modelBill->newEmptyEntity();
 	        	$billsell->id_member_sell = $debtCollection->id_member_sell;
+	        	$billsell->id_staff_sell = $user->id_staff;
 	        	$billsell->id_member_buy = 0;
 	        	$billsell->total = (int)$_GET['total'];
 	        	$billsell->id_order = @$debtCollection->id_order;
@@ -415,6 +424,10 @@ function paymentCollectionBill($input){
 	        	$modelDebts->save($debtCollection);
 
 	        }
+
+	        $note = $user->type_tv.' '. $user->name.' '.@$billsell->note.' có id là:'.@$billsell->id;
+
+        	addActivityHistory($user,$note,'paymentCollectionBill',@$billsell->id);
            
 
             return $controller->redirect('/listCollectionDebt?mess=paymentDone');
@@ -434,16 +447,19 @@ function listPayableDebt($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty($session->read('infoUser'))){
+	$user = checklogin('listPayableDebt');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
 	    $metaTitleMantan = 'Danh sách công nợ phải trả';
 
 	    $modelMember = $controller->loadModel('Members');
 	    $modelCustomers = $controller->loadModel('Customers');
 		$modelDebt = $controller->loadModel('Debts');
 		
-		$user = $session->read('infoUser');
 
-		$conditions = array('id_member_buy'=>$session->read('infoUser')->id, 'type'=>2);
+		$conditions = array('id_member_buy'=>$user->id, 'type'=>2);
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;

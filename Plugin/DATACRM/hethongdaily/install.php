@@ -306,6 +306,7 @@ $sqlInstallDatabase .='CREATE TABLE `point_customers` (
 `point` INT NOT NULL DEFAULT 0 ,
 `id_rating` INT NULL DEFAULT 0 ,
 `created_at` INT NULL DEFAULT NULL,
+`point_now` INT NOT NULL DEFAULT '0',
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
@@ -692,6 +693,7 @@ $sqlUpdateDatabase['point_customers']['id_customer'] = "ALTER TABLE `point_custo
 $sqlUpdateDatabase['point_customers']['point'] = "ALTER TABLE `point_customers` ADD `point` INT NOT NULL DEFAULT'0' ;";
 $sqlUpdateDatabase['point_customers']['id_rating'] = "ALTER TABLE `point_customers` ADD `id_rating` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['point_customers']['created_at'] = "ALTER TABLE `point_customers` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['point_customers']['point_now'] = "ALTER TABLE `point_customers` ADD `point_now` INT NOT NULL DEFAULT '0';";
 
 
 $sqlUpdateDatabase['customer_gifts']['name'] = "ALTER TABLE `customer_gifts` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ;";

@@ -1722,7 +1722,6 @@ function checkUserReward($user_id, $booking_id){
                         }
                         
                     }
-
                     if(!empty($tien_thuong)){
                         $user->total_coin += $tien_thuong;
                         $modelUser->save($user);
@@ -1764,19 +1763,58 @@ function checkUserReward($user_id, $booking_id){
                     }
                 }
 
+            }else{
+                if($checlReward->end_date < time()){
+                    if($checlUserReward->status == 1 && $checlReward->quantity_booking <= $checlUserReward->quantity_booking){
+                        $checlUserReward->status = 2;
+                        $modelUserReward->save($checlUserReward);
+                        if(!empty($checlReward->money)){
+                        $user->total_coin += $checlReward->money;
+                        $modelUser->save($user);
+
+                        // Save transaction
+                        $newTransaction = $modelTransaction->newEmptyEntity();
+                        $newTransaction->user_id = $user->id;
+                        $newTransaction->booking_id = $booking->id;
+                        $newTransaction->amount = $tien_thuong;
+                        $newTransaction->type = $transactionType['add'];
+                        $newTransaction->name = "Nhận $checlReward->money tiền thưởng của chương trính $checlReward->name ";
+                        $newTransaction->description = '+' . number_format($checlReward->money) . ' EXC-xu';
+                        $newTransaction->created_at = date('Y-m-d H:i:s');
+                        $newTransaction->updated_at = date('Y-m-d H:i:s');
+                        $modelTransaction->save($newTransaction);
+
+                        // Thông báo cho người nhận
+                        $title = 'Cộng EXC coin vào tài khoản';
+                        $content = "Tài khoản của bạn được $checlReward->money tiền thưởng của chương trính $checlReward->name  ";
+                        $notification = $modelNotification->newEmptyEntity();
+                        $notification->user_id = $user->id;
+                        $notification->title = $title;
+                        $notification->content = $content;
+                        $notification->created_at = date('Y-m-d H:i:s');
+                        $notification->updated_at = date('Y-m-d H:i:s');
+                        $modelNotification->save($notification);
+                        if(!empty($user->device_token)){
+                            $dataSendNotification = array(
+                                'title' => $title,
+                                'time' => date('H:i d/m/Y'),
+                                'content' => $content,
+                                'action' => 'addMoneySuccess',
+                                'user_id' => "$user->id",
+                            );
+                            sendNotification($dataSendNotification, $user->device_token);
+                        }
+                    }
+
+
+
+                    }
+
+                }
             }
 
         }
     }
-    
-
-
- 
-
-
-
-
-
 
 }
 
