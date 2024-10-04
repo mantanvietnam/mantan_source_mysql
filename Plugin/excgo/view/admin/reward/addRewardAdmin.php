@@ -49,6 +49,10 @@
                             <label class="form-label" for="basic-default-fullname">Tiền thưởng (*)</label>
                             <input type="number"  class="form-control" placeholder="" name="money" id="money" value="<?php echo @$data->money;?>" />
                           </div>
+                          <div class="mb-3 col-12 col-sm-12 col-md-12">
+                                        <label class="form-label">Hình minh họa *</label>
+                                        <?php showUploadFile('image','image',@$data->image,1);?>
+                                    </div>
                           <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Trạng thái:</label>&ensp;
                             <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> > Kích hoạt &ensp;
@@ -66,7 +70,7 @@
                           </div>
 
                           <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">nội dung</label>
+                            <label class="form-label" for="basic-default-fullname">Mô tả ngắn </label>
                             <input type="text" class="form-control" placeholder="" name="note" id="note" value="<?php echo @$data->note;?>" />
                           </div>
                           <div class="mb-3">
@@ -81,6 +85,12 @@
 
 
                         </div>
+                        <div class="col-12 col-sm-12 col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-message">Nội dung bải viết</label>
+                                        <?php showEditorInput('content', 'content', @$data->content);?>
+                                    </div>
+                                </div>
                       </div>
                     </div>
                     <div class="tab-pane fade" id="navs-top-info" role="tabpanel">

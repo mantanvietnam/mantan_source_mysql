@@ -2904,6 +2904,12 @@ function checkBookingReceivedApi($input): array
 
 }
 
+function checkReward(){
+    return  checkUserReward(45,1521);
+
+    die;
+}
+
 
 
 

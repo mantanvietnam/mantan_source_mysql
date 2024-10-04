@@ -109,10 +109,13 @@ function addRewardAdmin($input){
                  $conditions =array('end_date' => $subquery);
             }
             $query = $modelReward->find()->where($conditions)->first();
+            $time= 0;
+            if(!empty($query->end_date)){
+                $time = $query->end_date;
+            }
 
 
-
-            if($start_date > @$query->end_date){
+            if($start_date > $time){
                 if($start_date < $end_date){
                     $data->updated_at = time();
                     $data->quantity_booking = (int) @$dataSend['quantity_booking'];
@@ -120,6 +123,8 @@ function addRewardAdmin($input){
                     $data->type = (int) @$dataSend['type'];
                     $data->status =(int) @$dataSend['status'];
                     $data->note = @$dataSend['note'];
+                    $data->image = @$dataSend['image'];
+                    $data->content = @$dataSend['content'];
                     $data->end_date = @$end_date;
                     $data->start_date = @$start_date;
 
@@ -132,7 +137,8 @@ function addRewardAdmin($input){
                         }
                     }
 
-                    $data->bonu = json_encode(@$bonu);                 
+                    $data->bonu = json_encode(@$bonu);   
+                   
         	        $modelReward->save($data);
 
         	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';

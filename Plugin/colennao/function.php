@@ -219,6 +219,7 @@ function createToken($length = 30): string
 function getUserByToken($accessToken, $checkActive = true)
 {
     global $controller;
+    global $listUnit;
 
     $modelUser = $controller->loadModel('Users');
     $conditions = [
@@ -233,6 +234,19 @@ function getUserByToken($accessToken, $checkActive = true)
     $user = $modelUser->find()->where($conditions)->first();
     if(!empty($user->phone)){
          $user->link_affiliate = '/affiliater?affsource='.@$user->phone;
+    }
+
+    if(!empty($user->phone)){
+         $user->link_affiliate = '/affiliater?affsource='.@$user->phone;
+    }
+
+    if(!empty($user->id_unit)){
+        foreach($listUnit as $key => $item){
+            if($item['id']==$user->id_unit){
+                 $user->unit = $item;
+            }
+        }
+        
     }
    
     return $user;
@@ -642,8 +656,8 @@ $listLevel = [1=> array('id'=> 1, 'name'=> 'Người mới', 'name_en'=>'Newbie'
 
 global $listUnit;
 
-$listUnit = [array('id'=>1,'title'=> 'Hệ mét' , 'unit'=>'kg, m, cm và gam'),
-            array('id'=>2,'title'=> 'Hệ thống đế quốc' , 'unit'=>'lbs, ft, in và oz'),
+$listUnit = [array('id'=>1,'title'=> 'Hệ mét' , 'unit'=>'kg, m, cm & gam', 'title_en'=>'Metric system'),
+            array('id'=>2,'title'=> 'Hệ thống đế quốc' , 'unit'=>'lbs, ft, in & oz', 'title_en'=>'Imperial system'),
 ];
 
 ?>
