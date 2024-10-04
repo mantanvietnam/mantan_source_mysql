@@ -2,9 +2,9 @@
 $menus= array();
 $menus[0]['title']= 'Cài đặt giao diện';
 $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
-                            'url'=>'/plugins/admin/crm_phoenixcamp-admin-settingHomeThemeCRMZikii.php',
+                            'url'=>'/plugins/admin/crm_phoenixcamp-admin-settingHomeThemeCRM.php',
                             'classIcon'=>'bx bx-cog',
-                            'permission'=>'settingHomeThemeCRMZikii'
+                            'permission'=>'settingHomeThemeCRM'
                         );
 
 addMenuAdminMantan($menus);

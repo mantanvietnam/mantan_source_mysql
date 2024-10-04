@@ -79,11 +79,11 @@
                     <input type="checkbox" name="crm_module[]" value="cashBook" <?php if(!empty($data_value) && in_array('cashBook', $data_value)) echo 'checked';?> > Sổ Qũy
                   </div>
                 </div>
-               <!--  <div class="col-md-3">
+               <div class="col-md-3">
                   <div class="mb-3">
-                    <input type="checkbox" name="crm_module[]" value="affiliater" <?php if(!empty($data_value) && in_array('affiliater', $data_value)) echo 'checked';?> > Tiếp thị liên kết
+                    <input type="checkbox" name="crm_module[]" value="webShop" <?php if(!empty($data_value) && in_array('webShop', $data_value)) echo 'checked';?> > Website bán hàng
                   </div>
-                </div> -->
+                </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>

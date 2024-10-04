@@ -1,5 +1,5 @@
 <?php
-function settingHomeThemeCRMZikii($input){
+function settingHomeThemeCRM($input){
 	global $modelOptions;
     global $metaTitleMantan;
     global $isRequestPost;

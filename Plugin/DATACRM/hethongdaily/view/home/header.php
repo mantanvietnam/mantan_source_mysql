@@ -141,15 +141,39 @@
                               echo '<a class="dropdown-item" href="/listPosition">Chức danh</a>';
                               echo '<a class="dropdown-item" href="/settingSystem">Hệ thống</a>';
                             }
-                echo        '<a class="dropdown-item" href="/listRatingPoint">Hạng thành viên</a>
-                            <a class="dropdown-item" href="/listStaff">Nhân viên</a>
-                            <a class="dropdown-item" href="/listGroupStaff">Nhóm nhân viên</a>
-                            <a class="dropdown-item" href="/listActivityHistory">Lịch sử Hoạt động nhân viên</a>
-                            <a class="dropdown-item" href="/listTransactionAgencyHistorie">Hoa hồng đại lý giới thiệu</a>';
-                            if(empty($user->id_father)){
-                              echo '<a class="dropdown-item" href="/listWebMember">Website đại lý</a>';
-                              echo '<a class="dropdown-item" href="/listThemeCLoneWeb">Kho giao diện</a>';
-                            }
+                      
+                      echo '<a class="dropdown-item" href="/listTransactionAgencyHistorie">Hoa hồng đại lý giới thiệu</a>';
+
+                      echo '<div class="dropdown-submenu">
+                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Nhân viên</a>
+                              <div class="dropdown-menu menuSub3">
+                                <a class="dropdown-item" href="/listStaff">Nhân viên</a>
+                                <a class="dropdown-item" href="/listGroupStaff">Nhóm nhân viên</a>
+                                <a class="dropdown-item" href="/listActivityHistory">Lịch sử Hoạt động nhân viên</a>
+                              </div>
+                            </div>';
+
+
+                      if(empty($user->id_father) && in_array('clone_web', $plugins_site_value)){
+                        echo '<div class="dropdown-submenu">
+                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Nhân bản website</a>
+                              <div class="dropdown-menu menuSub3">
+                                <a class="dropdown-item" href="/listWebMember">Website đại lý</a>
+                                <a class="dropdown-item" href="/listThemeCLoneWeb">Kho giao diện</a>
+                              </div>
+                            </div>';
+                      }
+
+                      if(empty($user->id_father) && in_array('webShop', $plugins_site_value)){
+                        echo '<div class="dropdown-submenu">
+                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Website bán hàng</a>
+                              <div class="dropdown-menu menuSub3">
+                                <a class="dropdown-item" href="/settingWebsiteShop">Cài đặt giao diện</a>
+                                <a class="dropdown-item" href="/">Tin tức</a>
+                              </div>
+                            </div>';
+                      }
+                            
 
                  echo     '</div>
                         </li>';
@@ -186,16 +210,17 @@
                         <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                           <a class="dropdown-item" href="/courses">Khóa học</a>
                           <a class="dropdown-item" href="/history-test">Lịch sử thi</a>';
-                           if(empty($user->id_father)){
-                         echo '<a class="dropdown-item dropdown-toggle" href="javascript:void(0);" id="dropdownSubmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Cài đặt Khóa học
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownSubmenu">
-                              <a class="dropdown-item" href="/listCourseAgency">Khóa học</a>
-                              <a class="dropdown-item" href="/listLessonAgency">Bài học</a>
-                              <a class="dropdown-item" href="/listTestAgency">Bài thi</a>
-                              <a class="dropdown-item" href="/listQuestionAgency">Câu hỏi</a>
-                              <a class="dropdown-item" href="/listCategoryLessonAgency">Danh mục đào tạo</a>
+
+                          if(empty($user->id_father)){
+                            echo '<div class="dropdown-submenu">
+                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Cài đặt Khóa học</a>
+                              <div class="dropdown-menu menuSub3">
+                                <a class="dropdown-item" href="/listCourseAgency">Khóa học</a>
+                                <a class="dropdown-item" href="/listLessonAgency">Bài học</a>
+                                <a class="dropdown-item" href="/listTestAgency">Bài thi</a>
+                                <a class="dropdown-item" href="/listQuestionAgency">Câu hỏi</a>
+                                <a class="dropdown-item" href="/listCategoryLessonAgency">Danh mục đào tạo</a>
+                              </div>
                             </div>';
                           }
 
@@ -232,6 +257,7 @@
                           <a class="dropdown-item" href="/listCustomerAgency">Khách hàng</a>
                           <a class="dropdown-item" href="/calendarCustomerHistoriesAgency">Đặt hẹn</a>
                           <a class="dropdown-item" href="/groupCustomerAgency">Nhóm khách hàng</a>
+                          <a class="dropdown-item" href="/listRatingPoint">Hạng thành viên</a>
                           <a class="dropdown-item" href="/listPointCustomer">Điểm xếp hạng khách hàng</a>
                           <a class="dropdown-item" href="/listHistorieCustomerGiftAgency">Lịch sử tặng quà </a>
                           <a class="dropdown-item" href="/guideAddCustomerAPIAgency">Tích hợp API</a>
@@ -342,12 +368,50 @@
                 } ?>
                 
                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
+
+                
               </div>
             </li>
           </ul>
         </div>
       </nav>
     </section>
+
+    <script type="text/javascript">
+      $('.dropdown-submenu a.dropdown-toggle').on('click', function(e) {
+        /*
+        var submenu = $(this).children('.dropdown-menu');
+
+        submenu.addClass('show');
+
+        var submenuOffset = submenu.offset();
+        var windowWidth = $(window).width();
+
+        
+        // Kiểm tra nếu menu cấp 3 có bị ra ngoài bên phải màn hình
+        if (submenuOffset.left + submenu.outerWidth() > windowWidth) {
+          submenu.css({
+            left: 'auto',
+            right: '100%'  // Hiển thị menu cấp 3 bên trái
+          });
+        } else {
+          submenu.css({
+            left: '100%',   // Hiển thị menu cấp 3 bên phải
+            right: 'auto'
+          });
+        }
+
+        */
+
+        $('.menuSub3').removeClass('show');
+
+        if (!$(this).next('.dropdown-menu').hasClass('show')) {
+          $(this).next('.dropdown-menu').toggleClass('show');
+        }
+        e.stopPropagation();
+      });
+
+    </script>
 
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar layout-without-menu">

@@ -204,7 +204,10 @@
 	$routesPlugin['listTestAgency']= 'hethongdaily/view/home/training/seting/test/listTestAgency.php';
 	$routesPlugin['addTestAgency']= 'hethongdaily/view/home/training/seting/test/addTestAgency.php';
 	$routesPlugin['listQuestionAgency']= 'hethongdaily/view/home/training/seting/question/listQuestionAgency.php';	
-	$routesPlugin['addQuestionAgency']= 'hethongdaily/view/home/training/seting/question/addQuestionAgency.php';	
+	$routesPlugin['addQuestionAgency']= 'hethongdaily/view/home/training/seting/question/addQuestionAgency.php';
+
+	// cài đặt webshop	
+	$routesPlugin['settingWebsiteShop']= 'hethongdaily/view/home/webShop/settingWebsiteShop.php';	
 
 
 	// api khách hàng 

@@ -306,7 +306,7 @@ $sqlInstallDatabase .='CREATE TABLE `point_customers` (
 `point` INT NOT NULL DEFAULT 0 ,
 `id_rating` INT NULL DEFAULT 0 ,
 `created_at` INT NULL DEFAULT NULL,
-`point_now` INT NOT NULL DEFAULT '0',
+`point_now` INT NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
@@ -761,7 +761,7 @@ $sqlUpdateDatabase['staff_timekeepers']['shift'] = "ALTER TABLE `staff_timekeepe
 $sqlUpdateDatabase['staff_timekeepers']['note'] = "ALTER TABLE `staff_timekeepers` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['staff_timekeepers']['id_staff'] = "ALTER TABLE `staff_timekeepers` ADD `id_staff` INT NOT NULL;";
 
-$sqlUpdateDatabase['activity_historys']['note'] = "ALTER TABLE `activity_historys` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNULL DEFAULT NULL;";
+$sqlUpdateDatabase['activity_historys']['note'] = "ALTER TABLE `activity_historys` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['activity_historys']['time'] = "ALTER TABLE `activity_historys` ADD `time` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['activity_historys']['id_staff'] = "ALTER TABLE `activity_historys` ADD `id_staff` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['activity_historys']['id_member'] = "ALTER TABLE `activity_historys` ADD `id_member` INT NULL DEFAULT '0';";
