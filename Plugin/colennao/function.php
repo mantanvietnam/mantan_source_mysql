@@ -39,11 +39,11 @@ $menus[0]['sub'][]= array( 'title'=>'Thử thách  ',
                             'classIcon'=>'bx bxs-bolt',
                             'permission'=>'listChallenge'
                     );
-$menus[0]['sub'][]= array( 'title'=>'cài đặt ngân hàng  ',
-                            'url'=>'/plugins/admin/colennao-view-admin-seting-setingBankAccount',
-                            'classIcon'=>'bx bxs-bank',
-                            'permission'=>'setingBankAccount'
-                    );
+// $menus[0]['sub'][]= array( 'title'=>'cài đặt ngân hàng  ',
+//                             'url'=>'/plugins/admin/colennao-view-admin-seting-setingBankAccount',
+//                             'classIcon'=>'bx bxs-bank',
+//                             'permission'=>'setingBankAccount'
+//                     );
 $menus[0]['sub'][]= array( 'title'=>'cài đặt ngân hàng  ',
                             'url'=>'/plugins/admin/colennao-view-admin-seting-setingBankAccount',
                             'classIcon'=>'bx bxs-bank',
