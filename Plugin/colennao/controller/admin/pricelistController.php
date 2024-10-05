@@ -26,6 +26,7 @@ function listPriceList($input){
 
             // tạo dữ liệu save
             $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $data->name_en = str_replace(array('"', "'"), '’', $dataSend['name_en']);
             $data->status = $dataSend['status'];
             $data->price = (int) $dataSend['price'];
             $data->price_old = (int) $dataSend['price_old'];

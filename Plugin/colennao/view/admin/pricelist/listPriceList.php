@@ -34,7 +34,7 @@
                                     <td>giá cũ: '.number_format(@$item->price_old).'đ</br>
                                     giá mới:'.number_format(@$item->price).'đ</td>
                                     <td align="center">
-                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->price_old.'\', \''.$item->price.'\', \''.$item->days.'\', \''.$item->status.'\' );">
+                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->price_old.'\', \''.$item->price.'\', \''.$item->days.'\', \''.$item->status.'\', \''.$item->name_en.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
                                       </a>
                                     </td>
@@ -69,8 +69,12 @@
               <?= $this->Form->create(); ?>
                 <input type="hidden" name="id" id="id" value="" />
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Tên gói</label>
+                  <label class="form-label" for="basic-default-phone">Tiêu đề tiếng Việt</label>
                   <input type="text" class="form-control phone-mask" name="name" id="name" value=""/>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Tiêu đề tiếng anh</label>
+                  <input type="text" class="form-control phone-mask" name="name_en" id="name_en" value=""/>
                 </div>
 
                 <div class="mb-3">
@@ -109,9 +113,10 @@
   </div>
 
   <script type="text/javascript">
-    function editData(id,name,price_old,price,days,status){
+    function editData(id,name,price_old,price,days,status,name_en){
       $('#id').val(id);
       $('#name').val(name);
+      $('#name_en').val(name_en);
       $('#price_old').val(price_old);
       $('#price').val(price);
       $('#days').val(days);

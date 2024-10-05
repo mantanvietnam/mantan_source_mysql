@@ -71,6 +71,7 @@ function registerUserApi($input): array
                 $user->current_weight =  (int) @$dataSend['current_weight'];
                 $user->target_weight =  (int) @$dataSend['target_weight'];
                 $user->height =  (int) @$dataSend['height'];
+                $user->id_group_user =  (int) @$dataSend['id_group_user'];
                 $modelUser->save($user);
 
                 $loginUser = $modelUser->find()->where([

@@ -235,6 +235,7 @@ function addPost($input){
                       $note = $user->type_tv.' '. $user->name.' thêm thông tin bài tin tức '.$infoPost->title.' có id là:'.$infoPost->id;
                 }
 
+                 addActivityHistory($user,$note,'addPost',$infoPost->id);
 
                  return $controller->redirect('/listPost?mess=saveSuccess');
 
@@ -310,7 +311,12 @@ function deletePost(){
 		if(!empty($_GET['id'])){
 			$data = $modelPosts->get($_GET['id']);
 			if($data){
+				$note = $user->type_tv.' '. $user->name.' xóa thông tin nhóm tin tức '.$data->title.' có id là:'.$data->id;
+                
+
+            addActivityHistory($user,$note,'deletePost',$data->id);
 				$modelPosts->delete($data);
+
 				deleteSlugURL($data->slug);
 				 return $controller->redirect('/listPost?mess=deleteSuccess');
             }

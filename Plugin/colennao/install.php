@@ -198,7 +198,7 @@ $sqlInstallDatabase .="CREATE TABLE `transactions` (
 `id_user` INT NOT NULL ,
 `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `name_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
-`total` INT NULL DEFAULT '0' ,
+`total` INT NULL DEFAULT 0 ,
 `id_course` INT NOT NULL DEFAULT '0' COMMENT 'id khoa học' ,
 `id_challenge` INT NOT NULL DEFAULT '0' COMMENT 'id thử thách' ,
 `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
@@ -208,7 +208,8 @@ $sqlInstallDatabase .="CREATE TABLE `transactions` (
 `updated_at` INT NULL DEFAULT NULL ,
 `code` VARCHAR(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `type_use` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-`id_package` INT NOT NULL DEFAULT '0',
+`id_package` INT NOT NULL DEFAULT 0,
+`id_price` INT NULL DEFAULT 0,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -464,6 +465,7 @@ $sqlUpdateDatabase['transactions']['updated_at'] = "ALTER TABLE `transactions` A
 $sqlUpdateDatabase['transactions']['code'] = "ALTER TABLE `transactions` ADD `code` VARCHAR(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transactions']['type_use'] = "ALTER TABLE `transactions` ADD `type_use` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['transactions']['id_package'] = "ALTER TABLE `transactions` ADD `id_package` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['transactions']['id_price'] = "ALTER TABLE `transactions` ADD `id_price` INT NULL DEFAULT '0';";
 
 $sqlUpdateDatabase['user_challenges']['id_user'] = "ALTER TABLE `user_challenges` ADD `id_user` INT NOT NULL;";
 $sqlUpdateDatabase['user_challenges']['name'] = "ALTER TABLE `user_challenges` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

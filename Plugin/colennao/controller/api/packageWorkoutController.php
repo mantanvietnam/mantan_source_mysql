@@ -90,7 +90,7 @@ function paymentPackageWorkoutAPI($input){
 	    			$checkTransaction->total = $price;
 	    			$checkTransaction->id_course = 0;
 	    			$checkTransaction->id_package = $data->id;
-	    			$checkTransaction->id_challenge = 2;
+	    			$checkTransaction->id_challenge = 0;
 	    			$checkTransaction->status = 1;
 	    			$checkTransaction->type = 3;
 	    			$checkTransaction->created_at = time();

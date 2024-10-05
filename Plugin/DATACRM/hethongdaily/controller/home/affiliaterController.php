@@ -10,8 +10,12 @@ function listAffiliaterAgency($input)
 
     $metaTitleMantan = 'Danh sách người tiếp thị';
 
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+    $user = checklogin('listAffiliaterAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
+
         $modelAffiliaters = $controller->loadModel('Affiliaters');
         $modelOrders = $controller->loadModel('Orders');
         $modelCustomers = $controller->loadModel('Customers');
@@ -174,9 +178,12 @@ function addAffiliaterAgency($input)
     global $session;
 
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addAffiliaterAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listAffiliaterAgency');
+        }
 
-        $user = $session->read('infoUser');
         $metaTitleMantan = 'Thông tin người tiếp thị';
 
         $modelAffiliaters = $controller->loadModel('Affiliaters');
@@ -258,6 +265,14 @@ function addAffiliaterAgency($input)
 
                     $modelAffiliaters->save($data);
 
+                    if(!empty($_GET['id'])){
+                        $note = $user->type_tv.' '. $user->name.' sửa thông tin công tắc viên '.$data->name.' có id là:'.$data->id;
+                    }else{
+                        $note = $user->type_tv.' '. $user->name.' thêm thông tin công tắc viên '.$data->name.' có id là:'.$data->id;
+                    }
+
+                 addActivityHistory($user,$note,'addAffiliaterAgency',$data->id);
+
                     return $controller->redirect('/listAffiliaterAgency?mess=saveSuccess');
                 }else{
                     $mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
@@ -289,7 +304,11 @@ function deleteAffiliaterAgency($input){
     global $controller;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('deleteAffiliaterAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listAffiliaterAgency');
+        }
 
         $modelAffiliaters = $controller->loadModel('Affiliaters');
         
@@ -297,6 +316,11 @@ function deleteAffiliaterAgency($input){
             $data = $modelAffiliaters->get($_GET['id']);
             
             if($data){
+
+                $note = $user->type_tv.' '. $user->name.' xóa thông tin cộng tác viên '.$data->name.' có id là:'.$data->id;
+                
+
+                addActivityHistory($user,$note,'deleteAffiliaterAgency',$data->id);
                 $modelAffiliaters->delete($data);
                 return $controller->redirect('/listAffiliaterAgency?mess=deleteSuccess');
             }
@@ -319,9 +343,11 @@ function listTransactionAffiliaterAgency($input)
 
     $metaTitleMantan = 'Lịch sử giao dịch';
 
-    if(!empty($session->read('infoUser'))){
-
-        $user = $session->read('infoUser');
+     $user = checklogin('listTransactionAffiliaterAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listAffiliaterAgency');
+        }
 
         $modelAffiliaters = $controller->loadModel('Affiliaters');
         $modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
@@ -448,35 +474,51 @@ function payTransactionAffiliaterAgency($input)
     $modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
     $modelAffiliaters = $controller->loadModel('Affiliaters');
     $modelBill = $controller->loadModel('Bills');
-    if(!empty($_GET['id'])){
-        $data = $modelTransactionAffiliateHistories->get($_GET['id']);
-        
-        if(!empty($data)){
-            $aff = $modelAffiliaters->get($data->id_affiliater);
-            $data->status = 'done';
-
-            $modelTransactionAffiliateHistories->save($data);
-            $time= time();
-             // bill cho người mua
-            $billbuy = $modelBill->newEmptyEntity();
-            $billbuy->id_member_sell = 0;
-            $billbuy->id_member_buy =  $session->read('infoUser')->id;
-            $billbuy->total = $data->money_back;
-            $billbuy->id_order = $data->id;
-            $billbuy->type = 2;
-            $billbuy->type_order = 4; 
-            $billbuy->created_at = $time;
-            $billbuy->updated_at = $time;
-            $billbuy->id_debt = 0;
-            $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
-            $billbuy->id_customer = 0;
-            $billbuy->id_aff = $data->id_affiliater;
-            $billbuy->note = 'Thanh toán chiết khấu cho người tiếp thị tên là '.@$aff->name.' '.@$aff->phone.'  giao dịch có id '.$data->id;
-            $modelBill->save($billbuy);
+     $user = checklogin('payTransactionAffiliaterAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listTransactionAffiliaterAgency');
         }
-    }
+        if(!empty($_GET['id'])){
+            $data = $modelTransactionAffiliateHistories->get($_GET['id']);
+            
+            if(!empty($data)){
+                $aff = $modelAffiliaters->get($data->id_affiliater);
+                $data->status = 'done';
 
-    return $controller->redirect('/listTransactionAffiliaterAgency');
+                $modelTransactionAffiliateHistories->save($data);
+                $time= time();
+                 // bill cho người mua
+                $billbuy = $modelBill->newEmptyEntity();
+                $billbuy->id_member_sell = 0;
+                $billbuy->id_member_buy =  $user->id;
+                $billbuy->id_staff_buy =  $user->id_staff;
+                $billbuy->total = $data->money_back;
+                $billbuy->id_order = $data->id;
+                $billbuy->type = 2;
+                $billbuy->type_order = 4; 
+                $billbuy->created_at = $time;
+                $billbuy->updated_at = $time;
+                $billbuy->id_debt = 0;
+                $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
+                $billbuy->id_customer = 0;
+                $billbuy->id_aff = $data->id_affiliater;
+                $billbuy->note = 'Thanh toán chiết khấu cho người tiếp thị tên là '.@$aff->name.' '.@$aff->phone.'  giao dịch có id '.$data->id;
+                $modelBill->save($billbuy);
+
+                 $note = $user->type_tv.' '. $user->name.' '.$billbuy->note;
+                
+
+                addActivityHistory($user,$note,'payTransactionAffiliaterAgency',$data->id);
+
+
+            }
+        }
+
+        return $controller->redirect('/listTransactionAffiliaterAgency');
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 
 function settingAffiliateAgency($input){
@@ -490,9 +532,11 @@ function settingAffiliateAgency($input){
     $metaTitleMantan = 'Cài đặt hoa hồng giới thiệu';
     $mess= '';
 
-    if(!empty($session->read('infoUser'))){
-
-        $user = $session->read('infoUser');
+   $user = checklogin('settingAffiliateAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listAffiliaterAgency');
+        }
 
         $conditions = array('key_word' => 'settingAffiliateAgency'.$user->id);
 
@@ -520,6 +564,11 @@ function settingAffiliateAgency($input){
             $data->value = json_encode($value);
 
             $modelOptions->save($data);
+
+            $note = $user->type_tv.' '. $user->name.' cập nhập hoa hồng cho cộng tắc viên ';
+                    }
+
+                 addActivityHistory($user,$note,'settingAffiliateAgency',$data->id);
 
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
         }

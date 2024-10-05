@@ -36,5 +36,6 @@ include_once('controller/api/coursesController.php');
 include_once('controller/api/questionsController.php');
 include_once('controller/api/packageWorkoutController.php');
 include_once('controller/api/transactionsController.php');
+include_once('controller/api/pricelistController.php');
 
 ?>
