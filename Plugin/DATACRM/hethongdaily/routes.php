@@ -209,6 +209,10 @@
 	// cài đặt webshop	
 	$routesPlugin['settingWebsiteShop']= 'hethongdaily/view/home/webShop/settingWebsiteShop.php';	
 
+	// tin tức	
+	$routesPlugin['listPost']= 'hethongdaily/view/home/post/listPost.php';	
+	$routesPlugin['addPost']= 'hethongdaily/view/home/post/addPost.php';	
+	$routesPlugin['listCategoryPost']= 'hethongdaily/view/home/post/listCategoryPost.php';	
 
 	// api khách hàng 
 

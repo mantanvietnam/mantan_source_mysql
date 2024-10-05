@@ -19,6 +19,7 @@ include_once('controller/home/trainingController.php'); // đào tạo
 include_once('controller/home/customerGiftController.php'); // đào tạo 
 include_once('controller/home/staffController.php'); // đào tạo 
 include_once('controller/home/website_shop_controller.php'); // đào tạo 
+include_once('controller/home/postController.php'); // đào tạo 
 
 
 include_once('controller/admin/membersController.php'); // đại lý hệ thống

@@ -1376,7 +1376,7 @@ function getListPermission()
                                     array('name'=>'Danh sách đơn hàng của khách lẻ','permission'=>'orderCustomerAgency'),
                                     array('name'=>'Xóa đơn hàng cho khách lẻ','permission'=>'deleteOrderCustomerAgency'),
                                     array('name'=>'cập nhập trạng thái đơn hàng','permission'=>'updateStatusOrderAgency'),
-                                    array('name'=>'xem chi tiết đơn hàng','permission'=>'viewOrderCustomerAgency'),
+                                    array('name'=>'Xem chi tiết đơn hàng','permission'=>'viewOrderCustomerAgency'),
                                     array('name'=>'Sửa đơn hàng','permission'=>'editOrderCustomerAgency'),
                                     array('name'=>'tạo phiếu in bill','permission'=>'printBillOrderCustomerAgency')
                             )
@@ -1414,12 +1414,12 @@ function getListPermission()
                     'sub'=>array(   array('name'=>'Danh sách hình ảnh','permission'=>'listAlbum'),
                                     array('name'=>'Thêm và sửa thông tin hình ảnh','permission'=>'addAlbum'),
                                     array('name'=>'Xóa thông tin hình ảnh ','permission'=>'deleteAlbum'),
-                                    array('name'=>'xem thông tin chi tiết hình ảnh ','permission'=>'listAlbuminfo'),
+                                    array('name'=>'Xem thông tin chi tiết hình ảnh ','permission'=>'listAlbuminfo'),
                                     array('name'=>'Danh sách Video','permission'=>'listVideo'),
                                     array('name'=>'Thêm và sửa thông tin Video','permission'=>'addVideo'),
                                     array('name'=>'Xóa thông tin Video ','permission'=>'deleteVideo'),
                                     array('name'=>'xem thông tin chi tiết Video ','permission'=>'listVideoinfo'),
-                                 array('name'=>'Danh sách tài liệu','permission'=>'listAlDocument'),
+                                    array('name'=>'Danh sách tài liệu','permission'=>'listAlDocument'),
                                     array('name'=>'Thêm và sửa thông tin tài liệu','permission'=>'addAlDocument'),
                                     array('name'=>'Xóa thông tin tài liệu ','permission'=>'deleteAlDocument'),
                                     array('name'=>'xem thông tin chi tiết tài liệu ','permission'=>'listAlDocumentinfo'),
@@ -1431,16 +1431,16 @@ function getListPermission()
                                     array('name'=>'xóa khóa học','permission'=>'deleteCourseAgency'),
                                     array('name'=>'danh mục đào tạo ','permission'=>'listCategoryLessonAgency'),
                                     array('name'=>'Thêm và sửa danh mục bài tập ','permission'=>'addCategoryLessonAgency'),
-                                    array('name'=>'xóa danh mục bài tập ','permission'=>'deleteCategoryLessonAgency'),
+                                    array('name'=>'Xóa danh mục bài tập ','permission'=>'deleteCategoryLessonAgency'),
                                     array('name'=>'Danh sách bài học','permission'=>'listLessonAgency'),
-                                    array('name'=>'thêm sửa bài học','permission'=>'addLessonAgency'),
+                                    array('name'=>'Thêm sửa bài học','permission'=>'addLessonAgency'),
                                     array('name'=>'xóa khóa học','permission'=>'deleteLessonAgency'),
                                     array('name'=>'Danh sách bài kiểm tra','permission'=>'listTestAgency'),
-                                    array('name'=>'thêm sửa bài kiểm tra ','permission'=>'addTestAgency'),
+                                    array('name'=>'Thêm sửa bài kiểm tra ','permission'=>'addTestAgency'),
                                     array('name'=>'xóa bài kiểm tra','permission'=>'deleteTestAgency'),
-                                    array('name'=>'danh sách câu hỏi','permission'=>'listQuestionAgency'),
-                                    array('name'=>'thêm sửa câu hỏi','permission'=>'addQuestionAgency'),
-                                    array('name'=>'xóa câu hỏi','permission'=>'deleteQuestionAgency'),
+                                    array('name'=>'Danh sách câu hỏi','permission'=>'listQuestionAgency'),
+                                    array('name'=>'Thêm sửa câu hỏi','permission'=>'addQuestionAgency'),
+                                    array('name'=>'Xóa câu hỏi','permission'=>'deleteQuestionAgency'),
                             ),
                     );
     $permission[] = array( 'name'=>'Quản lý sổ quỹ ',
@@ -1453,6 +1453,29 @@ function getListPermission()
                                     array('name'=>'Danh sách công nợ phải thu','permission'=>'listCollectionDebt'),
                                     array('name'=>'Danh sách công nợ phải chi','permission'=>'listPayableDebt'),
                                     array('name'=>'Thu tiền công nợ ','permission'=>'paymentCollectionBill'),
+
+                                )
+                    );
+    $permission[] = array( 'name'=>'Quản lý cộng tác viên ',
+                    'sub'=>array(   array('name'=>'Danh sách cộng tác viên','permission'=>'listAffiliaterAgency'),
+                                    array('name'=>'thêm và sửa cộng tác viên','permission'=>'addAffiliaterAgency'),
+                                    array('name'=>'Xóa công tác viên','permission'=>'deleteAffiliaterAgency'),
+                                    array('name'=>'Danh sách lịch sử thanh toán cộng tác viên','permission'=>'listTransactionAffiliaterAgency'),
+                                    array('name'=>'Thanh toán cho cộng tác viên','permission'=>'payTransactionAffiliaterAgency'),
+                                    array('name'=>'cài đạt hoa hông cho cộng tác viên','permission'=>'settingAffiliateAgency'),
+                                    
+
+                                )
+                    );
+
+     $permission[] = array( 'name'=>'Quản lý tin tức ',
+                    'sub'=>array(   array('name'=>'Danh sách tin tức','permission'=>'listPost'),
+                                    array('name'=>'thêm và sửa tin tức','permission'=>'addPost'),
+                                    array('name'=>'xóa tin tức','permission'=>'deletePost'),
+                                    array('name'=>'Danh sách danh mục tin tức','permission'=>'listCategoryPost'),
+                                    array('name'=>'thêm và sửa danh mục tin tức','permission'=>'addCategoryPost'),
+                                    array('name'=>'xóa danh mục tin tức','permission'=>'deleteCategoryPost'),
+                                    
 
                                 )
                     );

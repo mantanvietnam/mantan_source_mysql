@@ -169,7 +169,8 @@
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Website bán hàng</a>
                               <div class="dropdown-menu menuSub3">
                                 <a class="dropdown-item" href="/settingWebsiteShop">Cài đặt giao diện</a>
-                                <a class="dropdown-item" href="/">Tin tức</a>
+                                <a class="dropdown-item" href="/listPost">Tin tức</a>
+                                <a class="dropdown-item" href="/listCategoryPost">Danh mục Tin tức</a>
                               </div>
                             </div>';
                       }

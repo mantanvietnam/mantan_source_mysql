@@ -110,9 +110,12 @@ function addCustomerGiftAgency($input)
     global $session;
 
 
-    if(!empty($session->read('infoUser'))){
-
-        $user = $session->read('infoUser');
+    
+    $user = checklogin('addCustomerGiftAgency'); 
+    if(!empty($user)){
+      if(empty($user->grant_permission)){
+        return $controller->redirect('/listCustomerGiftAgency');
+      }
         $metaTitleMantan = 'Thông tin quà tặng';
 
         $modelCustomerGifts = $controller->loadModel('CustomerGifts');
@@ -186,6 +189,15 @@ function addCustomerGiftAgency($input)
             
             $modelCustomerGifts->save($data);
 
+             if(!empty($_GET['id'])){
+                      $note = $user->type_tv.' '. $user->name.' sửa thông tin quà tặng '.$data->name.' có id là:'.$data->id;
+                }else{
+                      $note = $user->type_tv.' '. $user->name.' thêm thông tin quà tặng '.$data->name.' có id là:'.$data->id;
+                }
+
+
+                addActivityHistory($user,$note,'addCustomerGiftAgency',$data->id);
+
             return $controller->redirect('/listCustomerGiftAgency?mess=saveSuccess');
         }
     
@@ -207,7 +219,11 @@ function deleteCustomerGiftAgency($input){
     global $controller;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('deleteProductAgency');  
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerGiftAgency');
+        }
 
         $modelCustomerGift = $controller->loadModel('CustomerGifts');
         
@@ -215,6 +231,10 @@ function deleteCustomerGiftAgency($input){
             $data = $modelCustomerGift->get($_GET['id']);
             
             if($data){
+                 $note = $user->type_tv.' '. $user->name.' xóa thông tin quà tặng '.$data->name.' có id là:'.$data->id;
+                
+
+            addActivityHistory($user,$note,'deleteCustomerGiftAgency',$data->id);
                 $modelCustomerGift->delete($data);
                 return $controller->redirect('/listCustomerGiftAgency?mess=deleteSuccess');
             }
@@ -333,8 +353,11 @@ function listHistorieCustomerGiftAgency($input){
     $metaTitleMantan = 'Lịch sử quà tặng cho khách hàng';
 
 
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+    $user = checklogin('listHistorieCustomerGiftAgency');  
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerGiftAgency');
+        }
         $modelCustomerGifts = $controller->loadModel('CustomerGifts');
         $modelCustomer = $controller->loadModel('Customers');
         $modelPointCustomer = $controller->loadModel('PointCustomers');
