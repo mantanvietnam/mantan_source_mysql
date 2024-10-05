@@ -282,13 +282,20 @@ function getmyplaneAPI($input) {
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (!empty($dataSend['id']) ) {
-            $conditions = array('id' => (int)$dataSend['id']);
-            $listData = $modelmyplane->find()->where($conditions)->first();
-            if ($listData) {
-                $listData->alldata = json_decode($listData->alldata, true);
+        if (!empty($dataSend['id']) && !empty($dataSend['token'])) {
+            $user = getUserByToken($dataSend['token']);
+            if(!empty($user)) {
+                $conditions = array('id' => (int)$dataSend['id']);
+                $listData = $modelmyplane->find()->where($conditions)->first();
+                if ($listData) {
+                    $listData->alldata = json_decode($listData->alldata, true);
+                }
+                $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData);
+
+            }else{
+                $return = array('code' => 0, 'mess' => 'token không tồn tại');
             }
-            $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData);
+
         } else {
             $return = array('code' => 2, 'mess' => 'Gửi thiếu dữ liệu hoặc ID không hợp lệ');
         }

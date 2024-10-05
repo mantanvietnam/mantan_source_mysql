@@ -146,6 +146,10 @@
                                     <label class="form-label" for="basic-default-fullname">ID slide thứ 5</label>
                                     <input type="text" class="form-control" name="idslidenam" value="<?php echo @$data['idslidenam'];?>" />
                                 </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">ID slide thứ 6</label>
+                                    <input type="text" class="form-control" name="idslidesau" value="<?php echo @$data['idslidesau'];?>" />
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade show" id="navs-top-volunteer" role="tabpanel">

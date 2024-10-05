@@ -125,6 +125,7 @@ function settingAboutusTheme($input){
             'idslideba'=>$dataSend['idslideba'],
             'idslidebon'=>$dataSend['idslidebon'],
             'idslidenam'=>$dataSend['idslidenam'],
+            'idslidesau'=>$dataSend['idslidesau'],
   
             // 
             'idslidevolunteers'=>$dataSend['idslidevolunteers'],
@@ -242,11 +243,13 @@ function team($input){
     setVariable('modeltitlealbum3', $modeltitlealbum3);
     setVariable('modeltitlealbum4', $modeltitlealbum4);
     setVariable('modeltitlealbum5', $modeltitlealbum5);
+    setVariable('modeltitlealbum6', $modeltitlealbum6);
     setVariable('slide_dau', $slide_dau);
     setVariable('slide_hai', $slide_hai);
     setVariable('slide_ba', $slide_ba);
     setVariable('slide_bon', $slide_bon);
     setVariable('slide_nam', $slide_nam);
+    setVariable('slide_sau', $slide_sau);
     setVariable('setting', $data_value);
    
 }

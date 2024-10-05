@@ -288,11 +288,11 @@
         <section class="team-block-2" style="margin-bottom: 80px;">
             <div class="container">
                 <div class="as4-block-2">
-                    <h3><?=$modeltitlealbum5['title']?></h3>
+                    <h3><?=$modeltitlealbum6['title']?></h3>
                 </div>
                 <div class="tms-block-1">
                     <div class="row" style="justify-content: center;">
-                    <?php foreach($slide_nam as $key => $value) {?>
+                    <?php foreach($slide_sau as $key => $value) {?>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="tms-item d-grid" style="padding: 16px;">
                                 <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
@@ -307,7 +307,7 @@
                                         <p><?=$value->description?></p>
                                     </div>
                                     <div class="tms-btn">
-                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-2<?=$key?>">
+                                        <a style="display:inline-block ;" href="#" data-bs-toggle="modal" data-bs-target="#tts-block-28<?=$key?>">
                                             <i class="fa-solid fa-arrow-right-long"></i>
                                         </a>
                                     </div>
@@ -315,7 +315,7 @@
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="tts-block-2<?=$key?>" tabindex="-1" aria-labelledby="modalTmsSubLabel<?=$key?>" aria-hidden="true">
+                            <div class="modal fade" id="tts-block-28<?=$key?>" tabindex="-1" aria-labelledby="modalTmsSubLabel<?=$key?>" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-body" style="line-height: 1.75;">
