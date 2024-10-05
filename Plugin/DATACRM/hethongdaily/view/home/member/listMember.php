@@ -226,6 +226,17 @@
 
             edit = '';
 
+            let milliseconds = dataAgency.deadline * 1000;
+            let date = new Date(milliseconds);
+
+            // Lấy ngày, tháng và năm
+            let day = date.getUTCDate();
+            let month = date.getUTCMonth() + 1; // getUTCMonth() trả về tháng từ 0-11, nên cần +1
+            let year = date.getUTCFullYear();
+
+            // Định dạng thành d/m/Y
+            let formattedDate = `${day}/${month}/${year}`;
+
             if(create_agency == 'active'){
                 edit += ' <a href="/addMember/?id='+dataAgency.id+'" class="btn btn-danger mb-3">Sửa thông tin</a>';
 
@@ -355,6 +366,12 @@
                                         <b>Ngày sinh:</b>\
                                     </div>\
                                     <div class="col-md-9 col-sm-9 col-xs-12">'+dataAgency.birthday+'</div>\
+                                </div>\
+                                <div class="row">\
+                                    <div class="text-right col-md-3 col-sm-3 col-xs-12">\
+                                        <b>Ngày hết hạn:</b>\
+                                    </div>\
+                                    <div class="col-md-9 col-sm-9 col-xs-12">'+formattedDate+'</div>\
                                 </div>\
                                 <div class="row">\
                                     <div class="mb-3 col-md-12 col-sm-12 col-xs-12">'+facebook+youtube+twitter+tiktok+web+instagram+linkedin+zalo+'</div>\

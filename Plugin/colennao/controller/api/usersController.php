@@ -871,4 +871,31 @@ function listUserGetAffsource($input){
     }
     return $return;
 }
+
+function checkUserPayPackage($input)
+{
+      global $controller;
+    global $isRequestPost;
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['token'])) {
+            return apiResponse(3, 'thiếu dữ liệu');
+        }
+
+            $user = getUserByToken($dataSend['token']);
+
+            if(!empty($user)){
+         
+                if(!empty($user->status_pay_package)){
+                    return apiResponse(1, 'bạn dã thanh toán gói tập', $user);
+                }else{
+                        return apiResponse(4, 'Bạn chưa thanh toán gói tập', $user);
+                     }
+            }else{
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+            }
+    }
+     return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+}
 ?>
