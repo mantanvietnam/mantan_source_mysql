@@ -843,35 +843,26 @@ function listUserGetAffsource($input){
     global $controller;
     global $session;
 
-    $modelMember = $controller->loadModel('Members');
+    $modelUser = $controller->loadModel('Users');
 
     $return = array('code'=>0);
     
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-
-        $checkUser = getMemberByToken($dataSend['token']);
+        if(!empty($dataSend['token'])){
+        $checkUser = getUserByToken($dataSend['token']);
         if(!empty($checkUser)){
-            $data = $modelMember->find()->where(array('id_affsource'=>$checkUser->id))->all()->toList();
-            if(!empty($data)){
-                $return = array('code'=>1,
-                                'data'=>$data,
-                                'messages'=>'lấy data thành công'
-                                );
-            }else{
-                $return = array('code'=>2,
-                                    'messages'=>'không có data'
-                                );
+            $data = $modelUser->find()->where(array('id_affsource'=>$checkUser->id))->all()->toList();
+            return apiResponse(0, 'lấy dữ liệu thành công công', $data,count($data));
+                
             }
-        }else{
-                $return = array('code'=>3,
-                                    'messages'=>'Tài khoản không tồn tại hoặc sai token'
-                                );
-            }
-
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        } 
+        return apiResponse(2, 'Gửi thiếu dữ liệu');  
     }
-    return $return;
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
 
 function checkUserPayPackage($input)
 {

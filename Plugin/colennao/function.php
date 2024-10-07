@@ -240,12 +240,9 @@ function getUserByToken($accessToken, $checkActive = true)
     }
 
     $user = $modelUser->find()->where($conditions)->first();
-    if(!empty($user->phone)){
-         $user->link_affiliate = '/affiliater?affsource='.@$user->phone;
-    }
 
     if(!empty($user->phone)){
-         $user->link_affiliate = '/affiliater?affsource='.@$user->phone;
+         $user->link_affiliate = '?affsource='.@$user->phone;
     }
 
     if(!empty($user->id_unit)){
