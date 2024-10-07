@@ -7,7 +7,11 @@ function templateZaloZNS($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+     $user = checklogin('templateZaloZNS');   
+    if(!empty($user)){
+        if(empty($user->grant_permission) && !empty($user->id_father)){
+            return $controller->redirect('/');
+        }
         $metaTitleMantan = 'Danh sách mẫu tin ZNS';
 
         $modelZaloTemplates = $controller->loadModel('ZaloTemplates');
@@ -82,7 +86,11 @@ function addTemplateZaloZNS($input)
     global $isRequestPost;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addTemplateZaloZNS');   
+    if(!empty($user)){
+        if(empty($user->grant_permission) && !empty($user->id_father)){
+            return $controller->redirect('/templateZaloZNS');
+        }
         $metaTitleMantan = 'Cài đặt mẫu tin nhắn ZNS';
 
         $modelZaloTemplates = $controller->loadModel('ZaloTemplates');
@@ -91,7 +99,7 @@ function addTemplateZaloZNS($input)
 
         // lấy data edit
         if(!empty($_GET['id'])){
-            $data = $modelZaloTemplates->find()->where(['id'=>(int) $_GET['id'], 'id_system'=>$session->read('infoUser')->id_system])->first();
+            $data = $modelZaloTemplates->find()->where(['id'=>(int) $_GET['id'], 'id_system'=>$user->id_system])->first();
         }else{
             $data = $modelZaloTemplates->newEmptyEntity();
 
@@ -120,6 +128,14 @@ function addTemplateZaloZNS($input)
                 
                 $modelZaloTemplates->save($data);
 
+                if(!empty($_GET['id'])){
+                        $note = $user->type_tv.' '. $user->name.' sửa thông tin mẫu tin nhắn ZNS'.$data->name.' có id là:'.$data->id;
+                    }else{
+                        $note = $user->type_tv.' '. $user->name.' thêm thông tin mẫu tin nhắn ZNS '.$data->name.' có id là:'.$data->id;
+                    }
+
+                 addActivityHistory($user,$note,'addTemplateZaloZNS',$data->id);
+
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
             }else{
                 $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
@@ -140,10 +156,18 @@ function deleteTemplateZaloZNS($input){
     global $session;
 
     $modelZaloTemplates = $controller->loadModel('ZaloTemplates');
-    
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addTemplateZaloZNS');   
+    if(!empty($user)){
+        if(empty($user->grant_permission) && !empty($user->id_father)){
+            return $controller->redirect('/templateZaloZNS');
+        }
         if(!empty($_GET['id'])){
-            $data = $modelZaloTemplates->find()->where(['id'=>(int) $_GET['id'], 'id_system'=>$session->read('infoUser')->id_system])->first();
+            $data = $modelZaloTemplates->find()->where(['id'=>(int) $_GET['id'], 'id_system'=>$user->id_system])->first();
+
+            $note = $user->type_tv.' '. $user->name.' xóa thông tin mẫu tin nhắn ZNS '.$data->name.' có id là:'.$data->id;
+                
+
+            addActivityHistory($user,$note,'deleteTemplateZaloZNS',$data->id);
             
             if($data){
                 $modelZaloTemplates->delete($data);

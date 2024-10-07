@@ -9,7 +9,11 @@ function sendSMS($input)
     global $urlHomes;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+   	$user = checklogin('sendSMS');   
+    if(!empty($user)){
+        if(empty($user->grant_permission) && !empty($user->id_father)){
+            return $controller->redirect('/');
+        }
 	    $metaTitleMantan = 'Gửi tin SMS';
 		$mess= '';
 
@@ -19,7 +23,7 @@ function sendSMS($input)
 		$modelCustomers = $controller->loadModel('Customers');
 		$modelTransactionHistories = $controller->loadModel('TransactionHistories');
 
-		$infoUser = $modelMembers->find()->where(['id'=>$session->read('infoUser')->id])->first();
+		$infoUser = $modelMembers->find()->where(['id'=>$user->id])->first();
 
 		// danh sách chiến dịch
 		$conditions = array('id_member'=>$session->read('infoUser')->id);
@@ -151,7 +155,8 @@ function sendSMS($input)
 			                $histories->create_at = time();
 			                
 			                $modelTransactionHistories->save($histories);
-
+			                $note = $user->type_tv.' '. $user->name.' đã gửi tin nhắn SMS cho khách hàng nội dung là '.@$dataSend['mess'];
+                 			addActivityHistory($user,$note,'sendSMS',0);
 					        $mess = '<p class="text-success">Gửi thành công '.number_format($numberSend).' tin nhắn SMS cho khách hàng</p>';
 				        }else{
 				        	$mess= '<p class="text-danger">Không gửi được tin nhắn cho khách hàng nào</p>';

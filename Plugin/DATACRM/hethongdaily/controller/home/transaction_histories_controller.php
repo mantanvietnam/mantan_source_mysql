@@ -7,7 +7,11 @@ function listTransactionHistories($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('listTransactionHistories');   
+    if(!empty($user)){
+        if(empty($user->grant_permission) && !empty($user->id_father)){
+            return $controller->redirect('/');
+        }
         $metaTitleMantan = 'Lịch sử giao dịch';
 
         $modelTransactionHistories = $controller->loadModel('TransactionHistories');
@@ -88,7 +92,11 @@ function addMoney($input)
     global $session;
     global $isRequestPost;
 
-    if(!empty($session->read('infoUser'))){
+        $user = checklogin('addMoney');   
+    if(!empty($user)){
+        if(empty($user->grant_permission) && !empty($user->id_father)){
+            return $controller->redirect('/');
+        }
         $metaTitleMantan = 'Nạp tiền tài khoản';
 
         if(!empty($_GET['money'])){

@@ -8,7 +8,11 @@ function setttingZaloOA($input)
     global $session;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
+     $user = checklogin('setttingZaloOA');   
+    if(!empty($user)){
+        if(empty($user->grant_permission) && !empty($user->id_father)){
+            return $controller->redirect('/');
+        }
 
 	    $metaTitleMantan = 'Cài đặt Zalo OA';
 
@@ -16,10 +20,8 @@ function setttingZaloOA($input)
 
 		$mess= '';
 
-		$infoUser = $session->read('infoUser');
-
 		// lấy data edit
-		$data = $modelZalos->find()->where(['id_system'=>$infoUser->id_system])->first();
+		$data = $modelZalos->find()->where(['id_system'=>$user->id_system])->first();
 
 		if(empty($data)){
 			$data = $modelZalos->newEmptyEntity();
@@ -37,6 +39,11 @@ function setttingZaloOA($input)
 		        $data->id_system = $infoUser->id_system;
 
 		        $modelZalos->save($data);
+
+		        $note = $user->type_tv.' '. $user->name.' cài đặt Zalo OA';
+                    
+
+                 addActivityHistory($user,$note,'setttingZaloOA',$data->id);
 
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 		    
@@ -84,8 +91,12 @@ function sendMessZaloFollow($input)
     $modelTransactionHistories = $controller->loadModel('TransactionHistories');
     $modelMembers = $controller->loadModel('Members');
 
-    if(!empty($session->read('infoUser'))){
-    	$infoUser = $modelMembers->find()->where(['id'=>$session->read('infoUser')->id])->first();
+     $user = checklogin('sendMessZaloFollow');   
+    if(!empty($user)){
+        if(empty($user->grant_permission) && !empty($user->id_father)){
+            return $controller->redirect('/');
+        }
+    	$infoUser = $modelMembers->find()->where(['id'=>$user->id])->first();
 
 		// lấy data edit
 		$infoZalo = $modelZalos->find()->where(['id_system'=>$infoUser->id_system])->first();
@@ -160,6 +171,10 @@ function sendMessZaloFollow($input)
 					        }
 
 					        $mess = '<p class="text-success">Gửi thành công '.number_format(count($listFollowers)).' tin nhắn Zalo cho khách hàng</p>';	
+
+					        $note = $user->type_tv.' '. $user->name.' đã gửi tin nhắn Zalo cho khách hàng nội dung là '.@$dataSend['mess'];
+                 			addActivityHistory($user,$note,'setttingZaloOA',0);
+
 					    }else{
 					    	$mess = '<p class="text-danger">Tài khoản bạn không đủ tiền, vui lòng nạp thêm '.number_format($requestMoney).'đ để gửi tin nhắn Zalo cho '.number_format(count($listFollowers)).' khách hàng. Liên hệ hotline 081.656.000 để được hỗ trợ nạp tiền</p>';	
 					    }
@@ -188,7 +203,17 @@ function sendNotificationMobile($input)
     global $session;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
+    
+     $user = checklogin('setttingZaloOA');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
+
+        if(!empty($user->id_father)){
+            return $controller->redirect('/');
+        }
+
 	    $metaTitleMantan = 'Gửi thông báo trên ứng dụng điện thoại';
 		$mess= '';
 
@@ -223,8 +248,9 @@ function sendNotificationMobile($input)
 	        	$dataSendNotification= array('title'=>$dataSend['title'],'time'=>date('H:i d/m/Y'),'content'=>$dataSend['content'],'action'=>'notificationAdmin');
                 $token_device = [];
                 $listTokenDevice = [];
-
+                $type = '';
 	        	if($dataSend['type_user'] == 'customer_campaign'){
+	        		$type = 'Người dùng theo chiến dịch';
 	        		if(!empty($dataSend['id_campaign'])){
 	        			$infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id_campaign'], 'id_member'=>$session->read('infoUser')->id])->first();
 
@@ -246,6 +272,7 @@ function sendNotificationMobile($input)
 	        			}
 	        		}
 	        	}elseif($dataSend['type_user'] == 'customer_group'){
+	        		$type = 'Người dùng theo nhóm';
 	        		if(!empty($dataSend['id_group_customer'])){
 	        			$infoGroup = $modelCategories->find()->where(['id'=>(int) $dataSend['id_group_customer'], 'parent'=>$session->read('infoUser')->id, 'type' => 'group_customer'])->first();
 
@@ -294,6 +321,7 @@ function sendNotificationMobile($input)
 	        			}
 	        		}
 	        	}elseif($dataSend['type_user'] == 'member_position'){
+	        		$type = 'Đại lý theo chức danh';
 	        		if(!empty($dataSend['id_position'])){
 	        			$infoPosition = $modelCategories->find()->where(['id'=>(int) $dataSend['id_position'], 'type' => 'system_positions', 'parent'=>$session->read('infoUser')->id_system, 'status'=>'active'])->first();
 
@@ -313,6 +341,7 @@ function sendNotificationMobile($input)
 	        			}
 	        		}
 	        	}elseif($dataSend['type_user'] == 'test_customer'){
+	        		$type = 'Gửi test kiểm tra app khách hàng';
 	        		if(!empty($dataSend['phone_test_customer'])){
 	        			$dataSend['phone_test_customer'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone_test_customer']));
             			$dataSend['phone_test_customer'] = str_replace('+84','0',$dataSend['phone_test_customer']);
@@ -328,6 +357,7 @@ function sendNotificationMobile($input)
                     	}
 	        		}
 	        	}elseif($dataSend['type_user'] == 'test_member'){
+	        		$type = 'Gửi test kiểm tra app Đại lý';
 	        		if(!empty($dataSend['phone_test_member'])){
 	        			$dataSend['phone_test_member'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone_test_member']));
             			$dataSend['phone_test_member'] = str_replace('+84','0',$dataSend['phone_test_member']);
@@ -343,10 +373,13 @@ function sendNotificationMobile($input)
                     	}
 	        		}
 	        	}elseif($dataSend['type_user'] == 'all_customer'){
+	        		$type = 'Gửi tất cả khách hàng';
 	        		$listTokenDevice =  $modelTokenDevices->find()->where(['id_customer >'=>0])->all()->toList();
 	        	}elseif($dataSend['type_user'] == 'all_member'){
+	        		$type = 'Gửi tất cả đại lý';
 	        		$listTokenDevice =  $modelTokenDevices->find()->where(['id_member >'=>0])->all()->toList();
 	        	}else{
+	        		$type = 'Gửi toàn hệ thống';
 	        		$listTokenDevice =  $modelTokenDevices->find()->where()->all()->toList();
 	        	}
 
@@ -361,6 +394,9 @@ function sendNotificationMobile($input)
                         $return = sendNotification($dataSendNotification, $token_device);
                     }
                 }
+
+                $note = $user->type_tv.' '. $user->name.' đã gửi thông báo app cho '.$type.' nội dung gửi '.$dataSend['title'];
+       			addActivityHistory($user,$note,'sendNotificationMobile',0);
 
 		        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format(count($token_device)).' người dùng</p>';
 		    
@@ -389,7 +425,11 @@ function sendMessZaloZNS($input)
     global $urlHomes;
     global $modelCategoryConnects;
 
-    if(!empty($session->read('infoUser'))){
+     $user = checklogin('sendMessZaloZNS');   
+    if(!empty($user)){
+        if(empty($user->grant_permission) && !empty($user->id_father)){
+            return $controller->redirect('/statisticAgency');
+        }
 	    $metaTitleMantan = 'Gửi tin Zalo ZNS';
 		$mess= '';
 
@@ -401,7 +441,7 @@ function sendMessZaloZNS($input)
 		$modelCustomers = $controller->loadModel('Customers');
 		$modelTransactionHistories = $controller->loadModel('TransactionHistories');
 
-		$infoUser = $modelMembers->find()->where(['id'=>$session->read('infoUser')->id])->first();
+		$infoUser = $modelMembers->find()->where(['id'=>$user->id])->first();
 
 		// lấy data edit
 		$infoZalo = $modelZalos->find()->where(['id_system'=>$infoUser->id_system])->first();
@@ -588,6 +628,9 @@ function sendMessZaloZNS($input)
 					                $histories->create_at = time();
 					                
 					                $modelTransactionHistories->save($histories);
+
+					                $note = $user->type_tv.' '. $user->name.' đã gửi  tin nhắn Zalo ZNS cho khách hàng ';
+       								addActivityHistory($user,$note,'sendMessZaloZNS',0);
 
 							        $mess = '<p class="text-success">Gửi thành công '.number_format($numberSend).' tin nhắn Zalo ZNS cho khách hàng</p>';
 						        }else{

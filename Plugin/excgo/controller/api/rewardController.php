@@ -169,4 +169,49 @@ function receiveRewardAPI($input){
 
 }
 
+function geDetailRewardAPI($input){
+    global $controller;
+    global $isRequestPost;
+
+    
+    $modelUser = $controller->loadModel('Users');
+    $modelReward = $controller->loadModel('Rewards');
+    $modelBooking = $controller->loadModel('Bookings');
+    $modelUserReward = $controller->loadModel('UserRewards');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token']) && !isset($dataSend['id'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        $conditions = array('status'=>1,'id'=>$dataSend['id']);
+        $rewardData = $modelReward->find()->where($conditions)->first();
+
+        if(empty($rewardData)) {
+            return apiResponse(4, 'Phần thưởng này không tồn tại');
+        }
+
+
+        $rewardData->myUserReward = $modelUserReward->find()->where(['user_id'=>(int)$currentUser->id,'reward_id'=>$rewardData->id])->first();
+
+        if(!empty($rewardData->bonu)){
+            $rewardData->tien_thuong_theo_chuyen = json_decode($rewardData->bonu, true);
+        }
+
+
+        return apiResponse(1, 'Bạn lấy đữ liệu thành công ',$rewardData);
+
+    }
+    return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+
+}
+
 ?>

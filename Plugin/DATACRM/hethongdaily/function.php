@@ -1468,13 +1468,26 @@ function getListPermission()
                                 )
                     );
 
-     $permission[] = array( 'name'=>'Quản lý tin tức ',
+    $permission[] = array( 'name'=>'Quản lý tin tức ',
                     'sub'=>array(   array('name'=>'Danh sách tin tức','permission'=>'listPost'),
                                     array('name'=>'thêm và sửa tin tức','permission'=>'addPost'),
                                     array('name'=>'xóa tin tức','permission'=>'deletePost'),
                                     array('name'=>'Danh sách danh mục tin tức','permission'=>'listCategoryPost'),
                                     array('name'=>'thêm và sửa danh mục tin tức','permission'=>'addCategoryPost'),
                                     array('name'=>'xóa danh mục tin tức','permission'=>'deleteCategoryPost'),
+                                    
+
+                                )
+                    );
+    $permission[] = array( 'name'=>'Quản lý thông báo gửi tin nhắn',
+                    'sub'=>array(   array('name'=>'Cài đặt Zalo OA','permission'=>'setttingZaloOA'),
+                                    array('name'=>'Gửi tin nhắn Zalo OA','permission'=>'sendMessZaloFollow'),
+                                    array('name'=>'Gửi tin nhắn bằng điện thoại','permission'=>'sendSMS'),
+                                    array('name'=>'Gửi thông báo qua app','permission'=>'sendNotificationMobile'),
+                                    array('name'=>'Danh sách tin nhắn gửi','permission'=>'templateZaloZNS'),
+                                    array('name'=>'thêm và sửa tin nhắn gửi','permission'=>'addTemplateZaloZNS'),
+                                    array('name'=>'Danhh sách lịch sử nạp tiền','permission'=>'listTransactionHistories'),
+                                    array('name'=>'Nạp tiền vào tài khoản','permission'=>'addMoney'),
                                     
 
                                 )

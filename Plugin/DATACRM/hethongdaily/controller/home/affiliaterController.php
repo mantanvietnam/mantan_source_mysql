@@ -566,7 +566,7 @@ function settingAffiliateAgency($input){
             $modelOptions->save($data);
 
             $note = $user->type_tv.' '. $user->name.' cập nhập hoa hồng cho cộng tắc viên ';
-                    }
+                    
 
                  addActivityHistory($user,$note,'settingAffiliateAgency',$data->id);
 

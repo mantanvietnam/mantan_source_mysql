@@ -415,22 +415,26 @@ function getUserExerciseWorkoutAPI($input){
 
                     if(!empty($data->device)){
             			$device = json_decode($data->device, true);
-
-            			foreach($device as $k => $value){
+            			if(!empty($device)){
+            				foreach($device as $k => $value){
 								$value =  $modelDevices->find()->where(['id'=>$value])->first();
 								$device[$k] = $value;
-                    	}
-                    	$data->device = $device;
+                    		}
+                    		$data->device = $device;
+            			}
+            			
         			}
 
         			if(!empty($data->area)){
             			$area = json_decode($data->area, true);
-
-            			foreach($area as $k => $value){
+            			if(!empty($area)){
+            				foreach($area as $k => $value){
 								$value =  $modelAreas->find()->where(['id'=>$value])->first();
 								$area[$k] = $value;
+                    		}
+                    		$data->area = $area;
                     	}
-                    	$data->area = $area;
+                    	
         			}
 
         			if(!empty($data->level)){

@@ -521,7 +521,7 @@ function addMember($input)
 
 		// lấy data edit
 		if(!empty($_GET['id'])){
-			$data = $modelMembers->find()->where(['id'=>(int) $_GET['id'], 'id_father'=>$user->id])->first();
+			$data = $modelMembers->find()->where(['id'=>(int) $_GET['id']])->first();
 
 			if(empty($data)){
 				return $controller->redirect('/listMember');
