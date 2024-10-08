@@ -10,7 +10,7 @@ function isInViewport(element) {
 }
 
 // Lắng nghe sự kiện cuộn trang
-document.addEventListener("scroll", function() {
+document.addEventListener("scroll", function onScroll() {
     const countSection = document.getElementById("count-section");
 
     // Kiểm tra nếu phần tử count-section đã xuất hiện trong khung nhìn
@@ -18,32 +18,38 @@ document.addEventListener("scroll", function() {
         // Lặp qua tất cả các phần tử .counter có class count-start và kích hoạt bộ đếm
         document.querySelectorAll(".counter_item.count-start").forEach((item) => {
             let count = 0;
-            let targetNumber = parseInt(item.querySelector(".counter").dataset.number);
-            let duration = 4000; // Thời gian chạy bộ đếm trong mili giây (3 giây)
-            let increment = 10; // Số lượng giá trị tăng mỗi lần
+            let counterElement = item.querySelector(".counter");
 
-            // Tính thời gian giữa các lần đếm
-            let interval = Math.ceil(duration / (targetNumber / increment));
+            // Lấy giá trị mục tiêu và giá trị increment từ thuộc tính data
+            let targetNumber = parseInt(counterElement.dataset.number);
+            let increment = parseInt(counterElement.dataset.increment) || 10; // Mặc định là 10 nếu không có giá trị
+            let duration = 6000; // Thời gian chạy bộ đếm trong mili giây
+            let totalFrames = Math.round(duration / 16); // Tổng số frame trong khoảng thời gian
+            let currentFrame = 0;
 
-            function CounterUp() {
+            function animateCounter() {
+                currentFrame++;
                 count += increment;
-                item.querySelector(".counter").innerHTML = Math.min(count, targetNumber);
-                if (count >= targetNumber) {
-                    clearInterval(stop); // Dừng đếm khi đạt tới giá trị mục tiêu
+                counterElement.innerHTML = Math.min(count, targetNumber);
+
+                // Dừng đếm khi đạt tới giá trị mục tiêu
+                if (count < targetNumber && currentFrame < totalFrames) {
+                    requestAnimationFrame(animateCounter);
                 }
             }
 
-            // Tạo một khoảng thời gian cố định để tăng số đếm
-            let stop = setInterval(CounterUp, interval);
+            // Bắt đầu hoạt động bộ đếm
+            requestAnimationFrame(animateCounter);
 
             // Loại bỏ class count-start để không kích hoạt lại bộ đếm khi cuộn lại
             item.classList.remove("count-start");
         });
 
         // Sau khi kích hoạt bộ đếm, không cần theo dõi nữa
-        document.removeEventListener("scroll", this);
+        document.removeEventListener("scroll", onScroll);
     }
 });
+
 
 $('.partner-list').slick({
     centerMode: true,
