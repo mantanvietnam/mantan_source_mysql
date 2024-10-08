@@ -41,10 +41,20 @@ $menus[0]['sub'][4]= array(	'title'=>'Cài đặt giá',
 							'classIcon'=>'bx bxl-zoom',
 							'permission'=>'listPriceAdmin'
 						);
-$menus[0]['sub'][5]= array(	'title'=>'Số lượng đơn',
-                            'url'=>'/plugins/admin/zoomcheap-view-admin-numberzoom-numberorderzoom',
+$menus[0]['sub'][8]= array(	'title'=>'Số lượng đơn theo ngày',
+                            'url'=>'/plugins/admin/zoomcheap-view-admin-numberzoom-numberorderzoomdate',
                             'classIcon'=>'bx bxs-meh',
-                            'permission'=>'numberorderzoom'
+                            'permission'=>'numberorderzoomdate'
+                    );
+$menus[0]['sub'][6]= array(	'title'=>'Số lượng đơn theo tháng',
+                            'url'=>'/plugins/admin/zoomcheap-view-admin-numberzoom-numberorderzoommonth',
+                            'classIcon'=>'bx bxs-meh',
+                            'permission'=>'numberorderzoommonth'
+                    );
+$menus[0]['sub'][9]= array(	'title'=>'Số lượng đơn theo giờ',
+                            'url'=>'/plugins/admin/zoomcheap-view-admin-numberzoom-numberorderzoomhouse',
+                            'classIcon'=>'bx bxs-meh',
+                            'permission'=>'numberorderzoomhouse'
                     );
 
 addMenuAdminMantan($menus);

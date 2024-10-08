@@ -99,6 +99,9 @@ function addmyplane($input){
                             'water' => !empty($dataSend['water'][$key]) ? $dataSend['water'][$key] : 0,
                             'meal' => !empty($dataSend['meal'][$key]) ? $dataSend['meal'][$key] : 0,
                             'workout' => !empty($dataSend['workout'][$key]) ? $dataSend['workout'][$key] : 0,
+                            'coutwater' => !empty($dataSend['coutwater'][$key]) ? $dataSend['coutwater'][$key] : 0,
+                            'coutmeal' => !empty($dataSend['coutmeal'][$key]) ? $dataSend['coutmeal'][$key] : 0,
+                            'coutworkout' => !empty($dataSend['coutworkout'][$key]) ? $dataSend['coutworkout'][$key] : 0,
                         );
                     }
                 }

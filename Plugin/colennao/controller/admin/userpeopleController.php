@@ -63,7 +63,7 @@ function listuserpeople($input){
     setVariable('listData', $listData);
 
 }
-function adduserpeople($input){
+function adduserpeople($input) {
     global $controller;
     global $isRequestPost;
     global $modelCategories;
@@ -72,28 +72,36 @@ function adduserpeople($input){
     $modeluserpeople = $controller->loadModel('userpeople');
     $modelWorkouts = $controller->loadModel('Workouts');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
-    $mess= '';
-    
+    $mess = '';
+
     $dataExerciseWorkouts = $modelExerciseWorkouts->find()->all();
     $dataWorkouts = $modelWorkouts->find()->all();
-    
+
     if (!empty($_GET['id'])) {
         $data = $modeluserpeople->get((int)$_GET['id']);
     } else {
         $data = $modeluserpeople->newEmptyEntity();
     }
-    
+
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-    
+
         if (!empty($dataSend['name'])) {
             $data->name = $dataSend['name'];
             $data->image = $dataSend['image'];
-    
+
+            $idLessons = []; 
+
             if (!empty($dataSend['id_lesson'])) {
-                $data->id_lesson = json_encode($dataSend['id_lesson']);   
+                foreach ($dataSend['id_lesson'] as $lessonJson) {
+                    $lesson = json_decode($lessonJson, true);
+                    if ($lesson) {
+                        $idLessons[] = [$lesson['idWorkout'], $lesson['id']]; 
+                    }
+                }
+                $data->id_lesson = json_encode($idLessons); 
             }
-    
+
             if ($modeluserpeople->save($data)) {
                 $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
             } else {
@@ -103,11 +111,15 @@ function adduserpeople($input){
             $mess = '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin</p>';
         }
     }
+
     setVariable('dataExerciseWorkouts', $dataExerciseWorkouts);
     setVariable('dataWorkouts', $dataWorkouts);
     setVariable('data', $data);
     setVariable('mess', $mess);
 }
+
+
+
 
 
 ?>

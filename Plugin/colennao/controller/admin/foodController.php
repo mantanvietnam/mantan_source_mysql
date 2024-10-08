@@ -219,7 +219,10 @@ function addbreakfastfood($input){
             $data->nameen = $dataSend['nameen'];
             $data->contenten = $dataSend['contenten'];
             $data->ingredientsen = $dataSend['ingredientsen'];
-            $data->eatformaten = $dataSend['eatformaten'];
+            $data->calories = $dataSend['calories'];
+            $data->proteins = $dataSend['proteins'];
+            $data->fats = $dataSend['fats'];
+            $data->carbs = $dataSend['carbs'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -366,7 +369,10 @@ function addlunchfood($input){
             $data->nameen = $dataSend['nameen'];
             $data->contenten = $dataSend['contenten'];
             $data->ingredientsen = $dataSend['ingredientsen'];
-            $data->eatformaten = $dataSend['eatformaten'];
+            $data->calories = $dataSend['calories'];
+            $data->proteins = $dataSend['proteins'];
+            $data->fats = $dataSend['fats'];
+            $data->carbs = $dataSend['carbs'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -512,7 +518,10 @@ function adddinnerfood($input){
             $data->nameen = $dataSend['nameen'];
             $data->contenten = $dataSend['contenten'];
             $data->ingredientsen = $dataSend['ingredientsen'];
-            $data->eatformaten = $dataSend['eatformaten'];
+            $data->calories = $dataSend['calories'];
+            $data->proteins = $dataSend['proteins'];
+            $data->fats = $dataSend['fats'];
+            $data->carbs = $dataSend['carbs'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -657,7 +666,10 @@ function addsnacksfood($input){
             $data->nameen = $dataSend['nameen'];
             $data->contenten = $dataSend['contenten'];
             $data->ingredientsen = $dataSend['ingredientsen'];
-            $data->eatformaten = $dataSend['eatformaten'];
+            $data->calories = $dataSend['calories'];
+            $data->proteins = $dataSend['proteins'];
+            $data->fats = $dataSend['fats'];
+            $data->carbs = $dataSend['carbs'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;

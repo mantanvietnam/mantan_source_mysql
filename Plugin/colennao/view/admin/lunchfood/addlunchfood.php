@@ -72,8 +72,20 @@
                                 <input  type="text" class="form-control phone-mask" name="eatformat" id="eatformat" value="<?php echo @$data->eatformat;?>" />
                               </div>
                               <div class="mb-3">
-                                <label class="form-label">lượng thức ăn tiếng anh</label>
-                                <input  type="text" class="form-control phone-mask" name="eatformaten" id="eatformaten" value="<?php echo @$data->eatformaten;?>" />
+                                <label class="form-label">Calories </label>
+                                <input  type="text" class="form-control phone-mask" name="calories" id="calories" value="<?php echo @$data->calories;?>" />
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">Proteins </label>
+                                <input  type="text" class="form-control phone-mask" name="proteins" id="proteins" value="<?php echo @$data->proteins;?>" />
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">Fats</label>
+                                <input  type="text" class="form-control phone-mask" name="fats" id="fats" value="<?php echo @$data->fats;?>" />
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">Carbs</label>
+                                <input  type="text" class="form-control phone-mask" name="carbs" id="carbs" value="<?php echo @$data->carbs;?>" />
                               </div>
                             </div>
                             <div class="col-md-6">

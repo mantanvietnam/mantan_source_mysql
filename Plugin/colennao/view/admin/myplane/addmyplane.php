@@ -142,6 +142,15 @@
                                             <td>
                                                 <input type="text" class="form-control phone-mask" name="workout[<?php echo $i; ?>]" value="<?php echo isset($alldata[$i]['workout']) ? htmlspecialchars($alldata[$i]['workout']) : ''; ?>" />
                                             </td>
+                                            <td>
+                                                <input type="hidden" class="form-control phone-mask" name="coutwater[<?php echo $i; ?>]" value="<?php echo isset($alldata[$i]['coutwater']) ? htmlspecialchars($alldata[$i]['coutwater']) : ''; ?>" />
+                                            </td>
+                                            <td>
+                                                <input type="hidden" class="form-control phone-mask" name="coutmeal[<?php echo $i; ?>]" value="<?php echo isset($alldata[$i]['coutmeal']) ? htmlspecialchars($alldata[$i]['coutmeal']) : ''; ?>" />
+                                            </td>
+                                            <td>
+                                                <input type="hidden" class="form-control phone-mask" name="coutworkout[<?php echo $i; ?>]" value="<?php echo isset($alldata[$i]['coutworkout']) ? htmlspecialchars($alldata[$i]['coutworkout']) : ''; ?>" />
+                                            </td>
                                         </tr>
                                     <?php endfor; ?>
                                 </tbody>

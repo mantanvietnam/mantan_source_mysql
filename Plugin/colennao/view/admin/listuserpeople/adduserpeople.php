@@ -49,36 +49,40 @@
                         </div>
                         <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">
                           <div class="container">
-                            <?php if (!empty($dataWorkouts) && !empty($dataExerciseWorkouts)): ?>
-                                <?php foreach ($dataWorkouts as $packageWorkout): ?>
-                                    <div class="row mb-4">
-                                        <!-- Tiêu đề của gói bài tập -->
-                                        <div class="col-md-12">
-                                            <h4><?= $packageWorkout->title ?></h4> 
-                                        </div>
-                                        <!-- Checkbox cho các bài học -->
-                                        <div class="col-md-12">
-                                            <?php 
-                                            $lessonsExist = false; 
-                                            foreach ($dataExerciseWorkouts as $workout): ?>
-                                                <?php if ($workout->id_workout == $packageWorkout->id): 
-                                                    $lessonsExist = true; 
-                                                ?>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" name="id_lesson[]" value="<?= $workout->id ?>" <?= in_array($workout->id, (array)json_decode($data->id_lesson)) ? 'checked' : '' ?>>
-                                                        <label class="form-check-label" for="id_lesson_<?= $workout->id ?>"><?= $workout->title ?></label>
-                                                    </div>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                            <?php if (!$lessonsExist): ?>
-                                                <p>Không có bài học nào cho gói bài tập này.</p>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <p>Không có dữ liệu gói bài tập hoặc bài học.</p>
-                            <?php endif; ?>
+                          <?php if (!empty($dataWorkouts) && !empty($dataExerciseWorkouts)): ?>
+                              <?php foreach ($dataWorkouts as $packageWorkout): ?>
+                                  <div class="row mb-4">
+                                      <div class="col-md-12">
+                                          <h4><?= htmlspecialchars($packageWorkout->title) ?></h4>
+                                      </div>
+                                      <div class="col-md-12">
+                                          <?php 
+                                          $lessonsExist = false; 
+                                          foreach ($dataExerciseWorkouts as $workout): ?>
+                                              <?php if ($workout->id_workout == $packageWorkout->id): 
+                                                  $lessonsExist = true; 
+                                              ?>
+                                                  <div class="form-check">
+                                                      <input type="checkbox" class="form-check-input" name="id_lesson[]" 
+                                                            value='{"idWorkout": <?= $workout->id_workout ?>, "id": <?= $workout->id ?>}' 
+                                                            data-workout-id="<?= $workout->id_workout ?>" 
+                                                            <?= in_array([$workout->id_workout, $workout->id], (array)json_decode($data->id_lesson, true)) ? 'checked' : '' ?>>
+                                                      <label class="form-check-label" for="id_lesson_<?= $workout->id ?>"><?= htmlspecialchars($workout->title) ?></label>
+                                                  </div>
+                                              <?php endif; ?>
+                                          <?php endforeach; ?>
+                                          <?php if (!$lessonsExist): ?>
+                                              <p>Không có bài học nào cho gói bài tập này.</p>
+                                          <?php endif; ?>
+                                      </div>
+                                  </div>
+                              <?php endforeach; ?>
+                          <?php else: ?>
+                              <p>Không có dữ liệu gói bài tập hoặc bài học.</p>
+                          <?php endif; ?>
+
+
+
                           </div>
                         </div>
                       </div>              

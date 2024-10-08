@@ -65,7 +65,7 @@ function listfoodAPI($input)
 
     return $return;
 }
-function updatefoodApi($input): array
+function updatefoodApi($input)
 {
     global $controller;
     global $isRequestPost;
@@ -92,6 +92,161 @@ function updatefoodApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+function updatewaterApi($input) {
+    global $controller;
+    global $isRequestPost;
+
+    $modelmyplane = $controller->loadModel('myplane');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['coutwater']) && isset($dataSend['day']) && isset($dataSend['id'])) {
+            $id = $dataSend['id'];
+
+            $record = $modelmyplane->find()->where(['id' => $id])->first();
+
+            if ($record) {
+                $alldata = json_decode($record->alldata, true);
+                if (is_array($alldata) && count($alldata) > 0) {
+                    $updated = false;
+
+                    foreach ($alldata as &$item) {
+                        if ($item['day'] == $dataSend['day']) {
+                            $item['coutwater'] += $dataSend['coutwater'];
+                            $updated = true;
+                            break;
+                        }
+                    }
+
+                    if ($updated) {
+                        $record->alldata = json_encode($alldata);
+
+                        if ($modelmyplane->save($record)) {
+                            return apiResponse(1, 'Cập nhật coutwater thành công',$alldata);
+                        } else {
+                            return apiResponse(0, 'Lỗi khi lưu dữ liệu');
+                        }
+                    } else {
+                        return apiResponse(0, 'Không tìm thấy phần tử với giá trị day đã cho');
+                    }
+                } else {
+                    return apiResponse(0, 'Dữ liệu alldata không hợp lệ hoặc trống');
+                }
+            } else {
+                return apiResponse(0, 'Không tìm thấy bản ghi với ID đã cho');
+            }
+        } else {
+            return apiResponse(0, 'Dữ liệu coutwater, day hoặc id không được cung cấp');
+        }
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+function updatemealApi($input) {
+    global $controller;
+    global $isRequestPost;
+
+    $modelmyplane = $controller->loadModel('myplane');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['coutmeal']) && isset($dataSend['day']) && isset($dataSend['id'])) {
+            $id = $dataSend['id'];
+
+            $record = $modelmyplane->find()->where(['id' => $id])->first();
+
+            if ($record) {
+                $alldata = json_decode($record->alldata, true);
+                if (is_array($alldata) && count($alldata) > 0) {
+                    $updated = false;
+
+                    foreach ($alldata as &$item) {
+                        if ($item['day'] == $dataSend['day']) {
+                            $item['coutmeal'] += $dataSend['coutmeal'];
+                            $updated = true;
+                            break;
+                        }
+                    }
+
+                    if ($updated) {
+                        $record->alldata = json_encode($alldata);
+
+                        if ($modelmyplane->save($record)) {
+                            return apiResponse(1, 'Cập nhật coutmeal thành công',$alldata);
+                        } else {
+                            return apiResponse(0, 'Lỗi khi lưu dữ liệu');
+                        }
+                    } else {
+                        return apiResponse(0, 'Không tìm thấy phần tử với giá trị day đã cho');
+                    }
+                } else {
+                    return apiResponse(0, 'Dữ liệu alldata không hợp lệ hoặc trống');
+                }
+            } else {
+                return apiResponse(0, 'Không tìm thấy bản ghi với ID đã cho');
+            }
+        } else {
+            return apiResponse(0, 'Dữ liệu coutmeal, day hoặc id không được cung cấp');
+        }
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+function updateworkoutApi($input) {
+    global $controller;
+    global $isRequestPost;
+
+    $modelmyplane = $controller->loadModel('myplane');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['coutworkout']) && isset($dataSend['day']) && isset($dataSend['id'])) {
+            $id = $dataSend['id'];
+
+            $record = $modelmyplane->find()->where(['id' => $id])->first();
+
+            if ($record) {
+                $alldata = json_decode($record->alldata, true);
+                if (is_array($alldata) && count($alldata) > 0) {
+                    $updated = false;
+
+                    foreach ($alldata as &$item) {
+                        if ($item['day'] == $dataSend['day']) {
+                            $item['coutworkout'] += $dataSend['coutworkout'];
+                            $updated = true;
+                            break;
+                        }
+                    }
+
+                    if ($updated) {
+                        $record->alldata = json_encode($alldata);
+
+                        if ($modelmyplane->save($record)) {
+                            return apiResponse(1, 'Cập nhật coutworkout thành công',$alldata);
+                        } else {
+                            return apiResponse(0, 'Lỗi khi lưu dữ liệu');
+                        }
+                    } else {
+                        return apiResponse(0, 'Không tìm thấy phần tử với giá trị day đã cho');
+                    }
+                } else {
+                    return apiResponse(0, 'Dữ liệu alldata không hợp lệ hoặc trống');
+                }
+            } else {
+                return apiResponse(0, 'Không tìm thấy bản ghi với ID đã cho');
+            }
+        } else {
+            return apiResponse(0, 'Dữ liệu coutworkout, day hoặc id không được cung cấp');
+        }
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+
 function getfoodAPI($input) {
     global $controller;
     global $isRequestPost;
@@ -161,10 +316,14 @@ function getfoodAPI($input) {
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+
                             ],
                         ];
                     }
@@ -190,7 +349,10 @@ function getfoodAPI($input) {
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
@@ -219,7 +381,10 @@ function getfoodAPI($input) {
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
@@ -248,7 +413,10 @@ function getfoodAPI($input) {
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
@@ -346,7 +514,10 @@ function getdayfoodAPI($input) {
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
@@ -375,7 +546,10 @@ function getdayfoodAPI($input) {
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
@@ -404,7 +578,10 @@ function getdayfoodAPI($input) {
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
@@ -433,7 +610,10 @@ function getdayfoodAPI($input) {
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
@@ -509,7 +689,10 @@ function listbreakfastAPI($input)
                         'nameen' => $data->nameen,
                         'contenten' => $data->contenten,
                         'ingredientsen' => $data->ingredientsen,
-                        'eatformaten' => $data->eatformaten,
+                                                        'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                         'id_food' => $data->id_food,
                         'time' => $data->time,
                         'timeeat' => $data->timeeat,
@@ -559,7 +742,10 @@ function getbreakfastAPI($input)
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
@@ -628,7 +814,10 @@ function listlunchAPI($input)
                             'nameen' => $data->nameen,
                             'contenten' => $data->contenten,
                             'ingredientsen' => $data->ingredientsen,
-                            'eatformaten' => $data->eatformaten,
+                                                            'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                             'id_food' => $data->id_food,
                             'time' => $data->time,
                             'timeeat' => $data->timeeat,
@@ -678,7 +867,10 @@ function getlunchAPI($input)
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
@@ -747,7 +939,10 @@ function listdinnerAPI($input)
                             'nameen' => $data->nameen,
                             'contenten' => $data->contenten,
                             'ingredientsen' => $data->ingredientsen,
-                            'eatformaten' => $data->eatformaten,
+                                                            'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                             'id_food' => $data->id_food,
                             'time' => $data->time,
                             'timeeat' => $data->timeeat,
@@ -798,7 +993,10 @@ function getdinnerAPI($input)
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
@@ -867,7 +1065,10 @@ function listsnacksAPI($input)
                         'nameen' => $data->nameen,
                         'contenten' => $data->contenten,
                         'ingredientsen' => $data->ingredientsen,
-                        'eatformaten' => $data->eatformaten,
+                                                        'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                         'id_food' => $data->id_food,
                         'time' => $data->time,
                         'timeeat' => $data->timeeat,
@@ -918,7 +1119,10 @@ function getsnacksAPI($input)
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                'eatformaten' => $data->eatformaten,
+                                                                'calories' => $data->calories,
+                                'proteins' => $data->proteins,
+                                'fats' => $data->fats,
+                                'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,

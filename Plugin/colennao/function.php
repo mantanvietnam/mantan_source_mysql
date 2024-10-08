@@ -24,6 +24,11 @@ $menus[0]['sub'][]= array(	'title'=>'Câu hỏi khảo sát tiếng việt',
 							'classIcon'=>'bx bx-question-mark',
 							'permission'=>'listQuestion'
 						);
+$menus[0]['sub'][]= array(	'title'=>'Câu hỏi khảo sát tiếng anh',
+							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestionenglish',
+							'classIcon'=>'bx bx-question-mark',
+							'permission'=>'listQuestionenglish'
+						);
 $menus[0]['sub'][]= array(	'title'=>'Giảm cân',
                             'url'=>'/plugins/admin/colennao-view-admin-fasting-listfastingadmin',
                             'classIcon'=>'bx bxs-wink-tongue',
