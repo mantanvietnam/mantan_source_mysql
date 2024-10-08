@@ -639,7 +639,7 @@ function checkUserCourseAPI($input)
             }
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
         }
-         return apiResponse(3, 'thiếu dữ liệu');
+         return apiResponse(2, 'thiếu dữ liệu');
     }
      return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }

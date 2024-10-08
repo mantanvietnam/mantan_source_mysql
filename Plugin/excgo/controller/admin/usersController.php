@@ -801,4 +801,79 @@ function listUserStatisticAdmin($input)
     setVariable('urlPage', $paginationMeta['urlPage']);
     setVariable('listData', $listData);
 }
+
+function updateUserPointAdmin($input)
+{
+    global $controller;
+    global $transactionType;
+    global $isRequestPost;
+    global $metaTitleMantan;
+
+    $userModel = $controller->loadModel('Users');
+    $notificationModel = $controller->loadModel('Notifications');
+    $transactionModel = $controller->loadModel('Transactions');
+    $metaTitleMantan = 'Thông tin người dùng';
+    $mess = '';
+
+    if (!empty($_GET['id']) && !empty($_GET['type'])) {
+        $user = $userModel->find()->where([
+            'id' => $_GET['id']
+        ])->first();
+
+        if ($isRequestPost && $user) {
+            $dataSend = $input['request']->getData();
+            if (!empty($dataSend['point']) && !empty($dataSend['note'])) {
+
+                if ($_GET['type'] === 'plus') {
+                    $user->point += $dataSend['point'];
+
+
+                    $title = 'Tài khoản của bạn đã được cộng điểm';
+                    $content = 'Tài khoản của bạn đã được cộng '.$dataSend['point'].' điểm bởi admin, lý do đươc công là '.$dataSend['note'];
+                    $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'plusCoinSuccess'
+                    );
+                } else if ($_GET['type'] === 'minus') {
+                    $user->point -= $dataSend['point'];
+                    
+                   
+                    $title = 'Tài khoản của bạn đã bị trừ điểm';
+                    $content = 'Tài khoản của bạn đã bị trừ '.$dataSend['point'].' điểm bởi admin, lý do bị trừ là '.$dataSend['note'];
+                    $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'minusCoinSuccess'
+                    );
+                }
+                $userModel->save($user);
+
+                // Gửi thông báo tới người dùng
+                if (!empty($user->device_token)) {
+                    $newNotification = $notificationModel->newEmptyEntity();
+                    $newNotification->user_id = $user->id;
+                    $newNotification->title = $title ?? '';
+                    $newNotification->content = $content ?? '';
+                    $newNotification->created_at = date('Y-m-d H:i:s');
+                    $newNotification->updated_at = date('Y-m-d H:i:s');
+                    $notificationModel->save($newNotification);
+                    sendNotification($dataSendNotification, $user->device_token);
+                }
+
+                $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+            } else {
+                $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+            }
+        }
+    } else {
+        $user = $userModel->newEmptyEntity();
+    }
+
+    setVariable('data', $user);
+    setVariable('mess', $mess);
+}
+
 ?>

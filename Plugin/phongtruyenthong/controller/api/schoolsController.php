@@ -18,15 +18,24 @@ function getInfoSchoolAPI($input)
     if(!empty($data->value)){
         $data_value = json_decode($data->value, true);
         $data_value['info'] = @nl2br($data_value['info']);
+        $data_value['info_timeline'] = @nl2br($data_value['info_timeline']);
 
-        // thông tin thành tích nhà trường
-        $data_value['des_achievement_1'] = @nl2br($data_value['des_achievement_1']);
-        $data_value['des_achievement_2'] = @nl2br($data_value['des_achievement_2']);
-        $data_value['des_achievement_3'] = @nl2br($data_value['des_achievement_3']);
+        // video
+        if(!empty($data_value['video'])){
+            $codeYoutube = '';
 
-        // thông tin hiệu trưởng nhà trường
-        $data_value['des_principal_1'] = @nl2br($data_value['des_principal_1']);
-        $data_value['des_principal_2'] = @nl2br($data_value['des_principal_2']);
+            $codeYoutube = explode('v=', $data_value['video']);
+
+            if(!empty($codeYoutube[1])){
+                $codeYoutube = explode('&', $codeYoutube[1]);
+
+                $codeYoutube = $codeYoutube[0];
+            }else{
+                $codeYoutube = '';
+            }
+
+            $data_value['video'] = 'https://www.youtube.com/embed/'.$codeYoutube;
+        }
 
         // album ảnh sự kiện lịch sử nhà trường
         $data_value['list_image_timeline'] = [];

@@ -33,6 +33,10 @@
           } ?>
         </select>
       </div>
+      <div class="mb-3">
+          <label class="form-label">Cài đặt tiền hoa hông cho người giới thiệu </label>
+          <input type="text" class="form-control phone-mask" name="referral_commission" id="referral_commission" value="<?php echo @$setting['referral_commission'];?>"/>
+        </div>
     </div>
 
     <div class="mb-3 col-md-12">

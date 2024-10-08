@@ -18,6 +18,9 @@ function getClassInYearAPI($input)
 		if(!empty($listData)){
 			foreach ($listData as $key => $value) {
 				$listData[$key]->info = nl2br($listData[$key]->info);
+				$listData[$key]->images = json_decode($listData[$key]->images, true);
+				$listData[$key]->des_image = json_decode($listData[$key]->des_image, true);
+				$listData[$key]->audio_image = json_decode($listData[$key]->audio_image, true);
 
 				if(!empty($value->video)){
 					$codeYoutube = '';
@@ -36,7 +39,7 @@ function getClassInYearAPI($input)
 				}
 			}
 		}
-
+		
 		return ['code'=>0, 'listData'=>$listData];
 	}else{
     	return ['code'=>1, 'mess'=>'Chưa gửi dữ liệu'];

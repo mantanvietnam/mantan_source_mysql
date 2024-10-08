@@ -19,6 +19,7 @@ function setingBankAccount($input){
         $value = array( 'bank_name' => @$dataSend['bank_name'],
                         'bank_number' => @$dataSend['bank_number'],
                         'bank_code' => @$dataSend['bank_code'],
+                        'referral_commission' => @$dataSend['referral_commission'],
                        
                     );
         $data->key_word = 'setingBankAccount';
