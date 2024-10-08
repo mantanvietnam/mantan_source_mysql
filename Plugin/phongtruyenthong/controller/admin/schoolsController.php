@@ -26,10 +26,8 @@ function infoSchoolAdmin($input)
     					'phone' => $dataSend['phone'],
     					'email' => $dataSend['email'],
     					'info' => $dataSend['info'],
-                        'image_donate' => $dataSend['image_donate'],
-                        'image_backdrop' => $dataSend['image_backdrop'],
+                        
                         'audio_background' => $dataSend['audio_background'],
-                        'link_image_360' => $dataSend['link_image_360'],
                         
                         // dòng thời gian
                         'image_timeline' => $dataSend['image_timeline'],
@@ -39,22 +37,6 @@ function infoSchoolAdmin($input)
                         // thành tích nhà trường
                         'id_album_achievement' => $dataSend['id_album_achievement'],
                         
-                        'image_achievement_1' => $dataSend['image_achievement_1'],
-                        'des_achievement_1' => $dataSend['des_achievement_1'],
-
-                        'image_achievement_2' => $dataSend['image_achievement_2'],
-                        'des_achievement_2' => $dataSend['des_achievement_2'],
-
-                        'image_achievement_3' => $dataSend['image_achievement_3'],
-                        'des_achievement_3' => $dataSend['des_achievement_3'],
-
-                        // hiệu trưởng 
-                        'image_principal_1' => $dataSend['image_principal_1'],
-                        'des_principal_1' => $dataSend['des_principal_1'],
-                        'image_principal_2' => $dataSend['image_principal_2'],
-                        'des_principal_2' => $dataSend['des_principal_2'],
-
-
                         
                     );
 

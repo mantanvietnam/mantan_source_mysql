@@ -14,6 +14,7 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th>Tên niên khóa</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
@@ -29,6 +30,7 @@
                             }
 
                             echo '<tr>
+                                    <td>'.$item->id.'</td>
                                     <td>'.$item->name.$image.'</td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
