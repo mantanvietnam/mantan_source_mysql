@@ -606,6 +606,42 @@ function updateStatusLessonUserCourseAPI($input)
      return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
+function checkUserCourseAPI($input)
+{
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
 
+    $modelCourses = $controller->loadModel('Courses');
+    $modelUserCourse = $controller->loadModel('UserCourses');
+    $modelTransactions = $controller->loadModel('Transactions');
+    $modelLesson = $controller->loadModel('Lessons');
+    $modelTipChallenges = $controller->loadModel('TipChallenges');
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();   
+         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+            $user = getUserByToken($dataSend['token']);
+            if(!empty($user)){
+                $conditions = array('id_user'=> $user->id);
+              
+                $conditions['id_course'] = (int) $dataSend['id'];
+
+                $course = $modelCourses->find()->where(array('id'=> $dataSend['id']))->first();
+                
+                $data = $modelUserCourse->find()->where($conditions)->first();
+
+                if(!empty($data)){
+                    return apiResponse(1, 'bạn dã thanh toán khóa học này rồi', $course);
+                }else{
+                        return apiResponse(4, 'Bạn chưa thanh toán khóa học này ', $course);
+                     }
+            }
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+         return apiResponse(3, 'thiếu dữ liệu');
+    }
+     return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+}
 
 ?>

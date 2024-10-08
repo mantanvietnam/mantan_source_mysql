@@ -61,7 +61,7 @@ function registerUserApi($input): array
                 $user->address = @$dataSend['address'] ?? null;
                 $user->status = 'lock';
                 $user->created_at = time();
-                $user->deadline =  strtotime("+30 days", time());
+                $user->deadline =  strtotime("+7 days", time());
                 $user->updated_at = time();
                 $user->last_login = time();
                 $user->token = createToken();
@@ -880,12 +880,39 @@ function checkUserPayPackage($input)
             if(!empty($user)){
          
                 if(!empty($user->status_pay_package)){
-                    return apiResponse(1, 'bạn dã thanh toán gói tập', $user);
+                    return apiResponse(1, 'bạn dã thanh toán', $user);
                 }else{
-                        return apiResponse(4, 'Bạn chưa thanh toán gói tập', $user);
+                        return apiResponse(4, 'Bạn chưa thanh toán ', $user);
                      }
             }else{
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+            }
+    }
+     return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function checkUserDateline($input)
+{
+      global $controller;
+    global $isRequestPost;
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['token'])) {
+            return apiResponse(3, 'thiếu dữ liệu');
+        }
+
+            $user = getUserByToken($dataSend['token']);
+
+            if(!empty($user)){
+         
+                if($user->deadline>time()){
+                    return apiResponse(1, 'Tài khoản của bạn vẫn còn hạn ', $user);
+                }else{
+                        return apiResponse(4, 'Tài khoản của bạn đã hết hạn  ', $user);
+                     }
+            }else{
+                return apiResponse(2, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
             }
     }
      return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');

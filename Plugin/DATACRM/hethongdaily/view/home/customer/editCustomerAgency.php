@@ -55,7 +55,17 @@
                     </select>
                   </div>
                 </div>
-
+                <div class="col-md-6">
+                <div class="mb-3">
+                              <label class="form-label">Trạng thái</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="status" id="status">
+                                  <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
+                                  <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
+                                </select>
+                              </div>
+                            </div>  
+                </div>
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Hình đại diện</label>

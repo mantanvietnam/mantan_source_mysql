@@ -457,6 +457,8 @@ function processAddMoney($money, $id_ransaction= 0): string
                             createCourseUser($transactions->id_user, $transactions->id_course, $transactions->id);
                         }elseif($transactions->type==3){
                              createPackageUser($transactions->id_user,$transactions->id_package,$transactions->id);
+                        }elseif($transactions->type==4){
+                            entextendUserDeline($transactions->id_user,$transactions->id_price,$transactions->id);
                         }
 
                          $transactions->status = 2;
@@ -645,6 +647,31 @@ function createPackageUser($id_user, $id_package,$id_transaction=0){
         }
     }
     return 'id không tồn tại';
+}
+
+function entextendUserDeline($id_user, $id_price, $id_transaction=0){
+    global $controller;
+    $modelUserPackages = $controller->loadModel('UserPackages');
+    $modelUser = $controller->loadModel('Users');
+    $modelTransactions = $controller->loadModel('Transactions');
+    $modelPriceList = $controller->loadModel('PriceLists');
+
+    $conditions = array('id'=>(int) $id_price);
+    $user = $modelUser->find()->where(array('id'=>(int)$id_user))->first();
+
+    $data = $modelPriceList->find()->where($conditions)->first();
+    if(!empty($data) && !empty($user)){
+        if($user->deadline>time()){
+            $user->deadline =  strtotime('+'.$data->days.' days', $user->deadline);
+        }else{
+            $user->deadline =  strtotime('+'.$data->days.' days', time());
+        }
+
+        $user->status_pay_package = 1;
+        
+        $modelUser->save($user);
+    }
+
 }
 
 

@@ -112,7 +112,8 @@
                   <br>
                   Địa chỉ: ' . $item->address . '
                   <br>
-                    thời gian tạo : '.date('H:i d-m-Y', $item->created_at).'
+                    thời gian tạo : '.date('H:i d-m-Y', $item->created_at).'</br>
+                    thời gian hết hạn : '.date('H:i d-m-Y', $item->deadline).'
                   </td>
                  
                  <td> 

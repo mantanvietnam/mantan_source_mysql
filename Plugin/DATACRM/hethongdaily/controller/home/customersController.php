@@ -383,6 +383,11 @@ function editCustomerAgency($input)
                         $data->facebook = '';
                     }
 
+                    if(!empty($dataSend['status'])){
+                        $data->status = @$dataSend['status'];
+                    }
+
+
                     $modelCustomers->save($data);
 
                     // bắn thông báo có dữ liệu khách hàng mới

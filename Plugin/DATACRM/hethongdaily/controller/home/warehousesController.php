@@ -7,14 +7,18 @@ function warehouseProductAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('warehouseProductAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         $metaTitleMantan = 'Kho hàng đại lý';
 
         $modelProducts = $controller->loadModel('Products');
         $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
         $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
 
-        $conditions = array('id_member'=>$session->read('infoUser')->id);
+        $conditions = array('id_member'=>$user->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -113,14 +117,18 @@ function historyWarehouseProductAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('historyWarehouseProductAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         $metaTitleMantan = 'Lịch sử xuất nhập tồn';
 
         $modelProducts = $controller->loadModel('Products');
         $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
         $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
 
-        $conditions = array('id_member'=>$session->read('infoUser')->id);
+        $conditions = array('id_member'=>$user->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -196,7 +204,11 @@ function viewWarehouseProductAgency($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('historyWarehouseProductAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         if(!empty($_GET['id_member'])){
             $metaTitleMantan = 'Kho hàng đại lý';
 
@@ -279,8 +291,11 @@ function editProductWarehouse($input)
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
-
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('editProductWarehouse');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         $metaTitleMantan = 'Kho hàng đại lý';
 
         $modelProducts = $controller->loadModel('Products');
@@ -291,7 +306,7 @@ function editProductWarehouse($input)
             $dataSend = $input['request']->getData();
 
             if(!empty($dataSend['idWarehouseProduct']) && isset($dataSend['number']) && !empty($dataSend['note'])){
-                $checkData = $modelWarehouseProducts->find()->where(['id'=>(int) $dataSend['idWarehouseProduct'], 'id_member'=>$session->read('infoUser')->id])->first();
+                $checkData = $modelWarehouseProducts->find()->where(['id'=>(int) $dataSend['idWarehouseProduct'], 'id_member'=>$user->id])->first();
 
                 if(!empty($checkData)){
                     $quantity_old = $checkData->quantity;
@@ -320,6 +335,12 @@ function editProductWarehouse($input)
                     $saveWarehouseHistories->id_order_member = 0;
 
                     $modelWarehouseHistories->save($saveWarehouseHistories);
+
+                    $product = $modelProducts->get($checkData->id_product);
+
+                    $note = $user->type_tv.' '. $user->name.' Chỉnh sửa số lượng sản phẩn '.@$product->title.' trong kho có id là:'.$saveWarehouseHistories->id;
+
+                    addActivityHistory($user,$note,'editProductWarehouse',$saveWarehouseHistories->id);
 
                     return $controller->redirect('/warehouseProductAgency/');
                 }else{

@@ -34,15 +34,18 @@ function paymEntextendUserAPI($input){
             $conditions = ['token' => $dataSend['token']];
             $conditions['status'] = 'active';
             $user = $modelUser->find()->where($conditions)->first();
-
+            $modelUser->save($user);
             
             if (!empty($user)) {
             $conditions = array('id'=>(int) $dataSend['id'],'status'=>'active');
+            $user->status_pay_package = 0;
+            $modelUser->save($user);
+
             
             $data = $modelPriceList->find()->where($conditions)->first();
 
             if(!empty($data)){
-                $checkTransaction = $modelTransactions->find()->where(['id_package'=>$data->id,'id_user'=>$user->id, 'status'=>1])->first();
+                $checkTransaction = $modelTransactions->find()->where(['id_price'=>$data->id,'id_user'=>$user->id, 'status'=>1])->first();
                 if(empty($checkTransaction)){
                     $checkTransaction = $modelTransactions->newEmptyEntity();
                     $checkTransaction->id_user = $user->id;

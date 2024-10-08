@@ -1392,6 +1392,14 @@ function getListPermission()
                             )
                     );
 
+    $permission[] = array( 'name'=>'Quản lý Kho hàng ',
+                    'sub'=>array(   array('name'=>' Danh sách hàng hóa trong kho ','permission'=>'warehouseProductAgency'),
+                                    array('name'=>'Lịch sử nhập hàng vào kho','permission'=>'historyWarehouseProductAgency'),
+                                    array('name'=>'Kho hàng đại lý','permission'=>'viewWarehouseProductAgency'),
+                                    array('name'=>'Sửa kho hàng','permission'=>'editProductWarehouse'),
+                            )
+                    );
+
      $permission[] = array( 'name'=>'Quản lý đại lý ',
                     'sub'=>array(   array('name'=>'Danh sách đại lý','permission'=>'listMember'),
                                     array('name'=>'Thêm và sửa thông tin đạt lý','permission'=>'addMember'),
