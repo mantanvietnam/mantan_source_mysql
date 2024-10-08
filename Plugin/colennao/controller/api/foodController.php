@@ -115,15 +115,20 @@ function updatewaterApi($input) {
                         if ($item['day'] == $dataSend['day']) {
                             $item['coutwater'] += $dataSend['coutwater'];
                             $updated = true;
+
+                            $updatedItem = $item; 
                             break;
                         }
                     }
 
                     if ($updated) {
+      
                         $record->alldata = json_encode($alldata);
 
                         if ($modelmyplane->save($record)) {
-                            return apiResponse(1, 'Cập nhật coutwater thành công',$alldata);
+                            return apiResponse(1, 'Cập nhật coutwater thành công', [
+                                'data' => [$updatedItem]
+                            ]);
                         } else {
                             return apiResponse(0, 'Lỗi khi lưu dữ liệu');
                         }
@@ -143,6 +148,7 @@ function updatewaterApi($input) {
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
 function updatemealApi($input) {
     global $controller;
     global $isRequestPost;
