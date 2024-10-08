@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CECAD</title>
     <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/footer.css?time=00000">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/header.css?time=326041">
+    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/header.css?time=326047">
     <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-plus.css?time=326161012">
     <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/main-hoang.css?time=654006">
     <!-- Slick Carousel CSS -->

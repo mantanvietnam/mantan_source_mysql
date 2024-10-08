@@ -20,7 +20,7 @@ document.addEventListener("scroll", function() {
             let count = 0;
             let targetNumber = parseInt(item.querySelector(".counter").dataset.number);
             let duration = 4000; // Thời gian chạy bộ đếm trong mili giây (3 giây)
-            let increment = 1; // Số lượng giá trị tăng mỗi lần
+            let increment = 10; // Số lượng giá trị tăng mỗi lần
 
             // Tính thời gian giữa các lần đếm
             let interval = Math.ceil(duration / (targetNumber / increment));
