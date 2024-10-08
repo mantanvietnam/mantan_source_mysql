@@ -59,4 +59,26 @@ function settingHomeThemeCRM($input){
     setVariable('mess', $mess);
 	
 }
+
+
+function indexTheme($input)
+{
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $modelPosts;
+    global $controller;
+    global $settingThemes;
+    global $modelProduct;
+    global $modelCategories;
+
+    $order = array('id'=>'desc');
+
+    $listDataNew= $modelPosts->find()->limit(6)->where(array('type'=>'post','pin'=>1))->order($order)->all()->toList();
+
+
+    setVariable('listDataNew', $listDataNew);
+
+    
+}
+
 ?>

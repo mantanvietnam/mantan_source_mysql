@@ -40,11 +40,12 @@ function registerUserApi($input): array
                 if(!empty($avatar['linkOnline'])){
                     $avatars = $avatar['linkOnline'].'?time='.time();
                 }
-
+                $getBankAccount =getBankAccount();
                   $user = $modelUser->newEmptyEntity();
                 if(!empty($dataSend['affsource'])){
                     $affsource = $modelUser->find()->where(array('phone'=>$dataSend['affsource']))->first();
                     if(!empty($affsource)){
+                        $affsource->total_coin +=(int)$getBankAccount['referral_commission'];
                         $user->id_affsource =$affsource->id;
                     }
                 }

@@ -131,6 +131,7 @@
                   echo '<td>'.$item->name . '
                   </br>'. $item->phone_number . ' 
                   </br>' . $item->email.'
+                   <br>' . $item->address . '
                   </td>';
                 }
 
@@ -138,7 +139,8 @@
                   echo '<td>
                   Số dư: ' . number_format($item->total_coin) . ' đ
                   <br>
-                  Địa chỉ: ' . $item->address . '
+                   Điểm: ' . number_format($item->point) . ' đ
+                 
                   <br>
                   Sl chuyến xe có thể nhận: ' . $item->maximum_trip . '</br>
                     thời gian tạo : '.$item->created_at->format('H:i d-m-Y').'
@@ -164,6 +166,13 @@
                  </a>
                  <a class="btn btn-danger" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin/?type=minus&id='.$item->id.'">
                  Trừ coin 
+                 </a>
+                  <br>  <br>  <br>
+                 <a class="btn btn-info" href="/plugins/admin/excgo-view-admin-user-updateUserPointAdmin/?type=plus&id='.$item->id.'">
+                 Cộng điểm
+                 </a>
+                 <a class="btn btn-warning" href="/plugins/admin/excgo-view-admin-user-updateUserPointAdmin/?type=minus&id='.$item->id.'">
+                 Trừ điểm
                  </a>
                  </td>';
                }

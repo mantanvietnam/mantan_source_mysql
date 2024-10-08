@@ -22,7 +22,7 @@
             <div class="main-below mt-3">
                 <div class="row">
                     <div class="main-below-left col-lg-6 col-md-6">
-                        <p class="main-below-search">TRA CỨU ĐẠI LÝ <?php echo @$setting_value['name_web'];?></p>
+                        <p class="main-below-search">TRA CỨU ĐẠI LÝ  <?php echo @$setting_value['name_web'];?></p>
                         <h1 class="main-below-title">Đại lý chính thức của <?php echo @$setting_value['name_web'];?></h1>
                         <input type="text" class="main-below-input" name="" id="phone_member"
                             placeholder="Nhập số điện thoại viết liền không dấu, ví dụ 0816560000">
@@ -33,7 +33,22 @@
                     </div>
                     <div class="main-below-right col-lg-6 col-md-6">
                         <div class="row flex">
-                            <div class="col-6">
+                            <?php   if(!empty($listDataNew)){
+                                foreach($listDataNew as $key  => $value){
+                                    echo ' <div class="col-6">
+                                <div class="main-below-right-image">
+                                    <div class="main-below-right-image-slide" style="margin: 50px 0 20px 0;" >
+                                        <a href="/'.$value->slug.'.html"><img src="'.$value->image.'" alt="">
+                                            <h3 style="font-size: 16px; padding: 6px 10px; margin: 0px; ;color: #000000;line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">'.$value->title.'</h3>
+                                            <p style="display: -webkit-box; -webkit-line-clamp: 3;-webkit-box-orient: vertical; overflow: hidden;color: #000000;padding: 0 10px;font-size: 13px;">'.$value->description.'</p>
+                                        <a>
+                                    </div>               
+                                </div>
+                            </div>';
+                                }
+                            } ?>
+                            
+                            <!-- <div class="col-6">
                                 <div class="main-below-right-image">
                                     <div class="main-below-right-image-slide" style="margin: 50px 0 20px 0;" >
                                         <img src="<?php echo @$setting_value['image_product_1'];?>" alt="">
@@ -55,7 +70,7 @@
                                         <img src="<?php echo @$setting_value['image_product_5'];?>" alt="">
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
