@@ -6,13 +6,13 @@ function addlikeApi ($input){
     global $controller;
     global $session;
     $modelLike = $controller->loadModel('Likes');
-    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomer = $controller->loadModel('Customers');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token']) && !empty($dataSend['keyword']) && !empty($dataSend['id_object']) && !empty($dataSend['type'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  $modelCustomer->find()->where(['token' => $dataSend['token'],'active'=>'active'])->first();
 
             if (!empty($user)) {
 
@@ -46,13 +46,13 @@ function delelelikeApi ($input){
     global $controller;
     global $session;
     $modelLike = $controller->loadModel('Likes');
-    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomer = $controller->loadModel('Customers');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token']) && !empty($dataSend['keyword']) && !empty($dataSend['id_object'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  $modelCustomer->find()->where(['token' => $dataSend['token'],'status'=>'active'])->first();
 
             if (!empty($user)) {
 
@@ -83,21 +83,21 @@ function checklikeApi ($input){
     global $controller;
     global $session;
     $modelLike = $controller->loadModel('Likes');
-    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomer = $controller->loadModel('Customers');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token']) && !empty($dataSend['keyword']) && !empty($dataSend['id_object'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  $modelCustomer->find()->where(['token' => $dataSend['token'],'status'=>'active'])->first();
 
             if (!empty($user)) {
 
             	$data = $modelLike->find()->where(['keyword'=>$dataSend['keyword'], 'id_object'=>(int)$dataSend['id_object'], 'id_customer'=>(int)$user->id])->first();
             	if(!empty($data)) {
-            		if($data->type==>'like'){
+            		if($data->type=='like'){
             			return array('code'=>1,'messages'=>'bạn đã like ');
-            		}elseif($data->type==>'dislike'){
+            		}elseif($data->type=='dislike'){
             			return array('code'=>1,'messages'=>'bạn đã dislike ');
             		}
             		
@@ -123,30 +123,35 @@ function addCommentApi($input){
     global $urlHomes;
     global $controller;
 
-        $modelComment = $controller->loadModel('Comments');
-
-
+    $modelComment = $controller->loadModel('Comments');
+    $modelCustomer = $controller->loadModel('Customers');
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token']) && !empty($dataSend['keyword']) && !empty($dataSend['id_object']) && !empty($dataSend['comment'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  $modelCustomer->find()->where(['token' => $dataSend['token'],'status'=>'active'])->first();
 
             if (!empty($user)) {
 
         	$data = $modelComment->newEmptyEntity();
-            $data->created = getdate()[0];
-            $data->idobject=$_POST['idobject'];
-            $data->type=$_POST['type'];
-            $data->idcustomer=$_POST['idcustomer'];
-            $data->comment=$_POST['comment'];
+            $data->created_at = time();
+            $data->id_object=$dataSend['id_object'];
+            $data->keyword=$dataSend['keyword'];
+            $data->id_father=$dataSend['id_father'];
+            $data->id_customer=$dataSend['id_customer'];
+            $data->comment=$dataSend['comment'];
 
             $modelComment->save($data);
-             $return = array('code'=>1, 
-                'data'=>$data,
-                'messages'=>'ok');
-             }
-        return $return;
+              return array('code'=>1,'messages'=>'bạn thêm bình luận thành công');
+            }
+
+            return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 }
 
 function deleleCommentApi($input){
@@ -156,16 +161,31 @@ function deleleCommentApi($input){
     global $urlHomes;
     global $controller;
 
-    global $session;
-    $mess ="ok";
-    $infoUser = $session->read('infoUser');
-        $modelComments = $controller->loadModel('Comments');
-        if(!empty($_POST)){
-            $data = $modelComments->get($_POST['id']);
-           $modelComments->delete($data);
-             $return = array('code'=>1);
-             }
-        return $return;
+    $modelComment = $controller->loadModel('Comments');
+    $modelCustomer = $controller->loadModel('Customers');
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token']) && !empty($dataSend['keyword']) && !empty($dataSend['id_object']) && !empty($dataSend['comment'])) {
+            $user =  $modelCustomer->find()->where(['token' => $dataSend['token'],'status'=>'active'])->first();
+
+            if (!empty($user)) {
+                if(!empty($_POST)){
+                    $data = $modelComment->get($_POST['id']);
+                   $modelComment->delete($data);
+                     return array('code'=>1,'messages'=>'bạn xóa like thành công');
+                }
+                
+                 return array('code'=>4,'messages'=>'bạn xóa like thành công');
+            }
+
+            return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
         
 }
 
