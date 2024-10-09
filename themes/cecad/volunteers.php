@@ -17,7 +17,7 @@
                             </p>
                         </div>
                         <div class="as1-block-2-btn">
-                            <a href="#vlt-section-1"><i class="fa-solid fa-users"></i> <?= @$setting['namebuttonvolunteer'];?></a>
+                            <a href="#vlt-section-9"><i class="fa-solid fa-users"></i> <?= @$setting['namebuttonvolunteer'];?></a>
                         </div>
                     </div>
 
@@ -49,7 +49,7 @@
                 </div>
             </div>
         </section> -->
-        <section class="team-block-2 mt-5" style="margin-bottom: 80px;">
+        <section id="vlt-section-9" class="team-block-2 mt-5" style="margin-bottom: 80px;">
             <div class="container">
                 <div class="as4-block-2">
                     <h3><?=$modeltitlealbum1['title']?></h3>
@@ -59,7 +59,7 @@
                     <?php foreach($slide_volunteers as $key => $value) {?>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="tms-item d-grid" style="padding: 16px;">
-                                <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
+                                <div class="tms-img" style="height: 250px; margin-bottom: 20px;">
                                     <img src="<?=$value->image?>" alt="">
                                 </div>
                                 <div class="tms-text">

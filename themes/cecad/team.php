@@ -83,7 +83,7 @@
                     <?php foreach($slide_hai as $key => $value) {?>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="tms-item" style="padding: 16px; display:grid;">
-                                <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
+                                <div class="tms-img" style="height: 250px; margin-bottom: 20px;">
                                     <img src="<?=$value->image?>" alt="">
                                 </div>
                                 <div class="tms-text">
@@ -141,7 +141,7 @@
                     <?php foreach($slide_ba as $key => $value) {?>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="tms-item d-grid" style="padding: 16px;">
-                                <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
+                                <div class="tms-img" style="height: 250px; margin-bottom: 20px;">
                                     <img src="<?=$value->image?>" alt="">
                                 </div>
                                 <div class="tms-text">
@@ -193,7 +193,7 @@
                     <?php foreach($slide_bon as $key => $value) {?>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="tms-item d-grid" style="padding: 16px;">
-                                <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
+                                <div class="tms-img" style="height: 250px; margin-bottom: 20px;">
                                     <img src="<?=$value->image?>" alt="">
                                 </div>
                                 <div class="tms-text">
@@ -244,7 +244,7 @@
                     <?php foreach($slide_nam as $key => $value) {?>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="tms-item d-grid" style="padding: 16px;">
-                                <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
+                                <div class="tms-img" style="height: 250px; margin-bottom: 20px;">
                                     <img src="<?=$value->image?>" alt="">
                                 </div>
                                 <div class="tms-text">
@@ -295,7 +295,7 @@
                     <?php foreach($slide_sau as $key => $value) {?>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="tms-item d-grid" style="padding: 16px;">
-                                <div class="tms-img" style="height: 220px; margin-bottom: 20px;">
+                                <div class="tms-img" style="height: 250px; margin-bottom: 20px;">
                                     <img src="<?=$value->image?>" alt="">
                                 </div>
                                 <div class="tms-text">
