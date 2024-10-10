@@ -316,15 +316,20 @@ function getUserWorkoutAPI($input){
     global $metaTitleMantan;
     global $isRequestPost;
     global $listLevel;
+    global $searchtime;
+    global $listLevel;
+    global $listdevice;
+
     $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
     $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
     $modelWorkout = $controller->loadModel('Workouts');
     $modelUserPackages = $controller->loadModel('UserPackages');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
+    $modelAreas = $controller->loadModel('Areas');
 
     if($isRequestPost){
     	$dataSend = $input['request']->getData();	
-    	if(!empty($dataSend['token'])){
+    	if(!empty($dataSend['token']) && $dataSend['id']){
             $user = getUserByToken($dataSend['token']);
             if (!empty($user)) {
 		    	$dataSend = $input['request']->getData();
@@ -339,7 +344,87 @@ function getUserWorkoutAPI($input){
 			    $data = $modelWorkout->find()->where($conditions)->order(['id' => 'desc'])->first();
 			   
 			    if(!empty($data)){
-		    		$exerciseWorkout = $modelExerciseWorkouts->find()->where(array('id_workout'=> $data->id))->all()->toList();
+
+			    	if(!empty($data->search)){
+            			$search = json_decode($data->search, true);
+
+            			
+
+            			$time = json_decode(@$search['time'], true);
+            			$area = json_decode(@$search['area'], true);
+            			$level = json_decode(@$search['level'], true);
+            			$device = json_decode(@$search['device'], true);
+            			$times = array();
+            			if(!empty($searchtime)){
+                            foreach($searchtime as $key => $item){
+                                if(!empty($time) && in_array($item['id'],  @$time)){
+                                    $times[] =  $item;
+                                }
+                            }
+                        }
+            			
+            			$areas = array();
+            			if(!empty($area)){
+                            foreach($area as $key => $item){
+                                $areas[] = $modelAreas->find()->where(['id'=>$item])->first();
+                            }
+                        }
+
+                        $levels = array();
+            			if(!empty($listLevel)){
+                            foreach($listLevel as $key => $item){
+                                if(!empty($level) && in_array($item['id'],  @$level)){
+                                    $levels[] =  $item;
+                                }
+                            }
+                        }
+
+                        $devices = array();
+            			if(!empty($listdevice)){
+                            foreach($listdevice as $key => $item){
+                                if(!empty($device) && in_array($item['id'],  @$device)){
+                                    $devices[] =  $item;
+                                }
+                            }
+                        }
+
+                        $search['device'] = $devices;
+                        $search['level'] = $levels;
+                        $search['area'] = $areas;
+                        $search['time'] = $times;
+
+
+                        $data->search = $search;
+        			}
+			    	$conditions = array('id_workout'=> $data->id);
+			    	if(!empty($dataSend['id_level'])){
+			    		$conditions['level']=  $dataSend['id_level'];
+			    	}
+			    	if(!empty($dataSend['ìd_time'])){
+			    		if(!empty($searchtime)){
+                            foreach($searchtime as $key => $item){
+                                if($item['id'] == (int) $dataSend['ìd_time']){
+                                    $conditions['time >=']=$item['min'];
+                                    $conditions['time <=']=$item['max'];
+                                }
+                            }
+                        }
+			    	}
+
+			    	if(!empty($dataSend['id_device'])){
+			    		if($dataSend['id_device']==1){
+			    			$conditions['device !=']=   '[]';
+			    		}elseif($dataSend['id_device']==2){
+			    			$conditions['device']=   '[]';
+			    		}
+			    		
+			    	}
+
+			    	if(!empty($dataSend['id_area'])){
+			    		$conditions['area LIKE']=  '%'.$dataSend['id_area'].'%';
+			    	}
+			    	
+		    		$exerciseWorkout = $modelExerciseWorkouts->find()->where($conditions)->all()->toList();
 		    		if(!empty($exerciseWorkout)){
 		    			foreach($exerciseWorkout as $key => $item){
 		    				if(!empty($item->level)){

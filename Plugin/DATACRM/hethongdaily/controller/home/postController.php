@@ -348,7 +348,7 @@ function listCategoryPost($input){
 
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
     $user = checklogin('listCategoryPost');  
-
+    $modelSlugs = $controller->loadModel('Slugs');
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/listPost');
@@ -383,15 +383,25 @@ function listCategoryPost($input){
                 $slug = createSlugMantan($infoCategory->name);
                 $slugNew = $slug;
                 $number = 0;
-                do{
-                    $conditions = array('slug'=>$slugNew,'type'=>'post');
-                    $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+                $checkSlug = $modelSlugs->find()->where(['slug'=>$slugNew])->first();
+		            if(empty($infoCategory->slug) || $infoCategory->slug!=$slugNew || empty($checkSlug)){
+		                do{
+		                    $conditions = array('slug'=>$slugNew);
+		                    $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-                    if(!empty($listData)){
-                        $number++;
-                        $slugNew = $slug.'-'.$number;
-                    }
-                }while (!empty($listData));
+		                    if(!empty($listData)){
+		                        $number++;
+		                        $slugNew = $slug.'-'.$number;
+		                    }
+		                }while (!empty($listData));
+
+		                // lưu url slug
+		                saveSlugURL($slugNew,'homes','category_post');
+		                if(!empty($infoCategory->slug)){
+		                    deleteSlugURL($infoCategory->slug);
+		                }
+		            }
+
 
                 $infoCategory->slug = $slugNew;
 

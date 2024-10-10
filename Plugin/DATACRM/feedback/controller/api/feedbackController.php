@@ -1,0 +1,77 @@
+<?php 
+function addFeedbackApi($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    
+    $metaTitleMantan = 'Thông tin Feedback';
+
+    $modelFeedback = $controller->loadModel('Feedbacks');
+    $mess= '';
+    $modelCustomer = $controller->loadModel('Customers');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token']) && !empty($dataSend['feedback'])) {
+            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+
+            if (!empty($user)) {
+            	// tạo dữ liệu save
+            	$data = $modelFeedback->newEmptyEntity();
+            	$data->feedback = @$dataSend['feedback'];
+            	$data->id_customer = $user->id;
+            	$data->created_at = time();
+            	$data->status = 'active';
+            	$modelFeedback->save($data);
+
+             	return array('code'=>1,'messages'=>'Bạn gửi phản hồi của bạn thành công');
+            }
+
+            return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
+function listFeedbackApi($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách Feedback';
+
+    $modelFeedback = $controller->loadModel('Feedbacks');
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $conditions = array();
+    if(!empty($_GET['name'])){
+        $key=createSlugMantan($_GET['name']);
+
+        $conditions['urlSlug LIKE']= '%'.$key.'%';
+    }
+
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+
+    
+    $listData = $modelFeedback->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $listData[$key]->infoCustomer = $modelCustomer->find()->where(['id'=>$value->id])->first();	
+        }
+    }
+		return array('code'=>1,'messages'=>'Bạn lấy dữ liệu thành công', 'listData'=>$listData);
+}
+
+ ?>

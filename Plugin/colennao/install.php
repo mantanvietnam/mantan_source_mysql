@@ -252,6 +252,7 @@ $sqlInstallDatabase .="CREATE TABLE `workouts` (
 `youtube_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `created_at` INT NULL DEFAULT NULL , 
 `id_package` INT NULL DEFAULT NULL , 
+`search` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]',
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -506,7 +507,7 @@ $sqlUpdateDatabase['workouts']['image'] = "ALTER TABLE `workouts` ADD `image` VA
 $sqlUpdateDatabase['workouts']['youtube_code'] = "ALTER TABLE `workouts` ADD `youtube_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['workouts']['created_at'] = "ALTER TABLE `workouts` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['workouts']['id_package'] = "ALTER TABLE `workouts` ADD `id_package` INT NULL DEFAULT NULL;";
-
+$sqlUpdateDatabase['workouts']['search'] = "ALTER TABLE `workouts` ADD `search` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]';";
 $sqlUpdateDatabase['exercise_workouts']['title'] = "ALTER TABLE `exercise_workouts` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['exercise_workouts']['title_en'] = "ALTER TABLE `exercise_workouts` ADD `title_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['exercise_workouts']['image'] = "ALTER TABLE `exercise_workouts` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

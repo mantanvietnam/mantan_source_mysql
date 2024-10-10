@@ -702,10 +702,34 @@ $listLevel = [1=> array('id'=> 1, 'name'=> 'Người mới', 'name_en'=>'Newbie'
     3=> array( 'id'=> 3,'name'=> 'Trình độ cao', 'name_en'=>'High level'),
 ];
 
+
+global $listdevice;
+
+$listdevice = [ array('id'=> 1, 'name'=> 'có thiết bị', 'name_en'=>'With Device'),
+             array( 'id'=> 2,'name'=> 'Không có thiết bị', 'name_en'=>'No Device'),
+];
+
 global $listUnit;
 
 $listUnit = [array('id'=>1,'title'=> 'Hệ mét' , 'unit'=>'kg, m, cm & gam', 'title_en'=>'Metric system'),
             array('id'=>2,'title'=> 'Hệ thống đế quốc' , 'unit'=>'lbs, ft, in & oz', 'title_en'=>'Imperial system'),
+];
+
+
+
+global $searchtime;
+$searchtime = [ array('id'=>1,'title'=> '0 - 10 phút' ,  'title_en'=>'0 - 10 min','min'=> 0, 'max'=>10),
+                array('id'=>2,'title'=> '10 - 20 phút' ,  'title_en'=>'10 - 20 min','min'=> 10, 'max'=>20),
+                array('id'=>3,'title'=> '20 - 30 phút' ,  'title_en'=>'20 - 30 min','min'=> 20, 'max'=>30),
+                array('id'=>4,'title'=> '30 - 40 phút' ,  'title_en'=>'30 - 40 min','min'=> 30, 'max'=>40),
+                array('id'=>5,'title'=> '40 - 50 phút' ,  'title_en'=>'40 - 50 min','min'=> 40, 'max'=>50),
+                array('id'=>6,'title'=> '50 - 60 phút' ,  'title_en'=>'50 - 60 min','min'=> 50, 'max'=>60),
+                array('id'=>7,'title'=> '60 - 70 phút' ,  'title_en'=>'60 - 70 min','min'=> 60, 'max'=>70),
+                array('id'=>8,'title'=> '70 - 80 phút' ,  'title_en'=>'70 - 80 min','min'=> 70, 'max'=>80),
+                array('id'=>9,'title'=> '80 - 90 phút' ,  'title_en'=>'80 - 90 min','min'=> 80, 'max'=>90),
+                array('id'=>10,'title'=> '90 - 100 phút' ,  'title_en'=>'90 - 100 min','min'=> 90, 'max'=>100),
+                array('id'=>11,'title'=> '100 - 110 phút' ,  'title_en'=>'100 - 110 min','min'=> 100, 'max'=>110),
+                array('id'=>12,'title'=> '110 - 120 phút' ,  'title_en'=>'110 - 120 min','min'=> 110, 'max'=>120),
 ];
 
 

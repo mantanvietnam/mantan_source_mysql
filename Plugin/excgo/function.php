@@ -1917,4 +1917,16 @@ function checkPermission($permission='') {
     return $return;
 }
 
+function showEditorInputrequired($idEditor='',$nameEditor='',$content='' )
+{
+    
+    echo '  <textarea style="border: 1px solid #abadb3;height: auto;"   name="'.$nameEditor.'" id="'.$idEditor.'" required>'.$content.'</textarea>
+            <script type="text/javascript">
+                CKEDITOR.replace("'.$idEditor.'", {
+                    allowedContent: true,
+                });
+            </script>
+            ';
+}
 
+?>

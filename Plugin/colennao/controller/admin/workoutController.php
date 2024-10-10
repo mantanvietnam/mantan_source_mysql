@@ -49,12 +49,16 @@ function addWorkout($input){
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
+    global $searchtime;
+    global $listLevel;
+    global $listdevice;
 
 
     $metaTitleMantan = 'Thông tin bài luyện tập';
 
     $modelWorkout = $controller->loadModel('Workouts');
-    
+    $modelDevices = $controller->loadModel('Devices');
+    $modelAreas = $controller->loadModel('Areas');
     
         $mess= '';
         // lấy data edit
@@ -97,6 +101,14 @@ function addWorkout($input){
                 $data->description = @$dataSend['description'];
                 $data->description_en = @$dataSend['description_en'];
                 $data->youtube_code = @$dataSend['youtube_code'];
+
+                $search =  array( 'time' =>json_encode(@$dataSend['time']),
+                                  'area' =>json_encode(@$dataSend['area']),
+                                  'level' =>json_encode(@$dataSend['level']),
+                                  'device' =>json_encode(@$dataSend['device']),
+
+                );
+                $data->search = json_encode(@$search);
                 
 
                 $modelWorkout->save($data);
@@ -107,11 +119,23 @@ function addWorkout($input){
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
         }
+        if(!empty($data->search)){
+            $data->search = json_decode($data->search, true);
+        }
         
+
+        $listarea = $modelAreas->find()->where()->order(['id'=>'desc'])->all()->toList();
+
+     
 
 
         setVariable('mess', $mess);
+        setVariable('listdevice', $listdevice);
+        setVariable('listarea', $listarea);
         setVariable('data', $data);         
+        setVariable('searchtime', $searchtime);         
+        setVariable('listLevel', $listLevel);         
+        setVariable('listdevice', $listdevice);         
     
 }
 

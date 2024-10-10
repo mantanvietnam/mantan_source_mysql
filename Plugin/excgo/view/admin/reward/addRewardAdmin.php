@@ -24,8 +24,8 @@
                         Thông tin trả thưởng kiểu 1
                       </button>
                     </li>
-                    <li class="nav-item">
-                      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
+                    <li class="nav-item" id="type2"  style="<?php if($data->type=='1' or empty($data->type)) echo 'display: none;';  ?>">
+                      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false" >
                         Tiền trả thưởng kiểu 2
                       </button>
                     </li>
@@ -45,13 +45,13 @@
                             <label class="form-label" for="basic-default-fullname">Ngày bắt đầu (*)</label>
                             <input type="text" required  class="form-control datepicker" placeholder="" name="start_date" id="start_date" value="<?php if(!empty($data->start_date)){  echo date('d/m/Y', @$data->start_date);}?>" />
                           </div>
-                          <div class="mb-3">
+                          <div class="mb-3" id='tien_thuong' style="<?php if(!empty($data->type) && $data->type=='2') echo 'display: none;';  ?>">
                             <label class="form-label" for="basic-default-fullname">Tiền thưởng </label>
-                            <input type="number"  class="form-control" placeholder="" name="money" id="money" value="<?php echo @$data->money;?>" />
+                            <input type="number"  class="form-control" placeholder="" name="money" id="money" <?php if($data->type=='1') echo 'required';  ?> value="<?php echo @$data->money;?>" />
                           </div>
                           <div class="mb-3 col-12 col-sm-12 col-md-12">
-                                        <label class="form-label">Hình minh họa *</label>
-                                        <?php showUploadFile('image','image',@$data->image,1);?>
+                                        <label class="form-label">Hình minh họa (*)</label>
+                                        <?php showUploadFile('image','image',@$data->image,1,'required');?>
                                     </div>
                           <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Trạng thái:</label>&ensp;
@@ -60,12 +60,12 @@
                           </div>         
                         </div>
                         <div class="col-md-6">
-                          <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Số lượng cuốc thành công</label>
-                            <input type="number"   class="form-control" placeholder="" name="quantity_booking" id="quantity_booking" value="<?php echo @$data->quantity_booking;?>" />
+                          <div class="mb-3" id="moc_cuoc" style="<?php if(!empty($data->type) && $data->type=='2') echo 'display: none;';  ?>">
+                            <label class="form-label" for="basic-default-fullname">mốc cuốc thành công</label>
+                            <input type="number"   class="form-control" placeholder="" name="quantity_booking" style="<?php if($data->type=='1') echo 'required';  ?>" id="quantity_booking" value="<?php echo @$data->quantity_booking;?>" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Ngày Kết túc (*)</label>
+                            <label class="form-label" for="basic-default-fullname">Ngày Kết thúc (*)</label>
                             <input type="text" required  class="form-control datepicker" placeholder="" name="end_date" id="end_date" value="<?php if(!empty($data->end_date)){  echo date('d/m/Y', @$data->end_date);}?>" />
                           </div>
 
@@ -74,9 +74,9 @@
                             <input type="text" class="form-control" placeholder="" name="note" id="note" value="<?php echo @$data->note;?>" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label">Kiểu thưởng</label>
+                            <label class="form-label">Kiểu thưởng </label>
                             <div class="input-group input-group-merge">
-                              <select class="form-select" name="type" id="type">
+                              <select class="form-select" name="type" id="type" onchange="selectTypeUser();">
                                 <option value="1" <?php if(!empty($data->type) && $data->type=='1') echo 'selected'; ?> >Thưởng cả tổng số cuốc</option>
                                 <option value="2" <?php if(!empty($data->type) && $data->type=='2') echo 'selected'; ?> >Thưởng từng cuốc</option>
                               </select>
@@ -85,10 +85,11 @@
 
 
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12">
+                        <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="basic-default-message">Nội dung bải viết</label>
-                                        <?php showEditorInput('content', 'content', @$data->content);?>
+                                        <label class="form-label" for="basic-default-message">Nội dung bải viết (*)</label>
+                                        <?php //showEditorInputrequired('content', 'content', );?>
+                                        <textarea class="form-control" style="border: 1px solid #abadb3; height: auto;" name="content" id="content" required><?php echo @$data->content; ?></textarea>
                                     </div>
                                 </div>
                       </div>
@@ -185,4 +186,32 @@
         $('#trfeedback-'+i).remove();
        
     }
+
+
+  function selectTypeUser()
+  {
+    var type = $('#type').val();
+
+    $('#tien_thuong').hide();
+    $('#moc_cuoc').hide();
+    $('#type2').hide();
+
+    if(type == 1){
+      $('#tien_thuong').show();
+      $('#moc_cuoc').show();
+       $('#type2').hide();
+        // Lấy phần tử input theo id
+    document.getElementById('quantity_booking').setAttribute('required', '');
+    document.getElementById('money').setAttribute('required', '');
+    }else if(type == 2){
+       $('#tien_thuong').hide();
+      $('#moc_cuoc').hide();
+       $('#type2').show();
+   
+      document.getElementById('quantity_booking').removeAttribute('required');
+    document.getElementById('money').removeAttribute('required');
+    }
+  }
+</script>
+
 </script>

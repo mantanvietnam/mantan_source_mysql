@@ -171,9 +171,10 @@ function deleteRewardAdmin($input){
     global $controller;
 
     // $modelHistoricalsite = $controller->loadModel('Historicalsites');
+    
     $modelReward = $controller->loadModel('Rewards');
     if(!empty($_GET['id'])){
-        $data = $modelReward->get($_GET['id']);
+        $data = $modelReward->find()->where(['id'=> (int) $_GET['id']])->first();
         
         if($data){
             $modelReward->delete($data);

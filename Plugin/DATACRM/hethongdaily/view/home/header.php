@@ -261,8 +261,11 @@
                           <a class="dropdown-item" href="/listRatingPoint">Hạng thành viên</a>
                           <a class="dropdown-item" href="/listPointCustomer">Điểm xếp hạng khách hàng</a>
                           <a class="dropdown-item" href="/listHistorieCustomerGiftAgency">Lịch sử tặng quà </a>
-                          <a class="dropdown-item" href="/guideAddCustomerAPIAgency">Tích hợp API</a>
-                        </div>
+                          <a class="dropdown-item" href="/guideAddCustomerAPIAgency">Tích hợp API</a>';
+                            if(empty($user->id_father)){
+                                  echo '<a class="dropdown-item" href="/listFeedback">Feedback khách hàng</a>';
+                            } 
+                        echo '</div>
                       </li>';
               }
 
