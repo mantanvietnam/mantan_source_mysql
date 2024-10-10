@@ -162,6 +162,60 @@
           </div>
         </div>
 
+               <!-- Khối Khối chân trang -->
+        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Khối về chúng tôi</h5>
+            </div>
+            <div class="card-body row">
+              <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">tiêu đề 1</label>
+                  <input type="text" class="form-control" name="title_footer1" value="<?php echo @$setting['title_footer1'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link 1</label>
+                  <input type="text" class="form-control" name="link_footer1" value="<?php echo @$setting['link_footer1'];?>" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">tiêu đề 2</label>
+                  <input type="text" class="form-control" name="title_footer2" value="<?php echo @$setting['title_footer2'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link 2</label>
+                  <input type="text" class="form-control" name="link_footer1" value="<?php echo @$setting['link_footer2'];?>" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">tiêu đề 3</label>
+                  <input type="text" class="form-control" name="title_footer3" value="<?php echo @$setting['title_footer3'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link 3</label>
+                  <input type="text" class="form-control" name="link_footer3" value="<?php echo @$setting['link_footer3'];?>" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">tiêu đề 4</label>
+                  <input type="text" class="form-control" name="title_footer4" value="<?php echo @$setting['title_footer4'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link 4</label>
+                  <input type="text" class="form-control" name="link_footer4" value="<?php echo @$setting['link_footer4'];?>" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">tiêu đề 5</label>
+                  <input type="text" class="form-control" name="title_footer5" value="<?php echo @$setting['title_footer5'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link 5</label>
+                  <input type="text" class="form-control" name="link_footer5" value="<?php echo @$setting['link_footer5'];?>" />
+                </div>
+                 <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">tiêu đề 6</label>
+                  <input type="text" class="form-control" name="title_footer6" value="<?php echo @$setting['title_footer6'];?>" />
+                  <label class="form-label" for="basic-default-fullname">Link 6</label>
+                  <input type="text" class="form-control" name="link_footer6" value="<?php echo @$setting['link_footer6'];?>" />
+                </div>
+
+              </div>
+              <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <button type="submit" class="btn btn-primary">Lưu</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
 
       </div>

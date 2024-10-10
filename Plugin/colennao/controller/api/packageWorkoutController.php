@@ -285,12 +285,12 @@ function listAllWorkoutAPI($input){
 			    $conditions['OR'] = ['deadline =' => 0,'deadline >' => time()];
 
 			    
-			    $data = $modelUserPackages->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
+			    // $data = $modelUserPackages->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
 
 			   
 
 			    $listData = array();
-			    if(!empty($data)){
+			    // if(!empty($data)){
 		    		$listData =  $modelWorkout->find()->where(array('status'=>'active'))->all()->toList();
 		    		if(!empty($listData)){
 		    			foreach($listData as $key => $item){
@@ -299,10 +299,10 @@ function listAllWorkoutAPI($input){
 		    		}
 		    				
 			    	return apiResponse(0, 'lấy dữ liệu thành công', $listData,count($listData));
-			    }
+			    // }
 
 
-			    return apiResponse(1, 'bạn chưa mua gói nào');
+			    // return apiResponse(1, 'bạn chưa mua gói nào');
 			}
 			 return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
 		} 

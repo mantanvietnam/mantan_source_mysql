@@ -167,8 +167,12 @@ $menus[3]['sub'][10]= array( 'title'=>'kế hoạch',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listmyplane'
                             );
-
-
+$menus[0]['sub'][] = array('title' => 'Gửi thông báo ',
+                            'url' => '/plugins/admin/colennao-view-admin-notification-addNotificationAdmin.php',
+                            'classIcon' => 'bx bx-cog',
+                            'permission' => 'addNotificationAdmin',
+                        );
+                        
 addMenuAdminMantan($menus);
 
 global $transactionKey;

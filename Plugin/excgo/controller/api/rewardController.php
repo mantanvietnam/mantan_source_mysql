@@ -202,6 +202,8 @@ function geDetailRewardAPI($input){
 
         $rewardData->myUserJoin = $modelUserReward->find()->where(['user_id'=>(int)$currentUser->id,'reward_id'=>$rewardData->id])->first();
 
+        $rewardData->so_cuoc_ban_thanh_cong =(int)@$rewardData->myUserJoin->quantity_booking;
+
         if(!empty($rewardData->bonu)){
             $rewardData->tien_thuong_theo_chuyen = json_decode($rewardData->bonu, true);
         }

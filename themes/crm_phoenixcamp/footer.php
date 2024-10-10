@@ -31,19 +31,38 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 menu-about-us" style="margin-top: 40px;">
                             <p class="footer-address-title">Về chúng tôi</p>
-                            <div class="footer-head-address">
-                                <a class="footer-head-address-key2">GIỚI THIỆU</a>
-                            </div>
-                            <div class="footer-head-address">
-                                <a class="footer-head-address-key2">CƠ HỘI KINH DOANH</a>
-                             
-                            </div>
-                            <div class="footer-head-address">
-                                <a class="footer-head-address-key2">CƠ HỘI VIỆC LÀM</a>
-                            </div>
-                            <div class="footer-head-address">
-                                <a class="footer-head-address-key2">SỰ KIỆN-ĐÀO TẠO</a>
-                            </div>
+                            <?php if(!empty(@$setting_value['title_footer1'])) {
+                            echo '<div class="footer-head-address">
+                                <a class="footer-head-address-key2" href="'.$setting_value['link_footer1'].'">'.$setting_value['title_footer1'].'</a>
+                            </div>';
+                        }?>
+                         <?php if(!empty(@$setting_value['title_footer2'])) {
+                            echo '<div class="footer-head-address">
+                                <a class="footer-head-address-key2" href="'.$setting_value['link_footer2'].'">'.$setting_value['title_footer2'].'</a>
+                            </div>';
+                        }?>
+                         <?php if(!empty(@$setting_value['title_footer3'])) {
+                            echo '<div class="footer-head-address">
+                                <a class="footer-head-address-key2" href="'.$setting_value['link_footer3'].'">'.$setting_value['title_footer3'].'</a>
+                            </div>';
+                        }?>
+                         <?php if(!empty(@$setting_value['title_footer4'])) {
+                            echo '<div class="footer-head-address">
+                                <a class="footer-head-address-key2" href="'.$setting_value['link_footer4'].'">'.$setting_value['title_footer4'].'</a>
+                            </div>';
+                        }?>
+                         <?php if(!empty(@$setting_value['title_footer5'])) {
+                            echo '<div class="footer-head-address">
+                                <a class="footer-head-address-key2" href="'.$setting_value['link_footer5'].'">'.$setting_value['title_footer5'].'</a>
+                            </div>';
+                        }?>
+                         <?php if(!empty(@$setting_value['title_footer6'])) {
+                            echo '<div class="footer-head-address">
+                                <a class="footer-head-address-key2" href="'.$setting_value['link_footer6'].'">'.$setting_value['title_footer6'].'</a>
+                            </div>';
+                        }?>
+                        
+                            
                         </div>
                     </div>
 

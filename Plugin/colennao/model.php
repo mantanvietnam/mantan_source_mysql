@@ -35,4 +35,5 @@ include('model/tablepost.php');
 include('model/myplane.php');
 include('model/userpeople.php');
 include('model/categorypost.php');
+include('model/notifications.php');
 ?>

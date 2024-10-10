@@ -36,6 +36,18 @@ function settingHomeThemeCRM($input){
 
                             'background_image_2'=> @$dataSend['background_image_2'],
                             'background_image_3'=> @$dataSend['background_image_3'],
+                            'title_footer1'=> @$dataSend['title_footer1'],
+                            'link_footer1'=> @$dataSend['link_footer1'],
+                            'title_footer2'=> @$dataSend['title_footer2'],
+                            'link_footer2'=> @$dataSend['link_footer2'],
+                            'title_footer3'=> @$dataSend['title_footer3'],
+                            'link_footer3'=> @$dataSend['link_footer3'],
+                            'title_footer4'=> @$dataSend['title_footer4'],
+                            'link_footer4'=> @$dataSend['link_footer4'],
+                            'title_footer5'=> @$dataSend['title_footer5'],
+                            'link_footer5'=> @$dataSend['link_footer5'],
+                            'title_footer6'=> @$dataSend['title_footer6'],
+                            'link_footer6'=> @$dataSend['link_footer6'],
 				
 
 			 );

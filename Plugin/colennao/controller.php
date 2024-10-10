@@ -21,6 +21,7 @@ include_once('controller/admin/conditionController.php');
 include_once('controller/admin/postController.php');
 include_once('controller/admin/userpeopleController.php');
 include_once('controller/admin/myplaneController.php');
+include_once('controller/admin/notificationControlle.php');
 // Api 
 include_once('controller/api/usersController.php'); 
 include_once('controller/api/coursesController.php');
@@ -37,5 +38,5 @@ include_once('controller/api/questionsController.php');
 include_once('controller/api/packageWorkoutController.php');
 include_once('controller/api/transactionsController.php');
 include_once('controller/api/pricelistController.php');
-
+include_once('controller/api/notificationController.php');
 ?>

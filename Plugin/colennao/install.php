@@ -352,6 +352,16 @@ $sqlInstallDatabase .="CREATE TABLE `user_packages` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `toptopweb_colennao`.`notifications` ( `id` INT NOT NULL AUTO_INCREMENT , 
+`id_user` INT NOT NULL DEFAULT '0' , 
+`title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`created_at` INT NULL DEFAULT NULL , 
+`action` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`is_viewed` INT NULL DEFAULT 0,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `tests`;';
@@ -565,4 +575,11 @@ $sqlUpdateDatabase['areas']['image'] = "ALTER TABLE `areas` ADD `image` VARCHAR(
 $sqlUpdateDatabase['areas']['created_at'] = "ALTER TABLE `areas` ADD `created_at` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['areas']['description'] = "ALTER TABLE `areas` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['areas']['description_en'] = "ALTER TABLE `areas` ADD `description_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['notifications']['id_user'] = "ALTER TABLE `notifications` ADD `id_user` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['notifications']['title'] = "ALTER TABLE `notifications` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['notifications']['created_at'] = "ALTER TABLE `notifications` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['notifications']['action'] = "ALTER TABLE `notifications` ADD `action` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['notifications']['content'] = "ALTER TABLE `notifications` ADD `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['notifications']['is_viewed'] = "ALTER TABLE `notifications` ADD `is_viewed` INT NULL DEFAULT '0';";
 ?>

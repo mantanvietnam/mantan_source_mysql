@@ -91,7 +91,7 @@ function addRewardAdmin($input){
         $dataSend = $input['request']->getData();
 
 
-        if(!empty($dataSend['name'])){
+        if(!empty($dataSend['name']) && !empty($dataSend['image']) && !empty($dataSend['type']) && !empty($dataSend['content'])){
 	        // tạo dữ liệu save
             $data->name = @$dataSend['name'];
              if(!empty($dataSend['start_date'])){
@@ -114,10 +114,6 @@ function addRewardAdmin($input){
             if(!empty($query->end_date)){
                 $time = $query->end_date;
             }
-
-
-
-
             if($start_date > $time){
                 if($start_date < $end_date){
                     $data->updated_at = time();
@@ -153,7 +149,7 @@ function addRewardAdmin($input){
             }
 
 	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập tên </p>';
+	    	$mess= '<p class="text-danger">Bạn thiếu dữ liệu </p>';
 	    }
         if(!empty($data->id)){
 	      $data = $modelReward->get(@$data->id);

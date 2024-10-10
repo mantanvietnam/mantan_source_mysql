@@ -21,12 +21,12 @@
                   <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                       <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                        Thông tin trả thưởng khiểu 1
+                        Thông tin trả thưởng kiểu 1
                       </button>
                     </li>
                     <li class="nav-item">
                       <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
-                        Thông tin trả thưởng khiểu 
+                        Tiền trả thưởng kiểu 2
                       </button>
                     </li>
                     
@@ -42,11 +42,11 @@
                           </div>
 
                           <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Ngày bắt đầu </label>
+                            <label class="form-label" for="basic-default-fullname">Ngày bắt đầu (*)</label>
                             <input type="text" required  class="form-control datepicker" placeholder="" name="start_date" id="start_date" value="<?php if(!empty($data->start_date)){  echo date('d/m/Y', @$data->start_date);}?>" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Tiền thưởng (*)</label>
+                            <label class="form-label" for="basic-default-fullname">Tiền thưởng </label>
                             <input type="number"  class="form-control" placeholder="" name="money" id="money" value="<?php echo @$data->money;?>" />
                           </div>
                           <div class="mb-3 col-12 col-sm-12 col-md-12">
@@ -56,16 +56,16 @@
                           <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Trạng thái:</label>&ensp;
                             <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> > Kích hoạt &ensp;
-                            <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > khóa
+                            <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > Khóa
                           </div>         
                         </div>
                         <div class="col-md-6">
                           <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Số lượng cuốc thành công (*)</label>
+                            <label class="form-label" for="basic-default-fullname">Số lượng cuốc thành công</label>
                             <input type="number"   class="form-control" placeholder="" name="quantity_booking" id="quantity_booking" value="<?php echo @$data->quantity_booking;?>" />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Ngày Kết túc</label>
+                            <label class="form-label" for="basic-default-fullname">Ngày Kết túc (*)</label>
                             <input type="text" required  class="form-control datepicker" placeholder="" name="end_date" id="end_date" value="<?php if(!empty($data->end_date)){  echo date('d/m/Y', @$data->end_date);}?>" />
                           </div>
 

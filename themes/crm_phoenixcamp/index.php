@@ -35,18 +35,19 @@
                         <div class="row flex">
                             <?php   if(!empty($listDataNew)){
                                 foreach($listDataNew as $key  => $value){
-                                    echo ' <div class="col-6">
+                                    echo ' <div class="col-lg-6 col-md-6">
                                 <div class="main-below-right-image">
                                     <div class="main-below-right-image-slide" style="margin: 50px 0 20px 0;" >
-                                        <a href="/'.$value->slug.'.html"><img src="'.$value->image.'" alt="">
+                                        <a href="/'.$value->slug.'.html"><img src="'.$value->image.'" style="height: 235px;"  alt="">
                                             <h3 style="font-size: 16px; padding: 6px 10px; margin: 0px; ;color: #000000;line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">'.$value->title.'</h3>
                                             <p style="display: -webkit-box; -webkit-line-clamp: 3;-webkit-box-orient: vertical; overflow: hidden;color: #000000;padding: 0 10px;font-size: 13px;">'.$value->description.'</p>
-                                        <a>
+                                        </a>
                                     </div>               
                                 </div>
                             </div>';
                                 }
                             } ?>
+
                             
                             <!-- <div class="col-6">
                                 <div class="main-below-right-image">

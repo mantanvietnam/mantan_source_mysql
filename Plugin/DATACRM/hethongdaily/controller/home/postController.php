@@ -134,6 +134,7 @@ function addPost($input){
 	global $modelCategoryConnects;
 
 	$mess = '';
+	$modelSlugs = $controller->loadModel('Slugs');
 	$user = checklogin('addPost');
 	if(!empty($user)){
         if(empty($user->grant_permission)){
@@ -196,17 +197,26 @@ function addPost($input){
 				$slugNew = $slug;
 				$number = 0;
 
-				if(empty($infoPost->slug) || $infoPost->slug!=$slugNew){
-                    do{
-                        $conditions = array('slug'=>$slugNew);
-                        $listData = $modelPosts->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+				$checkSlug = $modelSlugs->find()->where(['slug'=>$slugNew])->first();
 
-                        if(!empty($listData)){
-                            $number++;
-                            $slugNew = $slug.'-'.$number;
-                        }
-                    }while (!empty($listData));
-                }
+	            if(empty($infoPost->slug) || $infoPost->slug!=$slugNew || empty($checkSlug) ){
+		            do{
+		            	$conditions = array('slug'=>$slugNew);
+	        			$listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+	        			if(!empty($listData)){
+	        				$number++;
+	        				$slugNew = $slug.'-'.$number;
+	        			}
+		            }while (!empty($listData));
+		        
+		            // lưu url slug
+		            saveSlugURL($slugNew, 'homes', 'info_page');
+		            
+		            if(!empty($infoPost->slug)){
+		            	deleteSlugURL($infoPost->slug);
+		            }
+		        }
 
 				$infoPost->slug = $slugNew;
 
