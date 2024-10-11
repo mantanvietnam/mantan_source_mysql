@@ -27,4 +27,5 @@ include('model/staffs.php'); // cài đặt theme info
 include('model/staff_timekeepers.php'); // cài đặt theme info
 include('model/activity_historys.php'); // cài đặt theme info
 include('model/group_staffs.php'); // cài đặt theme info
+include('model/customer_historie_mmtt.php'); // cài đặt theme info
 ?>

@@ -12,6 +12,8 @@ function listCourseAgency($input)
 
     $modelCourses = $controller->loadModel('Courses');
     $modelLesson = $controller->loadModel('Lessons');
+    $modelLike = $controller->loadModel('Likes');
+    $modelComment = $controller->loadModel('Comments');
 
     $user = checklogin('listCourseAgency');   
     if(!empty($user)){
@@ -46,7 +48,13 @@ function listCourseAgency($input)
 	            $listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
 
 	            $lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
+	            $like = $modelLike->find()->where(['id_object'=>$value->id, 'keyword'=>'course', 'type'=>'like'])->all()->toList();
+	            $dislike = $modelLike->find()->where(['id_object'=>$value->id, 'keyword'=>'course', 'type'=>'dislike'])->all()->toList();
+	            $comment = $modelComment->find()->where(['id_object'=>$value->id, 'keyword'=>'course'])->all()->toList();
 	            $listData[$key]->number_lesson = count($lessons);
+	            $listData[$key]->like = count($like);
+	            $listData[$key]->dislike = count($dislike);
+	            $listData[$key]->comment = count($comment);
 	        }
 	    }
 
@@ -350,6 +358,8 @@ function listLessonAgency($input)
 	$modelLesson = $controller->loadModel('Lessons');
     $modelCourses = $controller->loadModel('Courses');
     $modelTests = $controller->loadModel('Tests');
+    $modelLike = $controller->loadModel('Likes');
+    $modelComment = $controller->loadModel('Comments');
 
     $user = checklogin('listLessonAgency');   
     if(!empty($user)){
@@ -386,6 +396,12 @@ function listLessonAgency($input)
 	    		$listData[$key]->name_course = (!empty($category[$value->id_course]->title))?$category[$value->id_course]->title:'';
 	            $tests = $modelTests->find()->where(['id_lesson'=>$value->id])->all()->toList();
 	            $listData[$key]->number_test = count($tests);
+	            $like = $modelLike->find()->where(['id_object'=>$value->id, 'keyword'=>'lesson', 'type'=>'like'])->all()->toList();
+	            $dislike = $modelLike->find()->where(['id_object'=>$value->id, 'keyword'=>'lesson', 'type'=>'dislike'])->all()->toList();
+	            $comment = $modelComment->find()->where(['id_object'=>$value->id, 'keyword'=>'lesson'])->all()->toList();
+	            $listData[$key]->like = count($like);
+	            $listData[$key]->dislike = count($dislike);
+	            $listData[$key]->comment = count($comment);
 	    	}
 	    }
 	    // phân trang

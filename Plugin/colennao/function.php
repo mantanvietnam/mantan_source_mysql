@@ -684,6 +684,7 @@ function entextendUserDeline($id_user, $id_price, $id_transaction=0){
         }
 
         $user->status_pay_package = 1;
+        $user->start_date = time();
         
         $modelUser->save($user);
     }

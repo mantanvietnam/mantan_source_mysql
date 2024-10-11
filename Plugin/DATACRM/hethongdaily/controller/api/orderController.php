@@ -45,13 +45,13 @@ function createOrderCustomerAPI($input)
 	                $save->email = @$customer_buy->email;
 	                $save->phone = @$customer_buy->phone;
 	                $save->address = @$customer_buy->address;
-	                $save->note_user = $dataSend['note'];
+	                $save->note_user = @$dataSend['note'];
 	                $save->note_admin = '';
 	                $save->status = 'new';
 	                $save->create_at = time();
-	                $save->money = (int) $dataSend['total'];
-	                $save->total = (int) $dataSend['totalPays'];
-	                $save->promotion = (int) $dataSend['promotion'];
+	                $save->money = (int) @$dataSend['total'];
+	                $save->total = (int) @$dataSend['totalPays'];
+	                $save->promotion = (int) @$dataSend['promotion'];
 	                $save->id_agency = $infoMember->id;
 
 	                $modelOrders->save($save);
@@ -69,7 +69,7 @@ function createOrderCustomerAPI($input)
 
 	                    $modelOrderDetails->save($saveDetail);
 
-	                    $infoProduct = $modelProducts->find()->where(['id'=>$value])->first();
+	                    $infoProduct = $modelProducts->find()->where(['id'=>(int)$value])->first();
                     	$productDetail[] = $infoProduct->title;
 	                }
 

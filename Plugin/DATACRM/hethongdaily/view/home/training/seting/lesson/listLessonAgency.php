@@ -59,6 +59,7 @@
               <th>Tên bài học</th>
               <th>Số bài thi</th>
               <th>Trạng thái</th>
+              <th>Like & comment</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -74,6 +75,10 @@
                           <td>'.$item->title.'</td>
                           <td><a href="listTestAgency/?id_lesson='.$item->id.'">'.number_format($item->number_test).' bài thi</a></td>
                           <td>'.$item->status.'</td>
+                           <td>Like: '.$item->like.'</br>
+                              Dislike: '.$item->dislike.'</br>
+                              Comment: '.$item->comment.'</br>
+                          </td>
                           <td align="center">
                             <a class="dropdown-item" href="/addLessonAgency?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
@@ -106,6 +111,11 @@
                           <p><strong>Tên bài học:</strong> '.$item->title.'</p>
                           <p><strong>Số bài thi:</strong> <a href="listTestAgency/?id_lesson='.$item->id.'">'.number_format($item->number_test).' bài thi</a></p>
                           <p><strong>Trạng thái:</strong> '.$item->status.'</p>
+                          <p>
+                            Like: '.$item->like.'</br>
+                            Dislike: '.$item->dislike.'</br>
+                            Comment: '.$item->comment.'</br>
+                          </p>
                           <p align="center">
                             <a class="btn btn-success" href="/addLessonAgency/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
