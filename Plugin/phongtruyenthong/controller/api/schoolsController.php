@@ -91,7 +91,7 @@ function getInfoSchoolAPI($input)
         }
     }
 
-    $data_value['listTeacher'] = $modelTeachers->find()->where()->all()->toList();
+    $data_value['listTeacher'] = $modelTeachers->find()->where()->order(['id'=>'desc'])->all()->toList();
 
     if(!empty($data_value['listTeacher'])){
         foreach ($data_value['listTeacher'] as $key => $value) {

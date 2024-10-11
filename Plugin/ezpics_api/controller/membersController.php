@@ -147,7 +147,7 @@ function saveRegisterMemberAPI($input)
 					}
 
 					// gửi mã xác thực về Zalo người đăng ký
-					// sendOTPZalo($dataSend['phone'], $data->otp);
+					sendOTPZalo($dataSend['phone'], $data->otp);
 
 					$return = array(	'code'=>0, 
 			    						'set_attributes'=>array('id_member'=>$data->id),
