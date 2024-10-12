@@ -30,11 +30,10 @@ $sqlInstallDatabase .="CREATE TABLE `likes` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
-$sqlInstallDatabase .="CREATE TABLE `social_networks` ( 
+$sqlInstallDatabase .="CREATE TABLE `wall_posts` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
 `id_customer` INT NOT NULL ,
 `connent` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
-`image` TEXT NULL DEFAULT '[]' ,
 `created_at` INT NULL DEFAULT NULL ,
 `public` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
 PRIMARY KEY (`id`)
@@ -50,6 +49,15 @@ $sqlInstallDatabase .="CREATE TABLE `make_friends` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `image_customers` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`id_customer` INT NULL DEFAULT NULL , 
+`id_post` INT NULL DEFAULT NULL , 
+`image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`public` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`created_at` INT NULL DEFAULT NULL , 
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
 
 $sqlDeleteDatabase .= "DROP TABLE comments; ";
 $sqlDeleteDatabase .= "DROP TABLE likes; ";
@@ -73,15 +81,21 @@ $sqlUpdateDatabase['likes']['keyword'] = "ALTER TABLE `likes` ADD `keyword` VARC
 $sqlUpdateDatabase['likes']['type'] = "ALTER TABLE `likes` ADD `type` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['likes']['created_at'] = "ALTER TABLE `likes` ADD `created_at` INT NULL DEFAULT NULL;";
 
-$sqlUpdateDatabase['social_networks']['id_customer'] = "ALTER TABLE `social_networks` ADD `id_customer` INT NOT NULL;";
-$sqlUpdateDatabase['social_networks']['connent'] = "ALTER TABLE `social_networks` ADD `connent` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['social_networks']['image'] = "ALTER TABLE `social_networks` ADD `image` TEXT NULL DEFAULT '[]';";
-$sqlUpdateDatabase['social_networks']['created_at'] = "ALTER TABLE `social_networks` ADD `created_at` INT NULL DEFAULT NULL;";
-$sqlUpdateDatabase['social_networks']['public'] = "ALTER TABLE `social_networks` ADD `public` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['wall_posts']['id_customer'] = "ALTER TABLE `wall_posts` ADD `id_customer` INT NOT NULL;";
+$sqlUpdateDatabase['wall_posts']['connent'] = "ALTER TABLE `wall_posts` ADD `connent` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['wall_posts']['created_at'] = "ALTER TABLE `wall_posts` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['wall_posts']['public'] = "ALTER TABLE `wall_posts` ADD `public` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL;";
 
 $sqlUpdateDatabase['make_friends']['id_customer_request'] = "ALTER TABLE `make_friends` ADD `id_customer_request` INT NOT NULL;";
 $sqlUpdateDatabase['make_friends']['id_customer_confirm'] = "ALTER TABLE `make_friends` ADD `id_customer_confirm` INT NOT NULL;";
 $sqlUpdateDatabase['make_friends']['status'] = "ALTER TABLE `make_friends` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['make_friends']['created_at'] = "ALTER TABLE `make_friends` ADD `created_at` INT NOT NULL;";
 $sqlUpdateDatabase['make_friends']['updated_at'] = "ALTER TABLE `make_friends` ADD `updated_at` INT NOT NULL;";
+
+
+$sqlUpdateDatabase['image_customers']['id_customer'] = "ALTER TABLE `image_customers` ADD `id_customer` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_customers']['id_post'] = "ALTER TABLE `image_customers` ADD `id_post` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_customers']['image'] = "ALTER TABLE `image_customers` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_customers']['public'] = "ALTER TABLE `image_customers` ADD `public` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_customers']['created_at'] = "ALTER TABLE `image_customers` ADD `created_at` INT NULL DEFAULT NULL;";
 ?>
