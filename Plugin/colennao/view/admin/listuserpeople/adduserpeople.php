@@ -41,6 +41,21 @@
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
+                                  <label class="form-label">id_consume</label>
+                                  <select class="form-control" name="id_consume" id="id_consume" required>
+                                      <option value="">Chọn Nhóm </option>
+                                   
+                                      <?php foreach ($datamyplane as $item): ?>
+                                          <option value="<?php echo $item['id']; ?>" 
+                                              <?php echo isset($data->id_consume) && $data->id_consume == $item['id'] ? 'selected' : ''; ?>>
+                                              <?php echo $item['name']; ?>
+                                          </option>
+                                      <?php endforeach; ?>
+                                  </select>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
                                 <label class="form-label">Ảnh minh họa</label>
                                 <?php showUploadFile('image','image',@$data->image,0);?>
                               </div>

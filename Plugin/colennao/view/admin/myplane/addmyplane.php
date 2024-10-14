@@ -35,22 +35,13 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="mb-3">
-                                  <label class="form-label">id_userpeople</label>
-                                  <select name="id_userpeople" id="id_userpeople" class="form-control" >
-                                      <option value="">Chọn nhóm bài tập người dùng</option>
-                                      <?php if (!empty($listDatauserpeople)): ?>
-                                          <?php foreach ($listDatauserpeople as $key): ?>
-                                            <option value="<?php echo $key->id; ?>" <?= (isset($data->id_userpeople) && $data->id_userpeople == $key->id) ? 'selected' : '' ?>>
-                                                  <?php echo $key->name; ?>
-                                              </option>
-                                          <?php endforeach; ?>
-                                      <?php endif; ?>
-                                  </select>
+                                  <label class="form-label">Tên</label>
+                                  <input type="text" class="form-control" name="name" id="name" value="<?php echo $data->name?>" />
                               </div>
-                              <div class="mb-3">
+                              <!-- <div class="mb-3">
                                 <label class="form-label">time start</label>
                                 <input type="datetime-local" class="form-control" name="time" id="time" value="<?php echo isset($data->time) ? date('Y-m-d\TH:i', $data->time) : ''; ?>" />
-                              </div>
+                              </div> -->
                             </div>
                 
                             <!-- <div class="col-md-6">

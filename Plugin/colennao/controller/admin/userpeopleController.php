@@ -72,11 +72,12 @@ function adduserpeople($input) {
     $modeluserpeople = $controller->loadModel('userpeople');
     $modelWorkouts = $controller->loadModel('Workouts');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
+    $modelmyplane = $controller->loadModel('myplane');
     $mess = '';
 
     $dataExerciseWorkouts = $modelExerciseWorkouts->find()->all();
     $dataWorkouts = $modelWorkouts->find()->all();
-
+    $datamyplane = $modelmyplane->find()->all();
     if (!empty($_GET['id'])) {
         $data = $modeluserpeople->get((int)$_GET['id']);
     } else {
@@ -89,7 +90,7 @@ function adduserpeople($input) {
         if (!empty($dataSend['name'])) {
             $data->name = $dataSend['name'];
             $data->image = $dataSend['image'];
-
+            $data->id_consume = $dataSend['id_consume'];
             $idLessons = []; 
 
             if (!empty($dataSend['id_lesson'])) {
@@ -114,6 +115,7 @@ function adduserpeople($input) {
 
     setVariable('dataExerciseWorkouts', $dataExerciseWorkouts);
     setVariable('dataWorkouts', $dataWorkouts);
+    setVariable('datamyplane', $datamyplane);
     setVariable('data', $data);
     setVariable('mess', $mess);
 }

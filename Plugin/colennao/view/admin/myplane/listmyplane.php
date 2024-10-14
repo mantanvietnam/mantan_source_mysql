@@ -45,7 +45,8 @@
                 <tr>
                     <td><?php echo $item->id; ?></td>
                     <td>
-                    <p><?php echo getUserNameById($item->id_userpeople) ?? 'Không tìm thấy'; ?></p>
+                    <p><?php echo $item->name ?></p>
+
                     </td>
                     <td align="center">
                         <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-myplane-addmyplane/?id=<?php echo urlencode($item->id); ?>">

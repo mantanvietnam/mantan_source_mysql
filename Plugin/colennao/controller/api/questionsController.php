@@ -242,10 +242,7 @@ function listmyplanAPI($input)
     $modelmyplane = $controller->loadModel('myplane');
     if($isRequestPost){
 		    $dataSend = $input['request']->getData();
-            if(!empty($dataSend['token']) && !empty($dataSend['id_userpeople'])){
-                $user = getUserByToken($dataSend['token']);
-
-             if(!empty($user)){
+            if( !empty($dataSend['id_userpeople'])){
                     $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                     $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                     $conditions = array();
@@ -261,7 +258,6 @@ function listmyplanAPI($input)
                         $listData[$key]->alldata = json_decode($data->alldata, true);
                     }
                     $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);
-             }
             }
 
     }else{
@@ -281,20 +277,13 @@ function getmyplaneAPI($input) {
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (!empty($dataSend['id']) && !empty($dataSend['token'])) {
-            $user = getUserByToken($dataSend['token']);
-            if(!empty($user)) {
+        if (!empty($dataSend['id'])) {
                 $conditions = array('id' => (int)$dataSend['id']);
                 $listData = $modelmyplane->find()->where($conditions)->first();
                 if ($listData) {
                     $listData->alldata = json_decode($listData->alldata, true);
                 }
                 $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData);
-
-            }else{
-                $return = array('code' => 0, 'mess' => 'token không tồn tại');
-            }
-
         } else {
             $return = array('code' => 2, 'mess' => 'Gửi thiếu dữ liệu hoặc ID không hợp lệ');
         }

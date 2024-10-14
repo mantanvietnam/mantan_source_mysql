@@ -73,8 +73,8 @@
                                                 $answerKey = 'answer' . $i; 
                                                 if (isset($questionData[$answerKey]) && $questionData[$answerKey] !== null && $questionData[$answerKey] !== ''): // Kiểm tra đáp án không phải là null và không rỗng
                                                     $hasAnswer = true; 
-                                                    // Gán giá trị tương ứng cho đáp án
-                                                    $valueMap = ['a', 'b', 'c', 'd','e','f','g','h']; // Giá trị cho các đáp án
+                                  
+                                                    $valueMap = ['a', 'b', 'c', 'd','e','f','g','h']; 
                                             ?>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="answer[<?php echo $questionData['id']; ?>][]" value="<?php echo $valueMap[$i - 1]; ?>" id="<?php echo $answerKey . '-' . $questionData['id']; ?>">

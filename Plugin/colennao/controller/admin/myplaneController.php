@@ -83,11 +83,8 @@ function addmyplane($input){
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
     
-        if (!empty($dataSend['id_userpeople'])) {
-            $data->id_userpeople = $dataSend['id_userpeople'];
-            $data->time = (new DateTime($dataSend['time']))->getTimestamp();
-    
-
+        if (!empty($dataSend['name'])) {
+            $data->name = $dataSend['name'];
             if (!empty($dataSend['day'])) {
                 $alldata = array(); 
                 

@@ -37,6 +37,7 @@
             <th>ID</th>
             <th>image</th>
             <th>Tên</th>
+            <th>Nhóm tiêu thụ</th>
             <th>sửa</th>
             <th>xóa</th>
           </tr>
@@ -49,6 +50,10 @@
                     <td>
                         <p ><?php echo $item->name; ?></p>
                     </td>
+                    <td><?php if(!empty($item->id_consume)){
+                          echo getnamemyplaneById($item->id_consume);
+
+                    } ?></td>
                     <td align="center">
                         <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-listuserpeople-adduserpeople/?id=<?php echo urlencode($item->id); ?>">
                             <i class="bx bx-edit-alt me-1"></i>

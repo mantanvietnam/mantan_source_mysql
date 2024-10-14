@@ -63,6 +63,14 @@
                                         <input type="text" class="form-control" name="Vision" value="<?php echo @$data['Vision'];?>" />
                                     </div>
                                     <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                        <label class="form-label" for="basic-default-fullname">image left about sứ mệnh</label>
+                                        <?php showUploadFile('imageleftaboutmission','imageleftaboutmission', @$data['imageleftaboutmission'],49);?>
+                                    </div>
+                                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                        <label class="form-label" for="basic-default-fullname">Nội dung sứ mệnh</label>
+                                        <input type="text" class="form-control" name="mission" value="<?php echo @$data['mission'];?>" />
+                                    </div>
+                                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                         <label class="form-label" for="basic-default-fullname">banner full </label>
                                         <?php showUploadFile('bannerfull','bannerfull', @$data['bannerfull'],42);?>
                                     </div>

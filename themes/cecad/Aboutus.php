@@ -89,7 +89,24 @@
             </div>
         </section>
 
-        <section id="about-section-7" style="background-image: url(<?= $urlThemeActive?>asset/images/zxv.jpg);"></section>
+        <section id="about-section-6">
+            <div class="container">
+                <div class="row" style="align-items: center;">
+                    <div class="col-lg-5 col-md-12">
+                        <div class="as6-block-2">
+                            <h1>sứ mệnh</h1>
+                            <p><?= @$setting['mission'];?></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-12">
+                        <div class="abs6-block-1">
+                            <img src="<?= @$setting['imageleftaboutmission'];?>" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="about-section-7" style="background-image: url(<?=@$setting['bannerfull']?>);"></section>
 
         <section id="about-section-8">
             <div class="container" style="max-width: 1500px;">

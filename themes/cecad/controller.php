@@ -110,7 +110,8 @@ function settingAboutusTheme($input){
           'imagehq'=>$dataSend['imagehq'],
           
 // 
-
+'imageleftaboutmission'=>$dataSend['imageleftaboutmission'],
+'mission'=>$dataSend['mission'],
 
 // 
         

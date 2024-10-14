@@ -157,7 +157,7 @@ $menus[3]['sub'][8]= array( 'title'=>'Tin tức',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listtablepost'
                             );
-$menus[3]['sub'][9]= array( 'title'=>'danh sách bài luyện tập người dùng',
+$menus[3]['sub'][9]= array( 'title'=>'Danh sách bài luyện tập người dùng',
                             'url'=>'/plugins/admin/colennao-view-admin-listuserpeople-listuserpeople',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listuserpeople'
@@ -178,11 +178,12 @@ addMenuAdminMantan($menus);
 global $transactionKey;
 $transactionKey = 'COLENNAO';
 
-function getUserNameById($userId) {
-    global $controller;
-    $modeluserpeople = $controller->loadModel('userpeople');
 
-    $user = $modeluserpeople->find()->where(['id' => $userId])->first();
+function getnamemyplaneById($userId) {
+    global $controller;
+    $modelmyplane = $controller->loadModel('myplane');
+
+    $user = $modelmyplane->find()->where(['id' => $userId])->first();
 
     return $user ? $user->name : null;
 }
