@@ -70,6 +70,7 @@ function checkDeadlineOrderAPI($input)
 					if(!empty($room->info)){
 						$room->info = json_decode($room->info, true);
 						closeRoom($zoom->client_id, $zoom->client_secret, $zoom->account_id, $room->info['id']);
+						closeRoom($zoom->client_id, $zoom->client_secret, $zoom->account_id, $room->info['id']);
 					}
 				}
 				
