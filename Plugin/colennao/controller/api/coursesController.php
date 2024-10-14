@@ -435,10 +435,7 @@ function getUserCourseAPI($input)
                 if (!empty($dataSend['title'])) {
                     $conditions['title LIKE'] = '%' . $dataSend['title'] . '%';
                 }
-
-                
                 $data = $modelUserCourse->find()->where($conditions)->first();
-
                 if(!empty($data)){
                     $course = $modelCourses->find()->where(array('id'=> $data->id_course))->first();
                     if(!empty($course)){
