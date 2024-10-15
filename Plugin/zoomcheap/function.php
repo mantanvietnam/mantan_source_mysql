@@ -663,3 +663,95 @@ function randPass( $length ) {
     return substr(str_shuffle($chars),0,$length);
 
 }
+
+function registerEmailNotification($input){
+    global $session;
+    global $controller;
+    $modelManagers = $controller->loadModel('Managers');
+    $user = $session->read('infoUser');
+    if(!empty($user)){
+        $emailNotification = (!empty($input['email_notification'])) ? 1 : 0;
+        $modelManagers->updateAll(
+            ['email_notification'=>$emailNotification],
+            ['id'=>$user->id]
+        );
+        $user->email_notification = $emailNotification;
+        $session->write('infoUser',$user);
+        return $controller->redirect('/listOrder');
+    }else{
+        return $controller->redirect('login');
+    }
+}
+function sendLowRoomNotification($email = '', $numberAcc100 = '') {
+
+    $to = array();
+    if (!empty($email)) {
+        $to[] = trim($email);
+
+
+        $cc = array();
+        $bcc = array();
+        $subject = '[ZoomCheap] Cảnh báo: Số lượng phòng loại 100 thấp';
+
+        $content = '<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Cảnh báo Số lượng phòng Zoom Cheap</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao { background: #fafafa; margin: 40px; padding: 20px 20px 40px; }
+                .nd { background: white; max-width: 750px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 2px solid #e6e2e2; line-height: 2; }
+                .head { background: #0062cc; color: white; text-align: center; padding: 15px 10px; font-size: 17px; text-transform: uppercase; }
+                .main { padding: 10px 20px; }
+                .thong_tin { padding: 0 20px 20px; }
+                .cty { text-align: center; margin: 20px 0 30px; }
+                table { margin: auto; }
+                @media screen and (max-width: 768px) { .bao { margin: 0; } }
+                @media screen and (max-width: 767px) { .bao { padding: 6px; } .nd { text-align: inherit; } }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>XIN THÔNG BÁO:</span>
+                    </div>
+                    <div class="main">
+                        <br/>
+                        SỐ PHÒNG HIỆN TẠI SẮP HẾT <strong>
+                        <br>
+                            -Zoom100: ' . $numberAcc100 . '
+                        <br>
+                            -Zoom300: 0
+                        <br>
+                            -Zoom500: 0
+                        <br>
+                            -Zoom1000: 0
+                        <br>
+                        </strong> Nếu bạn có kế hoạch zoom trong hôm nay, hãy mau chóng vào zoomcheap.com để tiến hành lấy phòng trước khi hết nhé !
+                        <br>
+                        Trân trọng,
+                    </div>
+                    <div class="thong_tin">
+                        <div class="cty">
+                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span>Dịch vụ thuê Zoom giá rẻ</span>
+                        </div>
+                        <ul class="list-unstyled" style="font-size: 15px;">
+                            <li>Hỗ trợ: Vũ Tuyên Hoàng</li>
+                            <li>Mobile: 0828266622</li>
+                            <li>Website: <a href="https://zoomcheap.com">https://zoomcheap.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        // Gửi email thông báo
+        sendEmail($to, $cc, $bcc, $subject, $content);
+    }
+}

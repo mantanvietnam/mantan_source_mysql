@@ -102,6 +102,9 @@ function listOrder($input)
 
 	    $numberAcc1000 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>1000, 'status'=>'active'])->all()->toList();
 	    $numberAcc1000 = count($numberAcc1000);
+		if($numberAcc100 <=10 ){
+			sendlowRoomNotification($user->email,$numberAcc100);
+		}
 
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);

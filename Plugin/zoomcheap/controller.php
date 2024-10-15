@@ -17,5 +17,6 @@ include('controller/admin/historiesController.php');
 include('controller/admin/pricesController.php');
 include('controller/admin/linksController.php');
 include('controller/admin/roomsController.php');
+include('controller/home/testController.php');
 
 

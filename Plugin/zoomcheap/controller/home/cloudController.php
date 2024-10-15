@@ -23,4 +23,20 @@ function listCloud($input){
     setVariable('cloudRecords', $cloudRecords);
    
 }
+function addNotification($input){
+    global $controller;
+	global $urlCurrent;
+	global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách clound zoom';
+	$modelZooms = $controller->loadModel('Zooms');
+    $modelRooms = $controller->loadModel('Rooms');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelmanagers = $controller->loadModel('managers');
+    
+  
+
+   
+}
 ?>

@@ -149,6 +149,14 @@
                 <div data-i18n="Add">Lịch sử giao dịch</div>
               </a>
             </li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Đăng ký nhận thông báo khi phòng zoom hết</span></li>
+            <li class="menu-item">
+              <a href="/addNotification" class="menu-link">
+                <i class='bx bxs-meh-alt'></i>  
+                <div data-i18n="Add">Đăng ký</div>
+              </a>
+            </li>
+
             <!--
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Mua tài khoản</span></li>
             <li class="menu-item">
