@@ -702,9 +702,9 @@ function sendLowRoomNotification($email = '', $numberAcc100 = '') {
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <style>
-                .bao { background: #fafafa; margin: 40px; padding: 20px 20px 40px; }
+                .bao { background: #fafafa; margin: 20px; padding: 20px 20px 40px; }
                 .nd { background: white; max-width: 750px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 2px solid #e6e2e2; line-height: 2; }
-                .head { background: #0062cc; color: white; text-align: center; padding: 15px 10px; font-size: 17px; text-transform: uppercase; }
+                .head { background: #0062cc; color: white; text-align: center; padding: 13px 10px; font-size: 15px; text-transform: uppercase; }
                 .main { padding: 10px 20px; }
                 .thong_tin { padding: 0 20px 20px; }
                 .cty { text-align: center; margin: 20px 0 30px; }
@@ -720,7 +720,6 @@ function sendLowRoomNotification($email = '', $numberAcc100 = '') {
                         <span>XIN THÔNG BÁO:</span>
                     </div>
                     <div class="main">
-                        <br/>
                         SỐ PHÒNG HIỆN TẠI SẮP HẾT <strong>
                         <br>
                             -Zoom100: ' . $numberAcc100 . '

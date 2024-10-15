@@ -102,9 +102,10 @@ function listOrder($input)
 
 	    $numberAcc1000 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>1000, 'status'=>'active'])->all()->toList();
 	    $numberAcc1000 = count($numberAcc1000);
-		if($numberAcc100 <=10 ){
-			sendlowRoomNotification($user->email,$numberAcc100);
-		}
+
+		// if($numberAcc100 <=10 ){
+		// 	sendlowRoomNotification($user->email,$numberAcc100);
+		// }
 
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -146,7 +147,6 @@ function addOrder($input)
 
 	    $numberAcc500 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>500, 'status'=>'active'])->all()->toList();
 	    $numberAcc500 = count($numberAcc500);
-
 	    $numberAcc1000 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>1000, 'status'=>'active'])->all()->toList();
 	    $numberAcc1000 = count($numberAcc1000);
 		$mess= '';
@@ -192,8 +192,16 @@ function addOrder($input)
 					        $data->modified = time();
 					        $data->created = time();
 					        $data->idZoom = $checkZoom->id;
-					        $modelOrders->save($data);
+					        if ($modelOrders->save($data)) {
+								if ($numberAcc100 < 10 && $infoUser->email_nofitication == 1) {
+									try {
+										sendLowRoomNotification($infoUser->email, $numberAcc100);
+									} catch (Exception $e) {
 
+									}
+								}
+							}
+							
 					        // cập nhập tài khoản zoom
 					        $checkZoom->idOrder = $data->id;
 					        $modelZooms->save($checkZoom);

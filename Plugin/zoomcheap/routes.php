@@ -20,7 +20,7 @@
 	$routesPlugin['listHistories']= 'zoomcheap/view/home/histories/listHistories.php';
 	$routesPlugin['addMoney']= 'zoomcheap/view/home/histories/addMoney.php';
 
-	$routesPlugin['addNotification']= 'zoomcheap/view/home/clound/addNotification.php';
+	$routesPlugin['addNotification']= 'zoomcheap/view/home/cloud/addNotification.php';
 
 
 
