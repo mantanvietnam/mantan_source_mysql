@@ -41,6 +41,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `id_package` INT NOT NULL DEFAULT 0,
 `status_pay_package` INT NULL DEFAULT 0 COMMENT "0 chưa thanh toán , 1 dã thanh toán",
 `id_group_user` INT NOT NULL DEFAULT 0,
+`rose` INT NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 $sqlInstallDatabase .="CREATE TABLE `coach` (
@@ -186,8 +187,8 @@ PRIMARY KEY (`id`)
 
 $sqlInstallDatabase .="CREATE TABLE `tip_challenges` ( 
 `id` INT NOT NULL AUTO_INCREMENT ,
-`tip` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
-`tip_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`tip` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`tip_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `id_challenge` INT NOT NULL ,
 `day` INT NULL DEFAULT NULL,
 PRIMARY KEY (`id`)
@@ -404,6 +405,7 @@ $sqlUpdateDatabase['users']['google_id'] = "ALTER TABLE `users` ADD `google_id` 
 $sqlUpdateDatabase['users']['apple_id'] = "ALTER TABLE `users` ADD `apple_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['users']['facebook_id'] = "ALTER TABLE `users` ADD `facebook_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['users']['info'] = "ALTER TABLE `users` ADD `info` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['users']['rose'] = "ALTER TABLE `users` ADD `rose` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['users']['last_login'] = "ALTER TABLE `users` ADD `last_login` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['users']['total_coin'] = "ALTER TABLE `users` ADD `total_coin` INT NULL DEFAULT ;";
 $sqlUpdateDatabase['users']['current_weight'] = "ALTER TABLE `users` ADD `current_weight` INT NULL DEFAULT NULL ;"; 
@@ -457,8 +459,8 @@ $sqlUpdateDatabase['users']['id_group_user'] = "ALTER TABLE `users` ADD `id_grou
 
 
 
- $sqlUpdateDatabase['tip_challenges']['tip'] = "ALTER TABLE `tip_challenges` ADD  `tip` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
- $sqlUpdateDatabase['tip_challenges']['tip_en'] = "ALTER TABLE `tip_challenges` ADD  `tip_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+ $sqlUpdateDatabase['tip_challenges']['tip'] = "ALTER TABLE `tip_challenges` ADD  `tip` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+ $sqlUpdateDatabase['tip_challenges']['tip_en'] = "ALTER TABLE `tip_challenges` ADD  `tip_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
  $sqlUpdateDatabase['tip_challenges']['id_challenge'] = "ALTER TABLE `tip_challenges` ADD `id_challenge` INT NOT NULL ;";
  $sqlUpdateDatabase['tip_challenges']['day'] = "ALTER TABLE `tip_challenges` ADD `day` INT NULL DEFAULT NULL;";
 
