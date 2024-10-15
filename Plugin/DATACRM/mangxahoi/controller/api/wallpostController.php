@@ -62,7 +62,7 @@ function addWallPostApi($input){
 
                 $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
                
-                return array('code'=>3, 'messages'=>'Bạn đăng bài thành công ', 'data'=>$data);
+                return array('code'=>1, 'messages'=>'Bạn đăng bài thành công ', 'data'=>$data);
               
             }
 
@@ -94,7 +94,7 @@ function  editWallPostApi($input){
                 $user =  getCustomerByToken($dataSend['token']);
             }
             if (!empty($user)) {
-                $data = $modelWallPost->find()->where(['id'=>$dataSend['id']])->first();
+                $data = $modelWallPost->find()->where(['id'=>$dataSend['id'],'id_customer'=>$user->id ])->first();
                 if(!empty($data)){
                     if(!empty($dataSend['connent'])){
                         $data->connent = $dataSend['connent'];
@@ -104,7 +104,7 @@ function  editWallPostApi($input){
                       $data->public = $dataSend['public'];
                     }
                     $modelWallPost->save($data);
-                    $conditions = array('id_post'=>$data->id);
+                    $conditions = array('id_post'=>$data->id,'id_customer'=>$user->id);
                     if(!empty($dataSend['id_image_delete'])){
                         $id_image_delete = array_map('intval', explode(',', $dataSend['id_image_delete']));
                         $conditions['id IN'] =$id_image_delete;
@@ -181,7 +181,7 @@ function deleteWallPostApi($input){
                 $user =  getCustomerByToken($dataSend['token']);
             }
             if (!empty($user)) {
-                $data = $modelWallPost->find()->where(['id'=>$dataSend['id']])->first();
+                $data = $modelWallPost->find()->where(['id'=>$dataSend['id'],'id_customer'=>$user->id])->first();
                 if(!empty($data)){
                     $conditions = array('id_post'=>$data->id);
                     deletelikeIdObject([$data->id],'wall_post');
@@ -194,11 +194,11 @@ function deleteWallPostApi($input){
                         }
                     }
                     $modelImageCustomer->deleteAll($conditions);
-                   $modelWallPost->delete($data);
+                    $modelWallPost->delete($data);
                
-                return array('code'=>3, 'messages'=>'Bạn xóa  bài thành công ', 'data'=>$data);
-            }
-              
+                    return array('code'=>3, 'messages'=>'Bạn xóa  bài thành công ', 'data'=>$data);
+                }
+               return array('code'=>3, 'messages'=>'Bạn không được xóa bài này ', 'data'=>$data);
             }
 
             return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
@@ -283,12 +283,404 @@ function listWallPostApi($input){
             }
 
 
-          return array('code'=>3,'data'=>null, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+          return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
         }
 
-        return array('code'=>2,'data'=>null, 'messages'=>'Gửi thiếu dữ liệu');
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
     }
 
-    return array('code'=>0,'data'=>null,'messages'=>'Gửi sai kiểu POST');
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
+
+function listWallPostFriendApi($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+    $modelLike = $controller->loadModel('Likes');
+    $modelComment = $controller->loadModel('Comments');
+    $modelWallPost = $controller->loadModel('WallPosts');
+    $modelImageCustomer = $controller->loadModel('ImageCustomers');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+               $user =  getCustomerByToken($dataSend['token']);
+
+
+           }
+           if (!empty($user)) {
+                if(function_exists('getInfoCustomerMember')){
+                $friend =  getInfoCustomerMember((int)$dataSend['id_friend'], 'id');
+                }
+                if (!empty($friend)) {
+                    $conditions = ['status'=>"agree"];
+
+                    
+                    $conditions = array('id_customer' => $friend->id, 'public'=>'public');
+                    $limit = 10;
+                    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+                    if($page<1) $page = 1;
+                    $order = array('id'=>'desc');
+
+                    $listData = $modelWallPost->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+                    if(!empty($listData)){
+                        foreach($listData as $key => $item){
+                            $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $listData[$key]->infoCustomer = $infoCustomer;
+                            $like = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'like'])->all()->toList();
+                            $dislike = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'dislike'])->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post'])->all()->toList();
+                            $listData[$key]->like = count($like);
+                            $listData[$key]->dislike = count($dislike);
+                            $listData[$key]->comment = count($comment);     
+                            $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
+                        }
+                    }
+                    return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
+                }
+            }
+
+
+          return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
+function listWallPostMyApi($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+    $modelLike = $controller->loadModel('Likes');
+    $modelComment = $controller->loadModel('Comments');
+    $modelWallPost = $controller->loadModel('WallPosts');
+    $modelImageCustomer = $controller->loadModel('ImageCustomers');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+               $user =  getCustomerByToken($dataSend['token']);
+           }
+           if (!empty($user)) {
+                    $conditions = ['status'=>"agree"];
+                    $conditions = array('id_customer' => $user->id);
+                    $limit = 10;
+                    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+                    if($page<1) $page = 1;
+                    $order = array('id'=>'desc');
+
+                    $listData = $modelWallPost->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+                    if(!empty($listData)){
+                        foreach($listData as $key => $item){
+                            $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $listData[$key]->infoCustomer = $infoCustomer;
+                            $like = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'like'])->all()->toList();
+                            $dislike = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'dislike'])->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post'])->all()->toList();
+                            $listData[$key]->like = count($like);
+                            $listData[$key]->dislike = count($dislike);
+                            $listData[$key]->comment = count($comment);     
+                            $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
+                        }
+                    }
+                    return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
+                }
+            
+
+
+          return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
+function detailWallPostFriendApi($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+    $modelLike = $controller->loadModel('Likes');
+    $modelComment = $controller->loadModel('Comments');
+    $modelWallPost = $controller->loadModel('WallPosts');
+    $modelImageCustomer = $controller->loadModel('ImageCustomers');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+               $user =  getCustomerByToken($dataSend['token']);
+           }
+           if (!empty($user)) {
+                     $data = $modelWallPost->find()->where(['id'=>$dataSend['id'],'public'=>'public'])->first();
+
+                    if(!empty($listData)){
+                        foreach($listData as $key => $item){
+                            $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $listData[$key]->infoCustomer = $infoCustomer;
+                            $like = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'like'])->all()->toList();
+                            $dislike = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'dislike'])->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post'])->all()->toList();
+                            $listData[$key]->like = count($like);
+                            $listData[$key]->dislike = count($dislike);
+                            $listData[$key]->comment = count($comment);     
+                            $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
+                        }
+                    }
+                    return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
+                }
+            
+
+
+          return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
+function detailWallPostMyApi($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+    $modelLike = $controller->loadModel('Likes');
+    $modelComment = $controller->loadModel('Comments');
+    $modelWallPost = $controller->loadModel('WallPosts');
+    $modelImageCustomer = $controller->loadModel('ImageCustomers');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+               $user =  getCustomerByToken($dataSend['token']);
+           }
+           if (!empty($user)) {
+                     $listData = $modelWallPost->find()->where(['id'=>$dataSend['id'],'id_customer'=>$user->id])->all()->toList();
+
+                    if(!empty($listData)){
+                        foreach($listData as $key => $item){
+                            $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $listData[$key]->infoCustomer = $infoCustomer;
+                            $like = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'like'])->all()->toList();
+                            $dislike = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'dislike'])->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post'])->all()->toList();
+                            $listData[$key]->like = count($like);
+                            $listData[$key]->dislike = count($dislike);
+                            $listData[$key]->comment = count($comment);     
+                            $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
+                        }
+                    }
+                    return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
+                }
+            
+
+
+          return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
+function listAlbumFriendApi($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+    $modelLike = $controller->loadModel('Likes');
+    $modelComment = $controller->loadModel('Comments');
+    $modelWallPost = $controller->loadModel('WallPosts');
+    $modelImageCustomer = $controller->loadModel('ImageCustomers');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+               $user =  getCustomerByToken($dataSend['token']);
+           }
+           if (!empty($user)) {
+                if(function_exists('getInfoCustomerMember')){
+                $friend =  getInfoCustomerMember((int)$dataSend['id_friend'], 'id');
+                }
+                if (!empty($friend)) {
+
+
+                     $listData = $modelImageCustomer->find()->where(['id_customer'=>$friend->id])->all()->toList();
+
+                    if(!empty($listData)){
+                        foreach($listData as $key => $item){
+                            $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $listData[$key]->infoCustomer = $infoCustomer;
+                            $like = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer', 'type'=>'like'])->all()->toList();
+                            $dislike = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer', 'type'=>'dislike'])->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer'])->all()->toList();
+                            $listData[$key]->like = count($like);
+                            $listData[$key]->dislike = count($dislike);
+                            $listData[$key]->comment = count($comment);               
+                        }
+                    }
+                    return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
+                }
+                 return array('code'=>1, 'messages'=>'bạn bè không tồi tạn');
+            }
+            
+
+
+          return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
+function listAlbumMyApi($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+    $modelLike = $controller->loadModel('Likes');
+    $modelComment = $controller->loadModel('Comments');
+    $modelWallPost = $controller->loadModel('WallPosts');
+    $modelImageCustomer = $controller->loadModel('ImageCustomers');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+               $user =  getCustomerByToken($dataSend['token']);
+           }
+           if (!empty($user)) {
+                
+
+                     $listData = $modelImageCustomer->find()->where(['id_customer'=>$user->id])->all()->toList();
+
+                    if(!empty($listData)){
+                        foreach($listData as $key => $item){
+                            $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $listData[$key]->infoCustomer = $infoCustomer;
+                            $like = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer', 'type'=>'like'])->all()->toList();
+                            $dislike = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer', 'type'=>'dislike'])->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer'])->all()->toList();
+                            $listData[$key]->like = count($like);
+                            $listData[$key]->dislike = count($dislike);
+                            $listData[$key]->comment = count($comment);               
+                        }
+                    }
+                    return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
+               
+            }
+            
+
+
+          return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
+function detailAlbumFriendApi($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+    $modelLike = $controller->loadModel('Likes');
+    $modelComment = $controller->loadModel('Comments');
+    $modelWallPost = $controller->loadModel('WallPosts');
+    $modelImageCustomer = $controller->loadModel('ImageCustomers');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+               $user =  getCustomerByToken($dataSend['token']);
+           }
+           if (!empty($user)) {
+                    $data = $modelImageCustomer->find()->where(['ìd'=>(int)$dataSend['id']])->first();
+                    $infoCustomer = getInfoCustomerMember($data->id_customer, 'id');   
+                    unset($infoCustomer->pass);
+                    unset($infoCustomer->token_device);
+                    unset($infoCustomer->token);
+                    unset($infoCustomer->reset_password_code);
+                    $data->infoCustomer = $infoCustomer;
+                    $like = $modelLike->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer', 'type'=>'like'])->all()->toList();
+                    $dislike = $modelLike->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer', 'type'=>'dislike'])->all()->toList();
+                    $comment = $modelComment->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer'])->all()->toList();
+                    $data->like = count($like);
+                    $data->dislike = count($dislike);
+                    $data->comment = count($comment);               
+                       
+                    return array('code'=>1,'data'=>$data, 'messages'=>'Lấy dữ liệu thành công');
+               
+            }
+            
+
+
+          return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 }
  ?>

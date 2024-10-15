@@ -205,7 +205,7 @@ function listOrderPointApi($input): array
              $conditions['user_buy !='] = @$currentUser->id;
         }*/
 
-        $listData = $modelOrderPoint->find()->where($conditions)->order(['updated_at'=>'desc'])->all()->toList();
+        $listData = $modelOrderPoint->find()->where($conditions)->order(['status'=>'asc'])->all()->toList();
 
         if(!empty($listData)){
             foreach($listData as $key => $item){
