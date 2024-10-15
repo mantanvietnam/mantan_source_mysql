@@ -19,6 +19,8 @@ function addNotificationAdmin($input)
 	$paginationMeta = createPaginationMetaData(count($totalData),1000,0);
 
 	if ($isRequestPost) {
+
+
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['title']) && !empty($dataSend['mess'])){
@@ -65,11 +67,10 @@ function addNotificationAdmin($input)
 							$notification->content = $content;
 							$notification->action = 'adminSendNotification';
 							$notification->created_at = time();
-							$modelNotification->save($notification);
+							//$modelNotification->save($notification);
 						}
 					}
 				
-
 					$dataSendNotification= array(
 						'title' => $title,
 						'time' => date('H:i d/m/Y'),
@@ -79,9 +80,10 @@ function addNotificationAdmin($input)
 
 					if(!empty($device_token)){
 
-                			$return = sendNotification($dataSendNotification, $device_token);
+                			// $return = sendNotification($dataSendNotification, $device_token);
                 		
-
+						$mess = sendNotificationnew($dataSendNotification, $device_token);
+						
 						
 					}
 
