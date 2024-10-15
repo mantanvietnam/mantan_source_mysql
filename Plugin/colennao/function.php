@@ -1,11 +1,16 @@
 <?php
 
-use Google\Auth\Credentials\ServiceAccountCredentials;
+/*use Google\Auth\Credentials\ServiceAccountCredentials;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\RequestException;*/
+
+use ExpoSDK\Expo;
+use ExpoSDK\ExpoMessage;
+
+include(__DIR__.'/library/expo/vendor/autoload.php');
 
 $menus = array();
 $menus[0]['title'] = 'Cố lên nao';
@@ -460,7 +465,7 @@ function processAddMoney($money, $id_ransaction= 0): string
     
 
 
-    if ($money >= 1000) {
+    if ($money >= 100) {
         if(!empty($id_ransaction)) {
             $transactions = $modelTransactions->find()->where(['id' =>(int)$id_ransaction, 'status'=>1])->first();
 
@@ -868,6 +873,52 @@ function sendNotification($data=[], $deviceTokens)
     }
 
     return $number_error;
+}
+
+function sendNotificationnew($data=[], $deviceTokens=''){
+   /* $messages = [
+        [
+            'title' => $data['title'],
+            'to' => 'ExponentPushToken['.$deviceTokens.']',
+            
+        ],
+        new ExpoMessage([
+            'title' => $data['title'],
+            'body' => $data,
+        ]),
+    ];*/
+
+    /**
+     * These recipients are used when ExpoMessage does not have "to" set
+     */
+    $chunks = splitArrayIntoChunks($deviceTokens, 1000);
+    $defaultRecipients = array();
+     $mess = [];
+    foreach ($chunks as $chunk) {
+            // Tạo thông báo cho mỗi nhóm 100 thiết bị
+           
+            foreach ($chunk as $token) {
+                  $messages = [
+                [
+                    'title' => $data['title'],
+                    'to' => 'ExponentPushToken['.$token.']',
+                    
+                ],
+                new ExpoMessage([
+                    'title' => $data['title'],
+                    'body' => $data['content'],
+                    'action' => $data['action'],
+                    'time' => $data['time'],
+                ]),
+                ];
+               $defaultRecipients = ['ExponentPushToken['.$token.']'];
+
+              $mess[] = (new Expo)->send($messages)->to($defaultRecipients)->push();
+            }
+    }
+
+   return   $mess;
+
 }
 
 ?>

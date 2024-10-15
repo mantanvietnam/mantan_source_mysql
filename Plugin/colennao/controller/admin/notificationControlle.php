@@ -67,7 +67,7 @@ function addNotificationAdmin($input)
 							$notification->content = $content;
 							$notification->action = 'adminSendNotification';
 							$notification->created_at = time();
-							//$modelNotification->save($notification);
+							$modelNotification->save($notification);
 						}
 					}
 				
