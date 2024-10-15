@@ -242,4 +242,90 @@ if(!empty($_GET['id'])){
 
 return $controller->redirect('/plugins/admin/colennao-view-admin-post-listcategorypost');
 }
+
+function addPage($input){
+     global $modelPosts;
+    global $modelSlugs;
+    global $modelCategories;
+    global $isRequestPost;
+    global $controller;
+    global $modelCategoryConnects;
+
+    $mess = '';
+    $modelSlugs = $controller->loadModel('Slugs');
+
+   
+        
+        $mess = '';
+
+        // lấy data edit
+        if(!empty($_GET['id'])){
+            $infoPost = $modelPosts->get( (int) $_GET['id']);
+        }else{
+            $infoPost = $modelPosts->newEmptyEntity();
+        }
+
+        if($isRequestPost) {
+            $dataSend =  $input['request']->getData();
+
+            if(!empty($dataSend['title'])){
+                // xử lý thời gian đăng
+                $today = getdate();
+                $datePost = explode('/', $dataSend['date']);
+                
+                if(!empty($datePost))
+                {
+                      $time= mktime($today['hours'], $today['minutes'], $today['seconds'], $datePost[1], $datePost[0], $datePost[2]);
+                }
+
+                // tạo dữ liệu save
+                $infoPost->title = str_replace(array('"', "'"), '’', $dataSend['title']);
+                $infoPost->title_en = str_replace(array('"', "'"), '’', $dataSend['title_en']);
+                $infoPost->author = $dataSend['author'];
+                $infoPost->pin = (int) $dataSend['pin'];
+                $infoPost->time = $time;
+                $infoPost->image = $dataSend['image'];
+                $infoPost->idCategory = 0;
+                $infoPost->keyword = $dataSend['keyword'];
+                $infoPost->description = $dataSend['description'];
+                $infoPost->description_en = $dataSend['description_en'];
+                $infoPost->content = $dataSend['content'];
+                $infoPost->content_en = $dataSend['content_en'];
+                $infoPost->type = 'page';
+
+                // tạo slug
+                $slug = createSlugMantan($infoPost->title);
+                $slugNew = $slug;
+                $number = 0;
+
+                if(empty($infoPost->slug) || $infoPost->slug!=$slugNew){
+                    do{
+                        $conditions = array('slug'=>$slugNew);
+                        $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                        if(!empty($listData)){
+                            $number++;
+                            $slugNew = $slug.'-'.$number;
+                        }
+                    }while (!empty($listData));
+                
+                    // lưu url slug
+                    saveSlugURL($slugNew, 'homes', 'info_page');
+                    if(!empty($infoPost->slug)){
+                        deleteSlugURL($infoPost->slug);
+                    }
+                }
+
+                $infoPost->slug = $slugNew;
+
+                $modelPosts->save($infoPost);
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }else{
+                $mess= '<p class="text-danger">Nhập thiếu dữ liệu</p>';
+            }
+        }
+
+        setVariable('infoPost', $infoPost);
+        setVariable('mess', $mess);
+    }
 ?>
