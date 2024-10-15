@@ -193,11 +193,18 @@ function addOrder($input)
 					        $data->created = time();
 					        $data->idZoom = $checkZoom->id;
 					        if ($modelOrders->save($data)) {
-								if ($numberAcc100 < 10 && $infoUser->email_nofitication == 1) {
-									try {
-										sendLowRoomNotification($infoUser->email, $numberAcc100);
-									} catch (Exception $e) {
-
+								if ($numberAcc100 < 10) {
+									$allUsers = $modelManagers->find('all')->toArray(); 
+							
+									foreach ($allUsers as $user) {
+										if ($user->email_nofitication == 1) {
+											try {
+				
+												sendLowRoomNotification($user->email, $numberAcc100);
+											} catch (Exception $e) {
+		
+											}
+										}
 									}
 								}
 							}
