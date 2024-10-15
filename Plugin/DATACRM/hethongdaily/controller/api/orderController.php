@@ -675,7 +675,7 @@ function getListOrderCustomerAPI($input)
 
 		        if(!empty($listData)){
 		            foreach($listData as $key => $item){
-		                $detail_order = $modelOrderDetails->find()->where(['id_order_member'=>$item->id])->all()->toList();
+		                $detail_order = $modelOrderDetails->find()->where(['id_order'=>$item->id])->all()->toList();
 		                
 		                if(!empty($detail_order)){
 		                    foreach ($detail_order as $k => $value) {
@@ -689,7 +689,10 @@ function getListOrderCustomerAPI($input)
 		                            		$detail_order->unit = $unit->unit;
 		                            	}
 			                        }else{
-			                        	$detail_order->unit = $product->unit;
+			                        	if(!empty($product->unit)){
+			                        		$detail_order->unit = @$product->unit;
+			                        	}
+			                        	
 			                        }
 		                        }
 		                    }
@@ -703,7 +706,7 @@ function getListOrderCustomerAPI($input)
 		            }
 		        }
                 
-                $totalData = $modelOrderDetails->find()->where($conditions)->all()->toList();
+                $totalData = $modelOrders->find()->where($conditions)->all()->toList();
                 
                 $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>count($totalData));
             }else{

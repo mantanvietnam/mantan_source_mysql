@@ -419,9 +419,6 @@ function listYetFriendApi($input){
                     }
                    
                     $listData = $modelCustomer->find()->where(['id NOT IN' => $id_father])->all()->toList();
-                     debug($id_father);
-                     debug($listData);
-                    die();
                     return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
                 }
                 return array('code'=>3,'data'=>null, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');

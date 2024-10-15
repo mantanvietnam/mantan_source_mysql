@@ -35,6 +35,7 @@ $sqlInstallDatabase .="CREATE TABLE `wall_posts` (
 `id_customer` INT NOT NULL ,
 `connent` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `created_at` INT NULL DEFAULT NULL ,
+`updated_at` INT NULL DEFAULT NULL,
 `public` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -84,6 +85,7 @@ $sqlUpdateDatabase['likes']['created_at'] = "ALTER TABLE `likes` ADD `created_at
 $sqlUpdateDatabase['wall_posts']['id_customer'] = "ALTER TABLE `wall_posts` ADD `id_customer` INT NOT NULL;";
 $sqlUpdateDatabase['wall_posts']['connent'] = "ALTER TABLE `wall_posts` ADD `connent` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['wall_posts']['created_at'] = "ALTER TABLE `wall_posts` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['wall_posts']['updated_at'] = "ALTER TABLE `wall_posts` ADD `updated_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['wall_posts']['public'] = "ALTER TABLE `wall_posts` ADD `public` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL;";
 
 $sqlUpdateDatabase['make_friends']['id_customer_request'] = "ALTER TABLE `make_friends` ADD `id_customer_request` INT NOT NULL;";

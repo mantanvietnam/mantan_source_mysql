@@ -29,4 +29,25 @@ function getSubComment($id_father, $modelComment,$modelCustomer){
     return $listData;
 }
 
+
+function deletelikeIdObject($id_object, $keyword){
+    global $controller;
+    $modelLike = $controller->loadModel('Likes');
+    $modelCustomer = $controller->loadModel('Customers');
+
+    $conditions = ['id_object IN'=>$id_object,'keyword'=>$keyword];
+    $modelLike->deleteAll($conditions);
+    return 'ok';
+}
+
+function deleteCommentIdObject($id_object, $keyword){
+    global $controller;
+    $modelComment = $controller->loadModel('Comments');
+    $modelCustomer = $controller->loadModel('Customers');
+
+    $conditions = ['id_object IN'=>$id_object,'keyword'=>$keyword];
+    $modelComment->deleteAll($conditions);
+    return 'ok';
+}
+
 ?>
