@@ -148,11 +148,12 @@ function  editWallPostApi($input){
                             }
                         }
                     }
+                    $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
+               
+                return array('code'=>1, 'messages'=>'Bạn sửa bài thành công ', 'data'=>$data);
                 }
 
-                $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
-               
-                return array('code'=>3, 'messages'=>'Bạn sửa bài thành công ', 'data'=>$data);
+                return array('code'=>4, 'messages'=>'Bạn không thể sửa bài này được');
               
             }
 
@@ -236,7 +237,7 @@ function listWallPostApi($input){
                     ['id_customer_confirm'=>$user->id],
                 ];
                 $checkFriend = $modelMakeFriend->find()->where($conditions)->all()->toList();
-                $listData =array($user->id);
+                $listData =array($user->id, 0);
                 if(!empty($checkFriend)){
                     foreach($checkFriend as $key => $item){
                         if($item->id_customer_request!=$user->id){
@@ -255,7 +256,7 @@ function listWallPostApi($input){
                 $limit = 10;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                 if($page<1) $page = 1;
-                $order = array('id'=>'desc');
+                $order = array('pin'=>'asc','id'=>'desc');
 
                 $listData = $modelWallPost->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 

@@ -48,8 +48,8 @@
                           <label class="form-label" for="basic-default-email">Hiểu thị</label>
                           <div class="input-group input-group-merge">
                             <select class="form-select" name="public" id="public">
-                              <option value="private" <?php if(!empty($data->status) && $data->status=='private') echo 'selected'; ?> >Dành riêng cho đại lý</option>
-                              <option value="public" <?php if(!empty($data->status) && $data->status=='public') echo 'selected'; ?> >Chung cho hệ thống</option>
+                              <option value="private" <?php if(!empty($data->public) && $data->public=='private') echo 'selected'; ?> >Dành riêng cho đại lý</option>
+                              <option value="public" <?php if(!empty($data->public) && $data->public=='public') echo 'selected'; ?> >Chung cho hệ thống</option>
                             </select>
                           </div>
                         </div>

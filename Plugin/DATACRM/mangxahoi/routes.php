@@ -2,5 +2,9 @@
 	global $routesPlugin;
 
 	// fix bug
-	//$routesPlugin['fixBug']= 'hethongdaily/view/api/fixBug.php';
+	$routesPlugin['listWallPost']= 'mangxahoi/view/home/wallpost/listWallPost.php';
+	$routesPlugin['addWallPost']= 'mangxahoi/view/home/wallpost/addWallPost.php';
+
+
+?>
 	

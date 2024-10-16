@@ -1,4 +1,4 @@
-<?php include(__DIR__.'/../header.php'); ?>
+  <?php include(__DIR__.'/../header.php'); ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
@@ -71,7 +71,7 @@
             <tr class="">
               <th>ID</th>
               <th>Tên nhóm</th>
-              <th>Quyền Hạnh</th>
+              <th>Quyền Hạn</th>
               <th>Sửa</th>
               <th>Xoá</th>
             </tr>
@@ -135,37 +135,45 @@
       <?php 
          if(!empty($listData)){
               foreach ($listData as $item) {
-                $status= '<span class="text-danger">Khóa</span>';
-                if($item->status=='active'){ 
-                  $status= '<span class="text-success">Kích hoạt</span>';
+              $permission =  '<ul style="margin-left: 0px;">';
+                foreach ($listPermissionMenu as $keyGroup => $permissionMenu)
+                { 
+                  $checkGroup= false;
+                  $permission .=  '<li id="liPermissions-'.$keyGroup.'-'.$key.'">
+                  <span>'.$permissionMenu['name'].'</span>
+                  <ul style="margin-left: 0px;">';
+                  foreach ($permissionMenu['sub'] as $menu2) { 
+                    if (isset($item->permission) && in_array($menu2['permission'], $item->permission)) {
+                     $permission .= '<li>'.$menu2['name'].'</li>';
+                      $checkGroup= true;
+                    }
+                  }
+                  $permission .=  '  </ul>
+                  </li>';
+
+                  if(!$checkGroup){
+                  $permission .= '<script type="text/javascript">$("#liPermissions-'.$keyGroup.'-'.$key.'" ).remove();</script>';
+                  }
                 }
 
+                $permission .= '</ul>';
+                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+               <p><strong> tên nhóm: </strong>:'.$item->name.'</p>
+                <p><strong> quyền hạn: </strong>:'.@$permission.'</p>
                
 
-                $infoStaff = $item->full_name.'<br/>'.$item->phone;
-                if(!empty($item->address)) $infoStaff .= '<br/>'.$item->address;
-                if(!empty($item->email)) $infoStaff .= '<br/>'.$item->email;
-                if(!empty($item->facebook)) $infoStaff .= '<br/><a href="'.@$item->facebook.'" target="_blank"><i class="bx bxl-facebook-circle"></i></a>';
-                  
-                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                        <center><img class="img_avatar" src="'.$item->avatar.'" style=" width:50%" /></center><br/>
-                        <p><strong> Nhân viên: </strong>: '.$item->full_name.' (ID: '.$item->id.')</p>
-                        <p><strong> Điện thoại: </strong>: '.$item->phone.'</p>
-                        <p><strong> Địa chỉ: </strong>: '.$item->address.'</p>
-                        <p  class="text-center mt-3">
-                          <a title="Sửa" class="btn btn-success" href="/addStaff/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a> 
-
-                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteStaff/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </p>
-
-                        </div>';
-          }
-         
-        }else{
+                <p align="center">
+                <a class="btn btn-success" href="/addGroupStaff/?id='.$item->id.'">
+                <i class="bx bx-edit-alt me-1"></i>
+                </a>
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deteleGroupStaff/?id='.$item->id.'">
+                <i class="bx bx-trash me-1"></i>
+                </a>
+                </p>
+                </div>';
+            }
+          }else{
           echo '<div class="col-sm-12 item">
                   <p class="text-danger">Chưa có dữ liệu</p>
                 </div>';

@@ -1500,6 +1500,12 @@ function getListPermission()
 
                                 )
                     );
+    $permission[] = array( 'name'=>'Quản lý mạng xã hội',
+                    'sub'=>array(   array('name'=>' Danh sách bài viết ','permission'=>'warehouseProductAgency'),
+                                    array('name'=>'thêm và sửa bài viết','permission'=>'historyWarehouseProductAgency'),
+                                    array('name'=>'xoá bài viết','permission'=>'viewWarehouseProductAgency'),
+                            )
+                    );
    
     
     return $permission;
