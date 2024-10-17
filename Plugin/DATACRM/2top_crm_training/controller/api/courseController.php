@@ -60,6 +60,91 @@ function listCoursesCustomerAPI($input)
 
 }
 
+function listCoursesPrivateCustomerAPI($input)
+{
+
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategoryConnects;
+
+    $metaTitleMantan = 'Danh sách khóa học';
+
+    $modelLesson = $controller->loadModel('Lessons');
+    $modelCourses = $controller->loadModel('Courses');
+
+
+	  if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoCustomer = getCustomerByToken($dataSend['token']);
+
+            if(!empty($infoCustomer)){
+			    $conditions=  array();
+			    $conditions['OR'][]= array('Courses.public'=>1); 
+
+			    $conditions['OR'][]= array('Courses.public'=>2,'categoryConnects.id_parent'=>(int)$infoCustomer->id,'categoryConnects.keyword'=>'group_customers');
+			   
+
+			    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+			    $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+			    if($page<1) $page = 1;
+			    $order = array('Courses.id'=>'desc');
+
+			    if(!empty($dataSend['name'])){
+					$key=createSlugMantan($dataSend['name']);
+					$conditions['slug LIKE']= '%'.$key.'%';
+				}
+
+				 $join = [
+                [
+                    'table' => 'category_connects',
+                    'alias' => 'categoryConnects',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Courses.id_group_customer = categoryConnects.id_category'
+                    ],
+                ]
+            ];
+
+            $select = ['Courses.id','Courses.title','Courses.image','Courses.description','Courses.slug','Courses.view','Courses.youtube_code','Courses.id_category','Courses.status','Courses.content','Courses.id_group_customer','Courses.public'];
+
+        
+
+            $listData = $modelCourses->find()->join($join)->select($select)->limit($limit)->page($page)->where($conditions)->all()->toList();
+
+			    if(!empty($listData)){
+			        foreach ($listData as $key => $value) {
+			            if(!empty($value->id_category) && empty($category[$value->id_category])){
+			                $category[$value->id_category] = $modelCategories->find()->where(['id' => (int) $value->id_category])->first();
+			            }
+
+			            $listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
+			            $lessons = $modelLesson->find()->where(['id_course'=>$value->id])->all()->toList();
+			            $listData[$key]->number_lesson = count($lessons);
+			        }
+			    }
+			    // phân trang
+			    $totalData = $modelCourses->find()->join($join)->where($conditions)->all()->toList();
+			    $totalData = count($totalData);
+				
+				$return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ', 'listData'=>$listData, 'totalData'=>$totalData);       
+			}else{
+		        $return = array('code'=>3, 'mess'=>'Sai mã token');
+		    }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+        $return = array('code'=>0, 'mess'=>' gửi sai kiểu POST ');
+    }
+
+    return $return;
+}
+
 
 function getCoursesCustomerAPI($input)
 {
@@ -71,30 +156,38 @@ function getCoursesCustomerAPI($input)
     global $urlCurrent;
     global $session;
     global $metaTitleMantan;
+    global $modelCategoryConnects;
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['id'])){
-           
+        if(!empty($dataSend['token'])){
+            $infoCustomer = getCustomerByToken($dataSend['token']);
+
+            if(!empty($infoCustomer)){
 
             	$modelLesson = $controller->loadModel('Lessons');
             	$modelCourses = $controller->loadModel('Courses');
             	$modelTests = $controller->loadModel('Tests');
-
-            	$conditions = array('id'=>(int)$dataSend['id'],'public'=>1);
-            		
-            	
-
-
+            	$conditions = array('id'=>(int)$dataSend['id'],'public >'=>0);
             	$data = $modelCourses->find()->where($conditions)->first();
 
             	if(!empty($data)){
+            		if($data->public==2 ){
+            			if(!empty($data->id_group_customer)){
+            				$checkUserCourses = $modelCategoryConnects->find()->where(['id_parent'=>$infoCustomer->id,'id_category'=>$data->id_group_customer,'keyword'=>'group_customers'])->all()->toList();
+            				if(empty($checkUserCourses)){
+            					return array('code'=>4, 'mess'=>'bạn không xem được Khóa học này');
+            				}
+            			}else{
+            				return array('code'=>4, 'mess'=>'bạn không xem được Khóa học này');
+            			}
+            		}
             		$category = $modelCategories->find()->where(['id' => (int) $data->id_category])->first();    
             		$data->name_category = @$category->name;
 	            // tăng lượt xem
             		$data->view ++;
             		$modelCourses->save($data);
-            		$conditions = array('id !='=>$data->id);
+            		$conditions = array('id !='=>$data->id ,'public'=>1);
             		$limit = 4;
             		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 
@@ -147,6 +240,9 @@ function getCoursesCustomerAPI($input)
             	}else{
             		$return = array('code'=>3, 'mess'=>'Id không tồn tại');
             	}
+        	}else{
+		        $return = array('code'=>3, 'mess'=>'Sai mã token');
+		    }
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
@@ -156,6 +252,7 @@ function getCoursesCustomerAPI($input)
 
     return $return;
 }
+
 
 function getlessonCustomerAPI($input)
 {

@@ -153,7 +153,8 @@ function addCourseAgency($input)
 	            $data->image = $dataSend['image'];
 	            $data->description = $dataSend['description'];
 	            $data->youtube_code = $dataSend['youtube_code'];
-	            $data->id_category = $dataSend['id_category'];
+	            $data->id_category =(int) @$dataSend['id_category'];
+	            $data->id_group_customer =(int) @$dataSend['id_group_customer'];
 	            $data->status = $dataSend['status'];
 	            $data->content = $dataSend['content'];
 	            $data->public = $dataSend['public'];
@@ -190,9 +191,14 @@ function addCourseAgency($input)
 	    $conditions = array('type' => '2top_crm_training', 'status'=>'active');
 	    $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
 
+	    $conditions = array('type' => 'group_customer', 'parent'=>$user->id);
+        $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
+
+
 	    setVariable('data', $data);
 	    setVariable('mess', $mess);
 	    setVariable('listCategory', $listCategory);
+	    setVariable('listGroupCustomer', $listGroupCustomer);
 	}else{
         return $controller->redirect('/login');
     }

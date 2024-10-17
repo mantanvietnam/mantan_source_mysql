@@ -149,16 +149,6 @@ function groupingexercisesuserAPI($input) {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
 function listuserpeoplePI($input)
 {
 

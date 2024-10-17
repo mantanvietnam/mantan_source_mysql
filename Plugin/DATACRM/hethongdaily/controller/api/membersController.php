@@ -1328,6 +1328,25 @@ function extendMemberAPI($input){
 	return ['code'=> 0, 'mess'=>'<p class="text-danger"> chuyền phương thức POST</p>'];
 }
 
+function getInfoSystemAPI($input)
+{
+	global $modelCategories;
+
+
+	$conditions = array('type' => 'system_sales');
+    $data = $modelCategories->find()->where($conditions)->first();
+     if(!empty($data->description)){
+        $description = json_decode($data->description, true);
+        $data->description = @$description;
+        }
+	$return = array('code'=>0,
+				'data'=>$data,
+				'mess'=> 'Bạn lấy dữ liệu thành công');
+	
+	
+	
+	return $return;
+}
 ?>
 
 

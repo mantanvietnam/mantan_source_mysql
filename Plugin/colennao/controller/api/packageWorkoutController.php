@@ -490,7 +490,25 @@ function getUserExerciseWorkoutAPI($input){
                     if(!empty($data->group_exercise)){
                     	$group = json_decode($data->group_exercise, true);
                     	foreach($group as $key => $item){
-								$item['exercise'] = $modelChildExerciseWorkouts->find()->where(['id_exercise'=>$data->id, 'id_group'=>$item['id']])->all()->toList();
+								$exercise = $modelChildExerciseWorkouts->find()->where(['id_exercise'=>$data->id, 'id_group'=>$item['id']])->all()->toList();
+
+								if(!empty($exercise)){
+									foreach($exercise as $k => $value){
+										if(!empty($value->device)){
+                                        $value->device = json_decode($value->device, true);
+											if(!empty($value->device)){
+												foreach($value->device as $e => $device){
+													$datadevice =  $modelDevices->find()->where(['id'=>$device])->first();
+													$value->device[$e] = $datadevice;
+												}
+												$value->device = $value->device;
+											}
+											$exercise[$k] = $value;
+										}
+									}
+								}
+
+								$item['exercise'] = $exercise;
 
 								$item['total'] = count($item['exercise']);
 								$group[$key] = $item;

@@ -61,7 +61,8 @@
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="public" id="public">
                         <option value="0">Dành riêng cho đại lý</option>
-                        <option value="1" <?php if(!empty($data->public)) echo 'selected'; ?> >Chung cho cộng đồng</option>
+                        <option value="1" <?php if(!empty($data->public) && $data->public==1) echo 'selected'; ?> >Chung cho cộng đồng</option>
+                        <option value="2" <?php if(!empty($data->public) && $data->public==2) echo 'selected'; ?> >Theo nhóm khách hàng</option>
                       </select>
                     </div>
                   </div>
@@ -81,6 +82,23 @@
                   <div class="mb-3">
                     <label class="form-label">Số lượt xem</label>
                     <input disabled type="number" class="form-control phone-mask" name="view" id="view" value="<?php echo (int) @$data->view;?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Nhóm khách hàng</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="id_group_customer" id="id_group_customer">
+                        <option value="0">Chọn danh mục</option>
+                        <?php 
+                          foreach ($listGroupCustomer as $key => $item) {
+                            if(empty($data->id_group_customer) || $data->id_group_customer!=$item->id){
+                              echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                            }else{
+                              echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                            }
+                          }
+                        ?>
+                      </select>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-12">

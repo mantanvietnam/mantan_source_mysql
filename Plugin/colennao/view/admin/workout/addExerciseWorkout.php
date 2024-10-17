@@ -175,7 +175,7 @@
                              <thead>
                               <tr>
                                 <th>Tên nhóm tập tiêng Việt</th>
-                                <th>Tên nhóm tập Tiềng Việt</th>
+                                <th>Tên nhóm tập Tiềng Anh</th>
                                 <th>Xóa</th>
                               </tr>
                             </thead>

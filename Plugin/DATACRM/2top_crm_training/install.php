@@ -74,9 +74,10 @@ $sqlInstallDatabase .= "CREATE TABLE `courses` (
 	`view` INT NOT NULL DEFAULT '0' , 
 	`youtube_code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
 	`id_category` INT NOT NULL DEFAULT '0' , 
+	`id_group_customer` INT NOT NULL DEFAULT '0' , 
 	`status` VARCHAR(255) NOT NULL, 
 	`content` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, 
-	`public` BOOLEAN NOT NULL DEFAULT FALSE,
+	`public` INT NOT NULL DEFAULT 0,
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -143,7 +144,8 @@ $sqlUpdateDatabase['courses']['slug'] = "ALTER TABLE `courses` ADD `slug` VARCHA
 $sqlUpdateDatabase['courses']['view'] = "ALTER TABLE `courses` ADD `view` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['courses']['youtube_code'] = "ALTER TABLE `courses` ADD `youtube_code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['courses']['id_category'] = "ALTER TABLE `courses` ADD `id_category` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['courses']['id_group_customer'] = "ALTER TABLE `courses` ADD `id_group_customer` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['courses']['status'] = "ALTER TABLE `courses` ADD `status` VARCHAR(255) NOT NULL;";
 $sqlUpdateDatabase['courses']['content'] = "ALTER TABLE `courses` ADD `content` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['courses']['public'] = "ALTER TABLE `courses` ADD `public` BOOLEAN NOT NULL DEFAULT FALSE;";
+$sqlUpdateDatabase['courses']['public'] = "ALTER TABLE `courses` ADD `public` INT NOT NULL DEFAULT '0';";
 ?>
