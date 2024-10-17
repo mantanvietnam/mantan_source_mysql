@@ -284,7 +284,7 @@ function updateStatusOrderAPI($input)
 		                if(!empty($dataSend['status_pay'])){
 		                    $order->status_pay = $dataSend['status_pay'];
 		                    $time = time();
-		                    if($_GET['status_pay']=='done'){
+		                    if($dataSend['status_pay']=='done'){
 		                        $customer = $modelCustomers->find()->where(['id'=>(int) $order->id_user])->first();
 		                        if($dataSend['type_collection_bill']!='cong_no'){
 		                            $bill = $modelBill->newEmptyEntity();

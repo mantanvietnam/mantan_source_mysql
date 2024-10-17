@@ -456,6 +456,149 @@ function getUserWorkoutAPI($input){
 	 return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
+function workoutRandomAPI($input){
+	global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $listLevel;
+    global $searchtime;
+    global $listLevel;
+    global $listdevice;
+
+    $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
+    $modelIntermePackageWorkout = $controller->loadModel('IntermePackageWorkouts');
+    $modelWorkout = $controller->loadModel('Workouts');
+    $modelUserPackages = $controller->loadModel('UserPackages');
+    $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
+    $modelAreas = $controller->loadModel('Areas');
+
+    if($isRequestPost){
+    	$dataSend = $input['request']->getData();	
+    	if(!empty($dataSend['token'])){
+            $user = getUserByToken($dataSend['token']);
+            if (!empty($user)) {
+		    	$dataSend = $input['request']->getData();
+			    $conditions = array();
+			    $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
+			    $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
+			    if ($page < 1) $page = 1;
+			   
+			    
+			    $data = $modelWorkout->find()->where($conditions)->order('RAND()')->first();
+			   
+			    if(!empty($data)){
+
+			    	if(!empty($data->search)){
+            			$search = json_decode($data->search, true);
+
+            			
+
+            			$time = json_decode(@$search['time'], true);
+            			$area = json_decode(@$search['area'], true);
+            			$level = json_decode(@$search['level'], true);
+            			$device = json_decode(@$search['device'], true);
+            			$times = array();
+            			if(!empty($searchtime)){
+                            foreach($searchtime as $key => $item){
+                                if(!empty($time) && in_array($item['id'],  @$time)){
+                                    $times[] =  $item;
+                                }
+                            }
+                        }
+            			
+            			$areas = array();
+            			if(!empty($area)){
+                            foreach($area as $key => $item){
+                                $areas[] = $modelAreas->find()->where(['id'=>$item])->first();
+                            }
+                        }
+
+                        $levels = array();
+            			if(!empty($listLevel)){
+                            foreach($listLevel as $key => $item){
+                                if(!empty($level) && in_array($item['id'],  @$level)){
+                                    $levels[] =  $item;
+                                }
+                            }
+                        }
+
+                        $devices = array();
+            			if(!empty($listdevice)){
+                            foreach($listdevice as $key => $item){
+                                if(!empty($device) && in_array($item['id'],  @$device)){
+                                    $devices[] =  $item;
+                                }
+                            }
+                        }
+
+                        $search['device'] = $devices;
+                        $search['level'] = $levels;
+                        $search['area'] = $areas;
+                        $search['time'] = $times;
+
+
+                        $data->search = $search;
+        			}
+			    	$conditions = array('id_workout'=> $data->id);
+			    	if(!empty($dataSend['id_level'])){
+			    		$conditions['level']=  $dataSend['id_level'];
+			    	}
+			    	if(!empty($dataSend['ìd_time'])){
+			    		if(!empty($searchtime)){
+                            foreach($searchtime as $key => $item){
+                                if($item['id'] == (int) $dataSend['ìd_time']){
+                                    $conditions['time >=']=$item['min'];
+                                    $conditions['time <=']=$item['max'];
+                                }
+                            }
+                        }
+			    	}
+
+			    	if(!empty($dataSend['id_device'])){
+			    		if($dataSend['id_device']==1){
+			    			$conditions['device !=']=   '[]';
+			    		}elseif($dataSend['id_device']==2){
+			    			$conditions['device']=   '[]';
+			    		}
+			    		
+			    	}
+
+			    	if(!empty($dataSend['id_area'])){
+			    		$conditions['area LIKE']=  '%'.$dataSend['id_area'].'%';
+			    	}
+			    	
+		    		$exerciseWorkout = $modelExerciseWorkouts->find()->where($conditions)->all()->toList();
+		    		if(!empty($exerciseWorkout)){
+		    			foreach($exerciseWorkout as $key => $item){
+		    				if(!empty($item->level)){
+		        				foreach($listLevel as $k => $value){
+		        					if($item->level ==$value['id']){
+		        						$item->level_en = $value['name_en'];
+		        						$item->level = $value['name'];
+		        					}
+		        				}
+		        			}else{
+		        				$item->level_en = null;
+		        				$item->level = null;
+		        			}
+		    			}
+		    			$exerciseWorkout[$key] = $item;
+		    		}
+
+		    		$data->ExerciseWorkout = $exerciseWorkout;
+		    		$data->total_exercise = count($data->ExerciseWorkout);
+			    }
+
+
+			    return apiResponse(0, 'lấy dữ liệu thành công', $data);
+			}
+			 return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+		} 
+		return apiResponse(2, 'Gửi thiếu dữ liệu');  
+	}
+	 return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
 function getUserExerciseWorkoutAPI($input){
 	global $controller;
     global $metaTitleMantan;
