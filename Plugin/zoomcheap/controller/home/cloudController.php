@@ -34,16 +34,18 @@ function listparticipants($input){
     $modelRooms = $controller->loadModel('Rooms');
     $modelOrders = $controller->loadModel('Orders');
     $modelmanagers = $controller->loadModel('managers');
-    
+
     $clientid = $_GET['clientid'] ?? '';
     $clientsecret = $_GET['clientsecret'] ?? '';
     $accountid = $_GET['accountid'] ?? '';
     $idmeeting = $_GET['idmeeting'] ?? '';
+    $room = $modelRooms->find()->where(['idmeeting' => (int) $idmeeting])->first();
     if (!empty($clientid) && !empty($clientsecret) && !empty($accountid) && !empty($idmeeting)) {
         $listregistrant = getreportregistrant($clientid, $clientsecret, $accountid, $idmeeting);
     } else {
         return 'https://zoomcheap.2top.vn/listparticipants/';
     }
+    setVariable('room', $room);
     setVariable('listregistrant', $listregistrant);
 }
 function addNotification($input)

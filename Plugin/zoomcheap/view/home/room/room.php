@@ -57,7 +57,6 @@
                   <label class="form-label">Link phòng họp</label>
                   <input type="text" class="form-control" disabled name="" value="<?php echo (!empty($link))?$link:$room['join_url'];?>">
                 </div>
-              
                 <div class="mb-3">
                   <label class="form-label">Link phòng họp với quyền quản trị</label>
                   <input type="text" class="form-control" disabled name="" value="<?php echo $room['start_url'];?>">
