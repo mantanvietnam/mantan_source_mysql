@@ -352,17 +352,7 @@ function receiveBookingApi($input): array
             //     }
             // }else
 
-            if(!empty($currentUser->difference_booking)){
-                if($currentUser->point <= $difference_booking){
-                return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
-                }
-            }else{
-               if($currentUser->point <= (int)$parameter['pointControl']){
-                return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
-                
-                
-                } 
-            }
+            
             
             
 
@@ -376,9 +366,7 @@ function receiveBookingApi($input): array
             $receivedUser = count($modelBooking->find()->where($conditions)->all()->toList());
 
       
-            if($currentUser->maximum_trip<$receivedUser){
-                return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận');
-            }
+            
 
 
             if (isset($dataSend['booking_id'])) {
@@ -388,6 +376,25 @@ function receiveBookingApi($input): array
 
                 if(empty($booking)){
                     return apiResponse(4, 'Cuốc xe không tồn tại');
+                }
+
+                if(empty($booking->status_free)){
+                   
+                    if(!empty($currentUser->difference_booking)){
+                        if($currentUser->point <= $difference_booking){
+                        return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
+                        }
+                    }else{
+                       if($currentUser->point <= (int)$parameter['pointControl']){
+                        return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận, bạn cần đăng chuyến để có thể nhận thêm ');
+                        
+                        
+                        } 
+                    }
+
+                    if($currentUser->maximum_trip<$receivedUser){
+                        return apiResponse(4, 'Bạn không thể nhận thêm chuyến do đến ngưỡng tối đa nhận');
+                    }
                 }
 
                 if (!is_null($booking->received_by)) {

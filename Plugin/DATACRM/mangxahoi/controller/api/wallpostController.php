@@ -51,7 +51,7 @@ function addWallPostApi($input){
 
                 				$save->id_customer = $user->id;
                 				$save->id_post = $data->id;
-                				$save->image = $image['linkOnline'].'?time='.time();;
+                				$save->image = $image['linkOnline'].'?time='.time();
                 				$save->public = $dataSend['public'];
                 				$save->created_at = time();
                 				$modelImageCustomer->save($save);

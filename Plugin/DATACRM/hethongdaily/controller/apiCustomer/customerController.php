@@ -761,6 +761,40 @@ function createLinkMMTCAPI($input)
     return array('code'=>1,'messages'=>'Gửi sai kiểu POST');
 }
 
+function listCustomerHistorieMmttAPI($input)
+{   
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelCustomerHistorieMmtt = $controller->loadModel('CustomerHistorieMmtts');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            if (!empty($user)){
+                $listData =  $modelCustomerHistorieMmtt->find()->where(['id_user'=>$user->id])->all()->toList();
+
+                if(!empty($listData)){
+                    foreach ($listData as $key => $value) {
+                        $listData[$key]->infoCustomer = $modelCustomer->find()->where(['id'=>$value->id_customer])->first(); 
+                    }
+                }
+                   return array('code'=>1,'messages'=>'Bạn lấy dữ liệu thành công', 'listData'=>$listData);
+                  
+            }
+
+                return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>1,'messages'=>'Gửi sai kiểu POST');
+}
+
 
 function getContactSiteAPI(){
     global $infoSite;

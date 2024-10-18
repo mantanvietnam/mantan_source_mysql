@@ -686,11 +686,11 @@ function getListOrderCustomerAPI($input)
 		                            if(!empty($value->id_unit)){
 		                            	$unit = $modelUnitConversion->find()->where(['id'=>$value->id_unit ])->first();
 		                            	if(!empty($unit)){
-		                            		$detail_order->unit = $unit->unit;
+		                            		$detail_order[$k]->unit = $unit->unit;
 		                            	}
 			                        }else{
 			                        	if(!empty($product->unit)){
-			                        		$detail_order->unit = @$product->unit;
+			                        		$detail_order[$k]->unit = @$product->unit;
 			                        	}
 			                        	
 			                        }
