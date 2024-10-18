@@ -52,6 +52,7 @@
               <th>Loại Zoom</th>
               <th>Giá thuê</th>
               <th>Phòng họp</th>
+              <th class="text-center">người tham gia</th>
               <th>Cloud Recording</th>
             </tr>
           </thead>
@@ -92,7 +93,22 @@
                           <td><?php echo $item->type; ?></td>
                           <td><?php echo number_format($item->price); ?>đ</td>
                           <td><?php echo $room; ?></td>
-                         
+                          <td class="text-center">
+                            <?php if (
+                                isset($item->infoRoom->info['id']) &&
+                                isset($item->infoZoom->client_id) &&
+                                isset($item->infoZoom->client_secret) &&
+                                isset($item->infoZoom->account_id)
+                            ): ?>
+                                <a href="/listparticipants/?clientid=<?= urlencode($item->infoZoom->client_id) ?>&clientsecret=<?= urlencode($item->infoZoom->client_secret) ?>&accountid=<?= urlencode($item->infoZoom->account_id) ?>&idmeeting=<?= urlencode($item->infoRoom->info['id']) ?>">
+                                    <i class='bx bxs-user-pin' style="font-size: 40px;"></i>
+                                </a>  
+                            <?php else: ?>
+                                <a href="/listparticipants/">
+                                    <i class='bx bxs-user-pin' style="font-size: 40px;"></i>
+                                </a> 
+                            <?php endif; ?>
+                          </td>
                           <td class="text-center">
                             <?php if (
                                 isset($item->infoRoom->info['id']) &&
@@ -108,7 +124,7 @@
                                     <i class="bx bx-cloud fs-1"></i>
                                 </a> 
                             <?php endif; ?>
-                        </td>
+                          </td>
                       </tr>
                       <?php 
                   endforeach;

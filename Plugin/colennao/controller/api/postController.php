@@ -116,7 +116,7 @@ function listcategoryPostAPI($input) {
                 'vi' => [
                     'id' => $item->id,
                     'image' => $item->image,
-                    'title' => $item->title,
+                    'name' => $item->name,
                     'description' => $item->description,
                     'post_count' => $postCount, 
                 ],
@@ -124,7 +124,7 @@ function listcategoryPostAPI($input) {
                 'en' => [
                     'id' => $item->id,
                     'image' => $item->image,
-                    'title' => $item->titleen,
+                    'name' => $item->nameen,
                     'description' => $item->descriptionen,
                     'post_count' => $postCount, 
                 ]
@@ -155,14 +155,18 @@ function detailcategoryPostAPI($input) {
             $formattedData = [];
             $dataPosts = [];
             $datapost = $modelpost->find()
-                ->select(['id', 'title']) 
+                ->select(['id', 'title','image','author','authoren','time']) 
                 ->where(['id_categorypost' => $dataSend['id']])
                 ->all(); 
             
             foreach ($datapost as $post) {
                 $dataPosts[] = [
                     'id' => $post->id,
-                    'title' => $post->title
+                    'title' => $post->title,
+                    'image'=>$post->image,
+                    'author'=>$post->author,
+                    'authoren'=>$post->authoren,
+                    'time'=>$post->time,
                 ];
             }
             if (!empty($categoryData)) {
@@ -171,7 +175,8 @@ function detailcategoryPostAPI($input) {
                         'id' => $categoryData->id,
                         'image' => $categoryData->image,
                         'name' => $categoryData->name,
-                        'description' => $categoryData->description,    
+                        'description' => $categoryData->description,  
+                  
                     ],
                     'en' => [
                         'id' => $categoryData->id,
@@ -179,13 +184,12 @@ function detailcategoryPostAPI($input) {
                         'name' => $categoryData->nameen,
                         'description' => $categoryData->descriptionen, 
                     ],
-                    'posts' => $dataPosts // Thêm danh sách các bài viết (id và title)
+                    'posts' => $dataPosts 
                 ];
             } else {
                 $return = array('code' => 0, 'mess' => 'Không có dữ liệu');
             }
 
-            // Trả về dữ liệu nếu tìm thấy danh mục
             $return = array('code' => 1, 'data' => $formattedData);
         } else {
             $return = array('code' => 0, 'mess' => 'Gửi thiếu dữ liệu');

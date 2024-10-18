@@ -149,6 +149,61 @@ function closeRoom($clientId = '', $clientSecret = '', $account_id = '', $meetin
         }
     }
 }
+function getreportregistrant($clientId = '', $clientSecret = '', $account_id = '',$meetingId=''){
+   
+    if(!empty($clientId) && !empty($clientSecret) && !empty($account_id) ){
+
+        $tokenUrl = 'https://zoom.us/oauth/token';
+
+        // Dữ liệu yêu cầu lấy Access Token
+        $data = array(
+            'grant_type' => 'account_credentials',
+            'account_id' => $account_id, // Thay thế YOUR_ACCOUNT_ID bằng account_id cụ thể
+        );
+
+        // Chuỗi mã xác thực Basic (clientId:clientSecret được mã hóa Base64)
+        $authHeader = base64_encode($clientId . ':' . $clientSecret);
+
+        // Gửi yêu cầu POST với thông tin xác thực
+        $httpClient = new Client();
+        $response = $httpClient->post($tokenUrl, [
+            'form_params' => $data,
+            'headers' => [
+                'Authorization' => 'Basic ' . $authHeader,
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        $responseData = json_decode($response->getBody(), true);
+
+        if(!empty($responseData['access_token'])){
+            // Thông tin tài khoản Zoom của người dùng (sau khi ủy quyền)
+            $accessToken = $responseData['access_token'];
+            $apiUrl = 'https://api.zoom.us/v2/';
+          
+            $httpClient = new \GuzzleHttp\Client(['base_uri' => $apiUrl]);
+            
+            try {
+                $response = $httpClient->get("report/meetings/{$meetingId}/participants", [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $accessToken,
+                        'Content-Type' => 'application/json',
+                        'Accept' => 'application/json',
+                    ]
+                ]);
+
+                // Xử lý dữ liệu phản hồi nếu cần
+                $return = json_decode($response->getBody(), true);
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
+                return [];
+
+                // Xử lý lỗi nếu có
+                echo 'Error: ' . $e->getMessage();
+            }
+        }
+    }
+    return $return;
+}
 function getlistclound($clientId = '', $clientSecret = '', $account_id = '')
 {
     if(!empty($clientId) && !empty($clientSecret) && !empty($account_id) ){
@@ -185,7 +240,6 @@ function getlistclound($clientId = '', $clientSecret = '', $account_id = '')
 
           
            
-            // Endpoint API Zoom để kết thúc phòng họp
             $apiUrl = 'https://api.zoom.us/v2/';
           
 

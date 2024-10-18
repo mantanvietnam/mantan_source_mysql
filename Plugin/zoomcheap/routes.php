@@ -30,7 +30,7 @@
 	$routesPlugin['wait']= 'zoomcheap/view/home/link/wait.php';
 
 	$routesPlugin['listCloud']= 'zoomcheap/view/home/cloud/listCloud.php';
-
+	$routesPlugin['listparticipants']= 'zoomcheap/view/home/cloud/listparticipants.php';
 	$routesPlugin['checkDeadlineOrderAPI']= 'zoomcheap/view/home/checkDeadlineOrderAPI.php';
 	$routesPlugin['addMoneyTPBankAPI']= 'zoomcheap/view/home/addMoneyTPBankAPI.php';
 	$routesPlugin['updateInfoRoomAPI']= 'zoomcheap/view/home/updateInfoRoomAPI.php';
