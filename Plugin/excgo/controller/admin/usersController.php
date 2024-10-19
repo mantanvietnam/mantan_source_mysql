@@ -90,6 +90,7 @@ function listUserAdmin($input)
     setVariable('next', $paginationMeta['next']);
     setVariable('urlPage', $paginationMeta['urlPage']);
     setVariable('listData', $listData);
+    setVariable('totalUser', count($totalUser));
 }
 
 function updateStatusUserAdmin($input)

@@ -53,6 +53,7 @@ function addWallPostApi($input){
                 				$save->id_post = $data->id;
                 				$save->image = $image['linkOnline'].'?time='.time();
                 				$save->public = $dataSend['public'];
+                                $save->link_local = strstr($dataSend['public'], 'upload');
                 				$save->created_at = time();
                 				$modelImageCustomer->save($save);
                             }
@@ -142,6 +143,7 @@ function  editWallPostApi($input){
                                     $save->id_post = $data->id;
                                     $save->image = $image['linkOnline'].'?time='.time();;
                                     $save->public = $dataSend['public'];
+                                    $save->link_local = strstr($dataSend['public'], 'upload');
                                     $save->created_at = time();
                                     $modelImageCustomer->save($save);
                                 }

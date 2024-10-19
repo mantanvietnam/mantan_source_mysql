@@ -57,6 +57,7 @@ function listFeedbackApi($input)
     global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
+    global $isRequestPost;
 
     $metaTitleMantan = 'Danh sách Feedback';
 
@@ -64,11 +65,7 @@ function listFeedbackApi($input)
     
     $modelCustomer = $controller->loadModel('Customers');
     $conditions = array('status'=>'active');
-    if(!empty($_GET['name'])){
-        $key=createSlugMantan($_GET['name']);
-
-        $conditions['urlSlug LIKE']= '%'.$key.'%';
-    }
+   
 
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -92,6 +89,7 @@ function listFeedbackMyApi($input)
     global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
+    global $isRequestPost;
 
     $metaTitleMantan = 'Danh sách Feedback';
 
