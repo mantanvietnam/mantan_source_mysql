@@ -40,6 +40,8 @@ $('.banner-sub').slick({
     arrows: false,
     fade: true,
     asNavFor: '.banner-img',
+    autoplay:true,
+    autoplaySpeed:5000,
 
 });
 // Khởi tạo Slick Carousel cho phần banner-img
@@ -56,7 +58,9 @@ $('.banner-img').slick({
     fade: true,
     centerMode: true,
     focusOnSelect: true,
-    speed: 1000
+    speed: 1000,
+    autoplay:true,
+    autoplaySpeed:5000,
 });
 
 

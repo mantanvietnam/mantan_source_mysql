@@ -14,6 +14,8 @@ $('.banner-sub').slick({
     arrows: false,
     fade: true,
     asNavFor: '.banner-img',
+    autoplay:true,
+    autoplaySpeed:5000,
 
 });
 // Khởi tạo Slick Carousel cho phần banner-img
@@ -30,7 +32,9 @@ $('.banner-img').slick({
     fade: true,
     centerMode: true,
     focusOnSelect: true,
-    speed: 1000
+    speed: 1000,
+    autoplay:true,
+    autoplaySpeed:5000,
 });
 
 
@@ -60,7 +64,7 @@ $(document).ready(function() {
 $('.list-partner').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
-    rows: 3,
+    rows: 1,
     infinite: true,
     speed: 300,
     touchMove: true,
@@ -71,7 +75,7 @@ $('.list-partner').slick({
     responsive: [{
             breakpoint: 1025,
             settings: {
-                slidesToShow: 4,
+                slidesToShow: 6,
                 slidesToScroll: 3,
 
             }
@@ -79,7 +83,7 @@ $('.list-partner').slick({
         {
             breakpoint: 501,
             settings: {
-                slidesToShow: 2,
+                slidesToShow: 3,
                 slidesToScroll: 1
             }
         }
@@ -87,6 +91,8 @@ $('.list-partner').slick({
 });
 
 /*    HEADER FIXED    */
+
+/*
 var scrollPage = document.getElementById("menu");
 
 window.onscroll = function() {
@@ -102,7 +108,7 @@ window.onscroll = function() {
     }
 }
 
-
+*/
 
 /*   FEEDBACK   */
 

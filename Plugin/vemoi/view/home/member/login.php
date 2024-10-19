@@ -1,0 +1,1 @@
+<?php getFileTheme('vemoi/member/login.php');?>

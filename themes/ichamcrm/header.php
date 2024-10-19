@@ -3,13 +3,11 @@
     global $urlThemeActive; 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <?php 
         mantan_header(); 
-
-        if(function_exists('showSeoHome')) showSeoHome();
     ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -92,19 +90,12 @@
                             ?>
 
                             <li class="nav-item">
-                                <div class="header-btn d-none">
-                                    <button class="advise-button" >Đăng kí tư vấn</button>
-
-                                    <!--
-                                    <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/coVN.png" alt=""></a>
-                                    <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/coUK.png" alt=""></a>
-                                    -->
-                                </div>
+                                <a class="nav-link" href="/login">AI CỦA TÔI</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="header-btn">
-                        <button class="advise-button" >Đăng kí tư vấn</button>
+                    <div class="header-btn introduction-btn">
+                        <a href="/login" data-aos="zoom-out">AI CỦA TÔI</a>
 
                         <!--
                         <a href=""><img src="<?php echo $urlThemeActive;?>/asset/image/coVN.png" alt=""></a>

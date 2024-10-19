@@ -360,8 +360,8 @@ img {
 }
 
 #menu .navbar .navbar-brand img {
-    width: 100%;
-    height: 100%;
+    max-width: 59px;
+    height: auto;
     object-fit: cover;
 }
 
@@ -409,7 +409,7 @@ img {
     font-weight: 600;
     padding: 12px 45px;
     border-radius: 100px;
-    background: linear-gradient(137deg, rgba(99, 109, 204, 1) 13%, rgba(76, 203, 236, 1) 51%, rgba(183, 190, 254, 1) 88%);
+    background: linear-gradient(137deg, #D90000 13%, #933131 51%, #D90000 88%);
     border: none;
     box-shadow: 0 0 20px 0 #cdcdcd;
 }
@@ -461,7 +461,7 @@ img {
     text-transform: uppercase;
     border-radius: 12px;
     color: #fff;
-    background-color: #fa8a1a;
+    background-color: #d90000;
     padding: 14px 42px;
     border: none;
 }
@@ -512,8 +512,8 @@ img {
 }
 
 .list-banner .slick-dots .slick-active i {
-    border: 2px solid #fa8a1a;
-    color: #fa8a1a;
+    border: 2px solid #d90000;
+    color: #d90000;
 }
 
 .list-banner .slick-list.draggable {
@@ -597,7 +597,7 @@ img {
 
 #advise .close-button:hover i {
     transition: all 0.3s linear;
-    color: #fa8a1a;
+    color: #d90000;
 }
 
 #advise .close-button i {
@@ -700,7 +700,7 @@ img {
     font-weight: 600;
     padding: 18px 20px;
     margin-bottom: 20px;
-    background-color: #fa8a1a;
+    background-color: #d90000;
     border-radius: 12px;
     outline: none;
     display: flex;
@@ -717,7 +717,7 @@ img {
     right: 0;
     height: 67.5px;
     width: 67px;
-    background-color: #FB9E41;
+    background-color: #D90000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -789,7 +789,7 @@ img {
 }
 
 .section-title span {
-    color: #FB9E41;
+    color: #D90000;
 }
 
 .section-title {
@@ -800,7 +800,7 @@ img {
 .list-partner .slick-arrow {
     position: absolute;
     bottom: 0;
-    border: 2px solid #FB9E41;
+    border: 2px solid #D90000;
     outline: none;
     background-color: #fff;
     width: 50px;
@@ -814,7 +814,7 @@ img {
 }
 
 .list-partner .slick-arrow:hover {
-    background-color: #FB9E41;
+    background-color: #D90000;
     transition: all 0.3s ease-in-out;
 }
 
@@ -823,7 +823,7 @@ img {
 }
 
 .list-partner .slick-arrow i {
-    color: #FB9E41;
+    color: #D90000;
     transition: all 0.3s ease-in-out;
 }
 
@@ -872,7 +872,7 @@ img {
 
 .item-services .services-name a:hover {
     transition: all 0.3s ease-in-out;
-    color: #FB9E41;
+    color: #D90000;
 }
 
 .item-services .services-name p {
@@ -920,7 +920,7 @@ img {
 }
 
 .item-services .services-btn a {
-    color: #FB9E41;
+    color: #D90000;
     text-decoration: none;
     font-weight: 600;
     font-size: 18px;
@@ -934,7 +934,7 @@ img {
     content: "";
     width: 114px;
     height: 2px;
-    background-color: #FB9E41;
+    background-color: #D90000;
     position: absolute;
     bottom: 0%;
     left: -120%;
@@ -971,7 +971,7 @@ img {
 }
 
 #section-introduction .introduction-content span {
-    color: #FB9E41;
+    color: #D90000;
 }
 
 #section-introduction .introduction-content p {
@@ -979,18 +979,22 @@ img {
     line-height: 28px;
 }
 
-#section-introduction .introduction-btn a {
+.introduction-btn a {
     border: none;
     outline: none;
     padding: 12px 50px;
     color: #fff;
     border-radius: 100px;
     font-weight: 500;
-    background: linear-gradient(137deg, rgba(99, 109, 204, 1) 13%, rgba(76, 203, 236, 1) 51%, rgba(183, 190, 254, 1) 88%);
+    background: linear-gradient(137deg, #D90000 13%, #933131 51%, #D90000 88%);
     box-shadow: 0 0 20px 0 #cdcdcd;
     transition: all 0.3s ease-in-out;
     font-weight: 600;
     text-decoration: none;
+}
+
+.introduction-btn a:hover{
+    color: #fff;
 }
 
 #section-introduction {
@@ -1038,7 +1042,7 @@ img {
 }
 
 .worth-content span {
-    color: #FB9E41;
+    color: #D90000;
 }
 
 .worth-content p {
@@ -1082,14 +1086,14 @@ img {
 /* watermark */
 
 .item-worth .worth-card::after {
-    content: '2Top';
-    position: absolute;
-    top: 50%;
-    left: 2%;
-    font-size: 100px;
-    font-weight: 800;
-    font-style: italic;
-    color: rgb(116 132 207 / 8%);
+    content: 'Phoenix';
+      position: absolute;
+      top: 56%;
+      left: 2%;
+      font-size: 58px;
+      font-weight: 800;
+      font-style: italic;
+      color: rgb(116 132 207 / 8%);
 }
 
 
@@ -1562,8 +1566,8 @@ img {
 }
 
 .fb-slide-2 .slick-dots .slick-active i {
-    border: 2px solid #fa8a1a;
-    color: #fa8a1a;
+    border: 2px solid #d90000;
+    color: #d90000;
 }
 
 
@@ -1681,7 +1685,7 @@ img {
 }
 
 #news .slide-news .slick-dots .slick-active i {
-    color: #fa8a1a;
+    color: #d90000;
 }
 
 #news .news-content {
@@ -2002,7 +2006,7 @@ img {
 }
 
 #section-banner-top .banner-contain .banner-contain-title h3 span {
-    color: #FB9E41;
+    color: #D90000;
 }
 
 

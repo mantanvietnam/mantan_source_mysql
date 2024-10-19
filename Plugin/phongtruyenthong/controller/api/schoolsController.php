@@ -101,3 +101,24 @@ function getInfoSchoolAPI($input)
 
     return $data_value;
 }
+
+function getConfigRoom3DAPI($input)
+{
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $modelCategories;
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $controller;
+
+    $conditions = array('key_word' => 'configRoom3DAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    return $data_value;
+}

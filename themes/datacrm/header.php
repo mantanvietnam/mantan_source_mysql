@@ -45,7 +45,8 @@
 </head>
 
 <body>
-    <div class="overflow dark" id="preload"> <!-- add dark/white classname to change background-->
+    <!--
+    <div class="overflow dark" id="preload">
         <div class="circle-line">
             <div class="circle-red">&nbsp;</div>
             <div class="circle-blue">&nbsp;</div>
@@ -53,7 +54,7 @@
             <div class="circle-yellow">&nbsp;</div>
         </div>
     </div>
-    
+    -->
 
     <header>
         <section id="menu">

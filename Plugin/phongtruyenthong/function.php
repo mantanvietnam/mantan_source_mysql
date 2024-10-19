@@ -41,6 +41,12 @@ $menus[0]['sub'][4]= array('title'=>'Cài đặt',
 					                          	'classIcon'=>'bx bx-category',
 					                          	'permission'=>'listPositionAdmin',
 					                        ),
+
+					                        array('title'=>'Không gian 3D',
+					                          	'url'=>'/plugins/admin/phongtruyenthong-view-admin-config-configRoom3DAdmin',
+					                          	'classIcon'=>'bx bx-category',
+					                          	'permission'=>'configRoom3DAdmin',
+					                        ),
 									)
 						);
 

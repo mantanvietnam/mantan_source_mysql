@@ -6,7 +6,7 @@
                 <div class="footer-contact-absolute">
                     <div class="footer-contact">
                         <div class="footer-contact-text">
-                            <p>Ngay bây giờ chính là thời điểm sớm nhất<br> Bước gần hơn đến thành công của bạn bằng cách trò chuyện với chúng tôi</p>
+                            <p>Ngay bây giờ chính là thời điểm tốt nhất<br> Bước gần hơn đến thành công của bạn bằng cách trò chuyện với chúng tôi</p>
                         </div>
 
                         <div class="footer-contact-btn">

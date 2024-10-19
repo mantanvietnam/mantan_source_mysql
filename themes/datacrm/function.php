@@ -16,7 +16,7 @@ $menus[0]['sub'][2]= array( 'title'=>'Cài đặt trang Liên Hệ',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingContactThemeDataCRM'
                         );
-
+/*
 $menus[1]['title']= 'Liên Hệ';
 $menus[1]['sub'][0]= array( 'title'=>'Danh sách Liên Hệ',
                             'url'=>'/plugins/admin/contacts-view-admin-listContactAdmin',
@@ -29,7 +29,7 @@ $menus[2]['sub'][0]= array( 'title'=>'Danh sách báo giá Dịch Vụ',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'listServicesAdmin'
                         );
-
+*/
 addMenuAdminMantan($menus);
 
 global $modelOptions;

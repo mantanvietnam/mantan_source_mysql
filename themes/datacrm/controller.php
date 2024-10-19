@@ -104,7 +104,7 @@ function settingRecruitmentThemeDataCRM($input)
 
                         'banner_title_3' => $dataSend['banner_title_3'], 
                         'banner_content_3' => $dataSend['banner_content_3'],
-                        'link_content' => $dataSend['link_content']
+                        'link_content' => $dataSend['link_content'],
 
                         'culture_title' => $dataSend['culture_title'],
                         'culture_content' => $dataSend['culture_content'],

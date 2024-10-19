@@ -12,7 +12,7 @@
                         if(!empty($slide_home)){
                             foreach ($slide_home as $key => $value) {
                                 echo '  <div class="item-banner-sub">
-                                            <h4>'.@$settingThemes['name_brand'].'</h4>
+                                            <!-- <h4>'.@$settingThemes['name_brand'].'</h4> -->
                                             <h5>'.$value->title.'</h5>
                                             <p>'.$value->description.'</p>
                                             <button class="advise-button">Tư vấn ngay <i class="fa-solid fa-arrow-right-long"></i></button>
@@ -52,7 +52,7 @@
                     <p data-aos="zoom-in-up"><?php echo @$settingThemes['content_about'];?></p>
                 </div>
                 <div class="introduction-btn">
-                    <a href="<?php echo @$settingThemes['link_about'];?>" data-aos="zoom-out">Về chúng tôi</a>
+                    <a href="javascript:void(0);" class="advise-button" data-aos="zoom-out">ĐĂNG KÝ TƯ VẤN</a>
                 </div>
 
             </div>
