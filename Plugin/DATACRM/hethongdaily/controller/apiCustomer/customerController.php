@@ -555,7 +555,7 @@ function getLinkMMTCAPI($input)
             $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
 
             if (!empty($user)) {
-                if(!empty($user->link_download_mmtc)){
+                if(!empty($user->link_download_mmtc) && empty($dataSend['reload'])){
                     return array('code'=>1,'link'=>$user->link_download_mmtc);
                 }else{
                     if(!empty($user->birthday_date) && !empty($user->birthday_month) && !empty($user->birthday_year)){
@@ -615,125 +615,42 @@ function createLinkMMTCAPI($input)
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (!empty($dataSend['token']) && !empty($dataSend['phone'])) {
+        if (!empty($dataSend['token']) && !empty($dataSend['phone']) && !empty($dataSend['birthday']) && !empty($dataSend['full_name'])) {
+            $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
+            $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
+
             $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
 
             if (!empty($user)){
-                 $checkPhone =  $modelCustomer->find()->where(['phone' => $dataSend['phone'],'id_parent'=> $user->id])->first();
-                if (!empty($checkPhone)) {
-                    if($dataSend['full_name']){
-                        $checkPhone->full_name = @$dataSend['full_name'];
-                    }
-                    if($dataSend['phone']){
-                        $checkPhone->phone = @$dataSend['phone'];
-                    }
-                    if($dataSend['email']){
-                        $checkPhone->email = @$dataSend['email'];
-                    }
-                    if($dataSend['address']){
-                        $checkPhone->address = (!empty($dataSend['address']))?$dataSend['address']:'';
-                    }
-                    if($dataSend['sex']){
-                        $checkPhone->sex = (int) @$dataSend['sex'];
-                    }
+                $checkPhone =  $modelCustomer->find()->where(['phone' => $dataSend['phone']])->first();
 
-                    $modelCustomer->save($checkPhone);
-
-                    if(empty($checkPhone->birthday_date) && empty($checkPhone->birthday_month) && empty($checkPhone->birthday_year)){
-
-                        if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
-                        $birthday_date = 0;
-                        $birthday_month = 0;
-                        $birthday_year = 0;
-
-                        $birthday = explode('/', trim($dataSend['birthday']));
-                        if(count($birthday)==3){
-                            $birthday_date = (int) $birthday[0];
-                            $birthday_month = (int) $birthday[1];
-                            $birthday_year = (int) $birthday[2];
-                        }
-
-                        $checkPhone->birthday_date = (int) @$birthday_date;
-                        $checkPhone->birthday_month = (int) @$birthday_month;
-                        $checkPhone->birthday_year = (int) @$birthday_year;
-
-                        $modelCustomer->save($checkPhone);
-
-                    }
-                    $birthday = $checkPhone->birthday_date.'/'.$checkPhone->birthday_month.'/'.$checkPhone->birthday_year;
-
-                            // lấy thần số học
-                    if(empty($checkPhone->email)){
-                        $email = 'datacrmasia@gmail.com';
-                    }else{
-                        $email = $checkPhone->email;
-                    }
-
-                    if(empty($checkPhone->address)){
-                        $address = '18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội';
-                    }else{
-                        $address = $checkPhone->address;
-                    }
-
-                    $linkFull = '';
-                    if(function_exists('getLinkFullMMTCAPI')){
-                        $linkFull = getLinkFullMMTCAPI($checkPhone->full_name, $birthday, $checkPhone->phone, $email, $address, $checkPhone->avatar, (int) $checkPhone->sex, 0, 0);
-                    }
-
-                    if(!empty($linkFull)){
-                        $checkPhone->link_download_mmtc = $linkFull;
-
-                        $modelCustomer->save($checkPhone);
-                        $history = $modelCustomerHistorieMmtt->newEmptyEntity();
-                        $history->id_user = $user->id;
-                        $history->id_customer =$checkPhone->id;
-                        $history->created_at = time();
-                        $history->note = '';
-                        $history->link_download_mmtc =$checkPhone->link_download_mmtc;
-                        $modelCustomerHistorieMmtt->save($history);
-
-                        return array('code'=>0,'link'=>$checkPhone->link_download_mmtc);
-
-                    }else{
-                        return array('code'=>5,'messages'=>'Hệ thống xuất dữ liệu thần số học bị lỗi');
-                    }
-
-                }else{
-
-                 if(empty($dataSend['full_name'])){
-                    return array('code'=>2,'messages'=>'Bạn chưa nhập Họ và tên');
-                 } 
-                if(empty($dataSend['birthday'])){
-                     return array('code'=>2,'messages'=>'Bạn chưa nhập ngày sinh ');
-                }
+                if(empty($checkPhone)){
                     if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
                         $avatars = uploadImage($user->id_parent, 'avatar', 'avatar_'.$user->id_parent);
                     }
+
                     if(!empty($avatars['linkOnline'])){
                         $avatar = $avatars['linkOnline'];
                     }else{
                         $avatar = $urlHomes."/plugins/hethongdaily/view/home/assets/img/avatar-default-crm.png";;
                     }
-                    $data = $modelCustomer->newEmptyEntity();
-                    $data->full_name = @$dataSend['full_name'];
-                    $data->phone = @$dataSend['phone'];
-                    $data->email = @$dataSend['email'];
-                    $data->address = (!empty($dataSend['address']))?$dataSend['address']:'';
-                    $data->sex = (int) @$dataSend['sex'];
-                    $data->id_city = 0;
-                    $data->id_messenger = 0;
-                    $data->avatar = $avatar;
-                    $data->status = 'active';
-                    $data->id_parent = (int) @$user->id_parent;
-                    $data->id_level = 0;
-                    $data->pass = md5($dataSend['phone']);
-                    $data->token = createToken();
-                    $data->created_at = time();
 
-                    if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
-                    $birthday_date = 0;
-                    $birthday_month = 0;
-                    $birthday_year = 0;
+                    $checkPhone = $modelCustomer->newEmptyEntity();
+                    
+                    $checkPhone->full_name = $dataSend['full_name'];
+                    $checkPhone->phone = $dataSend['phone'];
+                    $checkPhone->email = @$dataSend['email'];
+                    $checkPhone->address = @$dataSend['address'];
+                    $checkPhone->sex = (int) @$dataSend['sex'];
+                    $checkPhone->id_city = 0;
+                    $checkPhone->id_messenger = 0;
+                    $checkPhone->avatar = $avatar;
+                    $checkPhone->status = 'active';
+                    $checkPhone->id_parent = (int) $user->id_parent;
+                    $checkPhone->id_level = 0;
+                    $checkPhone->pass = md5($dataSend['phone']);
+                    $checkPhone->token = createToken();
+                    $checkPhone->created_at = time();
 
                     $birthday = explode('/', trim($dataSend['birthday']));
                     if(count($birthday)==3){
@@ -742,53 +659,89 @@ function createLinkMMTCAPI($input)
                         $birthday_year = (int) $birthday[2];
                     }
 
-                    $data->birthday_date = (int) @$birthday_date;
-                    $data->birthday_month = (int) @$birthday_month;
-                    $data->birthday_year = (int) @$birthday_year;
+                    $checkPhone->birthday_date = (int) @$birthday_date;
+                    $checkPhone->birthday_month = (int) @$birthday_month;
+                    $checkPhone->birthday_year = (int) @$birthday_year;
 
-                    $modelCustomer->save($data);
-
-                    // lấy thần số học
-                    if(empty($data->email)){
-                        $email = 'datacrmasia@gmail.com';
-                    }else{
-                        $email = $data->email;
-                    }
-                    if(empty($data->address)){
-                        $address = '18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội';
-                    }else{
-                        $address = $data->address;
-                    }
-                    if(function_exists('getLinkFullMMTCAPI')){
-                        $linkFull = getLinkFullMMTCAPI($data->full_name, $birthday, $data->phone, $email, $address, $data->avatar, (int) $data->sex, 0, 0);
+                    $modelCustomer->save($checkPhone);
+                }else{
+                    if(!empty($dataSend['full_name'])){
+                        $checkPhone->full_name = $dataSend['full_name'];
                     }
 
-                    if(!empty($linkFull)){
-                        $data->link_download_mmtc = $linkFull;
-
-                        $modelCustomer->save($data);
-                        $history = $modelCustomerHistorieMmtt->newEmptyEntity();
-                        $history->id_user = $user->id;
-                        $history->id_customer =$data->id;
-                        $history->created_at = time();
-                        $history->note = '';
-                        $history->link_download_mmtc =$data->link_download_mmtc;
-                        $modelCustomerHistorieMmtt->save($history);
-
-                        return array('code'=>0,'link'=>$data->link_download_mmtc);
-                 
+                    if(!empty($dataSend['email'])){
+                        $checkPhone->email = $dataSend['email'];
                     }
 
+                    if(!empty($dataSend['address'])){
+                        $checkPhone->address = $dataSend['address'];
+                    }
+
+                    if(isset($dataSend['sex'])){
+                        $checkPhone->sex = (int) $dataSend['sex'];
+                    }
+
+                    if(!empty($dataSend['birthday'])){
+                        $birthday = explode('/', $dataSend['birthday']);
+
+                        if(count($birthday)==3){
+                            $checkPhone->birthday_date = (int) $birthday[0];
+                            $checkPhone->birthday_month = (int) $birthday[1];
+                            $checkPhone->birthday_year = (int) $birthday[2];
+                        }
+                    }
+
+                    $modelCustomer->save($checkPhone);
                 }
-            }
+                
+                // xuất thần số học
+                $birthday = $checkPhone->birthday_date.'/'.$checkPhone->birthday_month.'/'.$checkPhone->birthday_year;
 
+                // lấy thần số học
+                if(empty($checkPhone->email)){
+                    $email = 'datacrmasia@gmail.com';
+                }else{
+                    $email = $checkPhone->email;
+                }
+
+                if(empty($checkPhone->address)){
+                    $address = '18 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội';
+                }else{
+                    $address = $checkPhone->address;
+                }
+
+                $linkFull = '';
+                if(function_exists('getLinkFullMMTCAPI')){
+                    $linkFull = getLinkFullMMTCAPI($checkPhone->full_name, $birthday, $checkPhone->phone, $email, $address, $checkPhone->avatar, (int) $checkPhone->sex, 0, 0);
+                }
+
+                if(!empty($linkFull)){
+                    $checkPhone->link_download_mmtc = $linkFull;
+
+                    $modelCustomer->save($checkPhone);
+
+                    $history = $modelCustomerHistorieMmtt->newEmptyEntity();
+                    $history->id_user = $user->id;
+                    $history->id_customer =$checkPhone->id;
+                    $history->created_at = time();
+                    $history->note = '';
+                    $history->link_download_mmtc =$checkPhone->link_download_mmtc;
+                    $modelCustomerHistorieMmtt->save($history);
+
+                    return array('code'=>0,'link'=>$checkPhone->link_download_mmtc);
+
+                }else{
+                    return array('code'=>5,'messages'=>'Hệ thống xuất dữ liệu thần số học bị lỗi');
+                }
+            }else{
                 return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+            }
+        }else{
+            return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
         }
-
-        return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
+    }else{
+        return array('code'=>1,'messages'=>'Gửi sai kiểu POST');
     }
-
-    return array('code'=>1,'messages'=>'Gửi sai kiểu POST');
 }
 
 function listCustomerHistorieMmttAPI($input)

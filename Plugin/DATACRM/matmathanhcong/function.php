@@ -208,7 +208,8 @@ function getLinkFullMMTCAPI($name='', $birthdate='', $phone='', $email='', $addr
 
                         return trim($linkFull, '"');
                     }else{
-                        echo $linkFull;die;
+                        //echo $linkFull;die;
+                        return '';
                     }
                 }
 
