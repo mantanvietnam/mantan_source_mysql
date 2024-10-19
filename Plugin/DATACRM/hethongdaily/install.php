@@ -791,5 +791,5 @@ $sqlUpdateDatabase['customer_historie_mmtts']['id_user'] = "ALTER TABLE `custome
 $sqlUpdateDatabase['customer_historie_mmtts']['id_customer'] = "ALTER TABLE `customer_historie_mmtts` ADD `id_customer` INT NOT NULL;";
 $sqlUpdateDatabase['customer_historie_mmtts']['created_at'] = "ALTER TABLE `customer_historie_mmtts` ADD `created_at` INT NOT NULL;";
 $sqlUpdateDatabase['customer_historie_mmtts']['note'] = "ALTER TABLE `customer_historie_mmtts` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['customer_historie_mmtts']['link_download_mmtc'] = "ALTER TABLE `customer_historie_mmtts` ADD `link_download_mmtc` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NUL;";
+$sqlUpdateDatabase['customer_historie_mmtts']['link_download_mmtc'] = "ALTER TABLE `customer_historie_mmtts` ADD `link_download_mmtc` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 ?>

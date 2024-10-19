@@ -57,6 +57,7 @@ $sqlInstallDatabase .="CREATE TABLE `image_customers` (
 `id_post` INT NULL DEFAULT NULL , 
 `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 `public` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`link_local` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `created_at` INT NULL DEFAULT NULL , 
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -102,4 +103,5 @@ $sqlUpdateDatabase['image_customers']['id_post'] = "ALTER TABLE `image_customers
 $sqlUpdateDatabase['image_customers']['image'] = "ALTER TABLE `image_customers` ADD `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['image_customers']['public'] = "ALTER TABLE `image_customers` ADD `public` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['image_customers']['created_at'] = "ALTER TABLE `image_customers` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['image_customers']['link_local'] = "ALTER TABLE `image_customers` ADD `link_local` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 ?>
