@@ -623,7 +623,7 @@ function createLinkMMTCAPI($input)
 
             if (!empty($user)){
                 $checkPhone =  $modelCustomer->find()->where(['phone' => $dataSend['phone']])->first();
-
+                $saveMember = '';
                 if(empty($checkPhone)){
                     if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
                         $avatars = uploadImage($user->id_parent, 'avatar', 'avatar_'.$user->id_parent);
@@ -664,6 +664,9 @@ function createLinkMMTCAPI($input)
                     $checkPhone->birthday_year = (int) @$birthday_year;
 
                     $modelCustomer->save($checkPhone);
+
+                    // lưu bảng đại lý
+                    $saveMember = saveCustomerMember($checkPhone->id, $user->id_parent);
                 }else{
                     if(!empty($dataSend['full_name'])){
                         $checkPhone->full_name = $dataSend['full_name'];
@@ -728,7 +731,7 @@ function createLinkMMTCAPI($input)
                     $history->link_download_mmtc =$checkPhone->link_download_mmtc;
                     $modelCustomerHistorieMmtt->save($history);
 
-                    return array('code'=>0,'link'=>$checkPhone->link_download_mmtc);
+                    return array('code'=>0,'link'=>$checkPhone->link_download_mmtc, 'saveMember'=>$saveMember);
 
                 }else{
                     return array('code'=>5,'messages'=>'Hệ thống xuất dữ liệu thần số học bị lỗi');
