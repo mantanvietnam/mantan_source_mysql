@@ -112,4 +112,69 @@ function businessReportAPI($input)
 
     return $return;
 }
+
+function statisticalTodayAPI($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+
+    $modelOrders = $controller->loadModel('Orders');
+    $modelOrderMembers = $controller->loadModel('OrderMembers');
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelBill = $controller->loadModel('Bills');
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                // Thời gian đầu ngày
+                $startOfDay = strtotime("today 00:00:00");
+                // Thời gian cuối ngày
+                $endOfDay = strtotime("tomorrow 00:00:00") - 1;
+                $data = array();
+                $conditions = array('id_agency'=>$infoMember->id,  'create_at >='=>$startOfDay,'create_at <='=>$endOfDay);
+                $data['don_hang_khach_le'] = count($modelOrders->find()->where($conditions)->all()->toList());
+
+                $conditions = array('id_member_sell'=>$infoMember->id,  'create_at >='=>$startOfDay,'create_at <='=>$endOfDay);
+                $data['don_hang_dai_ly'] =  count($modelOrderMembers->find()->where($conditions)->all()->toList());
+
+                $conditions = array('id_parent'=>$infoMember->id, 'created_at >='=>$startOfDay,'created_at <='=>$endOfDay);
+                $data['khach_hang_moi'] = count($modelCustomers->find()->where($conditions)->all()->toList());
+
+                $conditions = array('id_staff_now'=>$infoMember->id, 'time_now >='=>$startOfDay,'time_now <='=>$endOfDay);
+                $data['lich_hen'] = count($modelCustomerHistories->find()->where($conditions)->all()->toList());
+
+                $conditions = array('id_member_sell'=>$infoMember->id, 'type'=>1,  'created_at >='=>$startOfDay,'created_at <='=>$endOfDay);
+                $listbill = $modelBill->find()->where($conditions)->all()->toList();
+                 $totalMoney = 0;
+                if(!empty($listbill)){
+                    foreach ($listbill as $key => $value) {
+                        $totalMoney += $value->total;
+                    }
+                }
+                $data['doanh_thu'] =  $totalMoney;
+                $data['phieu_thu'] =  count($listbill);
+
+
+                 $return = array('code'=>0, 'mess'=>'Lấy dữ liệu thành công', 'data'=>$data);
+                
+            }else{
+                $return = array('code'=>3, 'mess'=>'không tồn tại tài khoản đại lý hoặc sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }else{
+        $return = array('code'=>1, 'mess'=>' gửi sai kiểu POST ');
+    }
+
+    return $return;
+}
 ?>

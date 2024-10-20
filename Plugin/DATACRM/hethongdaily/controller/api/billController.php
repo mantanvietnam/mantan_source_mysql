@@ -307,7 +307,7 @@ function listCollectionBillTodayAPI($input){
                 // Thời gian cuối ngày
 				$endOfDay = strtotime("tomorrow 00:00:00") - 1;
 
-				$conditions = array('id_member_sell'=>$infoMember->id, 'type'=>1,  'create_at >='=>$startOfDay,'create_at <='=>$endOfDay);
+				$conditions = array('id_member_sell'=>$infoMember->id, 'type'=>1,  'created_at >='=>$startOfDay,'created_at <='=>$endOfDay);
 				$order = array('id'=>'desc');
 
 
