@@ -45,13 +45,26 @@ $sqlInstallDatabase .= "CREATE TABLE `teachers` (
 	`position` INT NOT NULL , 
 	`introduce` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
 	`avatar` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+	`pin` INT NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .= "CREATE TABLE `students` ( 
+	`id` INT NOT NULL AUTO_INCREMENT , 
+	`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`id_year` INT NOT NULL DEFAULT '0' , 
+	`id_class` INT NOT NULL DEFAULT '0' , 
+	`achievement` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , 
+	`image` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
+";
 
 
 $sqlDeleteDatabase .= "DROP TABLE classes; ";
 $sqlDeleteDatabase .= "DROP TABLE donates; ";
 $sqlDeleteDatabase .= "DROP TABLE teachers; ";
+$sqlDeleteDatabase .= "DROP TABLE students; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='school_year'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='positionTeacher'; ";
@@ -83,7 +96,15 @@ $sqlUpdateDatabase['donates']['job'] = "ALTER TABLE `donates` ADD `job` VARCHAR(
 $sqlUpdateDatabase['donates']['donate'] = "ALTER TABLE `donates` ADD `donate` INT NOT NULL DEFAULT '0'; ";
 
 // Bang teachers
-$sqlUpdateDatabase['donates']['name'] = "ALTER TABLE `donates` ADD `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['donates']['position'] = "ALTER TABLE `donates` ADD `position` INT NOT NULL; ";
-$sqlUpdateDatabase['donates']['introduce'] = "ALTER TABLE `donates` ADD `introduce` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
-$sqlUpdateDatabase['donates']['avatar'] = "ALTER TABLE `donates` ADD `avatar` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['teachers']['name'] = "ALTER TABLE `teachers` ADD `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['teachers']['position'] = "ALTER TABLE `teachers` ADD `position` INT NOT NULL; ";
+$sqlUpdateDatabase['teachers']['introduce'] = "ALTER TABLE `teachers` ADD `introduce` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['teachers']['avatar'] = "ALTER TABLE `teachers` ADD `avatar` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['teachers']['pin'] = "ALTER TABLE `teachers` ADD `pin` INT NOT NULL DEFAULT '0'; ";
+
+// Bang students
+$sqlUpdateDatabase['students']['name'] = "ALTER TABLE `students` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['students']['id_year'] = "ALTER TABLE `students` ADD `id_year` INT NOT NULL DEFAULT '0'; ";
+$sqlUpdateDatabase['students']['id_class'] = "ALTER TABLE `students` ADD `id_class` INT NOT NULL DEFAULT '0'; ";
+$sqlUpdateDatabase['students']['achievement'] = "ALTER TABLE `students` ADD `achievement` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL; ";
+$sqlUpdateDatabase['students']['image'] = "ALTER TABLE `students` ADD `image` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";

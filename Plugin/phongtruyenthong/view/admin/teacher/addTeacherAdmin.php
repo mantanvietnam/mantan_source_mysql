@@ -26,7 +26,7 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label">Chức danh (*)</label>
-                  <select name="position" required class="form-control">
+                  <select name="position" required class="form-select color-dropdown">
                     <option value="">Chọn chức danh</option>
                     <?php 
                     if(!empty($listPositionTeacher)){
@@ -50,7 +50,7 @@
                 </div>
               </div>
 
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label">Ảnh đại diện</label>
                   <?php 
@@ -60,6 +60,13 @@
                       echo '<br/><img src="'.$data->avatar.'" width="150" />';
                     }
                   ?>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <br/><br/>
+                  <input type="checkbox" name="pin" value="1" <?php if(!empty($data->pin)) echo 'checked';?> > Ghim lên đầu
                 </div>
               </div>
 

@@ -8,25 +8,31 @@ $menus[0]['sub'][0]= array(	'title'=>'Lớp học',
 						);
 
 
-$menus[0]['sub'][1]= array(	'title'=>'Thông tin trường',
+$menus[0]['sub'][]= array(	'title'=>'Thông tin trường',
 							'url'=>'/plugins/admin/phongtruyenthong-view-admin-school-infoSchoolAdmin',
 							'classIcon'=>'bx bxs-school',
 							'permission'=>'infoSchoolAdmin'
 						);
 
-$menus[0]['sub'][2]= array(	'title'=>'Giáo viên',
+$menus[0]['sub'][]= array(	'title'=>'Giáo viên',
 							'url'=>'/plugins/admin/phongtruyenthong-view-admin-teacher-listTeacherAdmin',
 							'classIcon'=>'bx bx-user-voice',
 							'permission'=>'listTeacherAdmin'
 						);
 
-$menus[0]['sub'][3]= array(	'title'=>'Quyên góp',
+$menus[0]['sub'][]= array(	'title'=>'Học sinh tiêu biểu',
+							'url'=>'/plugins/admin/phongtruyenthong-view-admin-student-listStudentAdmin',
+							'classIcon'=>'bx bx-user-voice',
+							'permission'=>'listStudentAdmin'
+						);
+
+$menus[0]['sub'][]= array(	'title'=>'Quyên góp',
 							'url'=>'/plugins/admin/phongtruyenthong-view-admin-domate-listDonateAdmin',
 							'classIcon'=>'bx bx-dollar',
 							'permission'=>'listDonateAdmin'
 						);
 
-$menus[0]['sub'][4]= array('title'=>'Cài đặt',
+$menus[0]['sub'][]= array('title'=>'Cài đặt',
 							'url'=>'/',
 							'classIcon'=>'bx bx-cog',
 							'permission'=>'settingsPhongtruyenthong',

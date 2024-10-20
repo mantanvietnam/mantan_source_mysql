@@ -20,6 +20,14 @@ function listTeacherAdmin($input)
         $conditions['id'] = (int) $_GET['id'];
     }
 
+    if(!empty($_GET['position'])){
+        $conditions['position'] = (int) $_GET['position'];
+    }
+
+    if(isset($_GET['pin']) && $_GET['pin']!=''){
+        $conditions['pin'] = (int) $_GET['pin'];
+    }
+
     if(!empty($_GET['name'])){
         $conditions['name LIKE'] = '%'.$_GET['name'].'%';
     }
@@ -58,6 +66,17 @@ function listTeacherAdmin($input)
         $urlPage = $urlPage . '?page=';
     }
 
+    // danh sách chức danh
+    $conditions = array('type' => 'positionTeacher');
+    $listPosition = $modelCategories->find()->where($conditions)->all()->toList();
+    $listPositionValue = [];
+
+    if(!empty($listPosition)){
+        foreach ($listPosition as $value) {
+            $listPositionValue[$value->id] = $value->name;
+        }
+    }
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -66,6 +85,7 @@ function listTeacherAdmin($input)
     setVariable('totalData', $totalData);
     
     setVariable('listData', $listData);
+    setVariable('listPositionValue', $listPositionValue);
 }
 
 function addTeacherAdmin($input)
@@ -100,6 +120,7 @@ function addTeacherAdmin($input)
 	        $data->position = $dataSend['position'];
 	        $data->introduce = $dataSend['introduce'];
             $data->avatar = $dataSend['avatar'];
+            $data->pin = (int) $dataSend['pin'];
 
 	        $modelTeachers->save($data);
 

@@ -1,25 +1,10 @@
 <?php getHeader(); ?>
 <main>
-        <section id="section-banner-top">
-            <div class="container">
-                <div class="banner-contain">
-                    <div class="desktop-banner">
-                        <img src="<?php echo @$urlThemeActive; ?>/asset/image/teamwork.png" alt="">
-                    </div>
-                    <div class="banner-contain-title">
-                        <p>Tin Tức</p>
-                        <h3>Những <span>tin tức</span> chúng tôi <br> cung cấp cho khách hàng</h3>
-                    </div>
-
-
-                </div>
-            </div>
-        </section>
-
         <section id="section-all-posts">
             <div class="container">
                 <div class="list-post">
                     <div class="row">
+                        <h1><?php echo $category->name;?></h1>
                         <?php 
                             if(!empty($listPosts)){
                                 foreach ($listPosts as $key => $value) {

@@ -21,6 +21,8 @@ function infoSchoolAdmin($input)
     					'image' => $dataSend['image'],
     					'logo' => $dataSend['logo'],
     					'video' => $dataSend['video'],
+                        'video_local' => $dataSend['video_local'],
+                        'video_mc' => $dataSend['video_mc'],
 
     					'address' => $dataSend['address'],
     					'phone' => $dataSend['phone'],

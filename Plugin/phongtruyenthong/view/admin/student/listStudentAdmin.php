@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Giáo viên</h4>
+  <h4 class="fw-bold py-3 mb-4">Học sinh</h4>
   
-  <p><a href="/plugins/admin/phongtruyenthong-view-admin-teacher-addTeacherAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/phongtruyenthong-view-admin-student-addStudentAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -15,35 +15,8 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên giáo viên</label>
+            <label class="form-label">Tên học sinh</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Chức danh</label>
-            <select name="position" class="form-select color-dropdown">
-              <option value="">Tất cả chức danh</option>
-              <?php 
-              if(!empty($listPositionValue)){
-                foreach ($listPositionValue as $key => $value) {
-                  if(empty($_GET['position']) || $_GET['position']!=$key){
-                    echo '<option value="'.$key.'">'.$value.'</option>';
-                  }else{
-                    echo '<option selected value="'.$key.'">'.$value.'</option>';
-                  }
-                }
-              }
-              ?>
-            </select>
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Ghim</label>
-            <select name="pin" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="1" <?php if(isset($_GET['pin']) && $_GET['pin']==1) echo 'selected';?> >Có</option>
-              <option value="0" <?php if(isset($_GET['pin']) && $_GET['pin']==0) echo 'selected';?> >Không</option>
-            </select>
           </div>
           
           <div class="col-md-2">
@@ -58,7 +31,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách giáo viên</h5>
+    <h5 class="card-header">Danh sách học sinh tiêu biểu</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -66,8 +39,8 @@
             <th>ID</th>
             <th>Ảnh đại diện</th>
             <th>Họ tên</th>
-            <th>Chức danh</th>
-            <th>Ghim</th>
+            <th>Lớp học</th>
+            <th>Thành tích</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -76,24 +49,23 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                $pin = 'Không';
-                if($item->pin == 1){
-                  $pin = 'Có';
-                }
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td><img src="'.$item->avatar.'" width="100" /></td>
+                        <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$item->name.'</td>
-                        <td>'.$listPositionValue[$item->position].'</td>
-                        <td>'.$pin.'</td>
+                        <td>
+                          '.@$listYearValue[$item->id_year].'<br/>
+                          '.@$item->name_class.'
+                        </td>
+                        <td>'.$item->achievement.'</td>
 
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/phongtruyenthong-view-admin-teacher-addTeacherAdmin/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/phongtruyenthong-view-admin-student-addStudentAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/phongtruyenthong-view-admin-teacher-deleteTeacherAdmin/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/phongtruyenthong-view-admin-student-deleteStudentAdmin/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

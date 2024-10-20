@@ -10,6 +10,8 @@ function getInfoSchoolAPI($input)
     global $controller;
 
     $modelTeachers = $controller->loadModel('Teachers');
+    $modelStudents = $controller->loadModel('Students');
+    $modelClasses = $controller->loadModel('Classes');
 
     $conditions = array('key_word' => 'infoSchoolAdmin');
     $data = $modelOptions->find()->where($conditions)->first();
@@ -72,9 +74,18 @@ function getInfoSchoolAPI($input)
         shuffle($data_value['list_image_achievement']);
     }
 
+    // danh sách niên khóa
     $conditions = array('type' => 'school_year');
     $listYear = $modelCategories->find()->where($conditions)->all()->toList();
+    $listYearValue = [];
 
+    if(!empty($listYear)){
+        foreach ($listYear as $value) {
+            $listYearValue[$value->id] = $value->name;
+        }
+    }
+
+    // danh sách chức danh giáo viên
     $conditions = array('type' => 'positionTeacher');
     $listPositionTeacher = $modelCategories->find()->where($conditions)->all()->toList();
     $listPositionTeacherShow = [];
@@ -91,11 +102,25 @@ function getInfoSchoolAPI($input)
         }
     }
 
-    $data_value['listTeacher'] = $modelTeachers->find()->where()->order(['id'=>'desc'])->all()->toList();
+    // danh sách giáo viên
+    $data_value['listTeacher'] = $modelTeachers->find()->where()->order(['pin'=>'desc'])->all()->toList();
 
     if(!empty($data_value['listTeacher'])){
         foreach ($data_value['listTeacher'] as $key => $value) {
             $data_value['listTeacher'][$key]->position = @$listPositionTeacherShow[$value->position];
+        }
+    }
+
+    // danh sách học sinh
+    $data_value['listStudent'] = $modelStudents->find()->where()->order(['id_year'=>'asc'])->all()->toList();
+
+    if(!empty($data_value['listStudent'])){
+        foreach ($data_value['listStudent'] as $key => $value) {
+            $data_value['listStudent'][$key]->year = @$listYearValue[$value->id_year];
+
+            $class = $modelClasses->find()->where(['id'=>(int) $value->id_class])->first();
+
+            $data_value['listStudent'][$key]->class = @$class->name;
         }
     }
 

@@ -60,6 +60,13 @@
                               <label class="form-label" for="basic-default-fullname">Link youtube video giới thiệu trường</label>
                               <input type="text" class="form-control" placeholder="" name="video" id="video" value="<?php echo @$data['video'];?>" />
                             </div>
+
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Link video giới thiệu nhà trường</label>
+                              <?php showUploadFile('video_local','video_local',@$data['video_local'],2);?>
+                            </div>
+
+                            
                           </div>
 
                           <div class="col-md-6">
@@ -81,6 +88,11 @@
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">Nhạc nền</label>
                               <?php showUploadFile('audio_background','audio_background',@$data['audio_background'],11);?>
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Link video MC</label>
+                              <?php showUploadFile('video_mc','video_mc',@$data['video_mc'],3);?>
                             </div>
                           </div>
 
