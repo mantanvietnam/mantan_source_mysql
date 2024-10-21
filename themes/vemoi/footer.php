@@ -1,11 +1,14 @@
+<?php 
+    global $settingThemes;
+    ?>
     <footer>
         <div class="footer-up">
             <div class="container">
                 <div class="row">
                     <div id="logo" class="col-lg-6">
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/Logo.png" alt="">
-                        <h5>VEMOI.NET là điểm đến hàng đầu của các khách hàng cho các hội nghị chuyên sâu,cung cấp tổ chức các sự kiện đầy năng động, gồm những diễn giả hàng đầu và cơ hội giao lưu tiềm năng.</h5>
-                        <h3>hello@vemoi.com</h3>
+                        <img src="<?= @$settingThemes['logo'];?>" alt="">
+                        <h5><?= @$settingThemes['descriptionfooter'];?></h5>
+                        <h3><?= @$settingThemes['emailfooter'];?></h3>
                     </div>
                     <div id="addres" class="col-lg-6">
                         <div class="column">
@@ -24,10 +27,10 @@
                         </div>
                         <div class="column">
                             <a class="bold" href="">Social Media</a><br>
-                            <a href="">Instagram</a><br>
-                            <a href="">Facebook</a><br>
-                            <a href="">Twitter</a><br>
-                            <a href="">YouTube</a>
+                            <a href="<?=$settingThemes['Instagram'] ?>">Instagram</a><br>
+                            <a href="<?=$settingThemes['Facebook'] ?>">Facebook</a><br>
+                            <a href="<?=$settingThemes['Twitter'] ?>">Twitter</a><br>
+                            <a href="<?=$settingThemes['YouTube'] ?>">YouTube</a>
                         </div>
                     </div>
                 </div>

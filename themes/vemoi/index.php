@@ -1,5 +1,6 @@
 <?php 
     getHeader();
+    global $settingThemes;
 ?>
 
     <main>
@@ -8,8 +9,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 my-5">
-                            <p class="text-uppercase ">GIẢI PHÁP TRỌN GÓI <span>CHO TỔ CHỨC SỰ KIỆN </span></p>
-                            <h4>Chúng tôi cung cấp giải pháp cho khách hàng có nhu cầu tổ chức sự kiện với hình thức trọn gói, uy tín và đem lại sự hài lòng tuyệt đối.</h4>
+                            <p class="text-uppercase "><?= @$settingThemes['titleredbanner'];?><span><?= @$settingThemes['titleblackbanner'];?></span></p>
+                            <h4><?= @$settingThemes['descriptionbanner'];?></h4>
                             <div id="tabfill">
                                 <div class="container justify-content-center align-items-center" style="padding: 0;">
                                     <ul class="nav nav-tabs text-md-center d-flex" style="margin-left: 10px;">
@@ -60,39 +61,21 @@
                                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                                 </div>
                                 <div class="carousel-inner">
-                                  <div class="carousel-item active">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhdep.jpg" class="d-block w-100" alt="...">
-                                    <div class="on-img">
-                                        <a href="">Kinh Doanh</a>
-                                        <div class="text-slick">
-                                            <p>Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                            <h3>VŨ KHÍ MARKETING</h3>
-                                            <p>Hồ Tây, Hà Nội</p>
+                                <?php $isActive = true; ?>
+                                <?php foreach ($slide_banner as $value) : ?>
+                                    <div class="carousel-item <?php echo $isActive ? 'active' : ''; ?>">
+                                        <img src="<?php echo $value['image']; ?>" class="d-block w-100" alt="...">
+                                        <div class="on-img">
+                                            <a href="<?php echo $value['link']; ?>">Kinh Doanh</a>
+                                            <div class="text-slick">
+                                                <p><?php echo $value['description']; ?></p>
+                                                <h3><?php echo $value['title']; ?></h3>
+                                                <!-- <p>Hồ Tây, Hà Nội</p> -->
+                                            </div>
                                         </div>
                                     </div>
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhdep.jpg" class="d-block w-100" alt="...">
-                                    <div class="on-img">
-                                        <a href="">Kinh Doanh</a>
-                                        <div class="text-slick">
-                                            <p>Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                            <h3>VŨ KHÍ MARKETING</h3>
-                                            <p>Hồ Tây, Hà Nội</p>
-                                        </div>
-                                    </div>
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhdep.jpg" class="d-block w-100" alt="...">
-                                    <div class="on-img">
-                                        <a href="">Kinh Doanh</a>
-                                        <div class="text-slick">
-                                            <p>Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                            <h3>VŨ KHÍ MARKETING</h3>
-                                            <p>Hồ Tây, Hà Nội</p>
-                                        </div>
-                                    </div>
-                                  </div>
+                                    <?php $isActive = false; ?>
+                                <?php endforeach; ?>
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -109,9 +92,9 @@
             </div>
             
             <div class="banner-img">
-                <div class="container-fluid pl-0 d-flex">
-                    <img class="col-lg-6" src="<?php echo $urlThemeActive;?>/asset/image/regular.jpg" alt="">
-                    <img class="col-lg-6" src="<?php echo $urlThemeActive;?>/asset/image/viettel.jpg" alt="">
+                <div class="container-fluid pl-0 d-flex justify-content-center">
+                    <img class="col-lg-6" src="<?= @$settingThemes['image1'];?>" alt="">
+                    <img class="col-lg-6" src="<?= @$settingThemes['image2'];?>" alt="">
                 </div>
             </div>
             
@@ -124,92 +107,22 @@
                         <p>Sự Kiện Nổi Bật<span class="red-dot">•</span></p>
                         <div class="news">
                             <div class="row">
+                                <?php foreach($listDataevent as $value):?>
                                 <div class="col-lg-4">
                                     <div class="card-news">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
+                                        <img src="<?php echo $value['image'];?>" alt="">
                                             <div class="text top-text">
                                                 <a class="name" href="#">Khởi nghiệp</a>
                                                 <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
                                             </div>
                                             <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
+                                                <p class="date-time"><?php echo date('d/m/Y', $value->time);?></p>
+                                                <h4><?php echo $value['title'];?></h4>
+                                                <p class="date-time"><?php echo $value['description'];?></p>
                                             </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                
-                               
+                                <?php endforeach;?>
                             </div>
                         </div>
                         <div class="takeall">
@@ -224,26 +137,16 @@
         <section class="gr-team">
             <div class="team">
                 <div class="container">
-                    <h1 class="team-title">Đội Ngũ Vemoi.Net Cùng Các Nhà Tài Trợ <span class="red-dot">•</span></h1>
-                    <p class="subtitle">Embark on a journey through the seamless process of our conference</p>
+                    <h1 class="team-title"><?php echo $settingThemes['titleNTT'];?><span class="red-dot">•</span></h1>
+                    <p class="subtitle"><?php echo $settingThemes['titleNTTsmall'];?></p>
                 
                     <!-- Team Section -->
                     <div class="team-members">
-                        <div class="team-member">
-                            <img class="odd" src="<?php echo $urlThemeActive;?>/asset/image/yl.jpg" alt="Team Member 1">
-                        </div>
-                        <div class="team-member">
-                            <img src="<?php echo $urlThemeActive;?>/asset/image/red.jpg" alt="Team Member 2">
-                        </div>
-                        <div class="team-member">
-                            <img class="odd" src="<?php echo $urlThemeActive;?>/asset/image/tt.jpg" alt="Team Member 3">
-                        </div>
-                        <div class="team-member">
-                            <img src="<?php echo $urlThemeActive;?>/asset/image/sep.jpg" alt="Team Member 4">
-                        </div>
-                        <div class="team-member">
-                            <img class="odd" src="<?php echo $urlThemeActive;?>/asset/image/bl.jpg" alt="Team Member 5">
-                        </div>
+                        <?php foreach ($slidealbumNTT as $value):?>
+                            <div class="team-member">
+                                <img class="odd" src="<?php echo $value['image'];?>" alt="Team Member 1">
+                            </div>
+                        <?php endforeach;?>
                     </div>
                 
                     <!-- Sponsors Section -->
@@ -265,7 +168,7 @@
                         </div>
                     </div>
 
-                    <div class="sponsors">
+                    <!-- <div class="sponsors">
                         <div class="sponsor-logo mx-3">
                             <img src="<?php echo $urlThemeActive;?>/asset/image/logoipsum.jpg" alt="Sponsor Logo 1">
                         </div>
@@ -278,7 +181,7 @@
                         <div class="sponsor-logo mx-3">
                             <img src="<?php echo $urlThemeActive;?>/asset/image/logoipsum.jpg" alt="Sponsor Logo 4">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
@@ -290,23 +193,23 @@
                 <div class="statistics-cards">
                     <!-- Card 1 -->
                     <div class="card">
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/Icon Container.jpg" alt="Icon 1">
-                        <div class="card-number">+3400</div>
-                        <div class="card-text">Số sự kiện được tổ chức</div>
+                        <img src="<?= @$settingThemes['icon1'];?>" alt="Icon 1">
+                        <div class="card-number">+<?= @$settingThemes['number1'];?></div>
+                        <div class="card-text"><?= @$settingThemes['titleicon1'];?></div>
                     </div>
         
                     <!-- Card 2 -->
                     <div class="card">
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/Icon Container.jpg" alt="Icon 2">
-                        <div class="card-number">+2400</div>
-                        <div class="card-text">Số vé mời đã được tạo</div>
+                        <img src="<?= @$settingThemes['icon2'];?>" alt="Icon 2">
+                        <div class="card-number">+<?= @$settingThemes['number2'];?></div>
+                        <div class="card-text"><?= @$settingThemes['titleicon2'];?></div>
                     </div>
         
                     <!-- Card 3 -->
                     <div class="card">
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/Icon Container.jpg" alt="Icon 3">
-                        <div class="card-number">+8000</div>
-                        <div class="card-text">Khách hàng tham gia</div>
+                        <img src="<?= @$settingThemes['icon3'];?>" alt="Icon 3">
+                        <div class="card-number">+<?= @$settingThemes['number3'];?></div>
+                        <div class="card-text"><?= @$settingThemes['titleicon3'];?></div>
                     </div>
                 </div>
             </div>
@@ -318,43 +221,19 @@
         
                 <div class="news-cards">
                     <!-- News Card 1 -->
+                     <?php foreach($listDatatop as $value) :?>
                     <div class="news-card">
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/hop.jpg" alt="News 1">
+                        <img src="<?php echo $value['image'];?>" alt="News 1">
                         <div class="news-content">
-                            <h3 class="news-title-text">Tọa đàm: Huy động sự tham gia có ý nghĩa trong thực hiện kinh...</h3>
-                            <p class="news-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <h3 class="news-title-text"><?php echo $value['title'];?></h3>
+                            <p class="news-description"><?php echo $value['description'];?></p>
                             <div class="news-footer">
                                 <div class="news-read-more">→</div>
-                                <div class="news-date">Ngày 28/07/2024</div>
+                                <div class="news-date">Ngày <?php echo date('d/m/Y', $value->time);?></div>
                             </div>
                         </div>
                     </div>
-        
-                    <!-- News Card 2 -->
-                    <div class="news-card">
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/hop.jpg" alt="News 2">
-                        <div class="news-content">
-                            <h3 class="news-title-text">Tọa đàm: Huy động sự tham gia có ý nghĩa trong thực hiện kinh...</h3>
-                            <p class="news-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <div class="news-footer">
-                                <div class="news-read-more">→</div>
-                                <div class="news-date">Ngày 28/07/2024</div>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <!-- News Card 3 -->
-                    <div class="news-card">
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/hop.jpg" alt="News 3">
-                        <div class="news-content">
-                            <h3 class="news-title-text">Tọa đàm: Huy động sự tham gia có ý nghĩa trong thực hiện kinh...</h3>
-                            <p class="news-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <div class="news-footer">
-                                <div class="news-read-more">→</div>
-                                <div class="news-date">Ngày 28/07/2024</div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach;?>
                 </div>
         
                 <button class="btn-view-more">Xem tất cả</button>
@@ -364,11 +243,11 @@
         <section>
             <div class="create-events">
                 <div class="container-fluid">
-                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhdep.jpg" alt="">
+                    <img src="<?= @$settingThemes['imagefull'];?>" alt="">
                     <div class="under-items">
                         <div class="text-event">
-                            <h3 class="text-uppercase">Bắt đầu tạo sự kiện của bạn và quảng bá đến mọi người</h3>
-                            <h5>Nâng cao trải nghiệm của bạn bằng cách tìm sự kiện tiếp theo hoặc khám phá danh mục đa dạng của chúng tôi.</h5>
+                            <h3 class="text-uppercase"><?= @$settingThemes['titlesukien'];?></h3>
+                            <h5><?= @$settingThemes['titlesmallsukien'];?></h5>
                         </div>
                         <div class="btn-event">
                             <a href=""><i class="fa-solid fa-plus"></i>Tạo sự kiện mới</a>

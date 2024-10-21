@@ -25,7 +25,9 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <?php mantan_header();?>
+    <?php mantan_header();
+    global $settingThemes;
+    ?>
 </head>
 <body>
     <header>
@@ -35,7 +37,7 @@
                 <!-- Logo -->
                 <div class="logo">
                     <a class="navbar-brand d-flex align-items-center" href="#">
-                        <img src="<?php echo $urlThemeActive;?>/asset/image/Logo.png">
+                        <img src="<?= @$settingThemes['logo'];?>" alt="">
                     </a>
                 </div>
 
