@@ -120,5 +120,19 @@ function addmyplane($input){
     setVariable('mess', $mess);
 }
 
+function deletemyplane($input){
+    global $controller;
 
+    $modelmyplane = $controller->loadModel('myplane');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelmyplane->get($_GET['id']);
+        
+        if($data){
+            $modelmyplane->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/colennao-view-admin-myplane-listmyplane');
+}
 ?>
