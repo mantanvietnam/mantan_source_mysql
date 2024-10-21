@@ -1,0 +1,495 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+body {
+	line-height: 1;
+    margin: 0;
+	padding: 0;
+	border: 0;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.container-fluid{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* register */
+
+.register{
+    padding: 30px;
+}
+
+.register .container{
+    justify-content: space-between;
+}
+ 
+.register .back a i{
+    padding: 17px 19px;
+    border-radius: 17px;
+    border: 1px solid black;
+    color: black;
+    margin-right: 17px;
+}
+
+.register .back a i:hover{
+    color: white;
+    background-color: #ec1b2e;
+}
+
+.register .back p{
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+section {
+    background-color: #fafafa;
+}
+
+.nav-tabs{
+    border: 0;
+}
+
+.nav li .nav-item{
+    color: #111827 !important;
+}
+
+.row-img input{
+    width: 89%;
+    margin-right: 30px;
+}
+
+.row-img a{
+    color: white;
+    width: 105px ;
+    padding: 10px 20px;
+    background-color: #ec1b2e;
+    border-radius: 5px;
+}
+
+.puliik{
+    padding: 15px;
+}
+
+.puliik p{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.row-fn #sponsor{
+    width: 84% !important;
+    margin-right: 30px;
+}
+
+.row-fn a{
+    color: white;
+    width: 160px ;
+    padding: 10px 20px;
+    background-color: #ec1b2e;
+    border-radius: 5px;
+}
+
+.btn {
+    justify-content: space-around;
+}
+
+.btn a {
+    border-radius: 5px;
+    padding: 10px 100px;
+    color: white;
+    background-color: #ec1b2e;
+}
+
+.btn a:active:focus {
+    border-radius: 5px;
+    padding: 10px 100px;
+    color: #ec1b2e;
+    background-color: white;
+}
+
+.nav-tabs{
+    border: 0 !important;
+}
+
+.nav-link.active{
+    padding: 10px 60px;
+    margin-right: 30px;
+}
+
+#myTab li a{
+    color: red !important;
+}
+
+.nav-tabs .nav-link{
+    padding: 10px 60px;
+    border: 0 !important;
+    margin-left: 30px;
+}
+
+/*  */
+
+/* Styling for the form and images */
+#previewImage {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+/* Image size adjustment section */
+.image-size-adjust {
+    margin-top: 20px;
+  }
+  
+  .size-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .size-control .form-label {
+    flex-basis: 40%;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0;
+  }
+  
+  .custom-range {
+    flex-basis: 55%;
+    accent-color: #007bff;
+    margin-left: 10px;
+  }
+  
+  .custom-range::-webkit-slider-thumb {
+    width: 12px;
+    height: 12px;
+    background-color: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .custom-range::-webkit-slider-runnable-track {
+    height: 4px;
+    background-color: #e0e0e0;
+  }
+  
+  .custom-range:focus {
+    outline: none;
+  }
+  
+  /* Image preview styling */
+  .custom-image {
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+  }
+  
+  /* General form styling for clean layout */
+  .form-label {
+    font-weight: 600;
+    color: #495057;
+  }
+  
+  .form-control:focus {
+    border-color: #80bdff;
+    box-shadow: none;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+  /* Styling cho các liên kết giống như button */
+.btn {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+/* Dành cho các liên kết bên trong tab */
+.nav-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: #495057;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.form-section {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+.preview-box {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #ffffff;
+}
+.preview-area {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    font-family: 'SVN-Gotham Bold';
+    font-size: 14px;
+    color: #111827;
+    text-align: center;
+    opacity: 1;
+}
+
+.nav-link:hover {
+    color: #0d6efd;
+}
+
+.columnn{
+    line-height: 2.5;
+    padding: 0 40px;
+    justify-content: space-between;
+}
+
+.columnn input{
+    width: 200px;
+}
+
+.upload-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.upload-container input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.upload-container button {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-container button:hover {
+    background-color: #e04343;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .container {
+        display: block;
+    }
+    .form-section, .preview-section {
+        width: 100%; /* Đặt chiều rộng 100% để mỗi phần tử chiếm toàn bộ chiều ngang màn hình */
+        margin-bottom: 20px; /* Tạo khoảng cách giữa các phần */
+    }
+
+    #myTab li a{
+        padding: 9px;
+        margin: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .btn-login {
+        display: none;
+    }
+
+    #navbarDropdown4{
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .btn-add-event {
+        display: none;
+    }
+
+    #navbarDropdown-4{
+        display: none;
+    }
+}
+
+@media (max-width: 555px) {
+
+    .navbar-brand{
+        margin: -11px;
+    }
+    .logo a img {
+        margin: 8px !important;
+    }
+
+    .logo a img {
+        height: auto;
+        width: 100px !important;
+    }
+
+    .btn a {
+        padding: 10px 10px;
+    }
+}
+
+
+
+@media (max-width: 556px) {
+
+    .register {
+        padding: 10px;
+    }
+    .register .back p {
+        margin-top: 13px;
+        font-size: 16px;
+    }
+    .submit-btn{
+        width: 55%;
+    }
+    .progress-container{
+        padding-right: 100px;
+    }
+    .step{
+        width: 35px;
+        height: 35px;
+    }
+
+    .size-control {
+        display: block;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 10px 60px;
+        margin-left: 0;
+    }
+}
+
+
+@media (max-width: 440px) {
+    .navbar-nav {
+       margin-right: 16px;
+    }
+
+    .information .text-information .line {
+        font-size: 26px !important;
+    }
+}
+
+@media (max-width: 1200px) { 
+
+    .navbar-nav {
+        margin-top: 20px;
+    }
+    .information .text-information{
+        width: 100%;
+    }
+
+    .information .text-information .line{
+        font-size: 35px;
+    }
+
+    .information .text-information .btn-info p {
+        padding: 12px 19px;
+    }
+
+    .information .btn-loginn a{
+        padding: 22px 100px;
+    }
+
+    .link .social{
+        margin-right: 0;
+    }
+ }
+

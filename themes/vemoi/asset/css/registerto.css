@@ -1,0 +1,334 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+body {
+	line-height: 1;
+    margin: 0;
+	padding: 0;
+	border: 0;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.container-fluid{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* register */
+
+
+.register{
+    padding: 30px;
+}
+
+.register .container{
+    justify-content: space-between;
+}
+ 
+.register .back a i{
+    padding: 17px 19px;
+    border-radius: 17px;
+    border: 1px solid black;
+    color: black;
+    margin-right: 17px;
+}
+
+.register .back a i:hover{
+    color: white;
+    background-color: #ec1b2e;
+}
+
+.register .back p{
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding-right: 160px;
+}
+
+.step-container {
+    display: flex;
+    align-items: center;
+}
+
+.step-link {
+    text-decoration: none; /* Remove underline from links */
+}
+
+
+.hot:active{
+    background-color: #007bff;
+    color: white;
+}
+
+.step {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid #007bff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.step1 {
+    background-color: #007bff !important;
+}
+
+.step-number-1{
+    color: white !important;
+}
+
+.step-number {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.step.active .step-number {
+    color: white;
+}
+
+.step-line {
+    width: 50px;
+    height: 2px;
+    background-color: #007bff;
+}
+
+.form-container {
+    width: 90%; /* Set the width */
+    height: auto; /* Set the height */
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* mẫu điền */
+
+section{
+    background-color: #fafafa;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+form {
+    padding-bottom: 40px;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    width: 48%;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+.submit-btn {
+    width: 30%; /* Shortened button width */
+    padding: 15px;
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 20px auto 0 auto; /* Center the button horizontally */
+    display: block; /* Ensure the button takes only the specified width */
+}
+
+.submit-btn a{
+    color: #fff !important ;
+}
+
+.submit-btn:hover {
+    background-color: #d00000;
+}
+@media (min-width: 992px) {
+    .btn-login {
+        display: none;
+    }
+
+    #navbarDropdown4{
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .btn-add-event {
+        display: none;
+    }
+
+    #navbarDropdown-4{
+        display: none;
+    }
+
+    .navbar-nav .dropdown-menu{
+        border: 0;
+    }
+
+    button{
+        width: 16% !;
+    }
+}
+
+@media (max-width: 555px) {
+
+    .navbar-brand{
+        margin: -11px;
+    }
+    .logo a img {
+        margin: 13px !important;
+    }
+
+    .logo a img {
+        height: auto;
+        width: 100px !important;
+    }
+}
+
+
+
+@media (max-width: 556px) {
+
+    .register {
+        padding: 10px;
+    }
+    .register .back p {
+        margin-top: 13px;
+        font-size: 16px;
+    }
+    .submit-btn{
+        width: 55%;
+    }
+    .progress-container{
+        padding-right: 100px;
+    }
+    .step{
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+@media (max-width: 440px) {
+    .navbar-nav {
+       margin-right: 16px;
+    }
+
+    .information .text-information .line {
+        font-size: 26px !important;
+    }
+}
+
+@media (max-width: 1200px) { 
+
+    .navbar-nav {
+        margin-top: 20px;
+    }
+    .information .text-information{
+        width: 100%;
+    }
+
+    .information .text-information .line{
+        font-size: 35px;
+    }
+
+    .information .text-information .btn-info p {
+        padding: 12px 19px;
+    }
+
+    .information .btn-loginn a{
+        padding: 22px 100px;
+    }
+
+    .link .social{
+        margin-right: 0;
+    }
+ }
+
+ @media (max-width: 376px) {
+
+    .navbar-toggler {
+        padding: 3px !important;
+    }
+    .logo a img {
+        margin: 4px !important;
+        width: 75px !important;
+    }
+}

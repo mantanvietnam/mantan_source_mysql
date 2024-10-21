@@ -1,0 +1,657 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+body {
+	line-height: 1;
+    margin: 0;
+	padding: 0;
+	border: 0;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.container-fluid{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* register */
+
+.register{
+    padding: 30px;
+}
+
+.register .container{
+    justify-content: space-between;
+}
+ 
+.register .back a i{
+    padding: 17px 19px;
+    border-radius: 17px;
+    border: 1px solid black;
+    color: black;
+    margin-right: 17px;
+}
+
+.register .back a i:hover{
+    color: white;
+    background-color: #ec1b2e;
+}
+
+.register .back p{
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding-right: 160px;
+}
+
+.form-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.form-section {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.custom-radio {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.custom-radio input {
+    display: none;
+}
+
+.custom-radio label {
+    width: 88%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.custom-radio input:checked + label {
+    background-color: #e6f7ff;
+    border-color: #007bff;
+}
+
+.form-section button{
+    padding: 7px 33px;
+}
+
+.form-section .btn-huy{
+    padding: 7px 70px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+.mb-2 {
+    margin-bottom: 8px !important;
+}
+
+.row-img{
+    display: flex;
+    gap: 20px;
+}
+
+.event-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, border-color 0.3s;
+    position: relative;
+}
+
+.event-card:hover {
+    border-color: #007bff;
+    background-color: #e6f7ff;
+}
+
+.event-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, border-color 0.3s;
+    position: relative;
+}
+
+.event-card:hover {
+    border-color: #007bff;
+    background-color: #e6f7ff;
+}
+
+/* Custom Card for Event Options */
+.event-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: background-color 0.3s, border-color 0.3s;
+    position: relative;
+    padding: 20px;
+}
+
+.event-card:hover {
+    border-color: #007bff;
+    background-color: #e6f7ff;
+}
+
+/* Custom Radio Buttons */
+.radio-input {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0;
+}
+
+/* Style for when the card is selected */
+.radio-input:checked + label {
+    border-color: #007bff;
+    background-color: #e6f7ff;
+}
+
+/* Circular radio indicator */
+.radio-circle {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style for when the radio is checked */
+.radio-input:checked + label .radio-circle {
+    border-color: #007bff;
+    background-color: #007bff;
+}
+
+.radio-circle::after {
+    content: '';
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: #fff;
+    border-radius: 50%;
+    display: none;
+}
+
+/* Show inner circle when checked */
+.radio-input:checked + label .radio-circle::after {
+    display: block;
+}
+
+/* Style for the Event Icon */
+.event-icon {
+    font-size: 2rem;
+    color: #007bff;
+}
+
+/* Style for Event Title */
+.event-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Center text and icon */
+.text-center {
+    text-align: center;
+}
+
+.information{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.taosukien{
+    padding: 7px 70px;
+    background-color: #e63939;
+    color: white;
+    border-radius: 5px;
+}
+
+/* model */
+.modal-header img{
+    margin-bottom: 0px !important;
+    display: block;
+    margin:35px auto;
+    width: 170px;
+    height: 100px;
+}
+
+.modal-body{
+    text-align: center;
+}
+
+.modal-body p{
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.modal-body h5{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.modal-header{
+    border-bottom: 0 !important;
+}
+
+.modal-footer{
+    border-top: 0 !important;
+}
+/* Card styling */
+.card {
+    width: 100% !important;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background-color: white;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* Form Field Styles */
+.form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+    background-color: #fff;
+}
+
+/* Buttons styling */
+.btn-dowload{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-ticket {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn-danger {
+    background-color: #ff4c4c;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #e63939;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Spacing between form sections */
+.mb-3 {
+    margin-bottom: 20px;
+}
+
+/* Custom layout for the row with buttons */
+.row.align-items-center {
+    display: flex;
+    align-items: center;
+}
+
+/* Button spacing */
+.me-2 {
+    margin-right: 10px;
+}
+
+/* Custom spacing between buttons */
+.d-flex .btn + .btn {
+    margin-left: 10px;
+}
+
+.custom-dropdown-menu{
+    top: 120% !important;
+    left: -123px !important;
+}
+
+.upload-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.upload-container input[type="text"] {
+    width: 88%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.upload-container button {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-container button:hover {
+    background-color: #e04343;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-wrapper {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+}
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+.file-input {
+    margin-bottom: 20px;
+}
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+@media (max-width: 576px) {
+    .btn-group {
+        flex-direction: column;
+    }
+}
+
+/* Custom layout for small screen */
+@media (max-width: 575.98px) {
+    .row .col-md-6 {
+        margin-bottom: 15px;
+    }
+    .d-flex .btn-ticket {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .form-section .btn-huy {
+        padding: 7px 40px;
+    }
+
+    .taosukien {
+        padding: 7px 40px;
+    }
+}
+
+@media (max-width: 498px) {
+    .nav-item a{
+        font-size: 12px !important;
+        }
+    .form-section .row-img {
+        flex-direction: column; /* Chuyển hướng flex thành cột để button xuống hàng */
+        align-items: stretch; /* Đảm bảo các phần tử kéo dài toàn chiều ngang */
+    }
+
+    .form-section .row-img .col-lg-10 {
+        margin-bottom: 10px; /* Thêm khoảng cách giữa input và button */
+    }
+
+    .form-section .row-img .col-lg-2 button {
+        width: 100%; /* Đảm bảo button chiếm toàn chiều rộng */
+    }
+
+    .form-section {
+        flex-direction: column; /* Chuyển từ hàng ngang thành cột khi nhỏ hơn 498px */
+        align-items: stretch; /* Đảm bảo các phần tử kéo dài toàn bộ chiều rộng */
+    }
+
+    .col-lg-9 {
+        margin-bottom: 10px; /* Thêm khoảng cách giữa input và button */
+    }
+
+    .col-lg-3 button {
+        width: 100%; /* Button chiếm toàn chiều rộng */
+    }
+} 
+
+@media (max-width: 768px) {
+    .container {
+        display: block;
+    }
+    .form-section, .preview-section {
+        width: 100%; /* Đặt chiều rộng 100% để mỗi phần tử chiếm toàn bộ chiều ngang màn hình */
+        margin-bottom: 20px; /* Tạo khoảng cách giữa các phần */
+    }
+
+    .btn-dowload{
+        justify-content: center;
+    }
+
+    .btn-dowload .btn-ticket{
+        width: 100%;
+    }
+
+    .row .col-md-6 {
+        margin-bottom: 15px;
+    }
+}
+
+@media (min-width: 992px) {
+    .btn-login {
+        display: none;
+    }
+
+    #navbarDropdown4{
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .btn-add-event {
+        display: none;
+    }
+
+    #navbarDropdown-4{
+        display: none;
+    }
+
+    .event-card{
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 555px) {
+
+    .navbar-brand{
+        margin: -11px;
+    }
+    .logo a img {
+        margin: 8px !important;
+    }
+
+    .logo a img {
+        height: auto;
+        width: 100px !important;
+    }
+}
+
+
+
+@media (max-width: 556px) {
+
+    .register {
+        padding: 10px;
+    }
+    .register .back p {
+        margin-top: 13px;
+        font-size: 16px;
+    }
+    .submit-btn{
+        width: 55%;
+    }
+    .progress-container{
+        padding-right: 100px;
+    }
+    .step{
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+@media (max-width: 440px) {
+    .navbar-nav {
+       margin-right: 16px;
+    }
+
+    .information .text-information .line {
+        font-size: 26px !important;
+    }
+}
+
+@media (max-width: 1200px) { 
+
+    .navbar-nav {
+        margin-top: 20px;
+    }
+    .information .text-information{
+        width: 100%;
+    }
+
+    .information .text-information .line{
+        font-size: 35px;
+    }
+
+    .information .text-information .btn-info p {
+        padding: 12px 19px;
+    }
+
+    .information .btn-loginn a{
+        padding: 22px 100px;
+    }
+
+    .link .social{
+        margin-right: 0;
+    }
+ }
+
+ @media (max-width: 376px) {
+
+    .navbar-toggler {
+        padding: 3px !important;
+    }
+    .logo a img {
+        margin: 4px !important;
+        width: 75px !important;
+    }
+}

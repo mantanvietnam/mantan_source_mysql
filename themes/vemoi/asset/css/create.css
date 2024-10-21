@@ -1,0 +1,466 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+body {
+	line-height: 1;
+    margin: 0;
+	padding: 0;
+	border: 0;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.container-fluid{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* register */
+
+.register{
+    padding: 30px;
+}
+
+.register .container{
+    justify-content: space-between;
+}
+ 
+.register .back a i{
+    padding: 17px 19px;
+    border-radius: 17px;
+    border: 1px solid black;
+    color: black;
+    margin-right: 17px;
+}
+
+.register .back a i:hover{
+    color: white;
+    background-color: #ec1b2e;
+}
+
+.register .back p{
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding-right: 160px;
+}
+
+.step-container {
+    display: flex;
+    align-items: center;
+}
+
+.step-link {
+    text-decoration: none; /* Remove underline from links */
+}
+
+
+.hot:active{
+    background-color: #007bff;
+    color: white;
+}
+
+.step {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007bff !important;
+    border: 2px solid #007bff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+
+.step-number {
+    font-size: 16px;
+    font-weight: bold;
+    color: white !important;
+}
+
+.step.active .step-number {
+    color: white;
+}
+
+.step-line {
+    width: 50px;
+    height: 2px;
+    background-color: #007bff;
+}
+
+.form-container {
+    width: 1280px; /* Set the width */
+    height: 458px; /* Set the height */
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+section{
+    background-color: #fafafa;
+}
+
+.invite {
+    display: flex;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 80% !important;
+}
+
+.form-section {
+    flex: 1;
+    padding-right: 20px;
+    margin-left: 20px;
+}
+
+.form-section label {
+    display: block;
+    margin-top: 10px;
+}
+
+.form-section input[type="text"], 
+.form-section input[type="file"], 
+.form-section button {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.preview-section {
+    flex: 1;
+    text-align: center;
+    border-left: 1px solid #ddd;
+    padding-left: 20px;
+}
+
+.preview-section img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.ticket-info {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+button {
+    padding: 10px;
+    background-color:#388DF8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #2B88F9;
+}
+
+.btn-img{
+    display: flex;
+    gap: 15px;
+}
+
+.columnn{
+    line-height: 2.5;
+    display: flex;
+    padding: 0 40px;
+    justify-content: space-between;
+}
+
+.columnn input{
+    width: 200px;
+}
+
+#createInviteBtn{
+    float: inline-end;
+    margin-top: 40px;
+    justify-content: end;
+    background-color:#ec1b2e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 360px;
+}
+
+.drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.drop-zone p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.drop-zone-hover {
+    border-color: #007bff; /* Thay đổi màu viền khi kéo vào */
+}
+
+/* model */
+
+
+
+.modal-header img{
+    margin-bottom: 0px !important;
+    display: block;
+    margin:35px auto;
+    width: 170px;
+    height: 100px;
+}
+
+.modal-body{
+    text-align: center;
+}
+
+.modal-body p{
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.modal-body h5{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.modal-header{
+    border-bottom: 0 !important;
+}
+
+.modal-footer{
+    border-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .container {
+        display: block;
+    }
+    .form-section, .preview-section {
+        width: 100%; /* Đặt chiều rộng 100% để mỗi phần tử chiếm toàn bộ chiều ngang màn hình */
+        margin-bottom: 20px; /* Tạo khoảng cách giữa các phần */
+    }
+
+    .preview-section{
+        padding-left: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .btn-login {
+        display: none;
+    }
+
+    #navbarDropdown4{
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .btn-add-event {
+        display: none;
+    }
+    #navbarDropdown-4{
+        display: none;
+    }
+    .navbar-toggler{
+        width: 16% !important;
+    }
+
+    .navbar-nav .dropdown-menu{
+        border: 0;
+    }
+}
+
+@media (max-width: 555px) {
+
+    .navbar-brand{
+        margin: -11px;
+    }
+    .logo a img {
+        margin: 8px !important;
+    }
+
+    .logo a img {
+        height: auto;
+        width: 100px !important;
+    }
+}
+
+
+
+@media (max-width: 556px) {
+
+    .register {
+        padding: 10px;
+    }
+    .register .back p {
+        margin-top: 13px;
+        font-size: 16px;
+    }
+    .submit-btn{
+        width: 55%;
+    }
+    .progress-container{
+        padding-right: 100px;
+    }
+    .step{
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+@media (max-width: 440px) {
+    .navbar-nav {
+       margin-right: 16px;
+    }
+
+    .information .text-information .line {
+        font-size: 26px !important;
+    }
+}
+
+@media (max-width: 1200px) { 
+
+    .navbar-nav {
+        margin-top: 20px;
+    }
+    .information .text-information{
+        width: 100%;
+    }
+
+    .information .text-information .line{
+        font-size: 35px;
+    }
+
+    .information .text-information .btn-info p {
+        padding: 12px 19px;
+    }
+
+    .information .btn-loginn a{
+        padding: 22px 100px;
+    }
+
+    .link .social{
+        margin-right: 0;
+    }
+ }
+
+ @media (max-width: 376px) {
+
+    .navbar-toggler {
+        padding: 3px !important;
+    }
+    .logo a img {
+        margin: 4px !important;
+        width: 75px !important;
+    }
+}
+
+@media (max-width: 1056px) {
+    .btn-img {
+        display: block; /* Chuyển từ flex sang block */
+    }
+
+    .btn-img input {
+        display: block;
+        margin-bottom: 15px; /* Tạo khoảng cách dưới */
+    }
+
+    .btn-img button {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .columnn{
+        padding: 0;
+    }
+
+    .form-section{
+        margin-left: 0;
+    }
+
+    #createInviteBtn{
+        float: none;
+        width: 100%;
+    }
+}
+
+@media (max-width: 425px) {
+    .columnn {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .columnn label {
+        margin-bottom: 5px; /* Tạo khoảng cách giữa label và input */
+    }
+
+    .columnn input {
+        width: 100%; /* Để input chiếm toàn bộ chiều rộng */
+    }
+}

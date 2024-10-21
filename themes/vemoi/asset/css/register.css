@@ -1,0 +1,143 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+nav{
+    width: 100%;
+}
+
+body {
+	line-height: 1;
+    margin: 0;
+	padding: 0;
+	border: 0;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.container-fluid{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.body img{
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    height: 850px;
+}
+
+.form-container {
+    position: absolute;
+    top: 170px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    color: black;
+    margin: auto;
+    max-height: 660px;
+}
+
+#authTabs{
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 0;
+}
+
+#authTabs #solid{
+    color: black !important;
+}
+
+#authTabs #solid:hover{
+    border-bottom: 2px solid red;
+}
+
+#authTabs #solid:active{
+    border-bottom: 2px solid red;
+}
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: red;
+    border-color: red;
+}
+.form-container .form-label {
+    font-weight: bold;
+}
+.btn-danger {
+    background-color: red;
+    border-color: red;
+}
+.form-control {
+    border-radius: 0.375rem;
+}
+.social-login-btn {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.social-login-btn button {
+    width: 48%;
+}
+
+/* Mobile Screens */
+@media only screen and (max-width: 450px) and (min-width: 320px){
+    .form-container{
+        width: 90%;
+        top: 160px;
+        padding: 24px;
+    }
+}
+
+/* Mobile Screens */
+@media only screen and (max-width: 376px) and (min-width: 320px){
+    
+}

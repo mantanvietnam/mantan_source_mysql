@@ -1,0 +1,471 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+body {
+	line-height: 1;
+    margin: 0;
+	padding: 0;
+	border: 0;
+    overflow-x: hidden;
+    width: 100vw;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.container-fluid{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* bgr-event */
+
+.bgr-event{
+    width: 100%;
+    height: auto;
+}
+
+/* information */
+
+.information{
+    margin-top: 40px;
+}
+
+.information .text-information{
+    width: 100%;
+}
+
+.information .text-information .line{
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.information .text-information .btn-info{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.information .text-information .btn-info p{
+    margin-right: 20px;
+    padding: 12px  20px;
+    border-radius: 10px;
+}
+
+
+.information .text-information .btn-info p:hover{
+    opacity: 0.9;
+}
+
+.information .text-information .btn-info .gr{
+    background-color: #ceead6;
+    color: #5fba77;
+    border: 1px solid #5fba77;
+}
+
+.information .text-information .btn-info .or{
+    background-color: #ffd8c2;
+    color: #ff6915;
+    border: 1px solid #ff6915;
+}
+
+.information .text-information .btn-info .br{
+    background-color: #edeff9;
+    color: #a7a6b8;
+}
+
+/* address-info */
+
+.information .text-information .address-info p{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.information .text-information .address-info p i{
+    margin-right: 15px;
+    color: #ec1b2e;
+}
+
+/* log-in */
+
+.information .log-in .block{
+    display: flex;
+    justify-content: center;
+}
+
+.information .log-in .block .date-time{
+    width: 92px;
+    margin-right: 20px;
+    height: 88px;
+    text-align: center;
+    background-color: #ecf4ff;
+    border: 1px solid #71c3ff;
+    border-radius: 8px;
+}
+
+.information .log-in .block .date-time .number{
+    margin-bottom: 0px;
+    margin-top: 12px;
+    font-size: 24px;
+    color: #388df8;
+    font-weight: 600;
+}
+
+/* btn-login */
+
+.information .btn-loginn{
+    margin-top: 50px;
+    margin-right: 18px;
+}
+
+.information .btn-loginn a{
+    padding: 22px 151px;
+    border-radius: 9px;
+    color: white;
+    background-color: #ec1b2e;
+}
+
+.information .btn-loginn a:hover{
+    background-color: #c82333;
+}
+
+/* link */
+.link{
+    display: flex;
+    margin-top: 50px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.link .copy-link a i{
+    padding: 14px;
+    border-radius: 50%;
+    background-color: #388df8;
+    color: white; 
+    margin-left: 40px;
+    margin-right: 10px;
+}
+
+.link .copy-link p{
+    margin-top: 14px;
+}
+
+.link .copy-link a i:hover{
+    background-color: white;
+    color: #388df8; 
+}
+
+.link .social img{
+    margin-right: 10px;
+    width: 48px;
+    height: 48px;
+}
+
+.link .social{
+    margin-right: 50px;
+}
+
+/* content */
+.content{
+    padding: 20px 10px;
+    background-color: #fafafa;
+}
+
+.content .text-info{
+    border-radius: 10px;
+    padding: 32px 48px;
+    background-color: white;
+    margin-bottom: 19px;
+}
+
+.content h4{
+    margin-bottom: 19px;
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}
+
+.content .text-info p{
+    font-size: 18px;
+    font-weight: 400;
+    color: #bfbebd;
+}
+
+.content .calendar{
+    margin-bottom: 19px;
+    border-radius: 10px;
+    padding: 32px 48px;
+    background-color: white;
+}
+
+.content .regulations{
+    margin-bottom: 19px;
+    border-radius: 10px;
+    padding: 32px 48px;
+    background-color: white;
+}
+
+.content .committee{
+    border-radius: 10px;
+    padding: 32px 48px;
+    background-color: white;
+}
+
+/* event */
+.event p{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+/* news */
+
+.news {
+    position: relative;
+    padding: 0;
+}
+
+.news img {
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.news img:hover img{
+    transform: scale(1.05); /* Phóng to ảnh nhẹ khi hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ */
+}
+
+.card-news {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.news .text {
+    position: absolute;z-index: 3;
+}
+
+
+.news .top-text {
+    display: flex;
+    justify-content: space-between;padding: 10px;
+    top: 0;
+    width: 100%;
+}
+
+.news .top-text .name {
+    color: #fff;
+    padding: 9px;
+    font-size: 12px;
+    border-radius: 20px;
+    background-color: #a89f9b;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+
+.news .top-text .logo {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: black;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background-color: white;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.news .top-text .logo:hover {
+    background-color: #ec1b2e;
+    color: white;
+    transform: rotate(360deg); /* Xoay logo khi hover */
+}
+
+.news .top-text .logo i {
+    transform: rotate(315deg);
+}
+
+.news .under-text {
+    bottom: 0;
+    left: 10px;
+    width: 100%;
+}
+
+.news  .under-text .date-time {
+    font-family: 'Plus Jakarta Sans';
+    font-size: 14px;
+    font-weight: 400;
+    text-align: start;
+    color: white;
+    transition: color 0.5s ease;
+}
+
+.news .card-news:hover .under-text .date-time {
+    color: #f39c12; /* Đổi màu văn bản ngày giờ khi hover */
+}
+
+.news .under-text h4 {
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+    transition: color 0.5s ease;
+}
+
+
+.card-news:hover::after {
+    opacity: 1;
+    transition: all linear 0.2s;
+}
+
+.news .card-news:hover .under-text h4 {
+    color: #3498db; /* Đổi màu tiêu đề khi hover */
+}
+
+/* takeall */
+
+.takeall{
+    padding: 50px 0;
+    text-align: center;
+}
+
+.takeall a{
+    color: black;
+    padding:10px 50px;
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid #f0efef;
+}
+
+.takeall a:hover{
+    color: white;
+    background-color: black;
+}
+
+
+@media (min-width: 992px) {
+    .btn-login {
+        display: none;
+    }
+
+    #navbarDropdown4{
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .btn-add-event {
+        display: none;
+    }
+
+    #navbarDropdown-4{
+        display: none;
+    }
+    .navbar-nav .dropdown-menu{
+        border: 0;
+    }
+}
+
+@media (max-width: 555px) {
+
+    .navbar-brand{
+        margin: -1px;
+    }
+    .logo a img {
+        margin: 13px !important;
+    }
+
+    .logo a img {
+        height: auto;
+        width: 100px !important;
+    }
+}
+
+
+/* reponse mobile */
+
+@media (max-width: 440px) {
+    .navbar-nav {
+       margin-right: 16px;
+    }
+
+    .information .text-information .line {
+        font-size: 26px !important;
+    }
+}
+
+@media (max-width: 1200px) { 
+
+    .navbar-nav {
+        margin-top: 20px;
+    }
+    .information .text-information{
+        width: 100%;
+    }
+
+    .information .text-information .line{
+        font-size: 35px;
+    }
+
+    .information .text-information .btn-info p {
+        padding: 12px 19px;
+    }
+
+    .information .btn-loginn a{
+        padding: 22px 100px;
+    }
+
+    .link .social{
+        margin-right: 0;
+    }
+ }
+
+ @media (max-width: 376px) {
+
+    .navbar-toggler {
+        padding: 3px !important;
+    }
+    .logo a img {
+        margin: 4px !important;
+        width: 75px !important;
+    }
+}

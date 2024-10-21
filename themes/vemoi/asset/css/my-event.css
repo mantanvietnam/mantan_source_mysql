@@ -1,0 +1,479 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+body {
+	line-height: 1;
+    margin: 0;
+	padding: 0;
+	border: 0;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.container-fluid{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* register */
+
+.register{
+    padding: 30px;
+}
+
+.register .container{
+    justify-content: space-between;
+}
+ 
+.register .back a i{
+    padding: 17px 19px;
+    border-radius: 17px;
+    border: 1px solid black;
+    color: black;
+    margin-right: 17px;
+}
+
+.register .back a i:hover{
+    color: white;
+    background-color: #ec1b2e;
+}
+
+.register .back p{
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding-right: 160px;
+}
+
+/* Custom Styles */
+section {
+    font-family: Arial, sans-serif;
+    background-color: #fafafa; /* Màu nền */
+    padding: 20px;
+}
+
+.nav-tabs {
+    margin-left: 60px;
+    border-bottom: 0 !important;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid #ddd;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Thêm transition để mượt */
+}
+
+.nav-tabs .nav-link.active, /* Khi nút đang được chọn */
+.nav-tabs .nav-link:focus,  /* Khi nút được nhấn */
+.nav-tabs .nav-link:hover { /* Khi di chuột lên nút */
+    background-color: red;
+    color: white;
+    border: 1px solid red;
+}
+
+.tab-content {
+    margin-top: 20px;
+}
+
+.card-custom {
+    border-radius: 15px;
+    border: 1px solid #eaeaea;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .card-title {
+    text-align: start;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .card-location {
+    text-align: start;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .card-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .stat {
+    border-radius: 5px;
+    width: 150px;
+    height: 100px;
+    border: 1px solid darkslategray;
+    text-align: center;
+  }
+  
+  .stat-number {
+    padding-top: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    display: block;
+  }
+  
+  .stat-label {
+    font-size: 0.9rem;
+    color: #888;
+  }
+  
+  .card-date {
+    text-align: start;
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  
+.card  .btn-custom {
+    width: 100%;
+    background-color: #e9f1ff;
+    border: none;
+    color: #007bff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: bold;
+  }
+  
+.card  .btn-custom:hover {
+    background-color: #d4e8ff;
+  }
+  
+  @media (min-width: 992px) {
+    .card-custom {
+      text-align: center;
+    }
+  }
+
+/* news */
+
+.news {
+    position: relative;
+    padding: 0;
+}
+
+.news img {
+    width: 100%;
+    border-radius: 10px;
+    height: 400px;
+    cursor: pointer;
+}
+
+.news img:hover img{
+    transform: scale(1.05); /* Phóng to ảnh nhẹ khi hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ */
+}
+
+.card-news {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.news .text {
+    position: absolute;z-index: 3;
+}
+
+
+.news .top-text {
+    display: flex;
+    justify-content: space-between;padding: 10px;
+    top: 0;
+    width: 100%;
+}
+
+.news .top-text .name {
+    color: #fff;
+    padding: 9px;
+    font-size: 12px;
+    border-radius: 20px;
+    background-color: #a89f9b;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+
+.news .top-text .logo {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: black;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background-color: white;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.news .top-text .logo:hover {
+    background-color: #ec1b2e;
+    color: white;
+    transform: rotate(360deg); /* Xoay logo khi hover */
+}
+
+.news .top-text .logo i {
+    transform: rotate(315deg);
+}
+
+.news .under-text {
+    bottom: 0;
+    left: 10px;
+    width: 100%;
+}
+
+.news  .under-text .date-time {
+    font-family: 'Plus Jakarta Sans';
+    font-size: 14px;
+    font-weight: 400;
+    text-align: start;
+    color: white;
+    transition: color 0.5s ease;
+}
+
+.news .card-news:hover .under-text .date-time {
+    color: #f39c12; /* Đổi màu văn bản ngày giờ khi hover */
+}
+
+.news .under-text h4 {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    transition: color 0.5s ease;
+}
+
+.card-news::after{
+    content: "";
+    background: #00000024;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;left: 0;
+    top: 0;opacity: 0;    transition: all linear 0.2s;
+
+}
+
+.card-news:hover::after {
+    opacity: 1;
+    transition: all linear 0.2s;
+}
+
+.news .card-news:hover .under-text h4 {
+    color: #3498db; /* Đổi màu tiêu đề khi hover */
+}
+
+
+
+.pagination.takeall {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .pagination.takeall .page-item .page-link {
+    border: none;
+    padding: 10px 16px;
+    margin: 0 4px;
+    border-radius: 8px;
+    color: #333;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .pagination.takeall .page-item.disabled .page-link {
+    background-color: #f8f9fa;
+    color: #c3c3c3;
+    pointer-events: none;
+  }
+  
+  .pagination.takeall .page-item.active .page-link {
+    background-color: #ff3b3b;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+  
+  .pagination.takeall .page-item .page-link:hover {
+    background-color: #e1e1e1;
+    color: #333;
+  }
+  
+  .pagination.takeall .page-item {
+    margin: 0 2px;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+        display: block;
+    }
+    .form-section, .preview-section {
+        width: 100%; /* Đặt chiều rộng 100% để mỗi phần tử chiếm toàn bộ chiều ngang màn hình */
+        margin-bottom: 20px; /* Tạo khoảng cách giữa các phần */
+    }
+}
+
+@media (min-width: 992px) {
+    .btn-login {
+        display: none;
+    }
+
+    #navbarDropdown4{
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .btn-add-event {
+        display: none;
+    }
+
+    #navbarDropdown-4{
+        display: none;
+    }
+}
+
+@media (max-width: 555px) {
+
+    .navbar-brand{
+        margin: -11px;
+    }
+    .logo a img {
+        margin: 8px !important;
+    }
+
+    .logo a img {
+        height: auto;
+        width: 100px !important;
+    }
+}
+
+
+
+@media (max-width: 556px) {
+
+    .register {
+        padding: 10px;
+    }
+    .register .back p {
+        margin-top: 13px;
+        font-size: 16px;
+    }
+    .submit-btn{
+        width: 55%;
+    }
+    .progress-container{
+        padding-right: 100px;
+    }
+    .step{
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+@media (max-width: 440px) {
+    .navbar-nav {
+       margin-right: 16px;
+    }
+
+    .information .text-information .line {
+        font-size: 26px !important;
+    }
+}
+
+@media (max-width: 1200px) { 
+
+    .navbar-nav {
+        margin-top: 20px;
+    }
+    .information .text-information{
+        width: 100%;
+    }
+
+    .information .text-information .line{
+        font-size: 35px;
+    }
+
+    .information .text-information .btn-info p {
+        padding: 12px 19px;
+    }
+
+    .information .btn-loginn a{
+        padding: 22px 100px;
+    }
+
+    .link .social{
+        margin-right: 0;
+    }
+ }
+
+ @media (max-width: 376px) {
+
+    .navbar-toggler {
+        padding: 3px !important;
+    }
+    .logo a img {
+        margin: 4px !important;
+        width: 75px !important;
+    }
+}
