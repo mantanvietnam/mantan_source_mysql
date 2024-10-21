@@ -457,14 +457,10 @@ function createOrderMemberAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if((!empty($dataSend['token']) || !empty($dataSend['phone'])) && !empty($dataSend['data_order'])){
-        	/*
-		        $dataSend['data_order'] = [
-		                                    ['id_product'=>1, 'quantity'=>2, 'price'=>0, 'discount'=>0],
-		                                    ['id_product'=>2, 'quantity'=>2, 'price'=>1000, 'discount'=>0],
-		                                ];
-		    */
-
+        	
         	$dataSend['data_order'] = json_decode($dataSend['data_order'], true);
+
+       
 
         	if(!empty($dataSend['data_order'])){
 	            if(!empty($dataSend['token'])){
@@ -504,15 +500,16 @@ function createOrderMemberAPI($input)
 
 	                    $saveDetail->id_product = (int) $value['id_product'];
 	                    $saveDetail->id_order_member = $save->id;
-	                    $saveDetail->quantity = (int) $value['quantity'];
-	                    $saveDetail->price = (int) $value['price'];
+	                    $saveDetail->quantity = (int) @$value['quantity'];
+	                    $saveDetail->price = (int) @$value['price'];
 	                    $saveDetail->id_unit = (!empty($value['id_unit']))?(int)$value['id_unit']:0;
-	                    $saveDetail->discount = (int) $value['discount'];
+	                    $saveDetail->discount = (int) @$value['discount'];
 
 	                    $modelOrderMemberDetails->save($saveDetail);
 
-	                    $infoProduct = $modelProducts->find()->where(['id'=>$value])->first();
-                    	$productDetail[] = $infoProduct->title;
+	                    $infoProduct = $modelProducts->find()->where(['id'=>$value['id_product']])->first();
+
+                    	$productDetail[] = @$infoProduct->title;
 	                }
 	                $productDetail = implode(',', $productDetail);
 
@@ -521,12 +518,12 @@ function createOrderMemberAPI($input)
 	                    sendZaloUpdateOrder($member_sell, $member_buy, $save, $productDetail);
 	                }
 
-	                $return = array('code'=>1, 'mess'=>'Tạo đơn hàng đại lý thành công');
+	                $return = array('code'=>1, 'mess'=>'Tạo đơn hàng đại lý thành công', 'id_order'=>$save->id);
 	            }else{
 	                 $return = array('code'=>3, 'mess'=>'Sai mã token hoặc sai số điện thoại');
 	            }
 	        }else{
-	        	$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+	        	$return = array('code'=>4, 'mess'=>'Gửi thiếu dữ liệu');
 	        }
         }else{
             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');

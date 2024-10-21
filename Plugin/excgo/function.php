@@ -1690,6 +1690,7 @@ function checkUserReward($user_id=0, $booking_id=0){
             $conditions['start_date <']=$created;
             $conditions['end_date >']=$received;
             $checlReward = $modelReward->find()->where($conditions)->first();
+            
             if(!empty($checlReward)){
                 $checlUserReward = $modelUserReward->find()->where(['user_id'=>(int)$user_id,'reward_id'=>$checlReward->id])->first();
                 if(empty($checlUserReward)){
@@ -1757,6 +1758,7 @@ function checkUserReward($user_id=0, $booking_id=0){
                     }
                 }else{
                     if($checlReward->end_date < time()){
+
                         if($checlUserReward->status == 1 && $checlReward->quantity_booking <= $checlUserReward->quantity_booking){
                             $checlUserReward->status = 2;
                             $modelUserReward->save($checlUserReward);
@@ -1768,16 +1770,16 @@ function checkUserReward($user_id=0, $booking_id=0){
                                 $newTransaction = $modelTransaction->newEmptyEntity();
                                 $newTransaction->user_id = $user->id;
                                 $newTransaction->booking_id = $booking->id;
-                                $newTransaction->amount = $tien_thuong;
+                                $newTransaction->amount = $checlReward->money;
                                 $newTransaction->type = $transactionType['add'];
-                                $newTransaction->name = "Nhận $checlReward->money tiền thưởng của chương trính $checlReward->name ";
+                                $newTransaction->name = "Nhận $checlReward->money tiền thưởng của Chương trình $checlReward->name ";
                                 $newTransaction->description = '+' . number_format($checlReward->money) . ' EXC-xu';
                                 $newTransaction->created_at = date('Y-m-d H:i:s');
                                 $newTransaction->updated_at = date('Y-m-d H:i:s');
                                 $modelTransaction->save($newTransaction);
                                 // Thông báo cho người nhận
                                 $title = 'Cộng EXC coin vào tài khoản';
-                                $content = "Tài khoản của bạn được $checlReward->money tiền thưởng của chương trính $checlReward->name  ";
+                                $content = "Tài khoản của bạn được $checlReward->money tiền thưởng của Chương trình $checlReward->name  ";
                                 $notification = $modelNotification->newEmptyEntity();
                                 $notification->user_id = $user->id;
                                 $notification->title = $title;
@@ -1795,6 +1797,8 @@ function checkUserReward($user_id=0, $booking_id=0){
                                     );
                                     sendNotification($dataSendNotification, $user->device_token);
                                 }
+                                debug($checlReward->money);
+            die;
                             }
                         }
                     }

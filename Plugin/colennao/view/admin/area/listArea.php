@@ -63,17 +63,18 @@
           <div class="card mb-6">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Thông tin</h5>
+              <?php echo @$mess; ?>
             </div>
             <div class="card-body">
               <form enctype="multipart/form-data" method="post" action="">
               <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
                 <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Tên khu vực tập</label>
+                  <label class="form-label" for="basic-default-phone">Tên khu vực tập tiềng Việt(*)</label>
                   <input type="text" class="form-control phone-mask" name="name" id="name" value="" placeholder="Tên khu vực tập tiềng Việt " />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Tên khu vực tập</label>
+                  <label class="form-label" for="basic-default-phone">Tên khu vực tập tiềng Anh(*)</label>
                   <input type="text" class="form-control phone-mask" name="name_en" id="name_en" value="" placeholder="Tên khu vực tập tiềng Anh " />
                 </div>
 
@@ -82,11 +83,11 @@
                   <input type="file" class="form-control phone-mask" name="image" id="image" value=""/>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Mô tả ngắn </label>
+                  <label class="form-label" for="basic-default-phone">Mô tả ngắn tiềng Việt </label>
                   <input type="text" class="form-control phone-mask" name="description" id="description" value="" placeholder="Mô tả ngắn tiềng Việt " />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Mô tả ngắn </label>
+                  <label class="form-label" for="basic-default-phone">Mô tả ngắn tiềng Anh</label>
                   <input type="text" class="form-control phone-mask" name="description_en" id="description_en" value="" placeholder="Mô tả ngắn tiềng Anh " />
                 </div>
 

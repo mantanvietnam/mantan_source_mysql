@@ -75,7 +75,7 @@ function addWorkout($input){
             $dataSend = $input['request']->getData();
             
 
-            if(!empty($dataSend['title'])){
+            if(!empty($dataSend['title']) && !empty($dataSend['title_en'])){
                 if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
                     if(!empty($data->id)){
                         $fileName = 'image__workout'.$data->id;
@@ -112,11 +112,14 @@ function addWorkout($input){
                 
 
                 $modelWorkout->save($data);
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
+                }else{
+                    $mess = '<p class="text-danger">Bạn thiếu dữ liệu</p>';
                 }
                 
 
-                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                
 
         }
         if(!empty($data->search)){
@@ -271,7 +274,7 @@ function addExerciseWorkout($input){
             $dataSend = $input['request']->getData();
             
 
-            if(!empty($dataSend['title'])){
+            if(!empty($dataSend['title']) && !empty($dataSend['title_en'])){
                 if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
                     if(!empty($data->id)){
                         $fileName = 'image__workout'.$data->id;
@@ -323,10 +326,11 @@ function addExerciseWorkout($input){
 
                 $modelExerciseWorkouts->save($data);
 
-                }
-                
+                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
-                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }else{
+                    $mess = '<p class="text-danger">Bạn thiếu dữ liệu</p>';
+            }
 
         }
 

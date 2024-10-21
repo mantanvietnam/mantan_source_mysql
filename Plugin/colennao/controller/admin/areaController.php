@@ -12,6 +12,7 @@ function listArea($input)
     $modelAreas = $controller->loadModel('Areas');
 
         $metaTitleMantan = 'Khu vực tập';
+        $mess = '';
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -42,25 +43,23 @@ function listArea($input)
             		$data->image = '';
             	}
             }
-            $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-            $data->description = $dataSend['description'];
-            $data->name_en = str_replace(array('"', "'"), '’', $dataSend['name_en']);
-            $data->description_en = $dataSend['description_en'];
-
-
-
-
-            $modelAreas->save($data);
-             return $controller->redirect('/plugins/admin/colennao-view-admin-area-listArea');
-
+            if(!empty($dataSend['name']) && !empty($dataSend['name_en'])){
+                $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+                $data->description = $dataSend['description'];
+                $data->name_en = str_replace(array('"', "'"), '’', $dataSend['name_en']);
+                $data->description_en = $dataSend['description_en'];
+                $modelAreas->save($data);
+                  return $controller->redirect('/plugins/admin/colennao-view-admin-area-listArea');
+            }else{
+                $mess = '<p class="text-danger">Bạn thiếu dữ liệu</p>';
+            }
         }
 
         $conditions = array();
         $listData = $modelAreas->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
-
        
         setVariable('listData', $listData);
-    
+        setVariable('mess', $mess);
 }
 
 function deleteArea(){

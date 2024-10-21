@@ -35,11 +35,11 @@
                         <div class="row">
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label">Tiêu đê tiếng Việt</label>
+                              <label class="form-label">Tiêu đê tiếng Việt (*)</label>
                               <input required type="text" class="form-control phone-mask" name="title" placeholder="Tiêu đề tiếng Việt" id="title" value="<?php echo @$data->title;?>" />
                             </div>
                             <div class="mb-3">
-                              <label class="form-label">Tiêu đê tiếng Anh</label>
+                              <label class="form-label">Tiêu đê tiếng Anh (*)</label>
                               <input required type="text" class="form-control phone-mask" name="title_en" placeholder="Tiêu đề tiếng Anh" id="title_en" value="<?php echo @$data->title_en;?>" />
                             </div>
                           <div class="mb-3">
@@ -65,7 +65,7 @@
                           <div class="col-md-6">
                             <div class="mb-3">
                               <label class="form-label">mã youtube</label>
-                              <input type="text" required class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" />
+                              <input type="text"  class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" />
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Mô tả ngắn tiếng Vệt </label>

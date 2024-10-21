@@ -266,3 +266,70 @@ function getListRequestImportProductAPI($input)
 
     return $return;
 }
+
+function editProductWarehouseAPI($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost; 
+  	  
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token']) && !empty($dataSend['idWarehouseProduct']) && isset($dataSend['number']) && !empty($dataSend['note'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+
+        $modelProducts = $controller->loadModel('Products');
+        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+        $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+
+                $checkData = $modelWarehouseProducts->find()->where(['id'=>(int) $dataSend['idWarehouseProduct'], 'id_member'=>$infoMember->id])->first();
+
+                if(!empty($checkData)){
+                    $quantity_old = $checkData->quantity;
+
+                    $checkData->quantity = (int) $dataSend['number'];
+
+                    $modelWarehouseProducts->save($checkData);
+
+                    // lưu nhật ký
+                    if($checkData->quantity >= $quantity_old){
+                        $type = 'plus';
+                        $quantity = $checkData->quantity - $quantity_old;
+                    }else{
+                        $type = 'minus';
+                        $quantity = $quantity_old - $checkData->quantity;
+                    }
+
+                    $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+                    $saveWarehouseHistories->id_member = $infoMember->id;
+                    $saveWarehouseHistories->id_product = $checkData->id_product;
+                    $saveWarehouseHistories->quantity = $quantity;
+                    $saveWarehouseHistories->note = 'Chỉnh sửa số lượng hàng trong kho vì: '.$dataSend['note'];
+                    $saveWarehouseHistories->create_at = time();
+                    $saveWarehouseHistories->type = $type;
+                    $saveWarehouseHistories->id_order_member = 0;
+
+                    $modelWarehouseHistories->save($saveWarehouseHistories);
+
+                    $return = array('code'=>1, 'mess'=>'bạn sửa số lượng hàng trong kho thành công');
+                }else{
+                   $return = array('code'=>4, 'mess'=>'Sản phẩm này không có trong kho');
+                }
+          
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+?>
