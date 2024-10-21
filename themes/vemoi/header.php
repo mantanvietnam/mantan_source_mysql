@@ -6,6 +6,7 @@
     
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/register.css">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/js/vemoi.js">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">

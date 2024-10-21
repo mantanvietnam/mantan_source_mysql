@@ -264,4 +264,63 @@ function confirm($input)
 
 }
 
+function register($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	global $urlHomes;
+
+	$modelMember = $controller->loadModel('Members');
+	$mess = '';
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+		if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again'])){
+
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+
+			if(empty($checkPhone)){
+				if($dataSend['password'] == $dataSend['password_again']){
+					// tạo người dùng mới
+					$data = $modelMember->newEmptyEntity();
+
+					$data->name = $dataSend['name'];
+					$data->phone = $dataSend['phone'];
+					$data->email = $dataSend['email'];
+					$data->pass = md5($dataSend['password']);
+					$data->status = 'active';
+					$data->avatar = 'https://ai.phoenixtech.vn/plugins/phoenix_ai/view/home/assets/img/avatar-default-crm.png';
+					$data->created_at = time();
+					$data->last_login = time();
+					$data->address = '';
+
+					$modelMember->save($data);
+
+					// thực hiện đăng nhập luôn
+					$session->write('infoUser', $data);
+	    			
+    				setcookie('id_member',$data->id,time()+365*24*60*60, "/");
+					
+					return $controller->redirect('/');
+					
+
+				}else{
+					$mess = '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';		
+				}
+			}else{
+				$mess = '<p class="text-danger">Số điện thoại đã tồn tại</p>';
+			}
+		}else{
+			$mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+		}
+	}
+	
+	setVariable('mess', $mess);
+}
+
 ?>

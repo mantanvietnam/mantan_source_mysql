@@ -12,5 +12,9 @@
 
 	// trợ lý ảo AI
 	$routesPlugin['ai-virtual-assistant']= 'phoenix_ai/view/home/ai/aiVirtualAssistant.php';
+	$routesPlugin['ai-create-clip']= 'phoenix_ai/view/home/ai/aiCreateClip.php';
+	$routesPlugin['ai-create-image']= 'phoenix_ai/view/home/ai/aiCreateImage.php';
+	$routesPlugin['ai-create-marketing']= 'phoenix_ai/view/home/ai/aiCreateMarketing.php';
+	$routesPlugin['ai-create-content']= 'phoenix_ai/view/home/ai/aiCreateContent.php';
 	
 	
