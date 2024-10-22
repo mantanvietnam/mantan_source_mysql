@@ -91,4 +91,19 @@ function deleteEventAdmin($input){
 
     return $controller->redirect('/plugins/admin/vemoi-view-admin-event-listEventAdmin');
 }
+
+function searchImageAdmin($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $metaTitleMantan;
+    global $modelCategories;
+    global $urlHomes;
+
+    if($isRequestPost){
+        $listImage = searchFaceImage('tests-20242110');
+
+        debug($listImage);die;
+    }
+}
 ?>
