@@ -675,6 +675,130 @@ function listTransactionAgencyHistorieAPI(){
     return $return;
 }
 
+// tự cập nhập trạng thái đơn hàng của mình
+function updateMyOrderMemberAgencyAPI($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $modelCategories;
+	global $metaTitleMantan;
+	global $isRequestPost;
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$user = getMemberByToken($dataSend['token']);
+
+			if(!empty($user)){
+
+				$modelMembers = $controller->loadModel('Members');
+				$modelProducts = $controller->loadModel('Products');
+				$modelOrderMembers = $controller->loadModel('OrderMembers');
+				$modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
+				$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+				$modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+				$modelUnitConversion = $controller->loadModel('UnitConversions');
+
+				if(!empty($dataSend['id'])){
+					$order = $modelOrderMembers->find()->where(['id'=>(int) $dataSend['id'], 'id_member_buy'=>$user->id])->first();
+
+					if(!empty($order)){
+						$note = '';
+						if(!empty($dataSend['status'])){
+							$order->status = $dataSend['status'];
+
+                    // nhập hàng vào kho
+							if($dataSend['status'] == 's'){
+								$detail_order = $modelOrderMemberDetails->find()->where(['id_order_member'=>$order->id])->all()->toList();
+
+								if(!empty($detail_order)){
+									foreach ($detail_order as $k => $value) {
+										$quantity = $value->quantity;
+										if(!empty($value->id_unit)){
+											$unit = $modelUnitConversion->find()->where(['id_product'=>$value->id_product,'id'=>$value->id_unit])->first();
+											if(!empty($unit)){
+												$quantity = $value->quantity*$unit->quantity;
+											}
+										}
+
+                                // cộng hàng vào kho người mua
+										$checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_buy])->first();
+
+										if(empty($checkProductExits)){
+											$checkProductExits = $modelWarehouseProducts->newEmptyEntity();
+											$checkProductExits->quantity = 0;
+										}
+
+										$checkProductExits->id_member = $order->id_member_buy;
+										$checkProductExits->id_product = $value->id_product;
+										$checkProductExits->quantity += $quantity;
+
+										$modelWarehouseProducts->save($checkProductExits);
+
+                                // trừ hàng trong kho người bán
+										$checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_sell])->first();
+
+										if(empty($checkProductExits)){
+											$checkProductExits = $modelWarehouseProducts->newEmptyEntity();
+											$checkProductExits->quantity = 0;
+										}
+
+										$checkProductExits->id_member = $order->id_member_sell;
+										$checkProductExits->id_product = $value->id_product;
+										$checkProductExits->quantity -= $quantity;
+
+										$modelWarehouseProducts->save($checkProductExits);
+
+                                // lưu lịch sử nhập kho của người mua
+										$saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+										$saveWarehouseHistories->id_member = $order->id_member_buy;
+										$saveWarehouseHistories->id_product = $value->id_product;
+										$saveWarehouseHistories->quantity = $quantity;
+										$saveWarehouseHistories->note = 'Nhập hàng vào kho';
+										$saveWarehouseHistories->create_at = time();
+										$saveWarehouseHistories->type = 'plus';
+										$saveWarehouseHistories->id_order_member = $order->id;
+
+										$modelWarehouseHistories->save($saveWarehouseHistories);
+
+                                // lưu lịch sử xuất kho của người bán
+										$saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+										$saveWarehouseHistories->id_member = $order->id_member_sell;
+										$saveWarehouseHistories->id_product = $value->id_product;
+										$saveWarehouseHistories->quantity = $quantity;
+										$saveWarehouseHistories->note = 'Xuất hàng cho đại lý tuyến dưới';
+										$saveWarehouseHistories->create_at = time();
+										$saveWarehouseHistories->type = 'minus';
+										$saveWarehouseHistories->id_order_member = $order->id;
+
+										$modelWarehouseHistories->save($saveWarehouseHistories);
+									}
+								}
+							}
+
+						}
+						$modelOrderMembers->save($order);
+
+						$return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công');
+					}else{
+						$return = array('code'=>4, 'mess'=>'Không tìm thấy đơn hàng');
+					}
+				}else{
+					$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+				}
+			}else{
+				$return = array('code'=>3, 'mess'=>'Sai mã token');
+			}
+		}else{
+			$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+		}
+	}
+
+	return $return;
+}
+
        
 
 function payTransactionAgencyAPI($input)

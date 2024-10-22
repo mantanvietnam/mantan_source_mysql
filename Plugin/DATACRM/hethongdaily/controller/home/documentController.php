@@ -211,6 +211,7 @@ function addDocument($input){
 	            $data->image = @$dataSend['image'];
 	            $data->id_parent = $user->id;
 	            $data->status = @$dataSend['status'];
+	            $data->id_drive = @$dataSend['id_drive'];
 	            $data->content = @$dataSend['content'];
 	            $data->public = @$dataSend['public'];
 	            $data->description = @$dataSend['description'];

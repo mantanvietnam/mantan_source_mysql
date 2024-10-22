@@ -18,7 +18,7 @@ $sqlInstallDatabase .="CREATE TABLE `comments` (
   `comment` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL , 
   `created_at` INT NULL DEFAULT NULL, 
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB;"
+) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `likes` ( 
   `id` INT NOT NULL AUTO_INCREMENT , 

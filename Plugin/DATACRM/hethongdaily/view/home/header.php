@@ -143,7 +143,7 @@
                             }
                       
                       echo '<a class="dropdown-item" href="/listTransactionAgencyHistorie">Hoa hồng đại lý giới thiệu</a>';
-
+                       if(empty($user->id_father) && in_array('staff', $plugins_site_value)){
                       echo '<div class="dropdown-submenu">
                               <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Nhân viên</a>
                               <div class="dropdown-menu menuSub3">
@@ -152,6 +152,7 @@
                                 <a class="dropdown-item" href="/listActivityHistory">Lịch sử Hoạt động nhân viên</a>
                               </div>
                             </div>';
+                          }
 
 
                       if(empty($user->id_father) && in_array('clone_web', $plugins_site_value)){
@@ -263,7 +264,8 @@
                           <a class="dropdown-item" href="/listHistorieCustomerGiftAgency">Lịch sử tặng quà </a>
                           <a class="dropdown-item" href="/guideAddCustomerAPIAgency">Tích hợp API</a>';
                             if(empty($user->id_father)){
-                                  echo '<a class="dropdown-item" href="/listFeedback">Feedback khách hàng</a>';
+                                  echo '<a class="dropdown-item" href="/listFeedback">Feedback khách hàng</a>
+                                        <a class="dropdown-item" href="/listWallPost">Quản lý mạng xã hội</a>';
                             } 
                         echo '</div>
                       </li>';

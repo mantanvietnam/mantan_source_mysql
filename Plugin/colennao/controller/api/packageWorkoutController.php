@@ -471,6 +471,10 @@ function workoutRandomAPI($input){
     $modelUserPackages = $controller->loadModel('UserPackages');
     $modelExerciseWorkouts = $controller->loadModel('ExerciseWorkouts');
     $modelAreas = $controller->loadModel('Areas');
+    $modelChildExerciseWorkouts = $controller->loadModel('ChildExerciseWorkouts');
+    
+    $modelAreas = $controller->loadModel('Areas');
+    $modelDevices = $controller->loadModel('Devices');
 
     if($isRequestPost){
     	$dataSend = $input['request']->getData();	
@@ -484,7 +488,7 @@ function workoutRandomAPI($input){
 			    if ($page < 1) $page = 1;
 			   
 			    
-			    $data = $modelWorkout->find()->where($conditions)->order('RAND()')->first();
+			   /* $data = $modelWorkout->find()->where($conditions)->order('RAND()')->first();
 			   
 			    if(!empty($data)){
 
@@ -567,26 +571,95 @@ function workoutRandomAPI($input){
 			    		$conditions['area LIKE']=  '%'.$dataSend['id_area'].'%';
 			    	}
 			    	
-		    		$exerciseWorkout = $modelExerciseWorkouts->find()->where($conditions)->all()->toList();
+		    		$exerciseWorkout = $modelExerciseWorkouts->find()->where($conditions)->order('RAND()')->first();;
 		    		if(!empty($exerciseWorkout)){
-		    			foreach($exerciseWorkout as $key => $item){
-		    				if(!empty($item->level)){
+		    			// foreach($exerciseWorkout as $key => $item){
+		    				if(!empty($exerciseWorkout->level)){
 		        				foreach($listLevel as $k => $value){
-		        					if($item->level ==$value['id']){
+		        					if($exerciseWorkout->level ==$value['id']){
 		        						$item->level_en = $value['name_en'];
 		        						$item->level = $value['name'];
 		        					}
 		        				}
 		        			}else{
-		        				$item->level_en = null;
-		        				$item->level = null;
+		        				$exerciseWorkout->level_en = null;
+		        				$exerciseWorkout->level = null;
 		        			}
-		    			}
-		    			$exerciseWorkout[$key] = $item;
+		    			// }
+		    			// $exerciseWorkout[$key] = $item;
 		    		}
 
 		    		$data->ExerciseWorkout = $exerciseWorkout;
-		    		$data->total_exercise = count($data->ExerciseWorkout);
+		    		// $data->total_exercise = count($data->ExerciseWorkout);
+			    }*/
+
+			     $data = $modelExerciseWorkouts->find()->where($conditions)->order('RAND()')->first();
+			   
+			    if(!empty($data)){
+                    if(!empty($data->group_exercise)){
+                    	$group = json_decode($data->group_exercise, true);
+                    	foreach($group as $key => $item){
+								$exercise = $modelChildExerciseWorkouts->find()->where(['id_exercise'=>$data->id, 'id_group'=>$item['id']])->all()->toList();
+
+								if(!empty($exercise)){
+									foreach($exercise as $k => $value){
+										if(!empty($value->device)){
+                                        $value->device = json_decode($value->device, true);
+											if(!empty($value->device)){
+												foreach($value->device as $e => $device){
+													$datadevice =  $modelDevices->find()->where(['id'=>$device])->first();
+													$value->device[$e] = $datadevice;
+												}
+												$value->device = $value->device;
+											}
+											$exercise[$k] = $value;
+										}
+									}
+								}
+
+								$item['exercise'] = $exercise;
+
+								$item['total'] = count($item['exercise']);
+								$group[$key] = $item;
+                    	}
+                    	$data->group_exercise = $group;
+                    }	
+
+                    if(!empty($data->device)){
+            			$device = json_decode($data->device, true);
+            			if(!empty($device)){
+            				foreach($device as $k => $value){
+								$value =  $modelDevices->find()->where(['id'=>$value])->first();
+								$device[$k] = $value;
+                    		}
+                    		$data->device = $device;
+            			}
+            			
+        			}
+
+        			if(!empty($data->area)){
+            			$area = json_decode($data->area, true);
+            			if(!empty($area)){
+            				foreach($area as $k => $value){
+								$value =  $modelAreas->find()->where(['id'=>$value])->first();
+								$area[$k] = $value;
+                    		}
+                    		$data->area = $area;
+                    	}
+                    	
+        			}
+
+        			if(!empty($data->level)){
+        				foreach($listLevel as $key => $item){
+        					if($data->level ==$item['id']){
+        						$data->level_en = $item['name_en'];
+        						$data->level = $item['name'];
+        					}
+        				}
+        			}else{
+        				$data->level_en = null;
+        				$data->level = null;
+        			}
 			    }
 
 

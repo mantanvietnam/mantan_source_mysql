@@ -2,7 +2,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/list<?php echo $slug ?>"><?php echo $title ?></a> /</span>
-    Thông tin <?php echo $title ?>
+    Thông tin <span style="text-transform: lowercase;"><?php echo $title ?></span>
   </h4>
 
   <!-- Basic Layout -->
@@ -52,6 +52,10 @@
                               <option value="public" <?php if(!empty($data->public) && $data->public=='public') echo 'selected'; ?> >Chung cho hệ thống</option>
                             </select>
                           </div>
+                        </div>
+                        <div class="mb-3 col-12 col-sm-12 col-md-12">
+                          <label class="form-label">id drive </label>
+                          <input type="text" class="form-control" name="id_drive" value="<?php echo @$data->id_drive;?>" required />
                         </div>
                       </div>
 

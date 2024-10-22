@@ -1310,6 +1310,7 @@ function checklogin($permission=''){
         $info_staff = $modelStaff->find()->where(['id'=>$user->id])->first();
         if(!empty($info_staff)){
             $user->permission = $info_staff->permission;
+            $user->deadline = $info_staff->deadline;
         }
         $user->type = 'staff';
         $user->type_tv = 'Nhân viên';
@@ -1501,12 +1502,17 @@ function getListPermission()
                                 )
                     );
     $permission[] = array( 'name'=>'Quản lý mạng xã hội',
-                    'sub'=>array(   array('name'=>' Danh sách bài viết ','permission'=>'warehouseProductAgency'),
-                                    array('name'=>'thêm và sửa bài viết','permission'=>'historyWarehouseProductAgency'),
-                                    array('name'=>'xoá bài viết','permission'=>'viewWarehouseProductAgency'),
+                    'sub'=>array(   array('name'=>' Danh sách bài viết ','permission'=>'listWallPost'),
+                                    array('name'=>'thêm và sửa bài viết','permission'=>'addWallPost'),
+                                    array('name'=>'xoá bài viết','permission'=>'deleteWallPost'),
                             )
                     );
-   
+    $permission[] = array( 'name'=>'Quản lý công việc ',
+                    'sub'=>array(   array('name'=>' Danh sách dự án','permission'=>'listProject'),
+                                    array('name'=>'thêm và sửa dự án','permission'=>'addProject'),
+                                    array('name'=>'xoá dự án','permission'=>'deleteProject'),
+                            )
+                    );
     
     return $permission;
 }

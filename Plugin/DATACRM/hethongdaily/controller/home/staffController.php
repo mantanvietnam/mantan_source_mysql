@@ -254,7 +254,7 @@ function addStaff($input)
                         $data->password = md5($dataSend['password']);
 
                         $data->created_at = time();
-                        $data->deadline = $infoUser->deadline; 
+                       $data->deadline = $user->deadline; 
                          
                     }else{
                         if(!empty($dataSend['password'])){
@@ -314,7 +314,7 @@ function deleteStaff($input){
         }
          $modelStaff = $controller->loadModel('Staffs');
         if(!empty($_GET['id'])){
-            $data = $modelStaff->find()->where(['id_member'=>$session->read('infoUser')->id, 'id'=>(int) $_GET['id']])->first();
+            $data = $modelStaff->find()->where(['id_member'=>$user->id, 'id'=>(int) $_GET['id']])->first();
             
             if($data){
                 $data->status = 'delete';
@@ -674,7 +674,6 @@ function listGroupStaff(){
             }
         }
 
-        $infoUser = $session->read('infoUser');
         $listPermissionMenu = getListPermission();
         $conditions = array('id_member'=>$user->id);
         $limit = 20;

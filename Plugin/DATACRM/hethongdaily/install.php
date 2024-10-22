@@ -207,6 +207,7 @@ $sqlInstallDatabase .="CREATE TABLE `documents` (
   `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
   `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
   `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `id_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
   `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
   `public` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT DEFAULT 'public' , 
   `created_at` INT NOT NULL ,
@@ -640,6 +641,7 @@ $sqlUpdateDatabase['documents']['slug'] = "ALTER TABLE `documents` ADD `slug` VA
 $sqlUpdateDatabase['documents']['description'] = "ALTER TABLE `documents` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"; 
 $sqlUpdateDatabase['documents']['created_at'] = "ALTER TABLE `documents` ADD `created_at` INT NOT NULL";
 $sqlUpdateDatabase['documents']['public']= "ALTER TABLE `documents` ADD `public` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'public'";
+$sqlUpdateDatabase['documents']['id_drive']= "ALTER TABLE `documents` ADD `id_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
 
 $sqlUpdateDatabase['documentinfos']['title'] = "ALTER TABLE `documentinfos` ADD  `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
 $sqlUpdateDatabase['documentinfos']['file'] = "ALTER TABLE `documentinfos` ADD  `file` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
