@@ -102,14 +102,13 @@ function changePass($input)
 
 	if(!empty($session->read('infoUser'))){
 		$mess = '';
-
+	
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
 
 			if(!empty($dataSend['passOld']) && !empty($dataSend['passNew']) && !empty($dataSend['passAgain'])){
 				if($dataSend['passNew'] == $dataSend['passAgain']){
 					$user = $modelMembers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
-
 					if($user->password == md5($dataSend['passOld'])){
 						$user->password = md5($dataSend['passNew']);
 

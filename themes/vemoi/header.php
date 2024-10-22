@@ -4,9 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css">
+
+    <!-- <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create.css"> -->
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css?time=1192">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/register.css">
+    <!-- <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/successfully.css"> -->
+    <!-- <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/detail.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/edit.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/event.css">
+
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/manage-event-mobile.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/manage-event.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/my-event.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/my-ticket.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/no-event.css">
+ 
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/registerto.css">
+     -->
+
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/js/vemoi.js">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,8 +33,10 @@
      <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/9163bded0f.js" crossorigin="anonymous"></script>
 
-    
-    <!-- Google Fonts -->
+    <link rel="icon" sizes="16x16" href="<?= $urlThemeActive?>/asset/image/Logo.png" type="image/png">
+    <link rel="icon" sizes="32x32" href="<?= $urlThemeActive?>/asset/image/Logo.png" type="image/png">
+    <link rel="icon" sizes="48x48" href="<?= $urlThemeActive?>/asset/image/Logo.png" type="image/png">
+    <!-- Google Fonts -->   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
@@ -28,10 +47,12 @@
 
     <?php mantan_header();
     global $settingThemes;
+    global $session;
+$infoUser = $session->read('infoUser');
     ?>
 </head>
 <body>
-    <header>
+<header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-white border-0">
             <div class="container-fluid">
@@ -44,60 +65,79 @@
 
                 <!-- Toggle button for mobile view -->
                 <button style="margin-right: 20px;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <!-- Navbar Menu -->
-                    <div class="collapse navbar-collapse nv-menu" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item mx2">
-                                <a class="nav-link active" href="#">Trang chủ</a>
-                            </li>
-                            <li class="nav-item mx2">
-                                <a class="nav-link text-dark" href="#">Giới thiệu</a>
-                            </li>
+                <div class="collapse navbar-collapse nv-menu" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <?php  
+                        $menus = getMenusDefault();  
+                        if (!empty($menus)):  
+                            foreach ($menus as $categoryMenu):  
+                                if (!empty($categoryMenu['sub'])):  
+                        ?>
                             <li class="nav-item dropdown mx2">
-                                <a class="nav-link dropdown-toggle text-dark" href="./event.html" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Sự kiện
+                                <a class="nav-link dropdown-toggle text-dark" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <?php echo $categoryMenu['name']; ?>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="./event.html">Sự kiện của tôi</a></li>
-                                    <li><a class="dropdown-item" href="#">Sự kiện 2</a></li>
+                                <?php foreach ($categoryMenu['sub'] as $subMenu): ?>
+                                    <li><a class="dropdown-item" href="<?php echo $subMenu['link']; ?>"><?php echo $subMenu['name']; ?></a></li>
+                                <?php endforeach; ?>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown mx2">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dịch vụ
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                                    <li><a class="dropdown-item" href="#">Dịch vụ 1</a></li>
-                                    <li><a class="dropdown-item" href="#">Dịch vụ 2</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown mx2">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Tin tức
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                                    <li><a class="dropdown-item" href="#">Tin tức 1</a></li>
-                                    <li><a class="dropdown-item" href="#">Tin tức 2</a></li>
-                                </ul>
-                            </li>
+                        <?php 
+                                else:  
+                        ?>       
                             <li class="nav-item mx2">
-                                <a class="nav-link text-dark" href="#">Liên hệ</a>
-                            </li>
+                                <a class="nav-link text-dark" href="<?php echo $categoryMenu['link']; ?>"><?php echo $categoryMenu['name']; ?></a>
+                            </li>   
+                        <?php 
+                                    endif;  
+                                endforeach;  
+                            endif;  
+                        ?>   
                         </ul>
-                        <div class="btn-login">
-                            <div class="d-flex colum">
-                                <a href="/login"><button class="btn btn-outline-dark me-2">Đăng nhập</button></a>
-                                <a href="/register"><button class="btn btn-danger px-4">Đăng ký</button></a>
+                        <?php if (empty($infoUser)): ?>
+                            <div class="btn-login">
+                                <div class="d-flex colum">
+                                    <a href="/login"><button class="btn btn-outline-dark me-2">Đăng nhập</button></a>
+                                    <a href="/register"><button class="btn btn-danger px-4">Đăng ký</button></a>
+                                </div>
                             </div>
-                       </div>
+                        <?php else: ?>
+                            <li class="nav-item dropdown mx2">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Thông tin cá nhân
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                                    <li><a class="dropdown-item" href="/account">Đổi thông tin</a></li>
+                                    <li><a class="dropdown-item" href="/changePass">Đổi mật khẩu</a></li>
+                                    <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
                     </div>
+                    <div class="btn-add-event">
+                        <div class="d-flex align-items-center">
+                            <?php if (!empty($infoUser)): ?>
+                                <a href="" class="btn btn-danger">+ Tạo sự kiện</a>
 
-                <!-- Login and Register Buttons -->
-               
+                                <div class="nav-item dropdown mx-5">
+                                    <a href="#" class="nav-link p-0 dropdown-toggle" id="navbarDropdown-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="<?=$urlThemeActive?>/asset/image/red.jpg" style="border: 1px solid black; height: 37px; width: 37px; border-radius: 10px; object-fit: cover;" alt="User image">
+                                    </a>
+                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdown-4">
+                                        <li><a class="dropdown-item" href="/account">Đổi thông tin</a></li>
+                                        <li><a class="dropdown-item" href="/changePass">Đổi mật khẩu</a></li>
+                                        <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
-        
     </header>

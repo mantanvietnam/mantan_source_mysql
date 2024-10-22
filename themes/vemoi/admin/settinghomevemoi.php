@@ -28,6 +28,11 @@
                                 </button>
                             </li>
                             <li class="nav-item">
+                                <button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-5" aria-controls="navs-5" aria-selected="true">
+                                    KHỐI LIÊN HỆ
+                                </button>
+                            </li>
+                            <li class="nav-item">
                                 <button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-4" aria-controls="navs-top-4" aria-selected="true">
                                     KHỐI FOOTER
                                 </button>
@@ -168,6 +173,30 @@
                                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">YouTube</label>
                                     <input type="text" class="form-control" name="YouTube" value="<?php echo @$data['YouTube'];?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show" id="navs-5" role="tabpanel">
+                            <div class="card-body row ">
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Image tiêu đề liên hệ</label>
+                                    <?php showUploadFile('imageheadercontact','imageheadercontact', @$data['imageheadercontact'],11);?>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Image liên hệ</label>
+                                    <?php showUploadFile('imagecontact','imagecontact', @$data['imagecontact'],10);?>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">map</label>
+                                    <input type="text" class="form-control" name="map" value="<?php echo @$data['map'];?>"/>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">phone</label>
+                                    <input type="text" class="form-control" name="phone" value="<?php echo @$data['phone'];?>"/>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">address</label>
+                                    <input type="text" class="form-control" name="address" value="<?php echo @$data['address'];?>"/>
                                 </div>
                             </div>
                         </div>

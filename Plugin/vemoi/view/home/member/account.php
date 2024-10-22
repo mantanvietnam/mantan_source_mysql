@@ -1,0 +1,1 @@
+<?php getFileTheme('vemoi/member/account.php');?>

@@ -47,6 +47,13 @@ function settinghomevemoi($input){
             'Facebook'=>$dataSend['Facebook'],
             'Twitter'=>$dataSend['Twitter'],
             'YouTube'=>$dataSend['YouTube'],
+            // contact 
+            'imageheadercontact'=>$dataSend['imageheadercontact'],
+            'imagecontact'=>$dataSend['imagecontact'],
+            'map'=>$dataSend['map'],
+    
+            'phone'=>$dataSend['phone'],
+            'address'=>$dataSend['address'],
      
 
         );
@@ -82,7 +89,7 @@ function indexTheme($input){
         $data_value = json_decode($data->value, true);
     }
     $order = array('id'=>'desc');
-    $listDatatop= $modelPosts->find()->limit(4)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
+    $listDatatop= $modelPosts->find()->limit(4)->where(array( 'type'=>'post'))->order($order)->all()->toList();
     $order = array('id'=>'desc');
     $listDataevent= $modelPosts->find()->limit(6)->where(array('type'=>'post', 'idCategory'=>3))->order($order)->all()->toList();
 
@@ -112,4 +119,5 @@ function categoryPostTheme($input){
     setVariable('listDatatop', $listDatatop);
     setVariable('category_post', $category_post);
 }
+
 ?>
