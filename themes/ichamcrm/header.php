@@ -88,10 +88,11 @@
                                     }
                                 }
                             ?>
-
+                            <!--
                             <li class="nav-item">
                                 <a class="nav-link" href="/login">AI CỦA TÔI</a>
                             </li>
+                            -->
                         </ul>
                     </div>
                     <div class="header-btn introduction-btn">
