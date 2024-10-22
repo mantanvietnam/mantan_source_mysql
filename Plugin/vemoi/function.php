@@ -23,10 +23,6 @@ $menus[0]['sub'][]= array( 'title'=>'Tìm ảnh',
 
 addMenuAdminMantan($menus);
 
-global $urlDomainFindFace;
-
-$urlDomainFindFace = 'http://14.225.17.218:8705/';
-
 function sendEmailNewPassword($email='', $fullName='', $pass= '')
 {
     global $urlHomes;
@@ -95,59 +91,6 @@ function sendEmailNewPassword($email='', $fullName='', $pass= '')
 
        sendEmail($to, $cc, $bcc, $subject, $content);      
     }
-}
-
-function getTokenFindFace($username, $password)
-{
-    global $urlDomainFindFace;
-
-    if(!empty($username) && !empty($password)){
-        $url = $urlDomainFindFace.'api/v1/authenticate';
-        $header = ['Content-Type: application/json'];
-
-        $data = ['username'=>$username, 'password'=>$password];
-
-        $token = sendDataConnectMantan($url, $data, $header, 'raw');
-
-        $token = json_decode($token, true);
-
-        if(!empty($token['access_token'])){
-            return $token['access_token'];
-        }
-    }
-
-    return '';
-}
-
-function searchFaceImage($collection_name='')
-{
-    global $urlDomainFindFace;
-
-    $listImage = '';
-
-    if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
-        $user_id = 0;
-        $name_input = 'image';
-        $filenameImage = rand(10000,99999);
-
-        $image = uploadImage($user_id, $name_input, $filenameImage);
-
-        if(!empty($image['linkLocal'])){
-            $linkLocal = __DIR__.'/../../'.$image['linkLocal'];
-
-            $token = getTokenFindFace('manhtran', '123456aA@');
-
-            if(!empty($token)){
-                $url = $urlDomainFindFace.'api/v1/find-faces/?collection_name='.$collection_name;
-                $data = ['image'=> new CURLFILE($linkLocal)];
-                $header = ['Authorization: Bearer '.$token];
-
-                $listImage = sendDataConnectMantan($url, $data, $header);
-            }
-        } 
-    }
-
-    return $listImage;
 }
 
 ?>

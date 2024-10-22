@@ -100,10 +100,29 @@ function searchImageAdmin($input)
     global $modelCategories;
     global $urlHomes;
 
+    $listFileDrive = getListFileDrive('1caR-VYFTTtXicUedwr3PMoxToKbu5Zdh');
+    $listThumbFile = [];
+    $listDownFile = [];
+
+    if(!empty($listFileDrive)){
+        foreach ($listFileDrive as $key => $value) {
+            $listThumbFile[$value['originalFilename']] = $value['thumbnailLink'];
+            $listDownFile[$value['originalFilename']] = $value['downloadUrl'];
+        }
+    }
+
     if($isRequestPost){
         $listImage = searchFaceImage('tests-20242110');
 
-        debug($listImage);die;
+        $listReturn = [];
+
+        if(!empty($listImage['listImage'])){
+            foreach ($listImage['listImage'] as $key => $value) {
+                $listReturn[$value] = ['thumb'=>$listThumbFile[$value], 'download'=>$listDownFile[$value]];
+            }
+        }
     }
+
+    debug($listReturn);
 }
 ?>
