@@ -9,6 +9,8 @@ function isInViewport(element) {
     );
 }
 
+
+
 // Lắng nghe sự kiện cuộn trang
 document.addEventListener("scroll", function onScroll() {
     const countSection = document.getElementById("count-section");
