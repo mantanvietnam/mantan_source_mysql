@@ -132,13 +132,13 @@ function viewUserDetailAdmin($input)
             ])->first();
         $idCardFront = $modelImage->find()
             ->where([
-                'owner_id' => $_GET['id'],
+                'owner_id' => (int)$_GET['id'],
                 'owner_type' => 'users',
                 'type' => 'id-card-front'
             ])->first();
         $idCardBack = $modelImage->find()
             ->where([
-                'owner_id' => $_GET['id'],
+                'owner_id' =>(int) $_GET['id'],
                 'owner_type' => 'users',
                 'type' => 'id-card-back'
             ])->first();
@@ -156,6 +156,8 @@ function viewUserDetailAdmin($input)
     } else {
         $data = $modelUser->newEmptyEntity();
     }
+
+    
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -199,12 +201,15 @@ function viewUserDetailAdmin($input)
                         $idCardFront = $modelImage->newEmptyEntity();
                         $idCardFront->path = $dataSend['idCardFront'];
                         $idCardFront->local_path =str_replace($domain, '', @$dataSend['idCardFront']);
-                        $idCardFront->type = 'users';
-                        $idCardFront->owner_id =$_GET['id'];
-                        $idCardFront->owner_type = 'id-card-front';
+                        $idCardFront->type = 'id-card-front';
+                        $idCardFront->owner_id =(int)$_GET['id'];
+                        $idCardFront->owner_type = 'users';
                         $modelImage->save($idCardFront);
                     }
                 }
+
+
+
                 if(!empty($dataSend['idCardBack'])){
                     $idCardBack = $modelImage->find()->where(['owner_id' => $_GET['id'], 'owner_type' => 'users', 'type' => 'id-card-back'])->first();
                     if(!empty($idCardBack)){
@@ -214,12 +219,14 @@ function viewUserDetailAdmin($input)
                         $idCardBack = $modelImage->newEmptyEntity();
                         $idCardBack->path = $dataSend['idCardBack'];
                         $idCardBack->local_path =str_replace($domain, '', $dataSend['idCardBack']);
-                        $idCardBack->type = 'users';
-                        $idCardBack->owner_id =$_GET['id'];
-                        $idCardBack->owner_type = 'id-card-back';
+                        $idCardBack->type = 'id-card-back';
+                        $idCardBack->owner_id =(int)$_GET['id'];
+                        $idCardBack->owner_type = 'users';
                         $modelImage->save($idCardBack);
                     }
                 }
+
+                
 
 
                 /*$car = $modelImage->deleteAll([ 'owner_id' => $_GET['id'], 'owner_type' => 'users', 'type' => 'car']);

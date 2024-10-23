@@ -1,5 +1,5 @@
 <?php 
-function listProject($input){
+function listTask($input){
 
 	global $controller;
     global $urlCurrent;
@@ -16,7 +16,8 @@ function listProject($input){
 		$modelMembers = $controller->loadModel('Members');
 		$modelProjects = $controller->loadModel('Projects');
 		$modelStaffProject = $controller->loadModel('StaffProjects');
-		 $modelStaff = $controller->loadModel('Staffs');
+		$modelStaff = $controller->loadModel('Staffs');
+		$modelTask = $controller->loadModel('Tasks');
 
 
     	$conditions = array('id_member'=>$user->id);
@@ -41,14 +42,13 @@ function listProject($input){
         }
 
 
-        $listData = $modelProjects->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        $listData = $modelTask->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         
 
         if(!empty($listData)){
             foreach($listData as $key => $item){
                 if(!empty($item->id)){
-                    $listData[$key]->number_staff = count( json_decode($item->list_staff, true));
-                    $listData[$key]->leader = $modelStaff->find()->where(['id'=>$item->id_staff])->first();
+                    $listData[$key]->number_staff = $modelStaff->find()->where(['id'=>$item->id_staff])->first();
                 }
             }
         }
@@ -122,23 +122,24 @@ function listProject($input){
 
 }
 
-function addProject($input){
+function addTask($input){
 	global $controller;
     global $isRequestPost;
     
     $metaTitleMantan = 'Thông tinh dự án';
 	$modelMembers = $controller->loadModel('Members');
-		$modelProjects = $controller->loadModel('Projects');
-		$modelStaffProject = $controller->loadModel('StaffProjects');
-		 $modelStaff = $controller->loadModel('Staffs');
-        $modelGroupStaff = $controller->loadModel('GroupStaffs');
+	$modelProjects = $controller->loadModel('Projects');
+	$modelStaffProject = $controller->loadModel('StaffProjects');
+	$modelStaff = $controller->loadModel('Staffs');
+    $modelGroupStaff = $controller->loadModel('GroupStaffs');
+    $modelTask = $controller->loadModel('Tasks');
     $mess =  '';
     if(function_exists('checklogin')){
-    	$user = checklogin('addProject');   
+    	$user = checklogin('addTask');   
     }
     if(!empty($user)){
         if(empty($user->grant_permission)){
-            return $controller->redirect('/listProject');
+            return $controller->redirect('/listTask');
         }
         if(!empty($user->id_father)){
           return $controller->redirect('/');
@@ -146,12 +147,11 @@ function addProject($input){
 
         // lấy data edit
         if(!empty($_GET['id'])){
-            $data = $modelProjects->get( (int) $_GET['id']);
+            $data = $modelTask->get( (int) $_GET['id']);
         }else{
-            $data = $modelProjects->newEmptyEntity();
+            $data = $modelTask->newEmptyEntity();
             $data->created_at = time();
 			$data->id_member = $user->id;
-			$data->id_staff = $user->id_staff;
         }
 
         if($isRequestPost) {
@@ -162,71 +162,73 @@ function addProject($input){
 				$start_date = explode('/', $dataSend['start_date']);
 	            $data->start_date = mktime(0,0,0,$start_date[1],$start_date[0],$start_date[2]);
 	            $data->id_staff = (int)$dataSend['id_staff'];
-	             $end_date = explode('/', $dataSend['end_date']);
+	            $end_date = explode('/', $dataSend['end_date']);
 	            $data->end_date = mktime(23,59,59,$end_date[1],$end_date[0],$end_date[2]);
-
 				$data->content = @$dataSend['content'];
 				$data->status = @$dataSend['status'];          
-				$data->state = @$dataSend['state'];
-
-				$data->list_staff = json_encode(@$dataSend['list_staff']);   
-
-                 // lưu danh mục sản phẩm
-                if(!empty($dataSend['list_staff'])){
-                    $conditions = ['id_project'=>$data->id];
-                    $modelStaffProject->deleteAll($conditions);
-
-                    foreach ($dataSend['list_staff'] as $list_staff) {
-                        $category = $modelStaffProject->newEmptyEntity();
-
-                        $category->id_project = $data->id;;
-                        $category->id_staff = $list_staff;
-                        $modelStaffProject->save($category);
-                    }
-                }else{
-                    $conditions = ['id_project'=>$data->id];
-                    $modelStaffProject->deleteAll($conditions);
-                }   
-			
+				$data->level = (int)@$dataSend['level'];			
+				$data->id_project = (int)@$dataSend['id_project'];			
 	           	
-				$modelProjects->save($data);
+				$modelTask->save($data);
 
-	            return $controller->redirect('/listProject?mess=saveSuccess');
+	            return $controller->redirect('/listTask?mess=saveSuccess');
 	        }else{
 	        	 $mess= '<p class="text-danger">bạn thiếu dữ liệu</p>';
 	        }
 
         }
+        if($user->type=='staff'){
+        	$conditions=  array('staff.id_staff'=>$user->id);
         
-        $list_staff = $modelStaffProject->find()->where(['id_project'=>$data->id])->all()->toList();
-        $dataStaff = array();
-        if(!empty($list_staff)){
-            foreach($list_staff as $key => $item){
-                 $dataStaff[] =  $item->id_staff;
-            }
+       	 	$join = [
+                [
+                    'table' => 'staff_projects',
+                    'alias' => 'staff',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Projects.id = staff.id_project'
+                    ],
+                ]
+            ];
+
+            $select = ['Courses.id','Courses.title','Courses.image','Courses.description','Courses.slug','Courses.view','Courses.youtube_code','Courses.id_category','Courses.status','Courses.content','Courses.id_group_customer','Courses.public'];
+
+        
+
+        	$listProject = $modelProjects->find()->join($join)->where($conditions)->all()->toList();
+        }else{
+        	$listProject = $modelProjects->find()->where(array())->all()->toList();
         }
-        $data->list_staff = $dataStaff;
 
-        $dataGroupStaff = $modelGroupStaff->find()->where(['id_member'=>$user->id])->all()->toList();
-        $liststaff = $modelStaff->find()->where(['id_member'=>$user->id])->all()->toList();
+        $liststaff = array();
+        if(!empty($data->id_project)){
+        	$conditions = ['staffproject.id_project'=>$data->id_project];
 
-        if(!empty($dataGroupStaff)){
-        	foreach($dataGroupStaff as $key => $item){
-        		 $dataGroupStaff[$key]->staff = $modelStaff->find()->where(['id_group'=>$item->id])->all()->toList();
-        	}
+	    $join = [
+	                [
+	                    'table' => 'staff_projects',
+	                    'alias' => 'staffproject',
+	                    'type' => 'LEFT',
+	                    'conditions' => [
+	                        'Staffs.id = staffproject.id_staff'
+	                    ],
+	                ]
+	            ];
+	    $liststaff = $modelStaff->find()->join($join)->where($conditions)->all()->toList();
         }
-
-    	setVariable('data', $data);
-    	setVariable('dataGroupStaff', $dataGroupStaff);
+       
+    	setVariable('data', $data);	
     	setVariable('mess', $mess);
+    	setVariable('listProject', $listProject);
     	setVariable('liststaff', $liststaff);
+        
     }else{
         return $controller->redirect('/login');
     }
 }
 
 
-function deteleProject($input){
+function deteleTask($input){
     global $urlCurrent;
 	global $modelPosts;
 	global $modelCategories;
@@ -261,5 +263,37 @@ function deteleProject($input){
 	}else{
         return $controller->redirect('/login');
     }
+}
+
+function getStaffProjectAPI($input){
+	global $controller;
+    global $isRequestPost;
+
+
+	$modelStaffProject = $controller->loadModel('StaffProjects');
+	$modelStaff = $controller->loadModel('Staffs');
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$conditions = [];
+
+		if(!empty($dataSend['id_project'])){
+	        $conditions['staffproject.id_project'] = $dataSend['id_project'];
+	    }
+
+	    $join = [
+	                [
+	                    'table' => 'staff_projects',
+	                    'alias' => 'staffproject',
+	                    'type' => 'LEFT',
+	                    'conditions' => [
+	                        'Staffs.id = staffproject.id_staff'
+	                    ],
+	                ]
+	            ];
+	    $listData = $modelStaff->find()->join($join)->where($conditions)->all()->toList();
+
+	    return array('code'=>1, 'data'=>$listData);
+	}
 }
 ?>
