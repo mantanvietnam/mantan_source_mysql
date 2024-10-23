@@ -1511,6 +1511,9 @@ function getListPermission()
                     'sub'=>array(   array('name'=>' Danh sách dự án','permission'=>'listProject'),
                                     array('name'=>'thêm và sửa dự án','permission'=>'addProject'),
                                     array('name'=>'xoá dự án','permission'=>'deleteProject'),
+                                    array('name'=>' Danh sách nhiệm vụ','permission'=>'listTask'),
+                                    array('name'=>'thêm và sửa nhiệm vụ','permission'=>'addTask'),
+                                    array('name'=>'xoá nhiệm vụ','permission'=>'deleteTask'),
                             )
                     );
     
