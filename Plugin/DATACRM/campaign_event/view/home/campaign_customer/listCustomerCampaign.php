@@ -152,7 +152,11 @@
                 echo '<tr>
                         <td>'.$item->id_customer.'</td>
                         <td><p class="text-success">'.date("d/m/Y", $item->create_at).'</p>'.$checkin.'</td>
-                        <td>'.$item->customer_name.'<br/>'.$item->customer_phone.'</td>
+                        <td>
+                          <img src="'.$item->customer_avatar.'" width="80" /><br/>
+                          '.$item->customer_name.'<br/>
+                          '.$item->customer_phone.'
+                        </td>
                         <td>'.@$infoCampaign->location[$item->id_location].'</td>
                         <td>'.@$infoCampaign->team[$item->id_team]['name'].'</td>
                         <td>'.@$infoCampaign->ticket[$item->id_ticket]['name'].'</td>

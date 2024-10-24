@@ -66,7 +66,6 @@ function listFeedbackApi($input)
     $modelCustomer = $controller->loadModel('Customers');
     $conditions = array('status'=>'active');
    
-
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
@@ -80,7 +79,8 @@ function listFeedbackApi($input)
             $listData[$key]->infoCustomer = $modelCustomer->find()->where(['id'=>$value->id_customer])->first();	
         }
     }
-		return array('code'=>1,'messages'=>'Bạn lấy dữ liệu thành công', 'listData'=>$listData);
+	
+    return array('code'=>1,'messages'=>'Bạn lấy dữ liệu thành công', 'listData'=>$listData);
 }
 
 function listFeedbackMyApi($input)

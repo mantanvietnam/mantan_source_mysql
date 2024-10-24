@@ -7,8 +7,26 @@ $urlDomainFindFace = 'http://14.225.17.218:8705/';
 function getTokenFindFace($username, $password)
 {
     global $urlDomainFindFace;
+    global $modelOptions;
 
     if(!empty($username) && !empty($password)){
+        $conditions = array('key_word' => 'tokenFindFace');
+        $tokenFindFace = $modelOptions->find()->where($conditions)->first();
+
+        if(!empty($tokenFindFace->value)){
+            $value = json_decode($tokenFindFace->value, true);
+
+            if(!empty($value['deadline']) && $value['deadline'] > time()){
+                return $value['token'];
+            }
+        }
+
+        
+        // lấy token mới
+        if(empty($tokenFindFace)){
+            $tokenFindFace = $modelOptions->newEmptyEntity();
+        }
+
         $url = $urlDomainFindFace.'api/v1/authenticate';
         $header = ['Content-Type: application/json'];
 
@@ -19,8 +37,14 @@ function getTokenFindFace($username, $password)
         $token = json_decode($token, true);
 
         if(!empty($token['access_token'])){
+            $tokenFindFace->key_word = 'tokenFindFace';
+            $tokenFindFace->value = json_encode(['token'=>$token['access_token'], 'deadline'=>time()+518400]);
+
+            $modelOptions->save($tokenFindFace);
+
             return $token['access_token'];
         }
+    
     }
 
     return '';

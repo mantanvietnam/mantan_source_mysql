@@ -107,6 +107,7 @@ function listCustomerCampaign($input)
 
                         $listData[$key]->customer_name = @$checkCustomer->full_name;
                         $listData[$key]->customer_phone = @$checkCustomer->phone;
+                        $listData[$key]->customer_avatar = @$checkCustomer->avatar;
 
                         // lịch sử chăm sóc
                         $listData[$key]->history = $modelCustomerHistories->find()->where(['id_customer'=>$value->id_customer])->order(['id'=>'desc'])->first();

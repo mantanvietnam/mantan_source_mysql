@@ -4,10 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Image Search</title>
+    <meta name="description" content="Công cụ AI giúp tìm kiếm hình ảnh có chứa khuân mặt của bạn trong thư mục ảnh nhanh chóng với độ chính xác lên đến 95%" />
+    <meta name="keywords" content="" />
+
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="AI Image Search">
+    <meta itemprop="description" content="Công cụ AI giúp tìm kiếm hình ảnh có chứa khuân mặt của bạn trong thư mục ảnh nhanh chóng với độ chính xác lên đến 95%">
+    <meta itemprop="image" content="https://builtin.com/sites/www.builtin.com/files/2024-06/AI%20search%20engine.jpg">
+    
+    <!-- Facebook Meta Tags -->
+    <meta property="og:title" content="AI Image Search"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="Công cụ AI giúp tìm kiếm hình ảnh có chứa khuân mặt của bạn trong thư mục ảnh nhanh chóng với độ chính xác lên đến 95%"/>
+    <meta property="og:url" content="/"/>
+    <meta property="og:site_name" content="AI Image Search"/>
+    <meta property="og:image" content="https://builtin.com/sites/www.builtin.com/files/2024-06/AI%20search%20engine.jpg" />
+    <meta property="og:image:alt" content="Hình ảnh AI Image Search" />
+    <meta property="fb:admins" content="" />
+    <meta property="fb:app_id" content="1695746487308818" /> 
+    <meta property="og:image:width" content="900" />
+    <meta property="og:image:height" content="603" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+
+    
 
     <style>
         body {
@@ -48,7 +73,7 @@
             background-color: #e9f5ff;
             border-color: #0056b3;
         }
-        #thumbs, #returns, #imgLoading {
+        #thumbs, #returns, #imgLoading, #drive {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
@@ -61,6 +86,7 @@
             object-fit: cover;
             border-radius: 10px;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
     </style>
 </head>
@@ -77,10 +103,22 @@
         <input type="file" name="image" id="fileElem" accept="image/*" multiple style="display:none">
     </div>
     <div id="thumbs"></div>
-    <div id="returns"></div>
+    
     <div id="imgLoading" style="display: none;">
         <img src="/plugins/phoenix_ai/view/home/assets/img/loading.gif" width="100">
     </div>
+    <div id="drive" style="display: none;">
+        <?php
+            $idDrive = '1caR-VYFTTtXicUedwr3PMoxToKbu5Zdh';
+            if(!empty($_GET['idDrive'])){
+                $idDrive = $_GET['idDrive'];
+            }
+
+            echo 'Xem toàn bộ ảnh tại đây: <a href="https://drive.google.com/drive/folders/'.$idDrive.'?usp=drive_link" target="_blank">https://drive.google.com/drive/folders/'.$idDrive.'?usp=drive_link</a>';
+        ?>
+    </div>
+
+    <div id="returns"></div>
 </div>
 
 <script>
@@ -88,6 +126,9 @@
     const fileInput = document.getElementById('fileElem');
     const thumbs = document.getElementById('thumbs');
     const returns = document.getElementById('returns');
+
+    const idCollection = '<?php echo @$_GET['idCollection'];?>';
+    const idDrive = '<?php echo @$_GET['idDrive'];?>';
 
     // Handle drag and drop events
     dropArea.addEventListener('dragover', (event) => {
@@ -129,8 +170,10 @@
                     const img = document.createElement('img');
                     img.src = event.target.result;
                     img.classList.add('thumb');
+                    
                     thumbs.appendChild(img);
                 }
+
                 reader.readAsDataURL(file);
 
                 uploadFile(file);
@@ -141,6 +184,8 @@
     function uploadFile(file) {
         const formData = new FormData();
         formData.append('image', file);
+        formData.append('idCollection', idCollection);
+        formData.append('idDrive', idDrive);
 
         $('#imgLoading').show();
 
@@ -157,11 +202,23 @@
                 $('#imgLoading').hide();
 
                 $.each( response, function( key, value ) {
+                    const link = document.createElement('a');
+                    link.href = value.download;
+                    link.setAttribute('data-fancybox', 'gallery');
+
                     const img = document.createElement('img');
                     img.src = value.thumb;
                     img.classList.add('thumb');
-                    returns.appendChild(img);
+
+                    link.appendChild(img);
+                    returns.appendChild(link);
                 });
+
+                Fancybox.bind("[data-fancybox='gallery']", {
+                    // You can pass additional options here if needed
+                });
+
+                $('#drive').show();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error:', textStatus, errorThrown);

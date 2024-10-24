@@ -7,19 +7,32 @@ function searchImageAPI($input)
     global $modelCategories;
     global $urlHomes;
 
-    $listFileDrive = getListFileDrive('1caR-VYFTTtXicUedwr3PMoxToKbu5Zdh');
+    $idDrive = '1caR-VYFTTtXicUedwr3PMoxToKbu5Zdh';
+    $idCollection = 'tests-20242110';
+
+    if(!empty($_POST['idDrive'])){
+        $idDrive = $_POST['idDrive'];
+    }
+
+    if(!empty($_POST['idCollection'])){
+        $idCollection = $_POST['idCollection'];
+    }
+
+    $listFileDrive = getListFileDrive($idDrive);
     $listThumbFile = [];
     $listDownFile = [];
 
     if(!empty($listFileDrive)){
         foreach ($listFileDrive as $key => $value) {
-            $listThumbFile[$value['originalFilename']] = $value['thumbnailLink'];
-            $listDownFile[$value['originalFilename']] = $value['downloadUrl'];
+            if(!empty($value['thumbnailLink'])){
+                $listThumbFile[$value['originalFilename']] = $value['thumbnailLink'];
+                $listDownFile[$value['originalFilename']] = $value['downloadUrl'];
+            }
         }
     }
 
     if($isRequestPost){
-        $listImage = searchFaceImage('tests-20242110');
+        $listImage = searchFaceImage($idCollection);
 
         $listReturn = [];
 

@@ -22,6 +22,21 @@ function getClassInYearAPI($input)
 				$listData[$key]->des_image = json_decode($listData[$key]->des_image, true);
 				$listData[$key]->audio_image = json_decode($listData[$key]->audio_image, true);
 
+				$infoImage = [];
+				if(!empty($listData[$key]->images)){
+					foreach ($listData[$key]->images as $keyImage => $image) {
+						if(!empty($image)){
+							$infoImage[] = ['image'=>$image, 'description'=>$listData[$key]->des_image[$keyImage], 'audio'=>$listData[$key]->audio_image[$keyImage]];
+						}
+					}
+				}
+
+				unset($listData[$key]->images);
+				unset($listData[$key]->des_image);
+				unset($listData[$key]->audio_image);
+
+				$listData[$key]->images = $infoImage;
+
 				if(!empty($value->video)){
 					$codeYoutube = '';
 
