@@ -153,7 +153,15 @@
                               </div>
                             </div>';
                           }
-
+                        if(empty($user->id_father) && in_array('jobManagement', $plugins_site_value)){
+                        echo '<div class="dropdown-submenu">
+                              <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Quản lý công việc</a>
+                              <div class="dropdown-menu menuSub3">
+                                <a class="dropdown-item" href="/listProject">Quản lý dự án</a>
+                                <a class="dropdown-item" href="/listTask">Quản lý nhiệm vụ</a>
+                              </div>
+                            </div>';
+                     }
 
                       if(empty($user->id_father) && in_array('clone_web', $plugins_site_value)){
                         echo '<div class="dropdown-submenu">

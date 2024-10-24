@@ -53,7 +53,7 @@
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Số ngày  (*)</label>
-                              <input type="number" class="form-control phone-mask" name="day" id="day" value="<?php echo @$data->day;?>" required />
+                              <input type="number" disabled="" class="form-control phone-mask" name="day" id="day" value="<?php echo @$data->day;?>" required />
                           </div>
                           <div class="mb-3">
                               <label class="form-label">Trạng thái</label>

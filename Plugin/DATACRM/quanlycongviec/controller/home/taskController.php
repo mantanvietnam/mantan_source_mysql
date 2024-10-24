@@ -19,77 +19,102 @@ function listTask($input){
 		$modelStaff = $controller->loadModel('Staffs');
 		$modelTask = $controller->loadModel('Tasks');
 
+        if(@$user->type=='member'){
+            $conditions = array();
 
-    	$conditions = array('id_member'=>$user->id);
-        $limit = 20;
-        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-        if($page<1) $page = 1;
-        $order = array('id'=>'desc');
+             $listProject = $modelProjects->find()->where($conditions)->all()->toList();
+        }else{
+            $conditions = array('id_staff'=>$user->id);
+            $join = [
+            [
+                'table' => 'staff_projects',
+                'alias' => 'staff',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'Projects.id = staff.id_project'
+                ],
+            ]
+        ];
 
-        if(!empty($_GET['id'])){
-            $conditions['id'] = (int) $_GET['id'];
-        }
+        $select = ['Courses.id','Courses.title','Courses.image','Courses.description','Courses.slug','Courses.view','Courses.youtube_code','Courses.id_category','Courses.status','Courses.content','Courses.id_group_customer','Courses.public'];
 
-        if(!empty($_GET['date_start'])){
-            $date_start = explode('/', $_GET['date_start']);
-            $conditions['created_at >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
-        }
-
-        if(!empty($_GET['date_end'])){
-            $date_end = explode('/', $_GET['date_end']);
-            $conditions['created_at <='] = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
-                
-        }
-
-
-        $listData = $modelTask->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         
 
-        if(!empty($listData)){
-            foreach($listData as $key => $item){
+        $listProject = $modelProjects->find()->join($join)->where($conditions)->all()->toList();
+
+        }
+
+        $id_project = array();
+        if(!empty($listProject)){
+            foreach($listProject as $key => $item){
                 if(!empty($item->id)){
-                    $listData[$key]->number_staff = $modelStaff->find()->where(['id'=>$item->id_staff])->first();
+                    $id_project[] = $item->id;
                 }
             }
         }
-        // phân trang
-        $totalData = $modelProjects->find()->where($conditions)->all()->toList();
 
-        $totalMoney = 0;
-        if(!empty($totalData)){
-            foreach ($totalData as $key => $value) {
-                $totalMoney += $value->total;
+        $conditions = array();
+
+        if(!empty($_GET['id_project'])){
+            $conditions['id_project'] =  $_GET['id_project'];
+        }else{
+            $conditions['id_project IN'] =  $id_project;
+        }
+
+        if(!empty($_GET['id_staff'])){
+            $conditions['id_staff'] =  $_GET['id_staff'];
+        }
+
+        $order = array('id'=>'desc');
+        $conditions['status'] =  'new';
+        $listTasknew = $modelTask->find()->where($conditions)->order($order)->all()->toList();
+
+        $conditions['status'] =  'process';
+        $listTaskprocess = $modelTask->find()->where($conditions)->order($order)->all()->toList();
+
+        $conditions['status'] =  'done';
+        $listTaskdone = $modelTask->find()->where($conditions)->order($order)->all()->toList();
+
+        $conditions['status'] =  'bug';
+        $listTaskbug = $modelTask->find()->where($conditions)->order($order)->all()->toList();
+
+        $conditions['status'] =  'cancel';
+        $listTaskcancel = $modelTask->find()->where($conditions)->order($order)->all()->toList();
+
+
+        if(!empty($listTasknew)){
+            foreach($listTasknew as $key => $item){
+                $listTasknew[$key]->project = $modelProjects->find()->where(['id'=>$item->id_project])->first();
+                $listTasknew[$key]->staff = $modelStaff->find()->where(['id'=>$item->id_staff])->first();
             }
         }
 
-        $totalData = count($totalData);
-
-        $balance = $totalData % $limit;
-        $totalPage = ($totalData - $balance) / $limit;
-        if ($balance > 0)
-            $totalPage+=1;
-
-        $back = $page - 1;
-        $next = $page + 1;
-        if ($back <= 0)
-            $back = 1;
-        if ($next >= $totalPage)
-            $next = $totalPage;
-
-        if (isset($_GET['page'])) {
-            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
-            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
-        } else {
-            $urlPage = $urlCurrent;
-        }
-        if (strpos($urlPage, '?') !== false) {
-            if (count($_GET) >= 1) {
-                $urlPage = $urlPage . '&page=';
-            } else {
-                $urlPage = $urlPage . 'page=';
+        if(!empty($listTaskdone)){
+            foreach($listTasknew as $key => $item){
+                $listTaskdone[$key]->project = $modelProjects->find()->where(['id'=>$item->id_project])->first();
+                $listTaskdone[$key]->staff = $modelStaff->find()->where(['id'=>$item->id_staff])->first();
             }
-        } else {
-            $urlPage = $urlPage . '?page=';
+        }
+
+        if(!empty($listTaskprocess)){
+            foreach($listTaskprocess as $key => $item){
+                $listTaskprocess[$key]->project = $modelProjects->find()->where(['id'=>$item->id_project])->first();
+                $listTaskprocess[$key]->staff = $modelStaff->find()->where(['id'=>$item->id_staff])->first();
+            }
+        }
+
+        if(!empty($listTaskbug)){
+            foreach($listTaskbug as $key => $item){
+                $listTaskbug[$key]->project = $modelProjects->find()->where(['id'=>$item->id_project])->first();
+                $listTaskbug[$key]->staff = $modelStaff->find()->where(['id'=>$item->id_staff])->first();
+            }
+        }
+
+        if(!empty($listTaskcancel)){
+            foreach($listTaskcancel as $key => $item){
+                $listTaskcancel[$key]->project = $modelProjects->find()->where(['id'=>$item->id_project])->first();
+                $listTaskcancel[$key]->staff = $modelStaff->find()->where(['id'=>$item->id_staff])->first();
+            }
         }
 
         $mess ='';
@@ -101,19 +126,14 @@ function listTask($input){
             $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
         }
 
-        // $data = getListFileDrive('1YqqwVCYr2w14FD7AtIcRS8BV-WMkkRTU');
-        // debug($data);
-        // die;
 
-        setVariable('page', $page);
-        setVariable('totalPage', $totalPage);
-        setVariable('back', $back);
-        setVariable('next', $next);
         setVariable('mess', $mess);        
-        setVariable('totalMoney', $totalMoney);
-        setVariable('urlPage', $urlPage);
-        
-        setVariable('listData', $listData);
+        setVariable('listTasknew', $listTasknew);
+        setVariable('listTaskdone', $listTaskdone);
+        setVariable('listTaskprocess', $listTaskprocess);
+        setVariable('listTaskbug', $listTaskbug);
+        setVariable('listTaskcancel', $listTaskcancel);
+        setVariable('listProject', $listProject);
 
 
     }else{
@@ -279,19 +299,22 @@ function getStaffProjectAPI($input){
 
 		if(!empty($dataSend['id_project'])){
 	        $conditions['staffproject.id_project'] = $dataSend['id_project'];
-	    }
+	    
 
-	    $join = [
-	                [
-	                    'table' => 'staff_projects',
-	                    'alias' => 'staffproject',
-	                    'type' => 'LEFT',
-	                    'conditions' => [
-	                        'Staffs.id = staffproject.id_staff'
-	                    ],
-	                ]
-	            ];
-	    $listData = $modelStaff->find()->join($join)->where($conditions)->all()->toList();
+    	    $join = [
+    	                [
+    	                    'table' => 'staff_projects',
+    	                    'alias' => 'staffproject',
+    	                    'type' => 'LEFT',
+    	                    'conditions' => [
+    	                        'Staffs.id = staffproject.id_staff'
+    	                    ],
+    	                ]
+    	            ];
+    	    $listData = $modelStaff->find()->join($join)->where($conditions)->all()->toList();
+        }else{
+            $listData = array();
+        }
 
 	    return array('code'=>1, 'data'=>$listData);
 	}

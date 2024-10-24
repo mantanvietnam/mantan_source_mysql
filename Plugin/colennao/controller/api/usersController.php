@@ -69,10 +69,10 @@ function registerUserApi($input): array
                 $code = rand(100000, 999999);
                 $user->reset_password_code = @$code;
                 $user->device_token = @$dataSend['device_token'];
-                $user->current_weight =  (int) @$dataSend['current_weight'];
-                $user->target_weight =  (int) @$dataSend['target_weight'];
+                $user->current_weight =  (double) @$dataSend['current_weight'];
+                $user->target_weight =  (double) @$dataSend['target_weight'];
                 $user->height =  (int) @$dataSend['height'];
-                $user->id_group_user =  (int) @$dataSend['id_group_user'];
+                $user->id_group_user =  (double) @$dataSend['id_group_user'];
                 $modelUser->save($user);
 
                 $loginUser = $modelUser->find()->where([
@@ -674,15 +674,15 @@ function updateUserApi($input): array
         }
 
         if (!empty($dataSend['target_weight'])) {
-            $currentUser->target_weight = $dataSend['target_weight'];
+            $currentUser->target_weight = (double) $dataSend['target_weight'];
         }
 
         if (!empty($dataSend['height'])) {
-            $currentUser->height = (int) $dataSend['height'];
+            $currentUser->height = (double) $dataSend['height'];
         }
 
         if (isset($dataSend['current_weight'])) {
-            $currentUser->current_weight = (int) $dataSend['current_weight'];
+            $currentUser->current_weight = (double) $dataSend['current_weight'];
         }
 
         if (isset($dataSend['id_workout'])) {

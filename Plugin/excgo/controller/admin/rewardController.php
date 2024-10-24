@@ -72,6 +72,8 @@ function addRewardAdmin($input){
     $metaTitleMantan = 'Thông tin phần thưởng';
     $modelReward = $controller->loadModel('Rewards');
     $conditions = array();
+    $modelUser = $controller->loadModel('Users');
+    $modelNotification = $controller->loadModel('Notifications');
 
 	$mess= '';
 
@@ -89,7 +91,6 @@ function addRewardAdmin($input){
         $subquery->select(['max_end_date' => $subquery->func()->max('end_date')]);
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-
 
         if(!empty($dataSend['name']) && !empty($dataSend['image']) && !empty($dataSend['type']) && !empty($dataSend['content'])){
 	        // tạo dữ liệu save
@@ -140,7 +141,60 @@ function addRewardAdmin($input){
                    
         	        $modelReward->save($data);
 
-        	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                    if(!empty($dataSend['checkNotification']) && !empty($data->id)){
+                        $conditions = array();
+                        $conditions['device_token IS NOT'] = null;
+                        $listUser = $modelUser->find()->where($conditions)->all()->toList();
+
+                        if(!empty($listUser)){
+                            $title = 'Thông báo chương trình thưởng mới';
+                            $content = 'Tham gia ngay để nhận phần thưởng lớn.!';
+                            $number = 0;
+                            $device_token = [];
+
+                            foreach ($listUser as $key => $value) {
+                                if(!empty($value->device_token)){
+                                    $device_token[] = $value->device_token;
+                                    $number++;
+                                    $notification = $modelNotification->newEmptyEntity();
+                                    $notification->user_id = $value->id;
+                                    $notification->title = $title;
+                                    $notification->content = $content;
+                                    $notification->id_reward = (int) $data->id;
+                                    $notification->created_at = date('Y-m-d H:i:s');
+                                    $notification->updated_at = date('Y-m-d H:i:s');
+                                    $notification->action = 'sendNotificationReward';
+                                    $modelNotification->save($notification);
+                                }
+                            }
+                            
+
+                            $dataSendNotification= array(
+                                'title' => $title,
+                                'time' => date('H:i d/m/Y'),
+                                'content' => $content,
+                                'id_reward' => "$data->id",
+                                'action' => 'sendNotificationReward'
+                            );
+
+                            if(!empty($device_token)){
+                                $rabbitMQClient = new RabbitMQClient();
+
+                                $requestMessage = json_encode([ 'dataSendNotification' => $dataSendNotification, 
+                                                    'listToken' => $device_token,
+                                                    'keyFirebase' => $keyFirebase,
+                                                    'projectId' => $projectId
+                                                ]);    
+                                $rabbitMQClient->sendMessage('send_notification_firebase', $requestMessage);
+                            }
+                        }
+                        $mess= '<p class="text-success">Lưu dữ liệu thành công và bát được '.$number.' cho người dùng </p>';
+
+                    }else{
+                        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                    }
+
+        	        
                 }else{
                      $mess= '<p class="text-success">Thời gian bắt đầu nhỏ hơi thời gian kết thúc </p>';
                 }

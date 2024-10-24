@@ -42,14 +42,14 @@
                   <div class="mb-3 col-md-3">
                     <label class="form-label" for="basic-default-fullname">Mức độ ưu tiên:</label>
                      <select class="form-control" id="form-field-select-1" name="level">
-                      <option value="1" <?php if(!empty($data->level) && $data->level==1) echo 'selected'; ?> >bình thường</option>
+                      <option value="1" <?php if(!empty($data->level) && $data->level==1) echo 'selected'; ?> >Bình thường</option>
                       <option value="2" <?php if(!empty($data->level) && $data->level==2) echo 'selected'; ?> >Quan trọng</option>
                       <option value="3" <?php if(!empty($data->level) && $data->level==3) echo 'selected'; ?> >Khẩn cấp</option>
                     </select>
                   </div>
                  
 
-                   <div class="mb-3 col-md-3">
+                  <div class="mb-3 col-md-3">
                     <label class="form-label" for="basic-default-fullname">Dự án </label>
                     <select class="form-control" id="id_project" name="id_project" onchange="getstaff()">
                       <option value="" >Chọn dự án</option>
@@ -65,8 +65,9 @@
                       
                                        
                     </select>
-                  </div><div class="mb-3 col-md-3">
-                    <label class="form-label" for="basic-default-fullname">Leader </label>
+                  </div>
+                  <div class="mb-3 col-md-3">
+                    <label class="form-label" for="basic-default-fullname">Nhân viên </label>
                     <select class="form-control" id="id_staff" name="id_staff">
                       <option value="" >Chọn nhân viên</option>
                       <?php if(!empty($liststaff)){
@@ -110,25 +111,17 @@
         }).done(function (msg) {
           var users = msg.data;
 
-            let htmlContent = ''; // Tạo thẻ <ul> để hiển thị danh sách
+            let htmlContent = ''; 
 
     for (let i = 0; i < users.length; i++) {
         let user = users[i];
 
-       htmlContent += '<option value="'+user.id+'">'+user.name+'</option>'; // Thêm mỗi người dùng vào danh sách
+       htmlContent += '<option value="'+user.id+'">'+user.name+'</option>'; 
     }
 
     $('#id_staff').html(htmlContent);
-
-    //htmlContent += '</ul>';
-        })
-
-
-     
-
-    
+        }) 
   }
-
 </script>
 
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/footer.php'); ?>

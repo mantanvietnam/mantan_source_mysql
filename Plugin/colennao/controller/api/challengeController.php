@@ -4,9 +4,11 @@ function listChallengeAPI($input)
     global $controller;
     global $metaTitleMantan;
     global $isRequestPost;
+    global $urlHomes;
 
     $metaTitleMantan = 'Danh sách thách thức';
     $modelChallenge = $controller->loadModel('Challenges');
+    $modelUser = $controller->loadModel('Users');
     $modelFeedbackChallenge = $controller->loadModel('FeedbackChallenges');
     $modelResultChallenges = $controller->loadModel('ResultChallenges');
     $modelUserChallenges = $controller->loadModel('UserChallenges');
@@ -49,7 +51,27 @@ function listChallengeAPI($input)
 			    	$conditions['id NOT IN'] = $listid;
 			    }
 			    
-			    $listData = $modelChallenge->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();		  
+			    $listData = $modelChallenge->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
+
+			    if(!empty($listData)){
+			    	foreach($listData as $key => $item){
+			    		$listData[$key]->number_user = count($modelUserChallenges->find()->where(['id_challenge'=>$item->id])->order(['id' => 'desc'])->all()->toList());
+
+			    		$UserChallenges = $modelUserChallenges->find()->limit(2)->where(['id_challenge'=>$item->id])->order('RAND()')->all()->toList();
+			    		$user = array();
+			    		if(!empty($UserChallenges)){
+			    			foreach($UserChallenges as $k => $value){
+			    				$avatar = $modelUser->find()->where(['id'=>$value->id_user])->first()->avatar;
+			    				if(empty($avatar)){
+			    					$avatar = $urlHomes.'/plugins/colennao/view/image/default-avatar.png';
+			    				}
+			    				
+                          		$user[] = $avatar;
+			    			}
+			    		}
+			    		$listData[$key]->randomUser =$user;
+			    	}
+			    }		  
 			   
 			    $totalData = count($modelChallenge->find()->where($conditions)->all()->toList());
 			        
@@ -65,13 +87,15 @@ function listChallengeAPI($input)
 function getChallengeAPI($input)
 {
     global $controller;
-    global $metaTitleMantan;
+    global $urlHomes;
     global $isRequestPost;
 
     $metaTitleMantan = 'Danh sách thách thức';
     $modelChallenge = $controller->loadModel('Challenges');
     $modelFeedbackChallenge = $controller->loadModel('FeedbackChallenges');
     $modelResultChallenges = $controller->loadModel('ResultChallenges');
+    $modelUser = $controller->loadModel('Users');
+    $modelUserChallenges = $controller->loadModel('UserChallenges');
 
     $modelTipChallenges = $controller->loadModel('TipChallenges');
 
@@ -86,9 +110,25 @@ function getChallengeAPI($input)
 		    	$data = $modelChallenge->find()->where($conditions)->first();
 
 		    	if(!empty($data->id)){
-	            $data->Feedback = $modelFeedbackChallenge->find()->where(['id_challenge'=>$data->id])->all()->toList();
-	            $data->Result = $modelResultChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
-	            $data->Tip = $modelTipChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
+		            $data->Feedback = $modelFeedbackChallenge->find()->where(['id_challenge'=>$data->id])->all()->toList();
+		            $data->Result = $modelResultChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
+		            $data->Tip = $modelTipChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
+
+		            $data->number_user = count($modelUserChallenges->find()->where(['id_challenge'=>$data->id])->order(['id' => 'desc'])->all()->toList());
+
+		            $UserChallenges = $modelUserChallenges->find()->limit(2)->where(['id_challenge'=>$data->id])->order('RAND()')->all()->toList();
+		            $user = array();
+		            if(!empty($UserChallenges)){
+		            	foreach($UserChallenges as $k => $value){
+		            		$avatar = $modelUser->find()->where(['id'=>$value->id_user])->first()->avatar;
+		            		if(empty($avatar)){
+		            			$avatar = $urlHomes.'/plugins/colennao/view/image/default-avatar.png';
+		            		}
+
+		            		$user[] = $avatar;
+		            	}
+		            }
+		            $data->randomUser =$user;
 	        	}
 		   
 		        

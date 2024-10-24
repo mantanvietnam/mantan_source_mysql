@@ -81,6 +81,11 @@
                                 <option value="2" <?php if(!empty($data->type) && $data->type=='2') echo 'selected'; ?> >Thưởng từng cuốc</option>
                               </select>
                             </div>
+                            <div class="mb-3"></div>
+                             <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">bắt thông báo  </label>
+                            <input type="checkbox" class="" placeholder="" name="checkNotification" id="note" value="1" />
+                          </div>
                           </div>
 
 

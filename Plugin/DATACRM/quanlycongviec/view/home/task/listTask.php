@@ -1,16 +1,30 @@
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/header.php'); ?>
+<style type="text/css">
+  .border-css{
+    padding: 15px;
+    border-radius: 23px;
+    border-color: #0b0b0c;
+    background: white;
+  }
+  .task-vu{
+        background: #9cbeee;
+    border-radius: 20px;
+  }
 
+  .task-vu .card-header{
+    text-align: center;
+    text-transform: uppercase;
+    background: #a7d3ee;
+    border-radius: 20px;
+  }
+</style>
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listProject">Dự án</a> /</span>
-    Danh sách dự án
+    Nhiệm vụ 
   </h4>
-
   <p><a href="/addTask" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p> 
-
-  </p>
-
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
@@ -18,20 +32,43 @@
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           
+          <div class="mb-3 col-md-3">
+            <label class="form-label" for="basic-default-fullname">Dự án </label>
+            <select class="form-control" id="id_project" name="id_project" onchange="getstaff()">
+              <option value="" >Chọn dự án</option>
+              <?php if(!empty($listProject)){
+                foreach($listProject as $key => $item){
+                  $selected = '';
+                  if($item->id== @$data->id_project){
+                    $selected = 'selected';
+                  }
+                  echo '<option value="'.$item->id.'" '.$selected.'>'.$item->name.'</option>';
+                }
+              } ?>
 
-          
 
-          <div class="col-md-2">
-            <label class="form-label">Trạng thái</label>
-            <select name="status" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
-              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
+            </select>
+          </div>
+          <div class="mb-3 col-md-3">
+            <label class="form-label" for="basic-default-fullname">Nhân viên </label>
+            <select class="form-control" id="id_staff" name="id_staff">
+              <option value="" >Chọn nhân viên</option>
+              <?php if(!empty($liststaff)){
+                foreach($liststaff as $key => $item){
+                  $selected = '';
+                  if($item->id== @$data->id_staff){
+                    $selected = 'selected';
+                  }
+                  echo '<option value="'.$item->id.'" '.$selected.'>'.$item->name.'</option>';
+                }
+              } ?>
+
+
             </select>
           </div>
                    
           <div class="col-md-2">
-          <label class="form-label">&nbsp;</label>
+
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
           
@@ -48,14 +85,162 @@
     <?php echo @$mess;?>
     <div id="desktop_view">
       <div class="table-responsive">
-       
+        <div class="row">
+            <div class="col-md-3 mb-3">
+              <div class="task-vu">
+                <h5 class="card-header">Mới tạo</h5>
+                <?php if(!empty($listTasknew)){
+                  foreach($listTasknew as $key => $item){
+                    $level = '';
+                    if($item->level==1){
+                      $level = 'Bình thường';
+                    }elseif($item->level==2){
+                      $level = 'Quan trọng';
+                    }elseif($item->level==2){
+                      $level = 'Khẩn cấp';
+                    }
+
+                    echo '<div class="col-sm-12" style="padding:  10px;">
+                             <div class=" border-css">
+                          <span><strong>Tên dự án: </strong>:'.$item->project->name.'</span><br>
+                          <span><strong>nhận viên: </strong>:'.$item->staff->name.'</span><br>
+                          <span><strong>tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
+                          <span><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
+                          <span><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
+                          <span><strong>Mức độ ưu tiên: </strong>:'.$level.'</span><br>
+                          <span><strong>nội dung : </strong>:'.$item->content.'</span><br>
+                           </div>
+                          </div>';
+                  }
+                } ?>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="task-vu"  >
+                <h5 class="card-header">Đang xử lý</h5>
+                <?php if(!empty($listTaskprocess)){
+                  foreach($listTaskprocess as $key => $item){
+                    $level = '';
+                    if($item->level==1){
+                      $level = 'Bình thường';
+                    }elseif($item->level==2){
+                      $level = 'Quan trọng';
+                    }elseif($item->level==2){
+                      $level = 'Khẩn cấp';
+                    }
+
+                    echo '<div class="col-sm-12" style="padding:  10px;">
+                             <div class=" border-css">
+                          <span><strong>Tên dự án: </strong>:'.$item->project->name.'</span><br>
+                          <span><strong>nhận viên: </strong>:'.$item->staff->name.'</span><br>
+                          <span><strong>tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
+                          <span><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
+                          <span><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
+                          <span><strong>Mức độ ưu tiên: </strong>:'.$level.'</span><br>
+                          <span><strong>nội dung : </strong>:'.$item->content.'</span><br>
+                           </div>
+                          </div>';
+                  }
+                } ?>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="task-vu"  >
+                <h5 class="card-header">Hoàn thành</h5>
+                <?php if(!empty($listTaskdone)){
+                  foreach($listTaskdone as $key => $item){
+                    $level = '';
+                    if($item->level==1){
+                      $level = 'Bình thường';
+                    }elseif($item->level==2){
+                      $level = 'Quan trọng';
+                    }elseif($item->level==2){
+                      $level = 'Khẩn cấp';
+                    }
+
+                    echo '<div class="col-sm-12" style="padding:  10px;">
+                             <div class=" border-css">
+                          <span><strong>Tên dự án: </strong>:'.$item->project->name.'</span><br>
+                          <span><strong>nhận viên: </strong>:'.$item->staff->name.'</span><br>
+                          <span><strong>tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
+                          <span><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
+                          <span><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
+                          <span><strong>Mức độ ưu tiên: </strong>:'.$level.'</span><br>
+                          <span><strong>nội dung : </strong>:'.$item->content.'</span><br>
+                           </div>
+                          </div>';
+                  }
+                } ?>
+              </div>
+            </div>
+           
+            <div class="col-md-3 mb-3">
+              <div class="task-vu"  >
+                <h5 class="card-header">Có lỗi</h5>
+                <?php if(!empty($listTaskbug)){
+                  foreach($listTaskbug as $key => $item){
+                    $level = '';
+                    if($item->level==1){
+                      $level = 'Bình thường';
+                    }elseif($item->level==2){
+                      $level = 'Quan trọng';
+                    }elseif($item->level==2){
+                      $level = 'Khẩn cấp';
+                    }
+
+                    echo '<div class="col-sm-12" style="padding:  10px;">
+                             <div class=" border-css">
+                          <span><strong>Tên dự án: </strong>:'.$item->project->name.'</span><br>
+                          <span><strong>nhận viên: </strong>:'.$item->staff->name.'</span><br>
+                          <span><strong>tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
+                          <span><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
+                          <span><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
+                          <span><strong>Mức độ ưu tiên: </strong>:'.$level.'</span><br>
+                          <span><strong>nội dung : </strong>:'.$item->content.'</span><br>
+                           </div>
+                          </div>';
+                  }
+                } ?>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="task-vu"  >
+                <h5 class="card-header">Hủy bỏ</h5>
+                <?php if(!empty($listTaskcancel)){
+                  foreach($listTaskcancel as $key => $item){
+                    $level = '';
+                    if($item->level==1){
+                      $level = 'Bình thường';
+                    }elseif($item->level==2){
+                      $level = 'Quan trọng';
+                    }elseif($item->level==2){
+                      $level = 'Khẩn cấp';
+                    }
+
+                    echo '<div class="col-sm-12" style="padding:  10px;">
+                             <div class=" border-css">
+                          <span><strong>Tên dự án: </strong>:'.$item->project->name.'</span><br>
+                          <span><strong>nhận viên: </strong>:'.$item->staff->name.'</span><br>
+                          <span><strong>tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
+                          <span><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
+                          <span><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
+                          <span><strong>Mức độ ưu tiên: </strong>:'.$level.'</span><br>
+                          <span><strong>nội dung : </strong>:'.$item->content.'</span><br>
+                           </div>
+                          </div>';
+                  }
+                } ?>
+              </div>
+            </div>
+        </div>
+
+
       </div>
     </div>
     <div id="mobile_view">
       <?php 
         if(!empty($listData)){
               foreach ($listData as $item) {
-
                 $state = '';
                 if($item->state=='new'){
                    $state = 'Mới tạo'; 
@@ -104,49 +289,31 @@
     </div>
 
   <!-- Phân trang -->
-  <div class="demo-inline-spacing">
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center">
-        <?php
-        if($totalPage>0){
-          if ($page > 5) {
-            $startPage = $page - 5;
-          } else {
-            $startPage = 1;
-          }
-
-          if ($totalPage > $page + 5) {
-            $endPage = $page + 5;
-          } else {
-            $endPage = $totalPage;
-          }
-
-          echo '<li class="page-item first">
-          <a class="page-link" href="'.$urlPage.'1"
-          ><i class="tf-icon bx bx-chevrons-left"></i
-          ></a>
-          </li>';
-
-          for ($i = $startPage; $i <= $endPage; $i++) {
-            $active= ($page==$i)?'active':'';
-
-            echo '<li class="page-item '.$active.'">
-            <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
-            </li>';
-          }
-
-          echo '<li class="page-item last">
-          <a class="page-link" href="'.$urlPage.$totalPage.'"
-          ><i class="tf-icon bx bx-chevrons-right"></i
-          ></a>
-          </li>';
-        }
-        ?>
-      </ul>
-    </nav>
-  </div>
   <!--/ Basic Pagination -->
 </div>
 <!--/ Responsive Table -->
 </div>
+<script type="text/javascript">
+  function getstaff(){
+     var id_project = $('#id_project').val();
+
+     $.ajax({
+            type: "POST",
+            url: "/apis/getStaffProjectAPI",
+            data: {id_project: id_project}
+        }).done(function (msg) {
+          var users = msg.data;
+
+            let htmlContent = '<option value="" >Chọn nhân viên</option>'; 
+
+    for (let i = 0; i < users.length; i++) {
+        let user = users[i];
+
+       htmlContent += '<option value="'+user.id+'">'+user.name+'</option>'; 
+    }
+
+    $('#id_staff').html(htmlContent);
+        }) 
+  }
+</script>
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/footer.php'); ?>
