@@ -184,7 +184,7 @@ function getListCustomerHistoriesTodayAPI($input)
                     
                 $totalData = $modelCustomerHistories->find()->where($conditions)->all()->toList();
 
-                if(empty($listData)){
+                if(!empty($listData)){
                     foreach($listData as $key => $item){
                          $listData[$key]->customer = $modelCustomers->find()->where(['id'=> (int) $item->id_customer])->first();
                     }

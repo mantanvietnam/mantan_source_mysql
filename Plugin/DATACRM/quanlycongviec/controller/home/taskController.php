@@ -90,7 +90,7 @@ function listTask($input){
         }
 
         if(!empty($listTaskdone)){
-            foreach($listTasknew as $key => $item){
+            foreach($listTaskdone as $key => $item){
                 $listTaskdone[$key]->project = $modelProjects->find()->where(['id'=>$item->id_project])->first();
                 $listTaskdone[$key]->staff = $modelStaff->find()->where(['id'=>$item->id_staff])->first();
             }
@@ -128,6 +128,7 @@ function listTask($input){
 
 
         setVariable('mess', $mess);        
+        setVariable('user', $user);        
         setVariable('listTasknew', $listTasknew);
         setVariable('listTaskdone', $listTaskdone);
         setVariable('listTaskprocess', $listTaskprocess);
@@ -253,10 +254,11 @@ function deteleTask($input){
 	global $modelPosts;
 	global $modelCategories;
 	global $controller;
-	$user = checklogin('deletePost');
+	$user = checklogin('deteleTask');
+    $modelTask = $controller->loadModel('Tasks');
 	if(!empty($user)){
         if(empty($user->grant_permission)){
-            return $controller->redirect('/listPost');
+            return $controller->redirect('/listTask');
         }
 
         if(!empty($user->id_father)){
@@ -265,16 +267,16 @@ function deteleTask($input){
 	
 
 		if(!empty($_GET['id'])){
-			$data = $modelPosts->get($_GET['id']);
+			$data = $modelTask->get($_GET['id']);
 			if($data){
-				$note = $user->type_tv.' '. $user->name.' xóa thông tin nhóm tin tức '.$data->title.' có id là:'.$data->id;
+				$note = $user->type_tv.' '. $user->name.' xóa thông tin nhiệm vụ '.$data->title.' có id là:'.$data->id;
                 
 
             addActivityHistory($user,$note,'deletePost',$data->id);
-				$modelPosts->delete($data);
+				$modelTask->delete($data);
 
 				deleteSlugURL($data->slug);
-				 return $controller->redirect('/listPost?mess=deleteSuccess');
+				 return $controller->redirect('/listTask?mess=deleteSuccess');
             }
         }
 
@@ -318,5 +320,104 @@ function getStaffProjectAPI($input){
 
 	    return array('code'=>1, 'data'=>$listData);
 	}
+}
+
+function getTasksAPI($input){
+    global $controller;
+    global $isRequestPost;
+
+
+    $modelStaffProject = $controller->loadModel('StaffProjects');
+    $modelStaff = $controller->loadModel('Staffs');
+    $modelTask = $controller->loadModel('Tasks');
+    $modelProjects = $controller->loadModel('Projects');
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $conditions = [];
+
+        if(!empty($dataSend['id'])){
+            $data = $modelTask->find()->where(['id'=>(int) $dataSend['id']])->first();
+            if(!empty($data)){
+                $data->infoProject = $modelProjects->find()->where(['id'=>$data->id_project])->first();
+                $data->infoStaff = $modelStaff->find()->where(['id'=>$data->id_staff])->first();
+            }
+
+        }else{
+            $data = array();
+        }
+
+        return array('code'=>1, 'data'=>$data);
+    }
+}
+
+function editTask($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $metaTitleMantan = 'Thông tinh dự án';
+    $modelMembers = $controller->loadModel('Members');
+    $modelProjects = $controller->loadModel('Projects');
+    $modelStaffProject = $controller->loadModel('StaffProjects');
+    $modelStaff = $controller->loadModel('Staffs');
+    $modelGroupStaff = $controller->loadModel('GroupStaffs');
+    $modelTask = $controller->loadModel('Tasks');
+    $mess =  '';
+    if(function_exists('checklogin')){
+        $user = checklogin('addTask');   
+    }
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listTask');
+        }
+        if(!empty($user->id_father)){
+          return $controller->redirect('/');
+        }
+
+        // lấy data edit
+        if(!empty($_GET['id'])){
+            $data = $modelTask->get( (int) $_GET['id']);
+        
+            if(!empty($_GET['id'])){
+
+                if(!empty($_GET['name'])){
+                    $data->name = $_GET['name'];
+                }
+
+                if(!empty($_GET['content'])){
+                    $data->content = $_GET['content'];
+                }
+
+
+                if(!empty($_GET['status'])){
+                    $data->status = $_GET['status'];
+                }
+
+                if(!empty($_GET['level'])){
+                    $data->level = $_GET['level'];
+                }
+
+                if(!empty($_GET['start_date'])){
+                    $start_date = explode('/', $_GET['start_date']);
+                    $data->start_date = mktime(0,0,0,$start_date[1],$start_date[0],$start_date[2]);
+                }
+
+                if(!empty($_GET['end_date'])){
+                    $end_date = explode('/', $_GET['end_date']);
+                    $data->end_date = mktime(23,59,59,$end_date[1],$end_date[0],$end_date[2]);
+                }
+        
+                $modelTask->save($data);
+            }
+
+                return $controller->redirect('/listTask?mess=saveSuccess');
+        }
+        return $controller->redirect('/listTask?mess=saveSuccess');
+
+        
+        
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 ?>

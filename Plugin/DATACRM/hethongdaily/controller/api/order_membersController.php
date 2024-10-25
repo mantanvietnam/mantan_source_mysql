@@ -708,7 +708,7 @@ function updateMyOrderMemberAgencyAPI($input)
 							$order->status = $dataSend['status'];
 
                     // nhập hàng vào kho
-							if($dataSend['status'] == 's'){
+							if($dataSend['status'] == 'done'){
 								$detail_order = $modelOrderMemberDetails->find()->where(['id_order_member'=>$order->id])->all()->toList();
 
 								if(!empty($detail_order)){

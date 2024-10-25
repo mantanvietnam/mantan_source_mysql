@@ -305,6 +305,7 @@ function listUserChallengeAPI($input)
 			    	foreach ($data as $key => $value) {
 		    			$Challenge = $modelChallenge->find()->where(array('id'=> $value->id_challenge))->first();
 		    			if(!empty($Challenge)){
+		    				$Challenge->date_start = @$value->date_start;
 		    				$listData[]=  $Challenge;
 		    			}
 			    	}
