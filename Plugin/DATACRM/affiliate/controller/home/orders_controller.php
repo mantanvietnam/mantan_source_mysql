@@ -35,8 +35,31 @@ function bookOnline($input)
             $info->name_system = @$system->name;
             $info->image_system = @$system->image;
 
-            if(function_exists('getAllProductActive')){
-                $allProduct = getAllProductActive();
+            $members = $modelMembers->find()->where(array('id'=>@$info->id_member))->first();
+
+            if(function_exists('getAllProductActive') && !empty($members)){
+                // lấy sản phẩm trong kho
+                $conditions = array('id_member'=>$members->id);
+                $warehouseProduct = $modelWarehouseProducts->find()->where($conditions)->all()->toList();
+                if($members->product_distribution=='allPoduct'){
+                    $allProduct = getAllProductActive();
+                }else{
+                    $allProduct = [];
+                    if(!empty($warehouseProduct)){
+                        foreach ($warehouseProduct as $product) {
+                            if($product->quantity > 0){
+                                $infoProduct = getProduct($product->id_product);
+
+                                if(!empty($infoProduct)){
+                                    $allProduct[] = $infoProduct;
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
                 $allCategoryProduct = getAllCategoryProduct();
                 $listProduct = [];
 
@@ -54,7 +77,6 @@ function bookOnline($input)
                 
                 setVariable('listProduct', $listProduct);
             }
-            $members = $modelMembers->find()->where(array('id'=>@$info->id_member))->first();
 
             $system = $modelCategories->find()->where(array('id'=>$members->id_system ))->first();
                 

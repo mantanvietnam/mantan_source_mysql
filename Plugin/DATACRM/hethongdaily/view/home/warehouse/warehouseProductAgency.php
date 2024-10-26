@@ -61,10 +61,10 @@
                 foreach ($listData as $item) {
                    echo '<tr>
                   <td>'.$item->id.'</td>
-                  <td align="center"><img src="'.$item->product->image.'" width="100" /></td>
-                  <td>'.$item->product->title.'</td>
+                  <td align="center"><img src="'.@$item->product->image.'" width="100" /></td>
+                  <td>'.@$item->product->title.'</td>
                   <td>'.number_format($item->quantity).'</td>
-                  <td>'.number_format($item->product->price).'</td>
+                  <td>'.number_format(@$item->product->price).'</td>
                   <td><a href="/historyWarehouseProductAgency/?id_product='.$item->id_product.'">'.@$item->history->note.'</a></td>
                   <td align="center">
                     <a onclick="editProductWarehouse('.$item->id.');" class="dropdown-item" href="javascript:void(0);">
@@ -89,11 +89,11 @@
               foreach ($listData as $item) {
                 
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                        <center><img src="'.$item->product->image.'" style="width:50%;" /></center>
-                        <p><strong>ID: </strong>'.$item->id.'</p>
-                        <p><strong>Sản phẩm: </strong>'.$item->product->title.'</td>
+                        <center><img src="'.@$item->product->image.'" style="width:50%;" /></center>
+                        <p><strong>ID: </strong>'.@$item->id.'</p>
+                        <p><strong>Sản phẩm: </strong>'.@$item->product->title.'</td>
                         <p><strong>Số lượng: </strong>'.number_format($item->quantity).'</p>
-                        <p><strong>Giá bán: </strong>'.number_format($item->product->price).'</p>
+                        <p><strong>Giá bán: </strong>'.number_format(@$item->product->price).'</p>
                         <p><strong>Xuất nhập lần cuối: </strong><a href="/historyWarehouseProductAgency/?id_product='.$item->id_product.'">'.@$item->history->note.'</a></p>
                         <p align="center">
                           <a onclick="editProductWarehouse('.$item->id.');" class="dropdown-item" href="javascript:void(0);">

@@ -160,6 +160,15 @@
                               <label class="form-label" for="basic-default-phone">Trang Zalo</label>
                               <input type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$user->zalo;?>" />
                             </div>
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-email">Phân phối</label>
+                              <select name="product_distribution" class="form-select"  id="product_distribution">
+                                <option value="">Chọn khiểu phân phối</option>
+                                <option value="allPoduct" <?php if(@$user->product_distribution=='allPoduct') echo 'selected';?> >Phân phối tất cả các sản phẩm của hệ thống</option>
+                                <option value="agentPoduct" <?php if(@$user->product_distribution=='agentPoduct') echo 'selected';?> >Phân phối sản phẩm của đại lý</option>
+                                
+                              </select>
+                            </div>
                             
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-phone">Mã QR của bạn</label><br/>

@@ -58,6 +58,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `bank_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `list_theme_info` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL DEFAULT '1',
   `id_agency_introduce` INT NOT NULL DEFAULT '0' COMMENT 'đại lý giới thiệu' ,
+  `product_distribution` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'allPoduct' COMMENT 'allPoduct: tất cả sản phẩn; agentPoduct :phân phối sản phẩm của đại lý'
   `agent_commission` INT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
@@ -523,6 +524,7 @@ $sqlUpdateDatabase['members']['bank_code'] = "ALTER TABLE `members` ADD `bank_co
 $sqlUpdateDatabase['members']['list_theme_info'] = "ALTER TABLE `members` ADD `list_theme_info` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL DEFAULT '1';";
 $sqlUpdateDatabase['members']['id_agency_introduce'] = "ALTER TABLE `members` ADD `id_agency_introduce` INT NOT NULL DEFAULT '0' COMMENT 'đại lý giới thiệu';";
 $sqlUpdateDatabase['members']['agent_commission'] = "ALTER TABLE `members` ADD `agent_commission` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['members']['product_distribution'] = "ALTER TABLE `members` ADD `product_distribution` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'allPoduct' COMMENT 'allPoduct: tất cả sản phẩn; agentPoduct :phân phối sản phẩm của đại lý';";
 // bảng zalos 
 $sqlUpdateDatabase['zalos']['id_oa'] = "ALTER TABLE `zalos` ADD `id_oa` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['zalos']['id_app'] = "ALTER TABLE `zalos` ADD `id_app` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";

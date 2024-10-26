@@ -296,6 +296,7 @@ function account($input)
 				$user->twitter = $dataSend['twitter'];
 				$user->agent_commission = (int) $dataSend['agent_commission'];
 				$user->tiktok = $dataSend['tiktok'];
+				$user->product_distribution = $dataSend['product_distribution'];
 				if($user->id_father == 0){
                 	$user->id_position = (int) $dataSend['id_position'];
 				}
@@ -861,17 +862,18 @@ function info($input)
 				// lấy sản phẩm trong kho
 				$conditions = array('id_member'=>$info->id);
 				$warehouseProduct = $modelWarehouseProducts->find()->where($conditions)->all()->toList();
-				
-				if(empty($warehouseProduct)){
+				if($info->product_distribution=='allPoduct'){
 					$allProduct = getAllProductActive();
 				}else{
 					$allProduct = [];
-					foreach ($warehouseProduct as $product) {
-						if($product->quantity > 0){
-							$infoProduct = getProduct($product->id_product);
+					if(!empty($warehouseProduct)){
+						foreach ($warehouseProduct as $product) {
+							if($product->quantity > 0){
+								$infoProduct = getProduct($product->id_product);
 
-							if(!empty($infoProduct)){
-								$allProduct[] = $infoProduct;
+								if(!empty($infoProduct)){
+									$allProduct[] = $infoProduct;
+								}
 							}
 						}
 					}
@@ -897,6 +899,7 @@ function info($input)
 						
 					}
 				}
+
 				
 				setVariable('listProduct', $listProduct);
 			}

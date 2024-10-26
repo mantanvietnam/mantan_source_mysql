@@ -35,7 +35,6 @@
                       <option value="process" <?php if(!empty($data->status) && $data->status=='process') echo 'selected'; ?> >Đang xử lý</option>
                       <option value="done" <?php if(!empty($data->status) && $data->status=='done') echo 'selected'; ?> >Hoàn thành</option>
                       <option value="bug" <?php if(!empty($data->status) && $data->status=='bug') echo 'selected'; ?> >Có lỗi</option>
-                      <option value="cancel" <?php if(!empty($data->status) && $data->status=='cancel') echo 'selected'; ?> >Hủy bỏ</option>                  
                     </select>
                   </div>
 

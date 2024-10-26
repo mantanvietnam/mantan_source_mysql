@@ -78,9 +78,6 @@ function listTask($input){
         $conditions['status'] =  'bug';
         $listTaskbug = $modelTask->find()->where($conditions)->order($order)->all()->toList();
 
-        $conditions['status'] =  'cancel';
-        $listTaskcancel = $modelTask->find()->where($conditions)->order($order)->all()->toList();
-
 
         if(!empty($listTasknew)){
             foreach($listTasknew as $key => $item){
@@ -110,12 +107,7 @@ function listTask($input){
             }
         }
 
-        if(!empty($listTaskcancel)){
-            foreach($listTaskcancel as $key => $item){
-                $listTaskcancel[$key]->project = $modelProjects->find()->where(['id'=>$item->id_project])->first();
-                $listTaskcancel[$key]->staff = $modelStaff->find()->where(['id'=>$item->id_staff])->first();
-            }
-        }
+        
 
         $mess ='';
         if(@$_GET['mess']=='saveSuccess'){
@@ -133,7 +125,6 @@ function listTask($input){
         setVariable('listTaskdone', $listTaskdone);
         setVariable('listTaskprocess', $listTaskprocess);
         setVariable('listTaskbug', $listTaskbug);
-        setVariable('listTaskcancel', $listTaskcancel);
         setVariable('listProject', $listProject);
 
 

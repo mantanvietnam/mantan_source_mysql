@@ -81,7 +81,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách dự án</h5>
+    <h5 class="card-header">Nhiệm vụ</h5>
     <?php echo @$mess;?>
     <!-- <div id="desktop_view"> -->
       <div class="table-responsive">
@@ -254,102 +254,12 @@
                 } ?>
               </div>
             </div>
-            <div class="col-md-3 mb-3">
-              <div class="task-vu"  >
-                <h5 class="card-header">Hủy bỏ</h5>
-                <?php if(!empty($listTaskcancel)){
-                  foreach($listTaskcancel as $key => $item){
-                    $level = '';
-                    if($item->level==1){
-                      $level = 'Bình thường';
-                    }elseif($item->level==2){
-                      $level = 'Quan trọng';
-                    }elseif($item->level==3){
-                      $level = 'Khẩn cấp';
-                    }
-
-                     $update = '';
-                    if(($user->type=='member') OR ($user->id_staff==$item->id) OR ($user->id_staff==$item->project->id)){
-                      $update = '<p width="5%" align="center">
-                            <a  class="btn btn-success" href="javascript:void(0);" onclick="getTask('.$item->id.')">
-                            <i class="bx bx-edit-alt me-1"></i>
-                            </a>
-                            <a  class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deteleTask/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                            </a>
-                          </p>';
-                    }
-
-                    echo '<div class="col-sm-12" style="padding:  10px;">
-                             <div class=" border-css">
-                          <span><strong>Tên dự án: </strong>:'.$item->project->name.'</span><br>
-                          <span><strong>nhân viên: </strong>:'.$item->staff->name.'</span><br>
-                          <span><strong>tên nhiêu vụ: </strong>:'.$item->name.'</span><br>
-                          <span><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</span><br>
-                          <span><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</span><br>
-                          <span><strong>Mức độ ưu tiên: </strong>:'.$level.'</span><br>
-                          <span><strong>nội dung : </strong>:'.$item->content.'</span><br>
-                          '.$update.'
-                           </div>
-                          </div>';
-                  }
-                } ?>
-              </div>
-            </div>
         </div>
 
 
       </div>
     <!-- </div> -->
    <!--  <div id="mobile_view">
-      <?php 
-        if(!empty($listData)){
-              foreach ($listData as $item) {
-                $state = '';
-                if($item->state=='new'){
-                   $state = 'Mới tạo'; 
-                }elseif($item->state=='process'){
-                  $state = 'Đang xử lý'; 
-                }elseif($item->state=='done'){
-                  $state = 'Hoàn thành'; 
-                }elseif($item->state=='bug'){
-                  $state = 'Có lỗi'; 
-                }elseif($item->state=='cancel'){
-                  $state = 'Hủy bỏ'; 
-                }
-
-                $status = 'khóa';
-                if($item->status=='active'){
-                   $status = 'Kích hoạt'; 
-                }
-              
-                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                <p><strong>ID: </strong>:'.$item->id.'</p>
-                <p><strong>Tên dự án: </strong>:'.$item->name.'</p>
-                <p><strong>Leader: </strong>:'.$item->leader->name.'</p>
-                <p><strong>số lượng nhận viên: </strong>:'.$item->number_staff.'</p>
-                <p><strong>thời gian bắt đầu: </strong>:'.date('d/m/Y', @$item->start_date).'</p>
-                <p><strong>thời gian kết thúc: </strong>:'.date('d/m/Y', @$item->end_date).'</p>
-                <p><strong>trạng thái: </strong>:'.$status.'</p>
-                <p><strong>Hành động: </strong>:'.$state.'</p>
-               
-
-                <p width="5%" align="center">
-                <a  class="btn btn-success" href="/addProject/?id='.$item->id.'">
-                <i class="bx bx-edit-alt me-1"></i>
-                </a>
-                <a  class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deteleTask/?id='.$item->id.'">
-                <i class="bx bx-trash me-1"></i>
-                </a>
-                </p>
-                </div>';
-              }
-            }else{
-              echo '<tr>
-              <td colspan="10" align="center">Chưa có dữ liệu</td>
-              </tr>';
-            }
-        ?>
     </div> -->
 
 <div class="modal fade" id="getinfoTask"  name="getinfoTask">         
@@ -387,8 +297,7 @@
                       <option value="new" >Mới tạo</option>
                       <option value="process" >Đang xử lý</option>
                       <option value="done">Hoàn thành</option>
-                      <option value="bug" >Có lỗi</option>
-                      <option value="cancel">Hủy bỏ</option>                  
+                      <option value="bug" >Có lỗi</option>            
                     </select>
                   </div>
 
