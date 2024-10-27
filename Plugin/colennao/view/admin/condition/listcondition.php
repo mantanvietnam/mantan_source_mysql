@@ -34,10 +34,11 @@
       <table class="table table-bordered">
         <thead>
           <tr class="">
-            <!-- <th>ID</th> -->
             <th>id_group</th>
             <th>id_question</th>
             <th>answer</th>
+            <th>Trạng thái bài tập</th>
+ 
             <th>xóa</th>
           </tr>
         </thead>
@@ -50,22 +51,28 @@
                   <?php 
                       $questions = [];
                       $answers = [];
+                      $abc = [];
                       
                       foreach ($question['data'] as $detail) {
                           $questions[] = $detail['question']; 
-                          $answers[] = $detail['answer'];     
+                          $answers[] = $detail['answer'];   
+                          $abc[] = $detail['status']; 
                       }
 
-                      // Gộp các câu hỏi và câu trả lời lại
+            
+                      $uniqueStatuses = array_unique($abc);
+                      $statusString = (count($uniqueStatuses) === 1) ? $uniqueStatuses[0] : implode('; ', $uniqueStatuses);
                       $questionsString = implode('<br>', $questions);
                       $answersString = implode(';', $answers);
                   ?>
                   <td>
                     <p><?php echo $questionsString; ?></p>
                   </td>
+                 
                   <td>
                   <p><?php echo $answersString; ?></p>
                   </td>
+                  <td><?php echo $statusString ?></td>
                   <td align="center">
                       <a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="">
                           <i class="bx bx-trash me-1"></i>

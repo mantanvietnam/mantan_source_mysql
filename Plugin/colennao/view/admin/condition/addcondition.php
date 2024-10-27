@@ -51,8 +51,8 @@
                                   </div>
                                   <select class="form-control" name="status" required>
                                       <option value="">Chọn trạng thái</option>
-                                      <option value="active" <?php echo (isset($data->status) && $data->status == 'active') ? 'selected' : ''; ?>>Kích hoạt</option>
-                                      <option value="inactive" <?php echo (isset($data->status) && $data->status == 'inactive') ? 'selected' : ''; ?>>Không kích hoạt</option>
+                                      <option value="active" <?php echo (isset($data->status) && $data->status == 'active') ? 'selected' : ''; ?>>mặc định</option>
+                                      <option value="inactive" <?php echo (isset($data->status) && $data->status == 'inactive') ? 'selected' : ''; ?>>Không phải mặc định</option>
                                   </select>
                               </div>
                           </div>

@@ -11,7 +11,7 @@ function listcondition($input){
     $modelQuestions = $controller->loadModel('Questions');
     $modeluserpeople = $controller->loadModel('userpeople');
     $conditions = array();
-    $limit = 20;
+    $limit = 100;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
     $order = array('id'=>'asc');
@@ -54,14 +54,12 @@ function listcondition($input){
     $groupconditiondata = [];
     foreach ($datacondition as $conditiondata) {
         $groupconditiondata[$conditiondata->id_groupfile]['name'] = $workoutData[$conditiondata->id_groupfile] ?? 'Unknown';
-        
-
         $questionText = $questionsData[$conditiondata->id_question] ?? 'Câu hỏi không tìm thấy';
-
         $groupconditiondata[$conditiondata->id_groupfile]['data'][] = [
             'id_question' => $conditiondata->id_question,
             'question' => $questionText, 
             'answer' => $conditiondata->answer,
+            'status' => $conditiondata->status,
         ];
     }
 
