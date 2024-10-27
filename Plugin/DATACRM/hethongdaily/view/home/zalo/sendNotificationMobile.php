@@ -22,8 +22,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="mb-3">
-                    <label class="form-label">Đối tượng nhận tin (*)</label>
-                    <select class="form-select color-dropdown" name="type_user" id="type_user" required onchange="selectTypeUser();">
+                    <label class="form-label">Đối tượng nhận tin</label>
+                    <select class="form-select color-dropdown" name="type_user" id="type_user" onchange="selectTypeUser();">
                       <option value="">Gửi toàn hệ thống</option>
                       <option value="all_customer">Gửi tất cả khách hàng</option>
                       <option value="all_member">Gửi tất cả đại lý</option>

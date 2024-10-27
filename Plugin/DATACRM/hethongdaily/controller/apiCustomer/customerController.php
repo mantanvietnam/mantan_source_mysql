@@ -437,7 +437,7 @@ function editInfoCustomerApi($input){
                 }
 
                 if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-                    $avatars = uploadImage($user->id_parent.$user->id, 'avatar', $user->id_parent.'avatar_customer'.$user->id);
+                    $avatars = uploadImage($user->id, 'avatar', 'avatar_customer'.$user->id);
                 }
                 if(!empty($avatars['linkOnline'])){
                     $user->avatar = $avatars['linkOnline'];

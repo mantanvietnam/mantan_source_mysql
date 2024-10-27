@@ -59,7 +59,7 @@ function searchFaceImage($collection_name='')
     if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
         $user_id = 'guest';
         $name_input = 'image';
-        $filenameImage = rand(10000,99999);
+        $filenameImage = time().'-'.rand(10000,99999);
 
         $image = uploadImage($user_id, $name_input, $filenameImage);
       

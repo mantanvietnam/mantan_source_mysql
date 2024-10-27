@@ -67,7 +67,7 @@ function listFeedbackApi($input)
     $conditions = array('status'=>'active');
    
     $limit = 20;
-    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    $page = (!empty($_POST['page']))?(int)$_POST['page']:1;
     if($page<1) $page = 1;
     $order = array('id'=>'desc');
 
@@ -105,14 +105,14 @@ function listFeedbackMyApi($input)
 
             if (!empty($user)) {
                 $conditions = array('id_customer'=>$user->id);
-                if(!empty($_GET['name'])){
-                    $key=createSlugMantan($_GET['name']);
+                if(!empty($_POST['name'])){
+                    $key=createSlugMantan($_POST['name']);
 
                     $conditions['urlSlug LIKE']= '%'.$key.'%';
                 }
 
                 $limit = 20;
-                $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+                $page = (!empty($_POST['page']))?(int)$_POST['page']:1;
                 if($page<1) $page = 1;
                 $order = array('id'=>'desc');
 
