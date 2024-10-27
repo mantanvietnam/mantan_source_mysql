@@ -1,0 +1,190 @@
+<?php 
+    getHeader();
+?>
+
+<main>
+        <div class="register">
+            <div class="container d-flex align-items-center">
+                <div class="back d-flex">
+                    <a href="./event.html"><i class="fa-solid fa-chevron-left"></i></a>
+                    <p>Tạo sự kiện</p>
+                </div>
+            </div>
+        </div>
+
+        <section>
+            <div class="form-container">
+                <form>
+                    <!-- Event Information -->
+                    <div class="form-section">
+                        <label for="event-name" class="form-label">Tên sự kiện*</label>
+                        <input type="text" id="event-name" class="form-control" placeholder="Nhập tên sự kiện">
+                    </div>
+            
+                    <div class="form-section">
+                        <div class="upload-wrapper">
+                            <label for="event-image">Ảnh sự kiện</label>
+                            <div class="upload-container">
+                                <input type="text" id="event-image" value="Sukien1.jpg" readonly>
+                                <button type="button">Tải ảnh</button>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Event Type Selection -->
+                    <div class="container my-4">
+                        <div class="row gx-3 d-flex justify-content-between">
+                            <!-- Live Event Card -->
+                            <div class="col-lg-6 d-flex">
+                                <div class="event-card p-3 d-flex flex-column align-items-start position-relative w-100">
+                                    <input type="radio" id="live-event" name="event-type" checked class="radio-input">
+                                    <label for="live-event" class="d-flex flex-column w-100">
+                                        <i class="fas fa-user-circle event-icon mb-2"></i>
+                                        <div class="">
+                                            <span class="d-block event-title">Tổ chức sự kiện trực tiếp</span>
+                                            <small class="text-muted">Lorem ipsum dolor sit amet. Quo mollitia illo ea galisum esse cum temporibus voluptates et nobis numquam.</small>
+                                        </div>
+                                        <!-- Radio Button -->
+                                        <div class="radio-circle"></div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- Online Event Card -->
+                            <div class="col-lg-6 d-flex">
+                                <div class="event-card p-3 d-flex flex-column align-items-start position-relative w-100">
+                                    <input type="radio" id="online-event" name="event-type" class="radio-input">
+                                    <label for="online-event" class="d-flex flex-column w-100">
+                                        <i class="fas fa-wifi event-icon mb-2"></i>
+                                        <div class="">
+                                            <span class="d-block event-title">Tổ chức sự kiện trực tuyến qua ZOOM, MEET</span>
+                                            <small class="text-muted">Lorem ipsum dolor sit amet. Quo mollitia illo ea galisum esse cum temporibus voluptates et nobis numquam.</small>
+                                        </div>
+                                        <!-- Radio Button -->
+                                        <div class="radio-circle"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            
+                    <!-- Additional Event Information -->
+                     <p class="information">Thông tin sự kiện</p>
+                    <div class="form-section mb-4">
+                        <label for="event-description" class="form-label">Giới thiệu chung</label>
+                        <textarea id="event-description" class="form-control" rows="2" placeholder="Thêm ghi chú của sự kiện"></textarea>
+                    </div>
+                    
+                    <div class="form-section mb-4">
+                        <label for="event-notes" class="form-label">Thông tin lưu ý</label>
+                        <textarea id="event-notes" class="form-control" rows="2" placeholder="Thêm ghi chú của sự kiện"></textarea>
+                    </div>
+
+                    <label for="sponsor" class="form-label">Nhà tài trợ sự kiện*</label>
+                    <div class="form-section d-flex gap-4">
+                        <div class="col-lg-9">
+                            <input type="text" id="sponsor" class="form-control" value="Phoenix Tech">
+                        </div>
+                        <div class="col-lg-3">
+                            <button type="button" class="btn btn-danger">+ Thêm tổ chức</button>
+                        </div>
+                    </div>
+            
+                    <!-- Invitation Details -->
+                    <div class="container my-5">
+                        <div class="card p-4">
+                            <h2 class="mb-4">Thông tin vé mời</h2>
+                            
+                            <!-- Invitation Details -->
+                            <div class="mb-3">
+                                <label for="invite-title" class="form-label">Tên vé mời</label>
+                                <input type="text" id="invite-title" class="form-control" value="Thiệp 1">
+                            </div>
+                
+                            <div class="mb-3">
+                                <label for="invite-url" class="form-label">Đây là đường link của vé mời</label>
+                                <input type="text" id="invite-url" class="form-control" value="https://www.example.com/invite">
+                            </div>
+                
+                            <!-- Mẫu vé mời label on its own row -->    
+                            <div class="mb-3">
+                                <label for="invite-img" class="form-label">Mẫu vé mời</label>
+                            </div>
+                
+                            <!-- Input and Buttons on the same row -->
+                            <div class="form-wrapper">
+                                <h2>Mẫu vé mời *</h2>
+                                <div class="file-input">
+                                    <input type="text" class="form-control" value="Vemoi1.jpg" readonly>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-danger" type="button">Tải vé mời</button>
+                                    <button class="btn btn-primary" type="button">Xem trước vé mời</button>
+                                </div>
+                            </div>
+                        
+                
+                            <!-- Event Date Details (2 columns) -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="event-start-date" class="form-label">Ngày diễn ra sự kiện</label>
+                                    <input type="date" id="event-start-date" class="form-control" value="2023-03-23">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="event-end-date" class="form-label">Ngày kết thúc sự kiện</label>
+                                    <input type="date" id="event-end-date" class="form-control" value="2023-03-23">
+                                </div>
+                            </div>
+                
+                            <!-- Event Location (2 columns) -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="event-location" class="form-label">Tên tòa nhà tổ chức sự kiện</label>
+                                    <input type="text" id="event-location" class="form-control" value="0789373568">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="event-address" class="form-label">Địa chỉ cụ thể</label>
+                                    <input type="text" id="event-address" class="form-control" value="0789373568">
+                                </div>
+                            </div>
+                
+                            <!-- Notes (full width) -->
+                            <div class="mb-3">
+                                <label for="event-notes" class="form-label">Ghi chú khác</label>
+                                <input type="text" id="event-notes" class="form-control" placeholder="Thêm ghi chú của sự kiện">
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                    <!-- Action Buttons -->
+                    <div class="form-section">
+                        <div class="d-flex justify-content-center gap-4">
+                            <button type="button" class="btn btn-outline-danger btn-huy">Hủy tạo</button>
+                            <a class="taosukien" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal1" id="createInviteBtn">Tạo sự kiện</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+         <!-- Modal -->
+         <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="top: 10%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="../asset/image/Illustration.jpg" alt="">
+                    </div>
+                    <div class="modal-body">
+                        <p>Đăng ký tham gia thành công</p>
+                        <h5>Bạn đã đăng ký tham gia sự kiện và tạo vé mời thành công. 
+                            Hãy cùng chia sẻ sự kiện đến với mọi người</h5>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">Chi tiết vé mời</button>
+                    <button type="button" style="border: 1px solid black;" class="btn bg-light" data-bs-dismiss="modal">Để sau</button>
+                </div>
+            </div>
+            </div>
+        </div>
+</main>
+<?php getFooter();?>

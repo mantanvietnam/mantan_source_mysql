@@ -9,5 +9,5 @@
 	$routesPlugin['confirm']= 'vemoi/view/home/member/confirm.php';
 	$routesPlugin['changePass']= 'vemoi/view/home/member/changePass.php';
 	$routesPlugin['account']= 'vemoi/view/home/member/account.php';
-	
+	$routesPlugin['createevent']= 'vemoi/view/home/event/createevent.php';
 	

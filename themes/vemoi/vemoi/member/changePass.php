@@ -3,6 +3,7 @@
     getHeader();
     global $urlThemeActive;
 ?>
+
    <div class="body">
         <img src="<?php echo $urlThemeActive;?>/asset/image/anhdep.jpg" alt="">
         <div class="auth-container">

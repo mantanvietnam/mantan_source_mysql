@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
 
-    <!-- <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css">
+    <!-- 
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create.css"> -->
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css?time=1192">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/register.css">
+    <!-- <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css"> -->
     <!-- <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/successfully.css"> -->
     <!-- <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/detail.css">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/edit.css">
@@ -122,7 +123,7 @@ $infoUser = $session->read('infoUser');
                     <div class="btn-add-event">
                         <div class="d-flex align-items-center">
                             <?php if (!empty($infoUser)): ?>
-                                <a href="" class="btn btn-danger">+ Tạo sự kiện</a>
+                                <a href="/createevent" class="btn btn-danger">+ Tạo sự kiện</a>
 
                                 <div class="nav-item dropdown mx-5">
                                     <a href="#" class="nav-link p-0 dropdown-toggle" id="navbarDropdown-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
