@@ -1,5 +1,7 @@
 <?php 
     getHeader();
+    global $session;
+    $info = $session->read('infoUser');
 ?>
 
 <main>
@@ -14,70 +16,76 @@
 
         <section>
             <div class="form-container">
-                <form>
+                <form method="POST" id="eventForm" action="" enctype="multipart/form-data">
                     <!-- Event Information -->
                     <div class="form-section">
-                        <label for="event-name" class="form-label">Tên sự kiện*</label>
-                        <input type="text" id="event-name" class="form-control" placeholder="Nhập tên sự kiện">
+                        <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
+                        <input type="hidden" value="<?php echo $info['id'];?>" name="id_member">
+                        <input type="hidden" value="active" name="status">
+                        <label for="event-name" class="form-label" >Tên sự kiện*</label>
+                        <input type="text" name="name" id="event-name" class="form-control" placeholder="Nhập tên sự kiện" required>
                     </div>
             
                     <div class="form-section">
                         <div class="upload-wrapper">
                             <label for="event-image">Ảnh sự kiện</label>
                             <div class="upload-container">
-                                <input type="text" id="event-image" value="Sukien1.jpg" readonly>
-                                <button type="button">Tải ảnh</button>
+                                <input type="file" class="form-control phone-mask" name="banner" id="image" value=""/>
                             </div>
                         </div>
                     </div>
-            
-                    <!-- Event Type Selection -->
+<!--        
                     <div class="container my-4">
                         <div class="row gx-3 d-flex justify-content-between">
-                            <!-- Live Event Card -->
+               
                             <div class="col-lg-6 d-flex">
                                 <div class="event-card p-3 d-flex flex-column align-items-start position-relative w-100">
-                                    <input type="radio" id="live-event" name="event-type" checked class="radio-input">
+                                    <input type="radio" id="live-event" name="address" checked class="radio-input">
                                     <label for="live-event" class="d-flex flex-column w-100">
                                         <i class="fas fa-user-circle event-icon mb-2"></i>
                                         <div class="">
                                             <span class="d-block event-title">Tổ chức sự kiện trực tiếp</span>
                                             <small class="text-muted">Lorem ipsum dolor sit amet. Quo mollitia illo ea galisum esse cum temporibus voluptates et nobis numquam.</small>
                                         </div>
-                                        <!-- Radio Button -->
+                                 
                                         <div class="radio-circle"></div>
                                     </label>
                                 </div>
                             </div>
-                            <!-- Online Event Card -->
+                  
                             <div class="col-lg-6 d-flex">
                                 <div class="event-card p-3 d-flex flex-column align-items-start position-relative w-100">
-                                    <input type="radio" id="online-event" name="event-type" class="radio-input">
+                                    <input type="radio" id="online-event" name="address" class="radio-input">
                                     <label for="online-event" class="d-flex flex-column w-100">
                                         <i class="fas fa-wifi event-icon mb-2"></i>
                                         <div class="">
                                             <span class="d-block event-title">Tổ chức sự kiện trực tuyến qua ZOOM, MEET</span>
                                             <small class="text-muted">Lorem ipsum dolor sit amet. Quo mollitia illo ea galisum esse cum temporibus voluptates et nobis numquam.</small>
                                         </div>
-                                        <!-- Radio Button -->
+                                    
                                         <div class="radio-circle"></div>
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                
-            
-                    <!-- Additional Event Information -->
+-->
                      <p class="information">Thông tin sự kiện</p>
                     <div class="form-section mb-4">
                         <label for="event-description" class="form-label">Giới thiệu chung</label>
                         <textarea id="event-description" class="form-control" rows="2" placeholder="Thêm ghi chú của sự kiện"></textarea>
                     </div>
-                    
+                    <div class="form-section mb-4">
+                        <label for="event-description" class="form-label" required>Địa chỉ</label>
+                        <input id="event-description" name="address" class="form-control" placeholder="địa chỉ"></input>
+                    </div>
+                    <div class="form-section mb-4">
+                        <label for="event-description" class="form-label">Thời gian bắt đầu</label>
+                        <input id="event-description" type="datetime-local" name="time_start" class="form-control" required>
+                    </div>
                     <div class="form-section mb-4">
                         <label for="event-notes" class="form-label">Thông tin lưu ý</label>
-                        <textarea id="event-notes" class="form-control" rows="2" placeholder="Thêm ghi chú của sự kiện"></textarea>
+                        <textarea id="event-notes" class="form-control" rows="2" placeholder="Thông tin lưu ý"></textarea>
                     </div>
 
                     <label for="sponsor" class="form-label">Nhà tài trợ sự kiện*</label>
@@ -161,21 +169,21 @@
                     <div class="form-section">
                         <div class="d-flex justify-content-center gap-4">
                             <button type="button" class="btn btn-outline-danger btn-huy">Hủy tạo</button>
-                            <a class="taosukien" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal1" id="createInviteBtn">Tạo sự kiện</a>
+                            <button type="submit" class="taosukien" data-bs-toggle="modal" data-bs-target="#exampleModal1" id="createInviteBtn">Tạo sự kiện</button>
+
+                        </div>
                     </div>
                 </form>
             </div>
         </section>
-
-         <!-- Modal -->
-         <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" style="top: 10%;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <img src="../asset/image/Illustration.jpg" alt="">
+                    <img src="<?php echo $urlThemeActive;?>/asset/image/Illustration.jpg" alt="">
                     </div>
                     <div class="modal-body">
-                        <p>Đăng ký tham gia thành công</p>
+                        <p><?=$mess?></p>
                         <h5>Bạn đã đăng ký tham gia sự kiện và tạo vé mời thành công. 
                             Hãy cùng chia sẻ sự kiện đến với mọi người</h5>
                     </div>
@@ -186,5 +194,17 @@
             </div>
             </div>
         </div>
+
+
+
 </main>
+<script>
+document.getElementById('file-upload').addEventListener('change', function() {
+    const fileName = this.files[0] ? this.files[0].name : '';
+    if (fileName) {
+        document.getElementById('event-image').value = fileName;
+    }
+});
+</script>
+
 <?php getFooter();?>
