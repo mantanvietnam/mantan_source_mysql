@@ -59,7 +59,7 @@ $infoUser = $session->read('infoUser');
             <div class="container-fluid">
                 <!-- Logo -->
                 <div class="logo">
-                    <a class="navbar-brand d-flex align-items-center" href="#">
+                    <a class="navbar-brand d-flex align-items-center" href="/">
                         <img src="<?= @$settingThemes['logo'];?>" alt="">
                     </a>
                 </div>
@@ -127,7 +127,7 @@ $infoUser = $session->read('infoUser');
 
                                 <div class="nav-item dropdown mx-5">
                                     <a href="#" class="nav-link p-0 dropdown-toggle" id="navbarDropdown-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="<?=$urlThemeActive?>/asset/image/red.jpg" style="border: 1px solid black; height: 37px; width: 37px; border-radius: 10px; object-fit: cover;" alt="User image">
+                                        <img src="<?=$urlThemeActive?>/asset/image/red.jpg" style="border: 1px solid black; height: 37px; width: 37px; border-radius: 10px; object-fit: unset;" alt="User image">
                                     </a>
                                     <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdown-4">
                                         <li><a class="dropdown-item" href="/account">Đổi thông tin</a></li>
