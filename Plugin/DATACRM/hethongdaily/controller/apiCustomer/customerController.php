@@ -569,11 +569,11 @@ function getLinkMMTCAPI($input)
                     $checkHistorieMmtt = count($modelCustomerHistorieMmtt->find()->where(['id_user'=>$user->id])->all()->toList());
                     if(!empty($user->max_export_mmtc)){
                         if( $user->max_export_mmtc < $checkHistorieMmtt){
-                            return array('code'=>4,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$user->max_export_mmtc.' bản thần số học.');
+                            return array('code'=>6,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$user->max_export_mmtc.' bản thần số học.');
                         }
                     }elseif(!empty($infoMember->infosystem->max_export_mmtc)){
                         if($infoMember->infosystem->max_export_mmtc < $checkHistorieMmtt){
-                            return array('code'=>4,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$infoMember->infosystem->max_export_mmtc.' bản thần số học.');
+                            return array('code'=>6,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$infoMember->infosystem->max_export_mmtc.' bản thần số học.');
                         }
                     }
 
@@ -656,11 +656,11 @@ function createLinkMMTCAPI($input)
                 $checkHistorieMmtt = count($modelCustomerHistorieMmtt->find()->where(['id_user'=>$user->id])->all()->toList());
                 if(!empty($user->max_export_mmtc)){
                     if( $user->max_export_mmtc < $checkHistorieMmtt){
-                        return array('code'=>4,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$user->max_export_mmtc.' bản thần số học.');
+                        return array('code'=>6,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$user->max_export_mmtc.' bản thần số học.');
                     }
                 }elseif(!empty($infoMember->infosystem->max_export_mmtc)){
                     if($infoMember->infosystem->max_export_mmtc < $checkHistorieMmtt){
-                        return array('code'=>4,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$infoMember->infosystem->max_export_mmtc.' bản thần số học.');
+                        return array('code'=>6,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$infoMember->infosystem->max_export_mmtc.' bản thần số học.');
                     }
                 }
                

@@ -65,22 +65,27 @@ function listFeedbackApi($input)
     
     $modelCustomer = $controller->loadModel('Customers');
     $conditions = array('status'=>'active');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
    
-    $limit = 20;
-    $page = (!empty($_POST['page']))?(int)$_POST['page']:1;
-    if($page<1) $page = 1;
-    $order = array('id'=>'desc');
+        $limit =  (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+        $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
 
-    
-    $listData = $modelFeedback->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        
+        $listData = $modelFeedback->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-    if(!empty($listData)){
-        foreach ($listData as $key => $value) {
-            $listData[$key]->infoCustomer = $modelCustomer->find()->where(['id'=>$value->id_customer])->first();	
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                $listData[$key]->infoCustomer = $modelCustomer->find()->where(['id'=>$value->id_customer])->first();	
+            }
         }
     }
+    $totalData = $modelFeedback->find()->where($conditions)->order($order)->all()->toList();
 	
-    return array('code'=>1,'messages'=>'Bạn lấy dữ liệu thành công', 'listData'=>$listData);
+    return array('code'=>1,'messages'=>'Bạn lấy dữ liệu thành công', 'listData'=>$listData, 'totalData'=> count($totalData));
 }
 
 function listFeedbackMyApi($input)

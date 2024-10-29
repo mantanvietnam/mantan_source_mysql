@@ -247,11 +247,15 @@ function createWithdrawRequestApi($input): array
             }*/
             
 
-
+            if ($currentUser->point < 0 ) {
+                return apiResponse(4, 'Số điểm của bạn dang bị âm không rút được tiền.');
+            }
 
             if ($dataSend['amount'] > $currentUser->total_coin) {
                 return apiResponse(4, 'Số tiền trong ví không đủ');
             }
+
+
 
             
 

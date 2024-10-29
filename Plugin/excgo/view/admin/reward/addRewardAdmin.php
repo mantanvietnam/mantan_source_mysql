@@ -57,7 +57,12 @@
                             <label class="form-label" for="basic-default-fullname">Trạng thái:</label>&ensp;
                             <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> > Kích hoạt &ensp;
                             <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > Khóa
-                          </div>         
+                          </div>    
+                           <div class="mb-3">
+                                        <label class="form-label" for="basic-default-message">Nội dung bải viết (*)</label>
+                                        <?php //showEditorInputrequired('content', 'content', );?>
+                                        <textarea class="form-control" style="border: 1px solid #abadb3; height: auto;" name="content" id="content" required><?php echo @$data->content; ?></textarea>
+                                    </div>     
                         </div>
                         <div class="col-md-6">
                           <div class="mb-3" id="moc_cuoc" style="<?php if(!empty($data->type) && $data->type=='2') echo 'display: none;';  ?>">
@@ -86,17 +91,15 @@
                             <label class="form-label" for="basic-default-fullname">bắt thông báo  </label>
                             <input type="checkbox" class="" placeholder="" name="checkNotification" id="note" value="1" />
                           </div>
+                          <div class="mb-3">
+                                        <label class="form-label" for="basic-default-message">Nội dung thông báo </label>
+                                        <textarea class="form-control" style="border: 1px solid #abadb3; height: auto;" name="contentnotification" id="contentnotification" required><?php echo @$data->contentnotification; ?></textarea>
+                                        
+                                    </div>
                           </div>
 
 
                         </div>
-                        <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-default-message">Nội dung bải viết (*)</label>
-                                        <?php //showEditorInputrequired('content', 'content', );?>
-                                        <textarea class="form-control" style="border: 1px solid #abadb3; height: auto;" name="content" id="content" required><?php echo @$data->content; ?></textarea>
-                                    </div>
-                                </div>
                       </div>
                     </div>
                     <div class="tab-pane fade" id="navs-top-info" role="tabpanel">

@@ -125,6 +125,7 @@ function addRewardAdmin($input){
                     $data->note = @$dataSend['note'];
                     $data->image = @$dataSend['image'];
                     $data->content = @$dataSend['content'];
+                    $data->contentnotification = @$dataSend['contentnotification'];
                     $data->end_date = @$end_date;
                     $data->start_date = @$start_date;
 
@@ -148,7 +149,12 @@ function addRewardAdmin($input){
 
                         if(!empty($listUser)){
                             $title = 'Thông báo chương trình thưởng mới';
-                            $content = 'Tham gia ngay để nhận phần thưởng lớn.!';
+                            if(!empty($dataSend['contentnotification'])){
+                                $content = $dataSend['contentnotification'];
+                            }else{
+                                $content = 'Tham gia ngay để nhận phần thưởng lớn.!';
+                            }
+                            
                             $number = 0;
                             $device_token = [];
 
@@ -185,7 +191,8 @@ function addRewardAdmin($input){
                                                     'keyFirebase' => $keyFirebase,
                                                     'projectId' => $projectId
                                                 ]);    
-                                $rabbitMQClient->sendMessage('send_notification_firebase', $requestMessage);
+                               $rabbitMQClient->sendMessage('send_notification_firebase', $requestMessage);
+                                 //sendNotification($dataSendNotification, $device_token);                            
                             }
                         }
                         $mess= '<p class="text-success">Lưu dữ liệu thành công và bát được '.$number.' cho người dùng </p>';

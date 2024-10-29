@@ -1,168 +1,78 @@
 <?php 
     $menus= array();
-    $menus[0]['title']= 'Lark suite';
-    $menus[0]['sub'][0]= array( 'title'=>'Lark suite Setting',
-                            'url'=>'/plugins/admin/larksuite-settingLarkSuite',
+    $menus[0]['title']= 'PAYOS';
+    $menus[0]['sub'][0]= array( 'title'=>'Cài đặt PAYOS',
+                            'url'=>'/plugins/admin/payos-view-admin-settingpayos',
                             'classIcon'=>'bx bxs-data',
-                            'permission'=>'settingLarkSuite'
+                            'permission'=>'settingpayos'
                         );
- addMenuAdminMantan($menus);
 
-    
-function getLarkSuite(){
-    global $modelOptions;
-    global $metaTitleMantan;
-    global $isRequestPost;
+addMenuAdminMantan($menus);
 
-    $metaTitleMantan = 'Cài đặt giao diện trang chủ ';
-    $static= '';
 
-    $conditions = array('key_word' => 'lark_suite');
-    $data = $modelOptions->find()->where($conditions)->first();
-    if(!empty($data->value)){
-         $static = json_decode(@$data->value, true);
-    }
-     return $static;
+include(__DIR__.'/library/payos/vendor/autoload.php');
+
+use PayOS\PayOS;
+
+// Keep your PayOS key protected by including it by an env variable
+
+global $payOSClientId;
+global $payOSApiKey;
+
+global $payOSChecksumKey;
+
+$payOSClientId = '';
+$payOSApiKey = '';
+$payOSChecksumKey = '';
+
+$conditions = array('key_word' => 'settingPayos');
+$settingPayos = $modelOptions->find()->where($conditions)->first();
+
+if(!empty($settingPayos->value)){
+    $data_value = json_decode($settingPayos->value, true);
+
+    $payOSClientId = $data_value['client_id'];
+    $payOSApiKey = $data_value['api_key'];
+    $payOSChecksumKey = $data_value['checksum_key'];
 }
 
-function getOrderLarkSuite($id){
-
-    global $modelOptions;
-    global $controller;
-    global $urlCurrent;
-    global $modelCategories;
-    global $metaTitleMantan;
-    global $isRequestPost;
-    global $session;
-
-     $conditions = array('key_word' => 'lark_suite');
-     $modelUtm = $controller->loadModel('Utms');
-    $data = $modelOptions->find()->where($conditions)->first();
-    if(!empty($data->value)){
-        $static = json_decode(@$data->value, true);
-    
-     
-        $dataPost= array("app_id"=> $static['app_id'],"app_secret"=>$static['secret']);
-
-        $listData= sendDataConnectMantan($static['get_access_token'], $dataPost);
-            $listData= str_replace('ï»¿', '', utf8_encode($listData));
-            $s= json_decode($listData, true);
+$payOS = new PayOS($payOSClientId, $payOSApiKey, $payOSChecksumKey);
 
 
+function checkpayos(){
+    global $urlHomes;
+    $YOUR_DOMAIN = $urlHomes;
+    debug($payOS);
+    debug($payOSClientId);
+    debug($payOSApiKey);
+    debug($payOSChecksumKey);
+    die;
 
-        $headers = array(
-                'Authorization: Bearer ' .$s['app_access_token'],
-                'Content-Type: application/json; charset=utf-8');
-   
-        $modelProduct = $controller->loadModel('Products');
-        $modelOrder = $controller->loadModel('Orders');
-        $modelOrderDetail = $controller->loadModel('OrderDetails');
-        $return = [];
 
-        if(!empty($id)){
-            $order = $modelOrder->find()->where(['id'=>$id])->first();
-            if(!empty($order)){
-                $infoOrder = $modelOrderDetail->find()->where(['id_order'=>$id])->all()->toList();
-                unset($order->note_user);
-                unset($order->note_admin);
-                unset($order->id_utm);
-                $info = ''; 
-                $str = "*";
-                $order->shipp = 35000;
-                if(!empty($infoOrder)){
-                    foreach($infoOrder as $key => $item){
-                        // $info .= "{";
-                        $product = $modelProduct->find()->where(['id'=>$item->id_product])->first();
-                        $info .= $product->title.' Số lượng: '.$item->quantity.' Đơn giá: '.number_format($item->price).'đ ' ;
-                        if(!empty(@$product->id_product)){
-                            $id_product = explode(',', @$product->id_product);
-                            $present = [];
-                            $info .= "(Quà tặng: ";
-                            foreach($id_product as $k => $value){
-                                $presentf = $modelProduct->find()->where(['code'=>$value])->first()->title;
-                                $info .= $presentf.'; ';
-                                
+    $data = [
+        "orderCode" => intval(substr(strval(microtime(true) * 10000), -6)),
+        "amount" => 2000,
+        "description" => "Thanh toán đơn hàng",
+        "items" => [
+            0 => [
+                'name' => 'Mì tôm Hảo Hảo ly',
+                'price' => 2000,
+                'quantity' => 1
+            ]
+        ],
+        "returnUrl" => $YOUR_DOMAIN . "/success.html",
+        "cancelUrl" => $YOUR_DOMAIN . "/cancel.html"
+    ];
 
-                            }
-                            $info .= ")";
-                        }
-                        // $info .= '} \n\t\r '.str_repeat($str, $key+1);
-                            $info .= '<br/>';
-                            $item->name = $product->title;
-                            $infoOrder[$key] = $item;
+    $response = $payOS->createPaymentLink($data);
 
-                    }
-                    $pay = json_decode($order->discount, true);
-                    $discount_name = '';
-                    $discount = 0;
-                    if(!empty($pay['code1']) && !empty($pay['discount_price1'])){                   
-                        $discount += $pay['discount_price1'];
-                        $discount_name .= $pay['code1'].',';
-                    }
-                    if(!empty($pay['code2']) && !empty($pay['discount_price2'])){
-                        $discount += $pay['discount_price2'];
-                        $discount_name .= $pay['code2'].',';
-                    }
-                    if(!empty($pay['code3']) && !empty($pay['discount_price3'])){                   
-                       $discount += $pay['discount_price3'];
-                       $discount_name .= $pay['code3'].',';
-                    }
-                    if(!empty($pay['code4']) && !empty($pay['discount_price4'])){                   
-                        $discount += $pay['discount_price4'];
-                        $discount_name .= $pay['code4'].',';
-                    }
-                    $order->discount =(string) $discount;
-                    $order->discount_name = $discount_name;
-                    
-                    
-                     $order->infoOrder = $info;
-                     // $order->utm_source = 'web';
-                      $order->utm_source = '';
-                      $order->utm_campaign = '';
-                      $order->utm_id = '';
-                      $order->utm_term = '';
-                      $order->utm_content = '';
-                      $order->createat = '';
-                     if(!empty($session->read('id_utm'))){
-                        $utm = $modelUtm->find()->where(array('id'=> (int)$session->read('id_utm')))->first();
-                       
-                        if(!empty($utm)){
-                            $order->utm_source = $utm->utm_source;
-                            $order->utm_campaign = $utm->utm_campaign;
-                            $order->utm_id = $utm->utm_id;
-                            $order->utm_term = $utm->utm_term;
-                            $order->utm_content = $utm->utm_content;
-                            $order->createat = $utm->created_at;
-                        }
-                         $session->write('id_utm', '');
-                     }
-
-                    
-                }
-                $dataO = array('fields'=>$order);
-            
-
-                $list= sendDataConnectMantan('https://open.larksuite.com/open-apis/bitable/v1/apps/'.$static['base_id'].'/tables/'.$static['table_id'].'/records', $dataO,$headers, 'raw');
-
-            $list= str_replace('ï»¿', '', utf8_encode($list));
-             $list= json_decode($list, true);
-  
-    
-
-             $return = array('code'=> 1 , 'data'=>$list);
-            }else{
-                $return = array('code'=> 3 , 'mess'=> 'Đơn hàng không tồn tại');
-            }
-        }else{
-            $return = array('code'=> 2 , 'mess'=> 'Bạn thiếu dữ liệu');
-        }
-    }else{
-         $return = array('code'=> 4 , 'mess'=> 'không thành công');
-    }
-    // debug($dataO);
-    // debug($return);
-    // die;
-    return $return;   
+    return  $response;
 }
+
+//header("HTTP/1.1 303 See Other");
+//header("Location: " . $response['checkoutUrl'])
+
+    
+
 
 ?>

@@ -61,7 +61,7 @@
             
                <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Số lượng bản xuất fiel Mật mã thành công tối đa cho từng khách hàng</label>
+                    <label class="form-label">Số lượng bản xuất file Mật mã thành công tối đa cho từng khách hàng</label>
                     <input  type="text" class="form-control phone-mask" name="max_export_mmtc" id="max_export_mmtc" value="<?php echo @$data->max_export_mmtc;?>"/>
                   </div>
                 </div> 
