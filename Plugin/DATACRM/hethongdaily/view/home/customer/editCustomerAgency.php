@@ -14,7 +14,7 @@
             <h5 class="mb-0">Thông tin khách hàng</h5>
           </div>
           <div class="card-body">
-            <p><?php echo $mess;?></p>
+            <p><?php echo $mess; ?></p>
             <form enctype="multipart/form-data" method="post" action="">
               <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
               <div class="row">
@@ -157,6 +157,12 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Facebook</label>
                     <input type="text" class="form-control phone-mask" name="facebook" id="facebook" value="<?php echo @$data->facebook;?>" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Số lượng bản xuất tối đa</label>
+                    <input type="number" class="form-control phone-mask" name="max_export_mmtc" id="max_export_mmtc" value="<?php echo @$data->max_export_mmtc;?>" />
                   </div>
                 </div>
               </div>

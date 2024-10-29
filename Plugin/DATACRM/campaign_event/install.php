@@ -26,6 +26,9 @@ $sqlInstallDatabase .= "CREATE TABLE `campaigns` (
                                 `create_at` INT NOT NULL , 
                                 `image` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
                                 `description` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;
+                                `id_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                `id_ai_event` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                `link_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                                 PRIMARY KEY (`id`)
                             ) ENGINE = InnoDB; ";
 
@@ -64,6 +67,10 @@ $sqlUpdateDatabase['campaigns']['description'] = "ALTER TABLE `campaigns` ADD `d
 $sqlUpdateDatabase['campaigns']['team'] = "ALTER TABLE `campaigns` ADD `team` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL; ";
 $sqlUpdateDatabase['campaigns']['ticket'] = "ALTER TABLE `campaigns` ADD `ticket` TEXT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL; ";
 $sqlUpdateDatabase['campaigns']['create_at'] = "ALTER TABLE `campaigns` ADD `create_at` INT NOT NULL ; ";
+
+$sqlUpdateDatabase['campaigns']['id_drive'] = "ALTER TABLE `campaigns` ADD `id_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['campaigns']['id_ai_event'] = "ALTER TABLE `campaigns` ADD `id_ai_event` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,;";
+$sqlUpdateDatabase['campaigns']['link_drive'] = "ALTER TABLE `campaigns` ADD `link_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
 // Bang campaign_customers
 $sqlUpdateDatabase['campaign_customers']['id'] = "ALTER TABLE `campaign_customers` ADD  `id` INT NOT NULL AUTO_INCREMENT; ";

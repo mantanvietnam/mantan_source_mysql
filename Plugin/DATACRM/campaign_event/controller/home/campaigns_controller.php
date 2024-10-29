@@ -7,13 +7,18 @@ function listCampaign($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('listCampaign');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
+
         $metaTitleMantan = 'Danh sách chiến dịch sự kiện';
 
         $modelCampaigns = $controller->loadModel('Campaigns');
         $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
 
-        $conditions = array('id_member'=>$session->read('infoUser')->id);
+        $conditions = array('id_member'=>$user->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -93,7 +98,13 @@ function addCampaign($input)
     global $isRequestPost;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('addCampaign');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCampaign');
+        }
+
+
         $metaTitleMantan = 'Thông tin chiến dịch sự kiện';
 
         $modelCampaigns = $controller->loadModel('Campaigns');
@@ -161,10 +172,13 @@ function addCampaign($input)
                 $data->colorText = $dataSend['colorText'];
                 $data->status = $dataSend['status'];
                 $data->description = $dataSend['description'];
+                $data->id_drive = @$dataSend['id_drive'];
+                $data->id_ai_event = @$dataSend['id_ai_event'];
+                $data->link_drive = @$dataSend['link_drive'];
                 $data->img_background = $img_background;
                 $data->img_logo = $img_logo;
                 $data->image = $image;
-                $data->id_member = $session->read('infoUser')->id;
+                $data->id_member = $user->id;
                 $data->location = json_encode($dataSend['location']);
 
                 $ticket = [];
@@ -187,6 +201,13 @@ function addCampaign($input)
                 $data->team = json_encode($team);
                 
                 $modelCampaigns->save($data);
+                if(!empty($_GET['id'])){
+                    $note = $user->type_tv.' '. $user->name.' sửa thông tin chiến dịch sự kiện '.$data->name.' có id là:'.$data->id;
+                }else{
+                    $note = $user->type_tv.' '. $user->name.' thêm thông tin chiến dịch sự kiện '.$data->name.' có id là:'.$data->id;
+                }
+
+                addActivityHistory($user,$note,'addCampaign',$data->id);
 
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
             }else{
@@ -211,12 +232,17 @@ function deleteCampaign($input){
 
     $modelCampaigns = $controller->loadModel('Campaigns');
     $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
-    
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('deleteCampaign');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCampaign');
+        }
         if(!empty($_GET['id'])){
-            $data = $modelCampaigns->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$session->read('infoUser')->id])->first();
+            $data = $modelCampaigns->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$user->id])->first();
             
             if($data){
+                $note = $user->type_tv.' '. $user->name.' xóa thông tin chiến dịch sự kiện '.$data->name.' có id là:'.$data->id;
+                addActivityHistory($user,$note,'deleteAffiliaterAgency',$data->id);
                 $modelCampaignCustomers->deleteAll(['id_campaign'=>$data->id, 'id_member'=>$session->read('infoUser')->id]);
                 $modelCampaigns->delete($data);
             }

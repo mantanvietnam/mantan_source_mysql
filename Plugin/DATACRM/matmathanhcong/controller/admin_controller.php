@@ -117,10 +117,10 @@ function settingMMTCAPI($input){
     global $modelOptions;
     global $metaTitleMantan;
     global $isRequestPost;
+    global $maxExport;
 
     $metaTitleMantan = 'Cài đặt MMTC';
     $mess= '';
-
     $conditions = array('key_word' => 'settingMMTCAPI');
     $data = $modelOptions->find()->where($conditions)->first();
     if(empty($data)){

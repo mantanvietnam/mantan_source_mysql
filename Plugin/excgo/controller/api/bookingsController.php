@@ -188,7 +188,7 @@ function createBookingApi($input): array
 
             if(!empty($listToken)){
                 // chuyển yêu cầu render sang rabbitmq
-                $rabbitMQClient = new RabbitMQClient();
+               /* $rabbitMQClient = new RabbitMQClient();
 
                 $requestMessage = json_encode([ 'dataSendNotification' => $dataSendNotification, 
                                                 'listToken' => $listToken,
@@ -196,9 +196,9 @@ function createBookingApi($input): array
                                                 'projectId' => $projectId
                                             ]);
                 
-                $rabbitMQClient->sendMessage('send_notification_firebase', $requestMessage);
+                $rabbitMQClient->sendMessage('send_notification_firebase', $requestMessage);*/
                 
-                //sendNotification($dataSendNotification, $listToken);
+                sendNotification($dataSendNotification, $listToken);
             }
 
 

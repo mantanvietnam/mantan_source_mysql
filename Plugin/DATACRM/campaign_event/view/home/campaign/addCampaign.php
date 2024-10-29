@@ -35,6 +35,7 @@
                 <li><a href="#tabs-4">Khu vực</a></li>
                 <li><a href="#tabs-5">Đội nhóm</a></li>
                 <li><a href="#tabs-6">Hạng vé</a></li>
+                <li><a href="#tabs-7">Ảnh sự kiện</a></li>
               </ul>
               <div id="tabs-1">
                 <div class="row">
@@ -206,7 +207,6 @@
                   </div>
                 </div>
               </div>
-
               <div id="tabs-6">
                 <div class="row">
                   <?php
@@ -231,7 +231,25 @@
                   </div>
                 </div>
               </div>
-
+              <div id="tabs-7">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label" for="basic-default-phone">ID Drive</label>
+                    <input type="text" class="form-control phone-mask" name="id_drive" id="id_drive" value="<?php echo @$data->id_drive;?>" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label" for="basic-default-phone">ID AI Event</label>
+                    <input type="text" class="form-control phone-mask" name="id_ai_event" id="id_ai_event" value="<?php echo @$data->id_ai_event;?>" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label" for="basic-default-phone">link drive</label>
+                    <input type="text" class="form-control phone-mask" name="link_drive" id="link_drive" value="<?php echo @$data->link_drive;?>" />
+                  </div>
+                   <div class="col-md-12 mb-3">
+                    <button type="submit" class="btn btn-primary">Lưu cài đặt</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -240,7 +258,6 @@
   </div>
 </div>
 <!--/ Responsive Table -->
-</div>
 
 <script type="text/javascript">
     // tìm sản phẩm

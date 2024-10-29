@@ -266,9 +266,9 @@ function addAffiliaterAgency($input)
                     $modelAffiliaters->save($data);
 
                     if(!empty($_GET['id'])){
-                        $note = $user->type_tv.' '. $user->name.' sửa thông tin công tắc viên '.$data->name.' có id là:'.$data->id;
+                        $note = $user->type_tv.' '. $user->name.' sửa thông tin cộng tắc viên '.$data->name.' có id là:'.$data->id;
                     }else{
-                        $note = $user->type_tv.' '. $user->name.' thêm thông tin công tắc viên '.$data->name.' có id là:'.$data->id;
+                        $note = $user->type_tv.' '. $user->name.' thêm thông tin cộng tắc viên '.$data->name.' có id là:'.$data->id;
                     }
 
                  addActivityHistory($user,$note,'addAffiliaterAgency',$data->id);

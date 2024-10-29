@@ -753,23 +753,78 @@ function listUserStatisticAdmin($input)
     if (isset($_GET['status']) && $_GET['status'] !== '' && is_numeric($_GET['status'])) {
         $conditions['status'] = $_GET['status'];
     }
+    if(!empty($_GET['excel']) && $_GET['excel']=='Excel'){
+            $listData = $modelUser->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
+            $titleExcel =   [
+                ['name'=>'ID', 'type'=>'text', 'width'=>10],
+                ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
+                ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+                ['name'=>'Email', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Quốc đăng', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Quốc Nhận', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Điểm bán', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Diểm mua', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Tổng điểm', 'type'=>'text', 'width'=>25],  
+                ['name'=>'Loại tài khoản', 'type'=>'text', 'width'=>25],  
+            ];
 
-    $listData = $modelUser->find()
-        ->limit($limit)
-        ->page($page)
-        ->where($conditions)
-        ->order(['id' => 'desc'])
-        ->all()
-        ->toList();
-    $totalUser = $modelUser->find()
-        ->where($conditions)
-        ->all()
-        ->toList();
-    $paginationMeta = createPaginationMetaData(
-        count($totalUser),
-        $limit,
-        $page
-    );
+            $dataExcel = [];
+            if(!empty($listData)){
+                
+                foreach ($listData as $key => $item) {
+                    if ($item->type == 0) {
+                        $type = 'Người dùng';
+                    } else {
+                        $type = 'Tài xế';
+                    }
+
+                    $DataPointSell = $modelOrderPoint->find()->where(['user_sell'=>$item->id, 'status <'=>3])->all()->toList();
+
+                    $DataPointBuy = $modelOrderPoint->find()->where(['user_buy'=>$item->id, 'status'=>2])->all()->toList();
+
+                    $pointSell = 0;
+                    if(!empty($DataPointSell)){
+                        foreach($DataPointSell as $keys => $value){
+                            if(!empty($value->point)){
+                               $pointSell +=  $value->point;
+                            }
+                        }
+                    }
+                    $item->pointSell = @$pointSell;
+
+                    $pointBuy = 0;
+                    if(!empty($DataPointBuy)){
+                        foreach($DataPointBuy as $keys => $value){
+                            if(!empty($value->point)){
+                               $pointBuy +=  $value->point;
+                            }
+                        }
+                    }
+                    $item->pointBuy = @$pointBuy;
+                    
+                    $dataExcel[] = [
+                                    @$item->id,
+                                    @$item->name,   
+                                    @$item->phone_number,   
+                                    @$item->email,   
+                                    @$item->address,   
+                                    @$item->posted,   
+                                    @$item->received,   
+                                    @$item->pointSell,   
+                                    @$item->pointBuy,   
+                                    @$item->point,   
+                                    @$type,   
+                                   
+                            ];
+                }
+            }            
+            export_excel($titleExcel,$dataExcel,'danh_sach_thanh_vien');
+        }
+
+    $listData = $modelUser->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
+    $totalUser = $modelUser->find()->where($conditions)->all()->toList();
+    $paginationMeta = createPaginationMetaData(count($totalUser),$limit,$page);
 
     if(!empty($listData)){
         foreach($listData as $key => $item){

@@ -70,6 +70,7 @@ addMenuAdminMantan($menus);
 global $keyFirebase;
 global $projectId;
 global $displayInfo;
+global $session;
 
 $displayInfo = array(   1 =>'Giao diện 1',
                         2 =>'Giao diện 2',
@@ -78,6 +79,7 @@ $displayInfo = array(   1 =>'Giao diện 1',
 //$keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
 $keyFirebase = 'AAAAl-zVR38:APA91bG2D6eIYD98YPIAWn5iowWnSfRfItalL1j044xvjhaH15RbWAwLxPtJRgniwNkdRoCZTQUomHmofsP-zuEFsrO414SAgNffjz5BeQWbKnQ61zqahMebNhgSNPLZpkDj5XR09E16';
 $projectId = 'phoenix-crm-f6f64';
+
 
 function sendEmailNewPassword($email='', $fullName='', $pass= '')
 {
@@ -411,6 +413,31 @@ function sendZaloUpdateOrder($infoMember, $infoCustomer, $infoOrder, $productDet
         $modelTransactionHistories->save($histories);
     }
     
+}
+
+function getMemberById($id='')
+{
+    global $modelCategories;
+    global $controller;
+
+    $modelMember = $controller->loadModel('Members');
+    $checkData = [];
+
+    if(!empty($id)){ 
+        $conditions = ['id'=>$id];
+        $checkData = $modelMember->find()->where($conditions)->first();
+        if(!empty($checkData->id_system)){
+            $infosystem  = $modelCategories->find()->where(array('id'=>$checkData->id_system ))->first();
+            if(!empty($infosystem->description)){
+                $data_value = json_decode($infosystem->description, true);
+                $infosystem->convertPoint = (int) @$data_value['convertPoint'];
+                $infosystem->max_export_mmtc = (int) @$data_value['max_export_mmtc'];
+            }
+            $checkData->infosystem = $infosystem;
+        }
+    }
+
+    return $checkData;
 }
 
 function getTreeSystem($id_father, $modelMembers)
@@ -1354,8 +1381,8 @@ function getListPermission()
                                     array('name'=>'Xóa lịch hẹn khách hàng ','permission'=>'deleteCustomerHistoriesAgency'),
                                     array('name'=>'Tải file mật mã thành công','permission'=>'downloadMMTC'),
                                     array('name'=>'Tải mật mã thành công','permission'=>'resultMMTC'),
-                                    array('name'=>' Danh sách điểm xếp hạng khách hàng','permission'=>'listPointCustomer'),
-                                    array('name'=>' Tặng quà cho khách hàng','permission'=>'giveGiftCustomer'),
+                                    array('name'=>'Danh sách điểm xếp hạng khách hàng','permission'=>'listPointCustomer'),
+                                    array('name'=>'Tặng quà cho khách hàng','permission'=>'giveGiftCustomer'),
                                     array('name'=>'Danh sách quà tặng khách hàng','permission'=>'listCustomerGiftAgency'),
                                     array('name'=>'Thêm và sửa quà tặng khách hàng','permission'=>'addCustomerGiftAgency'),
                                     array('name'=>'Xóa quà tặng khách hàng','permission'=>'deleteCustomerGiftAgency'),
@@ -1479,11 +1506,11 @@ function getListPermission()
 
     $permission[] = array( 'name'=>'Quản lý tin tức ',
                     'sub'=>array(   array('name'=>'Danh sách tin tức','permission'=>'listPost'),
-                                    array('name'=>'thêm và sửa tin tức','permission'=>'addPost'),
+                                    array('name'=>'Thêm và sửa tin tức','permission'=>'addPost'),
                                     array('name'=>'xóa tin tức','permission'=>'deletePost'),
                                     array('name'=>'Danh sách danh mục tin tức','permission'=>'listCategoryPost'),
-                                    array('name'=>'thêm và sửa danh mục tin tức','permission'=>'addCategoryPost'),
-                                    array('name'=>'xóa danh mục tin tức','permission'=>'deleteCategoryPost'),
+                                    array('name'=>'Thêm và sửa danh mục tin tức','permission'=>'addCategoryPost'),
+                                    array('name'=>'Xóa danh mục tin tức','permission'=>'deleteCategoryPost'),
                                     
 
                                 )
@@ -1494,7 +1521,7 @@ function getListPermission()
                                     array('name'=>'Gửi tin nhắn bằng điện thoại','permission'=>'sendSMS'),
                                     array('name'=>'Gửi thông báo qua app','permission'=>'sendNotificationMobile'),
                                     array('name'=>'Danh sách tin nhắn gửi','permission'=>'templateZaloZNS'),
-                                    array('name'=>'thêm và sửa tin nhắn gửi','permission'=>'addTemplateZaloZNS'),
+                                    array('name'=>'Thêm và sửa tin nhắn gửi','permission'=>'addTemplateZaloZNS'),
                                     array('name'=>'Danhh sách lịch sử nạp tiền','permission'=>'listTransactionHistories'),
                                     array('name'=>'Nạp tiền vào tài khoản','permission'=>'addMoney'),
                                     
@@ -1502,20 +1529,31 @@ function getListPermission()
                                 )
                     );
     $permission[] = array( 'name'=>'Quản lý mạng xã hội',
-                    'sub'=>array(   array('name'=>' Danh sách bài viết ','permission'=>'listWallPost'),
-                                    array('name'=>'thêm và sửa bài viết','permission'=>'addWallPost'),
-                                    array('name'=>'xoá bài viết','permission'=>'deleteWallPost'),
+                    'sub'=>array(   array('name'=>'Danh sách bài viết ','permission'=>'listWallPost'),
+                                    array('name'=>'Thêm và sửa bài viết','permission'=>'addWallPost'),
+                                    array('name'=>'Xoá bài viết','permission'=>'deleteWallPost'),
                             )
                     );
     $permission[] = array( 'name'=>'Quản lý công việc ',
-                    'sub'=>array(   array('name'=>' Danh sách dự án','permission'=>'listProject'),
-                                    array('name'=>'thêm và sửa dự án','permission'=>'addProject'),
-                                    array('name'=>'xoá dự án','permission'=>'deleteProject'),
-                                    array('name'=>' Danh sách nhiệm vụ','permission'=>'listTask'),
-                                    array('name'=>'thêm và sửa nhiệm vụ','permission'=>'addTask'),
-                                    array('name'=>'xoá nhiệm vụ','permission'=>'deleteTask'),
+                    'sub'=>array(   array('name'=>'Danh sách dự án','permission'=>'listProject'),
+                                    array('name'=>'Thêm và sửa dự án','permission'=>'addProject'),
+                                    array('name'=>'Xoá dự án','permission'=>'deleteProject'),
+                                    array('name'=>'Danh sách nhiệm vụ','permission'=>'listTask'),
+                                    array('name'=>'Thêm và sửa nhiệm vụ','permission'=>'addTask'),
+                                    array('name'=>'Xoá nhiệm vụ','permission'=>'deleteTask'),
                             )
                     );
+    $permission[] = array( 'name'=>'Quản lý chiến dịch sự khện',
+                    'sub'=>array(   array('name'=>'Danh sách chiến dịch sự kiện','permission'=>'listCampaign'),
+                                    array('name'=>'Thêm và sửa chiến dịch sự kiện','permission'=>'addCampaign'),
+                                    array('name'=>'Xoá chiến dịch sự kiện','permission'=>'deleteCampaign'),
+                                    array('name'=>'Danh sách khách hàng tham gia chiến dịch sự kiện','permission'=>'listCustomerCampaign'),
+                                    array('name'=>'Thêm và sửa khách hàng tham gia chiến dịch sự kiện','permission'=>'addCustomerCampaign'),
+                                    array('name'=>'Xoá khách hàng tham gia chiến dịch sự kiện','permission'=>'deleteCustomerCampaign'),
+                                    array('name'=>'checkin khách hàng tham gia chiến dịch sự kiện','permission'=>'checkinCampaign'),
+                            )
+                    );
+    
     
     return $permission;
 }

@@ -7,7 +7,11 @@ function listCustomerCampaign($input)
     global $metaTitleMantan;
     global $session;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('listCampaign');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         $metaTitleMantan = 'Danh sách khách đăng ký chiến dịch sự kiện';
 
         $modelCampaigns = $controller->loadModel('Campaigns');
@@ -16,7 +20,7 @@ function listCustomerCampaign($input)
         $modelCustomerHistories = $controller->loadModel('CustomerHistories');
 
         if(!empty($_GET['id'])){
-            $infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$session->read('infoUser')->id])->first();
+            $infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$user->id])->first();
 
             if(!empty($infoCampaign)){
                 $infoCampaign->location = json_decode($infoCampaign->location, true);
@@ -166,29 +170,6 @@ function listCustomerCampaign($input)
     }
 }
 
-function deleteCustomerCampaign($input)
-{
-    global $controller;
-    global $session;
-
-    $modelCampaigns = $controller->loadModel('Campaigns');
-    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
-    
-    if(!empty($session->read('infoUser'))){
-        if(!empty($_GET['id'])){
-            $data = $modelCampaignCustomers->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$session->read('infoUser')->id])->first();
-            
-            if($data){
-                $modelCampaignCustomers->delete($data);
-            }
-        }
-
-        return $controller->redirect('/listCampaign');
-    }else{
-        return $controller->redirect('/login');
-    }
-}
-
 function addCustomerCampaign($input)
 {
     global $controller;
@@ -199,7 +180,11 @@ function addCustomerCampaign($input)
     global $isRequestPost;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
+     $user = checklogin('addCustomerCampaign');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerCampaign');
+        }
         $metaTitleMantan = 'Khách đăng ký chiến dịch sự kiện';
 
         $modelCampaigns = $controller->loadModel('Campaigns');
@@ -210,7 +195,7 @@ function addCustomerCampaign($input)
         $mess= '';
 
         if(!empty($_GET['id_campaign'])){
-            $checkCampaign = $modelCampaigns->find()->where(['id'=>(int) $_GET['id_campaign'], 'id_member'=>$session->read('infoUser')->id])->first();
+            $checkCampaign = $modelCampaigns->find()->where(['id'=>(int) $_GET['id_campaign'], 'id_member'=>$user->id])->first();
         }
 
         if(!empty($checkCampaign)){
@@ -247,10 +232,10 @@ function addCustomerCampaign($input)
 
                     // tạo dữ liệu save
                     if(!empty($customer->id)){
-                        $checkCampaignCustomer = $modelCampaignCustomers->find()->where(['id_campaign'=>(int) $checkCampaign->id, 'id_member'=>$session->read('infoUser')->id, 'id_customer'=>$customer->id])->first();
+                        $checkCampaignCustomer = $modelCampaignCustomers->find()->where(['id_campaign'=>(int) $checkCampaign->id, 'id_member'=>$user->id, 'id_customer'=>$customer->id])->first();
 
                         if(empty($checkCampaignCustomer)){
-                            $data->id_member = $session->read('infoUser')->id;
+                            $data->id_member = $user->id;
                             $data->id_customer = $customer->id;
                             $data->id_campaign = $checkCampaign->id;
                             $data->id_location = (int) $dataSend['id_location'];
@@ -280,7 +265,7 @@ function addCustomerCampaign($input)
                                 $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$customer->full_name.' đã '.$actionCampaign.' chiến dịch '.$checkCampaign->name,'action'=>'addCustomerCampaign', 'id_campaign'=>$checkCampaign->id);
                                 $token_device = [];
 
-                                $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$session->read('infoUser')->id])->all()->toList();
+                                $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$user->id])->all()->toList();
 
                                 if(!empty($listTokenDevice)){
                                     foreach ($listTokenDevice as $tokenDevice) {
@@ -309,6 +294,14 @@ function addCustomerCampaign($input)
                             $modelCampaignCustomers->save($checkCampaignCustomer);
                         }
 
+                        if(!empty($_GET['id'])){
+                            $note = $user->type_tv.' '. $user->name.' sửa thông tin khách hàng '.$customer->full_name.' tham gia chiến dịch sự kiện '.$checkCampaign->name.' có id là:'.$data->id;
+                        }else{
+                            $note = $user->type_tv.' '. $user->name.' thêm thông tin khách hàng '.$customer->full_name.' tham gia chiến dịch sự kiện '.$checkCampaign->name.' có id là:'.$data->id;
+                        }
+
+                        addActivityHistory($user,$note,'addCustomerCampaign',$data->id);
+
                         $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
                     }else{
                         $mess= '<p class="text-danger">Lỗi tạo dữ liệu khách hàng</p>';
@@ -329,6 +322,38 @@ function addCustomerCampaign($input)
     }
 }
 
+function deleteCustomerCampaign($input)
+{
+    global $controller;
+    global $session;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+    $user = checklogin('deleteCustomerCampaign');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerCampaign');
+        }
+
+        if(!empty($_GET['id'])){
+            $data = $modelCampaignCustomers->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$user->id])->first();
+
+            
+            if(!empty($data)){
+                $checkCampaign = $modelCampaigns->find()->where(['id'=>(int) $data->id_campaign])->first();
+                $customer = $modelCustomers->find()->where(['id'=>$data->id_customer])->first();
+                 $note = $user->type_tv.' '. $user->name.' xóa tthông tin khách hàng '.$customer->full_name.' tham gia chiến dịch sự kiện '.$checkCampaign->name.' có id là:'.$data->id;
+                addActivityHistory($user,$note,'deleteAffiliaterAgency',$data->id);
+                $modelCampaignCustomers->delete($data);
+            }
+        }
+
+        return $controller->redirect('/listCampaign');
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 function checkinCampaign($input)
 {
     global $controller;
@@ -339,7 +364,11 @@ function checkinCampaign($input)
     global $isRequestPost;
     global $urlHomes;
 
-    if(!empty($session->read('infoUser'))){
+    $user = checklogin('checkinCampaign');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/listCustomerCampaign');
+        }
         $metaTitleMantan = 'Khách đăng ký chiến dịch sự kiện';
 
         $modelCampaigns = $controller->loadModel('Campaigns');
@@ -348,7 +377,7 @@ function checkinCampaign($input)
         $modelTokenDevices = $controller->loadModel('TokenDevices');
 
         if(!empty($_GET['id'])){
-            $checkData = $modelCampaignCustomers->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$session->read('infoUser')->id])->first();
+            $checkData = $modelCampaignCustomers->find()->where(['id'=>(int) $_GET['id'], 'id_member'=>$user->id])->first();
 
             if(!empty($checkData)){
                 $customer = $modelCustomers->find()->where(['id'=>$checkData->id_customer])->first();
@@ -363,7 +392,7 @@ function checkinCampaign($input)
                 $modelCampaignCustomers->save($checkData);
 
                 // bắn thông báo khách checkin chiến dịch
-                if( !empty($session->read('infoUser')->noti_checkin_campaign)){
+                if( !empty($user->noti_checkin_campaign)){
                     $actionCampaign = 'hủy checkin';
                     if(!empty($_GET['checkin'])){
                         $actionCampaign = 'checkin';
@@ -372,7 +401,7 @@ function checkinCampaign($input)
                     $dataSendNotification= array('title'=>'Khách '.$actionCampaign.' chiến dịch','time'=>date('H:i d/m/Y'),'content'=>$customer->full_name.' đã '.$actionCampaign.' chiến dịch '.$checkCampaign->name,'action'=>'checkinCustomerCampaign', 'id_campaign'=>$checkCampaign->id);
                     $token_device = [];
 
-                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$session->read('infoUser')->id])->all()->toList();
+                    $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$user->id])->all()->toList();
 
                     if(!empty($listTokenDevice)){
                         foreach ($listTokenDevice as $tokenDevice) {
@@ -386,6 +415,9 @@ function checkinCampaign($input)
                         }
                     }
                 }
+
+                 $note = $user->type_tv.' '. $user->name.' đã checkin cho khách hàng '.$customer->full_name.' tham gia chiến dịch sự kiện '.$checkCampaign->name.' có id là:'.$checkData->id;
+                addActivityHistory($user,$note,'deleteAffiliaterAgency',$checkData->id);
 
                 return $controller->redirect('/listCustomerCampaign/?id='.$checkData->id_campaign);
             }

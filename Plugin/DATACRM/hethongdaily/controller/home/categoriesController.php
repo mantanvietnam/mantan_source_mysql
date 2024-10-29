@@ -84,6 +84,8 @@ function settingSystem($input){
     global $metaTitleMantan;
     global $controller;
     global $session;
+    global $maxExport;
+    global $numberExport;
 
     $metaTitleMantan = 'Cài đặt hệ thống';
     
@@ -100,6 +102,7 @@ function settingSystem($input){
                 $data->image = $dataSend['image'];
                 $data->keyword = $dataSend['keyword'];
                 $description = array('convertPoint'=> @$dataSend['convertPoint'],
+                                    'max_export_mmtc'=> @$dataSend['max_export_mmtc'],
                                     );
                 $data->description = json_encode($description);
 
@@ -119,10 +122,13 @@ function settingSystem($input){
         if(!empty($data->description)){
         $description = json_decode($data->description, true);
         $data->convertPoint = @$description['convertPoint'];
+        $data->max_export_mmtc = @$description['max_export_mmtc'];
         }
 
         setVariable('data', $data);
         setVariable('mess', $mess);
+        setVariable('maxExport', $maxExport);
+        setVariable('numberExport', $numberExport);
     }else{
         return $controller->redirect('/login');
     }

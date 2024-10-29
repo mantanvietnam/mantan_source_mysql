@@ -548,6 +548,8 @@ function getLinkMMTCAPI($input)
     
     $modelCustomer = $controller->loadModel('Customers');
 
+    $modelCustomerHistorieMmtt = $controller->loadModel('CustomerHistorieMmtts');
+
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -555,9 +557,26 @@ function getLinkMMTCAPI($input)
             $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
 
             if (!empty($user)) {
+                if(function_exists('getMemberById')){
+                    $infoMember =  getMemberById($user->id_parent);
+                }
+               
                 if(!empty($user->link_download_mmtc) && empty($dataSend['reload'])){
                     return array('code'=>1,'link'=>$user->link_download_mmtc);
                 }else{
+
+
+                    $checkHistorieMmtt = count($modelCustomerHistorieMmtt->find()->where(['id_user'=>$user->id])->all()->toList());
+                    if(!empty($user->max_export_mmtc)){
+                        if( $user->max_export_mmtc < $checkHistorieMmtt){
+                            return array('code'=>4,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$user->max_export_mmtc.' bản thần số học.');
+                        }
+                    }elseif(!empty($infoMember->infosystem->max_export_mmtc)){
+                        if($infoMember->infosystem->max_export_mmtc < $checkHistorieMmtt){
+                            return array('code'=>4,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$infoMember->infosystem->max_export_mmtc.' bản thần số học.');
+                        }
+                    }
+
                     if(!empty($user->birthday_date) && !empty($user->birthday_month) && !empty($user->birthday_year)){
                         $birthday = $user->birthday_date.'/'.$user->birthday_month.'/'.$user->birthday_year;
                         
@@ -583,6 +602,14 @@ function getLinkMMTCAPI($input)
                             $user->link_download_mmtc = $linkFull;
 
                             $modelCustomer->save($user);
+
+                            $history = $modelCustomerHistorieMmtt->newEmptyEntity();
+                            $history->id_user = $user->id;
+                            $history->id_customer =$user->id;
+                            $history->created_at = time();
+                            $history->note = '';
+                            $history->link_download_mmtc =$user->link_download_mmtc;
+                            $modelCustomerHistorieMmtt->save($history);
 
                             return array('code'=>0,'link'=>$user->link_download_mmtc);
                         }else{
@@ -622,6 +649,21 @@ function createLinkMMTCAPI($input)
             $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
 
             if (!empty($user)){
+                if(function_exists('getMemberById')){
+                    $infoMember =  getMemberById($user->id_parent);
+                }
+
+                $checkHistorieMmtt = count($modelCustomerHistorieMmtt->find()->where(['id_user'=>$user->id])->all()->toList());
+                if(!empty($user->max_export_mmtc)){
+                    if( $user->max_export_mmtc < $checkHistorieMmtt){
+                        return array('code'=>4,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$user->max_export_mmtc.' bản thần số học.');
+                    }
+                }elseif(!empty($infoMember->infosystem->max_export_mmtc)){
+                    if($infoMember->infosystem->max_export_mmtc < $checkHistorieMmtt){
+                        return array('code'=>4,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$infoMember->infosystem->max_export_mmtc.' bản thần số học.');
+                    }
+                }
+               
                 $checkPhone =  $modelCustomer->find()->where(['phone' => $dataSend['phone']])->first();
                 $saveMember = '';
                 if(empty($checkPhone)){

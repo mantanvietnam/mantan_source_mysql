@@ -383,7 +383,19 @@ function getCampaignCustomerAPI($input)
                 $customer_reg = $modelCampaignCustomers->find()->where(['id_campaign'=>$data->id, 'id_member'=>$boss->id])->all()->toList();
                 $customer_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$data->id, 'id_member'=>$boss->id, 'time_checkin >'=>0])->all()->toList();
                 $yet_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$data->id, 'id_member'=>$boss->id, 'time_checkin'=>0])->all()->toList();
+                $image_drive = array();
+                if(!empty($data->id_drive)){
+                    $datadrive = getListFileDrive($data->id_drive);
+                    if(!empty($datadrive)){
+                        foreach($datadrive as $key => $item){
+                            $image_drive[$key]['thumbnailLink'] = $item['thumbnailLink'];
+                            $image_drive[$key]['downloadUrl'] = $item['downloadUrl'];
+                            $image_drive[$key]['id'] = $item['id'];
+                        }
+                    }
+                }
 
+                $data->image_drive = $image_drive;
                 $data->number_reg = count($customer_reg);
                 $data->number_checkin = count($customer_checkin);
                 $data->yet_checkin = count($yet_checkin);

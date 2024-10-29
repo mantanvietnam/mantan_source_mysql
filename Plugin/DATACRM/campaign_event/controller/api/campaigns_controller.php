@@ -41,6 +41,8 @@ function getListCampaignAPI($input)
 
 			            $listData[$key]->number_reg = count($customer_reg);
 			            $listData[$key]->number_checkin = count($customer_checkin);
+
+
                     }
                 }
                 
@@ -145,7 +147,10 @@ function saveInfoCampaignAPI($input)
 	                $data->id_member = $infoMember->id;
 	                $data->location = $dataSend['location'];
 	                $data->ticket = $dataSend['ticket'];
-	                $data->team = $dataSend['team'];
+                    $data->team = $dataSend['team'];
+                    $data->id_drive = @$dataSend['id_drive'];
+                    $data->id_ai_event = @$dataSend['id_ai_event'];
+	                $data->link_drive = @$dataSend['link_drive'];
 	                
 	                $modelCampaigns->save($data);
 

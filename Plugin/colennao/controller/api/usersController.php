@@ -662,8 +662,10 @@ function updateUserApi($input): array
         }
 
         if (!empty($dataSend['birthday'])) {
-            $currentUser->birthday = (int) strtotime($dataSend['birthday']);
+            $date = explode("/", $dataSend['birthday']);
+            $currentUser->birthday =  mktime(0, 0, 0, $date[1], $date[0], $date[2]);
         }
+
 
         if (!empty($dataSend['sex'])) {
             $currentUser->sex = (int) strtotime($dataSend['sex']);
@@ -695,6 +697,13 @@ function updateUserApi($input): array
 
         if (isset($dataSend['id_unit'])) {
             $currentUser->id_unit = (int) $dataSend['id_unit'];
+        }
+
+        if (isset($dataSend['time_fast'])) {
+            $time_now = explode(" ", $dataSend['time_fast']);
+            $time = explode(":", $time_now[0]);
+            $date = explode("/", $time_now[1]);
+            $currentUser->time_fast = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
         }
 
         // avatar

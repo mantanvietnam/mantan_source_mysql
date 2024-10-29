@@ -59,6 +59,10 @@
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
+          <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" name="excel" class="btn btn-danger d-block" value="Excel">Xuất Excle</button>
+          </div>
         </div>
       </div>
     </div>
