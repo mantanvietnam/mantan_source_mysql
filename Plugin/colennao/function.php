@@ -73,7 +73,11 @@ $menus[0]['sub'][]= array( 'title'=>'Giao dịch thanh toán',
                             'classIcon'=>'bx bx-history',
                             'permission'=>'listTransactionAdmin'
                     );
-
+$menus[0]['sub'][]= array( 'title'=>'Cài đặt chế độ ăn',
+                            'url'=>'/plugins/admin/colennao-view-admin-mealtime-listmealtime',
+                            'classIcon'=>'bx bx-history',
+                            'permission'=>'listmealtime'
+            );
 $menus[0]['sub'][]= array('title'=>'Cài đặt',
         'url'=>'/',
         'classIcon'=>'bx bx-cog',
@@ -709,6 +713,13 @@ $listLevel = [1=> array('id'=> 1, 'name'=> 'Người mới', 'name_en'=>'Newbie'
     3=> array( 'id'=> 3,'name'=> 'Trình độ cao', 'name_en'=>'High level'),
 ];
 
+
+global $listfasting;
+
+$listfasting = [1=> array('id'=> 1, 'name'=> 'NGƯỜI MỚI BẮT ĐẦU', 'name_en'=>'BEGINNER'),
+    2 => array( 'id'=> 2,'name'=> 'NGƯỜI NHANH CHÓNG KINH NGHIỆM', 'name_en'=>'EXPERIENCED FASTERS'),
+    3=> array( 'id'=> 3,'name'=> 'CHUYÊN NGHIỆP NHANH HƠN', 'name_en'=>'PRO FASTER'),
+];
 
 global $listdevice;
 

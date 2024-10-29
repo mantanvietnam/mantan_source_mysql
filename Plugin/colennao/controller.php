@@ -40,4 +40,5 @@ include_once('controller/api/transactionsController.php');
 include_once('controller/api/pricelistController.php');
 include_once('controller/api/notificationController.php');
 include_once('controller/api/likeController.php');
+include_once('controller/api/mealtimeController.php');
 ?>
