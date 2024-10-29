@@ -76,5 +76,39 @@ function createevent($input)
 
     setVariable('mess', $mess);
 }
+function detailevent($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
 
+    $metaTitleMantan = 'Chi tiết sự kiện';
+    $modelevents = $controller->loadModel('events');
+    $order = array('id'=>'desc');
+    $listDataevent= $modelevents->find()->where(['show_on_homepage' => 1])->order($order)->all()->toList();
+    $modelevents = $controller->loadModel('events');
+    if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=>$_GET['id']);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('slug'=>$slug);
+        }
+
+
+        
+        $events = $modelevents->find()->where($conditions)->first();
+        setVariable('listDataevent', $listDataevent);
+        setVariable('events', $events);
+
+    }else{
+        return $controller->redirect('/');
+    }
+}
 ?>

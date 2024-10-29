@@ -81,7 +81,8 @@ function indexTheme($input){
 	$conditions = array('key_word' => 'settinghomevemoi');
 
     $order = array('id'=>'desc');
- 
+    $modelevents = $controller->loadModel('events');
+    $listDataevent= $modelevents->find()->where(['show_on_homepage' => 1])->order($order)->all()->toList();
 
     $data = $modelOptions->find()->where($conditions)->first();
     $data_value = array();
@@ -90,9 +91,6 @@ function indexTheme($input){
     }
     $order = array('id'=>'desc');
     $listDatatop= $modelPosts->find()->limit(4)->where(array( 'type'=>'post'))->order($order)->all()->toList();
-    $order = array('id'=>'desc');
-    $listDataevent= $modelPosts->find()->limit(6)->where(array('type'=>'post', 'idCategory'=>3))->order($order)->all()->toList();
-
     $slide_banner = [];
     if(!empty($settingThemes['slide_banner'])){
         $slide_banner = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['slide_banner']])->all()->toList();

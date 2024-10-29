@@ -107,92 +107,22 @@
                         <p>Sự Kiện Nổi Bật<span class="red-dot">•</span></p>
                         <div class="news">
                             <div class="row">
+                                <?php foreach($listDataevent as $event):?>
                                 <div class="col-lg-4">
                                     <div class="card-news">
-                                        <img src="<?=$urlThemeActive?>asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
+                                        <img src="<?=$event->banner?>" alt="">
+                                        <div class="text top-text">
+                                            <a class="name" href="/detailevent/<?php echo @$event->slug ?>.html">Khởi nghiệp</a>
+                                            <a class="logo" href="/detailevent/<?php echo @$event->slug ?>.html"><i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                        <div class="text under-text">
+                                            <p class="date-time"><?php echo date('d/m/Y', $event->time_start);?></p>
+                                            <h4><?=$event->name?></h4>
+                                            <p class="date-time"><?=$event->address?></p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?=$urlThemeActive?>asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?=$urlThemeActive?>asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?=$urlThemeActive?>asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?=$urlThemeActive?>asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?=$urlThemeActive?>asset/image/thu-do-nuoc-anh-la-gi-1.jpg" alt="">
-                                            <div class="text top-text">
-                                                <a class="name" href="#">Khởi nghiệp</a>
-                                                <a class="logo" href=""><i class="fas fa-arrow-right"></i></a>
-                                            </div>
-                                            <div class="text under-text">
-                                                <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                <h4>Finance Fusion: Igniting Financial Future</h4>
-                                                <p class="date-time">Hạ Long, Quảng Ninh</p>
-                                            </div>
-                                    </div>
-                                </div>
-                                
-                               
+                                </div>   
+                                <?php endforeach;?>                    
                             </div>
                         </div>
                         <div class="takeall">
