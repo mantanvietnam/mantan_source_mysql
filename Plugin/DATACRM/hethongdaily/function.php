@@ -1543,7 +1543,7 @@ function getListPermission()
                                     array('name'=>'Xoá nhiệm vụ','permission'=>'deleteTask'),
                             )
                     );
-    $permission[] = array( 'name'=>'Quản lý chiến dịch sự khện',
+    $permission[] = array( 'name'=>'Quản lý chiến dịch sự kiện',
                     'sub'=>array(   array('name'=>'Danh sách chiến dịch sự kiện','permission'=>'listCampaign'),
                                     array('name'=>'Thêm và sửa chiến dịch sự kiện','permission'=>'addCampaign'),
                                     array('name'=>'Xoá chiến dịch sự kiện','permission'=>'deleteCampaign'),
@@ -1551,6 +1551,10 @@ function getListPermission()
                                     array('name'=>'Thêm và sửa khách hàng tham gia chiến dịch sự kiện','permission'=>'addCustomerCampaign'),
                                     array('name'=>'Xoá khách hàng tham gia chiến dịch sự kiện','permission'=>'deleteCustomerCampaign'),
                                     array('name'=>'checkin khách hàng tham gia chiến dịch sự kiện','permission'=>'checkinCampaign'),
+                            )
+                    );
+    $permission[] = array( 'name'=>'Quản lý tăng tương tác',
+                    'sub'=>array(   array('name'=>'Lịch sử tăng tương tác','permission'=>'historyUpLike'),
                             )
                     );
     

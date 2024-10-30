@@ -344,8 +344,15 @@
               }
 
               if(in_array('campaign', $plugins_site_value)){
-                echo '<li class="nav-item">
-                        <a class="nav-link" href="/listCampaign">Chiến dịch</a>
+                echo '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Chiến dịch
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                          <a class="dropdown-item" href="/listCampaign">Sự kiện</a>
+                          <a class="dropdown-item" href="/historyUpLike">Tăng tương tác</a>
+                        </div>
                       </li>';
               }
 
