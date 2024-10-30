@@ -351,7 +351,7 @@
 
                         <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                           <a class="dropdown-item" href="/listCampaign">Sự kiện</a>
-                          <a class="dropdown-item" href="/historyUpLike">Tăng tương tác</a>
+                          <a class="dropdown-item" href="/chooseUpLike">Tăng tương tác</a>
                         </div>
                       </li>';
               }
