@@ -121,7 +121,11 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/ai-create-marketing"><i class='bx bx-book-content'></i> AI lập kế hoạch Marketing</a>
+              <a class="nav-link" href="/ai-search-image-event"><i class='bx bx-search-alt-2'></i> AI tìm ảnh</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/ai-create-marketing"><i class='bx bx-book-content'></i> AI Marketing</a>
             </li>
 
             <li class="nav-item">

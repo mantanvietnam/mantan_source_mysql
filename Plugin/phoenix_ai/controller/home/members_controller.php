@@ -33,6 +33,7 @@ function register($input)
 					$data->created_at = time();
 					$data->last_login = time();
 					$data->address = '';
+					$data->coin = 0;
 
 					$modelMember->save($data);
 
@@ -232,7 +233,6 @@ function account($input)
 				$user->name = $dataSend['name'];
 				$user->email = $dataSend['email'];
 				$user->address = $dataSend['address'];
-				$user->facebook = $dataSend['facebook'];
 
 				$modelMembers->save($user);
 

@@ -24,6 +24,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `avatar` VARCHAR(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
   `created_at` INT NOT NULL,
   `last_login` INT NULL,
+  `coin` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ";
 
@@ -34,7 +35,20 @@ $sqlInstallDatabase .= "CREATE TABLE `data_ais` (
   `create_ai` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
   `link_ai` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , 
   `embed_code_ai` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL , 
-  `id_ai_dify` INT NULL , 
+  `id_ai_dify` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , 
+  PRIMARY KEY (`id`)) ENGINE = InnoDB;
+";
+
+$sqlInstallDatabase .= "CREATE TABLE `search_image_events` ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_member` INT NOT NULL , 
+  `id_drive` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+  `name` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+  `slug` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+  `view` INT NOT NULL DEFAULT '0' , 
+  `create_at` INT NOT NULL , 
+  `status` VARCHAR(10) NOT NULL DEFAULT 'active',
+  `collection_ai` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ";
 
@@ -70,6 +84,14 @@ $sqlUpdateDatabase['members']['facebook'] = "ALTER TABLE `members` ADD `facebook
 $sqlUpdateDatabase['members']['avatar'] = "ALTER TABLE `members` ADD `avatar` VARCHAR(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['members']['created_at'] = "ALTER TABLE `members` ADD `created_at` INT NOT NULL;";
 $sqlUpdateDatabase['members']['last_login'] = "ALTER TABLE `members` ADD `last_login` INT NULL;";
+$sqlUpdateDatabase['members']['coin'] = "ALTER TABLE `members` ADD `coin` INT NOT NULL DEFAULT '0';";
+
+$sqlUpdateDatabase['data_ais']['id_member'] = "ALTER TABLE `data_ais` ADD `id_member` INT NOT NULL;";
+$sqlUpdateDatabase['data_ais']['data'] = "ALTER TABLE `data_ais` ADD `data` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['data_ais']['create_ai'] = "ALTER TABLE `data_ais` ADD `create_ai` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['data_ais']['link_ai'] = "ALTER TABLE `data_ais` ADD `link_ai` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
+$sqlUpdateDatabase['data_ais']['embed_code_ai'] = "ALTER TABLE `data_ais` ADD `embed_code_ai` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NULL;";
+$sqlUpdateDatabase['data_ais']['id_ai_dify'] = "ALTER TABLE `data_ais` ADD `id_ai_dify` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
 
 
 ?>

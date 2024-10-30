@@ -9,6 +9,7 @@ function searchImageAPI($input)
 
     $idDrive = '1caR-VYFTTtXicUedwr3PMoxToKbu5Zdh';
     $idCollection = 'tests-20242110';
+    $limit = 100;
 
     if(!empty($_POST['idDrive'])){
         $idDrive = $_POST['idDrive'];
@@ -16,6 +17,10 @@ function searchImageAPI($input)
 
     if(!empty($_POST['idCollection'])){
         $idCollection = $_POST['idCollection'];
+    }
+
+    if(!empty($_POST['limit'])){
+        $limit = (int) $_POST['limit'];
     }
 
     $listFileDrive = getListFileDrive($idDrive);
@@ -30,9 +35,9 @@ function searchImageAPI($input)
             }
         }
     }
-
+   
     if($isRequestPost){
-        $listImage = searchFaceImage($idCollection);
+        $listImage = searchFaceImage($idCollection, $limit);
 
         $listReturn = [];
 

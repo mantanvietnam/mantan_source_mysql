@@ -129,6 +129,7 @@
 
     const idCollection = '<?php echo @$_GET['idCollection'];?>';
     const idDrive = '<?php echo @$_GET['idDrive'];?>';
+    const limit = '<?php echo @$_GET['limit'];?>';
 
     // Handle drag and drop events
     dropArea.addEventListener('dragover', (event) => {
@@ -186,6 +187,7 @@
         formData.append('image', file);
         formData.append('idCollection', idCollection);
         formData.append('idDrive', idDrive);
+        formData.append('limit', limit);
 
         $('#imgLoading').show();
 

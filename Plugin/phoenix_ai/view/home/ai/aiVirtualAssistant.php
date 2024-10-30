@@ -1,5 +1,32 @@
 <?php include(__DIR__.'/../header.php'); ?>
 
+<style>
+    .code-container {
+        position: relative;
+        padding: 16px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-family: monospace;
+        overflow-x: auto;
+    }
+    .copy-button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 6px 10px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    .copy-button:active {
+        background-color: #0056b3;
+    }
+</style>
+
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
@@ -416,9 +443,10 @@
             <div id="info_ai" style="display: none;">
               <p>Link truy cập trợ lý ảo: <a href="<?php echo @$data_ai->link_ai;?>" target="_blank"><?php echo @$data_ai->link_ai;?></a></p>
               <p>Mã nhúng trợ lý ảo vào website:</p>
-              <code class="mb-3">
-                <?php echo @$data_ai->embed_code_ai;?>
-              </code>
+              <div class="code-container" id="code-container">
+                <code class="mb-3" id="embed_code_ai"><?php if(!empty($data_ai->embed_code_ai)) echo trim(nl2br(htmlspecialchars($data_ai->embed_code_ai)));?></code>
+                <button class="copy-button" onclick="copyCode()">Sao chép</button>
+              </div>
               <p style="margin-top: 15px;"><button type="button" class="btn btn-danger" onclick="updateData();">Cập nhập dữ liệu</button></p>
             </div>
           </div>
@@ -479,6 +507,17 @@
       row--;
       $('#trProduct-'+i).remove();
   }
+</script>
+
+<script>
+    function copyCode() {
+        const codeContainer = document.getElementById('embed_code_ai').innerText;
+        navigator.clipboard.writeText(codeContainer).then(() => {
+            alert('Đoạn code đã được sao chép!');
+        }).catch(err => {
+            console.error('Sao chép thất bại: ', err);
+        });
+    }
 </script>
 
 <?php include(__DIR__.'/../footer.php'); ?>
