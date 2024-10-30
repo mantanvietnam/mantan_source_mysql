@@ -11,4 +11,9 @@
 	$routesPlugin['account']= 'vemoi/view/home/member/account.php';
 	$routesPlugin['createevent']= 'vemoi/view/home/event/createevent.php';
 	$routesPlugin['detailevent']= 'vemoi/view/home/event/detailevent.php';
+	$routesPlugin['myevent']= 'vemoi/view/home/event/myevent.php';
+	$routesPlugin['participate']= 'vemoi/view/home/event/participate.php';
+	$routesPlugin['manageevent']= 'vemoi/view/home/event/manageevent.php';
+	$routesPlugin['editmanagerevent']= 'vemoi/view/home/event/editmanagerevent.php';
+	$routesPlugin['infomanagerevent']= 'vemoi/view/home/event/infomanagerevent.php';
 	

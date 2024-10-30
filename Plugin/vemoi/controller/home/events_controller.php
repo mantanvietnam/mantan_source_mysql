@@ -89,10 +89,10 @@ function detailevent($input){
     global $session;
 
     $metaTitleMantan = 'Chi tiết sự kiện';
+    
     $modelevents = $controller->loadModel('events');
     $order = array('id'=>'desc');
     $listDataevent= $modelevents->find()->where(['show_on_homepage' => 1])->order($order)->all()->toList();
-    $modelevents = $controller->loadModel('events');
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
             $conditions = array('id'=>$_GET['id']);
@@ -104,11 +104,270 @@ function detailevent($input){
 
         
         $events = $modelevents->find()->where($conditions)->first();
+
         setVariable('listDataevent', $listDataevent);
         setVariable('events', $events);
 
     }else{
         return $controller->redirect('/');
     }
+}
+function myevent($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
+    $modelevents = $controller->loadModel('events');
+    $modelattendedevent = $controller->loadModel('attendedevent');
+    $info = $session->read('infoUser');
+    $order = array('id'=>'desc');
+    $limit = 8;
+    $conditions = array();
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    $order = array('id' => 'desc');
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    $listdataattendedevent = $modelattendedevent->find()->where(['id_member'=>$info->id])->order($order)->all()->toList();
+    $listDataevent= $modelevents->find()->where(['id_member'=>$info->id],$conditions)->order($order)->all()->toList();
+    $eventMap = [];
+    foreach ($listDataevent as $event) {
+        $eventMap[$event->id] = $event; 
+    }
+
+    $totalData = $modelevents->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
+    $totalData = count($totalData);
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('eventMap', $eventMap);
+    setVariable('listdataattendedevent', $listdataattendedevent);
+    setVariable('listDataevent', $listDataevent);
+}
+function participate($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
+    $modelattendedevent = $controller->loadModel('attendedevent');
+    $mess = '';
+    if ($isRequestPost) {
+
+        $dataSend = $input['request']->getData();
+
+        $data = $modelattendedevent->newEmptyEntity();
+
+        if(!empty($dataSend['name'])){
+            $data->city = @$dataSend['city'];
+            $data->name = @$dataSend['name'];
+            $data->email = @$dataSend['email'];
+            $data->date = (new DateTime($dataSend['date']))->getTimestamp();
+            $data->id_member = @$dataSend['id_member'];
+            $data->status = @$dataSend['status'];
+            $data->id_events = isset($_GET['id']) ? $_GET['id'] : null;
+            $data->sex = @$dataSend['sex'];
+
+
+            $modelattendedevent->save($data);
+            $mess = '<p class="text-success">đăng ký tham gia thành công</p>';
+        }else{
+            $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+        }
+
+        
+    }
+    setVariable('mess', $mess);
+
+}
+function manageevent($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
+    $modelattendedevent = $controller->loadModel('attendedevent');
+    $limit = 8;
+    $conditions = array();
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+    $order = array('id'=>'desc');
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    $listdataattendedevent = $modelattendedevent->find()->where(['id_events'=>$id])->order($order)->all()->toList();
+    $totalData = $modelattendedevent->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
+    $totalData = count($totalData);
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('listdataattendedevent', $listdataattendedevent);
+}
+
+function editmanagerevent($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
+    $modelattendedevent = $controller->loadModel('attendedevent');
+    $mess = '';
+    if(!empty($_GET['id'])){
+        $data = $modelattendedevent->get( (int) $_GET['id']);
+    }else{
+        $data = $modelattendedevent->newEmptyEntity();
+    }
+    if ($isRequestPost) {
+
+        $dataSend = $input['request']->getData();
+
+        $data = $modelattendedevent->newEmptyEntity();
+
+        if(!empty($dataSend['name'])){
+            $data->city = @$dataSend['city'];
+            $data->name = @$dataSend['name'];
+            $data->email = @$dataSend['email'];
+            $data->date = (new DateTime($dataSend['date']))->getTimestamp();
+            $data->id_member = @$dataSend['id_member'];
+            $data->status = @$dataSend['status'];
+            $data->id_events =@$dataSend['id_events'] ;
+            $data->sex = @$dataSend['sex'];
+            $modelattendedevent->save($data);
+            $mess = '<p class="text-success">sửa thông tin người dùng thành công</p>';
+        }else{
+            $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+        }
+
+        
+    }
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+function infomanagerevent($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
+    $modelattendedevent = $controller->loadModel('attendedevent');
+    $mess = '';
+    if(!empty($_GET['id'])){
+        $data = $modelattendedevent->get( (int) $_GET['id']);
+    }else{
+        $data = $modelattendedevent->newEmptyEntity();
+    }
+    if ($isRequestPost) {
+
+        $dataSend = $input['request']->getData();
+
+        $data = $modelattendedevent->newEmptyEntity();
+
+        if(!empty($dataSend['name'])){
+            $data->city = @$dataSend['city'];
+            $data->name = @$dataSend['name'];
+            $data->email = @$dataSend['email'];
+            $data->date = (new DateTime($dataSend['date']))->getTimestamp();
+            $data->id_member = @$dataSend['id_member'];
+            $data->status = @$dataSend['status'];
+            $data->id_events = isset($_GET['id']) ? $_GET['id'] : null;
+            $data->sex = @$dataSend['sex'];
+            $modelattendedevent->save($data);
+            $mess = '<p class="text-success">đăng ký tham gia thành công</p>';
+        }else{
+            $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+        }
+
+        
+    }
+    setVariable('data', $data);
+    setVariable('mess', $mess);
 }
 ?>

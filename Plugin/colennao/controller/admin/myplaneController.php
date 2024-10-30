@@ -221,6 +221,12 @@ function addmealtime($input){
             $data->id_level = $dataSend['id_level'];
             $data->fasting = $dataSend['fasting'];
             $data->eating = $dataSend['eating'];
+
+            $data->image = $dataSend['image'];
+            $data->description1 = $dataSend['description1'];
+            $data->description2 = $dataSend['description2'];
+            $data->beginner = isset($dataSend['beginner']) ? 1 : 0; 
+            $data->populer = isset($dataSend['populer']) ? 1 : 0;
             $modelmealtime->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
         }

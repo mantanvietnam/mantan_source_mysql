@@ -59,7 +59,8 @@
                         </div>
                         
                         <div class="btn-loginn">
-                            <a href="./registerto.html">Đăng ký tham gia</a>
+                            <a href="/participate?id=<?=$events['id']?> ">Đăng ký tham gia</a>
+                          
                         </div>
                         
                         <div class="link">

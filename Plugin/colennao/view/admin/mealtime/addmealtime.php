@@ -48,6 +48,30 @@
                                   <label class="form-label">eating</label>
                                   <input type="text" class="form-control" name="eating" id="eating" value="<?php echo $data->eating?>" />
                               </div>
+                              <div class="mb-3">
+                                  <label class="form-label">image</label>
+                                  <?php showUploadFile('image','image',@$data->image,0);?>
+                              </div>
+                              <div class="mb-3">
+                                  <label class="form-label">description1</label>
+                                  <textarea maxlength="160" rows="5" class="form-control" name="description1" id="description1"><?php echo @$data->description1;?></textarea>
+                              </div>
+                              <div class="mb-3">
+                                  <label class="form-label">description2</label>
+                                  <textarea maxlength="160" rows="5" class="form-control" name="description2" id="description2"><?php echo @$data->description2;?></textarea>
+                              </div>
+                              <div class="mb-3">
+                                  <label class="form-label">beginner</label>
+                                  <input type="checkbox" class="form-check-input" name="beginner" id="beginner" value="1" <?php echo ($data->beginner == 1) ? 'checked' : ''; ?> />
+                                  <input type="hidden" name="beginner" value="0" />
+                              </div>
+                              <div class="mb-3">
+                                  <label class="form-label">populer</label>
+                                  <input type="checkbox" class="form-check-input" name="populer" id="populer" value="1" <?php echo ($data->populer == 1) ? 'checked' : ''; ?> />
+                                  <input type="hidden" name="populer" value="0" />
+                              </div>
+
+
                           </div>
                         </div>
                       </div>              
