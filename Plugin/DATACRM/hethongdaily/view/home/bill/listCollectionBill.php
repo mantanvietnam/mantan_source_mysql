@@ -307,7 +307,7 @@
               &nbsp;&nbsp;&nbsp;
               <input type="radio" id="typeUser" name="typeUser" value="member" /> Đại lý 
                &nbsp;&nbsp;&nbsp;
-              <input type="radio" id="typeUser" name="typeUser" value="none" /> không phải là đối tượng nào 
+              <input type="radio" id="typeUser" name="typeUser" value="none" /> Không phải là đối tượng nào 
             </div>
             <div class="col-md-12" id="member"  style="display: none;">
               <label class="form-label">Đại lý</label>
@@ -334,12 +334,12 @@
                 <option value="hinh_thuc_khac">Hình thức khác</option>
               </select>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 mb-3">
               <label class="form-label">Nội dung thu tiền </label>
               <textarea  class="form-control" rows="5" name="note"></textarea>
             </div>
             <div class="col-md-4">
-              <button type="submit" class="btn btn-primary">Thanh toán</button>
+              <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
           </div>
         </form>

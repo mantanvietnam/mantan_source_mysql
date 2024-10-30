@@ -269,13 +269,14 @@
                           <a class="dropdown-item" href="/groupCustomerAgency">Nhóm khách hàng</a>
                           <a class="dropdown-item" href="/listRatingPoint">Hạng thành viên</a>
                           <a class="dropdown-item" href="/listPointCustomer">Điểm xếp hạng khách hàng</a>
-                          <a class="dropdown-item" href="/listHistorieCustomerGiftAgency">Lịch sử tặng quà </a>
-                          <a class="dropdown-item" href="/guideAddCustomerAPIAgency">Tích hợp API</a>';
+                          <a class="dropdown-item" href="/listHistorieCustomerGiftAgency">Lịch sử tặng quà </a>';
                             if(empty($user->id_father)){
-                                  echo '<a class="dropdown-item" href="/listFeedback">Feedback khách hàng</a>
+                                  echo '<a class="dropdown-item" href="/listFeedback">Phản hồi của khách hàng</a>
                                         <a class="dropdown-item" href="/listWallPost">Quản lý mạng xã hội</a>';
                             } 
-                        echo '</div>
+                        echo '
+                          <a class="dropdown-item" href="/guideAddCustomerAPIAgency">Tích hợp API</a>
+                          </div>
                       </li>';
               }
 

@@ -19,12 +19,12 @@
                 <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
                     <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                      thông tinh chung 
+                      Thông tin chung 
                     </button>
                   </li>
                   <li class="nav-item">
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
-                       file tài liệu
+                       File tài liệu
                     </button>
                   </li>
 
@@ -54,7 +54,7 @@
                           </div>
                         </div>
                         <div class="mb-3 col-12 col-sm-12 col-md-12">
-                          <label class="form-label">id drive </label>
+                          <label class="form-label">ID Drive Google </label>
                           <input type="text" class="form-control" name="id_drive" value="<?php echo @$data->id_drive;?>" required />
                         </div>
                       </div>
@@ -174,7 +174,7 @@
                           <div class="form-group col-md-12 dropzone" style="margin-bottom: 10px;">
                             <div class="fallback">
                               <?php if (@$_GET['status']=='loianh') {?>
-                                <p style="color: red;">dung lượng ảnh không quá 1MB</p>
+                                <p style="color: red;">Dung lượng ảnh không quá 1MB</p>
                               <?php } ?>
                               <input name="listImage[]" type="file" multiple="multiple" />
                             </div>

@@ -43,12 +43,12 @@
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-          Mọi người
+          Toàn hệ thống
         </button>
       </li>
       <li class="nav-item">
         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
-          của tôi
+          Riêng mình tôi
         </button>
       </li>
       

@@ -1,10 +1,10 @@
 <?php include(__DIR__.'/../../../hethongdaily/view/home/header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin Feedback khách hàng </h4>
+  <h4 class="fw-bold py-3 mb-4">Thông tin phản hồi khách hàng </h4>
   <!-- <p><a href="/plugins/admin/feedback-admin-addFeedbackAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách Thông tin Feedback khách hàng </h5>
+    <h5 class="card-header">Danh sách Thông tin phản hồi khách hàng </h5>
       <p><?php echo $mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -12,9 +12,9 @@
           <tr class="">
              <th>ID</th>
             <th>Ảnh đại diện</th>
-            <th>họ và tên</th>
-             <th>nội dung</th>
-            <th>trạnh thái</th>
+            <th>Họ và tên</th>
+             <th>Nội dung</th>
+            <th>Trạng thái</th>
             <th>Xóa</th> 
           </tr>
         </thead>

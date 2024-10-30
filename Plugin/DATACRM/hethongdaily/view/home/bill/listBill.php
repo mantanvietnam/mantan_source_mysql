@@ -317,8 +317,8 @@
               <label class="form-label">Nội dung chi </label>
               <textarea  class="form-control" rows="5" name="note"></textarea>
             </div>
-            <div class="col-md-4">
-              <button type="submit" class="btn btn-primary">Thanh toán</button>
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
           </div>
         </form>
