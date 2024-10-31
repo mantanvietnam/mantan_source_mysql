@@ -123,7 +123,7 @@ function searchFaceImage($collection_name='', $limit = 100)
 function createAISearchImage($id_drive='', $collection_name='')
 {
     global $urlDomainFindFace;
-    debug($collection_name);
+    
     if(!empty($id_drive) && !empty($collection_name)){
         $listFileDrive = getListFileDrive($id_drive);
         $listDownFile = [];
@@ -134,11 +134,45 @@ function createAISearchImage($id_drive='', $collection_name='')
                     $listDownFile[$value['originalFilename']] = $value['webContentLink'];
                 }
             }
-            debug($listFileDrive);
+            
             if(!empty($listDownFile)){
                 $token = getTokenFindFace();
 
                 if(!empty($token)){
+                    $filePath = __DIR__.'/../../upload/admin/files/'.$collection_name.'.json';
+
+                    file_put_contents($filePath, json_encode($listDownFile));
+
+                    $url = $urlDomainFindFace.'api/v1/upload-dataset/?bucket_name='.$collection_name.'&name_event='.$collection_name.'&collection_name='.$collection_name;
+
+                    $header = ['Authorization: Bearer '.$token];
+
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                      CURLOPT_URL => $url,
+                      CURLOPT_RETURNTRANSFER => true,
+                      CURLOPT_ENCODING => '',
+                      CURLOPT_MAXREDIRS => 10,
+                      CURLOPT_TIMEOUT => 0,
+                      CURLOPT_FOLLOWLOCATION => true,
+                      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                      CURLOPT_CUSTOMREQUEST => 'POST',
+                      CURLOPT_POSTFIELDS => array('file'=> new CURLFILE($filePath)),
+                      CURLOPT_HTTPHEADER => $header,
+                    ));
+
+                    $response = curl_exec($curl);
+
+                    curl_close($curl);
+
+                    $response = json_decode($response, true);
+
+                    unlink($filePath);
+
+                    return ['code'=>0, 'mess'=>$response['message']];
+
+                    /*
                     foreach ($listDownFile as $nameFileDrive => $fileDrive) {
                         $url = $urlDomainFindFace.'api/v1/generate-presigned-url/?bucket_name='.$collection_name.'&name_event='.$collection_name.'&file_name='.$nameFileDrive;
                             
@@ -228,6 +262,7 @@ function createAISearchImage($id_drive='', $collection_name='')
                     $response = json_decode($response, true);
 
                     debug($response);
+                    */
                 }else{
                     return ['code'=>3, 'mess'=>'Lỗi token'];
                 }

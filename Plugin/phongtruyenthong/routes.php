@@ -5,6 +5,7 @@
 	$routesPlugin['getClassInYearAPI']= 'phongtruyenthong/view/api/getClassInYearAPI.php';
 	$routesPlugin['getInfoSchoolAPI']= 'phongtruyenthong/view/api/getInfoSchoolAPI.php';
 	$routesPlugin['getListDonateAPI']= 'phongtruyenthong/view/api/getListDonateAPI.php';
+	$routesPlugin['getInfoActivities']= 'phongtruyenthong/view/api/getInfoActivities.php';
 
 	// home
 	$routesPlugin['login']= 'phongtruyenthong/view/home/class/login.php';

@@ -21,7 +21,7 @@
 
           <div class="col-md-2">
             <label class="form-label">Niên khóa</label>
-            <select name="id_year" class="form-control">
+            <select name="id_year" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <?php
                 if(!empty($years)){

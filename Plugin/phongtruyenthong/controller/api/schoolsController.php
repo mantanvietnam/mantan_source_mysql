@@ -72,6 +72,12 @@ function getInfoSchoolAPI($input)
         }
 
         shuffle($data_value['list_image_achievement']);
+
+        // chuyên mục ảnh hoạt động nhà trường
+        $data_value['list_album_activities'] = [];
+        if(!empty($data_value['id_category_activities'])){
+            $data_value['list_album_activities'] = $modelAlbums->find()->where(['id_category'=>(int) $data_value['id_category_activities']])->order(['id' => 'DESC'])->all()->toList();
+        }
     }
 
     // danh sách niên khóa
