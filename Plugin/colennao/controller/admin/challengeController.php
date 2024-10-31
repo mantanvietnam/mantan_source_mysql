@@ -97,6 +97,24 @@ function addChallenge($input){
                     }
                 }
 
+                 if(isset($_FILES['image_app']) && empty($_FILES['image_app']["error"])){
+                    if(!empty($data->id)){
+                        $fileName = 'image_app'.$data->id;
+                    }else{
+                        $fileName = 'image_app'.time().rand(0,1000000);
+                    }
+
+                    $image_app = uploadImage(1, 'image_app', $fileName);
+                }
+
+                if(!empty($image_app['linkOnline'])){
+                    $data->image_app = $image_app['linkOnline'].'?time='.time();
+                }else{
+                    if(empty($data->image_app)){
+                        $data->image_app = '';
+                    }
+                }
+
 
                 // tạo dữ liệu save
                 $data->title = @$dataSend['title'];

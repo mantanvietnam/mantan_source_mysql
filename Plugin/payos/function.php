@@ -26,7 +26,7 @@ $payOSApiKey = '';
 $payOSChecksumKey = '';
 
 $conditions = array('key_word' => 'settingPayos');
-$settingPayos = $modelOptions->find()->where($conditions)->first();
+$    = $modelOptions->find()->where($conditions)->first();
 
 if(!empty($settingPayos->value)){
     $data_value = json_decode($settingPayos->value, true);

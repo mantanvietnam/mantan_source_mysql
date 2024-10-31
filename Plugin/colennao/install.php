@@ -42,6 +42,8 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `status_pay_package` INT NULL DEFAULT 0 COMMENT "0 chưa thanh toán , 1 dã thanh toán",
 `id_group_user` INT NOT NULL DEFAULT 0,
 `rose` INT NOT NULL DEFAULT 0,
+`id_mealtime` INT NOT NULL DEFAULT 0,
+`time_fast_end` INT NULL DEFAULT NULL ,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 $sqlInstallDatabase .="CREATE TABLE `coach` (
@@ -159,6 +161,7 @@ $sqlInstallDatabase .="CREATE TABLE `challenges` (
 `created_at` INT(11) NULL DEFAULT NULL,
 `title_en` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `description_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`image_app` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `id_coach` INT NULL DEFAULT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
@@ -422,6 +425,9 @@ $sqlUpdateDatabase['users']['id_package'] = "ALTER TABLE `users` ADD `id_package
 $sqlUpdateDatabase['users']['status_pay_package'] = "ALTER TABLE `users` ADD `status_pay_package` INT NULL DEFAULT '0' COMMENT '0 chưa thanh toán , 1 dã thanh toán'";
 $sqlUpdateDatabase['users']['id_group_user'] = "ALTER TABLE `users` ADD `id_group_user` INT NOT NULL DEFAULT '0';";
 
+$sqlUpdateDatabase['users']['id_mealtime'] = "ALTER TABLE `users` ADD `id_mealtime` INT NOT NULL DEFAULT '0';"; 
+$sqlUpdateDatabase['users']['time_fast_end'] = "ALTER TABLE `users` ADD `time_fast_end` INT NULL DEFAULT NULL;";
+
  $sqlUpdateDatabase['price_lists']['name'] = "ALTER TABLE `price_lists` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['price_lists']['price'] = "ALTER TABLE `price_lists` ADD `price` INT NULL DEFAULT NULL;";
  $sqlUpdateDatabase['price_lists']['price_old'] = "ALTER TABLE `price_lists` ADD `price_old` INT NULL DEFAULT NULL;";
@@ -440,6 +446,7 @@ $sqlUpdateDatabase['users']['id_group_user'] = "ALTER TABLE `users` ADD `id_grou
  $sqlUpdateDatabase['challenges']['id_coach'] = "ALTER TABLE `challenges` ADD `id_coach` INT NULL DEFAULT NULL;";
  $sqlUpdateDatabase['challenges']['title_en'] = "ALTER TABLE `challenges` ADD `title_en` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['challenges']['description_en'] = "ALTER TABLE `challenges` ADD `description_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+ $sqlUpdateDatabase['challenges']['image_app'] = "ALTER TABLE `challenges` ADD `image_app` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
  $sqlUpdateDatabase['feedback_challenges']['id_challenge'] = "ALTER TABLE `feedback_challenges` ADD `id_challenge` INT NOT NULL ;";
  $sqlUpdateDatabase['feedback_challenges']['full_name'] = "ALTER TABLE `feedback_challenges` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";

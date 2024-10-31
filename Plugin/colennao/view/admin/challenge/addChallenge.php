@@ -108,7 +108,15 @@
                                 ?>
                               </select>
                             </div>
-                           
+                           <div class="mb-3">
+                              <label class="form-label">Hình minh họa app (*)</label>
+                               <input type="file" class="form-control phone-mask" name="image_app" id="image_app" value=""/>
+                              <?php
+                              if(!empty($data->image_app)){
+                                echo '<br/><img src="'.$data->image_app.'" width="80" />';
+                              }
+                              ?>
+                            </div>
 
                             <div class="mb-3">
                               <label class="form-label">Mô tả ngắn Tiến việt </label>

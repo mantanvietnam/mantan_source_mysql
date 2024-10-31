@@ -927,4 +927,99 @@ function checkUserDateline($input)
     }
      return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function fastingTimerUsre($input){
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $ownerType;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelMealtime = $controller->loadModel('Mealtime');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token']) && !empty($dataSend['id_fasting'])){
+        $currentUser = getUserByToken($dataSend['token']);
+
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        }
+
+        $dataMyplane = $modelMealtime->find()->where(['id'=>(int)$dataSend['id_fasting']])->first();
+        if(!empty($dataMyplane)){
+            $currentUser->time_fast = time();
+            $currentUser->id_mealtime = $dataMyplane->id; 
+            $currentUser->time_fast_end = time() + ($dataMyplane->fasting * 60 * 60);
+            $modelUser->save($currentUser);
+               return apiResponse(0, 'bạn gia hạn nhịn ăn thành công ',$currentUser);
+        }
+
+        return apiResponse(0, 'thời gian này không tồi tại');
+    }
+        return apiResponse(3, 'thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+
+
+
+function checkfastingTimerUsreAPI($input){
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $ownerType;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelMealtime = $controller->loadModel('Mealtime');
+
+    $listData = $modelUser->find()->where(['time_fast_end >'=> time()-60,'time_fast_end <'=> time()+60 ])->all()->toList();
+
+    if(!empty($listData)){
+        foreach($listData as $key => $item){
+            $checkUser = $modelUser->find()->where(['id'=>$item ])->first();
+           $device_token =array();
+            if(!empty($checkUser)){
+                $device_token[] = $value->device_token;
+                $title = 'Thông báo nhịn ăn';
+                $content = 'bạn nhị ăn thành công';
+                $notification = $modelNotification->newEmptyEntity();
+                $notification->id_user = $value->id;
+                $notification->title = $title;
+                $notification->content = $content;
+                $notification->action = 'adminSendNotification';
+                $notification->created_at = time();
+                $modelNotification->save($notification);
+
+                $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'adminSendNotification'
+                    );
+
+                    if(!empty($device_token)){
+
+                            // $return = sendNotification($dataSendNotification, $device_token);
+                        
+                        $mess = sendNotificationnew($dataSendNotification, $device_token);
+                        
+                        
+                    }
+                        
+
+                $checkUser->time_fast = 0;
+                $checkUser->time_fast_end = 0;
+                $modelUser->save($checkUser);
+
+            }
+        }
+        return array('code'=>1 ,'mess'=>'ok');
+    }
+     return array('code'=>2 ,'mess'=>' no ok');
+        
+}
+
 ?>

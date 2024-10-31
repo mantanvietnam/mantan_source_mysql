@@ -864,27 +864,52 @@ function sendNotification($data=[], $deviceTokens)
     return $number_error;
 }
 
-function getMemberByToken($token='')
+function getMemberByToken($token='',$permission='')
 {
     global $controller;
 
     $modelMember = $controller->loadModel('Members');
-    $checkData = [];
+    $user = [];
+    $modelStaff = $controller->loadModel('Staffs');
 
     if(!empty($token)){
-        /*
-        $conditions = [ 'OR' => [
-                                    ['token'=>$token],
-                                    ['token_web'=>$token]
-                                ]
-                        ];
-        */
-                        
-        $conditions = ['token'=>$token];
-        $checkData = $modelMember->find()->where($conditions)->first();
+        $checkBoss = $modelMember->find()->where(array('token'=>$token, 'status'=>'active' ))->first();
+        $checkStaff = $modelStaff->find()->where(array('token'=>$token, 'status'=>'active' ))->first();
+        if(!empty($checkBoss)){
+            $user = $checkBoss;
+            // $user->id_member = $user->id;
+            $user->type = 'member';
+            $user->id_staff = 0;
+            $user->type_tv = 'Đại lý';
+            $user->grant_permission = 1;
+        }elseif(!empty($checkStaff)){
+            $user = $checkStaff;
+            $info_staff = $modelStaff->find()->where(['id'=>$user->id])->first();
+            if(!empty($info_staff)){
+                $user->permission = $info_staff->permission;
+                $user->deadline = $info_staff->deadline;
+            }
+            $user->type = 'staff';
+            $user->type_tv = 'Nhân viên';
+            $user->id_staff = $user->id;
+            $user->id = $user->id_member;
+            $user->noti_new_customer = 1;
+            if(!empty($permission)){
+                if(!empty($user->permission) && in_array($permission, json_decode($user->permission, true))){
+                        $user->grant_permission = 1;
+                }else{
+                    $user->grant_permission = 0;
+                }
+            }else{
+                $user->grant_permission = 1;
+            }        
+        }else{
+          $user =array();  
+        }    
+
     }
 
-    return $checkData;
+    return $user;
 }
 
 function getCustomerByToken($token='')

@@ -330,6 +330,7 @@ function checkLoginMemberAPI($input)
 
 	$modelMember = $controller->loadModel('Members');
 	$modelTokenDevices = $controller->loadModel('TokenDevices');
+	$modelStaff = $controller->loadModel('Staffs');
 
 	$return = array('code'=>1);
 	
@@ -340,8 +341,8 @@ function checkLoginMemberAPI($input)
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
 		if(!empty($dataSend['phone']) && !empty($dataSend['password'])){
-			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']), 'status'=>'active' ))->first();
-			$checkStaff = $modelStaff->find()->where(array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']), 'status'=>'active' ))->first();
+				$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']), 'status'=>'active' ))->first();
+				$checkStaff = $modelStaff->find()->where(array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']), 'status'=>'active' ))->first();
 
 			if(!empty($checkPhone)){
 				/*
@@ -352,58 +353,71 @@ function checkLoginMemberAPI($input)
                     sendNotification($dataSendNotification, $checkPhone->token_device);
 				}
 				*/
+				if($info_customer->deadline > time()){
 
-				$checkPhone->last_login = time();
-				$checkPhone->token = 'member'.createToken();
+					$checkPhone->last_login = time();
+					$checkPhone->token = 'member'.createToken();
 
-				if(!empty($dataSend['token_device'])){
-					$checkPhone->token_device = $dataSend['token_device'];
+					if(!empty($dataSend['token_device'])){
+						$checkPhone->token_device = $dataSend['token_device'];
 
-					$checkTokenDevice = $modelTokenDevices->find()->where(['token_device'=>$dataSend['token_device']])->first();
+						$checkTokenDevice = $modelTokenDevices->find()->where(['token_device'=>$dataSend['token_device']])->first();
 
-					if(!empty($checkTokenDevice)){
-						$checkTokenDevice->id_member = $checkPhone->id;
-					}else{
-						$checkTokenDevice = $modelTokenDevices->newEmptyEntity();
+						if(!empty($checkTokenDevice)){
+							$checkTokenDevice->id_member = $checkPhone->id;
+						}else{
+							$checkTokenDevice = $modelTokenDevices->newEmptyEntity();
 
-						$checkTokenDevice->token_device = $dataSend['token_device'];
-						$checkTokenDevice->id_member = $checkPhone->id;
+							$checkTokenDevice->token_device = $dataSend['token_device'];
+							$checkTokenDevice->id_member = $checkPhone->id;
+						}
+
+						$modelTokenDevices->save($checkTokenDevice);
 					}
 
-					$modelTokenDevices->save($checkTokenDevice);
+					$modelMember->save($checkPhone);
+
+					$return = array(	'code'=>0, 
+			    						'info_member'=>$checkPhone
+			    					);
+				}else{
+					$return = array('code'=> 3,
+								'mess'=> 'Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ'
+							);
 				}
-
-				$modelMember->save($checkPhone);
-
-				$return = array(	'code'=>0, 
-		    						'info_member'=>$checkPhone
-		    					);
 			}elseif(!empty($checkStaff)){
 				$checkStaff->last_login = time();
 				$checkStaff->token = 'staff'.createToken();
+				$checkBoss = $modelMember->find()->where(array('id'=>$checkStaff->id_member, 'deadline >'=>time(), 'status'=>'active' ))->first();
+				if(!empty($checkBoss)){
+					if(!empty($dataSend['token_device'])){
+						$checkStaff->token_device = $dataSend['token_device'];
 
-				if(!empty($dataSend['token_device'])){
-					$checkStaff->token_device = $dataSend['token_device'];
+						$checkTokenDevice = $modelTokenDevices->find()->where(['token_device'=>$dataSend['token_device']])->first();
 
-					$checkTokenDevice = $modelTokenDevices->find()->where(['token_device'=>$dataSend['token_device']])->first();
+						if(!empty($checkTokenDevice)){
+							$checkTokenDevice->id_member = $checkStaff->id;
+						}else{
+							$checkTokenDevice = $modelTokenDevices->newEmptyEntity();
 
-					if(!empty($checkTokenDevice)){
-						$checkTokenDevice->id_member = $checkStaff->id;
-					}else{
-						$checkTokenDevice = $modelTokenDevices->newEmptyEntity();
+							$checkTokenDevice->token_device = $dataSend['token_device'];
+							$checkTokenDevice->id_member = $checkStaff->id;
+						}
 
-						$checkTokenDevice->token_device = $dataSend['token_device'];
-						$checkTokenDevice->id_member = $checkStaff->id;
+						$modelTokenDevices->save($checkTokenDevice);
 					}
 
-					$modelTokenDevices->save($checkTokenDevice);
+					$modelStaff->save($checkStaff);
+
+					$return = array(	'code'=>0, 
+			    						'info_member'=>$checkStaff
+			    					);
+				}else{
+					$return = array('code'=> 3,
+								'mess'=> 'Tài khoản của bạn đã hết hạn sử dụng. Liên hệ Zalo số 081.656.0000 để được hỗ trợ'
+							);
 				}
-
-				$modelStaff->save($checkStaff);
-
-				$return = array(	'code'=>0, 
-		    						'info_member'=>$checkStaff
-		    					);
+				
 			}else{
 				$return = array('code'=> 3,
 								'mess'=> 'Tài khoản không tồn tại hoặc sai mật khẩu'
@@ -428,6 +442,7 @@ function logoutMemberAPI($input)
 
 	$modelMember = $controller->loadModel('Members');
 
+    $modelStaff = $controller->loadModel('Staffs');
 	$return = array('code'=>1);
 	
 	if($isRequestPost){
@@ -435,12 +450,23 @@ function logoutMemberAPI($input)
 
 		if(!empty($dataSend['token'])){
 			$checkPhone = getMemberByToken($dataSend['token']);
-
 			if(!empty($checkPhone)){
-				$checkPhone->token = '';
-				$checkPhone->token_device = null;
+				if($checkPhone->type=='member'){
+					$checkUser = $modelMember->find()->where(['id'=>$checkPhone->id])->first();
+					if(!empty($checkUser)){
+						$checkUser->token = '';
+						$checkUser->token_device = null;
+						$modelMember->save($checkUser);
+					}
+				}elseif($checkPhone->type=='staff'){
+					$checkUser = $modelStaff->find()->where(['id'=>$checkPhone->id_staff])->first();
+					if(!empty($checkUser)){
+						$checkUser->token = '';
+						$checkUser->token_device = null;
+						$modelStaff->save($checkUser);
+					}
+				}
 				
-				$modelMember->save($checkPhone);
 
 				$return = array('code'=>0);
 			}else{
@@ -465,6 +491,7 @@ function lockMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+    $modelStaff = $controller->loadModel('Staffs');
 
 	$return = array('code'=>1);
 	
@@ -475,10 +502,23 @@ function lockMemberAPI($input)
 			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
-				$checkPhone->status = 'lock';
-				$checkPhone->token = '';
-				
-				$modelMember->save($checkPhone);
+				if($checkPhone->type=='member'){
+					$checkUser = $modelMember->find()->where(['id'=>$checkPhone->id])->first();
+					if(!empty($checkUser)){
+						$checkUser->token = '';
+						$checkUser->status = 'lock';
+						$checkUser->token_device = null;
+						$modelMember->save($checkUser);
+					}
+				}elseif($checkPhone->type=='staff'){
+					$checkUser = $modelStaff->find()->where(['id'=>$checkPhone->id_staff])->first();
+					if(!empty($checkUser)){
+						$checkUser->token = '';
+						$checkUser->status = 'lock';
+						$checkUser->token_device = null;
+						$modelStaff->save($checkUser);
+					}
+				}
 				
 				$return = array('code'=>0);
 			}else{
@@ -503,6 +543,7 @@ function saveChangePassMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+    $modelStaff = $controller->loadModel('Staffs');
 
 	$return = array('code'=>1);
 	
@@ -520,10 +561,19 @@ function saveChangePassMemberAPI($input)
 			if(!empty($checkPhone)){
 				if($checkPhone->password == md5($dataSend['passOld']) ){
 					if($dataSend['passNew'] == $dataSend['passAgain']){
-						$checkPhone->password = md5($dataSend['passNew']);
-						$checkPhone->token = '';
-
-						$modelMember->save($checkPhone);
+						if($checkPhone->type=='member'){
+							$checkUser = $modelMember->find()->where(['id'=>$checkPhone->id])->first();
+							if(!empty($checkUser)){
+								$checkUser->password = md5($dataSend['passNew']);
+								$modelMember->save($checkUser);
+							}
+						}elseif($checkPhone->type=='staff'){
+							$checkUser = $modelStaff->find()->where(['id'=>$checkPhone->id_staff])->first();
+							if(!empty($checkUser)){
+								$checkUser->password = md5($dataSend['passNew']);
+								$modelStaff->save($checkUser);
+							}
+						}
 
 						$return = array('code'=>0);
 					}else{
@@ -558,6 +608,7 @@ function saveInfoMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+    $modelStaff = $controller->loadModel('Staffs');
 
 	$return = array('code'=>1);
 	
@@ -568,71 +619,128 @@ function saveInfoMemberAPI($input)
 			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
-				if(!empty($dataSend['name'])){
-					$checkPhone->name = $dataSend['name'];
+				if($checkPhone->type=='member'){
+					$checkUser = $modelMember->find()->where(['id'=>$checkPhone->id])->first();
+					if(!empty($checkUser)){
+						if(!empty($dataSend['name'])){
+							$checkUser->name = $dataSend['name'];
+						}
+
+						if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+							$avatar = uploadImage($checkUser->id, 'avatar', 'avatar_'.$checkUser->id);
+						}
+
+						if(!empty($avatar['linkOnline'])){
+							$checkUser->avatar = $avatar['linkOnline'].'?time='.time();
+						}
+
+						if(!empty($dataSend['email'])){
+							$checkUser->email = $dataSend['email'];
+						}
+
+						if(!empty($dataSend['address'])){
+							$checkUser->address = $dataSend['address'];
+						}
+						
+						if(!empty($dataSend['birthday'])){
+							$checkUser->birthday = $dataSend['birthday'];
+						}
+						
+						if(!empty($dataSend['facebook'])){
+							$checkUser->facebook = $dataSend['facebook'];
+						}
+
+						if(!empty($dataSend['twitter'])){
+							$checkUser->twitter = $dataSend['twitter'];
+						}
+
+						if(!empty($dataSend['tiktok'])){
+							$checkUser->tiktok = $dataSend['tiktok'];
+						}
+
+						if(!empty($dataSend['youtube'])){
+							$checkUser->youtube = $dataSend['youtube'];
+						}
+
+						if(!empty($dataSend['zalo'])){
+							$checkUser->zalo = $dataSend['zalo'];
+						}
+
+						if(isset($dataSend['description'])){
+							$checkUser->description = $dataSend['description'];
+						}
+
+						if(!empty($dataSend['bank_number'])){
+							$checkUser->bank_number = $dataSend['bank_number'];
+						}
+						if(!empty($dataSend['bank_name'])){
+							$checkUser->bank_name = $dataSend['bank_name'];
+						}
+						if(!empty($dataSend['bank_code'])){
+							$checkUser->bank_code = $dataSend['bank_code'];
+						}
+
+						if(!empty($checkPhone->bank_number) && !empty($checkPhone->bank_name) && !empty($checkPhone->bank_code)){
+							$checkUser->image_qr_pay = 'https://img.vietqr.io/image/'.$checkPhone->bank_code.'-'.$checkPhone->bank_number.'-compact2.png?amount=&addInfo=&accountName='.$checkPhone->bank_name;
+						}
+
+						$modelMember->save($checkUser);
+					}
+				}elseif($checkPhone->type=='staff'){
+					$checkUser = $modelStaff->find()->where(['id'=>$checkPhone->id_staff])->first();
+					if(!empty($checkUser)){
+						if(!empty($dataSend['name'])){
+							$checkUser->name = $dataSend['name'];
+						}
+
+						if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+							$avatar = uploadImage($checkPhone->id, 'avatar', 'avatar_staff'.$checkUser->id);
+						}
+
+						if(!empty($avatar['linkOnline'])){
+							$checkUser->avatar = $avatar['linkOnline'].'?time='.time();
+						}
+
+						if(!empty($dataSend['email'])){
+							$checkUser->email = $dataSend['email'];
+						}
+
+						if(!empty($dataSend['address'])){
+							$checkUser->address = $dataSend['address'];
+						}
+						
+						if(!empty($dataSend['birthday'])){
+							$checkUser->birthday = $dataSend['birthday'];
+						}
+						
+						if(!empty($dataSend['facebook'])){
+							$checkUser->facebook = $dataSend['facebook'];
+						}
+
+						if(!empty($dataSend['twitter'])){
+							$checkUser->twitter = $dataSend['twitter'];
+						}
+
+						if(!empty($dataSend['tiktok'])){
+							$checkUser->tiktok = $dataSend['tiktok'];
+						}
+
+						if(!empty($dataSend['youtube'])){
+							$checkUser->youtube = $dataSend['youtube'];
+						}
+
+						if(!empty($dataSend['zalo'])){
+							$checkUser->zalo = $dataSend['zalo'];
+						}
+
+						if(isset($dataSend['description'])){
+							$checkUser->description = $dataSend['description'];
+						}
+						$modelStaff->save($checkUser);
+					}
 				}
 
-				if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-					$avatar = uploadImage($checkPhone->id, 'avatar', 'avatar_'.$checkPhone->id);
-				}
-
-				if(!empty($avatar['linkOnline'])){
-					$checkPhone->avatar = $avatar['linkOnline'].'?time='.time();
-				}
-
-				if(!empty($dataSend['email'])){
-					$checkPhone->email = $dataSend['email'];
-				}
-
-				if(!empty($dataSend['address'])){
-					$checkPhone->address = $dataSend['address'];
-				}
-				
-				if(!empty($dataSend['birthday'])){
-					$checkPhone->birthday = $dataSend['birthday'];
-				}
-				
-				if(!empty($dataSend['facebook'])){
-					$checkPhone->facebook = $dataSend['facebook'];
-				}
-
-				if(!empty($dataSend['twitter'])){
-					$checkPhone->twitter = $dataSend['twitter'];
-				}
-
-				if(!empty($dataSend['tiktok'])){
-					$checkPhone->tiktok = $dataSend['tiktok'];
-				}
-
-				if(!empty($dataSend['youtube'])){
-					$checkPhone->youtube = $dataSend['youtube'];
-				}
-
-				if(!empty($dataSend['zalo'])){
-					$checkPhone->zalo = $dataSend['zalo'];
-				}
-
-				if(isset($dataSend['description'])){
-					$checkPhone->description = $dataSend['description'];
-				}
-
-				if(!empty($dataSend['bank_number'])){
-					$checkPhone->bank_number = $dataSend['bank_number'];
-				}
-				if(!empty($dataSend['bank_name'])){
-					$checkPhone->bank_name = $dataSend['bank_name'];
-				}
-				if(!empty($dataSend['bank_code'])){
-					$checkPhone->bank_code = $dataSend['bank_code'];
-				}
-
-				if(!empty($checkPhone->bank_number) && !empty($checkPhone->bank_name) && !empty($checkPhone->bank_code)){
-					$checkPhone->image_qr_pay = 'https://img.vietqr.io/image/'.$checkPhone->bank_code.'-'.$checkPhone->bank_number.'-compact2.png?amount=&addInfo=&accountName='.$checkPhone->bank_name;
-				}
-
-				$modelMember->save($checkPhone);
-
-				$return = array('code'=>0, 'data'=>$checkPhone);
+				$return = array('code'=>0, 'data'=>$checkUser);
 
 				
 			}else{
@@ -667,34 +775,38 @@ function saveLinkInfoMemberAPI($input){
 			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
+				if($checkPhone->type=='member'){
 				
-				if($dataSend['id']){
-					$LinkInfo = $modelLinkInfo->find()->where(['id'=>(int)$dataSend['id'],'id_member'=>$checkPhone->id])->first();
-					if(empty($LinkInfo)){
+					if($dataSend['id']){
+						$LinkInfo = $modelLinkInfo->find()->where(['id'=>(int)$dataSend['id'],'id_member'=>$checkPhone->id])->first();
+						if(empty($LinkInfo)){
+							$LinkInfo = $modelLinkInfo->newEmptyEntity();
+						}
+					}else{
 						$LinkInfo = $modelLinkInfo->newEmptyEntity();
 					}
+
+					if(!empty($dataSend['link'])){
+				    	$LinkInfo->link = $dataSend['link'];
+					}
+				    if(!empty($dataSend['namelink'])){
+				    	$LinkInfo->namelink = $dataSend['namelink'];
+					}
+				    $LinkInfo->id_member = $checkPhone->id;
+				    if(!empty($dataSend['type'])){
+				    	$LinkInfo->type = @$dataSend['type'];
+					}
+				    if(!empty($dataSend['description'])){
+				    	$LinkInfo->description = @$dataSend['description'];
+					}
+				    $modelLinkInfo->save($LinkInfo);
+
+					$return = array('code'=>0, 'data'=>$LinkInfo, 'mess'=> 'Lưu thành công');
 				}else{
-					$LinkInfo = $modelLinkInfo->newEmptyEntity();
+					$return = array('code'=>4,
+								'mess'=> 'Bạn không có quyền này'
+							);
 				}
-
-				if(!empty($dataSend['link'])){
-			    	$LinkInfo->link = $dataSend['link'];
-				}
-			    if(!empty($dataSend['namelink'])){
-			    	$LinkInfo->namelink = $dataSend['namelink'];
-				}
-			    $LinkInfo->id_member = $checkPhone->id;
-			    if(!empty($dataSend['type'])){
-			    	$LinkInfo->type = @$dataSend['type'];
-				}
-			    if(!empty($dataSend['description'])){
-			    	$LinkInfo->description = @$dataSend['description'];
-				}
-			    $modelLinkInfo->save($LinkInfo);
-
-				$return = array('code'=>0, 'data'=>$LinkInfo, 'mess'=> 'Lưu thành công');
-
-				
 			}else{
 				$return = array('code'=>3,
 								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
@@ -735,16 +847,23 @@ function deleteLinkInfoMemberAPI($input){
 			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
-				$LinkInfo = $modelLinkInfo->find()->where(['id'=>(int)$dataSend['id'],'id_member'=>$checkPhone->id])->first();
-				if(!empty($LinkInfo)){
-					$modelLinkInfo->delete($LinkInfo);
-					
-					$return = array('code'=>0,'mess'=> 'Xóa Link thành công');
+				if($checkPhone->type=='member'){
+					$LinkInfo = $modelLinkInfo->find()->where(['id'=>(int)$dataSend['id'],'id_member'=>$checkPhone->id])->first();
+					if(!empty($LinkInfo)){
+						$modelLinkInfo->delete($LinkInfo);
+						
+						$return = array('code'=>0,'mess'=> 'Xóa Link thành công');
+					}else{
+						$return = array('code'=>4,
+								'mess'=> 'Link này không tồn tại'
+							);
+					}
 				}else{
-					$return = array('code'=>4,
-							'mess'=> 'Link này không tồn tại'
-						);
+					$return = array('code'=>5,
+								'mess'=> 'Bạn không có quyền này'
+							);
 				}
+
 			}else{
 				$return = array('code'=>3,
 								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
@@ -824,6 +943,7 @@ function requestCodeForgotPasswordAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelStaff = $controller->loadModel('Staffs');
 
 	$return = array('code'=>1,
 					'mess'=> ''
@@ -836,13 +956,23 @@ function requestCodeForgotPasswordAPI($input)
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
 		if(!empty($dataSend['phone'])){
-			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+			if(@$dataSend['type']=='staff'){
+				$checkPhone = $modelStaff->find()->where(array('phone'=>$dataSend['phone']))->first();
+			}else{
+				$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+			}
+			
 
 			if(!empty($checkPhone->email)){
 				$code = rand(1000,9999);
 
 				$checkPhone->otp = $code;
-				$modelMember->save($checkPhone);
+				if(@$dataSend['type']=='staff'){
+					$modelStaff->save($checkPhone);
+				}else{
+					$modelMember->save($checkPhone);
+				}
+				
 
 				sendEmailNewPassword($checkPhone->email, $checkPhone->name, $code);
 
@@ -875,6 +1005,7 @@ function saveNewPassAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelStaff = $controller->loadModel('Staffs');
 
 	$return = array('code'=>1);
 	
@@ -890,15 +1021,15 @@ function saveNewPassAPI($input)
 			&& !empty($dataSend['passAgain'])
 
 		){
-			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'otp'=>$dataSend['code']))->first();
+			$checkStaff = $modelStaff->find()->where(array('phone'=>$dataSend['phone'], 'otp'=>$dataSend['code']))->first();
 
 			if(!empty($checkPhone)){
-				if($checkPhone->otp == $dataSend['code'] ){
 					if($dataSend['passNew'] == $dataSend['passAgain']){
 						$checkPhone->password = md5($dataSend['passNew']);
 						$checkPhone->otp = null;
 
-						$checkPhone->token = createToken();
+						$checkPhone->token = '';
 						//$checkPhone->token_web = createToken();
 
 						$modelMember->save($checkPhone);
@@ -909,15 +1040,28 @@ function saveNewPassAPI($input)
 										'mess'=>'Mật khẩu nhập lại không đúng'
 									);
 					}
-				}else{
-					$return = array('code'=>4,
+
+			}elseif(!empty($checkStaff)){
+				if($dataSend['passNew'] == $dataSend['passAgain']){
+						$checkStaff->password = md5($dataSend['passNew']);
+						$checkStaff->otp = null;
+
+						$checkStaff->token = '';
+						//$checkPhone->token_web = createToken();
+
+						$modelStaff->save($checkStaff);
+
+						$return = array('code'=>0);
+					}else{
+						$return = array('code'=>5,
+										'mess'=>'Mật khẩu nhập lại không đúng'
+									);
+					}
+			
+			}else{
+				$return = array('code'=>4,
 									'mess'=>'Mã xác thực nhập không đúng'
 								);
-				}
-			}else{
-				$return = array('code'=>3,
-								'mess'=>'Tài khoản không tồn tại hoặc sai số điện thoại'
-							);
 			}
 		}else{
 			$return = array('code'=>2,
