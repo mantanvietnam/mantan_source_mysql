@@ -26,7 +26,7 @@
                       </li>
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-timeline" aria-controls="navs-top-timeline" aria-selected="false">
-                          Cài đặt timeline
+                          Lịch sử hình thành
                         </button>
                       </li>
                       <li class="nav-item">
@@ -34,7 +34,11 @@
                           Thành tích nhà trường
                         </button>
                       </li>
-
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-activities" aria-controls="navs-top-activities" aria-selected="false">
+                          Hoạt động nhà trường
+                        </button>
+                      </li>
                     </ul>
 
                     <div class="tab-content">
@@ -119,8 +123,21 @@
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">ID album ảnh sự kiện lịch sử</label>
-                              <input type="text" class="form-control" placeholder="" name="id_album_event" id="id_album_event" value="<?php echo @$data['id_album_event'];?>" />
+                              <label class="form-label" for="basic-default-fullname">Album ảnh sự kiện lịch sử</label>
+                              <select name="id_album_event" class="form-select color-dropdown">
+                                <option value="">Chọn album ảnh</option>
+                                <?php
+                                  if(!empty($listAlbum)){
+                                    foreach($listAlbum as $item){
+                                      if(empty($data['id_album_event']) || $data['id_album_event']!=$item->id){
+                                        echo '<option value="'.$item->id.'">'.$item->title.'</option>';
+                                      }else{
+                                        echo '<option selected value="'.$item->id.'">'.$item->title.'</option>';
+                                      }
+                                    }
+                                  }
+                                ?>
+                              </select>
                             </div>
                           </div>
                         </div>
@@ -130,8 +147,45 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">ID album ảnh thành tích nhà trường</label>
-                              <input type="text" class="form-control" placeholder="" name="id_album_achievement" id="id_album_achievement" value="<?php echo @$data['id_album_achievement'];?>" />
+                              <label class="form-label" for="basic-default-fullname">Album ảnh thành tích nhà trường</label>
+                              <select name="id_album_achievement" class="form-select color-dropdown">
+                                <option value="">Chọn album ảnh</option>
+                                <?php
+                                  if(!empty($listAlbum)){
+                                    foreach($listAlbum as $item){
+                                      if(empty($data['id_album_achievement']) || $data['id_album_achievement']!=$item->id){
+                                        echo '<option value="'.$item->id.'">'.$item->title.'</option>';
+                                      }else{
+                                        echo '<option selected value="'.$item->id.'">'.$item->title.'</option>';
+                                      }
+                                    }
+                                  }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="tab-pane fade" id="navs-top-activities" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Chuyên mục ảnh hoạt động nhà trường</label>
+                              <select name="id_category_activities" class="form-select color-dropdown">
+                                <option value="">Chọn chủ đề album ảnh</option>
+                                <?php
+                                  if(!empty($listCategoryAlbum)){
+                                    foreach($listCategoryAlbum as $item){
+                                      if(empty($data['id_category_activities']) || $data['id_category_activities']!=$item->id){
+                                        echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                                      }else{
+                                        echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                                      }
+                                    }
+                                  }
+                                ?>
+                              </select>
                             </div>
                           </div>
                         </div>

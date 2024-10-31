@@ -4,6 +4,8 @@ function infoSchoolAdmin($input)
 	global $modelOptions;
 	global $metaTitleMantan;
 	global $isRequestPost;
+    global $modelAlbums;
+    global $modelCategories;
 
     $metaTitleMantan = 'Cài đặt thông tin trường học';
     $mess= '';
@@ -38,6 +40,9 @@ function infoSchoolAdmin($input)
 
                         // thành tích nhà trường
                         'id_album_achievement' => $dataSend['id_album_achievement'],
+
+                        // hoạt động nhà trường
+                        'id_category_activities' => $dataSend['id_category_activities'],
                         
                         
                     );
@@ -55,8 +60,14 @@ function infoSchoolAdmin($input)
         $data_value = json_decode($data->value, true);
     }
 
+    // lấy tất cả album
+    $listAlbum = $modelAlbums->find()->where(['status'=>'active'])->order(['id'=>'DESC'])->all()->toList();
+    $listCategoryAlbum = $modelCategories->find()->where(['type'=>'album'])->order(['id'=>'DESC'])->all()->toList();
+
     setVariable('data', $data_value);
     setVariable('mess', $mess);
+    setVariable('listAlbum', $listAlbum);
+    setVariable('listCategoryAlbum', $listCategoryAlbum);
 }
 
 function configRoom3DAdmin($input)
