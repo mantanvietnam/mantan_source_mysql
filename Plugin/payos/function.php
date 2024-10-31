@@ -20,13 +20,14 @@ global $payOSClientId;
 global $payOSApiKey;
 
 global $payOSChecksumKey;
+global $payOS;
 
 $payOSClientId = '';
 $payOSApiKey = '';
 $payOSChecksumKey = '';
 
 $conditions = array('key_word' => 'settingPayos');
-$    = $modelOptions->find()->where($conditions)->first();
+$settingPayos = $modelOptions->find()->where($conditions)->first();
 
 if(!empty($settingPayos->value)){
     $data_value = json_decode($settingPayos->value, true);
@@ -39,27 +40,18 @@ if(!empty($settingPayos->value)){
 $payOS = new PayOS($payOSClientId, $payOSApiKey, $payOSChecksumKey);
 
 
-function checkpayos(){
+function checkpayos($amount= 0,$description=''){
     global $urlHomes;
+    global $payOSClientId;
+    global $payOSApiKey;
+    global $payOSChecksumKey;
+    global $payOS;
     $YOUR_DOMAIN = $urlHomes;
-    debug($payOS);
-    debug($payOSClientId);
-    debug($payOSApiKey);
-    debug($payOSChecksumKey);
-    die;
-
-
     $data = [
         "orderCode" => intval(substr(strval(microtime(true) * 10000), -6)),
-        "amount" => 2000,
-        "description" => "Thanh toán đơn hàng",
-        "items" => [
-            0 => [
-                'name' => 'Mì tôm Hảo Hảo ly',
-                'price' => 2000,
-                'quantity' => 1
-            ]
-        ],
+        "amount" => $amount,
+        "description" => $description,
+        "items" => [],
         "returnUrl" => $YOUR_DOMAIN . "/success.html",
         "cancelUrl" => $YOUR_DOMAIN . "/cancel.html"
     ];

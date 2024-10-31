@@ -24,7 +24,7 @@
                   </li>
                   <li class="nav-item">
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
-                       File tài liệu
+                      <?php echo $title ?>
                     </button>
                   </li>
 
@@ -53,10 +53,12 @@
                             </select>
                           </div>
                         </div>
+                        <?php if(@$type =='album'){  ?>
                         <div class="mb-3 col-12 col-sm-12 col-md-12">
                           <label class="form-label">ID Drive Google </label>
-                          <input type="text" class="form-control" name="id_drive" value="<?php echo @$data->id_drive;?>" required />
+                          <input type="text" class="form-control" name="id_drive" value="<?php echo @$data->id_drive;?>"  />
                         </div>
+                      <?php } ?>
                       </div>
 
                       <div class="col-12 col-sm-12 col-md-6">

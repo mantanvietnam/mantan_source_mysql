@@ -108,6 +108,7 @@ function addCampaign($input)
         $metaTitleMantan = 'Thông tin chiến dịch sự kiện';
 
         $modelCampaigns = $controller->loadModel('Campaigns');
+        $modelDocument = $controller->loadModel('Documents');
 
         $mess= '';
 
@@ -174,6 +175,7 @@ function addCampaign($input)
                 $data->description = $dataSend['description'];
                 $data->id_drive = @$dataSend['id_drive'];
                 $data->id_ai_event = @$dataSend['id_ai_event'];
+                $data->id_album = @$dataSend['id_album'];
                 $data->link_drive = @$dataSend['link_drive'];
                 $data->img_background = $img_background;
                 $data->img_logo = $img_logo;
@@ -214,12 +216,15 @@ function addCampaign($input)
                 $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
             }
         }
+        $conditions = array('id_parent'=>$user->id, 'type'=>'album');
 
+        $dataAlbum = $modelDocument->find()->where($conditions)->all()->toList();
         $data->location = json_decode($data->location, true);
         $data->team = json_decode($data->team, true);
         $data->ticket = json_decode($data->ticket, true);
 
         setVariable('data', $data);
+        setVariable('dataAlbum', $dataAlbum);
         setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
