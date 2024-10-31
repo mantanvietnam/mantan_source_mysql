@@ -65,17 +65,22 @@
             <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                $status= '<span class="text-danger">Khóa</span>';
+                $status = '<span class="text-danger">Khóa</span>';
+                $linkAI = '';
+
                 if($item->status=='active'){ 
                   $status= '<span class="text-success">Kích hoạt</span>';
+                  $linkAI = 'https://ai.phoenixtech.vn/ai-search-image/?idCollection='.$item->collection_ai.'&idDrive='.$item->id_drive;
                 }
+
+                $linkDrive = 'https://drive.google.com/drive/folders/'.$item->id_drive.'?usp=drive_link';
                 
                 echo '<tr>
                   <td>'.$item->id.'</td>
-                  <td>'.$item->name.'</td>
-                  <td></td>
+                  <td width="300">'.$item->name.'</td>
+                  <td><a href="'.$linkDrive.'" target="_blank">Xem ảnh</a></td>
                   <td>'.$status.'</td>
-                  <td></td>
+                  <td><a href="'.$linkAI.'" target="_blank">'.$linkAI.'</a></td>
 
                   <td width="5%" align="center">
                     <a class="dropdown-item" href="javascript: void(0);" onclick="edit('.$item->id.');">

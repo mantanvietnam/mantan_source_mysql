@@ -134,12 +134,12 @@ function addSearchImageEvent($input)
 				// báo AI nạp dữ liệu
 				createAISearchImage($data->id_drive, $data->collection_ai);
 
-				return $controller->redirect('/aiSearchImageEvent/?error=addDone');
+				return $controller->redirect('/ai-search-image-event/?error=addDone');
 			}else{
-				return $controller->redirect('/aiSearchImageEvent/?error=emptyData');
+				return $controller->redirect('/ai-search-image-event/?error=emptyData');
 			}
 		}else{
-			return $controller->redirect('/aiSearchImageEvent');
+			return $controller->redirect('/ai-search-image-event');
 		}
     }else{
         return $controller->redirect('/login');
