@@ -29,6 +29,7 @@ $sqlInstallDatabase .= "CREATE TABLE `campaigns` (
                                 `id_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                                 `id_ai_event` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                                 `link_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                `id_album` INT NOT NULL DEFAULT '0';
                                 PRIMARY KEY (`id`)
                             ) ENGINE = InnoDB; ";
 
@@ -71,6 +72,7 @@ $sqlUpdateDatabase['campaigns']['create_at'] = "ALTER TABLE `campaigns` ADD `cre
 $sqlUpdateDatabase['campaigns']['id_drive'] = "ALTER TABLE `campaigns` ADD `id_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['campaigns']['id_ai_event'] = "ALTER TABLE `campaigns` ADD `id_ai_event` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,;";
 $sqlUpdateDatabase['campaigns']['link_drive'] = "ALTER TABLE `campaigns` ADD `link_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['campaigns']['id_album'] = "ALTER TABLE `campaigns` ADD `id_album` INT NOT NULL DEFAULT '0';";
 
 // Bang campaign_customers
 $sqlUpdateDatabase['campaign_customers']['id'] = "ALTER TABLE `campaign_customers` ADD  `id` INT NOT NULL AUTO_INCREMENT; ";

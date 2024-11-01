@@ -82,6 +82,8 @@ class OptionsController extends AppController{
                             'youtube' => $dataSend['youtube'],
                             'tiktok' => $dataSend['tiktok'],
                             'instagram' => $dataSend['instagram'],
+                            'zalo' => $dataSend['zalo'],
+                            'telegram' => $dataSend['telegram'],
                         );
 
             $contact_site->key_word = 'contact_site';

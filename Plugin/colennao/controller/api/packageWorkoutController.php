@@ -121,7 +121,9 @@ function paymentPackageWorkoutAPI($input){
                 				'money'=>$price
 							);
 
-  
+                if(function_exists('checkpayos')){
+                	$data->infobank =  checkpayos($data->price,$sms);
+                }
         	}
 	   
 	        

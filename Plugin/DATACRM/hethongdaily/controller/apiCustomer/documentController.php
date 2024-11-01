@@ -84,10 +84,27 @@ function listDocumentinfoCustomerAPI($input){
 		    $order = array('id'=>'desc');
 		    
 		    $listData = $modelDocumentinfo->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
-		    // phân trang
+		     // phân trang
 		    $totalData = $modelDocumentinfo->find()->where($conditions)->all()->toList();
 		    $totalData = count($totalData);
+		    if(!empty($data->id_drive)){
+		    	$datadrive = getListFileDrive($data->id_drive);
+                    if(!empty($datadrive)){
+                        foreach($datadrive as $key => $item){  
+                        	$k = (int)$totalData + (int)$key;               	
+                            $listData[$k]['title'] = $item['title'];
+                            $listData[$k]['file'] = $item['thumbnailLink'];
+                            $listData[$k]['status'] = null;
+                            $listData[$k]['id_document'] = $data->id;
+                            $listData[$k]['description'] = '';
+                            $listData[$k]['slug'] = $item['title'];
+                            $listData[$k]['id'] = $k;
+                        }
+                    }
+		    }
+
+
+		   
 		    $return = array('code'=>1, 'mess'=>'Lấy dữ liệu thành công ','data'=>$data, 'listData'=>$listData, 'totalData'=>$totalData);
 			
         }else{

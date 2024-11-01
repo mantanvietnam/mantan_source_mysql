@@ -216,6 +216,16 @@
                   <input type="text" class="form-control" name="instagram" value="<?php echo @$contact_site_value['instagram'];?>" />
                 </div>
 
+                 <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">zalo</label>
+                  <input type="text" class="form-control" name="zalo" value="<?php echo @$contact_site_value['zalo'];?>" />
+                </div>
+
+                 <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">telegram</label>
+                  <input type="text" class="form-control" name="telegram" value="<?php echo @$contact_site_value['telegram'];?>" />
+                </div>
+
                 <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
           </div>

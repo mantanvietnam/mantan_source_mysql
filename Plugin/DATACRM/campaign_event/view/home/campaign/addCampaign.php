@@ -245,6 +245,24 @@
                     <label class="form-label" for="basic-default-phone">link drive</label>
                     <input type="text" class="form-control phone-mask" name="link_drive" id="link_drive" value="<?php echo @$data->link_drive;?>" />
                   </div>
+                   <div class="col-md-6 mb-3">
+                    <label class="form-label" for="basic-default-phone">Album ảnh sự khện</label>
+                    <select name="id_album" class="form-select color-dropdown">
+                      <option value="">Chọn Album ảnh sự khện</option>
+                      <?php 
+                      if(!empty($dataAlbum)){
+                        foreach ($dataAlbum as $key => $value) {
+                          if(empty($data->id_album) || $data->id_album!=$value->id){
+                            echo '<option value="'.$value->id.'" >'.$value->title.'</option>';
+                          }else{
+                            echo '<option selected value="'.$value->id.'" >'.$value->title.'</option>';
+                          }
+                        }
+                      }
+                      ?>
+                    </select>
+                  </div>
+
                    <div class="col-md-12 mb-3">
                     <button type="submit" class="btn btn-primary">Lưu cài đặt</button>
                   </div>

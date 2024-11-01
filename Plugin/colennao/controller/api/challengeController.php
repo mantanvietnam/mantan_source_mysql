@@ -218,6 +218,10 @@ function paymentChallengeAPI($input){
 	                				'content'=>$sms,
 	                				'money'=>$price
 								);
+
+	                if(function_exists('checkpayos')){
+                    	$data->infobank =  checkpayos($price,$sms);
+                	}
 	    		}else{
 	    			$tip = $modelTipChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
 		            $checkUserChallenge = $modelUserChallenges->find()->where(['id_challenge'=>$data->id,'id_user'=>$user->id])->first();

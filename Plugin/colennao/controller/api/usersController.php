@@ -695,9 +695,18 @@ function updateUserApi($input): array
             $currentUser->id_mealplan = (int) $dataSend['id_mealplan'];
         }
 
-        if (isset($dataSend['id_unit'])) {
+        if (isset($dataSend['id_fitness_level'])) {
+            $currentUser->id_fitness_level = (int) $dataSend['id_fitness_level'];
+        }
+
+         if (isset($dataSend['id_unit'])) {
             $currentUser->id_unit = (int) $dataSend['id_unit'];
         }
+
+         if (isset($dataSend['id_area'])) {
+            $currentUser->id_area = $dataSend['id_area'];
+        }
+
 
         if (isset($dataSend['time_fast'])) {
             $time_now = explode(" ", $dataSend['time_fast']);
@@ -1021,5 +1030,22 @@ function checkfastingTimerUsreAPI($input){
      return array('code'=>2 ,'mess'=>' no ok');
         
 }
+
+
+function getInfoContactAPI($input){
+    global $modelOptions;
+    $conditions = array('key_word' => 'contact_site');
+    $contact_site = $modelOptions->find()->where($conditions)->first();
+
+    $contact_site_value = array();
+        if(!empty($contact_site->value)){
+            $contact_site_value = json_decode($contact_site->value, true);
+        }
+
+
+    return apiResponse(0, 'Lấy dữ liệu thành công', $contact_site_value);
+}
+
+
 
 ?>

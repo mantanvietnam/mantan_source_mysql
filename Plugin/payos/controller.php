@@ -2,31 +2,18 @@
 function addMoneyPayOSBankAPI($input)
 {
 
-	global $controller;
-	global $isRequestPost;
+	$json = file_get_contents('php://input');
 
-	// $modelRequestDatacrms = $controller->loadModel('RequestDatacrms');
+	$data = json_decode($json, true);
 
-	if($isRequestPost){
-		$dataSend = $input['request']->getData();
-		if(!empty($dataSend['code']) && !empty($dataSend['desc']) && !empty($dataSend['success']) && !empty($dataSend['data'])){
-			if($dataSend['success']==true){
-				$data =json_decode($dataSend['data'], true);
-				$id_ransaction = explode(" ", $data['description']);
-				processAddMoney($data['amount'], $id_ransaction[0]);
-			
-
-					return array('code'=>0, 'mess'=>'bạn giao dịch thành công');
-
-			}
-			return array('code'=>0, 'mess'=>'không phải nhận khoản');
-
-		}
-	return array('code'=>0, 'mess'=>'thiếu dữ liệu');
-
+	if(!empty($data['data'])){
+		$datas =$data['data'];
+		$id_ransaction = explode(" ", $datas['description']);
+		$ransaction = (int)$id_ransaction[0];
+		processAddMoney($datas['amount'], $ransaction);
+		return array('code'=>1, 'mess'=>'bạn giao dịch thành công');
 	}
-
-	return array('code'=>0, 'mess'=>'Bắt buộc sử dụng phương thức POST');
+	return array('code'=>0, 'mess'=>'giao dịch không thành công');
 }
 
 function settingpayos($input){

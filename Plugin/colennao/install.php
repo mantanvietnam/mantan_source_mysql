@@ -44,6 +44,8 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `rose` INT NOT NULL DEFAULT 0,
 `id_mealtime` INT NOT NULL DEFAULT 0,
 `time_fast_end` INT NULL DEFAULT NULL ,
+`id_fitness_level` INT NOT NULL DEFAULT 0,
+`id_area` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 $sqlInstallDatabase .="CREATE TABLE `coach` (
@@ -427,6 +429,8 @@ $sqlUpdateDatabase['users']['id_group_user'] = "ALTER TABLE `users` ADD `id_grou
 
 $sqlUpdateDatabase['users']['id_mealtime'] = "ALTER TABLE `users` ADD `id_mealtime` INT NOT NULL DEFAULT '0';"; 
 $sqlUpdateDatabase['users']['time_fast_end'] = "ALTER TABLE `users` ADD `time_fast_end` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['users']['id_fitness_level'] = "ALTER TABLE `users` ADD `id_fitness_level` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['users']['id_area'] = "ALTER TABLE `users` ADD `id_area` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
  $sqlUpdateDatabase['price_lists']['name'] = "ALTER TABLE `price_lists` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['price_lists']['price'] = "ALTER TABLE `price_lists` ADD `price` INT NULL DEFAULT NULL;";

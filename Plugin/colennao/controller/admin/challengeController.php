@@ -60,6 +60,7 @@ function addChallenge($input){
     $modelChallenge = $controller->loadModel('Challenges');
     $modelFeedbackChallenge = $controller->loadModel('FeedbackChallenges');
     $modelResultChallenges = $controller->loadModel('ResultChallenges');
+    $modelUserChallenges = $controller->loadModel('UserChallenges');
     $modelTipChallenges = $controller->loadModel('TipChallenges');
     $modelcoach = $controller->loadModel('coach');
         $mess= '';
@@ -237,8 +238,37 @@ function addChallenge($input){
                         $conditions = ['id_challenge'=>$data->id];
                         $modelTipChallenges->deleteAll($conditions);
                     }
-                
 
+                    $listResult = $modelTipChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
+                    $lUserChallenges = $modelUserChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
+
+                    if(!empty($lUserChallenges)){
+                        foreach($lUserChallenges as $key => $value){
+                            $tip = json_decode($value->tip, true);
+                            $listTip =[];
+                            if(!empty($listResult)){
+                                foreach($listResult as $key => $item){
+                                    foreach($tip as $s){
+                                        if($s['id'] == $item->id){
+                                            $ss= $s;
+                                        }
+                                    }
+                                    $status = '';
+                                     if(!empty($ss)){
+                                        $status = $ss['status'];
+                                     }
+
+                                    $listTip[] = array('id'=>$item->id,
+                                        'tip'=>$item->tip,
+                                        'tip_en'=>$item->tip_en,
+                                        'status'=> $status,
+                                    );
+                                }
+                            }
+                            $value->tip = json_encode($listTip);
+                            $modelUserChallenges->save($value);
+                        }
+                    }
                 }
                 
 

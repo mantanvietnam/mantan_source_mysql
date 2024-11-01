@@ -324,6 +324,8 @@ function paymentCourseAPI($input){
 
                 $sms = $checkTransaction->id.' '.$transactionKey;
 
+               
+
                 $link_qr_bank = 'https://img.vietqr.io/image/'.$bank['bank_code'].'-'.$bank['bank_number'].'-compact2.png?amount='.$data->price.'&addInfo='.$sms.'&accountName='.$bank['bank_name'];
                 $data->infoQR =   array('name_bank'=>$bank['bank_code'],
                                 'account_holders_bank'=>$bank['bank_name'],
@@ -332,6 +334,12 @@ function paymentCourseAPI($input){
                                 'content'=>$sms,
                                 'money'=>$data->price
                             );
+
+                if(function_exists('checkpayos')){
+                    $infobank =  checkpayos($data->price,$sms);
+                }
+
+                $data->infobank = $infobank;
 
   
             }
