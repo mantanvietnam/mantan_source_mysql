@@ -125,11 +125,23 @@ function saveRequestBankingAPI($input)
 
                 $sms = $order->id.' ezpics';
 
-                $link_qr_bank = 'https://img.vietqr.io/image/TPB-'.$number_bank.'-compact2.png?amount='.$dataSend['money'].'&addInfo='.$sms.'&accountName='.$account_holders_bank;
+                $money = (int) $dataSend['money'];
+                if(function_exists('checkpayos')){
+                    $infobank =  checkpayos($money,$sms);
+                    if(!empty($infobank)){
+                        $bank_code = $infobank['bin'];
+                        $account_holders_bank = $infobank['accountName'];
+                        $number_bank = $infobank['accountNumber'];
+                        $sms = $infobank['description'];
+
+                    }
+                }
+
+                $link_qr_bank = 'https://img.vietqr.io/image/'.$bank_code.'-'.$number_bank.'-compact2.png?amount='.$dataSend['money'].'&addInfo='.$sms.'&accountName='.$account_holders_bank;
 
                 $return = array('code'=>0,
                 				'number_bank'=>$number_bank,
-                				'name_bank'=>$name_bank,
+                				'name_bank'=>$bank_code,
                 				'account_holders_bank'=>$account_holders_bank,
                 				'link_qr_bank'=>$link_qr_bank,
                 				'content'=>$sms,
@@ -372,7 +384,7 @@ function addMoneyTPBankAPI($input)
 			$removeSpace = explode(' ', trim($description));
 			$order_id = $removeSpace[0];
 
-			$mess = process_add_money($money, $order_id);
+			$mess = processAddMoney($money, $order_id);
 			
 			$return['messages']= array(array('text'=>$mess));
 		} else {

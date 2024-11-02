@@ -369,6 +369,16 @@ $sqlInstallDatabase .="CREATE TABLE `toptopweb_colennao`.`notifications` ( `id` 
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `reminders` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`id_user` INT NOT NULL , 
+`day` VARCHAR(100) NULL DEFAULT NULL , 
+`hour` INT NULL DEFAULT '0' , 
+`minute` INT NULL DEFAULT '0' , 
+`number` INT NULL DEFAULT '0' , 
+`status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'off' ,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;"
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `tests`;';
@@ -391,6 +401,7 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `devices`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `package_workouts`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `interme_package_workouts`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `user_packages`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `reminders`;';
 
 
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
@@ -596,4 +607,12 @@ $sqlUpdateDatabase['notifications']['created_at'] = "ALTER TABLE `notifications`
 $sqlUpdateDatabase['notifications']['action'] = "ALTER TABLE `notifications` ADD `action` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['notifications']['content'] = "ALTER TABLE `notifications` ADD `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['notifications']['is_viewed'] = "ALTER TABLE `notifications` ADD `is_viewed` INT NULL DEFAULT '0';";
+
+
+$sqlUpdateDatabase['reminders']['id_user'] = "ALTER TABLE `reminders` ADD `id_user` INT NOT NULL ;";
+$sqlUpdateDatabase['reminders']['day'] = "ALTER TABLE `reminders` ADD `day` VARCHAR(100) NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['reminders']['hour'] = "ALTER TABLE `reminders` ADD `hour` INT NULL DEFAULT '0' ;";
+$sqlUpdateDatabase['reminders']['minute'] = "ALTER TABLE `reminders` ADD `minute` INT NULL DEFAULT '0' ;";
+$sqlUpdateDatabase['reminders']['number'] = "ALTER TABLE `reminders` ADD `number` INT NULL DEFAULT '0' ;";
+$sqlUpdateDatabase['reminders']['status'] = "ALTER TABLE `reminders` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'off';";
 ?>

@@ -38,4 +38,5 @@ include('model/categorypost.php');
 include('model/notifications.php');
 include('model/like.php');
 include('model/mealtime.php');
+include('model/reminder.php');
 ?>

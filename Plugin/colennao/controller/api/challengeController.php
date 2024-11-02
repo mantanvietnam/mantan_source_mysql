@@ -210,6 +210,19 @@ function paymentChallengeAPI($input){
 
 		    		$sms = $checkTransaction->id.' '.$transactionKey;
 
+		    		if(function_exists('checkpayos')){
+                    	$infobank =  checkpayos($price,$sms);
+                    	if(!empty($infobank)){
+                    		$data->infobank = $infobank;
+							$bank['bank_code'] = $infobank['bin'];
+							$bank['bank_name'] = $infobank['accountName'];
+							$bank['bank_number'] = $infobank['accountNumber'];
+							$sms = $infobank['description'];
+							$price = $infobank['amount'];
+
+                    	}
+                	}
+
 	                $link_qr_bank = 'https://img.vietqr.io/image/'.$bank['bank_code'].'-'.$bank['bank_number'].'-compact2.png?amount='.$price.'&addInfo='.$sms.'&accountName='.$bank['bank_name'];
 	                $data->infoQR =   array('name_bank'=>$bank['bank_code'],
 	                				'account_holders_bank'=>$bank['bank_name'],
@@ -219,9 +232,7 @@ function paymentChallengeAPI($input){
 	                				'money'=>$price
 								);
 
-	                if(function_exists('checkpayos')){
-                    	$data->infobank =  checkpayos($price,$sms);
-                	}
+	                
 	    		}else{
 	    			$tip = $modelTipChallenges->find()->where(['id_challenge'=>$data->id])->all()->toList();
 		            $checkUserChallenge = $modelUserChallenges->find()->where(['id_challenge'=>$data->id,'id_user'=>$user->id])->first();
