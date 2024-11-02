@@ -29,15 +29,15 @@
           <span class="fw-semibold d-block mb-1">Thống kê hôm nay </span>
           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
             <div class="me-2">
-              <p class="mb-1">Số đơn đại lý : <strong><?php echo @$totalDataOrderMembers; ?></strong><span class="text-muted"> đơn</span></p>
+              <p class="mb-1">Đơn đại lý : <strong><?php echo @$totalDataOrderMembers; ?></strong><span class="text-muted"> đơn</span></p>
             </div>
 
             <div class="me-2">
-              <p class="mb-1">Số đơn khách lẻ: <strong><?php echo @$totalDataOrder; ?></strong><span class="text-muted"> đơn</span></p>
+              <p class="mb-1">Đơn khách lẻ: <strong><?php echo @$totalDataOrder; ?></strong><span class="text-muted"> đơn</span></p>
             </div>
 
             <div class="me-2">
-              <p class="mb-1">khám mới : <strong><?php echo @$totalDataCustomer; ?></strong><span class="text-muted"> khách</span></p>
+              <p class="mb-1">Khách mới : <strong><?php echo @$totalDataCustomer; ?></strong><span class="text-muted"> khách</span></p>
             </div>
 
             <!-- <div class="me-2">
@@ -114,8 +114,8 @@
             <thead>
               <tr class="">
                 <th>Khách hàng</th>
-                <th>sản phẩm</th>
-                <th>tiền</th>
+                <th>Sản phẩm</th>
+                <th>Số tiền</th>
               </tr>
             </thead>
             <tbody>

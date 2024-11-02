@@ -62,7 +62,6 @@
                       <select class="form-select" name="public" id="public">
                         <option value="0">Dành riêng cho đại lý</option>
                         <option value="1" <?php if(!empty($data->public) && $data->public==1) echo 'selected'; ?> >Chung cho cộng đồng</option>
-                        <option value="2" <?php if(!empty($data->public) && $data->public==2) echo 'selected'; ?> >Theo nhóm khách hàng</option>
                       </select>
                     </div>
                   </div>

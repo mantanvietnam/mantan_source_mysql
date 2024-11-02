@@ -157,7 +157,7 @@ function addCourseAgency($input)
 	            $data->id_group_customer =(int) @$dataSend['id_group_customer'];
 	            $data->status = $dataSend['status'];
 	            $data->content = $dataSend['content'];
-	            $data->public = $dataSend['public'];
+	            $data->public = (int) $dataSend['public'];
 	            // tạo slug
 	            $slug = createSlugMantan($dataSend['title']);
 	            $slugNew = $slug;

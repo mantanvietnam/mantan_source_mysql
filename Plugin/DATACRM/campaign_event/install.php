@@ -70,7 +70,7 @@ $sqlUpdateDatabase['campaigns']['ticket'] = "ALTER TABLE `campaigns` ADD `ticket
 $sqlUpdateDatabase['campaigns']['create_at'] = "ALTER TABLE `campaigns` ADD `create_at` INT NOT NULL ; ";
 
 $sqlUpdateDatabase['campaigns']['id_drive'] = "ALTER TABLE `campaigns` ADD `id_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['campaigns']['id_ai_event'] = "ALTER TABLE `campaigns` ADD `id_ai_event` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,;";
+$sqlUpdateDatabase['campaigns']['id_ai_event'] = "ALTER TABLE `campaigns` ADD `id_ai_event` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['campaigns']['link_drive'] = "ALTER TABLE `campaigns` ADD `link_drive` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['campaigns']['id_album'] = "ALTER TABLE `campaigns` ADD `id_album` INT NOT NULL DEFAULT '0';";
 

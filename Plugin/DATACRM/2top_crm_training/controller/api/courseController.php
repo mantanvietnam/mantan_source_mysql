@@ -9,6 +9,7 @@ function listCoursesCustomerAPI($input)
     global $modelCategories;
     global $urlCurrent;
     global $metaTitleMantan;
+    global $modelCategoryConnects;
 
     $metaTitleMantan = 'Danh sách khóa học';
 
@@ -20,6 +21,25 @@ function listCoursesCustomerAPI($input)
 		$dataSend = $input['request']->getData();
 		
 	    $conditions= array('public'=>1);
+
+	    if(!empty($dataSend['token'])){
+	    	$infoCustomer = getCustomerByToken($dataSend['token']);
+	    }
+
+	    if(empty($infoCustomer)){
+	    	$conditions['id_group_customer'] = 0;
+	    }else{
+	    	$listGroupCustomer = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $infoCustomer->id])->all()->toList();
+	    	$listGroups = [0];
+
+            if(!empty($listGroupCustomer)){
+                foreach ($listGroupCustomer as $key => $value) {
+                    $listGroups[] = $value->id_category;
+                }
+            }
+
+	    	$conditions['id_group_customer IN']= $listGroups; 
+	    }
 
 	    $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	    $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
