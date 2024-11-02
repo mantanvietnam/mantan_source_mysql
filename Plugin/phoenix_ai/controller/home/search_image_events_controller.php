@@ -108,8 +108,20 @@ function addSearchImageEvent($input)
 			$dataSend = $input['request']->getData();
 
 			if(!empty($dataSend['name']) && !empty($dataSend['id_drive'])){
-				$data = $modelSearchImageEvents->newEmptyEntity();
+                $slug = createSlugMantan($dataSend['name']);
 
+                if(!empty($dataSend['id'])){
+                    $data = $modelSearchImageEvents->find()->where(['id'=>(int) $dataSend['id']])->first();
+                }
+
+                if(empty($data)){
+                    $data = $modelSearchImageEvents->newEmptyEntity();
+
+                    $data->collection_ai = $slug.'-'.time();
+                    $data->create_at = time();
+                    $data->view = 0;
+                }
+				
 				
 				$id_drive = explode('folders/', $dataSend['id_drive']);
 				if(count($id_drive)>1){
@@ -123,11 +135,9 @@ function addSearchImageEvent($input)
 				$data->id_member = $session->read('infoUser')->id;
 				$data->id_drive = $id_drive[0];
 				$data->name = $dataSend['name'];
-				$data->slug = createSlugMantan($dataSend['name']);
-				$data->view = 0;
-				$data->create_at = time();
-				$data->status = 'active';
-				$data->collection_ai = $data->slug.'-'.time();
+				$data->slug = $slug;
+				$data->status = 'lock';
+				
 
 				$modelSearchImageEvents->save($data);
 
@@ -141,6 +151,30 @@ function addSearchImageEvent($input)
 		}else{
 			return $controller->redirect('/ai-search-image-event');
 		}
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteSearchImageEvent($input)
+{
+    global $controller;
+    global $session;
+
+    $modelSearchImageEvents = $controller->loadModel('SearchImageEvents');
+    
+    if(!empty($session->read('infoUser'))){
+        if(!empty($_GET['id'])){
+            $data = $modelSearchImageEvents->get($_GET['id']);
+            
+            if($data){
+                deleteAISearchImage($data->collection_ai);
+
+                $modelSearchImageEvents->delete($data);
+            }
+        }
+
+        return $controller->redirect('/ai-search-image-event');
     }else{
         return $controller->redirect('/login');
     }

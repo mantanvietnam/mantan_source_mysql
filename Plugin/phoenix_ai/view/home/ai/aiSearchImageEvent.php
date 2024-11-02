@@ -21,7 +21,7 @@
 
           <div class="col-md-3">
             <label class="form-label">Tên sự kiện</label>
-            <input type="text" class="form-control" name="name" id="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
           <div class="col-md-2">
@@ -67,10 +67,13 @@
               foreach ($listData as $item) {
                 $status = '<span class="text-danger">Khóa</span>';
                 $linkAI = '';
+                $showLinkAI = 'Hệ thống đang tạo AI tìm ảnh cho bạn';
 
                 if($item->status=='active'){ 
                   $status= '<span class="text-success">Kích hoạt</span>';
                   $linkAI = 'https://ai.phoenixtech.vn/ai-search-image/?idCollection='.$item->collection_ai.'&idDrive='.$item->id_drive;
+                  $showLinkAI = '<a class="mb-3" href="'.$linkAI.'" target="_blank">'.$linkAI.'</a>
+                    <p><img id="" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.urldecode($linkAI).'" width="100"></p>';
                 }
 
                 $linkDrive = 'https://drive.google.com/drive/folders/'.$item->id_drive.'?usp=drive_link';
@@ -80,16 +83,16 @@
                   <td width="300">'.$item->name.'</td>
                   <td><a href="'.$linkDrive.'" target="_blank">Xem ảnh</a></td>
                   <td>'.$status.'</td>
-                  <td><a href="'.$linkAI.'" target="_blank">'.$linkAI.'</a></td>
+                  <td>'.$showLinkAI.'</td>
 
                   <td width="5%" align="center">
-                    <a class="dropdown-item" href="javascript: void(0);" onclick="edit('.$item->id.');">
+                    <a class="dropdown-item" href="javascript: void(0);" data-bs-toggle="modal" data-bs-target="#addNewData" onclick="edit('.$item->id.', \''.$item->name.'\', \''.$item->id_drive.'\');">
                     <i class="bx bx-edit-alt me-1"></i>
                     </a>
                   </td>
 
                   <td align="center">
-                    <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteSearchImageEvent/?id='.$item->id.'&status=lists">
+                    <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteSearchImageEvent/?id='.$item->id.'">
                     <i class="bx bx-trash me-1"></i>
                     </a>
                   </td>
@@ -121,11 +124,11 @@
                         <p><strong> Trạng thái: </strong>'.$status.'</p>
                         <p><strong> Link AI: </strong></p>
                         <p  class="text-center mt-3">
-                          <a title="Sửa" class="btn btn-success" href="javascript: void();" onclick="edit('.$item->id.');">
+                          <a title="Sửa" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addNewData" href="javascript: void();" onclick="edit('.$item->id.', \''.$item->name.'\', \''.$item->collection_ai.'\');">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a> 
 
-                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteSearchImageEvent/?id='.$item->id.'&status=lists">
+                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteSearchImageEvent/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </p>
@@ -197,7 +200,7 @@
       <form action="/addSearchImageEvent" method="post">
         <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
         <div class="modal-footer">
-          <input type="hidden" value=""  name="id">
+          <input type="hidden" value=""  name="id" id="id">
           <div class="card-body">
             <div class="row gx-3 gy-2 align-items-center">
               <div class="col-md-12">
@@ -221,5 +224,21 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function add()
+  {
+    $('#id').val('');
+    $('#name').val('');
+    $('#id_drive').val('');
+  }
+
+  function edit(id, name, id_drive)
+  {
+    $('#id').val(id);
+    $('#name').val(name);
+    $('#id_drive').val(id_drive);
+  }
+</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

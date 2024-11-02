@@ -147,122 +147,18 @@ function createAISearchImage($id_drive='', $collection_name='')
 
                     $header = ['Authorization: Bearer '.$token];
 
-                    $curl = curl_init();
+                    // chuyển yêu cầu tạo AI sang rabbitmq
+                    $rabbitMQClient = new RabbitMQClient();
 
-                    curl_setopt_array($curl, array(
-                      CURLOPT_URL => $url,
-                      CURLOPT_RETURNTRANSFER => true,
-                      CURLOPT_ENCODING => '',
-                      CURLOPT_MAXREDIRS => 10,
-                      CURLOPT_TIMEOUT => 0,
-                      CURLOPT_FOLLOWLOCATION => true,
-                      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                      CURLOPT_CUSTOMREQUEST => 'POST',
-                      CURLOPT_POSTFIELDS => array('file'=> new CURLFILE($filePath)),
-                      CURLOPT_HTTPHEADER => $header,
-                    ));
-
-                    $response = curl_exec($curl);
-
-                    curl_close($curl);
-
-                    $response = json_decode($response, true);
-
-                    unlink($filePath);
-
-                    return ['code'=>0, 'mess'=>$response['message']];
-
-                    /*
-                    foreach ($listDownFile as $nameFileDrive => $fileDrive) {
-                        $url = $urlDomainFindFace.'api/v1/generate-presigned-url/?bucket_name='.$collection_name.'&name_event='.$collection_name.'&file_name='.$nameFileDrive;
-                            
-                        $header = ['Authorization: Bearer '.$token, 'Content-Type: application/json'];
-
-                        $curl = curl_init();
-
-                        curl_setopt_array($curl, array(
-                          CURLOPT_URL => $url,
-                          CURLOPT_RETURNTRANSFER => true,
-                          CURLOPT_ENCODING => '',
-                          CURLOPT_MAXREDIRS => 10,
-                          CURLOPT_TIMEOUT => 0,
-                          CURLOPT_FOLLOWLOCATION => true,
-                          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                          CURLOPT_CUSTOMREQUEST => 'GET',
-                          CURLOPT_POSTFIELDS => array(),
-                          CURLOPT_HTTPHEADER => $header,
-                        ));
-
-                        $response = curl_exec($curl);
-
-                        curl_close($curl);
-                        
-                        $response = json_decode($response, true);
-
-                        if(!empty($response['url'])){
-                            // đẩy ảnh lên      
-                            $filePath = __DIR__.'/../../upload/admin/images/guest/'.$nameFileDrive;
-
-                            $imageContent = file_get_contents($fileDrive);
-                            file_put_contents($filePath, $imageContent);
-
-                            $presignedUrl = $response['url'];
-
-                            $uploadCurl = curl_init();
-
-                            curl_setopt_array($uploadCurl, [
-
-                                CURLOPT_URL => $presignedUrl,
-
-                                CURLOPT_PUT => true,
-
-                                CURLOPT_INFILE => fopen($filePath, 'r'),
-
-                                CURLOPT_INFILESIZE => filesize($filePath),
-
-                                CURLOPT_RETURNTRANSFER => true,
-
-                            ]);
-
-                            $uploadResponse = curl_exec($uploadCurl);
-
-                            $httpCode = curl_getinfo($uploadCurl, CURLINFO_HTTP_CODE);
-
-                            curl_close($uploadCurl);
-
-                            unlink($filePath);
-                            
-                        }
-                    }
-
-                    // import db AI
-                    $url = $urlDomainFindFace.'api/v1/upload-data-to-db/?bucket_name='.$collection_name.'&name_event='.$collection_name.'&collection_name='.$collection_name;
+                    $requestMessage = json_encode([ 'url' => $url, 
+                                                    'header' => $header,
+                                                    'filePath' => $filePath,
+                                                    'collection_name' => $collection_name
+                                                ]);
                     
-                    $header = ['Authorization: Bearer '.$token, 'Content-Type: application/json'];
+                    $rabbitMQClient->sendMessage('create_ai_search_image', $requestMessage);
 
-                    $curl = curl_init();
-
-                    curl_setopt_array($curl, array(
-                      CURLOPT_URL => $url,
-                      CURLOPT_RETURNTRANSFER => true,
-                      CURLOPT_ENCODING => '',
-                      CURLOPT_MAXREDIRS => 10,
-                      CURLOPT_TIMEOUT => 0,
-                      CURLOPT_FOLLOWLOCATION => true,
-                      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                      CURLOPT_CUSTOMREQUEST => 'POST',
-                      CURLOPT_POSTFIELDS => array(),
-                      CURLOPT_HTTPHEADER => $header,
-                    ));
-
-                    $response = curl_exec($curl);
-
-                    curl_close($curl);
-                    
-                    $response = json_decode($response, true);
-
-                    debug($response);
-                    */
+                    return ['code'=>0, 'mess'=>'Tạo yêu cầu thành công'];
                 }else{
                     return ['code'=>3, 'mess'=>'Lỗi token'];
                 }
@@ -273,6 +169,42 @@ function createAISearchImage($id_drive='', $collection_name='')
         }
     }else{
         return ['code'=>1, 'mess'=>'Gửi thiếu dữ liệu'];
+    }
+}
+
+function deleteAISearchImage($collection_name='')
+{
+    global $urlDomainFindFace;
+
+    if(!empty($collection_name)){
+        $token = getTokenFindFace();
+
+        if(!empty($token)){
+            $url = $urlDomainFindFace.'api/v1/delete-collection-and-bucket/?collection_name='.$collection_name.'&bucket_name='.$collection_name;
+            
+            $header = ['Authorization: Bearer '.$token];
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => $url,
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => '',
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => 'DELETE',
+              CURLOPT_HTTPHEADER => $header,
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+            
+            return $response;
+        }
+
     }
 }
 
