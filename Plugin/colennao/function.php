@@ -932,4 +932,37 @@ function sendNotificationnew($data=[], $deviceTokens=''){
 
 }
 
+global $getday;
+$getday = [
+    1 =>array('number_day'=>1,'name'=>'Chủ Nhật','name_en'=>'Sunday', 'time'=>'00:00','status'=>'off'),
+    2 =>array('number_day'=>2,'name'=>'Thứ Hai','name_en'=>'Monday', 'time'=>'00:00','status'=>'off'),
+    3 =>array('number_day'=>3,'name'=>'Thứ Ba','name_en'=>'Tuesda', 'time'=>'00:00','status'=>'off'),
+    4 =>array('number_day'=>4,'name'=>'Thứ Tư','name_en'=>'Wednesda', 'time'=>'00:00','status'=>'off'),
+    5 =>array('number_day'=>5,'name'=>'Thứ Năm','name_en'=>'Thursday', 'time'=>'00:00','status'=>'off'),
+    6 =>array('number_day'=>6,'name'=>'Thứ Sáu','name_en'=>'Friday', 'time'=>'00:00','status'=>'off'),
+    7 =>array('number_day'=>7,'name'=>'Thứ Bảy','name_en'=>'Saturday', 'time'=>'00:00','status'=>'off'),
+];
+
+
+function getdaty($id_user){
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $getday;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelReminder = $controller->loadModel('Reminders');
+     $day =[];
+    foreach($getday as $key => $value){
+
+        $checkday = $modelReminder->find()->where(['id_user'=>$id_user,'number'=>$value['number_day']])->first();
+        if(!empty($checkday)){
+            $value['time'] = $checkday->hour.':'.$checkday->minute;  
+            $value['status'] = $checkday->status;
+        } 
+        
+        $day[] = $value;
+    }
+    return  $day;
+}
 ?>

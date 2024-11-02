@@ -75,6 +75,19 @@ function paymEntextendUserAPI($input){
 
                 $sms = $checkTransaction->id.' '.$transactionKey;
 
+                if(function_exists('checkpayos')){
+                    $infobank =  checkpayos($data->price,$sms);
+                    if(!empty($infobank)){
+                        $data->infobank = $infobank;
+                        $bank['bank_code'] = $infobank['bin'];
+                        $bank['bank_name'] = $infobank['accountName'];
+                        $bank['bank_number'] = $infobank['accountNumber'];
+                        $sms = $infobank['description'];
+                        $data->price = $infobank['amount'];
+
+                    }
+                }
+
                 $link_qr_bank = 'https://img.vietqr.io/image/'.$bank['bank_code'].'-'.$bank['bank_number'].'-compact2.png?amount='.$data->price.'&addInfo='.$sms.'&accountName='.$bank['bank_name'];
                 $data->infoQR =   array('name_bank'=>$bank['bank_code'],
                                 'account_holders_bank'=>$bank['bank_name'],
@@ -83,12 +96,6 @@ function paymEntextendUserAPI($input){
                                 'content'=>$sms,
                                 'money'=>$data->price
                             );
-
-                 if(function_exists('checkpayos')){
-                        $data->infobank =  checkpayos($data->price,$sms);
-                    }
-
-  
             }
        
             

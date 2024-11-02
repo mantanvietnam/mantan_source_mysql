@@ -1046,6 +1046,82 @@ function getInfoContactAPI($input){
     return apiResponse(0, 'Lấy dữ liệu thành công', $contact_site_value);
 }
 
+function userSetReminderAPI($input){    
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $getday;
 
+    $modelUser = $controller->loadModel('Users');
+    $modelReminder = $controller->loadModel('Reminders');   
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['token']) && empty($dataSend['data_time'])) {
+            return apiResponse(3, 'thiếu dữ liệu');
+        }
+
+            $user = getUserByToken($dataSend['token']);
+         
+            if(!empty($user)){
+               if(!empty($dataSend['data_time'])){
+                    $modelReminder->deleteAll(['id_user'=>$user->id]);
+                    $listData = json_decode($dataSend['data_time'], true);
+                    foreach($listData as $key => $value){
+                         $checkday =  $modelReminder->newEmptyEntity();
+                        $checkday->number = (int) $value['number_day'];
+                        $checkday->day = $getday[$checkday->number]['name_en'];
+                        $checkday->status = $value['status'];
+                        $time = explode(":", $value['time']);
+                        $checkday->hour = $time[0];
+                        $checkday->id_user = $user->id;
+                        $checkday->minute = $time[1];
+                        $modelReminder->save($checkday);
+                    }
+                       
+                }
+
+
+                return apiResponse(0, 'Cài đặt hẹn giờ tập thành công',  getdaty($user->id));
+            }
+
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+
+function  getReminderAPI($input){    
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $getday;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelReminder = $controller->loadModel('Reminders');   
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['token']) && empty($dataSend['data_time'])) {
+            return apiResponse(3, 'thiếu dữ liệu');
+        }
+
+            $user = getUserByToken($dataSend['token']);
+         
+            if(!empty($user)){
+              
+                return apiResponse(0, 'Lấy dữ liệu thành công',  getdaty($user->id));
+            }
+
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
 
 ?>

@@ -266,8 +266,8 @@ function removeBackgroundPhotoroomTest($link_image_local='',$create_new= false)
 
     return $link_image_local;
 }
-
-function process_add_money($number=0, $order_id=0)
+//process_add_money
+function processAddMoney($number=0, $order_id=0)
 {
     global $modelOption;
     global $key_transaction;
