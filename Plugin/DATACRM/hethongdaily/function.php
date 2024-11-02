@@ -884,11 +884,7 @@ function getMemberByToken($token='',$permission='')
             $user->grant_permission = 1;
         }elseif(!empty($checkStaff)){
             $user = $checkStaff;
-            $info_staff = $modelStaff->find()->where(['id'=>$user->id])->first();
-            if(!empty($info_staff)){
-                $user->permission = $info_staff->permission;
-                $user->deadline = $info_staff->deadline;
-            }
+            
             $user->type = 'staff';
             $user->type_tv = 'Nhân viên';
             $user->id_staff = $user->id;

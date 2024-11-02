@@ -20,7 +20,10 @@
         <input type="text" class="form-control phone-mask" name="checksum_key" id="checksum_key" value="<?php echo @$setting['checksum_key'];?>"/>
       </div>
       
-
+      <div class="mb-3 col-md-12">
+         <p onclick="copyToClipboard('contentPay','mess')">link webhook: <b id="contentPay"><?php echo $setting['linkwebhok'] ?></b> <i class='bx bx-copy' ></i><span id="mess" style="color: red;"></span></p>
+          
+      </div>
     <div class="mb-3 col-md-12">
       <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
     </div>
@@ -31,3 +34,32 @@
 </div>
 <?= $this->Form->end() ?>
 </div>
+<script type="text/javascript">
+  function copyToClipboard(idCopy,messId) {
+    var textCopy = $('#'+idCopy).html();
+    textCopy = textCopy.replace(/(<([^>]+)>)/ig,"");
+    // Create a "hidden" input
+    var aux = document.createElement("input");
+
+    // Assign it the value of the specified element
+    aux.setAttribute("value", textCopy);
+
+    // Append it to the body
+    document.body.appendChild(aux);
+
+    // Highlight its content
+    aux.select();
+
+    // Copy the highlighted text
+    document.execCommand("copy");
+
+    // Remove it from the body
+    document.body.removeChild(aux);
+
+    // show mess
+    $('#'+messId).html('Đã sao chép');
+
+    setInterval(emptyMess, 3000,messId);
+
+}
+</script>

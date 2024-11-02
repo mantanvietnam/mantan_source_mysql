@@ -15,9 +15,13 @@ function listAffiliaterAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listAffiliaterAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
+              
                 $modelAffiliaters = $controller->loadModel('Affiliaters');
                 $modelOrders = $controller->loadModel('Orders');
                 $modelCustomers = $controller->loadModel('Customers');
@@ -104,9 +108,12 @@ function addAffiliaterAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['name']) && !empty($dataSend['phone'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'addAffiliaterAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
 
                 $modelAffiliaters = $controller->loadModel('Affiliaters');
                 $modelMembers = $controller->loadModel('Members');
@@ -184,6 +191,14 @@ function addAffiliaterAPI($input)
 
                     $modelAffiliaters->save($data);
 
+                    if(!empty($dataSend['id'])){
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin cộng tắc viên '.$data->name.' có id là:'.$data->id;
+                    }else{
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' thêm thông tin cộng tắc viên '.$data->name.' có id là:'.$data->id;
+                    }
+
+                    addActivityHistory($infoMember,$note,'addAffiliaterAgency',$data->id);
+
                     $return = array('code'=>1, 'mess'=>'Lưu dữ liệu thành công','data'=>$data);
                 }else{
                     $return = array('code'=>4, 'mess'=>'Số điện thoại đã tồn tại');
@@ -217,13 +232,14 @@ function getAffiliaterAPI($input)
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['id'])){
             if(!empty($dataSend['token'])){
-                $infoMember = getMemberByToken($dataSend['token']);
-            }elseif(!empty($session->read('infoUser'))){
-                $infoMember =  $session->read('infoUser');
+                $infoMember = getMemberByToken($dataSend['token'],'listAffiliaterAPI');
+            }else{
+                $infoMember =  checklogin('listAffiliaterAgency');
             }
-            
-
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
 
                 $modelAffiliaters = $controller->loadModel('Affiliaters');
                 $modelOrders = $controller->loadModel('Orders');
@@ -250,10 +266,10 @@ function getAffiliaterAPI($input)
 
                         $data->aff = $modelAffiliaters->find()->where(['id'=>$data->id_father])->first();
 
-                        $return = array('code'=>1, 'mess'=>'Lưu dữ liệu thành công','data'=>$data);
+                        $return = array('code'=>1, 'mess'=>'Lây dữ liệu thành công','data'=>$data);
 
                     }else{
-                        $return = array('code'=>1, 'mess'=>'Dữ liệu không tồn tại');
+                        $return = array('code'=>4, 'mess'=>'Dữ liệu không tồn tại');
                     }
             }else{
                 $return = array('code'=>3, 'mess'=>'Sai mã token');
@@ -275,10 +291,13 @@ function deleteAffiliaterAPI($input){
    
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token']) && !empty($dataSend['name']) && !empty($dataSend['phone'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+        if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+            $infoMember = getMemberByToken($dataSend['token'],'deleteAffiliaterAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 
                 $modelAffiliaters = $controller->loadModel('Affiliaters');
                 $modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
@@ -286,6 +305,8 @@ function deleteAffiliaterAPI($input){
                 $data = $modelAffiliaters->find()->where(array('id_member'=>$infoMember->id, 'id'=>(int)$dataSend['id']))->first();
                     
                 if(!empty($data)){
+                    $note = $infoMember->type_tv.' '. $infoMember->name.' xóa thông tin cộng tác viên '.$data->name.' có id là:'.$data->id;
+                    addActivityHistory($infoMember,$note,'deleteAffiliaterAgency',$data->id);
                     $modelTransactionAffiliateHistories->deleteAll(array('id_affiliater'=>$data));
                     $modelAffiliaters->delete($data);
                     $return = array('code'=>1, 'mess'=>'xóa dữ liệu thành công ');
@@ -314,9 +335,13 @@ function listTransactionAffiliaterAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'], 'listTransactionAffiliaterAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
+
 
                 $modelAffiliaters = $controller->loadModel('Affiliaters');
                 $modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
@@ -386,9 +411,12 @@ function getTransactionAffiliaterAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listTransactionAffiliaterAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 
                 $modelAffiliaters = $controller->loadModel('Affiliaters');
                 $modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
@@ -424,9 +452,12 @@ function payTransactionAffiliaterAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'], 'payTransactionAffiliaterAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 
                 $modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
                 $modelAffiliaters = $controller->loadModel('Affiliaters');
@@ -456,6 +487,8 @@ function payTransactionAffiliaterAPI($input)
                     $billbuy->id_aff = $data->id_affiliater;
                     $billbuy->note = 'Thanh toán chiết khấu cho người tiếp thị tên là '.@$aff->name.' '.@$aff->phone.'  giao dịch có id '.$data->id;
                     $modelBill->save($billbuy);
+                    $note = $user->type_tv.' '. $user->name.' '.$billbuy->note;
+                    addActivityHistory($infoMember,$note,'payTransactionAffiliaterAgency',$billbuy->id);
                     $return = array('code'=>1, 'mess'=>'Thanh toán thành công');
                 }else{
                     $return = array('code'=>2, 'mess'=>'Dữ liệu không tồn tại');
@@ -485,9 +518,12 @@ function settingAffiliateAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'settingAffiliateAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 
                 $conditions = array('key_word' => 'settingAffiliateAgency'.$infoMember->id);
 
@@ -519,6 +555,11 @@ function settingAffiliateAPI($input){
                     $data_value = json_decode($data->value, true);
                 }
 
+                $note = $infoMember->type_tv.' '. $infoMember->name.' cập nhập hoa hồng cho cộng tắc viên ';
+                    
+
+                addActivityHistory($infoMember,$note,'settingAffiliateAgency',$data->id);
+
            
                  $return = array('code'=>1, 'mess'=>'Lữu dữ liệu thành công', 'data'=>$data_value);
 
@@ -547,10 +588,12 @@ function getAffiliateAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listAffiliaterAgency');
 
             if(!empty($infoMember)){
-
+                 if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 $conditions = array('key_word' => 'settingAffiliateAgency'.$infoMember->id);
 
                 $data = $modelOptions->find()->where($conditions)->first();

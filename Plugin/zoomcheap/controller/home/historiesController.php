@@ -6,9 +6,20 @@ function addMoney($input)
 	global $metaTitleMantan;
 	global $modelCategories;
 	global $session;
+	global $isRequestPost;
 
 	if(!empty($session->read('infoUser'))){
+		$user = $session->read('infoUser');
 	    $metaTitleMantan = 'Nạp tiền vào tài khoản';
+	    $data =array();
+	    if($isRequestPost){
+	    	$dataSend = $input['request']->getData();
+	    	$sms = $user->phone.' thuezoom';
+	    	if(function_exists('checkpayos')){
+                $data  =  checkpayos($dataSend['money'],$sms);
+           	}
+	    }
+	    setVariable('data',$data);
 	}else{
 		return $controller->redirect('/login');
 	}

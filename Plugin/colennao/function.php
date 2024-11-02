@@ -257,9 +257,11 @@ function getUserByToken($accessToken, $checkActive = true)
     global $listUnit;
 
     $modelUser = $controller->loadModel('Users');
-    $conditions = [
-        'token' => $accessToken
-    ];
+    $conditions = [];
+    $conditions['OR'] = [ 
+            ['token'=>$accessToken],
+            ['token_app'=>$accessToken],
+        ];
 
     if ($checkActive) {
         $conditions['status'] = 'active';

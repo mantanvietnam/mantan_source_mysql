@@ -808,3 +808,42 @@ function sendLowRoomNotification($email = '', $numberAcc100 = '') {
         sendEmail($to, $cc, $bcc, $subject, $content);
     }
 }
+
+function processAddMoney($money = 0, $phone=''){
+    global $controller;
+
+    $modelManagers = $controller->loadModel('Managers');
+    $modelHistories = $controller->loadModel('Histories');
+
+    $infoUser = $modelManagers->find()->where(['phone'=>$phone])->first();
+
+    if(!empty($infoUser)){
+                // cộng tiền tài khoản
+        $infoUser->coin += $money;
+        $modelManagers->save($infoUser);
+
+                // lưu lịch sử giao dịch
+        $dataHistories = $modelHistories->newEmptyEntity();
+
+        $dataHistories->time = time();
+        $dataHistories->idManager = $infoUser->id;
+        $dataHistories->numberCoin = $money;
+        $dataHistories->numberCoinManager = $infoUser->coin;
+        $dataHistories->type = 'plus';
+        $dataHistories->note = 'Nạp tiền tài khoản qua chuyển khoản';
+        $dataHistories->type_note = 'plus_banking';
+        $dataHistories->modified = time();
+        $dataHistories->created = time();
+
+        $modelHistories->save($dataHistories);
+
+        if(!empty($infoUser->email)){
+            sendEmailAddMoney($infoUser->email, $infoUser->fullname, $money);
+        }
+
+        $mess = 'Cộng thành công '.number_format($money).'đ cho tài khoản '.$phone;
+    }else{
+        $mess = 'Không tìm thấy tài khoản khách hàng';
+    }
+}
+?>

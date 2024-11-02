@@ -9,7 +9,13 @@ function addMoneyPayOSBankAPI($input)
 	if(!empty($data['data'])){
 		$datas =$data['data'];
 		$id_ransaction = explode(" ", $datas['description']);
-		$ransaction = (int)$id_ransaction[0];
+        $total = count($id_ransaction);
+        $ransaction = 0;
+        if($total==2){
+            $ransaction = $id_ransaction[0];
+        }elseif($total==3){
+            $ransaction = $id_ransaction[1];
+        }
 		processAddMoney($datas['amount'], $ransaction);
 		return array('code'=>1, 'mess'=>'bạn giao dịch thành công');
 	}
@@ -20,6 +26,7 @@ function settingpayos($input){
 	global $modelOptions;
     global $metaTitleMantan;
     global $isRequestPost;
+    global $urlHomes;
 
     $metaTitleMantan = 'Cài đặt';
     $mess= '';
@@ -49,6 +56,7 @@ function settingpayos($input){
     $data_value = array();
     if(!empty($data->value)){
         $data_value = json_decode($data->value, true);
+        $data_value['linkwebhok'] = $urlHomes.'apis/addMoneyPayOSBankAPI';
     }
 
     setVariable('setting', $data_value);

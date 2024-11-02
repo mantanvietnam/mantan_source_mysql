@@ -353,7 +353,7 @@ function checkLoginMemberAPI($input)
                     sendNotification($dataSendNotification, $checkPhone->token_device);
 				}
 				*/
-				if($info_customer->deadline > time()){
+				if($checkPhone->deadline > time()){
 
 					$checkPhone->last_login = time();
 					$checkPhone->token = 'member'.createToken();

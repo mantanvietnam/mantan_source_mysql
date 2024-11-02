@@ -65,7 +65,8 @@ function registerUserApi($input): array
                 $user->deadline =  strtotime("+7 days", time());
                 $user->updated_at = time();
                 $user->last_login = time();
-                $user->token = createToken();
+                $user->token = 'web'.createToken();
+                $user->token_app = 'app'.createToken();
                 $code = rand(100000, 999999);
                 $user->reset_password_code = @$code;
                 $user->device_token = @$dataSend['device_token'];
@@ -149,7 +150,7 @@ function loginUserApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (!empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['device_token'])) {
+        if (!empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['type'])) {
 
             $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
             $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
@@ -161,9 +162,14 @@ function loginUserApi($input): array
             ])->first();
 
             if (!empty($user)) {
-                $user->token = createToken();
+                if($dataSend['type']=='web'){
+                    $user->token = 'web'.createToken();
+                }elseif($dataSend['type']=='app'){
+                    $user->token_app = 'app'.createToken();   
+                    $user->device_token = $dataSend['device_token'];
+                }
+                
                 $user->last_login = time();
-                $user->device_token = $dataSend['device_token'];
                 $modelUser->save($user);
 
                 if(!empty($user->status_pay_package)){
@@ -194,12 +200,16 @@ function logoutUserApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (isset($dataSend['token'])) {
+        if (isset($dataSend['token']) && !empty($dataSend['type'])) {
             $user = getUserByToken($dataSend['token']);
 
             if (!empty($user)) {
-                $user->token = '';
-                $user->device_token = null;
+                if($dataSend['type']=='web'){
+                    $user->token = '';
+                }elseif($dataSend['type']=='app'){
+                    $user->token_app = '';   
+                    $user->device_token = null;
+                }
                 $modelUser->save($user);
 
                 return apiResponse(0, 'Đăng xuất thành công');
@@ -983,6 +993,7 @@ function checkfastingTimerUsreAPI($input){
 
     $modelUser = $controller->loadModel('Users');
     $modelMealtime = $controller->loadModel('Mealtime');
+    $modelNotification = $controller->loadModel('Notifications');
 
     $listData = $modelUser->find()->where(['time_fast_end >'=> time()-60,'time_fast_end <'=> time()+60 ])->all()->toList();
 
@@ -1122,6 +1133,67 @@ function  getReminderAPI($input){
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+
+function checkReminderUsreAPI($input){
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $ownerType;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelMealtime = $controller->loadModel('Mealtime');
+    $modelNotification = $controller->loadModel('Notifications');
+   
+
+    $conditions = array('re.day'=>date('l'),'re.hour'=>(int)date('H'),'re.minute'=>(int)date('i'),'re.status'=>'on');
+
+    $json = [
+            [
+                'table' => 'reminders',
+                'alias' => 're',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'Users.id = re.id_user'
+                ],
+            ]
+        ];
+    $listData = $modelUser->find()->join($json)->where($conditions)->all()->toList();
+
+    if(!empty($listData)){
+        foreach($listData as $key => $item){
+            $checkUser = $modelUser->find()->where(['id'=>$item ])->first();
+           $device_token =array();
+            if(!empty($checkUser)){
+                $device_token[] = $value->device_token;
+                $title = 'Thông báo giờ tập luyện';
+                $content = 'bạn đên giờ tập luyện rồi chung bạn tập luyện thật hiệu quản';
+                $notification = $modelNotification->newEmptyEntity();
+                $notification->id_user = $value->id;
+                $notification->title = $title;
+                $notification->content = $content;
+                $notification->action = 'adminSendNotification';
+                $notification->created_at = time();
+                $modelNotification->save($notification);
+
+                $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'adminSendNotification'
+                    );
+
+                    if(!empty($device_token)){
+                            // $return = sendNotification($dataSendNotification, $device_token);
+                        $mess = sendNotificationnew($dataSendNotification, $device_token);
+                    }
+            }
+        }
+        return array('code'=>1 ,'mess'=>'ok');
+    }
+     return array('code'=>2 ,'mess'=>' no ok');
+        
 }
 
 ?>

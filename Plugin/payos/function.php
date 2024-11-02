@@ -47,6 +47,7 @@ function checkpayos($amount= 0,$description=''){
     global $payOSChecksumKey;
     global $payOS;
     $YOUR_DOMAIN = $urlHomes;
+    $amount = (int)$amount;
     $data = [
         "orderCode" => intval(substr(strval(microtime(true) * 10000), -6)),
         "amount" => $amount,
