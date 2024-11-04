@@ -73,6 +73,10 @@
                                 <label class="form-label">Câu hỏi (*)</label>
                                 <input  type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" required/>
                               </div>
+                              <div class="mb-3">
+                                <label class="form-label">Câu hỏi tiếng anh</label>
+                                <input  type="text" class="form-control phone-mask" name="nameen" id="nameen" value="<?php echo @$data->nameen;?>" required/>
+                              </div>
                             </div>
                             <div class="col-md-4">
                               <div class="mb-3">

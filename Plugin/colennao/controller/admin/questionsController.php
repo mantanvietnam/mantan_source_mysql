@@ -83,6 +83,7 @@ function addQuestion($input)
         if (!empty($dataSend['name'])) {
             // Tạo dữ liệu save
             $data->name = trim($dataSend['name']);  
+            $data->nameen = trim($dataSend['nameen']);
             $data->status = $dataSend['status'];
             $data->answer1 = $dataSend['answer1'];
             $data->answer2 = $dataSend['answer2'];

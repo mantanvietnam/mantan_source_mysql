@@ -31,16 +31,21 @@ $menus[0]['sub'][]= array(	'title'=>'Bài học',
 							'classIcon'=>'bx bx-list-ul',
 							'permission'=>'listLesson'
                     );
-$menus[0]['sub'][]= array(	'title'=>'Câu hỏi khảo sát tiếng việt',
+$menus[0]['sub'][]= array(	'title'=>'Câu hỏi khảo sát',
 							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestion',
 							'classIcon'=>'bx bx-question-mark',
 							'permission'=>'listQuestion'
 						);
-$menus[0]['sub'][]= array(	'title'=>'Câu hỏi khảo sát tiếng anh',
-							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestionenglish',
-							'classIcon'=>'bx bx-question-mark',
-							'permission'=>'listQuestionenglish'
-						);
+$menus[0]['sub'][]= array( 'title'=>'Điều kiện',
+                            'url'=>'/plugins/admin/colennao-view-admin-condition-listcondition',
+                            'classIcon'=>'bx bxs-meh-alt',
+                            'permission'=>'listcondition'
+                            );
+// $menus[0]['sub'][]= array(	'title'=>'Câu hỏi khảo sát tiếng anh',
+// 							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestionenglish',
+// 							'classIcon'=>'bx bx-question-mark',
+// 							'permission'=>'listQuestionenglish'
+// 						);
 $menus[0]['sub'][]= array(	'title'=>'Giảm cân',
                             'url'=>'/plugins/admin/colennao-view-admin-fasting-listfastingadmin',
                             'classIcon'=>'bx bxs-wink-tongue',
@@ -150,17 +155,13 @@ $menus[3]['sub'][5]= array( 'title'=>'Bữa ăn nhẹ',
                             'classIcon'=>'bx bxs-meh-alt',
                             'permission'=>'listsnacksfood'
                         );
- $menus[3]['sub'][6]= array( 'title'=>'Điều kiện tiếng việt',
-                            'url'=>'/plugins/admin/colennao-view-admin-condition-listcondition',
-                            'classIcon'=>'bx bxs-meh-alt',
-                            'permission'=>'listcondition'
-                            );
 
-$menus[3]['sub'][7]= array( 'title'=>'Điều kiện tiếng anh',
-                            'url'=>'/plugins/admin/colennao-view-admin-condition-listconditioneng',
-                            'classIcon'=>'bx bxs-meh-alt',
-                            'permission'=>'listconditioneng'
-                            );
+
+// $menus[3]['sub'][7]= array( 'title'=>'Điều kiện tiếng anh',
+//                             'url'=>'/plugins/admin/colennao-view-admin-condition-listconditioneng',
+//                             'classIcon'=>'bx bxs-meh-alt',
+//                             'permission'=>'listconditioneng'
+//                             );
 $menus[3]['sub'][8]= array( 'title'=>'Tin tức',
                             'url'=>'/plugins/admin/colennao-view-admin-post-listtablepost',
                             'classIcon'=>'bx bxs-meh-alt',

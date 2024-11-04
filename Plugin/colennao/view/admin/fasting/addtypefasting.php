@@ -69,19 +69,6 @@
                         <?php endif; ?>
                     </select>
                   </div>
-                  <div class="mb-3 form-group col-sm-6">
-                    <i>Phương pháp tiếng anh</i>
-                    <select name="methoden" id="methoden" class="form-control">
-                        <option value="">Chọn phương pháp</option>
-                        <?php if (!empty($listlosingweight)): ?>
-                            <?php foreach ($listlosingweight as $key => $value): ?>
-                                <option value="<?php echo $value->id; ?>" <?php echo ($data->method == $value->id) ? 'selected' : ''; ?>>
-                                    <?php echo $value->name; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
-                  </div>
                 </div>
               </div>
 
