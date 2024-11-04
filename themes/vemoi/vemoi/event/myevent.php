@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <section class="p-3">
+        <section class="p-3 created__my-event">
            <!-- Nav Tabs -->
             <ul class="nav nav-tabs mb-5">
                 <li class="nav-item">
@@ -33,6 +33,7 @@
                                 <div class="row">
                                     <div class="news">
                                       <div class="row">
+                                      <?php if(!empty($listdataattendedevent)) :?>
                                         <?php foreach($listdataattendedevent as $data):?>
                                             <div class="col-lg-4">
                                                 <div class="card-news">
@@ -53,6 +54,7 @@
                                                 </div>
                                             </div>
                                         <?php endforeach;?>
+                                      <?php endif;?>
                                         </div>
                                     </div>
                                 </div>

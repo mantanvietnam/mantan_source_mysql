@@ -137,9 +137,10 @@ function myevent($input){
     }
     $order = array('id' => 'desc');
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-    $listdataattendedevent = $modelattendedevent->find()->where(['id_member'=>$info->id])->order($order)->all()->toList();
-    $listDataevent= $modelevents->find()->where(['id_member'=>$info->id],$conditions)->order($order)->all()->toList();
-    $eventMap = [];
+    if(!empty($info->id)){
+        $listdataattendedevent = $modelattendedevent->find()->where(['id_member'=>$info->id])->order($order)->all()->toList();
+        $listDataevent= $modelevents->find()->where(['id_member'=>$info->id],$conditions)->order($order)->all()->toList();
+        $eventMap = [];
     foreach ($listDataevent as $event) {
         $eventMap[$event->id] = $event; 
     }
@@ -182,6 +183,10 @@ function myevent($input){
     setVariable('eventMap', $eventMap);
     setVariable('listdataattendedevent', $listdataattendedevent);
     setVariable('listDataevent', $listDataevent);
+    }
+    
+  
+    
 }
 function participate($input){
     global $controller;

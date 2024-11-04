@@ -38,8 +38,9 @@
                         <p><?=$mess?></p>
                         <div class="form-row">
                         <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
+                        <?php if(!empty($info['id'])):?>
                         <input type="hidden" value="<?php echo $info['id'];?>" name="id_member">
-                    
+                        <?php endif;?>
                             <div class="form-group">
                                 <label for="fullName">Tên đầy đủ *</label>
                                 <input type="text" id="fullName" name="name" placeholder="Tên đầy đủ" required>

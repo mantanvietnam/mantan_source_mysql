@@ -100,7 +100,7 @@
             
         </section>
     
-        <section>
+        <section class="home__event">
             <div class="event pt-5 ">
                 <div class="container">
                     <div class="row">
@@ -186,7 +186,7 @@
             </div>
         </section>
 
-        <section>
+        <section class="number__home">
             <div class="number-star">
                 <h2 class="section-title">Những Con Số Ấn Tượng<span class="white-dot">•</span></h2>
         
@@ -215,24 +215,26 @@
             </div>
         </section>
 
-        <section>
+        <section class="news__home">
             <div class="news-section">
                 <h2 class="news-title">Tin Tức Mới</h2>
         
                 <div class="news-cards">
                     <!-- News Card 1 -->
                      <?php foreach($listDatatop as $value) :?>
-                    <div class="news-card">
-                        <img src="<?php echo $value['image'];?>" alt="News 1">
-                        <div class="news-content">
-                            <h3 class="news-title-text"><?php echo $value['title'];?></h3>
-                            <p class="news-description"><?php echo $value['description'];?></p>
-                            <div class="news-footer">
-                                <div class="news-read-more">→</div>
-                                <div class="news-date">Ngày <?php echo date('d/m/Y', $value->time);?></div>
+                    <a href="<?php echo @$value->slug ?>.html">
+                        <div class="news-card">
+                            <img src="<?php echo $value['image'];?>" alt="News 1">
+                            <div class="news-content">
+                                <h3 class="news-title-text"><?php echo $value['title'];?></h3>
+                                <p class="news-description"><?php echo $value['description'];?></p>
+                                <div class="news-footer">
+                                    <div class="news-read-more">→</div>
+                                    <div class="news-date">Ngày <?php echo date('d/m/Y', $value->time);?></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     <?php endforeach;?>
                 </div>
         
@@ -240,7 +242,7 @@
             </div>
         </section>
 
-        <section>
+        <section class="create__home">
             <div class="create-events">
                 <div class="container-fluid">
                     <img src="<?= @$settingThemes['imagefull'];?>" alt="">
@@ -250,7 +252,7 @@
                             <h5><?= @$settingThemes['titlesmallsukien'];?></h5>
                         </div>
                         <div class="btn-event">
-                            <a href=""><i class="fa-solid fa-plus"></i>Tạo sự kiện mới</a>
+                            <a href="/createevent"><i class="fa-solid fa-plus"></i>Tạo sự kiện mới</a>
                             <a href=""><i class="fa-solid fa-magnifying-glass"></i>Tìm sự kiện</a>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
 $info = $session->read('infoUser');
 ?>
 
-    <div class="body">
+    <div class="body body__register">
         <img src="<?php echo $urlThemeActive;?>/asset/image/anhdep.jpg" alt="">
         <div class="auth-container">
             <div class="form-container">

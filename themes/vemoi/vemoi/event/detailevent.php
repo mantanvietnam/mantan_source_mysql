@@ -99,7 +99,7 @@
             </div>
         </div>
 
-        <section>
+        <section class="news__event">
             <div class="event pt-5 ">
                 <div class="container">
                     <div class="row">

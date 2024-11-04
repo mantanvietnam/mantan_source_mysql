@@ -3,28 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-
-    <!-- 
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create.css"> -->
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css?time=1192">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/register.css">
-    <!-- <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css"> -->
-    <!-- <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/successfully.css"> -->
-    <!-- <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/detail.css">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/edit.css">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/event.css">
-
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/manage-event-mobile.css">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/manage-event.css">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/my-event.css">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/my-ticket.css">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/no-event.css">
- 
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create.css?time=1191"> 
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css?time=1189">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/register.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/successfully.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/detail.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/edit.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/event.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/manage-event-mobile.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/manage-event.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/my-event.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/my-ticket.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/no-event.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/registerto.css">
-     -->
-
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/js/vemoi.js">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -54,22 +47,24 @@ $infoUser = $session->read('infoUser');
 </head>
 <body>
 <header>
-        <!-- Navbar -->
+
         <nav class="navbar navbar-expand-lg navbar-light bg-white border-0">
             <div class="container-fluid">
-                <!-- Logo -->
+
                 <div class="logo">
                     <a class="navbar-brand d-flex align-items-center" href="/">
                         <img src="<?= @$settingThemes['logo'];?>" alt="">
                     </a>
                 </div>
-
-                <!-- Toggle button for mobile view -->
+                <div class="btn-login">
+                    <div class="d-flex align-items-center">
+                        <a href="/createevent" class="btn btn-danger mx-4">+ Tạo sự kiện</a>
+                    </div>
+                </div>
                 <button style="margin-right: 20px;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Navbar Menu -->
                 <div class="collapse navbar-collapse nv-menu" id="navbarNav">
                     <ul class="navbar-nav">
                         <?php  
@@ -101,7 +96,7 @@ $infoUser = $session->read('infoUser');
                         ?>   
                         </ul>
                         <?php if (empty($infoUser)): ?>
-                            <div class="btn-login">
+                            <div class="btn-login__login">
                                 <div class="d-flex colum">
                                     <a href="/login"><button class="btn btn-outline-dark me-2">Đăng nhập</button></a>
                                     <a href="/register"><button class="btn btn-danger px-4">Đăng ký</button></a>

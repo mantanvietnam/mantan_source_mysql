@@ -14,13 +14,15 @@
             </div>
         </div>
 
-        <section>
+        <section class="form-section__create-event">
             <div class="form-container">
                 <form method="POST" id="eventForm" action="" enctype="multipart/form-data">
                     <!-- Event Information -->
                     <div class="form-section">
                         <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
-                        <input type="hidden" value="<?php echo $info['id'];?>" name="id_member">
+                        <?php if(!empty($info['id'])) :?>
+                            <input type="hidden" value="<?php echo $info['id'];?>" name="id_member">
+                        <?php endif?>
                         <input type="hidden" value="active" name="status">
                         <label for="event-name" class="form-label" >Tên sự kiện*</label>
                         <input type="text" name="name" id="event-name" class="form-control" placeholder="Nhập tên sự kiện" required>
