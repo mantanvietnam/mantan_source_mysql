@@ -103,6 +103,30 @@
                                   </select>
                               </div>
                             </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">Ghi chú </label>
+                                <textarea maxlength="160" rows="5" class="form-control" name="note" id="note"><?php echo @$data->note;?></textarea>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">Ghi chú tiếng anh</label>
+                                <textarea maxlength="160" rows="5" class="form-control" name="noteen" id="noteen"><?php echo @$data->noteen;?></textarea>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">category </label>
+                                <input type="text" class="form-control" name="category" id="category" value="<?=$data->category?>" />
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">categoryen</label>
+                                <input type="text" class="form-control" name="categoryen" id="categoryen" value="<?=$data->categoryen?>" />
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">

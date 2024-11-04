@@ -138,11 +138,35 @@ function myevent($input){
     $order = array('id' => 'desc');
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if(!empty($info->id)){
-        $listdataattendedevent = $modelattendedevent->find()->where(['id_member'=>$info->id])->order($order)->all()->toList();
-        $listDataevent= $modelevents->find()->where(['id_member'=>$info->id],$conditions)->order($order)->all()->toList();
-        $eventMap = [];
+        $listdataattendedevent = $modelattendedevent->find()
+        ->where(['id_member' => $info->id])
+        ->order($order)
+        ->all()
+        ->toList();
+
+    $listDataevent = $modelevents->find()
+        ->where(['id_member' => $info->id], $conditions)
+        ->order($order)
+        ->all()
+        ->toList();
+
+    $eventMap = [];
     foreach ($listDataevent as $event) {
-        $eventMap[$event->id] = $event; 
+        $eventMap[$event->id] = $event;
+        $eventMap[$event->id]->attended_count = 0; 
+    }
+
+    $counts = $modelattendedevent->find()
+        ->select(['id_events', 'count' => $modelattendedevent->find()->func()->count('*')])
+        ->where(['id_events IN' => array_keys($eventMap)]) 
+        ->group('id_events')
+        ->all();
+
+
+    foreach ($counts as $count) {
+        if (isset($eventMap[$count->id_events])) {
+            $eventMap[$count->id_events]->attended_count = $count->count;
+        }
     }
 
     $totalData = $modelevents->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
@@ -250,6 +274,7 @@ function manageevent($input){
     $order = array('id'=>'desc');
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     $listdataattendedevent = $modelattendedevent->find()->where(['id_events'=>$id])->order($order)->all()->toList();
+    $numberdata = count($listdataattendedevent);
     $totalData = $modelattendedevent->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
     $totalData = count($totalData);
     $balance = $totalData % $limit;
@@ -279,6 +304,7 @@ function manageevent($input){
     } else {
         $urlPage = $urlPage . '?page=';
     }
+    setVariable('numberdata', $numberdata);
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);

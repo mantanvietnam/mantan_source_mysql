@@ -288,6 +288,7 @@ function getfoodAPI($input) {
                             'icon' => $data->icon,
                             'timestart' => $data->timestart,
                             'timenow' => $data->timenow,
+                       
                         ],
                         'en' => [
                             'id' => $data->id,
@@ -298,6 +299,7 @@ function getfoodAPI($input) {
                             'icon' => $data->icon,
                             'timestart' => $data->timestart,
                             'timenow' => $data->timenow,
+                         
                         ],
                     ];
                 }
@@ -315,6 +317,8 @@ function getfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -329,7 +333,8 @@ function getfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
-
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     }
@@ -348,6 +353,8 @@ function getfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -362,6 +369,8 @@ function getfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     }
@@ -380,6 +389,8 @@ function getfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -394,6 +405,8 @@ function getfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     }
@@ -412,6 +425,8 @@ function getfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -426,6 +441,8 @@ function getfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     }
@@ -513,6 +530,8 @@ function getdayfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -527,6 +546,8 @@ function getdayfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     }
@@ -545,6 +566,8 @@ function getdayfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -559,6 +582,8 @@ function getdayfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     }
@@ -577,6 +602,8 @@ function getdayfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -591,6 +618,8 @@ function getdayfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     }
@@ -609,6 +638,8 @@ function getdayfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -623,6 +654,8 @@ function getdayfoodAPI($input) {
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     }
@@ -688,6 +721,8 @@ function listbreakfastAPI($input)
                         'id_food' => $data->id_food,
                         'time' => $data->time,
                         'timeeat' => $data->timeeat,
+                        'note' => $data->note,
+                        'category' => $data->category,
                     ],
                     'en' => [
                         'id' => $data->id,
@@ -695,13 +730,15 @@ function listbreakfastAPI($input)
                         'nameen' => $data->nameen,
                         'contenten' => $data->contenten,
                         'ingredientsen' => $data->ingredientsen,
-                                                        'calories' => $data->calories,
-                                'proteins' => $data->proteins,
-                                'fats' => $data->fats,
-                                'carbs' => $data->carbs,
+                        'calories' => $data->calories,
+                        'proteins' => $data->proteins,
+                        'fats' => $data->fats,
+                        'carbs' => $data->carbs,
                         'id_food' => $data->id_food,
                         'time' => $data->time,
                         'timeeat' => $data->timeeat,
+                        'noteen' => $data->noteen,
+                        'categoryen' => $data->categoryen,
                     ],
                 ];
             }
@@ -741,6 +778,8 @@ function getbreakfastAPI($input)
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -755,6 +794,8 @@ function getbreakfastAPI($input)
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     
@@ -813,6 +854,8 @@ function listlunchAPI($input)
                             'id_food' => $data->id_food,
                             'time' => $data->time,
                             'timeeat' => $data->timeeat,
+                            'note' => $data->note,
+                            'category' => $data->category,
                         ],
                         'en' => [
                             'id' => $data->id,
@@ -820,13 +863,15 @@ function listlunchAPI($input)
                             'nameen' => $data->nameen,
                             'contenten' => $data->contenten,
                             'ingredientsen' => $data->ingredientsen,
-                                                            'calories' => $data->calories,
-                                'proteins' => $data->proteins,
-                                'fats' => $data->fats,
-                                'carbs' => $data->carbs,
+                            'calories' => $data->calories,
+                            'proteins' => $data->proteins,
+                            'fats' => $data->fats,
+                            'carbs' => $data->carbs,
                             'id_food' => $data->id_food,
                             'time' => $data->time,
                             'timeeat' => $data->timeeat,
+                            'noteen' => $data->noteen,
+                            'categoryen' => $data->categoryen,
                         ],
                     ];
                 }
@@ -866,6 +911,8 @@ function getlunchAPI($input)
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -873,13 +920,15 @@ function getlunchAPI($input)
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                                                'calories' => $data->calories,
+                                'calories' => $data->calories,
                                 'proteins' => $data->proteins,
                                 'fats' => $data->fats,
                                 'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     
@@ -938,6 +987,8 @@ function listdinnerAPI($input)
                             'id_food' => $data->id_food,
                             'time' => $data->time,
                             'timeeat' => $data->timeeat,
+                            'note' => $data->note,
+                            'category' => $data->category,
                         ],
                         'en' => [
                             'id' => $data->id,
@@ -945,13 +996,15 @@ function listdinnerAPI($input)
                             'nameen' => $data->nameen,
                             'contenten' => $data->contenten,
                             'ingredientsen' => $data->ingredientsen,
-                                                            'calories' => $data->calories,
-                                'proteins' => $data->proteins,
-                                'fats' => $data->fats,
-                                'carbs' => $data->carbs,
+                            'calories' => $data->calories,
+                            'proteins' => $data->proteins,
+                            'fats' => $data->fats,
+                            'carbs' => $data->carbs,
                             'id_food' => $data->id_food,
                             'time' => $data->time,
                             'timeeat' => $data->timeeat,
+                            'noteen' => $data->noteen,
+                            'categoryen' => $data->categoryen,
                         ],
                     ];
                 }
@@ -992,6 +1045,8 @@ function getdinnerAPI($input)
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -1006,6 +1061,8 @@ function getdinnerAPI($input)
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     
@@ -1064,6 +1121,8 @@ function listsnacksAPI($input)
                         'id_food' => $data->id_food,
                         'time' => $data->time,
                         'timeeat' => $data->timeeat,
+                        'note' => $data->note,
+                        'category' => $data->category,
                     ],
                     'en' => [
                         'id' => $data->id,
@@ -1071,13 +1130,15 @@ function listsnacksAPI($input)
                         'nameen' => $data->nameen,
                         'contenten' => $data->contenten,
                         'ingredientsen' => $data->ingredientsen,
-                                                        'calories' => $data->calories,
-                                'proteins' => $data->proteins,
-                                'fats' => $data->fats,
-                                'carbs' => $data->carbs,
+                        'calories' => $data->calories,
+                        'proteins' => $data->proteins,
+                        'fats' => $data->fats,
+                        'carbs' => $data->carbs,
                         'id_food' => $data->id_food,
                         'time' => $data->time,
                         'timeeat' => $data->timeeat,
+                        'noteen' => $data->noteen,
+                        'categoryen' => $data->categoryen,
                     ],
                 ];
             }
@@ -1118,6 +1179,8 @@ function getsnacksAPI($input)
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'note' => $data->note,
+                                'category' => $data->category,
                             ],
                             'en' => [
                                 'id' => $data->id,
@@ -1125,13 +1188,15 @@ function getsnacksAPI($input)
                                 'nameen' => $data->nameen,
                                 'contenten' => $data->contenten,
                                 'ingredientsen' => $data->ingredientsen,
-                                                                'calories' => $data->calories,
+                                'calories' => $data->calories,
                                 'proteins' => $data->proteins,
                                 'fats' => $data->fats,
                                 'carbs' => $data->carbs,
                                 'id_food' => $data->id_food,
                                 'time' => $data->time,
                                 'timeeat' => $data->timeeat,
+                                'noteen' => $data->noteen,
+                                'categoryen' => $data->categoryen,
                             ],
                         ];
                     

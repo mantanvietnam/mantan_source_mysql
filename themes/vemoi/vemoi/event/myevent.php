@@ -122,7 +122,7 @@
                               <p class="card-location"><?=$event['address']?></p>
                               <div class="card-stats">
                                 <div class="stat">
-                                  <span class="stat-number">512</span>
+                                  <span class="stat-number"><?= $event->attended_count ?? 0 ?></span>
                                   <span class="stat-label">Người tham gia</span>
                                 </div>
                                 <div class="stat">

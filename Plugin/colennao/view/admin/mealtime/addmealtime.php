@@ -61,15 +61,18 @@
                                   <textarea maxlength="160" rows="5" class="form-control" name="description2" id="description2"><?php echo @$data->description2;?></textarea>
                               </div>
                               <div class="mb-3">
-                                  <label class="form-label">beginner</label>
-                                  <input type="checkbox" class="form-check-input" name="beginner" id="beginner" value="1" <?php echo ($data->beginner == 1) ? 'checked' : ''; ?> />
+                                  <label class="form-label">Beginner</label>
                                   <input type="hidden" name="beginner" value="0" />
+                                  <input type="checkbox" class="form-check-input" name="beginner" id="beginner" value="1" <?php echo ($data->beginner == 1) ? 'checked' : ''; ?> />
+                                 
                               </div>
                               <div class="mb-3">
-                                  <label class="form-label">populer</label>
-                                  <input type="checkbox" class="form-check-input" name="populer" id="populer" value="1" <?php echo ($data->populer == 1) ? 'checked' : ''; ?> />
+                                  <label class="form-label">Popular</label>
                                   <input type="hidden" name="populer" value="0" />
+                                  <input type="checkbox" class="form-check-input" name="populer" id="populer" value="1" <?php echo ($data->populer == 1) ? 'checked' : ''; ?> />
+                                  
                               </div>
+
 
 
                           </div>

@@ -223,6 +223,10 @@ function addbreakfastfood($input){
             $data->proteins = $dataSend['proteins'];
             $data->fats = $dataSend['fats'];
             $data->carbs = $dataSend['carbs'];
+            $data->note = $dataSend['note'];
+            $data->noteen = $dataSend['noteen'];
+            $data->category = $dataSend['category'];
+            $data->categoryen = $dataSend['categoryen'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -373,6 +377,10 @@ function addlunchfood($input){
             $data->proteins = $dataSend['proteins'];
             $data->fats = $dataSend['fats'];
             $data->carbs = $dataSend['carbs'];
+            $data->note = $dataSend['note'];
+            $data->noteen = $dataSend['noteen'];
+            $data->category = $dataSend['category'];
+            $data->categoryen = $dataSend['categoryen'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -522,6 +530,10 @@ function adddinnerfood($input){
             $data->proteins = $dataSend['proteins'];
             $data->fats = $dataSend['fats'];
             $data->carbs = $dataSend['carbs'];
+            $data->note = $dataSend['note'];
+            $data->noteen = $dataSend['noteen'];
+            $data->category = $dataSend['category'];
+            $data->categoryen = $dataSend['categoryen'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;
@@ -670,6 +682,10 @@ function addsnacksfood($input){
             $data->proteins = $dataSend['proteins'];
             $data->fats = $dataSend['fats'];
             $data->carbs = $dataSend['carbs'];
+            $data->note = $dataSend['note'];
+            $data->noteen = $dataSend['noteen'];
+            $data->category = $dataSend['category'];
+            $data->categoryen = $dataSend['categoryen'];
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;

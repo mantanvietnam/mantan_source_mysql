@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="stat-box p-3">
-                            <h4>3,400</h4>
+                            <h4><?=$numberdata?></h4>
                             <p>Số người tham gia sự kiện</p>
                         </div>
                     </div>
@@ -33,12 +33,12 @@
                             <p>Số vé mới đã được tạo</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <div class="stat-box p-3">
                             <h4>8,000</h4>
                             <p>Số lượng người tiếp cận</p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             
                 <div class="table-container mt-4">

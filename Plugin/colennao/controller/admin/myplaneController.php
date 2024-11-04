@@ -230,8 +230,8 @@ function addmealtime($input){
             $data->image = $dataSend['image'];
             $data->description1 = $dataSend['description1'];
             $data->description2 = $dataSend['description2'];
-            $data->beginner = isset($dataSend['beginner']) ? 1 : 0; 
-            $data->populer = isset($dataSend['populer']) ? 1 : 0;
+            $data->beginner = isset($dataSend['beginner']) && $dataSend['beginner'] == '1' ? 1 : 0;
+            $data->populer = isset($dataSend['populer']) && $dataSend['populer'] == '1' ? 1 : 0;            
             $modelmealtime->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
         }
