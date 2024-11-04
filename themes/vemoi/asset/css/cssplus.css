@@ -81,7 +81,7 @@ table {
 header{
     z-index: 1000;
     top: 0;
-    position: fixed;
+    position: absolute !important;
     border: 0;
     padding: 0;
     display: flex;
