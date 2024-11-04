@@ -77,6 +77,10 @@ table {
     left: -123px !important;
 }
 
+li{
+    list-style: none;
+}
+
 /* header */
 header{
     z-index: 1000;
@@ -126,6 +130,14 @@ header{
 
 .btn-add-event{
     margin-right: 20px;
+}
+
+.btn__myevent a{
+    color: white !important;
+}
+
+.btn__myevent-red a{
+    color: #bd2130 !important;
 }
 
 #navbarNav{

@@ -142,8 +142,8 @@
                             Để thêm sự kiện vào đây, bạn cần <span class="text-danger">TẠO SỰ KIỆN</span> hoặc <span class="text-danger">THAM GIA SỰ KIỆN</span>.
                           </p>
                           <div class="d-flex justify-content-center gap-3 mt-4">
-                            <button class="btn btn-danger px-4 py-2"><a href="/createevent">Tạo sự kiện mới</a></button>
-                            <button class="btn btn-outline-danger px-4 py-2"><a href="">Tham gia sự kiện</a></button>
+                            <button class="btn btn-danger px-4 py-2 btn__myevent"><a href="/createevent">Tạo sự kiện mới</a></button>
+                            <button class="btn btn-outline-danger px-4 py-2 btn__myevent-red"><a href="">Tham gia sự kiện</a></button>
                           </div>
                         </div>
                       <?php endif;?>

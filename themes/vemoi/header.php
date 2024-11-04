@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create.css?time=1191"> 
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css?time=1192">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css?time=1194">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css?time=1189">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/register.css?time=1191">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css?time=1193">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/successfully.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/detail.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/edit.css?time=1191">
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/my-event.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/my-ticket.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/no-event.css?time=1191">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/registerto.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/registerto.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/js/vemoi.js">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">

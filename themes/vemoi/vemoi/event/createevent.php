@@ -179,7 +179,7 @@
             </div>
         </section>
         <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" style="top: 10%;">
+            <div class="modal-dialog" style="top: 28%;">
             <div class="modal-content">
                 <div class="modal-header">
                     <img src="<?php echo $urlThemeActive;?>/asset/image/Illustration.jpg" alt="">
