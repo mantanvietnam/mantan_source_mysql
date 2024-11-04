@@ -35,24 +35,28 @@
                                       <div class="row">
                                       <?php if(!empty($listdataattendedevent)) :?>
                                         <?php foreach($listdataattendedevent as $data):?>
-                                            <div class="col-lg-4">
-                                                <div class="card-news">
-                                                <?php 
+                                          
+                                              <div class="col-lg-4">
+                                                <a href="/detailevent/<?php echo @$event->slug ?>.html">
+                                                    <div class="card-news">
+                                                    <?php 
 
-                                                    $event = $eventMap[$data->id_events] ?? null; 
-                                                    ?>
-                                                    <img src="<?= $event ? $event->banner : 'default-banner.jpg' ?>" alt="">
-                                                    <div class="text top-text">
-                                                        <a class="name" href="/detailevent/<?php echo @$event->slug ?>.html">Khởi nghiệp</a>
-                                                        <a class="logo" href="/detailevent/<?php echo @$event->slug ?>.html"><i class="fas fa-arrow-right"></i></a>
+                                                        $event = $eventMap[$data->id_events] ?? null; 
+                                                        ?>
+                                                        <img src="<?= $event ? $event->banner : 'default-banner.jpg' ?>" alt="">
+                                                        <div class="text top-text">
+                                                            <p class="name">Khởi nghiệp</p>
+                                                            <p class="logo"><i class="fas fa-arrow-right"></i></p>
+                                                        </div>
+                                                        <div class="text under-text">
+                                                            <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
+                                                            <h4><?=$data->name?></h4>
+                                                            <p class="date-time"><?=$data->city?></p>
+                                                        </div>
                                                     </div>
-                                                    <div class="text under-text">
-                                                        <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
-                                                        <h4><?=$data->name?></h4>
-                                                        <p class="date-time"><?=$data->city?></p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                </a>
+                                              </div>
+                                        
                                         <?php endforeach;?>
                                       <?php endif;?>
                                         </div>

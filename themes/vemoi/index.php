@@ -109,18 +109,20 @@
                             <div class="row">
                                 <?php foreach($listDataevent as $event):?>
                                 <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?=$event->banner?>" alt="">
-                                        <div class="text top-text">
-                                            <a class="name" href="/detailevent/<?php echo @$event->slug ?>.html">Khởi nghiệp</a>
-                                            <a class="logo" href="/detailevent/<?php echo @$event->slug ?>.html"><i class="fas fa-arrow-right"></i></a>
+                                    <a href="/detailevent/<?php echo @$event->slug ?>.html">
+                                        <div class="card-news">
+                                            <img src="<?=$event->banner?>" alt="">
+                                            <div class="text top-text">
+                                                <p class="name">Khởi nghiệp</p>
+                                                <p class="logo"><i class="fas fa-arrow-right"></i></p>
+                                            </div>
+                                            <div class="text under-text">
+                                                <p class="date-time"><?php echo date('d/m/Y', $event->time_start);?></p>
+                                                <h4><?=$event->name?></h4>
+                                                <p class="date-time"><?=$event->address?></p>
+                                            </div>
                                         </div>
-                                        <div class="text under-text">
-                                            <p class="date-time"><?php echo date('d/m/Y', $event->time_start);?></p>
-                                            <h4><?=$event->name?></h4>
-                                            <p class="date-time"><?=$event->address?></p>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>   
                                 <?php endforeach;?>                    
                             </div>

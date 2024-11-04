@@ -91,86 +91,206 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade  show" id="navs-top-1" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">đáp án 1</label>
-                                <?php showEditorInput('answer1', 'answer1', @$data->answer1);?>
-                              </div>
+                        <div class="tab-pane fade show" id="navs-top-1" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 1 (Tiếng Việt)</label>
+                                        <?php 
+                                        $answer1_vi = '';
+                                        $answer1_en = '';
+
+                                        // Kiểm tra xem $data->answer1 có tồn tại và không rỗng
+                                        if (!empty($data->answer1)) {
+                                            $answer1 = json_decode($data->answer1, true);
+                                            // Kiểm tra và lấy giá trị cho tiếng Việt
+                                            $answer1_vi = isset($answer1['vi']) ? $answer1['vi'] : '';
+                                            $answer1_en = isset($answer1['en']) ? $answer1['en'] : '';
+                                        }
+
+                                        showEditorInput('answer1_vi', 'answer1_vi', $answer1_vi); 
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 1 (Tiếng Anh)</label>
+                                        <?php showEditorInput('answer1_en', 'answer1_en', $answer1_en); ?>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                        <div class="tab-pane fade  show" id="navs-top-2" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">đáp án 2</label>
-                                <?php showEditorInput('answer2', 'answer2', @$data->answer2);?>
-                              </div>
+
+
+                        <div class="tab-pane fade show" id="navs-top-2" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 2 (Tiếng Việt)</label>
+                                        <?php 
+                                            $answer2 = isset($data->answer2) ? json_decode($data->answer2, true) : [];
+                                            $answer2_vi = $answer2['vi'] ?? '';
+                                            showEditorInput('answer2_vi', 'answer2_vi', $answer2_vi); 
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 2 (Tiếng Anh)</label>
+                                        <?php 
+                                            $answer2_en = $answer2['en'] ?? '';
+                                            showEditorInput('answer2_en', 'answer2_en', $answer2_en); 
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                        <div class="tab-pane fade  show" id="navs-top-3" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">đáp án 3</label>
-                                <?php showEditorInput('answer3', 'answer3', @$data->answer3);?>
-                              </div>
+
+                        <div class="tab-pane fade show" id="navs-top-3" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 3 (Tiếng Việt)</label>
+                                        <?php 
+                                            $answer3 = isset($data->answer3) ? json_decode($data->answer3, true) : [];
+                                            $answer3_vi = $answer3['vi'] ?? '';
+                                            showEditorInput('answer3_vi', 'answer3_vi', $answer3_vi); 
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 3 (Tiếng Anh)</label>
+                                        <?php 
+                                            $answer3_en = $answer3['en'] ?? '';
+                                            showEditorInput('answer3_en', 'answer3_en', $answer3_en); 
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                        <div class="tab-pane fade  show" id="navs-top-4" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">đáp án 4</label>
-                                <?php showEditorInput('answer4', 'answer4', @$data->answer4);?>
-                              </div>
+
+                        <div class="tab-pane fade show" id="navs-top-4" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 4 (Tiếng Việt)</label>
+                                        <?php 
+                                            $answer4 = isset($data->answer4) ? json_decode($data->answer4, true) : [];
+                                            $answer4_vi = $answer4['vi'] ?? '';
+                                            showEditorInput('answer4_vi', 'answer4_vi', $answer4_vi); 
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 4 (Tiếng Anh)</label>
+                                        <?php 
+                                            $answer4_en = $answer4['en'] ?? '';
+                                            showEditorInput('answer4_en', 'answer4_en', $answer4_en); 
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                        <div class="tab-pane fade  show" id="navs-top-5" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">đáp án 5</label>
-                                <?php showEditorInput('answer5', 'answer5', @$data->answer5);?>
-                              </div>
+
+                        <div class="tab-pane fade show" id="navs-top-5" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 5 (Tiếng Việt)</label>
+                                        <?php 
+                                            $answer5 = isset($data->answer5) ? json_decode($data->answer5, true) : [];
+                                            $answer5_vi = $answer5['vi'] ?? '';
+                                            showEditorInput('answer5_vi', 'answer5_vi', $answer5_vi); 
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 5 (Tiếng Anh)</label>
+                                        <?php 
+                                            $answer5_en = $answer5['en'] ?? '';
+                                            showEditorInput('answer5_en', 'answer5_en', $answer5_en); 
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                        <div class="tab-pane fade  show" id="navs-top-6" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">đáp án 6</label>
-                                <?php showEditorInput('answer6', 'answer6', @$data->answer6);?>
-                              </div>
+
+                        <div class="tab-pane fade show" id="navs-top-6" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 6 (Tiếng Việt)</label>
+                                        <?php 
+                                            $answer6 = isset($data->answer6) ? json_decode($data->answer6, true) : [];
+                                            $answer6_vi = $answer6['vi'] ?? '';
+                                            showEditorInput('answer6_vi', 'answer6_vi', $answer6_vi); 
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 6 (Tiếng Anh)</label>
+                                        <?php 
+                                            $answer6_en = $answer6['en'] ?? '';
+                                            showEditorInput('answer6_en', 'answer6_en', $answer6_en); 
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                        <div class="tab-pane fade  show" id="navs-top-7" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">đáp án 7</label>
-                                <?php showEditorInput('answer7', 'answer7', @$data->answer7);?>
-                              </div>
+
+                        <div class="tab-pane fade show" id="navs-top-7" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 7 (Tiếng Việt)</label>
+                                        <?php 
+                                            $answer7 = isset($data->answer7) ? json_decode($data->answer7, true) : [];
+                                            $answer7_vi = $answer7['vi'] ?? '';
+                                            showEditorInput('answer7_vi', 'answer7_vi', $answer7_vi); 
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 7 (Tiếng Anh)</label>
+                                        <?php 
+                                            $answer7_en = $answer7['en'] ?? '';
+                                            showEditorInput('answer7_en', 'answer7_en', $answer7_en); 
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                        <div class="tab-pane fade  show" id="navs-top-8" role="tabpanel">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <label class="form-label">đáp án 8</label>
-                                <?php showEditorInput('answer8', 'answer8', @$data->answer8);?>
-                              </div>
+
+                        <div class="tab-pane fade show" id="navs-top-8" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 8 (Tiếng Việt)</label>
+                                        <?php 
+                                            $answer8 = isset($data->answer8) ? json_decode($data->answer8, true) : [];
+                                            $answer8_vi = $answer8['vi'] ?? '';
+                                            showEditorInput('answer8_vi', 'answer8_vi', $answer8_vi); 
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Đáp án 8 (Tiếng Anh)</label>
+                                        <?php 
+                                            $answer8_en = $answer8['en'] ?? '';
+                                            showEditorInput('answer8_en', 'answer8_en', $answer8_en); 
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
+
+
                       </div>              
                   </div>
                 </div>

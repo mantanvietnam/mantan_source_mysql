@@ -18,7 +18,7 @@
                                     <span><i class="fa-solid fa-calendar-days"></i> <?php echo date('d/m/Y', $post->time);?></span>
                                 </div>
                                 <div class="news-detail">
-                                    <h4><?php echo $post->description;?></h4>
+                                 
                                     <p><?php echo $post->content;?>
                                     </p>
                                 </div>
