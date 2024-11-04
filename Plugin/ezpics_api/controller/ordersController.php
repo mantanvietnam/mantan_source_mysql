@@ -133,6 +133,7 @@ function saveRequestBankingAPI($input)
                         $account_holders_bank = $infobank['accountName'];
                         $number_bank = $infobank['accountNumber'];
                         $sms = $infobank['description'];
+                        $code_bank = $infobank['code_bank'];
 
                     }
                 }
@@ -140,8 +141,8 @@ function saveRequestBankingAPI($input)
                 $link_qr_bank = 'https://img.vietqr.io/image/'.$bank_code.'-'.$number_bank.'-compact2.png?amount='.$dataSend['money'].'&addInfo='.$sms.'&accountName='.$account_holders_bank;
 
                 $return = array('code'=>0,
-                				'number_bank'=>'MB BANK',
-                				'name_bank'=>$bank_code,
+                				'number_bank'=>$number_bank,
+                				'name_bank'=>$code_bank,
                 				'account_holders_bank'=>$account_holders_bank,
                 				'link_qr_bank'=>$link_qr_bank,
                 				'content'=>$sms,

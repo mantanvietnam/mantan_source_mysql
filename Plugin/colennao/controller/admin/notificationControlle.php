@@ -84,7 +84,6 @@ function addNotificationAdmin($input)
                 		
 						$mess = sendNotificationnew($dataSendNotification, $device_token);
 						
-						
 					}
 
 					$mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format($number).' người dùng</p>';

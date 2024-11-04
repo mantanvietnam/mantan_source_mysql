@@ -12,9 +12,11 @@ function listCustomerGiftAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listCustomerGiftAgency');
             if(!empty($infoMember)){
-        
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 $modelCustomerGifts = $controller->loadModel('CustomerGifts');
                 $modelProducts = $controller->loadModel('Products');
                 $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
@@ -70,9 +72,12 @@ function getCustomerGiftAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listCustomerGiftAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 $conditions = array('id_member'=>$infoMember->id, 'id'=>(int) $dataSend['id']);
          
                 $data = $modelCustomerGifts->find()->where($conditions)->first();
@@ -108,9 +113,12 @@ function addCustomerGiftAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['name'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'addCustomerGiftAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 
                 $metaTitleMantan = 'Thông tin quà tặng';
 
@@ -173,6 +181,15 @@ function addCustomerGiftAPI($input)
                 $data->slug = $slugNew;
                     
                 $modelCustomerGifts->save($data);
+
+                if(!empty($dataSend['id'])){
+                      $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin quà tặng '.$data->name.' có id là:'.$data->id;
+                }else{
+                      $note = $infoMember->type_tv.' '. $infoMember->name.' thêm thông tin quà tặng '.$data->name.' có id là:'.$data->id;
+                }
+
+
+                addActivityHistory($infoMember,$note,'addCustomerGiftAgency',$data->id);
                 
                 return array('code'=>1, 'mess'=>'Bạn lưu thành công');
             }else{
@@ -197,10 +214,12 @@ function deleteCustomerGiftAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'deleteCustomerGiftAgency');
 
             if(!empty($infoMember)){
-
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 $modelCustomerGift = $controller->loadModel('CustomerGifts');
         
 
@@ -208,6 +227,8 @@ function deleteCustomerGiftAPI($input){
          
                 $data = $modelCustomerGifts->find()->where($conditions)->first();
                 if(!empty($data)){
+                    $note = $infoMember->type_tv.' '. $infoMember->name.' xóa thông tin quà tặng '.$data->name.' có id là:'.$data->id;
+                    addActivityHistory($infoMember,$note,'deleteCustomerGiftAgency',$data->id);
                     $modelCustomerGift->delete($data);
                     $return = array('code'=>1, 'mess'=>'xóa dữ liệu thành công');
                 }else{
@@ -235,9 +256,12 @@ function giveGiftCustomerAPI($input){
      if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id_gift']) && !empty($dataSend['id_customer'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'giveGiftCustomer');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 $modelCustomerGifts = $controller->loadModel('CustomerGifts');
                 $modelCustomer = $controller->loadModel('Customers');
                 $modelPointCustomer = $controller->loadModel('PointCustomers');
@@ -303,6 +327,9 @@ function giveGiftCustomerAPI($input){
                                 $modelWarehouseHistories->save($saveWarehouseHistories);
                             }
                         }
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' đổi quà '.$gift->name.' cho khách hàng '.$customer->full_name.' có id lịch sử đổi quà là:'.$historieGift->id;
+
+                        addActivityHistory($infoMember,$note,'giveGiftCustomer',$historieGift->id);
                         $return = array('code'=>1, 'mess'=>'Đổi quà tặng cho khách hàng thành công');
                     }else{
                         $return = array('code'=>4, 'mess'=>'Khách hàng chưa đủ điểm để nhận phần quà này');
@@ -336,9 +363,12 @@ function listHistorieCustomerGiftAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listHistorieCustomerGiftAgency');
 
             if(!empty($infoMember)){
+                 if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 $modelCustomerGifts = $controller->loadModel('CustomerGifts');
                 $modelCustomer = $controller->loadModel('Customers');
                 $modelPointCustomer = $controller->loadModel('PointCustomers');

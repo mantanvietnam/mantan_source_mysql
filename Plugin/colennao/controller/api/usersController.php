@@ -999,14 +999,14 @@ function checkfastingTimerUsreAPI($input){
 
     if(!empty($listData)){
         foreach($listData as $key => $item){
-            $checkUser = $modelUser->find()->where(['id'=>$item ])->first();
+            $checkUser = $modelUser->find()->where(['id'=>$item->id ])->first();
            $device_token =array();
             if(!empty($checkUser)){
-                $device_token[] = $value->device_token;
+                $device_token[] = $checkUser->device_token;
                 $title = 'Thông báo nhịn ăn';
                 $content = 'bạn nhị ăn thành công';
                 $notification = $modelNotification->newEmptyEntity();
-                $notification->id_user = $value->id;
+                $notification->id_user = $checkUser->id;
                 $notification->title = $title;
                 $notification->content = $content;
                 $notification->action = 'adminSendNotification';
@@ -1081,13 +1081,14 @@ function userSetReminderAPI($input){
                     $listData = json_decode($dataSend['data_time'], true);
                     foreach($listData as $key => $value){
                          $checkday =  $modelReminder->newEmptyEntity();
-                        $checkday->number = (int) $value['number_day'];
-                        $checkday->day = $getday[$checkday->number]['name_en'];
-                        $checkday->status = $value['status'];
-                        $time = explode(":", $value['time']);
-                        $checkday->hour = $time[0];
-                        $checkday->id_user = $user->id;
-                        $checkday->minute = $time[1];
+                        $checkday->number = (int) @$value['number_day'];
+                        $checkday->day = @$getday[$checkday->number]['name_en'];
+
+                        $checkday->status = (!empty($value['status']))?$value['status']:'off';
+                        $time = explode(":", @$value['time']);
+                        $checkday->hour = (!empty($time[0]))?(int)$time[0]:0;
+                        $checkday->id_user = @$user->id;
+                        $checkday->minute = (!empty($time[1]))?(int)$time[1]:0;
                         $modelReminder->save($checkday);
                     }
                        
@@ -1163,17 +1164,16 @@ function checkReminderUsreAPI($input){
 
     if(!empty($listData)){
         foreach($listData as $key => $item){
-            $checkUser = $modelUser->find()->where(['id'=>$item ])->first();
            $device_token =array();
-            if(!empty($checkUser)){
-                $device_token[] = $value->device_token;
+            if(!empty($item)){
+                $device_token[] = $item->device_token;
                 $title = 'Thông báo giờ tập luyện';
                 $content = 'bạn đên giờ tập luyện rồi chung bạn tập luyện thật hiệu quản';
                 $notification = $modelNotification->newEmptyEntity();
-                $notification->id_user = $value->id;
+                $notification->id_user = $item->id;
                 $notification->title = $title;
                 $notification->content = $content;
-                $notification->action = 'adminSendNotification';
+                $notification->action = 'sendNotificationReminderUsre';
                 $notification->created_at = time();
                 $modelNotification->save($notification);
 
@@ -1181,7 +1181,7 @@ function checkReminderUsreAPI($input){
                         'title' => $title,
                         'time' => date('H:i d/m/Y'),
                         'content' => $content,
-                        'action' => 'adminSendNotification'
+                        'action' => 'sendNotificationReminderUsre'
                     );
 
                     if(!empty($device_token)){
@@ -1190,9 +1190,9 @@ function checkReminderUsreAPI($input){
                     }
             }
         }
-        return array('code'=>1 ,'mess'=>'ok');
+        return array('code'=>1 ,'mess'=>'ok'.date('H:i'));
     }
-     return array('code'=>2 ,'mess'=>' no ok');
+     return array('code'=>2 ,'mess'=>' no ok'.date('H:i'));
         
 }
 

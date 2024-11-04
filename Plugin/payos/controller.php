@@ -27,6 +27,7 @@ function settingpayos($input){
     global $metaTitleMantan;
     global $isRequestPost;
     global $urlHomes;
+    global $listBank;
 
     $metaTitleMantan = 'Cài đặt';
     $mess= '';
@@ -42,7 +43,8 @@ function settingpayos($input){
 
         $value = array( 'client_id' => @$dataSend['client_id'],
                         'api_key' => @$dataSend['api_key'],
-                        'checksum_key' => @$dataSend['checksum_key']
+                        'checksum_key' => @$dataSend['checksum_key'],
+                        'code_bank' => @$dataSend['code_bank']
                        
                     );
         $data->key_word = 'settingPayos';
@@ -61,6 +63,7 @@ function settingpayos($input){
 
     setVariable('setting', $data_value);
     setVariable('mess', $mess);
+    setVariable('listBank', $listBank);
 }
 
 function checkthangtoan(){

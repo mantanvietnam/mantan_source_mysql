@@ -513,9 +513,7 @@ function addChildExerciseWorkout($input){
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
-            
-
-            if(!empty($dataSend['title'])){
+            if(!empty($dataSend['title']) && !empty($dataSend['title_en'])  && !empty($dataSend['youtube_code'])  && !empty($dataSend['content'])  && !empty($dataSend['content_en'])){
                 if(isset($_FILES['image']) && empty($_FILES['image']["error"])){
                     if(!empty($data->id)){
                         $fileName = 'image_childexercise'.$data->id;
@@ -552,11 +550,12 @@ function addChildExerciseWorkout($input){
            
 
                 $modelChildExerciseWorkouts->save($data);
-
-                }
-                
-
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+            }else{
+                $mess= '<p class="text-danger">bạn thiếu dữ liệu</p>';
+            }
+                
 
         }          
         
@@ -584,8 +583,7 @@ function addChildExerciseWorkout($input){
         setVariable('data', $data);         
         setVariable('dataWorkout', $dataWorkout);
         setVariable('dataExercise', $dataExercise);          
-        setVariable('listdevice', $listdevice);         
-    
+        setVariable('listdevice', $listdevice);    
 }
 
 

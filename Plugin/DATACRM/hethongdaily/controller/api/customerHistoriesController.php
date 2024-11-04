@@ -14,9 +14,12 @@ function getListCustomerHistoriesAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listCustomerHistoriesAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
                 if(!empty($dataSend['id_customer'])){
                     $conditions = array('id_customer'=> (int) $dataSend['id_customer'],'id_staff_now'=>$infoMember->id);
                     $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
@@ -61,9 +64,12 @@ function saveCustomerHistoryAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
-
+            $infoMember = getMemberByToken($dataSend['token'],'addCustomerHistoriesAgency');
+               
             if(!empty($infoMember)){
+                 if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
                 if( !empty($dataSend['id_customer']) && 
                     !empty($dataSend['note']) &&
                     !empty($dataSend['action']) && 
@@ -90,6 +96,10 @@ function saveCustomerHistoryAPI($input)
                     $customer_histories->status = 'new';
 
                     $modelCustomerHistories->save($customer_histories);
+
+                    $note = $infoMember->type_tv.' '. $infoMember->name.' tạo mới lịch hẹn khách hàng '.$checkCustomer->full_name.' có id lịch hẹn là:'.$data->id;
+
+                     addActivityHistory($infoMember,$note,'addCustomerGiftAgency',$data->id);
 
                     $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_customer_history'=>$customer_histories->id);
                 }else{

@@ -80,6 +80,7 @@ function paymEntextendUserAPI($input){
                     if(!empty($infobank)){
                         $data->infobank = $infobank;
                         $bank['bank_code'] = $infobank['bin'];
+                        $bank['name_bank'] = $infobank['code_bank'];
                         $bank['bank_name'] = $infobank['accountName'];
                         $bank['bank_number'] = $infobank['accountNumber'];
                         $sms = $infobank['description'];
@@ -89,10 +90,10 @@ function paymEntextendUserAPI($input){
                 }
 
                 $link_qr_bank = 'https://img.vietqr.io/image/'.$bank['bank_code'].'-'.$bank['bank_number'].'-compact2.png?amount='.$data->price.'&addInfo='.$sms.'&accountName='.$bank['bank_name'];
-                $data->infoQR =   array('name_bank'=>$bank['bank_code'],
+                $data->infoQR =   array('name_bank'=>$bank['name_bank'],
                                 'account_holders_bank'=>$bank['bank_name'],
                                 'link_qr_bank'=>$link_qr_bank,
-                                'money'=>$bank['bank_number'],
+                                'bank_number'=>$bank['bank_number'],
                                 'content'=>$sms,
                                 'money'=>$data->price
                             );

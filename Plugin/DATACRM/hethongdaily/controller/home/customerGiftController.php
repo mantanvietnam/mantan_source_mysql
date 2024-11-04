@@ -219,7 +219,7 @@ function deleteCustomerGiftAgency($input){
     global $controller;
     global $session;
 
-    $user = checklogin('deleteProductAgency');  
+    $user = checklogin('deleteCustomerGiftAgency');  
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/listCustomerGiftAgency');
@@ -326,7 +326,7 @@ function giveGiftCustomer($input){
                        }
                     }
 
-                    $note = $user->type_tv.' '. $user->name.' đổi quà '.$gift->name.' cho khách hàng '.$data->full_name.' có id lịch sử đổi quà là:'.$historieGift->id;
+                    $note = $user->type_tv.' '. $user->name.' đổi quà '.$gift->name.' cho khách hàng '.$customer->full_name.' có id lịch sử đổi quà là:'.$historieGift->id;
 
                     addActivityHistory($user,$note,'giveGiftCustomer',$historieGift->id);
                     return $controller->redirect('/listPointCustomer?mess=done');

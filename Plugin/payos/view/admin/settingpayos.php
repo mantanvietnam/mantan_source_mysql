@@ -19,6 +19,20 @@
         <label class="form-label" for="basic-default-phones">Checksum Key</label>
         <input type="text" class="form-control phone-mask" name="checksum_key" id="checksum_key" value="<?php echo @$setting['checksum_key'];?>"/>
       </div>
+       <div class="mb-3 col-md-6">
+        <label class="form-label" for="basic-default-phones">Ngân hàng </label>
+        <select class="form-select" name="code_bank" id="code_bank">
+          <option value="">Chọn ngân hàng</option>
+          <?php
+          foreach($listBank as $key => $item){
+            $selected = '';
+            if(@$setting['code_bank']==$item['code']){ 
+              $selected = 'selected';
+            }
+            echo'<option value="'.$item['code'].'" '.$selected.' >'.$item['name'].' ('.$item['code'].')</option>';
+          } ?>
+        </select>
+      </div>
       
       <div class="mb-3 col-md-12">
          <p onclick="copyToClipboard('contentPay','mess')">link webhook: <b id="contentPay"><?php echo $setting['linkwebhok'] ?></b> <i class='bx bx-copy' ></i><span id="mess" style="color: red;"></span></p>

@@ -82,9 +82,12 @@ function getListCustomerAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listCustomerAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 // danh sách nhóm khách hàng
                 $conditions = array('type' => 'group_customer', 'parent'=>$infoMember->id);
                 $listGroup = $modelCategories->find()->where($conditions)->all()->toList();
@@ -172,9 +175,12 @@ function getInfoCustomerAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listCustomerAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 if(!empty($dataSend['id_customer'])){
                     $join = [
                         [
@@ -262,7 +268,11 @@ function saveInfoCustomerAPI($input)
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) || !empty($dataSend['id_member'])){
             if(!empty($dataSend['token'])){
-                $infoMember = getMemberByToken($dataSend['token']);
+                $infoMember = getMemberByToken($dataSend['token'],'editCustomerAgency');
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                    
+                }
             }else{
                 $infoMember = $modelMembers->find()->where(['id'=>(int) $dataSend['id_member']])->first();
             }
@@ -752,6 +762,15 @@ function saveInfoCustomerAPI($input)
                     $modelCustomerHistories->save($customer_histories);
 
                     $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
+                    if(!empty($dataSend['token'])){
+                        if(!empty($dataSend['id'])){
+                            $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin khách hàng '.$data->full_name.' có id là:'.$data->id;
+                        }else{
+                            $note = $infoMember->type_tv.' '. $infoMember->name.' tạo mới thông tin khách hàng '.$data->full_name.' có id là:'.$data->id;
+                        }
+                        addActivityHistory($infoMember,$note,'customers',$data->id);
+                    }
+
                     $return['set_attributes']['id_customer_crm']= $infoCustomer->id;
                     $return['set_attributes']['img_card_member']= $infoCustomer->img_card_member;
                 }else{
@@ -784,12 +803,19 @@ function deleteGroupCustomerAPI($input)
         $dataSend = $input['request']->getData();
         
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'deleteGroupCustomerAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
+
                 $infoCategory = $modelCategories->find()->where(['id'=>(int) $dataSend['id'], 'parent'=>$infoMember->id])->first();
 
                 if(!empty($infoCategory)){
+                     $note = $infoMember->type_tv.' '. $infoMember->name.' xóa thông tin nhóm khách hàng '.$infoCategory->name.' có id là:'.$infoCategory->id;
+
+                    addActivityHistory($infoMember,$note,'deletegroupcustomer',$data->id);
                     $modelCategories->delete($infoCategory);
 
                     $modelCategoryConnects->deleteAll(['keyword'=>'group_customers', 'id_category'=>(int)$dataSend['id']]);
@@ -825,9 +851,12 @@ function addGroupCustomerAPI($input)
         $dataSend = $input['request']->getData();
         
         if(!empty($dataSend['token']) && !empty($dataSend['name'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'editGroupCustomerAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
                 if(!empty($dataSend['id'])){
                     $infoCategory = $modelCategories->find()->where(['id'=>(int) $dataSend['id'], 'parent'=>$infoMember->id])->first();
 
@@ -847,6 +876,14 @@ function addGroupCustomerAPI($input)
                 $infoCategory->slug = createSlugMantan($infoCategory->name);
 
                 $modelCategories->save($infoCategory);
+
+                if(!empty($dataSend['id'])){
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin nhóm khách hàng '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                    
+                }else{
+                    $note = $infoMember->type_tv.' '. $infoMember->name.' tạo mới thông tin nhóm khách hàng '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                }
+                 addActivityHistory($infoMember,$note,'group_customer',$data->id);
 
                 $return = array('code'=>0, 'mess'=>'Lưu nhóm khách hàng thành công', 'id_group'=>$infoCategory->id);
                 
@@ -879,9 +916,12 @@ function listGroupCustomerAPI($input)
         $dataSend = $input['request']->getData();
         
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'groupCustomerAgency');
 
             if(!empty($infoMember)){
+                 if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
                 $listData = $modelCategories->find()->where(['type'=>'group_customer', 'parent'=>$infoMember->id])->all()->toList();
 
                 if(!empty($listData)){
@@ -1112,9 +1152,12 @@ function getListCustomerNewTodayAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listCustomerAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 // Thời gian đầu ngày
                 $startOfDay = strtotime("today 00:00:00");
                 // Thời gian cuối ngày
