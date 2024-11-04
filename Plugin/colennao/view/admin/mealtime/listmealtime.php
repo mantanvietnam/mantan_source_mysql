@@ -48,8 +48,8 @@
                         <?php 
                   
                         $name = '';
-                        foreach ($listfasting as $level) {
-                            if ($level['id'] == $item->id_level) {
+                        foreach ($listDatacategorydiet as $level) {
+                            if ($level['id'] == $item->id) {
                                 $name = $level['name'];
                                 break;
                             }

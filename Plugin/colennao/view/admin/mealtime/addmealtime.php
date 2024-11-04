@@ -32,9 +32,9 @@
                             <div class="mb-3">
                                 <label class="form-label">Tên</label>
                                 <select class="form-control" name="id_level" id="id_level">
-                                    <?php foreach ($listfasting as $level): ?>
-                                        <option value="<?php echo $level['id']; ?>" <?php echo ($data->id_level == $level['id']) ? 'selected' : ''; ?>>
-                                            <?php echo $level['name']; ?>
+                                    <?php foreach ($listDatacategorydiet as $categorydiet): ?>
+                                        <option value="<?php echo $categorydiet['id']; ?>" <?php echo ($data->id == $categorydiet['id']) ? 'selected' : ''; ?>>
+                                            <?php echo $categorydiet['name']; ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>

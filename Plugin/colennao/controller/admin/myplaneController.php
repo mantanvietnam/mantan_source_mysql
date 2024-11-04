@@ -142,8 +142,11 @@ function listmealtime($input){
     global $metaTitleMantan;
     global $modelCategories;
     global $listfasting;
+    
     $metaTitleMantan = 'Danh sách ';
     $modelmealtime = $controller->loadModel('mealtime');
+    $modelcategorydiet = $controller->loadModel('categorydiet');
+    $listDatacategorydiet =  $modelcategorydiet->find()->all()->toList();
     $conditions = array();
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -189,7 +192,7 @@ function listmealtime($input){
     } else {
         $urlPage = $urlPage . '?page=';
     }
-    setVariable('listfasting', $listfasting);
+    setVariable('listDatacategorydiet', $listDatacategorydiet);
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -207,8 +210,10 @@ function addmealtime($input){
     global $listfasting;
     $metaTitleMantan = 'Thêm mealtime';
     $modelmealtime = $controller->loadModel('mealtime');
+    $modelcategorydiet = $controller->loadModel('categorydiet');
     $mess= '';
     $listDatamealtime =  $modelmealtime->find()->all()->toList();
+    $listDatacategorydiet =  $modelcategorydiet->find()->all()->toList();
     if (!empty($_GET['id'])) {
         $data = $modelmealtime->get((int)$_GET['id']);
     } else {
@@ -231,6 +236,7 @@ function addmealtime($input){
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
         }
     }
+    setVariable('listDatacategorydiet', $listDatacategorydiet);
     setVariable('listfasting', $listfasting);
     setVariable('listDatamealtime', $listDatamealtime);
     setVariable('data', $data);
