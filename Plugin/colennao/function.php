@@ -83,6 +83,11 @@ $menus[0]['sub'][]= array( 'title'=>'Cài đặt chế độ ăn',
                             'classIcon'=>'bx bx-history',
                             'permission'=>'listmealtime'
             );
+$menus[0]['sub'][]= array( 'title'=>'Cài đặt danh mục độ ăn',
+                            'url'=>'/plugins/admin/colennao-view-admin-categorydiet-listcategorydiet',
+                            'classIcon'=>'bx bx-history',
+                            'permission'=>'listcategorydiet'
+            );
 $menus[0]['sub'][]= array('title'=>'Cài đặt',
         'url'=>'/',
         'classIcon'=>'bx bx-cog',
