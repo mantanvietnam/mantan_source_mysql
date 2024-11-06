@@ -78,6 +78,8 @@ function indexTheme($input){
 	global $settingThemes;
     global $controller;
     global $modelCategories;
+    global $session;
+    $info = $session->read('infoUser');
 	$conditions = array('key_word' => 'settinghomevemoi');
 
     $order = array('id'=>'desc');
@@ -98,6 +100,9 @@ function indexTheme($input){
     $slidealbumNTT = [];
     if(!empty($settingThemes['slidealbumNTT'])){
         $slidealbumNTT = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['slidealbumNTT']])->all()->toList();
+    }
+    if(!empty($info)){
+        setVariable('info', $info);
     }
     setVariable('listDataevent', $listDataevent);
     setVariable('listDatatop', $listDatatop);

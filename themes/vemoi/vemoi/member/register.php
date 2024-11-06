@@ -14,6 +14,7 @@
                     <h4 class="text-center text-danger">Đăng ký</h4>
                     <p class="text-center text-secondary">Đăng ký làm thành viên của chúng tôi và trải nghiệm những sự kiện cực hấp dẫn!</p>
                     <form method="POST" action="">
+                        <p><?=$mess?></p>
                         <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                         <div class="mb-3">
                             <label for="registerName" class="form-label">Tên</label>

@@ -57,11 +57,15 @@
                                 </div>  
                             </div>
                         </div>
-                        
+                
                         <div class="btn-loginn">
-                            <a href="/participate?id=<?=$events['id']?> ">Đăng ký tham gia</a>
-                          
+                            <?php if (!empty($info)): ?>
+                                <a href="/participate?id=<?= $events['id'] ?>">Đăng ký tham gia</a>
+                            <?php else: ?>
+                                <p>Bạn chưa đăng nhập để đăng ký sự kiện</p>
+                            <?php endif; ?>
                         </div>
+
                         
                         <div class="link">
                             <div class="copy-link d-flex align-items-center">
@@ -108,24 +112,26 @@
                             <div class="row">
                                 <?php foreach ($listDataevent as $event):?>
                                 <div class="col-lg-4">
-                                    <div class="card-news">
-                                        <img src="<?php echo $event->banner;?>" alt="">
+                                    <a href="/detailevent/<?php echo @$event->slug ?>.html">
+                                        <div class="card-news">
+                                            <img src="<?php echo $event->banner;?>" alt="">
                                             <div class="text top-text">
-                                                <a class="name" href="/detailevent/<?php echo @$event->slug ?>.html">Khởi nghiệp</a>
-                                                <a class="logo" href="/detailevent/<?php echo @$event->slug ?>.html"><i class="fas fa-arrow-right"></i></a>
+                                                <p>Khởi nghiệp</p>
+                                               <p><i class="fas fa-arrow-right"></i></p>
                                             </div>
                                             <div class="text under-text">
                                                 <p class="date-time"><?php echo date('d/m/Y', $event->time_start);?></p>
                                                 <h4><?=$event->name?></h4>
                                                 <p class="date-time"><?=$event->address?></p>
                                             </div>
-                                    </div>
+                                        </div>
+                                    </a>
                                 </div>
                                 <?php endforeach;?>
                             </div>
                         </div>
                         <div class="takeall">
-                            <a href="#">Xem tất cả</a>
+                            <a href="/allevent">Xem tất cả</a>
                         </div>
 
                     </div>

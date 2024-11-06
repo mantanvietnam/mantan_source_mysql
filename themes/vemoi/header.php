@@ -108,6 +108,7 @@ $infoUser = $session->read('infoUser');
                                     Thông tin cá nhân
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                                    <li><a class="dropdown-item" href="/myevent">Sự kiện của tôi</a></li>
                                     <li><a class="dropdown-item" href="/account">Đổi thông tin</a></li>
                                     <li><a class="dropdown-item" href="/changePass">Đổi mật khẩu</a></li>
                                     <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
@@ -125,6 +126,7 @@ $infoUser = $session->read('infoUser');
                                         <img src="<?=$urlThemeActive?>/asset/image/red.jpg" style="border: 1px solid black; height: 37px; width: 37px; border-radius: 10px; object-fit: unset;" alt="User image">
                                     </a>
                                     <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdown-4">
+                                        <li><a class="dropdown-item" href="/myevent">Sự kiện của tôi</a></li>
                                         <li><a class="dropdown-item" href="/account">Đổi thông tin</a></li>
                                         <li><a class="dropdown-item" href="/changePass">Đổi mật khẩu</a></li>
                                         <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>

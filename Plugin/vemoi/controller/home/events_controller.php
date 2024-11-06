@@ -87,7 +87,7 @@ function detailevent($input){
     global $metaDescriptionMantan;
     global $metaImageMantan;
     global $session;
-
+    $info = $session->read('infoUser');
     $metaTitleMantan = 'Chi tiết sự kiện';
     
     $modelevents = $controller->loadModel('events');
@@ -104,7 +104,9 @@ function detailevent($input){
 
         
         $events = $modelevents->find()->where($conditions)->first();
-
+        if(!empty($info)){
+            setVariable('info', $info);
+        }
         setVariable('listDataevent', $listDataevent);
         setVariable('events', $events);
 
@@ -211,6 +213,69 @@ function myevent($input){
     
   
     
+}
+function allevent($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
+    $info = $session->read('infoUser');
+    $modelevents = $controller->loadModel('events');
+    $limit = 8;
+    $conditions = array();
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+    $order = array('id'=>'desc');
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    $listdataevent = $modelevents->find()->where()->order($order)->all()->toList();
+    $numberdata = count($listdataevent);
+    $totalData = $modelevents->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
+    $totalData = count($totalData);
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+    if(!empty($info)){
+        setVariable('info', $info);
+    }
+    setVariable('numberdata', $numberdata);
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('listdataevent', $listdataevent);
 }
 function participate($input){
     global $controller;

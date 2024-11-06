@@ -128,7 +128,7 @@
                             </div>
                         </div>
                         <div class="takeall">
-                            <a href="#">Xem tất cả</a>
+                            <a href="/allevent">Xem tất cả</a>
                         </div>
 
                     </div>
@@ -240,7 +240,7 @@
                     <?php endforeach;?>
                 </div>
         
-                <button class="btn-view-more">Xem tất cả</button>
+                <a class="btn-view-more" href="/posts">Xem tất cả</a>
             </div>
         </section>
 
@@ -254,7 +254,11 @@
                             <h5><?= @$settingThemes['titlesmallsukien'];?></h5>
                         </div>
                         <div class="btn-event">
-                            <a href="/createevent"><i class="fa-solid fa-plus"></i>Tạo sự kiện mới</a>
+                            <?php if(!empty( $info)):?>
+                                <a href="/createevent"><i class="fa-solid fa-plus"></i>Tạo sự kiện mới</a>
+                            <?php else:?>
+                                <a href="/login"><i class="fa-solid fa-plus"></i>Hãy Đăng nhập để tạo sự kiện</a>
+                            <?php endif;?>
                             <a href=""><i class="fa-solid fa-magnifying-glass"></i>Tìm sự kiện</a>
                         </div>
                     </div>
