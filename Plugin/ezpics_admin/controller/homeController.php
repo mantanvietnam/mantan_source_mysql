@@ -575,4 +575,137 @@ function statisticalAdmin($input){
     setVariable('totaUserlastlogin', $totaUserlastlogin);
 
 }
+
+function chartHistorieProEzpicsAdmin($input){
+
+    global $controller;
+    global $isRequestPost;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thống kê đăng ký';
+
+    $modelmember = $controller->loadModel('Members');
+    $modelExtendProHistorie = $controller->loadModel('ExtendProHistories');
+    $modelProducts = $controller->loadModel('Products');
+    $modelOrders = $controller->loadModel('Orders');
+    $mess= '';
+
+    $order = array('id'=>'desc');
+
+
+    $conditions = array();
+    $conditProduct = array();
+
+    if (!empty($_GET['timeView'])) {
+        $conditions['created_at LIKE'] = '%'.$_GET['timeView'].'%';
+    }else{
+        $conditions['created_at LIKE'] = "%".date('Y-m')."%";
+    }
+
+    $listData = $modelExtendProHistorie->find()->where($conditions)->order($order)->all()->toList();
+    $total = count($listData);
+
+
+        $allDataMembers= array();
+        $hourDataMembers= array();
+        $dayDataMembers= array();
+        $weekDataMembers= array();
+        $monthDataMembers= array();
+        $yearDataMembers= array();
+        $totalRevenueMonth= 0;
+        $totalRevenueDay= 0;
+    
+
+        $yearTotal= array();
+        $monthTotal= array();
+        $dayTotal= array();
+        $hourTotal= array();
+        $totalRevenueMonth = 0;
+        $allData = 0;
+        $totalRevenueDay = 0;
+        
+         $today = getdate();
+        $listTime= array();
+        if(!empty($listData)){
+            foreach ($listData as $item) {
+                if(!empty($item->created_at)){
+                $time= @$item->created_at->toDateTimeString();
+                $time = strtotime($time);
+                $todayTime= getdate($time);
+                
+
+                $allData += 1;
+           
+
+
+                $time+= 25200; // cộng thêm 7 tiếng
+                $allDataMember[]= '{ time: '.$time.', value: 1 }';
+
+                // tính doanh thu theo năm
+                @$yearTotal[@$todayTime['year']] += 1;
+
+                // tính doanh thu theo tháng
+                @$monthTotal[$todayTime['mon'].'-'.$todayTime['year']] +=  1;
+
+                // tính doanh thu theo ngày
+               @$dayTotal[$todayTime['mday'].'-'.$todayTime['mon'].'-'.$todayTime['year']] += 1;
+
+      
+
+                // tính doanh thu theo giờ
+                @$hourTotal[$todayTime['mday'].'-'.$todayTime['mon'].'-'.$todayTime['year'].' '.$todayTime['hours'].':0'] += 1;
+                
+                // tính doanh thu tháng hiện tại
+                if(@$todayTime['year']==@$today['year'] && @$todayTime['mon']==@$today['mon']){
+                    $totalRevenueMonth+= 1;
+                }
+
+                // tính doanh thu ngày hiện tại
+                if(@$todayTime['year']==$today['year'] && @$todayTime['mon']==$today['mon'] && @$todayTime['mday']==@$today['mday']){
+                    $totalRevenueDay+= 1;
+                }
+            }
+        }
+
+            if(!empty($yearTotal)){
+                $minYear= 5000;
+                foreach($yearTotal as $key=>$item){
+                    if($key<$minYear) $minYear= $key;
+                    $time= strtotime('1-1-'.$key.' 0:0:0')+25200; // cộng thêm 7 tiếng
+                    $yearDataMembers[]= array('time'=>$time , 'value'=>$item );
+                }
+                $minYear-=1;
+                $time= strtotime('1-1-'.$minYear.' 0:0:0')+25200; // cộng thêm 7 tiếng
+                array_unshift($yearDataMembers , array('time'=>$time , 'value'=>0 ));
+          }
+
+            if(!empty($monthTotal)){
+                foreach($monthTotal as $key=>$item){
+                    $time= strtotime($key.' 0:0:0')+25200; // cộng thêm 7 tiếng
+                    $monthDataMembers[]= array('time'=>$time , 'value'=>$item );
+                }
+            }
+
+            if(!empty($dayTotal)){
+                foreach($dayTotal as $key=>$item){
+                    $time= strtotime($key.' 0:0:0')+25200; // cộng thêm 7 tiếng
+                    $dayDataMembers[]= array('time'=>$time , 'value'=>$item );
+                }
+            }
+
+            if(!empty($hourTotal)){
+                foreach($hourTotal as $key=>$item){
+                    $time= strtotime($key)+25200; // cộng thêm 7 tiếng
+                    $hourDataMembers[]= array('time'=>$time , 'value'=> $item );
+                }
+            }
+
+          
+        }
+       
+
+        setVariable('today', $today);
+        setVariable('total', $total);
+        setVariable('dayDataMembers', $dayDataMembers);
+}
 ?>

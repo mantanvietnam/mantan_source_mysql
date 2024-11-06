@@ -305,9 +305,12 @@ function listCollectionBillTodayAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['token'])){
-			$infoMember = getMemberByToken($dataSend['token']);
+			$infoMember = getMemberByToken($dataSend['token'],'listCollectionBill');
 
 			if(!empty($infoMember)){
+				if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
             	// Thời gian đầu ngày
 				$startOfDay = strtotime("today 00:00:00");
                 // Thời gian cuối ngày
@@ -371,10 +374,12 @@ function addCollectionBillAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['token'])){
-			$infoMember = getMemberByToken($dataSend['token']);
+			$infoMember = getMemberByToken($dataSend['token'],'addCollectionBill');
 
 			if(!empty($infoMember)){
-
+				if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
 				$modelMembers = $controller->loadModel('Members');
 				$modelCustomer = $controller->loadModel('Customers');
 				$modelBill = $controller->loadModel('Bills');
@@ -394,6 +399,7 @@ function addCollectionBillAPI($input){
 
 						$bill = $modelBill->newEmptyEntity();
 						$bill->id_member_sell =  $infoMember->id;
+						$bill->id_staff_sell =  $infoMember->id_staff;
 						$bill->id_member_buy = 0;
 						$bill->total = (int) @$dataSend['total'];
 						$bill->id_order = 0;
@@ -417,6 +423,7 @@ function addCollectionBillAPI($input){
 		                // bill cho người thu
 						$bill = $modelBill->newEmptyEntity();
 						$bill->id_member_sell =  $infoMember->id;
+						$bill->id_staff_sell =  $infoMember->id_staff;
 						$bill->id_member_buy = $member_buy->id;
 						$bill->total = (int) @$dataSend['total'];
 						$bill->id_order = 0;
@@ -433,6 +440,7 @@ function addCollectionBillAPI($input){
 		                // bill cho người chi
 						$billbuy = $modelBill->newEmptyEntity();
 						$billbuy->id_member_sell =  $infoMember->id;
+						$billbuy->id_staff_sell =  $infoMember->id_staff;
 						$billbuy->id_member_buy = $member_buy->id;
 						$billbuy->total = (int) @$dataSend['total'];
 						$billbuy->id_order = 0;
@@ -451,7 +459,8 @@ function addCollectionBillAPI($input){
 				}else{
 
 					$bill = $modelBill->newEmptyEntity();
-					$bill->id_member_sell =  $session->read('infoUser')->id;
+					$bill->id_member_sell =  $infoMember->id;
+					$bill->id_staff_sell =  $infoMember->id_staff;
 					$bill->id_member_buy = 0;
 					$bill->total = (int) @$dataSend['total'];
 					$bill->id_order = 0;
@@ -466,6 +475,9 @@ function addCollectionBillAPI($input){
 					$modelBill->save($bill);
 
 				}
+				$note = $infoMember->type_tv.' '. $infoMember->name.' '.@$bill->note.' có id là:'.$bill->id;
+
+       			 addActivityHistory($infoMember,$note,'addBill',$bill->id);
 				$return = array('code'=>0, 'mess'=>'Bạn thêm phiếu thu thành công');
 			}else{
 				$return = array('code'=>3, 'mess'=>'không tồn tại tài khoản đại lý hoặc sai mã token');
@@ -491,10 +503,12 @@ function listCollectionDebtAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['token'])){
-			$infoMember = getMemberByToken($dataSend['token']);
+			$infoMember = getMemberByToken($dataSend['token'],'listCollectionDebt');
 
 			if(!empty($infoMember)){
-
+				if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
 				$modelMember = $controller->loadModel('Members');
 				$modelCustomers = $controller->loadModel('Customers');
 				$modelDebt = $controller->loadModel('Debts');
@@ -776,9 +790,12 @@ function listPayableDebtAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['token'])){
-			$infoMember = getMemberByToken($dataSend['token']);
+			$infoMember = getMemberByToken($dataSend['token'].'listPayableDebt');
 
 			if(!empty($infoMember)){
+				if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
 				$modelMember = $controller->loadModel('Members');
 				$modelCustomers = $controller->loadModel('Customers');
 				$modelDebt = $controller->loadModel('Debts');

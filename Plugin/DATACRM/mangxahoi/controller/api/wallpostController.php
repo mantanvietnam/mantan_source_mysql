@@ -270,12 +270,37 @@ function listWallPostApi($input){
                         unset($infoCustomer->token);
                         unset($infoCustomer->reset_password_code);
                         $listData[$key]->infoCustomer = $infoCustomer;
-                        $like = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'like'])->all()->toList();
-                        $dislike = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'dislike'])->all()->toList();
+                        $conditions = ['li.id_object'=>$item->id, 'li.keyword'=>'wall_post', 'li.type'=>'like'];
+                        $json = [
+                            [
+                                'table' => 'likes',
+                                'alias' => 'li',
+                                'type' => 'LEFT',
+                                'conditions' => [
+                                    'Customers.id = li.id_customer'
+                                ],
+                            ]
+                        ];
+                        $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+                        $like = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                        $conditions = ['li.id_object'=>$item->id, 'li.keyword'=>'wall_post', 'li.type'=>'dislike'];
+                        $dislike = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
                         $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post'])->all()->toList();
+                        $listcomment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'id_father'=>0])->all()->toList();
+
+                        if(!empty($listcomment)){
+                            foreach ($listcomment as $k => $value) {
+                                $listcomment[$k]->subcomment = getSubComment($value->id, $modelComment,$modelCustomer);
+                                $listcomment[$k]->infoCustomer = $modelCustomer->find()->select($select)->where(['id'=>$value->id_customer])->first();
+                            }
+                        
+                        }
                         $listData[$key]->like = count($like);
+                        $listData[$key]->infoLike = $like;
                         $listData[$key]->dislike = count($dislike);
+                        $listData[$key]->infoDislike = $dislike;
                         $listData[$key]->comment = count($comment);     
+                        $listData[$key]->infoComment = $listcomment;     
                         $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
                     }
                 }
@@ -340,12 +365,40 @@ function listWallPostFriendApi($input){
                             unset($infoCustomer->token);
                             unset($infoCustomer->reset_password_code);
                             $listData[$key]->infoCustomer = $infoCustomer;
-                            $like = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'like'])->all()->toList();
-                            $dislike = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'dislike'])->all()->toList();
+                            $conditions = ['li.id_object'=>$item->id, 'li.keyword'=>'wall_post', 'li.type'=>'like'];
+                            $json = [
+                                [
+                                    'table' => 'likes',
+                                    'alias' => 'li',
+                                    'type' => 'LEFT',
+                                    'conditions' => [
+                                        'Customers.id = li.id_customer'
+                                    ],
+                                ]
+                            ];
+
+                            $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+                            
+                            $like = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                            $conditions = ['li.id_object'=>$item->id, 'li.keyword'=>'wall_post', 'li.type'=>'dislike'];
+                            $dislike = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
                             $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post'])->all()->toList();
+                            $listcomment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'id_father'=>0])->all()->toList();
+
+                            if(!empty($listcomment)){
+                                foreach ($listcomment as $k => $value) {
+                                    $listcomment[$k]->subcomment = getSubComment($value->id, $modelComment,$modelCustomer);
+                                    $listcomment[$k]->infoCustomer = $modelCustomer->find()->select($select)->where(['id'=>$value->id_customer])->first();
+                                }
+                            
+                            }
+                            
                             $listData[$key]->like = count($like);
+                            $listData[$key]->infolike =$like;
                             $listData[$key]->dislike = count($dislike);
-                            $listData[$key]->comment = count($comment);     
+                            $listData[$key]->infodislike =$dislike;
+                            $listData[$key]->comment = count($comment);    
+                            $listData[$key]->infoComment = $listcomment;
                             $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
                         }
                     }
@@ -404,7 +457,46 @@ function listWallPostMyApi($input){
                             $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post'])->all()->toList();
                             $listData[$key]->like = count($like);
                             $listData[$key]->dislike = count($dislike);
-                            $listData[$key]->comment = count($comment);     
+                            $listData[$key]->comment = count($comment); $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $listData[$key]->infoCustomer = $infoCustomer;
+                            $conditions = ['li.id_object'=>$item->id, 'li.keyword'=>'wall_post', 'li.type'=>'like'];
+                            $json = [
+                                [
+                                    'table' => 'likes',
+                                    'alias' => 'li',
+                                    'type' => 'LEFT',
+                                    'conditions' => [
+                                        'Customers.id = li.id_customer'
+                                    ],
+                                ]
+                            ];
+
+                            $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+                            
+                            $like = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                            $conditions = ['li.id_object'=>$item->id, 'li.keyword'=>'wall_post', 'li.type'=>'dislike'];
+                            $dislike = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post'])->all()->toList();
+                            $listcomment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'id_father'=>0])->all()->toList();
+
+                            if(!empty($listcomment)){
+                                foreach ($listcomment as $k => $value) {
+                                    $listcomment[$k]->subcomment = getSubComment($value->id, $modelComment,$modelCustomer);
+                                    $listcomment[$k]->infoCustomer = $modelCustomer->find()->select($select)->where(['id'=>$value->id_customer])->first();
+                                }
+                            
+                            }
+                            
+                            $listData[$key]->like = count($like);
+                            $listData[$key]->infolike =$like;
+                            $listData[$key]->dislike = count($dislike);
+                            $listData[$key]->infodislike =$dislike;
+                            $listData[$key]->comment = count($comment);    
+                            $listData[$key]->infoComment = $listcomment;
                             $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
                         }
                     }
@@ -441,26 +533,51 @@ function detailWallPostFriendApi($input){
                $user =  getCustomerByToken($dataSend['token']);
            }
            if (!empty($user)) {
-                     $data = $modelWallPost->find()->where(['id'=>$dataSend['id'],'public'=>'public'])->first();
+                    $data = $modelWallPost->find()->where(['id'=>$dataSend['id'],'public'=>'public'])->first();
+                    if(!empty($data)){
+                        $infoCustomer = getInfoCustomerMember($data->id_customer, 'id');      
+                        unset($infoCustomer->pass);
+                        unset($infoCustomer->token_device);
+                        unset($infoCustomer->token);
+                        unset($infoCustomer->reset_password_code);
+                        $data->infoCustomer = $infoCustomer;
+                        $conditions = ['li.id_object'=>$data->id, 'li.keyword'=>'wall_post', 'li.type'=>'like'];
+                        $json = [
+                            [
+                                'table' => 'likes',
+                                'alias' => 'li',
+                                'type' => 'LEFT',
+                                'conditions' => [
+                                    'Customers.id = li.id_customer'
+                                ],
+                            ]
+                        ];
+                        $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+                            
+                        $like = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                        $conditions = ['li.id_object'=>$data->id, 'li.keyword'=>'wall_post', 'li.type'=>'dislike'];
+                        $dislike = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                        $comment = $modelComment->find()->where(['id_object'=>$data->id, 'keyword'=>'wall_post'])->all()->toList();
+                        $listcomment = $modelComment->find()->where(['id_object'=>$data->id, 'keyword'=>'wall_post', 'id_father'=>0])->all()->toList();
 
-                    if(!empty($listData)){
-                        foreach($listData as $key => $item){
-                            $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
-                            unset($infoCustomer->pass);
-                            unset($infoCustomer->token_device);
-                            unset($infoCustomer->token);
-                            unset($infoCustomer->reset_password_code);
-                            $listData[$key]->infoCustomer = $infoCustomer;
-                            $like = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'like'])->all()->toList();
-                            $dislike = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'dislike'])->all()->toList();
-                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post'])->all()->toList();
-                            $listData[$key]->like = count($like);
-                            $listData[$key]->dislike = count($dislike);
-                            $listData[$key]->comment = count($comment);     
-                            $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
+                        if(!empty($listcomment)){
+                            foreach ($listcomment as $k => $value) {
+                                $listcomment[$k]->subcomment = getSubComment($value->id, $modelComment,$modelCustomer);
+                                $listcomment[$k]->infoCustomer = $modelCustomer->find()->select($select)->where(['id'=>$value->id_customer])->first();
+                            }
+                            
                         }
+                            
+                        $data->like = count($like);
+                        $data->infolike =$like;
+                        $data->dislike = count($dislike);
+                        $data->infodislike =$dislike;
+                        $data->comment = count($comment);    
+                        $data->infoComment = $listcomment;
+                        $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
                     }
-                    return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
+                    
+                    return array('code'=>1,'data'=>$data, 'messages'=>'Lấy dữ liệu thành công');
                 }
             
 
@@ -493,26 +610,51 @@ function detailWallPostMyApi($input){
                $user =  getCustomerByToken($dataSend['token']);
            }
            if (!empty($user)) {
-                     $listData = $modelWallPost->find()->where(['id'=>$dataSend['id'],'id_customer'=>$user->id])->all()->toList();
+                     $data = $modelWallPost->find()->where(['id'=>$dataSend['id'],'id_customer'=>$user->id])->first();
 
-                    if(!empty($listData)){
-                        foreach($listData as $key => $item){
-                            $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
-                            unset($infoCustomer->pass);
-                            unset($infoCustomer->token_device);
-                            unset($infoCustomer->token);
-                            unset($infoCustomer->reset_password_code);
-                            $listData[$key]->infoCustomer = $infoCustomer;
-                            $like = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'like'])->all()->toList();
-                            $dislike = $modelLike->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post', 'type'=>'dislike'])->all()->toList();
-                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'wall_post'])->all()->toList();
-                            $listData[$key]->like = count($like);
-                            $listData[$key]->dislike = count($dislike);
-                            $listData[$key]->comment = count($comment);     
-                            $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
+                   if(!empty($data)){
+                        $infoCustomer = getInfoCustomerMember($data->id_customer, 'id');      
+                        unset($infoCustomer->pass);
+                        unset($infoCustomer->token_device);
+                        unset($infoCustomer->token);
+                        unset($infoCustomer->reset_password_code);
+                        $data->infoCustomer = $infoCustomer;
+                        $conditions = ['li.id_object'=>$data->id, 'li.keyword'=>'wall_post', 'li.type'=>'like'];
+                        $json = [
+                            [
+                                'table' => 'likes',
+                                'alias' => 'li',
+                                'type' => 'LEFT',
+                                'conditions' => [
+                                    'Customers.id = li.id_customer'
+                                ],
+                            ]
+                        ];
+                        $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+                            
+                        $like = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                        $conditions = ['li.id_object'=>$data->id, 'li.keyword'=>'wall_post', 'li.type'=>'dislike'];
+                        $dislike = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                        $comment = $modelComment->find()->where(['id_object'=>$data->id, 'keyword'=>'wall_post'])->all()->toList();
+                        $listcomment = $modelComment->find()->where(['id_object'=>$data->id, 'keyword'=>'wall_post', 'id_father'=>0])->all()->toList();
+
+                        if(!empty($listcomment)){
+                            foreach ($listcomment as $k => $value) {
+                                $listcomment[$k]->subcomment = getSubComment($value->id, $modelComment,$modelCustomer);
+                                $listcomment[$k]->infoCustomer = $modelCustomer->find()->select($select)->where(['id'=>$value->id_customer])->first();
+                            }
+                            
                         }
+                            
+                        $data->like = count($like);
+                        $data->infolike =$like;
+                        $data->dislike = count($dislike);
+                        $data->infodislike =$dislike;
+                        $data->comment = count($comment);    
+                        $data->infoComment = $listcomment;
+                        $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
                     }
-                    return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
+                    return array('code'=>1,'data'=>$data, 'messages'=>'Lấy dữ liệu thành công');
                 }
             
 
@@ -566,7 +708,46 @@ function listAlbumFriendApi($input){
                             $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer'])->all()->toList();
                             $listData[$key]->like = count($like);
                             $listData[$key]->dislike = count($dislike);
-                            $listData[$key]->comment = count($comment);               
+                            $listData[$key]->comment = count($comment); $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $listData[$key]->infoCustomer = $infoCustomer;
+                            $conditions = ['li.id_object'=>$item->id, 'li.keyword'=>'image_customer', 'li.type'=>'like'];
+                            $json = [
+                                [
+                                    'table' => 'likes',
+                                    'alias' => 'li',
+                                    'type' => 'LEFT',
+                                    'conditions' => [
+                                        'Customers.id = li.id_customer'
+                                    ],
+                                ]
+                            ];
+
+                            $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+                            
+                            $like = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                            $conditions = ['li.id_object'=>$item->id, 'li.keyword'=>'image_customer', 'li.type'=>'dislike'];
+                            $dislike = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer'])->all()->toList();
+                            $listcomment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer', 'id_father'=>0])->all()->toList();
+
+                            if(!empty($listcomment)){
+                                foreach ($listcomment as $k => $value) {
+                                    $listcomment[$k]->subcomment = getSubComment($value->id, $modelComment,$modelCustomer);
+                                    $listcomment[$k]->infoCustomer = $modelCustomer->find()->select($select)->where(['id'=>$value->id_customer])->first();
+                                }
+                            
+                            }
+                            
+                            $listData[$key]->like = count($like);
+                            $listData[$key]->infolike =$like;
+                            $listData[$key]->dislike = count($dislike);
+                            $listData[$key]->infodislike =$dislike;
+                            $listData[$key]->comment = count($comment);    
+                            $listData[$key]->infoComment = $listcomment;               
                         }
                     }
                     return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
@@ -610,7 +791,7 @@ function listAlbumMyApi($input){
 
                     if(!empty($listData)){
                         foreach($listData as $key => $item){
-                            $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
+                             $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
                             unset($infoCustomer->pass);
                             unset($infoCustomer->token_device);
                             unset($infoCustomer->token);
@@ -621,7 +802,46 @@ function listAlbumMyApi($input){
                             $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer'])->all()->toList();
                             $listData[$key]->like = count($like);
                             $listData[$key]->dislike = count($dislike);
-                            $listData[$key]->comment = count($comment);               
+                            $listData[$key]->comment = count($comment); $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $listData[$key]->infoCustomer = $infoCustomer;
+                            $conditions = ['li.id_object'=>$item->id, 'li.keyword'=>'image_customer', 'li.type'=>'like'];
+                            $json = [
+                                [
+                                    'table' => 'likes',
+                                    'alias' => 'li',
+                                    'type' => 'LEFT',
+                                    'conditions' => [
+                                        'Customers.id = li.id_customer'
+                                    ],
+                                ]
+                            ];
+
+                            $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+                            
+                            $like = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                            $conditions = ['li.id_object'=>$item->id, 'li.keyword'=>'image_customer', 'li.type'=>'dislike'];
+                            $dislike = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer'])->all()->toList();
+                            $listcomment = $modelComment->find()->where(['id_object'=>$item->id, 'keyword'=>'image_customer', 'id_father'=>0])->all()->toList();
+
+                            if(!empty($listcomment)){
+                                foreach ($listcomment as $k => $value) {
+                                    $listcomment[$k]->subcomment = getSubComment($value->id, $modelComment,$modelCustomer);
+                                    $listcomment[$k]->infoCustomer = $modelCustomer->find()->select($select)->where(['id'=>$value->id_customer])->first();
+                                }
+                            
+                            }
+                            
+                            $listData[$key]->like = count($like);
+                            $listData[$key]->infolike =$like;
+                            $listData[$key]->dislike = count($dislike);
+                            $listData[$key]->infodislike =$dislike;
+                            $listData[$key]->comment = count($comment);    
+                            $listData[$key]->infoComment = $listcomment;               
                         }
                     }
                     return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
@@ -658,19 +878,60 @@ function detailAlbumFriendApi($input){
                $user =  getCustomerByToken($dataSend['token']);
            }
            if (!empty($user)) {
-                    $data = $modelImageCustomer->find()->where(['ìd'=>(int)$dataSend['id']])->first();
-                    $infoCustomer = getInfoCustomerMember($data->id_customer, 'id');   
-                    unset($infoCustomer->pass);
-                    unset($infoCustomer->token_device);
-                    unset($infoCustomer->token);
-                    unset($infoCustomer->reset_password_code);
-                    $data->infoCustomer = $infoCustomer;
-                    $like = $modelLike->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer', 'type'=>'like'])->all()->toList();
-                    $dislike = $modelLike->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer', 'type'=>'dislike'])->all()->toList();
-                    $comment = $modelComment->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer'])->all()->toList();
-                    $data->like = count($like);
-                    $data->dislike = count($dislike);
-                    $data->comment = count($comment);               
+                    $data = $modelImageCustomer->find()->where(['id'=>(int)$dataSend['id']])->first();
+                    if($data){
+                        $infoCustomer = getInfoCustomerMember($data->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $data->infoCustomer = $infoCustomer;
+                            $like = $modelLike->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer', 'type'=>'like'])->all()->toList();
+                            $dislike = $modelLike->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer', 'type'=>'dislike'])->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer'])->all()->toList();
+                            $data->like = count($like);
+                            $data->dislike = count($dislike);
+                            $data->comment = count($comment); $infoCustomer = getInfoCustomerMember($data->id_customer, 'id');   
+                            unset($infoCustomer->pass);
+                            unset($infoCustomer->token_device);
+                            unset($infoCustomer->token);
+                            unset($infoCustomer->reset_password_code);
+                            $data->infoCustomer = $infoCustomer;
+                            $conditions = ['li.id_object'=>$data->id, 'li.keyword'=>'image_customer', 'li.type'=>'like'];
+                            $json = [
+                                [
+                                    'table' => 'likes',
+                                    'alias' => 'li',
+                                    'type' => 'LEFT',
+                                    'conditions' => [
+                                        'Customers.id = li.id_customer'
+                                    ],
+                                ]
+                            ];
+
+                            $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo'];
+                            
+                            $like = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                            $conditions = ['li.id_object'=>$data->id, 'li.keyword'=>'image_customer', 'li.type'=>'dislike'];
+                            $dislike = $modelCustomer->find()->join($json)->select($select)->where($conditions)->all()->toList();
+                            $comment = $modelComment->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer'])->all()->toList();
+                            $listcomment = $modelComment->find()->where(['id_object'=>$data->id, 'keyword'=>'image_customer', 'id_father'=>0])->all()->toList();
+
+                            if(!empty($listcomment)){
+                                foreach ($listcomment as $k => $value) {
+                                    $listcomment[$k]->subcomment = getSubComment($value->id, $modelComment,$modelCustomer);
+                                    $listcomment[$k]->infoCustomer = $modelCustomer->find()->select($select)->where(['id'=>$value->id_customer])->first();
+                                }
+                            
+                            }
+                            
+                            $data->like = count($like);
+                            $data->infolike =$like;
+                            $data->dislike = count($dislike);
+                            $data->infodislike =$dislike;
+                            $data->comment = count($comment);    
+                            $data->infoComment = $listcomment;
+                    }               
                        
                     return array('code'=>1,'data'=>$data, 'messages'=>'Lấy dữ liệu thành công');
                
