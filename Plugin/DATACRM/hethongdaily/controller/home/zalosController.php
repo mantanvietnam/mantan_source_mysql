@@ -204,7 +204,7 @@ function sendNotificationMobile($input)
     global $urlHomes;
 
     
-     $user = checklogin('setttingZaloOA');   
+    $user = checklogin('setttingZaloOA');   
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/statisticAgency');

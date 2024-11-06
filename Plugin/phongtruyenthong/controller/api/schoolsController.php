@@ -126,7 +126,7 @@ function getInfoSchoolAPI($input)
 
             $class = $modelClasses->find()->where(['id'=>(int) $value->id_class])->first();
 
-            $data_value['listStudent'][$key]->class = @$class->name;
+            $data_value['listStudent'][$key]->class_name = @$class->name;
         }
     }
 
