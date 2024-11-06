@@ -40,4 +40,5 @@ include('model/like.php');
 include('model/mealtime.php');
 include('model/reminder.php');
 include('model/categorydiet.php');
+include('model/usersquanlity.php');
 ?>

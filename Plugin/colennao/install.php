@@ -46,8 +46,14 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `time_fast_end` INT NULL DEFAULT NULL ,
 `id_fitness_level` INT NOT NULL DEFAULT 0,
 `id_area` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`water` int(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 0,
+`meal` int(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 0,
+`workout` int(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 0,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
+
+
+
 $sqlInstallDatabase .="CREATE TABLE `coach` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -56,6 +62,16 @@ $sqlInstallDatabase .="CREATE TABLE `coach` (
   `ifcontact` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+$sqlInstallDatabase .="CREATE TABLE `usersquanlity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_users` int(11) DEFAULT 0,
+  `day` int(11) DEFAULT 0,
+  `water` int(11) DEFAULT 0,
+  `meal` int(11) DEFAULT 0,
+  `workout` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
 
 $sqlInstallDatabase .="CREATE TABLE `tests` (
   `id` int(11) NOT NULL  AUTO_INCREMENT,
@@ -402,6 +418,7 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `package_workouts`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `interme_package_workouts`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `user_packages`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `reminders`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `usersquanlity`;';
 
 
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
@@ -437,7 +454,9 @@ $sqlUpdateDatabase['users']['id_unit'] = "ALTER TABLE `users` ADD `id_unit` INT 
 $sqlUpdateDatabase['users']['id_package'] = "ALTER TABLE `users` ADD `id_package` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['users']['status_pay_package'] = "ALTER TABLE `users` ADD `status_pay_package` INT NULL DEFAULT '0' COMMENT '0 chưa thanh toán , 1 dã thanh toán'";
 $sqlUpdateDatabase['users']['id_group_user'] = "ALTER TABLE `users` ADD `id_group_user` INT NOT NULL DEFAULT '0';";
-
+$sqlUpdateDatabase['users']['water'] = "ALTER TABLE `users` ADD `water` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['users']['workout'] = "ALTER TABLE `users` ADD `workout` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['users']['meal'] = "ALTER TABLE `users` ADD `meal` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['users']['id_mealtime'] = "ALTER TABLE `users` ADD `id_mealtime` INT NOT NULL DEFAULT '0';"; 
 $sqlUpdateDatabase['users']['time_fast_end'] = "ALTER TABLE `users` ADD `time_fast_end` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['users']['id_fitness_level'] = "ALTER TABLE `users` ADD `id_fitness_level` INT NOT NULL DEFAULT '0';";
@@ -514,6 +533,20 @@ $sqlUpdateDatabase['user_challenges']['created_at'] = "ALTER TABLE `user_challen
 $sqlUpdateDatabase['user_challenges']['id_transaction'] = "ALTER TABLE `user_challenges` ADD `id_transaction` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['user_challenges']['note'] = "ALTER TABLE `user_challenges` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['user_challenges']['deadline'] = "ALTER TABLE `user_challenges` ADD `deadline` INT NOT NULL DEFAULT '0';";
+
+
+
+$sqlUpdateDatabase['usersquanlity']['id_user'] = "ALTER TABLE `usersquanlity` ADD `id_user` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['usersquanlity']['day'] = "ALTER TABLE `usersquanlity` ADD `day` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['usersquanlity']['water'] = "ALTER TABLE `usersquanlity` ADD `water` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['usersquanlity']['meal'] = "ALTER TABLE `usersquanlity` ADD `meal` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['usersquanlity']['workout'] = "ALTER TABLE `usersquanlity` ADD `workout` INT NULL DEFAULT '0';";
+
+
+
+
+
+
 
 $sqlUpdateDatabase['user_courses']['name'] = "ALTER TABLE `user_courses` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['user_courses']['name_en'] = "ALTER TABLE `user_courses` ADD `name_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";

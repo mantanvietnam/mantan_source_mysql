@@ -716,6 +716,18 @@ function updateUserApi($input): array
          if (isset($dataSend['id_area'])) {
             $currentUser->id_area = $dataSend['id_area'];
         }
+        if (isset($dataSend['water'])) {
+            $currentUser->water = (int) $dataSend['water'];
+        }
+
+         if (isset($dataSend['meal'])) {
+            $currentUser->meal = (int) $dataSend['meal'];
+        }
+
+         if (isset($dataSend['workout'])) {
+            $currentUser->workout = (int) $dataSend['workout'];
+        }
+
 
 
         if (isset($dataSend['time_fast'])) {
