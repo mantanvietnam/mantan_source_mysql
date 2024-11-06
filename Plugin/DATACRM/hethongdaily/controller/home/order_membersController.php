@@ -1316,7 +1316,7 @@ function listTransactionAgencyHistorie(){
 
     $metaTitleMantan = 'Lịch sử giao dịch';
 
-   $user = checklogin('editOrderMemberAgency');   
+   $user = checklogin('listTransactionAgencyHistorie');   
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/orderMemberAgency');
@@ -1449,51 +1449,59 @@ function payTransactionAgency($input)
     $modelMember = $controller->loadModel('Members');
     $modelTransactionAgencyHistorie = $controller->loadModel('TransactionAgencyHistories');
     $modelBill = $controller->loadModel('Bills');
-    if(!empty($_GET['id'])){
-        $data = $modelTransactionAgencyHistorie->get($_GET['id']);
-        
-        if(!empty($data)){
-            $aff = $modelMember->get($data->id_agency_introduce);
-            $data->status = 'done';
-
-            $modelTransactionAgencyHistorie->save($data);
-            $time= time();
-             // bill cho người mua
-            $billbuy = $modelBill->newEmptyEntity();
-            $billbuy->id_member_sell = $data->id_agency_introduce;
-            $billbuy->id_member_buy =  $session->read('infoUser')->id;
-            $billbuy->total = $data->money_back;
-            $billbuy->id_order = $data->id;
-            $billbuy->type = 2;
-            $billbuy->type_order = 6; 
-            $billbuy->created_at = $time;
-            $billbuy->updated_at = $time;
-            $billbuy->id_debt = 0;
-            $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
-            $billbuy->id_customer = 0;
-            $billbuy->id_aff = 0;
-            $billbuy->note = 'Thanh toán chiết khấu hoa hông cho đại lý giới thiệu tên là '.@$aff->name.' '.@$aff->phone.'  giao dịch có id '.$data->id;
-            $modelBill->save($billbuy);
-
-             $billbuy = $modelBill->newEmptyEntity();
-            $billbuy->id_member_sell = $data->id_agency_introduce;
-            $billbuy->id_member_buy =  $session->read('infoUser')->id;
-            $billbuy->total = $data->money_back;
-            $billbuy->id_order = $data->id;
-            $billbuy->type = 1;
-            $billbuy->type_order = 6; 
-            $billbuy->created_at = $time;
-            $billbuy->updated_at = $time;
-            $billbuy->id_debt = 0;
-            $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
-            $billbuy->id_customer = 0;
-            $billbuy->id_aff = 0;
-            $billbuy->note = 'Bạn nhận hoa hồng của người đại lý '.@$session->read('infoUser')->name.' '.@$session->read('infoUser')->phone.', do bạn giới thiệu giao dịch có id '.$data->id;
-            $modelBill->save($billbuy);
+    $user = checklogin('payTransactionAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/orderMemberAgency');
         }
-    }
+        if(!empty($_GET['id'])){
+            $data = $modelTransactionAgencyHistorie->get($_GET['id']);
+            
+            if(!empty($data)){
+                $aff = $modelMember->get($data->id_agency_introduce);
+                $data->status = 'done';
 
-    return $controller->redirect('/listTransactionAgencyHistorie');
+                $modelTransactionAgencyHistorie->save($data);
+                $time= time();
+                 // bill cho người mua
+                $billbuy = $modelBill->newEmptyEntity();
+                $billbuy->id_member_sell = $data->id_agency_introduce;
+                $billbuy->id_member_buy =  $user->id;
+                $billbuy->total = $data->money_back;
+                $billbuy->id_order = $data->id;
+                $billbuy->type = 2;
+                $billbuy->type_order = 6; 
+                $billbuy->created_at = $time;
+                $billbuy->updated_at = $time;
+                $billbuy->id_debt = 0;
+                $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
+                $billbuy->id_customer = 0;
+                $billbuy->id_aff = 0;
+                $billbuy->note = 'Thanh toán chiết khấu hoa hông cho đại lý giới thiệu tên là '.@$aff->name.' '.@$aff->phone.'  giao dịch có id '.$data->id;
+                $modelBill->save($billbuy);
+
+                 $billbuy = $modelBill->newEmptyEntity();
+                $billbuy->id_member_sell = $data->id_agency_introduce;
+                $billbuy->id_member_buy =  $user->id;
+                $billbuy->total = $data->money_back;
+                $billbuy->id_order = $data->id;
+                $billbuy->type = 1;
+                $billbuy->type_order = 6; 
+                $billbuy->created_at = $time;
+                $billbuy->updated_at = $time;
+                $billbuy->id_debt = 0;
+                $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
+                $billbuy->id_customer = 0;
+                $billbuy->id_aff = 0;
+                $billbuy->note = 'Bạn nhận hoa hồng của người đại lý '.@$user->name.' '.@$user->phone.', do bạn giới thiệu giao dịch có id '.$data->id;
+                $modelBill->save($billbuy);
+            }
+        }
+
+        return $controller->redirect('/listTransactionAgencyHistorie');
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 
 ?>

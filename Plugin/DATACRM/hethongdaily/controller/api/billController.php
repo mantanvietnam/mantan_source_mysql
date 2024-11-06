@@ -17,9 +17,12 @@ function listBillAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['token'])){
-			$infoMember = getMemberByToken($dataSend['token']);
+			$infoMember = getMemberByToken($dataSend['token'],'listBill');
 
 			if(!empty($infoMember)){
+				if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 
 				$conditions = array('id_member_buy'=>$infoMember->id, 'type'=>2);
 				$limit = 20;
@@ -187,9 +190,12 @@ function listCollectionBillAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['token'])){
-			$infoMember = getMemberByToken($dataSend['token']);
+			$infoMember = getMemberByToken($dataSend['token'],'listCollectionBill');
 
 			if(!empty($infoMember)){
+				if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
 
 				$conditions = array('id_member_sell'=>$infoMember->id, 'type'=>1);
 				$limit = 20;

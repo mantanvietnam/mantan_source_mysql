@@ -18,9 +18,12 @@ function getListOrderMemberAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'orderMemberAgency');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 $conditions = array('id_member_sell'=>$infoMember->id);
                 $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
@@ -133,13 +136,17 @@ function updateStatusOrderMemberAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'updateOrderMemberAgency');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 if(!empty($dataSend['id'])){
 		            $order = $modelOrderMembers->find()->where(['id'=>(int) $dataSend['id'], 'id_member_sell'=>$infoMember->id])->first();
 
 		            if(!empty($order)){
+		            	$infoMemberBuy = $modelMembers->find()->where(['id'=>$order->id_member_buy])->first();
 		                if(!empty($dataSend['status'])){
 		                    $order->status = $dataSend['status'];
 
@@ -212,6 +219,14 @@ function updateStatusOrderMemberAPI($input)
 		                                $modelWarehouseHistories->save($saveWarehouseHistories);
 		                            }
 		                        }
+		                    	$note = $infoMember->type_tv.' '. $infoMember->name.' đã xử lý hoàn thành đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
+
+		                    }elseif($dataSend['status'] == 'browser'){
+		                     	$note = $infoMember->type_tv.' '. $infoMember->name.' đã xử lý phê duyệt đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
+		                    }elseif($dataSend['status'] == 'delivery'){
+		                     	$note = $infoMember->type_tv.' '. $infoMember->name.' đã xử lý giao hàng đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
+		                    }elseif($dataSend['status'] == 'cancel'){
+		                     	$note = $infoMember->type_tv.' '. $infoMember->name.' đã xử lý hủy đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
 		                    }
 		                }
 
@@ -221,7 +236,6 @@ function updateStatusOrderMemberAPI($input)
 		                    // thanh toán 
 		                    if($dataSend['status_pay'] == 'done'){
 		                        // thông báo cho người mua
-		                        $infoMemberBuy = $modelMembers->find()->where(['id'=>$order->id_member_buy])->first();
 
 		                        if(!empty($infoMemberBuy->noti_new_order)){
 		                            $dataSendNotification= array('title'=>'Thanh toán thành công','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$order->id.' của bạn đã được thanh toán thành công số tiền '.number_format($order->total).'đ','action'=>'deleteProductWarehouse','id_order_member'=>$order->id);
@@ -338,7 +352,7 @@ function updateStatusOrderMemberAPI($input)
 		                            if($infoMemberBuy->id_father == $infoMember->id){
 
 
-		                                $money_back = $user->agent_commission * $order->total / 100;
+		                                $money_back = $infoMember->agent_commission * $order->total / 100;
 		                
 		                                // lưu lịch sử trích hoa hồng
 		                                $saveBack = $modelTransactionAgencyHistorie->newEmptyEntity();
@@ -346,7 +360,7 @@ function updateStatusOrderMemberAPI($input)
 		                                $saveBack->id_agency_introduce = $infoMemberBuy->id_agency_introduce;
 		                                $saveBack->money_total = $order->total;
 		                                $saveBack->money_back = $money_back;
-		                                $saveBack->percent = $user->agent_commission;
+		                                $saveBack->percent = $infoMember->agent_commission;
 		                                $saveBack->id_order_member = $order->id;
 		                                $saveBack->create_at = time();
 		                                $saveBack->status = 'new';
@@ -355,9 +369,13 @@ function updateStatusOrderMemberAPI($input)
 
 		                            }
 		                        }
+
+		                        $note = $infoMember->type_tv.' '. $infoMember->name.' đã xử lý Thanh toán đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
 		                    }
 
 		                }
+
+		                addActivityHistory($infoMember,$note,'updateOrderMemberAgency',$order->id);
 
 		                $modelOrderMembers->save($order);
 
@@ -372,7 +390,7 @@ function updateStatusOrderMemberAPI($input)
                 $return = array('code'=>3, 'mess'=>'Sai mã token');
             }
         }else{
-             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu!');
         }
     }
 
@@ -397,9 +415,12 @@ function getInfoOrderMemberAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'orderMemberAgency');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
                 if(!empty($dataSend['id_order_member'])){
                     $order = $modelOrderMembers->find()->where(['id'=>(int) $dataSend['id_order_member'], 'id_member_sell'=>$infoMember->id])->first();
 
@@ -456,75 +477,83 @@ function createOrderMemberAPI($input)
     
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if((!empty($dataSend['token']) || !empty($dataSend['phone'])) && !empty($dataSend['data_order'])){
-        	
-        	$dataSend['data_order'] = json_decode($dataSend['data_order'], true);
+        if((!empty($dataSend['token']) && !empty($dataSend['phone'])) && !empty($dataSend['data_order'])){
+        	$infoMember = getMemberByToken($dataSend['token'],'addOrderAgency');
+        	if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
+        		$dataSend['data_order'] = json_decode($dataSend['data_order'], true);
+	        	if(!empty($dataSend['data_order'])){		          
+		            	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+		        		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-       
+		            	$member_buy = $modelMembers->find()->where(['phone'=>$dataSend['phone']])->first();
+		            
 
-        	if(!empty($dataSend['data_order'])){
-	            if(!empty($dataSend['token'])){
-	            	$member_buy = getMemberByToken($dataSend['token']);
-	            }else{
-	            	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
-	        		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+		            if(!empty($member_buy)){
+		            	$member_sell = $modelMembers->find()->where(['id'=>$member_buy->id_father])->first();
 
-	            	$member_buy = $modelMembers->find()->where(['phone'=>$dataSend['phone']])->first();
-	            }
+		                $save = $modelOrderMembers->newEmptyEntity();
 
-	            if(!empty($member_buy)){
-	            	$member_sell = $modelMembers->find()->where(['id'=>$member_buy->id_father])->first();
+		                $save->id_member_sell = $member_buy->id_father; // id người bán
+		                $save->id_member_buy = $member_buy->id; // id người mua
+		                $save->note_sell = '';
+		                if($infoMember->id==$member_buy->id_father){
+                        	$save->id_staff_sell = $infoMember->id_staff;
+                    	}
+		                $save->note_buy = @$dataSend['note']; // ghi chú người mua  
+		                $save->status = 'new';
+		                $save->create_at = time();
+		                $save->money = (int) $dataSend['total'];
+		                $save->total = (int) $dataSend['totalPays'];
+		                $save->status_pay = 'wait';
+		                $save->discount = $dataSend['promotion'];
 
-	                $save = $modelOrderMembers->newEmptyEntity();
+		                $save->costsIncurred = '[]'; // phụ phí
+		                $save->total_costsIncurred = 0;
 
-	                $save->id_member_sell = $member_buy->id_father; // id người bán
-	                $save->id_member_buy = $member_buy->id; // id người mua
-	                $save->note_sell = '';
-	                $save->note_buy = @$dataSend['note']; // ghi chú người mua  
-	                $save->status = 'new';
-	                $save->create_at = time();
-	                $save->money = (int) $dataSend['total'];
-	                $save->total = (int) $dataSend['totalPays'];
-	                $save->status_pay = 'wait';
-	                $save->discount = $dataSend['promotion'];
+		                $modelOrderMembers->save($save);
 
-	                $save->costsIncurred = '[]'; // phụ phí
-	                $save->total_costsIncurred = 0;
+		                $productDetail = [];
 
-	                $modelOrderMembers->save($save);
+		                foreach ($dataSend['data_order'] as $key => $value) {
+		                    $saveDetail = $modelOrderMemberDetails->newEmptyEntity();
 
-	                $productDetail = [];
+		                    $saveDetail->id_product = (int) $value['id_product'];
+		                    $saveDetail->id_order_member = $save->id;
+		                    $saveDetail->quantity = (int) @$value['quantity'];
+		                    $saveDetail->price = (int) @$value['price'];
+		                    $saveDetail->id_unit = (!empty($value['id_unit']))?(int)$value['id_unit']:0;
+		                    $saveDetail->discount = (int) @$value['discount'];
 
-	                foreach ($dataSend['data_order'] as $key => $value) {
-	                    $saveDetail = $modelOrderMemberDetails->newEmptyEntity();
+		                    $modelOrderMemberDetails->save($saveDetail);
 
-	                    $saveDetail->id_product = (int) $value['id_product'];
-	                    $saveDetail->id_order_member = $save->id;
-	                    $saveDetail->quantity = (int) @$value['quantity'];
-	                    $saveDetail->price = (int) @$value['price'];
-	                    $saveDetail->id_unit = (!empty($value['id_unit']))?(int)$value['id_unit']:0;
-	                    $saveDetail->discount = (int) @$value['discount'];
+		                    $infoProduct = $modelProducts->find()->where(['id'=>$value['id_product']])->first();
 
-	                    $modelOrderMemberDetails->save($saveDetail);
+	                    	$productDetail[] = @$infoProduct->title;
+		                }
+		                $productDetail = implode(',', $productDetail);
 
-	                    $infoProduct = $modelProducts->find()->where(['id'=>$value['id_product']])->first();
+		                // gửi thông báo Zalo cho đại lý
+		                if(!empty($member_buy->id) && !empty($member_sell->id)){
+		                    sendZaloUpdateOrder($member_sell, $member_buy, $save, $productDetail);
+		                }
 
-                    	$productDetail[] = @$infoProduct->title;
-	                }
-	                $productDetail = implode(',', $productDetail);
+		                $note = $infoMember->type_tv.' '. $infoMember->name.' tạo đơn hàng cho đại lý '.$member_buy->name.'('.$member_buy->phone.') có id đơn là:'.$save->id;
 
-	                // gửi thông báo Zalo cho đại lý
-	                if(!empty($member_buy->id) && !empty($member_sell->id)){
-	                    sendZaloUpdateOrder($member_sell, $member_buy, $save, $productDetail);
-	                }
+                    	addActivityHistory($infoMember,$note,'addOrderAgency',$save->id);
 
-	                $return = array('code'=>1, 'mess'=>'Tạo đơn hàng đại lý thành công', 'id_order'=>$save->id);
-	            }else{
-	                 $return = array('code'=>3, 'mess'=>'Sai mã token hoặc sai số điện thoại');
-	            }
-	        }else{
-	        	$return = array('code'=>4, 'mess'=>'Gửi thiếu dữ liệu');
-	        }
+		                $return = array('code'=>1, 'mess'=>'Tạo đơn hàng đại lý thành công', 'id_order'=>$save->id);
+		            }else{
+		                 $return = array('code'=>3, 'mess'=>'Sai số điện thoại');
+		            }
+		        }else{
+		        	$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+		        }
+		    }else{
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
         }else{
             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
@@ -551,9 +580,13 @@ function getListOrderMemberTodayAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'orderMemberAgency');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
+              
             	// Thời gian đầu ngày
                 $startOfDay = strtotime("today 00:00:00");
                 // Thời gian cuối ngày
@@ -576,10 +609,10 @@ function getListOrderMemberTodayAPI($input)
 		                            if(!empty($value->id_unit)){
 		                            	$unit = $modelUnitConversion->find()->where(['id'=>$value->id_unit ])->first();
 		                            	if(!empty($unit)){
-		                            		$detail_order->unit = $unit->unit;
+		                            		$detail_order[$k]->unit = $unit->unit;
 		                            	}
 			                        }else{
-			                        	$detail_order->unit = $product->unit;
+			                        	$detail_order[$k]->unit = $product->unit;
 			                        }
 		                        }
 		                    }
@@ -619,9 +652,12 @@ function listTransactionAgencyHistorieAPI(){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listTransactionAgencyHistorie');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
 
 		        $modelMember = $controller->loadModel('Members');
 
@@ -700,7 +736,7 @@ function updateMyOrderMemberAgencyAPI($input)
 				$modelUnitConversion = $controller->loadModel('UnitConversions');
 
 				if(!empty($dataSend['id'])){
-					$order = $modelOrderMembers->find()->where(['id'=>(int) $dataSend['id'], 'id_member_buy'=>$user->id])->first();
+					$order = $modelOrderMembers->find()->where(['id'=>(int) $dataSend['id'], 'id_member_buy'=>$infoMember->id])->first();
 
 					if(!empty($order)){
 						$note = '';
@@ -806,14 +842,17 @@ function payTransactionAgencyAPI($input)
     global $controller;
     global $session;
     $modelMember = $controller->loadModel('Members');
-    $modelTransactionAgencyHistorie = $controller->loadModel('TransactionAgencyHistories');
+    $modelTransactionAgencyHistorie = $controller->loadModel('payTransactionAgency');
     $modelBill = $controller->loadModel('Bills');
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'payTransactionAgencys');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
 		        $data = $modelTransactionAgencyHistorie->get($dataSend['id']);
 		        
 		        if(!empty($data)){

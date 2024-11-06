@@ -19,9 +19,13 @@ function createOrderCustomerAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'addOrderCustomer');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
+              
 	            if(!empty($dataSend['data_order']) && !empty($dataSend['phone'])){
 	            	$dataSend['data_order'] = json_decode($dataSend['data_order'], true);
 	                
@@ -45,6 +49,7 @@ function createOrderCustomerAPI($input)
 	                $save->email = @$customer_buy->email;
 	                $save->phone = @$customer_buy->phone;
 	                $save->address = @$customer_buy->address;
+                	$save->id_staff = @$user->id_staff;
 	                $save->note_user = @$dataSend['note'];
 	                $save->note_admin = '';
 	                $save->status = 'new';
@@ -80,6 +85,10 @@ function createOrderCustomerAPI($input)
 	                    sendZaloUpdateOrder($infoMember, $customer_buy, $save, $productDetail);
 	                }
 
+	                $note = $infoMember->type_tv.' '. $infoMember->name.' tạo đơn hàng cho khách hàng '.$customer_buy->full_name.'('.$customer_buy->phone.') có id đơn là:'.$save->id;
+
+                	addActivityHistory($infoMember,$note,'addOrderCustomer',$save->id);
+
 	                $return = array('code'=>0, 'mess'=>'Tạo yêu cầu nhập hàng thành công', 'id_order'=>$save->id);
 	            }else{
 	                $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
@@ -104,22 +113,31 @@ function deleteOrderCustomerAPI($input)
     global $modelCategoryConnects;
     global $modelCategories;
 
-    $modelOrder = $controller->loadModel('Orders');
+    $modelOrder = $controller->loadModel('Orders'); 
+    $modelBill = $controller->loadModel('Bills');
     $modelOrderDetail = $controller->loadModel('OrderDetails');
+    $modelDebt = $controller->loadModel('Debts');
+    $modelCustomers = $controller->loadModel('Customers');
 
     $return = array('code'=>1);
     
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'deleteOrderCustomerAgency');
 
             if(!empty($infoMember)){
                 if(!empty($dataSend['id'])){
                 	$data = $modelOrder->find()->where(['id_agency'=>$infoMember->id, 'id'=>(int) $dataSend['id']])->first();
             
 		            if($data){
+		            	$customer_buy = $modelCustomers->find()->where(array('id'=>(int) $data->id_user))->first();
+		            	$note = $infoMember->type_tv.' '. $infoMember->name.' đã xóa đơn hàng của khách hàng '.@$customer_buy->full_name.'('.@$customer_buy->phone.') có id đơn là:'.$data->id;
+
+                		addActivityHistory($infoMember,$note,'deleteOrderCustomerAgency',$data->id);
 		            	$modelOrderDetail->deleteAll(['id_order'=>$data->id]);
+                		$modelDebt->deleteAll(['id_order'=>$data->id,'type_order'=>2]);
+                		$modelBill->deleteAll(['id_order'=>$data->id,'type_order'=>2]);
 		                $modelOrder->delete($data);
 
 		                $return = array('code'=>0, 'mess'=>'Xóa đơn thành công');
@@ -160,9 +178,12 @@ function getInfoOrderAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'orderCustomerAgency');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 if(!empty($dataSend['id_order'])){
                     $order = $modelOrders->find()->where(['id'=>(int) $dataSend['id_order'], 'id_agency'=>$infoMember->id])->first();
 
@@ -228,9 +249,12 @@ function updateStatusOrderAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'updateStatusOrderAgency');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
             	$system = $modelCategories->find()->where(array('id'=>$infoMember->id_system ))->first();
 
 			    if(!empty($system->description)){
@@ -278,6 +302,14 @@ function updateStatusOrderAPI($input)
 	                                $modelWarehouseHistories->save($saveWarehouseHistories);
 	                            }
 	                        }
+	                    	$note = $infoMember->type_tv.' '. $infoMember->name.' đã xử lý hoàn thành đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
+
+	                    }elseif($dataSend['status'] == 'browser'){
+	                     $note = $infoMember->type_tv.' '. $infoMember->name.' đã xử lý phê duyệt đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
+	                    }elseif($dataSend['status'] == 'delivery'){
+	                     $note = $infoMember->type_tv.' '. $infoMember->name.' đã xử lý giao hàng đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
+	                    }elseif($dataSend['status'] == 'cancel'){
+	                     $note = $infoMember->type_tv.' '. $infoMember->name.' đã xử lý hủy đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
 	                    }
 
 	                    // tạo phiêu thu 
@@ -342,8 +374,10 @@ function updateStatusOrderAPI($input)
 		                                    $modelDebt->save($debt);
 		                            }
 		                        }
+		                        $note = $infoMember->type_tv.' '. $infoMember->name.' đã xử lý Thanh toán đơn hàng cho đại lý '.@$customer->full_name.'('.@$customer->phone.') có id đơn là:'.$order->id;
 		                    }
 		                }
+		                addActivityHistory($infoMember,$note,'updateStatusOrderAgency',$order->id);
 
                 		$modelOrder->save($order);
 
@@ -548,9 +582,12 @@ function getListOrderCustomerTodayAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'orderCustomerAgency');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
             	// Thời gian đầu ngày
                 $startOfDay = strtotime("today 00:00:00");
                 // Thời gian cuối ngày
@@ -624,9 +661,12 @@ function getListOrderCustomerAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'orderCustomerAgency');
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 $conditions = array('id_agency'=>$infoMember->id);
                 $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;

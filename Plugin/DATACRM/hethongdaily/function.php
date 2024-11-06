@@ -1407,6 +1407,8 @@ function getListPermission()
                                     array('name'=>'Danh sách quà tặng khách hàng','permission'=>'listCustomerGiftAgency'),
                                     array('name'=>'Thêm và sửa quà tặng khách hàng','permission'=>'addCustomerGiftAgency'),
                                     array('name'=>'Xóa quà tặng khách hàng','permission'=>'deleteCustomerGiftAgency'),
+                                    array('name'=>'Danh sách giao dịch hoa hồng đại lý gới thiệu','permission'=>'listTransactionAgencyHistorie'),
+                                    array('name'=>'thanh toán giao dịch hoa hồng đại lý gới thiệu','permission'=>'payTransactionAgency'),
                             ),
                     );
     $permission[] = array( 'name'=>'Quản lý Đơn hàng của đại lý ',

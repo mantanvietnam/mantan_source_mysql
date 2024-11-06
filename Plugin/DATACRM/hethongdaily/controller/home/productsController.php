@@ -376,6 +376,7 @@ function deleteOrderCustomerAgency($input)
 
         $modelBill = $controller->loadModel('Bills');
         $modelDebt = $controller->loadModel('Debts');
+        $modelCustomers = $controller->loadModel('Customers');
         
         if(!empty($_GET['id'])){
             $data = $modelOrder->find()->where(['id_agency'=>$user->id, 'id'=>(int) $_GET['id']])->first();
@@ -550,7 +551,7 @@ function updateStatusOrderAgency($input){
                             }
                         }
 
-                        $note = $user->type_tv.' '. $user->name.'đã xử lý hoàn thành đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
+                        $note = $user->type_tv.' '. $user->name.' đã xử lý hoàn thành đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
 
                     }elseif($_GET['status'] == 'browser'){
                      $note = $user->type_tv.' '. $user->name.' đã xử lý phê duyệt đơn hàng cho khách '.$order->full_name.'('.$order->phone.') có id đơn là:'.$order->id;
