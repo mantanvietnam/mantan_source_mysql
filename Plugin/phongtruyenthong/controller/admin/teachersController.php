@@ -110,7 +110,7 @@ function addTeacherAdmin($input)
 
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-
+        
         if(!empty($dataSend['name'])){
             
             if(empty($dataSend['avatar'])) $dataSend['avatar'] = $urlHomes.'/plugins/phongtruyenthong/view/home/assets/img/avatar-default.jpg';

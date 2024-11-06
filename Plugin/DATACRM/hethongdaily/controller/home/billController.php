@@ -473,13 +473,15 @@ function addCollectionBill($input){
 
     $metaTitleMantan = 'Thông tin phiếu chi';
     
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+     $user = checklogin('listCollectionBill');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         $modelMembers = $controller->loadModel('Members');
         $modelCustomer = $controller->loadModel('Customers');
         $modelBill = $controller->loadModel('Bills');
 
-        $infoUser = $session->read('infoUser');
         $mess= '';
 
         // lấy data edit

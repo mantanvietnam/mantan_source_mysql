@@ -27,6 +27,11 @@ $menus[0]['sub'][]= array( 'title'=>'Người dùng sắp hết hạn Pro',
                             'classIcon'=>'bx bx-user',
                             'permission'=>'listMemberDeadlineProAdmin'
                         );
+$menus[0]['sub'][]= array( 'title'=>'Lịch sử nâng cấp Pro',
+                            'url'=>'/plugins/admin/ezpics_admin-view-admin-transaction-listHistorieProEzpics',
+                            'classIcon'=>'bx bx-user',
+                            'permission'=>'listHistorieProEzpics'
+                        );
 
 $menus[0]['sub'][]= array( 'title'=>'Mẫu thiết kế',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin',
@@ -264,6 +269,11 @@ $menus[0]['sub'][]= array( 'title'=>'Thống kê',
                                                 'url'=>'/plugins/admin/ezpics_admin-view-admin-chart-chartOrberProductAdmin',
                                                 'classIcon'=>'bx bx-category',
                                                 'permission'=>'listfontAdmin',
+                                            ),
+                                        array('title'=>'Thống kê lượng TK nâng cấp Pro',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-chart-chartHistorieProEzpicsAdmin',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'chartHistorieProEzpicsAdmin',
                                             ),
                                     )
                         );

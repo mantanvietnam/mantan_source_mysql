@@ -1,0 +1,1348 @@
+/* Reset mặc định của các phần tử HTML */
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset cho các trình duyệt cũ */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+
+/* Cơ bản cho body */
+
+body {
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+
+/* Gỡ bỏ danh sách kiểu chấm */
+
+ol,
+ul {
+    list-style: none;
+}
+
+
+/* Quotes */
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body,header {
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+.navbar-nav .dropdown-menu {
+    position: static;
+    border: none;
+}
+
+
+/* HEADER Section */
+
+header {
+    background-image: url('../image/bgr.png');
+    /* Thay bằng hình nền của bạn */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+
+/* Navbar */
+
+.navbar {
+    background: transparent;
+    box-shadow: none;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+.pos-ab{
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+
+/* Khi cuộn xuống thì Navbar sẽ có nền trắng */
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-collapse {
+    flex-grow: 0 !important;
+}
+
+header .nav-item a{ 
+    color: black !important;
+}
+
+
+/* Nút Toggle cho Navbar */
+
+.navbar-toggler {
+    border-color: #fff;
+    /* Màu trắng cho nút toggle */
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+
+/* Hero Section */
+
+.hero-section {
+    margin-top: 200px;
+    text-align: right;
+    width: 100%;
+}
+
+.hero-section h1 {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+
+/* Feature Box */
+
+.feature {
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    /* Nền tối với độ trong suốt */
+    color: white;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-10px);
+    background: rgba(0, 0, 0, 0.85);
+}
+
+
+/* Logo */
+
+.logo {
+    height: 60px;
+    max-width: 100%;
+}
+
+
+/* Section tính năng */
+
+/* .features-section {
+    position: absolute;
+    background: transparent;
+    top: 70%;
+} */
+
+.feature {
+    background-color: black;
+    border-radius: 45px;
+}
+
+.feature:hover {
+    background-color: white;
+    color: black;
+}
+
+.feature img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+}
+
+.feature h5 {
+    font-size: 16px;
+}
+
+.tabbar-menu {
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 25px;
+}
+
+.tabbar-menu li a {
+    color: black !important;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+
+/* client-member */
+
+.client-member {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.client-member p {
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+
+/* Flexbox container for brands */
+
+.brand {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    /* Space between brand logos */
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+/* Brand logo styles */
+
+.brand img {
+    max-width: 100px;
+    /* Adjust max width as needed */
+    height: auto;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.brand img:hover {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+
+
+/* General styling */
+
+.education-section {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Flex container for content */
+
+.content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+
+/* Left column styling */
+
+.left-column {
+    flex: 1 1 45%;
+    text-align: left;
+}
+
+.left-column h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.left-column p {
+    margin-bottom: 30px;
+    line-height: 1.6;
+    color: #555;
+}
+
+
+/* Video container styling */
+
+.video-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.video-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.play-button {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #4a90e2;
+    transition: transform 0.3s;
+    text-decoration: none;
+}
+
+.play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+
+/* Right column styling */
+
+.right-column {
+    flex: 1 1 45%;
+}
+
+.info-item {
+    display: flex;
+    margin-bottom: 20px;
+    padding: 15px 0;
+}
+
+.info-item i {
+    margin-top: 15px;
+    margin-right: 25px;
+}
+
+.info-item h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.info-item p {
+    color: #555;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+.schools {
+    padding: 60px 0;
+}
+
+.schools__title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+
+/* Stats Styling */
+
+.schools__stat {
+    padding: 0 30px;
+}
+
+.schools__stats .parameter{
+    display: flex;
+    justify-content: end;
+}
+
+.schools__stat-number {
+    color: #4F46E5;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.schools__stat-label {
+    color: #6B7280;
+    font-size: 0.9rem;
+}
+
+
+/* Card Styling */
+
+.schools__card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.schools__card:hover {
+    transform: translateY(-5px);
+}
+
+.schools__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.schools__card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+}
+
+.schools__card-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.schools__card-address {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    opacity: 0.9;
+}
+
+.schools__card-link {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.3s ease;
+}
+
+.schools__card-link:hover {
+    opacity: 0.8;
+    color: white;
+}
+
+.schools__view-all {
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-weight: 500;
+}
+
+.button__schools a {
+    padding: 10px 80px;
+    border-radius: 21px;
+}
+
+
+/*  */
+
+.pricing {
+    background-color: #1a1f2e;
+    color: white;
+    padding: 60px 0;
+    border-radius: 35px;
+}
+
+.pricing__header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.pricing__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.pricing__description {
+    color: #a0a4b8;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.pricing__card {
+    background: linear-gradient(145deg, #1e2432, #262d3d);
+    border-radius: 20px;
+    padding: 30px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+
+/* Hover effect for middle card */
+
+.pricing__card:nth-child(2) {
+    position: relative;
+    z-index: 1;
+}
+
+.pricing__card:nth-child(2):hover {
+    background: #000000;
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Normal hover for other cards */
+
+.pricing__card:not(:nth-child(2)):hover {
+    transform: translateY(-5px);
+}
+
+.pricing__card--premium {
+    background: linear-gradient(145deg, #1e2432, #2a1e5c);
+}
+
+.pricing__card-header {
+    margin-bottom: 20px;
+}
+
+.pricing__card-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.pricing__card-subtitle {
+    color: #a0a4b8;
+    font-size: 0.9rem;
+}
+
+.pricing__card-price {
+    margin-bottom: 25px;
+}
+
+.pricing__card-price .price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 0;
+}
+
+.pricing__card-price .original-price {
+    color: #a0a4b8;
+    text-decoration: line-through;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.pricing__card-price .price-note {
+    color: #a0a4b8;
+    font-size: 0.8rem;
+    margin-bottom: 0;
+}
+
+.pricing__card-button {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    background-color: #4F46E5;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 25px;
+    margin-bottom: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.pricing__card-button:hover {
+    background-color: #4338CA;
+    color: white;
+}
+
+.pricing__card-features {
+    margin-top: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    color: #a0a4b8;
+}
+
+.feature-item i {
+    color: #4F46E5;
+    margin-right: 10px;
+    margin-top: 4px;
+}
+
+.pricing__note {
+    margin-top: 30px;
+    text-align: center;
+    color: #a0a4b8;
+}
+
+.pricing__note i {
+    color: #4F46E5;
+    margin-right: 8px;
+}
+
+.testimonial-section h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.testimonial-slider {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.testimonial-item {
+    padding: 20px;
+    margin: 0 20px;
+    border: solid 1px #ddd;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all linear 0.2s;
+}
+
+.testimonial-item:hover {
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.testimonial-item .card {
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    opacity: 0.5;
+    transform: scale(0.8);
+}
+
+.slick-center .testimonial-item .card {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.testimonial-item .card img {
+    object-fit: cover;
+}
+
+/* Chỉnh CSS cho các nút mũi tên */
+.slick-prev,
+.slick-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #6c63ff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.slick-prev {
+    left: -40px; /* Căn sang trái, điều chỉnh giá trị này để di chuyển nút sang vị trí mong muốn */
+}
+
+.slick-next {
+    right: -40px; /* Căn sang phải, điều chỉnh giá trị này để di chuyển nút sang vị trí mong muốn */
+}
+
+/* Chỉnh CSS cho các chấm phân trang */
+.slick-dots {
+    display: flex !important;
+    justify-content: center;
+    list-style: none;
+    margin-top: 20px;
+}
+
+.slick-dots li {
+    margin: 0 5px; /* Khoảng cách giữa các chấm */
+}
+
+.slick-dots li button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #d3d3d3;
+    border: none;
+    text-indent: -9999px; /* Ẩn số bên trong */
+    overflow: hidden;
+}
+
+.slick-dots li.slick-active button {
+    background-color: #6c63ff; /* Màu chấm khi đang active */
+}
+
+
+
+/*  */
+
+.testimonial-section {
+    padding: 40px 0;
+    background-color: #f8f9fa;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.testimonial-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    height: 300px;
+    /* Fixed height for consistency */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.testimonial-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.testimonial-role {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.testimonial-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444;
+    text-align: center;
+    margin: 0;
+}
+
+
+/* Swiper container styles */
+
+
+/* Laptop specific styles */
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .testimonialSwiper {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .swiper-slide {
+        width: 300px;
+        /* Fixed width for laptop screens */
+    }
+}
+
+.testimonial-section h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.testimonial-slider {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.swiper-slide {
+    transition: all 0.3s ease;
+    opacity: 0.5;
+    transform: scale(0.8);
+}
+
+.swiper-slide-active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #6c63ff;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.swiper-pagination-bullet {
+    background-color: #6c63ff !important;
+}
+
+.news {
+    padding: 50px 0;
+}
+
+.news__wrapper {
+    position: relative;
+}
+
+.news__title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.news__carousel {
+    position: relative;
+    padding: 0 40px;
+    margin-bottom: 40px;
+}
+
+.news__list {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    overflow: hidden;
+}
+
+.news__item {
+    flex: 0 0 calc(33.333% - 20px);
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.news__item:hover {
+    transform: translateY(-5px);
+}
+
+.news__item-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.news__item-content {
+    padding: 20px;
+}
+
+.news__item-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news__item-desc {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news__item-footer {
+    margin-top: 20px;
+}
+
+.news__item-date {
+    color: #888;
+    font-size: 14px;
+}
+
+.news__item-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.news__item-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.news__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: #6c5ce7;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.news__nav--prev {
+    left: 0;
+}
+
+.news__nav--next {
+    right: 0;
+}
+
+.news__nav img {
+    width: 20px;
+    height: 20px;
+}
+
+.news__btn-all {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.news__btn-all:hover {
+    background: #5849e6;
+}
+
+.news__item .news__item-btn {
+    background-color: gray;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.news__item .news__item-btn i {
+    color: black;
+}
+
+.news__item .news__item-btn:hover {
+    background-color: #5849e6;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.news__item .news__item-btn i:hover {
+    color: white;
+}
+
+.footer {
+    background-color: #f8f9fa;
+    padding: 60px 0 30px;
+}
+
+.footer__main {
+    margin-bottom: 40px;
+}
+
+.footer__brand {
+    margin-bottom: 20px;
+}
+
+.footer__logo {
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.footer__name {
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.footer__contact {
+    color: #666;
+    font-size: 14px;
+}
+
+.footer__contact p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.footer__contact i {
+    margin-right: 10px;
+    color: #6c5ce7;
+    width: 16px;
+}
+
+.footer__title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.footer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer__link {
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.footer__link:hover {
+    color: #6c5ce7;
+}
+
+.footer__newsletter-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.footer__form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.footer__input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+}
+
+.footer__button {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.footer__button:hover {
+    background: #5849e6;
+}
+
+.footer__social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer__social-link {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer__social-link:hover {
+    color: #6c5ce7;
+}
+
+.footer__bottom {
+    border-top: 1px solid #ddd;
+    padding-top: 30px;
+}
+
+.footer__certificate img {
+    height: 40px;
+}
+
+.footer__copyright {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.footer__registration {
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+}
+
+.footer__links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.footer__bottom-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer__bottom-link:hover {
+    color: #6c5ce7;
+}
+
+@media (max-width: 992px){
+    .news__list {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-nav{
+        text-align: start;
+    }
+
+    .footer__main .col-md-4,
+    .footer__main .col-md-2 {
+        margin-bottom: 30px;
+    }
+    .footer__links {
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .footer__certificate,
+    .footer__copyright,
+    .footer__registration {
+        text-align: center;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+    }
+    .left-column,
+    .right-column {
+        flex: 1 1 100%;
+    }
+    .video-container img {
+        height: auto;
+    }
+
+    .pricing__card {
+        margin-bottom: 30px;
+    }
+    .pricing__card:nth-child(2):hover {
+        transform: translateY(-5px);
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .brand {
+        justify-content: center;
+    }
+
+    .features-section{
+        display: none;
+    }
+
+    .navbar-toggler.collapsed .navbar-collapse {
+        display: flex; /* Hiển thị menu khi ấn nút toggle */
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Điều chỉnh khoảng cách với nút toggle */
+        right: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9); /* Nền tối cho menu */
+        padding: 10px;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .schools__stats .parameter{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px){
+    .schools__stats .parameter{
+        display: block;
+    }
+
+    .client-member p {
+        font-size: 30px;
+    }
+
+    .brand img{
+        justify-content: center;
+        max-width: 50px;
+    }
+
+    .logo {
+        height: 45px;
+        max-width: 100%;
+    }
+}
+
+
+/* Hiệu ứng mượt mà khi menu trượt xuống */
+.navbar-collapse {
+    transition: all 0.3s ease-in-out;
+}
+
+
+.slick-list.draggable {
+    padding: 60px 0 !important;
+}
+
+.testimonial-item {
+    position: relative;
+}
+
+.testimonial-item::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(242 242 242 / 82%);
+}
+
+.slick-center::after {
+    content: none !important;
+}
+
+.slick-center {
+    scale: 1.15;
+    transition: all linear 0.2s;
+}
