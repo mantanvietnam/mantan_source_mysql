@@ -74,7 +74,7 @@ function getquanlityusersAPI($input)
                     $date = $dataSend['day'];
                     $day =  $date;
                 }
-                if(!empty($checkdate)){
+                if(!empty($checkdate = $modeluserquanlity->find()->where(['id_users'=>$user->id,'day'=>$day])->first())){
                     $checkdate = $modeluserquanlity->find()->where(['id_users'=>$user->id,'day'=>$day])->first();
                 }else{
                     $checkdate = [

@@ -17,97 +17,56 @@
 
     <body>
         <header>
-            <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light pos-ab pt-4">
                 <div class="container d-flex justify-content-between">
-                    <!-- Logo Section -->
+                    
                     <div class="col-lg-5 d-flex align-items-center">
                         <a class="navbar-brand" href="#">
                             <img src="<?= @$settingThemes['logo'];?>" alt="Logo" class="logo">
                         </a>
                     </div>
-
-                    <!-- Nút toggle cho navbar -->
                     <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <!-- Dropdown Menu Section -->
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNav" style="background-color: white; padding: 10px 20px; border-radius: 27px;">
-                        <!-- Dropdowns in Navbar -->
                         <ul class="navbar-nav">
-                            <!-- Dropdown Giới thiệu -->
+                        <?php  
+                            $menus = getMenusDefault();  
+                            if (!empty($menus)):  
+                                foreach ($menus as $categoryMenu):  
+                                    if (!empty($categoryMenu['sub'])):  
+                        ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="gioi-thieu-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Giới thiệu
+                                    <?php echo $categoryMenu['name']; ?>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="gioi-thieu-dropdown">
-                                    <li><a class="dropdown-item" href="#">Thông tin công ty</a></li>
-                                    <li><a class="dropdown-item" href="#">Sứ mệnh</a></li>
+                                <?php foreach ($categoryMenu['sub'] as $subMenu): ?>
+                                    <li><a class="dropdown-item" href="<?php echo $subMenu['link']; ?>"><?php echo $subMenu['name']; ?></a></li>
+                                <?php endforeach; ?>
                                 </ul>
                             </li>
-                    
-                            <!-- Dropdown Công nghệ -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="cong-nghe-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Công nghệ
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="cong-nghe-dropdown">
-                                    <li><a class="dropdown-item" href="#">VR360</a></li>
-                                    <li><a class="dropdown-item" href="#">3D Mapping</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Dropdown Bảng giá -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="bang-gia-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Bảng giá
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="bang-gia-dropdown">
-                                    <li><a class="dropdown-item" href="#">Gói cơ bản</a></li>
-                                    <li><a class="dropdown-item" href="#">Gói nâng cao</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Dropdown Khách hàng -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="khach-hang-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Khách hàng
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="khach-hang-dropdown">
-                                    <li><a class="dropdown-item" href="#">Doanh nghiệp A</a></li>
-                                    <li><a class="dropdown-item" href="#">Doanh nghiệp B</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Dropdown Tin tức -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="tin-tuc-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Tin tức
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="tin-tuc-dropdown">
-                                    <li><a class="dropdown-item" href="#">Tin mới nhất</a></li>
-                                    <li><a class="dropdown-item" href="#">Sự kiện sắp tới</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Liên hệ không phải dropdown -->
+                        <?php 
+                            else:  
+                        ?>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">Liên hệ</a>
+                                <a class="nav-link" href="<?php echo $categoryMenu['link']; ?>"><?php echo $categoryMenu['name']; ?></a>
                             </li>
+                            <?php 
+                            endif;  
+                                endforeach;  
+                                    endif;  
+                        ?>  
                         </ul>
                     </div>
                 </div>
             </nav>
-            
-            <!-- Hero Section -->
             <section class="hero-section text-white">
                 <div class="container">
                     <h1 class="display-4">PHÒNG TRUYỀN THÔNG ẢO</h1>
                     <p class="lead">Chúng tôi đem đến một giải pháp số hóa không gian bằng công nghệ VR360 nhằm lưu trữ <br> hình ảnh của nhà trường và tạo ra  không gian số của Phòng truyền thống để lưu trữ những khoảng khắc vô <br>  giá của tuổi học trò</p>
                 </div>
             </section>
-            
-            <!-- Features Section -->
             <section class="features-section py-5">
                 <div class="container">
                     <div class="row">
