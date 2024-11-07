@@ -15,6 +15,12 @@ function settinghometruyenthongao($input){
         $dataSend = $input['request']->getData();
         $value = array(
             'logo' =>$dataSend['logo'],
+            'titleheader' =>$dataSend['titleheader'],
+            'descriptionheader' =>$dataSend['descriptionheader'],
+            'titlecontent1' =>$dataSend['titlecontent1'],
+            'titlecontent2' =>$dataSend['titlecontent2'],
+            'titlecontent3' =>$dataSend['titlecontent3'],
+            'titlecontent4' =>$dataSend['titlecontent4'],
 
      
 

@@ -46,6 +46,31 @@
                                     <label class="form-label" for="basic-default-fullname">LOGO HEADER</label>
                                     <?php showUploadFile('logo','logo', @$data['logo'],1);?>
                                 </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tiêu đề header</label>
+                                    <input type="text" class="form-control" name="titleheader" value="<?php echo @$data['titleheader'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Mô tả ngắn</label>
+                                    <input type="text" class="form-control" name="descriptionheader" value="<?php echo @$data['descriptionheader'];?>" />
+                                </div>
+                              
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">tiêu đề 1</label>
+                                    <input type="text" class="form-control" name="titlecontent1" value="<?php echo @$data['titlecontent1'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">tiêu đề 2</label>
+                                    <input type="text" class="form-control" name="titlecontent2" value="<?php echo @$data['titlecontent2'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tiêu đề 3</label>
+                                    <input type="text" class="form-control" name="titlecontent3" value="<?php echo @$data['titlecontent3'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Tiêu đề 4</label>
+                                    <input type="text" class="form-control" name="titlecontent4" value="<?php echo @$data['titlecontent4'];?>" />
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade show" id="navs-top-1" role="tabpanel">

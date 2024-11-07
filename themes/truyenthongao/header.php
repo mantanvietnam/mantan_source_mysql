@@ -63,8 +63,8 @@
             </nav>
             <section class="hero-section text-white">
                 <div class="container">
-                    <h1 class="display-4">PHÒNG TRUYỀN THÔNG ẢO</h1>
-                    <p class="lead">Chúng tôi đem đến một giải pháp số hóa không gian bằng công nghệ VR360 nhằm lưu trữ <br> hình ảnh của nhà trường và tạo ra  không gian số của Phòng truyền thống để lưu trữ những khoảng khắc vô <br>  giá của tuổi học trò</p>
+                    <h1 class="display-4"><?= @$settingThemes['titleheader'];?></h1>
+                    <p class="lead"><?= @$settingThemes['descriptionheader'];?></p>
                 </div>
             </section>
             <section class="features-section py-5">
@@ -73,25 +73,25 @@
                         <div class="col-lg-3 text-center mb-4">
                             <div class="feature d-flex ">
                                 <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
-                                <h5>Số hóa không gian thực bằng công nghệ VR360</h5>
+                                <h5><?= @$settingThemes['titlecontent1'];?></h5>
                             </div>
                         </div>
                         <div class="col-lg-3 text-center mb-4">
                             <div class="feature d-flex ">
                                 <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
-                                <h5>Dựng không gian ảo 3D, Số hóa không gian</h5>
+                                <h5><?= @$settingThemes['titlecontent2'];?></h5>
                             </div>
                         </div>
                         <div class="col-lg-3 text-center mb-4">
                             <div class="feature d-flex ">
                                 <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
-                                <h5>Tra cứu thông tin giáo viên, học sinh</h5>
+                                <h5><?= @$settingThemes['titlecontent3'];?></h5>
                             </div>
                         </div>
                         <div class="col-lg-3 text-center mb-4">
                             <div class="feature d-flex ">
                                 <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
-                                <h5>Tích hợp trên máy tính, điện thoại, máy tính bảng</h5>
+                                <h5><?= @$settingThemes['titlecontent4'];?></h5>
                             </div>
                         </div>
                     </div>
