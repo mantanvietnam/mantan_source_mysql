@@ -14,9 +14,20 @@ function listDocumentAPI($input){
 	if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['type']) && !empty($dataSend['token'])){
-        	$infoMember = getMemberByToken($dataSend['token']);
+
+        	if($dataSend['type']=='album'){
+	    		$type = 'listAlbum';   
+	    	}elseif($dataSend['type']=='video'){
+	    		$type = 'listVideo';
+	    	}else{
+	    		$type = 'listDocument';  
+	    	}
+        	$infoMember = getMemberByToken($dataSend['token'],$type);
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 	    		$conditions = array('id_parent !='=>$infoMember->id, 'public'=>'public');
 
             	$conditions['type']= $dataSend['type'];
@@ -70,9 +81,19 @@ function listDocumentMyMemberAPI($input){
 	if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['type']) && !empty($dataSend['token'])){
-        	$infoMember = getMemberByToken($dataSend['token']);
+        	if($dataSend['type']=='album'){
+	    		$type = 'listAlbum';   
+	    	}elseif($dataSend['type']=='video'){
+	    		$type = 'listVideo';
+	    	}else{
+	    		$type = 'listDocument';  
+	    	}
+        	$infoMember = getMemberByToken($dataSend['token'],$type);
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 	    		$conditions = array('id_parent'=>$infoMember->id);
 
             	$conditions['type']= $dataSend['type'];
@@ -121,8 +142,19 @@ function addDocumentAPI($input){
     if ($isRequestPost) {
 	    $dataSend = $input['request']->getData();
 	    if(!empty($dataSend['type']) && !empty($dataSend['token']) && !empty($dataSend['title'])){
-        	$infoMember = getMemberByToken($dataSend['token']);
+        	if($dataSend['type']=='album'){
+	    		$type = 'addAlbum';   
+	    	}elseif($dataSend['type']=='video'){
+	    		$type = 'addVideo';
+	    	}else{
+	    		$type = 'addAlDocument';  
+	    	}
+        	$infoMember = getMemberByToken($dataSend['token'],$type);
+
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 			    $modelDocument = $controller->loadModel('Documents');
 			    $mess= '';
 			    // lấy data edit
@@ -179,8 +211,19 @@ function getDocumentAPI($input){
     if ($isRequestPost) {
 	    $dataSend = $input['request']->getData();
 	    if(!empty($dataSend['id']) && !empty($dataSend['token'])){
-        	$infoMember = getMemberByToken($dataSend['token']);
+        	if($dataSend['type']=='album'){
+	    		$type = 'listAlbum';   
+	    	}elseif($dataSend['type']=='video'){
+	    		$type = 'listVideo';
+	    	}else{
+	    		$type = 'listDocument';  
+	    	}
+        	$infoMember = getMemberByToken($dataSend['token'],$type);
+
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 			    $modelDocument = $controller->loadModel('Documents');
 			    $mess= '';
 			    // lấy data edit
@@ -212,8 +255,12 @@ function deleteDocumentAPI($input){
     if ($isRequestPost) {
 	    $dataSend = $input['request']->getData();
 	    if(!empty($dataSend['id']) && !empty($dataSend['token'])){
-        	$infoMember = getMemberByToken($dataSend['token']);
+        	$infoMember = getMemberByToken($dataSend['token'],$type);
+
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                } 
 				$modelDocument = $controller->loadModel('Documents');
 
 				$modelDocumentinfo = $controller->loadModel('Documentinfos');
@@ -221,6 +268,26 @@ function deleteDocumentAPI($input){
 			        $data = $modelDocument->find()->where(['id'=>(int) $dataSend['id'],'id_parent'=>$infoMember->id])->first();
 			        
 			        if(!empty($data)){
+			        	if($data->type=='album'){
+	    					$type = 'deleteAlbum';   
+				    	}elseif($data->type=='video'){
+				    		$type = 'deleteVideo';
+				    	}else{
+				    		$type = 'deleteDocument';  
+				    	}
+			        	$infoMember = getMemberByToken($dataSend['token'],$type);
+			        	if(empty($infoMember->grant_permission)){
+                  		  return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                		} 
+			        	if($data->type=='album'){
+		    				$note = $user->type_tv.' '. $user->name.' xóa thông tin hình ảnh'.$data->title.' có id là:'.$data->id;
+		    			}elseif($data->type=='video'){
+		    				$note = $user->type_tv.' '. $user->name.' xóa thông tin Video  '.$data->title.' có id là:'.$data->id;
+		    			}else{
+		    				$note = $user->type_tv.' '. $user->name.' xóa thông tin thành liệu  '.$data->title.' có id là:'.$data->id;
+		    			}
+		                    
+		                addActivityHistory($user,$note,'deleteDocument',$data->id);
 			        	$modelDocumentinfo->deleteAll((['id_document'=>$data->id]));
 
 			            $modelDocument->delete($data);
@@ -255,9 +322,19 @@ function listDocumentinfoAPI($input){
 	if($isRequestPost){
         $dataSend = $input['request']->getData();
        if(!empty($dataSend['type']) && !empty($dataSend['token']) && !empty($dataSend['id_document'])){
-        	$infoMember = getMemberByToken($dataSend['token']);
+        	if($dataSend['type']=='album'){
+	    		$type = 'listAlbuminfo';   
+	    	}elseif($dataSend['type']=='video'){
+	    		$type = 'listVideoinfo';
+	    	}else{
+	    		$type = 'listAlDocumentinfo';  
+	    	}
+        	$infoMember = getMemberByToken($dataSend['token'],$type);
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 		    	$data = $modelDocument->find()->where(['id'=>(int)$dataSend['id_document'],'id_parent !='=>$infoMember->id, 'type'=>$dataSend['type'], 'public'=>'public'])->first();
 
 		    	if(empty($data)){
@@ -313,9 +390,19 @@ function listDocumentinfoMyMemberAPI($input){
 	if($isRequestPost){
         $dataSend = $input['request']->getData();
        if(!empty($dataSend['type']) && !empty($dataSend['token']) && !empty($dataSend['id_document'])){
-        	$infoMember = getMemberByToken($dataSend['token']);
+        	if($dataSend['type']=='album'){
+	    		$type = 'listAlbuminfo';   
+	    	}elseif($dataSend['type']=='video'){
+	    		$type = 'listVideoinfo';
+	    	}else{
+	    		$type = 'listAlDocumentinfo';  
+	    	}
+        	$infoMember = getMemberByToken($dataSend['token'],$type);
 
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 		    	$data = $modelDocument->find()->where(['id'=>(int)$dataSend['id_document'],'id_parent '=>$infoMember->id, 'type'=>$dataSend['type']])->first();
 
 		    	if(empty($data)){
@@ -368,9 +455,19 @@ function addDocumentinfoAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['type']) && !empty($dataSend['token']) && !empty($dataSend['title']) && !empty($dataSend['id_document'])){
-			$infoMember = getMemberByToken($dataSend['token']);
+			if($dataSend['type']=='album'){
+	    		$type = 'addAlbum';   
+	    	}elseif($dataSend['type']=='video'){
+	    		$type = 'addVideo';
+	    	}else{
+	    		$type = 'addAlDocument';  
+	    	}
+        	$infoMember = getMemberByToken($dataSend['token'],$type);
 
-			if(!empty($infoMember)){  
+            if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                } 
 
 				$modelDocument = $controller->loadModel('Documents');
 				$modelDocumentinfo = $controller->loadModel('Documentinfos');
@@ -413,6 +510,26 @@ function addDocumentinfoAPI($input){
 
 
 				$modelDocumentinfo->save($data);
+				if(!empty($dataSend['id'])){
+		        	if($dataSend['type']=='album'){
+    					 $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin hình ảnh '.$data->title.' có id là:'.$data->id;
+    				}elseif($dataSend['type']=='video'){
+    					 $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin Video '.$data->title.' có id là:'.$data->id;
+    				}else{
+    					 $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin thành liệu  '.$data->title.' có id là:'.$data->id;
+    				}
+                   
+                }else{
+                	if($dataSend['type']=='album'){
+    					 $note = $infoMember->type_tv.' '. $infoMember->name.' thêm mới thông tin hình ảnh '.$data->title.' có id là:'.$data->id;
+    				}elseif($dataSend['type']=='video'){
+    					 $note = $infoMember->type_tv.' '. $infoMember->name.' thêm mới thông tin Video  '.$data->title.' có id là:'.$data->id;
+    				}else{
+    					 $note = $infoMember->type_tv.' '. $infoMember->name.' thêm mới thông tin tài liệu  '.$data->title.' có id là:'.$data->id;
+    				}
+                    
+                }
+                addActivityHistory($infoMember,$note,'add'.$dataSend['type'],$data->id);
 
 				$return = array('code'=>2, 'mess'=>'Lưu dữ liệu thành công');
 			}else{
@@ -436,8 +553,19 @@ function deleteDocumentinfoAPI($input){
     if ($isRequestPost) {
 	    $dataSend = $input['request']->getData();
 	    if(!empty($dataSend['id']) && !empty($dataSend['token'])){
-        	$infoMember = getMemberByToken($dataSend['token']);
+        	if($dataSend['type']=='album'){
+	    		$type = 'deleteAlbum';   
+	    	}elseif($dataSend['type']=='video'){
+	    		$type = 'deleteVideo';
+	    	}else{
+	    		$type = 'deleteDocument';  
+	    	}
+        	$infoMember = getMemberByToken($dataSend['token'],$type);
+
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                } 
 				$modelDocument = $controller->loadModel('Documents');
 
 				$modelDocumentinfo = $controller->loadModel('Documentinfos');
@@ -484,8 +612,19 @@ function getDocumentinfoAPI($input){
 	$return = array('code'=>1);	
 	$dataSend = $input['request']->getData();
 	    if(!empty($dataSend['id']) && !empty($dataSend['token'])){
-        	$infoMember = getMemberByToken($dataSend['token']);
+        	if($dataSend['type']=='album'){
+	    		$type = 'listAlbuminfo';   
+	    	}elseif($dataSend['type']=='video'){
+	    		$type = 'listVideoinfo';
+	    	}else{
+	    		$type = 'listAlDocumentinfo';  
+	    	}
+        	$infoMember = getMemberByToken($dataSend['token'],$type);
+
             if(!empty($infoMember)){
+            	if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
             
 		    	$data = $modelDocumentinfo->find()->where(array('id'=>$dataSend['id']))->first();
 

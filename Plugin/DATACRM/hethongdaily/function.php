@@ -432,6 +432,7 @@ function getMemberById($id='')
                 $data_value = json_decode($infosystem->description, true);
                 $infosystem->convertPoint = (int) @$data_value['convertPoint'];
                 $infosystem->max_export_mmtc = (int) @$data_value['max_export_mmtc'];
+                $infosystem->price_export_mmtc = (int) @$data_value['price_export_mmtc'];
             }
             $checkData->infosystem = $infosystem;
         }
@@ -1478,10 +1479,10 @@ function getListPermission()
                                     array('name'=>'Thêm và sửa thông tin Video','permission'=>'addVideo'),
                                     array('name'=>'Xóa thông tin Video ','permission'=>'deleteVideo'),
                                     array('name'=>'xem thông tin chi tiết Video ','permission'=>'listVideoinfo'),
-                                    array('name'=>'Danh sách tài liệu','permission'=>'listAlDocument'),
-                                    array('name'=>'Thêm và sửa thông tin tài liệu','permission'=>'addAlDocument'),
-                                    array('name'=>'Xóa thông tin tài liệu ','permission'=>'deleteAlDocument'),
-                                    array('name'=>'xem thông tin chi tiết tài liệu ','permission'=>'listAlDocumentinfo'),
+                                    array('name'=>'Danh sách tài liệu','permission'=>'listDocument'),
+                                    array('name'=>'Thêm và sửa thông tin tài liệu','permission'=>'addDocument'),
+                                    array('name'=>'Xóa thông tin tài liệu ','permission'=>'deleteDocument'),
+                                    array('name'=>'xem thông tin chi tiết tài liệu ','permission'=>'listDocumentinfo'),
                             )
                     );
     $permission[] = array( 'name'=>'Quản lý Đào tạo ',
@@ -1602,6 +1603,52 @@ function addActivityHistory($user=array(),$note='',$keyword='',$id_key=0){
     $modelActivityHistory->save($history);
 
 
+}
+
+
+function processAddMoney($money = 0, $phone=''){
+    global $controller;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelBill = $controller->loadModel('Bills');
+
+    $infoUser = $modelCustomer->find()->where(['phone'=>$phone])->first();
+
+    if(!empty($infoUser)){
+        $data = getMemberById($infoUser->id_parent);
+        $quantity = $money/$data->infosystem->price_export_mmtc;
+
+       
+        $infoUser->max_export_mmtc +=(int) $quantity;
+        $modelCustomer->save($infoUser);
+        $time =time();
+        $bill = $modelBill->newEmptyEntity();
+        $bill->id_member_sell = $data->id;
+        $bill->id_member_buy = 0;
+        $bill->id_staff_sell =  0;
+        $bill->total = $money;
+        $bill->id_order = 0;
+        $bill->type = 1;
+        $bill->type_order = 2; 
+        $bill->created_at = $time;
+        $bill->updated_at = $time;
+        $bill->id_debt = 0;
+        $bill->type_collection_bill =  'chuyen_khoan';
+        $bill->id_customer = $infoUser->id;
+        $bill->note = 'Thanh toán mua bản thần sô học của khách '.@$customer->full_name.' '.@$customer->phone;
+        $modelBill->save($bill);
+
+        $dataSendNotification= array('title'=>'Thông báo Thanh toán bản thần sô học','time'=>date('H:i d/m/Y'),'content'=>'Bạn Thanh toán bản thần số học thành Công','action'=>'notificationprocessAddMoney');
+        if(!empty($infoUser->token_device)){
+            sendNotification($dataSendNotification, $infoUser->token_device);
+        }
+
+
+        
+        return array('code'=>1,'mess'=>'ok');
+    }else{
+        $mess = 'Không tìm thấy tài khoản khách hàng';
+    }
 }
 
 

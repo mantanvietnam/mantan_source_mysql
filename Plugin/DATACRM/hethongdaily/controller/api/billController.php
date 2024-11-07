@@ -615,7 +615,7 @@ function paymentCollectionBillAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['token'])){
-			$infoMember = getMemberByToken($dataSend['token']);
+			$infoMember = getMemberByToken($dataSend['token'],'paymentCollectionBill');
 
 			if(!empty($infoMember)){
 				$modelMember = $controller->loadModel('Members');

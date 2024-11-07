@@ -103,8 +103,10 @@ function settingSystem($input){
                 $data->keyword = $dataSend['keyword'];
                 $description = array('convertPoint'=> @$dataSend['convertPoint'],
                                     'max_export_mmtc'=> @$dataSend['max_export_mmtc'],
+                                    'price_export_mmtc'=> @$dataSend['price_export_mmtc'],
                                     );
                 $data->description = json_encode($description);
+
 
                 $modelCategories->save($data);
 
@@ -121,9 +123,12 @@ function settingSystem($input){
 
         if(!empty($data->description)){
         $description = json_decode($data->description, true);
-        $data->convertPoint = @$description['convertPoint'];
-        $data->max_export_mmtc = @$description['max_export_mmtc'];
+        $data->convertPoint = (int)@$description['convertPoint'];
+        $data->max_export_mmtc = (int)@$description['max_export_mmtc'];
+        $data->price_export_mmtc =(int) @$description['price_export_mmtc'];
         }
+       
+
 
         setVariable('data', $data);
         setVariable('mess', $mess);

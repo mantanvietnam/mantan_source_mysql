@@ -59,5 +59,6 @@ include_once('controller/fix_controller.php'); // vá lỗi
 include_once('controller/apiCustomer/customerController.php'); // tài khoản của khách hàng
 include_once('controller/apiCustomer/orderController.php'); // tài khoản của khách hàng
 include_once('controller/apiCustomer/documentController.php'); // tài khoản của khách hàng
+include_once('controller/apiCustomer/mmtcController.php'); // tài khoản của khách hàng
 
 ?>

@@ -12,6 +12,8 @@ function bookOnline($input)
 
     $modelAffiliaters = $controller->loadModel('Affiliaters');
     $modelMembers = $controller->loadModel('Members');
+    $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+    $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
     $session->write('infoUser', []);
 
     if(!empty($_GET['aff'])){

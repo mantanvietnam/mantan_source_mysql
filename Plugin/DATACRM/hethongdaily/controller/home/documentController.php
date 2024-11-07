@@ -404,7 +404,7 @@ function deleteDocument($input){
     			return	$controller->redirect('/listVideo');
     		}
 	    }else{
-	    	$user = checklogin('deleteAlDocument');   
+	    	$user = checklogin('deleteDocument');   
     		if(empty($user->grant_permission)){
     			return	$controller->redirect('/listDocument');
     		}
@@ -475,7 +475,7 @@ function listDocumentinfo($input){
 	    	$slug = 'Video';
 	    	$type ='video';
 	    }else{
-	    	$user = checklogin('listAlDocumentinfo');   
+	    	$user = checklogin('listDocumentinfo');   
     		if(empty($user->grant_permission)){
     			return $controller->redirect('/listDocument');
     		}
