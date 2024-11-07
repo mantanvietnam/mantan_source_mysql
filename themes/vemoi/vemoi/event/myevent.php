@@ -33,25 +33,34 @@
                                 <div class="row">
                                     <div class="news">
                                       <div class="row">
+                                     
                                       <?php if(!empty($listdataattendedevent)) :?>
                                         <?php foreach($listdataattendedevent as $data):?>
-                                          
+                                          <?php 
+                                            
+                                              $event1 = $data['event'] ?? null; 
+                                        
+                                           
+                                              ?>
                                               <div class="col-lg-4">
-                                                <a href="/detailevent/<?php echo @$event->slug ?>.html">
+                                                <a href="/detailevent/<?php echo @$event1['slug'] ?>.html">
                                                     <div class="card-news">
                                                     <?php 
 
                                                         $event = $eventMap[$data->id_events] ?? null; 
                                                         ?>
-                                                        <img src="<?= $event ? $event->banner : 'default-banner.jpg' ?>" alt="">
+                                                        <img src="<?=$event1['banner'] ?>" alt="">
                                                         <div class="text top-text">
                                                             <p class="name">Khởi nghiệp</p>
                                                             <p class="logo"><i class="fas fa-arrow-right"></i></p>
                                                         </div>
                                                         <div class="text under-text">
-                                                            <p class="date-time">Chủ nhật, ngày 28 tháng 8 năm 2024</p>
+                                                            <p class="date-time">
+                                                                <?= !empty($event1['time_start']) ? date('d/m/Y H:i', $event1['time_start']) : 'Không có ngày'; ?>
+                                                            </p>
+
                                                             <h4><?=$data->name?></h4>
-                                                            <p class="date-time"><?=$data->city?></p>
+                                                            <p class="date-time"><?=$event1['address'] ?></p>
                                                         </div>
                                                     </div>
                                                 </a>

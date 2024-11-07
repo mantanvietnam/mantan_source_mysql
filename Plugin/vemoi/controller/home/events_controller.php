@@ -88,9 +88,11 @@ function detailevent($input){
     global $metaImageMantan;
     global $session;
     $info = $session->read('infoUser');
+
     $metaTitleMantan = 'Chi tiết sự kiện';
     
     $modelevents = $controller->loadModel('events');
+    $modelattendedevent = $controller->loadModel('attendedevent');
     $order = array('id'=>'desc');
     $listDataevent= $modelevents->find()->where(['show_on_homepage' => 1])->order($order)->all()->toList();
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
@@ -104,9 +106,17 @@ function detailevent($input){
 
         
         $events = $modelevents->find()->where($conditions)->first();
+        $isRegistered = false;
+        if (!empty($info)) {
+            $isRegistered = $modelattendedevent->exists([
+                'id_member' => $info->id,
+                'id_events' => $events->id,
+            ]);
+        }
         if(!empty($info)){
             setVariable('info', $info);
         }
+        setVariable('isRegistered', $isRegistered);
         setVariable('listDataevent', $listDataevent);
         setVariable('events', $events);
 
@@ -141,10 +151,18 @@ function myevent($input){
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if(!empty($info->id)){
         $listdataattendedevent = $modelattendedevent->find()
-        ->where(['id_member' => $info->id])
-        ->order($order)
+        ->select(['attendedevent.id', 'attendedevent.id_member', 'event.id','event.banner','event.time_start', 'event.name', 'event.address', 'event.slug'])
+        ->join([
+            'table' => 'events', 
+            'alias' => 'event',
+            'type' => 'INNER',
+            'conditions' => 'event.id = attendedevent.id_events', 
+        ])
+        ->where(['attendedevent.id_member' => $info->id]) 
+        ->order(['event.id' => 'desc'])
         ->all()
         ->toList();
+    
 
     $listDataevent = $modelevents->find()
         ->where(['id_member' => $info->id], $conditions)

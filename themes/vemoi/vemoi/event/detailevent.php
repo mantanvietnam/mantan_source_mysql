@@ -3,7 +3,6 @@
     getHeader();
     global $settingThemes;
 ?>
-<link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/event.css">
 <main>
         <div class="bgr-event">
             <div class="container-fluid">
@@ -60,11 +59,16 @@
                 
                         <div class="btn-loginn">
                             <?php if (!empty($info)): ?>
-                                <a href="/participate?id=<?= $events['id'] ?>">Đăng ký tham gia</a>
+                                <?php if ($isRegistered): ?>
+                                    <a>Bạn đã đăng ký sự kiện này.</a>
+                                <?php else: ?>
+                                    <a href="/participate?id=<?= $events['id'] ?>">Đăng ký tham gia</a>
+                                <?php endif; ?>
                             <?php else: ?>
-                                <p>Bạn chưa đăng nhập để đăng ký sự kiện</p>
+                                <p>Bạn chưa đăng nhập để đăng ký sự kiện.</p>
                             <?php endif; ?>
                         </div>
+
 
                         
                         <div class="link">
