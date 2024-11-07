@@ -29,8 +29,8 @@
           </tr>
 
           <tr>
-            <td>Tăng like page</td>
-            <td>Tăng like live</td>
+            <td><a href="/upLikePageFacebook">Tăng like page</a></td>
+            <td><a href="/upLikeLiveTiktok">Tăng like live</a></td>
             <td></td>
             <td></td>
             <td></td>
@@ -38,7 +38,7 @@
           </tr>
 
           <tr>
-            <td>Tăng follow page</td>
+            <td><a href="/upFollowPageFacebook">Tăng follow page</a></td>
             <td>Tăng share live</td>
             <td></td>
             <td></td>
