@@ -7,16 +7,19 @@
     <?php mantan_header();
      global $settingThemes;
      ?>
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/toptop.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/toptop.css?index=12343">
     <!-- boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- icon -->
+    <link rel="icon" sizes="16x16" href="<?= $urlThemeActive?>/asset/image/Logo.png" type="image/png">
+    <link rel="icon" sizes="32x32" href="<?= $urlThemeActive?>/asset/image/Logo.png" type="image/png">
+    <link rel="icon" sizes="48x48" href="<?= $urlThemeActive?>/asset/image/Logo.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <!-- slick -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
     <body>
-        <header>
+        <header style="background-image: url('<?=@$settingThemes['banner']?>');">
             <nav class="navbar navbar-expand-lg navbar-light pos-ab pt-4">
                 <div class="container d-flex justify-content-between">
                     

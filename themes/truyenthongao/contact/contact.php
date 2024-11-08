@@ -34,7 +34,7 @@
                                 <div class="contact-us-infor-detail">
                                     <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i><?= @$settingThemes['address'];?></p>
                                     <p><i class="fa-solid fa-phone" aria-hidden="true"></i><?= @$settingThemes['phone'];?></p>
-                                    <p><i class="fa-solid fa-envelope" aria-hidden="true"></i><?= @$settingThemes['emailfooter'];?></p>
+                                    <p><i class="fa-solid fa-envelope" aria-hidden="true"></i><?= @$settingThemes['email'];?></p>
                                     <!-- <p><i class="fa-solid fa-globe" aria-hidden="true"></i>http://donganh360.vn/</p> -->
                                 </div>
                                 <div class="bg-earth">

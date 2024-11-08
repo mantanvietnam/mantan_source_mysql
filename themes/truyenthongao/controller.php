@@ -17,13 +17,81 @@ function settinghometruyenthongao($input){
             'logo' =>$dataSend['logo'],
             'titleheader' =>$dataSend['titleheader'],
             'descriptionheader' =>$dataSend['descriptionheader'],
+            'banner' =>$dataSend['banner'],
             'titlecontent1' =>$dataSend['titlecontent1'],
             'titlecontent2' =>$dataSend['titlecontent2'],
             'titlecontent3' =>$dataSend['titlecontent3'],
             'titlecontent4' =>$dataSend['titlecontent4'],
+            'titlecustomer'=>$dataSend['titlecustomer'],
+            'id_slidelistcustomer'=>$dataSend['id_slidelistcustomer'],
 
-     
+            'titleintroduce' =>$dataSend['titleintroduce'],
+            'descriptionintroduce' =>$dataSend['descriptionintroduce'],
+            'vision' =>$dataSend['vision'],
+            'descriptionvision' =>$dataSend['descriptionvision'],
+            'mission' =>$dataSend['mission'],
+            'descriptionmission' =>$dataSend['descriptionmission'],
+            'target'=>$dataSend['target'],
+            'descriptiontarget'=>$dataSend['descriptiontarget'],
+            'business'=>$dataSend['business'],
+            'descriptionbusiness'=>$dataSend['descriptionbusiness'],
 
+            'titleoperational' =>$dataSend['titleoperational'],
+            'yearactive' =>$dataSend['yearactive'],
+            'numberactive' =>$dataSend['numberactive'],
+            'customer' =>$dataSend['customer'],
+            'numbercustomer'=>$dataSend['numbercustomer'],
+            'events'=>$dataSend['events'],
+            'numberevents'=>$dataSend['numberevents'],
+            'id_active'=>$dataSend['id_active'],
+
+            'pricelist' =>$dataSend['pricelist'],
+            'descriptionpricelist' =>$dataSend['descriptionpricelist'],
+            'prilistfooter' =>$dataSend['prilistfooter'],
+            'pricelistbasic' =>$dataSend['pricelistbasic'],
+            'pricelistsmallbasic' =>$dataSend['pricelistsmallbasic'],
+            'pricelistreducebasic'=>$dataSend['pricelistreducebasic'],
+            'pricelistPresentbasic'=>$dataSend['pricelistPresentbasic'],
+            'pricelistbasicvat'=>$dataSend['pricelistbasicvat'],
+            'pricelistreceivebasic1'=>$dataSend['pricelistreceivebasic1'],
+            'pricelistreceivebasic2'=>$dataSend['pricelistreceivebasic2'],
+            'pricelistreceivebasic3'=>$dataSend['pricelistreceivebasic3'],
+            'pricelistreceivebasic4'=>$dataSend['pricelistreceivebasic4'],
+
+            'pricelistfull' =>$dataSend['pricelistfull'],
+            'pricelistsmallfull' =>$dataSend['pricelistsmallfull'],
+            'pricelistreducefull'=>$dataSend['pricelistreducefull'],
+            'pricelistPresentfull'=>$dataSend['pricelistPresentfull'],
+            'pricelistfullvat'=>$dataSend['pricelistfullvat'],
+            'pricelistreceivefull1'=>$dataSend['pricelistreceivefull1'],
+            'pricelistreceivefull2'=>$dataSend['pricelistreceivefull2'],
+            'pricelistreceivefull3'=>$dataSend['pricelistreceivefull3'],
+            'pricelistreceivefull4'=>$dataSend['pricelistreceivefull4'],
+
+            'pricelistadvanced' =>$dataSend['pricelistadvanced'],
+            'pricelistsmalladvanced' =>$dataSend['pricelistsmalladvanced'],
+            'pricelistreduceadvanced'=>$dataSend['pricelistreduceadvanced'],
+            'pricelistPresentadvanced'=>$dataSend['pricelistPresentadvanced'],
+            'pricelistadvancedvat'=>$dataSend['pricelistadvancedvat'],
+            'pricelistreceiveadvanced1'=>$dataSend['pricelistreceiveadvanced1'],
+            'pricelistreceiveadvanced2'=>$dataSend['pricelistreceiveadvanced2'],
+            'pricelistreceiveadvanced3'=>$dataSend['pricelistreceiveadvanced3'],
+            'pricelistreceiveadvanced4'=>$dataSend['pricelistreceiveadvanced4'],
+
+            'id_albumcustomer'=>$dataSend['id_albumcustomer'],
+
+            'titlefooterleft'=>$dataSend['titlefooterleft'],
+            'address'=>$dataSend['address'],
+            'phone'=>$dataSend['phone'],
+            'email'=>$dataSend['email'],
+            'facebook'=>$dataSend['facebook'],
+            'youtube'=>$dataSend['youtube'],
+            'instagram'=>$dataSend['instagram'],
+            'twiter'=>$dataSend['twiter'],
+            'imagedeep'=>$dataSend['imagedeep'],
+            'codebusiness'=>$dataSend['codebusiness'],
+
+            
         );
     $data->key_word = 'settinghometruyenthongao';
 	$data->value = json_encode($value);
@@ -47,8 +115,22 @@ function indexTheme($input){
     global $controller;
     global $modelCategories;
     global $session;
-    $info = $session->read('infoUser');
+    global $modelCategories;
+
+  
 	$conditions = array('key_word' => 'settinghometruyenthongao');
+    $id_slidelistcustomer = [];
+    if(!empty($settingThemes['id_slidelistcustomer'])){
+        $id_slidelistcustomer = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['id_slidelistcustomer']])->all()->toList();
+    }
+    $id_active = [];
+    if(!empty($settingThemes['id_active'])){
+        $id_active = $modelAlbums->find()->where(['id_category'=>(int) $settingThemes['id_active']])->all()->toList();
+    }
+    $id_albumcustomer = [];
+    if(!empty($settingThemes['id_albumcustomer'])){
+        $id_albumcustomer = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['id_albumcustomer']])->all()->toList();
+    }
 
     $order = array('id'=>'desc');
 
@@ -58,8 +140,10 @@ function indexTheme($input){
         $data_value = json_decode($data->value, true);
     }
     $order = array('id'=>'desc');
-    $listDatatop= $modelPosts->find()->limit(4)->where(array( 'type'=>'post'))->order($order)->all()->toList();
-
+    $listDatatop= $modelPosts->find()->limit(3)->where(array( 'type'=>'post'))->order($order)->all()->toList();
+    setVariable('id_albumcustomer', $id_albumcustomer);
+    setVariable('id_active', $id_active);
+    setVariable('id_slidelistcustomer', $id_slidelistcustomer);
     setVariable('listDatatop', $listDatatop);
 
   

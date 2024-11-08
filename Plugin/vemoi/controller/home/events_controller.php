@@ -116,6 +116,34 @@ function detailevent($input){
         if(!empty($info)){
             setVariable('info', $info);
         }
+        $modelattendedevent = $controller->loadModel('attendedevent');
+        $mess = '';
+        if ($isRequestPost) {
+    
+            $dataSend = $input['request']->getData();
+    
+            $data = $modelattendedevent->newEmptyEntity();
+    
+            if(!empty($dataSend['name'])){
+                $data->city = @$dataSend['city'];
+                $data->name = @$dataSend['name'];
+                $data->email = @$dataSend['email'];
+                $data->date = (new DateTime($dataSend['date']))->getTimestamp();
+                $data->id_member = @$dataSend['id_member'];
+                $data->status = @$dataSend['status'];
+                $data->id_events = isset($_GET['id']) ? $_GET['id'] : null;
+                $data->sex = @$dataSend['sex'];
+    
+    
+                $modelattendedevent->save($data);
+                $mess = '<p class="text-success">đăng ký tham gia thành công</p>';
+            }else{
+                $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+            }
+    
+            
+        }
+        setVariable('mess', $mess);
         setVariable('isRegistered', $isRegistered);
         setVariable('listDataevent', $listDataevent);
         setVariable('events', $events);

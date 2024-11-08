@@ -5,36 +5,32 @@
 
 
 <main>
-
-        <section id="all-news-section">
+        <section id="news">
             <div class="container">
-                <h2><?php echo $category->name;?></h2>
-                <div class="all-news-list">
-                    <div class="row">
-                    <?php foreach ($listPosts as $key => $value) { ?>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="all-news-item">
-                                <a href="<?php echo @$value->slug ?>.html">
-                                    <div class="all-news-img">
-                                        <img src="<?php echo $value->image;?>" alt="">
-                                    </div>
-                                    <div class="all-news-content">
-                                        <div class="home-news-thum">
-                                            <p><?php echo $value->keyword;?></p>
-                                            <span><?php echo date('d/m/Y', $value->time);?></span>
+                <div class="news__wrapper">
+                    <p class="news__title d-flex align-items-center justify-content-center"><?php echo $category->name;?></p>
+                    <div class="news__carousel">
+                        <div class="news__list">
+                            <?php foreach ($listPosts as $key => $value) { ?>
+                                <a href="<?php echo $value->slug;?>.html" style="text-decoration: none;">
+                                    <div class="news__item">
+                                        <div class="news__item-image">
+                                            <img src="<?php echo $value->image;?>" alt="Tin tức 1">
                                         </div>
-                                        <div class="all-news-detail">
-                                            <h3><?php echo $value->title;?></h3>
-                                            <p><?php echo $value->description;?></p>
-                                        </div>
-                                        <div class="all-news-btn">
-                                            <i class="fa-solid fa-arrow-right-long"></i>
+                                        <div class="news__item-content">
+                                            <h3 class="news__item-title" style="color:#212529"><?php echo $value->title;?></h3>
+                                            <p class="news__item-desc"><?php echo $value->description;?></p>
+                                            <div class="news__item-footer d-flex justify-content-between align-items-center">
+                                                <span class="news__item-date"><?php echo date('d/m/Y', $value->time);?></span>
+                                                <button class="news__item-btn">
+                                                    <i class="fa-solid fa-arrow-right fa-xl"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </a>
-                            </div>
+                            <?php } ?>
                         </div>
-                    <?php } ?>
                     </div>
                 </div>
                 <div class="pagination">
@@ -73,7 +69,9 @@
                     ?>
                     </nav>
                 </div>
-
+            </div>
+            <div class="container">
+               
             </div>
         </section>
     </main>

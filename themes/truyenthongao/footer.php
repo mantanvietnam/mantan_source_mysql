@@ -1,4 +1,6 @@
-
+<?php
+     global $settingThemes;
+?>
 <footer class="footer">
             <div class="container">
                 <div class="footer__main">
@@ -6,18 +8,18 @@
                         <!-- Company Info -->
                         <div class="col-md-4">
                             <div class="footer__brand">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/logo.png" alt="PHONGTRUYEN" class="footer__logo">
+                                <img src="<?= @$settingThemes['logo'];?>" alt="PHONGTRUYEN" class="footer__logo">
                                 <p class="footer__name">PHONGTRUYENTHONG.COM</p>
                             </div>
                             <div class="footer__contact">
                                 <p class="footer__address">
-                                    <i class="fas fa-map-marker-alt"></i> 64 Bà Triệu, Hoàn Kiếm, Hà Nội
+                                    <i class="fas fa-map-marker-alt"></i> <?= @$settingThemes['address'];?>
                                 </p>
                                 <p class="footer__phone">
-                                    <i class="fas fa-phone"></i> 024.6263.1832 hoặc 024.6263.1760
+                                    <i class="fas fa-phone"></i> <?= @$settingThemes['phone'];?>
                                 </p>
                                 <p class="footer__email">
-                                    <i class="fas fa-envelope"></i> vanphong@vsds.vn
+                                    <i class="fas fa-envelope"></i> <?= @$settingThemes['email'];?>
                                 </p>
                             </div>
                         </div>
@@ -52,11 +54,11 @@
                                 <button class="footer__button">Đăng ký</button>
                             </div>
                             <div class="footer__social">
-                                <a href="#" class="footer__social-link"><i class="fab fa-linkedin"></i></a>
-                                <a href="#" class="footer__social-link"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="footer__social-link"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="footer__social-link"><i class="fab fa-youtube"></i></a>
-                                <a href="#" class="footer__social-link"><i class="fab fa-instagram"></i></a>
+                                <a href="<?= @$settingThemes['youtube'];?>" class="footer__social-link"><i class="fab fa-linkedin"></i></a>
+                                <a href="<?= @$settingThemes['twiter'];?>" class="footer__social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="<?= @$settingThemes['facebook'];?>" class="footer__social-link"><i class="fab fa-facebook-f"></i></a>
+                                <a href="<?= @$settingThemes['youtube'];?>" class="footer__social-link"><i class="fab fa-youtube"></i></a>
+                                <a href="<?= @$settingThemes['instagram'];?>" class="footer__social-link"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -67,7 +69,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-8 d-flex align-items-center">
                             <div class="footer__certificate mx-4">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/logoSaleNoti 1.png" style="width: 170px; height: auto;" alt="Chứng nhận Bộ Công Thương">
+                                <img src="<?= @$settingThemes['imagedeep'];?>" style="width: 170px; height: auto;" alt="Chứng nhận Bộ Công Thương">
                             </div>
                             <div class="footer__logo">
                                 <p class="footer__copyright">

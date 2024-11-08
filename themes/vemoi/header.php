@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css?time=1189">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/register.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css?time=1193">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/successfully.css?time=1191">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/successfully.css?time=1192">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/detail.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/edit.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/event.css?time=1191">
