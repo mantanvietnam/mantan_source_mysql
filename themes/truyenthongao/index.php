@@ -257,33 +257,35 @@
                     <div class="news__wrapper">
                         <p class="news__title d-flex align-items-center justify-content-center">Tin tức - Sự kiện</p>
                         <div class="news__carousel">
-                            <div class="news__list">
-                                <!-- News Item 1 -->
-                                 <?php foreach($listDatatop as $data):?>
-                                    <a href="<?php echo @$data->slug ?>.html" style="text-decoration: none;">  
-                                        <div class="news__item">
-                                            <div class="news__item-image">
-                                                <img src="<?php echo $data->image;?>">
-                                            </div>
-                                            <div class="news__item-content">
-                                                <h3 class="news__item-title" style="color:#212529"><?php echo $data->title;?></h3>
-                                                <p class="news__item-desc"><?php echo $data->description;?></p>
-                                                <div class="news__item-footer d-flex justify-content-between align-items-center">
-                                                    <span class="news__item-date"><?php echo date('d/m/Y', $data->time);?></span>
-                                                    <button class="news__item-btn">
-                                                        <i class="fa-solid fa-arrow-right fa-xl"></i>
-                                                    </button>
+                             <div class="news__list">
+                            <div class="row">
+                                <?php foreach ($listDatatop as $key => $value) { ?>
+                                    <div class="col-md-4">
+                                        <a href="<?php echo $value->slug;?>.html" style="text-decoration: none;">
+                                            <div class="news__item">
+                                                <div class="news__item-image">
+                                                    <img src="<?php echo $value->image;?>" alt="Tin tức 1">
+                                                </div>
+                                                <div class="news__item-content">
+                                                    <h3 class="news__item-title" style="color:#212529"><?php echo $value->title;?></h3>
+                                                    <p class="news__item-desc"><?php echo $value->description;?></p>
+                                                    <div class="news__item-footer d-flex justify-content-between align-items-center">
+                                                        <span class="news__item-date"><?php echo date('d/m/Y', $value->time);?></span>
+                                                        <button class="news__item-btn">
+                                                            <i class="fa-solid fa-arrow-right fa-xl"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                <?php endforeach; ?>
+                                        </a>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
-
+                        </div>
                         <!-- View All Button -->
                         <div class="text-center">
-                            <button class="news__btn-all">Xem toàn bộ</button>
+                            <a href="\posts" class="news__btn-all" style="text-decoration:none">Xem toàn bộ</a>
                         </div>
                     </div>
                 </div>
