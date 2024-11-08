@@ -334,34 +334,91 @@ function participate($input){
     global $metaDescriptionMantan;
     global $metaImageMantan;
     global $session;
+    
     $modelattendedevent = $controller->loadModel('attendedevent');
+    $modelevents = $controller->loadModel('events');
+    $modelMembers = $controller->loadModel('Members');
+
     $mess = '';
-    if ($isRequestPost) {
+    
+    if(!empty($_GET['id'])){
+        $infoEvent = $modelevents->find()->where(['id' => (int) $_GET['id']])->first();
 
-        $dataSend = $input['request']->getData();
+        if(!empty($infoEvent)){
+            if ($isRequestPost) {
+                $dataSend = $input['request']->getData();
 
-        $data = $modelattendedevent->newEmptyEntity();
+                $data = $modelattendedevent->newEmptyEntity();
 
-        if(!empty($dataSend['name'])){
-            $data->city = @$dataSend['city'];
-            $data->name = @$dataSend['name'];
-            $data->email = @$dataSend['email'];
-            $data->date = (new DateTime($dataSend['date']))->getTimestamp();
-            $data->id_member = @$dataSend['id_member'];
-            $data->status = @$dataSend['status'];
-            $data->id_events = isset($_GET['id']) ? $_GET['id'] : null;
-            $data->sex = @$dataSend['sex'];
+                if(!empty($dataSend['name'])){
+                    $dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+                    $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+                    if(!empty($session->read('infoUser'))){
+                        $checkMember = $session->read('infoUser');
+                    }else{
+                        $checkMember = $modelMembers->find()->where(['phone' => $dataSend['phone']])->first();
+
+                        if(empty($checkMember)){
+                            // tạo người dùng mới
+                            $checkMember = $modelMembers->newEmptyEntity();
+
+                            $checkMember->name = $dataSend['name'];
+                            $checkMember->phone = $dataSend['phone'];
+                            $checkMember->email = $dataSend['email'];
+                            $checkMember->pass = md5($dataSend['phone']);
+                            $checkMember->status = 'active';
+                            $checkMember->avatar = 'https://ai.phoenixtech.vn/plugins/phoenix_ai/view/home/assets/img/avatar-default-crm.png';
+                            $checkMember->created_at = time();
+                            $checkMember->last_login = time();
+                            $checkMember->address = '';
+
+                            $modelMembers->save($checkMember);
+                        }
+
+                        // thực hiện đăng nhập luôn
+                        $session->write('infoUser', $checkMember);
+                        
+                        setcookie('id_member',$checkMember->id,time()+365*24*60*60, "/");
+                    }
+
+                    $checkAttendedEvent = $modelattendedevent->find()->where(['id_member' => $checkMember->id, 'id_events'=>(int) $_GET['id']])->first();
+
+                    if(empty($checkAttendedEvent)){
+                        $birthday = 0;
+                        if(!empty($dataSend['date'])){
+                            $birthday = (new DateTime($dataSend['date']))->getTimestamp();
+                        }
+
+                        $data->city = @$dataSend['city'];
+                        $data->name = @$dataSend['name'];
+                        $data->email = @$dataSend['email'];
+                        $data->date = $birthday;
+                        $data->id_member = $checkMember->id;
+                        $data->status = 'Pending';
+                        $data->id_events = (int) $_GET['id'];
+                        $data->sex = @$dataSend['sex'];
 
 
-            $modelattendedevent->save($data);
-            $mess = '<p class="text-success">đăng ký tham gia thành công</p>';
+                        $modelattendedevent->save($data);
+
+                        $mess = '<p class="text-success">Đăng ký tham gia thành công</p>';
+                    }else{
+                        $mess = '<p class="text-danger">Bạn đã đăng ký sự kiện này rồi</p>';
+                    }
+                }else{
+                    $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+                }
+            }
+
+            setVariable('mess', $mess);
+            setVariable('infoEvent', $infoEvent);
         }else{
-            $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+            return $controller->redirect('/');
         }
-
-        
+    }else{
+        return $controller->redirect('/');
     }
-    setVariable('mess', $mess);
 
 }
 function manageevent($input){

@@ -4,11 +4,13 @@
     global $settingThemes;
 ?>
 <main>
+        <!--
         <div class="bgr-event">
             <div class="container-fluid">
                 <img src="<?=$events['banner']?>" style="width: 100%;" alt="">
             </div>
         </div>
+        -->
 
         <div class="information">
             <div class="container">
@@ -65,7 +67,7 @@
                                     <a href="/participate?id=<?= $events['id'] ?>">Đăng ký tham gia</a>
                                 <?php endif; ?>
                             <?php else: ?>
-                                <p>Bạn chưa đăng nhập để đăng ký sự kiện.</p>
+                                <a href="/participate?id=<?= $events['id'] ?>">Đăng ký tham gia</a>
                             <?php endif; ?>
                         </div>
 
