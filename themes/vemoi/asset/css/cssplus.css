@@ -90,6 +90,13 @@ li{
 .gr-team .sponsors{
     padding-top: 30px;
 }
+
+.home__event .news img{
+    object-fit: contain;
+}
+.news__home .news-cards{
+    margin-bottom: 30px;
+}
 /* header */
 header{
     z-index: 1000;
