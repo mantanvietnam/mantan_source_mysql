@@ -81,6 +81,15 @@ li{
     list-style: none;
 }
 
+
+/* thêm css */
+.home__event .news .top-text .logo i{
+    font-size: 20px;
+}
+
+.gr-team .sponsors{
+    padding-top: 30px;
+}
 /* header */
 header{
     z-index: 1000;
