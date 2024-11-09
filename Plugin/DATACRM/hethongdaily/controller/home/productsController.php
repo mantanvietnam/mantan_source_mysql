@@ -1107,7 +1107,7 @@ function addProductAgency($input)
                 }
 
 
-                addActivityHistory($user,$note,'updateStatusOrderAgency',$data->id);
+                addActivityHistory($user,$note,'addProductAgency',$data->id);
 
 
                  return $controller->redirect('/listProductAgency?mess=saveSuccess');
@@ -1185,7 +1185,7 @@ function deleteProductAgency($input){
                 $modelProduct->save($data);
 
                 $note = $user->type_tv.' '. $user->name.' xóa thông tin sản phẩm '.$data->title.' có id là:'.$data->id;
-                addActivityHistory($user,$note,'updateStatusOrderAgency',$data->id);
+                addActivityHistory($user,$note,'deleteProductAgency',$data->id);
 
                 return $controller->redirect('/listProductAgency?mess=deleteSuccess');
             }

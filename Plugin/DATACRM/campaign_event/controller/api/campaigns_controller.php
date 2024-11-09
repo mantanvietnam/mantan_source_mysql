@@ -15,9 +15,12 @@ function getListCampaignAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listCampaign');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 $conditions = array('id_member'=>$infoMember->id);
                 $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
@@ -77,9 +80,12 @@ function saveInfoCampaignAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'addCampaign');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 // lấy data edit
 		        if(!empty($dataSend['id'])){
 		            $data = $modelCampaigns->get( (int) $dataSend['id']);
@@ -154,6 +160,14 @@ function saveInfoCampaignAPI($input)
 	                
 	                $modelCampaigns->save($data);
 
+                    if(!empty($_GET['id'])){
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin chiến dịch sự kiện '.$data->name.' có id là:'.$data->id;
+                    }else{
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' thêm thông tin chiến dịch sự kiện '.$data->name.' có id là:'.$data->id;
+                    }
+
+                    addActivityHistory($infoMember,$note,'addCampaign',$data->id);
+
 	                $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_campaign'=>$data->id);
 	            }else{
 	                $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
@@ -187,13 +201,15 @@ function deleteCampaignAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'deleteCampaign');
 
             if(!empty($infoMember)){
                 if(!empty($dataSend['id'])){
 		            $data = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id'], 'id_member'=>$infoMember->id])->first();
 		            
 		            if($data){
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' xóa thông tin chiến dịch sự kiện '.$data->name.' có id là:'.$data->id;
+                        addActivityHistory($infoMember,$note,'deleteAffiliaterAgency',$data->id);
 		                $modelCampaignCustomers->deleteAll(['id_campaign'=>$data->id, 'id_member'=>$infoMember->id]);
 		                $modelCampaigns->delete($data);
 

@@ -17,9 +17,12 @@ function getProductWarehouseAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'warehouseProductAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
             	$conditions = array('id_member'=>$infoMember->id);
 		        $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
@@ -72,9 +75,12 @@ function getHistoryWarehouseProductAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'historyWarehouseProductAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
             	$conditions = array('id_member'=>$infoMember->id);
 		        $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
@@ -134,9 +140,12 @@ function createRequestImportProductAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'warehouseProductAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 	            if(!empty($dataSend['data_order'])){
 	            	$dataSend['data_order'] = json_decode($dataSend['data_order'], true);
 
@@ -279,13 +288,16 @@ function editProductWarehouseAPI($input)
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['idWarehouseProduct']) && isset($dataSend['number']) && !empty($dataSend['note'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'editProductWarehouse');
 
             if(!empty($infoMember)){
+                 if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 
-        $modelProducts = $controller->loadModel('Products');
-        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
-        $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+                $modelProducts = $controller->loadModel('Products');
+                $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+                $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
 
                 $checkData = $modelWarehouseProducts->find()->where(['id'=>(int) $dataSend['idWarehouseProduct'], 'id_member'=>$infoMember->id])->first();
 
@@ -316,6 +328,10 @@ function editProductWarehouseAPI($input)
                     $saveWarehouseHistories->id_order_member = 0;
 
                     $modelWarehouseHistories->save($saveWarehouseHistories);
+
+                    $note = $infoMember->type_tv.' '. $infoMember->name.' Chỉnh sửa số lượng sản phẩn '.@$product->title.' trong kho có id là:'.$saveWarehouseHistories->id;
+
+                    addActivityHistory($infoMember,$note,'editProductWarehouse',$saveWarehouseHistories->id);
 
                     $return = array('code'=>1, 'mess'=>'bạn sửa số lượng hàng trong kho thành công');
                 }else{

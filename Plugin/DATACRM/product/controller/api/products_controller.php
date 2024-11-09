@@ -445,10 +445,12 @@ function addProductAPI($input)
     if ($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'addProductAgency');
 
             if(!empty($infoMember)){
-
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
                 if($infoMember->id_father==0){
 
                     if(!empty($dataSend['id'])){
@@ -551,23 +553,32 @@ function addProductAPI($input)
                                 $modelCategorieProduct->save($category);
                             }
                         }
-                            $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công ', 'data' =>$data );
+
+                        if(!empty($dataSend['id'])){
+                            $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin sản phẩm '.$data->title.' có id là:'.$data->id;
                         }else{
-                             $return = array('code'=>4, 'mess'=>'Bạn chưa nhập tên sản phẩm');
+                              $note = $infoMember->type_tv.' '. $infoMember->name.' thêm thông tin sản phẩm '.$data->title.' có id là:'.$data->id;
                         }
+
+
+                        addActivityHistory($infoMember,$note,'addProductAgency',$data->id);
+
+                        $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công ', 'data' =>$data );
                     }else{
-                        $return = array('code'=>5, 'mess'=>'Tài khoản của bạn không phải boss');
+                        $return = array('code'=>4, 'mess'=>'Bạn chưa nhập tên sản phẩm');
                     }
                 }else{
-
-                     $return = array('code'=>3, 'mess'=>'Sai mã token');
+                    $return = array('code'=>5, 'mess'=>'Tài khoản của bạn không phải boss');
                 }
             }else{
-                  $return = array('code'=>3, 'mess'=>'chưa nhập token');
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
             }
         }else{
-            $return  = array('code'=>2,  'mess'=>'Truyền dữ liệu kiểu POST');
+              $return = array('code'=>3, 'mess'=>'chưa nhập token');
         }
+    }else{
+        $return  = array('code'=>2,  'mess'=>'Truyền dữ liệu kiểu POST');
+    }
 
     return $return;
 
@@ -588,9 +599,12 @@ function saveUnitConversionProductAPI($input){
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'addProductAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 
                 if($infoMember->id_father==0){
                     $product = $modelProduct->find()->where(['id'=> (int) $dataSend['id_product']])->first();
@@ -648,17 +662,22 @@ function deleteUnitConversionProductAPI($input){
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['token']) && !empty($dataSend['id']) && !empty($dataSend['id_product'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'deleteProductAgency');
 
             if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
 
                 if($infoMember->id_father==0){
                     $product = $modelProduct->find()->where(['id'=>(int) $dataSend['id_product']])->first();
                     if(!empty($product)){
                          $save = $modelUnitConversion->find()->where(['id'=>(int) $dataSend['id'],'id_product'=>$product->id])->first();
                         if(!empty($save)){
-                               $modelUnitConversion->delete($save); 
-                               $return = array('code'=>0, 'mess'=>'Xóa thành công');
+                                $modelUnitConversion->delete($save); 
+                                $note = $infoMember->type_tv.' '. $infoMember->name.' xóa thông tin sản phẩm '.$data->title.' có id là:'.$data->id;
+                                addActivityHistory($infoMember,$note,'deleteProductAgency',$data->id);
+                                $return = array('code'=>0, 'mess'=>'Xóa thành công');
 
                         }else{
                                 $return = array('code'=>4, 'mess'=>'Id không tồn tại');
