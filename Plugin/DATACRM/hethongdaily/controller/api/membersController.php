@@ -220,6 +220,7 @@ function getInfoMemberMyAPI($input)
 	global $controller;
 	global $session;
 	global $modelCategories;
+	global $urlHomes;
 
 	$modelMember = $controller->loadModel('Members');
 
@@ -248,6 +249,8 @@ function getInfoMemberMyAPI($input)
 			$checkPhone->name_position = @$position->name;
 			$checkPhone->ListLink = @$dataLink;
 			$checkPhone->discount_position = @$position->description;
+			$checkPhone->Link = $urlHomes.'info/?id='.@$checkPhone->id;
+			$checkPhone->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$urlHomes.'info/?id='.@$checkPhone->id;
 
 			unset($checkPhone->password);
 			

@@ -27,7 +27,6 @@ function addOrderCustomer($input)
         if($isRequestPost){
             $dataSend = $input['request']->getData();
 
-
             if(!empty($dataSend['idHangHoa'])){
                 if(!empty($dataSend['id_customer'])){
                     $customer_buy = $modelCustomers->find()->where(array('id'=>(int) $dataSend['id_customer']))->first();
@@ -59,7 +58,11 @@ function addOrderCustomer($input)
                 $save->note_user = $dataSend['note'];
                 $save->note_admin = '';
                 $save->status = 'new';
-                $save->create_at = time();
+                $time_now = explode(' ', $dataSend['time']);
+                $time = explode(':', $time_now[1]);
+                $date = explode('/', $time_now[0]);
+                $save->create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+              //  $save->create_at = time();
                 $save->money = (int) $dataSend['total'];
                 $save->id_aff = (int) @$dataSend['id_aff'];
                 $save->total = (int) $dataSend['totalPays'];

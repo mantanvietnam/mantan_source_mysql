@@ -70,6 +70,7 @@ function createOrderCustomerAPI($input)
 	                    $saveDetail->id_order = $save->id;
 	                    $saveDetail->quantity = $value['quantity'];
 	                    $saveDetail->price = $value['price'];
+	                    $saveDetail->discount = $value['discount'];
 	                    $saveDetail->id_unit = (!empty($value['id_unit']))?(int)$value['id_unit']:0;
 
 	                    $modelOrderDetails->save($saveDetail);

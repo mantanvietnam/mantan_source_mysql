@@ -83,7 +83,7 @@
     padding: 7px;
     }
     .datetimepicker{
-        border: none;
+        /*border: none;*/
     }
     .info-order{
         text-align: center;

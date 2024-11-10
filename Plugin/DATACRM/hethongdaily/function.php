@@ -1408,6 +1408,7 @@ function getListPermission()
                                     array('name'=>'Danh sách quà tặng khách hàng','permission'=>'listCustomerGiftAgency'),
                                     array('name'=>'Thêm và sửa quà tặng khách hàng','permission'=>'addCustomerGiftAgency'),
                                     array('name'=>'Xóa quà tặng khách hàng','permission'=>'deleteCustomerGiftAgency'),
+                                    array('name'=>'lịch sử đổi quà tặng khách hàng','permission'=>'listHistorieCustomerGiftAgency'),
                                     array('name'=>'Danh sách giao dịch hoa hồng đại lý gới thiệu','permission'=>'listTransactionAgencyHistorie'),
                                     array('name'=>'thanh toán giao dịch hoa hồng đại lý gới thiệu','permission'=>'payTransactionAgency'),
                             ),
@@ -1579,6 +1580,12 @@ function getListPermission()
                     );
     $permission[] = array( 'name'=>'Quản lý tăng tương tác',
                     'sub'=>array(   array('name'=>'Lịch sử tăng tương tác','permission'=>'historyUpLike'),
+                            )
+                    );
+    $permission[] = array( 'name'=>'Quản lý Xếp hạng thành viên',
+                    'sub'=>array(   array('name'=>'Danh sách xếp hạng thành viên','permission'=>'listRatingPoint'),
+                                    array('name'=>'Danh sách xếp hạng thành viên','permission'=>'addRatingPoint'),
+                                    array('name'=>'Danh sách xếp hạng thành viên','permission'=>'deleteRatingPoint'),
                             )
                     );
     

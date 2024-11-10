@@ -19,7 +19,7 @@ function listTransactionHistories($input)
 
         $user = $modelMembers->get($user->id);
 
-        $conditions = array('id_member'=>$session->read('infoUser')->id);
+        $conditions = array('id_member'=>$user->id);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -97,17 +97,22 @@ function addMoney($input)
     global $isRequestPost;
 
         $user = checklogin('addMoney');   
+    $modelMembers = $controller->loadModel('Members');
     if(!empty($user)){
         if(empty($user->grant_permission) && !empty($user->id_father)){
             return $controller->redirect('/');
         }
         $metaTitleMantan = 'Nạp tiền tài khoản';
 
+        if(!empty($user->type=='staff')){
+            $user->phone = $modelMembers->find()->where(['id'=>$user->id_member])->first()->phone;
+        }
+
         if(!empty($_GET['money'])){
             $number_bank = '0816560000';
             $name_bank = 'Tran Ngoc Manh';
             $code_bank = 'VPB';
-            $content = 'ICHAM '.$session->read('infoUser')->phone.' '.str_replace('.', ' ', $_SERVER['SERVER_NAME']);
+            $content = 'ICHAM '.$user->phone.' '.str_replace('.', ' ', $_SERVER['SERVER_NAME']);
 
             $linkQR = 'https://img.vietqr.io/image/'.$code_bank.'-'.$number_bank.'-compact2.png?amount='.(int) $_GET['money'].'&addInfo='.$content.'&accountName='.$name_bank;
 

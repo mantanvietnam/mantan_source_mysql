@@ -247,7 +247,10 @@ function addOrderAgency($input)
                     }
                     $save->note_buy = $dataSend['note']; // ghi chú người mua  
                     $save->status = 'new';
-                    $save->create_at = time();
+                    $time_now = explode(' ', $dataSend['time']);
+                    $time = explode(':', $time_now[1]);
+                    $date = explode('/', $time_now[0]);
+                    $save->create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
                     $save->money = (int) $dataSend['total'];
                     $save->total = (int) $dataSend['totalPays'];
                     $save->status_pay = 'wait';
