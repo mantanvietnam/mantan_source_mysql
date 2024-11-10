@@ -123,7 +123,7 @@
                 <?php
                   if(!empty($listPrice['data']['facebook']['buff']['likepage'])){
                     foreach ($listPrice['data']['facebook']['buff']['likepage'] as $key => $value) {
-                      $price = ceil($value['rate'])*3;
+                      $price = ceil($value['rate'])*$multiplier;
                       echo '<option data-price="'.$price.'" value="'.$key.'" title="'.$value['detail'].'">Kênh '.$key.' giá '.$price.'đ/like</option>';
                     }
                   }

@@ -113,6 +113,7 @@ function upLikePageFacebook($input)
     global $metaTitleMantan;
     global $session;
     global $isRequestPost;
+    global $modelOptions;
 
     $user = checklogin('upLikePageFacebook');   
     if(!empty($user)){
@@ -125,6 +126,22 @@ function upLikePageFacebook($input)
         $modelMembers = $controller->loadModel('Members');
         $modelUplikeHistories = $controller->loadModel('UplikeHistories');
         $modelTransactionHistories = $controller->loadModel('TransactionHistories');
+
+        // kiểm tra cái đặt token
+        $multiplier = 1;
+        $conditions = array('key_word' => 'settingUpLikeAdmin');
+        $data = $modelOptions->find()->where($conditions)->first();
+
+        $data_value = array();
+        if(!empty($data->value)){
+            $data_value = json_decode($data->value, true);
+        }
+
+        if(!empty($data_value['multiplier'])){
+            $multiplier = $data_value['multiplier'];
+        }else{
+            return $controller->redirect('/chooseUpLike/?error=tokenEmpty');
+        }
 
         $user = $modelMembers->get($user->id);
         $type_api = 'facebook.buff.likepage';
@@ -288,8 +305,7 @@ function upLikePageFacebook($input)
         setVariable('listPrice', $listPrice);
         setVariable('mess', $mess);
         setVariable('member', $user);
-
-
+        setVariable('multiplier', $multiplier);
     }else{
         return $controller->redirect('/login');
     }

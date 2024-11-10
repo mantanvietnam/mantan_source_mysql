@@ -21,7 +21,12 @@
                 
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-phone">Token Ông Trùm</label>
-                  <input type="text" class="form-control phone-mask" name="tokenOngTrum" id="tokenOngTrum" value="<?php echo @$data['tokenOngTrum'];?>" />
+                  <input required type="text" class="form-control phone-mask" name="tokenOngTrum" id="tokenOngTrum" value="<?php echo @$data['tokenOngTrum'];?>" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Hệ số nhân giá bán</label>
+                  <input required type="number" class="form-control phone-mask" name="multiplier" id="multiplier" value="<?php echo @$data['multiplier'];?>" />
                 </div>
               </div>
 

@@ -15,7 +15,9 @@ function settingUpLikeAdmin($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
 
-        $value = array( 'tokenOngTrum' => $dataSend['tokenOngTrum'],
+        $value = array( 
+                        'tokenOngTrum' => $dataSend['tokenOngTrum'],
+                        'multiplier' => (int) $dataSend['multiplier'],
                     );
 
         $data->key_word = 'settingUpLikeAdmin';
