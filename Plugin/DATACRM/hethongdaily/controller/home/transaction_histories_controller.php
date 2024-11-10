@@ -15,6 +15,9 @@ function listTransactionHistories($input)
         $metaTitleMantan = 'Lịch sử giao dịch';
 
         $modelTransactionHistories = $controller->loadModel('TransactionHistories');
+        $modelMembers = $controller->loadModel('Members');
+
+        $user = $modelMembers->get($user->id);
 
         $conditions = array('id_member'=>$session->read('infoUser')->id);
         $limit = 20;
@@ -78,6 +81,7 @@ function listTransactionHistories($input)
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
+        setVariable('member', $user);
     }else{
         return $controller->redirect('/login');
     }

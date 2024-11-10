@@ -65,3 +65,52 @@ function getUIDFacebook($linkFanpage='')
 
     return $uid;
 }
+
+function sendRequestBuffOngTrum($type_api='', $uid=0, $chanel=0, $number_up=0, $url_page='', $note='')
+{
+    $token = getTokenOngTrum();
+    $return = [];
+
+    if(!empty($uid) && !empty($chanel) && !empty($number_up) && !empty($token) && !empty($url_page) && !empty($type_api)){
+        $url = 'https://ongtrum.pro/api/v2/server.aspx';
+
+        $dataSend['api_token'] = $token;
+        $dataSend['url'] = $url_page;
+        $dataSend['uid'] = $uid; // id page
+        $dataSend['channel'] = $chanel; // id kênh
+        $dataSend['type'] = 1;
+        $dataSend['max'] = (int) $number_up; // số lượng
+        //$dataSend['rate'] = 17;
+        $dataSend['type_method'] = 'add';
+        $dataSend['type_api'] = $type_api;
+        $dataSend['speed'] = 0;
+        $dataSend['note'] = $note;
+
+        $return = sendDataConnectMantan($url, $dataSend);
+
+        $return = json_decode($return, true);
+    }
+
+    return $return;
+}
+
+function checkRequestOngTrum($id_request_buff=0, $type_api='')
+{
+    $token = getTokenOngTrum();
+    $return = [];
+
+    if(!empty($id_request_buff) && !empty($type_api)){
+        $url = 'https://ongtrum.pro/api/v2/server.aspx';
+
+        $dataSend['api_token'] = $token;
+        $dataSend['id'] = $id_request_buff;
+        $dataSend['type_method'] = 'view';
+        $dataSend['type_api'] = $type_api;
+
+        $return = sendDataConnectMantan($url, $dataSend);
+
+        $return = json_decode($return, true);
+    }
+
+    return $return;
+}

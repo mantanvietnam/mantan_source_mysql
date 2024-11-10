@@ -112,6 +112,7 @@ function upLikePageFacebook($input)
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $isRequestPost;
 
     $user = checklogin('upLikePageFacebook');   
     if(!empty($user)){
@@ -119,9 +120,71 @@ function upLikePageFacebook($input)
             return $controller->redirect('/statisticAgency');
         }
         $metaTitleMantan = 'Tăng like Fanpage Facebook';
+        $mess ='';
 
         $modelMembers = $controller->loadModel('Members');
         $modelUplikeHistories = $controller->loadModel('UplikeHistories');
+        $modelTransactionHistories = $controller->loadModel('TransactionHistories');
+
+        $user = $modelMembers->get($user->id);
+        $type_api = 'facebook.buff.likepage';
+
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['id_page']) && !empty($dataSend['chanel']) && !empty($dataSend['number_up']) && !empty($dataSend['url_page'])){
+                if($user->coin >= $dataSend['total_pay']){
+                    // gửi yêu cầu sang hệ thống tăng like
+                    $sendOngTrum = sendRequestBuffOngTrum($type_api, $dataSend['id_page'], $dataSend['chanel'], $dataSend['number_up'], $dataSend['url_page'], $user->id);
+
+                    if($sendOngTrum['code']==200){
+                        $mess= '<p class="text-success">Tạo yêu cầu thành công</p>';
+
+                        // trừ tiền tài khoản
+                        $user->coin -= $dataSend['total_pay'];
+                        $modelMembers->save($user);
+
+                        // tạo lịch sử giao dịch
+                        $histories = $modelTransactionHistories->newEmptyEntity();
+
+                        $histories->id_member = $user->id;
+                        $histories->id_system = $user->id_system;
+                        $histories->coin = $dataSend['total_pay'];
+                        $histories->type = 'minus';
+                        $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' like cho fanpage Facebook (ID Page '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
+                        $histories->create_at = time();
+                        
+                        $modelTransactionHistories->save($histories);
+
+                        // lưu yêu cầu
+                        $saveRequest = $modelUplikeHistories->newEmptyEntity();
+
+                        $saveRequest->id_member = $user->id;
+                        $saveRequest->id_system = $user->id_system;
+                        $saveRequest->id_page = $dataSend['id_page'];
+                        $saveRequest->type_page = 'likePageFacebook';
+                        $saveRequest->money = $dataSend['total_pay'];
+                        $saveRequest->number_up = $dataSend['number_up'];
+                        $saveRequest->chanel = $dataSend['chanel'];
+                        $saveRequest->url_page = $dataSend['url_page'];
+                        $saveRequest->price = $dataSend['price'];
+                        $saveRequest->create_at = time();
+                        $saveRequest->status = 'Running';
+                        $saveRequest->run = 0;
+                        $saveRequest->id_request_buff = $sendOngTrum['id'];
+                        $saveRequest->note_buff = json_decode($sendOngTrum);
+
+                        $modelUplikeHistories->save($saveRequest);
+                    }else{
+                        $mess= '<p class="text-danger">'.$sendOngTrum['message'].'</p>';
+                    }
+                }else{
+                    $mess= '<p class="text-danger">Số dư tài khoản của bạn không đủ, vui lòng <a href="/listTransactionHistories">NẠP TIỀN</a></p>';
+                }
+            }else{
+                $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+            }
+        }
 
 
         $conditions = array('id_member'=>$user->id, 'type_page'=>'likePageFacebook');
@@ -152,7 +215,23 @@ function upLikePageFacebook($input)
         
         $listData = $modelUplikeHistories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                if($value->status == 'Running'){
+                    $checkStatus = checkRequestOngTrum($value->id_request_buff, $type_api);
 
+                    if($checkStatus['code'] == 200){
+                        if($checkStatus['data']['status'] != 'Running'){
+                            $listData[$key]->status = $checkStatus['data']['status'];
+                        }
+
+                        $listData[$key]->run = (int) $checkStatus['data']['run'];
+
+                        $modelUplikeHistories->save($listData[$key]);
+                    }
+                }
+            }
+        }
       
         // phân trang
         $totalData = $modelUplikeHistories->find()->where($conditions)->all()->toList();
@@ -187,7 +266,7 @@ function upLikePageFacebook($input)
             $urlPage = $urlPage . '?page=';
         }
 
-        $mess ='';
+        
         if(@$_GET['mess']=='saveSuccess'){
             $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
         }elseif(@$_GET['mess']=='deleteSuccess'){
@@ -207,6 +286,8 @@ function upLikePageFacebook($input)
         
         setVariable('listData', $listData);
         setVariable('listPrice', $listPrice);
+        setVariable('mess', $mess);
+        setVariable('member', $user);
 
 
     }else{

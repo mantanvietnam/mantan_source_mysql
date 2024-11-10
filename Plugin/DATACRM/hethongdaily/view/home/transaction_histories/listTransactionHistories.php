@@ -7,7 +7,7 @@
     Lịch sử giao dịch
   </h4>
 
-  <p><a href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#basicModalAddMoney" class="btn btn-primary"><i class='bx bx-plus'></i> Nạp tiền tài khoản</a></p>
+  <p><a href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#basicModalAddMoney" class="btn btn-primary"><i class='bx bx-plus'></i> Nạp tiền tài khoản (số dư: <?php echo number_format($member->coin);?>đ)</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
