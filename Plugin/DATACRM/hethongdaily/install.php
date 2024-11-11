@@ -472,10 +472,19 @@ $sqlFixDatabase .= "ALTER TABLE `customers` CHANGE `phone` `phone` VARCHAR(15) C
 $sqlFixDatabase .= "ALTER TABLE `products` CHANGE `title` `title` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
 
 
-$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"affiliate\",\"document\",\"cashBook\",\"affiliater\"]' WHERE `options`.`key_word` = 'crm_module'; ";
-
 //$sqlFixDatabase .= "UPDATE `options` SET `value` = '{\"userAPI\":\"admin\",\"passAPI\":\"Mmtc123!\",\"maxExport\":3,\"numberExport\":0,\"price\":0,\"note_pay\":\"\",\"number_bank\":\"\",\"account_bank\":\"\",\"key_bank\":\"\",\"idBot\":\"\",\"tokenBot\":\"\",\"idBlockConfirm\":\"\",\"idBlockDownload\":\"\"}' WHERE `options`.`key_word` = 'settingMMTCAPI'; ";
 */
+
+$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"document\",\"cashBook\",\"affiliater\",\"staff\",\"jobManagement\"]' WHERE `options`.`key_word` = 'crm_module'; ";
+
+$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\"]' WHERE `options`.`key_word` = 'plugins_site'; ";
+
+$sqlFixDatabase .= "UPDATE `options` SET `value` = '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\",\"abc\"]' WHERE `options`.`key_word` = 'plugin_installed'; ";
+
+$sqlFixDatabase .= "INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES (NULL, 'settingUpLikeAdmin', '{\"tokenOngTrum\":\"Rt8B7GDHfcauGgTZKwkjfVItJm6kNllHC7sy6UuBCbQ9mpwP03W4rkrvE2lWIF4YimUXNJ4KcxXrah7V\",\"multiplier\":3}', NULL); ";
+
+$sqlFixDatabase .= "INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES (NULL, 'settingPayos', '{\"client_id\":\"977e9108-ffcb-453e-beaa-6c4bb5900f07\",\"api_key\":\"54ca742d-c2f5-44ef-8893-b56d73d4c8d6\",\"checksum_key\":\"2a7355c19147b1537d2d8b9f179b43a5969c571b0cf36ed12ada6254ec4321bb\",\"code_bank\":\"MB\"}', NULL); ";
+
 // update
 $sqlUpdateDatabase['members']['name'] = "ALTER TABLE `members` ADD `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
 $sqlUpdateDatabase['members']['avatar'] = "ALTER TABLE `members` ADD `avatar` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;";
