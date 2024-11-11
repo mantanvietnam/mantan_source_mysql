@@ -4,6 +4,44 @@
     global $settingThemes;
 ?>
         <main>
+            <section class="bgr-img">
+                <section class="hero-section text-white">
+                    <div class="container">
+                        <h1 class="display-4"><?= @$settingThemes['titleheader'];?></h1>
+                        <p class="lead"><?= @$settingThemes['descriptionheader'];?></p>
+                    </div>
+                </section>
+                <section class="features-section py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-3 text-center mb-4">
+                                <div class="feature d-flex ">
+                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
+                                    <h5><?= @$settingThemes['titlecontent1'];?></h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 text-center mb-4">
+                                <div class="feature d-flex ">
+                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
+                                    <h5><?= @$settingThemes['titlecontent2'];?></h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 text-center mb-4">
+                                <div class="feature d-flex ">
+                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
+                                    <h5><?= @$settingThemes['titlecontent3'];?></h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 text-center mb-4">
+                                <div class="feature d-flex ">
+                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
+                                    <h5><?= @$settingThemes['titlecontent4'];?></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
             <section>
                 <div class="container">
                     <div class="client-member ">

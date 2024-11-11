@@ -7,7 +7,7 @@
     <?php mantan_header();
      global $settingThemes;
      ?>
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/toptop.css?index=12343">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/toptop.css?index=1234358">
     <!-- boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- icon -->
@@ -64,40 +64,5 @@
                     </div>
                 </div>
             </nav>
-            <section class="hero-section text-white">
-                <div class="container">
-                    <h1 class="display-4"><?= @$settingThemes['titleheader'];?></h1>
-                    <p class="lead"><?= @$settingThemes['descriptionheader'];?></p>
-                </div>
-            </section>
-            <section class="features-section py-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3 text-center mb-4">
-                            <div class="feature d-flex ">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
-                                <h5><?= @$settingThemes['titlecontent1'];?></h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 text-center mb-4">
-                            <div class="feature d-flex ">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
-                                <h5><?= @$settingThemes['titlecontent2'];?></h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 text-center mb-4">
-                            <div class="feature d-flex ">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
-                                <h5><?= @$settingThemes['titlecontent3'];?></h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 text-center mb-4">
-                            <div class="feature d-flex ">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
-                                <h5><?= @$settingThemes['titlecontent4'];?></h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+         
         </header>
