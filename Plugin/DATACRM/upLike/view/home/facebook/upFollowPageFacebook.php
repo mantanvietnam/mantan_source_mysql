@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Tăng follow Facebook</h4>
+  <h4 class="fw-bold py-3 mb-4">Tăng theo dõi fanpage Facebook</h4>
   <p>
     <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#popupInfo"><i class='bx bx-plus'></i> Thêm mới</a>
     &nbsp;&nbsp;&nbsp;
@@ -9,7 +9,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Tăng follow Facebook</h5>
+    <h5 class="card-header">Tăng theo dõi fanpage Facebook</h5>
     <?php echo $mess;?>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -37,7 +37,7 @@
                     </tr>';
             }
           }else{
-            echo '<tr><td cplspan="10">Chưa có dữ liệu</td></tr>';
+            echo '<tr><td colspan="10" align="center">Chưa có dữ liệu</td></tr>';
           }
           ?>
         </tbody>
@@ -121,8 +121,8 @@
               <select name="chanel" id="chanel" class="form-select color-dropdown" required onchange="selectChanel();">
                 <option data-price='' value="">Chọn kênh</option>
                 <?php
-                  if(!empty($listPrice['data']['facebook']['buff']['sub'])){
-                    foreach ($listPrice['data']['facebook']['buff']['sub'] as $key => $value) {
+                  if(!empty($listPrice['data']['facebook']['buff']['subpage'])){
+                    foreach ($listPrice['data']['facebook']['buff']['subpage'] as $key => $value) {
                       $price = ceil($value['rate'])*$multiplier;
                       echo '<option data-price="'.$price.'" value="'.$key.'" title="'.$value['detail'].'">Kênh '.$key.' giá '.$price.'đ/follow</option>';
                     }
@@ -133,7 +133,7 @@
 
             <div class="col-md-12">
               <label class="form-label">Số lượng</label>
-              <input type="number" value="" class="form-control" placeholder="" name="number_up" id="number_up" required onchange="tinhgia();">
+              <input type="number" min="100" value="" class="form-control" placeholder="" name="number_up" id="number_up" required onchange="tinhgia();">
             </div>
 
             <div class="col-md-12 text-danger" id="mess_pay"></div>

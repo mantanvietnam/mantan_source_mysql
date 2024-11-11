@@ -189,7 +189,7 @@ function upLikePageFacebook($input)
                         $saveRequest->status = 'Running';
                         $saveRequest->run = 0;
                         $saveRequest->id_request_buff = $sendOngTrum['id'];
-                        $saveRequest->note_buff = json_decode($sendOngTrum);
+                        $saveRequest->note_buff = json_encode($sendOngTrum);
 
                         $modelUplikeHistories->save($saveRequest);
                     }else{
@@ -356,55 +356,59 @@ function upViewLiveFacebook($input)
         if($isRequestPost){
             $dataSend = $input['request']->getData();
 
-            if(!empty($dataSend['id_page']) && !empty($dataSend['chanel']) && !empty($dataSend['number_up']) && !empty($dataSend['url_page'])){
-              
-                if($user->coin >=(int) $dataSend['total_pay']){
-                    // gửi yêu cầu sang hệ thống tăng like
-                    $sendOngTrum = sendRequestBuffOngTrum($type_api, $dataSend['id_page'], $dataSend['chanel'], $dataSend['number_up'], $dataSend['url_page'], $user->id);
+            if(!empty($dataSend['id_page']) && !empty($dataSend['chanel']) && !empty($dataSend['number_up']) && !empty($dataSend['url_page']) && !empty($dataSend['minute'])){
+                if($dataSend['minute']>=30){
+                    if($user->coin >=(int) $dataSend['total_pay']){
+                        // gửi yêu cầu sang hệ thống tăng like
+                        $sendOngTrum = sendRequestBuffOngTrum($type_api, $dataSend['id_page'], $dataSend['chanel'], $dataSend['number_up'], $dataSend['url_page'], $user->id, $dataSend['minute']);
 
-                    if($sendOngTrum['code']==200){
-                        $mess= '<p class="text-success">Tạo yêu cầu thành công</p>';
+                        if($sendOngTrum['code']==200){
+                            $mess= '<p class="text-success">Tạo yêu cầu thành công</p>';
 
-                        // trừ tiền tài khoản
-                        $user->coin -= $dataSend['total_pay'];
-                        $modelMembers->save($user);
+                            // trừ tiền tài khoản
+                            $user->coin -= $dataSend['total_pay'];
+                            $modelMembers->save($user);
 
-                        // tạo lịch sử giao dịch
-                        $histories = $modelTransactionHistories->newEmptyEntity();
+                            // tạo lịch sử giao dịch
+                            $histories = $modelTransactionHistories->newEmptyEntity();
 
-                        $histories->id_member = $user->id;
-                        $histories->id_system = $user->id_system;
-                        $histories->coin = $dataSend['total_pay'];
-                        $histories->type = 'minus';
-                        $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' like cho fanpage Facebook (ID Page '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
-                        $histories->create_at = time();
-                        
-                        $modelTransactionHistories->save($histories);
+                            $histories->id_member = $user->id;
+                            $histories->id_system = $user->id_system;
+                            $histories->coin = $dataSend['total_pay'];
+                            $histories->type = 'minus';
+                            $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' lượt xem trong '.number_format($dataSend['minute']).' phút cho livestream Facebook (ID live '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
+                            $histories->create_at = time();
+                            
+                            $modelTransactionHistories->save($histories);
 
-                        // lưu yêu cầu
-                        $saveRequest = $modelUplikeHistories->newEmptyEntity();
+                            // lưu yêu cầu
+                            $saveRequest = $modelUplikeHistories->newEmptyEntity();
 
-                        $saveRequest->id_member = $user->id;
-                        $saveRequest->id_system = $user->id_system;
-                        $saveRequest->id_page = $dataSend['id_page'];
-                        $saveRequest->type_page = $type_api;
-                        $saveRequest->money = $dataSend['total_pay'];
-                        $saveRequest->number_up = $dataSend['number_up'];
-                        $saveRequest->chanel = $dataSend['chanel'];
-                        $saveRequest->url_page = $dataSend['url_page'];
-                        $saveRequest->price = $dataSend['price'];
-                        $saveRequest->create_at = time();
-                        $saveRequest->status = 'Running';
-                        $saveRequest->run = 0;
-                        $saveRequest->id_request_buff = $sendOngTrum['id'];
-                        $saveRequest->note_buff = json_decode($sendOngTrum);
+                            $saveRequest->id_member = $user->id;
+                            $saveRequest->id_system = $user->id_system;
+                            $saveRequest->id_page = $dataSend['id_page'];
+                            $saveRequest->type_page = $type_api;
+                            $saveRequest->money = $dataSend['total_pay'];
+                            $saveRequest->number_up = $dataSend['number_up'];
+                            $saveRequest->chanel = $dataSend['chanel'];
+                            $saveRequest->url_page = $dataSend['url_page'];
+                            $saveRequest->price = $dataSend['price'];
+                            $saveRequest->create_at = time();
+                            $saveRequest->status = 'Running';
+                            $saveRequest->run = 0;
+                            $saveRequest->id_request_buff = $sendOngTrum['id'];
+                            $saveRequest->note_buff = json_encode($sendOngTrum);
+                            $saveRequest->minute = (int) $dataSend['minute'];
 
-                        $modelUplikeHistories->save($saveRequest);
+                            $modelUplikeHistories->save($saveRequest);
+                        }else{
+                            $mess= '<p class="text-danger">'.$sendOngTrum['message'].'</p>';
+                        }
                     }else{
-                        $mess= '<p class="text-danger">'.$sendOngTrum['message'].'</p>';
+                        $mess= '<p class="text-danger">Số dư tài khoản của bạn không đủ, vui lòng <a href="/listTransactionHistories">NẠP TIỀN</a></p>';
                     }
                 }else{
-                    $mess= '<p class="text-danger">Số dư tài khoản của bạn không đủ, vui lòng <a href="/listTransactionHistories">NẠP TIỀN</a></p>';
+                    $mess= '<p class="text-danger">Thời gian tối thiểu xem video là 30 phút</p>';
                 }
             }else{
                 $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
@@ -528,13 +532,13 @@ function upFollowPageFacebook($input)
     global $session;
     global $isRequestPost;
     global $modelOptions;
-
-    $user = checklogin('upViewLiveFacebook');   
+    
+    $user = checklogin('upFollowPageFacebook');   
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/statisticAgency');
         }
-        $metaTitleMantan = 'Tăng mắt live Facebook';
+        $metaTitleMantan = 'Tăng theo dõi fanpage Facebook';
         $mess ='';
 
         $modelMembers = $controller->loadModel('Members');
@@ -558,7 +562,7 @@ function upFollowPageFacebook($input)
         }
 
         $user = $modelMembers->get($user->id);
-        $type_api = 'facebook.buff.sub';
+        $type_api = 'facebook.buff.subpage';
 
         if($isRequestPost){
             $dataSend = $input['request']->getData();
@@ -583,7 +587,7 @@ function upFollowPageFacebook($input)
                         $histories->id_system = $user->id_system;
                         $histories->coin = $dataSend['total_pay'];
                         $histories->type = 'minus';
-                        $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' like cho fanpage Facebook (ID Page '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
+                        $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' lượt theo dõi cho fanpage Facebook (ID Page '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
                         $histories->create_at = time();
                         
                         $modelTransactionHistories->save($histories);
@@ -604,7 +608,7 @@ function upFollowPageFacebook($input)
                         $saveRequest->status = 'Running';
                         $saveRequest->run = 0;
                         $saveRequest->id_request_buff = $sendOngTrum['id'];
-                        $saveRequest->note_buff = json_decode($sendOngTrum);
+                        $saveRequest->note_buff = json_encode($sendOngTrum);
 
                         $modelUplikeHistories->save($saveRequest);
                     }else{

@@ -37,7 +37,7 @@
                     </tr>';
             }
           }else{
-            echo '<tr><td cplspan="10">Chưa có dữ liệu</td></tr>';
+            echo '<tr><td colspan="10" align="center">Chưa có dữ liệu</td></tr>';
           }
           ?>
         </tbody>

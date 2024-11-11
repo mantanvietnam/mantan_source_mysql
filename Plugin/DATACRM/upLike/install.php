@@ -25,6 +25,7 @@ $sqlInstallDatabase .= "CREATE TABLE `uplike_histories` (
   `id_request_buff` INT NULL DEFAULT '0',
   `note_buff` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL,
   `run` INT NOT NULL DEFAULT '0',
+  `minute` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 
@@ -45,4 +46,5 @@ $sqlUpdateDatabase['uplike_histories']['price'] = "ALTER TABLE `uplike_histories
 $sqlUpdateDatabase['uplike_histories']['id_request_buff'] = "ALTER TABLE `uplike_histories` ADD `id_request_buff` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['uplike_histories']['note_buff'] = "ALTER TABLE `uplike_histories` ADD `note_buff` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;";
 $sqlUpdateDatabase['uplike_histories']['run'] = "ALTER TABLE `uplike_histories` ADD `run` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['uplike_histories']['minute'] = "ALTER TABLE `uplike_histories` ADD `minute` INT NOT NULL DEFAULT '0';";
 

@@ -19,6 +19,7 @@
             <th>ID trang</th>
             <th>Hoàn thành</th>
             <th>Yêu cầu</th>
+            <th>Thời gian</th>
             <th>Số tiền</th>
             <th>Trạng thái</th>
           </tr>
@@ -32,12 +33,13 @@
                       <td><a href="'.$value->url_page.'" target="_blank">'.$value->id_page.'</a></td>
                       <td>'.number_format($value->run).'</td>
                       <td>'.number_format($value->number_up).'</td>
+                      <td>'.number_format($value->minute).' phút</td>
                       <td>'.number_format($value->money).'đ</td>
                       <td>'.$value->status.'</td>
                     </tr>';
             }
           }else{
-            echo '<tr><td cplspan="10">Chưa có dữ liệu</td></tr>';
+            echo '<tr><td colspan="10" align="center">Chưa có dữ liệu</td></tr>';
           }
           ?>
         </tbody>
@@ -124,7 +126,7 @@
                   if(!empty($listPrice['data']['facebook']['buff']['live'])){
                     foreach ($listPrice['data']['facebook']['buff']['live'] as $key => $value) {
                       $price = ceil($value['rate'])*$multiplier;
-                      echo '<option data-price="'.$price.'" value="'.$key.'" title="'.$value['detail'].'">Kênh '.$key.' giá '.$price.'đ/view</option>';
+                      echo '<option data-price="'.$price.'" value="'.$key.'" title="'.$value['detail'].'">Kênh '.$key.' giá '.$price.'đ/lượt xem/phút</option>';
                     }
                   }
                 ?>
@@ -133,7 +135,12 @@
 
             <div class="col-md-12">
               <label class="form-label">Số lượng</label>
-              <input type="number" value="" class="form-control" placeholder="" name="number_up" id="number_up" required onchange="tinhgia();">
+              <input type="number" min="50" value="" class="form-control" placeholder="" name="number_up" id="number_up" required onchange="tinhgia();">
+            </div>
+
+            <div class="col-md-12">
+              <label class="form-label">Số phút</label>
+              <input type="number" min="30" value="" class="form-control" placeholder="" name="minute" id="minute" required onchange="tinhgia();">
             </div>
 
             <div class="col-md-12 text-danger" id="mess_pay"></div>
@@ -160,7 +167,7 @@
       $.ajax({
         method: "POST",
         url: "/apis/getUidAPI",
-        data: { uid: uid }
+        data: { uid: uid, type: 'post_id' }
       })
         .done(function( msg ) {
           $('#id_page').val(msg.data.uid);
@@ -176,11 +183,13 @@
     var chanel = $('#chanel').val();
     var number_up = $('#number_up').val();
     var price = $('#price').val();
+    var minute = $('#minute').val();
+
     var total_pay = 0;
     var mess_pay = '';
 
-    if(price!='' && number_up!=''){
-      total_pay = parseInt(price) * parseInt(number_up);
+    if(price!='' && number_up!='' && minute!=''){
+      total_pay = parseInt(price) * parseInt(number_up) * parseInt(minute);
       mess_pay = 'Tổng số tiền cần thanh toán là <b>'+total_pay.toLocaleString('en-US')+'đ</b>';
 
       if(total_pay <= coin){

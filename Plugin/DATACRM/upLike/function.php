@@ -46,7 +46,7 @@ function getListPriceOngTrum()
     return $listPrice;
 }
 
-function getUIDFacebook($linkFanpage='')
+function getUIDFacebook($linkFanpage='', $type='uid')
 {
     $token = getTokenOngTrum();
     $uid = '';
@@ -55,7 +55,7 @@ function getUIDFacebook($linkFanpage='')
         $url = 'https://ongtrum.pro/api/getuid';
         
         $dataSend['api_token'] = $token;
-        $dataSend['type'] = 'uid';
+        $dataSend['type'] = $type;
         $dataSend['uid'] = $linkFanpage;
 
         $uid = sendDataConnectMantan($url, $dataSend);
@@ -66,7 +66,7 @@ function getUIDFacebook($linkFanpage='')
     return $uid;
 }
 
-function sendRequestBuffOngTrum($type_api='', $uid=0, $chanel=0, $number_up=0, $url_page='', $note='')
+function sendRequestBuffOngTrum($type_api='', $uid=0, $chanel=0, $number_up=0, $url_page='', $note='', $minute=0)
 {
     $token = getTokenOngTrum();
     $return = [];
@@ -85,6 +85,7 @@ function sendRequestBuffOngTrum($type_api='', $uid=0, $chanel=0, $number_up=0, $
         $dataSend['type_api'] = $type_api;
         $dataSend['speed'] = 0;
         $dataSend['note'] = $note;
+        $dataSend['minute'] = $minute;
 
         $return = sendDataConnectMantan($url, $dataSend);
 
