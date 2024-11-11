@@ -100,6 +100,53 @@ function registerUserApi($input): array
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
+function sendEmailCodeApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        $conditions = array();
+        if (isset($dataSend['phone'])) {
+            $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
+            $conditions['phone'] = str_replace('+84', '0', $dataSend['phone']);
+        }elseif(!empty($dataSend['token'])){
+            $conditions['token'] = $dataSend['token'];
+        }else{
+             return apiResponse(1, 'thiếu dữ liệu');
+        }
+
+
+            $user = $modelUser->find()->where([
+                'phone' => $dataSend['phone'],
+            ])->first();
+
+            if (!$user) {
+                return apiResponse(3, 'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
+            }
+
+            if (!$user->email) {
+                return apiResponse(3, 'Tài khoản chưa có thông tin email');
+            }
+
+            $code = rand(100000, 999999);
+            $user->reset_password_code = $code;
+            $modelUser->save($user);
+            sendEmailCodeForgotPassword($user->email, $user->full_name, $code);
+
+            return apiResponse(0, 'Tạo mã OTP thành công');
+        
+
+        return apiResponse(2, 'Chưa nhập số điện thoại');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+
 function confirmotpcodeApi($input): array
 {
     global $controller;

@@ -62,7 +62,7 @@
   <div class="card row">
     <div class="row">
       <div class="col-md-6">
-        <h5 class="card-header">Giao dịch Thanh toán - <b class="text-danger"><?php echo number_format($totalData);?></b> giao dịch</h5>
+        <h5 class="card-header">Giao dịch thanh toán - <b class="text-danger"><?php echo number_format($totalData);?></b> giao dịch</h5>
       </div>
       <div class="col-md-6">
         <h5 class="card-header" style="float: right;">Tổng số tiền là   <b class="text-danger"><?php echo number_format($totalMoney*100);?></b> đ</h5>

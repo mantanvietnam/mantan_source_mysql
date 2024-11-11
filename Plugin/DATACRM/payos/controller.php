@@ -58,8 +58,9 @@ function settingpayos($input){
     $data_value = array();
     if(!empty($data->value)){
         $data_value = json_decode($data->value, true);
-        $data_value['linkwebhok'] = $urlHomes.'apis/addMoneyPayOSBankAPI';
     }
+
+    $data_value['linkwebhok'] = $urlHomes.'apis/addMoneyPayOSBankAPI';
 
     setVariable('setting', $data_value);
     setVariable('mess', $mess);

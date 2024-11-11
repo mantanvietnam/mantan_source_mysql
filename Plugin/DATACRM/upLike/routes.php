@@ -8,3 +8,6 @@
 	$routesPlugin['getUidAPI']= 'upLike/view/api/getUidAPI.php';	
 
 	$routesPlugin['upLikePageFacebook']= 'upLike/view/home/facebook/upLikePageFacebook.php';	
+	$routesPlugin['upViewLiveFacebook']= 'upLike/view/home/facebook/upViewLiveFacebook.php';	
+	$routesPlugin['upFollowPageFacebook']= 'upLike/view/home/facebook/upFollowPageFacebook.php';	
+	

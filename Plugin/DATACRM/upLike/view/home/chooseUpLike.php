@@ -20,7 +20,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>Tăng mắt live</td>
+            <td><a href="/upViewLiveFacebook">Tăng mắt live</a></td>
             <td>Tăng mắt live</td>
             <td></td>
             <td></td>
