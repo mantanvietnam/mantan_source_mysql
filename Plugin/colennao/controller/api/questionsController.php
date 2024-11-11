@@ -16,7 +16,7 @@ function listquestionAPI($input)
         $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
         $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
         if ($page < 1) $page = 1;
-        $order = array('id' => 'desc');
+        $order = array('id' => 'asc');
         if (!empty($dataSend['type'])) {
             $name = $dataSend['type'];
             $conditions['type LIKE'] = '%'. $name.'%';

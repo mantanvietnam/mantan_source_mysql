@@ -57,6 +57,7 @@ function listcondition($input){
         $questionText = $questionsData[$conditiondata->id_question] ?? 'Câu hỏi không tìm thấy';
         $groupconditiondata[$conditiondata->id_groupfile]['data'][] = [
             'id_question' => $conditiondata->id_question,
+            'id_groupfile' => $conditiondata->id_groupfile,
             'question' => $questionText, 
             'answer' => $conditiondata->answer,
             'status' => $conditiondata->status,
@@ -165,6 +166,38 @@ function addcondition($input){
     setVariable('data', $data);
     setVariable('mess', $mess);
 }
+function deletecondition($input) {
+    global $controller;
+
+    $modeltbcondition = $controller->loadModel('tbcondition');
+    
+   
+    if (!empty($_GET['id'])) {
+        $idGroupFile = $_GET['id'];  
+
+     
+        if (is_numeric($idGroupFile)) {
+         
+            $conditions = ['id_groupfile' => $idGroupFile];
+            $records = $modeltbcondition->find('all', ['conditions' => $conditions]);
+
+     
+            foreach ($records as $record) {
+                $modeltbcondition->delete($record);
+            }
+
+         
+            return $controller->redirect('/plugins/admin/colennao-view-admin-condition-listcondition');
+        } else {
+         
+            return $controller->redirect('/plugins/admin/colennao-view-admin-tbcondition-listcondition?error=invalid_id');
+        }
+    } else {
+  
+        return $controller->redirect('/plugins/admin/colennao-view-admin-tbcondition-listcondition?error=no_id');
+    }
+}
+
 
 function listconditioneng($input){
     global $controller;

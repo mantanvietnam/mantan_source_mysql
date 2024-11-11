@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-listuserpeople-listuserpeople">userpeople</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-listuserpeople-listuserpeople">Danh sách bài tập luyện </a> /</span>
     Nội dung câu hỏi
   </h4>
 
@@ -10,7 +10,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">add userpeople</h5>
+            <h5 class="mb-0">Thêm bài luyện tập</h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>

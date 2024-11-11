@@ -44,11 +44,11 @@
         </thead>
         <tbody>
           <?php foreach ($groupconditiondata as $item => $question): ?>
-             
               <tr>
                   <!-- <td align="center"><?php echo $question['id']; ?></td> -->
                   <td align="center"><?php echo $question['name']; ?></td>
                   <?php 
+                      $idGroupFile = [];
                       $questions = [];
                       $answers = [];
                       $abc = [];
@@ -57,10 +57,15 @@
                           $questions[] = $detail['question']; 
                           $answers[] = $detail['answer'];   
                           $abc[] = $detail['status']; 
+                          $idGroupFile[] = $detail['id_groupfile'];
                       }
 
-            
+                   
+                      $uniqueIdGroupFiles = array_unique($idGroupFile); 
+                      $idGroupFiledetail = reset($uniqueIdGroupFiles);
+                     
                       $uniqueStatuses = array_unique($abc);
+                   
                       $statusString = (count($uniqueStatuses) === 1) ? $uniqueStatuses[0] : implode('; ', $uniqueStatuses);
                       $questionsString = implode('<br>', $questions);
                       $answersString = implode(';', $answers);
@@ -74,10 +79,13 @@
                   </td>
                   <td><?php echo $statusString ?></td>
                   <td align="center">
-                      <a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="">
-                          <i class="bx bx-trash me-1"></i>
+                      <a class="dropdown-item" 
+                        onclick="return confirm('Bạn có chắc chắn muốn xóa tất cả bản ghi trong nhóm này không?');" 
+                        href="/plugins/admin/colennao-view-admin-deletecondition/?id=<?php echo urlencode($idGroupFiledetail); ?>">
+                          <i class="bx bx-trash me-1"></i> Xóa nhóm
                       </a>
                   </td>
+
               </tr>
           <?php endforeach; ?>
         </tbody>

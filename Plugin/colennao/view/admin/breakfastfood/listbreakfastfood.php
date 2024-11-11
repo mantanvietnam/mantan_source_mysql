@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">breakfastfood</h4>
+  <h4 class="fw-bold py-3 mb-4">Bữa sáng</h4>
   <p><a href="/plugins/admin/colennao-view-admin-breakfastfood-addbreakfastfood" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->

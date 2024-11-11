@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="text-information">
-                            <p class="line">NGÀY HỘI VIETTEL MARATHON HANOI VIETNAM 2024</p>
+                            <p class="line"><?=$events['name']?></p>
                             <div class="btn-info">
                                 <p class="gr">
                                     <?php if ($events['status'] === 'active'): ?>
