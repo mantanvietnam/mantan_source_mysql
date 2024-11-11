@@ -61,8 +61,7 @@ function listRatingPoint($input){
                 }
 
                 if(!empty($dataSend['idEdit'])){
-                        $note = $user->type_tv.' '. $user->name.' sửa thông tin xếp hạng '.$infoCategory->name.' có id là:'.$infoCategory->id;
-                    
+                    $note = $user->type_tv.' '. $user->name.' sửa thông tin xếp hạng '.$infoCategory->name.' có id là:'.$infoCategory->id;
                 }else{
                     $note = $user->type_tv.' '. $user->name.' tạo mới thông tin xếp hạng '.$infoCategory->name.' có id là:'.$infoCategory->id;
                 }

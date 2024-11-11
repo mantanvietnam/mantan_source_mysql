@@ -1580,6 +1580,9 @@ function getListPermission()
                     );
     $permission[] = array( 'name'=>'Quản lý tăng tương tác',
                     'sub'=>array(   array('name'=>'Lịch sử tăng tương tác','permission'=>'historyUpLike'),
+                                    array('name'=>'Lịch sử tăng Tăng like page Facebook','permission'=>'upLikePageFacebook'),
+                                    array('name'=>'Lịch sử tăng tương tác','permission'=>'historyUpLike'),
+                                    array('name'=>'Lịch sử tăng tương tác','permission'=>'historyUpLike'),
                             )
                     );
     $permission[] = array( 'name'=>'Quản lý Xếp hạng thành viên',

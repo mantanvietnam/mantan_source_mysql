@@ -10,7 +10,7 @@ function listRatingPointAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listRatingPoint');
 
             if(!empty($infoMember)){
                 
@@ -45,7 +45,7 @@ function getRatingPointAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listRatingPoint');
 
             if(!empty($infoMember)){
          
@@ -80,7 +80,7 @@ function addRatingPointAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'addRatingPoint');
 
             if(!empty($infoMember)){
                 
@@ -119,7 +119,15 @@ function addRatingPointAPI($input){
                     }else{
                         return array('code'=>5, 'mess'=>'Điểm phải lơn hơn hạng trước');
 
-                    }                
+                    }   
+
+                    if(!empty($dataSend['id'])){
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin xếp hạng '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                    }else{
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' tạo mới thông tin xếp hạng '.$infoCategory->name.' có id là:'.$infoCategory->id;
+                    }
+
+                    addActivityHistory($infoMember,$note,'addRatingPoint',$infoCategory->id);             
                 }
                 
             }else{
@@ -143,7 +151,7 @@ function deleteRatingPointAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token']) && !empty($dataSend['id'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'deleteRatingPoint');
 
             if(!empty($infoMember)){
                 if(!empty($infoMember->id_father)){
@@ -155,6 +163,8 @@ function deleteRatingPointAPI($input){
                     if($data){
                         $data->status = 'lock';
                         $modelRatingPointCustomer->save($data);
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' xóa thông tin xếp hạng '.$data->name.' có id là:'.$data->id;
+                        addActivityHistory($infoMember,$note,'deleteRatingPoint',$data->id);
                         //deleteSlugURL($data->slug);
                         $return = array('code'=>1, 'mess'=>'xóa dữ liệu thành công');
                    }else{
@@ -185,7 +195,7 @@ function listPointCustomerAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
-            $infoMember = getMemberByToken($dataSend['token']);
+            $infoMember = getMemberByToken($dataSend['token'],'listHistorieCustomerGiftAgency');
 
             if(!empty($infoMember)){
        

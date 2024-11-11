@@ -390,6 +390,7 @@
                 } ?>
                 
                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                <a class="dropdown-item" href="#">ngày hết hạn <?php echo date('d/m/Y',$user->deadline); ?></a>
 
                 
               </div>
