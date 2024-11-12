@@ -28,6 +28,9 @@ function createOrderCustomerAPI($input)
               
 	            if(!empty($dataSend['data_order']) && !empty($dataSend['phone'])){
 	            	$dataSend['data_order'] = json_decode($dataSend['data_order'], true);
+	            	if(empty($dataSend['data_order'])){
+	            		return array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+	            	}
 	                
                 	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
                 	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);

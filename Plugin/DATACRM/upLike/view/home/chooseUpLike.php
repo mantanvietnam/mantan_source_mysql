@@ -47,7 +47,7 @@
           </tr>
 
           <tr>
-            <td>Tăng view video</td>
+            <td><a href="/upViewVideoFacebook">Tăng view video</a></td>
             <td></td>
             <td></td>
             <td></td>

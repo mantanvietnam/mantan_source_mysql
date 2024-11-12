@@ -46,7 +46,7 @@ function getListPriceOngTrum()
     return $listPrice;
 }
 
-function getUIDFacebook($linkFanpage='', $type='uid')
+function getUIDFacebook($linkFanpage='', $type='uid',$type_prority='reel')
 {
     $token = getTokenOngTrum();
     $uid = '';
@@ -56,6 +56,7 @@ function getUIDFacebook($linkFanpage='', $type='uid')
         
         $dataSend['api_token'] = $token;
         $dataSend['type'] = $type;
+        $dataSend['type_prority'] = $type_prority;
         $dataSend['uid'] = $linkFanpage;
 
         $uid = sendDataConnectMantan($url, $dataSend);

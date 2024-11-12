@@ -385,7 +385,7 @@ function deleteOrderCustomerAgency($input)
             $data = $modelOrder->find()->where(['id_agency'=>$user->id, 'id'=>(int) $_GET['id']])->first();
             
             if(!empty($data)){
-                 $customer_buy = $modelCustomers->find()->where(array('id'=>(int) $dataSend['id_customer']))->first();
+                 $customer_buy = $modelCustomers->find()->where(array('id'=>(int) $data->id_user))->first();
 
                   $note = $user->type_tv.' '. $user->name.' đã xóa đơn hàng của khách hàng '.@$customer_buy->full_name.'('.@$customer_buy->phone.') có id đơn là:'.$data->id;
 

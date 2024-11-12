@@ -14,8 +14,12 @@ function getUidAPI($input)
             if(empty($dataSend['type'])){
                 $dataSend['type'] = 'uid';
             }
+
+            if(empty($dataSend['type_prority'])){
+                $dataSend['type_prority'] = 'reel';
+            }
             
-    		$uid = getUIDFacebook($dataSend['uid'], $dataSend['type']);
+    		$uid = getUIDFacebook($dataSend['uid'], $dataSend['type'],$dataSend['type_prority']);
     	}
     }
 

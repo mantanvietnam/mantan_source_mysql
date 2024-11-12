@@ -205,7 +205,6 @@ function loginUserApi($input): array
             $user = $modelUser->find()->where([
                 'phone' => $dataSend['phone'],
                 'password' => md5($dataSend['password']),
-                'status' => 'active',
             ])->first();
 
             if (!empty($user)) {
@@ -219,8 +218,10 @@ function loginUserApi($input): array
                 $user->last_login = time();
                 $modelUser->save($user);
 
-                if(!empty($user->status_pay_package)){
-                     return apiResponse(0, 'Đăng nhập thành công', $user);
+                if($user->status=='lock'){
+                    return apiResponse(5, 'Bạn chưa xác nhận mã OTP', $user);
+                }elseif(!empty($user->status_pay_package)){
+                    return apiResponse(0, 'Đăng nhập thành công', $user);
                  }else{
                     return apiResponse(4, 'Bạn chưa thanh toán gói tập', $user);
                  }

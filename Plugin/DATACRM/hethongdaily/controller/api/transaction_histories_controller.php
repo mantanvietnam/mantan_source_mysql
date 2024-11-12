@@ -9,9 +9,16 @@ function addMoneyToIcham($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		if(!empty($dataSend['phone']) && !empty($dataSend['total'])){
-
-			$user = $modelMembers->find()->where(['phone'=>$dataSend['phone']])->first();
+		if(!empty($dataSend['total'])){
+			$conditions = array();
+			if(!empty($dataSend['phone'])){
+				$conditions['phone'] = $dataSend['phone'];
+			}elseif(!empty($dataSend['id'])){
+				$conditions['id'] = $dataSend['id'];
+			}else{
+				return ['code'=> 0, 'mess'=>'<p class="text-danger"> Thiếu dữ liệu</p>'];
+			}
+			$user = $modelMembers->find()->where($conditions)->first();
 
 			if(!empty($user)){
 				$user->coin  +=  (int) $dataSend['total'];

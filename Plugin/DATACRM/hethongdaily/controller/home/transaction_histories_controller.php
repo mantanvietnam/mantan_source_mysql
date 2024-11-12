@@ -105,18 +105,30 @@ function addMoney($input)
         $metaTitleMantan = 'Nạp tiền tài khoản';
 
         if(!empty($user->type=='staff')){
-            $user->phone = $modelMembers->find()->where(['id'=>$user->id_member])->first()->phone;
+            $user = $modelMembers->find()->where(['id'=>$user->id_member])->first();
         }
 
-        if(!empty($_GET['money'])){
-            $number_bank = '0816560000';
-            $name_bank = 'Tran Ngoc Manh';
-            $code_bank = 'VPB';
-            $content = 'ICHAM '.$user->phone.' '.str_replace('.', ' ', $_SERVER['SERVER_NAME']);
+            $boss = $modelMembers->find()->where(['id_father'=>0])->first();
+            $dataPost= array('amount'=>@$_GET['money'],'description'=>$boss->phone.' '.$user->id);
+            $listData= sendDataConnectMantan('https://icham.vn/apis/getinfobankAPI', $dataPost);
+            $listData= str_replace('ï»¿', '', utf8_encode($listData));
+            $return= json_decode($listData, true);
+       
 
-            $linkQR = 'https://img.vietqr.io/image/'.$code_bank.'-'.$number_bank.'-compact2.png?amount='.(int) $_GET['money'].'&addInfo='.$content.'&accountName='.$name_bank;
+        if(!empty($return)){
+            $data = array();
+            $data['number_bank'] = $return['accountNumber'];
+            $data['accountName'] = $return['accountName'];
+            $data['code_bank'] = $return['bin'];
+            $data['content'] = $return['description'];
+            $data['amount'] = $return['amount'];
+            $data['name_bank'] = $return['code_bank'];
 
-            setVariable('linkQR', $linkQR);
+            $data['linkQR'] = 'https://img.vietqr.io/image/'.$data['code_bank'].'-'.$data['number_bank'].'-compact2.png?amount='.(int) $data['amount'].'&addInfo='.$data['content'].'&accountName='.$data['accountName'];
+
+
+
+            setVariable('data', $data);
         }else{
             return $controller->redirect('/listTransactionHistories');
         }
@@ -124,3 +136,6 @@ function addMoney($input)
         return $controller->redirect('/login');
     }
 }
+
+
+?>

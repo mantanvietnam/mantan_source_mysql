@@ -62,10 +62,17 @@ $sqlInstallDatabase .="CREATE TABLE `image_customers` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `report_wall_posts` ( `id` INT NOT NULL AUTO_INCREMENT ,
+  `id_customer` INT NOT NULL , 
+  `created_at` INT NOT NULL , 
+  `id_post` INT NOT NULL , 
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
 $sqlDeleteDatabase .= "DROP TABLE comments; ";
 $sqlDeleteDatabase .= "DROP TABLE likes; ";
 $sqlDeleteDatabase .= "DROP TABLE social_networks; ";
 $sqlDeleteDatabase .= "DROP TABLE make_friends; ";
+$sqlDeleteDatabase .= "DROP TABLE report_wall_posts; ";
 
 
 
@@ -104,4 +111,8 @@ $sqlUpdateDatabase['image_customers']['image'] = "ALTER TABLE `image_customers` 
 $sqlUpdateDatabase['image_customers']['public'] = "ALTER TABLE `image_customers` ADD `public` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['image_customers']['created_at'] = "ALTER TABLE `image_customers` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['image_customers']['link_local'] = "ALTER TABLE `image_customers` ADD `link_local` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['report_wall_posts']['id_customer'] = "ALTER TABLE `report_wall_posts` ADD `id_customer` INT NOT NULL;";
+$sqlUpdateDatabase['report_wall_posts']['created_at'] = "ALTER TABLE `report_wall_posts` ADD `created_at` INT NOT NULL;";
+$sqlUpdateDatabase['report_wall_posts']['id_post'] = "ALTER TABLE `report_wall_posts` ADD `id_post` INT NOT NULL;";
 ?>
