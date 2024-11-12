@@ -31,7 +31,8 @@
                                 <p class="br">KINH DOANH</p>
                             </div>
                             <div class="address-info">
-                                <p><i class="fa-regular fa-clock"></i><?=$events['time_start']?></p>
+                                <p><i class="fa-regular fa-clock"></i><?= date('d-m-Y H:i:s', $events['time_start']); ?>
+                                </p>
                                 <p><i class="fa-solid fa-location-dot"></i>Khu liên hợp thể thao Quốc gia, Mỹ Đình, Quận Nam Từ Liêm, Thành phố Hà Nội</p>
                                 <p><i class="fa-solid fa-user"></i>Liên đoàn Điền kinh Việt Nam, Liên đoàn Điền kinh Lào, Liên đoàn Điền kinh Campuchia tổ chức; Tập đoàn Công nghiệp - Viễn thông Quân đội</p>
                             </div>
@@ -41,21 +42,21 @@
                         <div class="log-in">
                             <div class="block">
                                 <div class="date-time">
-                                    <p class="number">19</p>
+                                    <p class="number" id="days">19</p>
                                     <p class="date">Ngày</p>
                                 </div>
                                 <div class="date-time">
-                                    <p class="number">20</p>
+                                    <p class="number" id="hours">20</p>
                                     <p class="date">Giờ</p>
                                 </div>
                                 <div class="date-time">
-                                    <p class="number">55</p>
+                                    <p class="number" id="minutes">55</p>
                                     <p class="date">Phút</p>
                                 </div>
                                 <div class="date-time">
-                                    <p class="number">20</p>
+                                    <p class="number" id="seconds">20</p>
                                     <p class="date">Giây</p>
-                                </div>  
+                                </div>
                             </div>
                         </div>
                 
@@ -145,4 +146,34 @@
             </div>
         </section>
     </main>
+    <script>
+
+    const timeStart = <?= json_encode($events['time_start'] ?? 0) ?> * 1000; 
+    const now = new Date().getTime(); 
+    if (timeStart > now) {
+     
+        const countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = timeStart - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector('.log-in').innerHTML = '<p>Sự kiện đã bắt đầu!</p>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }, 1000);
+    } else {
+        document.querySelector('.log-in').innerHTML = '<p>Thời gian đã kết thúc!</p>';
+    }
+</script>
     <?php getFooter();?>
