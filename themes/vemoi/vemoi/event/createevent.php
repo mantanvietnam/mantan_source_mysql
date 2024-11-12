@@ -17,6 +17,7 @@
         <section class="form-section__create-event">
             <div class="form-container">
                 <form method="POST" id="eventForm" action="" enctype="multipart/form-data">
+                    <?php echo $mess;?>
                     <!-- Event Information -->
                     <div class="form-section">
                         <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
@@ -32,7 +33,7 @@
                         <div class="upload-wrapper">
                             <label for="event-image">Ảnh sự kiện</label>
                             <div class="upload-container">
-                                <input type="file" class="form-control phone-mask" name="banner" id="image" value=""/>
+                                <input type="file" class="form-control phone-mask" name="banner" id="image" value="" required />
                             </div>
                         </div>
                     </div>
@@ -75,7 +76,7 @@
                      <p class="information">Thông tin sự kiện</p>
                     <div class="form-section mb-4">
                         <label for="event-description" class="form-label">Giới thiệu chung</label>
-                        <textarea id="event-description" class="form-control" rows="2" placeholder="Thêm ghi chú của sự kiện"></textarea>
+                        <textarea id="event-description" class="form-control" name="info" rows="2" placeholder="Thêm ghi chú của sự kiện"></textarea>
                     </div>
                     <div class="form-section mb-4">
                         <label for="event-description" class="form-label" required>Địa chỉ</label>
@@ -93,7 +94,7 @@
                     <label for="sponsor" class="form-label">Nhà tài trợ sự kiện*</label>
                     <div class="form-section d-flex gap-4">
                         <div class="col-lg-9">
-                            <input type="text" id="sponsor" class="form-control" value="Phoenix Tech">
+                            <input type="text" id="sponsor" class="form-control" >
                         </div>
                         <div class="col-lg-3">
                             <button type="button" class="btn btn-danger">+ Thêm tổ chức</button>
@@ -171,35 +172,56 @@
                     <div class="form-section">
                         <div class="d-flex justify-content-center gap-4">
                             <button type="button" class="btn btn-outline-danger btn-huy">Hủy tạo</button>
-                            <button type="submit" class="taosukien" data-bs-toggle="modal" data-bs-target="#exampleModal1" id="createInviteBtn">Tạo sự kiện</button>
-
+                            <button type="submit" class="taosukien" id="submitBtn">Tạo sự kiện</button>
                         </div>
                     </div>
                 </form>
             </div>
         </section>
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modelshow" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" style="top: 28%;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <img src="<?php echo $urlThemeActive;?>/asset/image/Illustration.jpg" alt="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img src="<?php echo $urlThemeActive; ?>/asset/image/Illustration.jpg" alt="Illustration">
                     </div>
                     <div class="modal-body">
-                        <p><?=$mess?></p>
-                        <h5>Bạn đã đăng ký tham gia sự kiện và tạo vé mời thành công. 
-                            Hãy cùng chia sẻ sự kiện đến với mọi người</h5>
+                        <p id="popupMessage"><?= isset($mess) ? $mess : ''; ?></p>
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">Chi tiết vé mời</button>
-                    <button type="button" style="border: 1px solid black;" class="btn bg-light" data-bs-dismiss="modal">Để sau</button>
+                        <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">Chi tiết vé mời</button>
+                        <button type="button" style="border: 1px solid black;" class="btn bg-light" data-bs-dismiss="modal" onclick="window.history.back();">Để sau</button>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
 
 
+    </main>
+ <script>
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Kiểm tra xem có tham số error=create_done không
+    if (urlParams.get('error') === 'create_done') {
+        // Hiển thị modal với thông báo thành công
+        document.getElementById('popupMessage').innerHTML = 'Bạn đã tạo sự kiện và vé mời thành công. Hãy cùng chia sẻ sự kiện đến với mọi người.';
+        var myModal = new bootstrap.Modal(document.getElementById('modelshow'));
+        myModal.show();
+    }
 
-</main>
+    // Kiểm tra nếu có tham số error=create_failed (lỗi khi gửi dữ liệu)
+    if (urlParams.get('error') === 'create_failed') {
+        // Hiển thị modal với thông báo lỗi
+        document.getElementById('popupMessage').innerHTML = 'Gửi thiếu dữ liệu. Vui lòng thử lại.';
+        var myModal = new bootstrap.Modal(document.getElementById('modelshow'));
+        myModal.show();
+    }
+};
+
+
+
+
+ </script>
 <script>
 document.getElementById('file-upload').addEventListener('change', function() {
     const fileName = this.files[0] ? this.files[0].name : '';

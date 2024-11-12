@@ -33,7 +33,7 @@
                             <div class="address-info">
                                 <p><i class="fa-regular fa-clock"></i><?= date('d-m-Y H:i:s', $events['time_start']); ?>
                                 </p>
-                                <p><i class="fa-solid fa-location-dot"></i>Khu liên hợp thể thao Quốc gia, Mỹ Đình, Quận Nam Từ Liêm, Thành phố Hà Nội</p>
+                                <p><i class="fa-solid fa-location-dot"></i><?=$events['address']?></p>
                                 <p><i class="fa-solid fa-user"></i>Liên đoàn Điền kinh Việt Nam, Liên đoàn Điền kinh Lào, Liên đoàn Điền kinh Campuchia tổ chức; Tập đoàn Công nghiệp - Viễn thông Quân đội</p>
                             </div>
                         </div>

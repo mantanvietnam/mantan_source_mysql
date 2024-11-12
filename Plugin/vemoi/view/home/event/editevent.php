@@ -1,0 +1,1 @@
+<?php getFileTheme('vemoi/event/editevent.php');?>

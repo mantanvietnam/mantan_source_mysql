@@ -67,15 +67,19 @@ function createevent($input)
             }
             $data->slug = $slugNew;
             $modelevent->save($data);
-            $mess = '<p class="text-success">Tạo sự kiện thành công</p>';
+            $mess = '<p class="text-success">Bạn đã tạo sự kiện và tạo vé mời thành công. 
+                                            Hãy cùng chia sẻ sự kiện đến với mọi người</p>';
+            return $controller->redirect('/createevent/?error=create_done');
         }else{
             $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+            return $controller->redirect('/createevent/?error=create_failed');
         }
         
     }
 
     setVariable('mess', $mess);
 }
+
 function detailevent($input){
     global $controller;
     global $isRequestPost;
@@ -204,11 +208,17 @@ function myevent($input){
         $eventMap[$event->id]->attended_count = 0; 
     }
 
-    $counts = $modelattendedevent->find()
-        ->select(['id_events', 'count' => $modelattendedevent->find()->func()->count('*')])
-        ->where(['id_events IN' => array_keys($eventMap)]) 
-        ->group('id_events')
-        ->all();
+    $eventKeys = array_keys($eventMap);
+
+    if (!empty($eventKeys)) {
+        $counts = $modelattendedevent->find()
+            ->select(['id_events', 'count' => $modelattendedevent->find()->func()->count('*')])
+            ->where(['id_events IN' => $eventKeys])
+            ->group('id_events')
+            ->all();
+    } else {
+        $counts = []; 
+    }
 
 
     foreach ($counts as $count) {
@@ -273,7 +283,7 @@ function allevent($input){
     global $session;
     $info = $session->read('infoUser');
     $modelevents = $controller->loadModel('events');
-    $limit = 8;
+    $limit = 6;
     $conditions = array();
     if(!empty($_GET['name'])){
         $conditions['name LIKE'] = '%'.$_GET['name'].'%';
@@ -281,9 +291,9 @@ function allevent($input){
     $id = isset($_GET['id']) ? $_GET['id'] : null;
     $order = array('id'=>'desc');
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-    $listdataevent = $modelevents->find()->where()->order($order)->all()->toList();
+    $listdataevent =$modelevents->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList() ;
     $numberdata = count($listdataevent);
-    $totalData = $modelevents->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
+    $totalData = $modelevents->find()->where()->order($order)->all()->toList();
     $totalData = count($totalData);
     $balance = $totalData % $limit;
     $totalPage = ($totalData - $balance) / $limit;

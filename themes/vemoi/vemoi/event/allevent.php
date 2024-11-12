@@ -25,7 +25,7 @@
                                         </div>
                                         <div class="all-news-detail">
                                             <h3><?php echo $value->name;?></h3>
-                                            <p><?php echo $value->plan;?></p>
+                                            <p><?php echo $value->info;?></p>
                                         </div>
                                         <div class="all-news-btn">
                                             <i class="fa-solid fa-arrow-right-long"></i>

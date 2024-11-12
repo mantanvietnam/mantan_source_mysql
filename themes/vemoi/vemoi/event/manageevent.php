@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 share-event d-flex justify-content-end" style="margin-right: 35px;">   
-                    <a class="d-flex" href="">Chia sẻ sự kiện</a>
+                    <a class="d-flex" href="/editevent">Chỉnh sửa sự kiện</a>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                             <li><a class="dropdown-item" href="/infomanagerevent?id=<?=$data->id?>">Xem chi tiết</a></li>
-                                            <li><a class="dropdown-item" href="/editmanagerevent?id=<?=$data->id?>">Sửa thông tin</a></li>
+                                            <!-- <li><a class="dropdown-item" href="/editmanagerevent?id=<?=$data->id?>">Sửa thông tin</a></li> -->
                                             <li><a class="dropdown-item" href="#">Xóa</a></li>
                                         </ul>
                                     </div>
