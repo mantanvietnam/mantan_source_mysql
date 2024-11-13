@@ -34,93 +34,116 @@
                             <div class="container my-5">
                                 <!-- Event Section -->
                                 <div id="event-section">
-                                    <form>
-                                        <!-- Event Information Fields -->
-                                        <div class="mb-3">
-                                            <label for="eventName" class="form-label">Tên sự kiện</label>
-                                            <input type="text" class="form-control" id="eventName" value="07987937568">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="eventImage" class="form-label">Ảnh sự kiện</label>
-                                            <div class="upload-container">
-                                                <input type="text" id="event-image" value="Sukien1.jpg" readonly>
-                                                <button type="button">Tải ảnh</button>
-                                            </div>
-                                        </div>
-                                        <div class="puliik">
-                                            <p>Thông tin sự kiện</p>
-                                            <div class="mb-3 ">  
-                                                <label for="generalInfo" class="form-label">Giới thiệu chung</label>
-                                                <textarea class="form-control" id="generalInfo" rows="3">Thêm ghi chú của sự kiện</textarea>
+                                    <form method="POST"  action="" enctype="multipart/form-data">
+                                        <p><?php echo $mess?></p>
+                                        <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
+                                        <?php if(!empty($data->id_member)) :?>
+                                            <input type="hidden" value="<?php echo $data->id_member;?>" name="id_member">
+                                        <?php endif?>
+                                            <div class="mb-3">
+                                                <label for="eventName" class="form-label">Tên sự kiện</label>
+                                                <input type="hidden" name="status" class="form-control"  value="<?php echo @$data->status?>">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="details" class="form-label">Thông tin lưu ý</label>
-                                                <textarea class="form-control" id="details" rows="3">Thêm lưu ý cho sự kiện</textarea>
+                                                <label for="eventName" class="form-label">Tên sự kiện</label>
+                                                <input type="text" name="name" class="form-control" id="eventName" value="<?php echo @$data->name?>">
                                             </div>
-                                        </div>
-                                        <!-- Sponsor Information -->
-                                        <div class="mb-3">
-                                            <label for="sponsor" class="form-label">Nhà tài trợ của sự kiện</label>
-                                            <div class="row-fn d-flex ">
-                                                <input type="text" class="form-control col-lg-9" id="sponsor" value="Phoenix Tech">
-                                                <a href="" class="col-lg-3 d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal">Thêm tổ chức</a>
+                                            <div class="mb-3">
+                                                <label for="eventName" class="form-label">Địa chỉ</label>
+                                                <input type="text" name="address" class="form-control" value="<?php echo @$data->address?>">
+                                            </div>
+                                            <div class="form-section mb-4">
+                                                <label for="event-description" class="form-label">Thời gian bắt đầu</label>
+                                                <input id="event-description" type="datetime-local" name="time_start" class="form-control" value="<?= isset($data->time_start) ? date('Y-m-d\TH:i', $data->time_start) : date('Y-m-d\TH:i'); ?>">
+                                            </div>
+                                            <div class="form-section">
+                                                <div class="upload-wrapper">
+                                                    <label for="banner">Ảnh sự kiện</label>
+                                                    <div class="upload-container">
+                                                        <input type="file" class="form-control" name="banner" id="banner" required />
+                                                    </div>
+                                                    <?php if (!empty($data->banner)): ?>
+                                                        <div class="mt-2">
+                                                            <img src="<?= htmlspecialchars($data->banner) ?>" alt="Ảnh sự kiện" class="img-thumbnail" style="max-width: 200px;">
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
 
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                            ...
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <div class="puliik">
+                                                <p>Thông tin sự kiện</p>
+                                                <div class="mb-3 ">  
+                                                    <label for="generalInfo" class="form-label">Giới thiệu chung</label>
+                                                    <textarea class="form-control" name="info" id="generalInfo" rows="10"><?php echo $data->info?></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="details" class="form-label">Thông tin lưu ý</label>
+                                                    <textarea class="form-control" id="details" rows="3">Thêm lưu ý cho sự kiện</textarea>
+                                                </div>
+                                            </div>
+                                            <!-- Sponsor Information -->
+                                            <div class="mb-3">
+                                                <label for="sponsor" class="form-label">Nhà tài trợ của sự kiện</label>
+                                                <div class="row-fn d-flex ">
+                                                    <input type="text" class="form-control col-lg-9" id="sponsor">
+                                                    <a href="" class="col-lg-3 d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal">Thêm tổ chức</a>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                ...
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <!-- Date and Contact -->
-                                        <div class="row mb-3">
-                                            <div class="col">
-                                                <label for="startDate" class="form-label">Ngày diễn ra sự kiện</label>
-                                                <input type="date" class="form-control" id="startDate" value="2023-03-25">
+                                            <!-- Date and Contact -->
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <label for="startDate" class="form-label">Ngày diễn ra sự kiện</label>
+                                                    <input type="date" class="form-control" id="startDate" value="2023-03-25">
+                                                </div>
+                                                <div class="col">
+                                                    <label for="endDate" class="form-label">Ngày kết thúc sự kiện</label>
+                                                    <input type="date" class="form-control" id="endDate" value="2023-03-25">
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <label for="endDate" class="form-label">Ngày kết thúc sự kiện</label>
-                                                <input type="date" class="form-control" id="endDate" value="2023-03-25">
-                                            </div>
-                                        </div>
 
-                                        <!-- Contact Information -->
-                                        <div class="row mb-3">
-                                            <div class="col">
-                                                <label for="contactName" class="form-label">Tên tổ chức nhà tài trợ</label>
-                                                <input type="text" class="form-control" id="contactName" value="07987937568">
+                                            <!-- Contact Information -->
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <label for="contactName" class="form-label">Tên tổ chức nhà tài trợ</label>
+                                                    <input type="text" class="form-control" id="contactName" value="07987937568">
+                                                </div>
+                                                <div class="col">
+                                                    <label for="contactPhone" class="form-label">Địa chỉ liên hệ</label>
+                                                    <input type="text" class="form-control" id="contactPhone" value="07987937568">
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <label for="contactPhone" class="form-label">Địa chỉ liên hệ</label>
-                                                <input type="text" class="form-control" id="contactPhone" value="07987937568">
+
+                                            <!-- Notes -->
+                                            <div class="mb-3">
+                                                <label for="additionalNotes" class="form-label">Ghi chú khác</label>
+                                                <textarea class="form-control" id="additionalNotes" rows="3">Thêm ghi chú của sự kiện</textarea>
                                             </div>
-                                        </div>
 
-                                        <!-- Notes -->
-                                        <div class="mb-3">
-                                            <label for="additionalNotes" class="form-label">Ghi chú khác</label>
-                                            <textarea class="form-control" id="additionalNotes" rows="3">Thêm ghi chú của sự kiện</textarea>
-                                        </div>
-
-                                        <!-- Buttons -->
-                                        <div class="btn d-flex">
-                                            <a href="">Xóa sự kiện</a>
-                                            <a href="">lưu chỉnh sửa</a>
-                                        </div>
+                                            <!-- Buttons -->
+                                            <div class="btn d-flex">
+                                                <button type="submit">Xóa sự kiện</button>
+                                                <button type="submit">lưu chỉnh sửa</button>
+                                            </div>
                                     </form>
                                 </div>
 

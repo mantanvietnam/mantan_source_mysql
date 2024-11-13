@@ -8,12 +8,12 @@
             <div class="container d-flex align-items-center">
                 <div class="col-lg-6">
                     <div class="back d-flex">
-                        <a href="./event.html"><i class="fa-solid fa-chevron-left"></i></a>
+                        <a href="/"><i class="fa-solid fa-chevron-left"></i></a>
                         <p>Quản lý sự kiện</p>
                     </div>
                 </div>
                 <div class="col-lg-5 share-event d-flex justify-content-end" style="margin-right: 35px;">   
-                    <a class="d-flex" href="/editevent">Chỉnh sửa sự kiện</a>
+                    <a class="d-flex" href="/editevent?id=<?php echo $id = $_GET['id']; ?>">Chỉnh sửa sự kiện</a>
                 </div>
             </div>
         </div>
