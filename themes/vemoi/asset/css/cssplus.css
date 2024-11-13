@@ -92,7 +92,7 @@ li{
 }
 
 .home__event .news img{
-    object-fit: contain;
+    object-fit: cover;
 }
 .news__home .news-cards{
     margin-bottom: 30px;
