@@ -1206,8 +1206,8 @@ section{
     }
     
     .banner h4 {
-        font-size: 17px;
-        width: 100%;
+        font-size: 17px !important;
+        width: 100% !important;
     }
 
     .news .under-text h4{
