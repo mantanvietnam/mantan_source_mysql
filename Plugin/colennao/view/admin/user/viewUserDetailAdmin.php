@@ -51,25 +51,22 @@
                             <label class="form-label" for="basic-default-phone">Số điện thoại (*)</label>
                             <input required type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
                         </div>
-                        <div class="col-md-6 mb-3 ">
-                            <label class="form-label" for="basic-default-phone">Số điện thoại (*)</label>
-                            <input required type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
-                        </div>
+                        
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="basic-default-phone">Địa chỉ</label>
-                            <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address;?>" />
+                            <input  type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address;?>" />
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="basic-default-phone">cân nặng hiện tại</label>
-                            <input required type="text" class="form-control phone-mask" name="current_weight" id="current_weight" value="<?php echo @$data->current_weight;?>" />
+                            <input  type="text" class="form-control phone-mask" name="current_weight" id="current_weight" value="<?php echo @$data->current_weight;?>" />
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="basic-default-phone">cân nặng mục tiêu</label>
-                            <input required type="text" class="form-control phone-mask" name="target_weight" id="target_weight" value="<?php echo @$data->target_weight;?>" />
+                            <input  type="text" class="form-control phone-mask" name="target_weight" id="target_weight" value="<?php echo @$data->target_weight;?>" />
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="basic-default-phone"></label>
-                            <input required type="text" class="form-control phone-mask" name="height" id="height" value="<?php echo @$data->height;?>" />
+                            <input  type="text" class="form-control phone-mask" name="height" id="height" value="<?php echo @$data->height;?>" />
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="basic-default-phone">Hình ảnh (*)</label>

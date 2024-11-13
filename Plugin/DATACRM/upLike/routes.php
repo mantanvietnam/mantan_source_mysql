@@ -11,4 +11,7 @@
 	$routesPlugin['upViewLiveFacebook']= 'upLike/view/home/facebook/upViewLiveFacebook.php';	
 	$routesPlugin['upFollowPageFacebook']= 'upLike/view/home/facebook/upFollowPageFacebook.php';	
 	$routesPlugin['upViewVideoFacebook']= 'upLike/view/home/facebook/upViewVideoFacebook.php';	
+	$routesPlugin['upFriendFacebook']= 'upLike/view/home/facebook/upFriendFacebook.php';	
+	$routesPlugin['upViewStoryFacebook']= 'upLike/view/home/facebook/upViewStoryFacebook.php';	
+	$routesPlugin['upShareFacebook']= 'upLike/view/home/facebook/upShareFacebook.php';	
 	

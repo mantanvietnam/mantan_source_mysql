@@ -50,7 +50,7 @@
           </div>
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
-            <button type="submit" name="excel" class="btn btn-primary d-block" value="Excel">Xuất Excle</button>
+            <button type="submit" name="excel" class="btn btn-primary d-block" value="Excel">Xuất Excel</button>
           </div>
         </div>
       </div>

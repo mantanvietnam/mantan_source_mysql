@@ -65,7 +65,7 @@
         <h5 class="card-header">Giao dịch thanh toán - <b class="text-danger"><?php echo number_format($totalData);?></b> giao dịch</h5>
       </div>
       <div class="col-md-6">
-        <h5 class="card-header" style="float: right;">Tổng số tiền là   <b class="text-danger"><?php echo number_format($totalMoney*100);?></b> đ</h5>
+        <h5 class="card-header" style="float: right;">Tổng số tiền là   <b class="text-danger"><?php echo number_format($totalMoney);?></b> đ</h5>
       </div>
     </div>
       <div class="table-responsive">
@@ -105,7 +105,7 @@
                           <td>'.$item->id.'</td>
                           <td>'.date('H:i d/m/Y', $item->created_at).'</td>
                           <td>'.$item->code.'</td>
-                          <td>'.number_format($item->total*100).'đ</td>
+                          <td>'.number_format($item->total).'đ</td>
                           
                           <td>
                             '.$item->user->full_name.'<br/>

@@ -1620,4 +1620,80 @@ function test(){
 	debug($mess);
 	die();
 }
+
+function memberDaySevenProAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $price_pro;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelExtendProHistorie = $controller->loadModel('ExtendProHistories');
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();	
+		if(empty($dataSend['token']) && empty($dataSend['phone'])){
+			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
+		}
+		if($dataSend['token']!='1RwfjLaq3vVksKo4ucnGgW70dU1sdfszdfrs'){
+			$return = array('code'=>2, 'mess'=>'token sai');
+		}
+		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+		if(empty($dataSend['day'])){
+			$day = 7;
+		}else{
+			$day = (int) $dataSend['day'];
+		}
+		
+		$user = $modelMember->find()->where(['phone'=>$dataSend['phone']])->first();
+		if(!empty($user)){
+				$user->member_pro = 1;
+				if(empty($user->deadline_pro)){
+					$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + '.$day.' days'));
+				}else{
+					$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date($user->deadline_pro) . ' + '.$day.' days'));
+				}
+				
+				$modelMember->save($user);
+				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+				if(empty($WarehouseUser)){
+					$data = $modelWarehouseUsers->newEmptyEntity();
+				            // tạo dữ liệu save
+					$data->warehouse_id = (int) 1;
+					$data->user_id = $user->id;
+					$data->designer_id = 343;
+					$data->price = 0;
+					$data->created_at = date('Y-m-d H:i:s');
+					$data->note ='';
+					$data->deadline_at = $user->deadline_pro;
+					$modelWarehouseUsers->save($data);
+				}else{
+					$WarehouseUser->deadline_at = $user->deadline_pro;
+					$modelWarehouseUsers->save($WarehouseUser);
+				}
+
+				$data = $modelExtendProHistorie->newEmptyEntity();
+			            // tạo dữ liệu sav
+				$data->user_id = $user->id;
+				$data->price = 0;
+				$data->created_at = date('Y-m-d H:i:s');
+				$data->deadline_pro = $user->deadline_pro;
+				$data->type = 1;
+				$data->ecoin = 0;
+				$modelExtendProHistorie->save($data);
+
+				$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
+			
+
+		}else{
+			$return = array('code'=>4, 'mess'=>'số điện thoạt sai');
+		}
+	}else{
+		$return = array('code'=>2, 'mess'=>'khiêu POST');
+	}
+	return $return;
+}
 ?>

@@ -18,11 +18,11 @@ function listUserAdmin($input)
     }
 
     if (!empty($_GET['name'])) {
-        $conditions['name LIKE'] = '%' . $_GET['name'] . '%';
+        $conditions['full_name LIKE'] = '%' . $_GET['name'] . '%';
     }
 
     if (!empty($_GET['phone_number'])) {
-        $conditions['phone_number LIKE'] = '%' . $_GET['phone_number'] . '%';
+        $conditions['phone LIKE'] = '%' . $_GET['phone_number'] . '%';
     }
 
     if (!empty($_GET['email'])) {
@@ -41,37 +41,24 @@ function listUserAdmin($input)
             $listData = $modelUser->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
             $titleExcel =   [
                 ['name'=>'ID', 'type'=>'text', 'width'=>10],
-                ['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
+                ['name'=>'Thời gian tạo', 'type'=>'text', 'width'=>25],
                 ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
                 ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
                 ['name'=>'Email', 'type'=>'text', 'width'=>25],  
                 ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],  
-                ['name'=>'Số tiền', 'type'=>'text', 'width'=>25],  
-                ['name'=>'Loại tài khoản', 'type'=>'text', 'width'=>25],  
-                ['name'=>'Ngàn hàng', 'type'=>'text', 'width'=>25],  
-                ['name'=>'Số tài khoản ngân hàng', 'type'=>'text', 'width'=>25],  
             ];
             $dataExcel = [];
             if(!empty($listData)){
                 
                 foreach ($listData as $key => $value) {
-                    if ($value->type == 0) {
-                        $type = 'Người dùng';
-                    } else {
-                        $type = 'Tài xế';
-                    }
-                    
+                   
                     $dataExcel[] = [
                                     @$value->id,
-                                    $value->created_at->format('H:i d-m-Y'), 
-                                    @$value->name,   
-                                    @$value->phone_number,   
+                                    date('H:i d-m-Y', $value->created_at), 
+                                    @$value->full_name,   
+                                    @$value->phone,   
                                     @$value->email,   
                                     @$value->address,   
-                                    number_format(@$value->total_coin),   
-                                    @$type,   
-                                    @$value->bank_account,   
-                                    @$value->account_number,   
                             ];
                 }
             }            

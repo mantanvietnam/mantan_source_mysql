@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Tăng like fanpage Facebook</h4>
+  <h4 class="fw-bold py-3 mb-4">Tăng lượt chia sẻ Facebook</h4>
   <p>
     <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#popupInfo"><i class='bx bx-plus'></i> Thêm mới</a>
     &nbsp;&nbsp;&nbsp;
@@ -9,7 +9,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Tăng like fanpage Facebook</h5>
+    <h5 class="card-header">Tăng lượt hia sẻ Facebook</h5>
     <?php echo $mess;?>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -19,6 +19,7 @@
             <th>ID trang</th>
             <th>Hoàn thành</th>
             <th>Yêu cầu</th>
+            <th>Thời gian</th>
             <th>Số tiền</th>
             <th>Trạng thái</th>
           </tr>
@@ -32,6 +33,7 @@
                       <td><a href="'.$value->url_page.'" target="_blank">'.$value->id_page.'</a></td>
                       <td>'.number_format($value->run).'</td>
                       <td>'.number_format($value->number_up).'</td>
+                      <td>'.number_format($value->minute).' phút</td>
                       <td>'.number_format($value->money).'đ</td>
                       <td>'.$value->status.'</td>
                     </tr>';
@@ -112,7 +114,7 @@
         <div class="card-body">
           <div class="row gx-3 gy-2 align-items-center">
             <div class="col-md-12">
-              <label class="form-label">Link/uid trang</label>
+              <label class="form-label">Link/uid  link bài viết Facebook</label>
               <input type="text" value="" class="form-control" placeholder="" name="id_page" id="id_page" required onchange="checkUID();">
             </div>
 
@@ -121,10 +123,10 @@
               <select name="chanel" id="chanel" class="form-select color-dropdown" required onchange="selectChanel();">
                 <option data-price='' value="">Chọn kênh</option>
                 <?php
-                  if(!empty($listPrice['data']['facebook']['buff']['likepage'])){
-                    foreach ($listPrice['data']['facebook']['buff']['likepage'] as $key => $value) {
+                  if(!empty($listPrice['data']['facebook']['buff']['share'])){
+                    foreach ($listPrice['data']['facebook']['buff']['share'] as $key => $value) {
                       $price = ceil($value['rate'])*$multiplier;
-                      echo '<option data-price="'.$price.'" value="'.$key.'" title="'.$value['detail'].'">Kênh '.$key.' giá '.$price.'đ/like</option>';
+                      echo '<option data-price="'.$price.'" value="'.$key.'" title="'.$value['detail'].'">Kênh '.$key.' giá '.$price.'đ/lượt chia sẻ</option>';
                     }
                   }
                 ?>
@@ -133,8 +135,10 @@
 
             <div class="col-md-12">
               <label class="form-label">Số lượng</label>
-              <input type="number" value="" class="form-control" placeholder="" name="number_up" id="number_up" required onchange="tinhgia();">
+              <input type="number" min="50" value="" class="form-control" placeholder="" name="number_up" id="number_up" required onchange="tinhgia();">
             </div>
+
+           
 
             <div class="col-md-12 text-danger" id="mess_pay"></div>
           </div>
@@ -160,7 +164,7 @@
       $.ajax({
         method: "POST",
         url: "/apis/getUidAPI",
-        data: { uid: uid }
+        data: { uid: uid, type: 'post_id' }
       })
         .done(function( msg ) {
           $('#id_page').val(msg.data.uid);
@@ -176,11 +180,13 @@
     var chanel = $('#chanel').val();
     var number_up = $('#number_up').val();
     var price = $('#price').val();
+    var minute = $('#minute').val();
+
     var total_pay = 0;
     var mess_pay = '';
 
-    if(price!='' && number_up!=''){
-      total_pay = parseInt(price) * parseInt(number_up);
+    if(price!='' && number_up!='' && minute!=''){
+      total_pay = parseInt(price) * parseInt(number_up) * parseInt(minute);
       mess_pay = 'Tổng số tiền cần thanh toán là <b>'+total_pay.toLocaleString('en-US')+'đ</b>';
 
       if(total_pay <= coin){
@@ -208,4 +214,4 @@
     tinhgia();
   }
 </script>
-<?php include(__DIR__.'/../../../../hethongdaily/view/home/footer.php'); ?>
+<?php include(__DIR__.'/../../../../hethongdaily/view/home/footer.php'); ?>li

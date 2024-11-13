@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Tăng like fanpage Facebook</h4>
+  <h4 class="fw-bold py-3 mb-4">Tăng bạn bè Facebook</h4>
   <p>
     <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#popupInfo"><i class='bx bx-plus'></i> Thêm mới</a>
     &nbsp;&nbsp;&nbsp;
@@ -9,7 +9,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Tăng like fanpage Facebook</h5>
+    <h5 class="card-header">Tăng bạn bè Facebook</h5>
     <?php echo $mess;?>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -121,10 +121,10 @@
               <select name="chanel" id="chanel" class="form-select color-dropdown" required onchange="selectChanel();">
                 <option data-price='' value="">Chọn kênh</option>
                 <?php
-                  if(!empty($listPrice['data']['facebook']['buff']['likepage'])){
-                    foreach ($listPrice['data']['facebook']['buff']['likepage'] as $key => $value) {
+                  if(!empty($listPrice['data']['facebook']['buff']['friend'])){
+                    foreach ($listPrice['data']['facebook']['buff']['friend'] as $key => $value) {
                       $price = ceil($value['rate'])*$multiplier;
-                      echo '<option data-price="'.$price.'" value="'.$key.'" title="'.$value['detail'].'">Kênh '.$key.' giá '.$price.'đ/like</option>';
+                      echo '<option data-price="'.$price.'" value="'.$key.'" title="'.$value['detail'].'">Kênh '.$key.' giá '.$price.'đ/bạn bè </option>';
                     }
                   }
                 ?>
