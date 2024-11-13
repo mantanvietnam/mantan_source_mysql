@@ -393,9 +393,35 @@ section{
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ */
 }
 
-.card-news {
+/* .card-news {
     position: relative;
     margin-bottom: 30px;
+} */
+
+.card-news {
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.card-news .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Màu sắc và độ mờ cho overlay */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-news:hover .overlay {
+    opacity: 1; /* Hiển thị overlay khi hover */
+}
+
+.card-news:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Thêm shadow khi hover */
 }
 
 .news .text {
@@ -457,9 +483,9 @@ section{
     transition: color 0.5s ease;
 }
 
-.news .card-news:hover .under-text .date-time {
-    color: #f39c12; /* Đổi màu văn bản ngày giờ khi hover */
-}
+/* .news .card-news:hover .under-text .date-time {
+    color: #f39c12;
+} */
 
 .news .under-text h4 {
     font-size: 22px;
@@ -484,9 +510,9 @@ section{
     transition: all linear 0.2s;
 }
 
-.news .card-news:hover .under-text h4 {
-    color: #3498db; /* Đổi màu tiêu đề khi hover */
-}
+/* .news .card-news:hover .under-text h4 {
+    color: #3498db;
+} */
 
 /* takeall */
 

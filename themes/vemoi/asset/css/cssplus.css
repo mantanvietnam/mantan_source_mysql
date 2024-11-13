@@ -97,9 +97,6 @@ li{
 .news__home .news-cards{
     margin-bottom: 30px;
 }
-.home__event .card-news{
-    background-color: crimson !important;
-}
 /* header */
 header{
     z-index: 1000;

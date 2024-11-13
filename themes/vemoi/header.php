@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create.css?time=1191"> 
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css?time=1199">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css?time=1200">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css?time=1189">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/register.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css?time=1193">
