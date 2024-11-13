@@ -1144,11 +1144,11 @@ section{
     }
 
     .rounded-input{
-        max-width: 400px;
+        max-width: 360px !important;
     }
 
     .input-container .round-btn{
-        right: 190px;
+        right: 230px !important; 
     }
 
     .nv-menu ul {
@@ -1201,8 +1201,8 @@ section{
     }
 
     .banner p {
-        font-size: 41px;
-        width: 100%;
+        font-size: 41px !important;
+        width: 100% !important;
     }
     
     .banner h4 {
