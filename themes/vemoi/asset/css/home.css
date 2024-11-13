@@ -1256,7 +1256,7 @@ section{
     }
 
     .create-events .under-items .text-event h3 {
-        font-size: 23px;
+        font-size: 23px !important;
     }
 
     .create-events .under-items .text-event h5 {
@@ -1265,7 +1265,7 @@ section{
     }
 
     .create-events .under-items .btn-event a{
-        padding: 12px 11px;
+        padding: 12px 11px !important;
     }
 
     .footer-up #logo h5 {
