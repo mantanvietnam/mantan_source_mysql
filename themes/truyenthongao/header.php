@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
     <body>
-        <header style="background-image: url('<?=@$settingThemes['banner']?>');">
+        <header>
             <nav class="navbar navbar-expand-lg navbar-light pos-ab pt-4">
                 <div class="container d-flex justify-content-between">
                     

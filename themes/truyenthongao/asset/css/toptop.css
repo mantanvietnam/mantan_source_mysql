@@ -159,8 +159,7 @@ body,header {
 /* HEADER Section */
 
 header {
-    background-color: grey;
-    /* Thay bằng hình nền của bạn */
+    background-color: grey; /* Thay bằng hình nền của bạn */
     background-size: cover;
     background-position: center;
     height: 110px;
