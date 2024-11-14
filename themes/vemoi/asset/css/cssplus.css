@@ -110,6 +110,36 @@ li{
 .body__register .form-container {
     max-height: 750px !important;
 }
+.mb-3 .btn-img .upload-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mb-3 .btn-img .upload-container input[type="text"] {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.mb-3 .btn-img .upload-container .upload-button {
+    white-space: nowrap;
+    background-color: #6c5ce7;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.mb-3 .btn-img .upload-container .upload-button:hover {
+    background-color: #5a4bc5;
+}
+
 /* header */
 header{
     z-index: 1000;

@@ -218,14 +218,14 @@
                                                 <div class="row">
                                                     <!-- Left Column (Image Upload and Adjustment) -->
                                                     <div class="col-lg-6">
-                                                        <div class="mb-3">
-                                                            <div class="btn-img mb-4">
-                                                                <div class="upload-container">
-                                                                    <input type="text" id="event-image" value="Sukien1.jpg" readonly>
-                                                                    <button type="button">Tải ảnh</button>
-                                                                </div>
+                                                    <div class="mb-3">
+                                                        <div class="btn-img mb-4">
+                                                            <div class="upload-container">
+                                                                <input type="file" id="upload-input" accept="image/*" />
+                                                                <label class="upload-button" for="upload-input">Tải ảnh</label>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                         <div class="d-grid">
                                                             <a href="#" class="btn btn-primary">Tải ảnh khách hàng</a>
                                                         </div>
