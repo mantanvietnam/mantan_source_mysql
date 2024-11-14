@@ -7,10 +7,11 @@
     <?php mantan_header();
      global $settingThemes;
      ?>
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/toptop.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/toptop.css?time=1199">
     <!-- boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- icon -->
+     
     <link rel="icon" sizes="16x16" href="<?= $urlThemeActive?>/asset/image/Logo.png" type="image/png">
     <link rel="icon" sizes="32x32" href="<?= $urlThemeActive?>/asset/image/Logo.png" type="image/png">
     <link rel="icon" sizes="48x48" href="<?= $urlThemeActive?>/asset/image/Logo.png" type="image/png">

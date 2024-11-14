@@ -165,6 +165,14 @@ body,header {
     transform: translateY(-5px); /* Di chuyển lên 5px khi hover */
 }
 
+.slick-slide img {
+    display: block;
+    width: 100px; /* Đặt chiều rộng cố định */
+    height: 100px; /* Đặt chiều cao cố định */
+    object-fit: cover; /* Đảm bảo ảnh vừa với kích thước đã đặt mà không bị méo */
+    border-radius: 100px;
+}
+
 /* HEADER Section */
 
 header {
@@ -422,9 +430,9 @@ header .nav-item a{
     border-radius: 15px;
 }
 
-.video-container img {
+.video-container iframe {
     width: 100%;
-    height: auto;
+    height: 400px;
     border-radius: 15px;
     align-items: center;
     margin-top: 100px;
@@ -1181,6 +1189,7 @@ header .nav-item a{
     border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    white-space: nowrap;
 }
 
 .footer__button:hover {

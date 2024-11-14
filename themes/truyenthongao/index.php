@@ -44,14 +44,14 @@
             </section>
             <section>
                 <div class="container">
-                    <div class="client-member ">
-                        <p class="d-flex align-items-center justify-content-center"><?=@$settingThemes['titlecustomer']?></p>
-                        <div class="brand ">
-                            <?php foreach($id_slidelistcustomer as $data):?>
-                                <img src="<?php echo $data->image;?>" alt="">
-                            <?php endforeach;?>
-                        </div>
+                <div class="client-member">
+                    <p class="d-flex align-items-center justify-content-center"><?= @$settingThemes['titlecustomer'] ?></p>
+                    <div class="brand customer-slider">
+                        <?php foreach ($id_slidelistcustomer as $data): ?>
+                            <img src="<?php echo $data->image; ?>" alt="Customer Logo">
+                        <?php endforeach; ?>
                     </div>
+                </div>
                 </div>
             </section>
 
@@ -63,10 +63,15 @@
                             <h2><?=@$settingThemes['titleintroduce']?></h2>
 
                             <div class="video-container">
-                                <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="Video Thumbnail">
-                                <a href="https://www.youtube.com/watch?v=k-d7EPaa8kY&ab_channel=Deven" class="play-button">
-                                    <i class="play-icon">&#9658;</i>
-                                </a>
+                                <iframe 
+                                    width="560" 
+                                    height="315" 
+                                    src="https://www.youtube.com/embed/k-d7EPaa8kY" 
+                                    title="YouTube video player" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
                             </div>
                         </div>
 
@@ -272,7 +277,7 @@
                         <?php foreach ($id_albumcustomer as $data): ?>
                         <div class="testimonial-item" style="padding: 20px; margin: 0 20px; border: solid 1px; transition: all linear 0.2s;">
                             <div class="testimonial-info" style="display: grid; grid-template-columns: auto auto; gap: 15px;">
-                                <div style="border-radius: 1000px; aspect-ratio: 1; overflow: hidden;">
+                                <div style="">
                                     <img src="<?php echo $data->image;?>" alt="">
                                 </div>
                                 <div>
