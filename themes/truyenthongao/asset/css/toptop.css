@@ -155,11 +155,20 @@ body,header {
     border: none;
 }
 
+/* thêm css */
+
+.navbar-nav .nav-item .nav-link {
+    transition: transform 0.3s ease; /* Thời gian và kiểu chuyển đổi */
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    transform: translateY(-5px); /* Di chuyển lên 5px khi hover */
+}
 
 /* HEADER Section */
 
 header {
-    background-color: grey; /* Thay bằng hình nền của bạn */
+    background-color: white; /* Thay bằng hình nền của bạn */
     background-size: cover;
     background-position: center;
     height: 110px;
@@ -169,8 +178,9 @@ header {
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
 }
+
+
 
 
 /* Navbar */
