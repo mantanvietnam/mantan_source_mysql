@@ -7,7 +7,7 @@
     <?php mantan_header();
      global $settingThemes;
      ?>
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/toptop.css?time=1212">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/toptop.css?time=1215">
     <!-- boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- icon -->
@@ -29,8 +29,12 @@
                             <img src="<?= @$settingThemes['logo'];?>" alt="Logo" class="logo">
                         </a>
                     </div>
-                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border: none; padding: 0; transition: all 0.3s ease-in-out;">
+                        <div class="custom-toggler" style="position: relative; width: 30px; height: 20px;">
+                            <span style="position: absolute; top: 0; left: 0; width: 100%; height: 2px; background-color: #000; transition: transform 0.3s ease-in-out; transform-origin: left center;"></span>
+                            <span style="position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background-color: #000; transform: translateY(-50%); transition: opacity 0.3s ease-in-out;"></span>
+                            <span style="position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: #000; transition: transform 0.3s ease-in-out; transform-origin: left center;"></span>
+                        </div>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNav" style="background-color: white; padding: 10px 20px; border-radius: 27px;">
                         <ul class="navbar-nav">

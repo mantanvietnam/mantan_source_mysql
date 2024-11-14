@@ -176,6 +176,35 @@ body,header {
     border-radius: 100px;
 }
 
+.navbar-toggler-icon {
+    display: none !important;
+}
+
+/* Style cho icon tùy chỉnh */
+.custom-toggler {
+    display: block;
+}
+
+.navbar-toggler:not(.collapsed) .custom-toggler span:first-child {
+    transform: rotate(45deg) translate(1px, -2px);
+}
+
+.navbar-toggler:not(.collapsed) .custom-toggler span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggler:not(.collapsed) .custom-toggler span:last-child {
+    transform: rotate(-45deg) translate(1px, 2px);
+}
+
+.navbar-toggler:hover .custom-toggler span:nth-child(2) {
+    width: 70%;
+}
+
+.navbar-toggler {
+    outline: none !important;
+    box-shadow: none !important;
+}
 /* HEADER Section */
 
 header {
