@@ -159,10 +159,13 @@ body,header {
 
 .navbar-nav .nav-item .nav-link {
     transition: transform 0.3s ease; /* Thời gian và kiểu chuyển đổi */
+    margin: 0 10px;
+    font-weight: 600;
 }
 
 .navbar-nav .nav-item .nav-link:hover {
     transform: translateY(-5px); /* Di chuyển lên 5px khi hover */
+    color: #38c6f3;
 }
 
 .slick-slide img {
@@ -221,7 +224,7 @@ header {
 }
 
 header .nav-item a{ 
-    color: black !important;
+    color: black ;
 }
 
 
@@ -512,7 +515,7 @@ header .nav-item a{
 }
 
 .schools__stat-number {
-    color: #4F46E5;
+    color: #38c6f3;
     font-size: 2.5rem;
     font-weight: bold;
 }
@@ -585,8 +588,10 @@ header .nav-item a{
 }
 
 .button__schools a {
+    background-color: #38c6f3;
     padding: 10px 80px;
     border-radius: 21px;
+    border: 0;
 }
 
 
@@ -690,13 +695,14 @@ header .nav-item a{
     display: inline-block;
     width: 100%;
     padding: 12px;
-    background-color: #4F46E5;
+    background-color: #38c6f3;
     color: white;
     text-align: center;
     text-decoration: none;
     border-radius: 25px;
     margin-bottom: 25px;
     transition: background-color 0.3s ease;
+    border: 0;
 }
 
 .pricing__card-button:hover {
@@ -781,7 +787,7 @@ header .nav-item a{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #6c63ff;
+    background-color: #38c6f3;
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -791,6 +797,7 @@ header .nav-item a{
     align-items: center;
     justify-content: center;
     z-index: 2;
+    border: 0;
 }
 
 .slick-prev {
@@ -1060,7 +1067,7 @@ header .nav-item a{
 }
 
 .news__btn-all {
-    background: #6c5ce7;
+    background: #38c6f3;
     color: white;
     border: none;
     padding: 12px 40px;
@@ -1075,19 +1082,18 @@ header .nav-item a{
 }
 
 .news__item .news__item-btn {
-    background-color: gray;
-    padding: 10px;
+    background-color: black;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 
 .news__item .news__item-btn i {
-    color: black;
+    color: white;
 }
 
 .news__item .news__item-btn:hover {
-    background-color: #5849e6;
-    padding: 10px;
-    border-radius: 50%;
+    background-color: #38c6f3;
 }
 
 .news__item .news__item-btn i:hover {
@@ -1131,7 +1137,7 @@ header .nav-item a{
 
 .footer__contact i {
     margin-right: 10px;
-    color: #6c5ce7;
+    color: #38c6f3;
     width: 16px;
 }
 
@@ -1182,7 +1188,7 @@ header .nav-item a{
 }
 
 .footer__button {
-    background: #6c5ce7;
+    background: #38c6f3;
     color: white;
     border: none;
     padding: 10px 25px;

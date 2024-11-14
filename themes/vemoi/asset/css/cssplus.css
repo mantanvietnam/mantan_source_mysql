@@ -83,8 +83,14 @@ li{
 
 
 /* thêm css */
-.home__event .news .top-text .logo i{
+.news .top-text .logo i{
     font-size: 20px;
+}
+
+.news img {
+    border-radius: 10px;
+    height: 400px;
+    cursor: pointer;
 }
 
 .gr-team .sponsors{
@@ -96,6 +102,13 @@ li{
 }
 .news__home .news-cards{
     margin-bottom: 30px;
+}
+
+.body__register img {
+    height: 920px !important;
+}
+.body__register .form-container {
+    max-height: 750px !important;
 }
 /* header */
 header{
