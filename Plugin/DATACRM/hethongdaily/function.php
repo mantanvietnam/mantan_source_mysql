@@ -1599,8 +1599,20 @@ function getListPermission()
                     );
     $permission[] = array( 'name'=>'Quản lý Xếp hạng thành viên',
                     'sub'=>array(   array('name'=>'Danh sách xếp hạng thành viên','permission'=>'listRatingPoint'),
-                                    array('name'=>'Danh sách xếp hạng thành viên','permission'=>'addRatingPoint'),
-                                    array('name'=>'Danh sách xếp hạng thành viên','permission'=>'deleteRatingPoint'),
+                                    array('name'=>'Thêm và sửa xếp hạng thành viên','permission'=>'addRatingPoint'),
+                                    array('name'=>'Xoá xếp hạng thành viên','permission'=>'deleteRatingPoint'),
+                            )
+                    );
+    $permission[] = array( 'name'=>'Quản lý đối tác',
+                    'sub'=>array(   array('name'=>'Danh sách đối tác','permission'=>'listPartner'),
+                                    array('name'=>'Thêm và sửa đối tác','permission'=>'addPartner'),
+                                    array('name'=>'Xoá đối tác','permission'=>'deletePartner'),
+                            )
+                    );
+    $permission[] = array( 'name'=>'Quản lý mã giảm giá ',
+                    'sub'=>array(   array('name'=>'Danh sách mã giảm giá','permission'=>'listDiscountCodeAgency'),
+                                    array('name'=>'Thêm và sửa mã giảm giá','permission'=>'addDiscountCodeAgency'),
+                                    array('name'=>'Xoá mã giảm giá','permission'=>'deleteDiscountCodeAgency'),
                             )
                     );
     

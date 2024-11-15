@@ -146,6 +146,8 @@ $sqlInstallDatabase .= "CREATE TABLE `order_members` (
   `total_costsIncurred` INT NULL DEFAULT '0',
   `id_staff_sell` INT NOT NULL DEFAULT '0' COMMENT 'id nhân viên bán', 
   `id_staff_buy` INT NOT NULL DEFAULT '0' COMMENT 'id nhân viên mua',
+  `type` INT NOT NULL DEFAULT 1 COMMENT '1 nhập từ dạt lý, 2 nhập thừ đối tác',
+  `id_partner` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -243,6 +245,7 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
   `id_staff_sell` INT NULL DEFAULT '0' COMMENT 'nhân viên thu',
   `id_staff_buy` INT NOT NULL DEFAULT '0' COMMENT 'nhân viên chi',
+  `id_partner` INT NOT NULL DEFAULT 0,
    PRIMARY KEY (`id`)
  ) ENGINE = InnoDB;";
 
@@ -263,6 +266,7 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `id_staff_sell` INT NULL DEFAULT '0' COMMENT 'nhân viên thu',
   `id_staff_buy` INT NOT NULL DEFAULT '0' COMMENT 'nhân viên chi',
   `id_order` INT NOT NULL DEFAULT '0' ,
+  `id_partner` INT NOT NULL DEFAULT 0,
    PRIMARY KEY (`id`)
  ) ENGINE = InnoDB;";
  
@@ -426,8 +430,8 @@ $sqlInstallDatabase .="CREATE TABLE `partners` (
   `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_member` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` INT DEFAULT NULL,
+  `updated_at` INT DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -618,6 +622,8 @@ $sqlUpdateDatabase['order_members']['costsIncurred'] = "ALTER TABLE `order_membe
 $sqlUpdateDatabase['order_members']['total_costsIncurred'] = "ALTER TABLE `order_members` ADD `total_costsIncurred` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['order_members']['id_staff_sell'] = "ALTER TABLE `order_members` ADD `id_staff_sell` INT NOT NULL DEFAULT '0' COMMENT 'id nhân viên bán';";
 $sqlUpdateDatabase['order_members']['id_staff_buy'] = "ALTER TABLE `order_members` ADD `id_staff_buy` INT NOT NULL DEFAULT '0' COMMENT 'id nhân viên mua';";
+$sqlUpdateDatabase['order_members']['type'] = "ALTER TABLE `order_members` ADD `type` INT NOT NULL DEFAULT '1' COMMENT '1 nhập từ dạt lý, 2 nhập thừ đối tác';";
+$sqlUpdateDatabase['order_members']['id_partner'] = "ALTER TABLE `order_members` ADD `id_partner` INT NOT NULL DEFAULT '0' ;";
 
 // bảng order_member_details
 $sqlUpdateDatabase['order_member_details']['id_product'] = "ALTER TABLE `order_member_details` ADD `id_product` INT NOT NULL;";
@@ -692,6 +698,7 @@ $sqlUpdateDatabase['bills']['id_debt'] = "ALTER TABLE `bills` ADD `id_debt` INT 
 $sqlUpdateDatabase['bills']['id_staff_sell'] = "ALTER TABLE `bills` ADD `id_staff_sell` INT NULL DEFAULT '0' COMMENT 'nhân viên thu';";
 $sqlUpdateDatabase['bills']['id_staff_buy'] = "ALTER TABLE `bills` ADD `id_staff_buy` INT NOT NULL DEFAULT '0' COMMENT 'nhân viên chi';";
 $sqlUpdateDatabase['bills']['note'] = "ALTER TABLE `bills` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['bills']['id_partner'] = "ALTER TABLE `bills` ADD id_partner` INT NOT NULL DEFAULT '0';";
 
 // chi
 $sqlUpdateDatabase['debts']['id_member_sell'] = "ALTER TABLE `debts` ADD `id_member_sell` INT NOT NULL";
@@ -704,6 +711,7 @@ $sqlUpdateDatabase['debts']['status'] = "ALTER TABLE `debts` ADD `status` INT NO
 $sqlUpdateDatabase['debts']['type_order'] = "ALTER TABLE `debts` ADD `type_order` INT NOT NULL COMMENT '3: tự tạo, 1: đại lý, 2: khách hàng'";
 $sqlUpdateDatabase['debts']['id_customer'] = "ALTER TABLE `debts` ADD `id_customer` INT NOT NULL DEFAULT '0'";
 $sqlUpdateDatabase['debts']['note'] = "ALTER TABLE `debts` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL";
+$sqlUpdateDatabase['debts']['id_partner'] = "ALTER TABLE `debts` ADD `id_partner` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['debts']['created_at'] = "ALTER TABLE `debts` ADD `created_at` INT NULL DEFAULT NULL";
 $sqlUpdateDatabase['debts']['updated_at'] = "ALTER TABLE `debts` ADD `updated_at` INT NULL DEFAULT NULL";
 $sqlUpdateDatabase['debts']['id_order'] = "ALTER TABLE `debts` ADD `id_order` INT NOT NULL DEFAULT '0'";

@@ -219,13 +219,24 @@
                                         <p><strong id="totalPay">0</strong></p>
                                         <input type="hidden" name="totalPays" id="totalPays" value="">
                                     </li>
-
+                                    <?php if(empty($user->id_father)){?>
+                                        <li>
+                                            <span>Đối tác  (*)</span>
+                                            <span><select class="form-control" name="id_partner" id="id_partner" required>
+                                                <option value="" >Chọn dối tác</option>
+                                                <?php foreach ($listPartner as $key => $item){
+                                                  echo '<option value="'.$item->id.'">'.$item->name.'('.$item->phone.')</option>';
+                                                } ?>
+                                            </select></span>
+                                        </li>
+                                    <?php }else{ ?>
                                     <li class="total-bh">
                                         <p>Đại lý tuyến trên</p>
                                         <p>
                                             <?php echo @$father->name.' - '.@$father->phone;?>
                                         </p>
                                     </li>
+                                <?php } ?>
 
                                     <li style="display: contents;"><span>Ghi chú</span><br/>
                                         <textarea class="form-control phone-mask" rows="3" name="note"></textarea>
@@ -254,7 +265,7 @@ var row=0;
 var numberProduct= 0;
 var checkProduct= true;
 var listPositions = {}
-var checkBoss = <?php if(empty($session->read('infoUser')->id_father)){ echo 'true';}else{ echo 'false';}?>;
+var checkBoss = <?php if(empty($user->id_father)){ echo 'true';}else{ echo 'false';}?>;
 
 <?php
 if(!empty($listPositions)){
@@ -315,7 +326,7 @@ function addProduct(id, name, priceProduct, unit)
                     </div>\
                 </td>\
                 <td>\
-                    <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
+                    <input '+readonly+' type="text"  value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
                 </td>\
                 <td id="tdunit-'+row+'">\
                     '+unit+'\
@@ -487,13 +498,24 @@ function createOrder()
     tinhtien(0);
 
     var r;
+    if(checkBoss){
+        var id_partner = $('#id_partner').val();
+    }else{
+        var id_partner =1;
+    }
+    console.log(id_partner);
 
     if(numberProduct>0){
-        r = confirm("Bạn muốn gửi yêu cầu nhập hàng đúng không?");
-        if (r == true) {
-            if(checkProduct){
-                $('#summary-form').submit();
+        if(id_partner!= '' && id_partner!='0'){
+            r = confirm("Bạn muốn gửi yêu cầu nhập hàng đúng không?");
+            if (r == true) {
+                if(checkProduct){
+                    $('#summary-form').submit();
+                }
             }
+        }else{
+           
+          alert('Bạn chưa chọn đối tác');
         }
     }else{
         alert('Bạn chưa chọn sản phẩm nào');
@@ -551,9 +573,48 @@ function createOrder()
                 return false;
             }
         });
+   
+        $( "#name_partner" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchPartnerAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+
+                $( "#name_partner" ).val(ui.item.label);
+                $( "#id_partner" ).val(ui.item.id);
+                
+                $( "#searchProduct" ).val('');
+                return false;
+            }
+        });
     });
 </script>
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 

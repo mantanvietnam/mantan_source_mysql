@@ -162,7 +162,7 @@ function addPartner($input)
 	        $data = $modelPartner->get( (int) $_GET['id']);
 	    }else{
 	        $data = $modelPartner->newEmptyEntity();
-			$data->created_at = date('Y-m-d H:i:s');
+			$data->created_at = time();
 	    }
 
 		if ($isRequestPost) {
@@ -183,7 +183,7 @@ function addPartner($input)
 			        $data->email = $dataSend['email'];
 			        $data->note = $dataSend['note'];
 			        $data->id_member = $user->id;
-			        $data->updated_at = date('Y-m-d H:i:s');
+			        $data->updated_at = time();
 
 			        $modelPartner->save($data);
 
@@ -242,5 +242,69 @@ function deletePartner($input){
 	}else{
 		return $controller->redirect('/login');
 	}
+}
+
+function searchPartnerAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $modelCategories;
+
+    $return= array();
+    $modelPartner = $controller->loadModel('Partners');
+
+    $dataSend = $_REQUEST;
+
+    
+    $conditions = [];
+
+    if(!empty($dataSend['term'])){
+        $conditions['OR'] = ['name LIKE' => '%'.$dataSend['term'].'%', 'phone LIKE' => '%'.$dataSend['term'].'%'];
+    }
+
+    if(!empty($dataSend['id'])){
+        $conditions['id'] = (int) $dataSend['id'];
+    }
+
+    if(!empty($dataSend['phone'])){
+        $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+        $dataSend['phone LIKE'] = '%'.str_replace('+84','0',$dataSend['phone']).'%';
+
+        $conditions['phone LIKE'] = '%'.$dataSend['phone'].'%';
+    }
+
+    if(!empty($dataSend['email'])){
+        $conditions['email LIKE'] =  '%'.$dataSend['email'].'%';
+    }
+
+    if(!empty($dataSend['status'])){
+        $conditions['status'] = $dataSend['status'];
+    }
+
+    $listData= $modelPartner->find()->where($conditions)->all()->toList();
+    
+    if($listData){
+        foreach($listData as $data){
+            $return[]= array(   'id'=>$data->id,
+                'label'=>$data->name.' '.$data->phone,
+                'value'=>$data->id,
+                'name'=>$data->name,
+                'phone'=>$data->phone,
+                'id_member'=>$data->id_member,
+                'email'=>$data->email,
+                'created_at'=>$data->created_at,
+                'address'=>$data->address,
+            );
+        }
+    }else{
+        $return= array(array(   'id'=>0, 
+            'label'=>'Không tìm được khách hàng, hãy tạo thông tin cho khách hàng mới', 
+            'value'=>'', 
+        )
+    );
+    }
+
+
+    return $return;
 }
  ?>

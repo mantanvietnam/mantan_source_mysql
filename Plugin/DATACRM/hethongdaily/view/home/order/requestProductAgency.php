@@ -64,7 +64,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách yêu cầu nhập hàng</h5>
+    <h5 class="card-header">Danh sách yêu cầu nhập hàng</h5><?php echo @$mess ?>
     <p>Quy trình: đơn mới -> duyệt đơn -> giao hàng -> hoàn thành -> nhập hàng vào kho</p>
     <div id="desktop_view">
       <div class="table-responsive">
@@ -108,16 +108,28 @@
                   }
 
                   $statusPay= '';
+                  $btnPay= '';
                   if($item->status_pay=='wait'){ 
                    $statusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
+                    if(empty($user->id_father)  && $item->status!='cancel' ){
+                      $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
+                    }
                   }elseif($item->status_pay=='done'){
                    $statusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
+                  
+
                   }
 
                   $action = '';
                   if($item->status!='done' && $item->status!='cancel'){
-                    $action = '<a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=done" class="btn btn-danger">Nhập kho</a>';
+                    $action = '<a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=done" class="btn btn-primary">Nhập kho</a>';
+                    if(empty($user->id_father)){
+                      $action .='<br/><br/><a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=cancel" class="btn btn-danger">hủy</a>';
+                    }
+                    
                   }
+
+
                   
                   echo '<tr>
                   <td>'.$item->id.'<br/><br/>'.date('H:i d/m/Y', $item->create_at).'</td>
@@ -168,7 +180,7 @@
                   <td>'.$item->discount.'%</td>
                   
                   <td align="center">'.$status.$statusPay.'</td>
-                  <td>'.$action.'</td>
+                  <td>'.$action.$btnPay.'</td>
                  </tr>';
                }
              }else{
@@ -181,7 +193,7 @@
         </table>
       </div>
     </div>
-     <div id="mobile_view">
+    <div id="mobile_view">
       <?php 
          if(!empty($listData)){
               foreach ($listData as $item) {
@@ -198,16 +210,26 @@
                    $status= '<p style="color: red;">Đã hủy</p>';
                   }
 
-                  $statusPay= '';
+                   $statusPay= '';
+                  $btnPay= '';
                   if($item->status_pay=='wait'){ 
                    $statusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
+                    if(empty($user->id_father)  && $item->status!='cancel' ){
+                      $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
+                    }
                   }elseif($item->status_pay=='done'){
                    $statusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
+                  
+
                   }
 
                   $action = '';
                   if($item->status!='done' && $item->status!='cancel'){
-                    $action = '<a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=done" class="btn btn-danger">Nhập kho</a>';
+                    $action = '<a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=done" class="btn btn-primary">Nhập kho</a>';
+                    if(empty($user->id_father)){
+                      $action .='<br/><br/><a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=cancel" class="btn btn-danger">hủy</a>';
+                    }
+                    
                   }
                   
                 echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
@@ -266,7 +288,7 @@
                           <p><strong>chiếu khấu: </strong>'.$item->discount.'%</p>
 
                           <p><strong>Trạng thái: </strong>'.$status.$statusPay.'</p>
-                          <p align="center">'.$action.'</p> 
+                          <p align="center">'.$action.$btnPay.'</p> 
 
                         </div>';
           }
@@ -278,6 +300,82 @@
         }
       ?>
     </div>
+    <?php 
+  if(!empty($listData)){
+    foreach ($listData as $items) {?>
+      <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel1">Thông tin Thanh toán</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer" style="display: block;">
+              <p><label>ID:</label> <?php echo $items->id ?></p>
+              <p><label>Tên khách hàng:</label> <?php echo @$items->buyer->name ?></p>
+              <p><label>Điện thoại:</label> <?php echo @$items->buyer->phone ?></p>
+              <p><label>Email:</label> <?php echo @$items->buyer->email ?></p>
+                <table class="table table-bordered" style=" text-align: center; ">
+                  <thead>
+                    <tr>
+                      <th >Sản Phẩm</th>
+                      <th >Giá bán</th>
+                      <th >Số lượng </th>                                                 
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php if(!empty($items->detail_order)){ 
+                      foreach($items->detail_order as $k => $value){
+                       $unit = @$value->product->unit;
+                       if(!empty($value->id_unit) && !empty($value->product->unitConversion)){
+                        foreach($value->product->unitConversion as $keyunti => $value_unit){
+                          if($value->id_unit==$value_unit->id){
+                            $unit = @$value_unit->unit;
+                          }
+                        }
+                      }
+
+                        echo '<tr> 
+                                <td  width="50%">'.$value->product.'</td>
+                                <td  width="30%">'.number_format($value->price).'đ</td>
+                                <td  width="20%">'.$value->quantity.' '.$unit.'</td>
+                              </tr>';
+                      }} ?>
+                    </tbody>
+                </table>
+                <p><label>Thành tiền:</label> <?php echo number_format(@$items->money) ?>đ</p>
+                <p><label>Giảm:</label> <?php echo number_format(@$items->money-$items->total) ?>đ</p>
+                <p><label>Tổng cộng:</label> <?php echo number_format(@$items->total) ?>đ</p>
+                <form id="" action="/updateMyOrderMemberAgency" class="form-horizontal" method="get" enctype=""> 
+                 <div class="" style="display: block;">
+                  <div class="row gx-3 gy-2 align-items-center mb-3">
+                    <div class="col-md-12">
+                      <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                      <input type="hidden" value="done"  name="status_pay">
+                      <!-- <input type="hidden" value="<?php echo urlencode($urlCurrent); ?>"  name="back"> -->
+                      <label class="form-label">Chọn hình thức thanh toán</label>
+                      <select  name="type_collection_bill" id="type_collection_bill" required="" class="form-select color-dropdown">
+                        <option value="">Chọn hình thức thanh toán</option>
+                        <option value="tien_mat">Tiền mặt</option>
+                        <option value="chuyen_khoan">Chuyển khoản</option>
+                        <option value="the_tin_dung">Quẹt thẻ</option>
+                        <option value="vi_dien_tu">Ví điện tử</option>
+                        <option value="cong_no">Công nợ</option>
+                        <option value="hinh_thuc_khac">Hình thức khác</option> 
+                      </select>
+                      <label class="form-label">Ghi chú</label>
+                      <textarea class="form-control phone-mask" rows="3" name="note"></textarea>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary ">Thanh toán</button>
+                </div>
+              </form>
+              </div>
+            </div>
+            </div>
+          </div>
+<?php }} ?>
   <!-- Phân trang -->
   <div class="demo-inline-spacing">
     <nav aria-label="Page navigation">

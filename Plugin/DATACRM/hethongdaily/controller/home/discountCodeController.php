@@ -10,8 +10,11 @@ function listDiscountCodeAgency($input)
     $metaTitleMantan = 'Danh sách mã giảm giá';
 
     $modelDiscountCode = $controller->loadModel('DiscountCodes');
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+    $user = checklogin('listDiscountCodeAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
     
         $conditions = array('id_member'=>$user->id);
          if(!empty($_GET['name'])){
@@ -111,9 +114,11 @@ function addDiscountCodeAgency($input)
 
     $modelDiscountCode = $controller->loadModel('DiscountCodes');
     $mess= '';
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
-    
+    $user = checklogin('addDiscountCodeAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         // lấy data edit
         if(!empty($_GET['id'])){
             $data = $modelDiscountCode->find()->where(array('id'=>(int) $_GET['id'],'id_member'=>$user->id))->first();
@@ -145,6 +150,14 @@ function addDiscountCodeAgency($input)
                 $data->applicable_price = @$dataSend['applicable_price'];
                 $modelDiscountCode->save($data);
 
+                 if(!empty($dataSend['id'])){
+                        $note = $user->type_tv.' '. $user->name.' sửa thông tin mã giảm giá'.$data->name.' có id là:'.$data->id;
+                    }else{
+                        $note = $user->type_tv.' '. $user->name.' thêm thông tin mã giảm giá'.$data->name.' có id là:'.$data->id;
+                    }
+
+                    addActivityHistory($user,$note,'addDiscountCodeAgency',$data->id);
+
                  return $controller->redirect('/listDiscountCodeAgency/mess=saveSuccess');
                 $data = $modelDiscountCode->find()->where(array('id'=>(int) $data->id,'id_member'=>$user->id))->first();
                
@@ -167,9 +180,11 @@ function addDiscountCodeAgency($input)
 function deleteDiscountCodeAgency($input){
     global $session;
     global $controller;
-    $modelDiscountCode = $controller->loadModel('DiscountCodes');
-    if(!empty($session->read('infoUser'))){
-        $user = $session->read('infoUser');
+   $user = checklogin('deleteDiscountCodeAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
         if(!empty($_GET['id'])){
             $data = $modelDiscountCode->find()->where(array('id'=>$_GET['id'],'id_member'=>$user->id))->first();
             

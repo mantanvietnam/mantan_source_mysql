@@ -18,6 +18,7 @@ function requestProductAgency($input)
 
         $modelProducts = $controller->loadModel('Products');
         $modelOrderMembers = $controller->loadModel('OrderMembers');
+        $modelPartner = $controller->loadModel('Partners');
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
 
         $conditions = array('id_member_buy'=>$user->id);
@@ -67,6 +68,9 @@ function requestProductAgency($input)
 
                     $listData[$key]->detail_order = $detail_order;
                 }
+                if(!empty($item->id_partner)){
+                    $listData[$key]->buyer = $modelPartner->find()->where(['id'=>@$item->id_partner])->first();
+                }
             }
         }
 
@@ -101,11 +105,16 @@ function requestProductAgency($input)
         } else {
             $urlPage = $urlPage . '?page=';
         }
+        $mess = '';
+        if(@$_GET['mess']=='done'){
+            $mess= '<p class="text-success">Gửi yêu cầu thành công</p>';
+        }
 
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
         setVariable('next', $next);
+        setVariable('mess', $mess);
         setVariable('urlPage', $urlPage);
         
         setVariable('listData', $listData);
@@ -135,16 +144,28 @@ function addRequestProductAgency($input)
         $modelOrderMembers = $controller->loadModel('OrderMembers');
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelMembers = $controller->loadModel('Members');
+        $modelPartner = $controller->loadModel('Partners');
 
         $mess = '';
 
         if($isRequestPost){
             $dataSend = $input['request']->getData();
 
+
             if(!empty($dataSend['idHangHoa'])){
                 $save = $modelOrderMembers->newEmptyEntity();
 
                 $save->id_member_sell = $user->id_father;
+                if(!empty($user->id_father)){
+                     $save->id_member_sell= $user->id_father;
+                     $save->type = 1;
+                     $save->id_partner = 0;
+                }else{
+                    $save->id_member_sell= 0;
+                    $save->type = 2;
+                    $save->id_partner = (int)$dataSend['id_partner'];
+
+                }
                 $save->id_member_buy = $user->id;
                 $save->id_staff_buy = $user->id_staff;
                 $save->note_sell = ''; // ghi chú người bán
@@ -155,8 +176,6 @@ function addRequestProductAgency($input)
                 $save->total = (int) $dataSend['totalPays'];
                 $save->status_pay = 'wait';
                 $save->discount = $dataSend['promotion'];
-                $save->discount = $dataSend['promotion'];
-
                 $modelOrderMembers->save($save);
 
                 foreach ($dataSend['idHangHoa'] as $key => $value) {
@@ -175,6 +194,8 @@ function addRequestProductAgency($input)
                 addActivityHistory($user,$note,'addRequestProductAgency',$save->id);
 
                 $mess= '<p class="text-success">Gửi yêu cầu thành công</p>';
+                 return $controller->redirect('/requestProductAgency?mess=done');
+                
             }else{
                 $mess= '<p class="text-danger">Không thể tạo đơn do bạn chưa chọn sản phẩm</p>';
             }
@@ -191,10 +212,13 @@ function addRequestProductAgency($input)
 
         $listPositions = $modelCategories->find()->where(['type' => 'system_positions', 'parent'=>$user->id_system, 'status'=>'active'])->all()->toList();
 
+        $listPartner= $modelPartner->find()->where()->all()->toList();
+
         setVariable('listProduct', $listProduct);
         setVariable('position', $position);
         setVariable('father', $father);
         setVariable('mess', $mess);
+        setVariable('listPartner', $listPartner);
         setVariable('listPositions', $listPositions);
     }else{
         return $controller->redirect('/login');
@@ -970,10 +994,14 @@ function updateMyOrderMemberAgency($input)
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelOrderMembers = $controller->loadModel('OrderMembers');
+        $modelPartner = $controller->loadModel('Partners');
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
         $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
         $modelUnitConversion = $controller->loadModel('UnitConversions');
+        $modelTokenDevices = $controller->loadModel('TokenDevices');
+        $modelBill = $controller->loadModel('Bills');
+        $modelDebt = $controller->loadModel('Debts');
 
         if(!empty($_GET['id'])){
             $order = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id'], 'id_member_buy'=>$user->id])->first();
@@ -1012,55 +1040,141 @@ function updateMyOrderMemberAgency($input)
                                 $modelWarehouseProducts->save($checkProductExits);
 
                                 // trừ hàng trong kho người bán
-                                $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_sell])->first();
+                                if(!empty($order->id_member_sell)){
+                                    $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_sell])->first();
 
-                                if(empty($checkProductExits)){
-                                    $checkProductExits = $modelWarehouseProducts->newEmptyEntity();
-                                    $checkProductExits->quantity = 0;
+                                    if(empty($checkProductExits)){
+                                        $checkProductExits = $modelWarehouseProducts->newEmptyEntity();
+                                        $checkProductExits->quantity = 0;
+                                    }
+
+                                    $checkProductExits->id_member = $order->id_member_sell;
+                                    $checkProductExits->id_product = $value->id_product;
+                                    $checkProductExits->quantity -= $quantity;
+
+                                    $modelWarehouseProducts->save($checkProductExits);
+
+                                    // lưu lịch sử nhập kho của người mua
+                                    $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+                                    $saveWarehouseHistories->id_member = $order->id_member_buy;
+                                    $saveWarehouseHistories->id_product = $value->id_product;
+                                    $saveWarehouseHistories->quantity = $quantity;
+                                    $saveWarehouseHistories->note = 'Nhập hàng vào kho';
+                                    $saveWarehouseHistories->create_at = time();
+                                    $saveWarehouseHistories->type = 'plus';
+                                    $saveWarehouseHistories->id_order_member = $order->id;
+
+                                    $modelWarehouseHistories->save($saveWarehouseHistories);
+
+                                    // lưu lịch sử xuất kho của người bán
+                                    $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+
+                                    $saveWarehouseHistories->id_member = $order->id_member_sell;
+                                    $saveWarehouseHistories->id_product = $value->id_product;
+                                    $saveWarehouseHistories->quantity = $quantity;
+                                    $saveWarehouseHistories->note = 'Xuất hàng cho đại lý tuyến dưới';
+                                    $saveWarehouseHistories->create_at = time();
+                                    $saveWarehouseHistories->type = 'minus';
+                                    $saveWarehouseHistories->id_order_member = $order->id;
+
+                                    $modelWarehouseHistories->save($saveWarehouseHistories);
                                 }
-
-                                $checkProductExits->id_member = $order->id_member_sell;
-                                $checkProductExits->id_product = $value->id_product;
-                                $checkProductExits->quantity -= $quantity;
-
-                                $modelWarehouseProducts->save($checkProductExits);
-
-                                // lưu lịch sử nhập kho của người mua
-                                $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
-
-                                $saveWarehouseHistories->id_member = $order->id_member_buy;
-                                $saveWarehouseHistories->id_product = $value->id_product;
-                                $saveWarehouseHistories->quantity = $quantity;
-                                $saveWarehouseHistories->note = 'Nhập hàng vào kho';
-                                $saveWarehouseHistories->create_at = time();
-                                $saveWarehouseHistories->type = 'plus';
-                                $saveWarehouseHistories->id_order_member = $order->id;
-
-                                $modelWarehouseHistories->save($saveWarehouseHistories);
-
-                                // lưu lịch sử xuất kho của người bán
-                                $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
-
-                                $saveWarehouseHistories->id_member = $order->id_member_sell;
-                                $saveWarehouseHistories->id_product = $value->id_product;
-                                $saveWarehouseHistories->quantity = $quantity;
-                                $saveWarehouseHistories->note = 'Xuất hàng cho đại lý tuyến dưới';
-                                $saveWarehouseHistories->create_at = time();
-                                $saveWarehouseHistories->type = 'minus';
-                                $saveWarehouseHistories->id_order_member = $order->id;
-
-                                $modelWarehouseHistories->save($saveWarehouseHistories);
                             }
                         }
                     }
 
+
+                }        
+                if(!empty($_GET['status_pay'])){
+                    $order->status_pay = $_GET['status_pay'];
+
+
+                    if($_GET['status_pay'] == 'done'){
+                        // thông báo cho người mua
+                        $infoMemberSell = $modelPartner->find()->where(['id'=>@$order->id_partner])->first();
+                        $infoMemberBuy = $modelMembers->find()->where(['id'=>@$order->id_member_buy])->first();
+
+                        if(!empty($infoMemberBuy->noti_new_order)){
+                            $dataSendNotification= array('title'=>'Thanh toán thành công','time'=>date('H:i d/m/Y'),'content'=>'Đơn hàng #'.$order->id.' của bạn đã được thanh toán thành công số tiền '.number_format($order->total).'đ','action'=>'deleteProductWarehouse','id_order_member'=>$order->id);
+                            $token_device = [];
+
+                            $listTokenDevice =  $modelTokenDevices->find()->where(['id_member'=>$infoMemberBuy->id])->all()->toList();
+
+                            if(!empty($listTokenDevice)){
+                                foreach ($listTokenDevice as $tokenDevice) {
+                                    if(!empty($tokenDevice->token_device)){
+                                        $token_device[] = $tokenDevice->token_device;
+                                    }
+                                }
+
+                                if(!empty($token_device)){
+                                    $return = sendNotification($dataSendNotification, $token_device);
+                                }
+                            }
+                        }
+
+                       
+
+                     
+                        $time= time();
+                        if($_GET['type_collection_bill']!='cong_no'){
+                            // bill cho người mua
+                            $billbuy = $modelBill->newEmptyEntity();
+                            $billbuy->id_member_sell =  $user->id;
+                            $billbuy->id_member_buy = $order->id_member_buy;
+                            $billbuy->id_staff_sell =  0;
+                            $billbuy->id_partner =  $infoMemberSell->id;
+                            $billbuy->id_staff_buy =  0;
+                            $billbuy->total = $order->total;
+                            $billbuy->id_order = $order->id;
+                            $billbuy->type = 2;
+                            $billbuy->type_order = 5; 
+                            $billbuy->created_at = $time;
+                            $billbuy->updated_at = $time;
+                            $billbuy->id_debt = 0;
+                            $billbuy->type_collection_bill =  @$_GET['type_collection_bill'];
+                            $billbuy->id_customer = 0;
+                            $billbuy->note = 'Thanh toán đơn hàng id:'.$order->id.' mua của đối tác '.@$infoMemberSell->name.' '.@$infoMemberSell->phone.'; '.@$_GET['note'];
+                            $modelBill->save($billbuy);
+                        }else{
+                            if(!empty($infoMemberBuy)){
+                                $debt = $modelDebt->newEmptyEntity();
+                                $debt->id_member_sell =  0;
+                                $debt->id_member_buy = $order->id_member_buy;
+                                $bill->id_staff_buy =  $order->id_staff_buy;
+                                $debt->total = $order->total;
+                                $debt->id_partner =  $infoMemberSell->id;
+                                $debt->id_order = $order->id;
+                                $debt->number_payment = 0;
+                                $debt->total_payment = 0;
+                                $debt->type = 2;
+                                $debt->status = 0;
+                                $debt->type_order = 5; 
+                                $debt->created_at = $time;
+                                $debt->updated_at = $time;
+                                $debt->id_customer = 0;
+                                $debt->note = 'Thanh toán đơn hàng id:'.$order->id.' mua của đối tác '.@$infoMemberBuy->name.' '.@$infoMemberBuy->phone.'; '.@$_GET['note'];
+                                    $modelDebt->save($debt);
+                            }
+                        }
+
+                        $note = $user->type_tv.' '. $user->name.' đã xử lý Thanh toán đơn hàng cho đại lý '.$infoMemberBuy->name.'('.$infoMemberBuy->phone.') có id đơn là:'.$order->id;
+                    }
+
+                }
+                
+
+
+
                     $note = $user->type_tv.' '. $user->name.' đã xử lý nhập đơn hàng vào kho, có id đơn là:'.$order->id;
 
 
-                }
+                
 
                 addActivityHistory($user,$note,'updateOrderMemberAgency',$order->id);
-
+               
+            
                 $modelOrderMembers->save($order);
 
                 if(!empty($_GET['back'])){

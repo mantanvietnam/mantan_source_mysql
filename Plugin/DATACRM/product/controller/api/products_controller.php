@@ -702,4 +702,54 @@ function deleteUnitConversionProductAPI($input){
 
     return $return;
 }
+
+function deleteProductAPI($input){
+    global $controller;
+    global $isRequestPost;
+
+
+    $modelProduct = $controller->loadModel('Products');
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+            $infoMember = getMemberByToken($dataSend['token'],'deleteProductAgency');
+
+            if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>6, 'mess'=>'Bạn không có quyền');
+                }
+
+                if($infoMember->id_father==0){
+                    $data = $modelProduct->find()->where(['id'=>$dataSend['id']])->first();
+                    
+                    if($data){
+                        $data->status = 'lock';
+                        $modelProduct->save($data);
+
+                        $note = $infoMember->type_tv.' '. $infoMember->name.' xóa thông tin sản phẩm '.$data->title.' có id là:'.$data->id;
+                        addActivityHistory($infoMember,$note,'deleteProductAgency',$data->id);
+
+                        $return = array('code'=>0, 'mess'=>'Xóa sản phẩn thành công');
+                    }else{
+                        $return = array('code'=>4, 'mess'=>'Không tìm thấy sản phẩn');
+                    }
+                }else{
+                    $return = array('code'=>5, 'mess'=>'bạn không phải là boss');
+                }            
+            }else{
+                $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+            $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+
+
 ?>

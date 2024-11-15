@@ -69,6 +69,7 @@
               <th>Họ và tên</th>
               <th>Thông tin</th>
               <th>Sửa</th> 
+              <th>xóa</th> 
               <th>Trạng thái</th>
         </tr>
         </thead>
@@ -122,6 +123,15 @@
                  href="/plugins/admin/colennao-view-admin-user-viewUserDetailAdmin/?id=' . $item->id . '"
                  >
                  <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                 </a>
+                 </p>
+                 </td>
+                 <td> 
+                 <p align="center">
+                 <a class="btn btn-primary" 
+                 href="/plugins/admin/colennao-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=delete"
+                  onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');">
+                 <i class="bx bx-trash me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>
                  </td>
