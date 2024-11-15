@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin">Hiện vật</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php">Hiện vật</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";
@@ -79,8 +79,15 @@
                             </div>
                              <div class="mb-3 form-group col-sm-6">
                                 <label for="">Trạng thái:</label>&ensp;
-                                <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> > Hiển thị&ensp;
-                                <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > Ẩn
+                               <?php if(!isset($data['status'])){
+                                if($data['status']==''){ ?>
+                                <input type="radio" name="status" class="" id="status" value="1" checked="checked"> Hiển thị&ensp;
+                                <input type="radio" name="status" class="" id="status" value="0" > Ẩn
+
+                                <?php }}else{ ?>
+                                    <input type="radio" name="status" class="" id="status" value="1" <?php if(@$data['status']==1) echo 'checked="checked"';   ?> > Hiển thị&ensp;
+                                    <input type="radio" name="status" class="" id="status" value="0" <?php if(@$data['status']==0) echo 'checked="checked"';   ?> > Ẩn
+                                <?php } ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
                                 <label for=""> Ký hiệu, mã số ảnh:</label>

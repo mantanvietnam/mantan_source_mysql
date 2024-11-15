@@ -353,7 +353,7 @@ function listArtifactAdmin($input)
     $metaTitleMantan = 'Danh sách hiện vật';
 
     $modelArtifact = $controller->loadModel('Artifacts');
-    
+    $modelHistoricalsite = $controller->loadModel('Historicalsites');
     $conditions = array();
     if(!empty($_GET['name'])){
         $key=createSlugMantan($_GET['name']);
@@ -365,13 +365,50 @@ function listArtifactAdmin($input)
         $conditions['sign LIKE']= '%'.$_GET['sign'].'%';
     }
 
+    if(!empty($_GET['idHistoricalsite'])){
+
+        $conditions['idHistoricalsite']= (int)$_GET['idHistoricalsite'];
+    }
+
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
     $order = array('id'=>'desc');
+
+    if(!empty($_GET['excel']) && $_GET['excel']=='Xuất excel'){
+            $listData = $modelArtifact->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
+            $titleExcel =   [
+                ['name'=>'STT', 'type'=>'text', 'width'=>10],
+                ['name'=>'MÃ SỐ HIỆN VẬT', 'type'=>'text', 'width'=>25],
+                ['name'=>'TÊN HIỆN VẬT', 'type'=>'text', 'width'=>25],
+                ['name'=>' SỐ LƯỢNG', 'type'=>'text', 'width'=>25],
+                ['name'=>'CHẤT LIỆU', 'type'=>'text', 'width'=>25],  
+                ['name'=>'NIÊN ĐẠI', 'type'=>'text', 'width'=>25],  
+                ['name'=>'VỊ TRI', 'type'=>'text', 'width'=>25],  
+                ['name'=>'THUỘC DI TÍCHTHUỘC DI TÍCH', 'type'=>'text', 'width'=>25],  
+            ];
+            $dataExcel = [];
+            if(!empty($listData)){
+                
+                foreach ($listData as $key => $value) {
+                   $dataHistoricalsite = getHistoricalSite($value->idHistoricalsite);
+                    $dataExcel[] = [
+                                    $key+1,
+                                    @$value->sign,   
+                                    @$value->name,   
+                                    @$value->quantity,   
+                                    @$value->material,   
+                                    @$value->period,   
+                                    @$value->location,   
+                                    @$dataHistoricalsite->name,   
+                            ];
+                }
+            }            
+            export_excel($titleExcel,$dataExcel,'danh_sach_hien_vat');
+        }
+
     
     $listData = $modelArtifact->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
     if(!empty($listData)){
         foreach ($listData as $key => $value) {
             $conditions_scan = array('id'=>$value->id);
@@ -382,6 +419,7 @@ function listArtifactAdmin($input)
 
     // phân trang
     $totalData = $modelArtifact->find()->where($conditions)->all()->toList();
+    $Historicalsite = $modelHistoricalsite->find()->where()->all()->toList();
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -426,6 +464,7 @@ function listArtifactAdmin($input)
     setVariable('mess', @$mess);
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
+    setVariable('Historicalsite', $Historicalsite);
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);

@@ -414,12 +414,12 @@ function getUserWorkoutAPI($input){
 			    	if(!empty($dataSend['id_level'])){
 			    		$conditions['level']=  $dataSend['id_level'];
 			    	}
-			    	if(!empty($dataSend['ìd_time'])){
+			    	if(!empty($dataSend['id_time'])){
 			    		if(!empty($searchtime)){
                             foreach($searchtime as $key => $item){
-                                if($item['id'] == (int) $dataSend['ìd_time']){
-                                    $conditions['time >=']=$item['min'];
-                                    $conditions['time <=']=$item['max'];
+                                if($item['id'] == (int) $dataSend['id_time']){
+                                    $conditions['time >=']= $item['min'];
+                                    $conditions['time <=']= $item['max'];
                                 }
                             }
                         }
@@ -437,6 +437,8 @@ function getUserWorkoutAPI($input){
 			    	if(!empty($dataSend['id_area'])){
 			    		$conditions['area LIKE']=  '%'.$dataSend['id_area'].'%';
 			    	}
+
+			    	
 			    	
 		    		$exerciseWorkout = $modelExerciseWorkouts->find()->where($conditions)->all()->toList();
 		    		if(!empty($exerciseWorkout)){

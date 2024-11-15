@@ -1,8 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin hiện vật</h4>
-  <p><a href="/plugins/admin/ditichhienvat-admin-artifact-addArtifactAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
+  <p><a href="/plugins/admin/ditichhienvat-admin-artifact-addArtifactAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
   &nbsp;&nbsp;&nbsp;
-  <!--   <a href="/plugins/admin/ditichhienvat-admin-artifact-addWordArtfactAdmin" class="btn btn-danger"><i class='bx bxs-file-doc'></i> Thêm word</a> -->
+     <a href="/plugins/admin/ditichhienvat-admin-artifact-addWordArtfactAdmin.php" class="btn btn-danger"><i class='bx bxs-file-doc'></i> Thêm word</a>
   </p>
 
   <!-- Responsive Table -->
@@ -17,18 +17,36 @@
                     <label>MÃ</label>
                     <input type="" name="sign" class="form-control" placeholder="Mã" value="<?php echo @$_GET['sign'] ?>">
                 </td>
-                 <td >
+                 <td>
+                    <label>DI TÍCH</label>
+                    <select class="form-control" name="idHistoricalsite" id="idHistoricalsite">
+                      <option value="" >Chọn nhóm di tich</option>
+                      <?php
+                      if(!empty($Historicalsite)){
+                       foreach ($Historicalsite as $key => $item){
+                        $selected = '';
+                        if(!empty($_GET['idHistoricalsite']) && $_GET['idHistoricalsite']==$item->id){
+                          $selected = 'selected';
+                        }
+
+                        echo '<option value="'.$item->id.'" '.$selected.'>'.$item->name.'</option>';
+                      } 
+                    }?>
+                  </select>
+                </td>
+                 <td>
                     <br>
                     <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">
                 </td>
-               <!--  <td >
+                <td >
+                  <br>
                     <input type="submit" name="excel" value="Xuất excel">
-                </td> -->
+                </td> 
             </tr>
         
         </tbody></table>
     </form>
-  <div class="card row">
+  <div class="card">
     <h5 class="card-header">Danh sách Thông tin hiện vật</h5>
       <p><?php echo $mess;?></p>
     <div class="table-responsive">
@@ -60,12 +78,12 @@
                         <td>'.$item->period.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="ditichhienvat-admin-artifact-addArtifactAdmin/?id='.$item->id.'" >
+                          <a class="dropdown-item" href="ditichhienvat-admin-artifact-addArtifactAdmin.php/?id='.$item->id.'" >
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ditichhienvat-admin-artifact-deleteArtifactAdmin/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ditichhienvat-admin-artifact-deleteArtifactAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

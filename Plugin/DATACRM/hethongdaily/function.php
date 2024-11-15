@@ -883,9 +883,19 @@ function getMemberByToken($token='',$permission='')
             $user->id_staff = 0;
             $user->type_tv = 'Đại lý';
             $user->grant_permission = 1;
+            if(!empty($user->id_father)){
+                $user->type_agency ='agency';
+            }else{
+                $user->type_agency ='boss';
+            }
         }elseif(!empty($checkStaff)){
             $user = $checkStaff;
-            
+            $user->id_father = $modelMember->find()->where(array('id'=>$user->id_member, 'status'=>'active' ))->first()->id_father;
+            if(!empty($user->id_father)){
+                $user->type_agency ='agency';
+            }else{
+                $user->type_agency ='boss';
+            }
             $user->type = 'staff';
             $user->type_tv = 'Nhân viên';
             $user->id_staff = $user->id;
@@ -1346,6 +1356,7 @@ function checklogin($permission=''){
     global $controller;
 
     $modelStaff = $controller->loadModel('Staffs');
+    $modelMember = $controller->loadModel('Members');
      $user = '';
     if(!empty($session->read('infoUser'))){
         $user = $session->read('infoUser');
@@ -1361,6 +1372,7 @@ function checklogin($permission=''){
             $user->permission = $info_staff->permission;
             $user->deadline = $info_staff->deadline;
         }
+        $user->id_father = $modelMember->find()->where(array('id'=>$user->id_member, 'status'=>'active' ))->first()->id_father;
         $user->type = 'staff';
         $user->type_tv = 'Nhân viên';
         $user->id_staff = $user->id;

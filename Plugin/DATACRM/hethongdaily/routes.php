@@ -133,6 +133,7 @@
 	// báo cáo kinh doanh
 	$routesPlugin['businessReport']= 'hethongdaily/view/home/static/businessReport.php';
 	$routesPlugin['statisticAgency']= 'hethongdaily/view/home/static/statisticAgency.php';
+	$routesPlugin['staticProfitAgency']= 'hethongdaily/view/home/static/staticProfitAgency.php';
 
 	// lịch sử giao dịch tiền
 	$routesPlugin['listTransactionHistories']= 'hethongdaily/view/home/transaction_histories/listTransactionHistories.php';
@@ -213,6 +214,11 @@
 	$routesPlugin['listPost']= 'hethongdaily/view/home/post/listPost.php';	
 	$routesPlugin['addPost']= 'hethongdaily/view/home/post/addPost.php';	
 	$routesPlugin['listCategoryPost']= 'hethongdaily/view/home/post/listCategoryPost.php';	
+
+	// đồi tác listPartner
+	$routesPlugin['listPartner']= 'hethongdaily/view/home/partner/listPartner.php';	
+	$routesPlugin['addPartner']= 'hethongdaily/view/home/partner/addPartner.php';	
+
 
 	// api khách hàng 
 

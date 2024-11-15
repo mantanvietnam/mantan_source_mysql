@@ -308,4 +308,78 @@ function statisticAgency($input){
         return $controller->redirect('/login');
     }
 }
+
+function staticProfitAgency($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+   $user = checklogin('staticProfitAgency');   
+
+    if(!empty($user)){
+      if(empty($user->grant_permission)){
+        return $controller->redirect('/statisticAgency');
+      }
+        $metaTitleMantan = 'Báo cáo kinh doanh';
+
+        $modelOrders = $controller->loadModel('Orders');
+        $modelBill = $controller->loadModel('Bills');
+        $modelOrderMembers = $controller->loadModel('OrderMembers');
+        $modelCustomers = $controller->loadModel('Customers');
+
+        $today = getdate();
+        $start_day = mktime(0, 0, 0, 1, 1, $today['year']);
+        $end_day = mktime(23, 59, 59, 12, 31, $today['year']);
+
+       // $conditions = array('created_at >='=>$start_day, 'created_at <='=>$end_day);
+        $conditions = array();
+        if(!empty($_GET['date_start'])){
+            $date_start = explode('/', $_GET['date_start']);
+            $conditions['created_at >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+        }
+
+        if(!empty($_GET['date_end'])){
+            $date_end = explode('/', $_GET['date_end']);
+            $conditions['created_at <='] = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+                
+        }
+
+        $conditions['OR'] = [
+                            ['id_member_sell'=>$user->id,'type'=>1],
+                            ['id_member_buy'=>$user->id,'type'=>2],
+                    ];
+        // đơn bán khách lẻ
+        // $listOrder = $modelOrders->find()->where(['id_agency'=>$infoMember->id, 'status'=>'done', 'create_at >='=>$start_day, 'create_at <='=>$end_day])->all()->toList();
+        $listOrder = $modelBill->find()->where($conditions)->order(['created_at' => 'desc'])->all()->toList();
+
+
+        $staticOrder = array();
+
+        if(!empty($listOrder)){
+            foreach ($listOrder as $key => $value) {
+                 $todayTime= date('m/Y',$value->created_at);
+                $thu = 0;
+                $chi = 0;
+                if($value->type==1){
+                     $thu = $value->total;
+                }else{
+                     $chi = $value->total;                 
+                }
+             $staticOrder[@$todayTime]['thu'] = @$staticOrder[@$todayTime]['thu']+$thu;
+             $staticOrder[@$todayTime]['chi'] = @$staticOrder[@$todayTime]['chi']+$chi;
+             $staticOrder[@$todayTime]['profit'] = @$staticOrder[@$todayTime]['profit']+ ($thu - $chi);
+              //  $staticOrder[(int) date('m', @$value->created_at)] += $value->total;
+
+            }
+        }        
+        
+        setVariable('today', $today);
+        setVariable('staticOrder', $staticOrder);
+        
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

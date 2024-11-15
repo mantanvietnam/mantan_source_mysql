@@ -418,6 +418,18 @@ $sqlInstallDatabase .="CREATE TABLE `group_staffs` (
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `partners` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` text NOT NULL,
+  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_member` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 
 
@@ -459,6 +471,7 @@ $sqlDeleteDatabase .= "DROP TABLE staff_timekeepers; ";
 $sqlDeleteDatabase .= "DROP TABLE activity_historys; ";
 $sqlDeleteDatabase .= "DROP TABLE group_staffs; ";
 $sqlDeleteDatabase .= "DROP TABLE customer_historie_mmtts; ";
+$sqlDeleteDatabase .= "DROP TABLE partners; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -807,4 +820,14 @@ $sqlUpdateDatabase['customer_historie_mmtts']['id_customer'] = "ALTER TABLE `cus
 $sqlUpdateDatabase['customer_historie_mmtts']['created_at'] = "ALTER TABLE `customer_historie_mmtts` ADD `created_at` INT NOT NULL;";
 $sqlUpdateDatabase['customer_historie_mmtts']['note'] = "ALTER TABLE `customer_historie_mmtts` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customer_historie_mmtts']['link_download_mmtc'] = "ALTER TABLE `customer_historie_mmtts` ADD `link_download_mmtc` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+// Bang partners
+$sqlUpdateDatabase['partners']['name'] = "ALTER TABLE `partners` ADD `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL; ";
+$sqlUpdateDatabase['partners']['phone'] = "ALTER TABLE `partners` ADD `phone` text NOT NULL; ";
+$sqlUpdateDatabase['partners']['email'] = "ALTER TABLE `partners` ADD `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
+$sqlUpdateDatabase['partners']['address'] = "ALTER TABLE `partners` ADD `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
+$sqlUpdateDatabase['partners']['note'] = "ALTER TABLE `partners` ADD `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
+$sqlUpdateDatabase['partners']['id_member'] = "ALTER TABLE `partners` ADD `id_member` int(11) NOT NULL; ";
+$sqlUpdateDatabase['partners']['created_at'] = "ALTER TABLE `partners` ADD `created_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['partners']['updated_at'] = "ALTER TABLE `partners` ADD `updated_at` datetime DEFAULT NULL; ";
 ?>

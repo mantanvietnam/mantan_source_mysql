@@ -151,7 +151,7 @@ function createRequestImportProductAPI($input)
 
 	                $save = $modelOrderMembers->newEmptyEntity();
 
-	                $save->id_member_sell = $infoMember->id_father;
+	                $save->id_member_sell = @$infoMember->id_father;
 	                $save->id_member_buy = $infoMember->id;
 	                $save->note_sell = ''; // ghi chú người bán
 	                $save->note_buy = @$dataSend['note']; // ghi chú người mua 

@@ -723,9 +723,11 @@ function updateMyOrderMemberAgencyAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['token'])){
-			$user = getMemberByToken($dataSend['token']);
-
-			if(!empty($user)){
+			$infoMember = getMemberByToken($dataSend['token'],'updateMyOrderMemberAgency');
+			if(!empty($infoMember)){
+				if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
 
 				$modelMembers = $controller->loadModel('Members');
 				$modelProducts = $controller->loadModel('Products');

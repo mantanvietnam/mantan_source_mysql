@@ -292,6 +292,7 @@
                           <a class="dropdown-item" href="/listCostsIncurred">Chi phí phát sinh</a>
                           <a class="dropdown-item" href="/listDiscountCodeAgency">Mã giảm giá</a>
                           <a class="dropdown-item" href="/listCustomerGiftAgency">Quà tặng</a>
+                          <a class="dropdown-item" href="/listPartner">Đối tác</a>
                         </div>
                       </li>';
               }elseif(in_array('order_customer', $plugins_site_value) || in_array('order_system', $plugins_site_value)){
@@ -372,7 +373,12 @@
             ?>
 
             <li class="nav-item">
-              <a class="nav-link" href="/businessReport">Báo cáo</a>
+              <a  class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Báo cáo</a>
+               <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                          <a class="dropdown-item" href="/statisticAgency">Báo cáo chung</a>
+                          <a class="dropdown-item" href="/businessReport">Báo cáo biểu đồ</a>
+                          <a class="dropdown-item" href="/staticProfitAgency">báo cáo lợi nhuận</a>
+                        </div>
             </li>
 
             <li class="nav-item dropdown">
