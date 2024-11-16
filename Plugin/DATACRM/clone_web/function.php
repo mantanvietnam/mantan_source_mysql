@@ -124,7 +124,7 @@ function check_domain_clone()
     }
 }
 
-check_domain_clone();
+//check_domain_clone();
 
 function InstallistCloneWeb(){
     global $modelOptions;
