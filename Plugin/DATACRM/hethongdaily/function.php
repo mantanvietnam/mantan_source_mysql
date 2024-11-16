@@ -786,7 +786,7 @@ function getTokenFirebaseV1()
     return $authToken['access_token'];
 }
 
-function sendNotification($data=[], $deviceTokens)
+function sendNotification($data=[], $deviceTokens=[])
 {
     /*
     $data = [

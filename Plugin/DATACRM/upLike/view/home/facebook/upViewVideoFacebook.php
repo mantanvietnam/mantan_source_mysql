@@ -133,7 +133,7 @@
 
             <div class="col-md-12">
               <label class="form-label">Số lượng</label>
-              <input type="number" min="100" value="" class="form-control" placeholder="" name="number_up" id="number_up" required onchange="tinhgia();">
+              <input type="number" min="500" value="" class="form-control" placeholder="" name="number_up" id="number_up" required onchange="tinhgia();">
             </div>
 
             <div class="col-md-12 text-danger" id="mess_pay"></div>

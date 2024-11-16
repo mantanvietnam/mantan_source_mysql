@@ -8,7 +8,7 @@ function aiSearchImageEvent($input)
     global $session;
 
     $mess = '';
-   
+    
     if(!empty($session->read('infoUser'))){
         $metaTitleMantan = 'AI tìm kiếm ảnh sự kiện';
 

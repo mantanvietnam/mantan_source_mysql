@@ -223,55 +223,55 @@ function dashboard($input)
 
 function changePass($input)
 {
-		global $session;
-		global $controller;
-		global $metaTitleMantan;
-		global $isRequestPost;
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+	global $isRequestPost;
 
-		$metaTitleMantan = 'Đổi mật khẩu';
+	$metaTitleMantan = 'Đổi mật khẩu';
 
-		$modelMembers = $controller->loadModel('Members');
+	$modelMembers = $controller->loadModel('Members');
 
-		if(!empty($session->read('infoUser'))){
-			$mess = '';
+	if(!empty($session->read('infoUser'))){
+		$mess = '';
 
-			if($isRequestPost){
-				$dataSend = $input['request']->getData();
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
 
-				if(!empty($dataSend['passOld']) && !empty($dataSend['passNew']) && !empty($dataSend['passAgain'])){
-					if($dataSend['passNew'] == $dataSend['passAgain']){
-						$user = $modelMembers->get($session->read('infoUser')->id);
+			if(!empty($dataSend['passOld']) && !empty($dataSend['passNew']) && !empty($dataSend['passAgain'])){
+				if($dataSend['passNew'] == $dataSend['passAgain']){
+					$user = $modelMembers->get($session->read('infoUser')->id);
 
-						if($user->password == md5($dataSend['passOld'])){
-							$user->password = md5($dataSend['passNew']);
+					if($user->password == md5($dataSend['passOld'])){
+						$user->password = md5($dataSend['passNew']);
 
-							$modelMembers->save($user);
+						$modelMembers->save($user);
 
-						// nếu là chủ spa
-							if($user->type == 1){
-								$user->id_member = $user->id;
-							}
-
-							$session->write('infoUser', $user);
-							return $controller->redirect('/managerSelectSpa');
-
-							$mess= '<p class="text-success">Đổi mật khẩu thành công</p>';
-						}else{
-							$mess= '<p class="text-danger">Sai mật khẩu cũ</p>';
+					// nếu là chủ spa
+						if($user->type == 1){
+							$user->id_member = $user->id;
 						}
+
+						$session->write('infoUser', $user);
+						return $controller->redirect('/managerSelectSpa');
+
+						$mess= '<p class="text-success">Đổi mật khẩu thành công</p>';
 					}else{
-						$mess= '<p class="text-danger">Mật khẩu nhập lại chưa đúng</p>';
+						$mess= '<p class="text-danger">Sai mật khẩu cũ</p>';
 					}
 				}else{
-					$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+					$mess= '<p class="text-danger">Mật khẩu nhập lại chưa đúng</p>';
 				}
+			}else{
+				$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
 			}
-
-			setVariable('mess', $mess);
-		}else{
-			return $controller->redirect('/login');
 		}
+
+		setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/login');
 	}
+}
 
 	function account($input)
 	{
@@ -321,7 +321,8 @@ function changePass($input)
 		}
 	}
 
-	function forgotPass($input){
+	function forgotPass($input)
+	{
 		global $metaTitleMantan;
 		global $isRequestPost;
 		global $controller;
@@ -355,7 +356,8 @@ function changePass($input)
 		}
 	}
 
-	function confirm($input){
+	function confirm($input)
+	{
 
 		global $metaTitleMantan;
 		global $isRequestPost;
@@ -421,7 +423,7 @@ function changePass($input)
 
 				if(empty($checkPhone)){
 					if($dataSend['password'] == $dataSend['password_again']){
-					// tạo người dùng mới
+						// tạo người dùng mới
 						$data = $modelMember->newEmptyEntity();
 
 						$data->name = $dataSend['name_spa'].' (chủ)';
@@ -429,66 +431,81 @@ function changePass($input)
 						$data->phone = $dataSend['phone'];
 						$data->email = @$dataSend['email'];
 						$data->password = md5($dataSend['password']);
-					$data->status = 1; //1: kích hoạt, 0: khóa
-					$data->type = 1; // 0: nhân viên, 1: chủ spa
-					$data->id_member = 0;
-					$data->created_at = date('Y-m-d H:i:s');
-					$data->updated_at = date('Y-m-d H:i:s');
-					$data->last_login = date('Y-m-d H:i:s');
-					$data->dateline_at = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). '30 days'));
-					$data->number_spa = 1;
-					$data->address = $dataSend['address'];
-					$data->code_otp = rand(100000, 999999);
+						$data->status = 1; //1: kích hoạt, 0: khóa
+						$data->type = 1; // 0: nhân viên, 1: chủ spa
+						$data->id_member = 0;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->updated_at = date('Y-m-d H:i:s');
+						$data->last_login = date('Y-m-d H:i:s');
+						$data->dateline_at = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). '30 days'));
+						$data->number_spa = 1;
+						$data->address = $dataSend['address'];
+						$data->code_otp = rand(100000, 999999);
+						$data->module = '["customer","staff","calendar","room","product","prepaid_cards","combo","bill","static"]';
 
-					$modelMember->save($data);
+						$modelMember->save($data);
 
-					// tạo cơ sở spa mới
-					$dataSpa = $modelSpas->newEmptyEntity();
+						// tạo cơ sở spa mới
+						$dataSpa = $modelSpas->newEmptyEntity();
 
-					$dataSpa->name = $dataSend['name_spa'];
-					$dataSpa->phone = $dataSend['phone'];
-					$dataSpa->email = @$dataSend['email'];
-					$dataSpa->id_member = $data->id;
-					$dataSpa->address = @$dataSend['address'];
-					$dataSpa->slug = createSlugMantan($dataSpa->name).'-'.time();
-					$dataSpa->created_at = date('Y-m-d H:i:s');
-					$dataSpa->updated_at = date('Y-m-d H:i:s');
-					$dataSpa->image = $urlHomes.'/plugins/databot_spa/view/home/assets/img/default-thumbnail.jpg';
-					$dataSpa->facebook = '';
-					$dataSpa->website = '';
-					$dataSpa->zalo = $dataSend['phone'];
+						$dataSpa->name = $dataSend['name_spa'];
+						$dataSpa->phone = $dataSend['phone'];
+						$dataSpa->email = @$dataSend['email'];
+						$dataSpa->id_member = $data->id;
+						$dataSpa->address = @$dataSend['address'];
+						$dataSpa->slug = createSlugMantan($dataSpa->name).'-'.time();
+						$dataSpa->created_at = date('Y-m-d H:i:s');
+						$dataSpa->updated_at = date('Y-m-d H:i:s');
+						$dataSpa->image = $urlHomes.'/plugins/databot_spa/view/home/assets/img/default-thumbnail.jpg';
+						$dataSpa->facebook = '';
+						$dataSpa->website = '';
+						$dataSpa->zalo = $dataSend['phone'];
 
-					$modelSpas->save($dataSpa);
+						$modelSpas->save($dataSpa);
 
-					// tạo kho mới
-					$dataWarehouse = $modelWarehouse->newEmptyEntity();
-					
-					$dataWarehouse->name = $dataSpa->address;
-					$dataWarehouse->credit = 1;
-					$dataWarehouse->id_member = $data->id;
-					$dataWarehouse->id_spa = $dataSpa->id;
-					$dataWarehouse->created_at = date('Y-m-d H:i:s');
-					
-					$modelWarehouse->save($dataWarehouse);
+						// tạo kho mới
+						$dataWarehouse = $modelWarehouse->newEmptyEntity();
+						
+						$dataWarehouse->name = $dataSpa->address;
+						$dataWarehouse->credit = 1;
+						$dataWarehouse->id_member = $data->id;
+						$dataWarehouse->id_spa = $dataSpa->id;
+						$dataWarehouse->created_at = date('Y-m-d H:i:s');
+						
+						$modelWarehouse->save($dataWarehouse);
 
-					// gửi email thông báo tài khoản
-					sendEmailRegAcc($data->email, $data->name, $data->phone, $dataSend['password']);
+						// gửi email thông báo tài khoản
+						sendEmailRegAcc($data->email, $data->name, $data->phone, $dataSend['password']);
 
-					$mess = '<p class="text-success">Đăng ký phần mền quản lý SPA thành công</p>';
+						$mess = '<p class="text-success">Đăng ký phần mền quản lý SPA thành công</p>';
 
+						// thực hiện đăng nhập tự động
+						$data->id_member = $data->id;
+						$data->list_permission = [];
+
+						if(is_string($data->module)){
+							$data->module = json_decode($data->module, true);
+						}
+
+						$session->write('CheckAuthentication', true);
+						$session->write('urlBaseUpload', '/upload/admin/images/'.$data->id_member.'/');
+
+						$session->write('infoUser', $data);
+
+						return $controller->redirect('/managerSelectSpa');
+					}else{
+						$mess = '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';		
+					}
 				}else{
-					$mess = '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';		
+					$mess = '<p class="text-danger">Số điện thoại đã tồn tại</p>';
 				}
 			}else{
-				$mess = '<p class="text-danger">Số điện thoại đã tồn tại</p>';
+				$mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
 			}
-		}else{
-			$mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
 		}
+		
+		setVariable('mess', $mess);
 	}
-	
-	setVariable('mess', $mess);
-}
 
 function managerSelectSpa() {
 	global $controller;

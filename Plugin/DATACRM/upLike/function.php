@@ -46,7 +46,7 @@ function getListPriceOngTrum()
     return $listPrice;
 }
 
-function getUIDFacebook($linkFanpage='', $type='uid',$type_prority='reel')
+function getUIDFacebook($linkFanpage='', $type='uid', $type_prority='reel')
 {
     $token = getTokenOngTrum();
     $uid = '';
@@ -59,12 +59,46 @@ function getUIDFacebook($linkFanpage='', $type='uid',$type_prority='reel')
         $dataSend['type_prority'] = $type_prority;
         $dataSend['uid'] = $linkFanpage;
 
-        $uid = sendDataConnectMantan($url, $dataSend);
+        // -------------------------------
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS => $dataSend,
+        ));
+
+        $uid = curl_exec($curl);
+
+        curl_close($curl);
 
         $uid = json_decode($uid, true);
+
+        if($uid['code']==500){
+            $uid = getUID2($linkFanpage);
+
+            $uid = json_decode($uid, true);
+
+            if(!empty($uid['id'])){
+                $uid['data']['uid'] = $uid['id'];
+                $uid['data']['name'] = $uid['name'];
+                $uid['data']['url'] = 'https://www.facebook.com/profile.php?id='.$uid['id'];
+            }
+        }
     }
 
     return $uid;
+}
+
+function getUID2($url)
+{
+    return file_get_contents('https://ffb.vn/api/tool/get-id-fb?idfb='.urlencode($url));
 }
 
 function sendRequestBuffOngTrum($type_api='', $uid=0, $chanel=0, $number_up=0, $url_page='', $note='', $minute=0)

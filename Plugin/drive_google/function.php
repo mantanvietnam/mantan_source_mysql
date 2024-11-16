@@ -35,6 +35,16 @@ function getListFileDrive($id_folder='')
 	        $json = json_decode($response, true);
 	        
 	        if (isset($json['items'])) {
+	        	// tìm ảnh trong thư mục con
+	        	$folder = [];
+	        	foreach ($json['items'] as $key => $value) {
+	        		if($value['mimeType'] == 'application/vnd.google-apps.folder'){
+	        			$folder = getListFileDrive($value['id']);
+	        		}
+	        	}
+
+	        	$json['items'] = array_merge($folder, $json['items']);
+
 	            // Thêm các tệp tin vào mảng
 	            $files = array_merge($files, $json['items']);
 

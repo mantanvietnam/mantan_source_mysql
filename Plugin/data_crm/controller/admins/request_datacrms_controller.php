@@ -146,7 +146,7 @@ function updateCodeCRM($input)
                 }
 
                 if(file_exists($public.'__MACOSX')){
-                    unlink($public.'__MACOSX');
+                    //unlink($public.'__MACOSX');
                 }
             }
 

@@ -175,7 +175,7 @@ function addCampaign($input)
                 $data->description = $dataSend['description'];
                 $data->id_drive = @$dataSend['id_drive'];
                 $data->id_ai_event = @$dataSend['id_ai_event'];
-                $data->id_album = @$dataSend['id_album'];
+                $data->id_album = (int) @$dataSend['id_album'];
                 $data->link_drive = @$dataSend['link_drive'];
                 $data->img_background = $img_background;
                 $data->img_logo = $img_logo;

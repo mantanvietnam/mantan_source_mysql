@@ -165,7 +165,7 @@ function upLikePageFacebook($input)
                         $histories = $modelTransactionHistories->newEmptyEntity();
 
                         $histories->id_member = $user->id;
-                        $histories->id_system = $user->id_system;
+                        $histories->id_system = 0;
                         $histories->coin = $dataSend['total_pay'];
                         $histories->type = 'minus';
                         $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' like cho fanpage Facebook (ID Page '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
@@ -177,7 +177,7 @@ function upLikePageFacebook($input)
                         $saveRequest = $modelUplikeHistories->newEmptyEntity();
 
                         $saveRequest->id_member = $user->id;
-                        $saveRequest->id_system = $user->id_system;
+                        $saveRequest->id_system = 0;
                         $saveRequest->id_page = $dataSend['id_page'];
                         $saveRequest->type_page = $type_api;
                         $saveRequest->money = $dataSend['total_pay'];
@@ -373,7 +373,7 @@ function upViewLiveFacebook($input)
                             $histories = $modelTransactionHistories->newEmptyEntity();
 
                             $histories->id_member = $user->id;
-                            $histories->id_system = $user->id_system;
+                            $histories->id_system = 0;
                             $histories->coin = $dataSend['total_pay'];
                             $histories->type = 'minus';
                             $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' lượt xem trong '.number_format($dataSend['minute']).' phút cho livestream Facebook (ID live '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
@@ -385,7 +385,7 @@ function upViewLiveFacebook($input)
                             $saveRequest = $modelUplikeHistories->newEmptyEntity();
 
                             $saveRequest->id_member = $user->id;
-                            $saveRequest->id_system = $user->id_system;
+                            $saveRequest->id_system = 0;
                             $saveRequest->id_page = $dataSend['id_page'];
                             $saveRequest->type_page = $type_api;
                             $saveRequest->money = $dataSend['total_pay'];
@@ -584,7 +584,7 @@ function upFollowPageFacebook($input)
                         $histories = $modelTransactionHistories->newEmptyEntity();
 
                         $histories->id_member = $user->id;
-                        $histories->id_system = $user->id_system;
+                        $histories->id_system = 0;
                         $histories->coin = $dataSend['total_pay'];
                         $histories->type = 'minus';
                         $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' lượt theo dõi cho fanpage Facebook (ID Page '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
@@ -596,7 +596,7 @@ function upFollowPageFacebook($input)
                         $saveRequest = $modelUplikeHistories->newEmptyEntity();
 
                         $saveRequest->id_member = $user->id;
-                        $saveRequest->id_system = $user->id_system;
+                        $saveRequest->id_system = 0;
                         $saveRequest->id_page = $dataSend['id_page'];
                         $saveRequest->type_page = $type_api;
                         $saveRequest->money = $dataSend['total_pay'];
@@ -791,7 +791,7 @@ function upViewVideoFacebook($input)
                         $histories = $modelTransactionHistories->newEmptyEntity();
 
                         $histories->id_member = $user->id;
-                        $histories->id_system = $user->id_system;
+                        $histories->id_system = 0;
                         $histories->coin = $dataSend['total_pay'];
                         $histories->type = 'minus';
                         $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' lượt xem video (ID video '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
@@ -803,7 +803,7 @@ function upViewVideoFacebook($input)
                         $saveRequest = $modelUplikeHistories->newEmptyEntity();
 
                         $saveRequest->id_member = $user->id;
-                        $saveRequest->id_system = $user->id_system;
+                        $saveRequest->id_system = 0;
                         $saveRequest->id_page = $dataSend['id_page'];
                         $saveRequest->type_page = $type_api;
                         $saveRequest->money = $dataSend['total_pay'];
@@ -998,7 +998,7 @@ function upFriendFacebook($input)
                         $histories = $modelTransactionHistories->newEmptyEntity();
 
                         $histories->id_member = $user->id;
-                        $histories->id_system = $user->id_system;
+                        $histories->id_system = 0;
                         $histories->coin = $dataSend['total_pay'];
                         $histories->type = 'minus';
                         $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' lượt tăng bạn bè (ID video '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
@@ -1010,7 +1010,7 @@ function upFriendFacebook($input)
                         $saveRequest = $modelUplikeHistories->newEmptyEntity();
 
                         $saveRequest->id_member = $user->id;
-                        $saveRequest->id_system = $user->id_system;
+                        $saveRequest->id_system = 0;
                         $saveRequest->id_page = $dataSend['id_page'];
                         $saveRequest->type_page = $type_api;
                         $saveRequest->money = $dataSend['total_pay'];
@@ -1205,7 +1205,7 @@ function upViewStoryFacebook($input)
                         $histories = $modelTransactionHistories->newEmptyEntity();
 
                         $histories->id_member = $user->id;
-                        $histories->id_system = $user->id_system;
+                        $histories->id_system = 0;
                         $histories->coin = $dataSend['total_pay'];
                         $histories->type = 'minus';
                         $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' tăng lượt xem story (ID story '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
@@ -1217,7 +1217,7 @@ function upViewStoryFacebook($input)
                         $saveRequest = $modelUplikeHistories->newEmptyEntity();
 
                         $saveRequest->id_member = $user->id;
-                        $saveRequest->id_system = $user->id_system;
+                        $saveRequest->id_system = 0;
                         $saveRequest->id_page = $dataSend['id_page'];
                         $saveRequest->type_page = $type_api;
                         $saveRequest->money = $dataSend['total_pay'];
@@ -1412,7 +1412,7 @@ function upShareFacebook($input)
                         $histories = $modelTransactionHistories->newEmptyEntity();
 
                         $histories->id_member = $user->id;
-                        $histories->id_system = $user->id_system;
+                        $histories->id_system = 0;
                         $histories->coin = $dataSend['total_pay'];
                         $histories->type = 'minus';
                         $histories->note = 'Trừ tiền dịch vụ tăng '.number_format($dataSend['number_up']).' tăng lượt chia sẻ (ID bài viết '.$dataSend['id_page'].'), số dư tài khoản sau giao dịch là '.number_format($user->coin).'đ';
@@ -1424,7 +1424,7 @@ function upShareFacebook($input)
                         $saveRequest = $modelUplikeHistories->newEmptyEntity();
 
                         $saveRequest->id_member = $user->id;
-                        $saveRequest->id_system = $user->id_system;
+                        $saveRequest->id_system = 0;
                         $saveRequest->id_page = $dataSend['id_page'];
                         $saveRequest->type_page = $type_api;
                         $saveRequest->money = $dataSend['total_pay'];

@@ -114,6 +114,7 @@
             <div class="col-md-12">
               <label class="form-label">Link/uid trang</label>
               <input type="text" value="" class="form-control" placeholder="" name="id_page" id="id_page" required onchange="checkUID();">
+              <p id="namePage"></p>
             </div>
 
             <div class="col-md-12">
@@ -165,6 +166,7 @@
         .done(function( msg ) {
           $('#id_page').val(msg.data.uid);
           $('#url_page').val(msg.data.url);
+          $('#namePage').html('<b>Tên trang:</b> '+msg.data.name);
 
           tinhgia();
         });

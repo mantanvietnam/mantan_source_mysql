@@ -127,14 +127,14 @@
                   <button class="btn btn-primary d-grid w-100" type="submit">Đăng nhập</button>
                 </div>
               </form>
-              <!--
+              
               <p class="text-center">
                 <span>Bạn chưa có tài khoản?</span>
                 <a href="/register">
                   <span>Đăng ký tài khoản mới</span>
                 </a>
               </p>
-              -->
+              
             </div>
             
           </div>
