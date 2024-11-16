@@ -9,8 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/plugins/ngayhoixanh/view/home/asset/css/style.css?time=1232">
+    <link rel="stylesheet" href="/plugins/ngayhoixanh/view/home/asset/css/style.css?time=1238">
 </head>
 <body>
 
@@ -54,7 +55,9 @@
                             if(!empty($tree->choose_1) && !empty($tree->choose_2)){
                                 echo           '<div class="row detai">
                                                     <div class="detai-tree">
-                                                        <p class="info-tree_sologant col-md-6">'.$tree->name_tree.'</p>
+                                                        <p class="info-tree_sologant col-md-6">
+                                                            <p class="info-tree_sologant__add">'.$tree->name_tree.'</p>
+                                                        </p>
                                                         <div class="img-lasttext">'.$tree->choose_1.'</div> 
                                                     </div>
                                                     <div class="imgtext-bdrd col-md-6">

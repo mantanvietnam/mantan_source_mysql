@@ -54,10 +54,11 @@ body {
 }
 
 .alate .main-title {
-    color: #e7f1af;
+    font-family: "Oxygen", sans-serif;
+    font-weight: 400;
+    color: #e7eeb7;
     line-height: 1.5;
     display: flex;
-    font-weight: 700;
     font-size: 50px;
     margin-bottom: 50px;
     border-bottom: 3px solid #e7f1af;
@@ -68,12 +69,13 @@ body {
 }
   
 .alate .project-section-1 .project-subtitle {
-    color: #fdd835; /* Yellow color */
+    color: #ffc316; /* Yellow color */
     width: 100%;
     line-height: 1.5;
     border-bottom: 2px solid #e7f1af;
     font-size: 30px;
-    font-weight: bold;
+    font-family: "Oxygen", sans-serif;
+    font-weight: 700;
     margin-bottom: 20px;
 }
   
@@ -143,8 +145,13 @@ body {
 
 .info-tree_sologant{
     font-weight: 600;
-    height: 47px;
     white-space: nowrap;
+    line-height: 1.3;
+}
+
+.info-tree_sologant__add{
+    font-weight: 600;
+    height: 70px;
     line-height: 1.3;
 }
 
@@ -152,7 +159,7 @@ body {
     display: flex;
     justify-content: right;
     flex-wrap: wrap; /* Cho phép phần tử xuống hàng khi hết chỗ */
-    margin-bottom: 1rem;
+    margin-bottom: 41px;
 }
 
 .img-bdrd img {
