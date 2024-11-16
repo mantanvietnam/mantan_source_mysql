@@ -72,21 +72,28 @@
 
                                             <div class="puliik">
                                                 <p>Thông tin sự kiện</p>
-                                                <div class="mb-3 ">  
+                                                <div class="mb-3">  
                                                     <label for="generalInfo" class="form-label">Giới thiệu chung</label>
                                                     <textarea class="form-control" name="info" id="generalInfo" rows="10"><?php echo $data->info?></textarea>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="details" class="form-label">Thông tin lưu ý</label>
-                                                    <textarea class="form-control" id="details" rows="3">Thêm lưu ý cho sự kiện</textarea>
+                                                    <label for="event-description" class="form-label">Lịch trình</label>
+                                                    <textarea id="event-description" class="form-control" name="plan" rows="5" placeholder="Thêm lịch trình sự kiện"><?php echo $data->plan?></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="event-description" class="form-label">Quy định tham dự</label>
+                                                    <textarea id="event-description" class="form-control" name="rule" rows="5" placeholder="Thêm ghi chú quy định"><?php echo $data->rule?></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="event-description" class="form-label">Trang phục</label>
+                                                    <textarea id="event-description" class="form-control" name="outfits" rows="5" placeholder="Thêm ghi chú trang phục"><?php echo $data->outfits?></textarea>
                                                 </div>
                                             </div>
                                             <!-- Sponsor Information -->
                                             <div class="mb-3">
-                                                <label for="sponsor" class="form-label">Nhà tài trợ của sự kiện</label>
+                                              
                                                 <div class="row-fn d-flex ">
-                                                    <input type="text" class="form-control col-lg-9" id="sponsor">
-                                                    <a href="" class="col-lg-3 d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal">Thêm tổ chức</a>
+                                               
 
                                                     <!-- Modal -->
                                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -110,7 +117,7 @@
                                             </div>
 
                                             <!-- Date and Contact -->
-                                            <div class="row mb-3">
+                                            <!-- <div class="row mb-3">
                                                 <div class="col">
                                                     <label for="startDate" class="form-label">Ngày diễn ra sự kiện</label>
                                                     <input type="date" class="form-control" id="startDate" value="2023-03-25">
@@ -119,10 +126,10 @@
                                                     <label for="endDate" class="form-label">Ngày kết thúc sự kiện</label>
                                                     <input type="date" class="form-control" id="endDate" value="2023-03-25">
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <!-- Contact Information -->
-                                            <div class="row mb-3">
+                                            <!-- <div class="row mb-3">
                                                 <div class="col">
                                                     <label for="contactName" class="form-label">Tên tổ chức nhà tài trợ</label>
                                                     <input type="text" class="form-control" id="contactName" value="07987937568">
@@ -131,13 +138,13 @@
                                                     <label for="contactPhone" class="form-label">Địa chỉ liên hệ</label>
                                                     <input type="text" class="form-control" id="contactPhone" value="07987937568">
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <!-- Notes -->
-                                            <div class="mb-3">
+                                            <!-- <div class="mb-3">
                                                 <label for="additionalNotes" class="form-label">Ghi chú khác</label>
                                                 <textarea class="form-control" id="additionalNotes" rows="3">Thêm ghi chú của sự kiện</textarea>
-                                            </div>
+                                            </div> -->
 
                                             <!-- Buttons -->
                                             <div class="btn d-flex">
@@ -218,14 +225,14 @@
                                                 <div class="row">
                                                     <!-- Left Column (Image Upload and Adjustment) -->
                                                     <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <div class="btn-img mb-4">
-                                                            <div class="upload-container">
-                                                                <input type="file" id="upload-input" accept="image/*" />
-                                                                <label class="upload-button" for="upload-input">Tải ảnh</label>
+                                                        <div class="mb-3">
+                                                            <div class="btn-img mb-4">
+                                                                <div class="upload-container">
+                                                                    <input type="text" id="event-image" value="Sukien1.jpg" readonly>
+                                                                    <button type="button">Tải ảnh</button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
                                                         <div class="d-grid">
                                                             <a href="#" class="btn btn-primary">Tải ảnh khách hàng</a>
                                                         </div>

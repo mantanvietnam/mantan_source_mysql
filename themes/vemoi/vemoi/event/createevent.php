@@ -76,7 +76,7 @@
                      <p class="information">Thông tin sự kiện</p>
                     <div class="form-section mb-4">
                         <label for="event-description" class="form-label">Giới thiệu chung</label>
-                        <textarea id="event-description" class="form-control" name="info" rows="2" placeholder="Thêm ghi chú của sự kiện"></textarea>
+                        <textarea id="event-description" class="form-control" name="info" rows="5" placeholder="Thêm ghi chú của sự kiện"></textarea>
                     </div>
                     <div class="form-section mb-4">
                         <label for="event-description" class="form-label" required>Địa chỉ</label>
@@ -87,20 +87,17 @@
                         <input id="event-description" type="datetime-local" name="time_start" class="form-control" required>
                     </div>
                     <div class="form-section mb-4">
-                        <label for="event-notes" class="form-label">Thông tin lưu ý</label>
-                        <textarea id="event-notes" class="form-control" rows="2" placeholder="Thông tin lưu ý"></textarea>
+                        <label for="event-description" class="form-label">Lịch trình</label>
+                        <textarea id="event-description" class="form-control" name="plan" rows="5" placeholder="Thêm lịch trình sự kiện"></textarea>
                     </div>
-
-                    <label for="sponsor" class="form-label">Nhà tài trợ sự kiện*</label>
-                    <div class="form-section d-flex gap-4">
-                        <div class="col-lg-9">
-                            <input type="text" id="sponsor" class="form-control" >
-                        </div>
-                        <div class="col-lg-3">
-                            <button type="button" class="btn btn-danger">+ Thêm tổ chức</button>
-                        </div>
+                    <div class="form-section mb-4">
+                        <label for="event-description" class="form-label">Quy định tham dự</label>
+                        <textarea id="event-description" class="form-control" name="rule" rows="5" placeholder="Thêm ghi chú quy định"></textarea>
                     </div>
-            
+                    <div class="form-section mb-4">
+                        <label for="event-description" class="form-label">Trang phục</label>
+                        <textarea id="event-description" class="form-control" name="outfits" rows="5" placeholder="Thêm ghi chú trang phục"></textarea>
+                    </div>
                     <!-- Invitation Details -->
                     <div class="container my-5">
                         <div class="card p-4">
@@ -109,12 +106,12 @@
                             <!-- Invitation Details -->
                             <div class="mb-3">
                                 <label for="invite-title" class="form-label">Tên vé mời</label>
-                                <input type="text" id="invite-title" class="form-control" value="Thiệp 1">
+                                <input type="text" id="invite-title" class="form-control" value="">
                             </div>
                 
                             <div class="mb-3">
                                 <label for="invite-url" class="form-label">Đây là đường link của vé mời</label>
-                                <input type="text" id="invite-url" class="form-control" value="https://www.example.com/invite">
+                                <input type="text" id="invite-url" class="form-control" value="">
                             </div>
                 
                             <!-- Mẫu vé mời label on its own row -->    
@@ -126,7 +123,7 @@
                             <div class="form-wrapper">
                                 <h2>Mẫu vé mời *</h2>
                                 <div class="file-input">
-                                    <input type="text" class="form-control" value="Vemoi1.jpg" readonly>
+                                    <input type="text" class="form-control" value="" readonly>
                                 </div>
                                 <div class="btn-group">
                                     <button class="btn btn-danger" type="button">Tải vé mời</button>
@@ -139,11 +136,11 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="event-start-date" class="form-label">Ngày diễn ra sự kiện</label>
-                                    <input type="date" id="event-start-date" class="form-control" value="2023-03-23">
+                                    <input type="date" id="event-start-date" class="form-control" value="">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="event-end-date" class="form-label">Ngày kết thúc sự kiện</label>
-                                    <input type="date" id="event-end-date" class="form-control" value="2023-03-23">
+                                    <input type="date" id="event-end-date" class="form-control" value="">
                                 </div>
                             </div>
                 
@@ -151,11 +148,11 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="event-location" class="form-label">Tên tòa nhà tổ chức sự kiện</label>
-                                    <input type="text" id="event-location" class="form-control" value="0789373568">
+                                    <input type="text" id="event-location" class="form-control" value="">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="event-address" class="form-label">Địa chỉ cụ thể</label>
-                                    <input type="text" id="event-address" class="form-control" value="0789373568">
+                                    <input type="text" id="event-address" class="form-control" value="">
                                 </div>
                             </div>
                 

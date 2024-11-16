@@ -105,7 +105,8 @@
                     <p><?=$events['rule']?></p>
                 </div>
                 <div class="committee">
-                    <h4>Ban tổ chức</h4>
+                    <h4>Trang phục</h4>
+                    <p><?=$events['outfits']?></p>
                 </div>
             </div>
         </div>
@@ -118,23 +119,22 @@
                         <div class="news">
                             <div class="row">
                                 <?php foreach ($listDataevent as $event):?>
-                                    <div class="col-lg-4">
-                                        <a href="/detailevent/<?php echo @$event->slug ?>.html">
-                                            <div class="card-news">
-                                                <div class="overlay"></div> <!-- Lớp overlay -->
-                                                <img src="<?=$event->banner?>" alt="">
-                                                <div class="text top-text">
-                                                    <p class="name">Khởi nghiệp</p>
-                                                    <p class="logo"><i class="fas fa-arrow-right"></i></p>
-                                                </div>
-                                                <div class="text under-text">
-                                                    <p class="date-time"><?php echo date('d/m/Y', $event->time_start);?></p>
-                                                    <h4><?=$event->name?></h4>
-                                                    <p class="date-time"><?=$event->address?></p>
-                                                </div>
+                                <div class="col-lg-4">
+                                    <a href="/detailevent/<?php echo @$event->slug ?>.html">
+                                        <div class="card-news">
+                                            <img src="<?php echo $event->banner;?>" alt="">
+                                            <div class="text top-text">
+                                                <p>Khởi nghiệp</p>
+                                               <p><i class="fas fa-arrow-right"></i></p>
                                             </div>
-                                        </a>
-                                    </div>  
+                                            <div class="text under-text">
+                                                <p class="date-time"><?php echo date('d/m/Y', $event->time_start);?></p>
+                                                <h4><?=$event->name?></h4>
+                                                <p class="date-time"><?=$event->address?></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
                                 <?php endforeach;?>
                             </div>
                         </div>
