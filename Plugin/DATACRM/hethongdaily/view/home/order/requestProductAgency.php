@@ -155,6 +155,15 @@
                               $priceBuy -= $priceDiscount;
                             }
 
+                             $unit = @$value->product->unit;
+                            if(!empty($value->id_unit) && !empty($value->product->unitConversion)){
+                                foreach($value->product->unitConversion as $keyunti => $value_unit){
+                                  if($value->id_unit==$value_unit->id){
+                                     $unit = @$value_unit->unit;
+                                  }
+                                }
+                            }
+
                             if($priceBuy != $priceOld){
                               $showPrice = number_format($priceBuy).'đ<br/><del>'.number_format($priceOld).'đ</del><br/><br/>Giảm <b>'.$showDiscount.'</b> mỗi sản phẩm';
                             }else{
@@ -163,9 +172,9 @@
                             
 
                             echo '<tr> 
-                                    <td  width="50%" style="padding: 0.625rem 0.4rem;">'.$value->product.'</td>
+                                    <td  width="50%" style="padding: 0.625rem 0.4rem;">'.$value->product->title.'</td>
                                     <td  width="30%" style="padding: 0.625rem 0.4rem;">'.$showPrice.'</td>
-                                    <td  width="20%" style="padding: 0.625rem 0.4rem;">'.$value->quantity.'</td>
+                                    <td  width="20%" style="padding: 0.625rem 0.4rem;">'.$value->quantity.$unit.'</td>
                                   </tr>';
                           }
                         } 

@@ -19,6 +19,7 @@ function requestProductAgency($input)
         $modelProducts = $controller->loadModel('Products');
         $modelOrderMembers = $controller->loadModel('OrderMembers');
         $modelPartner = $controller->loadModel('Partners');
+        $modelUnitConversion = $controller->loadModel('UnitConversions');
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
 
         $conditions = array('id_member_buy'=>$user->id);
@@ -62,7 +63,8 @@ function requestProductAgency($input)
                     foreach ($detail_order as $k => $value) {
                         $product = $modelProducts->find()->where(['id'=>$value->id_product ])->first();
                         if(!empty($product)){
-                            $detail_order[$k]->product = $product->title;
+                            $product->unitConversion =   $modelUnitConversion->find()->where(['id_product'=>$value->id_product])->all()->toList();
+                            $detail_order[$k]->product = $product;
                         }
                     }
 
@@ -762,6 +764,12 @@ function updateOrderMemberAgency($input)
                                     }
                                 }
 
+                                if(!empty($value->price)){
+                                    $type_sale = 'paid';
+                                }else{
+                                    $type_sale = 'free';
+                                }
+
                                 // lưu lịch sử nhập kho của người mua
                                 $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
 
@@ -771,6 +779,7 @@ function updateOrderMemberAgency($input)
                                 $saveWarehouseHistories->note = 'Nhập hàng vào kho';
                                 $saveWarehouseHistories->create_at = time();
                                 $saveWarehouseHistories->type = 'plus';
+                                $saveWarehouseHistories->type_sale = $type_sale;
                                 $saveWarehouseHistories->id_order_member = $order->id;
 
                                 $modelWarehouseHistories->save($saveWarehouseHistories);
@@ -780,10 +789,12 @@ function updateOrderMemberAgency($input)
 
                                 $saveWarehouseHistories->id_member = $order->id_member_sell;
                                 $saveWarehouseHistories->id_product = $value->id_product;
+
                                 $saveWarehouseHistories->quantity = $quantity;
                                 $saveWarehouseHistories->note = 'Xuất hàng cho đại lý tuyến dưới';
                                 $saveWarehouseHistories->create_at = time();
                                 $saveWarehouseHistories->type = 'minus';
+                                $saveWarehouseHistories->type_sale = $type_sale;
                                 $saveWarehouseHistories->id_order_member = $order->id;
 
                                 $modelWarehouseHistories->save($saveWarehouseHistories);
@@ -1025,6 +1036,12 @@ function updateMyOrderMemberAgency($input)
                                     }
                                 }
 
+                                if(!empty($value->price)){
+                                    $type_sale = 'paid';
+                                }else{
+                                    $type_sale = 'free';
+                                }
+
                                 // cộng hàng vào kho người mua
                                 $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_member_buy])->first();
 
@@ -1038,6 +1055,8 @@ function updateMyOrderMemberAgency($input)
                                 $checkProductExits->quantity += $quantity;
 
                                 $modelWarehouseProducts->save($checkProductExits);
+
+
 
                                 // trừ hàng trong kho người bán
                                 if(!empty($order->id_member_sell)){
@@ -1054,19 +1073,6 @@ function updateMyOrderMemberAgency($input)
 
                                     $modelWarehouseProducts->save($checkProductExits);
 
-                                    // lưu lịch sử nhập kho của người mua
-                                    $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
-
-                                    $saveWarehouseHistories->id_member = $order->id_member_buy;
-                                    $saveWarehouseHistories->id_product = $value->id_product;
-                                    $saveWarehouseHistories->quantity = $quantity;
-                                    $saveWarehouseHistories->note = 'Nhập hàng vào kho';
-                                    $saveWarehouseHistories->create_at = time();
-                                    $saveWarehouseHistories->type = 'plus';
-                                    $saveWarehouseHistories->id_order_member = $order->id;
-
-                                    $modelWarehouseHistories->save($saveWarehouseHistories);
-
                                     // lưu lịch sử xuất kho của người bán
                                     $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
 
@@ -1076,15 +1082,28 @@ function updateMyOrderMemberAgency($input)
                                     $saveWarehouseHistories->note = 'Xuất hàng cho đại lý tuyến dưới';
                                     $saveWarehouseHistories->create_at = time();
                                     $saveWarehouseHistories->type = 'minus';
+                                    $saveWarehouseHistories->type_sale = $type_sale;
                                     $saveWarehouseHistories->id_order_member = $order->id;
 
                                     $modelWarehouseHistories->save($saveWarehouseHistories);
                                 }
+
+                                // lưu lịch sử nhập kho của người mua
+                                $saveWarehouseHistories = $modelWarehouseHistories->newEmptyEntity();
+                                
+                                $saveWarehouseHistories->id_member = $order->id_member_buy;
+                                $saveWarehouseHistories->id_product = $value->id_product;
+                                $saveWarehouseHistories->quantity = $quantity;
+                                $saveWarehouseHistories->note = 'Nhập hàng vào kho';
+                                $saveWarehouseHistories->create_at = time();
+                                $saveWarehouseHistories->type = 'plus';
+                                $saveWarehouseHistories->type_sale = $type_sale;
+                                
+                                $saveWarehouseHistories->id_order_member = $order->id;
+                                $modelWarehouseHistories->save($saveWarehouseHistories);
                             }
                         }
                     }
-
-
                 }        
                 if(!empty($_GET['status_pay'])){
                     $order->status_pay = $_GET['status_pay'];
@@ -1121,7 +1140,7 @@ function updateMyOrderMemberAgency($input)
                         if($_GET['type_collection_bill']!='cong_no'){
                             // bill cho người mua
                             $billbuy = $modelBill->newEmptyEntity();
-                            $billbuy->id_member_sell =  $user->id;
+                            $billbuy->id_member_sell =  0;
                             $billbuy->id_member_buy = $order->id_member_buy;
                             $billbuy->id_staff_sell =  0;
                             $billbuy->id_partner =  $infoMemberSell->id;

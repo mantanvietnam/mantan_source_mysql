@@ -322,6 +322,7 @@ function giveGiftCustomerAPI($input){
                                 $saveWarehouseHistories->note = 'Tặng quà cho khách hàng '.$customer->full_name.' '.$customer->phone;
                                 $saveWarehouseHistories->create_at = time();
                                 $saveWarehouseHistories->type = 'minus';
+                                $saveWarehouseHistories->type_sale = 'free';
                                 $saveWarehouseHistories->id_historie_gift = $historieGift->id;
 
                                 $modelWarehouseHistories->save($saveWarehouseHistories);

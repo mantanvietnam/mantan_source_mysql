@@ -101,9 +101,15 @@ function settingSystem($input){
                 $data->name = $dataSend['name'];
                 $data->image = $dataSend['image'];
                 $data->keyword = $dataSend['keyword'];
-                $description = array('convertPoint'=> @$dataSend['convertPoint'],
-                                    'max_export_mmtc'=> @$dataSend['max_export_mmtc'],
-                                    'price_export_mmtc'=> @$dataSend['price_export_mmtc'],
+                $description = array('convertPoint'=> (int)@$dataSend['convertPoint'],
+                                    'max_export_mmtc'=>(int) @$dataSend['max_export_mmtc'],
+                                    'price_export_mmtc'=>(int) @$dataSend['price_export_mmtc'],
+                                    'point_introduce_user'=>(int) @$dataSend['point_introduce_user'],
+                                    'point_wall_post'=>(int) @$dataSend['point_wall_post'],
+                                    'point_feedback'=>(int) @$dataSend['point_feedback'],
+                                    'point_expor_numerology'=>(int) @$dataSend['point_expor_numerology'],
+                                    'point_deposit_money'=>(int) @$dataSend['point_deposit_money'],
+                                    'point_complete_quiz'=>(int) @$dataSend['point_complete_quiz'],
                                     );
                 $data->description = json_encode($description);
 
@@ -126,6 +132,12 @@ function settingSystem($input){
         $data->convertPoint = (int)@$description['convertPoint'];
         $data->max_export_mmtc = (int)@$description['max_export_mmtc'];
         $data->price_export_mmtc =(int) @$description['price_export_mmtc'];
+        $data->point_introduce_user =(int) @$description['point_introduce_user'];
+        $data->point_wall_post =(int) @$description['point_wall_post'];
+        $data->point_feedback =(int) @$description['point_feedback'];
+        $data->point_expor_numerology =(int) @$description['point_expor_numerology'];
+        $data->point_deposit_money =(int) @$description['point_deposit_money'];
+        $data->point_complete_quiz =(int) @$description['point_complete_quiz'];
         }
        
 

@@ -131,6 +131,7 @@ function createRequestImportProductAPI($input)
     $modelProducts = $controller->loadModel('Products');
     $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
     $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+    $modelParent = $controller->loadModel('Parents');
 
     $modelOrderMembers = $controller->loadModel('OrderMembers');
     $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
@@ -141,11 +142,25 @@ function createRequestImportProductAPI($input)
         $dataSend = $input['request']->getData();
         if(!empty($dataSend['token'])){
             $infoMember = getMemberByToken($dataSend['token'],'warehouseProductAgency');
-
+            $id_parent = 0;
             if(!empty($infoMember)){
                 if(empty($infoMember->grant_permission)){
                     return array('code'=>4, 'mess'=>'Bạn không có quyền');
                 }
+
+                if(empty($infoMember->id_father)){
+                    if(empty($dataSend['id_parent'])){
+                        return array('code'=>4, 'mess'=>'thiều id đối tác');
+                    }
+                    $parent = $modelParent->find()->where(['id'=>$dataSend['id_parent']])->first();
+                    if(!empty($parent)){
+                         $id_parent = $parent->id;
+                    }else{
+                         return array('code'=>4, 'mess'=>'đối tác không tồn tại');
+                    }
+
+                }
+
 	            if(!empty($dataSend['data_order'])){
 	            	$dataSend['data_order'] = json_decode($dataSend['data_order'], true);
 
@@ -155,7 +170,8 @@ function createRequestImportProductAPI($input)
 	                $save->id_member_buy = $infoMember->id;
 	                $save->note_sell = ''; // ghi chú người bán
 	                $save->note_buy = @$dataSend['note']; // ghi chú người mua 
-	                $save->status = 'new';
+                    $save->status = 'new';
+	                $save->id_parent =$id_parent;
 	                $save->create_at = time();
 	                $save->money = (int) $dataSend['total'];
 	                $save->total = (int) $dataSend['totalPays'];

@@ -181,6 +181,7 @@ $sqlInstallDatabase .= "CREATE TABLE `warehouse_histories` (
   `id_order_member` INT NOT NULL DEFAULT '0',
   `id_order` INT NOT NULL DEFAULT '0' COMMENT 'id đơn hàng khách lẻ',
   `id_historie_gift` INT NOT NULL DEFAULT '0',
+  `type_sale` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'paid' COMMENT 'free:miễn phí, paid: có phí, edit: Sửa số lượng tồn kho',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -314,6 +315,7 @@ $sqlInstallDatabase .='CREATE TABLE `point_customers` (
 `id_rating` INT NULL DEFAULT 0 ,
 `created_at` INT NULL DEFAULT NULL,
 `point_now` INT NOT NULL DEFAULT 0,
+`updated_at` INT NULL DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
@@ -648,7 +650,7 @@ $sqlUpdateDatabase['warehouse_histories']['type'] = "ALTER TABLE `warehouse_hist
 $sqlUpdateDatabase['warehouse_histories']['id_order_member'] = "ALTER TABLE `warehouse_histories` ADD `id_order_member` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['warehouse_histories']['id_order'] = "ALTER TABLE `warehouse_histories` ADD `id_order` INT NOT NULL DEFAULT '0' COMMENT 'id đơn hàng khách lẻ';";
 $sqlUpdateDatabase['warehouse_histories']['id_historie_gift'] = "ALTER TABLE `warehouse_histories` ADD `id_historie_gift` INT NOT NULL DEFAULT '0';";
-
+$sqlUpdateDatabase['warehouse_histories']['type_sale'] = "ALTER TABLE `warehouse_histories` ADD `type_sale` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'paid' COMMENT 'free:miễn phí, paid: có phí, edit: Sửa số lượng tồn kho';";
 // bảng zalo_templates
 $sqlUpdateDatabase['zalo_templates']['id_system'] = "ALTER TABLE `zalo_templates` ADD `id_system` int(11) NOT NULL;";
 $sqlUpdateDatabase['zalo_templates']['id_zns'] = "ALTER TABLE `zalo_templates` ADD `id_zns` int(11) NOT NULL;";
@@ -743,6 +745,7 @@ $sqlUpdateDatabase['point_customers']['point'] = "ALTER TABLE `point_customers` 
 $sqlUpdateDatabase['point_customers']['id_rating'] = "ALTER TABLE `point_customers` ADD `id_rating` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['point_customers']['created_at'] = "ALTER TABLE `point_customers` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['point_customers']['point_now'] = "ALTER TABLE `point_customers` ADD `point_now` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['point_customers']['updated_at'] = "ALTER TABLE `point_customers` ADD `updated_at` INT NULL DEFAULT NULL;";
 
 
 $sqlUpdateDatabase['customer_gifts']['name'] = "ALTER TABLE `customer_gifts` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ;";
@@ -835,7 +838,7 @@ $sqlUpdateDatabase['partners']['phone'] = "ALTER TABLE `partners` ADD `phone` te
 $sqlUpdateDatabase['partners']['email'] = "ALTER TABLE `partners` ADD `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['partners']['address'] = "ALTER TABLE `partners` ADD `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
 $sqlUpdateDatabase['partners']['note'] = "ALTER TABLE `partners` ADD `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL; ";
-$sqlUpdateDatabase['partners']['id_member'] = "ALTER TABLE `partners` ADD `id_member` int(11) NOT NULL; ";
-$sqlUpdateDatabase['partners']['created_at'] = "ALTER TABLE `partners` ADD `created_at` datetime DEFAULT NULL; ";
-$sqlUpdateDatabase['partners']['updated_at'] = "ALTER TABLE `partners` ADD `updated_at` datetime DEFAULT NULL; ";
+$sqlUpdateDatabase['partners']['id_member'] = "ALTER TABLE `partners` ADD `id_member` INT NOT NULL; ";
+$sqlUpdateDatabase['partners']['created_at'] = "ALTER TABLE `partners` ADD `created_at` INT DEFAULT NULL; ";
+$sqlUpdateDatabase['partners']['updated_at'] = "ALTER TABLE `partners` ADD `updated_at` INT DEFAULT NULL; ";
 ?>

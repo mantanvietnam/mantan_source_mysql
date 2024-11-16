@@ -793,7 +793,7 @@ function listCustomerHistorieMmttAPI($input)
 {   
     global $controller;
     global $isRequestPost;
-    
+
     $modelCustomer = $controller->loadModel('Customers');
     $modelCustomerHistorieMmtt = $controller->loadModel('CustomerHistorieMmtts');
 
@@ -887,6 +887,45 @@ function getPointCustomerAPI($input){
         }
 
         return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
+function pointStatisticTopWeek($input){
+    global $controller;
+    global $isRequestPost;
+    global  $urlHomes;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelPointCustomer = $controller->loadModel('PointCustomers');
+    $modelMember = $controller->loadModel('Members');
+    $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();   
+        $user = $modelMember->find()->where(['id_father'=>0])->first();
+        $conditions = array('id_member'=>$user->id,'updated_at >='=>strtotime('-7 days'));
+        $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:5;
+        $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+        if($page<1) $page = 1;
+        $order = array('point'=>'desc');
+       $listData = $modelPointCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                $point = $value->point;
+                $listData[$key]->rating = $modelRatingPointCustomer->find()->where(['id'=>$value->id_rating])->first();
+                $customer = $modelCustomer->find()->where(['id'=>$value->id_customer])->first();
+                unset($customer->pass);
+                unset($customer->token_device);
+                unset($customer->token);
+                unset($customer->reset_password_code);
+                $listData[$key]->customer = $customer;
+                
+            }
+        }
+        return array('code'=>1,'messages'=>'Lấy dữ liệu thành công','listData'=> $listData);
+
+
     }
 
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');

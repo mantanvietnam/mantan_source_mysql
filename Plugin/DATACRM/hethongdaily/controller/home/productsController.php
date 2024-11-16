@@ -526,6 +526,12 @@ function updateStatusOrderAgency($input){
                                     }
                                 }
 
+                                if(!empty($value->price)){
+                                    $type_sale = 'paid';
+                                }else{
+                                    $type_sale = 'free';
+                                }
+
                                 $checkProductExits = $modelWarehouseProducts->find()->where(['id_product'=>$value->id_product, 'id_member'=>$order->id_agency])->first();
 
                                 if(empty($checkProductExits)){
@@ -548,6 +554,7 @@ function updateStatusOrderAgency($input){
                                 $saveWarehouseHistories->note = 'Bán cho khách hàng '.$order->full_name.' '.$order->phone;
                                 $saveWarehouseHistories->create_at = time();
                                 $saveWarehouseHistories->type = 'minus';
+                                $saveWarehouseHistories->type_sale = $type_sale;
                                 $saveWarehouseHistories->id_order = $order->id;
 
                                 $modelWarehouseHistories->save($saveWarehouseHistories);

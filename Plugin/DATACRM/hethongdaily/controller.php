@@ -47,6 +47,8 @@ include_once('controller/api/transaction_histories_controller.php'); // phiếu 
 include_once('controller/api/ratingPointController.php'); // affiliater
 include_once('controller/api/customerGiftController.php'); // đào tạo 
 include_once('controller/api/staffController.php'); // đào tạo 
+include_once('controller/api/partnerController.php'); // đào tạo 
+
 
 
 include_once('controller/home/transaction_histories_controller.php'); // lịch sử giao dịch nạp tiền
