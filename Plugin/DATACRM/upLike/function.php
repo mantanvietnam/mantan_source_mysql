@@ -2,6 +2,11 @@
 
 $menus = array();
 $menus[0]['title'] = 'Tăng tương tác';
+$menus[0]['sub'][0] = array('title' => 'Yêu cầu tăng tương tác',
+                            'url'=>'/plugins/admin/upLike-view-admin-listUplikeHistoriesAdmin',
+                            'classIcon' => 'menu-icon tf-icons bx bxs-data',
+                            'permission'=>'listUplikeHistoriesAdmin'
+                        );
 $menus[0]['sub'][1] = array('title' => 'Cài đặt',
                             'url'=>'/plugins/admin/upLike-view-admin-settingUpLikeAdmin',
                             'classIcon' => 'menu-icon tf-icons bx bxs-data',
