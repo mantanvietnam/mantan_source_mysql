@@ -1,0 +1,172 @@
+/* Reset padding và margin cho toàn bộ các phần tử */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-image: url('asset/images/bg.jpg');
+  background-size: cover; /* Giữ kích thước gốc của hình ảnh */
+  background-repeat: no-repeat; /* Lặp lại hình nền */
+  background-position: top left; /* Bắt đầu lặp từ góc trên bên trái */
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+.content {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-container {
+  width: 200px;
+  margin-bottom: 15px;
+  align-self: flex-start;
+  margin-left: 20px;
+}
+
+.logo-container img {
+  width: 100%; /* Ảnh sẽ khớp với kích thước khung */
+  object-fit: cover; /* Giữ tỷ lệ ảnh và đảm bảo không bị méo */
+}
+
+.map {
+  background-color: white;
+  height: 80%;
+  width: 750px;
+  margin-top: 20px;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.map svg{
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  border-radius: 16px;
+  position: relative;
+  margin-left: -11%;
+}
+
+.map .city {
+  position: absolute;
+  color: black;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  z-index: 10;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+svg path {
+  stroke: #E6BEBC;
+  cursor: pointer;
+  stroke-width: 1px;
+  z-index: 20;
+}
+
+.locate {
+  position: absolute;
+  top: 6%;
+  left: 9%;
+  width: 67%;
+  pointer-events: none;
+}
+
+.iland {
+  position: absolute;
+  top: 46%;
+  left: 70%;
+  width: 110px;
+}
+
+.iland2 {
+  position: absolute;
+  top: 73%;
+  left: 73%;
+  width: 150px;
+}
+
+.circle-container {
+  width: 150px; /* Kích thước khung hình tròn */
+  height: 150px; /* Kích thước khung hình tròn */
+  border-radius: 50%; /* Bo tròn khung */
+  overflow: hidden; /* Ẩn các phần ảnh nằm ngoài khung */
+  display: flex; /* Căn giữa nội dung bên trong */
+  align-items: center;
+  justify-content: center;
+}
+
+.circle-container img {
+  width: 100%; /* Ảnh sẽ khớp với kích thước khung */
+  height: 100%; /* Đảm bảo ảnh bao phủ khung */
+  object-fit: cover; /* Giữ tỷ lệ ảnh và đảm bảo không bị méo */
+}
+
+.circle-container-1 {
+  position: absolute;
+  top: 7.5%;
+  left: 58.3%;
+  width: 80px;
+  height: 80px;
+}
+
+.circle-container-2 {
+  position: absolute;
+  top: 41.4%;
+  left: 11.5%;
+  width: 67px;
+  height: 67px;
+}
+
+.circle-container-3 {
+  position: absolute;
+  top: 30.3%;
+  left: 66%;
+  width: 65px;
+  height: 65px;
+}
+
+.circle-container-4 {
+  position: absolute;
+  top: 67.5%;
+  left: 10.4%;
+  width: 50px;
+  height: 50px;
+}
+
+.circle-container-5 {
+  position: absolute;
+  top: 55.9%;
+  left: 23.5%;
+  width: 40px;
+  height: 40px;
+}
+
+.slogan-container {
+  width: 400px; /* Kích thước khung hình tròn */
+  display: flex; /* Căn giữa nội dung bên trong */
+  align-items: center;
+  justify-content: center;
+}
+
+.slogan-container img {
+  width: 100%; /* Ảnh sẽ khớp với kích thước khung */
+  object-fit: cover; /* Giữ tỷ lệ ảnh và đảm bảo không bị méo */
+}
+
+
+
