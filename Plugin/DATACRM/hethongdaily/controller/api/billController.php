@@ -10,6 +10,7 @@ function listBillAPI($input){
 
 	$modelMembers = $controller->loadModel('Members');
 	$modelCustomers = $controller->loadModel('Customers');
+	$modelPartners = $controller->loadModel('Partners');
 	$modelBill = $controller->loadModel('Bills');
 	$modelAffiliaters = $controller->loadModel('Affiliaters');
 	$return = array('code'=>1);
@@ -25,7 +26,7 @@ function listBillAPI($input){
                 }
 
 				$conditions = array('id_member_buy'=>$infoMember->id, 'type'=>2);
-				$limit = 20;
+				$limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
 				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 				if($page<1) $page = 1;
 				$order = array('id'=>'desc');
@@ -100,6 +101,10 @@ function listBillAPI($input){
 						if(!empty($item->id_aff)){
                     		$listData[$key]->affiliater = $modelAffiliaters->find()->where(['id'=>$item->id_aff])->first();
                 		}
+
+                		if(!empty($item->id_partner)){
+                    		$listData[$key]->partner = $modelPartners->find()->where(['id'=>$item->id_partner])->first();
+                		}
 					}
 				}
 		        // phân trang
@@ -133,44 +138,130 @@ function addBillAPI($input){
 	global $modelCategories;
 	global $metaTitleMantan;
 	global $session;
+	global $isRequestPost;
 	global $controller;
 	global $urlCurrent;
 	global $urlHomes;
 
-	$metaTitleMantan = 'Thông tin phiếu chi';
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$infoMember = getMemberByToken($dataSend['token'],'addBill');
 
-	if(!empty($session->read('infoUser'))){
-		$modelMembers = $controller->loadModel('Members');
-		$modelBill = $controller->loadModel('Bills');
+			if(!empty($infoMember)){
+				if(empty($infoMember->grant_permission)){
+                    return array('code'=>5, 'mess'=>'Bạn không có quyền');
+                }
+				$modelMembers = $controller->loadModel('Members');
+				$modelCustomer = $controller->loadModel('Customers');
+				$modelBill = $controller->loadModel('Bills');
 
-		$infoUser = $session->read('infoUser');
-		$mess= '';
+				$infoUser = $session->read('infoUser');
+				$mess= '';
 
-        // lấy data edit
-		$time =time();
-		if(!empty($dataSend['id'])){
-			$bill = $modelBill->get( (int) $dataSend['id']);
+		        // lấy data edit
+				$time =time();
+
+				if($dataSend['typeUser']=='customer'){
+					if(!empty($dataSend['phone_customer'])){
+						$customer = $modelCustomer->find()->where(['phone'=>$dataSend['phone_customer']])->first();
+						if(empty($customer)){
+							return array('code'=>4, 'mess'=>'số điện thoại khách hàng không tồn tại');
+						}
+
+						$bill = $modelBill->newEmptyEntity();
+						$bill->id_member_sell =  0;
+						$bill->id_staff_sell =  0;
+						$bill->id_member_buy = $infoMember->id;
+						$bill->total = (int) @$dataSend['total'];
+						$bill->id_order = 0;
+						$bill->type = 2;
+						$bill->type_order = 2; 
+						$bill->updated_at = $time;
+						$bill->id_debt = 0;
+						$bill->type_collection_bill = @$dataSend['type_collection_bill'];
+						$bill->id_customer =(int) @$customer->id;
+						$bill->note = 'Đã trả tiền của khách hàng' .@$customer->full_name.' '.@$customer->phone.' với số tiền là '.number_format($bill->total).'đ lý do là: '.@$dataSend['note'];
+						$modelBill->save($bill);
+					}else{
+						return array('code'=>4, 'mess'=>'số điện thoại khách hàng không tồn tại');
+					}
+				}elseif($dataSend['typeUser']=='agency'){
+					if(!empty($dataSend['phone_agency'])){
+						$member_sell = $modelMembers->find()->where(['phone'=>$dataSend['phone_agency']])->first();;
+						if(empty($member_sell)){
+							return array('code'=>5, 'mess'=>'số điện thoại đại lý không tồn tại');
+						}
+		                // bill cho người thu
+						$bill = $modelBill->newEmptyEntity();
+						$bill->id_member_sell =  $member_sell->id;
+						$bill->id_staff_sell =  0;
+						$bill->id_member_buy = $infoMember->id;
+						$bill->total = (int) @$dataSend['total'];
+						$bill->id_order = 0;
+						$bill->type = 1;
+						$bill->type_order = 1; 
+						$bill->created_at = $time;
+						$bill->updated_at = $time;
+						$bill->id_debt = 0;
+						$bill->type_collection_bill =  @$dataSend['type_collection_bill'];
+						$bill->id_customer = 0;
+						$bill->note = 'Đã thu tiền của đại lý' .@$infoMember->name.' '.@$infoMember->phone.' với số tiền là '.number_format($bill->total).'đ lý do thu là:'.@$dataSend['note'];
+						$modelBill->save($bill);
+
+		                // bill cho người chi
+						$billbuy = $modelBill->newEmptyEntity();
+						$billbuy->id_member_sell =  $member_sell->id;
+						$billbuy->id_staff_sell =  0;
+						$billbuy->id_member_buy = $infoMember->id;
+						$billbuy->total = (int) @$dataSend['total'];
+						$billbuy->id_order = 0;
+						$billbuy->type = 2;
+						$billbuy->type_order = 1; 
+						$billbuy->created_at = $time;
+						$billbuy->updated_at = $time;
+						$billbuy->id_debt = 0;
+						$billbuy->type_collection_bill =  @$dataSend['type_collection_bill'];
+						$billbuy->id_customer = 0;
+						$billbuy->note = 'Đã trả tiền cho đại lý' .@$member_sell->name.' '.@$member_sell->phone.' với số tiền là '.number_format($billbuy->total).'đ lý do trả là:'.@$dataSend['note'];
+						$modelBill->save($billbuy);
+					}else{
+						return array('code'=>5, 'mess'=>'số điện thoại đại lý không tồn tại');
+					}
+				}else{
+
+					$bill = $modelBill->newEmptyEntity();
+					$bill->id_member_sell = 0;
+					$bill->id_staff_sell = 0;
+					$bill->id_member_buy = $infoMember->id;
+					$bill->total = (int) @$dataSend['total'];
+					$bill->id_order = 0;
+					$bill->type = 2;
+					$bill->type_order = 3; 
+					$bill->updated_at = $time;
+					$bill->id_debt = 0;
+					$bill->type_collection_bill =  @$dataSend['type_collection_bill'];
+					$bill->id_customer = 0;
+					$bill->note = @$dataSend['note'];
+
+					$modelBill->save($bill);
+
+				}
+				$note = $infoMember->type_tv.' '. $infoMember->name.' '.@$bill->note.' có id là:'.$bill->id;
+
+       			 addActivityHistory($infoMember,$note,'addBill',$bill->id);
+				$return = array('code'=>0, 'mess'=>'Bạn thêm phiếu chi thành công','bill'=>$bill);
+			}else{
+				$return = array('code'=>3, 'mess'=>'không tồn tại tài khoản đại lý hoặc sai mã token');
+			}
 		}else{
-			$bill = $modelBill->newEmptyEntity();
-			$bill->created_at = $time;
+			$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
 		}
-		$bill->id_member_sell =  0;
-		$bill->id_member_buy = $session->read('infoUser')->id;
-		$bill->total = @$dataSend['total'];
-		$bill->id_order = 0;
-		$bill->type = 2;
-		$bill->type_order = 3; 
-		$bill->updated_at = $time;
-		$bill->id_debt = 0;
-		$bill->type_collection_bill =  @$dataSend['type_collection_bill'];
-		$bill->id_customer = 0;
-		$bill->note =@$dataSend['note'];
-
-		$modelBill->save($bill);
-		return $controller->redirect('/listBill');
 	}else{
-		return $controller->redirect('/login');
+		$return = array('code'=>1, 'mess'=>' gửi sai kiểu POST ');
 	}
+
+	return $return;
 }
 
 function listCollectionBillAPI($input){
@@ -198,7 +289,7 @@ function listCollectionBillAPI($input){
                 }
 
 				$conditions = array('id_member_sell'=>$infoMember->id, 'type'=>1);
-				$limit = 20;
+				$limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
 				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 				if($page<1) $page = 1;
 				$order = array('id'=>'desc');
@@ -514,7 +605,7 @@ function listCollectionDebtAPI($input){
 				$modelDebt = $controller->loadModel('Debts');
 
 				$conditions = array('id_member_sell'=>$infoMember->id, 'type'=>1);
-				$limit = 20;
+				$limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
 				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 				if($page<1) $page = 1;
 				$order = array('id'=>'desc');
@@ -785,6 +876,7 @@ function listPayableDebtAPI($input){
 	global $urlCurrent;
 	global $metaTitleMantan;
 	global $modelCategories;
+	global $isRequestPost;
 	global $type_collection_bill;
 
 	if($isRequestPost){
@@ -802,7 +894,7 @@ function listPayableDebtAPI($input){
 
 
 				$conditions = array('id_member_buy'=>$$infoMember->id, 'type'=>2);
-				$limit = 20;
+				$limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
 				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 				if($page<1) $page = 1;
 				$order = array('id'=>'desc');

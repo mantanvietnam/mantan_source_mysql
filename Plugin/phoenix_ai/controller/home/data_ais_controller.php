@@ -92,3 +92,11 @@ function aiVirtualAssistant($input)
 		return $controller->redirect('/login');
 	}
 }
+
+function checkapi(){
+	callAIphoenixtech('Việt cho tao bai content giới thiệu bản thân');
+	debug('abc');
+	 die;
+}
+?>
+

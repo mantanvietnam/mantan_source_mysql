@@ -378,7 +378,7 @@
                <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                           <a class="dropdown-item" href="/statisticAgency">Báo cáo chung</a>
                           <a class="dropdown-item" href="/businessReport">Báo cáo biểu đồ</a>
-                          <a class="dropdown-item" href="/staticProfitAgency">báo cáo lợi nhuận</a>
+                          <a class="dropdown-item" href="/staticProfitAgency">Báo cáo lợi nhuận</a>
                         </div>
             </li>
 
@@ -397,7 +397,7 @@
                 } ?>
                 
                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
-                <a class="dropdown-item" href="#">ngày hết hạn <?php echo date('d/m/Y',$user->deadline); ?></a>
+                <a class="dropdown-item" href="#">Ngày hết hạn <?php echo date('d/m/Y',$user->deadline); ?></a>
 
                 
               </div>

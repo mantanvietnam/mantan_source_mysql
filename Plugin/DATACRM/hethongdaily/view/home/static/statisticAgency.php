@@ -131,8 +131,8 @@
                   }
 
                   echo '<tr>
-                  <td>'.$item->customer->full_name.'<br/>
-                  '.$item->customer->phone.'
+                  <td>'.@$item->customer->full_name.'<br/>
+                  '.@$item->customer->phone.'
                   </td>
                   <td>'.implode(', ', $product).'</td>              
                   <td>'.$item->total.'</td>              

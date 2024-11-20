@@ -127,7 +127,7 @@
                                 </div>\
                                 <div class="row">\
                                     <div class="text-right col-md-3 col-sm-3 col-xs-12">\
-                                        <b>người gới tiệu  :</b>\
+                                        <b>Người gới tiệu  :</b>\
                                     </div>\
                                     <div class="col-md-9 col-sm-9 col-xs-12">'+aff+'</div>\
                                 </div>\
@@ -139,25 +139,25 @@
                                 </div>\
                                  <div class="row">\
                                     <div class="text-right col-md-3 col-sm-3 col-xs-12">\
-                                        <b>Côn nợ :</b>\
+                                        <b>Công nợ :</b>\
                                     </div>\
                                     <div class="col-md-9 col-sm-9 col-xs-12"> <a href="/listTransactionAffiliaterAgency?id_affiliater='+dataAgency.id+'">'+money_back+'đ</a></div>\
                                 </div>\
                                  <div class="row">\
                                     <div class="text-right col-md-3 col-sm-3 col-xs-12">\
-                                        <b>cấp đội:</b>\
+                                        <b>Cấp đội:</b>\
                                     </div>\
                                     <div class="col-md-9 col-sm-9 col-xs-12">'+level+'</div>\
                                 </div>\
                                 <div class="row">\
                                     <div class="text-right col-md-3 col-sm-3 col-xs-12">\
-                                        <b>Hoa Hồng chiết khấu :</b>\
+                                        <b>Hoa hồng chiết khấu :</b>\
                                     </div>\
                                     <div class="col-md-9 col-sm-9 col-xs-12">'+percent+'%</div>\
                                 </div>\
                                  <div class="row">\
                                     <div class="text-right col-md-3 col-sm-3 col-xs-12">\
-                                        <b>link chia sẻ :</b>\
+                                        <b>Link chia sẻ :</b>\
                                     </div>\
                                     <div class="col-md-9 col-sm-9 col-xs-12"><a target="_blank" href="'+link_aff+'">'+link_aff+'</a></div>\
                                 </div>\

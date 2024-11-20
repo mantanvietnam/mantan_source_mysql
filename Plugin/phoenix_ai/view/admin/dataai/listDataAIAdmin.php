@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">AI Trợ Lý Ảo</h4>
   
-  <p><a href="/plugins/admin/phoenix_ai-view-admin-member-addMemberAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/phoenix_ai-view-admin-dataai-exportDataAIAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">

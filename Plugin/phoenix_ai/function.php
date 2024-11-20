@@ -17,6 +17,10 @@ $menus[0]['sub'][]= array( 'title'=>'AI trợ lý ảo',
 
 addMenuAdminMantan($menus);
 
+global $keyDify;
+
+ $keyDify = 'app-4yYewPLJhBWuYUbDMXGuLxQi';
+
 function sendEmailNewPassword($email='', $fullName='', $pass= '')
 {
     global $urlHomes;
@@ -96,6 +100,84 @@ function checklogin($permission=''){
     }
 
     return $user; 
+}
+
+function callAIphoenixtech($query){
+    global $keyDify;
+
+    // $header = array('Authorization'=>'Bearer app-4yYewPLJhBWuYUbDMXGuLxQi', 'Content-Type'=>'application/json');
+   // $dataPost= array('query'=>$query,'response_mode'=>'streaming','conversation_id'=>'','user'=>'Dify');
+
+   // $dataPost = '{
+   //  "inputs": {},
+   //  "query": "'.$query.'",
+   //  "response_mode": "streaming",
+   //  "conversation_id": "",
+   //  "user": "abc-123"
+   //  }';
+
+    // debug($header);
+    // debug($dataPost);
+    //$data= sendDataConnectMantan('https://dify.phoenixtech.vn/v1/chat-messages', $dataPost,$header,'raw');
+    // $data= str_replace('ï»¿', '', utf8_encode($data));
+    // $data= json_decode($data, true);
+
+    // debug($data);
+    // die;
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+    CURLOPT_URL => 'https://dify.phoenixtech.vn/v1/chat-messages',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_POSTFIELDS =>'{
+        "inputs": {},
+        "query": "'.$query.'",
+        "response_mode": "streaming",
+        "conversation_id": "",
+        "user": "abc-123"
+        }',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer app-4yYewPLJhBWuYUbDMXGuLxQi',
+        'Content-Type: application/json'
+      ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+   // echo $response;
+    
+
+    // Chuỗi đầy đủ từ input
+
+    // Tách chuỗi thành từng phần tử dữ liệu JSON
+    $pattern = '/data: (.+?)(?=\ndata: |$)/s';
+    preg_match_all($pattern, $response, $matches);
+
+    // Mảng lưu trữ các câu trả lời
+    $answers = [];
+
+    // Duyệt qua từng phần tử JSON và trích xuất "answer"
+    foreach ($matches[1] as $json) {
+        $data = json_decode($json, true);
+        if (isset($data['answer'])) {
+            $answers[] = $data['answer'];
+        }
+    }
+
+    // Kết hợp các câu trả lời thành chuỗi hoàn chỉnh
+    $result = implode('', $answers);
+    debug($result);
+    
+    die;
+
 }
 
 ?>

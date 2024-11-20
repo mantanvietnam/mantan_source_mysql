@@ -114,8 +114,10 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `token` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `reset_password_code`INT NULL DEFAULT NULL,
   `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `id_friend_block` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `max_export_mmtc` INT NOT NULL DEFAULT '0',
   `id_affsource` INT NULL DEFAULT 0 COMMENT 'id người giới thiệu' ,
+
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -610,6 +612,7 @@ $sqlUpdateDatabase['customers']['token_device'] = "ALTER TABLE `customers` ADD `
 $sqlUpdateDatabase['customers']['token'] = "ALTER TABLE `customers` ADD `token` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customers']['reset_password_code'] = "ALTER TABLE `customers` ADD `reset_password_code`INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customers']['link_download_mmtc'] = "ALTER TABLE `customers` ADD `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;";
+$sqlUpdateDatabase['customers']['id_friend_block'] = "ALTER TABLE `customers` ADD `id_friend_block` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;";
 $sqlUpdateDatabase['customers']['max_export_mmtc'] = "ALTER TABLE `customers` ADD `max_export_mmtc` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['customers']['id_affsource'] = "ALTER TABLE `customers` ADD `id_affsource` INT NULL DEFAULT '0' COMMENT 'id người giới thiệu';";
 // bảng customer_histories
