@@ -54,10 +54,10 @@ INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`, `permission
 CREATE TABLE `albuminfos` (
   `id` int(11) NOT NULL,
   `id_album` int(11) NOT NULL,
-  `image` varchar(255) NOT NULL,
+  `image` varchar(500) NOT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `link` varchar(255) NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+  `link` varchar(500) NOT NULL,
+  `title` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -68,12 +68,12 @@ CREATE TABLE `albuminfos` (
 
 CREATE TABLE `albums` (
   `id` int(11) NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `id_category` int(11) NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `time_create` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
+  `slug` varchar(500) NOT NULL,
   `author` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

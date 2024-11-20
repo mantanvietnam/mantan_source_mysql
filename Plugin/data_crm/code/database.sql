@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th10 11, 2024 lúc 04:18 PM
+-- Thời gian đã tạo: Th10 17, 2024 lúc 12:45 AM
 -- Phiên bản máy phục vụ: 10.6.5-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -161,7 +161,8 @@ CREATE TABLE `bills` (
   `id_debt` int(11) NOT NULL DEFAULT 0,
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_staff_sell` int(11) DEFAULT 0 COMMENT 'nhân viên thu',
-  `id_staff_buy` int(11) NOT NULL DEFAULT 0 COMMENT 'nhân viên chi'
+  `id_staff_buy` int(11) NOT NULL DEFAULT 0 COMMENT 'nhân viên chi',
+  `id_partner` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -438,7 +439,8 @@ CREATE TABLE `debts` (
   `updated_at` int(11) DEFAULT NULL,
   `id_order` int(11) NOT NULL DEFAULT 0,
   `id_staff_sell` int(11) DEFAULT 0 COMMENT 'nhân viên thu',
-  `id_staff_buy` int(11) NOT NULL DEFAULT 0 COMMENT 'nhân viên chi'
+  `id_staff_buy` int(11) NOT NULL DEFAULT 0 COMMENT 'nhân viên chi',
+  `id_partner` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -779,12 +781,20 @@ INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES
 (4, 'smtp_site', '{\"email\":\"datacrmasia@gmail.com\",\"pass\":\"zwkbudaklhxsxnyb\",\"display_name\":\"ICHAM CRM\",\"server\":\"ssl:\\/\\/smtp.gmail.com\",\"port\":\"465\"}', NULL),
 (5, 'plugins_site', '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\"]', NULL),
 (6, 'theme_active_site', 'loginAdmin', NULL),
-(7, 'plugin_installed', '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\"]', NULL),
+(7, 'plugin_installed', '[\"hethongdaily\",\"product\",\"2top_crm_training\",\"affiliate\",\"campaign_event\",\"matmathanhcong\",\"clone_web\",\"post_api\",\"feedback\",\"contact\",\"mangxahoi\",\"quanlycongviec\",\"drive_google\",\"payos\",\"upLike\",\"abc\"]', NULL),
 (8, 'theme_installed', '[\"toptop\",\"loginAdmin\"]', NULL),
-(9, 'crm_module', '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"affiliater\",\"document\",\"cashBook\",\"staff\",\"jobManagement\"]', NULL),
+(9, 'crm_module', '[\"hethongdaily\",\"order_system\",\"order_customer\",\"zalo_zns\",\"training\",\"customer\",\"campaign\",\"clone_web\",\"document\",\"cashBook\",\"affiliater\",\"staff\",\"jobManagement\"]', NULL),
 (10, 'settingMMTCAPI', '{\"userAPI\":\"admin\",\"passAPI\":\"Mmtc123!\",\"maxExport\":3,\"numberExport\":0,\"price\":0,\"note_pay\":\"\",\"number_bank\":\"\",\"account_bank\":\"\",\"key_bank\":\"\",\"idBot\":\"\",\"tokenBot\":\"\",\"idBlockConfirm\":\"\",\"idBlockDownload\":\"\"}', NULL),
 (11, 'settingUpLikeAdmin', '{\"tokenOngTrum\":\"Rt8B7GDHfcauGgTZKwkjfVItJm6kNllHC7sy6UuBCbQ9mpwP03W4rkrvE2lWIF4YimUXNJ4KcxXrah7V\",\"multiplier\":3}', NULL),
-(12, 'settingPayos', '{\"client_id\":\"977e9108-ffcb-453e-beaa-6c4bb5900f07\",\"api_key\":\"54ca742d-c2f5-44ef-8893-b56d73d4c8d6\",\"checksum_key\":\"2a7355c19147b1537d2d8b9f179b43a5969c571b0cf36ed12ada6254ec4321bb\",\"code_bank\":\"MB\"}', NULL);
+(12, 'settingPayos', '{\"client_id\":\"977e9108-ffcb-453e-beaa-6c4bb5900f07\",\"api_key\":\"54ca742d-c2f5-44ef-8893-b56d73d4c8d6\",\"checksum_key\":\"2a7355c19147b1537d2d8b9f179b43a5969c571b0cf36ed12ada6254ec4321bb\",\"code_bank\":\"MB\"}', NULL),
+(13, 'settingUpLikeAdmin', '{\"tokenOngTrum\":\"Rt8B7GDHfcauGgTZKwkjfVItJm6kNllHC7sy6UuBCbQ9mpwP03W4rkrvE2lWIF4YimUXNJ4KcxXrah7V\",\"multiplier\":3}', NULL),
+(14, 'settingPayos', '{\"client_id\":\"977e9108-ffcb-453e-beaa-6c4bb5900f07\",\"api_key\":\"54ca742d-c2f5-44ef-8893-b56d73d4c8d6\",\"checksum_key\":\"2a7355c19147b1537d2d8b9f179b43a5969c571b0cf36ed12ada6254ec4321bb\",\"code_bank\":\"MB\"}', NULL),
+(15, 'settingUpLikeAdmin', '{\"tokenOngTrum\":\"Rt8B7GDHfcauGgTZKwkjfVItJm6kNllHC7sy6UuBCbQ9mpwP03W4rkrvE2lWIF4YimUXNJ4KcxXrah7V\",\"multiplier\":3}', NULL),
+(16, 'settingPayos', '{\"client_id\":\"977e9108-ffcb-453e-beaa-6c4bb5900f07\",\"api_key\":\"54ca742d-c2f5-44ef-8893-b56d73d4c8d6\",\"checksum_key\":\"2a7355c19147b1537d2d8b9f179b43a5969c571b0cf36ed12ada6254ec4321bb\",\"code_bank\":\"MB\"}', NULL),
+(17, 'settingUpLikeAdmin', '{\"tokenOngTrum\":\"Rt8B7GDHfcauGgTZKwkjfVItJm6kNllHC7sy6UuBCbQ9mpwP03W4rkrvE2lWIF4YimUXNJ4KcxXrah7V\",\"multiplier\":3}', NULL),
+(18, 'settingPayos', '{\"client_id\":\"977e9108-ffcb-453e-beaa-6c4bb5900f07\",\"api_key\":\"54ca742d-c2f5-44ef-8893-b56d73d4c8d6\",\"checksum_key\":\"2a7355c19147b1537d2d8b9f179b43a5969c571b0cf36ed12ada6254ec4321bb\",\"code_bank\":\"MB\"}', NULL),
+(19, 'settingUpLikeAdmin', '{\"tokenOngTrum\":\"Rt8B7GDHfcauGgTZKwkjfVItJm6kNllHC7sy6UuBCbQ9mpwP03W4rkrvE2lWIF4YimUXNJ4KcxXrah7V\",\"multiplier\":3}', NULL),
+(20, 'settingPayos', '{\"client_id\":\"977e9108-ffcb-453e-beaa-6c4bb5900f07\",\"api_key\":\"54ca742d-c2f5-44ef-8893-b56d73d4c8d6\",\"checksum_key\":\"2a7355c19147b1537d2d8b9f179b43a5969c571b0cf36ed12ada6254ec4321bb\",\"code_bank\":\"MB\"}', NULL);
 
 -- --------------------------------------------------------
 
@@ -854,7 +864,9 @@ CREATE TABLE `order_members` (
   `costsIncurred` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `total_costsIncurred` int(11) DEFAULT 0,
   `id_staff_sell` int(11) NOT NULL DEFAULT 0 COMMENT 'id nhân viên bán',
-  `id_staff_buy` int(11) NOT NULL DEFAULT 0 COMMENT 'id nhân viên mua'
+  `id_staff_buy` int(11) NOT NULL DEFAULT 0 COMMENT 'id nhân viên mua',
+  `type` int(11) NOT NULL DEFAULT 1 COMMENT '1 nhập từ dạt lý, 2 nhập thừ đối tác',
+  `id_partner` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -876,6 +888,24 @@ CREATE TABLE `order_member_details` (
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `partners`
+--
+
+CREATE TABLE `partners` (
+  `id` int(11) NOT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` text NOT NULL,
+  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_member` int(11) NOT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `point_customers`
 --
 
@@ -886,7 +916,8 @@ CREATE TABLE `point_customers` (
   `point` int(11) NOT NULL DEFAULT 0,
   `id_rating` int(11) DEFAULT 0,
   `created_at` int(11) DEFAULT NULL,
-  `point_now` int(11) NOT NULL DEFAULT 0
+  `point_now` int(11) NOT NULL DEFAULT 0,
+  `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1009,6 +1040,19 @@ CREATE TABLE `rating_point_customers` (
   `point_min` int(11) NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `report_wall_posts`
+--
+
+CREATE TABLE `report_wall_posts` (
+  `id` int(11) NOT NULL,
+  `id_customer` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `id_post` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1280,7 +1324,8 @@ CREATE TABLE `uplike_histories` (
   `price` float NOT NULL DEFAULT 0,
   `id_request_buff` int(11) DEFAULT 0,
   `note_buff` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `run` int(11) NOT NULL DEFAULT 0
+  `run` int(11) NOT NULL DEFAULT 0,
+  `minute` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1346,7 +1391,8 @@ CREATE TABLE `warehouse_histories` (
   `type` varchar(20) NOT NULL COMMENT 'plus hoặc minus',
   `id_order_member` int(11) NOT NULL DEFAULT 0,
   `id_order` int(11) NOT NULL DEFAULT 0 COMMENT 'id đơn hàng khách lẻ',
-  `id_historie_gift` int(11) NOT NULL DEFAULT 0
+  `id_historie_gift` int(11) NOT NULL DEFAULT 0,
+  `type_sale` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'paid' COMMENT 'free:miễn phí, paid: có phí, edit: Sửa số lượng tồn kho'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1653,6 +1699,12 @@ ALTER TABLE `order_member_details`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `partners`
+--
+ALTER TABLE `partners`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `point_customers`
 --
 ALTER TABLE `point_customers`
@@ -1692,6 +1744,12 @@ ALTER TABLE `question_products`
 -- Chỉ mục cho bảng `rating_point_customers`
 --
 ALTER TABLE `rating_point_customers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `report_wall_posts`
+--
+ALTER TABLE `report_wall_posts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2056,7 +2114,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT cho bảng `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
@@ -2080,6 +2138,12 @@ ALTER TABLE `order_members`
 -- AUTO_INCREMENT cho bảng `order_member_details`
 --
 ALTER TABLE `order_member_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `partners`
+--
+ALTER TABLE `partners`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -2122,6 +2186,12 @@ ALTER TABLE `question_products`
 -- AUTO_INCREMENT cho bảng `rating_point_customers`
 --
 ALTER TABLE `rating_point_customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `report_wall_posts`
+--
+ALTER TABLE `report_wall_posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

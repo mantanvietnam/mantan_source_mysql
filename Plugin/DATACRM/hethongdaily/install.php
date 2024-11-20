@@ -712,7 +712,7 @@ $sqlUpdateDatabase['bills']['id_debt'] = "ALTER TABLE `bills` ADD `id_debt` INT 
 $sqlUpdateDatabase['bills']['id_staff_sell'] = "ALTER TABLE `bills` ADD `id_staff_sell` INT NULL DEFAULT '0' COMMENT 'nhân viên thu';";
 $sqlUpdateDatabase['bills']['id_staff_buy'] = "ALTER TABLE `bills` ADD `id_staff_buy` INT NOT NULL DEFAULT '0' COMMENT 'nhân viên chi';";
 $sqlUpdateDatabase['bills']['note'] = "ALTER TABLE `bills` ADD `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['bills']['id_partner'] = "ALTER TABLE `bills` ADD id_partner` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['bills']['id_partner'] = "ALTER TABLE `bills` ADD `id_partner` INT NOT NULL DEFAULT '0';";
 
 // chi
 $sqlUpdateDatabase['debts']['id_member_sell'] = "ALTER TABLE `debts` ADD `id_member_sell` INT NOT NULL";
