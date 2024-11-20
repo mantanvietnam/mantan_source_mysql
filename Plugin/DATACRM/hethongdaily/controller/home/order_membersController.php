@@ -1143,7 +1143,7 @@ function updateMyOrderMemberAgency($input)
                             $billbuy->id_member_sell =  0;
                             $billbuy->id_member_buy = $order->id_member_buy;
                             $billbuy->id_staff_sell =  0;
-                            $billbuy->id_partner =  $infoMemberSell->id;
+                            $billbuy->id_partner =  (int) @$infoMemberSell->id;
                             $billbuy->id_staff_buy =  0;
                             $billbuy->total = $order->total;
                             $billbuy->id_order = $order->id;
@@ -1163,7 +1163,7 @@ function updateMyOrderMemberAgency($input)
                                 $debt->id_member_buy = $order->id_member_buy;
                                 $bill->id_staff_buy =  $order->id_staff_buy;
                                 $debt->total = $order->total;
-                                $debt->id_partner =  $infoMemberSell->id;
+                                $debt->id_partner =  (int) @$infoMemberSell->id;
                                 $debt->id_order = $order->id;
                                 $debt->number_payment = 0;
                                 $debt->total_payment = 0;

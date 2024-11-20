@@ -221,9 +221,9 @@
                                     </li>
                                     <?php if(empty($user->id_father)){?>
                                         <li>
-                                            <span>Đối tác  (*)</span>
-                                            <span><select class="form-control" name="id_partner" id="id_partner" required>
-                                                <option value="" >Chọn dối tác</option>
+                                            <span>Đối tác</span>
+                                            <span><select class="form-control" name="id_partner" id="id_partner">
+                                                <option value="0" >Chọn đối tác</option>
                                                 <?php foreach ($listPartner as $key => $item){
                                                   echo '<option value="'.$item->id.'">'.$item->name.'('.$item->phone.')</option>';
                                                 } ?>
@@ -498,6 +498,7 @@ function createOrder()
     tinhtien(0);
 
     var r;
+    id_partner = 1;
     if(checkBoss){
         var id_partner = $('#id_partner').val();
     }else{
@@ -506,16 +507,11 @@ function createOrder()
     console.log(id_partner);
 
     if(numberProduct>0){
-        if(id_partner!= '' && id_partner!='0'){
-            r = confirm("Bạn muốn gửi yêu cầu nhập hàng đúng không?");
-            if (r == true) {
-                if(checkProduct){
-                    $('#summary-form').submit();
-                }
+        r = confirm("Bạn muốn gửi yêu cầu nhập hàng đúng không?");
+        if (r == true) {
+            if(checkProduct){
+                $('#summary-form').submit();
             }
-        }else{
-           
-          alert('Bạn chưa chọn đối tác');
         }
     }else{
         alert('Bạn chưa chọn sản phẩm nào');

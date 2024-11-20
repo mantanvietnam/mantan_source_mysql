@@ -112,7 +112,7 @@
                   if($item->status_pay=='wait'){ 
                    $statusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
                     if(empty($user->id_father)  && $item->status!='cancel' ){
-                      $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
+                      $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thanh toán</a>';
                     }
                   }elseif($item->status_pay=='done'){
                    $statusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
@@ -124,7 +124,7 @@
                   if($item->status!='done' && $item->status!='cancel'){
                     $action = '<a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=done" class="btn btn-primary">Nhập kho</a>';
                     if(empty($user->id_father)){
-                      $action .='<br/><br/><a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=cancel" class="btn btn-danger">hủy</a>';
+                      $action .='<br/><br/><a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=cancel" class="btn btn-danger">Hủy</a>';
                     }
                     
                   }
@@ -224,7 +224,7 @@
                   if($item->status_pay=='wait'){ 
                    $statusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
                     if(empty($user->id_father)  && $item->status!='cancel' ){
-                      $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thu tiền</a>';
+                      $btnPay= '<br/><br/><a class="btn btn-warning" href="" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Thanh toán</a>';
                     }
                   }elseif($item->status_pay=='done'){
                    $statusPay= '<p style="color: #0333f6;">Đã thanh toán</p>';
@@ -346,7 +346,7 @@
                       }
 
                         echo '<tr> 
-                                <td  width="50%">'.$value->product.'</td>
+                                <td  width="50%">'.$value->product->title.'</td>
                                 <td  width="30%">'.number_format($value->price).'đ</td>
                                 <td  width="20%">'.$value->quantity.' '.$unit.'</td>
                               </tr>';
