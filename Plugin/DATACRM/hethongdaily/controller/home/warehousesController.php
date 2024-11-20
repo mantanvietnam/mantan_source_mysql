@@ -356,4 +356,83 @@ function editProductWarehouse($input)
         return $controller->redirect('/login');
     }
 }
+
+function staticWarehouseProductAgency($input){
+   global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    $user = checklogin('staticWarehouseProductAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
+        $metaTitleMantan = 'Lịch sử xuất nhập tồn';
+
+        $modelProducts = $controller->loadModel('Products');
+        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+        $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+
+        $conditions = array('id_member'=>$user->id);
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+
+        if(!empty($_GET['id_product'])){
+            $conditions['id_product'] = (int) $_GET['id_product'];
+        }
+
+        $listData = $modelWarehouseHistories->find()->where($conditions)->order($order)->all()->toList();
+        $data = array();
+        $numberStaticBuy= array();
+        $numberStaticSellPaid= array();
+        $numberStaticSellFree= array();
+        $nameStatic= array();
+
+        if(!empty($listData)){
+            $infoProduct = [];
+            foreach($listData as $key => $item){
+                 $today= getdate($item->create_at);
+                if(empty($numberStaticBuy[$today['mon'].'/'.$today['year']][$item->id_product])){
+                    $numberStaticBuy[$today['mon'].'/'.$today['year']][$item->id_product] =0;
+                }
+
+                if(empty($numberStaticSellPaid[$today['mon'].'/'.$today['year']][$item->id_product])){
+                    $numberStaticSellPaid[$today['mon'].'/'.$today['year']][$item->id_product]= 0;
+                }
+
+                if(empty($numberStaticSellFree[$today['mon'].'/'.$today['year']][$item->id_product])){
+                    $numberStaticSellFree[$today['mon'].'/'.$today['year']][$item->id_product]= 0;
+                }
+
+                if($item->type=='plus'){
+                   
+                    $numberStaticBuy[$today['mon'].'/'.$today['year']][$item->id_product]+= $item->quantity;
+                }else{
+                   if($item->type_sale=='paid'){
+                        $numberStaticSellPaid[$today['mon'].'/'.$today['year']][$item->id_product]+= $item->quantity;
+                   }else{
+                         $numberStaticSellFree[$today['mon'].'/'.$today['year']][$item->id_product]+= $item->quantity;
+                   }
+                }
+
+                if(empty($infoProduct[$item->id_product])){
+                    $nameStatic[$item->id_product] = $modelProducts->find()->where(['id'=>$item->id_product ])->first()->title;
+                }
+                
+            }
+        }
+
+        setVariable('numberStaticBuy', $numberStaticBuy);
+        setVariable('numberStaticSellPaid', $numberStaticSellPaid);
+        setVariable('numberStaticSellFree', $numberStaticSellFree);
+        setVariable('nameStatic', $nameStatic);
+        
+    }else{
+        return $controller->redirect('/login');
+    } 
+}
 ?>

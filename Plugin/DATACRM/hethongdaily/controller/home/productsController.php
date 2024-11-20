@@ -614,6 +614,7 @@ function updateStatusOrderAgency($input){
                                 if(!empty($rating)){
                                     $checkPointCustomer->id_rating = $rating->id;
                                 }
+                                $checkPointCustomer->updated_at = $time;
                                 $modelPointCustomer->save($checkPointCustomer);
                             }
                         }else{

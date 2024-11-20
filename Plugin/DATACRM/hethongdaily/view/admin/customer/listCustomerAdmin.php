@@ -114,7 +114,8 @@
                 '.$email.'
                 '.$sex.'
                 '.$birthday.'
-                '.$status.'
+                '.$status.'<br/>
+                '.@$item->token.'
               </td>
              
               <td><a href="/plugins/admin/product-view-admin-order-listOrderAdmin/?id_user='.$item->id.'">Đã mua '.number_format($item->number_order).' đơn</a></td>

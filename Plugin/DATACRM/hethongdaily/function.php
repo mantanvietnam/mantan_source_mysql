@@ -924,12 +924,48 @@ function getCustomerByToken($token='')
     global $controller;
 
     $modelCustomer = $controller->loadModel('customers');
+    $modelPointCustomer = $controller->loadModel('PointCustomers');
+    $modelMember = $controller->loadModel('Members');
     $checkData = [];
 
     if(!empty($token)){                
-        $conditions = ['token'=>$token];
+        $conditions = ['token'=>$token, 'status'=>'active'];
         $checkData = $modelCustomer->find()->where($conditions)->first();
+        if(!empty($checkData)){
+            $member = $modelMember->find()->where(['id_father'=>0])->first();
+            $checkPoint = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$checkData->id])->first();
+            if(!empty($checkPoint)){
+                $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$checkData->id,'updated_at <'=>strtotime('today 00:00:00')])->first();
+                if(!empty($checkPointCustomer)){
+                    $note = 'bạn được cộng 5 điểm khi bạn dăng nhập đầu tiên trong ngày';
+                    accumulatePoint($checkData->id,5,$note);
+                    $dataSendNotification= array('title'=>'Bạn được cộng điểm',
+                                'time'=>date('H:i d/m/Y'),
+                                'content'=>"Bạn được cộng 5 điểm khi bạn đăng nhập lần đâu tiên trong ngày ",
+                                'id_friend'=>"$checkData->id",
+                                'action'=>'sendRegisterCustomer');
+
+                    if(!empty($checkData->token_device)){
+                        sendNotification($dataSendNotification, $checkData->token_device);
+                    }
+                }
+            }else{
+                $note = 'bạn được cộng 5 điểm khi bạn dăng nhập đầu tiên trong ngày';
+                accumulatePoint($checkData->id,5,$note);
+                $dataSendNotification= array('title'=>'Bạn được cộng điểm',
+                            'time'=>date('H:i d/m/Y'),
+                            'content'=>"Bạn được cộng 5 điểm khi bạn đăng nhập lần đâu tiên trong ngày ",
+                            'id_friend'=>"$checkData->id",
+                            'action'=>'sendRegisterCustomer');
+
+                if(!empty($checkData->token_device)){
+                    sendNotification($dataSendNotification, $checkData->token_device);
+                }
+            }
+            
+        }
     }
+
 
     return $checkData;
 }
@@ -1672,6 +1708,10 @@ function processAddMoney($money = 0, $phone=''){
         $bill->note = 'Thanh toán mua bản thần sô học của khách '.@$customer->full_name.' '.@$customer->phone;
         $modelBill->save($bill);
 
+        $point = listPonint();
+        $note = 'bạn được công '.$point['point_deposit_money']*$quantity.'điểm khi thanh toán mua bản thần sô học ';
+        accumulatePoint($infoUser->id,$point['point_deposit_money']*$quantity,$note);
+
         $dataSendNotification= array('title'=>'Thông báo Thanh toán bản thần sô học','time'=>date('H:i d/m/Y'),'content'=>'Bạn Thanh toán bản thần số học thành Công','action'=>'notificationprocessAddMoney');
         if(!empty($infoUser->token_device)){
             sendNotification($dataSendNotification, $infoUser->token_device);
@@ -1684,6 +1724,64 @@ function processAddMoney($money = 0, $phone=''){
         $mess = 'Không tìm thấy tài khoản khách hàng';
     }
 }
+
+function listPonint(){
+    global $modelCategories;
+    global $controller;
+    
+    $modelMember = $controller->loadModel('Members');
+    $member = $modelMember->find()->where(['id_father'=>0])->first();
+
+    $system = $modelCategories->find()->where(array('id'=>$member->id_system ))->first();
+
+    if(!empty($system->description)){
+        $description = json_decode($system->description, true);
+        return $description;
+    }
+}
+
+
+function accumulatePoint($id_customer=0,$point=0,$note=''){
+     global $controller;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelPointCustomer = $controller->loadModel('PointCustomers');
+    $modelMember = $controller->loadModel('Members');
+    $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
+    $modelHistoriePointCustomers = $controller->loadModel('HistoriePointCustomers');
+    $time = time();
+    $member = $modelMember->find()->where(['id_father'=>0])->first();
+    $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$id_customer])->first();
+    if(!empty($id_customer) && !empty($point)){
+        if(!empty($checkPointCustomer)){
+            $checkPointCustomer->point += (int)$point;
+        }else{
+            $checkPointCustomer= $modelPointCustomer->newEmptyEntity();
+            $checkPointCustomer->point = (int) $point;
+            $checkPointCustomer->id_member = $member->id;
+            $checkPointCustomer->id_customer = $id_customer;
+            $checkPointCustomer->created_at = $time;
+            $checkPointCustomer->id_rating = 0;
+        }
+        $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
+        if(!empty($rating)){
+            $checkPointCustomer->id_rating = $rating->id;
+        }
+        $checkPointCustomer->updated_at = $time;
+        $modelPointCustomer->save($checkPointCustomer);
+    
+        $data= $modelHistoriePointCustomers->newEmptyEntity();
+        $data->point = (int) $point;
+        $data->id_member = $member->id;
+        $data->id_customer = $id_customer;
+        $data->created_at = $time;
+        $data->note = $note;
+        $modelHistoriePointCustomers->save($data);
+
+    }
+
+}
+
 
 
 ?>

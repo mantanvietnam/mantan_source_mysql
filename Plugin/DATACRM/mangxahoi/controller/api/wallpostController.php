@@ -62,6 +62,10 @@ function addWallPostApi($input){
                 }
 
                 $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
+
+                $point = listPonint();
+                $note = 'bạn được công '.$point['point_wall_post'].' đăng bài liên mạng xã hội';
+                accumulatePoint($user->id,$point['point_wall_post'],$note);
                
                 return array('code'=>1, 'messages'=>'Bạn đăng bài thành công ', 'data'=>$data);
               
@@ -254,7 +258,8 @@ function listWallPostApi($input){
                     }
                 }
 
-                $conditions = array('id_customer IN' => $listData, 'public'=>'public');
+               // $conditions = array('id_customer IN' => $listData, 'public'=>'public');
+                $conditions = array('public'=>'public');
                 $limit = 10;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                 if($page<1) $page = 1;

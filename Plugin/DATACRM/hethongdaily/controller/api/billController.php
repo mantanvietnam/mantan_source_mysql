@@ -89,17 +89,17 @@ function listBillAPI($input){
 
 				if(!empty($listData)){
 					foreach($listData as $key => $item){
-						if(!empty($item->id_member_sell) && $item->type_order==1){
+						if(!empty($item->id_member_sell)){
 							$listData[$key]->member = $modelMembers->find()->where(['id'=>$item->id_member_sell])->first();
 						}
 
-						if(!empty($item->id_customer) && $item->type_order==2){
+						if(!empty($item->id_customer)){
 							$listData[$key]->customer = $modelCustomers->find()->where(['id'=>$item->id_customer])->first();
 						}
 
-						if(!empty($item->id_aff) && $item->type_order==4){
-							$listData[$key]->affiliate = $modelAffiliaters->find()->where(['id'=>$item->id_aff])->first();
-						}
+						if(!empty($item->id_aff)){
+                    		$listData[$key]->affiliater = $modelAffiliaters->find()->where(['id'=>$item->id_aff])->first();
+                		}
 					}
 				}
 		        // phân trang
@@ -478,7 +478,7 @@ function addCollectionBillAPI($input){
 				$note = $infoMember->type_tv.' '. $infoMember->name.' '.@$bill->note.' có id là:'.$bill->id;
 
        			 addActivityHistory($infoMember,$note,'addBill',$bill->id);
-				$return = array('code'=>0, 'mess'=>'Bạn thêm phiếu thu thành công');
+				$return = array('code'=>0, 'mess'=>'Bạn thêm phiếu thu thành công','bill'=>$bill);
 			}else{
 				$return = array('code'=>3, 'mess'=>'không tồn tại tài khoản đại lý hoặc sai mã token');
 			}

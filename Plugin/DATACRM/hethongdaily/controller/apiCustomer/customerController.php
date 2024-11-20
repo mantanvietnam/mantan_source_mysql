@@ -14,7 +14,7 @@ function lockAccountAPI($input)
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['token'])){
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
 
             if(!empty($user)){
                 $user->status = 'lock';
@@ -60,15 +60,17 @@ function saveRegisterCustomerAPI($input)
         ){
 
             if(!empty($dataSend['phone_agency'])){
-                $agency = $modelMember->find()->where(array('phone'=>$dataSend['phone_agency']))->first();
-                if(!empty($agency)){
-                    $id_parent = $agency->id;
+                $customer = $modelCustomer->find()->where(array('phone'=>$dataSend['phone_agency']))->first();
+                if(!empty($customer)){
+                    $id_affsource = $customer->id;
                 }else{
-                    $id_parent = $modelMember->find()->where(array('id_father'=>0))->first()->id;
+                    $id_affsource = 0;
                 }
             }else{
-                $id_parent = $modelMember->find()->where(array('id_father'=>0))->first()->id;
+                $id_affsource = 0;
             }
+
+            $id_parent = $modelMember->find()->where(array('id_father'=>0))->first()->id;
 
             if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
                 $avatars = uploadImage($id_parent, 'avatar', 'avatar_'.$id_parent);
@@ -102,6 +104,7 @@ function saveRegisterCustomerAPI($input)
                     $data->avatar = $avatar;
                     $data->status = 'active';
                     $data->id_parent = (int) @$id_parent;
+                    $data->id_affsource = (int) @$id_affsource;
                     $data->id_level = 0;
                     $data->pass = md5($dataSend['pass']);
                     $data->token = createToken();
@@ -145,7 +148,21 @@ function saveRegisterCustomerAPI($input)
 
                     $modelCustomer->save($checkCustomer);
 
+                    if(!empty($id_affsource)){
+                        $point = listPonint();
+                        $note = 'bạn được cộng '.$point['point_introduce_user'].' điểm giới thiệu người mới';
+                        accumulatePoint($id_affsource,$point['point_introduce_user'],$note);
 
+                        $dataSendNotification= array('title'=>'bạn giới thiệu được người mới',
+                            'time'=>date('H:i d/m/Y'),
+                            'content'=>"$checkCustomer->full_name đã đăng ký mã giới thiệu của bạn ",
+                            'id_friend'=>"$checkCustomer->id",
+                            'action'=>'sendRegisterCustomer');
+
+                        if(!empty($customer->token_device)){
+                            sendNotification($dataSendNotification, $customer->token_device);
+                        }
+                    }
 
                     $return = array('code'=>1,
                                     'infoUser'=> $checkCustomer,
@@ -232,6 +249,7 @@ function checkLoginCustomerAPI($input)
 
                 
                 $modelCustomer->save($info_customer);
+                 getCustomerByToken($info_customer->token);
 
                 $return = array('code'=>1,
                     'infoUser'=> $info_customer,
@@ -389,7 +407,7 @@ function logoutCustomerApi($input)
         $dataSend = $input['request']->getData();
 
         if (isset($dataSend['token'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
 
             if (!empty($user)) {
                 $user->token = null;
@@ -419,9 +437,12 @@ function editInfoCustomerApi($input){
         $dataSend = $input['request']->getData();
 
         if (isset($dataSend['token'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
+
+            
 
             if (!empty($user)) {
+                $user = $modelCustomer->find()->where(['id'=>$user->id])->first();
                 if(!empty($dataSend['full_name'])){
                     $user->full_name = $dataSend['full_name'];
                 }
@@ -484,9 +505,11 @@ function editPassCustomerApi($input){
         $dataSend = $input['request']->getData();
 
         if (isset($dataSend['token'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
+           
 
             if (!empty($user)) {
+                $user = $modelCustomer->find()->where(['id'=>$user->id])->first();
                 if ($user->password != md5($dataSend['old_password'])){
                     return array('code'=>5,
                         'messages'=>'Mật khẩu cũ không chính xác');
@@ -525,7 +548,7 @@ function getInfoUserCustomerAPI($input){
         $dataSend = $input['request']->getData();
 
         if (isset($dataSend['token'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
 
             if (!empty($user)) {
                
@@ -554,9 +577,11 @@ function getLinkMMTCAPI($input)
         $dataSend = $input['request']->getData();
 
         if (isset($dataSend['token'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
+           
 
             if (!empty($user)) {
+                 $user = $modelCustomer->find()->where(['id'=>$user->id])->first();
                 if(function_exists('getMemberById')){
                     $infoMember =  getMemberById($user->id_parent);
                 }
@@ -639,6 +664,9 @@ function createLinkMMTCAPI($input)
     $modelCustomer = $controller->loadModel('Customers');
     $modelCustomerHistorieMmtt = $controller->loadModel('CustomerHistorieMmtts');
 
+    $point = listPonint();
+
+
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -646,7 +674,7 @@ function createLinkMMTCAPI($input)
             $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
             $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
 
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
 
             if (!empty($user)){
                 if(function_exists('getMemberById')){
@@ -773,6 +801,10 @@ function createLinkMMTCAPI($input)
                     $history->link_download_mmtc =$checkPhone->link_download_mmtc;
                     $modelCustomerHistorieMmtt->save($history);
 
+                    $note = 'bạn được công  '.$point['point_expor_numerology'].'điểm xuất thần số học cho người khác';
+
+                    accumulatePoint($user->id,$point['point_expor_numerology'],$note);
+
                     return array('code'=>0,'link'=>$checkPhone->link_download_mmtc, 'saveMember'=>$saveMember);
 
                 }else{
@@ -801,7 +833,7 @@ function listCustomerHistorieMmttAPI($input)
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
             if (!empty($user)){
                 $listData =  $modelCustomerHistorieMmtt->find()->where(['id_user'=>$user->id])->all()->toList();
 
@@ -846,7 +878,7 @@ function getPointCustomerAPI($input){
         $dataSend = $input['request']->getData();
 
         if (isset($dataSend['token'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
 
             if (!empty($user)) {
 
@@ -865,7 +897,9 @@ function getPointCustomerAPI($input){
                 $data = $modelPointCustomer->find()->where($conditions)->first();
 
                 if(!empty($data)){
-                    $membership = $modelRatingPointCustomer->find()->where(['id'=>$data->id_rating])->first()->name;
+                    if(!empty($data->id_rating)){
+                        $membership = $modelRatingPointCustomer->find()->where(['id'=>$data->id_rating])->first()->name;
+                    }
                     $point = $data->point;
                 }
 

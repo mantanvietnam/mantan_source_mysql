@@ -83,6 +83,7 @@ function getInfoMemberAPI($input)
 	global $controller;
 	global $session;
 	global $modelCategories;
+	global $urlHomes;
 
 	$modelMember = $controller->loadModel('Members');
 
@@ -120,6 +121,8 @@ function getInfoMemberAPI($input)
 			$checkPhone->ListLink = @$dataLink;
 			$checkPhone->discount_position = @$position->description;
 			$checkPhone->checkAgencyDownline = (!empty($checkAgencyDownline))?1:0;
+			$checkPhone->Link = $urlHomes.'info/?id='.@$checkPhone->id;
+			$checkPhone->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$urlHomes.'info/?id='.@$checkPhone->id;
 
 			unset($checkPhone->password);
 			
@@ -1176,7 +1179,7 @@ function addMemberDownAPI($input)
 					$data = $modelMembers->newEmptyEntity();
 				}
 
-				if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
+				
 		        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
 		        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
@@ -1226,25 +1229,59 @@ function addMemberDownAPI($input)
 		        				$data->id_agency_introduce = $checkphoneagency->id;
 		        			}
 						}
-				        
-				        $data->name = $dataSend['name'];
+				        if(!empty($dataSend['name'])){
+				        	$data->name = $dataSend['name'];
+				        } 
+				        if(!empty($dataSend['address'])){
 				        $data->address = $dataSend['address'];
+				         } 
+				        if(!empty($dataSend['avatar'])){
 				        $data->avatar = $dataSend['avatar'];
+				         } 
+				        if(!empty($dataSend['phone'])){
 				        $data->phone = $dataSend['phone'];
+				    	}
 						$data->id_system = (int) $infoMember->id_system;
+						 
+				        if(!empty($dataSend['email'])){
 						$data->email = $dataSend['email'];
+						 } 
+				        if(!empty($dataSend['birthday'])){
 						$data->birthday = $dataSend['birthday'];
+						 } 
+				        if(!empty($dataSend['facebook'])){
 						$data->facebook = $dataSend['facebook'];
+						 } 
+				        if(!empty($dataSend['create_agency'])){
 						$data->create_agency = (!empty($dataSend['create_agency']))?$dataSend['create_agency']:'active';
+						 } 
+				        if(!empty($dataSend['id_position'])){
 						$data->id_position = (int) $dataSend['id_position'];
+						 } 
+				        if(!empty($dataSend['linkedin'])){
 						$data->linkedin = $dataSend['linkedin'];
+						 } 
+				        if(!empty($dataSend['web'])){
 						$data->web = $dataSend['web'];
+						 } 
+				        if(!empty($dataSend['instagram'])){
 						$data->instagram = $dataSend['instagram'];
+						 } 
+				        if(!empty($dataSend['zalo'])){
 						$data->zalo = $dataSend['zalo'];
+						 } 
+				        if(!empty($dataSend['twitter'])){
 						$data->twitter = $dataSend['twitter'];
+						 } 
+				        if(!empty($dataSend['tiktok'])){
 						$data->tiktok = $dataSend['tiktok'];
+						 } 
+				        if(!empty($dataSend['youtube'])){
 						$data->youtube = $dataSend['youtube'];
+						 } 
+				        if(!empty($dataSend['description'])){
 						$data->description = $dataSend['description'];
+						}
 						
 
 						if(empty($dataSend['id'])){
@@ -1281,11 +1318,7 @@ function addMemberDownAPI($input)
 				        $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_member'=>$data->id);
 				    }else{
 				    	$return = array('code'=>4, 'mess'=>'Số điện thoại đã tồn tại');
-				    }
-			    
-			    }else{
-			    	$return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
-			    }
+				    }	
 			}else{
 				 $return = array('code'=>3, 'mess'=>'Sai mã token');
 			}

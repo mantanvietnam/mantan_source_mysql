@@ -180,10 +180,10 @@ function getCoursesCustomerAPI($input)
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token'])){
-            $infoCustomer = getCustomerByToken($dataSend['token']);
+        if(!empty($dataSend['id'])){
+            // $infoCustomer = getCustomerByToken($dataSend['token']);
 
-            if(!empty($infoCustomer)){
+            // if(!empty($infoCustomer)){
 
             	$modelLesson = $controller->loadModel('Lessons');
             	$modelCourses = $controller->loadModel('Courses');
@@ -192,16 +192,16 @@ function getCoursesCustomerAPI($input)
             	$data = $modelCourses->find()->where($conditions)->first();
 
             	if(!empty($data)){
-            		if($data->public==2 ){
-            			if(!empty($data->id_group_customer)){
-            				$checkUserCourses = $modelCategoryConnects->find()->where(['id_parent'=>$infoCustomer->id,'id_category'=>$data->id_group_customer,'keyword'=>'group_customers'])->all()->toList();
+            		/*if($data->public==2 ){
+            			// if(!empty($data->id_group_customer)){
+            				$checkUserCourses = $modelCategoryConnects->find()->where(['id_category'=>$data->id_group_customer,'keyword'=>'group_customers'])->all()->toList();
             				if(empty($checkUserCourses)){
             					return array('code'=>4, 'mess'=>'bạn không xem được Khóa học này');
             				}
-            			}else{
-            				return array('code'=>4, 'mess'=>'bạn không xem được Khóa học này');
-            			}
-            		}
+            			// }else{
+            				// return array('code'=>4, 'mess'=>'bạn không xem được Khóa học này');
+            			// }
+            		}*/
             		$category = $modelCategories->find()->where(['id' => (int) $data->id_category])->first();    
             		$data->name_category = @$category->name;
 	            // tăng lượt xem
@@ -260,9 +260,9 @@ function getCoursesCustomerAPI($input)
             	}else{
             		$return = array('code'=>3, 'mess'=>'Id không tồn tại');
             	}
-        	}else{
+        	/*}else{
 		        $return = array('code'=>3, 'mess'=>'Sai mã token');
-		    }
+		    }*/
         }else{
              $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
         }
@@ -474,6 +474,13 @@ function resultTestCustomerAPI($input){
 					// debug($history);
 					// die;
 					$modelHistoryTests->save($history);
+
+					if($history->status == 'pass'){
+						$point = listPonint();
+        				$note = 'bạn được công '.$point['point_complete_quiz'].'điểm khi hoàn thành bài thi trắc nghiệm ';
+        				accumulatePoint($infoUser->id,$point['point_complete_quiz'],$note);
+					}
+					
 					
 
 	                // gửi thông báo cho smax.bot

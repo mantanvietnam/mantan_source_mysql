@@ -12,6 +12,7 @@ function addFeedbackApi($input){
     $mess= '';
     $modelCustomer = $controller->loadModel('Customers');
 
+
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -38,6 +39,9 @@ function addFeedbackApi($input){
             	$data->created_at = time();
             	$data->status = 'active';
             	$modelFeedback->save($data);
+                $point = listPonint();
+                $note = 'bạn được công '.$point['point_feedback'].' gửi phản hồi';
+                accumulatePoint($user->id,$point['point_feedback'],$note);
 
              	return array('code'=>1,'messages'=>'Bạn gửi phản hồi của bạn thành công');
             }

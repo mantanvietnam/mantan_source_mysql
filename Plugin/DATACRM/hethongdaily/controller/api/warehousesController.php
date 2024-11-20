@@ -120,8 +120,7 @@ function getHistoryWarehouseProductAPI($input)
 }
 
 // tạo yêu cầu nhập hàng vào kho
-function createRequestImportProductAPI($input)
-{
+function createRequestImportProductAPI($input){
 	global $isRequestPost;
     global $controller;
     global $session;
@@ -131,7 +130,7 @@ function createRequestImportProductAPI($input)
     $modelProducts = $controller->loadModel('Products');
     $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
     $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
-    $modelParent = $controller->loadModel('Parents');
+    $modelParent = $controller->loadModel('Partners');
 
     $modelOrderMembers = $controller->loadModel('OrderMembers');
     $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');

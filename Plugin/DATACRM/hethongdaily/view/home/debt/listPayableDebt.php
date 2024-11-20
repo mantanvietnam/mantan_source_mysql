@@ -3,7 +3,7 @@ global $type_collection_bill;
  ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Công nợ phải trả</h4>
-  <p><a href="/addPayableDebt" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+   <!-- <p><a href="/addPayableDebt" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
 
   <!-- Form Search -->
   <form method="get" action="">

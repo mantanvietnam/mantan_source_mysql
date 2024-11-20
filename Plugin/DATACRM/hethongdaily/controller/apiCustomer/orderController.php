@@ -13,7 +13,7 @@ function listOrderCustomerAPI($input){
         $dataSend = $input['request']->getData();
 
         if (isset($dataSend['token'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
 
             if (!empty($user)) {
                 $conditions = ['id_user' => $user->id];
@@ -74,7 +74,7 @@ function getOrderDetailCustomerAPI($input){
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token']) && !empty($dataSend['id_order'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token']])->first();
+            $user =  getCustomerByToken($dataSend['token']);
 
             if (!empty($user)) {
 

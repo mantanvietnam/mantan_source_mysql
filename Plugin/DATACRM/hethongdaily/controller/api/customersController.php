@@ -764,11 +764,11 @@ function saveInfoCustomerAPI($input)
                     $return = array('code'=>0, 'mess'=>'Lưu dữ liệu thành công', 'id_customer_crm'=>$infoCustomer->id, "img_card_member"=>$infoCustomer->img_card_member);
                     if(!empty($dataSend['token'])){
                         if(!empty($dataSend['id'])){
-                            $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin khách hàng '.$data->full_name.' có id là:'.$data->id;
+                            $note = $infoMember->type_tv.' '. $infoMember->name.' sửa thông tin khách hàng '.$infoCustomer->full_name.' có id là:'.$infoCustomer->id;
                         }else{
-                            $note = $infoMember->type_tv.' '. $infoMember->name.' tạo mới thông tin khách hàng '.$data->full_name.' có id là:'.$data->id;
+                            $note = $infoMember->type_tv.' '. $infoMember->name.' tạo mới thông tin khách hàng '.$infoCustomer->full_name.' có id là:'.$infoCustomer->id;
                         }
-                        addActivityHistory($infoMember,$note,'customers',$data->id);
+                        addActivityHistory($infoMember,$note,'customers',$infoCustomer->id);
                     }
 
                     $return['set_attributes']['id_customer_crm']= $infoCustomer->id;

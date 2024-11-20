@@ -326,6 +326,7 @@
                           <a class="dropdown-item" href="/warehouseProductAgency">Tồn kho</a>
                           <a class="dropdown-item" href="/requestProductAgency">Yêu cầu nhập hàng</a>
                           <a class="dropdown-item" href="/historyWarehouseProductAgency">Lịch sử xuất nhập hàng</a>
+                          <a class="dropdown-item" href="/staticWarehouseProductAgency">Thống kê xuất nhập hàng</a>
                         </div>
                       </li>';
               }

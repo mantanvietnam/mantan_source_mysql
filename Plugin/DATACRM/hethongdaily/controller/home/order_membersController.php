@@ -169,7 +169,7 @@ function addRequestProductAgency($input)
 
                 }
                 $save->id_member_buy = $user->id;
-                $save->id_staff_buy = $user->id_staff;
+                $save->id_staff_buy = (int)@$user->id_staff;
                 $save->note_sell = ''; // ghi chú người bán
                 $save->note_buy = $dataSend['note']; // ghi chú người mua 
                 $save->status = 'new';
@@ -269,7 +269,7 @@ function addOrderAgency($input)
                     $save->id_member_buy = $member_buy->id;
                     $save->note_sell = '';
                     if($member_sell->id==$user->id){
-                         $save->id_staff_sell = $user->id_staff;
+                         $save->id_staff_sell = (int)@$user->id_staff;
                     }
                     $save->note_buy = $dataSend['note']; // ghi chú người mua  
                     $save->status = 'new';
@@ -866,7 +866,7 @@ function updateOrderMemberAgency($input)
                             // bill cho người bán 
                             $bill = $modelBill->newEmptyEntity();
                             $bill->id_member_sell =  $user->id;
-                            $bill->id_staff_sell =  $user->id_staff;
+                            $bill->id_staff_sell =  (int)@$user->id_staff;
                             $bill->id_staff_buy =  $order->id_staff_buy;
                             $bill->id_member_buy = $order->id_member_buy;
                             $bill->total = $order->total;
@@ -885,7 +885,7 @@ function updateOrderMemberAgency($input)
                             $billbuy = $modelBill->newEmptyEntity();
                             $billbuy->id_member_sell =  $user->id;
                             $billbuy->id_member_buy = $order->id_member_buy;
-                            $billbuy->id_staff_sell =  $user->id_staff;
+                            $billbuy->id_staff_sell =  (int)@$user->id_staff;
                             $billbuy->id_staff_buy =  $order->id_staff_buy;
                             $billbuy->total = $order->total;
                             $billbuy->id_order = $order->id;
@@ -903,8 +903,8 @@ function updateOrderMemberAgency($input)
                                 $debt = $modelDebt->newEmptyEntity();
                                 $debt->id_member_sell =  $user->id;
                                 $debt->id_member_buy = $order->id_member_buy;
-                                $bill->id_staff_sell =  $user->id_staff;
-                                $bill->id_staff_buy =  $order->id_staff_buy;
+                                $debt->id_staff_sell =  (int)@$user->id_staff;
+                                $debt->id_staff_buy =  $order->id_staff_buy;
                                 $debt->total = $order->total;
                                 $debt->id_order = $order->id;
                                 $debt->number_payment = 0;
@@ -922,8 +922,8 @@ function updateOrderMemberAgency($input)
                             $debt = $modelDebt->newEmptyEntity();
                                 $debt->id_member_sell =  $user->id;
                                 $debt->id_member_buy = $order->id_member_buy;
-                                $bill->id_staff_sell =  $user->id_staff;
-                                $bill->id_staff_buy =  $order->id_staff_buy;
+                                $debt->id_staff_sell =  (int)@$user->id_staff;
+                                $debt->id_staff_buy =  $order->id_staff_buy;
                                 $debt->total = $order->total;
                                 $debt->id_order = $order->id;
                                 $debt->number_payment = 0;

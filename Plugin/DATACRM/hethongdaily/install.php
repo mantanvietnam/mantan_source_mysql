@@ -115,6 +115,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `reset_password_code`INT NULL DEFAULT NULL,
   `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `max_export_mmtc` INT NOT NULL DEFAULT '0',
+  `id_affsource` INT NULL DEFAULT 0 COMMENT 'id người giới thiệu' ,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
 
@@ -449,6 +450,16 @@ $sqlInstallDatabase .="CREATE TABLE `customer_historie_mmtts` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `historie_point_customers`(
+`id` INT NOT NULL AUTO_INCREMENT, 
+`id_member` INT NULL DEFAULT NULL, 
+`id_customer` INT NULL DEFAULT NULL , 
+`point` INT NULL DEFAULT NULL , 
+`created_at` INT NULL DEFAULT NULL , 
+`note`  VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -478,6 +489,7 @@ $sqlDeleteDatabase .= "DROP TABLE activity_historys; ";
 $sqlDeleteDatabase .= "DROP TABLE group_staffs; ";
 $sqlDeleteDatabase .= "DROP TABLE customer_historie_mmtts; ";
 $sqlDeleteDatabase .= "DROP TABLE partners; ";
+$sqlDeleteDatabase .= "DROP TABLE historie_point_customers; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";
@@ -599,7 +611,7 @@ $sqlUpdateDatabase['customers']['token'] = "ALTER TABLE `customers` ADD `token` 
 $sqlUpdateDatabase['customers']['reset_password_code'] = "ALTER TABLE `customers` ADD `reset_password_code`INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['customers']['link_download_mmtc'] = "ALTER TABLE `customers` ADD `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;";
 $sqlUpdateDatabase['customers']['max_export_mmtc'] = "ALTER TABLE `customers` ADD `max_export_mmtc` INT NOT NULL DEFAULT '0';";
-
+$sqlUpdateDatabase['customers']['id_affsource'] = "ALTER TABLE `customers` ADD `id_affsource` INT NULL DEFAULT '0' COMMENT 'id người giới thiệu';";
 // bảng customer_histories
 $sqlUpdateDatabase['customer_histories']['id_customer'] = "ALTER TABLE `customer_histories` ADD `id_customer` INT NOT NULL;";
 $sqlUpdateDatabase['customer_histories']['time_now'] = "ALTER TABLE `customer_histories` ADD `time_now` INT NOT NULL;";
@@ -841,4 +853,10 @@ $sqlUpdateDatabase['partners']['note'] = "ALTER TABLE `partners` ADD `note` text
 $sqlUpdateDatabase['partners']['id_member'] = "ALTER TABLE `partners` ADD `id_member` INT NOT NULL; ";
 $sqlUpdateDatabase['partners']['created_at'] = "ALTER TABLE `partners` ADD `created_at` INT DEFAULT NULL; ";
 $sqlUpdateDatabase['partners']['updated_at'] = "ALTER TABLE `partners` ADD `updated_at` INT DEFAULT NULL; ";
+
+$sqlUpdateDatabase['historie_point_customers']['id_member'] = "ALTER TABLE `historie_point_customers` ADD `id_member` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['historie_point_customers']['id_customer'] = "ALTER TABLE `historie_point_customers` ADD `id_customer` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['historie_point_customers']['point'] = "ALTER TABLE `historie_point_customers` ADD `point` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['historie_point_customers']['created_at'] = "ALTER TABLE `historie_point_customers` ADD `created_at` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['historie_point_customers']['note'] = "ALTER TABLE `historie_point_customers` ADD `note`  VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 ?>
