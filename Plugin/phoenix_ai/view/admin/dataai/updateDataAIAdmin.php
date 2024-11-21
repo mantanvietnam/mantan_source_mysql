@@ -20,7 +20,7 @@
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Link AI (*)</label>
+                    <label class="form-label" for="basic-default-fullname">Link AI chat (*)</label>
                     <input type="text" required  class="form-control" placeholder="" name="link_ai" id="link_ai" value="<?php echo @$data->link_ai;?>" />
                   </div>
                   
@@ -28,7 +28,7 @@
 
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Mã nhúng code AI (*)</label>
+                    <label class="form-label" for="basic-default-fullname">Mã nhúng code AI vào web (*)</label>
                     <textarea class="form-control" rows="5" placeholder="" name="embed_code_ai" id="embed_code_ai"><?php echo @$data->embed_code_ai;?></textarea>
                   </div>
                 </div>

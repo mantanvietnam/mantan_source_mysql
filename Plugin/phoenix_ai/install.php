@@ -94,4 +94,5 @@ $sqlUpdateDatabase['data_ais']['embed_code_ai'] = "ALTER TABLE `data_ais` ADD `e
 $sqlUpdateDatabase['data_ais']['id_ai_dify'] = "ALTER TABLE `data_ais` ADD `id_ai_dify` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
 
 
+
 ?>

@@ -93,6 +93,11 @@
                       Đối thủ
                     </button>
                   </li>
+                  <li class="nav-item">
+                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-control" aria-controls="navs-top-control" aria-selected="false">
+                      Quản trị
+                    </button>
+                  </li>
                 </ul>
                       
                 <div class="tab-content">
@@ -430,6 +435,73 @@
                         <div class="mb-3">
                           <label class="form-label">So sánh với đối thủ</label>
                           <textarea rows="5" class="form-control" name="competitor_compare"><?php echo @$data['competitor_compare'];?></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="navs-top-control" role="tabpanel">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label">Quản trị điều hành</label>
+                          <textarea rows="5" class="form-control" name="control_executive"><?php echo @$data['control_executive'];?></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label">Quản trị marketing</label>
+                          <textarea rows="5" class="form-control" name="control_mkt"><?php echo @$data['control_mkt'];?></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label">Quản trị bán hàng</label>
+                          <textarea rows="5" class="form-control" name="control_sales"><?php echo @$data['control_sales'];?></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label">Quản trị kinh doanh</label>
+                          <textarea rows="5" class="form-control" name="control_business"><?php echo @$data['control_business'];?></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label">Quản trị tài chính</label>
+                          <textarea rows="5" class="form-control" name="control_finance"><?php echo @$data['control_finance'];?></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label">Quản trị nội bộ, hành chính</label>
+                          <textarea rows="5" class="form-control" name="control_administration"><?php echo @$data['control_administration'];?></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label">Quản lý chi nhánh</label>
+                          <textarea rows="5" class="form-control" name="control_branch"><?php echo @$data['control_branch'];?></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label">Quản trị nhân sự</label>
+                          <textarea rows="5" class="form-control" name="control_person"><?php echo @$data['control_person'];?></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label">Quản lý công cụ, thiết bị lao động</label>
+                          <textarea rows="5" class="form-control" name="control_device"><?php echo @$data['control_device'];?></textarea>
                         </div>
                       </div>
                     </div>

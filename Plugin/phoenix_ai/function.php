@@ -14,6 +14,11 @@ $menus[0]['sub'][]= array( 'title'=>'AI trợ lý ảo',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listDataAIAdmin'
                         );
+$menus[0]['sub'][]= array( 'title'=>'Cài đặt',
+                            'url'=>'/plugins/admin/phoenix_ai-view-admin-settingPhoenixAI',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'settingPhoenixAI'
+                        );
 
 addMenuAdminMantan($menus);
 

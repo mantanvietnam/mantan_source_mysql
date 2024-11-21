@@ -154,6 +154,16 @@ function exportDataAIAdmin($input)
 
                         'Quy trình nghiên cứu đối thủ:'.PHP_EOL.$data_value['competitor_research'].PHP_EOL.PHP_EOL.
                         'So sánh với đối thủ:'.PHP_EOL.$data_value['competitor_compare'].PHP_EOL.PHP_EOL.
+                        
+                        'Quản trị điều hành:'.PHP_EOL.@$data_value['control_executive'].PHP_EOL.PHP_EOL.
+                        'Quản trị marketing:'.PHP_EOL.@$data_value['control_mkt'].PHP_EOL.PHP_EOL.
+                        'Quản trị bán hàng:'.PHP_EOL.@$data_value['control_sales'].PHP_EOL.PHP_EOL.
+                        'Quản trị kinh doanh:'.PHP_EOL.@$data_value['control_business'].PHP_EOL.PHP_EOL.
+                        'Quản trị tài chính:'.PHP_EOL.@$data_value['control_finance'].PHP_EOL.PHP_EOL.
+                        'Quản trị nội bộ, hành chính:'.PHP_EOL.@$data_value['control_administration'].PHP_EOL.PHP_EOL.
+                        'Quản lý chi nhánh:'.PHP_EOL.@$data_value['control_branch'].PHP_EOL.PHP_EOL.
+                        'Quản trị nhân sự:'.PHP_EOL.@$data_value['control_person'].PHP_EOL.PHP_EOL.
+                        'Quản lý công cụ, thiết bị lao động:'.PHP_EOL.@$data_value['control_device'].PHP_EOL.PHP_EOL.
 
 
                         '';

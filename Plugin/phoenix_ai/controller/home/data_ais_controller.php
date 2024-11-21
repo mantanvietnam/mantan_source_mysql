@@ -66,7 +66,17 @@ function aiVirtualAssistant($input)
 	                        'competitor_research' => $dataSend['competitor_research'],
 	                        'competitor_compare' => $dataSend['competitor_compare'],
 
-	                        'product' => $dataSend['product']
+	                        'product' => $dataSend['product'],
+	                        
+	                        'control_executive' => $dataSend['control_executive'],
+	                        'control_mkt' => $dataSend['control_mkt'],
+	                        'control_sales' => $dataSend['control_sales'],
+	                        'control_business' => $dataSend['control_business'],
+	                        'control_finance' => $dataSend['control_finance'],
+	                        'control_administration' => $dataSend['control_administration'],
+	                        'control_branch' => $dataSend['control_branch'],
+	                        'control_person' => $dataSend['control_person'],
+	                        'control_device' => $dataSend['control_device'],
 
 	                    );
 
