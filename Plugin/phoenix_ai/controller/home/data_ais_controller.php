@@ -104,8 +104,9 @@ function aiVirtualAssistant($input)
 }
 
 function checkapi(){
-	callAIphoenixtech('Việt cho tao bai content giới thiệu bản thân');
-	debug('abc');
+	//$string = callAIphoenixtech('Việt cho tao 1 bài văn bí quyến ngủ ngon  có thân bài kết bài ');
+	$string = callAIphoenixtech('tạo cho tao ảnh nhé ','829bcb6b-2808-4420-8014-8bb6453f2dec');
+	debug($string);
 	 die;
 }
 ?>

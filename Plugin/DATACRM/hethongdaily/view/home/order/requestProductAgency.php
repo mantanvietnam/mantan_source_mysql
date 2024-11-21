@@ -87,7 +87,7 @@
                 <th width="10%">Thành tiền</th>
                 <th width="10%">Chiết khấu</th>
                 <th width="10%">Trạng thái</th>
-                <th width="10%">Hành động</th>
+                <th width="10%" colspan="2">Hành động</th>
               </tr>
             </thead>
             <tbody>
@@ -109,6 +109,7 @@
 
                   $statusPay= '';
                   $btnPay= '';
+                  $btnEdit = '';
                   if($item->status_pay=='wait'){ 
                    $statusPay= '<p style="color: #00aeee;">Chưa thanh toán</p>';
                     if(empty($user->id_father)  && $item->status!='cancel' ){
@@ -127,6 +128,12 @@
                       $action .='<br/><br/><a href="/updateMyOrderMemberAgency/?id='.$item->id.'&status=cancel" class="btn btn-danger">Hủy</a>';
                     }
                     
+                  }
+
+                  if($item->status=='new' && $item->status_pay=='wait'){ 
+                     $btnEdit = '<a class="dropdown-item" href="/editOrderMemberAgency/?id='.$item->id.'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/> <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderMemberAgency/?id='.$item->id.'">
+                    <i class="bx bx-trash me-1"></i>
+                  </a>';
                   }
 
 
@@ -190,6 +197,7 @@
                   
                   <td align="center">'.$status.$statusPay.'</td>
                   <td>'.$action.$btnPay.'</td>
+                  <td align="center">'.$btnEdit.'</td>
                  </tr>';
                }
              }else{

@@ -277,14 +277,14 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <input type="text" readonly value="'.$item->price.'" class="input_money form-control" name="money['.$i.']" min="1" id="money-'.$i.'" onchange="tinhtien(1);">
+                                                <input type="text" '.$readonly.' value="'.$item->price.'" class="input_money form-control" name="money['.$i.']" min="1" id="money-'.$i.'" onchange="tinhtien(1);">
                                             </td>
                                             <td id="tdunit-'.$i.'">
                                                 <select name="id_unit['.$i.']"  class="form-control form-select color-dropdown"  onclick="unitgetPrice('.$item->id_product.','.$i.','.$item->product->price.')"  id="id_unit'.$i.'">
                                                     <option value="0">'.$item->product->unit.'</option>'.$unit.'</select>
                                             </td>
                                             <td>
-                                                <input type="number" value="'.$item->discount.'" class="input_money form-control" name="discount['.$i.']" min="0" id="discount-'.$i.'" onchange="tinhtien(1);">
+                                                <input type="number" '.$readonly.' value="'.$item->discount.'" class="input_money form-control" name="discount['.$i.']" min="0" id="discount-'.$i.'" onchange="tinhtien(1);">
                                             </td>
                                             <td id="totalmoney'.$i.'">'.$priceBuy.'</td>
                                             <td>
@@ -313,25 +313,34 @@
 
                                     <li>
                                         <span>Chiết khấu (%)</span>
-                                        <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien(0);" type="text" name="promotion" id="promotion" placeholder="0" value="<?php echo $order->discount; ?>" autocomplete="off" /></span>
+
+                                        <span><input class="per-bh input_money form-control" min="0" <?php echo $readonly ?> onchange="tinhtien(0);" type="text" name="promotion" id="promotion" placeholder="0" value="<?php echo $order->discount; ?>" autocomplete="off" /></span>
                                     </li>
 
                                     <?php 
                                    
                                         $costs = 0;
                                     if(!empty($costsIncurred)){ 
+
                                         $ordercostsIncurred =  json_decode($order->costsIncurred, true);
+
                                         ?>   
                                         <li>
                                             <span><strong>chi phí phá sinh</strong></span>
                                         </li> 
-                                        <?php foreach ($costsIncurred as $key => $value){ 
-                                                $costs++
+                                        <?php  
+                                        foreach ($costsIncurred as $key => $value){ 
+                                                $costs++;
+                                                $pricecosts = 0;
+                                                if(!empty(@$ordercostsIncurred[$value->name])){
+                                                    $pricecosts = (int)$ordercostsIncurred[$value->name];
+                                                }
+
                                             ?>
                                         <li>
                                             <span><?php echo @$value->name ?></span>
                                             <input type="hidden" name="nameCostsIncurred[]" id="nameCostsIncurred<?php echo $costs ?>" value="<?php echo @$value->name ?>">
-                                            <span><input class="per-bh input_money form-control" min="0" onchange="tinhtien(0);" type="number" name="costsIncurred[]" id="costsIncurred<?php echo $costs ?>" placeholder="0" value="<?php echo @$ordercostsIncurred[$value->name]; ?>" autocomplete="off" /></span>
+                                            <span><input class="per-bh input_money form-control" <?php echo $readonly ?> min="0" onchange="tinhtien(0);" type="number" name="costsIncurred[]" id="costsIncurred<?php echo $costs ?>" placeholder="0" value="<?php echo $pricecosts; ?>" autocomplete="off" /></span>
                                         </li> 
                                     <?php }} ?>
                                     
@@ -346,13 +355,21 @@
                                         <p><?php echo $member_buy->name.' '.$member_buy->phone ?></p>
                                         <input type="hidden" name="id_member_buy" id="id_member_buy" value="<?php echo @$member_buy->id;?>">
                                     </li>
-
+                                    <?php if($member_sell){ ?>
                                     <li class="total-bh">
                                         <p>Đại lý tuyến trên</p>
                                         <p id="father_info">
-                                            <?php if(!empty($father)) echo @$father->name.' '.@$father->phone;?>
+                                            <?php if(!empty($member_sell)) echo @$member_sell->name.' '.@$member_sell->phone;?>
                                         </p>
                                     </li>
+                                <?php }elseif(!empty($infoParent)) {?>
+                                     <li class="total-bh">
+                                        <p>Đối tác </p>
+                                        <p id="father_info">
+                                            <?php if(!empty($infoParent)) echo @$infoParent->name.' '.@$infoParent->phone;?>
+                                        </p>
+                                    </li>
+                                <?php } ?>
 
                                     <li style="display: contents;"><span>Ghi chú</span><br/>
                                         <textarea class="form-control phone-mask" rows="3" name="note"></textarea>
@@ -435,7 +452,7 @@ function addProduct(id, name, priceProduct, type,unit)
         //var showNumberProduct= new Intl.NumberFormat().format(numberProduct);
         //$('#numberProduct').html(showNumberProduct);
                 
-        var readonly;
+        var readonly = '<?php echo $readonly ?>';
 
         $('#listProductOrder tr:first').after('\
             <tr id="tr'+row+'">\
@@ -452,13 +469,13 @@ function addProduct(id, name, priceProduct, type,unit)
                     </div>\
                 </td>\
                 <td>\
-                    <input type="text" readonly value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
+                    <input type="text" '+readonly+' value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien(1);">\
                 </td>\
                 <td id="tdunit-'+row+'">\
                     '+unit+'\
                 </td>\
                 <td>\
-                    <input type="number" value="0" class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(1);">\
+                    <input type="number" value="0" '+readonly+' class="input_money form-control" name="discount['+row+']" min="0" id="discount-'+row+'" onchange="tinhtien(1);">\
                 </td>\
                 <td id="totalmoney'+row+'"></td>\
                 <td>\
@@ -568,14 +585,16 @@ function tinhtien(checkDiscount)
 
     var costs = <?php echo @$costs; ?>;
     var total_costsIncurred = 0;
+    console.log(costs);
     if(costs>0){
         for(y=1;y<=costs;y++){
             costsIncurred= parseFloat($('#costsIncurred'+y).val());
-
+             console.log(costsIncurred);
              total_costsIncurred+= costsIncurred;
 
         }
     }
+
 
     if(row>0){
         for(i=1;i<=row;i++){
@@ -619,7 +638,9 @@ function tinhtien(checkDiscount)
         }
         
         // tổng tiền cần thanh toán
-        totalPay= total-promotion+total_costsIncurred;;
+        totalPay= total-promotion+total_costsIncurred;
+
+  ;
 
         // thành tiền
         document.getElementById("total").value = total;

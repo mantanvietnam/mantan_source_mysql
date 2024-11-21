@@ -106,7 +106,7 @@
                 <th width="10%">Tổng tiền</th>
                 <th width="10%">Chiết khấu</th>
                 <th width="10%">Trạng thái</th>
-                <th width="12%">Xử lý</th>
+                <th width="12%" colspan="2" class="text-center">Xử lý</th>
               </tr>
             </thead>
             <tbody>
@@ -116,6 +116,7 @@
                   $status= '';
                   $btnProcess= '';
                   $btnPay= '';
+                  $btnEdit = '';
                  
 
                   if($item->status_pay=='wait' && $item->status!='cancel'){
@@ -124,7 +125,8 @@
 
                   if($item->status=='new'){ 
                    $status= '<p style="color: #00aeee;">Đơn mới</p>';
-                   $btnProcess= '<a class="btn btn-info" href="/editOrderMemberAgency/?id='.$item->id.'">sửa</a> <br/><br/> <a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a> <br/><br/> <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
+                  
+                   $btnProcess= ' <br/><br/> <a class="btn btn-primary" href="/updateOrderMemberAgency/?id='.$item->id.'&status=browser&back='.urlencode($urlCurrent).'">Duyệt</a> <br/><br/> <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
                  }elseif($item->status=='browser'){
                    $status= '<p style="color: #0333f6;">Đã duyệt</p>';
                    $btnProcess= '<a class="btn btn-primary" style="bacground-color: #7503f6;" href="/updateOrderMemberAgency/?id='.$item->id.'&status=delivery&back='.urlencode($urlCurrent).'">Giao hàng</a> <br/><br/> <a class="btn btn-danger" href="/updateOrderMemberAgency/?id='.$item->id.'&status=cancel&back='.urlencode($urlCurrent).'">Hủy</a>';
@@ -136,6 +138,12 @@
                  }else{
                    $status= '<p style="color: red;">Đã hủy</p>';
                  }
+
+                if($item->status=='new' && $item->status_pay=='wait'){ 
+                     $btnEdit = '<a class="dropdown-item" href="/editOrderMemberAgency/?id='.$item->id.'"><i class="bx bx-edit-alt me-1"></i></a> <br/><br/> <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrderMemberAgency/?id='.$item->id.'">
+                    <i class="bx bx-trash me-1"></i>
+                  </a>';
+                }
 
 
 
@@ -222,6 +230,7 @@
 
                 <td align="center">'.$status.$statusPay.'</td>
                 <td align="center">'.$btnProcess.' '.$btnPay.'</td>
+                <td align="center">'.$btnEdit.'</td>
                 </tr>';
               }
             }else{

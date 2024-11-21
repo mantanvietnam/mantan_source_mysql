@@ -523,38 +523,47 @@ function blockFriendApi($input){
                 $friend =  getInfoCustomerMember((int)$dataSend['id_friend'], 'id');
                 }
 
-                if (!empty($friend)) {
+                if (!empty($friend) && $friend->id!=$user->id) {
+
                     if(!empty($friend->id_friend_block)){
-                        $block = explode(",", $friend->id_friend_block);
+                        $friendblock = explode(",", $friend->id_friend_block);
                     }else{
-                        $block = array();
+                        $friendblock = array();
                     }
-                    $block[]= $user->id;
-                    $friend->id_friend_block = implode(', ', $block);
-                    $modelCustomer->save($friend); 
 
                     if(!empty($user->id_friend_block)){
-                        $bock = explode(",", $user->id_friend_block);
+                        $userblock = explode(",", $user->id_friend_block);
                     }else{
-                        $block = array();
-                    }
-                    $block[]= $friend->id;
-                    $user->id_friend_block = implode(', ', $block);
-                    $modelCustomer->save($user);
-                    $conditions = [];
-
-                    $conditions['OR'] = [ 
-                        ['id_customer_request'=>$user->id,'id_customer_confirm'=>$friend->id],
-                        ['id_customer_request'=>$friend->id,'id_customer_confirm'=>$user->id],
-                    ];
-                    $checkFriend = $modelMakeFriend->find()->where($conditions)->first();
-
-                    if(!empty($checkFriend)){
-                        $modelMakeFriend->delete($checkFrien);
+                        $userblock = array();
                     }
 
-                   
-                    return array('code'=>4, 'messages'=>'bạn block thành công ');
+
+                    if(in_array($user->id, $friendblock) || in_array($friend->id, $userblock)){
+                         return array('code'=>1, 'messages'=>'bạn block thành công ');
+                     }else{
+
+                         
+                            $friendblock[]= $user->id;
+                            $friend->id_friend_block = implode(',', $friendblock);
+                            $userblock[]= $friend->id;
+                            $user->id_friend_block = implode(',', $userblock);
+
+
+                            $modelCustomer->save($friend);
+                            $modelCustomer->save($user);
+                            $conditions = [];
+
+                            $conditions['OR'] = [ 
+                                ['id_customer_request'=>$user->id,'id_customer_confirm'=>$friend->id],
+                                ['id_customer_request'=>$friend->id,'id_customer_confirm'=>$user->id],
+                            ];
+                            $checkFriend = $modelMakeFriend->find()->where($conditions)->first();
+
+                            if(!empty($checkFriend)){
+                                $modelMakeFriend->delete($checkFrien);
+                            }
+                        return array('code'=>1, 'messages'=>'bạn block thành công ');
+                    }
                 }
                  
             }
@@ -567,5 +576,109 @@ function blockFriendApi($input){
 
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 }
+
+function listBlockFriendApi($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
+            if (!empty($user)) {
+                    if(!empty($user->id_friend_block)){
+                        $userblock = explode(",", $user->id_friend_block);
+                    }else{
+                        $userblock = array();
+                    }
+                   
+                    $listData = $modelCustomer->find()->where(['id  IN' => $userblock])->all()->toList();
+                    return array('code'=>1,'data'=>$listData, 'messages'=>'Lấy dữ liệu thành công');
+                }
+                return array('code'=>3,'data'=>null, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2,'data'=>null, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'data'=>null,'messages'=>'Gửi sai kiểu POST');
+}
+
+function cancelBlockFriendApi($input){
+    global $controller;
+    global $isRequestPost;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])  && !empty($dataSend['id_friend'])) {
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
+            if (!empty($user)) {
+               
+
+                if(function_exists('getInfoCustomerMember')){
+                $friend =  getInfoCustomerMember((int)$dataSend['id_friend'], 'id');
+                }
+
+                if (!empty($friend) && $friend->id!=$user->id) {
+
+                    if(!empty($friend->id_friend_block)){
+                        $friendblock = explode(",", $friend->id_friend_block);
+                    }else{
+                        $friendblock = array();
+                    }
+
+                    if(!empty($user->id_friend_block)){
+                        $userblock = explode(",", $user->id_friend_block);
+                    }else{
+                        $userblock = array();
+                    }
+
+                    if(in_array($user->id, $friendblock) || in_array($friend->id, $userblock)){
+                        $block_friend = [];
+                        foreach ($friendblock as $value) {
+                            if ($value != $user->id) {
+                                $block_friend[] = (int)$value;
+                            }
+                        }
+
+                        $block_user = [];
+                        foreach ($userblock as $value) {
+                            if ($value != $friend->id) {
+                                $block_user[] = (int)$value;
+                            }
+                        }
+
+                        $friend->id_friend_block = implode(',', $block_friend);
+                        $user->id_friend_block = implode(',', $block_user);
+                        $modelCustomer->save($friend);
+                        $modelCustomer->save($user);
+                        return array('code'=>1, 'messages'=>'bạn bỏ block thành công ');
+                    }
+                    return array('code'=>1, 'messages'=>'bạn bỏ block thành công ');
+                }
+                 return array('code'=>1, 'messages'=>'bạn bỏ block thành công ');
+            }
+
+            return array('code'=>3, 'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2, 'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
+}
+
 ?>
 

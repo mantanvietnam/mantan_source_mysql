@@ -1314,32 +1314,48 @@ function editOrderMemberAgency($input)
         $modelOrderMembers = $controller->loadModel('OrderMembers');
         $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
         $modelMembers = $controller->loadModel('Members');
+        $modelPartner = $controller->loadModel('Partners');
         $modelDiscountProductAgency = $controller->loadModel('DiscountProductAgencys');
         $modelUnitConversion = $controller->loadModel('UnitConversions');
 
         $mess = '';
-
-
-
         $order =$modelOrderMembers->find()->where(array('id'=>(int)$_GET['id'],'status'=>'new'))->first();
         if(empty($order)){
             return $controller->redirect('/orderMemberAgency');
         }
 
+        if($user->id==$order->id_member_sell){
+            $type = 'sell';
+        }elseif($user->id==$order->id_member_buy){
+            $type = 'buy';
+        }
+
          // mức chiết khấu của đại lý theo chức danh
         $position = [];
          $member_buy = [];
+         $id_member_sell = [];
+         $member_sell = [];
         $father = [];
 
        
         if(!empty($order->id_member_buy)){
             $member_buy = $modelMembers->find()->where(array('id'=>(int) $order->id_member_buy))->first();
-
             if(!empty($member_buy)){
                 $father = $modelMembers->find()->where(array('id'=>$member_buy->id_father))->first();
                 $position = $modelCategories->find()->where(array('id'=>$member_buy->id_position))->first();
             }
-         }
+        }
+
+        if(!empty($order->id_member_sell)){
+            $member_sell = $modelMembers->find()->where(array('id'=>(int) $order->id_member_sell))->first();
+
+        }
+        $infoParent = [];
+        if(!empty($order->id_partner)){
+            $infoParent = $modelPartner->find()->where(array('id'=>(int) $order->id_partner))->first();            
+        }
+
+     
 
 
         if($isRequestPost){
@@ -1379,13 +1395,13 @@ function editOrderMemberAgency($input)
                 $saveDetail->id_unit = (int)$dataSend['id_unit'][$key];
 
                 if(!empty($dataSend['discount'][$key])){
-                    $checkDiscount = $modelDiscountProductAgency->find()->where(['id_product'=>$value,'id_member_buy'=>$member_buy->id,'id_member_sell'=>$member_buy->id_father ])->first();
+                    $checkDiscount = $modelDiscountProductAgency->find()->where(['id_product'=>$value,'id_member_buy'=>$order->id_member_sell,'id_member_sell'=>$order->id_member_sell ])->first();
 
                     if(empty($checkDiscount)){
                         $Discount = $modelDiscountProductAgency->newEmptyEntity();
                         $Discount->id_product = $value;
-                        $Discount->id_member_sell = $member_buy->id_father;
-                        $Discount->id_member_buy = $member_buy->id;
+                        $Discount->id_member_sell = $order->id_member_sell;
+                        $Discount->id_member_buy = $order->id_member_buy;
                         $Discount->discount = $dataSend['discount'][$key];
                         $modelDiscountProductAgency->save($Discount);
                     }
@@ -1399,7 +1415,11 @@ function editOrderMemberAgency($input)
 
             addActivityHistory($user,$note,'editOrderMemberAgency',$order->id);
 
-            $mess= '<p class="text-success">Sửa đơn hàng thành công</p>';                
+            if($type=='sell'){
+                return $controller->redirect('/orderMemberAgency?id='.$order->id);
+            }else{
+                return $controller->redirect('/requestProductAgency?id='.$order->id);
+            }              
         }
 
          $listProduct = [];
@@ -1426,18 +1446,84 @@ function editOrderMemberAgency($input)
         }
         $conditions = array('type' => 'costsIncurred','status'=>'active');
         $costsIncurred = $modelCategories->find()->where($conditions)->all()->toList();
-        
+
        
+        $readonly = '';
+        if($type=='buy' && $user->id_father!=0){
+            $readonly = 'readonly';
+        }
+     
         setVariable('order', $order);
         setVariable('orderDetail', $orderDetail);
         setVariable('member_buy', $member_buy);
+        setVariable('member_sell', $member_sell);
+        setVariable('infoParent', $infoParent);
+        setVariable('type', $type);
         setVariable('listProduct', $listProduct);
+        setVariable('readonly', $readonly);
         setVariable('position', $position);
         setVariable('father', $father);
         setVariable('costsIncurred', $costsIncurred);
         setVariable('mess', $mess);
         setVariable('listPositions', $listPositions);
 
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteOrderMemberAgency($input){
+    global $controller;
+    global $session;
+
+    $user = checklogin('deleteOrderMemberAgency');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/statisticAgency');
+        }
+        $modelOrderMembers = $controller->loadModel('OrderMembers');
+        $modelOrderMemberDetails = $controller->loadModel('OrderMemberDetails');
+
+        $modelBill = $controller->loadModel('Bills');
+        $modelDebt = $controller->loadModel('Debts');
+        $modelCustomers = $controller->loadModel('Customers');
+        $modelMembers = $controller->loadModel('Members');
+        
+        if(!empty($_GET['id'])){
+            $data = $modelOrderMembers->find()->where(['id'=>(int) $_GET['id']])->first();
+            
+            if(!empty($data)){
+                if(!empty($data->id_member_sell)){
+                    $member_sell =  $modelMembers->find()->where(array('id'=>(int) $data->id_member_sell))->first();
+                }
+                if(!empty($data->id_member_buy)){
+                    $member_buy = $modelMembers->find()->where(array('id'=>(int) $data->id_member_buy))->first();
+                }
+                if(!empty($member_sell) && $user->id==$member_sell->id){
+                    $note = $user->type_tv.' '. $user->name.' đã xóa đơn hàng của đại lý '.@$customer_buy->full_name.'('.@$customer_buy->phone.') có id đơn là:'.$data->id;
+                }elseif(!empty($member_buy) && $user->id==$member_buy->id){
+                    $note = $user->type_tv.' '. $user->name.' đã xóa đơn hàng có id đơn là:'.$data->id;
+                }else{
+                   return $controller->redirect('/statisticAgency'); 
+                }
+                
+
+                addActivityHistory($user,$note,'deleteOrderMemberAgency',$data->id);
+
+                $modelOrderMembers->delete($data);
+                $modelOrderMemberDetails->deleteAll(['id_order_member'=>$data->id]);
+                $modelBill->deleteAll(['id_order'=>$data->id,'type_order'=>1]);
+                $modelDebt->deleteAll(['id_order'=>$data->id,'type_order'=>1]);
+
+                if(!empty($member_sell) && $user->id==$member_sell->id){
+                    return $controller->redirect('/orderMemberAgency');
+                }elseif(!empty($member_buy) && $user->id==$member_buy->id){
+                    return $controller->redirect('/requestProductAgency');
+                }
+            }
+        }
+
+        return $controller->redirect('/statisticAgency');
     }else{
         return $controller->redirect('/login');
     }

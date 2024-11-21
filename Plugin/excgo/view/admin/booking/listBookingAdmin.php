@@ -48,13 +48,13 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label class="form-label">Tên người đăng</label>
-                        <input type="text" class="form-control" name="posted_name" value="<?php if(!empty($_GET['posted_name'])) echo $_GET['posted_name'];?>">
+                        <label class="form-label">id người đăng</label>
+                        <input type="number" class="form-control" name="id_posted" value="<?php if(!empty($_GET['id_posted'])) echo $_GET['id_posted'];?>">
                     </div>
 
                     <div class="col-md-4">
-                        <label class="form-label">Tên người nhận</label>
-                        <input type="text" class="form-control" name="received_name" value="<?php if(!empty($_GET['received_name'])) echo $_GET['received_name'];?>">
+                        <label class="form-label">id người nhận</label>
+                        <input type="number" class="form-control" name="id_received" value="<?php if(!empty($_GET['id_received'])) echo $_GET['id_received'];?>">
                     </div>
 
                     <div class="col-md-2">

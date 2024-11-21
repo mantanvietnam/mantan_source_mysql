@@ -32,8 +32,8 @@ function listOrderPointAdmin($input)
         $conditions['type'] = (int)$_GET['type'];
     }
 
-    if(!empty($_GET['phone_sell'])){
-    	$user_sell = $modelUser->find()->where(['id'=>$_GET['phone_sell']])->first();
+    if(!empty($_GET['id_sell'])){
+    	$user_sell = $modelUser->find()->where(['id'=>$_GET['id_sell']])->first();
 
     	if(!empty($user_sell)){
 		    $conditions['user_sell'] = $user_sell->id;
@@ -42,8 +42,8 @@ function listOrderPointAdmin($input)
 		}
     }
 
-    if(!empty($_GET['phone_buy'])){
-    	$user_buy = $modelUser->find()->where(['id'=>$_GET['phone_buy']])->first();
+    if(!empty($_GET['id_buy'])){
+    	$user_buy = $modelUser->find()->where(['id'=>$_GET['id_buy']])->first();
 
     	if(!empty($user_buy)){
 		    $conditions['user_buy'] = $user_buy->id;

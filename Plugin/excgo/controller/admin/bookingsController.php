@@ -65,12 +65,12 @@ function listBookingAdmin($input)
         $conditions['Bookings.status'] = $_GET['status'];
     }
 
-    if (!empty($_GET['posted_name'])) {
-        $conditions['PostedUsers.name LIKE'] =  '%' . $_GET['posted_name'] . '%';
+    if (!empty($_GET['id_posted'])) {
+        $conditions['PostedUsers.id'] =  $_GET['id_posted'];
     }
 
-    if (!empty($_GET['received_name'])) {
-        $conditions['ReceivedUsers.name LIKE'] =  '%' . $_GET['received_name'] . '%';
+    if (!empty($_GET['id_received'])) {
+        $conditions['ReceivedUsers.id'] =  $_GET['id_received'];
     }
 
     /*if (!empty($_GET['posted_date'])) {

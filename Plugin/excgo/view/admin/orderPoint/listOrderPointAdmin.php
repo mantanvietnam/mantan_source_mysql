@@ -24,13 +24,13 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label class="form-label">Số điện thoại người bán</label>
-                        <input type="text" class="form-control" name="phone_sell" value="<?php if(!empty($_GET['phone_sell'])) echo $_GET['phone_sell'];?>">
+                        <label class="form-label">id người bán</label>
+                        <input type="number" class="form-control" name="id_sell" value="<?php if(!empty($_GET['id_sell'])) echo $_GET['id_sell'];?>">
                     </div>
 
                     <div class="col-md-4">
-                        <label class="form-label">Số điện thoại người mua</label>
-                        <input type="text" class="form-control" name="phone_buy" value="<?php if(!empty($_GET['phone_buy'])) echo $_GET['phone_buy'];?>">
+                        <label class="form-label">id người mua</label>
+                        <input type="number" class="form-control" name="id_buy" value="<?php if(!empty($_GET['id_buy'])) echo $_GET['id_buy'];?>">
                     </div>
 
                     <div class="col-md-4">

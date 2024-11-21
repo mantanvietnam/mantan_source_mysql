@@ -107,7 +107,7 @@ function checklogin($permission=''){
     return $user; 
 }
 
-function callAIphoenixtech($query){
+function callAIphoenixtech($query,$conversation_id=''){
     global $keyDify;
 
     // $header = array('Authorization'=>'Bearer app-4yYewPLJhBWuYUbDMXGuLxQi', 'Content-Type'=>'application/json');
@@ -145,7 +145,7 @@ function callAIphoenixtech($query){
         "inputs": {},
         "query": "'.$query.'",
         "response_mode": "streaming",
-        "conversation_id": "",
+        "conversation_id": "'.$conversation_id.'",
         "user": "abc-123"
         }',
       CURLOPT_HTTPHEADER => array(
@@ -158,6 +158,7 @@ function callAIphoenixtech($query){
 
     curl_close($curl);
    // echo $response;
+
     
 
     // Chuỗi đầy đủ từ input
@@ -179,9 +180,20 @@ function callAIphoenixtech($query){
 
     // Kết hợp các câu trả lời thành chuỗi hoàn chỉnh
     $result = implode('', $answers);
-    debug($result);
-    
-    die;
+
+    // Sử dụng regex để tìm các giá trị conversation_id
+    preg_match_all('/"conversation_id":\s*"([^"]+)"/', $response, $matches);
+
+    // Lấy tất cả các conversation_id
+    $conversationIds = $matches[1];
+
+    $conversation_id ='';
+    foreach ($conversationIds as $id) {
+      $conversation_id =$id;
+    }
+
+
+    return array('result'=>$result,'conversation_id'=>$conversation_id);
 
 }
 
