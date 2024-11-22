@@ -253,7 +253,7 @@
                                         $costs = 0;
                                     if(!empty($costsIncurred)){ ?>   
                                         <li>
-                                            <span><strong>chi phí phá sinh</strong></span>
+                                            <span><strong>Chi phí phát sinh</strong></span>
                                         </li> 
                                         <?php foreach ($costsIncurred as $key => $value){ 
                                                 $costs++
