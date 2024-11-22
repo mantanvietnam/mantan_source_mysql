@@ -355,6 +355,8 @@ function participate($input){
     if(!empty($_GET['id'])){
         $infoEvent = $modelevents->find()->where(['id' => (int) $_GET['id']])->first();
 
+        
+
         if(!empty($infoEvent)){
             if ($isRequestPost) {
                 $dataSend = $input['request']->getData();
@@ -369,7 +371,7 @@ function participate($input){
                         $checkMember = $session->read('infoUser');
                     }else{
                         $checkMember = $modelMembers->find()->where(['phone' => $dataSend['phone']])->first();
-
+                        
                         if(empty($checkMember)){
                             // tạo người dùng mới
                             $checkMember = $modelMembers->newEmptyEntity();
@@ -405,6 +407,7 @@ function participate($input){
                         $data->name = @$dataSend['name'];
                         $data->email = @$dataSend['email'];
                         $data->date = $birthday;
+                        $data->code_checkin = codecheckin($infoEvent->id);    
                         $data->id_member = $checkMember->id;
                         $data->status = 'Pending';
                         $data->id_events = (int) $_GET['id'];

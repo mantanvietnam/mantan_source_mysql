@@ -93,4 +93,19 @@ function sendEmailNewPassword($email='', $fullName='', $pass= '')
     }
 }
 
+function codecheckin($id_events){
+    global $controller;
+    $code_checkin = rand(1000,9999);
+    $modelattendedevent = $controller->loadModel('attendedevent');
+
+    $checkAttendedEvent = $modelattendedevent->find()->where(['code_checkin' => $code_checkin, 'id_events'=>(int) $id_events])->first();
+    if(!empty($checkAttendedEvent)){
+        return codecheckin($id_events);
+    }else{
+         return $code_checkin;
+    }
+
+
+}
+
 ?>

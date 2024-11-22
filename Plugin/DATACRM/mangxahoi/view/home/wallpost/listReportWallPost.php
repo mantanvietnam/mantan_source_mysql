@@ -1,9 +1,8 @@
 <?php include(__DIR__.'/../../../../hethongdaily/view/home/header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4"> Bài viết mạng xã hội</h4>
-  <p><a href="/addWallPost" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a> <a href="/listReportWallPost" class="btn btn-primary"> báo cáo </a></p>
+  <h4 class="fw-bold py-3 mb-4"><a href="/listWallPost"> Bài viết mạng xã hội</a> / Báo cáo bài viết mạng xã hội</h4>
   <!-- Responsive Table -->
-  <!-- Form Search -->
+  <!-- Form Search --><!-- 
   <form method="get" action="">
     <div class="card mb-4">
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
@@ -21,16 +20,16 @@
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
           </div>
         </div>
-          <!-- <div class="col-md-1">
+          <!- <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
-          </div> -->
+          </div> ->
         </div>
       </div>
-  </form>
+  </form> -->
   <!--/ Form Search -->
   <div class="card row">
-    <h5 class="card-header">Khóa học</h5>
+    <h5 class="card-header">Báo cáo bài viết mạng xã hội</h5>
     <?php echo @$mess; ?>
     <div id="desktop_view">
       <div class="table-responsive">
@@ -38,12 +37,11 @@
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Thong tin khách hàng</th>
+              <th>Thong tin khách hàng báo cáo</th>
               <th>Mội dung bài viết</th>
               <th>Hình ảnh bài viết</th>
               <th>Trạng thái</th>
-              <th>Like & comment</th>
-              <th>Sửa</th>
+              <th>xem</th>
               <th>Xóa</th>
             </tr>
           </thead>
@@ -64,20 +62,17 @@
                               '.$item->infoCustomer->phone.'<br/>
                               '.$item->infoCustomer->address.'<br/>
                               '.$item->infoCustomer->email.'</td>
-                          <td>'.$item->connent.'</td>
+                          <td>'.$item->listWallPost->connent.'</td>
                           <td>'.$image.'</td>
-                          <td>'.$item->public.'</td>
-                          <td>Like: '.$item->like.'</br>
-                              Dislike: '.$item->dislike.'</br>
-                              Comment: '.$item->comment.'</br>
-                          </td>
+                          <td>'.$item->listWallPost->public.'</td>
+                         
                           <td align="center">
-                            <a class="dropdown-item" href="/addWallPost/?id='.$item->id.'">
+                            <a class="dropdown-item" href="/addWallPost/?id='.$item->id_post.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteWallPost?id='.$item->id.'">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteReportWallPost?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
@@ -110,13 +105,10 @@
                               '.$item->infoCustomer->phone.'<br/>
                               '.$item->infoCustomer->address.'<br/>
                               '.$item->infoCustomer->email.'</p>
-                          <p>'.$item->connent.'</p>
+                          <p>'.$item->listWallPost->connent.'</p>
                           <p>'.$image.'</p>
-                          <p>'.$item->public.'</p>
-                          <p>Like: '.$item->like.'</br>
-                              Dislike: '.$item->dislike.'</br>
-                              Comment: '.$item->comment.'</br>
-                          </p>
+                          <p>'.$item->listWallPost->public.'</p>
+                         
                           <p align="center">
                             <a class="dropdown-item" href="/addWallPost/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>

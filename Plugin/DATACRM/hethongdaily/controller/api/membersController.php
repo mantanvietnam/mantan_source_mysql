@@ -157,18 +157,33 @@ function deteleMemberAPI($input)
 	$return = array('code'=>1);
 	
 	if($isRequestPost){
+
+		$user = checklogin('deteleMember');   
+		$checkPhone = getMemberByToken(@$dataSend['token'],'deteleMember'); 
+	    if(!empty($user)){
+	        if(empty($user->grant_permission)){
+	           return array('code'=>4,
+						'mess'=> 'bạn không có quyền'
+						);
+	        }
+	    }elseif(empty($checkPhone)){
+	    	return  array('code'=>2,
+								'mess'=> 'Tài khoản không tồn tại hoặc sai token'
+							);
+	    }
+
 		$dataSend = $input['request']->getData();
 		$deteleMember = $modelMember->find()->where(array('id'=>$dataSend['id_agency']))->first();
 		$checkAgency = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'status'=>'active'))->first();
 
 		if(empty($checkAgency)){
-			return array('code'=>1,
+			return array('code'=>3,
 						'mess'=> 'Đại lý này không tồn tại'
 						);
 		}
 
 		if($deteleMember->id==$checkAgency->id){
-			return array('code'=>1,
+			return array('code'=>3,
 						'mess'=> 'Đại lý này không phải '
 						);
 		}
@@ -199,17 +214,17 @@ function deteleMemberAPI($input)
 
 		    $deteleMember->status = 'delete';
 		    $modelMember->save($deteleMember);
-		    return array('code'=>0,
-	                        'mess'=> 'bạn xóa thành công'
+		    return array('code'=>1,
+	                        'mess'=> 'Bạn xóa thành công'
 	                        );
 	    }else{
-	    	return array('code'=>1,
+	    	return array('code'=>3,
 	                        'mess'=> 'Đại lý này không phải '
 	                        );
 	    }
 
 	}else{
-		$return = array('code'=>1,
+		$return = array('code'=>0,
 						'mess'=> 'Gửi sai phương thức POST'
 						);
 	}

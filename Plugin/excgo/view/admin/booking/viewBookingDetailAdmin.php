@@ -108,8 +108,8 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="introduce_fee">Chiết khấu (*)</label>
-                            <input required type="text" class="form-control" name="introduce_fee" id="introduce_fee" value="<?php echo @$data->introduce_fee;?>" />
+                            <label class="form-label" for="deposit">tiền cọc (*)</label>
+                            <input required type="text" class="form-control" name="deposit" id="deposit" value="<?php echo @$data->deposit;?>" />
                         </div>
                     </div>
 

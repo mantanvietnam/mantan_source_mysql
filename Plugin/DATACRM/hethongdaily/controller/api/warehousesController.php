@@ -363,4 +363,63 @@ function editProductWarehouseAPI($input)
 
     return $return;
 }
+
+function viewWarehouseProductAgencyAPI($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $isRequestPost;
+ 
+
+     $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token']) && !empty($dataSend['id_agency'])){
+            $infoMember = getMemberByToken($dataSend['token'],'historyWarehouseProductAgency');
+
+            if(!empty($infoMember)){
+
+
+            $modelProducts = $controller->loadModel('Products');
+            $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+            $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+
+            $conditions = array('id_member'=>(int) $dataSend['id_agency']);
+            $limit = 20;
+            $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+            if($page<1) $page = 1;
+            $order = array('id'=>'desc');
+
+            if(!empty($dataSend['id_product'])){
+                $conditions['id_product'] = (int) $dataSend['id_product'];
+            }
+
+            $listData = $modelWarehouseProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            
+
+            if(!empty($listData)){
+                foreach($listData as $key => $item){
+                    $listData[$key]->product = $modelProducts->find()->where(['id'=>$item->id_product ])->first();
+                    $listData[$key]->history = $modelWarehouseHistories->find()->where(['id_product'=>$item->id_product, 'id_member'=>$item->id_member ])->order(['id'=>'desc'])->first();
+                }
+            }
+
+            // phân trang
+            $totalData = $modelWarehouseProducts->find()->where($conditions)->all()->toList();
+            $totalData = count($totalData);
+
+            
+            $return = array('code'=>0, 'listData'=>$listData, 'totalData'=>$totalData);
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
 ?>

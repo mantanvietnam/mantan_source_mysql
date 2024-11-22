@@ -3,7 +3,10 @@
     global $session;
     $info = $session->read('infoUser');
 ?>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
 <main>
         <div class="register">
             <div class="container d-flex align-items-center">
@@ -84,7 +87,8 @@
                     </div>
                     <div class="form-section mb-4">
                         <label for="event-description" class="form-label">Thời gian bắt đầu</label>
-                        <input id="event-description" type="datetime-local" name="time_start" class="form-control" required>
+                        <!-- <input id="event-description" type="datetime-local" name="time_start" class="form-control" required> -->
+                        <input type="text" value="" name="time_start" id="time_start" class="input_date form-control datepicker" required=""autocomplete="off">
                     </div>
                     <div class="form-section mb-4">
                         <label for="event-description" class="form-label">Lịch trình</label>
@@ -98,28 +102,29 @@
                         <label for="event-description" class="form-label">Trang phục</label>
                         <textarea id="event-description" class="form-control" name="outfits" rows="5" placeholder="Thêm ghi chú trang phục"></textarea>
                     </div>
-                    <!-- Invitation Details -->
-                    <div class="container my-5">
+                    <!-- Invitation Details 
+                     <div class="container my-5">
                         <div class="card p-4">
                             <h2 class="mb-4">Thông tin vé mời</h2>
                             
-                            <!-- Invitation Details -->
+                            <!- Invitation Details ->
                             <div class="mb-3">
-                                <label for="invite-title" class="form-label">Tên vé mời</label>
-                                <input type="text" id="invite-title" class="form-control" value="">
+
+                                <label for="invite-title" class="form-label">Tên vé mời</label> 
+                                <input type="text" id="invite-title" class="form-control" value=""> 
                             </div>
                 
-                            <div class="mb-3">
+                           <!-  <div class="mb-3">
                                 <label for="invite-url" class="form-label">Đây là đường link của vé mời</label>
                                 <input type="text" id="invite-url" class="form-control" value="">
                             </div>
                 
-                            <!-- Mẫu vé mời label on its own row -->    
+                            <!- Mẫu vé mời label on its own row ->    
                             <div class="mb-3">
                                 <label for="invite-img" class="form-label">Mẫu vé mời</label>
                             </div>
                 
-                            <!-- Input and Buttons on the same row -->
+                            <!- Input and Buttons on the same row ->
                             <div class="form-wrapper">
                                 <h2>Mẫu vé mời *</h2>
                                 <div class="file-input">
@@ -132,7 +137,7 @@
                             </div>
                         
                 
-                            <!-- Event Date Details (2 columns) -->
+                            <!- Event Date Details (2 columns)->
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="event-start-date" class="form-label">Ngày diễn ra sự kiện</label>
@@ -144,7 +149,7 @@
                                 </div>
                             </div>
                 
-                            <!-- Event Location (2 columns) -->
+                            <!- Event Location (2 columns) ->
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="event-location" class="form-label">Tên tòa nhà tổ chức sự kiện</label>
@@ -156,18 +161,19 @@
                                 </div>
                             </div>
                 
-                            <!-- Notes (full width) -->
+                            <!- Notes (full width) ->
                             <div class="mb-3">
                                 <label for="event-notes" class="form-label">Ghi chú khác</label>
                                 <input type="text" id="event-notes" class="form-control" placeholder="Thêm ghi chú của sự kiện">
-                            </div>
+                            </div> 
                         </div>
-                    </div>
+                    </div> -->
                 
                 
                     <!-- Action Buttons -->
                     <div class="form-section">
-                        <div class="d-flex justify-content-center gap-4">
+                        <div class="d-flex justify-content-center gap-4"> 
+                            <a href="https://ezpics.vn/?openModal=true" target="_blank" class="btn btn-outline-danger btn-huy">Tạo vé mời</a>
                             <button type="button" class="btn btn-outline-danger btn-huy">Hủy tạo</button>
                             <button type="submit" class="taosukien" id="submitBtn">Tạo sự kiện</button>
                         </div>
@@ -194,6 +200,20 @@
 
 
     </main>
+ <script>
+    $(document).ready(function() {
+      $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',  // Định dạng ngày tháng
+        todayHighlight: true, // Đánh dấu ngày hiện tại
+        autoclose: true       // Tự động đóng Datepicker sau khi chọn ngày
+      });
+
+      $('.datetimepicker').datetimepicker({
+        format:'H:i d/m/Y'
+      });
+    });
+    </script>
+
  <script>
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
