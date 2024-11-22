@@ -403,7 +403,6 @@ header .nav-item a{
     max-width: 100px;
     /* Adjust max width as needed */
     height: auto;
-    filter: grayscale(100%);
     transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
     margin: 0px 60px;
 }

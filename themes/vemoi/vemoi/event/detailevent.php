@@ -75,13 +75,13 @@
 
                         
                         <div class="link">
-                            <div class="copy-link d-flex align-items-center">
-                                <a href=""><i class="fa-solid fa-link"></i></a>
-                                <p>Sao chép liên kết</p>
-                            </div>
+                        <div class="copy-link d-flex align-items-center">
+                            <a href="javascript:void(0);" id="copyLink"><i class="fa-solid fa-link"></i></a>
+                            <p>Sao chép liên kết</p>
+                        </div>
                             <div class="social">
-                                <img class="mess" src="<?php echo $urlThemeActive;?>/asset/image/fb.png" alt="">
-                                <img class="fb" src="<?php echo $urlThemeActive;?>/asset/image/mess.jpg" alt="">
+                                <a href=""><img class="mess" src="<?php echo $urlThemeActive;?>/asset/image/fb.png" alt=""></a>
+                                <a href=""><img class="fb" src="<?php echo $urlThemeActive;?>/asset/image/mess.jpg" alt=""></a>
                             </div>
                         </div>
                         
@@ -119,22 +119,23 @@
                         <div class="news">
                             <div class="row">
                                 <?php foreach ($listDataevent as $event):?>
-                                <div class="col-lg-4">
-                                    <a href="/detailevent/<?php echo @$event->slug ?>.html">
-                                        <div class="card-news">
-                                            <img src="<?php echo $event->banner;?>" alt="">
-                                            <div class="text top-text">
-                                                <p>Khởi nghiệp</p>
-                                               <p><i class="fas fa-arrow-right"></i></p>
+                                    <div class="col-lg-4">
+                                        <a href="/detailevent/<?php echo @$event->slug ?>.html">
+                                            <div class="card-news">
+                                                <div class="overlay"></div> <!-- Lớp overlay -->
+                                                <img src="<?=$event->banner?>" alt="">
+                                                <div class="text top-text">
+                                                    <p class="name">Khởi nghiệp</p>
+                                                    <p class="logo"><i class="fas fa-arrow-right"></i></p>
+                                                </div>
+                                                <div class="text under-text">
+                                                    <p class="date-time"><?php echo date('d/m/Y', $event->time_start);?></p>
+                                                    <h4><?=$event->name?></h4>
+                                                    <p class="date-time"><?=$event->address?></p>
+                                                </div>
                                             </div>
-                                            <div class="text under-text">
-                                                <p class="date-time"><?php echo date('d/m/Y', $event->time_start);?></p>
-                                                <h4><?=$event->name?></h4>
-                                                <p class="date-time"><?=$event->address?></p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
                                 <?php endforeach;?>
                             </div>
                         </div>

@@ -83,6 +83,70 @@ li{
 
 
 /* thêm css */
+.card-news {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card-news img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease; /* Thêm hiệu ứng zoom nếu muốn */
+}
+
+.card-news .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Màu nền lớp phủ */
+    opacity: 0; /* Ẩn lớp phủ mặc định */
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.card-news .text {
+    position: absolute;
+    color: white;
+    z-index: 2;
+    text-align: center;
+    opacity: 0; /* Ẩn chữ mặc định */
+    transition: opacity 0.3s ease;
+}
+
+.card-news .top-text {
+    top: 10%; /* Điều chỉnh vị trí chữ */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.card-news .under-text {
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.card-news:hover img {
+    transform: scale(1.1); /* Zoom hình khi hover */
+}
+
+.card-news:hover .overlay {
+    opacity: 1; /* Hiện lớp phủ khi hover */
+}
+
+.card-news:hover .text {
+    opacity: 1; /* Hiện chữ khi hover */
+}
+
+.news .under-text {
+    left: 213px !important; 
+}
+.news .under-text h4{
+    font-size: 14px !important;
+}
 .news .top-text .logo i{
     font-size: 20px;
 }
@@ -889,7 +953,14 @@ main{
     
 }
 
-
+.dropdown-menu[data-bs-popper] {
+    left: -52px;
+}
 
 
 /* reponse mobile */
+@media (max-width: 1200px) {
+    .information .btn-loginn a {
+        padding: 22px 70px !important;
+    }
+}

@@ -18,6 +18,7 @@ var carouselInstance = new bootstrap.Carousel(carousel, {
 
 $(document).ready(function(){
     $('.carousel').slick({
+        interval: 1000,
         dots: true,
         infinite: true,
         speed: 500,
@@ -116,3 +117,36 @@ function handleFileSelect(event) {
 
 // text-1
 
+// Kiểm tra xem DOM đã sẵn sàng chưa
+document.addEventListener('DOMContentLoaded', function () {
+    // Lắng nghe sự kiện click trên phần tử có id là copyLink
+    const copyButton = document.getElementById('copyLink');
+    if (copyButton) {
+        copyButton.addEventListener('click', function (e) {
+            e.preventDefault(); // Ngăn hành động mặc định của thẻ <a>
+
+            // Lấy URL hiện tại
+            const link = window.location.href;
+
+            // Tạo input tạm thời để sao chép liên kết
+            const tempInput = document.createElement('input');
+            tempInput.value = link; // Gán giá trị là URL
+            document.body.appendChild(tempInput); // Thêm input vào DOM
+
+            // Sao chép liên kết
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999); // Dành cho thiết bị di động
+            const success = document.execCommand('copy'); // Thực hiện lệnh copy
+
+            // Xóa input tạm thời
+            document.body.removeChild(tempInput);
+
+            // Hiển thị thông báo
+            if (success) {
+                alert('Liên kết đã được sao chép: ' + link);
+            } else {
+                alert('Sao chép thất bại. Vui lòng thử lại!');
+            }
+        });
+    }
+});

@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/plugins/ngayhoixanh/view/home/asset/css/style.css?time=1238">
+    <link rel="stylesheet" href="/plugins/ngayhoixanh/view/home/asset/css/style.css?time=1253   ">
 </head>
 <body>
 
@@ -108,9 +108,12 @@
         ?>
     </div>
 
-    <!-- Repeat for each project section as in the provided image -->
-  </div>
 
+    <!-- Repeat for each project section as in the provided image -->
+    </div>
+    <div class="container">
+        <a href="/" class="col-md-3 back">Back</a>
+    </div>
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Custom JavaScript -->
