@@ -258,9 +258,14 @@ function listWallPostApi($input){
                     }
                 }
                 $userblock = explode(",", $user->id_friend_block);
+                if(empty($userblock)){
+                    $userblock =[0];
+                }
 
+                // debug($userblock);
+                // die();
                // $conditions = array('id_customer IN' => $listData, 'public'=>'public');
-                $conditions = array('public'=>'public','id_customer NO IN' => $userblock);
+                 $conditions = array('public'=>'public','id_customer NOT IN' => $userblock);
                 $limit = 10;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                 if($page<1) $page = 1;

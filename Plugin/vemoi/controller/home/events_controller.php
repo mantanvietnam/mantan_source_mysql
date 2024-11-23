@@ -157,6 +157,7 @@ function detailevent($input){
         return $controller->redirect('/');
     }
 }
+
 function myevent($input){
     global $controller;
     global $isRequestPost;
@@ -170,107 +171,95 @@ function myevent($input){
     global $session;
     $modelevents = $controller->loadModel('events');
     $modelattendedevent = $controller->loadModel('attendedevent');
-    $info = $session->read('infoUser');
-    $order = array('id'=>'desc');
-    $limit = 8;
-    $conditions = array();
-    if(!empty($_GET['id'])){
-        $conditions['id'] = (int) $_GET['id'];
-    }
-    if(!empty($_GET['name'])){
-        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
-    }
-    $order = array('id' => 'desc');
-    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-    if(!empty($info->id)){
+    if(!empty($session->read('infoUser'))){
+        $info = $session->read('infoUser');
+        $order = array('id'=>'desc');
+        $limit = 8;
+        $conditions = array('id_member' => $info->id);
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+        if(!empty($_GET['name'])){
+            $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+        }
+        $order = array('id' => 'desc');
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+
+
         $listdataattendedevent = $modelattendedevent->find()
-        ->select(['attendedevent.id', 'attendedevent.id_member', 'event.id','event.banner','event.time_start', 'event.name', 'event.address', 'event.slug'])
-        ->join([
-            'table' => 'events', 
-            'alias' => 'event',
-            'type' => 'INNER',
-            'conditions' => 'event.id = attendedevent.id_events', 
-        ])
-        ->where(['attendedevent.id_member' => $info->id]) 
-        ->order(['event.id' => 'desc'])
-        ->all()
-        ->toList();
-    
+            ->select(['attendedevent.id', 'attendedevent.id_member', 'event.id','event.banner','event.time_start', 'event.name', 'event.address', 'event.slug'])
+            ->join([
+                'table' => 'events', 
+                'alias' => 'event',
+                'type' => 'INNER',
+                'conditions' => 'event.id = attendedevent.id_events', 
+            ])
+            ->where(['attendedevent.id_member' => $info->id]) 
+            ->order(['event.id' => 'desc'])
+            ->all()
+            ->toList();
+        
 
-    $listDataevent = $modelevents->find()
-        ->where(['id_member' => $info->id], $conditions)
-        ->order($order)
-        ->all()
-        ->toList();
+        $listDataevent = $modelevents->find()
+            ->where( $conditions)
+            ->order($order)
+            ->all()
+            ->toList();
 
-    $eventMap = [];
-    foreach ($listDataevent as $event) {
-        $eventMap[$event->id] = $event;
-        $eventMap[$event->id]->attended_count = 0; 
-    }
-
-    $eventKeys = array_keys($eventMap);
-
-    if (!empty($eventKeys)) {
-        $counts = $modelattendedevent->find()
-            ->select(['id_events', 'count' => $modelattendedevent->find()->func()->count('*')])
-            ->where(['id_events IN' => $eventKeys])
-            ->group('id_events')
-            ->all();
-    } else {
-        $counts = []; 
-    }
-
-
-    foreach ($counts as $count) {
-        if (isset($eventMap[$count->id_events])) {
-            $eventMap[$count->id_events]->attended_count = $count->count;
+        $eventMap = [];
+        foreach ($listDataevent as  $key => $event) {
+            $listDataevent[$key]->attended_checkin = $modelattendedevent->find()->where(['id_events'=>$event->id, 'status'=>'Arrived'])->count('*');
+            $listDataevent[$key]->attended_count = $modelattendedevent->find()->where(['id_events'=>$event->id])->count('*'); 
         }
-    }
 
-    $totalData = $modelevents->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
-    $totalData = count($totalData);
-    $balance = $totalData % $limit;
-    $totalPage = ($totalData - $balance) / $limit;
-    if ($balance > 0)
-        $totalPage+=1;
+        
 
-    $back = $page - 1;
-    $next = $page + 1;
-    if ($back <= 0)
-        $back = 1;
-    if ($next >= $totalPage)
-        $next = $totalPage;
+        $totalData = $modelevents->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
 
-    if (isset($_GET['page'])) {
-        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
-        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
-    } else {
-        $urlPage = $urlCurrent;
-    }
-    if (strpos($urlPage, '?') !== false) {
-        if (count($_GET) >= 1) {
-            $urlPage = $urlPage . '&page=';
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
         } else {
-            $urlPage = $urlPage . 'page=';
+            $urlPage = $urlCurrent;
         }
-    } else {
-        $urlPage = $urlPage . '?page=';
-    }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
 
-    setVariable('page', $page);
-    setVariable('totalPage', $totalPage);
-    setVariable('back', $back);
-    setVariable('next', $next);
-    setVariable('urlPage', $urlPage);
-    setVariable('eventMap', $eventMap);
-    setVariable('listdataattendedevent', $listdataattendedevent);
-    setVariable('listDataevent', $listDataevent);
-    }
-    
-  
-    
+
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('eventMap', $eventMap);
+        setVariable('listdataattendedevent', $listdataattendedevent);
+        setVariable('listDataevent', $listDataevent);
+    }else{
+        return $controller->redirect('/'); 
+    }    
 }
+
+
 function allevent($input){
     global $controller;
     global $isRequestPost;
@@ -334,6 +323,7 @@ function allevent($input){
     setVariable('urlPage', $urlPage);
     setVariable('listdataevent', $listdataevent);
 }
+
 function participate($input){
     global $controller;
     global $isRequestPost;
@@ -406,6 +396,7 @@ function participate($input){
                         $data->city = @$dataSend['city'];
                         $data->name = @$dataSend['name'];
                         $data->email = @$dataSend['email'];
+                        $data->phone = @$dataSend['phone'];
                         $data->date = $birthday;
                         $data->code_checkin = codecheckin($infoEvent->id);    
                         $data->id_member = $checkMember->id;
@@ -416,7 +407,11 @@ function participate($input){
 
                         $modelattendedevent->save($data);
 
-                        $mess = '<p class="text-success">Đăng ký tham gia thành công</p>';
+                        $mess = '<p class="text-success">Đăng ký tham gia thành công mã check in là :'.$data->code_checkin.'</p>';
+                        if(!empty($dataSend['email'])){
+                            sendEmailCodeCheckin($dataSend['email'],$infoEvent,$data->code_checkin,$data);
+                        }
+
                     }else{
                         $mess = '<p class="text-danger">Bạn đã đăng ký sự kiện này rồi</p>';
                     }
@@ -446,53 +441,172 @@ function manageevent($input){
     global $metaDescriptionMantan;
     global $metaImageMantan;
     global $session;
-    $modelattendedevent = $controller->loadModel('attendedevent');
-    $limit = 8;
-    $conditions = array();
-    if(!empty($_GET['name'])){
-        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
-    }
-    $id = isset($_GET['id']) ? $_GET['id'] : null;
-    $order = array('id'=>'desc');
-    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-    $listdataattendedevent = $modelattendedevent->find()->where(['id_events'=>$id])->order($order)->all()->toList();
-    $numberdata = count($listdataattendedevent);
-    $totalData = $modelattendedevent->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
-    $totalData = count($totalData);
-    $balance = $totalData % $limit;
-    $totalPage = ($totalData - $balance) / $limit;
-    if ($balance > 0)
-        $totalPage+=1;
 
-    $back = $page - 1;
-    $next = $page + 1;
-    if ($back <= 0)
-        $back = 1;
-    if ($next >= $totalPage)
-        $next = $totalPage;
+    if(!empty($session->read('infoUser')) && !empty($_GET['id'])){
+        $info = $session->read('infoUser');
+        $modelattendedevent = $controller->loadModel('attendedevent');
+        $modelMembers = $controller->loadModel('Members');
+        $modelEvents = $controller->loadModel('events');
+        $checkEvents = $modelEvents->find()->where(['id'=>$_GET['id'],'id_member'=>$info->id])->first();
 
-    if (isset($_GET['page'])) {
-        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
-        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
-    } else {
-        $urlPage = $urlCurrent;
-    }
-    if (strpos($urlPage, '?') !== false) {
-        if (count($_GET) >= 1) {
-            $urlPage = $urlPage . '&page=';
-        } else {
-            $urlPage = $urlPage . 'page=';
+        if(empty($checkEvents)){
+            return $controller->redirect('/');
         }
-    } else {
-        $urlPage = $urlPage . '?page=';
+
+        $limit = 20;
+        $conditions = ['id_events'=>$checkEvents->id];
+        if(!empty($_GET['code_checkin'])){
+            $conditions['code_checkin'] = $_GET['code_checkin'];
+        }
+
+        if(!empty($_GET['phone'])){
+            $conditions['id_member'] =  $modelMembers->find()->where(['phone'=>$_GET['phone']])->first()->id;
+            if(empty($conditions['id_member'])){
+                $conditions['phone LIKE'] = '%'. $_GET['phone'].'%';
+            }
+        }
+        if(!empty($_GET['status'])){
+            $conditions['status'] = $_GET['status'];
+        }
+        $order = array('id'=>'desc');
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+
+        if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+            $listData = $modelattendedevent->find()->where($conditions)->order($order)->all()->toList();
+            
+            $titleExcel =   [
+                ['name'=>'Mã checkin', 'type'=>'text', 'width'=>25],
+                ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
+                ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+                ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
+                ['name'=>'Email', 'type'=>'text', 'width'=>25],
+                ['name'=>'Giới tính', 'type'=>'text', 'width'=>25],
+                ['name'=>'Trạng thái', 'type'=>'text', 'width'=>25], 
+            ];
+
+            $dataExcel = [];
+            if(!empty($listData)){
+                foreach ($listData as $key => $value) {
+                    $status= 'chưa checkin';
+                    if($value->status=='active'){ 
+                        $status= 'dã checkin';
+                    }
+
+                    $dataExcel[] = [
+                        $value->code_checkin,   
+                        $value->name,   
+                        $value->phone,   
+                        $value->address,   
+                        $value->email,   
+                        $value->sex,
+                        $status,
+                    ];
+                }
+            }
+            export_excel($titleExcel,$dataExcel,'danh_sach_khach_hang');
+        }
+        
+
+       
+        $listdataattendedevent = $modelattendedevent->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+
+
+        if($listdataattendedevent){
+            foreach($listdataattendedevent as $key => $item){
+                $listdataattendedevent[$key]->infoMember= $modelMembers->find()->where(['id'=>$item->id_member])->first();
+            }
+        }
+
+
+        $numberdata = $modelattendedevent->find()->where(['id_events'=>$checkEvents->id])->count('*');
+        $attended_checkin = $modelattendedevent->find()->where(['id_events'=>$checkEvents->id,'status'=>'Arrived'])->count('*');
+
+
+        $totalData = $modelattendedevent->find()->where($conditions)->count('*');
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        $mess = '';
+        if(!empty($_GET['mess'])){
+            if($_GET['mess']=='checkin'){
+                $mess= '<p class="text-danger">Check in thành công</p>';
+            }
+        }
+        setVariable('numberdata', $numberdata);
+        setVariable('dataEvent', $checkEvents);
+        setVariable('mess', $mess);
+        setVariable('attended_checkin', $attended_checkin);
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('listdataattendedevent', $listdataattendedevent);
+    }else{
+        return $controller->redirect('/');
     }
-    setVariable('numberdata', $numberdata);
-    setVariable('page', $page);
-    setVariable('totalPage', $totalPage);
-    setVariable('back', $back);
-    setVariable('next', $next);
-    setVariable('urlPage', $urlPage);
-    setVariable('listdataattendedevent', $listdataattendedevent);
+}
+
+function checkinMember($input){
+     global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
+    if(!empty($session->read('infoUser')) && !empty($_GET['id_events']) && !empty($_GET['id'])) {
+        $info = $session->read('infoUser');
+        $modelattendedevent = $controller->loadModel('attendedevent');
+        $modelEvents = $controller->loadModel('events');
+        $checkEvents = $modelEvents->find()->where(['id'=>$_GET['id_events'],'id_member'=>$info->id])->first();
+
+        if(empty($checkEvents)){
+            return $controller->redirect('/');
+        }
+
+        $conditions = ['id_events'=>$checkEvents->id, 'id'=>$_GET['id']];
+
+        $data = $modelattendedevent->find()->where($conditions)->first();
+        if(!empty($data)){
+            $data->status = 'Arrived';
+            $modelattendedevent->save($data);
+            return $controller->redirect('/manageevent?code_checkin='.$data->code_checkin.'&id='.$checkEvents->id.'&mess=checkin');
+        }
+        return $controller->redirect('/');
+    }else{
+         return $controller->redirect('/');
+    }
 }
 
 function editmanagerevent($input){
@@ -539,6 +653,7 @@ function editmanagerevent($input){
     setVariable('data', $data);
     setVariable('mess', $mess);
 }
+
 function infomanagerevent($input){
     global $controller;
     global $isRequestPost;
@@ -583,6 +698,7 @@ function infomanagerevent($input){
     setVariable('data', $data);
     setVariable('mess', $mess);
 }
+
 function editevent($input){
     global $controller;
     global $isRequestPost;
@@ -661,4 +777,57 @@ function editevent($input){
     setVariable('data', $data);
     setVariable('mess', $mess);
 }
+
+function checkinUser($input){
+     global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+    global $session;
+    if(!empty($_GET['id_event'])) {
+        $modelattendedevent = $controller->loadModel('attendedevent');
+        $modelEvents = $controller->loadModel('events');
+        $modelMembers = $controller->loadModel('Members');
+        $checkEvents = $modelEvents->find()->where(['id'=>$_GET['id_event']])->first();
+
+        if(empty($checkEvents)){
+            return $controller->redirect('/');
+        }
+        $data = '';
+        $mess = '';
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+            $conditions = array('id_events'=>$checkEvents->id);
+            if(!empty($dataSend['phone']) && !empty($dataSend['code_checkin'])){
+                $conditions['id_member'] =  $modelMembers->find()->where(['phone'=>$dataSend['phone']])->first()->id;
+                if(empty($conditions['id_member'])){
+                    $conditions['phone'] = $dataSend['phone'];
+                }
+                $conditions['code_checkin'] = $dataSend['code_checkin'];
+
+                $data = $modelattendedevent->find()->where($conditions)->first();
+                if(!empty($data)){
+                    $data->status = 'Arrived';
+                    $modelattendedevent->save($data);
+                    $data->info = $modelMembers->find()->where(['id'=>$data->id_member])->first();
+                    $mess= 'Bạn checkin thành công';
+                }else{
+                    $mess= 'Bạn sai số điện thoại hoặc mã Check in ';
+                }
+            }
+        }
+
+        setVariable('dataEvent', $checkEvents);        
+        setVariable('data', $data);        
+        setVariable('mess', $mess);        
+    }else{
+         return $controller->redirect('/');
+    }
+}
+
 ?>

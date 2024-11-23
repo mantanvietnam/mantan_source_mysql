@@ -1749,26 +1749,30 @@ function accumulatePoint($id_customer=0,$point=0,$note=''){
     $modelMember = $controller->loadModel('Members');
     $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
     $modelHistoriePointCustomers = $controller->loadModel('HistoriePointCustomers');
-    $time = time();
+  
     $member = $modelMember->find()->where(['id_father'=>0])->first();
     $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$id_customer])->first();
     if(!empty($id_customer) && !empty($point)){
         if(!empty($checkPointCustomer)){
             $checkPointCustomer->point += (int)$point;
+            $checkPointCustomer->updated_at = time();
+            $modelPointCustomer->save($checkPointCustomer);
+            $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $modelPointCustomer->point])->order(['point_min' => 'DESC'])->first();
+            if(!empty($rating)){
+                $checkPointCustomer->id_rating = $rating->id;
+            }
         }else{
-            $checkPointCustomer= $modelPointCustomer->newEmptyEntity();
-            $checkPointCustomer->point = (int) $point;
-            $checkPointCustomer->id_member = $member->id;
-            $checkPointCustomer->id_customer = $id_customer;
-            $checkPointCustomer->created_at = $time;
-            $checkPointCustomer->id_rating = 0;
+            if(empty($checkPointCustomer)){
+                $data = $modelPointCustomer->newEmptyEntity();
+                $data->point = (int) $point;
+                $data->id_member = $member->id;
+                $data->id_customer = $id_customer;
+                $data->created_at = time();
+                $data->id_rating = 0;
+                $data->updated_at = time();
+                $modelPointCustomer->save($data);
+            }
         }
-        $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
-        if(!empty($rating)){
-            $checkPointCustomer->id_rating = $rating->id;
-        }
-        $checkPointCustomer->updated_at = $time;
-        $modelPointCustomer->save($checkPointCustomer);
     
         $data= $modelHistoriePointCustomers->newEmptyEntity();
         $data->point = (int) $point;

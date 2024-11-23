@@ -18,4 +18,5 @@
 	$routesPlugin['infomanagerevent']= 'vemoi/view/home/event/infomanagerevent.php';
 	$routesPlugin['allevent']= 'vemoi/view/home/event/allevent.php';
 	$routesPlugin['editevent']= 'vemoi/view/home/event/editevent.php';
+	$routesPlugin['checkinUser']= 'vemoi/view/home/event/checkinUser.php';
 	

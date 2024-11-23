@@ -595,7 +595,7 @@ function listBlockFriendApi($input){
                     if(!empty($user->id_friend_block)){
                         $userblock = explode(",", $user->id_friend_block);
                     }else{
-                        $userblock = array();
+                        $userblock = array(0);
                     }
                    
                     $listData = $modelCustomer->find()->where(['id  IN' => $userblock])->all()->toList();

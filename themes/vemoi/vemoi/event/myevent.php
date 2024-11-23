@@ -135,8 +135,8 @@
                                   <span class="stat-label">Người tham gia</span>
                                 </div>
                                 <div class="stat">
-                                  <span class="stat-number">706</span>
-                                  <span class="stat-label">Số vé mới</span>
+                                  <span class="stat-number"><?= $event->attended_checkin ?? 0 ?></span>
+                                  <span class="stat-label">Check in </span>
                                 </div>
                               </div>
                               <p class="card-date"><?php echo date('d/m/Y', $event->time_start);?></p>

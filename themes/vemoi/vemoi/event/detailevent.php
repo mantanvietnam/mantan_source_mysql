@@ -26,15 +26,15 @@
                                         HẾT HẠN ĐĂNG KÝ
                                     <?php endif; ?>
                                 </p>
-                                <p class="or">HOT</p>
+                                <!-- <p class="or">HOT</p>
                                 <p class="br">TRỰC TIẾP</p>
-                                <p class="br">KINH DOANH</p>
+                                <p class="br">KINH DOANH</p> -->
                             </div>
                             <div class="address-info">
                                 <p><i class="fa-regular fa-clock"></i><?= date('d-m-Y H:i:s', $events['time_start']); ?>
                                 </p>
                                 <p><i class="fa-solid fa-location-dot"></i><?=$events['address']?></p>
-                                <p><i class="fa-solid fa-user"></i>Liên đoàn Điền kinh Việt Nam, Liên đoàn Điền kinh Lào, Liên đoàn Điền kinh Campuchia tổ chức; Tập đoàn Công nghiệp - Viễn thông Quân đội</p>
+                                <!-- <p><i class="fa-solid fa-user"></i>Liên đoàn Điền kinh Việt Nam, Liên đoàn Điền kinh Lào, Liên đoàn Điền kinh Campuchia tổ chức; Tập đoàn Công nghiệp - Viễn thông Quân đội</p> -->
                             </div>
                         </div>
                     </div>
