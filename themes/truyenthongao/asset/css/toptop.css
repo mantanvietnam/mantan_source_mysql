@@ -272,7 +272,7 @@ header .nav-item a{
     background-image: url('../image/bgr.png');
     background-size: cover;
     background-position: center;
-    height: 100vh;
+    height: 60vh;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -288,7 +288,7 @@ header .nav-item a{
 /* Hero Section */
 
 .hero-section {
-    margin-top: 200px;
+    margin-top: 45px;
     text-align: right;
     width: 100%;
 }
@@ -381,7 +381,6 @@ header .nav-item a{
 .client-member p {
     font-size: 40px;
     font-weight: 600;
-    margin-bottom: 40px;
 }
 
 
@@ -1388,7 +1387,7 @@ header .nav-item a{
 
 
 .slick-list.draggable {
-    padding: 60px 0 !important;
+    padding: 20px 0 !important;
 }
 
 .testimonial-item {
