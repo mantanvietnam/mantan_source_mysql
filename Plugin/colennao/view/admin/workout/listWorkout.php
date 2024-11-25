@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Bài luyện tập </h4>
+  <h4 class="fw-bold py-3 mb-4">Luyện tập </h4>
  
   <p><a href="/plugins/admin/colennao-view-admin-workout-addWorkout" class="btn btn-primary"><i class='bx bx-plus'></i>Thêm mới</a></p> 
 
@@ -49,14 +49,14 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách bài luyện tập  </h5>
+    <h5 class="card-header">Danh sách luyện tập  </h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
         <tr class=""><th>ID</th>
               <th>Hình Ảnh</th>
               <th>tiêu đề</th>
-              <th>sô bài tập</th>
+              <th>sô bài luyện tập</th>
               <th>Trạng thái</th>
               <th>Hàng động</th> 
         </tr>

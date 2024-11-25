@@ -123,8 +123,9 @@ function addChallenge($input){
                 $data->id_coach =(int) @$dataSend['id_coach'];
                 $data->status = @$dataSend['status'];
                 $data->day =count($dataSend['tip']);
-                $data->price =(int)  @$dataSend['price'];
-                $data->price_trial =(int)  @$dataSend['price_trial'];
+                $data->price =0;
+                $data->price_trial =0;
+
                 $data->time_trial =(int)  @$dataSend['time_trial'];
                 $data->description = @$dataSend['description'];
                 $data->description_en = @$dataSend['description_en'];

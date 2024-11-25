@@ -682,14 +682,26 @@ function createLinkMMTCAPI($input)
                 }
 
                 $checkHistorieMmtt = count($modelCustomerHistorieMmtt->find()->where(['id_user'=>$user->id])->all()->toList());
+                $note = 'bạn bị từ 50 điểm khi xuât thần số học người khác';
                 if(!empty($user->max_export_mmtc)){
                     if( $user->max_export_mmtc <= $checkHistorieMmtt){
-                        return array('code'=>6,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$user->max_export_mmtc.' bản thần số học.');
+                        $checkPoint = minuAccumulatePoint($user->id,50,$note);
+                        if(empty($checkPoint['code'])){
+                            return array('code'=>6,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$user->max_export_mmtc.' bản thần số học.');
+                        }
                     }
                 }elseif(!empty($infoMember->infosystem->max_export_mmtc)){
                     if($infoMember->infosystem->max_export_mmtc <= $checkHistorieMmtt){
-                        return array('code'=>6,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$infoMember->infosystem->max_export_mmtc.' bản thần số học.');
+                        $checkPoint = minuAccumulatePoint($user->id,50,$note);
+                        if(empty($checkPoint['code'])){
+                            return array('code'=>6,'messages'=>'Bạn đã xuất quá giới hạn cho phép, tối đa bạn chỉ có thể xuất '.$infoMember->infosystem->max_export_mmtc.' bản thần số học.');
+                        }
                     }
+                }
+
+                if(!empty($checkPoint['code'])){
+                    $user->max_export_mmtc += 1;
+                    $modelCustomer->save($user);
                 }
                
                 $checkPhone =  $modelCustomer->find()->where(['phone' => $dataSend['phone']])->first();

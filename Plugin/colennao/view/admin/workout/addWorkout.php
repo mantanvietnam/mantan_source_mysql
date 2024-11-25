@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Bài luyện tập </a> /</span>
-    Thông tin bài luyện tập
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Luyện tập </a> /</span>
+    Thông tin luyện tập
   </h4>
 
   <!-- Basic Layout nav-align-top-->
@@ -19,12 +19,12 @@
                     <ul class="nav nav-tabs" role="tablist">
                       <li class="nav-item">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                          Thông tin bài luyện tập
+                          Thông tin luyện tập
                         </button>
                       </li>
                        <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-area" aria-controls="navs-top-area" aria-selected="false">
-                          cài đặt phần tìm khiếm
+                          cài đặt phần tìm kiếm
                         </button>
                       </li>
                       
@@ -63,10 +63,10 @@
                           </div>
 
                           <div class="col-md-6">
-                            <div class="mb-3">
+                           <!--  <div class="mb-3">
                               <label class="form-label">mã youtube</label>
                               <input type="text"  class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" />
-                            </div>
+                            </div> -->
                             <div class="mb-3">
                               <label class="form-label">Mô tả ngắn tiếng Vệt </label>
                               <textarea maxlength="160" rows="5" class="form-control" placeholder="Mô tả ngắn tiếng Vệt" name="description" id="description"><?php echo @$data->description;?></textarea>

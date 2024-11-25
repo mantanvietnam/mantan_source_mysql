@@ -55,7 +55,7 @@
         <tr class=""><th>ID</th>
               <th>Hình Ảnh</th>
               <th>tiêu đề</th>
-              <th>sô bài tập luyện con</th>
+              <th>sô động tác tập</th>
               <th>Trạng thái</th>
               <th>Hàng động</th> 
         </tr>

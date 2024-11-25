@@ -47,7 +47,7 @@ function sendFriendRequestApi($input){
         				if(!empty($friend->token_device)){
                         	sendNotification($dataSendNotification, $friend->token_device);
                     	}
-        				return array('code'=>1, 'messages'=>'bạn gửi yêu cầu kết bạn thành công');
+        				return array('code'=>1, 'messages'=>'bạn gửi yêu cầu kết bạn thành công', 'notification'=>$dataSendNotification);
         			}
         			if($checkFriend->status == 'request'){
         				return array('code'=>4, 'messages'=>'đang chờ xác nhận ');
@@ -293,10 +293,12 @@ function sendFriendConfirmApi($input){
                             'id_friend'=>"$user->id",
                             'action'=>'sendFriendRequest');
 
+                      
+
                         if(!empty($friend->token_device)){
                             sendNotification($dataSendNotification, $friend->token_device);
                         }
-                        return array('code'=>1, 'messages'=>'bạn đã đồng ý thành công');
+                        return array('code'=>1, 'messages'=>'bạn đã đồng ý thành công', 'notification'=>$dataSendNotification);
                     }
                    
                         return array('code'=>4, 'messages'=>'đã trở thành bạn bè');
@@ -516,7 +518,8 @@ function blockFriendApi($input){
             if(function_exists('getCustomerByToken')){
                 $user =  getCustomerByToken($dataSend['token']);
             }
-            if (!empty($user)) {
+         
+            if(!empty($user)){
                
 
                 if(function_exists('getInfoCustomerMember')){
@@ -562,9 +565,11 @@ function blockFriendApi($input){
                             if(!empty($checkFriend)){
                                 $modelMakeFriend->delete($checkFrien);
                             }
-                        return array('code'=>1, 'messages'=>'bạn block thành công ');
+                        return array('code'=>1, 'messages'=>'Bạn block thành công ');
                     }
+                     return array('code'=>1, 'messages'=>'Bạn block thành công ');
                 }
+                 return array('code'=>1, 'messages'=>'Bạn block thành công ');
                  
             }
 

@@ -19,10 +19,10 @@
                             <label for="loginEmail" class="form-label">Số điện thoại</label>
                             <input type="text" class="form-control" name="phone" id="phone" placeholder="Nhập SDT của bạn" required>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="loginPassword" class="form-label">Mã check in</label>
                             <input type="text" name="code_checkin" class="form-control" id="code_checkin" placeholder="Mã check in của bạn" required>
-                        </div>
+                        </div> -->
                         <button type="submit" class="btn btn-danger w-100">Check in</button>
                        
                     </form>

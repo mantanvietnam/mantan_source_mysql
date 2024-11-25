@@ -80,7 +80,7 @@
                           </div>
 
                           <div class="col-md-6">
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                               <label class="form-label">Giá mới (*)</label>
                               <input type="text" required class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price;?>" />
                             </div>
@@ -88,7 +88,7 @@
                             <div class="mb-3">
                               <label class="form-label">Giá dùng thử </label>
                               <input type="text" class="form-control phone-mask" name="price_trial" id="price_trial" value="<?php echo @$data->price_trial;?>" />
-                            </div>
+                            </div> -->
                             <div class="mb-3">
                               <label class="form-label">Thời gian dùng </label>
                               <input type="text" class="form-control phone-mask" name="time_trial" id="time_trial" value="<?php echo @$data->time_trial;?>" />

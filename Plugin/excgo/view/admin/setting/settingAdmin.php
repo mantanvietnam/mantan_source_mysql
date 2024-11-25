@@ -30,13 +30,21 @@
                   <label class="form-label" for="basic-default-fullname">Nội dung popup  nâng cấp lên tài xế</label>
                   <input type="text" class="form-control" name="contentPopupUpgradeToDriver" value='<?php echo @$setting['contentPopupUpgradeToDriver'];?>' />
                 </div>
-                 <div class="mb-3 col-md-6">
+                <div class="mb-3 col-md-6">
                   <label class="form-label" for="basic-default-fullname">Điêm tối thiểu được bán </label>
                   <input type="number" class="form-control" name="minimumPointSold" value="<?php echo @$setting['minimumPointSold'];?>" />
                 </div>
                  <div class="mb-3 col-md-6">
                   <label class="form-label" for="basic-default-fullname">Khống chế chêch lệch điểm</label>
                   <input type="number" class="form-control" name="pointControl" value="<?php echo @$setting['pointControl'];?>" />
+                </div>
+                 <div class="mb-3 col-md-6">
+                  <label class="form-label" for="basic-default-fullname">ID bài viết tin tức ở icon</label>
+                  <input type="number" class="form-control" name="id_post" value="<?php echo @$setting['id_post'];?>" />
+                </div>
+                 <div class="mb-3 col-md-6">
+                  <label class="form-label" for="basic-default-fullname">ID phần thưởng  ở icon</label>
+                  <input type="number" class="form-control" name="id_reward" value="<?php echo @$setting['id_reward'];?>" />
                 </div>
                  <div class="mb-3 col-md-12">
                 <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>

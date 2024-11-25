@@ -65,9 +65,26 @@
                             <input  type="text" class="form-control phone-mask" name="target_weight" id="target_weight" value="<?php echo @$data->target_weight;?>" />
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label" for="basic-default-phone"></label>
+                            <label class="form-label" for="basic-default-phone">chiêu cao</label>
                             <input  type="text" class="form-control phone-mask" name="height" id="height" value="<?php echo @$data->height;?>" />
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="basic-default-fullname">Nhóm bài luyên tập</label>
+                            <select name="id_group_user" class="form-select color-dropdown" required>
+                              <option value="">Chọn bài luyên tập</option>
+                              <?php 
+                              if(!empty($userpeople)){
+                                foreach ($userpeople as $key => $value) {
+                                  if(empty($data->id_group_user) || $data->id_group_user!=$value->id){
+                                    echo '<option value="'.$value->id.'" >'.$value->name.'</option>';
+                                  }else{
+                                    echo '<option selected value="'.$value->id.'" >'.$value->name.'</option>';
+                                  }
+                                }
+                              }
+                              ?>
+                            </select>
+                          </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="basic-default-phone">Hình ảnh (*)</label>
                             <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>

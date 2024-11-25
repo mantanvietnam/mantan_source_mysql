@@ -67,7 +67,7 @@
         <tr class=""><th>ID</th>
               <th>Hình Ảnh</th>
               <th>tiêu đề</th>
-              <th>Giá</th>
+              <!-- <th>Giá</th>   <td>'.number_format($item->price) . '  </td>-->
               <th>Số ngày</th>
               <th>kết quả</th>
               <th>Feedback</th>
@@ -95,7 +95,7 @@
                   </td><td align="center"><img src="' . $item->image . '" width="100" />
                   </td>
                   <td>'.$item->title . '  </td>
-                  <td>'.number_format($item->price) . '  </td>
+                
                   <td>'. $item->day. '   </td>
                   <td>' . $item->result.'  </td>
                   <td>' . $item->feedback.'  </td>

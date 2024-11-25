@@ -185,7 +185,7 @@ function geDetailRewardAPI($input){
         if (!isset($dataSend['access_token']) && !isset($dataSend['id'])) {
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         } else {
-            $currentUser = getUserByToken($dataSend['access_token']);
+            $currentUser = getUserByToken(@$dataSend['access_token']);
 
             if (empty($currentUser)) {
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');

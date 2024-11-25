@@ -246,6 +246,7 @@ function confirm($input)
 		if(!empty($data)){
 			if($dataSend['pass'] == $dataSend['passAgain']){
 				$data->pass = md5($dataSend['pass']);
+				$data->otp = null;
 
 				$modelMembers->save($data);
 				$session->destroy();
@@ -258,6 +259,8 @@ function confirm($input)
 		}else{
 			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
 		}
+		debug(@$data);
+		die();
 
 	    setVariable('mess', $mess);
 	}
