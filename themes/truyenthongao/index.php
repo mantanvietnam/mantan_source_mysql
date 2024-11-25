@@ -178,7 +178,7 @@
                                     <p class="original-price"><?=@$settingThemes['pricelistPresentbasic']?></p>
                                     <p class="price-note"><?=@$settingThemes['pricelistbasicvat']?></p>
                                 </div>
-                                <a href="#" class="pricing__card-button">Đăng ký ngay</a>
+                                <a href="/contact" class="pricing__card-button">Đăng ký ngay</a>
                                 <div class="pricing__card-features">
                                 <?php for ($i = 1; $i <= 10; $i++): ?>
                                     <?php if (!empty($settingThemes["pricelistreceivebasic$i"])): ?>
@@ -205,7 +205,7 @@
                                     <p class="original-price"><?=@$settingThemes['pricelistPresentfull']?></p>
                                     <p class="price-note"><?=@$settingThemes['pricelistfullvat']?></p>
                                 </div>
-                                <a href="#" class="pricing__card-button">Đăng ký ngay</a>
+                                <a href="/contact" class="pricing__card-button">Đăng ký ngay</a>
                                 <div class="pricing__card-features">
                                 <?php for ($i = 1; $i <= 10; $i++): ?>
                                     <?php if (!empty($settingThemes["pricelistreceivefull$i"])): ?>
@@ -231,7 +231,7 @@
                                     <p class="original-price"><?=@$settingThemes['pricelistPresentadvanced']?></p>
                                     <p class="price-note"><?=@$settingThemes['pricelistadvancedvat']?></p>
                                 </div>
-                                <a href="#" class="pricing__card-button">Đăng ký ngay</a>
+                                <a href="/contact" class="pricing__card-button">Đăng ký ngay</a>
                                 <div class="pricing__card-features">
                                     <?php for ($i = 1; $i <= 10; $i++): ?>
                                         <?php if (!empty($settingThemes["pricelistreceiveadvanced$i"])): ?>

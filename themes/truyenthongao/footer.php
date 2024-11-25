@@ -49,10 +49,10 @@
                             <h3 class="footer__newsletter-title">
                                 Nhận ngay tư vấn về chuyển đổi số ứng dụng công nghệ
                             </h3>
-                            <div class="footer__form">
+                            <!-- <div class="footer__form">
                                 <input type="email" class="footer__input" placeholder="Enter your email">
                                 <button class="footer__button">Đăng ký</button>
-                            </div>
+                            </div> -->
                             <div class="footer__social">
                                 <a href="<?= @$settingThemes['youtube'];?>" class="footer__social-link"><i class="fab fa-linkedin"></i></a>
                                 <a href="<?= @$settingThemes['twiter'];?>" class="footer__social-link"><i class="fab fa-twitter"></i></a>
@@ -75,9 +75,9 @@
                                 <p class="footer__copyright">
                                     Copyright © 2021 VSDS. All rights reserved
                                 </p>
-                                <p class="footer__registration">
+                                <!-- <p class="footer__registration">
                                     Mã số DN: 0123456789, đăng ký lần đầu ngày 01/01/2021, thay đổi lần thứ 5 ngày 21/8/2022
-                                </p>
+                                </p> -->
                             </div>
                         </div>
                         <div class="col-md-4">
