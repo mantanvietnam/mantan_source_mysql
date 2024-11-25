@@ -78,7 +78,7 @@
               <th>Số tiền</th>
               <th>Người dùng</th>
               <th>tên dich vụ</th>
-              <th>Khiểu dịch vụ </th>
+              <th>Kiểu dịch vụ </th>
               <th>Trạng thái</th>
             </tr>
           </thead>

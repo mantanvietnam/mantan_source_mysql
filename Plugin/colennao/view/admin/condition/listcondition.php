@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">condition</h4>
+  <h4 class="fw-bold py-3 mb-4">Điều kiện bài tập</h4>
   <p><a href="/plugins/admin/colennao-view-admin-condition-addcondition" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
@@ -29,14 +29,14 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách condition</h5>
+    <h5 class="card-header">Danh sách điều kiện bài tập</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
-            <th>id_group</th>
-            <th>id_question</th>
-            <th>answer</th>
+            <th>Tên nhóm bài tập</th>
+            <th>Tên câu hỏi</th>
+            <th>Đáp án</th>
             <th>Trạng thái bài tập</th>
  
             <th>xóa</th>
@@ -77,7 +77,15 @@
                   <td>
                   <p><?php echo $answersString; ?></p>
                   </td>
-                  <td><?php echo $statusString ?></td>
+                  <td>
+                      <?php 
+                      if ($statusString === 'inactive') {
+                          echo 'không phải mặc định';
+                      } elseif ($statusString === 'active') {
+                          echo 'mặc định';
+                      }
+                    ?>
+                  </td>
                   <td align="center">
                       <a class="dropdown-item" 
                         onclick="return confirm('Bạn có chắc chắn muốn xóa tất cả bản ghi trong nhóm này không?');" 

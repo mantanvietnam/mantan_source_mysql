@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
-                                  <label class="form-label">id_consume</label>
+                                  <label class="form-label">Kế hoạch</label>
                                   <select class="form-control" name="id_consume" id="id_consume" required>
                                       <option value="">Chọn Nhóm </option>
                                    

@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
-                                <label class="form-label">Thời gian nấu ăn</label>
+                                <label class="form-label">Thời gian nấu ăn (phút)</label>
                                 <input type="number" class="form-control" name="timeeat" id="timeeat" value="<?=$data->timeeat?>" />
                               </div>
                             </div>
@@ -90,7 +90,7 @@
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
-                                  <label class="form-label">id_food</label>
+                                  <label class="form-label">Nhóm thức ăn</label>
                                   <select name="id_food" id="id_food" class="form-control" >
                                       <option value="">Chọn nhóm thức ăn</option>
                                       <?php if (!empty($listData)): ?>
@@ -117,13 +117,13 @@
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
-                                <label class="form-label">category </label>
+                                <label class="form-label">Danh mục </label>
                                 <input type="text" class="form-control" name="category" id="category" value="<?=$data->category?>" />
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="mb-3">
-                                <label class="form-label">categoryen</label>
+                                <label class="form-label">Danh mục tiếng anh</label>
                                 <input type="text" class="form-control" name="categoryen" id="categoryen" value="<?=$data->categoryen?>" />
                               </div>
                             </div>
