@@ -3,11 +3,18 @@ function settinghometruyenthongao($input){
     global $modelOptions;
     global $metaTitleMantan;
     global $isRequestPost;
+    global $modelCategories;
+    global $modelAlbuminfos;
+    global $modelAlbums;
     $metaTitleMantan = 'Cài đặt giao diện trang chủ ';
     $mess= '';
     $conditions = array('key_word' => 'settinghometruyenthongao');
     
     $data = $modelOptions->find()->where($conditions)->first();
+    $dataalbumsinfo= $modelAlbuminfos->find()->where()->all();
+    $datacategory = $modelCategories->find()->where()->all();
+    $dataalbums = $modelAlbums->find()->where()->all();
+  
     if(empty($data)){
         $data = $modelOptions->newEmptyEntity();
     }
@@ -23,6 +30,7 @@ function settinghometruyenthongao($input){
             'titlecontent3' =>$dataSend['titlecontent3'],
             'titlecontent4' =>$dataSend['titlecontent4'],
             'titlecustomer'=>$dataSend['titlecustomer'],
+            'video'=>$dataSend['video'],
             'id_slidelistcustomer'=>$dataSend['id_slidelistcustomer'],
 
             'titleintroduce' =>$dataSend['titleintroduce'],
@@ -57,6 +65,12 @@ function settinghometruyenthongao($input){
             'pricelistreceivebasic2'=>$dataSend['pricelistreceivebasic2'],
             'pricelistreceivebasic3'=>$dataSend['pricelistreceivebasic3'],
             'pricelistreceivebasic4'=>$dataSend['pricelistreceivebasic4'],
+            'pricelistreceivebasic5'=>$dataSend['pricelistreceivebasic5'],
+            'pricelistreceivebasic6'=>$dataSend['pricelistreceivebasic6'],
+            'pricelistreceivebasic7'=>$dataSend['pricelistreceivebasic7'],
+            'pricelistreceivebasic8'=>$dataSend['pricelistreceivebasic8'],
+            'pricelistreceivebasic9'=>$dataSend['pricelistreceivebasic9'],
+            'pricelistreceivebasic10'=>$dataSend['pricelistreceivebasic10'],
 
             'pricelistfull' =>$dataSend['pricelistfull'],
             'pricelistsmallfull' =>$dataSend['pricelistsmallfull'],
@@ -67,6 +81,12 @@ function settinghometruyenthongao($input){
             'pricelistreceivefull2'=>$dataSend['pricelistreceivefull2'],
             'pricelistreceivefull3'=>$dataSend['pricelistreceivefull3'],
             'pricelistreceivefull4'=>$dataSend['pricelistreceivefull4'],
+            'pricelistreceivefull5'=>$dataSend['pricelistreceivefull5'],
+            'pricelistreceivefull6'=>$dataSend['pricelistreceivefull6'],
+            'pricelistreceivefull7'=>$dataSend['pricelistreceivefull7'],
+            'pricelistreceivefull8'=>$dataSend['pricelistreceivefull8'],
+            'pricelistreceivefull9'=>$dataSend['pricelistreceivefull9'],
+            'pricelistreceivefull10'=>$dataSend['pricelistreceivefull10'],
 
             'pricelistadvanced' =>$dataSend['pricelistadvanced'],
             'pricelistsmalladvanced' =>$dataSend['pricelistsmalladvanced'],
@@ -77,6 +97,13 @@ function settinghometruyenthongao($input){
             'pricelistreceiveadvanced2'=>$dataSend['pricelistreceiveadvanced2'],
             'pricelistreceiveadvanced3'=>$dataSend['pricelistreceiveadvanced3'],
             'pricelistreceiveadvanced4'=>$dataSend['pricelistreceiveadvanced4'],
+            'pricelistreceiveadvanced5'=>$dataSend['pricelistreceiveadvanced5'],
+            'pricelistreceiveadvanced6'=>$dataSend['pricelistreceiveadvanced6'],
+            'pricelistreceiveadvanced7'=>$dataSend['pricelistreceiveadvanced7'],
+            'pricelistreceiveadvanced8'=>$dataSend['pricelistreceiveadvanced8'],
+            'pricelistreceiveadvanced9'=>$dataSend['pricelistreceiveadvanced9'],
+            'pricelistreceiveadvanced10'=>$dataSend['pricelistreceiveadvanced10'],
+
 
             'id_albumcustomer'=>$dataSend['id_albumcustomer'],
 
@@ -102,6 +129,7 @@ function settinghometruyenthongao($input){
     if(!empty($data->value)){
         $data_value = json_decode($data->value, true);
     }
+    setVariable('dataalbums', $dataalbums);
     setVariable('data', $data_value);
     setVariable('mess', $mess);
 }
@@ -116,8 +144,8 @@ function indexTheme($input){
     global $modelCategories;
     global $session;
     global $modelCategories;
-
-  
+    $modelfeedback = $controller->loadModel('feedbacks');
+    $datafeedback = $modelfeedback->find()->where()->all();
 	$conditions = array('key_word' => 'settinghometruyenthongao');
     $id_slidelistcustomer = [];
     if(!empty($settingThemes['id_slidelistcustomer'])){
@@ -125,7 +153,7 @@ function indexTheme($input){
     }
     $id_active = [];
     if(!empty($settingThemes['id_active'])){
-        $id_active = $modelAlbums->find()->where(['id_category'=>(int) $settingThemes['id_active']])->all()->toList();
+        $id_active = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['id_active']])->all()->toList();
     }
     $id_albumcustomer = [];
     if(!empty($settingThemes['id_albumcustomer'])){
@@ -141,10 +169,40 @@ function indexTheme($input){
     }
     $order = array('id'=>'desc');
     $listDatatop= $modelPosts->find()->limit(3)->where(array( 'type'=>'post'))->order($order)->all()->toList();
+
+    setVariable('datafeedback', $datafeedback);
     setVariable('id_albumcustomer', $id_albumcustomer);
     setVariable('id_active', $id_active);
     setVariable('id_slidelistcustomer', $id_slidelistcustomer);
     setVariable('listDatatop', $listDatatop);
+
+  
+}
+function operational($input){
+    global $modelAlbums;
+	global $modelOptions;
+	global $modelNotices;
+	global $modelPosts;
+	global $modelAlbuminfos;
+	global $settingThemes;
+    global $controller;
+    global $modelCategories;
+    global $session;
+    global $modelCategories;
+	$conditions = array('key_word' => 'settinghometruyenthongao');
+    if(!empty($settingThemes['id_active'])){
+        $id_active = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['id_active']])->all()->toList();
+    }
+    $order = array('id'=>'desc');
+
+    $data = $modelOptions->find()->where($conditions)->first();
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    setVariable('id_active', $id_active);
+
+
 
   
 }

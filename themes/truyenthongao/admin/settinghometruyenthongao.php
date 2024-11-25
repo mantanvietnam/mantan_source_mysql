@@ -1,9 +1,9 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">VEMOI - Home Setting</h4>
+    <h4 class="fw-bold py-3 mb-4">TRUYENTHONGAO - Home Setting</h4>
     <p><?php echo @$mess;?></p>
     <?= $this->Form->create(); ?>
         <div class="row">
-            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="bg-white col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="mb-4">
                     <div class="nav-align-top mb-4">
                         <ul class="nav nav-tabs" role="tablist">
@@ -32,11 +32,11 @@
                                     BẢNG GIÁ
                                 </button>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-6" aria-controls="navs-6" aria-selected="true">
                                     KHỐI KHÁCH HÀNG NÓI 
                                 </button>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-4" aria-controls="navs-top-4" aria-selected="true">
                                     KHỐI FOOTER
@@ -90,7 +90,15 @@
                                 </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">id_slide albums khách hàng</label>
-                                    <input type="text" class="form-control" name="id_slidelistcustomer" value="<?php echo @$data['id_slidelistcustomer'];?>" />
+                                    <select class="form-control" name="id_slidelistcustomer">
+                                        <option value="">-- Chọn album --</option>
+                                        <?php foreach ($dataalbums as $album): ?>
+                                            <option value="<?php echo $album->id; ?>" 
+                                                <?php echo (@$data['id_slidelistcustomer'] == $album->id) ? 'selected' : ''; ?>>
+                                                <?php echo $album->title; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                              
                             </div>
@@ -173,8 +181,20 @@
                                     <input type="text" class="form-control" name="numberevents" value="<?php echo @$data['numberevents'];?>" />
                                 </div>
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                    <label class="form-label" for="basic-default-fullname">id_category</label>
-                                    <input type="text" class="form-control" name="id_active" value="<?php echo @$data['id_active'];?>" />
+                                    <label class="form-label" for="basic-default-fullname">Link youtube</label>
+                                    <input type="text" class="form-control" name="video" value="<?php echo @$data['video'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">id_slide albums khách hàng</label>
+                                    <select class="form-control" name="id_active">
+                                        <option value="">-- Chọn album --</option>
+                                        <?php foreach ($dataalbums as $album): ?>
+                                            <option value="<?php echo $album->id; ?>" 
+                                                <?php echo (@$data['id_active'] == $album->id) ? 'selected' : ''; ?>>
+                                                <?php echo $album->title; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
                           
@@ -231,6 +251,30 @@
                                     <label class="form-label" for="basic-default-fullname">Nhận được 4</label>
                                     <input type="text" class="form-control" name="pricelistreceivebasic4" value="<?php echo @$data['pricelistreceivebasic4'];?>" />
                                 </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 5</label>
+                                    <input type="text" class="form-control" name="pricelistreceivebasic5" value="<?php echo @$data['pricelistreceivebasic5'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 6</label>
+                                    <input type="text" class="form-control" name="pricelistreceivebasic6" value="<?php echo @$data['pricelistreceivebasic6'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 7</label>
+                                    <input type="text" class="form-control" name="pricelistreceivebasic7" value="<?php echo @$data['pricelistreceivebasic7'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 8</label>
+                                    <input type="text" class="form-control" name="pricelistreceivebasic8" value="<?php echo @$data['pricelistreceivebasic8'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 9</label>
+                                    <input type="text" class="form-control" name="pricelistreceivebasic9" value="<?php echo @$data['pricelistreceivebasic9'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 10</label>
+                                    <input type="text" class="form-control" name="pricelistreceivebasic10" value="<?php echo @$data['pricelistreceivebasic10'];?>" />
+                                </div>
                             </div>
                             <div class="card-body row ">
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
@@ -268,6 +312,30 @@
                                 <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                     <label class="form-label" for="basic-default-fullname">Nhận được 4</label>
                                     <input type="text" class="form-control" name="pricelistreceivefull4" value="<?php echo @$data['pricelistreceivefull4'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 5</label>
+                                    <input type="text" class="form-control" name="pricelistreceivefull5" value="<?php echo @$data['pricelistreceivefull5'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 6</label>
+                                    <input type="text" class="form-control" name="pricelistreceivefull6" value="<?php echo @$data['pricelistreceivefull6'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 7</label>
+                                    <input type="text" class="form-control" name="pricelistreceivefull7" value="<?php echo @$data['pricelistreceivefull7'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 8</label>
+                                    <input type="text" class="form-control" name="pricelistreceivefull8" value="<?php echo @$data['pricelistreceivefull8'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 9</label>
+                                    <input type="text" class="form-control" name="pricelistreceivefull9" value="<?php echo @$data['pricelistreceivefull9'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fullname">Nhận được 10</label>
+                                    <input type="text" class="form-control" name="pricelistreceivefull10" value="<?php echo @$data['pricelistreceivefull10'];?>" />
                                 </div>
                             </div>
                             <div class="card-body row ">
@@ -307,6 +375,31 @@
                                     <label class="form-label" for="basic-default-fâullname">Nhận được 4</label>
                                     <input type="text" class="form-control" name="pricelistreceiveadvanced4" value="<?php echo @$data['pricelistreceiveadvanced4'];?>" />
                                 </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fâullname">Nhận được 5</label>
+                                    <input type="text" class="form-control" name="pricelistreceiveadvanced5" value="<?php echo @$data['pricelistreceiveadvanced5'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fâullname">Nhận được 6</label>
+                                    <input type="text" class="form-control" name="pricelistreceiveadvanced6" value="<?php echo @$data['pricelistreceiveadvanced6'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fâullname">Nhận được 7</label>
+                                    <input type="text" class="form-control" name="pricelistreceiveadvanced7" value="<?php echo @$data['pricelistreceiveadvanced7'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fâullname">Nhận được 8</label>
+                                    <input type="text" class="form-control" name="pricelistreceiveadvanced8" value="<?php echo @$data['pricelistreceiveadvanced8'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fâullname">Nhận được 9</label>
+                                    <input type="text" class="form-control" name="pricelistreceiveadvanced9" value="<?php echo @$data['pricelistreceiveadvanced9'];?>" />
+                                </div>
+                                <div class="mb-3 col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                    <label class="form-label" for="basic-default-fâullname">Nhận được 10</label>
+                                    <input type="text" class="form-control" name="pricelistreceiveadvanced10" value="<?php echo @$data['pricelistreceiveadvanced10'];?>" />
+                                </div>
+
                             </div>
                         </div>
                         <div class="tab-pane fade show" id="navs-6" role="tabpanel">
