@@ -150,3 +150,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+$(document).ready(function () {
+    $('#datepicker').datepicker({
+        format: 'mm/dd/yyyy', // Định dạng ngày
+        todayHighlight: true, // Làm nổi bật ngày hiện tại
+        autoclose: true, // Đóng khi chọn xong
+    });
+});
+

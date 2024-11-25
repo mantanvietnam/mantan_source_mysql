@@ -204,6 +204,10 @@ li{
     background-color: #5a4bc5;
 }
 
+.form-section__create-event .form-section .btn-huy{
+    white-space: nowrap !important;
+}
+
 /* header */
 header{
     z-index: 1000;

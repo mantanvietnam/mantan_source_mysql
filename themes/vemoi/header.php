@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create.css?time=1191"> 
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css?time=1219">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create.css?time=1192"> 
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css?time=1221">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css?time=1189">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/register.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css?time=1193">
@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/registerto.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/js/vemoi.js?time=1191">
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Slick Carousel CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
