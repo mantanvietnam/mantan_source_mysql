@@ -67,10 +67,10 @@
                               </div>
                             </div>
                             <div class="col-md-6">
-                              <div class="mb-3">
+                              <!-- <div class="mb-3">
                                 <label class="form-label">lượng thức ăn</label>
                                 <input  type="text" class="form-control phone-mask" name="eatformat" id="eatformat" value="<?php echo @$data->eatformat;?>" />
-                              </div>
+                              </div> -->
                               <div class="mb-3">
                                 <label class="form-label">Calories </label>
                                 <input  type="text" class="form-control phone-mask" name="calories" id="calories" value="<?php echo @$data->calories;?>" />

@@ -84,7 +84,7 @@ $menus[3]['sub'][]= array( 'title'=>'Cài đặt chế độ ăn',
                             'classIcon'=>'bx bx-history',
                             'permission'=>'listmealtime'
             );
-$menus[3]['sub'][]= array( 'title'=>'Cài đặt danh mục độ ăn',
+$menus[3]['sub'][]= array( 'title'=>'Cài đặt danh mục đồ ăn',
                             'url'=>'/plugins/admin/colennao-view-admin-categorydiet-listcategorydiet',
                             'classIcon'=>'bx bx-history',
                             'permission'=>'listcategorydiet'

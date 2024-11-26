@@ -14,7 +14,7 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tiêu đề danh mục chế độ ăn</label>
+            <label class="form-label">Tiêu đề danh mục đồ ăn</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>          
           <div class="col-md-2">
@@ -29,7 +29,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách danh mục chế độ ăn</h5>
+    <h5 class="card-header">Danh sách danh mục đồ ăn</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
