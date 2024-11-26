@@ -280,8 +280,6 @@ header .nav-item a{
     align-items: center;
     text-align: center;
     color: white;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
 }
 
 
@@ -498,8 +496,7 @@ header .nav-item a{
 
 .info-item {
     display: flex;
-    margin-bottom: 20px;
-    padding: 15px 0;
+    padding-bottom: 15px;
 }
 
 .info-item i {
@@ -782,7 +779,6 @@ header .nav-item a{
     padding: 20px;
     margin: 0 20px;
     border: solid 1px #ddd;
-    border-radius: 15px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     transition: all linear 0.2s;
 }
@@ -1387,7 +1383,7 @@ header .nav-item a{
 
 
 .slick-list.draggable {
-    padding: 20px 0 !important;
+    padding: 50px 0 !important;
 }
 
 .testimonial-item {

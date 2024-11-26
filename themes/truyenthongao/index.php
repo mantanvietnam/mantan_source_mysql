@@ -48,7 +48,7 @@
                     <p class="d-flex align-items-center justify-content-center"><?= @$settingThemes['titlecustomer'] ?></p>
                     <div class="brand customer-slider">
                         <?php foreach ($id_slidelistcustomer as $data): ?>
-                            <img src="<?php echo $data->image; ?>" alt="Customer Logo">
+                            <img src="<?php echo $data->image; ?>" alt="Logo khách hàng">
                         <?php endforeach; ?>
                     </div>
                 </div>
