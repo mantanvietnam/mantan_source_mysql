@@ -64,7 +64,7 @@
 
                             <div class="video-container">
                                 <iframe 
-                                    width="560" 
+                                    width="100%" 
                                     height="315" 
                                     src="<?=@$settingThemes['video']?>" 
                                     title="YouTube video player" 
