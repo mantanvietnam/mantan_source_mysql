@@ -48,7 +48,7 @@
                     <p class="d-flex align-items-center justify-content-center"><?= @$settingThemes['titlecustomer'] ?></p>
                     <div class="brand customer-slider">
                         <?php foreach ($id_slidelistcustomer as $data): ?>
-                            <img src="<?php echo $data->image; ?>" alt="Customer Logo">
+                            <img src="<?php echo $data->image; ?>" alt="Logo khách hàng">
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -64,9 +64,9 @@
 
                             <div class="video-container">
                                 <iframe 
-                                    width="560" 
+                                    width="100%" 
                                     height="315" 
-                                    src="https://www.youtube.com/embed/k-d7EPaa8kY" 
+                                    src="<?=@$settingThemes['video']?>" 
                                     title="YouTube video player" 
                                     frameborder="0" 
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -141,8 +141,8 @@
                                 <img src="<?php echo $data->image;?>" alt="Trường THPT chuyên Lào Cai" class="schools__card-img">
                                 <div class="schools__card-content">
                                     <h4 class="schools__card-title"><?php echo $data->title;?></h4>
-                                    <p class="schools__card-address"><?php echo $data->author;?></p>
-                                    <a href="#" class="schools__card-link">Tìm hiểu thêm</a>
+                                    <p class="schools__card-address"><?php echo $data->description;?></p>
+                                    <a href="<?php echo $data->link;?>" class="schools__card-link">Tìm hiểu thêm</a>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                     </div>
 
                     <div class="button__schools text-center mt-4">
-                        <a href="#" class="schools__view-all btn btn-primary">Xem toàn bộ</a>
+                        <a href="/operational" class="schools__view-all btn btn-primary">Xem toàn bộ</a>
                     </div>
                 </div>
             </section>
@@ -178,16 +178,17 @@
                                     <p class="original-price"><?=@$settingThemes['pricelistPresentbasic']?></p>
                                     <p class="price-note"><?=@$settingThemes['pricelistbasicvat']?></p>
                                 </div>
-                                <a href="#" class="pricing__card-button">Đăng ký ngay</a>
+                                <a href="/contact" class="pricing__card-button">Đăng ký ngay</a>
                                 <div class="pricing__card-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-check"></i>
-                                        <span><?=@$settingThemes['pricelistreceivebasic1']?></span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check"></i>
-                                        <span><?=@$settingThemes['pricelistreceivebasic2']?></span>
-                                    </div>
+                                <?php for ($i = 1; $i <= 10; $i++): ?>
+                                    <?php if (!empty($settingThemes["pricelistreceivebasic$i"])): ?>
+                                        <div class="feature-item">
+                                            <i class="fas fa-check"></i>
+                                            <span><?= $settingThemes["pricelistreceivebasic$i"] ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+
                                 </div>
                             </div>
                         </div>
@@ -204,24 +205,16 @@
                                     <p class="original-price"><?=@$settingThemes['pricelistPresentfull']?></p>
                                     <p class="price-note"><?=@$settingThemes['pricelistfullvat']?></p>
                                 </div>
-                                <a href="#" class="pricing__card-button">Đăng ký ngay</a>
+                                <a href="/contact" class="pricing__card-button">Đăng ký ngay</a>
                                 <div class="pricing__card-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-check"></i>
-                                        <span><?=@$settingThemes['pricelistreceivefull1']?></span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check"></i>
-                                        <span><?=@$settingThemes['pricelistreceivefull2']?></span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check"></i>
-                                        <span><?=@$settingThemes['pricelistreceivefull3']?></span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check"></i>
-                                        <span><?=@$settingThemes['pricelistreceivefull4']?></span>
-                                    </div>
+                                <?php for ($i = 1; $i <= 10; $i++): ?>
+                                    <?php if (!empty($settingThemes["pricelistreceivefull$i"])): ?>
+                                        <div class="feature-item">
+                                            <i class="fas fa-check"></i>
+                                            <span><?= $settingThemes["pricelistreceivefull$i"] ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
                                 </div>
                             </div>
                         </div>
@@ -238,24 +231,17 @@
                                     <p class="original-price"><?=@$settingThemes['pricelistPresentadvanced']?></p>
                                     <p class="price-note"><?=@$settingThemes['pricelistadvancedvat']?></p>
                                 </div>
-                                <a href="#" class="pricing__card-button">Đăng ký ngay</a>
+                                <a href="/contact" class="pricing__card-button">Đăng ký ngay</a>
                                 <div class="pricing__card-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-check"></i>
-                                        <span><?=@$settingThemes['pricelistreceiveadvanced1']?></span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check"></i>
-                                        <span><?=@$settingThemes['pricelistreceiveadvanced2']?></span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check"></i>
-                                        <span><?=@$settingThemes['pricelistreceiveadvanced3']?></span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check"></i>
-                                        <span><?=@$settingThemes['pricelistreceiveadvanced4']?></span>
-                                    </div>
+                                    <?php for ($i = 1; $i <= 10; $i++): ?>
+                                        <?php if (!empty($settingThemes["pricelistreceiveadvanced$i"])): ?>
+                                            <div class="feature-item">
+                                                <i class="fas fa-check"></i>
+                                                <span><?= $settingThemes["pricelistreceiveadvanced$i"] ?></span>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+
                                 </div>
                                 </div>
                             </div>
@@ -274,19 +260,19 @@
                     <h2 class="text-center section-title">Khách hàng nói gì về chúng tôi</h2>
 
                     <div class="slick-center-mode">
-                        <?php foreach ($id_albumcustomer as $data): ?>
+                        <?php foreach ($datafeedback as $data): ?>
                         <div class="testimonial-item" style="padding: 20px; margin: 0 20px; border: solid 1px; transition: all linear 0.2s;">
                             <div class="testimonial-info" style="display: grid; grid-template-columns: auto auto; gap: 15px;">
                                 <div style="">
-                                    <img src="<?php echo $data->image;?>" alt="">
+                                    <img src="<?php echo $data->avatar;?>" alt="">
                                 </div>
                                 <div>
-                                    <h4 style="text-transform: capitalize;"><?php echo $data->title;?></h4>
-                                    <p>Customer</p>
+                                    <h4 style="text-transform: capitalize;"><?php echo $data->position;?></h4>
+                                    <p><?php echo $data->full_name;?></p>
                                 </div>
                             </div>
                             <div class="testimonial-sub">
-                                <p><?php echo $data->description;?></p>
+                                <p><?php echo $data->content;?></p>
                             </div>
                         </div>
                         <?php endforeach; ?>

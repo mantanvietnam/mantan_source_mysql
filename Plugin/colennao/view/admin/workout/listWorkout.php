@@ -49,14 +49,14 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách bài luyện tập  </h5>
+    <h5 class="card-header">Danh sách chủ đề luyện tập </h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
         <tr class=""><th>ID</th>
               <th>Hình Ảnh</th>
               <th>tiêu đề</th>
-              <th>sô bài tập</th>
+              <th>sô bài luyện tập</th>
               <th>Trạng thái</th>
               <th>Hàng động</th> 
         </tr>

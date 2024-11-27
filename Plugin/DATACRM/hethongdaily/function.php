@@ -1757,7 +1757,7 @@ function accumulatePoint($id_customer=0,$point=0,$note=''){
             $checkPointCustomer->point += (int)$point;
             $checkPointCustomer->updated_at = time();
             $modelPointCustomer->save($checkPointCustomer);
-            $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $modelPointCustomer->point])->order(['point_min' => 'DESC'])->first();
+            $rating = $modelRatingPointCustomer->find()->where(['point_min <=' => $checkPointCustomer->point])->order(['point_min' => 'DESC'])->first();
             if(!empty($rating)){
                 $checkPointCustomer->id_rating = $rating->id;
             }
@@ -1778,14 +1778,48 @@ function accumulatePoint($id_customer=0,$point=0,$note=''){
         $data->point = (int) $point;
         $data->id_member = $member->id;
         $data->id_customer = $id_customer;
-        $data->created_at = $time;
+        $data->created_at = time();
         $data->note = $note;
+        $data->type = 'add';
         $modelHistoriePointCustomers->save($data);
 
     }
 
 }
 
+function minuAccumulatePoint($id_customer=0,$point=0,$note=''){
+     global $controller;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelPointCustomer = $controller->loadModel('PointCustomers');
+    $modelMember = $controller->loadModel('Members');
+    $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
+    $modelHistoriePointCustomers = $controller->loadModel('HistoriePointCustomers');
+  
+    $member = $modelMember->find()->where(['id_father'=>0])->first();
+    $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$id_customer])->first();
+   
+    if(!empty($checkPointCustomer)){
+        $checkPointCustomer->point_now += (int)$point;
+        if($checkPointCustomer->point_now < $checkPointCustomer->point){
+            $checkPointCustomer->updated_at = time();
+            $modelPointCustomer->save($checkPointCustomer);
+           
+            $data= $modelHistoriePointCustomers->newEmptyEntity();
+            $data->point = (int) $point;
+            $data->id_member = $member->id;
+            $data->id_customer = $id_customer;
+            $data->created_at = time();
+            $data->note = $note;
+            $data->type = 'minu';
+            $modelHistoriePointCustomers->save($data);
+            return array('code'=>1, 'mess'=>'bạn trừ điểm thành công ');
+        }
+        return array('code'=>0, 'mess'=>'bạn chưa đủ điểm để trừ ');
+    }
+     return array('code'=>0, 'mess'=>'bạn chưa đủ điểm để trừ ');
+
+}
 
 
 ?>

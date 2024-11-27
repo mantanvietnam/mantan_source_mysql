@@ -7,7 +7,9 @@ function listFeedback($input)
     global $metaTitleMantan;
 
     $metaTitleMantan = 'Danh sách Feedback';
-    $user = checklogin('listFeedback');   
+    if(function_exists('checklogin')){
+    	$user = checklogin('listFeedback');  
+    } 
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/statisticAgency');
@@ -95,7 +97,9 @@ function listFeedback($input)
 
 function lockFeedback($input){
 	global $controller;
-	$user = checklogin('lockFeedback');   
+	if(function_exists('checklogin')){
+		$user = checklogin('lockFeedback');
+	}  
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/listFeedback');
@@ -123,7 +127,9 @@ function lockFeedback($input){
 
 function deleteFeedback($input){
     global $controller;
-    $user = checklogin('deleteFeedback');   
+    if(function_exists('checklogin')){
+    	$user = checklogin('deleteFeedback');   
+    }
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/listFeedback');

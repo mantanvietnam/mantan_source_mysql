@@ -7,7 +7,7 @@
     <?php mantan_header();
      global $settingThemes;
      ?>
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/toptop.css?time=122qs15">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/toptop.css?time=12223qs15">
     <!-- boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- icon -->
@@ -22,7 +22,7 @@
                 <div class="container d-flex justify-content-between">
                     
                     <div class="col-lg-5 d-flex align-items-center">
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand" href="/">
                             <img src="<?= @$settingThemes['logo'];?>" alt="Logo" class="logo">
                         </a>
                     </div>

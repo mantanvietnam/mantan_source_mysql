@@ -2,7 +2,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Bài luyện tập </a> / <a href="/plugins/admin/colennao-view-admin-workout-listExerciseWorkout/?id_workout=<?php echo @$_GET['id_workout'] ?>"><?php echo $dataWorkout->title; ?></a> / <a href="/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout/?id_workout=<?php echo @$_GET['id_workout'] ?>&id_exercise=<?php echo @$_GET['id_exercise']?>"><?php echo $dataExercise->title; ?></a> /</span>
-    Thông tin bài luyện tập
+    Thông tin động tác tập 
   </h4>
 
   <!-- Basic Layout nav-align-top-->
@@ -19,7 +19,7 @@
                     <ul class="nav nav-tabs" role="tablist">
                       <li class="nav-item">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                          Thông tin bài tập
+                          Thông tin động tác tập
                         </button>
                       </li>
                       <li class="nav-item">
@@ -56,8 +56,8 @@
                               <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" required />
                           </div>
                           <div class="mb-3">
-                              <label class="form-label">Thời gian</label>
-                              <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>" required />
+                              <label class="form-label">Thời gian tính thành giây</label>
+                              <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>" required placeholder="thời gian tính thành giây"/>
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Hình minh họa (*)</label>

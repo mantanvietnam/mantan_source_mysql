@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 $(document).ready(function(){
     $('.customer-slider').slick({
-        slidesToShow: 4,         // Số lượng ảnh hiển thị mỗi lần
+        slidesToShow: 6,         // Số lượng ảnh hiển thị mỗi lần
         slidesToScroll: 1,       // Số ảnh di chuyển mỗi lần
         autoplay: true,          // Tự động trượt
         autoplaySpeed: 3000,     // Thời gian giữa mỗi lần trượt (3000ms = 3 giây)
@@ -98,21 +98,21 @@ $(document).ready(function(){
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: 6,
                     slidesToScroll: 1,
                 }
             },
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 4,
                     slidesToScroll: 1,
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
             }

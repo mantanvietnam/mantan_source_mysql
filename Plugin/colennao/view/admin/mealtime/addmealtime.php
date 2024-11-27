@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-mealtime-listmealtime">mealtime</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-mealtime-listmealtime">Thời gian nhịn ăn</a> /</span>
     Nội dung 
   </h4>
 
@@ -41,11 +41,11 @@
                             </div>
 
                               <div class="mb-3">
-                                  <label class="form-label">fasting</label>
+                                  <label class="form-label">Nhịn ăn</label>
                                   <input type="text" class="form-control" name="fasting" id="fasting" value="<?php echo $data->fasting?>" />
                               </div>
                               <div class="mb-3">
-                                  <label class="form-label">eating</label>
+                                  <label class="form-label">ăn uống</label>
                                   <input type="text" class="form-control" name="eating" id="eating" value="<?php echo $data->eating?>" />
                               </div>
                               <div class="mb-3">
@@ -53,21 +53,21 @@
                                   <?php showUploadFile('image','image',@$data->image,0);?>
                               </div>
                               <div class="mb-3">
-                                  <label class="form-label">description1</label>
+                                  <label class="form-label">Mô tả 1</label>
                                   <textarea maxlength="160" rows="5" class="form-control" name="description1" id="description1"><?php echo @$data->description1;?></textarea>
                               </div>
                               <div class="mb-3">
-                                  <label class="form-label">description2</label>
+                                  <label class="form-label">Mô tả 2</label>
                                   <textarea maxlength="160" rows="5" class="form-control" name="description2" id="description2"><?php echo @$data->description2;?></textarea>
                               </div>
                               <div class="mb-3">
-                                  <label class="form-label">Beginner</label>
+                                  <label class="form-label">Mới</label>
                                   <input type="hidden" name="beginner" value="0" />
                                   <input type="checkbox" class="form-check-input" name="beginner" id="beginner" value="1" <?php echo ($data->beginner == 1) ? 'checked' : ''; ?> />
                                  
                               </div>
                               <div class="mb-3">
-                                  <label class="form-label">Popular</label>
+                                  <label class="form-label">Phổ biến</label>
                                   <input type="hidden" name="populer" value="0" />
                                   <input type="checkbox" class="form-check-input" name="populer" id="populer" value="1" <?php echo ($data->populer == 1) ? 'checked' : ''; ?> />
                                   

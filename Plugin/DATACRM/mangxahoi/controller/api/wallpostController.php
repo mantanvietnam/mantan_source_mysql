@@ -9,7 +9,7 @@ function addWallPostApi($input){
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-
+         $point = listPonint();
         if (!empty($dataSend['token'])) {
         	if(function_exists('getCustomerByToken')){
             	$user =  getCustomerByToken($dataSend['token']);
@@ -21,7 +21,7 @@ function addWallPostApi($input){
             	$data->connent = $dataSend['connent'];
             	$data->created_at = time();
                 $data->updated_at = time();
-            	$data->public = $dataSend['public'];
+            	$data->public = @$dataSend['public'];
 
             	$modelWallPost->save($data);
                 $total = 0;
@@ -63,9 +63,9 @@ function addWallPostApi($input){
 
                 $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
 
-                $point = listPonint();
-                $note = 'bạn được công '.$point['point_wall_post'].' đăng bài liên mạng xã hội';
-                accumulatePoint($user->id,$point['point_wall_post'],$note);
+               
+                $note = 'bạn được công '.@$point['point_wall_post'].' đăng bài liên mạng xã hội';
+                accumulatePoint($user->id,@$point['point_wall_post'],$note);
                
                 return array('code'=>1, 'messages'=>'Bạn đăng bài thành công ', 'data'=>$data);
               
@@ -257,15 +257,19 @@ function listWallPostApi($input){
                         }
                     }
                 }
-                $userblock = explode(",", $user->id_friend_block);
-                if(empty($userblock)){
-                    $userblock =[0];
+                $userblock = array();
+                if($user->id_friend_block){
+                    $userblock = explode(",", $user->id_friend_block);
                 }
 
                 // debug($userblock);
                 // die();
                // $conditions = array('id_customer IN' => $listData, 'public'=>'public');
-                 $conditions = array('public'=>'public','id_customer NOT IN' => $userblock);
+                 $conditions = array('public'=>'public');
+                 
+                if(!empty($userblock)){
+                 $conditions['id_customer NOT IN'] = $userblock;
+                }
                 $limit = 10;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                 if($page<1) $page = 1;
@@ -273,6 +277,7 @@ function listWallPostApi($input){
 
                 $listData = $modelWallPost->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+                
                 if(!empty($listData)){
                     foreach($listData as $key => $item){
                         $infoCustomer = getInfoCustomerMember($item->id_customer, 'id');   
@@ -357,6 +362,12 @@ function listWallPostFriendApi($input){
                 $friend =  getInfoCustomerMember((int)$dataSend['id_friend'], 'id');
                 }
                 if (!empty($friend)) {
+                    $block = explode(",", $friend->id_friend_block);
+                    $userblock = explode(",", $user->id_friend_block);
+                    if (in_array($user->id, $block) || in_array($friend->id, $userblock)) {
+                          return array('code'=>3,'data'=>null, 'messages'=>'bạn bè này không tồn tại ');
+                    }
+
                     $conditions = ['status'=>"agree"];
 
                     
@@ -405,9 +416,9 @@ function listWallPostFriendApi($input){
                             }
                             
                             $listData[$key]->like = count($like);
-                            $listData[$key]->infolike =$like;
+                            $listData[$key]->infoLike =$like;
                             $listData[$key]->dislike = count($dislike);
-                            $listData[$key]->infodislike =$dislike;
+                            $listData[$key]->infoDislike =$dislike;
                             $listData[$key]->comment = count($comment);    
                             $listData[$key]->infoComment = $listcomment;
                             $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
@@ -503,9 +514,9 @@ function listWallPostMyApi($input){
                             }
                             
                             $listData[$key]->like = count($like);
-                            $listData[$key]->infolike =$like;
+                            $listData[$key]->infoLike =$like;
                             $listData[$key]->dislike = count($dislike);
-                            $listData[$key]->infodislike =$dislike;
+                            $listData[$key]->infoDislike =$dislike;
                             $listData[$key]->comment = count($comment);    
                             $listData[$key]->infoComment = $listcomment;
                             $listData[$key]->listImage = @$modelImageCustomer->find()->where(['id_post'=>$item->id])->all()->toList();          
@@ -580,9 +591,9 @@ function detailWallPostFriendApi($input){
                         }
                             
                         $data->like = count($like);
-                        $data->infolike =$like;
+                        $data->infoLike =$like;
                         $data->dislike = count($dislike);
-                        $data->infodislike =$dislike;
+                        $data->infoDislike =$dislike;
                         $data->comment = count($comment);    
                         $data->infoComment = $listcomment;
                         $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
@@ -655,9 +666,9 @@ function detailWallPostMyApi($input){
                         }
                             
                         $data->like = count($like);
-                        $data->infolike =$like;
+                        $data->infoLike =$like;
                         $data->dislike = count($dislike);
-                        $data->infodislike =$dislike;
+                        $data->infoDislike =$dislike;
                         $data->comment = count($comment);    
                         $data->infoComment = $listcomment;
                         $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
@@ -751,9 +762,9 @@ function listAlbumFriendApi($input){
                             }
                             
                             $listData[$key]->like = count($like);
-                            $listData[$key]->infolike =$like;
+                            $listData[$key]->infoLike =$like;
                             $listData[$key]->dislike = count($dislike);
-                            $listData[$key]->infodislike =$dislike;
+                            $listData[$key]->infoDislike =$dislike;
                             $listData[$key]->comment = count($comment);    
                             $listData[$key]->infoComment = $listcomment;               
                         }
@@ -845,9 +856,9 @@ function listAlbumMyApi($input){
                             }
                             
                             $listData[$key]->like = count($like);
-                            $listData[$key]->infolike =$like;
+                            $listData[$key]->infoLike =$like;
                             $listData[$key]->dislike = count($dislike);
-                            $listData[$key]->infodislike =$dislike;
+                            $listData[$key]->infoDislike =$dislike;
                             $listData[$key]->comment = count($comment);    
                             $listData[$key]->infoComment = $listcomment;               
                         }
@@ -934,9 +945,9 @@ function detailAlbumFriendApi($input){
                             }
                             
                             $data->like = count($like);
-                            $data->infolike =$like;
+                            $data->infoLike =$like;
                             $data->dislike = count($dislike);
-                            $data->infodislike =$dislike;
+                            $data->infoDislike =$dislike;
                             $data->comment = count($comment);    
                             $data->infoComment = $listcomment;
                     }               

@@ -197,21 +197,21 @@
                     <!-- Card 1 -->
                     <div class="card">
                         <img src="<?= @$settingThemes['icon1'];?>" alt="Icon 1">
-                        <div class="card-number">+<?= @$settingThemes['number1'];?></div>
+                        <div class="card-number">+<?= number_format(@$settingThemes['number1'], 0, ',', '.'); ?></div>
                         <div class="card-text"><?= @$settingThemes['titleicon1'];?></div>
                     </div>
         
                     <!-- Card 2 -->
                     <div class="card">
                         <img src="<?= @$settingThemes['icon2'];?>" alt="Icon 2">
-                        <div class="card-number">+<?= @$settingThemes['number2'];?></div>
+                        <div class="card-number">+<?= number_format(@$settingThemes['number2'], 0, ',', '.'); ?></div>
                         <div class="card-text"><?= @$settingThemes['titleicon2'];?></div>
                     </div>
         
                     <!-- Card 3 -->
                     <div class="card">
                         <img src="<?= @$settingThemes['icon3'];?>" alt="Icon 3">
-                        <div class="card-number">+<?= @$settingThemes['number3'];?></div>
+                        <div class="card-number">+<?= number_format(@$settingThemes['number3'], 0, ',', '.'); ?></div>
                         <div class="card-text"><?= @$settingThemes['titleicon3'];?></div>
                     </div>
                 </div>

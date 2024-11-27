@@ -65,8 +65,8 @@
                               </div>
                             </div>
                             <div class="mb-3">
-                              <label class="form-label">Thời gian</label>
-                              <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>" required />
+                              <label class="form-label">Thời gian tính thành phút</label>
+                              <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>" required placeholder="thời gian tính thành phút"/>
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Hình minh họa (*)</label>

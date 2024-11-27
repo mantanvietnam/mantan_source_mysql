@@ -7,6 +7,7 @@ function listUserAdmin($input)
 
     $metaTitleMantan = 'Danh sách thành viên';
     $modelUser = $controller->loadModel('Users');
+    $modelUserpeople = $controller->loadModel('Userpeople');
 
     $conditions = array();
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
@@ -72,6 +73,12 @@ function listUserAdmin($input)
         $listData = $modelUser->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
         $totalUser = $modelUser->find()->where($conditions)->all()->toList();
         $paginationMeta = createPaginationMetaData(count($totalUser),$limit,$page); 
+
+        if(!empty($listData)){
+            foreach($listData as $key =>$item){
+                $listData[$key]->name_people = $modelUserpeople->find()->where(['id'=>$item->id_group_user])->first();
+            }
+        }
         
 
     
@@ -112,6 +119,7 @@ function viewUserDetailAdmin($input)
 
     $modelUser = $controller->loadModel('Users');
     $metaTitleMantan = 'Thông tin người dùng';
+    $modelUserpeople = $controller->loadModel('Userpeople');
     $mess = '';
 
     if (!empty($_GET['id'])) {
@@ -142,6 +150,7 @@ function viewUserDetailAdmin($input)
                 $data->password = md5($dataSend['password']);
             }
             $data->status = @$dataSend['status'];
+            $data->id_group_user = @$dataSend['id_group_user'];
             $data->sex = (int) $dataSend['sex']?? 1;
             //$data->birthday = (int) strtotime($dataSend['birthday']);
             $data->email = @$dataSend['email'] ?? null;
@@ -157,6 +166,9 @@ function viewUserDetailAdmin($input)
         }
     }
 
+    $userpeople = $modelUserpeople->find()->where()->all()->toList();
+
+
     if (isset($idCardFront) && isset($idCardBack) ) {
         setVariable('idCardFront', $idCardFront);
         setVariable('idCardBack', $idCardBack);
@@ -169,6 +181,7 @@ function viewUserDetailAdmin($input)
 
     setVariable('data', $data);
     setVariable('mess', $mess);
+    setVariable('userpeople', $userpeople);
 }
 
 

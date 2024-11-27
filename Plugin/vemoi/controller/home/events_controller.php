@@ -407,7 +407,7 @@ function participate($input){
 
                         $modelattendedevent->save($data);
 
-                        $mess = '<p class="text-success">Đăng ký tham gia thành công mã check in là :'.$data->code_checkin.'</p>';
+                        $mess = '<p class="text-success">Đăng ký tham gia thành công</p>';
                         if(!empty($dataSend['email'])){
                             sendEmailCodeCheckin($dataSend['email'],$infoEvent,$data->code_checkin,$data);
                         }
@@ -803,12 +803,11 @@ function checkinUser($input){
         if($isRequestPost){
             $dataSend = $input['request']->getData();
             $conditions = array('id_events'=>$checkEvents->id);
-            if(!empty($dataSend['phone']) && !empty($dataSend['code_checkin'])){
+            if(!empty($dataSend['phone'])){
                 $conditions['id_member'] =  $modelMembers->find()->where(['phone'=>$dataSend['phone']])->first()->id;
                 if(empty($conditions['id_member'])){
                     $conditions['phone'] = $dataSend['phone'];
                 }
-                $conditions['code_checkin'] = $dataSend['code_checkin'];
 
                 $data = $modelattendedevent->find()->where($conditions)->first();
                 if(!empty($data)){

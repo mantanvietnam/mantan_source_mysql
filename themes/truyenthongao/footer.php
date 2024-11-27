@@ -25,22 +25,12 @@
                         </div>
 
                         <!-- Company Links -->
-                        <div class="col-lg -2">
-                            <h3 class="footer__title">Company</h3>
+                        <div class="col-lg-4">
+                            <h3 class="footer__title">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</h3>
                             <ul class="footer__list">
-                                <li><a href="#" class="footer__link">About Us</a></li>
-                                <li><a href="#" class="footer__link">Membership</a></li>
-                                <li><a href="#" class="footer__link">Careers</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Support Links -->
-                        <div class="col-lg -2">
-                            <h3 class="footer__title">Support</h3>
-                            <ul class="footer__list">
-                                <li><a href="#" class="footer__link">Contact Us</a></li>
-                                <li><a href="#" class="footer__link">Online Chat</a></li>
-                                <li><a href="#" class="footer__link">Help Center</a></li>
+                                <li>Mã số thuế: 0110048533</li>
+                                <li>Đại diện pháp luật: Nguyễn Thị Kim Oanh</li>
+                                <li>Ngày cấp giấy phép: 01/07/2022</li>
                             </ul>
                         </div>
 
@@ -50,15 +40,17 @@
                                 Nhận ngay tư vấn về chuyển đổi số ứng dụng công nghệ
                             </h3>
                             <div class="footer__form">
-                                <input type="email" class="footer__input" placeholder="Enter your email">
-                                <button class="footer__button">Đăng ký</button>
+                                <form method="post" action="/addSubscribe">
+                                    <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+                                    <input type="email" class="footer__input" required name="email" placeholder="Nhập email của bạn">
+                                    <button type="submit" class="footer__button">Đăng ký</button>
+                                </form>
                             </div>
                             <div class="footer__social">
-                                <a href="<?= @$settingThemes['youtube'];?>" class="footer__social-link"><i class="fab fa-linkedin"></i></a>
-                                <a href="<?= @$settingThemes['twiter'];?>" class="footer__social-link"><i class="fab fa-twitter"></i></a>
                                 <a href="<?= @$settingThemes['facebook'];?>" class="footer__social-link"><i class="fab fa-facebook-f"></i></a>
                                 <a href="<?= @$settingThemes['youtube'];?>" class="footer__social-link"><i class="fab fa-youtube"></i></a>
                                 <a href="<?= @$settingThemes['instagram'];?>" class="footer__social-link"><i class="fab fa-instagram"></i></a>
+                                
                             </div>
                         </div>
                     </div>
@@ -67,24 +59,11 @@
                 <!-- Footer Bottom -->
                 <div class="footer__bottom">
                     <div class="row align-items-center">
-                        <div class="col-md-8 d-flex align-items-center">
-                            <div class="footer__certificate mx-4">
-                                <img src="<?= @$settingThemes['imagedeep'];?>" style="width: 170px; height: auto;" alt="Chứng nhận Bộ Công Thương">
-                            </div>
+                        <div class="col-md-12 d-flex align-items-center">
                             <div class="footer__logo">
                                 <p class="footer__copyright">
-                                    Copyright © 2021 VSDS. All rights reserved
+                                    Copyright © 2024 TOP TOP DIGITAL SOLUTIONS CO., LTD. All rights reserved
                                 </p>
-                                <p class="footer__registration">
-                                    Mã số DN: 0123456789, đăng ký lần đầu ngày 01/01/2021, thay đổi lần thứ 5 ngày 21/8/2022
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="footer__links">
-                                <a href="#" class="footer__bottom-link">FAQ</a>
-                                <a href="#" class="footer__bottom-link">Terms of Condition</a>
-                                <a href="#" class="footer__bottom-link">Privacy Policy</a>
                             </div>
                         </div>
                     </div>
@@ -98,7 +77,7 @@
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <script src="<?php echo $urlThemeActive;?>/asset/js/toptop.js"></script>
+        <script src="<?php echo $urlThemeActive;?>/asset/js/toptop.js?time=12223qs152"></script>
     </body>
 
 </html>

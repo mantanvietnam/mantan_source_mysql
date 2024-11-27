@@ -68,6 +68,7 @@
               <th>Avatar</th>
               <th>Họ và tên</th>
               <th>Thông tin</th>
+              <th>Nhóm luyện tập</th>
               <th>Sửa</th> 
               <th>xóa</th> 
               <th>Trạng thái</th>
@@ -80,7 +81,6 @@
         
         if (!empty($listData)) {
             foreach ($listData as $item) {
-                
 
                 if ($item->status == 'active') {
                     $status = '
@@ -116,7 +116,7 @@
                     thời gian tạo : '.date('H:i d-m-Y', $item->created_at).'</br>
                     thời gian hết hạn : '.date('H:i d-m-Y', $item->deadline).'
                   </td>
-                 
+                 <td>'.@$item->name_people->name.'</td>
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 

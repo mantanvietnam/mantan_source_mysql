@@ -25,10 +25,10 @@
                     <label class="form-label">Tên danh mục chế độ ăn tiếng anh</label>
                     <input type="text" class="form-control phone-mask" name="nameen" id="nameen" value="<?php echo @$data->nameen;?>" />
                   </div>
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label">hình mình họa</label>
                     <?php showUploadFile('image','image',@$data->image,0);?>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>

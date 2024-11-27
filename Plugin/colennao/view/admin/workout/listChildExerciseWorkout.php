@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4"> <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Bài luyện tập </a> /<a href="/plugins/admin/colennao-view-admin-workout-listExerciseWorkout/?id_workout=<?php echo @$_GET['id_workout'] ?>"> <?php echo @$dataWorkout->title; ?></a> / <?php echo @$dataExercise->title; ?></h4>
+  <h4 class="fw-bold py-3 mb-4"> <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Bài luyện tập </a> /<a href="/plugins/admin/colennao-view-admin-workout-listExerciseWorkout/?id_workout=<?php echo @$_GET['id_workout'] ?>"> <?php echo @$dataWorkout->title; ?></a> / <?php echo @$dataExercise->title; ?> / động tác tập </h4>
  
   <p><a href="/plugins/admin/colennao-view-admin-workout-addChildExerciseWorkout?id_workout=<?php echo @$_GET['id_workout'];?>&id_exercise=<?php echo @$_GET['id_exercise'];?>" class="btn btn-primary"><i class='bx bx-plus'></i>Thêm mới</a></p> 
 
@@ -48,13 +48,13 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách bài luyện tập  </h5>
+    <h5 class="card-header">Danh sách động tác tập  </h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
         <tr class=""><th>ID</th>
               <th>Hình Ảnh</th>
-              <th>tiêu đề</th>
+              <th>tiêu đề động tác tập</th>
               <th>nhóm tập</th>
               <th>Hàng động</th> 
         </tr>

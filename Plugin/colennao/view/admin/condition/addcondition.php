@@ -31,7 +31,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                   <?php echo $mess;?>
-                                    <label class="form-label">id_groupfile</label>
+                                    <label class="form-label">Tên nhóm bài tập</label>
                                     <select class="form-control" name="id_groupfile" id="id_groupfile" required>
                                         <option value="">Chọn Nhóm bài tập</option>
                                         <?php foreach ($dataWorkout as $item): ?>
