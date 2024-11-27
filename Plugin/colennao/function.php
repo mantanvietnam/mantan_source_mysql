@@ -52,7 +52,7 @@ $menus[1]['sub'][]= array(	'title'=>'Bài học',
 							'classIcon'=>'bx bx-list-ul',
 							'permission'=>'listLesson'
                     );
-$menus[2]['title'] = 'Phân loại bài tập';
+$menus[2]['title'] = 'Lập kế hoạch';
 $menus[2]['sub'][]= array(	'title'=>'Câu hỏi khảo sát',
 							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestion',
 							'classIcon'=>'bx bx-question-mark',
@@ -63,12 +63,12 @@ $menus[2]['sub'][]= array( 'title'=>'Điều kiện',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listcondition'
                             );
-$menus[2]['sub'][]= array( 'title'=>'Danh sách bài luyện tập người dùng',
+$menus[2]['sub'][]= array( 'title'=>'Kế hoạch luyện tập',
                             'url'=>'/plugins/admin/colennao-view-admin-listuserpeople-listuserpeople',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listuserpeople'
                             );
-$menus[2]['sub'][]= array( 'title'=>'Kế hoạch',
+$menus[2]['sub'][]= array( 'title'=>'Chế độ dinh dưỡng',
                             'url'=>'/plugins/admin/colennao-view-admin-myplane-listmyplane',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listmyplane'
