@@ -41,7 +41,8 @@
                             </h3>
                             <div class="footer__form">
                                 <form method="post" action="/addSubscribe">
-                                    <input type="email" class="footer__input" name="email" placeholder="Enter your email">
+                                    <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+                                    <input type="email" class="footer__input" required name="email" placeholder="Nhập email của bạn">
                                     <button type="submit" class="footer__button">Đăng ký</button>
                                 </form>
                             </div>
