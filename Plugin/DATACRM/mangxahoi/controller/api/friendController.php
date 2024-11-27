@@ -563,7 +563,7 @@ function blockFriendApi($input){
                             $checkFriend = $modelMakeFriend->find()->where($conditions)->first();
 
                             if(!empty($checkFriend)){
-                                $modelMakeFriend->delete($checkFrien);
+                                $modelMakeFriend->delete($checkFriend);
                             }
                         return array('code'=>1, 'messages'=>'Bạn block thành công ');
                     }

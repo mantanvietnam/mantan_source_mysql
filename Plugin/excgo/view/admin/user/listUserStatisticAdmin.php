@@ -61,7 +61,15 @@
           </div>
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
-            <button type="submit" name="excel" class="btn btn-danger d-block" value="Excel">Xuất Excle</button>
+            <button type="submit" name="excel" class="btn btn-danger d-block" value="Excel">Xuất Excel</button>
+          </div>
+           <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <?php if($checkExcel==0){
+                echo '<button type="submit" name="excel" class="btn btn-primary d-block" value="nextExcel">Next</button>';
+            } ?>
+            
+            <input type="hidden" class="form-control" name="pageExcel" value="<?php echo (!empty($_GET['pageExcel'])) ?  (int)$_GET['pageExcel'] : 1; ?>">
           </div>
         </div>
       </div>

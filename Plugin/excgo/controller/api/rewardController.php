@@ -182,15 +182,10 @@ function geDetailRewardAPI($input){
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (!isset($dataSend['access_token']) && !isset($dataSend['id'])) {
-            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
-        } else {
-            $currentUser = getUserByToken(@$dataSend['access_token']);
-
-            if (empty($currentUser)) {
-                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
-            }
-        }
+        if (!empty($dataSend['id'])) {
+                if(!empty($dataSend['access_token'])){
+                    $currentUser = getUserByToken($dataSend['access_token']);
+                }
 
         $conditions = array('status'=>1,'id'=>$dataSend['id']);
         $rewardData = $modelReward->find()->where($conditions)->first();
@@ -199,10 +194,15 @@ function geDetailRewardAPI($input){
             return apiResponse(4, 'Phần thưởng này không tồn tại');
         }
 
+        if(!empty($currentUser)){
+            $rewardData->myUserJoin = $modelUserReward->find()->where(['user_id'=>(int)$currentUser->id,'reward_id'=>$rewardData->id])->first();
 
-        $rewardData->myUserJoin = $modelUserReward->find()->where(['user_id'=>(int)$currentUser->id,'reward_id'=>$rewardData->id])->first();
-
-        $rewardData->so_cuoc_ban_thanh_cong =(int)@$rewardData->myUserJoin->quantity_booking;
+            $rewardData->so_cuoc_ban_thanh_cong =(int)@$rewardData->myUserJoin->quantity_booking;
+        }else{
+            $rewardData->myUserJoin = array();
+            $rewardData->so_cuoc_ban_thanh_cong = 0;
+        }
+        
 
         if(!empty($rewardData->bonu)){
             $rewardData->tien_thuong_theo_chuyen = json_decode($rewardData->bonu, true);
@@ -210,6 +210,8 @@ function geDetailRewardAPI($input){
 
 
         return apiResponse(1, 'Bạn lấy đữ liệu thành công ',$rewardData);
+    }
+     return apiResponse(0, 'thiếu dữ liệu');
 
     }
     return apiResponse(0, 'Bắt buộc sử dụng phương thức POST');

@@ -56,8 +56,8 @@
                               <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" required />
                           </div>
                           <div class="mb-3">
-                              <label class="form-label">Thời gian</label>
-                              <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>" required placeholder="thời gian tính thàng giây"/>
+                              <label class="form-label">Thời gian tính thành giây</label>
+                              <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>" required placeholder="thời gian tính thành giây"/>
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Hình minh họa (*)</label>

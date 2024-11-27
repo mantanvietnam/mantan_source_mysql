@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Luyện tập </a> /</span>
-    Thông tin luyện tập
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-workout-listWorkout">Chử đề luyện tập </a> /</span>
+    Thông tin chủ đề luyện tập
   </h4>
 
   <!-- Basic Layout nav-align-top-->
@@ -19,7 +19,7 @@
                     <ul class="nav nav-tabs" role="tablist">
                       <li class="nav-item">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                          Thông tin luyện tập
+                          Thông tin chủ luyện tập
                         </button>
                       </li>
                        <li class="nav-item">

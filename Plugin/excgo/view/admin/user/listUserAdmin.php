@@ -60,7 +60,15 @@
           </div>
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
-            <button type="submit" name="excel" class="btn btn-primary d-block" value="Excel">Xuất Excle</button>
+            <button type="submit" name="excel" class="btn btn-primary d-block" value="Excel">Xuất Excel</button>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <?php if($checkExcel==0){
+                echo '<button type="submit" name="excel" class="btn btn-primary d-block" value="nextExcel">Next</button>';
+            } ?>
+            
+            <input type="hidden" class="form-control" name="pageExcel" value="<?php echo (!empty($_GET['pageExcel'])) ?  (int)$_GET['pageExcel'] : 1; ?>">
           </div>
         </div>
       </div>
@@ -71,6 +79,7 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách khách hàng  - <b class="text-danger"><?php echo @$totalUser; ?></b> khách hàng</h5>
+    <?php echo @$mess; ?>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>

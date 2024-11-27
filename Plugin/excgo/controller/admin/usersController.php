@@ -12,6 +12,7 @@ function listUserAdmin($input)
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
     if ($page < 1) $page = 1;
+    $mess = '';
 
     if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
         $conditions['id'] = $_GET['id'];
@@ -37,49 +38,71 @@ function listUserAdmin($input)
         $conditions['status'] = $_GET['status'];
     }
 
-    if(!empty($_GET['excel']) && $_GET['excel']=='Excel'){
-            $listData = $modelUser->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
-            $titleExcel =   [
-                ['name'=>'ID', 'type'=>'text', 'width'=>10],
-                ['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
-                ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
-                ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
-                ['name'=>'Email', 'type'=>'text', 'width'=>25],  
-                ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],  
-                ['name'=>'Số tiền', 'type'=>'text', 'width'=>25],  
-                ['name'=>'Loại tài khoản', 'type'=>'text', 'width'=>25],  
-                ['name'=>'Ngàn hàng', 'type'=>'text', 'width'=>25],  
-                ['name'=>'Số tài khoản ngân hàng', 'type'=>'text', 'width'=>25],  
-            ];
-            $dataExcel = [];
-            if(!empty($listData)){
-                
-                foreach ($listData as $key => $value) {
-                    if ($value->type == 0) {
-                        $type = 'Người dùng';
-                    } else {
-                        $type = 'Tài xế';
-                    }
+     $totalData = $modelUser->find()->where($conditions)->count();
+    $totalPage = $totalData/10000;
+    $totalPage = (int) $totalPage;
+    $totalPage += 1;
+    $pageExcel = (!empty($_GET['pageExcel'])) ? (int)$_GET['pageExcel'] : 1;
+    $checkExcel = 0;
+    if($totalPage<=$pageExcel){
+        $checkExcel = 1;
+    }
+
+    if(!empty($_GET['excel'])){
+       
+
+        if($_GET['excel']=='Excel'){
+            if($pageExcel<=$totalPage){
+                $listData = $modelUser->find()->limit(10000)->page($pageExcel)->where($conditions)->order(['id' => 'desc'])->all()->toList();
+                 
+                $titleExcel =   [
+                    ['name'=>'ID', 'type'=>'text', 'width'=>10],
+                    ['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
+                    ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
+                    ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+                    ['name'=>'Email', 'type'=>'text', 'width'=>25],  
+                    ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],  
+                    ['name'=>'Số tiền', 'type'=>'text', 'width'=>25],  
+                    ['name'=>'Loại tài khoản', 'type'=>'text', 'width'=>25],  
+                    ['name'=>'Ngàn hàng', 'type'=>'text', 'width'=>25],  
+                    ['name'=>'Số tài khoản ngân hàng', 'type'=>'text', 'width'=>25],  
+                ];
+                $dataExcel = [];
+                if(!empty($listData)){
                     
-                    $dataExcel[] = [
-                                    @$value->id,
-                                    $value->created_at->format('H:i d-m-Y'), 
-                                    @$value->name,   
-                                    @$value->phone_number,   
-                                    @$value->email,   
-                                    @$value->address,   
-                                    number_format(@$value->total_coin),   
-                                    @$type,   
-                                    @$value->bank_account,   
-                                    @$value->account_number,   
-                            ];
-                }
-            }            
-            export_excel($titleExcel,$dataExcel,'danh_sach_thanh_vien');
+                    foreach ($listData as $key => $value) {
+                        if ($value->type == 0) {
+                            $type = 'Người dùng';
+                        } else {
+                            $type = 'Tài xế';
+                        }
+                        
+                        $dataExcel[] = [
+                                        @$value->id,
+                                        $value->created_at->format('H:i d-m-Y'), 
+                                        @$value->name,   
+                                        @$value->phone_number,   
+                                        @$value->email,   
+                                        @$value->address,   
+                                        number_format(@$value->total_coin),   
+                                        @$type,   
+                                        @$value->bank_account,   
+                                        @$value->account_number,   
+                                ];
+                    }
+                }            
+                export_excel($titleExcel,$dataExcel,'danh_sach_thanh_vien_'.$pageExcel);
+            }else{
+                $mess ='<p class="text-success">Suất đã xong</p>';
+            }
+        }elseif($_GET['excel']=='nextExcel'){
+            $pageExcel +=1;
+            return $controller->redirect('/plugins/admin/excgo-view-admin-user-listUserAdmin?pageExcel='.$pageExcel);
         }
-        $listData = $modelUser->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
-        $totalUser = $modelUser->find()->where($conditions)->all()->toList();
-        $paginationMeta = createPaginationMetaData(count($totalUser),$limit,$page); 
+    }
+    $listData = $modelUser->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
+    $totalUser = $modelUser->find()->where($conditions)->all()->toList();
+    $paginationMeta = createPaginationMetaData(count($totalUser),$limit,$page); 
         
 
     
@@ -90,6 +113,8 @@ function listUserAdmin($input)
     setVariable('next', $paginationMeta['next']);
     setVariable('urlPage', $paginationMeta['urlPage']);
     setVariable('listData', $listData);
+    setVariable('checkExcel', $checkExcel);
+    setVariable('mess', $mess);
     setVariable('totalUser', count($totalUser));
 }
 
@@ -753,8 +778,23 @@ function listUserStatisticAdmin($input)
     if (isset($_GET['status']) && $_GET['status'] !== '' && is_numeric($_GET['status'])) {
         $conditions['status'] = $_GET['status'];
     }
-    if(!empty($_GET['excel']) && $_GET['excel']=='Excel'){
-            $listData = $modelUser->find()->where($conditions)->order(['id' => 'desc'])->all()->toList();
+
+    $totalData = $modelUser->find()->where($conditions)->count();
+    $totalPage = $totalData/10000;
+    $totalPage = (int) $totalPage;
+    $totalPage += 1;
+    $pageExcel = (!empty($_GET['pageExcel'])) ? (int)$_GET['pageExcel'] : 1;
+    $checkExcel = 0;
+    if($totalPage<=$pageExcel){
+        $checkExcel = 1;
+    }
+
+    if(!empty($_GET['excel'])){
+       
+
+        if($_GET['excel']=='Excel'){
+            if($pageExcel<=$totalPage){
+                $listData = $modelUser->find()->limit(10000)->page($pageExcel)->where($conditions)->order(['id' => 'desc'])->all()->toList();
             $titleExcel =   [
                 ['name'=>'ID', 'type'=>'text', 'width'=>10],
                 ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
@@ -820,7 +860,16 @@ function listUserStatisticAdmin($input)
                 }
             }            
             export_excel($titleExcel,$dataExcel,'danh_sach_thanh_vien');
+
+            }else{
+                $mess ='<p class="text-success">Suất đã xong</p>';
+            }
+        }elseif($_GET['excel']=='nextExcel'){
+            $pageExcel +=1;
+            return $controller->redirect('/plugins/admin/excgo-view-admin-user-listUserStatisticAdmin?pageExcel='.$pageExcel);
+        
         }
+    }
 
     $listData = $modelUser->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();
     $totalUser = $modelUser->find()->where($conditions)->all()->toList();
@@ -863,6 +912,7 @@ function listUserStatisticAdmin($input)
     setVariable('next', $paginationMeta['next']);
     setVariable('urlPage', $paginationMeta['urlPage']);
     setVariable('listData', $listData);
+    setVariable('checkExcel', $checkExcel);
 }
 
 function updateUserPointAdmin($input)
