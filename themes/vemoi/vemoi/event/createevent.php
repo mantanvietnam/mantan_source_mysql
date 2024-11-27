@@ -101,78 +101,40 @@
                         <label for="event-description" class="form-label">Trang phục</label>
                         <textarea id="event-description" class="form-control" name="outfits" rows="5" placeholder="Thêm ghi chú trang phục"></textarea>
                     </div>
-                    <!-- Invitation Details 
+                
                      <div class="container my-5">
                         <div class="card p-4">
-                            <h2 class="mb-4">Thông tin vé mời</h2>
+                            <h2 class="mb-4">Thông tin tạo vé vé mời của Ezpics</h2>
                             
-                            <!- Invitation Details ->
                             <div class="mb-3">
-
-                                <label for="invite-title" class="form-label">Tên vé mời</label> 
-                                <input type="text" id="invite-title" class="form-control" value=""> 
+                              <label class="form-label" for="basic-default-phone">Id ảnh in hàng hoạt EZPICS </label>
+                              <input type="text" class="form-control phone-mask" name="id_ezpics" id="id_ezpics" value=""/>
                             </div>
-                
-                           <!-  <div class="mb-3">
-                                <label for="invite-url" class="form-label">Đây là đường link của vé mời</label>
-                                <input type="text" id="invite-url" class="form-control" value="">
-                            </div>
-                
-                            <!- Mẫu vé mời label on its own row ->    
                             <div class="mb-3">
-                                <label for="invite-img" class="form-label">Mẫu vé mời</label>
+                              <label class="form-label" for="basic-default-phone">Tên biến họ và tên khách hàng</label>
+                              <input type="text" class="form-control phone-mask" name="value_name" id="value_name" value=""/>
                             </div>
-                
-                            <!- Input and Buttons on the same row ->
-                            <div class="form-wrapper">
-                                <h2>Mẫu vé mời *</h2>
-                                <div class="file-input">
-                                    <input type="text" class="form-control" value="" readonly>
-                                </div>
-                                <div class="btn-group">
-                                    <button class="btn btn-danger" type="button">Tải vé mời</button>
-                                    <button class="btn btn-primary" type="button">Xem trước vé mời</button>
-                                </div>
-                            </div>
-                        
-                
-                            <!- Event Date Details (2 columns)->
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="event-start-date" class="form-label">Ngày diễn ra sự kiện</label>
-                                    <input type="date" id="event-start-date" class="form-control" value="">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="event-end-date" class="form-label">Ngày kết thúc sự kiện</label>
-                                    <input type="date" id="event-end-date" class="form-control" value="">
-                                </div>
-                            </div>
-                
-                            <!- Event Location (2 columns) ->
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="event-location" class="form-label">Tên tòa nhà tổ chức sự kiện</label>
-                                    <input type="text" id="event-location" class="form-control" value="">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="event-address" class="form-label">Địa chỉ cụ thể</label>
-                                    <input type="text" id="event-address" class="form-control" value="">
-                                </div>
-                            </div>
-                
-                            <!- Notes (full width) ->
                             <div class="mb-3">
-                                <label for="event-notes" class="form-label">Ghi chú khác</label>
-                                <input type="text" id="event-notes" class="form-control" placeholder="Thêm ghi chú của sự kiện">
-                            </div> 
+                              <label class="form-label" for="basic-default-phone">Tên biến avatar khách hàng</label>
+                              <input type="text" class="form-control phone-mask" name="value_avatar" id="value_avatar" value=""/>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-phone">Tên biến điện thoại khách hàng</label>
+                              <input type="text" class="form-control phone-mask" name="value_phone" id="value_phone" value=""/>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-phone">Tên biến mã check in</label>
+                              <input type="text" class="form-control phone-mask" name="value_code" id="value_code" value=""/>
+                            </div>
+                
+                           
                         </div>
-                    </div> -->
+                    </div> 
                 
                 
                     <!-- Action Buttons -->
                     <div class="form-section">
                         <div class="d-flex justify-content-center gap-4"> 
-                            <a href="https://ezpics.vn/?openModal=true" target="_blank" class="btn btn-outline-danger btn-huy">Tạo vé mời</a>
                             <button type="button" class="btn btn-outline-danger btn-huy">Hủy tạo</button>
                             <button type="submit" class="taosukien" id="submitBtn">Tạo sự kiện</button>
                         </div>

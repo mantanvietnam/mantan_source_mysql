@@ -8,76 +8,89 @@ function createevent($input)
     global $modelOptions;
     global $session;
     global $urlHomes;
-    $info = $session->read('infoUser');
+    
     $metaTitleMantan = 'Tạo sự kiến';
 
     $modelevent = $controller->loadModel('events');
     $mess = '';
-    if ($isRequestPost) {
 
-        $dataSend = $input['request']->getData();
+    if(!empty($session->read('infoUser'))){
+        $info = $session->read('infoUser');
+        if ($isRequestPost) {
 
-        $data = $modelevent->newEmptyEntity();
+            $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['name'])){
-            $data->address = @$dataSend['address'];
-            $data->name = @$dataSend['name'];
+            $data = $modelevent->newEmptyEntity();
 
-            $data->banner = @$dataSend['banner'];
-            $data->time_start = (new DateTime($dataSend['time_start']))->getTimestamp();
-            $data->id_member = @$dataSend['id_member'];
+            if(!empty($dataSend['name'])){
+                $data->address = @$dataSend['address'];
+                $data->name = @$dataSend['name'];
 
-            if(isset($_FILES['banner']) && empty($_FILES['banner']["error"])){
-                if(!empty($data->id)){
-                    $fileName = 'banner_event'.$data->id;
+                $data->banner = @$dataSend['banner'];
+                $data->time_start = (new DateTime($dataSend['time_start']))->getTimestamp();
+                $data->id_member = @$dataSend['id_member'];
+
+                if(isset($_FILES['banner']) && empty($_FILES['banner']["error"])){
+                    if(!empty($data->id)){
+                        $fileName = 'banner_event'.$data->id;
+                    }else{
+                        $fileName = 'banner_event'.time().rand(0,1000000);
+                    }
+
+                    $banner = uploadImage($info->id, 'banner', $fileName);
+                }
+                if(!empty($banner['linkOnline'])){
+                    $data->banner = $banner['linkOnline'].'?time='.time();
                 }else{
-                    $fileName = 'banner_event'.time().rand(0,1000000);
+                    if(empty($data->banner)){
+                        $data->banner = $urlHomes.'/plugins/vemoi/view/home/assets/img/default-thumb.jpg';
+                    }
                 }
 
-                $banner = uploadImage($info->id, 'banner', $fileName);
-            }
-            if(!empty($banner['linkOnline'])){
-                $data->banner = $banner['linkOnline'].'?time='.time();
+
+                $data->status = @$dataSend['status'];
+                $data->outfits = @$dataSend['outfits'];
+                $data->plan = @$dataSend['plan'];
+                $data->rule = @$dataSend['rule'];
+                $data->info = @$dataSend['info'];
+                $link_ezpics = array('id_ezpics' => @$dataSend['id_ezpics'],
+                    'value_name' => @$dataSend['value_name'],
+                    'value_avatar' => @$dataSend['value_avatar'],
+                    'value_phone' => @$dataSend['value_phone'],
+                    'value_code' => @$dataSend['value_code'],
+                );
+                $data->link_ezpics = json_encode($link_ezpics);
+                $slug = createSlugMantan($dataSend['name']);
+                $slugNew = $slug;
+                $number = 0;
+
+                if(empty($data->slug) || $data->slug!=$slugNew){
+                    do{
+                    	$conditions = array('slug'=>$slugNew);
+            			$listData = $modelevent->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+            			if(!empty($listData)){
+            				$number++;
+            				$slugNew = $slug.'-'.$number;
+            			}
+                    }while (!empty($listData));
+                }
+                $data->slug = $slugNew;
+                $modelevent->save($data);
+                $mess = '<p class="text-success">Bạn đã tạo sự kiện và tạo vé mời thành công. 
+                                                Hãy cùng chia sẻ sự kiện đến với mọi người</p>';
+                return $controller->redirect('/createevent/?error=create_done');
             }else{
-                if(empty($data->banner)){
-                    $data->banner = $urlHomes.'/plugins/vemoi/view/home/assets/img/default-thumb.jpg';
-                }
+                $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+                return $controller->redirect('/createevent/?error=create_failed');
             }
-
-
-            $data->status = @$dataSend['status'];
-            $data->outfits = @$dataSend['outfits'];
-            $data->plan = @$dataSend['plan'];
-            $data->rule = @$dataSend['rule'];
-            $data->info = @$dataSend['info'];
-            $slug = createSlugMantan($dataSend['name']);
-            $slugNew = $slug;
-            $number = 0;
-
-            if(empty($data->slug) || $data->slug!=$slugNew){
-                do{
-                	$conditions = array('slug'=>$slugNew);
-        			$listData = $modelevent->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-        			if(!empty($listData)){
-        				$number++;
-        				$slugNew = $slug.'-'.$number;
-        			}
-                }while (!empty($listData));
-            }
-            $data->slug = $slugNew;
-            $modelevent->save($data);
-            $mess = '<p class="text-success">Bạn đã tạo sự kiện và tạo vé mời thành công. 
-                                            Hãy cùng chia sẻ sự kiện đến với mọi người</p>';
-            return $controller->redirect('/createevent/?error=create_done');
-        }else{
-            $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
-            return $controller->redirect('/createevent/?error=create_failed');
-        }
         
-    }
+        }
    
-    setVariable('mess', $mess);
+        setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/');
+    }
 
 }
 
@@ -345,17 +358,47 @@ function participate($input){
     if(!empty($_GET['id'])){
         $infoEvent = $modelevents->find()->where(['id' => (int) $_GET['id']])->first();
 
-        
+        $data =array();
 
         if(!empty($infoEvent)){
+            $data_value = array();
+             if(!empty($infoEvent->link_ezpics)){
+                $data_value = json_decode($infoEvent->link_ezpics, true);
+                $infoEvent->id_ezpics = @$data_value['id_ezpics'];
+                $infoEvent->value_name = @$data_value['value_name'];
+                $infoEvent->value_avatar = @$data_value['value_avatar'];
+                $infoEvent->value_phone = @$data_value['value_phone'];
+                $infoEvent->value_code = @$data_value['value_code'];
+
+            }
+
             if ($isRequestPost) {
                 $dataSend = $input['request']->getData();
 
                 $data = $modelattendedevent->newEmptyEntity();
 
-                if(!empty($dataSend['name'])){
+                
+
+                if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['email'])){
                     $dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
                     $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+                    if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+                        if(!empty($dataSend['phone'])){
+                            $fileName = 'avatar_event'.$dataSend['phone'];
+                        }else{
+                            $fileName = 'avatar_event'.time().rand(0,1000000);
+                        }
+
+                        $banner = uploadImage($dataSend['phone'], 'avatar', $fileName);
+                    }
+                    if(!empty($banner['linkOnline'])){
+                        $value = $banner['linkOnline'].'?time='.time();
+                    }else{
+                        if(empty($data->banner)){
+                            $value = 'https://ai.phoenixtech.vn/plugins/phoenix_ai/view/home/assets/img/avatar-default-crm.png';
+                        }
+                    }
 
                     if(!empty($session->read('infoUser'))){
                         $checkMember = $session->read('infoUser');
@@ -371,7 +414,7 @@ function participate($input){
                             $checkMember->email = $dataSend['email'];
                             $checkMember->pass = md5($dataSend['phone']);
                             $checkMember->status = 'active';
-                            $checkMember->avatar = 'https://ai.phoenixtech.vn/plugins/phoenix_ai/view/home/assets/img/avatar-default-crm.png';
+                            $checkMember->avatar = $value;
                             $checkMember->created_at = time();
                             $checkMember->last_login = time();
                             $checkMember->address = '';
@@ -400,11 +443,33 @@ function participate($input){
                         $data->date = $birthday;
                         $data->code_checkin = codecheckin($infoEvent->id);    
                         $data->id_member = $checkMember->id;
+                        $data->avatar = $checkMember->avatar;
                         $data->status = 'Pending';
                         $data->id_events = (int) $_GET['id'];
                         $data->sex = @$dataSend['sex'];
 
+                         $link = "https://designer.ezpics.vn/create-image-series/?id=";
 
+                        if(!empty($infoEvent->id_ezpics)){
+                            $link .= $infoEvent->id_ezpics;
+                        }
+                        if(!empty($infoEvent->value_name)){
+                            $link .= '&'.$infoEvent->value_name.'='.$data->name;
+                        }
+
+                        if(!empty($infoEvent->value_avatar)){
+                            $link .= '&'.$infoEvent->value_avatar.'='.$data->avatar;
+                        }
+
+                        if(!empty($infoEvent->value_phone)){
+                            $link .= '&'.$infoEvent->value_phone.'='.$data->phone;
+                        }
+                        if(!empty($infoEvent->value_code)){
+                             $link .= '&'.$infoEvent->value_code.'='.$data->code_checkin;
+                        }
+                        if(!empty($infoEvent->id_ezpics)){
+                            $data->invitation = $link;
+                        }
                         $modelattendedevent->save($data);
 
                         $mess = '<p class="text-success">Đăng ký tham gia thành công</p>';
@@ -414,13 +479,15 @@ function participate($input){
 
                     }else{
                         $mess = '<p class="text-danger">Bạn đã đăng ký sự kiện này rồi</p>';
+                        $data = @$checkAttendedEvent;
                     }
                 }else{
                     $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
                 }
             }
-
+            
             setVariable('mess', $mess);
+            setVariable('data', $data);
             setVariable('infoEvent', $infoEvent);
         }else{
             return $controller->redirect('/');
@@ -706,6 +773,7 @@ function editevent($input){
     global $modelOptions;
     global $session;
     global $urlHomes;
+     if(!empty($session->read('infoUser'))){
     $info = $session->read('infoUser');
     $metaTitleMantan = 'Sửa sự kiện';
 
@@ -721,12 +789,10 @@ function editevent($input){
         if(!empty($dataSend['name'])){
             $data->address = @$dataSend['address'];
             $data->name = @$dataSend['name'];
-
-            $data->banner = @$dataSend['banner'];
             $data->time_start = (new DateTime($dataSend['time_start']))->getTimestamp();
             $data->id_member = @$dataSend['id_member'];
 
-            if(isset($_FILES['banner']) && empty($_FILES['banner']["error"])){
+            if(!empty($_FILES['banner']) && empty($_FILES['banner']["error"])){
                 if(!empty($data->id)){
                     $fileName = 'banner_event'.$data->id;
                 }else{
@@ -742,7 +808,7 @@ function editevent($input){
                     $data->banner = $urlHomes.'/plugins/vemoi/view/home/assets/img/default-thumb.jpg';
                 }
             }
-      
+
 
             $data->status = @$dataSend['status'];
             $data->outfits = @$dataSend['outfits'];
@@ -765,6 +831,14 @@ function editevent($input){
                 }while (!empty($listData));
             }
             $data->slug = $slugNew;
+            $link_ezpics = array('id_ezpics' => @$dataSend['id_ezpics'],
+                'value_name' => @$dataSend['value_name'],
+                'value_avatar' => @$dataSend['value_avatar'],
+                'value_phone' => @$dataSend['value_phone'],
+                'value_code' => @$dataSend['value_code'],
+            );
+            $data->link_ezpics = json_encode($link_ezpics);
+           
             $modelevent->save($data);
             $mess = '<p class="text-success">Đã sửa sự kiện thành công</p>';
            
@@ -774,8 +848,23 @@ function editevent($input){
         }
         
     }
+
+    $data_value = array();
+    if(!empty($data->link_ezpics)){
+        $data_value = json_decode($data->link_ezpics, true);
+        $data->id_ezpics = @$data_value['id_ezpics'];
+        $data->value_name = @$data_value['value_name'];
+        $data->value_avatar = @$data_value['value_avatar'];
+        $data->value_phone = @$data_value['value_phone'];
+        $data->value_code = @$data_value['value_code'];
+
+    }
     setVariable('data', $data);
     setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/');
+    }
+
 }
 
 function checkinUser($input){

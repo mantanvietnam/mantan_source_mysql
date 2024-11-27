@@ -230,3 +230,51 @@ function deleteCampaignAPI($input)
 
     return $return;
 }
+
+function getDetailCampaignAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token'],'deleteCampaign');
+
+            if(!empty($infoMember)){
+                if(!empty($dataSend['id'])){
+                    $data = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id'], 'id_member'=>$infoMember->id])->first();
+                    
+                    if(!empty($data)){
+                        $customer_reg = $modelCampaignCustomers->find()->where(['id_campaign'=>$data->id, 'id_member'=>$infoMember->id])->all()->toList();
+                        $customer_checkin = $modelCampaignCustomers->find()->where(['id_campaign'=>$data->id, 'id_member'=>$infoMember->id, 'time_checkin >'=>0])->all()->toList();
+
+                        $data->number_reg = count($customer_reg);
+                        $data->number_checkin = count($customer_checkin);
+                        $return = array('code'=>0, 'data'=>$data, 'mess'=>'Lấy dữ liệu thành công');
+                    }else{
+                        $return = array('code'=>4, 'mess'=>'Không tồn tại chiến dịch này');
+                    }
+                }else{
+                    $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+                }
+            }else{
+                 $return = array('code'=>3, 'mess'=>'Sai mã token');
+            }
+        }else{
+             $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return $return;
+}
+
+?>

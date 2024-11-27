@@ -1821,5 +1821,40 @@ function minuAccumulatePoint($id_customer=0,$point=0,$note=''){
 
 }
 
+function minuAccumulatePointlike($id_customer=0,$point=0,$note=''){
+     global $controller;
+    
+    $modelCustomer = $controller->loadModel('Customers');
+    $modelPointCustomer = $controller->loadModel('PointCustomers');
+    $modelMember = $controller->loadModel('Members');
+    $modelRatingPointCustomer = $controller->loadModel('RatingPointCustomers');
+    $modelHistoriePointCustomers = $controller->loadModel('HistoriePointCustomers');
+  
+    $member = $modelMember->find()->where(['id_father'=>0])->first();
+    $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$id_customer])->first();
+   
+    if(!empty($checkPointCustomer)){
+        $checkPointCustomer->point -= (int)$point;
+        if($checkPointCustomer->point>0){
+            $checkPointCustomer->updated_at = time();
+            $modelPointCustomer->save($checkPointCustomer);
+           
+            $data= $modelHistoriePointCustomers->newEmptyEntity();
+            $data->point = (int) $point;
+            $data->id_member = $member->id;
+            $data->id_customer = $id_customer;
+            $data->created_at = time();
+            $data->note = $note;
+            $data->type = 'minu';
+            $modelHistoriePointCustomers->save($data);
+            return array('code'=>1, 'mess'=>'bạn trừ điểm thành công ');
+        }
+        return array('code'=>0, 'mess'=>'bạn chưa đủ điểm để trừ ');
+    }
+     return array('code'=>0, 'mess'=>'bạn chưa đủ điểm để trừ ');
+
+}
+
+
 
 ?>

@@ -293,6 +293,25 @@ function addExerciseWorkout($input){
                     }
                 }
 
+
+                if(isset($_FILES['sound']) && empty($_FILES['sound']["error"])){
+                    if(!empty($data->id)){
+                        $fileName = 'sound__workout'.$data->id;
+                    }else{
+                        $fileName = 'sound__workout'.time().rand(0,1000000);
+                    }
+
+                    $sound = uploadImage(1, 'sound', $fileName);
+                }
+
+                if(!empty($sound['linkOnline'])){
+                    $data->sound = $sound['linkOnline'].'?time='.time();
+                }else{
+                    if(empty($data->sound)){
+                        $data->sound = '';
+                    }
+                }
+
                 // tạo dữ liệu save
                 $data->title = @$dataSend['title'];
                 $data->title_en = @$dataSend['title_en'];
@@ -321,8 +340,6 @@ function addExerciseWorkout($input){
                
                 $data->group_exercise = json_encode(@$group_exercise);
                 $data->id_workout = @$checkWorkout->id;  
-
-           
 
                 $modelExerciseWorkouts->save($data);
 

@@ -77,6 +77,16 @@
                               }
                               ?>
                             </div>
+                             <div class="mb-3">
+                              <label class="form-label">Âm thanh (*)</label>
+                               <input type="file" class="form-control phone-mask" name="sound" id="sound" value=""/>
+                               <?php
+                              if(!empty($data->sound)){
+                                echo ' <audio controls autoplay><source src="'.$data->sound.'" type="audio/ogg"><source src="'.$data->sound.'" type="audio/mpeg"></audio>';
+                              }
+                              ?>
+
+                            </div>
                           </div>
 
                           <div class="col-md-6">
@@ -105,7 +115,7 @@
                               <input type="number" class="form-control phone-mask" name="kcal" id="kcal" value="<?php echo @$data->kcal;?>" required />
                             </div>
 
-                            <div class="mb-3">
+                           <!--  <div class="mb-3">
                               <label class="form-label">Hình minh họa khu vực  (*)</label>
                                <input type="file" class="form-control phone-mask" name="area_image" id="area_image" value=""/>
                               <?php
@@ -113,7 +123,7 @@
                                 echo '<br/><img src="'.$data->area_image.'" width="80" />';
                               }
                               ?>
-                            </div>
+                            </div> -->
                            
                            
 

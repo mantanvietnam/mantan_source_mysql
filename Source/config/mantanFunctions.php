@@ -586,7 +586,7 @@ function uploadImage($user_id='', $name_input='', $filenameImage='', $domain='')
 	    }
 	   
 	    if(isset($_FILES[$name_input]) && empty($_FILES[$name_input]["error"])){
-            $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png",  "pdf" => "application/pdf");
+            $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png",  "pdf" => "application/pdf" , "mp3" => "audio/mpeg",  "mp4" => "mp/mp4");
             $filename = $_FILES[$name_input]["name"];
             $filetype = $_FILES[$name_input]["type"];
             $filesize = $_FILES[$name_input]["size"];

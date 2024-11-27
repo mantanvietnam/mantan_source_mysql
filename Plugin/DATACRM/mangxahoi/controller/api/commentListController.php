@@ -7,19 +7,27 @@ function addlikeApi($input){
     global $session;
     $modelLike = $controller->loadModel('Likes');
     $modelCustomer = $controller->loadModel('Customers');
+    $modelWallPost = $controller->loadModel('WallPosts');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token']) && !empty($dataSend['keyword']) && !empty($dataSend['id_object']) && !empty($dataSend['type'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token'],'status'=>'active'])->first();
-
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
             if (!empty($user)) {
-
+                $check = 0;
             	$data = $modelLike->find()->where(['keyword'=>$dataSend['keyword'], 'id_object'=>(int)$dataSend['id_object'], 'id_customer'=>(int)$user->id])->first();
             	if(empty($data)) {
             		$data = $modelLike->newEmptyEntity();
+                    $check = 1;
             	}
+
+                if($dataSend['keyword']=='wall_post'){
+                    $checkWallPost = $modelWallPost->find()->where(['id'=>(int)$dataSend['id_object']])->first();
+                }
+
 		        $data->created_at = time();
 		        $data->id_object =(int) $dataSend['id_object'];
 		        $data->keyword = $dataSend['keyword'];
@@ -28,8 +36,16 @@ function addlikeApi($input){
         		$modelLike->save($data);
 
         		   if($data->type=='like'){
+                        if(!empty($checkWallPost) && $check ==1 && $checkWallPost->id_customer!=$user->id && function_exists('accumulatePoint')){
+                            $note = 'Bạn được công 1 điểm cho người like bài viết của bạn ';
+                            accumulatePoint($checkWallPost->id_customer,1,$note);
+                        }
                         return array('code'=>1,'messages'=>'bạn đã like  thành công ');
                     }elseif($data->type=='dislike'){
+                         if(!empty($checkWallPost)  && $check ==1 && $checkWallPost->id_customer!=$user->id && function_exists('minuAccumulatePointlike')){
+                              $note = 'Bạn bị trừ 2 điểm cho người dislike bài viết của bạn ';
+                            minuAccumulatePointlike($checkWallPost->id_customer,2,$note);
+                         }
                         return array('code'=>4,'messages'=>'bạn đã dislike  thành công ');
                     }
     		}
@@ -52,17 +68,34 @@ function delelelikeApi($input){
     global $session;
     $modelLike = $controller->loadModel('Likes');
     $modelCustomer = $controller->loadModel('Customers');
+    $modelWallPost = $controller->loadModel('WallPosts');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token']) && !empty($dataSend['keyword']) && !empty($dataSend['id_object'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token'],'status'=>'active'])->first();
+           if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
 
             if (!empty($user)) {
 
             	$data = $modelLike->find()->where(['keyword'=>$dataSend['keyword'], 'id_object'=>(int)$dataSend['id_object'], 'id_customer'=>(int)$user->id])->first();
             	if(!empty($data)) {
+                    if($dataSend['keyword']=='wall_post'){
+                        $checkWallPost = $modelWallPost->find()->where(['id'=>(int)$dataSend['id_object']])->first();
+                    }
+                    if($data->type=='like'){
+                        if(!empty($checkWallPost) && function_exists('minuAccumulatePointlike')){
+                            $note = 'Bạn được công 1 điểm cho người like bài viết của bạn ';
+                            minuAccumulatePointlike($checkWallPost->id_customer,1,$note);
+                        }
+                    }elseif($data->type=='dislike'){
+                         if(!empty($checkWallPost) && function_exists('accumulatePoint')){
+                              $note = 'Bạn bị trừ 2 điểm cho người dislike bài viết của bạn ';
+                            accumulatePoint($checkWallPost->id_customer,2,$note);
+                         }
+                    }
             		$modelLike->delete($data);
             		return array('code'=>1,'messages'=>'bạn xóa like thành công');
             	}
@@ -94,8 +127,9 @@ function checklikeApi ($input){
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token']) && !empty($dataSend['keyword']) && !empty($dataSend['id_object'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token'],'status'=>'active'])->first();
-
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
             if (!empty($user)) {
 
             	$data = $modelLike->find()->where(['keyword'=>$dataSend['keyword'], 'id_object'=>(int)$dataSend['id_object'], 'id_customer'=>(int)$user->id])->first();
@@ -134,7 +168,9 @@ function addCommentApi($input){
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token']) && !empty($dataSend['keyword']) && !empty($dataSend['id_object']) && !empty($dataSend['comment'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token'],'status'=>'active'])->first();
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
 
             if (!empty($user)) {
 
@@ -172,7 +208,9 @@ function deleleCommentApi($input){
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['token']) && !empty($dataSend['id'])) {
-            $user =  $modelCustomer->find()->where(['token' => $dataSend['token'],'status'=>'active'])->first();
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
 
             if (!empty($user)) {
                     $data = $modelComment->find()->where(['id'=>$dataSend['id'], 'id_customer'=>(int)$user->id])->first();

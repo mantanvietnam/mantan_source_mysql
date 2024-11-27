@@ -113,6 +113,11 @@ function sendEmailCodeCheckin($email = '', $data = '', $code = '',$inforuser= ''
 {
     $to = array();
 
+    $image = '';
+    if(!empty($inforuser->invitation)){
+         $image = ' <img id="img1" src="'.$inforuser->invitation.'" style="width: 100%" class="img-responsive">';
+    }
+
     if (!empty($email)) {
         $to[] = trim($email);
 
@@ -163,6 +168,7 @@ function sendEmailCodeCheckin($email = '', $data = '', $code = '',$inforuser= ''
                         <em style=""> Mã checkin in của bạn ' .@$code .' </em> <br>
                         <em style=""> thời gian:' .date('d-m-Y H:i:s', $data->time_start) . ' </em> <br>
                         <em style=""> Địa điểm:' .@$data->address . ' </em> <br>
+                        '.$image.'
                         <br/>
                         
                         <br><br>
