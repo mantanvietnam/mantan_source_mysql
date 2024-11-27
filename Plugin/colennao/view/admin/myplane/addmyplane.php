@@ -108,57 +108,57 @@
                           </div>
                         </div>
                         <div class="tab-pane fade show" id="navs-top-1" role="tabpanel">
-    <div class="row">
-        <table class="table" id="data-table">
-            <thead>
-                <tr>
-                    <th>Ngày</th>
-                    <th>Water</th>
-                    <th>Meal</th>
-                    <th>Workout</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($alldata)): ?>
-                <tr class="gradeX" id="trfeedback-0">
-                    <td>
-                        <input type="text" class="form-control phone-mask mb-3" name="day[0]" value="" />
-                    </td>
-                    <td>
-                        <input type="text" class="form-control phone-mask" name="water[0]" value="" />
-                    </td>
-                    <td>
-                        <input type="text" class="form-control phone-mask" name="meal[0]" value="" />
-                    </td>
-                    <td>
-                        <input type="text" class="form-control phone-mask" name="workout[0]" value="" />
-                    </td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($alldata as $i => $data): ?>
-                    <tr class="gradeX" id="trfeedback-<?php echo $i; ?>">
-                        <td>
-                            <input type="text" class="form-control phone-mask mb-3" name="day[<?php echo $i; ?>]" value="<?php echo htmlspecialchars($data['day']); ?>" />
-                        </td>
-                        <td>
-                            <input type="text" class="form-control phone-mask" name="water[<?php echo $i; ?>]" value="<?php echo htmlspecialchars($data['water']); ?>" />
-                        </td>
-                        <td>
-                            <input type="text" class="form-control phone-mask" name="meal[<?php echo $i; ?>]" value="<?php echo htmlspecialchars($data['meal']); ?>" />
-                        </td>
-                        <td>
-                            <input type="text" class="form-control phone-mask" name="workout[<?php echo $i; ?>]" value="<?php echo htmlspecialchars($data['workout']); ?>" />
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                            <div class="row">
+                                <table class="table" id="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Ngày</th>
+                                            <th>Water</th>
+                                            <th>Meal</th>
+                                            <th>Workout</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if (empty($alldata)): ?>
+                                        <tr class="gradeX" id="trfeedback-0">
+                                            <td>
+                                                <input type="text" class="form-control phone-mask mb-3" name="day[0]" value="" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control phone-mask" name="water[0]" value="" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control phone-mask" name="meal[0]" value="" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control phone-mask" name="workout[0]" value="" />
+                                            </td>
+                                        </tr>
+                                    <?php else: ?>
+                                        <?php foreach ($alldata as $i => $data): ?>
+                                            <tr class="gradeX" id="trfeedback-<?php echo $i; ?>">
+                                                <td>
+                                                    <input type="text" class="form-control phone-mask mb-3" name="day[<?php echo $i; ?>]" value="<?php echo htmlspecialchars($data['day']); ?>" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control phone-mask" name="water[<?php echo $i; ?>]" value="<?php echo htmlspecialchars($data['water']); ?>" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control phone-mask" name="meal[<?php echo $i; ?>]" value="<?php echo htmlspecialchars($data['meal']); ?>" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control phone-mask" name="workout[<?php echo $i; ?>]" value="<?php echo htmlspecialchars($data['workout']); ?>" />
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
 
-            </tbody>
-        </table>
-        <div class="form-group mb-3 col-md-4"><button id="add-row-btn" type="button" class="btn btn-primary">Thêm hàng</button></div>
-        
-    </div>
-</div>
+                                    </tbody>
+                                </table>
+                                <div class="form-group mb-3 col-md-4"><button id="add-row-btn" type="button" class="btn btn-primary">Thêm hàng</button></div>
+                                
+                            </div>
+                        </div>
                       </div>              
                   </div>
                 </div>

@@ -16,25 +16,25 @@
                         <div class="row">
                             <div class="col-lg-3 text-center mb-4">
                                 <div class="feature d-flex ">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
+                                    <img src="<?= @$settingThemes['image1'];?>" alt="">
                                     <h5><?= @$settingThemes['titlecontent1'];?></h5>
                                 </div>
                             </div>
                             <div class="col-lg-3 text-center mb-4">
                                 <div class="feature d-flex ">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
+                                    <img src="<?= @$settingThemes['image2'];?>" alt="">
                                     <h5><?= @$settingThemes['titlecontent2'];?></h5>
                                 </div>
                             </div>
                             <div class="col-lg-3 text-center mb-4">
                                 <div class="feature d-flex ">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
+                                    <img src="<?= @$settingThemes['image3'];?>" alt="">
                                     <h5><?= @$settingThemes['titlecontent3'];?></h5>
                                 </div>
                             </div>
                             <div class="col-lg-3 text-center mb-4">
                                 <div class="feature d-flex ">
-                                    <img src="<?php echo $urlThemeActive;?>/asset/image/anhnen.jpg" alt="">
+                                    <img src="<?= @$settingThemes['image4'];?>" alt="">
                                     <h5><?= @$settingThemes['titlecontent4'];?></h5>
                                 </div>
                             </div>

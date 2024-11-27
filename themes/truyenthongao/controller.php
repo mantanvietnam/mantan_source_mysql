@@ -25,6 +25,11 @@ function settinghometruyenthongao($input){
             'titleheader' =>$dataSend['titleheader'],
             'descriptionheader' =>$dataSend['descriptionheader'],
             'banner' =>$dataSend['banner'],
+            'image1' =>$dataSend['image1'],
+            'image2' =>$dataSend['image2'],
+            'image3' =>$dataSend['image3'],
+            'image4' =>$dataSend['image4'],
+
             'titlecontent1' =>$dataSend['titlecontent1'],
             'titlecontent2' =>$dataSend['titlecontent2'],
             'titlecontent3' =>$dataSend['titlecontent3'],

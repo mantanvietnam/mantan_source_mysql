@@ -80,6 +80,22 @@
                                     <label class="form-label" for="basic-default-fullname">Tiêu đề 4</label>
                                     <input type="text" class="form-control" name="titlecontent4" value="<?php echo @$data['titlecontent4'];?>" />
                                 </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Image header 1</label>
+                                    <?php showUploadFile('image1','image1', @$data['image1'],12);?>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Image header 2</label>
+                                    <?php showUploadFile('image2','image2', @$data['image2'],13);?>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Image header 3</label>
+                                    <?php showUploadFile('image3','image3', @$data['image3'],14);?>
+                                </div>
+                                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <label class="form-label" for="basic-default-fullname">Image header 4</label>
+                                    <?php showUploadFile('image4','image4', @$data['image4'],15);?>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade show" id="navs-top-1" role="tabpanel">

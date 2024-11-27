@@ -77,6 +77,7 @@ function adduserpeople($input) {
 
     $dataExerciseWorkouts = $modelExerciseWorkouts->find()->all();
     $dataWorkouts = $modelWorkouts->find()->all();
+
     $datamyplane = $modelmyplane->find()->all();
     if (!empty($_GET['id'])) {
         $data = $modeluserpeople->get((int)$_GET['id']);
