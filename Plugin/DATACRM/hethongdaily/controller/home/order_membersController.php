@@ -168,12 +168,23 @@ function addRequestProductAgency($input)
                     $save->id_partner = (int)$dataSend['id_partner'];
 
                 }
+
+                if(!empty($dataSend['time'])){
+                    $time = explode(' ', $dataSend['time']);
+                    $date = explode('/', $time[1]);
+                    $time = explode(':', $time[0]);
+
+                    $create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+                }else{
+                    $create_at = time();
+                }
+
                 $save->id_member_buy = $user->id;
                 $save->id_staff_buy = (int)@$user->id_staff;
                 $save->note_sell = ''; // ghi chú người bán
                 $save->note_buy = $dataSend['note']; // ghi chú người mua 
                 $save->status = 'new';
-                $save->create_at = time();
+                $save->create_at = $create_at;
                 $save->money = (int) $dataSend['total'];
                 $save->total = (int) $dataSend['totalPays'];
                 $save->status_pay = 'wait';
@@ -1332,9 +1343,9 @@ function editOrderMemberAgency($input)
 
          // mức chiết khấu của đại lý theo chức danh
         $position = [];
-         $member_buy = [];
-         $id_member_sell = [];
-         $member_sell = [];
+        $member_buy = [];
+        $id_member_sell = [];
+        $member_sell = [];
         $father = [];
 
        
@@ -1360,6 +1371,16 @@ function editOrderMemberAgency($input)
 
         if($isRequestPost){
             $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['time'])){
+                $time = explode(' ', $dataSend['time']);
+                $date = explode('/', $time[1]);
+                $time = explode(':', $time[0]);
+
+                $create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+            }else{
+                $create_at = time();
+            }
             
             $order->note_buy = $dataSend['note']; // ghi chú người mua  
             $order->status = 'new';
@@ -1367,6 +1388,8 @@ function editOrderMemberAgency($input)
             $order->total = (int) $dataSend['totalPays'];
             $order->status_pay = 'wait';
             $order->discount = $dataSend['promotion'];
+            $order->create_at = $create_at;
+            
             $costsIncurred = array();
             $total_costsIncurred = 0;
             

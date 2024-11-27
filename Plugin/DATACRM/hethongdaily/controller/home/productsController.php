@@ -1475,6 +1475,11 @@ function editOrderCustomerAgency($input)
 
         if($isRequestPost){
             $dataSend = $input['request']->getData();
+
+            $time_now = explode(' ', $dataSend['time']);
+            $time = explode(':', $time_now[1]);
+            $date = explode('/', $time_now[0]);
+            $order->create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
             
             $order->note_user = $dataSend['note']; // ghi chú người mua  
             $order->status = 'new';

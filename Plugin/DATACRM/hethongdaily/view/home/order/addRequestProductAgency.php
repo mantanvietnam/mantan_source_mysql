@@ -174,7 +174,7 @@
                         <div class="left col-md-10">
                             <i class="bx bx-time" aria-hidden="true"></i>&nbsp;
                             <div class="input-group">
-                                <input type="text" name="time" id="time" value="<?php echo date('d/m/Y H:i')?>" class="form-control datetimepicker"  required />
+                                <input type="text" name="time" id="time" value="<?php echo date('H:i d/m/Y')?>" class="form-control datetimepicker"  required />
                             </div>
                         </div>    
                     </div>
