@@ -86,9 +86,8 @@
                         <input id="event-description" name="address" class="form-control" placeholder="địa chỉ"></input>
                     </div>
                     <div class="form-section mb-4">
-                        <label for="event-description" class="form-label">Thời gian bắt đầu</label>
-                        <!-- <input id="event-description" type="datetime-local" name="time_start" class="form-control" required> -->
-                        <input type="text" value="" name="time_start" id="time_start" class="input_date form-control datepicker" required=""autocomplete="off">
+                        <label for="datetime-picker" class="form-label">Thời gian bắt đầu</label>
+                        <input type="text" id="datetime-picker" placeholder="Chọn ngày và giờ">
                     </div>
                     <div class="form-section mb-4">
                         <label for="event-description" class="form-label">Lịch trình</label>

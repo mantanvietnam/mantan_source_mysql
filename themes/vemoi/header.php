@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create.css?time=1192"> 
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css?time=1221">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/cssplus.css?time=1228">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/home.css?time=1189">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/register.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/create-event.css?time=1193">
@@ -18,8 +18,10 @@
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/my-ticket.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/no-event.css?time=1191">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/registerto.css?time=1191">
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/js/vemoi.js?time=1191">
+    <script src="<?php echo $urlThemeActive;?>/asset/js/vemoi.js?v=1.0" defer></script>
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Slick Carousel CSS -->
