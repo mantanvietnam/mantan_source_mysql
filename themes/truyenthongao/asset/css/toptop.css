@@ -337,8 +337,9 @@ header .nav-item a{
 } */
 
 .feature {
-    background-color: black;
+    background-color: #fff;
     border-radius: 45px;
+    color: #000;
 }
 
 .feature:hover {

@@ -4,7 +4,7 @@
     global $settingThemes;
 ?>
         <main>
-            <section class="bgr-img">
+            <section class="bgr-img" style="background-image: url('<?= @$settingThemes['banner'];?>');">
                 <section class="hero-section text-white">
                     <div class="container">
                         <h1 class="display-4"><?= @$settingThemes['titleheader'];?></h1>
