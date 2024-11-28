@@ -7,6 +7,8 @@ function registerUserApi($input): array
 
     $modelUser = $controller->loadModel('Users');
 
+    $modelHistoryResultUser = $controller->loadModel('HistoryResultUsers');
+
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -86,7 +88,18 @@ function registerUserApi($input): array
                 if($loginUser->email){
                     sendEmailCodeForgotPassword($loginUser->email, $loginUser->full_name, $code);
                 }
-                
+
+                if(!empty($dataSend['token'])){
+
+                    $checkHistoryResult = $modelHistoryResultUser->find()->where(['token'=>$dataSend['token']])->first();
+
+                    if(!empty($checkHistoryResult)){
+                        $checkHistoryResult->token = null;
+                        $checkHistoryResult->id_user = $loginUser->id;
+                        $modelHistoryResultUser->save($checkHistoryResult);
+                    }
+                }
+
 
                 return apiResponse(0, 'Lưu thông tin thành công', $loginUser);
             }

@@ -6,6 +6,7 @@ function addWallPostApi($input){
     $modelCustomer = $controller->loadModel('Customers');
     $modelWallPost = $controller->loadModel('WallPosts');
     $modelImageCustomer = $controller->loadModel('ImageCustomers');
+    $modelMakeFriend = $controller->loadModel('MakeFriends');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -63,11 +64,43 @@ function addWallPostApi($input){
 
                 $data->listImage = @$modelImageCustomer->find()->where(['id_post'=>$data->id])->all()->toList();
 
+                $dataSendNotification= array('title'=>"$user->full_name đăng bài viết mới",
+                    'time'=>date('H:i d/m/Y'),
+                    'content'=>substr($data->connent, 0, 160),
+                    'id_post'=>"$data->id",
+                    'action'=>'addWallPostApi');
+
+                $conditions['OR'] = [ 
+                    ['id_customer_request'=>$user->id],
+                    ['id_customer_confirm'=>$user->id],
+                ];
+                $checkFriend = $modelMakeFriend->find()->where($conditions)->all()->toList();
+                $token_device = array();
+                if(!empty($checkFriend)){
+                    foreach($checkFriend as $key => $item){
+                        if($item->id_customer_request!=$user->id){
+                          $friend = $modelCustomer->find()->where(['id'=>$item->id_customer_request])->first();
+                          if(!empty($friend->token_device)){
+                            $token_device = $friend->token_device;
+                          }
+                        }elseif($item->id_customer_confirm!=$user->id){
+                          $friend = $modelCustomer->find()->where(['id'=>$item->id_customer_confirm])->first();
+                          if(!empty($friend->token_device)){
+                            $token_device = $friend->token_device;
+                          }
+                        }
+                    }
+                }
+
+                if(!empty($token_device)){
+                    sendNotification($dataSendNotification, $token_device);
+                }
+
                
                 $note = 'bạn được công '.@$point['point_wall_post'].' đăng bài liên mạng xã hội';
                 accumulatePoint($user->id,@$point['point_wall_post'],$note);
                
-                return array('code'=>1, 'messages'=>'Bạn đăng bài thành công ', 'data'=>$data);
+                return array('code'=>1, 'messages'=>'Bạn đăng bài thành công ', 'data'=>$data,'notification'=>$dataSendNotification);
               
             }
 

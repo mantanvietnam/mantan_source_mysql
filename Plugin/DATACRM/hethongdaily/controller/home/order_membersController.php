@@ -282,11 +282,14 @@ function addOrderAgency($input)
                     if($member_sell->id==$user->id){
                          $save->id_staff_sell = (int)@$user->id_staff;
                     }
+
+                   
                     $save->note_buy = $dataSend['note']; // ghi chú người mua  
                     $save->status = 'new';
                     $time_now = explode(' ', $dataSend['time']);
-                    $time = explode(':', $time_now[1]);
-                    $date = explode('/', $time_now[0]);
+                    $time = explode(':', $time_now[0]);
+                    $date = explode('/', $time_now[1]);
+                    
                     $save->create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
                     $save->money = (int) $dataSend['total'];
                     $save->total = (int) $dataSend['totalPays'];

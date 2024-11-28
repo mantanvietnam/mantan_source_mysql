@@ -104,10 +104,15 @@ function aiVirtualAssistant($input)
 }
 
 function checkapi(){
-	//$string = callAIphoenixtech('Việt cho tao 1 bài văn bí quyến ngủ ngon  có thân bài kết bài ');
-	$string = callAIphoenixtech('tạo cho tao ảnh nhé ','829bcb6b-2808-4420-8014-8bb6453f2dec');
-	debug($string);
-	 die;
+	$text = 'Lên kế hoạch Ý tưởng nội dung, Mô tả, Chủ đề, Tiêu đề hấp dẫn, Viết 10 bài viết quảng Facebook, chủ đền về quần áo Phong cách trẻ mùa dồng , người tiếp cận khách trẻ nam nữ đội tuổi 19 đến 35 tuổi viết bài dày';
+	$text = 'Viết 10 bài viết quảng Facebook, chủ đền về quần áo Phong cách trẻ mùa đông';
+	$string = callAIphoenixtech($text,'');
+	 debug($string);
+    //$string1 = callAIphoenixtech('hãy viết bài 1 thành bài hoàn chỉnh','7f0949fa-304c-46f6-b24b-e2cae33c08fd');
+   
+   // debug($string);
+
+    die;
 }
 ?>
 

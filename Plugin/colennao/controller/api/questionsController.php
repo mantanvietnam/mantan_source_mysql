@@ -67,6 +67,7 @@ function groupingexercisesuserAPI($input) {
 
     $modelTbcondition = $controller->loadModel('tbcondition');
     $modeluserpeople = $controller->loadModel('userpeople'); 
+    $modelHistoryResultUser = $controller->loadModel('HistoryResultUsers');
 
     if (!$isRequestPost) {
         return [
@@ -85,6 +86,20 @@ function groupingexercisesuserAPI($input) {
     foreach ($groupedConditions as $condition) {
         $groupConditions[$condition->id_groupfile][] = $condition;
     }
+
+    $token = createToken();
+
+    if(!empty($answers)){
+        $save = $modelHistoryResultUser->newEmptyEntity();
+        $save->answers = $answers;
+        $save->token = $token;
+        $save->created_at = time();
+        $modelHistoryResultUser->save($save);
+    }
+    
+    if(empty($save)) {
+        $token = '';
+      }   
 
     foreach ($groupConditions as $id_groupfile => $conditions) {
         $isValidGroup = true;
@@ -109,6 +124,8 @@ function groupingexercisesuserAPI($input) {
     }
 
 
+
+
     if (!empty($validGroupFiles)) {
      
         $randomKey = array_rand($validGroupFiles);
@@ -117,7 +134,8 @@ function groupingexercisesuserAPI($input) {
         return [
             'code' => 1,
             'mess' => 'Lấy dữ liệu thành công',
-            'valid_groups' => [$selectedGroup] 
+            'valid_groups' => [$selectedGroup],
+            'token'=> $token
         ];
     } else {
 
@@ -137,7 +155,8 @@ function groupingexercisesuserAPI($input) {
             return [
                 'code' => 0,
                 'mess' => 'Bài tập nhóm này là mặc định',
-                'valid_groups' => [$activeGroupFile] 
+                'valid_groups' => [$activeGroupFile] ,
+                'token'=> $token
             ];
         } else {
             return [
@@ -283,6 +302,5 @@ function getmyplaneAPI($input) {
 
     return $return;
 }
-
 
 ?>

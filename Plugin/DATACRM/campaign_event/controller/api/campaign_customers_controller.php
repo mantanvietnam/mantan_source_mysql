@@ -54,7 +54,11 @@ function getListCustomerCampaignAPI($input)
                         }
 
                         if(!empty($dataSend['checkin'])){
-                            $conditions['time_checkin >'] = 0;
+                            if($dataSend['checkin']==1){
+                                $conditions['time_checkin >'] = 0;
+                            }elseif($dataSend['checkin']==2){
+                                $conditions['time_checkin'] = 0;
+                            }
                         }
 
                         $listData = $modelCampaignCustomers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
@@ -263,9 +267,9 @@ function checkinCustomerCampaignAPI($input)
                     $infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id_campaign'], 'id_member'=>$infoMember->id])->first();
 
                     if(!empty($infoCampaign)){
-                        $data = $modelCampaignCustomers->find()->where(['id_campaign'=>(int) $dataSend['id_campaign'], 'id_customer'=>(int) $dataSend['id_customer'], 'id_member'=>$infoMember->id])->first();
+                        $checkData = $modelCampaignCustomers->find()->where(['id_campaign'=>(int) $dataSend['id_campaign'], 'id_customer'=>(int) $dataSend['id_customer'], 'id_member'=>$infoMember->id])->first();
                         
-                        if($data){
+                        if($checkData){
                             if(!empty($dataSend['checkin'])){
                                 $checkData->time_checkin = time();
                             }else{

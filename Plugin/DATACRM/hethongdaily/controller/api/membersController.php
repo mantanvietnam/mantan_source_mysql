@@ -157,7 +157,7 @@ function deteleMemberAPI($input)
 	$return = array('code'=>1);
 	
 	if($isRequestPost){
-
+		$dataSend= $input['request']->getData();
 		$user = checklogin('deteleMember');   
 		$checkPhone = getMemberByToken(@$dataSend['token'],'deteleMember'); 
 	    if(!empty($user)){
@@ -172,9 +172,11 @@ function deteleMemberAPI($input)
 							);
 	    }
 
+
+
 		$dataSend = $input['request']->getData();
-		$deteleMember = $modelMember->find()->where(array('id'=>$dataSend['id_agency']))->first();
-		$checkAgency = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'status'=>'active'))->first();
+		$deteleMember = $modelMember->find()->where(array('id'=>@$dataSend['id_agency']))->first();
+		$checkAgency = $modelMember->find()->where(array('phone'=>@$dataSend['phone'], 'status'=>'active'))->first();
 
 		if(empty($checkAgency)){
 			return array('code'=>3,

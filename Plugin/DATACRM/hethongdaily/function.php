@@ -933,8 +933,8 @@ function getCustomerByToken($token='')
         $checkData = $modelCustomer->find()->where($conditions)->first();
         if(!empty($checkData)){
             $member = $modelMember->find()->where(['id_father'=>0])->first();
-            $checkPoint = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$checkData->id])->first();
-            if(!empty($checkPoint)){
+            // $checkPoint = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$checkData->id])->first();
+            // if(!empty($checkPoint)){
                 $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$checkData->id,'updated_at <'=>strtotime('today 00:00:00')])->first();
                 if(!empty($checkPointCustomer)){
                     $note = 'bạn được cộng 5 điểm khi bạn dăng nhập đầu tiên trong ngày';
@@ -949,7 +949,7 @@ function getCustomerByToken($token='')
                         sendNotification($dataSendNotification, $checkData->token_device);
                     }
                 }
-            }else{
+            /*}else{
                 $note = 'bạn được cộng 5 điểm khi bạn dăng nhập đầu tiên trong ngày';
                 accumulatePoint($checkData->id,5,$note);
                 $dataSendNotification= array('title'=>'Bạn được cộng điểm',
@@ -961,7 +961,7 @@ function getCustomerByToken($token='')
                 if(!empty($checkData->token_device)){
                     sendNotification($dataSendNotification, $checkData->token_device);
                 }
-            }
+            }*/
             
         }
     }

@@ -189,8 +189,8 @@
                     </table>
                   </td>
                   <td>
-                    '.number_format($item->money).'đ
-                    <p><del>'.number_format($item->total).'đ</del></p>
+                    '.number_format($item->total).'đ
+                    <p><del>'.number_format($item->money).'đ</del></p>
                   </td>
                   
                   <td>'.$item->discount.'%</td>

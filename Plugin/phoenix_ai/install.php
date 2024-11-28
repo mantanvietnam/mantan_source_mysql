@@ -52,9 +52,39 @@ $sqlInstallDatabase .= "CREATE TABLE `search_image_events` (
   PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ";
 
+$sqlInstallDatabase .= "CREATE TABLE `content_facebook_ais` ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+  `conversation_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+  `topic` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+  `content_ai` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+  `id_member` INT NOT NULL , 
+  `created_at` INT NOT NULL , 
+  `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNOT NULL 
+  PRIMARY KEY (`id`)) ENGINE = InnoDB;
+";
+
+
+$sqlInstallDatabase .= "CREATE TABLE `history_chat_ais` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`conversation_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`question` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`reply_ai` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`id_member` INT NULL , 
+`id_content` INT NULL DEFAULT NULL , 
+`content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`created_at` INT NOT NULL , 
+`type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE data_ais; ";
+$sqlDeleteDatabase .= "DROP TABLE content_facebook_ais; ";
+$sqlDeleteDatabase .= "DROP TABLE history_chat_ais; ";
 
 //$sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 
@@ -94,5 +124,21 @@ $sqlUpdateDatabase['data_ais']['embed_code_ai'] = "ALTER TABLE `data_ais` ADD `e
 $sqlUpdateDatabase['data_ais']['id_ai_dify'] = "ALTER TABLE `data_ais` ADD `id_ai_dify` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
 
 
+$sqlUpdateDatabase['content_facebook_ais']['title'] = "ALTER TABLE `content_facebook_ais` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ;";
+$sqlUpdateDatabase['content_facebook_ais']['conversation_id'] = "ALTER TABLE `content_facebook_ais` ADD `conversation_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ;";
+$sqlUpdateDatabase['content_facebook_ais']['topic'] = "ALTER TABLE `content_facebook_ais` ADD `topic` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ;";
+$sqlUpdateDatabase['content_facebook_ais']['content_ai'] = "ALTER TABLE `content_facebook_ais` ADD `content_ai` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ;";
+$sqlUpdateDatabase['content_facebook_ais']['id_member'] = "ALTER TABLE `content_facebook_ais` ADD `id_member` INT NOT NULL ;";
+$sqlUpdateDatabase['content_facebook_ais']['created_at'] = "ALTER TABLE `content_facebook_ais` ADD `created_at` INT NOT NULL ;";
+$sqlUpdateDatabase['content_facebook_ais']['status'] = "ALTER TABLE `content_facebook_ais` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNOT NULL DEFAULT 'active';";
+$sqlUpdateDatabase['content_facebook_ais']['type'] = "ALTER TABLE `content_facebook_ais` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNOT NULL ;";
 
+$sqlUpdateDatabase[' history_chat_ais']['conversation_id'] = "ALTER TABLE ` history_chat_ais` ADD `conversation_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase[' history_chat_ais']['question'] = "ALTER TABLE ` history_chat_ais` ADD `question` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase[' history_chat_ais']['reply_ai'] = "ALTER TABLE ` history_chat_ais` ADD `reply_ai` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase[' history_chat_ais']['id_member'] = "ALTER TABLE ` history_chat_ais` ADD `id_member` INT NULL;";
+$sqlUpdateDatabase[' history_chat_ais']['id_content'] = "ALTER TABLE ` history_chat_ais` ADD `id_content` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase[' history_chat_ais']['content'] = "ALTER TABLE ` history_chat_ais` ADD `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase[' history_chat_ais']['created_at'] = "ALTER TABLE ` history_chat_ais` ADD `created_at` INT NOT NULL;";
+$sqlUpdateDatabase[' history_chat_ais']['type'] = "ALTER TABLE ` history_chat_ais` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 ?>

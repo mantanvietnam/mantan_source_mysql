@@ -1132,4 +1132,75 @@ function listPointCustomer($input){
         return $controller->redirect('/login');
     }
 }
+
+function infoCustomer($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $isRequestPost;
+    global $urlHomes;
+    global $modelCategoryConnects;
+
+    $user = checklogin('editCustomerAgency');   
+
+    
+        
+
+        $modelCustomers = $controller->loadModel('Customers');
+        $modelActivityHistory = $controller->loadModel('ActivityHistorys');
+        $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+        $modelTokenDevices = $controller->loadModel('TokenDevices');
+
+        if(!empty($_GET['id'])){
+            $join = [
+                [
+                    'table' => 'category_connects',
+                    'alias' => 'CategoryConnects',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Customers.id = CategoryConnects.id_parent'
+                    ],
+                ]
+            ];
+
+            $select = ['Customers.id','Customers.full_name','Customers.phone','Customers.email','Customers.address','Customers.sex','Customers.id_city','Customers.id_messenger','Customers.avatar','Customers.status','Customers.id_parent','Customers.id_level','Customers.birthday_date','Customers.birthday_month','Customers.birthday_year','Customers.id_aff','Customers.created_at','Customers.id_group','Customers.facebook','Customers.id_zalo','Customers.token','Customers.max_export_mmtc'];
+
+            $data = $modelCustomers->find()->join($join)->select($select)->where(['Customers.id'=>(int) $_GET['id'], 'CategoryConnects.id_category'=>$user->id, 'CategoryConnects.keyword'=>'member_customers'])->first();
+
+            if(empty($data)){
+                return $controller->redirect('/listCustomerAgency');
+            }
+            $note_now = $user->type_tv.' '. $user->name.'('.$user->phone.') sửa thông tin khách hàng';
+            
+            $action_now = 'edit';
+            
+
+            
+            $group_customers = $modelCategoryConnects->find()->where(['keyword'=>'group_customers', 'id_parent'=>(int) $data->id])->all()->toList();
+            $data->groups = [];
+
+            if(!empty($group_customers)){
+                foreach ($group_customers as $key => $value) {
+                    $data->groups[] = $value->id_category;
+                }
+            }
+        }else{
+            return $controller->redirect('/');
+        }
+
+        $mess= '';
+        $metaTitleMantan = $data->full_name;
+       
+
+        $conditions = array('type' => 'group_customer', 'parent'=>$user->id);
+        $listGroupCustomer = $modelCategories->find()->where($conditions)->all()->toList();
+
+        setVariable('info', $data);
+        setVariable('mess', $mess);
+        setVariable('listGroupCustomer', $listGroupCustomer);
+        
+   
+}
 ?>

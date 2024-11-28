@@ -395,7 +395,16 @@ $sqlInstallDatabase .="CREATE TABLE `reminders` (
 `number` INT NULL DEFAULT '0' , 
 `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'off' ,
  PRIMARY KEY (`id`)
-) ENGINE = InnoDB;"
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `history_result_users` ( 
+`id` INT NOT NULL AUTO_INCREMENT ,
+`answers` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`id_user` INT NULL DEFAULT NULL ,
+`created_at` INT NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `tests`;';
@@ -420,6 +429,7 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `interme_package_workouts`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `user_packages`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `reminders`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `usersquanlity`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `history_result_users`;';
 
 
 $sqlUpdateDatabase['users']['full_name'] = "ALTER TABLE `users` ADD `full_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;";
@@ -650,4 +660,9 @@ $sqlUpdateDatabase['reminders']['hour'] = "ALTER TABLE `reminders` ADD `hour` IN
 $sqlUpdateDatabase['reminders']['minute'] = "ALTER TABLE `reminders` ADD `minute` INT NULL DEFAULT '0' ;";
 $sqlUpdateDatabase['reminders']['number'] = "ALTER TABLE `reminders` ADD `number` INT NULL DEFAULT '0' ;";
 $sqlUpdateDatabase['reminders']['status'] = "ALTER TABLE `reminders` ADD `status` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'off';";
+
+$sqlUpdateDatabase['history_result_users']['answers'] = "ALTER TABLE `history_result_users` ADD `answers` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['history_result_users']['token'] = "ALTER TABLE `history_result_users` ADD `token` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['history_result_users']['id_user'] = "ALTER TABLE `history_result_users` ADD `id_user` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['history_result_users']['created_at'] = "ALTER TABLE `history_result_users` ADD `created_at` INT NULL DEFAULT NULL;";
 ?>

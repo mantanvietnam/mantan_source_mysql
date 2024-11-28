@@ -59,8 +59,8 @@ function addOrderCustomer($input)
                 $save->note_admin = '';
                 $save->status = 'new';
                 $time_now = explode(' ', $dataSend['time']);
-                $time = explode(':', $time_now[1]);
-                $date = explode('/', $time_now[0]);
+                $time = explode(':', $time_now[0]);
+                $date = explode('/', $time_now[1]);
                 $save->create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
               //  $save->create_at = time();
                 $save->money = (int) $dataSend['total'];
@@ -1477,8 +1477,8 @@ function editOrderCustomerAgency($input)
             $dataSend = $input['request']->getData();
 
             $time_now = explode(' ', $dataSend['time']);
-            $time = explode(':', $time_now[1]);
-            $date = explode('/', $time_now[0]);
+            $time = explode(':', $time_now[0]);
+            $date = explode('/', $time_now[1]);
             $order->create_at = mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
             
             $order->note_user = $dataSend['note']; // ghi chú người mua  
