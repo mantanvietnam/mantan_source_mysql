@@ -60,7 +60,7 @@
                         </a>
                     </td>
                     <td align="center">
-                        <a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/plugins/admin/colennao-view-admin-deletebreakfast/?id=<?php echo urlencode($item->id); ?>">
+                        <a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/plugins/admin/colennao-view-admin-deleteuserpeople/?id=<?php echo urlencode($item->id); ?>">
                             <i class="bx bx-trash me-1"></i>
                         </a>
                     </td>

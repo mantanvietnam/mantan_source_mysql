@@ -77,8 +77,8 @@ function adduserpeople($input) {
 
     $dataExerciseWorkouts = $modelExerciseWorkouts->find()->all();
     $dataWorkouts = $modelWorkouts->find()->all();
-
     $datamyplane = $modelmyplane->find()->all();
+
     if (!empty($_GET['id'])) {
         $data = $modeluserpeople->get((int)$_GET['id']);
     } else {
@@ -88,22 +88,34 @@ function adduserpeople($input) {
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
+        // Kiểm tra nếu tên người dùng đã được nhập
         if (!empty($dataSend['name'])) {
+            // Cập nhật thông tin cơ bản
             $data->name = $dataSend['name'];
             $data->image = $dataSend['image'];
             $data->id_consume = $dataSend['id_consume'];
-            $idLessons = []; 
 
-            if (!empty($dataSend['id_lesson'])) {
-                foreach ($dataSend['id_lesson'] as $lessonJson) {
-                    $lesson = json_decode($lessonJson, true);
-                    if ($lesson) {
-                        $idLessons[] = [$lesson['idWorkout'], $lesson['id']]; 
+            // Xử lý mảng id_lesson
+            $idLessons = [];
+
+            if (!empty($dataSend['workout_group']) && !empty($dataSend['workout_title'])) {
+                foreach ($dataSend['workout_group'] as $index => $workoutGroup) {
+                    $workoutTitle = $dataSend['workout_title'][$index];
+            
+                    // Kiểm tra nếu nhóm bài học và bài học có giá trị
+                    if (!empty($workoutGroup) && !empty($workoutTitle)) {
+                        // Thêm cặp nhóm bài học và bài học vào mảng $idLessons
+                        $idLessons[] = [(int)$workoutGroup, (int)$workoutTitle];
                     }
                 }
-                $data->id_lesson = json_encode($idLessons); 
+            
+                // Chuyển mảng $idLessons thành chuỗi JSON
+                $data->id_lesson = json_encode($idLessons);
+            } else {
+                $data->id_lesson = null; // Nếu không có dữ liệu, có thể set id_lesson là null
             }
 
+            // Lưu dữ liệu vào cơ sở dữ liệu
             if ($modeluserpeople->save($data)) {
                 $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
             } else {
@@ -114,6 +126,7 @@ function adduserpeople($input) {
         }
     }
 
+    // Gửi dữ liệu đến view
     setVariable('dataExerciseWorkouts', $dataExerciseWorkouts);
     setVariable('dataWorkouts', $dataWorkouts);
     setVariable('datamyplane', $datamyplane);
@@ -121,6 +134,21 @@ function adduserpeople($input) {
     setVariable('mess', $mess);
 }
 
+function deleteuserpeople($input){
+    global $controller;
+
+    $modeluserpeople = $controller->loadModel('userpeople');
+    
+    if(!empty($_GET['id'])){
+        $data = $modeluserpeople->get($_GET['id']);
+        
+        if($data){
+            $modeluserpeople->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/colennao-view-admin-listuserpeople-listuserpeople');
+}
 
 
 

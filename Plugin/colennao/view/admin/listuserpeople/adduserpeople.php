@@ -64,40 +64,98 @@
                         </div>
                         <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">
                           <div class="container">
-                          <?php if (!empty($dataWorkouts) && !empty($dataExerciseWorkouts)): ?>
-                              <?php foreach ($dataWorkouts as $packageWorkout): ?>
-                                  <div class="row mb-4">
-                                      <div class="col-md-12">
-                                          <h4><?= htmlspecialchars($packageWorkout->title) ?></h4>
-                                      </div>
-                                      <div class="col-md-12">
-                                          <?php 
-                                          $lessonsExist = false; 
-                                          foreach ($dataExerciseWorkouts as $workout): ?>
-                                              <?php if ($workout->id_workout == $packageWorkout->id): 
-                                                  $lessonsExist = true; 
-                                              ?>
-                                                  <div class="form-check">
-                                                      <input type="checkbox" class="form-check-input" name="id_lesson[]" 
-                                                            value='{"idWorkout": <?= $workout->id_workout ?>, "id": <?= $workout->id ?>}' 
-                                                            data-workout-id="<?= $workout->id_workout ?>" 
-                                                            <?= in_array([$workout->id_workout, $workout->id], (array)json_decode($data->id_lesson, true)) ? 'checked' : '' ?>>
-                                                      <label class="form-check-label" for="id_lesson_<?= $workout->id ?>"><?= htmlspecialchars($workout->title) ?></label>
-                                                  </div>
-                                              <?php endif; ?>
-                                          <?php endforeach; ?>
-                                          <?php if (!$lessonsExist): ?>
-                                              <p>Không có bài học nào cho gói bài tập này.</p>
-                                          <?php endif; ?>
-                                      </div>
-                                  </div>
-                              <?php endforeach; ?>
+                              <h4 class="mb-4">Thêm bài tập</h4>
+                              <table class="table table-bordered" id="exerciseTable">
+                                  <thead>
+                                      <tr>
+                                          <th>Tên nhóm bài học</th>
+                                          <th>Tên bài học</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  <?php if (!empty($data)): ?>
+                              <?php 
+                                  // Giải mã chuỗi JSON từ 'id_lesson' của đối tượng $data
+                                  $idLessons = json_decode($data->id_lesson, true);
+
+                                  // Kiểm tra nếu $idLessons không phải là mảng hợp lệ và không rỗng
+                                  if (!is_array($idLessons)) {
+                                      // Nếu $idLessons không phải là mảng hợp lệ, gán nó thành một mảng rỗng
+                                      $idLessons = [];
+                                  }
+                              ?>
+
+                              <?php if (!empty($idLessons)): ?>
+                                  <?php foreach ($idLessons as $lesson): ?>
+                                      <tr>
+                                          <!-- Tên nhóm bài học - select lấy từ $dataWorkouts -->
+                                          <td>
+                                              <select class="form-control" name="workout_group[]">
+                                                  <?php foreach ($dataWorkouts as $option): ?>
+                                                      <option value="<?= $option->id ?>"
+                                                          <?= $lesson[0] == $option->id ? 'selected' : '' ?>>
+                                                          <?= htmlspecialchars($option->title) ?>
+                                                      </option>
+                                                  <?php endforeach; ?>
+                                              </select>
+                                          </td>
+
+                                          <!-- Tên bài học - select lấy từ $dataExerciseWorkouts -->
+                                          <td>
+                                              <select class="form-control" name="workout_title[]">
+                                                  <option value="">Chọn bài học</option>
+                                                  <?php foreach ($dataExerciseWorkouts as $exercise): ?>
+                                                      <!-- Kiểm tra xem bài học có thuộc nhóm workout không -->
+                                                      <?php if ($lesson[0] == $exercise->id_workout): ?>
+                                                          <option value="<?= $exercise->id ?>"
+                                                              <?= $lesson[1] == $exercise->id ? 'selected' : '' ?>>
+                                                              <?= htmlspecialchars($exercise->title) ?>
+                                                          </option>
+                                                      <?php endif; ?>
+                                                  <?php endforeach; ?>
+                                              </select>
+                                          </td>
+                                      </tr>
+                                  <?php endforeach; ?>
+                              <?php else: ?>
+                                  <!-- Nếu $idLessons là rỗng hoặc không hợp lệ, hiển thị thông báo -->
+                                  <tr>
+                                      <td colspan="2"></td>
+                                  </tr>
+                              <?php endif; ?>
                           <?php else: ?>
-                              <p>Không có dữ liệu gói bài tập hoặc bài học.</p>
+                              <!-- Nếu không có dữ liệu, hiển thị một hàng trống để người dùng nhập -->
+                              <tr>
+                                  <td>
+                                      <select class="form-control" name="workout_group[]">
+                                          <option value="">Chọn nhóm bài học</option>
+                                          <?php foreach ($dataWorkouts as $workout): ?>
+                                              <option value="<?= $workout->id ?>"><?= htmlspecialchars($workout->title) ?></option>
+                                          <?php endforeach; ?>
+                                      </select>
+                                  </td>
+
+                                  <td>
+                                      <select class="form-control" name="workout_title[]">
+                                          <option value="">Chọn bài học</option>
+                                          <?php foreach ($dataExerciseWorkouts as $exercise): ?>
+                                              <option value="<?= $exercise->id ?>"><?= htmlspecialchars($exercise->title) ?></option>
+                                          <?php endforeach; ?>
+                                      </select>
+                                  </td>
+                              </tr>
                           <?php endif; ?>
 
 
 
+
+
+                                  </tbody>
+                              </table>
+
+                              <div class="form-group">
+                                  <button type="button" class="btn btn-primary" id="addRowButton">Thêm Hàng</button>
+                              </div>
                           </div>
                         </div>
                       </div>              
@@ -114,3 +172,32 @@
     </div>
 </div>
 
+<script>
+    document.getElementById('addRowButton').addEventListener('click', function() {
+    var table = document.getElementById('exerciseTable').getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow(table.rows.length);
+
+    // Tạo cột cho nhóm bài học
+    var cell1 = newRow.insertCell(0);
+    cell1.innerHTML = `
+        <select class="form-control" name="workout_group[]">
+            <option value="">Chọn nhóm bài học</option>
+            <?php foreach ($dataWorkouts as $workout): ?>
+                <option value="<?= $workout->id ?>"><?= htmlspecialchars($workout->title) ?></option>
+            <?php endforeach; ?>
+        </select>
+    `;
+
+    // Tạo cột cho bài học
+    var cell2 = newRow.insertCell(1);
+    cell2.innerHTML = `
+        <select class="form-control" name="workout_title[]">
+            <option value="">Chọn bài học</option>
+            <?php foreach ($dataExerciseWorkouts as $exercise): ?>
+                <option value="<?= $exercise->id ?>"><?= htmlspecialchars($exercise->title) ?></option>
+            <?php endforeach; ?>
+        </select>
+    `;
+});
+
+</script>
