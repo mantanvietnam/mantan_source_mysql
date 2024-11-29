@@ -9,6 +9,8 @@ function listUserAdmin($input)
     $modelUser = $controller->loadModel('Users');
     $modelUserpeople = $controller->loadModel('Userpeople');
 
+    $modelHistoryResultUser = $controller->loadModel('HistoryResultUsers');
+
     $conditions = array();
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
@@ -77,6 +79,8 @@ function listUserAdmin($input)
         if(!empty($listData)){
             foreach($listData as $key =>$item){
                 $listData[$key]->name_people = $modelUserpeople->find()->where(['id'=>$item->id_group_user])->first();
+
+                $listData[$key]->historyResult= $modelHistoryResultUser->find()->where(['id_user'=>$item->id])->first();
             }
         }
         

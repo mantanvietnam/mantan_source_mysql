@@ -19,5 +19,6 @@
 	$routesPlugin['ai-search-image-event']= 'phoenix_ai/view/home/ai/aiSearchImageEvent.php';
 
 	$routesPlugin['ai-search-image']= 'phoenix_ai/view/home/ai/aiSearchImage.php';
+	$routesPlugin['sendconnentBlogController']= 'phoenix_ai/view/home/connentBlog/sendconnentBlogController.php';
 	
 	

@@ -191,6 +191,19 @@
                 right: -150px;
                 font-size: 25px;
             }
+
+            .wallPost{
+                background: white;
+                padding: 12px;
+                border-radius: 29px;
+                margin-top: 15px;
+            }
+
+            .wallPost .text_full_name{
+                font-size: 16px;
+                font-family: fangsong;
+                font-weight: 700;
+            }
         </style>                            
     </head>
     
@@ -247,8 +260,8 @@
                             </a>
                             <?php }?>
 
-                            <?php if(!empty(@$info->zalo)){ ?>
-                            <a target="_blank" href="<?php echo @$info->zalo;?>">
+                            <?php if(!empty(@$info->phone)){ ?>
+                            <a target="_blank" href="https://chat.zalo.me/?phone=<?php echo @$info->phone;?>">
                                 <div class="row social mb-3">
                                     <div class="col-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/zalo.svg" height="32" width="32"></image></svg>
@@ -348,62 +361,50 @@
                                     </div>
                                 </div>
                             </a>
-                            <?php }?> 
-
-                            <?php if(!empty($dataLink)){
-                                foreach($dataLink as $key => $item){
-                                    $icon = '';
-                                    if($item->type=='website'){
-                                        $icon = '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Circle-icons-global.svg/1024px-Circle-icons-global.svg.png" width="100%">';
-                                    }elseif($item->type=='facebook'){
-                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/facebook.svg" height="32" width="32"></image></svg>';
-                                    }elseif($item->type=='instagram'){
-                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/instagram.svg" height="32" width="32"></image></svg>';
-                                    }elseif($item->type=='tiktok'){
-                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/tiktok.svg" height="32" width="32"></image></svg>';
-                                    }elseif($item->type=='youtube'){
-                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/youtube.svg" height="32" width="32"></image></svg>';
-                                    }elseif($item->type=='zalo'){
-                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/zalo.svg" height="32" width="32"></image></svg>';
-                                    }elseif($item->type=='linkedin'){
-                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/linkedin.svg" height="32" width="32"></image></svg>';
-                                    }elseif($item->type=='twitter'){
-                                        $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/twitter.svg" height="32" width="32"></image></svg>';
-                                    }
-
-                                    echo '<a target="_blank" href="'.$item->link.'">
+                            <a target="_blank" href="<?php echo @$info->twitter;?>">
                                 <div class="row social mb-3">
-                                    <div class="col-3">'.$icon.'</div>
+                                    <div class="col-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 32 32" class="" fill="#000"><image href="/plugins/hethongdaily/view/home/assets/img/icons/twitter.svg" height="32" width="32"></image></svg>
+                                    </div>
 
                                     <div class="col-9 text-center">
-                                        <span class="title">'.$item->namelink.'</span><br/>
-                                        <span class="des">'.$item->description.'</span>
+                                        <span class="title">Trang Twitter</span><br/>
+                                        <span class="des">Chia sẻ quan điểm cá nhân</span>
                                     </div>
                                 </div>
-                            </a>';
-                                }
-                            } 
-
-                             ?>
-
-                            <?php 
-                                if(!empty(@$info->bank_name) && !empty(@$info->bank_number) && !empty(@$info->bank_code)){ 
-                                    echo '<center class="mb-3"><img src="https://img.vietqr.io/image/'.@$info->bank_code.'-'.@$info->bank_number.'-compact2.png?amount=&addInfo=&accountName='.@$info->bank_name.'" width="80%" /></center>';
-                                }
-                            ?>
-
-                            <!--
-                            <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> 
-                                <span><i class="fa fa-twitter"></i></span> 
-                                <span><i class="fa fa-facebook-f"></i></span> 
-                                <span><i class="fa fa-instagram"></i></span> 
-                                <span><i class="fa fa-linkedin"></i></span> 
-                            </div> 
-                            -->
+                            </a>
+                            <?php }?> 
 
                             <div class=" px-2 rounded mt-4 date "> 
                                 <span class="join"><?php echo @$info->email;?></span> 
-                            </div> 
+                            </div>
+                            <?php if(!empty($listData)){ ?>
+                                <div class="">
+                                    <?php foreach($listData as $key => $item){
+                                        $image = '';
+                                          if(!empty($item->listImage)){
+                                             $image = '<div class="row" style="padding: 10px;">';
+                                            foreach ($item->listImage as $img) {
+                                              $image .= '<div class="col-md-6" style="padding: 0;"><img src="'.$img->image.'"  style="width: 100%; height: auto; padding:2px" /></div>';
+                                            }
+                                            $image .= '</div>'; 
+                                          }
+                                           
+                                     ?>
+                                        <div class="wallPost">
+                                            <p class="text_full_name"> <img class="avatar" src="<?php echo @$info->avatar;?>" height="40" width="40" />&ensp;<?php echo $info->full_name ?></p>
+                                            <p><?php echo $item->connent ?></p>
+                                            <?php echo $image; ?>
+                                            <div class="row">
+                                                <span class="col-md-6" style="text-align: center;  margin: 0px;"><a target="_blank" style="color: #001bfd; font-family: sans-serif;" href="https://1link.click/r/O5024RPmXi"><?php echo $item->like ?> Like</a></span>
+                                                <span class="col-md-6" style="text-align: center;  margin: 0px;"><a target="_blank" style="color: #001bfd; font-family: sans-serif;" href="https://1link.click/r/O5024RPmXi"><?php echo $item->comment ?> Comment</a></span>
+                                            </div>
+                                        </div>
+
+                                    <?php } ?>
+                                </div>
+
+                            <?php } ?> 
                         </div> 
                     </div>
                 </div>

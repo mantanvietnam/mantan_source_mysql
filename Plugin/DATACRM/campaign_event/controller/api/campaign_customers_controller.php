@@ -606,4 +606,59 @@ function  checkCustomerJoinCampaignAPI($input)
 
     return $return;
 }
+
+function getCustomerCampaignAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    $modelCampaigns = $controller->loadModel('Campaigns');
+    $modelCampaignCustomers = $controller->loadModel('CampaignCustomers');
+    
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelCustomerHistories = $controller->loadModel('CustomerHistories');
+
+    $return = array('code'=>1);
+    
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token']);
+
+            if(!empty($infoMember)){
+                if(!empty($dataSend['id_campaign']) && !empty($dataSend['id_customer'])){
+                    $infoCampaign = $modelCampaigns->find()->where(['id'=>(int) $dataSend['id_campaign'], 'id_member'=>$infoMember->id])->first();
+
+                    if(!empty($infoCampaign)){
+                        $data = $modelCampaignCustomers->find()->where(['id_campaign'=>(int) $dataSend['id_campaign'], 'id_customer'=>(int) $dataSend['id_customer'], 'id_member'=>$infoMember->id])->first();
+                        
+                        if(!empty($data)){
+                            $checkCustomer = $modelCustomers->find()->where(['id'=>$data->id_customer])->first();
+
+                            $data->customer = @$checkCustomer;
+
+                            // lịch sử chăm sóc
+                            $data->history = $modelCustomerHistories->find()->where(['id_customer'=>$data->id_customer])->order(['id'=>'desc'])->first();
+                        }
+                        
+                        $return = array('code'=>0, 'mess'=>'lấy dữ liệu thành công' ,'data'=>$data);
+                    }else{
+                        $return = array('code'=>4, 'mess'=>'Không tồn tại chiến dịch cần tìm');
+                    }
+                }else{
+                    $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+                }
+            }else{
+             $return = array('code'=>3, 'mess'=>'Sai mã token');
+         }
+     }else{
+         $return = array('code'=>2, 'mess'=>'Gửi thiếu dữ liệu');
+     }
+ }
+
+ return $return;
+}
 ?>

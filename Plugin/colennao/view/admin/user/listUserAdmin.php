@@ -99,6 +99,11 @@
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Đã khóa ';
                 }
+                $historyResult ='';
+                if(!empty($item->historyResult)){
+                      $historyResult = '<br/>
+                  <a href="/plugins/admin/colennao-view-admin-user-listhistoryResult/?id='.$item->id .'">a>';
+                }
 
               echo '<tr>
                  <td align="center">' . $item->id . '

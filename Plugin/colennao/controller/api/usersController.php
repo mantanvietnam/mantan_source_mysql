@@ -97,6 +97,10 @@ function registerUserApi($input): array
                         $checkHistoryResult->token = null;
                         $checkHistoryResult->id_user = $loginUser->id;
                         $modelHistoryResultUser->save($checkHistoryResult);
+
+                        $loginUser->historyResult= $checkHistoryResult;
+                    }else{
+                        $loginUser->historyResult= array();
                     }
                 }
 

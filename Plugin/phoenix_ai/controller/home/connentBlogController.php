@@ -13,20 +13,39 @@ function sendconnentBlogController($input){
         $modelContentFacebookAis = $controller->loadModel('ContentFacebookAis');
         $modelHistoryChatAis = $controller->loadModel('HistoryChatAis');
 
-        }else{
+        $reply_ai = array();
+        $dataSend = array();
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+            $question = 'Lên kế hoạch và Ý tưởng nội dung Viết 10 bài viết quảng Facebook, ';
+
+           $question = 'Viết 10 bài quảng cáo Facebook để bán sản phẩm '.@$dataSend['topic'].' cho đối tượng khách hàng là '.@$dataSend['customer_target'].'. Đảm bảo rằng bài viết mang cảm xúc '.@$dataSend['feeling'].', đồng thời nhấn mạnh những lợi ích là '.@$dataSend['benefit'].'. Kết thúc với một CTA '.@$dataSend['end'].'. Thêm 3 emoji vào đâu và cuối câu .';
+
+           /* if(!empty($dataSend['topic'])){
+                $question .= 'chủ đề về '.$dataSend['topic'];
+            }
+            if(!empty($dataSend['customer_target'])){
+                $question .=  'người tiếp cận '.$dataSend['customer_target'];
+            }*/
+            $conversation_id ='';
+            if(!empty($dataSend['conversation_id'])){
+                $conversation_id =  $dataSend['conversation_id'];
+
+                if(!empty($dataSend['chat'])){
+                    $question = $dataSend['chat'];
+                }
+            }
+
+            $reply_ai = callAIphoenixtech($question,$conversation_id);
+
+
+
+        }
+        setVariable('reply_ai', $reply_ai);
+        setVariable('dataSend', $dataSend);
+    }else{
         return $controller->redirect('/login');
     }
-
-
-    $string = callAIphoenixtech('Lên kế hoạch Ý tưởng nội dung, Mô tả, Chủ đề, Tiêu đề hấp dẫn, Viết 10 bài viết quảng Facebook, chủ đền về quần áo Phong cách trẻ mùa dồng , người tiếp cận khách trẻ nam nữ đội tuổi 19 đến 35 tuổi viết bài dày','d1fb4891-6045-4517-82a7-d0f002ed5b51');
-    $string1 = callAIphoenixtech('viết bài 1 thành bài hoàn chỉnh',$string['conversation_id']);
-    $string2 = callAIphoenixtech('viết bài 2 thành bài hoàn chỉnh',$string['conversation_id']);
-    
-    debug($string);
-    debug($string1);
-    debug($string2);
-    
-     die;
 }
 
  ?>
