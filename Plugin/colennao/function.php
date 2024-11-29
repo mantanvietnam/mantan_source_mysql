@@ -53,15 +53,25 @@ $menus[1]['sub'][]= array(	'title'=>'Bài học',
 							'permission'=>'listLesson'
                     );
 $menus[2]['title'] = 'Lập kế hoạch';
-$menus[2]['sub'][]= array(	'title'=>'Câu hỏi khảo sát',
+$menus[2]['sub'][]= array(	'title'=>'Câu hỏi khảo sát yoga',
 							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestion',
 							'classIcon'=>'bx bx-question-mark',
 							'permission'=>'listQuestion'
 						);
-$menus[2]['sub'][]= array( 'title'=>'Điều kiện',
+$menus[2]['sub'][]= array(	'title'=>'Câu hỏi khảo sát karate',
+                            'url'=>'/plugins/admin/colennao-view-admin-questions-listquestionkarate',
+                            'classIcon'=>'bx bx-question-mark',
+                            'permission'=>'listquestionkarate'
+                    );
+$menus[2]['sub'][]= array( 'title'=>'Điều kiện yoga',
                             'url'=>'/plugins/admin/colennao-view-admin-condition-listcondition',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listcondition'
+                            );
+$menus[2]['sub'][]= array( 'title'=>'Điều kiện karate',
+                            'url'=>'/plugins/admin/colennao-view-admin-condition-listconditionkarate',
+                            'classIcon'=>'bx bx-extension',
+                            'permission'=>'listconditionkarate'
                             );
 $menus[2]['sub'][]= array( 'title'=>'Kế hoạch luyện tập',
                             'url'=>'/plugins/admin/colennao-view-admin-listuserpeople-listuserpeople',

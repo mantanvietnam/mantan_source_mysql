@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-condition-listconditioneng">Câu hỏi</a> /</span>
-    Nội dung câu hỏi
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-condition-listconditionkarate">Điều kiện</a> /</span>
+    Nội dung câu hỏi thiết lập điều kiện
   </h4>
 
   <!-- Basic Layout -->
@@ -10,7 +10,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Nội dung câu hỏi</h5>
+            <!-- <h5 class="mb-0">Nội dung câu hỏi</h5> -->
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
@@ -24,30 +24,37 @@
                             Câu hỏi
                           </button>
                         </li>
-                        <!-- <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-2" aria-controls="navs-top-2" aria-selected="false">
-                            Đáp án  
-                          </button>
-                        </li> -->
                       </ul>
                       <div class="tab-content">
                         <div class="tab-pane fade active show" id="navs-top-question" role="tabpanel">
                           <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                  <?php echo $mess;?>
-                                    <label class="form-label">id_groupfile</label>
+                                    <label class="form-label">Tên nhóm bài tập</label>
                                     <select class="form-control" name="id_groupfile" id="id_groupfile" required>
                                         <option value="">Chọn Nhóm bài tập</option>
                                         <?php foreach ($dataWorkout as $item): ?>
                                             <option value="<?php echo $item['id']; ?>" 
                                                 <?php echo isset($data->id) && $data->id == $item['id'] ? 'selected' : ''; ?>>
-                                                <?php echo $item['title_en']; ?>
+                                                <?php echo $item['name']; ?>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
+                          </div>
+                          <div class="row mb-4">
+                              <div class="col-md-6">
+                                  <div class="mb-2">
+                                      <label class="form-label">đây là bài tập mặc định</label>
+                                      <input type="hidden" name="type" value="karate" />
+                                  </div>
+                                  <select class="form-control" name="status" required>
+                                      <option value="">Chọn trạng thái</option>
+                                      <option value="active" <?php echo (isset($data->status) && $data->status == 'active') ? 'selected' : ''; ?>>mặc định</option>
+                                      <option value="inactive" <?php echo (isset($data->status) && $data->status == 'inactive') ? 'selected' : ''; ?>>Không phải mặc định</option>
+                                  </select>
+                              </div>
                           </div>
                           <?php if (!empty($dataquestion) && is_array($dataquestion)): ?>
                             <?php foreach ($dataquestion as $questionData): ?>
@@ -56,6 +63,7 @@
                                         <div class="mb-2">
                                             <label class="form-label">Câu hỏi: <?php echo $questionData['name']; ?></label>
                                             <input type="hidden" name="id_question[]" value="<?php echo $questionData['id']; ?>" />
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -66,8 +74,8 @@
                                                 $answerKey = 'answer' . $i; 
                                                 if (isset($questionData[$answerKey]) && $questionData[$answerKey] !== null && $questionData[$answerKey] !== ''): // Kiểm tra đáp án không phải là null và không rỗng
                                                     $hasAnswer = true; 
-                                                    // Gán giá trị tương ứng cho đáp án
-                                                    $valueMap = ['a', 'b', 'c', 'd','e','f','g','h']; // Giá trị cho các đáp án
+                                  
+                                                    $valueMap = ['a', 'b', 'c', 'd','e','f','g','h']; 
                                             ?>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="answer[<?php echo $questionData['id']; ?>][]" value="<?php echo $valueMap[$i - 1]; ?>" id="<?php echo $answerKey . '-' . $questionData['id']; ?>">

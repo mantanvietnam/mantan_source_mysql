@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">QUESTIONS</h4>
-  <p><a href="/plugins/admin/colennao-view-admin-questions-addquestionenglish" class="btn btn-primary"><i class='bx bx-plus'></i>ADD</a></p>
+  <p><a href="/plugins/admin/colennao-view-admin-questions-addquestionkarate" class="btn btn-primary"><i class='bx bx-plus'></i>ADD</a></p>
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">QUESTION</h5>
@@ -11,6 +11,7 @@
             <th>ID</th>
             <th>QUESTION</th>
             <th>Trạng thái</th>
+            <th>Dạng câu hỏi</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -24,6 +25,7 @@
                         <td>'.$item->id.'</td>
                         <td>'.$item->name.'</td>
                         <td>'.$item->status.'</td>
+                        <td>'.$item->type.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-questions-addQuestion/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

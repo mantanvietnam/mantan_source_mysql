@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-questions-listQuestion">Câu hỏi</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-questions-listquestionkarate">Câu hỏi</a> /</span>
     Nội dung câu hỏi
   </h4>
 
@@ -72,7 +72,7 @@
                               <div class="mb-3">
                                 <label class="form-label">Câu hỏi (*)</label>
                                 <input  type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" required/>
-                                <input  type="hidden" class="form-control phone-mask" name="type" id="type" value="yoga" required/>
+                                <input  type="hidden" class="form-control phone-mask" name="type" id="type" value="karate" required/>
                               </div>
                               <div class="mb-3">
                                 <label class="form-label">Câu hỏi tiếng anh</label>
@@ -101,10 +101,10 @@
                                         $answer1_vi = '';
                                         $answer1_en = '';
 
-                                   
+                           
                                         if (!empty($data->answer1)) {
                                             $answer1 = json_decode($data->answer1, true);
-                                
+                                    
                                             $answer1_vi = isset($answer1['vi']) ? $answer1['vi'] : '';
                                             $answer1_en = isset($answer1['en']) ? $answer1['en'] : '';
                                         }

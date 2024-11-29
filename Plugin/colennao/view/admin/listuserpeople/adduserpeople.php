@@ -60,6 +60,15 @@
                                 <?php showUploadFile('image','image',@$data->image,0);?>
                               </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Dạng bài tập</label>
+                                    <select class="form-select" name="type" id="type">
+                                        <option value="karate" <?php echo (isset($data->type) && $data->type === 'karate') ? 'selected' : ''; ?>>Karate</option>
+                                        <option value="yoga" <?php echo (isset($data->type) && $data->type === 'yoga') ? 'selected' : ''; ?>>Yoga</option>
+                                    </select>
+                                </div>
+                            </div>
                           </div>
                         </div>
                         <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">

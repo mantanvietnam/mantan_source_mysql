@@ -94,7 +94,7 @@ function adduserpeople($input) {
             $data->name = $dataSend['name'];
             $data->image = $dataSend['image'];
             $data->id_consume = $dataSend['id_consume'];
-
+            $data->type = $dataSend['type'];
             // Xử lý mảng id_lesson
             $idLessons = [];
 

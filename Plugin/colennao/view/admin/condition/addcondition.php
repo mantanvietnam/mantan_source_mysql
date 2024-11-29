@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-condition-listcondition">Câu hỏi</a> /</span>
-    Nội dung câu hỏi
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-condition-listcondition">Điều kiện</a> /</span>
+    Nội dung câu hỏi thiết lập điều kiện
   </h4>
 
   <!-- Basic Layout -->
@@ -10,7 +10,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Nội dung câu hỏi</h5>
+            <!-- <h5 class="mb-0">Nội dung câu hỏi</h5> -->
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
@@ -30,7 +30,6 @@
                           <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                  <?php echo $mess;?>
                                     <label class="form-label">Tên nhóm bài tập</label>
                                     <select class="form-control" name="id_groupfile" id="id_groupfile" required>
                                         <option value="">Chọn Nhóm bài tập</option>
@@ -48,6 +47,7 @@
                               <div class="col-md-6">
                                   <div class="mb-2">
                                       <label class="form-label">đây là bài tập mặc định</label>
+                                      <input type="hidden" name="type" value="yoga" />
                                   </div>
                                   <select class="form-control" name="status" required>
                                       <option value="">Chọn trạng thái</option>
@@ -63,6 +63,7 @@
                                         <div class="mb-2">
                                             <label class="form-label">Câu hỏi: <?php echo $questionData['name']; ?></label>
                                             <input type="hidden" name="id_question[]" value="<?php echo $questionData['id']; ?>" />
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-12">

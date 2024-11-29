@@ -11,6 +11,7 @@
             <th>ID</th>
             <th>Câu hỏi</th>
             <th>Trạng thái</th>
+            <th>Dạng câu hỏi</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -24,6 +25,7 @@
                         <td>'.$item->id.'</td>
                         <td>'.$item->name.'</td>
                         <td>'.$item->status.'</td>
+                        <td>'.$item->type.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-questions-addQuestion/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
