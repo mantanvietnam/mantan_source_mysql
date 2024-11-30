@@ -888,6 +888,122 @@ table {
     font-size: 14px;
     
 }
+.accordion-item:not(:first-of-type) {
+    border-top: 1px solid #5242F3 !important;
+}
 .bottom-setting-one  .form-check-input{
     margin-left: 10px !important;
+}
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+  }
+
+
+  /* LOGIN */
+  .form-login .title-login {
+    text-align: center ;
+  }
+  .form-login .title-login .title {
+    color: #595959;
+    font-size: 28px;
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    font: 800;
+  }
+.input-login-set-width input{
+    min-height: 50px;
+  }
+.input-login-set-width .form-control:focus {
+  
+    border-color: #5242F3;
+    outline: 0;
+    box-shadow: none !important;
+}
+.Link-forgot {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 10px;
+}
+.Link-forgot a{
+    text-decoration: none;
+    color: #5242F3;
+}
+.form-login button{
+    flex: 0 0 auto;
+    width: 61.666667%;;
+ 
+    color: #ffffff;
+    height: 46px;
+    margin-top: 6px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #5242F3;
+    transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+.form-login button:hover{
+    background-color: transparent;
+    color: #5242F3;
+    border: 1px solid #5242F3;
+    transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+.form-login .link-register {
+    text-align: center;
+    color: #9d9d9d;
+
+}
+.form-login .link-register a{
+    color: #5242F3;
+    text-decoration: none;
+}
+.form-login .image-bottom-form {
+    text-align: center;
+}
+.form-login .left-login {
+    flex: 3;
+    display: flex;
+    overflow-x: auto;
+    align-items: center;
+    padding-top: 40px;
+    flex-direction: column;
+}
+.right-form-login {
+    flex: 7;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #F5F7FB;
+}
+.right-form-login p{
+    color: #5242F3;
+    font-size: 50px;
+    text-align: center;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.title-login img{
+    width: 160px;
+}
+/* forgot */
+.title-login .title-bottom{
+    color: #9D9D9D;
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 380px;
+}
+.Link-forgot-register {
+    display: flex;
+    
+    margin-bottom: 10px;
+}
+.Link-forgot-register a{
+    text-decoration: none;
+    color: #5242F3;
 }
