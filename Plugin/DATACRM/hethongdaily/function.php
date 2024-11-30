@@ -537,10 +537,15 @@ function getPercentAffiliate(){
 function getInfoCustomerMember($value=0, $type='id')
 {
     global $controller;
+    global $urlHomes;
     
     $modelCustomers = $controller->loadModel('Customers');
 
-    return $modelCustomers->find()->where([$type=>$value])->first();
+    $infoUser =$modelCustomers->find()->where([$type=>$value])->first();
+
+    $infoUser->linkinfo = $urlHomes.'infoCustomer?id='.$infoUser->id;
+    $infoUser->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$urlHomes.'infoCustomer?id='.$infoUser->id;
+    return $infoUser;
 }
 
 function createCustomerNew($full_name='', $phone='', $email='', $address='', $sex=0, $id_city=0, $id_agency=0, $id_aff=0, $name_agency='', $id_messenger='', $avatar='', $birthday_date=0, $birthday_month=0, $birthday_year=0, $id_groups=0, $id_zalo='', $note_history='')
@@ -933,10 +938,8 @@ function getCustomerByToken($token='')
         $checkData = $modelCustomer->find()->where($conditions)->first();
         if(!empty($checkData)){
             $member = $modelMember->find()->where(['id_father'=>0])->first();
-            // $checkPoint = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$checkData->id])->first();
-            // if(!empty($checkPoint)){
-                $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$checkData->id,'updated_at <'=>strtotime('today 00:00:00')])->first();
-                if(!empty($checkPointCustomer)){
+            $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$checkData->id,'updated_at >'=>strtotime('today 00:00:00')])->first();
+                if(empty($checkPointCustomer)){
                     $note = 'bạn được cộng 5 điểm khi bạn dăng nhập đầu tiên trong ngày';
                     accumulatePoint($checkData->id,5,$note);
                     $dataSendNotification= array('title'=>'Bạn được cộng điểm',
@@ -949,20 +952,6 @@ function getCustomerByToken($token='')
                         sendNotification($dataSendNotification, $checkData->token_device);
                     }
                 }
-            /*}else{
-                $note = 'bạn được cộng 5 điểm khi bạn dăng nhập đầu tiên trong ngày';
-                accumulatePoint($checkData->id,5,$note);
-                $dataSendNotification= array('title'=>'Bạn được cộng điểm',
-                            'time'=>date('H:i d/m/Y'),
-                            'content'=>"Bạn được cộng 5 điểm khi bạn đăng nhập lần đâu tiên trong ngày ",
-                            'id_friend'=>"$checkData->id",
-                            'action'=>'sendRegisterCustomer');
-
-                if(!empty($checkData->token_device)){
-                    sendNotification($dataSendNotification, $checkData->token_device);
-                }
-            }*/
-            
         }
     }
 

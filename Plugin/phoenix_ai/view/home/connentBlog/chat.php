@@ -1,0 +1,1 @@
+<?php getFileTheme('chat/chat.php'); ?>

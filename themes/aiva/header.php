@@ -12,6 +12,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="/webroot/css/jquery.datetimepicker.min.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="/webroot/assets_admin/vendor/libs/jquery/jquery.js"></script>
+    <script src="/webroot/assets_admin/vendor/libs/popper/popper.js"></script>
+    <script src="/webroot/assets_admin/vendor/js/bootstrap.js"></script>
+    <script src="/webroot/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="/webroot/assets_admin/vendor/js/menu.js"></script>
+    <script type="text/javascript" src="/webroot/ckfinder/ckfinder.js"></script>
+    <script language="javascript" src="/webroot/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script language="javascript" src="/webroot/js/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
 </head>
 <body>
     <main class="main-wrap">

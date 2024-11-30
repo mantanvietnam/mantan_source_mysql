@@ -540,6 +540,7 @@ function editPassCustomerApi($input){
 // lấy thông tin khách hàng 
 function getInfoUserCustomerAPI($input){
     global $controller;
+    global $urlHomes;
     global $isRequestPost;
     
     $modelCustomer = $controller->loadModel('Customers');
@@ -551,6 +552,8 @@ function getInfoUserCustomerAPI($input){
             $user =  getCustomerByToken($dataSend['token']);
 
             if (!empty($user)) {
+                $user->linkinfo = $urlHomes.'infoCustomer?id='.$user->id;
+                $user->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$urlHomes.'infoCustomer?id='.$user->id;
                
                 return array('code'=>1,'data'=> $user, 'messages'=>'Lấy dữ liệu thành công');
             }

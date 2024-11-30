@@ -379,7 +379,7 @@
                                 <span class="join"><?php echo @$info->email;?></span> 
                             </div>
                             <?php if(!empty($listData)){ ?>
-                                <div class="">
+                                <div class="" style="width: 100%;">
                                     <?php foreach($listData as $key => $item){
                                         $image = '';
                                           if(!empty($item->listImage)){

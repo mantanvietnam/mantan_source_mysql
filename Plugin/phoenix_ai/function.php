@@ -197,4 +197,10 @@ function callAIphoenixtech($query,$conversation_id=''){
 
 }
 
+function listBostAi(){
+    return array(
+            array('id'=>1,'name'=>'huu bang', 'boot'=>'Social Media Manager', 'title'=>'Viết 10 bài viết đăng Facebook', 'district'=>'Lên kế hoạch, viết bài cho social media thật đơn giản' , 'type'=>'content_facebook' ,'avatar'=>'/themes/aiva/asset/img/ai1.jpg' , 'url'=>'content_facebook'),
+    );
+}
+
 ?>

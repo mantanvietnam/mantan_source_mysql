@@ -48,4 +48,15 @@ function sendconnentBlogController($input){
     }
 }
 
+function chat(){
+
+    global $session;
+    $data = array();
+    if(!empty($session->read('chat'))){
+        $data = $session->read('chat');
+    }
+   
+     setVariable('data', $data);
+}
+
  ?>

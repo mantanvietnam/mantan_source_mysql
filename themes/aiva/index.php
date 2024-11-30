@@ -66,66 +66,27 @@
                         <button class="btn btn-light rounded-pill view-all">Xem tất cả</button>
                     </div>
                     <div class="card-ai row d-flex justify-content-evenly">
-                        <div class="card col-lg-5">
-                            <div class="info">
-                                <img src="<?= $urlThemeActive?>/asset/img/avatar.jpg" alt="Profile Picture">
-                                <p>Andy</p>
-                                <span>SEO Expert</span>
-                            </div>
-                            <div class="card-content mx-2">
-                                <h3>Viết bài blog dựa trên nội dung/tiêu đề</h3>
-                                <p>Viết bài blog từ A-Z chuẩn SEO 3000 từ</p>
-                                <div class="buttons">
-                                    <button class="like">👍 7</button>
-                                    <button class="play"><i class="fa-regular fa-circle-play"></i> Thực hiện</button>
+                        <?php 
+                            foreach(listBostAi() as $key => $item){
+                                echo '<div class="card col-lg-5">
+                                <div class="info">
+                                    <img src="'. $item['avatar'].'" alt="Profile Picture">
+                                    <p>'. $item['name'].'</p>
+                                    <span>'. $item['boot'].'</span>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card col-lg-5">
-                            <div class="info">
-                                <img src="<?= $urlThemeActive?>/asset/img/avatar.jpg" alt="Profile Picture">
-                                <p>Andy</p>
-                                <span>SEO Expert</span>
-                            </div>
-                            <div class="card-content mx-2">
-                                <h3>Viết bài blog dựa trên nội dung/tiêu đề</h3>
-                                <p>Viết bài blog từ A-Z chuẩn SEO 3000 từ</p>
-                                <div class="buttons">
-                                    <button class="like">👍 7</button>
-                                    <button class="play"><i class="fa-regular fa-circle-play"></i> Thực hiện</button>
+                                <div class="card-content mx-2">
+                                    <h3>'. $item['title'].'"</h3>
+                                    <p>'. $item['district'].'"</p>
+                                    <div class="buttons">
+                                        <button class="like">👍 7</button>
+                                        <button class="play"><i class="fa-regular fa-circle-play"></i> Thực hiện</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card col-lg-5">
-                            <div class="info">
-                                <img src="<?= $urlThemeActive?>/asset/img/avatar.jpg" alt="Profile Picture">
-                                <p>Andy</p>
-                                <span>SEO Expert</span>
-                            </div>
-                            <div class="card-content mx-2">
-                                <h3>Viết bài blog dựa trên nội dung/tiêu đề</h3>
-                                <p>Viết bài blog từ A-Z chuẩn SEO 3000 từ</p>
-                                <div class="buttons">
-                                    <button class="like">👍 7</button>
-                                    <button class="play"><i class="fa-regular fa-circle-play"></i> Thực hiện</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card col-lg-5">
-                            <div class="info">
-                                <img src="<?= $urlThemeActive?>/asset/img/avatar.jpg" alt="Profile Picture">
-                                <p>Andy</p>
-                                <span>SEO Expert</span>
-                            </div>
-                            <div class="card-content mx-2">
-                                <h3>Viết bài blog dựa trên nội dung/tiêu đề</h3>
-                                <p>Viết bài blog từ A-Z chuẩn SEO 3000 từ</p>
-                                <div class="buttons">
-                                    <button class="like">👍 7</button>
-                                    <button class="play"><i class="fa-regular fa-circle-play"></i> Thực hiện</button>
-                                </div>
-                            </div>
-                        </div>
+                            </div>';
+                            }
+                         ?>
+                            
+                        
                     </div>
                 </div>
                 

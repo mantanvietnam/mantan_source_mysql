@@ -1195,7 +1195,7 @@ function infoCustomer($input){
         if($page<1) $page = 1;
         $order = array('id'=>'desc');
 
-        $listData = $modelWallPost->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        $listData = $modelWallPost->find()->limit(1)->page($page)->where($conditions)->order($order)->all()->toList();
 
         if(!empty($listData)){
             foreach($listData as $key => $item){

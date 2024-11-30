@@ -69,6 +69,7 @@ function sendFriendRequestApi($input){
 function getCustomerByPhomeApi($input){
 	global $controller;
     global $isRequestPost;
+    global $urlHomes;
     
     $modelCustomer = $controller->loadModel('Customers');
     $modelMakeFriend = $controller->loadModel('MakeFriends');
@@ -114,7 +115,8 @@ function getCustomerByPhomeApi($input){
         				$friend->status_friend = "yet";
         			}
 
-
+                    $friend->linkinfo = $urlHomes.'infoCustomer?id='.$friend->id;
+                    $friend->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$urlHomes.'infoCustomer?id='.$friend->id;
         			unset($friend->pass);
         			unset($friend->token_device);
         			unset($friend->token);
@@ -136,6 +138,7 @@ function getCustomerByPhomeApi($input){
 function getCustomerByIdApi($input){
     global $controller;
     global $isRequestPost;
+    global $urlHomes;
     
     $modelCustomer = $controller->loadModel('Customers');
     $modelMakeFriend = $controller->loadModel('MakeFriends');
@@ -180,7 +183,8 @@ function getCustomerByIdApi($input){
                     }else{
                         $friend->status_friend = "yet";
                     }
-
+                    $friend->linkinfo = $urlHomes.'infoCustomer?id='.$friend->id;
+                    $friend->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$urlHomes.'infoCustomer?id='.$friend->id;
 
                     unset($friend->pass);
                     unset($friend->token_device);
