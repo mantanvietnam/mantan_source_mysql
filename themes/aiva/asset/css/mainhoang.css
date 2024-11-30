@@ -623,3 +623,271 @@ table {
 .name-title-showeditor input:focus-visible {
    outline: 0;
 }
+.scroll-container {
+    max-height: 600px; /* Giới hạn chiều cao */
+    max-width: 500px; /* Giới hạn chiều rộng */
+    overflow-x: auto; /* Thanh cuộn ngang */
+    overflow-y: auto; /* Thanh cuộn dọc */
+    border: 1px solid #ccc; /* Viền để dễ thấy */
+}
+.set-height-writecontent {
+    height: 800px;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 10px;
+
+}
+.parent-button-div .left-content .number-count {
+    color: #fff;
+    background-color: #5242F3;
+    border-radius: 50%;
+    margin-bottom: 0;
+    padding: 3px 8px;
+}
+.icon-writecontent .set-width-imagedocument img{
+    width: 20px;
+    height: 20px;
+}
+.write-outline h3{
+    font-size: 18px;
+    color: #333;
+}
+.write-outline p{
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 0;
+}
+.left-content {
+    margin-right: 8px;
+}
+.icon-writecontent {
+    margin-right: 10px;
+    margin-left: 2px;
+}
+.set-width-imagedocument {
+    margin-bottom: 0;
+    height: 36px;
+    display: flex;
+    min-width: 36px;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: center;
+    background-color: #5242F326;
+}
+.right-content-writetitle {
+    width: 100%;
+    border: 1px solid #EEEEEE;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: center;
+    background-color: #ffffff;
+}
+.parent-button-div {
+    align-items: center;
+}
+.out-like-blogpro .write-outline {
+    padding: 2px 0px;
+}
+.title-write h3{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.select-gpt-model .form-select{
+    background-color: rgb(245,244,255);
+    width: 45% !important;
+}
+.aiva-writecontent .form-switch .form-check-input{
+    height: 18px;
+}
+.aiva-writecontent .button-arcordian {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #5242F3;
+    color: #ffffff;
+    height: 48px;
+    background: #5242F3;
+    margin-top: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.7s ease, color 0.7s ease, border-color 0.7s ease;
+}
+.aiva-writecontent .button-arcordian:hover{
+    background-color: transparent;
+    color: #5242F3;
+    border: 1px solid #5242F3;
+    transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+.aiva-writecontent .accordion-item {
+    border: 1px solid rgb(108, 90, 251);
+    border-radius: 10px;
+    padding: 15px;
+    background-color: rgb(255, 255, 255);
+    min-height: 5px;
+}
+.scroll-container {
+    border: none;
+}
+.aiva-writecontent .accordion-item {
+    margin: 10px 0px;
+}
+.icon-title img{
+    width: 25px;
+    height: 25px;
+}
+ .name-title-page-writecontent a{
+    color: #333 !important;
+    text-decoration: none;
+    margin-left: 4px;
+}
+.name-title-page-writecontent .name-lili{
+    color: #5242F3 !important;
+}
+.icon-left-title {
+    height: 50px;
+    display: flex;
+    min-width: 50px;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: center;
+    background-color: #5242F326;
+}
+.content-right-name {
+    display: flex;
+    align-items: center;
+    margin-left: 6px;
+}
+.content-right-name p {
+    margin-bottom: 0;
+}
+.right-form-wirte-content .header-form{
+    justify-content: space-between;
+}
+.title-input-header-left input {
+    min-height: 40px;
+    width: 400px;
+    border-radius: 10px;
+    color: #333;
+    padding: 10px 15px;
+    border: 1px solid #c1bbbb;
+    cursor: text;
+    display: inline-flex;
+    position: relative;
+    font-size: 14px;
+    box-sizing: border-box;
+    align-items: center;
+    font-family: sans-serif;
+    font-weight: 400;
+    line-height: 1.1876em;
+}
+.title-input-header-left input:focus-visible {
+    outline: none;
+}
+.comback-writecontent {
+    color: #5242F3;
+    border: 1px solid;
+    height: 30px;
+    min-width: 80px;
+    margin-right: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
+    padding-right: 10px;
+    background-color: #ffffff;
+    transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+.comback-writecontent:hover {
+    background-color: #5242F3;
+    color: #fff;
+    transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+.save-writecontent {
+    color: #fff;
+    border: 1px solid;
+    height: 30px;
+    min-width: 80px;
+    margin-right: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
+    padding-right: 10px;
+    background-color: #5242F3;
+    transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+.save-writecontent:hover{
+    background-color: transparent;
+    color: #5242F3;
+    transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+.tag-input-header {
+    margin-top: 19px;
+    border: none;
+   
+    
+}
+.tag-input-header input { 
+    background-color: transparent;
+    padding: 7px;
+    border: none;
+    min-width: 100%;
+    border-bottom: 1px solid #333;
+}
+.tag-input-header input:focus-visible{
+    outline: none;
+}
+.last-inputcontent .input-chat-aiva { 
+    color: #424242;
+    width: 94%;
+    border: 1px solid #5242F3;
+    resize: vertical;
+    outline: none;
+    padding: 16px;
+    font-size: 14px;
+    max-height: 100px;
+    min-height: 60px;
+    overflow-y: auto;
+    font-family: sans-serif;
+    border-radius: 10px;
+    padding-right: 110px;
+    background-color: #F2F1FF;
+}
+.last-inputcontent input:focus-visible{
+    outline: none;
+}
+.last-inputcontent button {
+    color: #ffffff;
+    font-size: 12px;
+    border-radius: 5px;
+    background-color: #5242F3;
+    border: none;
+
+    display: flex;
+    align-items: center;
+}
+.button-chat-with-aiva {
+    margin-left: 5px;
+    padding: 0px 12px;
+    background-color: #5242F3;
+    border: none;
+    border-radius: 7px;
+}
+.bottom-setting-one {
+    cursor: pointer;
+    height: 42px;
+    display: flex !important;
+    padding: 0px 12px;
+    align-items: center !important; 
+    margin:0px 15px;
+    border-radius: 10px;
+    background-color: #F5F4FF;
+    font-size: 14px;
+    
+}
+.bottom-setting-one  .form-check-input{
+    margin-left: 10px !important;
+}

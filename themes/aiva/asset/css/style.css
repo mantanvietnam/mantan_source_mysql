@@ -107,6 +107,7 @@ a{
 }
 .showcase{
     width: 97%;
+    background-color: rgb(239,245,248);
     height: 100vh;
     background-position: center;
     background-size: cover;
