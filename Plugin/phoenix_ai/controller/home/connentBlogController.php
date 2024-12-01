@@ -55,7 +55,7 @@ function chat(){
     if(!empty($session->read('chat'))){
         $data = $session->read('chat');
     }
-   
+    
      setVariable('data', $data);
 }
 
