@@ -1637,6 +1637,15 @@ header .nav-item a{
     transition: all linear 0.3s;
     overflow: hidden;
 }
+.news-detail h2{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.news-detail h3{
+    font-size: 18px;
+    font-weight: bold;
+}
 
 /* Mobile */
 @media (max-width: 767px) {
