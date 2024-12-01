@@ -185,44 +185,7 @@ $menus[5]['sub'][]= array(	'title'=>'Giảm cân',
 
 
 
-
-
-
-
-// $menus[1]['sub'][]= array( 'title'=>'Gói luyện tập',
-//                             'url'=>'/plugins/admin/colennao-view-admin-packageworkouts-listPackageWorkouts',
-//                             'classIcon'=>'bx bx-extension',
-//                             'permission'=>'listPackageWorkouts'
-//                     );
-
-// $menus[2]['title'] = 'Liên hệ';
-// $menus[2]['sub'][1]= array( 'title'=>'Thông tin liên hệ  ',
-//                             'url'=>'/plugins/admin/colennao-view-admin-contacts-listContactAdmin',
-//                             'classIcon'=>'bx bx-extension',
-//                             'permission'=>'listContactAdmin'
-//                     );
-
-
-
-
-// $menus[3]['sub'][7]= array( 'title'=>'Điều kiện tiếng anh',
-//                             'url'=>'/plugins/admin/colennao-view-admin-condition-listconditioneng',
-//                             'classIcon'=>'bx bx-extension',
-//                             'permission'=>'listconditioneng'
-//                             );
-
-
-// $menus[3]['sub'][10]= array( 'title'=>'kế hoạch',
-//                             'url'=>'/plugins/admin/colennao-view-admin-myplane-listmyplane',
-//                             'classIcon'=>'bx bx-extension',
-//                             'permission'=>'listmyplane'
-//                             );
-
-// $menus[3]['sub'][9]= array( 'title'=>'Danh sách bài luyện tập người dùng',
-//                             'url'=>'/plugins/admin/colennao-view-admin-listuserpeople-listuserpeople',
-//                             'classIcon'=>'bx bx-extension',
-//                             'permission'=>'listuserpeople'
-//                             );                  
+               
 addMenuAdminMantan($menus);
 
 global $transactionKey;

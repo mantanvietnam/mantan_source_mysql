@@ -91,74 +91,70 @@ foreach ($dataExerciseWorkouts as $exercise) {
                                       </tr>
                                   </thead>
                                   <tbody>
-                                  <?php if (!empty($data)): ?>
-                                      <?php 
-                                          $idLessons = json_decode($data->id_lesson, true);
-                                          if (!is_array($idLessons)) {
-                                              $idLessons = [];
-                                          }
-                                      ?>
+                                    <?php if (!empty($data)): ?>
+                                        <?php 
+                                            $idLessons = json_decode($data->id_lesson, true);
+                                            if (!is_array($idLessons)) {
+                                                $idLessons = [];
+                                            }
+                                        ?>
 
-                                      <?php if (!empty($idLessons)): ?>
-                                          <?php foreach ($idLessons as $lesson): ?>
-                                              <tr>
+                                        <?php if (!empty($idLessons)): ?>
+                                            <?php foreach ($idLessons as $lesson): ?>
+                                                <tr>
+                                                    <td>
+                                                        <select class="form-control" name="workout_group[]">
+                                                            <?php foreach ($dataWorkouts as $option): ?>
+                                                                <option value="<?= $option->id ?>"
+                                                                    <?= isset($lesson[0]) && $lesson[0] == $option->id ? 'selected' : '' ?>>
+                                                                    <?= htmlspecialchars($option->title) ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="workout_title[]">
+                                                            <option value="">Chọn bài học</option>
+                                                            <?php
+                                                            if (isset($lesson[0]) && isset($workoutExercisesGrouped[$lesson[0]])): 
+                                                                foreach ($workoutExercisesGrouped[$lesson[0]] as $exercise): ?>
+                                                                    <option value="<?= $exercise->id ?>"
+                                                                        <?= isset($lesson[1]) && $lesson[1] == $exercise->id ? 'selected' : '' ?>>
+                                                                        <?= htmlspecialchars($exercise->title) ?>
+                                                                    </option>
+                                                                <?php endforeach; ?>
+                                                            <?php endif; ?>
+                                                        </select>
+                                                    </td>
+
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td colspan="2"></td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                            <tr>
                                                 <td>
                                                     <select class="form-control" name="workout_group[]">
-                                                        <?php foreach ($dataWorkouts as $option): ?>
-                                                            <option value="<?= $option->id ?>"
-                                                                <?= isset($lesson[0]) && $lesson[0] == $option->id ? 'selected' : '' ?>>
-                                                                <?= htmlspecialchars($option->title) ?>
-                                                            </option>
+                                                        <option value="">Chọn nhóm bài học</option>
+                                                        <?php foreach ($dataWorkouts as $workout): ?>
+                                                            <option value="<?= $workout->id ?>"><?= htmlspecialchars($workout->title) ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </td>
 
-                                                <!-- Bài tập (sẽ được cập nhật sau khi chọn nhóm) -->
                                                 <td>
                                                     <select class="form-control" name="workout_title[]">
                                                         <option value="">Chọn bài học</option>
-                                                        <?php
-                                                        // Kiểm tra nếu lesson[0] có giá trị và nhóm đó có bài tập
-                                                        if (isset($lesson[0]) && isset($workoutExercisesGrouped[$lesson[0]])): 
-                                                            // Duyệt qua bài tập của nhóm đã chọn
-                                                            foreach ($workoutExercisesGrouped[$lesson[0]] as $exercise): ?>
-                                                                <option value="<?= $exercise->id ?>"
-                                                                    <?= isset($lesson[1]) && $lesson[1] == $exercise->id ? 'selected' : '' ?>>
-                                                                    <?= htmlspecialchars($exercise->title) ?>
-                                                                </option>
-                                                            <?php endforeach; ?>
-                                                        <?php endif; ?>
+                                                        <?php foreach ($dataExerciseWorkouts as $exercise): ?>
+                                                            <option value="<?= $exercise->id ?>"><?= htmlspecialchars($exercise->title) ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </td>
-
-                                              </tr>
-                                          <?php endforeach; ?>
-                                      <?php else: ?>
-                                          <tr>
-                                              <td colspan="2"></td>
-                                          </tr>
-                                      <?php endif; ?>
-                                <?php else: ?>
-                                    <tr>
-                                        <td>
-                                            <select class="form-control" name="workout_group[]">
-                                                <option value="">Chọn nhóm bài học</option>
-                                                <?php foreach ($dataWorkouts as $workout): ?>
-                                                    <option value="<?= $workout->id ?>"><?= htmlspecialchars($workout->title) ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </td>
-
-                                        <td>
-                                            <select class="form-control" name="workout_title[]">
-                                                <option value="">Chọn bài học</option>
-                                                <?php foreach ($dataExerciseWorkouts as $exercise): ?>
-                                                    <option value="<?= $exercise->id ?>"><?= htmlspecialchars($exercise->title) ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                <?php endif; ?>
+                                            </tr>
+                                    <?php endif; ?>
                                   </tbody>
                               </table>
 
