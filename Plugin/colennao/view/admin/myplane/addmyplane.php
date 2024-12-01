@@ -113,9 +113,9 @@
                                     <thead>
                                         <tr>
                                             <th>Ngày</th>
-                                            <th>Water</th>
-                                            <th>Meal</th>
-                                            <th>Workout</th>
+                                            <th>Water(ml)</th>
+                                            <th>Meal(kcal)</th>
+                                            <th>Workout(kcal)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
