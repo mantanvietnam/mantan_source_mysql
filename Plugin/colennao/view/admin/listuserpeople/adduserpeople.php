@@ -30,7 +30,7 @@ foreach ($dataExerciseWorkouts as $exercise) {
                       <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                           <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-question" aria-controls="navs-top-question" aria-selected="true">
-                            thông tin
+                            Thông tin
                           </button>
                         </li>
                         <li class="nav-item">
@@ -83,7 +83,7 @@ foreach ($dataExerciseWorkouts as $exercise) {
                         <div class="tab-pane fade" id="navs-top-unit" role="tabpanel">
                           <div class="container">
                               <h4 class="mb-4">Thêm bài tập</h4>
-                              <table class="table table-bordered" id="exerciseTable">
+                              <table class="table table-bordered mb-3" id="exerciseTable">
                                   <thead>
                                       <tr>
                                           <th>Tên nhóm bài học</th>
@@ -91,70 +91,7 @@ foreach ($dataExerciseWorkouts as $exercise) {
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    <?php if (!empty($data)): ?>
-                                        <?php 
-                                            $idLessons = json_decode($data->id_lesson, true);
-                                            if (!is_array($idLessons)) {
-                                                $idLessons = [];
-                                            }
-                                        ?>
-
-                                        <?php if (!empty($idLessons)): ?>
-                                            <?php foreach ($idLessons as $lesson): ?>
-                                                <tr>
-                                                    <td>
-                                                        <select class="form-control" name="workout_group[]">
-                                                            <?php foreach ($dataWorkouts as $option): ?>
-                                                                <option value="<?= $option->id ?>"
-                                                                    <?= isset($lesson[0]) && $lesson[0] == $option->id ? 'selected' : '' ?>>
-                                                                    <?= htmlspecialchars($option->title) ?>
-                                                                </option>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select class="form-control" name="workout_title[]">
-                                                            <option value="">Chọn bài học</option>
-                                                            <?php
-                                                            if (isset($lesson[0]) && isset($workoutExercisesGrouped[$lesson[0]])): 
-                                                                foreach ($workoutExercisesGrouped[$lesson[0]] as $exercise): ?>
-                                                                    <option value="<?= $exercise->id ?>"
-                                                                        <?= isset($lesson[1]) && $lesson[1] == $exercise->id ? 'selected' : '' ?>>
-                                                                        <?= htmlspecialchars($exercise->title) ?>
-                                                                    </option>
-                                                                <?php endforeach; ?>
-                                                            <?php endif; ?>
-                                                        </select>
-                                                    </td>
-
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <tr>
-                                                <td colspan="2"></td>
-                                            </tr>
-                                        <?php endif; ?>
-                                    <?php else: ?>
-                                            <tr>
-                                                <td>
-                                                    <select class="form-control" name="workout_group[]">
-                                                        <option value="">Chọn nhóm bài học</option>
-                                                        <?php foreach ($dataWorkouts as $workout): ?>
-                                                            <option value="<?= $workout->id ?>"><?= htmlspecialchars($workout->title) ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </td>
-
-                                                <td>
-                                                    <select class="form-control" name="workout_title[]">
-                                                        <option value="">Chọn bài học</option>
-                                                        <?php foreach ($dataExerciseWorkouts as $exercise): ?>
-                                                            <option value="<?= $exercise->id ?>"><?= htmlspecialchars($exercise->title) ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                    <?php endif; ?>
+                                    
                                   </tbody>
                               </table>
 
@@ -175,6 +112,124 @@ foreach ($dataExerciseWorkouts as $exercise) {
 
     </div>
 </div>
+
+<script type="text/javascript">
+    var workouts = {};
+    var row = 0;
+
+    <?php
+        // mảng chứa Tên nhóm bài học
+        if(!empty($dataWorkouts)){
+            foreach ($dataWorkouts as $key=>$item){
+                echo '  workouts['.$item->id.'] = {};
+                        workouts['.$item->id.']["id"] = '.$item->id.';
+                        workouts['.$item->id.']["title"] = "'.$item->title.'";
+                        workouts['.$item->id.']["exercise"] = {};
+                    ';
+            }
+        }
+
+        // mảng chứa Tên bài học
+        if(!empty($dataExerciseWorkouts)){
+            foreach ($dataExerciseWorkouts as $key => $value) {
+                echo '  workouts['.$value->id_workout.']["exercise"]['.$value->id.'] = {};
+                        workouts['.$value->id_workout.']["exercise"]['.$value->id.']["id"] = '.$value->id.';
+                        workouts['.$value->id_workout.']["exercise"]['.$value->id.']["title"] = "'.$value->title.'";
+                ';
+            }
+        }
+    ?>
+
+    //console.log(workouts);
+
+    // hiển thị lựa chọn nhóm bài tập
+    function showSelectWorkouts(id_select)
+    {
+        var selectText = '<select onchange="selectWorkout('+row+');" class="form-select" id="workout_'+row+'" name="workout_group[]"><option value="0">Chọn nhóm bài học</option>';
+        var classSelect = '';
+
+        $.each( workouts, function( key, value ) {
+            classSelect = '';
+            if(value.id == id_select){
+                classSelect = 'selected';
+            }
+
+            selectText += '<option '+classSelect+' value="'+value.id+'">'+value.title+'</option>';
+        });
+
+        selectText += '</select>';
+
+        return selectText;
+    }
+
+    // hiển thị lựa chọn bài tập
+    function showSelectExercise(id_workout, id_select)
+    {
+        var selectText = '<select class="form-select" name="workout_title[]" id="exercise_'+row+'"><option value="0">Chọn bài học</option>';
+        var classSelect = '';
+
+        if(id_workout != 0){
+            $.each( workouts[id_workout]['exercise'], function( key, value ) {
+                classSelect = '';
+                if(value.id == id_select){
+                    classSelect = 'selected';
+                }
+
+                selectText += '<option '+classSelect+' value="'+value.id+'">'+value.title+'</option>';
+            });
+        }
+
+        selectText += '</select>';
+
+        return selectText;
+    }
+
+    // xử lý khi lựa chọn nhóm bài tập
+    function selectWorkout(row_select)
+    {
+        var workout_select = $('#workout_'+row_select).val();
+        var loadSelectExercise = showSelectExercise(workout_select, 0);
+
+        $('#td2_'+row_select).html(loadSelectExercise);
+    }
+
+    // thêm hàng mới
+    function addRowSelect(id_workout_select, id_exercise_select)
+    {
+        row ++;
+
+        var table = document.getElementById('exerciseTable').getElementsByTagName('tbody')[0];
+        var newRow = table.insertRow(table.rows.length);
+        
+        var cell1 = newRow.insertCell(0);
+        cell1.innerHTML = showSelectWorkouts(id_workout_select);
+        cell1.id = 'td1_'+row;
+
+        var cell2 = newRow.insertCell(1);
+        cell2.innerHTML = showSelectExercise(id_workout_select, id_exercise_select);
+        cell2.id = 'td2_'+row;
+    }
+
+    // chèn dữ liệu cũ
+    <?php 
+        if (!empty($data->id_lesson)){
+            $idLessons = json_decode($data->id_lesson, true);
+            if (!is_array($idLessons)) {
+                $idLessons = [];
+            }
+
+            if (!empty($idLessons)){
+                foreach ($idLessons as $lesson){
+                    echo 'addRowSelect('.$lesson[0].', '.$lesson[1].');';
+                }
+            }else{
+                echo 'addRowSelect(0, 0);';
+            }
+        }else{
+            echo 'addRowSelect(0, 0);';
+        }
+    ?>
+</script>
 
 <!-- <select id="workoutGroup" onchange="loadExercises(this.value)">
     <option value="">Chọn nhóm bài tập</option>
@@ -223,30 +278,6 @@ foreach ($dataExerciseWorkouts as $exercise) {
 
 <script>
     document.getElementById('addRowButton').addEventListener('click', function() {
-    var table = document.getElementById('exerciseTable').getElementsByTagName('tbody')[0];
-    var newRow = table.insertRow(table.rows.length);
-
-    
-    var cell1 = newRow.insertCell(0);
-    cell1.innerHTML = `
-        <select class="form-control" name="workout_group[]">
-            <option value="">Chọn nhóm bài học</option>
-            <?php foreach ($dataWorkouts as $workout): ?>
-                <option value="<?= $workout->id ?>"><?= htmlspecialchars($workout->title) ?></option>
-            <?php endforeach; ?>
-        </select>
-    `;
-
-
-    var cell2 = newRow.insertCell(1);
-    cell2.innerHTML = `
-        <select class="form-control" name="workout_title[]">
-            <option value="">Chọn bài học</option>
-            <?php foreach ($dataExerciseWorkouts as $exercise): ?>
-                <option value="<?= $exercise->id ?>"><?= htmlspecialchars($exercise->title) ?></option>
-            <?php endforeach; ?>
-        </select>
-    `;
-});
-
+        addRowSelect(0, 0);
+    });
 </script>
