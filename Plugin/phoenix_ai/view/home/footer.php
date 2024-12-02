@@ -1,82 +1,9 @@
-            <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  ©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with ❤️ by
-                  <a href="https://datacrm.asia" target="_blank" class="footer-link fw-bolder">PHOENIX TECH</a>
-                </div>
-                <div>
-                  <a href="/" class="footer-link me-4" target="_blank">Facebook</a>
-                  
-                  <a href="/" target="_blank" class="footer-link me-4">Youtube</a>
+            </div>
+        </section>
 
-                  <a href="/" target="_blank" class="footer-link me-4">Tiktok</a>
-
-                  <a href="/" target="_blank" class="footer-link me-4">Instagram</a>
-                </div>
-              </div>
-            </footer>
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
-          </div>
-          <!-- Content wrapper -->
-        </div>
-        <!-- / Layout page -->
-      </div>
-
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
-    <!-- / Layout wrapper -->
-
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/libs/popper/popper.js"></script>
-
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
-    <!-- Main JS -->
-    <script src="/plugins/phoenix_ai/view/home/assets/js/main.js"></script>
-    <script src="/plugins/phoenix_ai/view/home/assets/js/training.js"></script>
-
-    <!-- Page JS -->
-    <script src="/plugins/phoenix_ai/view/home/assets/js/dashboards-analytics.js"></script>
-
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-  if($(window).width()<1024){
-    $('#desktop_view').remove();
-    $('#mobile_view').show();
-  }else{
-    $('#mobile_view').remove();
-    $('#desktop_view').show();
-  }
-});
-    </script>
-    <script>
-    $(document).ready(function() {
-      $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',  // Định dạng ngày tháng
-        todayHighlight: true, // Đánh dấu ngày hiện tại
-        autoclose: true       // Tự động đóng Datepicker sau khi chọn ngày
-      });
-
-      $('.datetimepicker').datetimepicker({
-        format:'H:i d/m/Y'
-      });
-    });
-    </script>
-  </body>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/js/all.min.js" integrity="sha512-8py0AXTY8pfAroJmBkYfJ+VuKUKMMsUOC1MldW9kkC/k4SZi6AexSDS60QYn41U2rp8KL9IpVHy8FxW2TDmjDA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="<?= $urlThemeActive?>/asset/js/app.js"></script> -->
+</body>
 </html>

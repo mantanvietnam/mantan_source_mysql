@@ -1,0 +1,19 @@
+[01-Dec-2024 03:10:03] NOTICE: error log file re-opened
+[01-Dec-2024 04:32:02] NOTICE: Reloading in progress ...
+[01-Dec-2024 04:32:02] NOTICE: reloading: execvp("/usr/local/php73/sbin/php-fpm73", {"/usr/local/php73/sbin/php-fpm73", "--nodaemonize", "--pid=/run/php-fpm73.pid"})
+[01-Dec-2024 04:32:02] NOTICE: using inherited socket fd=7, "/usr/local/php73/sockets/webapps.sock"
+[01-Dec-2024 04:32:02] NOTICE: using inherited socket fd=7, "/usr/local/php73/sockets/webapps.sock"
+[01-Dec-2024 04:32:02] NOTICE: using inherited socket fd=8, "/usr/local/php73/sockets/greenid.sock"
+[01-Dec-2024 04:32:02] NOTICE: using inherited socket fd=8, "/usr/local/php73/sockets/greenid.sock"
+[01-Dec-2024 04:32:02] NOTICE: fpm is running, pid 771
+[01-Dec-2024 04:32:02] NOTICE: ready to handle connections
+[01-Dec-2024 04:32:02] NOTICE: systemd monitor interval set to 10000ms
+[02-Dec-2024 00:13:01] NOTICE: Reloading in progress ...
+[02-Dec-2024 00:13:01] NOTICE: reloading: execvp("/usr/local/php73/sbin/php-fpm73", {"/usr/local/php73/sbin/php-fpm73", "--nodaemonize", "--pid=/run/php-fpm73.pid"})
+[02-Dec-2024 00:13:01] NOTICE: using inherited socket fd=7, "/usr/local/php73/sockets/webapps.sock"
+[02-Dec-2024 00:13:01] NOTICE: using inherited socket fd=7, "/usr/local/php73/sockets/webapps.sock"
+[02-Dec-2024 00:13:01] NOTICE: using inherited socket fd=8, "/usr/local/php73/sockets/greenid.sock"
+[02-Dec-2024 00:13:01] NOTICE: using inherited socket fd=8, "/usr/local/php73/sockets/greenid.sock"
+[02-Dec-2024 00:13:01] NOTICE: fpm is running, pid 771
+[02-Dec-2024 00:13:01] NOTICE: ready to handle connections
+[02-Dec-2024 00:13:01] NOTICE: systemd monitor interval set to 10000ms

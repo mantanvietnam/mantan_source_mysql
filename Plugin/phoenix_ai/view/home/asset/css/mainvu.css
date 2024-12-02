@@ -1,0 +1,723 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.main-wrap .showcase .overlay .dropmenu{
+    width: 100% !important;
+}
+
+.main-wrap .showcase .overlay .dropdown .btn-custom{
+    background-color: #6a5aff; /* Màu nền */
+    color: white; /* Màu chữ */
+    border: none;
+    padding: 10px 40px;
+}
+
+.main-wrap .showcase .overlay .dropdown .btn-custom:hover{
+    background-color: #5a4ae6;
+}
+
+.main-wrap .showcase .overlay .dropdown .dropdown-menu{
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    border-radius: 8px; /* Bo góc */
+    width: 300px;
+}
+
+.main-wrap .showcase .overlay .credit{
+    margin-bottom: 20px;
+}
+
+.main-wrap .showcase .overlay .credit span{
+    color: gold;
+    font-weight: 600;
+}
+
+.contact-info-icon img{
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.main-wrap .showcase .overlay .dropdown .user-info .contact-info a{
+    padding: 10px 20px;
+    background-color: #3832b3;
+    color: whitesmoke;
+    border-radius: 13px;
+    text-decoration: none;
+    margin-bottom: 30px;
+}
+
+.main-wrap .showcase .overlay .dropdown .dropdown-menu .dropdown-item{
+    padding: 10px 15px;
+    font-size: 14px;
+} 
+
+.main-wrap .showcase .overlay .dropdown .dropdown-menu .dropdown-item:hover{
+    background-color: #f0f0ff; /* Nền khi hover */
+    color: #6a5aff; /* Màu chữ khi hover */
+}
+
+/* Tổng thể thanh tìm kiếm và hành động */
+.main-wrap .showcase .overlay .search-action-bar {
+    background-color: #f5f3ff; /* Màu nền nhạt */
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Tìm kiếm */
+.main-wrap .showcase .overlay .search-box {
+    flex-grow: 1;
+    margin-right: 15px;
+    position: relative; 
+    width: 50%;
+
+}
+
+.main-wrap .showcase .overlay .search-input {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.main-wrap .showcase .overlay .search-input:focus {
+    outline: none;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+}
+
+.main-wrap .showcase .overlay .search-btn {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 18px;
+}
+
+/* Nút nâng cấp */
+.main-wrap .showcase .overlay .btn-upgrade {
+    background-color: #6a5aff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.main-wrap .showcase .overlay .btn-upgrade:hover {
+    background-color: #5a4ae6;
+}
+
+/* Thông báo */
+.main-wrap .showcase .overlay .notification-icon {
+    margin: 0 15px;
+    font-size: 30px;
+    color: #6c757d;
+}
+
+.main-wrap .showcase .overlay .notification-icon .badge {
+    font-size: 10px;
+    padding: 4px 6px;
+    border-radius: 50%;
+}
+
+/* Biểu tượng người dùng */
+.main-wrap .showcase .overlay .user-icon img {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-wrap .showcase .overlay .user-info img{
+    width: 70px;
+    height: 70px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+/* main */
+.main-wrap .showcase .overlay .aiva-home .home-banner{
+    position: relative;
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner img{
+    width: 100%;
+    height: 250px;
+    background-size: cover; /* Giữ tỷ lệ hình ảnh */
+    border-radius: 17px;
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner .text-home-banner{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner .text-home-banner p{
+    font-size: 35px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner .search-wrapper {
+    position: relative;
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner .search-form {
+    position: relative;
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner .input-wrapper {
+    position: relative;
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner .search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    padding-left: 3rem;
+    border-radius: 15px;
+    border: 1px solid #e5e7eb;
+    background-color: white;
+    color: #374151;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner .search-input::placeholder {
+    color: #6b7280;
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner .search-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner .search-icon {
+    position: absolute;
+    top: 48%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.main-wrap .showcase .overlay .aiva-home .home-banner .search-icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #9ca3af;
+}
+
+.main-wrap .showcase .overlay .aiva-home .nav-tabs {
+    border-bottom: none;
+}
+
+.main-wrap .showcase .overlay .aiva-home .nav-tabs .nav-link {
+    border: none;
+    color: #666;
+    padding: 8px 16px;
+    font-weight: 500;
+}
+
+.main-wrap .showcase .overlay .aiva-home .nav-tabs .nav-link.active {
+    color: #4942E4;
+    background: none;
+    position: relative;
+}
+
+.main-wrap .showcase .overlay .aiva-home .nav-tabs .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #4942E4;
+}
+
+.main-wrap .showcase .overlay .aiva-home .category-nav {
+    overflow-x: auto;
+    padding: 10px 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.main-wrap .showcase .overlay .aiva-home .category-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.main-wrap .showcase .overlay .aiva-home .btn-primary {
+    background-color: #4942E4;
+    border: none;
+    padding: 8px 20px;
+    font-size: 14px;
+}
+
+.main-wrap .showcase .overlay .aiva-home .btn-primary:hover {
+    background-color: #3832b3;
+}
+
+.main-wrap .showcase .overlay .category-link {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+    padding: 8px 12px;
+    transition: color 0.3s ease;
+    background-color: #3b82f6;
+    border-radius: 30px;
+
+}
+
+.main-wrap .showcase .overlay .aiva-home .heading {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.main-wrap .showcase .overlay .aiva-home .view-all {
+    color: #666;
+    font-size: 14px;
+    padding: 8px 20px;
+    background-color: #f5f5f5;
+}
+
+.main-wrap .showcase .overlay .aiva-home .view-all:hover {
+    background-color: #e9e9e9;
+}
+
+/* New styles for Aiva tab */
+.main-wrap .showcase .overlay .aiva-home .aiva-content {
+    padding: 40px 0;
+}
+
+.main-wrap .showcase .overlay .aiva-home .aiva-heading {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.main-wrap .showcase .overlay .aiva-home .aiva-description {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.main-wrap .showcase .overlay .aiva-home .aiva-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.main-wrap .showcase .overlay .aiva-home .feature-item {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.main-wrap .showcase .overlay .aiva-home .feature-item i {
+    font-size: 24px;
+    color: #4942E4;
+    margin-bottom: 10px;
+}
+
+.main-wrap .showcase .overlay .aiva-home .feature-item h3 {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+.main-wrap .showcase .overlay .card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.main-wrap .showcase .overlay .info{
+    text-align: center;
+    width: 150px;
+    background-color: cornflowerblue;
+    padding: 20px 10px;
+    border-radius: 25px;
+}
+
+.main-wrap .showcase .overlay .info p{
+    color: white;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.main-wrap .showcase .overlay .info span{
+    color: white;
+    font-weight: 600;
+    padding: 5px 10px;
+    background-color: #333;
+    border-radius: 220px;
+}
+
+.main-wrap .showcase .overlay .card img {
+    border-radius: 50%;
+    width: 85px;
+    height: 85px;
+}
+
+.main-wrap .showcase .overlay .card-content {
+    margin-bottom: 19px;
+}
+
+.main-wrap .showcase .overlay .card-content h3{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.main-wrap .showcase .overlay .buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 65px;
+}
+
+.main-wrap .showcase .overlay .buttons .like {
+    border: none;
+    background-color: white;
+}
+
+.main-wrap .showcase .overlay .buttons .play {
+    border: none;
+    background-color: white;
+}
+
+/* setting */
+
+.main-wrap .showcase .overlay .setting-home p{
+    font-size: 30px;
+    font-weight: 650;
+    align-items: center;
+}
+
+.main-wrap .showcase .overlay .setting-home p img{
+    margin: 20px 10px;
+}
+
+.main-wrap .showcase .overlay .setting-home .nav-pills .nav-link {
+    border-radius: 0; /* Làm phẳng các nút */
+    margin: 10px 0px;
+    color: black;
+}
+
+.main-wrap .showcase .overlay .setting-home .nav-pills .nav-link.active {
+    background-color: #e5e3fd; /* Màu khi được chọn */
+    border-radius: 10px;
+    color: white;
+
+}
+
+.main-wrap .showcase .overlay .setting-home .left-setting{
+    background-color: white;
+    border-radius: 20px;
+}
+
+.main-wrap .showcase .overlay .user-info .contact-info .name{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.main-wrap .showcase .overlay .user-info .contact-info a{
+    padding: 2px 20px;
+    border: 1px solid blue;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.main-wrap .showcase .overlay .setting-home .tab-pane{
+    background-color: white;
+    border-radius: 10px;
+    height: 0 auto;
+}
+
+.main-wrap .showcase .overlay .setting-home.form-section {
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-wrap .showcase .overlay .setting-home .form-label {
+    font-weight: 500;
+}
+
+.main-wrap .showcase .overlay .setting-home .text-primary {
+    color: #6c63ff; /* Màu xanh tím */
+    font-size: 22px;
+}
+
+.main-wrap .showcase .overlay .setting-home .btn-secondary {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+}
+
+.main-wrap .showcase .overlay .setting-home .btn-secondary:hover {
+    background-color: #ccc;
+    color: #000;
+}
+
+.main-wrap .showcase .overlay .setting-home .btn-primary {
+    background-color: #6c63ff;
+    border: none;
+}
+
+.main-wrap .showcase .overlay .setting-home .btn-primary:hover {
+    background-color: #584ed8;
+}
+
+.main-wrap .showcase .overlay .setting-home .form-control{
+    background-color: #ebebeb !important;
+}
+
+.main-wrap .showcase .overlay .setting-home .table thead th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.main-wrap .showcase .overlay .setting-home .no-data-img {
+    max-width: 150px;
+    height: auto;
+    display: inline-block;
+}
+
+.main-wrap .showcase .overlay .setting-home p {
+    font-size: 16px;
+    color: #6c757d;
+}
+
+/* chat-aiva */
+.main-wrap .showcase .overlay .chat-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main-wrap .showcase .overlay .chat-main .chat-header{
+    text-align: center;
+}
+
+.main-wrap .showcase .overlay .chat-main .chat-header p{
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.main-wrap .showcase .overlay .chat-main .chat-header p span{
+    color: #3832b3;
+}
+
+.main-wrap .showcase .overlay .chat-main .chat-header p img{
+    width: 50px;
+    margin: 0 10px;
+}
+
+.main-wrap .showcase .overlay .chat-main .chat-box {
+    position: fixed;
+    bottom: 0;
+    left: 250px; /* Dịch sát bên phải của sidebar */
+    right: 0;
+    padding: 20px;
+    background-color: #f5f9ff;
+    border-top: 2px solid #e0e0e0;
+}
+
+.main-wrap .showcase .overlay .chat-main .chat-box .form-control {
+    border-radius: 20px;
+}
+
+.main-wrap .showcase .overlay .chat-main .chat-box .file-label {
+    cursor: pointer;
+    background-color: #f3f0ff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0 8px;
+}
+
+.main-wrap .showcase .overlay .chat-main .chat-box .file-label:hover {
+    background-color: #e0dfff;
+}
+
+.main-wrap .showcase .overlay .chat-main .chat-box .btn {
+    border-radius: 20px;
+}
+
+.main-wrap .showcase .overlay .chat-main .custom-toggle {
+    background-color: #ecebff;
+    border-radius: 15px;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.showcase .edits-chat {
+    height: 100% !important;
+}
+
+/* assistant */
+
+.main-wrap .showcase .overlay .assistant-aiva .assistant-header{
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .assistant-header p{
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .assistant-header h5{
+    font-size: 15px;
+    font-weight: 400;
+    color: gray;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .assistant-header p img{
+    margin: 0 10px;
+}
+
+/* Sidebar */
+.main-wrap .showcase .overlay .assistant-aiva .sidebar {
+    width: 250px;
+    background: #f9f9f9;
+    padding: 20px;
+    height: 100vh;
+    border-right: 1px solid #ddd;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .sidebar .form-control {
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .sidebar .nav-link {
+    color: #333;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .sidebar .nav-link.active, 
+.main-wrap .showcase .overlay .assistant-aiva .sidebar .nav-link:hover {
+    background: #e7e4ff;
+    color: #6c63ff;
+}
+
+/* Main Content */
+.main-wrap .showcase .overlay .assistant-aiva .main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .tab-container .btn {
+    background: #f5f9ff;
+    border-radius: 20px;
+    margin: 0 5px;
+    padding: 5px 15px;
+    color: #333;
+    transition: all 0.3s;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .tab-container .btn.active, 
+.main-wrap .showcase .overlay .assistant-aiva .tab-container .btn:hover {
+    background: #dfe3ff;
+    color: #6c63ff;
+}
+
+/* Cards */
+.main-wrap .showcase .overlay .assistant-aiva .card {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: #fff;
+    transition: transform 0.2s;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .card:hover {
+    transform: scale(1.02);
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .card img {
+    width: 50px;
+    height: 50px;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .card-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.main-wrap .showcase .overlay .assistant-aiva .card-text {
+    font-size: 14px;
+    color: #555;
+}
