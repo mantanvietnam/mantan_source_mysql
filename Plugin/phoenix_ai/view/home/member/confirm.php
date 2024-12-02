@@ -17,7 +17,7 @@
   class="light-style customizer-hide"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="/plugins/phoenix_ai/view/home/assets/"
+  data-assets-path="/plugins/phoenix_ai/view/home/member/assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -32,7 +32,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/plugins/phoenix_ai/view/home/assets/img/logo-phoenix.png" />
+    <link rel="icon" type="image/x-icon" href="/plugins/phoenix_ai/view/home/member/assets/img/logo-phoenix.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,25 +43,25 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/member/assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/demo.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/member/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/member/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/member/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/member/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
     <!-- Page -->
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/css/pages/page-auth.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/member/assets/vendor/css/pages/page-auth.css" />
     <!-- Helpers -->
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/js/helpers.js"></script>
+    <script src="/plugins/phoenix_ai/view/home/member/assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="/plugins/phoenix_ai/view/home/assets/js/config.js"></script>
+    <script src="/plugins/phoenix_ai/view/home/member/assets/js/config.js"></script>
   </head>
 
   <body>
@@ -77,7 +77,7 @@
               <div class="app-brand justify-content-center">
                 <a href="/" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
-                    <img src="/plugins/phoenix_ai/view/home/assets/img/logo-phoenix.png" width="50">
+                    <img src="/plugins/phoenix_ai/view/home/member/assets/img/logo-phoenix.png" width="50">
                   </span>
                   <span class="app-brand-text demo text-body fw-bolder">Xác nhận mật khẩu</span>
                 </a>
@@ -114,18 +114,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/libs/popper/popper.js"></script>
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/js/bootstrap.js"></script>
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/plugins/phoenix_ai/view/home/member/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/plugins/phoenix_ai/view/home/member/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/plugins/phoenix_ai/view/home/member/assets/vendor/js/bootstrap.js"></script>
+    <script src="/plugins/phoenix_ai/view/home/member/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <script src="/plugins/phoenix_ai/view/home/assets/vendor/js/menu.js"></script>
+    <script src="/plugins/phoenix_ai/view/home/member/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="/plugins/phoenix_ai/view/home/assets/js/main.js"></script>
+    <script src="/plugins/phoenix_ai/view/home/member/assets/js/main.js"></script>
 
     <!-- Page JS -->
 

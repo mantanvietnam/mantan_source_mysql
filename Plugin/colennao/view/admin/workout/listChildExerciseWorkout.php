@@ -13,6 +13,7 @@
             <label class="form-label">ID</label>
             <input type="text" class="form-control" name="id" value="<?php if (!empty($_GET['id'])) echo $_GET['id']; ?>">
             <input type="hidden" class="form-control" name="id_workout" value="<?php if (!empty($_GET['id_workout'])) echo $_GET['id_workout']; ?>">
+            <input type="hidden" class="form-control" name="id_exercise" value="<?php if (!empty($_GET['id_exercise'])) echo $_GET['id_exercise']; ?>">
           </div>
 
           <div class="col-md-3">

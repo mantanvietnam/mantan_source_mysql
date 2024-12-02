@@ -2,7 +2,8 @@
         </section>
 
     </main>
-    <script src="/plugins/phoenix_ai/view/home/asset/js/app.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+    <script src="/plugins/phoenix_ai/view/home/asset/js/app.js?index=1232"></script>
     <script src="/webroot/assets_admin/vendor/libs/jquery/jquery.js"></script>
     <script src="/webroot/assets_admin/vendor/libs/popper/popper.js"></script>
     <script src="/webroot/assets_admin/vendor/js/bootstrap.js"></script>

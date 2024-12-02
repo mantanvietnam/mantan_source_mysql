@@ -102,7 +102,7 @@
                 $historyResult ='';
                 if(!empty($item->historyResult)){
                       $historyResult = '<br/>
-                  <a href="/plugins/admin/colennao-view-admin-user-listhistoryResult/?id='.$item->id .'">a>';
+                  <a href="/plugins/admin/colennao-view-admin-user-listhistoryResult/?id='.$item->id .'">Xem lịch sử kết quả khảo sát</a>';
                 }
 
               echo '<tr>
@@ -121,7 +121,8 @@
                     thời gian tạo : '.date('H:i d-m-Y', $item->created_at).'</br>
                     thời gian hết hạn : '.date('H:i d-m-Y', $item->deadline).'
                   </td>
-                 <td>'.@$item->name_people->name.'</td>
+                 <td>'.@$item->name_people->name.'
+                  '.$historyResult.'</td>
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 

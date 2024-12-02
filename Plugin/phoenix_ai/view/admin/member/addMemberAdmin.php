@@ -69,6 +69,7 @@
                     <label class="form-label" for="basic-default-fullname">Mã OTP</label>
                     <input type="text" disabled class="form-control" placeholder="" name="otp" id="otp" value="<?php echo @$data->otp;?>" />
                   </div>
+                  
 
                 </div>
               </div>

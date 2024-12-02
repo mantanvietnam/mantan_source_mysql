@@ -188,5 +188,68 @@ function viewUserDetailAdmin($input)
     setVariable('userpeople', $userpeople);
 }
 
+function listhistoryResult($input)
+{
+    global $controller;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách thành viên';
+    $modelUser = $controller->loadModel('Users');
+    $modelUserpeople = $controller->loadModel('Userpeople');
+
+    $modelQuestions = $controller->loadModel('Questions');
+    $modelHistoryResultUser = $controller->loadModel('HistoryResultUsers');
+    if(!empty($_GET['id'])){
+        $conditions = array('id_user'=>$_GET['id']);
+       
+       
+        $data = $modelHistoryResultUser->find()->where($conditions)->first();
+        if(!empty(@$data)){       
+            $data->answers = json_decode($data->answers, true);
+            if(!empty($data->answers)){
+                foreach($data->answers as $key => $item){
+                    $questions= $modelQuestions->find()->where(['id'=>$key])->first();
+                    $listQuestions = array();
+                    $name = $questions->name;
+                    $answers = '';
+                    if($item=='a'){
+                        $answers = json_decode(@$questions->answer1, true)['vi'];
+                    }elseif($item=='b'){
+                        $answers = json_decode(@$questions->answer2, true)['vi'];
+                    }elseif($item=='c'){
+                        $answers = json_decode(@$questions->answer3, true)['vi'];
+                    }elseif($item=='d'){
+                        $answers = json_decode(@$questions->answer4, true)['vi'];
+                    }elseif($item=='e'){
+                        $answers = json_decode(@$questions->answer5, true)['vi'];
+                    }elseif($item=='f'){
+                        $answers = json_decode(@$questions->answer6, true)['vi'];
+                    }elseif($item=='g'){
+                        $answers = json_decode(@$questions->answer7, true)['vi'];
+                    }elseif($item=='h'){
+                        $answers = json_decode(@$questions->answer8, true)['vi'];
+                    } 
+
+                    $listQuestions['questions']  = $name; 
+                    $listQuestions['answers'] = $answers;
+
+                    $data->answers[$key] = $listQuestions;
+
+                }
+            }
+            $data->info = $modelUser->find()->where(['id'=>$data->id_user])->first();
+            if($data->info->id_group_user){
+                $data->name_people = $modelUserpeople->find()->where(['id'=>$data->info->id_group_user])->first();
+            }
+
+            setVariable('data', $data);
+        }else{
+            
+        return $controller->redirect('/plugins/admin/colennao-view-admin-user-listUserAdmin');
+        }        
+    }else{
+           return $controller->redirect('/plugins/admin/colennao-view-admin-user-listUserAdmin');  
+    }
+}
 
 ?>

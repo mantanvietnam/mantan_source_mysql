@@ -1,4 +1,4 @@
-<?php getheader();?>
+<?php include(__DIR__.'/../header.php'); ?>
  <div class="chat-main container">
                     <div class="chat-header">
                         <p>
@@ -151,5 +151,4 @@
 
  
 </script>
-<?php getFooter();?>
-
+<?php include(__DIR__.'/../footer.php'); ?>
