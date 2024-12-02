@@ -16,14 +16,19 @@ a{
     justify-content: space-around;
 }
 .main-head{
-    width: 160px;
+    width: 8%;
     height: 100vh;
     overflow: hidden;
     background: #fff;
     transition: .3s ease-in-out;
 }
+
 .main-wrap .main-head.active{
-    width: 15%;
+    width: 14%;
+
+}
+.main-wrap .main-head.active .nav-list-item span{
+    font-size: 12px !important;
 }
 .main-head .main-nav{
     width: 100%;
@@ -62,14 +67,16 @@ a{
 }
 .main-head .main-nav  .navbar-nav .nav-list{
     margin: 0;
-    padding: 10px 10px;
+    /* padding: 10px 10px; */
 }
 .main-head .main-nav .navbar-nav .nav-list .nav-list-item{
     list-style: none;
-    padding: 8px 10px;
+    padding: 2px 0px;
     transition: .2s ease-in-out;
     border-radius: 5px;
-    margin-bottom: 10px;
+    font-size: 10px;
+    /* margin-bottom: 10px; */
+    text-align: center;
     cursor: pointer;
 }
 .main-head .main-nav .navbar-nav .nav-list .nav-list-item:last-child{
@@ -115,7 +122,7 @@ a{
 }
 
 .showcase.width{
-    width: 85%;
+    width: 92%;
 }
 .showcase .overlay{
     width: 100%;
@@ -147,3 +154,21 @@ a{
     font-size: 20px;
 }
 
+.main-wrap .main-head.active .set-header-distance {
+    display: flex;
+}
+.main-head .set-header-distance{
+    display: block ;
+    justify-content: center;
+}
+.set-distent-icon {
+    margin-right: 8px;
+}
+.main-head.active .nav-list-item {
+    text-align: unset !important; 
+    
+}
+
+.main-head .main-nav .navbar-nav .nav-list .nav-list-item span{
+    font-size: 10px;
+}

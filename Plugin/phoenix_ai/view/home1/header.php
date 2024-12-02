@@ -46,10 +46,10 @@
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/demo.css" />
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/training.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home1/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home1/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home1/assets/css/demo.css" />
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home1/assets/css/training.css" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />

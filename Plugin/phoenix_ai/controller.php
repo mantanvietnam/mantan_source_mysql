@@ -11,4 +11,6 @@ include_once('controller/home/connentBlogController.php');
 
 
 include_once('controller/api/connentFacebookControll.php');
+
+include_once('controller/api/wireContentController.php');
 ?>

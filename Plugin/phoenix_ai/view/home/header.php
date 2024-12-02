@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Side Navigation Menu</title>
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/all.min.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/style.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/mainvu.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive?>/asset/css/mainhoang.css">
+
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/style.css?index=92">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/mainvu.css">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/mainhoang.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -24,19 +25,11 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="/webroot/assets_admin/vendor/libs/jquery/jquery.js"></script>
-    <script src="/webroot/assets_admin/vendor/libs/popper/popper.js"></script>
-    <script src="/webroot/assets_admin/vendor/js/bootstrap.js"></script>
-    <script src="/webroot/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script src="/webroot/assets_admin/vendor/js/menu.js"></script>
-    <script type="text/javascript" src="/webroot/ckfinder/ckfinder.js"></script>
-    <script language="javascript" src="/webroot/ckeditor/ckeditor.js" type="text/javascript"></script>
-    <script language="javascript" src="/webroot/js/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
+
 </head>
 <body>
     <main class="main-wrap">
-        <header class="main-head">
+        <header class="main-head active">
             <div class="main-nav">
                 <nav class="navbar-a">
                     <div class="navbar-nav">
@@ -56,56 +49,74 @@
                         <ul class="nav-list">
                             <li class="nav-list-item">
                                 <a href="#" class="nav-link">
-                                    <i class="fa-solid fa-house"></i>
-                                    <span class="link-text">Trang chủ</span>
+                                    <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-solid fa-house"></i></div>
+                                        <div><span class="link-text">Trang chủ</span></div>
+                                    </div>
                                 </a>
                             </li>
                             <li class="nav-list-item">
                                 <a href="<?= $urlThemeActive?>/asset/aiva-chat.html" class="nav-link">
-                                    <i class="fa-solid fa-qrcode"></i>
-                                    <span class="link-text">Chat với Aiva</span>
+                                    <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-solid fa-qrcode"></i></div>
+                                        <div><span class="link-text">Chat với Aiva</span></div>
+                                    </div>
                                 </a>
                             </li>
                             <li class="nav-list-item">
                                 <a href="<?= $urlThemeActive?>/asset/aiva-chat.html" class="nav-link">
-                                    <i class="fa-solid fa-user"></i>
-                                    <span class="link-text">Trợ lý Aiva</span>
+                                    <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-solid fa-user"></i></div>
+                                        <div><span class="link-text">Trợ lý Aiva</span></div>
+                                    </div>
                                 </a>
                             </li>
                             <li class="nav-list-item">
                                 <a href="#" class="nav-link">
-                                    <i class="fa-solid fa-link"></i>
-                                    <span class="link-text">Aiva Hình ảnh</span>
+                                    <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-solid fa-link"></i></div>
+                                        <div><span class="link-text">Aiva Hình ảnh</span></div>
+                                    </div>
                                 </a>
                             </li>
                             <li class="nav-list-item">
                                 <a href="#" class="nav-link">
-                                    <i class="fa-brands fa-steam"></i>
-                                    <span class="link-text">Text to speech</span>
+                                   <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-brands fa-steam"></i></div>
+                                        <div><span class="link-text">Text to speech</span></div>
+                                   </div>
                                 </a>
                             </li>
                             <li class="nav-list-item">
                                 <a href="#" class="nav-link">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <span class="link-text">Hướng dẫn</span>
+                                    <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                                        <div><span class="link-text">Hướng dẫn</span></div>
+                                    </div>
                                 </a>
                             </li>
                             <li class="nav-list-item">
                                 <a href="#" class="nav-link">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                    <span class="link-text">Cộng tác viên Aiva</span>
+                                    <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-solid fa-circle-info"></i></div>
+                                        <div><span class="link-text">Cộng tác viên Aiva</span></div>
+                                    </div>
                                 </a>
                             </li>
                             <li class="nav-list-item">
                                 <a href="#" class="nav-link">
-                                    <i class="fa-brands fa-servicestack"></i>
-                                    <span class="link-text">Cài đặt</span>
+                                    <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-brands fa-servicestack"></i></div>
+                                        <div><span class="link-text">Cài đặt</span></div>
+                                    </div>
                                 </a>
                             </li>
                             <li class="nav-list-item">
                                 <a href="#" class="nav-link">
-                                    <i class="fa-solid fa-envelope-circle-check"></i>
-                                    <span class="link-text">Dữ liệu mẫu</span>
+                                    <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-solid fa-envelope-circle-check"></i></div>
+                                        <div><span class="link-text">Dữ liệu mẫu</span></div>
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -116,7 +127,7 @@
         </header>
         <section class="showcase ">
             <div class="overlay">
-                <div class="head container d-flex">
+                <div class="head container-fluid d-flex">
                     <div class="dropdown mx-4">
                         <button class="btn btn-custom dropdown-toggle " type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             Trợ lý
@@ -149,7 +160,7 @@
                     <!-- Biểu tượng người dùng -->
                     <div class="user-icon">
                         <div class="dropdown">
-                            <img src="<?= $urlThemeActive?>/asset/img/avatar.jpg" alt="Avatar" class="rounded-circle dropdown-toggle" 
+                            <img src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg" alt="Avatar" class="rounded-circle dropdown-toggle" 
                                  id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
                                 <div class="user-info d-flex">
