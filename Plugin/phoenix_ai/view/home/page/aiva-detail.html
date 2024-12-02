@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Navigation Menu</title>
+    <link rel="stylesheet" href="./css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mainvu.css">
+    <link rel="stylesheet" href="./css/mainhoang.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <main class="main-wrap">
+        <header class="main-head">
+            <div class="main-nav">
+                <nav class="navbar-a">
+                    <div class="navbar-nav">
+                        <div class="title">
+                            <div class="title-padding">
+                                <h3>
+                                    <i class="fa-brands fa-app-store-ios"></i>
+                                    <span class="title-text">AIVA</span>
+                                </h3>
+                            </div>
+                            <div class="head">
+                                <button class="toggler">
+                                    <i class="fa-solid fa-bars-staggered"></i>
+                                </button> 
+                            </div>
+                        </div>
+                        <ul class="nav-list">
+                            <li class="nav-list-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa-solid fa-house"></i>
+                                    <span class="link-text">Trang chủ</span>
+                                </a>
+                            </li>
+                            <li class="nav-list-item">
+                                <a href="./aiva-chat.html" class="nav-link">
+                                    <i class="fa-solid fa-qrcode"></i>
+                                    <span class="link-text">Chat với Aiva</span>
+                                </a>
+                            </li>
+                            <li class="nav-list-item">
+                                <a href="./aiva-chat.html" class="nav-link">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span class="link-text">Trợ lý Aiva</span>
+                                </a>
+                            </li>
+                            <li class="nav-list-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa-solid fa-link"></i>
+                                    <span class="link-text">Aiva Hình ảnh</span>
+                                </a>
+                            </li>
+                            <li class="nav-list-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa-brands fa-steam"></i>
+                                    <span class="link-text">Text to speech</span>
+                                </a>
+                            </li>
+                            <li class="nav-list-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <span class="link-text">Hướng dẫn</span>
+                                </a>
+                            </li>
+                            <li class="nav-list-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    <span class="link-text">Cộng tác viên Aiva</span>
+                                </a>
+                            </li>
+                            <li class="nav-list-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa-brands fa-servicestack"></i>
+                                    <span class="link-text">Cài đặt</span>
+                                </a>
+                            </li>
+                            <li class="nav-list-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa-solid fa-envelope-circle-check"></i>
+                                    <span class="link-text">Dữ liệu mẫu</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+       
+            </div>
+        </header>
+        <section class="showcase ">
+            <div class="overlay">
+                <div class="head mb-3 container d-flex">
+                    <div class="dropdown mx-4">
+                        <button class="btn btn-custom dropdown-toggle " type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Trợ lý
+                        </button>
+                        <ul class="dropdown-menu dropmenu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Trợ lý</a></li>
+                            <li><a class="dropdown-item" href="#">Tài liệu</a></li>
+                        </ul>
+                    </div>
+                    <!-- Thanh tìm kiếm -->
+                    <div class="search-box d-flex align-items-center">
+                            <input type="text" class="form-control search-input" placeholder="Tìm kiếm trợ lý Aiva">
+                            <button class="btn search-btn">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                    </div>
+            
+                    <!-- Nút nâng cấp -->
+                    <button class="btn btn-upgrade d-flex align-items-center">
+                        <i class="fa-solid fa-crown mx-1"></i>
+                            Nâng cấp
+                    </button>
+            
+                    <!-- Biểu tượng thông báo -->
+                    <div class="notification-icon position-relative">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge position-absolute top-0 start-100 translate-middle bg-danger text-white">1</span>
+                    </div>
+            
+                    <!-- Biểu tượng người dùng -->
+                    <div class="user-icon">
+                        <div class="dropdown">
+                            <img src="./img/avatar.jpg" alt="Avatar" class="rounded-circle dropdown-toggle" 
+                                 id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
+                                <div class="user-info d-flex">
+                                    <img src="./img/avatar.jpg" alt="Avatar">
+                                    <div class="contact-info mx-2">
+                                        <div class="name">Nguyễn Văn A</div>
+                                        <div class="email">email@example.com</div>
+                                        <div class="credit">0 <span>Credit</span></div>
+                                        <a href="#">Chỉnh sửa hồ sơ</a>
+                                    </div>
+                                </div>
+                              <li><a class="dropdown-item contact-info-icon mt-3" href="./aiva-setting.html"><img src="./img/caiddat.svg" alt=""> Cài đặt</a></li>
+                              <li><a class="dropdown-item contact-info-icon" href="#"><img src="./img/dangxuat.svg" alt=""> Đăng xuất</a></li>
+                            </ul>
+                          </div>
+                    </div>
+                </div>
+                <div class="assistant-aiva container-fluid">
+                    <div class="assistant-header">
+                        <p><img src="./img/assistant.svg" alt="">Trợ lý AI Tự động</p>
+                        <h5>chạy tự động các tác vụ và giúp bạn tăng hiệu quả công việc gấp 5 lần chỉ với 1 click chuột!</h5>
+                    </div>
+                </div>
+                <div class="container my-4">
+                    <div class="row">
+                        <!-- Sidebar bên trái -->
+                        <div class="col-md-3 left-setting">
+                            <div class="search-bar my-3 d-flex align-items-center">
+                                <input type="text" class="form-control me-2" placeholder="Tìm kiếm trợ lý" aria-label="Tìm kiếm trợ lý">
+                                <button class="btn btn-primary" type="button">Tìm</button>
+                            </div>
+                            <p class="category">Danh mục</p>
+                            <ul class="nav flex-column nav-pills" id="componentTab" role="tablist">
+                                <li class="nav-item">
+                                    <button class="nav-link active" id="profile-tab" data-bs-toggle="pill" data-bs-target="#profile"
+                                        type="button" role="tab" aria-controls="profile" aria-selected="true">
+                                        <img src="./img/vl.png" alt=""> Viết lách
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" id="order-history-tab" data-bs-toggle="pill" data-bs-target="#order-history"
+                                        type="button" role="tab" aria-controls="order-history" aria-selected="false">
+                                        <img src="./img/ptbt.png" alt=""> Phát triển bản thân
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" id="rewards-tab" data-bs-toggle="pill" data-bs-target="#rewards"
+                                        type="button" role="tab" aria-controls="rewards" aria-selected="false">
+                                        <img src="./img/gd.png" alt=""> Giáo dục
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" id="tiktok-tab" data-bs-toggle="pill" data-bs-target="#tiktok"
+                                        type="button" role="tab" aria-controls="tiktok" aria-selected="false">
+                                        <img src="./img/tiktok.png" alt="">Tik Tok
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" id="marketting-tab" data-bs-toggle="pill" data-bs-target="#marketting"
+                                        type="button" role="tab" aria-controls="marketting" aria-selected="false">
+                                        <img src="./img/mkt.png" alt=""> Marketing
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" id="cells-tab" data-bs-toggle="pill" data-bs-target="#cells"
+                                        type="button" role="tab" aria-controls="rewards" aria-selected="false">
+                                        <img src="./img/bh.png" alt=""> Bán hàng
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" id="business-tab" data-bs-toggle="pill" data-bs-target="#business"
+                                        type="button" role="tab" aria-controls="rewards" aria-selected="false">
+                                        <img src="./img/kd.png" alt=""> Kinh doanh
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" id="lists-tab" data-bs-toggle="pill" data-bs-target="#lists"
+                                        type="button" role="tab" aria-controls="rewards" aria-selected="false">
+                                        <img src="./img/dstl.svg" alt=""> Danh sách trợ lý
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                
+                        <!-- Nội dung chính bên phải -->
+                        <div class="col-md-9">
+                            <div class="tab-content" id="componentContent">
+                                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="container bg-white py-4">
+                                        <div class="row align-items-start">
+                                            <!-- Cột 1: Avatar, Tên và Nhiệm vụ -->
+                                            <div class="col-lg-2 col-md-4 col-sm-12">
+                                                <div class="profile-section text-center px-3">
+                                                    <img src="./img/avatar.jpg" alt="Avatar" class=" mb-2" style="width: 100px; height: 100px;">
+                                                    <h5 class="mb-1">Sally</h5>
+                                                    <span class="badge bg-primary px-3 py-1">Sales Manager</span>
+                                                    <div class="tasks mt-4">
+                                                        <div class="d-flex justify-content-between align-items-center mb-3 mission">
+                                                            <span class="fw-bold ">Nhiệm vụ hoàn thành</span>
+                                                            <span class="badge bg-secondary">0</span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between align-items-center mission">
+                                                            <span class="fw-bold">Tiết kiệm giờ làm việc</span>
+                                                            <span class="badge bg-secondary">0</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    
+                                            <!-- Đường kẻ dọc giữa các cột -->
+                                            <div class="col-auto d-none d-lg-block border-start"></div>
+                                    
+                                            <!-- Cột 2: Text, Nút Thực hiện và Video -->
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                <div class="content-section px-3">
+                                                    <h4 class="mb-2 mission-text">Thấu hiểu khách hàng trong 15'</h4>
+                                                    <p class="mb-3">Các trợ lý này sẽ giúp bạn đọc vị khách hàng dễ dàng, từ đó giúp bạn lên các chiến lược phù hợp nhất để tiếp cận.</p>
+                                                    <button class="btn btn-primary mb-3 btn-mission"><img src="./img/kd.png" alt=""> Thực hiện</button>
+                                                    <div class="video-container">
+                                                        <iframe width="100%" height="240" src="https://www.youtube.com/embed/example" frameborder="0" allowfullscreen></iframe>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    
+                                            <!-- Đường kẻ dọc giữa các cột -->
+                                            <div class="col-auto d-none d-lg-block border-start"></div>
+                                    
+                                            <!-- Cột 3: Plug-in, Nút "Xem lịch sử" và Biểu tượng tương tác -->
+                                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                                <div class="plugin-section px-3">
+                                                    <h6 class="fw-bold mb-3"><img src="./img/robot.svg" alt="" style="width: 40px;"> AIVA</h6>
+                                                    <ul class="list-unstyled mb-4">
+                                                        <li class="d-flex align-items-center mb-2">
+                                                            <img src="./img/driver.svg" alt="" style="width:20px;"> Drive
+                                                        </li>
+                                                        <li class="d-flex align-items-center">
+                                                            <img src="./img/AI.svg" alt="" style="width:20px;"> AI Tools
+                                                        </li>
+                                                    </ul>
+                                                    <button class="btn btn-light mb-4 w-100 btn-history">Xem lịch sử</button>
+                                                    <div class="interaction text-center d-flex">
+                                                        <button class="btn btn-light me-2 icon-mission"><i class="fa-regular fa-thumbs-up"></i> 4</button>
+                                                        <button class="btn btn-light me-2 icon-mission"><i class="fa-regular fa-comment"></i> 0</button>
+                                                        <button class="btn btn-light icon-mission"><i class="fa-solid fa-share"></i> Chia sẻ</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/js/all.min.js" integrity="sha512-8py0AXTY8pfAroJmBkYfJ+VuKUKMMsUOC1MldW9kkC/k4SZi6AexSDS60QYn41U2rp8KL9IpVHy8FxW2TDmjDA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>

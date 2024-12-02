@@ -34,7 +34,6 @@ a{
 .main-head .main-nav .navbar-a .navbar-nav .title{
    
     padding: 15px 19px;
-    border-bottom: 1px solid #2f3e46;
     transition: .1s ease-in-out;
 }
 .main-head .main-nav .navbar-nav .title h3{
@@ -127,6 +126,7 @@ a{
 }
 .showcase .head{
     padding: 13px 25px;
+    background-color: white;
 }
 .head .toggler{
     display: inline-block;
