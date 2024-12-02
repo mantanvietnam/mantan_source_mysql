@@ -32,7 +32,7 @@ a{
     width: 100%;
 }
 .main-head .main-nav .navbar-a .navbar-nav .title{
-   
+    /* border-bottom: 1px solid #2f3e46; */
     padding: 15px 19px;
     transition: .1s ease-in-out;
 }
