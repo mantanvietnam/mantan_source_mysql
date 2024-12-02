@@ -8,7 +8,7 @@
         <section id="news">
             <div class="container">
                 <div class="news__wrapper">
-                    <p class="news__title d-flex align-items-center justify-content-center"><?php echo $category->name;?></p>
+                    <h1 class="news__title d-flex align-items-center justify-content-center"><?php echo $category->name;?></h1>
                     <div class="news__carousel">
                         <div class="news__list">
                             <div class="row">
@@ -20,7 +20,7 @@
                                                     <img src="<?php echo $value->image;?>" alt="Tin tức 1">
                                                 </div>
                                                 <div class="news__item-content">
-                                                    <h3 class="news__item-title" style="color:#212529"><?php echo $value->title;?></h3>
+                                                    <h2 class="news__item-title" style="color:#212529"><?php echo $value->title;?></h2>
                                                     <p class="news__item-desc"><?php echo $value->description;?></p>
                                                     <div class="news__item-footer d-flex justify-content-between align-items-center">
                                                         <span class="news__item-date"><?php echo date('d/m/Y', $value->time);?></span>

@@ -28,6 +28,7 @@ class HomesController extends AppController{
         global $metaTitleMantan;
         global $metaKeywordsMantan;
         global $metaDescriptionMantan;
+        global $metaImageMantan;
         global $isPost;
         global $isPage;
         global $postDetail;
@@ -81,8 +82,19 @@ class HomesController extends AppController{
                 $otherPosts = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
                 $metaTitleMantan = $data->title;
-                $metaKeywordsMantan = $data->keyword;
-                $metaDescriptionMantan = $data->description;
+
+                if(!empty($data->image)){
+                    $metaImageMantan = $data->image;
+                }
+
+                if(!empty($data->description)){
+                    $metaDescriptionMantan = $data->description;
+                }
+
+                if(!empty($data->keyword)){
+                    $metaKeywordsMantan = $data->keyword;
+                }
+
                 $postDetail = $data;
 
                 $this->set('post', $data);
