@@ -59,14 +59,11 @@ $sqlInstallDatabase .= "CREATE TABLE `content_facebook_ais` (
   `topic` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
   `content_ai` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
   `id_member` INT NOT NULL , 
-  `created_at` INT NOT NULL , 
+  `created_at` INT  NULL DEFAULT NULL , 
+  `updated_at` INT NULL DEFAULT NULL ,
   `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
   `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNOT NULL ,
   `customer_target` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `feeling` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `benefit` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `end` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `question` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ";
 
@@ -137,6 +134,9 @@ $sqlUpdateDatabase['content_facebook_ais']['id_member'] = "ALTER TABLE `content_
 $sqlUpdateDatabase['content_facebook_ais']['created_at'] = "ALTER TABLE `content_facebook_ais` ADD `created_at` INT NOT NULL ;";
 $sqlUpdateDatabase['content_facebook_ais']['status'] = "ALTER TABLE `content_facebook_ais` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNOT NULL DEFAULT 'active';";
 $sqlUpdateDatabase['content_facebook_ais']['type'] = "ALTER TABLE `content_facebook_ais` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNOT NULL ;";
+$sqlUpdateDatabase['content_facebook_ais']['customer_target'] = "ALTER TABLE `content_facebook_ais` ADD `customer_target` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ciNOT NULL ;";
+
+
 
 $sqlUpdateDatabase['history_chat_ais']['conversation_id'] = "ALTER TABLE `history_chat_ais` ADD `conversation_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['history_chat_ais']['question'] = "ALTER TABLE `history_chat_ais` ADD `question` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
@@ -147,9 +147,5 @@ $sqlUpdateDatabase['history_chat_ais']['content'] = "ALTER TABLE `history_chat_a
 $sqlUpdateDatabase['history_chat_ais']['created_at'] = "ALTER TABLE `history_chat_ais` ADD `created_at` INT NOT NULL;";
 $sqlUpdateDatabase['history_chat_ais']['type'] = "ALTER TABLE `history_chat_ais` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
-$sqlUpdateDatabase['content_facebook_ais']['customer_target'] = "ALTER TABLE `content_facebook_ais` ADD `customer_target` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['content_facebook_ais']['feeling'] = "ALTER TABLE `content_facebook_ais` ADD `feeling` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['content_facebook_ais']['benefit'] = "ALTER TABLE `content_facebook_ais` ADD `benefit` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['content_facebook_ais']['end'] = "ALTER TABLE `content_facebook_ais` ADD `end` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['content_facebook_ais']['question'] = "ALTER TABLE `content_facebook_ais` ADD `question` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
 ?>

@@ -1,5 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
 <div class="aiva-writecontent container-fluid container-set">
   <div class="row">
     <div class="col-md-4 ">
@@ -421,21 +422,22 @@
       </div>
     </div> 
     <div class="col-md-8 ">
+      <div id="myElement" style=" display: none; align-items: center;" ><div style="display: flex; flex-direction: column; justify-content: left;"><p class="MuiTypography-root MuiTypography-body1" style="font-size: 14px; color: rgb(80, 210, 62);"><i class='bx bx-check-circle'></i>Cập nhật văn bản thành công</p></div></div>
       <div class="set-height-writecontent">
         <div class="right-form-wirte-content">
           <form action="" method="post">
             <div class="header-form d-flex">
               <div class="title-input-header-left">
-                <input type="text" placeholder="Tiêu đề">
+                <input type="text" id="title" name="title"  placeholder="Tiêu đề" value="<?php echo @$dataContent->title ?>">
               </div>
               <div class="left-button-title">
-                <button type="submit" class="comback-writecontent">Quay lại</button>
-                <button type="submit" class="save-writecontent">Lưu</button>
+                <a type="submit" href="/" class="comback-writecontent">Quay lại</a>
+                <button type="button" onclick="savecontentFacebook()" class="save-writecontent">Lưu</button>
               </div>
               
             </div>
             <div class="tag-input-header">
-              <input type="text" name="" placeholder="tag" id="">
+              <input type="text" name="" placeholder="tag" id="target" name="target" value="<?php echo @$dataContent->customer_target ?>">
             </div>
             <div class="show-input-editor">
               <?php $retur =  htmlspecialchars(@$data['result'])?>
@@ -444,12 +446,12 @@
             </div>
             <div class="last-inputcontent">
               <div class="d-flex justify-content-between">
-                <input class="input-chat-aiva" type="text" name="" placeholder="Chat với Aiva">
-                <div class="button-chat-with-aiva d-flex justify-content-center align-items-center">
-                  <button>Gửi đi</button>
+                <input class="input-chat-aiva" type="text" name="question" id="question" placeholder="Chat với Aiva">
+                <div class="button-chat-with-aiva d-flex justify-content-center align-items-center" >
+                  <button onclick="chatquestion()" type="button">Gửi đi</button>
                 </div>
               </div>
-              <div class="container row">
+              <!-- <div class="container row">
                 <div class="form-check form-switch mt-2 mb-2 col-md-3 bottom-setting-one">
                   <label class="form-check-label" for="toggleSwitch"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
                     <path d="M8.81327 0.31958C8.64277 0.31958 8.47926 0.387309 8.3587 0.507869C8.23814 0.628428 8.17041 0.791941 8.17041 0.962437V17.6767C8.17041 17.8472 8.23814 18.0107 8.3587 18.1313C8.47926 18.2519 8.64277 18.3196 8.81327 18.3196C8.98376 18.3196 9.14728 18.2519 9.26784 18.1313C9.3884 18.0107 9.45612 17.8472 9.45612 17.6767V0.962437C9.45612 0.791941 9.3884 0.628428 9.26784 0.507869C9.14728 0.387309 8.98376 0.31958 8.81327 0.31958Z" fill="#5242F3"/>
@@ -472,7 +474,7 @@
                     </select>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </form>
         </div>
@@ -488,8 +490,6 @@
       
         var topic = $('#topic').val();
       
-        console.log(customer_target);
-        console.log(topic);
         $.ajax({
           method: "POST",
           url: "/apis/sendcontentFacebookAPI",
@@ -497,9 +497,6 @@
             topic: topic, 
         }
     }).done(function( msg ) {
-            // /console.log(id_product);
-            // var obj = jQuery.parseJSON(msg);
-             console.log(msg);
             if(msg.code==1){
 
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
@@ -521,19 +518,14 @@
       
         var question = 'đựa vào chủ để '+i+' viết mội bài đây đủ ';
       
-        console.log(conversation_id);
-        console.log(question);
       if(conversation_id != '' && conversation_id!='0'){
              $.ajax({
           method: "POST",
-          url: "/apis/chatconnentFacebookAPI",
+          url: "/apis/chatcontentFacebookAPI",
           data: {question: question,
             conversation_id: conversation_id, 
           }
         }).done(function( msg ) {
-                // /console.log(id_product);
-                // var obj = jQuery.parseJSON(msg);
-                 console.log(msg);
                 if(msg.code==1){
                   result += msg.data.result
                     document.getElementById("conversation_id").value = msg.data.conversation_id;
@@ -545,6 +537,74 @@
 
     }
 
+    function chatquestion(){
+        var conversation_id = $('#conversation_id').val();
+        var result = $('#result').val();
+      
+        var question = $('#question').val();
+      
+         document.getElementById("question").value = '';
+      if(conversation_id != '' && question!=''){
+             $.ajax({
+          method: "POST",
+          url: "/apis/chatcontentFacebookAPI",
+          data: {question: question,
+            conversation_id: conversation_id, 
+          }
+        }).done(function( msg ) {
+                if(msg.code==1){
+                  result += msg.data.result
+                    document.getElementById("conversation_id").value = msg.data.conversation_id;
+                    document.getElementById("result").value = result;
+                }
+            })
+        }
+       
+
+    }
+
+
+     function savecontentFacebook(){
+        var conversation_id = $('#conversation_id').val();
+        var title = $('#title').val();
+        var result = $('#result').val();
+        var target = $('#target').val();
+      
+         document.getElementById("question").value = '';
+      if(conversation_id != '' && question!=''){
+             $.ajax({
+          method: "POST",
+          url: "/apis/savecontentFacebookAPI",
+          data: { conversation_id :conversation_id,
+            title :title,
+            result :result,
+            target :target,
+          }
+        }).done(function( msg ) {
+                console.log(msg);
+                if(msg.code==1){
+                    document.getElementById("conversation_id").value = msg.data.conversation_id;
+                    document.getElementById("result").value =  msg.data.content_ai;
+                    document.getElementById("title").value =  msg.data.title;
+                    document.getElementById("target").value =  msg.data.customer_target;
+
+                    document.getElementById("myElement").style.display = 'block';
+
+                var myElement = document.getElementById('myElement');
+
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    myElement.style.display = 'none';
+                }
+
+                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                setTimeout(changeCSS, 10000);
+                }
+            })
+        }
+       
+
+    }
  
 </script>
 

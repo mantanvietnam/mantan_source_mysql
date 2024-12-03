@@ -38,7 +38,7 @@
                                             $conversation_id = $item['conversation_id']; 
                                             echo '<div class="MuiBox-root " id="question'.$i.'">
                                 <div class="">
-                                    <img alt="avatar" src="/assets/images/6ba464e421af640a904eefa26a0b3524-avatarDefault.png" class="MuiAvatar-img">
+                                    <img alt="avatar" src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg"  style="width: 50px;" class="MuiAvatar-img">
                                 </div>
                                 <div class="">
                                     <div class="">
@@ -48,7 +48,7 @@
                             </div>
                             <div class="MuiBox-root " id="result'.$i.'">
                                 <div class="">
-                                    <img alt="avatar"  style="width: 50px;" src="/themes/aiva/asset/img/ai1.jpg">
+                                    <img alt="avatar"  style="width: 50px;" src="/plugins/phoenix_ai/view/home/asset/img/ai1.jpg">
                                 </div>
                                 <div class="">
                                     <div class="">
@@ -109,7 +109,7 @@
       $('#listchat div:first').append('\
            <div class="MuiBox-root " id="question'+row+'">\
                <div class="">\
-                   <img alt="avatar" src="/assets/images/6ba464e421af640a904eefa26a0b3524-avatarDefault.png" class="MuiAvatar-img">\
+                   <img alt="avatar" src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg"  style="width: 50px;" class="MuiAvatar-img">\
                 </div>\
                <div class="">\
                    <div class="">\
@@ -135,7 +135,7 @@
                      $('#listchat div:first').append('\
                        <div class="MuiBox-root " id="result'+row+'">\
                            <div class="">\
-                               <img alt="avatar" style="width: 50px;" src="/themes/aiva/asset/img/ai1.jpg">\
+                               <img alt="avatar" style="width: 50px;" src="/plugins/phoenix_ai/view/home/asset/img/ai1.jpg">\
                             </div>\
                            <div class="">\
                                <div class="">\

@@ -10,9 +10,7 @@ function sendcontentFacebookAPI($input){
         $mess = '';
         $conversation_id = '';
         $member = $session->read('infoUser');
-        if(!empty($session->read('connent_facebook_conversation_id'))){
-        	$conversation_id = $session->read('connent_facebook_conversation_id');
-        }
+        
 
         $modelContentFacebookAis = $controller->loadModel('ContentFacebookAis');
         $modelHistoryChatAis = $controller->loadModel('HistoryChatAis');
@@ -34,18 +32,18 @@ function sendcontentFacebookAPI($input){
                 $question .=  'người tiếp cận '.$dataSend['customer_target'];
             }*/
             if(!empty($conversation_id)){
-                if(!empty($dataSend['plan_10facebook_posts'])){
-                    $question = $dataSend['plan_10facebook_posts'];
+                if(!empty($dataSend['content_facebook'])){
+                    $question = $dataSend['content_facebook'];
                 }
             }
 
               $reply_ai = callAIphoenixtech($question,$conversation_id);
 
 
-              $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id']);
+              $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
 
 
-                $session->write('plan_10facebook_posts', $chat);
+                $session->write('content_facebook', $chat);
 
              
                return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai);
@@ -68,9 +66,7 @@ function chatAPI($input){
         $mess = '';
         $conversation_id = '';
         $member = $session->read('infoUser');
-        if(!empty($session->read('connent_facebook_conversation_id'))){
-            $conversation_id = $session->read('connent_facebook_conversation_id');
-        }
+       
 
         $modelContentFacebookAis = $controller->loadModel('ContentFacebookAis');
         $modelHistoryChatAis = $controller->loadModel('HistoryChatAis');
@@ -106,7 +102,7 @@ function chatAPI($input){
      return array('code'=> 0, 'mess'=>'chưa đăng nhập');*/
 }
 
-function chatconnentFacebookAPI($input){
+function chatcontentFacebookAPI($input){
     global $isRequestPost;
     global $controller;
     global $session;
@@ -117,9 +113,7 @@ function chatconnentFacebookAPI($input){
         $mess = '';
         $conversation_id = '';
         $member = $session->read('infoUser');
-        if(!empty($session->read('connent_facebook_conversation_id'))){
-            $conversation_id = $session->read('connent_facebook_conversation_id');
-        }
+        
 
         $modelContentFacebookAis = $controller->loadModel('ContentFacebookAis');
         $modelHistoryChatAis = $controller->loadModel('HistoryChatAis');
@@ -136,8 +130,8 @@ function chatconnentFacebookAPI($input){
                 $reply_ai = callAIphoenixtech($question,$conversation_id);
                 
                 $chat = array();
-                if(!empty($session->read('plan_10facebook_posts'))){
-                     $chat = $session->read('plan_10facebook_posts');
+                if(!empty($session->read('content_facebook'))){
+                     $chat = $session->read('content_facebook');
                 }
 
                 // $chat[] = array('question'=>$dataSend['question'],'result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'],'number'=>$number );
@@ -145,7 +139,7 @@ function chatconnentFacebookAPI($input){
                 $chat['result'] .= $reply_ai['result'];
 
 
-                $session->write('plan_10facebook_posts', $chat);
+                $session->write('content_facebook', $chat);
 
                 return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai);
             }
@@ -154,6 +148,64 @@ function chatconnentFacebookAPI($input){
        
     }
      return array('code'=> 0, 'mess'=>'chưa đăng nhập');
+}
+
+function savecontentFacebookAPI($input){
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategoryConnects;
+    global $modelCategories;
+
+    if(!empty($session->read('infoUser'))){
+        $mess = '';
+        $conversation_id = '';
+        $member = $session->read('infoUser');
+
+        $modelContentFacebookAi = $controller->loadModel('ContentFacebookAis');
+
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+             $chat = array();
+            if(!empty($session->read('content_facebook'))){
+                     $chat = $session->read('content_facebook');
+            }
+
+
+            if(empty($dataSend['conversation_id']) && empty($dataSend['result'])){
+                return array('code'=> 0, 'mess'=>'lỗi hệ thống');  
+            }
+
+            $checkContent = $modelContentFacebookAi->find()->where(['conversation_id'=>$dataSend['conversation_id'],'type'=>'content_facebook'])->first();
+
+            if(empty($checkContent)){
+                $checkContent = $modelContentFacebookAi->newEmptyEntity();
+                $checkContent->conversation_id = $dataSend['conversation_id'];
+                $checkContent->created_at = time();
+                $checkContent->type = 'content_facebook';
+            }
+            $title = 'Viết 10 chủ đề bài viết đăng Facebook';
+
+            if(!empty($dataSend['title'])){
+                $title = $dataSend['title'];  
+            }
+            $checkContent->title = @$title;
+            $checkContent->topic = @$chat['topic'];
+            $checkContent->content_ai = @$dataSend['result'];
+            $checkContent->id_member = @$member->id;
+            $checkContent->updated_at = time();
+            $checkContent->customer_target = @$dataSend['target'];
+
+            $modelContentFacebookAi->save($checkContent);
+
+             return array('code'=> 1, 'mess'=>'Lưu thành công', 'data'=>$checkContent);
+
+        }
+        return array('code'=> 0, 'mess'=>'lỗi hệ thống');
+    }
+    return array('code'=> 0, 'mess'=>'chưa đăng nhập');
+
 }
 
 
