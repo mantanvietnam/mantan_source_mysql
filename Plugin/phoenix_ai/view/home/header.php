@@ -56,7 +56,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="<?= $urlThemeActive?>/asset/aiva-chat.html" class="nav-link">
+                                <a href="/plugins/phoenix_ai/view/home/asset/aiva-chat.html" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-qrcode"></i></div>
                                         <div><span class="link-text">Chat với Aiva</span></div>
@@ -64,7 +64,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="<?= $urlThemeActive?>/asset/aiva-chat.html" class="nav-link">
+                                <a href="/plugins/phoenix_ai/view/home/asset/aiva-chat.html" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-user"></i></div>
                                         <div><span class="link-text">Trợ lý Aiva</span></div>
@@ -146,17 +146,17 @@
                     </div>
             
                     <!-- Nút nâng cấp -->
-                    <button class="btn btn-upgrade d-flex align-items-center">
+                    <!-- <button class="btn btn-upgrade d-flex align-items-center">
                         <i class="fa-solid fa-crown mx-1"></i>
                             Nâng cấp
-                    </button>
+                    </button> -->
             
                     <!-- Biểu tượng thông báo -->
                     <div class="notification-icon position-relative">
                         <i class="fa-regular fa-bell"></i>
                         <span class="badge position-absolute top-0 start-100 translate-middle bg-danger text-white">1</span>
                     </div>
-            
+     
                     <!-- Biểu tượng người dùng -->
                     <div class="user-icon">
                         <div class="dropdown">
@@ -164,7 +164,7 @@
                                  id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
                                 <div class="user-info d-flex">
-                                    <img src="<?= $urlThemeActive?>/asset/img/avatar.jpg" alt="Avatar">
+                                    <img src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg" alt="Avatar">
                                     <div class="contact-info mx-2">
                                         <div class="name">Nguyễn Văn A</div>
                                         <div class="email">email@example.com</div>
@@ -172,8 +172,8 @@
                                         <a href="#">Chỉnh sửa hồ sơ</a>
                                     </div>
                                 </div>
-                              <li><a class="dropdown-item contact-info-icon mt-3" href="<?= $urlThemeActive?>/asset/aiva-setting.html"><img src="<?= $urlThemeActive?>/asset/img/caiddat.svg" alt=""> Cài đặt</a></li>
-                              <li><a class="dropdown-item contact-info-icon" href="#"><img src="<?= $urlThemeActive?>/asset/img/dangxuat.svg" alt=""> Đăng xuất</a></li>
+                              <li><a class="dropdown-item contact-info-icon mt-3" href="/plugins/phoenix_ai/view/home/asset/img/aiva-setting.html"><img src="/plugins/phoenix_ai/view/home/asset/img/5d520c28b01e078655600b2bf9d6c022.svg" alt=""> Cài đặt</a></li>
+                              <li><a class="dropdown-item contact-info-icon" href="/logout"><img src="/plugins/phoenix_ai/view/home/asset/img/dangxuat.svg" alt=""> Đăng xuất</a></li>
                             </ul>
                           </div>
                     </div>

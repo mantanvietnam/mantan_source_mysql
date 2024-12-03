@@ -23,5 +23,6 @@
 	$routesPlugin['sendContentFacebook']= 'phoenix_ai/view/home/facebook/sendContentFacebook.php';
 	$routesPlugin['sendContentBlog']= 'phoenix_ai/view/home/blog/sendContentBlog.php';
 	$routesPlugin['chat']= 'phoenix_ai/view/home/chat/chat.php';
+	$routesPlugin['writecontentimage']= 'phoenix_ai/view/home/writecontent/writecontentimage.php';
 	
 	

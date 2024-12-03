@@ -35,9 +35,9 @@ function sendContentBlogAPI($input){
                     $question = $dataSend['content_blog'];
                 }
             }
-
+            echo $question;
               $reply_ai = callAIphoenixtech($question,$conversation_id);
-
+            var_dump($reply_ai);
 
               $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
 
