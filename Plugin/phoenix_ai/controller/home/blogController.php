@@ -1,5 +1,5 @@
 <?php 
-function sendContentFacebook($input){
+function sendContentBlog($input){
     global $isRequestPost;
     global $controller;
     global $session;
@@ -11,24 +11,24 @@ function sendContentFacebook($input){
         $modelContentFacebookAi = $controller->loadModel('ContentFacebookAis');
         $member =$session->read('infoUser');
         if(!empty($_GET['id'])){
-            $dataContent = $modelContentFacebookAi->find()->where(['id'=>$_GET['id'],'type'=>'content_facebook', 'id_member'=>$member->id])->first();
+            $dataContent = $modelContentFacebookAi->find()->where(['id'=>$_GET['id'],'type'=>'content_blog', 'id_member'=>$member->id])->first();
         }
 
         if(!empty($dataContent)){
             $chat = array('result'=>$dataContent->content_ai,'conversation_id'=>$dataContent->conversation_id, 'topic'=>@$dataContent->topic);
-            $session->write('content_facebook', $chat);
+            $session->write('content_blog', $chat);
 
         }
         $data = array();
-        if(!empty($session->read('content_facebook'))){
-            $data = $session->read('content_facebook');
+        if(!empty($session->read('content_blog'))){
+            $data = $session->read('content_blog');
         }
        
-          $bostAi =listBostAi()[1];
-
+          $bostAi =listBostAi()[2];
+        
     
-        setVariable('data', $data);
-        setVariable('bostAi', $bostAi);
+        setVariable('data', @$data);
+        setVariable('bostAi', @$bostAi);
         setVariable('dataContent', @$dataContent);
 
         
@@ -36,16 +36,4 @@ function sendContentFacebook($input){
         return $controller->redirect('/login');
     }
 }
-
-function chat(){
-
-    global $session;
-    $data = array();
-    if(!empty($session->read('chat'))){
-        $data = $session->read('chat');
-    }
-    
-     setVariable('data', $data);
-}
-
  ?>

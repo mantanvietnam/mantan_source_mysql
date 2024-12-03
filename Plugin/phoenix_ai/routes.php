@@ -20,7 +20,8 @@
 
 
 	$routesPlugin['ai-search-image']= 'phoenix_ai/view/home/ai/aiSearchImage.php';
-	$routesPlugin['sendcontentBlogFacebook']= 'phoenix_ai/view/home/facebook/sendcontentBlogFacebook.php';
+	$routesPlugin['sendContentFacebook']= 'phoenix_ai/view/home/facebook/sendContentFacebook.php';
+	$routesPlugin['sendContentBlog']= 'phoenix_ai/view/home/blog/sendContentBlog.php';
 	$routesPlugin['chat']= 'phoenix_ai/view/home/chat/chat.php';
 	
 	
