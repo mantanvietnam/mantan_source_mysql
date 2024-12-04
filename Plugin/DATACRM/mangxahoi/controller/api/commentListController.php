@@ -39,15 +39,41 @@ function addlikeApi($input){
                         if(!empty($checkWallPost) && $check ==1 && $checkWallPost->id_customer!=$user->id && function_exists('accumulatePoint')){
                             $note = 'Bạn được công 1 điểm cho người like bài viết của bạn ';
                             accumulatePoint($checkWallPost->id_customer,1,$note);
+                            $customer = $modelCustomer->find()->where(['id'=>$checkWallPost->id_customer])->first();
+                            $dataSendNotification= array('title'=>"$user->full_name like bài viết của bạn",
+                            'time'=>date('H:i d/m/Y'),
+                            'content'=>substr($checkWallPost->connent, 0, 160),
+                            'id_post'=>"$checkWallPost->id",
+                            'action'=>'addlikeApi');
+
+                            if(!empty($customer->token_device)){
+                                 sendNotification($dataSendNotification, $customer->token_device);
+                            }
                         }
                         return array('code'=>1,'messages'=>'bạn đã like  thành công ');
+
+                         
                     }elseif($data->type=='dislike'){
                          if(!empty($checkWallPost)  && $check ==1 && $checkWallPost->id_customer!=$user->id && function_exists('minuAccumulatePointlike')){
                               $note = 'Bạn bị trừ 2 điểm cho người dislike bài viết của bạn ';
                             minuAccumulatePointlike($checkWallPost->id_customer,2,$note);
+                            $customer = $modelCustomer->find()->where(['id'=>$checkWallPost->id_customer])->first();
+                            $dataSendNotification= array('title'=>"$user->full_name dislike bài viết của bạn",
+                                'time'=>date('H:i d/m/Y'),
+                                'content'=>substr($checkWallPost->connent, 0, 160),
+                                'id_post'=>"$checkWallPost->id",
+                                'action'=>'addlikeApi');
+
+                            if(!empty($customer->token_device)){
+                                 sendNotification($dataSendNotification, $customer->token_device);
+                            }
                          }
                         return array('code'=>4,'messages'=>'bạn đã dislike  thành công ');
+
+                         
                     }
+
+
     		}
 
             return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
@@ -164,6 +190,7 @@ function addCommentApi($input){
 
     $modelComment = $controller->loadModel('Comments');
     $modelCustomer = $controller->loadModel('Customers');
+    $modelWallPost = $controller->loadModel('WallPosts');
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -172,18 +199,35 @@ function addCommentApi($input){
                 $user =  getCustomerByToken($dataSend['token']);
             }
 
-            if (!empty($user)) {
+            if (!empty($user)){
 
-        	$data = $modelComment->newEmptyEntity();
-            $data->created_at = time();
-            $data->id_object=(int)@$dataSend['id_object'];
-            $data->keyword=@$dataSend['keyword'];
-            $data->id_father=(int)@$dataSend['id_father'];
-            $data->id_customer=$user->id;
-            $data->comment=$dataSend['comment'];
+            	$data = $modelComment->newEmptyEntity();
+                $data->created_at = time();
+                $data->id_object=(int)@$dataSend['id_object'];
+                $data->keyword=@$dataSend['keyword'];
+                $data->id_father=(int)@$dataSend['id_father'];
+                $data->id_customer=$user->id;
+                $data->comment=$dataSend['comment'];
 
-            $modelComment->save($data);
-              return array('code'=>1,'messages'=>'bạn thêm bình luận thành công');
+                $modelComment->save($data);
+
+                 if($dataSend['keyword']=='wall_post'){
+                        $checkWallPost = $modelWallPost->find()->where(['id'=>(int)$dataSend['id_object']])->first();
+                    if(!empty($checkWallPost)){
+
+                        $customer = $modelCustomer->find()->where(['id'=>$checkWallPost->id_customer])->first();
+                        $dataSendNotification= array('title'=>"$user->full_name bình luận bài viết của bạn",
+                            'time'=>date('H:i d/m/Y'),
+                            'content'=>substr($checkWallPost->connent, 0, 160),
+                            'id_post'=>"$checkWallPost->id",
+                            'action'=>'addCommentApi');
+
+                        if(!empty($customer->token_device)){
+                           sendNotification($dataSendNotification, $customer->token_device);
+                       }
+                   }
+                }
+                return array('code'=>1,'messages'=>'bạn thêm bình luận thành công');
             }
 
             return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
