@@ -24,5 +24,7 @@
 	$routesPlugin['sendContentBlog']= 'phoenix_ai/view/home/blog/sendContentBlog.php';
 	$routesPlugin['chat']= 'phoenix_ai/view/home/chat/chat.php';
 	$routesPlugin['writecontentimage']= 'phoenix_ai/view/home/writecontent/writecontentimage.php';
+	$routesPlugin['setting']= 'phoenix_ai/view/home/setting.php';
+	$routesPlugin['listdocument']= 'phoenix_ai/view/home/listdocument.php';
 	
 	

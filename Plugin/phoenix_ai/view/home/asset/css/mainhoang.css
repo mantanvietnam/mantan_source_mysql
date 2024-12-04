@@ -653,6 +653,9 @@
     background-color: rgb(245,244,255);
     width: 45% !important;
 }
+.aiva-writecontent {
+    margin-top: 60px;
+}
 .aiva-writecontent .form-switch .form-check-input{
     height: 18px;
 }
@@ -793,6 +796,7 @@
     outline: none;
 }
 .last-inputcontent .input-chat-aiva { 
+ 
     color: #424242;
     width: 94%;
     border: 1px solid #5242F3;
@@ -811,6 +815,9 @@
 .last-inputcontent input:focus-visible{
     outline: none;
 }
+.last-inputcontent {
+    margin-top: 30px;
+}
 .last-inputcontent button {
     color: #ffffff;
     font-size: 12px;
@@ -822,6 +829,8 @@
     align-items: center;
 }
 .button-chat-with-aiva {
+    height: 56px;
+    margin: auto;
     margin-left: 5px;
     padding: 0px 12px;
     background-color: #5242F3;

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/all.min.css">
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/style.css?index=92">
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/mainvu.css">
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/mainhoang.css">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/mainhoang.css?index=1222">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -68,6 +68,14 @@
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-user"></i></div>
                                         <div><span class="link-text">Trợ lý Aiva</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-list-item">
+                                <a href="/listdocument" class="nav-link">
+                                    <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-solid fa-link"></i></div>
+                                        <div><span class="link-text">Aiva Tài liệu</span></div>
                                     </div>
                                 </a>
                             </li>
@@ -172,7 +180,7 @@
                                         <a href="#">Chỉnh sửa hồ sơ</a>
                                     </div>
                                 </div>
-                              <li><a class="dropdown-item contact-info-icon mt-3" href="/plugins/phoenix_ai/view/home/asset/img/aiva-setting.html"><img src="/plugins/phoenix_ai/view/home/asset/img/5d520c28b01e078655600b2bf9d6c022.svg" alt=""> Cài đặt</a></li>
+                              <li><a class="dropdown-item contact-info-icon mt-3" href="/setting"><img src="/plugins/phoenix_ai/view/home/asset/img/5d520c28b01e078655600b2bf9d6c022.svg" alt=""> Cài đặt</a></li>
                               <li><a class="dropdown-item contact-info-icon" href="/logout"><img src="/plugins/phoenix_ai/view/home/asset/img/dangxuat.svg" alt=""> Đăng xuất</a></li>
                             </ul>
                           </div>

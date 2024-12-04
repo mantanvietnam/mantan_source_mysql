@@ -28,12 +28,7 @@ function wirecontentimageAPI($input){
                 }
             }
               $reply_ai = callAIphoenixtech($question,$conversation_id);
-            var_dump($reply_ai);
-            if (!$reply_ai) {
-                error_log('API Diffy không trả về kết quả.');
-            } else {
-                error_log('Phản hồi từ API Diffy: ' . print_r($reply_ai, true));
-            }
+
               $chat = array('result'=>$reply_ai['result'],
                             'conversation_id'=>$reply_ai['conversation_id'],
                             'topic'=>@$dataSend['topic'],

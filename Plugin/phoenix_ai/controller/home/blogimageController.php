@@ -25,6 +25,7 @@ function writecontentimage($input){
         }
        
         $bostAi =listBostAi()[3];    
+      
         setVariable('data', $data);
         setVariable('bostAi', $bostAi);
         setVariable('dataContent', @$dataContent);
