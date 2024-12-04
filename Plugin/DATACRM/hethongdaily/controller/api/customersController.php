@@ -99,6 +99,15 @@ function getListCustomerAPI($input)
                 }
 
                 $conditions = array('CategoryConnects.id_category'=>$infoMember->id, 'CategoryConnects.keyword'=>'member_customers');
+                if(!empty($dataSend['full_name'])){
+                    $conditions['Customers.full_name LIKE'] = '%'.$dataSend['full_name'].'%';
+                }
+
+                if(!empty($dataSend['phone'])){
+                    $conditions['Customers.phone LIKE'] = '%'.$dataSend['phone'].'%';
+                }
+
+
                 $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                 if($page<1) $page = 1;

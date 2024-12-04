@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="/webroot/assets_admin/vendor/libs/apex-charts/apex-charts.css" />
     <link rel="stylesheet" href="/webroot/css/jquery.datetimepicker.min.css" />
-
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
     <!-- Page CSS -->
 
     <!-- Core JS -->
@@ -35,9 +35,10 @@
                     <div class="navbar-nav">
                         <div class="title">
                             <div class="title-padding">
-                                <h3>
+                                <h3><a href="/dashboard">
                                     <i class="fa-brands fa-app-store-ios"></i>
                                     <span class="title-text">AIVA</span>
+                                    </a>
                                 </h3>
                             </div>
                             <div class="head">

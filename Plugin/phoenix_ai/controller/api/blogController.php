@@ -35,9 +35,8 @@ function sendContentBlogAPI($input){
                     $question = $dataSend['content_blog'];
                 }
             }
-            echo $question;
               $reply_ai = callAIphoenixtech($question,$conversation_id);
-            var_dump($reply_ai);
+         
 
               $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
 
@@ -78,7 +77,14 @@ function chatContentBlogAPI($input){
                 $question = $dataSend['question'];
 
             }    
-             if(!empty($dataSend['number_question'])){
+
+            $chat = array();
+            if(!empty($session->read('content_blog'))){
+                $chat = $session->read('content_blog');
+            }
+
+            
+            if(!empty($dataSend['number_question'])){
                 if($dataSend['number_question']==1){
                     $question = "Based on the above outline, please create an engaging introduction paragraph, please ensure to:\nCreate a compelling hook that immediately grabs the reader's attention.\nConnect with the reader by addressing them directly or discussing a problem they might be facing.\nClearly convey the value the blog post will provide, demonstrating the benefit to the reader early on.\nUse powerful, emotional language that evokes curiosity and interest. \nJust give me the output, no explaination";
                 }elseif($dataSend['number_question']==2){
@@ -103,10 +109,7 @@ function chatContentBlogAPI($input){
             
                 $reply_ai = callAIphoenixtech($question,$conversation_id);
                 
-                $chat = array();
-                if(!empty($session->read('content_blog'))){
-                     $chat = $session->read('content_blog');
-                }
+               
 
                 // $chat[] = array('question'=>$dataSend['question'],'result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'],'number'=>$number );
 
@@ -181,6 +184,4 @@ function saveContentBlogAPI($input){
     return array('code'=> 0, 'mess'=>'chưa đăng nhập');
 
 }
-
-
 ?>

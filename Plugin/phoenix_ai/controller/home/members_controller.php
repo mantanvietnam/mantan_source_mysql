@@ -103,7 +103,7 @@ function login($input)
 		    			
 	    				setcookie('id_member',$info_customer->id,time()+365*24*60*60, "/");
 						
-						return $controller->redirect('/ai-virtual-assistant/?statusLogin=loginAccount');
+						return $controller->redirect('/dashboard/?statusLogin=loginAccount');
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 					}

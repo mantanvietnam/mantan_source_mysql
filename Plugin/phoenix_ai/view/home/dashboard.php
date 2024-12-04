@@ -1,11 +1,8 @@
-<?php 
-    getheader();
-    
-?>
+<?php include(__DIR__.'/header.php'); ?>
           
     <div class="aiva-home container-fluid">
         <div class="home-banner">
-            <img src="<?= $urlThemeActive?>/asset/img/bgr-home.jpg" alt="">
+            <img src="/plugins/phoenix_ai/view/home/asset/img/bgr-home.jpg" alt="">
             <div class="text-home-banner">
                 <p>Hôm nay tôi có thể giúp gì cho bạn ?</p>
                 <div class="search-container">
@@ -79,7 +76,7 @@
                                     <p>'. $item['district'].'"</p>
                                     <div class="buttons">
                                         <button class="like">👍 7</button>
-                                        <button class="play"><i class="fa-regular fa-circle-play"></i> Thực hiện</button>
+                                        <a class="play" href="'.$item['url'].'"><i class="fa-regular fa-circle-play"></i> Thực hiện</a>
                                     </div>
                                 </div>
                             </div>';
@@ -93,8 +90,4 @@
             </div>
         </div>
     </div>
-
-
-<?php 
-    getFooter();
-?>
+<?php include(__DIR__.'/footer.php'); ?>
