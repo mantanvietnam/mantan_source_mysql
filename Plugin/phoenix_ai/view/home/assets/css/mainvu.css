@@ -584,17 +584,39 @@ table {
 }
 
 .main-wrap .showcase .overlay .chat-main .chat-box {
-    position: fixed;
+    width: 97%;
     border-radius: 30px;
     bottom: 20px;
-    left: 290px; /* Dịch sát bên phải của sidebar */
-    right:70px;
+  
     padding: 20px;
     background-color: #f5f9ff;
     border-top: 2px solid #e0e0e0;
     box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.1);
 }
-
+.main-chat-phoenix {
+    padding: 15px 30px 20px 60px;
+    height: 540px;
+    background-color: #fff;
+    border-radius: 20px;
+    overflow-x: hidden;
+    overflow-y: overlay;
+}
+.right-question {
+    justify-content: end;
+    align-items: center;
+}
+.right-question p{
+    margin: 0 !important;
+}
+.question-answer {
+    color: #ffffff;
+    display: flex;
+    padding: 0px 10px;
+    font-size: 14px;
+    background: #5242F3;
+    border-radius: 30px;
+    flex-direction: column;
+}
 .main-wrap .showcase .overlay .chat-main .chat-box .form-control {
     border-radius: 20px;
 }

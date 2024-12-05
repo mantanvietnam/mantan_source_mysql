@@ -1,73 +1,70 @@
 <?php include(__DIR__.'/../header.php'); ?>
- <div class="chat-main container">
+<?php 
+global $session;
+$info = $session->read('infoUser');
+?>
+                <div class="chat-main container">
                     <div class="chat-header">
-                        <p><img src="/plugins/phoenix_ai/view/home/assets/img/robot.svg" alt="">Welcome to <span>Aiva</span></p>
+                        <p><img src="/plugins/phoenix_ai/view/home/assets/img/robot.svg" alt="">Welcome to <span>Phoenix</span></p>
                     </div>
                     <div class="search-box d-flex align-items-center justify-content-center">
-                        <input type="text" class="form-control search-input search-chat" placeholder="Tìm kiếm trợ lý Aiva">
+                        <input type="text" class="form-control search-input search-chat" placeholder="Tìm kiếm trợ lý Phoenix">
                         <button class="btn search-btn">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
-                    <div class="container-fluid mt-3">
+                    <div class="container-fluid mt-3 ml-5"style=" margin-left: 45px;" >
                         <div class="d-flex align-items-center gap-3 category-nav">
-                            <a href="#" class="category-link">Viết lách</a>
-                            <a href="#" class="category-link">Marketing</a>
-                            <a href="#" class="category-link">Bán hàng</a>
-                            <a href="#" class="category-link">Kinh doanh</a>
-                            <a href="#" class="category-link">Phát triển bản thân</a>
-                            <a href="#" class="category-link">Tiện ích</a>
-                            <a href="#" class="category-link">Học tập</a>
-                            <a href="#" class="category-link">HR</a>
-                            <a href="#" class="category-link">Giáo dục</a>
+                            <a href="#" class="category-link category-text">Viết lách</a>
+                            <a href="#" class="category-link category-text">Marketing</a>
+                            <a href="#" class="category-link category-text">Bán hàng</a>
+                            <a href="#" class="category-link category-text">Kinh doanh</a>
+                            <a href="#" class="category-link category-text">Phát triển bản thân</a>
+                            <a href="#" class="category-link category-text">Tiện ích</a>
+                            <a href="#" class="category-link category-text">Học tập</a>
+                            <a href="#" class="category-link category-text">HR</a>
+                            <a href="#" class="category-link category-text">Giáo dục</a>
                         </div>
                     </div>
                     <!-- Chat Box -->
-                    <div class="chat-box">
-                        <div class="align-items-center mb-3">
+                     <div class="container-fluid content-chat-with-phoenix mt-3">
+                        <div class="main-chat-phoenix mb-3">
                             <div class="">
                                
-                                <?php
-                                    $conversation_id = '';
-                                    $i = 0;
-                                    if (!empty($data)): 
-                                        foreach ($data as $key => $item): 
-                                            $i++;
-                                            $conversation_id = $item['conversation_id']; 
+                               <?php
+                               $conversation_id = '';
+                               $i = 0;
+                                if(!empty($data)){
+
+                                    foreach($data as $key => $item){
+                                            $i ++;
+                                           $conversation_id = $item['conversation_id']; 
+                                           echo '
+                                    <div class="MuiBox-root " id="question'.$i.'">
+                                        <div class="d-flex right-question">
+                                            <div>
+                                                <p class="question-answer MuiTypography-root jss1624 MuiTypography-body1">'.@$item['question'].'.</p>
+                                            </div>
+                                        </div>
+                                     
+                                    </div>
+                                    <div class="MuiBox-root " id="result'.$i.'">
+                                        <div class="d-flex left-quetion">
+                                            <img alt="avatar"  style="width: 50px;" src="/plugins/phoenix_ai/view/home/assets/img/robot.svg">
+                                            <div>
+                                                <p class="result-answer MuiTypography-root jss1624 MuiTypography-body1">'.@$item['result'].'</p>
+                                            </div>
+                                        </div>
+                                    </div>';
+                                       }
+                               }else{
+                               echo  '<div id="trFirst"></div>';
+                               } 
                                 ?>
-                                <div class="MuiBox-root" id="question<?= $i; ?>">
-                                    <div class="">
-                                        <img alt="avatar" src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg" style="width: 50px;" class="MuiAvatar-img">
-                                    </div>
-                                    <div class="">
-                                        <div class="">
-                                            <p class="MuiTypography-root jss1624 MuiTypography-body1"><?= @$item['question']; ?>.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="MuiBox-root" id="result<?= $i; ?>">
-                                    <div class="">
-                                        <img alt="avatar" style="width: 50px;" src="/plugins/phoenix_ai/view/home/asset/img/ai1.jpg">
-                                    </div>
-                                    <div class="">
-                                        <div class="">
-                                            <p class="MuiTypography-root jss1624 MuiTypography-body1"><?= @$item['result']; ?></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php 
-                                endforeach; 
-                            else: 
-                            ?>
-                                <div id="trFirst"></div>
-                            <?php 
-                            endif; 
-                            ?>
 
-
-                            </div>
-                            <div class="" id="listchat"><div id="trFirst"></div></div>
-
+                           </div>
+                           <div class="" id="listchat"><div id="trFirst"></div></div>
+                        
                           <!--   <div class="custom-toggle me-2">Giọng điệu thương hiệu</div>
                             <select class="form-select form-select-sm w-auto me-2">
                                 <option>Giọng điệu</option>
@@ -79,7 +76,9 @@
                                 <option>Tiếng Việt</option>
                             </select> -->
                         </div>
-                        <div class="input-group chat-search-input mb-3">
+                     </div>
+                    <div class="chat-box container-fluid">
+                        <div class="input-group chat-search-input">
                             <input type="text" class="form-control" id="question" name="question" value="" placeholder="Chat với Phoenix" style="padding: 12px 16px; background-color: #f2f1ff;">
                             <input type="hidden" class="form-control" id="number_people" name="number_people" value="" placeholder="Chat với Phoenix">
                             <input type="hidden" class="form-control" id="conversation_id" name="conversation_id" value="<?php echo $conversation_id ?>" placeholder="Chat với Aiva">
@@ -112,12 +111,9 @@
 
       $('#listchat div:first').append('\
            <div class="MuiBox-root " id="question'+row+'">\
-               <div class="">\
-                   <img alt="avatar" src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg"  style="width: 50px;" class="MuiAvatar-img">\
-                </div>\
-               <div class="">\
+                <div class="d-flex right-question">\
                    <div class="">\
-                       <p class="MuiTypography-root jss1624 MuiTypography-body1">'+question+'.</p>\
+                       <p class="question-answer MuiTypography-root jss1624 MuiTypography-body1">'+question+'.</p>\
                    </div>\
                </div>\
            </div>');
@@ -135,22 +131,18 @@
             // var obj = jQuery.parseJSON(msg);
              console.log(msg);
             if(msg.code==1){
-            
-                     $('#listchat div:first').append('\
+                     $('#listchat div:first').append('
                        <div class="MuiBox-root " id="result'+row+'">\
-                           <div class="">\
-                               <img alt="avatar" style="width: 50px;" src="/plugins/phoenix_ai/view/home/asset/img/ai1.jpg">\
-                            </div>\
-                           <div class="">\
+                           <div class="d-flex left-quetion">\
+                           <img alt="avatar" style="width: 50px;" src="/plugins/phoenix_ai/view/home/assets/img/robot.svg">\
                                <div class="">\
-                                   <p class="MuiTypography-root jss1624 MuiTypography-body1">'+msg.data.result+'.</p>\
+                                   <p class="result-answer MuiTypography-root jss1624 MuiTypography-body1">'+msg.data.result+'.</p>\
                                </div>\
                            </div>\
                        </div>');
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
             }
         })
-
     }
 
  
