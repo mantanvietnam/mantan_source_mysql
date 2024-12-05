@@ -1,11 +1,10 @@
 <?php include(__DIR__.'/../header.php'); ?>
  <div class="chat-main container">
                     <div class="chat-header">
-                        <p>
-                            <img src="./img/robot.svg" alt="">Welcome to <span>Aiva</span></p>
+                        <p><img src="/plugins/phoenix_ai/view/home/assets/img/robot.svg" alt="">Welcome to <span>Aiva</span></p>
                     </div>
                     <div class="search-box d-flex align-items-center justify-content-center">
-                        <input type="text" class="form-control search-input" placeholder="Tìm kiếm trợ lý Aiva">
+                        <input type="text" class="form-control search-input search-chat" placeholder="Tìm kiếm trợ lý Aiva">
                         <button class="btn search-btn">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
@@ -29,38 +28,42 @@
                             <div class="">
                                
                                 <?php
-                                $conversation_id = '';
-                                $i = 0;
-                                 if(!empty($data)){
-
-                                        foreach($data as $key => $item){
-                                             $i ++;
+                                    $conversation_id = '';
+                                    $i = 0;
+                                    if (!empty($data)): 
+                                        foreach ($data as $key => $item): 
+                                            $i++;
                                             $conversation_id = $item['conversation_id']; 
-                                            echo '<div class="MuiBox-root " id="question'.$i.'">
-                                <div class="">
-                                    <img alt="avatar" src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg"  style="width: 50px;" class="MuiAvatar-img">
-                                </div>
-                                <div class="">
+                                ?>
+                                <div class="MuiBox-root" id="question<?= $i; ?>">
                                     <div class="">
-                                        <p class="MuiTypography-root jss1624 MuiTypography-body1">'.@$item['question'].'.</p>
+                                        <img alt="avatar" src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg" style="width: 50px;" class="MuiAvatar-img">
+                                    </div>
+                                    <div class="">
+                                        <div class="">
+                                            <p class="MuiTypography-root jss1624 MuiTypography-body1"><?= @$item['question']; ?>.</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="MuiBox-root " id="result'.$i.'">
-                                <div class="">
-                                    <img alt="avatar"  style="width: 50px;" src="/plugins/phoenix_ai/view/home/asset/img/ai1.jpg">
-                                </div>
-                                <div class="">
+                                <div class="MuiBox-root" id="result<?= $i; ?>">
                                     <div class="">
-                                        <p class="MuiTypography-root jss1624 MuiTypography-body1">'.@$item['result'].'</p>
+                                        <img alt="avatar" style="width: 50px;" src="/plugins/phoenix_ai/view/home/asset/img/ai1.jpg">
+                                    </div>
+                                    <div class="">
+                                        <div class="">
+                                            <p class="MuiTypography-root jss1624 MuiTypography-body1"><?= @$item['result']; ?></p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>';
-                                        }
-                                }else{
-                                echo  '<div id="trFirst"></div>';
-                                } 
-                                 ?>
+                            <?php 
+                                endforeach; 
+                            else: 
+                            ?>
+                                <div id="trFirst"></div>
+                            <?php 
+                            endif; 
+                            ?>
+
 
                             </div>
                             <div class="" id="listchat"><div id="trFirst"></div></div>
@@ -76,17 +79,18 @@
                                 <option>Tiếng Việt</option>
                             </select> -->
                         </div>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="question" name="question" value="" placeholder="Chat với Aiva">
-                            <input type="hidden" class="form-control" id="number_people" name="number_people" value="" placeholder="Chat với Aiva">
+                        <div class="input-group chat-search-input mb-3">
+                            <input type="text" class="form-control" id="question" name="question" value="" placeholder="Chat với Phoenix" style="padding: 12px 16px; background-color: #f2f1ff;">
+                            <input type="hidden" class="form-control" id="number_people" name="number_people" value="" placeholder="Chat với Phoenix">
                             <input type="hidden" class="form-control" id="conversation_id" name="conversation_id" value="<?php echo $conversation_id ?>" placeholder="Chat với Aiva">
-                            <label for="file-upload" class="input-group-text file-label">
+                            <!-- <label for="file-upload" style="cursor: pointer;">
                                 <i class="fa-solid fa-paperclip"></i>
-                            </label>
+                            </label> -->
                             <input type="file" id="file-upload" class="d-none">
-                            <button class="btn btn-outline-primary" onclick="sendquestion()">
-                                Gửi đi
-                            </button>
+                            <div class="input-group-text" style="padding: 20px 16px;background-color: #f2f1ff;">
+                              <i class="fa-solid fa-microphone"></i>
+                            </div>
+                            <button class="btn btn-primary" style="padding: 12px 16px;background-color: #f2f1ff;" onclick="sendquestion()">Gửi đi</button>
                         </div>
                     </div>
                 </div>

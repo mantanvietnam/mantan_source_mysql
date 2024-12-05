@@ -12,7 +12,7 @@
                                 <input 
                                     type="text" 
                                     class="search-input" 
-                                    placeholder="Tìm kiếm trợ lý hoặc bấm / để chat với Aiva"
+                                    placeholder="Tìm kiếm trợ lý hoặc bấm / để chat với Phoenix"
                                     id="searchInput"
                                 >
                                 <div class="search-icon">
@@ -32,7 +32,7 @@
                 <!-- Tab links -->
                 <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="assistant-tab" data-bs-toggle="tab" data-bs-target="#assistant" type="button">Trợ lý Aiva</button>
+                        <button class="nav-link active" id="assistant-tab" data-bs-toggle="tab" data-bs-target="#assistant" type="button">Trợ lý Phoenix</button>
                     </li>
                 </ul>
             </div>
@@ -59,7 +59,7 @@
 
                 <div class="container-fluid mt-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="heading">Trợ lý Aiva</h1>
+                        <h1 class="heading">Trợ lý Phoenix</h1>
                         <button class="btn btn-light rounded-pill view-all">Xem tất cả</button>
                     </div>
                     <div class="card-ai row d-flex justify-content-evenly">

@@ -40,7 +40,7 @@
                             <div class="title-padding">
                                 <h3><a href="/dashboard">
                                     <i class="fa-brands fa-app-store-ios"></i>
-                                    <span class="title-text">AIVA</span>
+                                    <span class="title-text">Phoenix</span>
                                     </a>
                                 </h3>
                             </div>
@@ -63,7 +63,7 @@
                                 <a href="/chat" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-qrcode"></i></div>
-                                        <div><span class="link-text">Chat với Aiva</span></div>
+                                        <div><span class="link-text">Chat với Phoenix</span></div>
                                     </div>
                                 </a>
                             </li>
@@ -71,7 +71,7 @@
                                 <a href="/plugins/phoenix_ai/view/home/asset/aiva-chat.html" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-user"></i></div>
-                                        <div><span class="link-text">Trợ lý Aiva</span></div>
+                                        <div><span class="link-text">Trợ lý Phoenix</span></div>
                                     </div>
                                 </a>
                             </li>
@@ -79,7 +79,7 @@
                                 <a href="/listdocument" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-link"></i></div>
-                                        <div><span class="link-text">Aiva Tài liệu</span></div>
+                                        <div><span class="link-text">Phoenix Tài liệu</span></div>
                                     </div>
                                 </a>
                             </li>
@@ -87,7 +87,7 @@
                                 <a href="#" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-link"></i></div>
-                                        <div><span class="link-text">Aiva Hình ảnh</span></div>
+                                        <div><span class="link-text">Phoenix Hình ảnh</span></div>
                                     </div>
                                 </a>
                             </li>
@@ -111,7 +111,7 @@
                                 <a href="#" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-circle-info"></i></div>
-                                        <div><span class="link-text">Cộng tác viên Aiva</span></div>
+                                        <div><span class="link-text">Cộng tác viên Phoenix</span></div>
                                     </div>
                                 </a>
                             </li>
@@ -189,8 +189,8 @@
                                         <a href="/setting">Chỉnh sửa hồ sơ</a>
                                     </div>
                                 </div>
-                              <li><a class="dropdown-item contact-info-icon mt-3" href="/setting"><img src="/plugins/phoenix_ai/view/home/asset/img/5d520c28b01e078655600b2bf9d6c022.svg" alt=""> Cài đặt</a></li>
-                              <li><a class="dropdown-item contact-info-icon" href="/logout"><img src="/plugins/phoenix_ai/view/home/asset/img/dangxuat.svg" alt=""> Đăng xuất</a></li>
+                              <li><a class="dropdown-item contact-info-icon mt-3" href="/setting"><img src="/plugins/phoenix_ai/view/home/assets/img/5d520c28b01e078655600b2bf9d6c022.svg" alt=""> Cài đặt</a></li>
+                              <li><a class="dropdown-item contact-info-icon" href="/logout"><img src="/plugins/phoenix_ai/view/home/assets/img/dangxuat.svg" alt=""> Đăng xuất</a></li>
                             </ul>
                           </div>
                     </div>

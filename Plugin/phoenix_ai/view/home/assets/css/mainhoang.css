@@ -26,6 +26,14 @@
 }
 .aiva-document p {
     margin: 0;
+} 
+.set-widthcontent {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    font-size: 12px;
 }
 .aiva-document .tag {
     display: flex;

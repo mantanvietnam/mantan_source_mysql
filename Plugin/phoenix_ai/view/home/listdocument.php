@@ -1,7 +1,7 @@
 <?php include('header.php'); ?>
   <div class="aiva-document container-fluid">
                     <div class="document-search">
-                        <div class="title-aiva-document"><h2>Aiva Tài liệu</h2></div>
+                        <div class="title-aiva-document"><h2>Phoenix Tài liệu</h2></div>
                         <div class="list-document-search row">
                             <div class="left-document col-md-2 col-12">
                                 <div class="tag">
@@ -17,7 +17,7 @@
                                 </div>
                             </div>
                             <div class="right-document col-md-8 col-12">
-                                <a href="">
+                                <a href="/dashboard">
                                     <div class="creat-document">
                                         <i class="fa-regular fa-folder"></i>
                                         <div class="name-button-document">
@@ -55,8 +55,8 @@
                         <table class=" table-create-document">
                             <thead class="colum-header">
                                 <tr>
-                                    <th class="table-column" scope="col">Tài liệu</th>
-                                    <th class="table-column" scope="col">Tag</th>
+                                    <th class="table-column" scope="col" style="width:32%">Tài liệu</th>
+                                    <!-- <th class="table-column" scope="col">Tag</th> -->
                                     <th class="table-column" scope="col">Ngày tạo</th>
                                     <th class="table-column" scope="col">Ngày cập nhật</th>
                                     <th class="table-column" scope="col">Số chữ</th>
@@ -64,17 +64,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach ($listdatacontent as $data):?>
                                   <tr>
-                                    <td><a href="">Xin chào bạn</a></td>
-                                    <td>Jacob</td>
-                                    <td>20/11/2024</td>
-                                    <td></td>
-                                    <td></td>
                                     <td>
-                                        <a href=""><i class="fa-solid fa-cloud-arrow-down"></i></a>
-                                        <a href=""><i class="fa-regular fa-trash-can"></i></a>  
+                                        <a href=""><?=$data->title?></a>
+                                        <p class="set-widthcontent"><?=$data->content_ai?></p>
+                                    </td>
+                                    <!-- <td>Jacob</td> -->
+                                    <td><?= date('d-m-Y', strtotime($data->created_at)) ?></td>
+
+                                    <td><?= date('d-m-Y', strtotime($data->updated_at)) ?></td>
+                                    <td><i class='bx bx-signal-4'></i><?=str_word_count($data->content_ai)?></td>
+                                    <td>
+                                        <!-- <a href=""><i class="fa-solid fa-cloud-arrow-down"></i></a> -->
+                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/plugins/admin/phoenix_ai-controller-admin-deletecontent/?id=<?php echo $data->id?>"><i class="fa-regular fa-trash-can"></i></a>  
                                     </td>
                                   </tr>
+                                <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>
