@@ -76,7 +76,7 @@
                           <label for="text" class="form-label">Hướng dẫn</label>
                           <textarea type="text" placeholder="Nhập chủ đề bạn muốn lên kế hoạch nội dung" class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
 
-                        <input class="form-check-input" type="id" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
+                        <input class="form-check-input" type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
                         </div>
                       </div>
                       <button type="button" class="button-arcordian" onclick="sendquestion()">Thực hiện</button>
@@ -440,9 +440,8 @@
               <input type="text" name="" placeholder="tag" id="target" name="target" value="<?php echo @$dataContent->customer_target ?>">
             </div>
             <div class="show-input-editor">
-              <?php $retur =  htmlspecialchars(@$data['result'])?>
-
-              <textarea type="text" placeholder="Nhập chủ đề bạn muốn lên kế hoạch nội dung" class="form-control" id="result" name="result" rows="15" cols="30"><?php echo  @$retur; ?></textarea>
+               <?php $result =  htmlspecialchars(nl2br(@$data['result']));
+               showEditorInput('result', 'result', @$result);?>
             </div>
             <div class="last-inputcontent">
               <div class="d-flex justify-content-between">

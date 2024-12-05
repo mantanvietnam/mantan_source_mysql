@@ -371,9 +371,8 @@
               <input type="text" name="" placeholder="tag" id="target" name="target" value="<?php echo @$dataContent->customer_target ?>">
             </div>
             <div class="show-input-editor">
-              <?php $retur =  htmlspecialchars(@$data['result'])?>
-
-              <textarea type="text" placeholder="Nhập chủ đề bạn muốn lên kế hoạch nội dung" class="form-control" id="result" name="result" rows="15" cols="30"><?php echo  @$retur; ?></textarea>
+               <?php $result =  htmlspecialchars(nl2br(@$data['result']));
+               showEditorInput('result', 'result', @$result);?>
             </div>
             <div class="last-inputcontent">
               <div class="d-flex justify-content-between">

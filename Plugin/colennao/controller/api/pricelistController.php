@@ -31,10 +31,13 @@ function paymEntextendUserAPI($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
          if (!empty($dataSend['token']) && !empty($dataSend['id'])) {
-            $conditions = ['token' => $dataSend['token']];
+            $conditions['OR'] = [ 
+                ['token'=>$dataSend['token']],
+                ['token_app'=>$dataSend['token']],
+            ];
             $conditions['status'] = 'active';
             $user = $modelUser->find()->where($conditions)->first();
-            $modelUser->save($user);
+           // / $modelUser->save($user);
             
             if (!empty($user)) {
             $conditions = array('id'=>(int) $dataSend['id'],'status'=>'active');

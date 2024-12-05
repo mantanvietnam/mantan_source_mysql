@@ -27,7 +27,7 @@ function listAffiliaterAPI($input)
                 $modelCustomers = $controller->loadModel('Customers');
                 $modelTransactionAffiliateHistories = $controller->loadModel('TransactionAffiliateHistories');
 
-                $conditions = array('id_member'=>$infoMember->id);
+                $conditions = array('id_member'=>$infoMember->id,'id_father'=>0);
                 $limit = 20;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                 if($page<1) $page = 1;
@@ -54,10 +54,12 @@ function listAffiliaterAPI($input)
                 }
 
        
-                $listData = $modelAffiliaters->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
+                $listData = $modelAffiliaters->find()->where($conditions)->order($order)->all()->toList();
+                $percent = getPercentAffiliate();
                 if(!empty($listData)){
                     foreach ($listData as $key => $value) {
+                        $listData[$key]->Affiliater = getTreeAffiliater($value->id, 1);
+
                         $order = $modelOrders->find()->where(['id_aff'=>$value->id])->all()->toList();
                         $customer = $modelCustomers->find()->where(['id_aff'=>$value->id])->all()->toList();
                         $moneys = $modelTransactionAffiliateHistories->find()->where(['id_affiliater'=>$value->id, 'status'=>'new'])->all()->toList();
@@ -72,8 +74,10 @@ function listAffiliaterAPI($input)
                         $listData[$key]->number_order = count($order);
                         $listData[$key]->number_customer = count($customer);
                         $listData[$key]->money_back = $money_back;
+                        $listData[$key]->percent = @$percent['percent1'];
 
                         $listData[$key]->aff = $modelAffiliaters->find()->where(['id'=>$value->id_father])->first();
+
                     }
                 }
             // phân trang

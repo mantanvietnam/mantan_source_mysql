@@ -506,7 +506,7 @@ function getTreeAffiliater($id_father, $number)
             $listData[$key]->number_order = count($order);
             $listData[$key]->number_customer = count($customer);
             $listData[$key]->money_back = $money_back;
-            $listData[$key]->percent = $percent['percent'.$number];
+            $listData[$key]->percent = @$percent['percent'.$number];
 
             $listData[$key]->aff = $modelAffiliaters->find()->where(['id'=>$value->id_father])->first();
              
@@ -1638,6 +1638,12 @@ function getListPermission()
                     'sub'=>array(   array('name'=>'Danh sách mã giảm giá','permission'=>'listDiscountCodeAgency'),
                                     array('name'=>'Thêm và sửa mã giảm giá','permission'=>'addDiscountCodeAgency'),
                                     array('name'=>'Xoá mã giảm giá','permission'=>'deleteDiscountCodeAgency'),
+                            )
+                    );
+    $permission[] = array( 'name'=>'Quản lý chức danh ',
+                    'sub'=>array(   array('name'=>'Danh sách chức danh','permission'=>'listPosition'),
+                                    array('name'=>'Thêm và sửa chức danh','permission'=>'addPosition'),
+                                    array('name'=>'Xoá chức danh','permission'=>'deletePosition'),
                             )
                     );
     

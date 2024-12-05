@@ -38,6 +38,8 @@ function register($input)
 					$modelMember->save($data);
 
 					// thực hiện đăng nhập luôn
+					$session->write('CheckAuthentication', true);
+		            $session->write('urlBaseUpload', '/upload/admin/images/'.$data->id.'/');
 					$session->write('infoUser', $data);
 	    			
     				setcookie('id_member',$data->id,time()+365*24*60*60, "/");
@@ -98,6 +100,9 @@ function login($input)
     					
 						$info_customer->last_login = time();
 						$modelMembers->save($info_customer);
+
+						$session->write('CheckAuthentication', true);
+		                $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
 						
     					$session->write('infoUser', $info_customer);
 		    			
@@ -122,6 +127,9 @@ function login($input)
 				if($info_customer->status == 'active'){
 					$info_customer->last_login = time();
 					$modelMembers->save($info_customer);
+
+					$session->write('CheckAuthentication', true);
+		            $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
 					
 	    			$session->write('infoUser', $info_customer);
 	    			

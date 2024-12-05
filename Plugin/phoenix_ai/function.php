@@ -199,10 +199,11 @@ function callAIphoenixtech($query,$conversation_id=''){
 
 function listBostAi(){
     return array(
-           1 => array('id'=>1,'name'=>'huu bang', 'boot'=>'Social Media Manager', 'title'=>'Viết 10 bài viết đăng Facebook', 'district'=>'Lên kế hoạch, viết bài cho social media thật đơn giản' , 'type'=>'content_facebook' ,'avatar'=>'/themes/aiva/asset/img/ai1.jpg' , 'url'=>'sendContentFacebook'),
-           2 => array('id'=>2,'name'=>'huu bang', 'boot'=>'Social Media Manager', 'title'=>'Viết bài blog dựa trên nội dung/tiêu đề', 'district'=>'Viết bài blog từ A-Z chuẩn SEO 3000 từ' , 'type'=>'content_blog' ,'avatar'=>'/themes/aiva/asset/img/ai1.jpg' , 'url'=>'sendcontentBlog'),
-           3 => array('id'=>3,'name'=>'Gấu Bắc Cực', 'boot'=>'Social Media Manager', 'title'=>'Viết bài blog dựa trên nội dung-tiêu đề, có ảnh', 'district'=>'Viết bài blog từ A-Z chuẩn SEO 3000 từ' , 'type'=>'write_contentimage' ,'avatar'=>'/themes/aiva/asset/img/ai1.jpg' , 'url'=>'writecontentimage'),
-           4 => array('id'=>3,'name'=>'Clara', 'boot'=>'copywriting', 'title'=>'Tái chế nội dung đỉnh cao - VIP', 'district'=>'Biến 1 nội dung bất kỳ thành nội dung cho video Youtube, Tiktok và bài đăng Facebook, Instagram bạn muốn chỉ với 1 click' , 'type'=>'write_contentimage' ,'avatar'=>'/themes/aiva/asset/img/ai1.jpg' , 'url'=>'sendContentVideo'),
+           1 => array('id'=>1,'name'=>'Phoenix Ai', 'boot'=>'Social Media Manager', 'title'=>'Viết 10 bài viết đăng Facebook', 'district'=>'Lên kế hoạch, viết bài cho social media thật đơn giản' , 'type'=>'content_facebook' ,'avatar'=>'/themes/aiva/asset/img/ai1.jpg' , 'url'=>'sendContentFacebook'),
+           2 => array('id'=>2,'name'=>'Phoenix Ai', 'boot'=>'Social Media Manager', 'title'=>'Viết bài blog dựa trên nội dung/tiêu đề', 'district'=>'Viết bài blog từ A-Z chuẩn SEO 3000 từ' , 'type'=>'content_blog' ,'avatar'=>'/themes/aiva/asset/img/ai1.jpg' , 'url'=>'sendcontentBlog'),
+           3 => array('id'=>3,'name'=>'Phoenix Ai', 'boot'=>'Social Media Manager', 'title'=>'Viết bài blog dựa trên nội dung-tiêu đề, có ảnh', 'district'=>'Viết bài blog từ A-Z chuẩn SEO 3000 từ' , 'type'=>'write_contentimage' ,'avatar'=>'/themes/aiva/asset/img/ai1.jpg' , 'url'=>'writecontentimage'),
+           4 => array('id'=>3,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Tái chế nội dung đỉnh cao - VIP', 'district'=>'Biến 1 nội dung bất kỳ thành nội dung cho video Youtube, Tiktok và bài đăng Facebook, Instagram bạn muốn chỉ với 1 click' , 'type'=>'write_contentimage' ,'avatar'=>'/themes/aiva/asset/img/ai1.jpg' , 'url'=>'sendContentVideo'),
+           5 => array('id'=>3,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Viết 5 mẫu quảng cáo Facebook ', 'district'=>'Giúp bạn tạo ra 1 quảng cáo facebook đỉnh cao và chuyên nghiệp cho sản phẩm của bạn' , 'type'=>'content_facebook_ads' ,'avatar'=>'/themes/aiva/asset/img/ai1.jpg' , 'url'=>'sendContentFacebookAds'),
     );
 }
 

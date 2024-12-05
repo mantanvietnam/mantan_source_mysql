@@ -104,14 +104,11 @@ $info = $session->read('infoUser');
         var conversation_id = $('#conversation_id').val();
         row++;
          var number = row;
-        console.log(question);
-        console.log(conversation_id);
-        console.log(number);
+        
     
          
 
-      $('#listchat div:first').append('\
-           <div class="MuiBox-root " id="question'+row+'">\
+      $('#listchat div:first').append('<div class="MuiBox-root " id="question'+row+'">\
                 <div class="d-flex right-question">\
                    <div class="">\
                        <p class="question-answer MuiTypography-root jss1624 MuiTypography-body1">'+question+'.</p>\
@@ -128,12 +125,8 @@ $info = $session->read('infoUser');
         }
     })
         .done(function( msg ) {
-            // /console.log(id_product);
-            // var obj = jQuery.parseJSON(msg);
-             console.log(msg);
             if(msg.code==1){
-                     $('#listchat div:first').append('
-                       <div class="MuiBox-root " id="result'+row+'">\
+                     $('#listchat div:first').append('<div class="MuiBox-root " id="result'+row+'">\
                            <div class="d-flex left-quetion">\
                            <img alt="avatar" style="width: 50px;" src="/plugins/phoenix_ai/view/home/assets/img/robot.svg">\
                                <div class="">\
