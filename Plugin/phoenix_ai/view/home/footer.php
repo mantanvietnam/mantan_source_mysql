@@ -17,6 +17,6 @@
     <script language="javascript" src="/webroot/js/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/js/all.min.js" integrity="sha512-8py0AXTY8pfAroJmBkYfJ+VuKUKMMsUOC1MldW9kkC/k4SZi6AexSDS60QYn41U2rp8KL9IpVHy8FxW2TDmjDA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/plugins/phoenix_ai/view/home/asset/js/app.js?index=1232"></script>
+    <script src="/plugins/phoenix_ai/view/home/assets/js/app.js?index=1232"></script>
 </body>
 </html>

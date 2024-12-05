@@ -1,16 +1,22 @@
 <?php include('header.php'); ?>
+                    <?php 
+                        global $session;
+                        $info = $session->read('infoUser');
+                     
+                    ?>
     <div class="setting-home container-fluid">
         <p><img src="/plugins/phoenix_ai/view/home/asset/img/setting.svg" alt="">Cài Đặt</p>
         <div class="container mt-4">
             <div class="row">
+       
                 <!-- Sidebar bên trái -->
                 <div class="col-md-3 left-setting" style="height: fit-content;">
                     <ul class="nav flex-column nav-pills my-3" id="componentTab" role="tablist">
                         <div class="user-info d-flex my-4">
                             <img src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg" alt="Avatar">
                             <div class="contact-info mx-2">
-                                <div class="name">Nguyễn Văn A</div>
-                                <div class="email">email@example.com</div>
+                                <div class="name"><?=$info->name?></div>
+                                <div class="email"><?=$info->email?></div>
                                 <a class="my-4" href="#">Lưu</a>
                             </div>
                         </div>
@@ -42,28 +48,30 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="first-name" class="form-label">Tên*</label>
-                                            <input type="text" id="first-name" class="form-control" placeholder="Nhập Tên" required>
+                                            <input type="text" id="first-name" class="form-control" placeholder="Nhập Tên" readonly value="<?=$info->name?>">
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <label for="last-name" class="form-label">Họ*</label>
-                                            <input type="text" id="last-name" class="form-control" placeholder="Nhập họ" required>
-                                        </div>
+                                            <input type="text" id="last-name" class="form-control" placeholder="Nhập họ" readonly>
+                                        </div> -->
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <label for="user-id" class="form-label">Mã người dùng*</label>
                                             <input type="text" id="user-id" class="form-control" placeholder="Mã người dùng" readonly>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-6">
                                             <label for="phone-number" class="form-label">Số điện thoại*</label>
-                                            <input type="tel" id="phone-number" class="form-control" placeholder="Nhập số điện thoại" required>
+                                            <input type="tel" id="phone-number" class="form-control" placeholder="Nhập số điện thoại" value="<?=$info->phone?>" readonly>
                                         </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email*</label>
-                                        <input type="email" id="email" class="form-control" placeholder="Nhập email" required>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label for="email" class="form-label">Email*</label>
+                                            <input type="email" id="email" class="form-control" placeholder="Nhập email" value="<?=$info->email?>" readonly>
+                                        </div>
                                     </div>
-                                    <h5 class="text-primary mt-4">GPT model</h5>
+                                    <!-- <h5 class="text-primary mt-4">GPT model</h5>
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="ai-model" class="form-label">Chọn mô hình AI ưa thích của bạn</label>
@@ -79,7 +87,7 @@
                                                 <option>English</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="d-flex justify-content-end">
                                         <button type="button" class="btn btn-secondary me-2">Hủy</button>
                                         <button type="submit" class="btn btn-primary">Lưu thay đổi</button>

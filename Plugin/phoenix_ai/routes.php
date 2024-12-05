@@ -29,6 +29,6 @@
 	$routesPlugin['setting']= 'phoenix_ai/view/home/setting.php';
 	$routesPlugin['listdocument']= 'phoenix_ai/view/home/listdocument.php';
 	$routesPlugin['sendContentVideo']= 'phoenix_ai/view/home/video/sendContentVideo.php';
-	$routesPlugin['dashboard']= 'phoenix_ai/view/home/dashboard.php'
+	$routesPlugin['dashboard']= 'phoenix_ai/view/home/dashboard.php';
 	
 	

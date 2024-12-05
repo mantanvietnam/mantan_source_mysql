@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Side Navigation Menu</title>
 
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/all.min.css">
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/style.css?index=92">
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/mainvu.css">
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/asset/css/mainhoang.css?index=1222">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/style.css?index=92">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainvu.css">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainhoang.css?index=1222">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -49,7 +49,7 @@
                         </div>
                         <ul class="nav-list">
                             <li class="nav-list-item">
-                                <a href="#" class="nav-link">
+                                <a href="/dashboard" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-house"></i></div>
                                         <div><span class="link-text">Trang chủ</span></div>
@@ -57,7 +57,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="/plugins/phoenix_ai/view/home/asset/aiva-chat.html" class="nav-link">
+                                <a href="/chat" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-qrcode"></i></div>
                                         <div><span class="link-text">Chat với Aiva</span></div>
@@ -165,20 +165,25 @@
                         <i class="fa-regular fa-bell"></i>
                         <span class="badge position-absolute top-0 start-100 translate-middle bg-danger text-white">1</span>
                     </div>
+                    <?php 
+                        global $session;
+                        $info = $session->read('infoUser');
+                    
+                    ?>
      
                     <!-- Biểu tượng người dùng -->
                     <div class="user-icon">
                         <div class="dropdown">
-                            <img src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg" alt="Avatar" class="rounded-circle dropdown-toggle" 
+                            <img src="<?php echo $info->avatar?>" alt="Avatar" class="rounded-circle dropdown-toggle" 
                                  id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
                                 <div class="user-info d-flex">
-                                    <img src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg" alt="Avatar">
+                                    <img src="<?php echo $info->avatar?>" alt="Avatar">
                                     <div class="contact-info mx-2">
-                                        <div class="name">Nguyễn Văn A</div>
-                                        <div class="email">email@example.com</div>
+                                        <div class="name"><?=$info->name?></div>
+                                        <div class="email"><?=$info->email?></div>
                                         <div class="credit">0 <span>Credit</span></div>
-                                        <a href="#">Chỉnh sửa hồ sơ</a>
+                                        <a href="/setting">Chỉnh sửa hồ sơ</a>
                                     </div>
                                 </div>
                               <li><a class="dropdown-item contact-info-icon mt-3" href="/setting"><img src="/plugins/phoenix_ai/view/home/asset/img/5d520c28b01e078655600b2bf9d6c022.svg" alt=""> Cài đặt</a></li>
