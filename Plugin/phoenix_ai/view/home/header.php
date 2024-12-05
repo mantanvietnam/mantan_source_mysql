@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/all.min.css">
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/style.css?index=92">
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainvu.css?index=17">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainvu.css?index=20">
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainhoang.css?index=1222">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -38,7 +38,7 @@
                     <div class="navbar-nav">
                         <div class="title">
                             <div class="title-padding">
-                                <h3><a href="/dashboard">
+                                <h3><a href="/dashboard" style="text-decoration:none">
                                     <i class="fa-brands fa-app-store-ios"></i>
                                     <span class="title-text">Phoenix</span>
                                     </a>

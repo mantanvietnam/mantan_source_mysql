@@ -79,7 +79,7 @@ $info = $session->read('infoUser');
                      </div>
                     <div class="chat-box container-fluid">
                         <div class="input-group chat-search-input">
-                            <input type="text" class="form-control" id="question" name="question" value="" placeholder="Chat với Phoenix" style="padding: 12px 16px; background-color: #f2f1ff;">
+                            <input type="text" class="set-border-input form-control" id="question" name="question" value="" placeholder="Chat với Phoenix" style="padding: 12px 16px; background-color: #f2f1ff;">
                             <input type="hidden" class="form-control" id="number_people" name="number_people" value="" placeholder="Chat với Phoenix">
                             <input type="hidden" class="form-control" id="conversation_id" name="conversation_id" value="<?php echo $conversation_id ?>" placeholder="Chat với Aiva">
                             <!-- <label for="file-upload" style="cursor: pointer;">

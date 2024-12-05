@@ -589,9 +589,13 @@ table {
     bottom: 20px;
   
     padding: 20px;
-    background-color: #f5f9ff;
+    background-color: #fff;
     border-top: 2px solid #e0e0e0;
     box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.1);
+}
+.set-border-input:focus {
+    box-shadow: none !important;
+
 }
 .main-chat-phoenix {
     padding: 15px 30px 20px 60px;
@@ -607,6 +611,7 @@ table {
 }
 .right-question p{
     margin: 0 !important;
+    padding: 5px;
 }
 .question-answer {
     color: #ffffff;
@@ -619,6 +624,7 @@ table {
 }
 .main-wrap .showcase .overlay .chat-main .chat-box .form-control {
     border-radius: 20px;
+  
 }
 
 .main-wrap .showcase .overlay .chat-main .chat-box .file-label {
@@ -877,6 +883,10 @@ table {
   border: none;
   background-color: #e0e0e0;
   color: #333;
+}
+.chat-search-input {
+    border:1px solid #5242F3;
+    border-radius: 20px;
 }
 
 .main-wrap .showcase .overlay .chat-controls {
