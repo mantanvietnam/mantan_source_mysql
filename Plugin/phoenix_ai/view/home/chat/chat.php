@@ -53,6 +53,7 @@ $info = $session->read('infoUser');
                                             <img alt="avatar"  style="width: 50px;" src="/plugins/phoenix_ai/view/home/assets/img/robot.svg">
                                             <div>
                                                 <p class="result-answer MuiTypography-root jss1624 MuiTypography-body1">'.@$item['result'].'</p>
+                                                
                                             </div>
                                         </div>
                                     </div>';
@@ -63,8 +64,8 @@ $info = $session->read('infoUser');
                                 ?>
 
                            </div>
-                           <div class="" id="listchat"><div id="trFirst"></div></div>
-                        
+                           
+                        <div class="" id="listchat"><div id="trFirst"></div></div>
                           <!--   <div class="custom-toggle me-2">Giọng điệu thương hiệu</div>
                             <select class="form-select form-select-sm w-auto me-2">
                                 <option>Giọng điệu</option>
