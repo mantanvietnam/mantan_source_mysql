@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
     <!-- Page CSS -->
 
+    <script type="text/javascript" src="/webroot/ckfinder/ckfinder.js"></script>
+    <script language="javascript" src="/webroot/ckeditor/ckeditor.js" type="text/javascript"></script>
+
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
