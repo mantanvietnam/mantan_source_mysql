@@ -361,27 +361,30 @@ function listTransactionAffiliaterAPI($input)
                     $conditions['id'] = (int) $dataSend['id'];
                 }
 
-                if(!empty($dataSend['phone'])){
-                    $conditions = ['phone'=>$dataSend['phone']];
-                    $checkPhone = $modelAffiliaters->find()->where($conditions)->first();
-                    if(!empty($checkPhone)){
-                        $conditions['id_affiliater'] = $checkPhone->id;
-                    }else{
-                        $conditions['id_affiliater'] = 0;
+                if(!empty($dataSend['id_affiliater'])){
+                     $conditions['id_affiliater'] = (int)$dataSend['id_affiliater'];
+
+                }else{
+                    if(!empty($dataSend['phone'])){
+                        $checkPhone = $modelAffiliaters->find()->where(['phone'=>$dataSend['phone']])->first();
+                        if(!empty($checkPhone)){
+                            $conditions['id_affiliater'] = $checkPhone->id;
+                        }else{
+                            $conditions['id_affiliater'] = 0;
+                        }
+                        
                     }
-                    
                 }
 
                 if(!empty($dataSend['id_order'])){
                     $conditions['id_order'] = (int) $dataSend['id_order'];
                 }
 
-                if(!empty($_GET['status'])){
-                    $conditions['status'] = $_GET['status'];
+                if(!empty($dataSend['status'])){
+                    $conditions['status'] = $dataSend['status'];
                 }
-
                
-                    $listData = $modelTransactionAffiliateHistories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+                $listData = $modelTransactionAffiliateHistories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
                 if(!empty($listData)){
                     foreach ($listData as $key => $value) {
@@ -521,7 +524,7 @@ function settingAffiliateAPI($input){
 
     if($isRequestPost){
         $dataSend = $input['request']->getData();
-        if(!empty($dataSend['token']) && !empty($dataSend['id'])){
+        if(!empty($dataSend['token'])){
             $infoMember = getMemberByToken($dataSend['token'],'settingAffiliateAgency');
 
             if(!empty($infoMember)){
@@ -627,4 +630,93 @@ function getAffiliateAPI($input){
     return $return;
 }
 
+
+function searchAffiliaterAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $modelCategories;
+
+
+    $dataSend = $_REQUEST;
+
+    $return= array();
+    
+    $conditions = [];
+     $modelAffiliaters = $controller->loadModel('Affiliaters');
+    if(!empty($dataSend['token'])){
+            $infoMember = getMemberByToken($dataSend['token'],'listAffiliaterAgency');
+
+            if(!empty($infoMember)){
+                if(empty($infoMember->grant_permission)){
+                    return array('code'=>4, 'mess'=>'Bạn không có quyền');
+                }
+
+            $conditions = array('id_member'=>$infoMember->id);
+              
+               
+    }else{
+         $user = checklogin('listAffiliaterAgency');   
+        if(!empty($user)){
+           $conditions = array('id_member'=>$user->id);
+        }else{
+            return array('code'=>4, 'mess'=>'Bạn không có quyền');
+        }
+    }
+    }
+                
+
+
+
+    if(!empty($dataSend['term'])){
+        $conditions['OR'] = ['name LIKE' => '%'.$dataSend['term'].'%', 'phone LIKE' => '%'.$dataSend['term'].'%'];
+    }
+
+    if(!empty($dataSend['id'])){
+        $conditions['id'] = (int) $dataSend['id'];
+    }
+
+    if(!empty($dataSend['phone'])){
+        $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+        $dataSend['phone LIKE'] = '%'.str_replace('+84','0',$dataSend['phone']).'%';
+
+        $conditions['phone LIKE'] = '%'.$dataSend['phone'].'%';
+    }
+
+    if(!empty($dataSend['email'])){
+        $conditions['email LIKE'] =  '%'.$dataSend['email'].'%';
+    }
+
+    if(!empty($dataSend['status'])){
+        $conditions['status'] = $dataSend['status'];
+    }
+
+    $listData= $modelAffiliaters->find()->where($conditions)->all()->toList();
+    
+    if($listData){
+        foreach($listData as $data){
+            $return[]= array(   'id'=>$data->id,
+                'label'=>$data->name.' '.$data->phone,
+                'value'=>$data->id,
+                'name'=>$data->name,
+                'avatar'=>$data->avatar,
+                'phone'=>$data->phone,
+                'id_member'=>$data->id_parent,
+                'email'=>$data->email,
+                'status'=>$data->status,
+                'created_at'=>$data->created_at,
+                'address'=>$data->address,
+            );
+        }
+    }else{
+        $return= array(array(   'id'=>0, 
+            'label'=>'Không tìm được khách hàng, hãy tạo thông tin cho khách hàng mới', 
+            'value'=>'', 
+        )
+    );
+    }
+
+
+    return $return;
+}
 ?>

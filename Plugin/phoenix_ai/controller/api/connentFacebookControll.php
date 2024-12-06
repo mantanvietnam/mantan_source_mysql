@@ -241,18 +241,18 @@ function sendcontentFacebookAdsAPI($input){
                 $question .=  'người tiếp cận '.$dataSend['customer_target'];
             }*/
             if(!empty($conversation_id)){
-                if(!empty($dataSend['content_facebook'])){
-                    $question = $dataSend['content_facebook'];
+                if(!empty($dataSend['content_facebook_ads'])){
+                    $question = $dataSend['content_facebook_ads'];
                 }
             }
 
               $reply_ai = callAIphoenixtech($question,$conversation_id);
 
 
-              $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
+              $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['product_servce']);
 
 
-                $session->write('content_facebook', $chat);
+                $session->write('content_facebook_ads', $chat);
 
              
                return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai,'question'=>$question);
@@ -287,11 +287,18 @@ function chatcontentFacebookAdsAPI($input){
                 $question = $dataSend['question'];
             }
 
+            $chat = array();
+                if(!empty($session->read('content_facebook_ads'))){
+                     $chat = $session->read('content_facebook_ads');
+                }
+
             if(!empty($dataSend['type'])){
-                if($dataSend['title']=='ads'){
+                if($dataSend['type']=='ads'){
                     $question = 'Please answer me in Tiếng Việt language and also respond in Tiếng Việt language Youre a professional marketing expert. Your task is to write a captivating social media advertisement to promote a specific product or service as above mentioned or you also can use the product/service details discussed earlier. Remember to incorporate all these elements:\n\n \tStart with a catchy phrase or statement to grab attention.\n \tInclude an interesting statistic related to your product or service.\n \tIdentify at least 3 common problems or pain points that your product/service can solve.\n \tProvide solutions to the problems mentioned above.\n \tWrite your first call to action (CTA) urging customers to take immediate action.\n \tList at least five benefits of using your product or service, highlighting the features, emphasizing how these benefits make the customer feel, and including emojis for emphasis.\n \tEstablish your credibility or the credibility of the product/service.\n \tSet the context or scenario where your product/service is beneficial.\n \tWrite your second CTA, persuading customers to engage with your product/service.\n \tPaint a scenario where your product/service would be useful.\n \tWrite your final CTA, compelling customers to act now.After completing the ad, ask if I want another one drafted. If I respond , ask for my feedback or any changes I\'d like. Based on that feedback, draft the next ad. Continue this process until I respond ';
-                }elseif($dataSend['title']=='') {
-    
+                }elseif($dataSend['type']=='pas') {
+                    $question ='Please answer me in Tiếng Việt language and also respond in Tiếng Việt language . As an AI content assistant, your task is to create a compelling Facebook advertisement using the PAS (Problem, Agitate, Solution) so you can Connect with the reader\'s pain points, Intensify the urgency of the problem and Present your product or service as the solution\nfor our product/service which is '.$chat['topic'].', that target to the audience on ';
+                }elseif($dataSend['type']=='hook'){
+                    $question ='Please answer me in Tiếng Việt language and also respond in Tiếng Việt language . Develop a Facebook ad copy that deeply resonates with our target customer, ensuring they feel seen and valued. Detail how our product/service nhà nghỉ khách sạn addresses their needs and resolves their concerns, focusing on at least three key benefits they will experience, capture the audience\'s imagination, making them feel as if the product/service elevates their status, leave the target audience feeling eager and excited to Buy Now!  product/serivce. Including emojis for emphasis. \nDraw them in with compelling storytelling and captivating visuals that echo their personal journey. Incorporate elements of social proof to build trust and credibility. Show our audience how our product/service enriches their lives, steering clear from pressuring tactics. Instead, invite them to join us on a journey of discovery and improvement. The ultimate objective of this ad copy should be to inspire our customers to do Buy Now!  in a way that aligns with our business goals and cultivates a positive relationship with our audience';
                 }
             }
 
@@ -299,17 +306,14 @@ function chatcontentFacebookAdsAPI($input){
             
                 $reply_ai = callAIphoenixtech($question,$conversation_id);
                 
-                $chat = array();
-                if(!empty($session->read('content_facebook'))){
-                     $chat = $session->read('content_facebook');
-                }
+                
 
                 // $chat[] = array('question'=>$dataSend['question'],'result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'],'number'=>$number );
 
                 $chat['result'] .= $reply_ai['result'];
 
 
-                $session->write('content_facebook', $chat);
+                $session->write('content_facebook_ads', $chat);
 
                 return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai);
             
@@ -338,8 +342,8 @@ function savecontentFacebookAdsAPI($input){
             $dataSend = $input['request']->getData();
 
              $chat = array();
-            if(!empty($session->read('content_facebook'))){
-                     $chat = $session->read('content_facebook');
+            if(!empty($session->read('content_facebook_ads'))){
+                     $chat = $session->read('content_facebook_ads');
             }
 
 
@@ -347,15 +351,15 @@ function savecontentFacebookAdsAPI($input){
                 return array('code'=> 0, 'mess'=>'lỗi hệ thống');  
             }
 
-            $checkContent = $modelContentFacebookAi->find()->where(['conversation_id'=>$dataSend['conversation_id'],'type'=>'content_facebook'])->first();
+            $checkContent = $modelContentFacebookAi->find()->where(['conversation_id'=>$dataSend['conversation_id'],'type'=>'content_facebook_ads'])->first();
 
             if(empty($checkContent)){
                 $checkContent = $modelContentFacebookAi->newEmptyEntity();
                 $checkContent->conversation_id = $dataSend['conversation_id'];
                 $checkContent->created_at = time();
-                $checkContent->type = 'content_facebook';
+                $checkContent->type = 'content_facebook_ads';
             }
-            $title = 'Viết 10 chủ đề bài viết đăng Facebook';
+            $title = 'Viết  mẫu quảng cáo Facebook ';
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  

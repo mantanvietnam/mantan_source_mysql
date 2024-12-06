@@ -72,11 +72,11 @@
                                     <span>'. $item['boot'].'</span>
                                 </div>
                                 <div class="card-content mx-2">
-                                    <h3>'. $item['title'].'"</h3>
-                                    <p>'. $item['district'].'"</p>
+                                    <h3>'. $item['title'].'</h3>
+                                    <p>'. $item['district'].'</p>
                                     <div class="buttons">
                                         <button class="like">👍 7</button>
-                                        <a class="play" href="'.$item['url'].'"><i class="fa-regular fa-circle-play"></i> Thực hiện</a>
+                                        <a class="play" href="/'.$item['url'].'"><i class="fa-regular fa-circle-play"></i> Thực hiện</a>
                                     </div>
                                 </div>
                             </div>';

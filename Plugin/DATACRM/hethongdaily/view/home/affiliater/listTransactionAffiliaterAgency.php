@@ -20,8 +20,9 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">ID người tiếp thị</label>
-            <input type="text" class="form-control" name="id_affiliater" value="<?php if(!empty($_GET['id_affiliater'])) echo $_GET['id_affiliater'];?>">
+            <label class="form-label">số điện thoại người tiếp thị</label>
+            <input type="text" class="form-control" name="name_affiliater"  id="name_affiliater" value="<?php if(!empty($_GET['name_affiliater'])) echo $_GET['name_affiliater'];?>">
+            <input type="hidden" class="form-control" name="id_affiliater"  id="id_affiliater" value="<?php if(!empty($_GET['id_affiliater'])) echo $_GET['id_affiliater'];?>">
           </div>
 
           <div class="col-md-2">
@@ -219,4 +220,57 @@
                           </div>
                         </div>
                       <?php }} ?>
+
+<script type="text/javascript">
+  $(function() {
+    function split( val ) {
+      return val.split( /,\s*/ );
+    }
+
+    function extractLast( term ) {
+      return split( term ).pop();
+    }
+
+    $( "#name_affiliater"  )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+          if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+            event.preventDefault();
+          }
+        })
+        .autocomplete({
+          source: function( request, response ) {
+            $.getJSON( "/apis/searchAffiliaterAPI", {
+              term: extractLast( request.term )
+            }, response );
+          },
+          search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                  return false;
+                  console.log(term);
+                }
+              },
+              focus: function() {
+                // prevent value inserted on focus
+                return false;
+              },
+              select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#name_affiliater" ).val(ui.item.name);
+                $( "#id_affiliater" ).val(ui.item.id);
+
+                return false;
+              }
+            });
+      });
+
+    </script>
 <?php include(__DIR__.'/../footer.php'); ?>
