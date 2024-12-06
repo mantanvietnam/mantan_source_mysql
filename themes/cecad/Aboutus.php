@@ -120,7 +120,7 @@
                                 <img src="<?= @$setting['imagettd'];?>" alt="">
                             </div>
                             <div class="as8-block-1-sub">
-                                <h4>Tính toàn diện</h4>
+                                <h4><?= @$setting['titlettd'];?></h4>
                                 <p><?= @$setting['ttd'];?></p>
                             </div>
                         </div>
@@ -132,7 +132,7 @@
                                 <img src="<?= @$setting['imagedm'];?>" alt="">
                             </div>
                             <div class="as8-block-1-sub">
-                                <h4>Đổi mới</h4>
+                                <h4><?= @$setting['titledm'];?></h4>
                                 <p><?= @$setting['doimoi'];?></p>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                                 <img src="<?= @$setting['imageppln'];?>" alt="">
                             </div>
                             <div class="as8-block-1-sub">
-                                <h4>Phương pháp tiếp cận liên ngành</h4>
+                                <h4><?= @$setting['titleppln'];?></h4>
                                 <p><?= @$setting['ppln'];?></p>
                             </div>
                         </div>
@@ -156,7 +156,7 @@
                                 <img src="<?= @$setting['imagehq'];?>" alt="">
                             </div>
                             <div class="as8-block-1-sub">
-                                <h4>Hiệu quả</h4>
+                                <h4><?= @$setting['titlehq'];?></h4>
                                 <p><?= @$setting['hieuqua'];?></p>
                             </div>
                         </div>

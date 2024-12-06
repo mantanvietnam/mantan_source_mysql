@@ -175,65 +175,72 @@ function groupingexercisesuserkarateAPI($input) {
     $modeluserpeople = $controller->loadModel('userpeople'); 
     $modelHistoryResultUser = $controller->loadModel('HistoryResultUsers');
 
+
     if (!$isRequestPost) {
         return [
             'code' => 0,
             'mess' => 'Gửi sai kiểu POST'
         ];
     }
+
     $dataSend = $input['request']->getData();
     $answers = $dataSend['answers'] ?? []; 
 
-    $groupedConditions = $modelTbcondition->find()->order(['id_groupfile', 'id_question'])->where(['type'=>'karate'])->all();
+  
+    $groupedConditions = $modelTbcondition->find()
+        ->order(['id_groupfile', 'id_question'])
+        ->where(['type' => 'karate'])
+        ->all();
 
     $validGroupFiles = [];
     $groupConditions = [];
+    
     
     foreach ($groupedConditions as $condition) {
         $groupConditions[$condition->id_groupfile][] = $condition;
     }
 
+    
     $token = createToken();
-
-    if(!empty($answers)){
+    if (!empty($answers)) {
         $save = $modelHistoryResultUser->newEmptyEntity();
         $save->answers = json_encode($answers);
         $save->token = $token;
         $save->created_at = time();
         $modelHistoryResultUser->save($save);
     }
-    
-    if(empty($save)) {
-        $token = '';
-      }   
 
+ 
+    if (empty($save)) {
+        $token = '';
+    }
+
+    
     foreach ($groupConditions as $id_groupfile => $conditions) {
         $isValidGroup = true;
 
         foreach ($conditions as $condition) {
             $id_question = $condition->id_question;
-            $correctAnswers = str_split($condition->answer);  
+            $correctAnswers = str_split($condition->answer);
+
             if (!isset($answers[$id_question]) || !in_array($answers[$id_question], $correctAnswers)) {
-                $isValidGroup = false;  
+                $isValidGroup = false;
                 break;
             }
         }
 
+      
         if ($isValidGroup) {
-   
             $groupTitle = $modeluserpeople->find()->where(['id' => $id_groupfile])->first();
             $validGroupFiles[$id_groupfile] = [
                 'id_groupfile' => $id_groupfile,
-                'name' => $groupTitle ? $groupTitle->name : 'Không có tên' 
+                'name' => $groupTitle ? $groupTitle->name : 'Không có tên'
             ];
         }
     }
 
-
-
-
+   
     if (!empty($validGroupFiles)) {
-     
         $randomKey = array_rand($validGroupFiles);
         $selectedGroup = $validGroupFiles[$randomKey];
 
@@ -241,14 +248,14 @@ function groupingexercisesuserkarateAPI($input) {
             'code' => 1,
             'mess' => 'Lấy dữ liệu thành công',
             'valid_groups' => [$selectedGroup],
-            'token'=> $token
+            'token' => $token
         ];
     } else {
-
+        
         $activeGroup = $modelTbcondition->find()
             ->select(['id_groupfile'])
-            ->where(['status' => 'active'])
-            ->first(); 
+            ->where(['status' => 'active', 'type' => 'karate'])
+            ->first();
 
         if ($activeGroup) {
             $groupTitle = $modeluserpeople->find()->where(['id' => $activeGroup->id_groupfile])->first();
@@ -261,18 +268,21 @@ function groupingexercisesuserkarateAPI($input) {
             return [
                 'code' => 0,
                 'mess' => 'Bài tập nhóm này là mặc định',
-                'valid_groups' => [$activeGroupFile] ,
-                'token'=> $token
+                'valid_groups' => [$activeGroupFile],
+                'token' => $token
             ];
         } else {
+          
             return [
                 'code' => 0,
-                'mess' => 'Không tìm thấy nhóm bài tập phù hợp và không có nhóm nào active',
-                'valid_groups' => [] 
+                'mess' => 'Không tìm thấy nhóm bài tập phù hợp và không có nhóm nào active thuộc karate',
+                'valid_groups' => [],
+                'token' => $token
             ];
         }
     }
 }
+
 function listuserpeoplePI($input)
 {
 

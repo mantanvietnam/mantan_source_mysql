@@ -77,38 +77,69 @@
                                 </div>
 
                                 <div class="row bg-white mb-5">
-                                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                        <label class="form-label" for="basic-default-fullname">Tính toàn diện</label>
-                                        <input type="text" class="form-control" name="ttd" value="<?php echo @$data['ttd'];?>" />
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                                <label class="form-label" for="basic-default-fullname">Tiêu đề</label>
+                                                <input type="text" class="form-control" name="titlettd" value="<?php echo @$data['titlettd'];?>" />
+                                            </div>
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                                <label class="form-label" for="basic-default-fullname">Tính toàn diện</label>
+                                                <input type="text" class="form-control" name="ttd" value="<?php echo @$data['ttd'];?>" />
+                                            </div>
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                                <label class="form-label" for="basic-default-fullname">Image tính toàn diện</label>
+                                                <?php showUploadFile('imagettd','imagettd', @$data['imagettd'],43);?>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                        <label class="form-label" for="basic-default-fullname">Image tính toàn diện</label>
-                                        <?php showUploadFile('imagettd','imagettd', @$data['imagettd'],43);?>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                                <label class="form-label" for="basic-default-fullname">Tiêu đề </label>
+                                                <input type="text" class="form-control" name="titledm" value="<?php echo @$data['titledm'];?>" />
+                                            </div>
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                                <label class="form-label" for="basic-default-fullname">Đổi mới</label>
+                                                <input type="text" class="form-control" name="doimoi" value="<?php echo @$data['doimoi'];?>" />
+                                            </div>
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                                <label class="form-label" for="basic-default-fullname">image đổi mới</label>
+                                                <?php showUploadFile('imagedm','imagedm', @$data['imagedm'],44);?>
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                        <label class="form-label" for="basic-default-fullname">Đổi mới</label>
-                                        <input type="text" class="form-control" name="doimoi" value="<?php echo @$data['doimoi'];?>" />
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                                <label class="form-label" for="basic-default-fullname">tiêu đề</label>
+                                                <input type="text" class="form-control" name="titleppln" value="<?php echo @$data['titleppln'];?>" />
+                                            </div>
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                                <label class="form-label" for="basic-default-fullname">Phương pháp liên ngành</label>
+                                                <input type="text" class="form-control" name="ppln" value="<?php echo @$data['ppln'];?>" />
+                                            </div>
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                                <label class="form-label" for="basic-default-fullname">image phương pháp liên nghành</label>
+                                                <?php showUploadFile('imageppln','imageppln', @$data['imageppln'],45);?>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                        <label class="form-label" for="basic-default-fullname">image đổi mới</label>
-                                        <?php showUploadFile('imagedm','imagedm', @$data['imagedm'],44);?>
-                                    </div>
-                                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                        <label class="form-label" for="basic-default-fullname">Phương pháp liên ngành</label>
-                                        <input type="text" class="form-control" name="ppln" value="<?php echo @$data['ppln'];?>" />
-                                    </div>
-                                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                        <label class="form-label" for="basic-default-fullname">image phương pháp liên nghành</label>
-                                        <?php showUploadFile('imageppln','imageppln', @$data['imageppln'],45);?>
-                                    </div>
-                                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                        <label class="form-label" for="basic-default-fullname">Hiểu quả</label>
-                                        <input type="text" class="form-control" name="hieuqua" value="<?php echo @$data['hieuqua'];?>" />
-                                    </div>
-                                    <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                        <label class="form-label" for="basic-default-fullname">image hiểu quả</label>
-                                        <?php showUploadFile('imagehq','imagehq', @$data['imagehq'],46);?>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                                <label class="form-label" for="basic-default-fullname">Tiêu đề</label>
+                                                <input type="text" class="form-control" name="titlehq" value="<?php echo @$data['titlehq'];?>" />
+                                            </div>
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                                <label class="form-label" for="basic-default-fullname">Hiểu quả</label>
+                                                <input type="text" class="form-control" name="hieuqua" value="<?php echo @$data['hieuqua'];?>" />
+                                            </div>
+                                            <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                                <label class="form-label" for="basic-default-fullname">image hiểu quả</label>
+                                                <?php showUploadFile('imagehq','imagehq', @$data['imagehq'],46);?>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!--  -->
