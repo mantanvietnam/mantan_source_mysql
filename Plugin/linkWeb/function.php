@@ -63,15 +63,15 @@
 		global $modelOption;
 		global $controller;
 		$modelListLink = $controller->loadModel('linkwebs');
-	
-		$conditions = array();
-		$conditions['idCategory'] =$idCategory;
+		$list = [];
 
-		$list= $modelListLink->find()->limit(200)->page(1)->where($conditions)->order(array())->all()->toList();
-		
-		
-		
+		if(!empty($idCategory)){
+			$conditions = array();
+			$conditions['idCategory'] =$idCategory;
 
+			$list= $modelListLink->find()->limit(200)->page(1)->where($conditions)->order(array())->all()->toList();
+		}
+		
 		return $list;
 	}
 ?>

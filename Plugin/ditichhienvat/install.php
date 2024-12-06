@@ -6,7 +6,7 @@ global $sqlUpdateDatabase;
 $sqlInstallDatabase = '';
 $sqlDeleteDatabase = '';
 $sqlUpdateDatabase = [];
-
+/*
 $sqlInstallDatabase .= "CREATE TABLE `historicalsites` ( 
 	`id` INT NOT NULL AUTO_INCREMENT , 
 	`name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
@@ -36,7 +36,7 @@ $sqlInstallDatabase .= "CREATE TABLE `historicalsites` (
 	`idward` INT NULL DEFAULT NULL, 
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
-
+*/
 $sqlInstallDatabase .= "CREATE TABLE `wards` ( 
 	`id` INT NOT NULL AUTO_INCREMENT , 
 	`name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci  NULL DEFAULT NULL , 
@@ -126,7 +126,7 @@ $sqlInstallDatabase .= "CREATE TABLE `artifacts` (
 	`status` TINYINT NULL DEFAULT NULL , PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
-$sqlDeleteDatabase .= "DROP TABLE historicalsites; ";
+//$sqlDeleteDatabase .= "DROP TABLE historicalsites; ";
 $sqlDeleteDatabase .= "DROP TABLE wards; ";
 $sqlDeleteDatabase .= "DROP TABLE artifacts; ";
 
