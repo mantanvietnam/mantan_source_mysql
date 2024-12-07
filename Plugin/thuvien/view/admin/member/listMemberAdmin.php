@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
+  <h4 class="fw-bold py-3 mb-4">Người dùng</h4>
   
-  <p><a href="/plugins/admin/vemoi-view-admin-member-addMemberAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/thuvien-view-admin-member-addMemberAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -53,7 +53,7 @@
   <div class="card">
     <div class="row">
       <div class="col-md-6">
-        <h5 class="card-header">Danh sách khách hàng</h5>
+        <h5 class="card-header">Danh sách Người dùng</h5>
       </div>
     </div>
 
@@ -100,13 +100,13 @@
                             <td>'.$status.'</td>
                             
                             <td align="center">
-                              <a class="dropdown-item" href="/plugins/admin/vemoi-view-admin-member-addMemberAdmin/?id='.$item->id.'">
+                              <a class="dropdown-item" href="/plugins/admin/thuvien-view-admin-member-addMemberAdmin/?id='.$item->id.'">
                                 <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                               </a>
                             </td>
 
                             <td align="center">
-                              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/vemoi-view-admin-member-deleteMemberAdmin/?id='.$item->id.'">
+                              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/thuvien-view-admin-member-deleteMemberAdmin/?id='.$item->id.'">
                                 <i class="bx bx-trash me-1"></i>
                               </a>
                             </td>
@@ -115,7 +115,7 @@
                   }
                 }else{
                   echo '<tr>
-                          <td colspan="10" align="center">Chưa có khách hàng</td>
+                          <td colspan="10" align="center">Chưa có Người dùng</td>
                         </tr>';
                 }
               ?>
