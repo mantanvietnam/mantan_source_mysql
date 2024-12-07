@@ -117,7 +117,15 @@
                 <a class="dropdown-item" href="/listPermission">Quản lý phân quyền</a>
               </div>
             </li>
-
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 Quản lý sách
+              </a>
+              <div class="dropdown-menu" aria-labelledby="member">
+                <a class="dropdown-item" href="/listbook">Danh mục sách</a>
+                <a class="dropdown-item" href="/listPermission">Quản lý nhà xuất bản</a>
+              </div>
+            </li>
            
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -100,7 +100,9 @@ function getListPermission()
                                     array('name'=>'Xóa nhóm quyền người dùng','permission'=>'detelePermission'),
                                     array('name'=>'Xem băng lịch sử hành dộng người dùng','permission'=>'listActivityHistory'),
                             )
+                        
                     );
+
 
     
     
