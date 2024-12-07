@@ -14,4 +14,8 @@
 	$routesPlugin['addPermission']= 'thuvien/view/home/member/addPermission.php';
 	$routesPlugin['listMember']= 'thuvien/view/home/member/listMember.php';
 	$routesPlugin['addMember']= 'thuvien/view/home/member/addMember.php';
+
+
+	// quan ly sach
+	$routesPlugin['listbook']= 'thuvien/view/home/book/listbook.php';
 	
