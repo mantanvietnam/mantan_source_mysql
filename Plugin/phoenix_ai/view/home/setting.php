@@ -5,7 +5,7 @@
                      
                     ?>
     <div class="setting-home container-fluid">
-        <p><img src="/plugins/phoenix_ai/view/home/asset/img/setting.svg" alt="">Cài Đặt</p>
+        <p><img src="/plugins/phoenix_ai/view/home/assets/img/setting.svg" alt="">Cài Đặt</p>
         <div class="container mt-4">
             <div class="row">
        
@@ -22,17 +22,17 @@
                         </div>
                         <li class="nav-item">
                             <button class="nav-link active" id="profile-tab" data-bs-toggle="pill" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">
-                                <img src="/plugins/phoenix_ai/view/home/asset/img/home.svg" alt=""> Chỉnh sửa hồ sơ
+                                <img src="/plugins/phoenix_ai/view/home/assets/img/home.svg" alt=""> Chỉnh sửa hồ sơ
                             </button>
                         </li>
                         <li class="nav-item">
                             <button class="nav-link" id="slide-tab" data-bs-toggle="pill" data-bs-target="#slide" type="button" role="tab" aria-controls="slide" aria-selected="false">
-                                <img src="/plugins/phoenix_ai/view/home/asset/img/lsmh.svg" alt=""> Lịch sử đơn hàng
+                                <img src="/plugins/phoenix_ai/view/home/assets/img/lsmh.svg" alt=""> Lịch sử đơn hàng
                             </button>
                         </li>
                         <li class="nav-item">
                             <button class="nav-link" id="slide-tab" data-bs-toggle="pill" data-bs-target="#brand-voice" type="button" role="tab" aria-controls="slide" aria-selected="false">
-                                <img src="/plugins/phoenix_ai/view/home/asset/img/huychuong.svg" alt=""> Điểm thưởng
+                                <img src="/plugins/phoenix_ai/view/home/assets/img/huychuong.svg" alt=""> Điểm thưởng
                             </button>
                         </li>
                     </ul>

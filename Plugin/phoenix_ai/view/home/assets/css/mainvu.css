@@ -416,6 +416,7 @@ table {
     padding: 5px 10px;
     background-color: #007bff;
     border-radius: 220px;
+    display: flex;
 }
 
 .icon-on-text{
@@ -452,6 +453,8 @@ table {
 .main-wrap .showcase .overlay .buttons .play {
     border: none;
     background-color: white;
+    text-decoration: none;
+    color: black;
 }
 
 /* setting */
