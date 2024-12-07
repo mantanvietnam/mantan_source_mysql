@@ -985,10 +985,6 @@ function addProductAgency($input)
                         }
                     }
                 }
-              
-
-
-
 
                 $total = count($_FILES['listImage']['name']);
                 
@@ -1085,6 +1081,8 @@ function addProductAgency($input)
 
                 
                 if(!empty($dataSend['unitConversion'])){
+                    $conditions = ['id_product'=>$data->id, 'id NOT IN'=>$dataSend['id_unit']];
+                    $modelUnitConversion->deleteAll($conditions);
                     foreach ($dataSend['unitConversion'] as $key => $unit) {
                         if(!empty($unit)){
                             if(!empty($dataSend['id_unit'][$key])){
