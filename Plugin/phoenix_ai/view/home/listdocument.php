@@ -71,9 +71,9 @@
                                         <p class="set-widthcontent"><?=$data->content_ai?></p>
                                     </td>
                                     <!-- <td>Jacob</td> -->
-                                    <td><?= date('d-m-Y', strtotime($data->created_at)) ?></td>
+                                    <td><?= date('d-m-Y', $data->created_at) ?></td>
 
-                                    <td><?= date('d-m-Y', strtotime($data->updated_at)) ?></td>
+                                    <td><?= date('d-m-Y', $data->updated_at) ?></td>
                                     <td><i class='bx bx-signal-4'></i><?=str_word_count($data->content_ai)?></td>
                                     <td>
                                         <!-- <a href=""><i class="fa-solid fa-cloud-arrow-down"></i></a> -->

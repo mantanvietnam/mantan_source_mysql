@@ -426,9 +426,9 @@
     }).done(function( msg ) {
            console.log(msg);
             if(msg.code==1){
-
-                document.getElementById("conversation_id").value = msg.data.conversation_id;
-                document.getElementById("result").value = msg.data.result;
+              document.getElementById("conversation_id").value = msg.data.conversation_id;
+              document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
+              CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
             }
         })
 
@@ -456,9 +456,10 @@
           }
         }).done(function( msg ) {
                 if(msg.code==1){
-                  result += msg.data.result
-                    document.getElementById("conversation_id").value = msg.data.conversation_id;
-                    document.getElementById("result").value = result;
+                  result += '/\n/g'+msg.data.result;
+                  document.getElementById("conversation_id").value = msg.data.conversation_id;
+                  document.getElementById("result").value = result(/\n/g, '<br>');
+                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>'));
                 }
             })
         }
@@ -483,9 +484,10 @@
           }
         }).done(function( msg ) {
                 if(msg.code==1){
-                  result += msg.data.result
-                    document.getElementById("conversation_id").value = msg.data.conversation_id;
-                    document.getElementById("result").value = result;
+                  result += '/\n/g'+msg.data.result;
+                  document.getElementById("conversation_id").value = msg.data.conversation_id;
+                  document.getElementById("result").value = result(/\n/g, '<br>');
+                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>'));
                 }
             })
         }

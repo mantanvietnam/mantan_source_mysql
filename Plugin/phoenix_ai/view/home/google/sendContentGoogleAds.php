@@ -50,17 +50,20 @@
                 <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                       <div class="title-write">
                         <h3>GPT Model</h3>
                       </div>
                       <div class="select-gpt-model">
-                        <select class="form-select" aria-label="Default select example">
-                          <option value="">GPT-4o-Mini</option>
-                          <option value="">GPT-4o</option>
-                          <option value="">Aiva image</option>
-                          <option value="">Gemini</option>
+                        <select class="form-select" name="target_ads" id="target_ads" aria-label="Default select example">
+                          <option value="Tăng doanh số bán hàng">Tăng doanh số bán hàng</option>
+                          <option value="Tăng số lượng khách hàng mới">Tăng số lượng khách hàng mới</option>
+                          <option value="Tăng lượt truy cập website">Tăng lượt truy cập website</option>
+                          <option value="Tạo khách hàng tiềm năng">Tạo khách hàng tiềm năng</option>
+                          <option value="Tăng tương tác">Tăng tương tác</option>
+                          <option value="Tạo nhận thức về sản phẩm mới">Tạo nhận thức về sản phẩm mới</option>
+                          <option value="Tăng lượt tải ứng dụng (App Installations)">Tăng lượt tải ứng dụng (App Installations)</option>
                         </select>
-                      </div> -->
+                      </div>
                       <!-- <div class="form-check form-switch mt-2 mb-2">
                         <input class="form-check-input" type="checkbox" id="toggleSwitch">
                         <label class="form-check-label" for="toggleSwitch">Giọng điệu thương hiệu</label>
@@ -69,7 +72,7 @@
                       <div>
                         <div class="mb-3">
                           <label for="text" class="form-label">Hướng dẫn</label>
-                          <textarea type="text" placeholder="Dán vào nội dung hoặc tiêu đề bạn muốn tạo Google" class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
+                          <textarea type="text" placeholder="Nhập vào sản phẩm, dịch vụ của bạn" class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
 
                         <input class="form-check-input"  type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
                         </div>
@@ -92,7 +95,7 @@
                         </div>
                         <div class="out-like-Googlepro">
                           <div class="write-outline">
-                            <h3>Phần mở đầu</h3>
+                            <h3>Viết tiêu đề quảng cáo</h3>
                             <!-- <p>GooglePro - lên outline cho Google dựa vào nội dung</p> -->
                           </div>
                         </div>
@@ -107,7 +110,7 @@
                         <h3>GPT Model</h3>
                       </div> -->
                      
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(1)">Thực hiện</button>
+                      <button type="button" class="button-arcordian" onclick="sendquestionNet('title')">Thực hiện</button>
                     </form>
                   </div>
                 </div>
@@ -140,212 +143,11 @@
                         <h3>GPT Model</h3>
                       </div> -->
                      
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(2)">Thực hiện</button>
+                      <button type="button" class="button-arcordian" onclick="sendquestionNet('content')">Thực hiện</button>
                     </form>
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo3" aria-expanded="false" aria-controls="collapseTwo3">
-                    <div class="parent-button-div d-flex">
-                      <div class="left-content">
-                        <p class="number-count">3</p>
-                      </div>
-                      <div class="right-content-writetitle d-flex">
-                        <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
-                        </div>
-                        <div class="out-like-Googlepro">
-                          <div class="write-outline">
-                            <h3>Phần 2</h3>
-                            <!-- <p>GooglePro - lên outline cho Google dựa vào nội dung</p> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTwo3" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
-                     
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(3)">Thực hiện</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo4" aria-expanded="false" aria-controls="collapseTwo4">
-                    <div class="parent-button-div d-flex">
-                      <div class="left-content">
-                        <p class="number-count">4</p>
-                      </div>
-                      <div class="right-content-writetitle d-flex">
-                        <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
-                        </div>
-                        <div class="out-like-Googlepro">
-                          <div class="write-outline">
-                            <h3>Phần 3</h3>
-                            <!-- <p>GooglePro - lên outline cho Google dựa vào nội dung</p> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTwo4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
-                     
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(4)">Thực hiện</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo5" aria-expanded="false" aria-controls="collapseTwo5">
-                    <div class="parent-button-div d-flex">
-                      <div class="left-content">
-                        <p class="number-count">5</p>
-                      </div>
-                      <div class="right-content-writetitle d-flex">
-                        <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
-                        </div>
-                        <div class="out-like-Googlepro">
-                          <div class="write-outline">
-                            <h3>Phần 4</h3>
-                            <!-- <p>GooglePro - lên outline cho Google dựa vào nội dung</p> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTwo5" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
-                     
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(5)">Thực hiện</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo6" aria-expanded="false" aria-controls="collapseTwo6">
-                    <div class="parent-button-div d-flex">
-                      <div class="left-content">
-                        <p class="number-count">6</p>
-                      </div>
-                      <div class="right-content-writetitle d-flex">
-                        <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
-                        </div>
-                        <div class="out-like-Googlepro">
-                          <div class="write-outline">
-                            <h3>Phần 5</h3>
-                            <!-- <p>GooglePro - lên outline cho Google dựa vào nội dung</p> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTwo6" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
-                     
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(6)">Thực hiện</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo7" aria-expanded="false" aria-controls="collapseTwo7">
-                    <div class="parent-button-div d-flex">
-                      <div class="left-content">
-                        <p class="number-count">7</p>
-                      </div>
-                      <div class="right-content-writetitle d-flex">
-                        <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
-                        </div>
-                        <div class="out-like-Googlepro">
-                          <div class="write-outline">
-                            <h3>Phần 6</h3>
-                            <!-- <p>GooglePro - lên outline cho Google dựa vào nội dung</p> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTwo7" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
-                     
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(7)">Thực hiện</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo8" aria-expanded="false" aria-controls="collapseTwo8">
-                    <div class="parent-button-div d-flex">
-                      <div class="left-content">
-                        <p class="number-count">8</p>
-                      </div>
-                      <div class="right-content-writetitle d-flex">
-                        <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
-                        </div>
-                        <div class="out-like-Googlepro">
-                          <div class="write-outline">
-                            <h3>Phần kết </h3>
-                            <!-- <p>GooglePro - lên outline cho Google dựa vào nội dung</p> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTwo8" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
-                     
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(8)">Thực hiện</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-             
-             
-
               
             </div>
           </div>
@@ -373,6 +175,8 @@
             <div class="show-input-editor">
                <?php $result =  htmlspecialchars(nl2br(@$data['result']));
                showEditorInput('result', 'result', @$result);?>
+
+              <!-- <textarea type="text" placeholder="" class="form-control" id="result" name="result" rows="15" cols="30"><?php echo  @$result; ?></textarea> -->
             </div>
             <div class="last-inputcontent">
               <div class="d-flex justify-content-between">
@@ -394,18 +198,22 @@
 
     function sendquestion(){
         var topic = $('#topic').val();
-        console.log(topic);
+        var target = $('#target_ads').val();
+               
         $.ajax({
           method: "POST",
           url: "/apis/sendContentGooglAdsAPI",
-          data: {topic: topic, 
+          data: {topic: topic,
+                target:target, 
         }
     }).done(function( msg ) {
            console.log(msg);
             if(msg.code==1){
 
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
-                document.getElementById("result").value = msg.data.result;
+                document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
+                CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
+                
             }
         })
 
@@ -429,13 +237,14 @@
           url: "/apis/chatContentGooglAdsAPI",
           data: {question: '',
             conversation_id: conversation_id, 
-            number_question: i, 
+            type: i, 
           }
         }).done(function( msg ) {
                 if(msg.code==1){
-                  result += msg.data.result
-                    document.getElementById("conversation_id").value = msg.data.conversation_id;
-                    document.getElementById("result").value = result;
+                  result += '/\n/g'+msg.data.result;
+                  document.getElementById("conversation_id").value = msg.data.conversation_id;
+                  document.getElementById("result").value = result.replace(/\n/g, '<br>');
+                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
                 }
             })
         }
@@ -460,9 +269,10 @@
           }
         }).done(function( msg ) {
                 if(msg.code==1){
-                  result += msg.data.result
-                    document.getElementById("conversation_id").value = msg.data.conversation_id;
-                    document.getElementById("result").value = result;
+                  result += '/\n/g'+msg.data.result;
+                  document.getElementById("conversation_id").value = msg.data.conversation_id;
+                  document.getElementById("result").value = result.replace(/\n/g, '<br>');
+                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
                 }
             })
         }
