@@ -50,7 +50,7 @@ $info = $session->read('infoUser');
                                     </div>
                                     <div class="MuiBox-root " id="result'.$i.'">
                                         <div class="d-flex left-quetion">
-                                            <img alt="avatar"  style="width: 50px;" src="/plugins/phoenix_ai/view/home/assets/img/robot.svg">
+                                            <img alt="avatar"  style="width: 50px;" src="/plugins/phoenix_ai/view/home/assets/img/aiphoenix.png">
                                             <div>
                                                 <p class="result-answer MuiTypography-root jss1624 MuiTypography-body1">'.@$item['result'].'</p>
                                                 
