@@ -420,7 +420,7 @@
         console.log(topic);
         $.ajax({
           method: "POST",
-          url: "/apis/wirecontentimageAPI",
+          url: "/apis/wirefacebookcontentsixAPI",
           data: {topic: topic, 
         }
     }).done(function( msg ) {
@@ -449,7 +449,7 @@
       if(conversation_id != '' && conversation_id!='0'){
              $.ajax({
           method: "POST",
-          url: "/apis/chatcontentwirtetimageAPI",
+          url: "/apis/chatfacebookcontentsixAPI",
           data: {question: '',
             conversation_id: conversation_id, 
             number_question: i, 
@@ -476,7 +476,7 @@
       if(conversation_id != '' && question!=''){
              $.ajax({
           method: "POST",
-          url: "/apis/chatcontentwirtetimageAPI",
+          url: "/apis/chatfacebookcontentsixAPI",
           data: {question: question,
             conversation_id: conversation_id,
             number_question: 0,
@@ -504,7 +504,7 @@
       if(conversation_id != '' && question!=''){
              $.ajax({
           method: "POST",
-          url: "/apis/savecontentimageAPI",
+          url: "/apis/savecontentfacebooksixAPI",
           data: { conversation_id :conversation_id,
             title :title,
             result :result,

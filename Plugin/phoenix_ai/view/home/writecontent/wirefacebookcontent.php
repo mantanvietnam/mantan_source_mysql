@@ -277,72 +277,6 @@
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo7" aria-expanded="false" aria-controls="collapseTwo7">
-                    <div class="parent-button-div d-flex">
-                      <div class="left-content">
-                        <p class="number-count">7</p>
-                      </div>
-                      <div class="right-content-writetitle d-flex">
-                        <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
-                        </div>
-                        <div class="out-like-blogpro">
-                          <div class="write-outline">
-                            <h3>Phần 6</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTwo7" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
-                     
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(7)">Thực hiện</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo8" aria-expanded="false" aria-controls="collapseTwo8">
-                    <div class="parent-button-div d-flex">
-                      <div class="left-content">
-                        <p class="number-count">8</p>
-                      </div>
-                      <div class="right-content-writetitle d-flex">
-                        <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
-                        </div>
-                        <div class="out-like-blogpro">
-                          <div class="write-outline">
-                            <h3>Phần kết </h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTwo8" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
-                     
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(8)">Thực hiện</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
              
              
 
@@ -420,7 +354,7 @@
         console.log(topic);
         $.ajax({
           method: "POST",
-          url: "/apis/wirecontentimageAPI",
+          url: "/apis/wirefacebookcontentfiveAPI",
           data: {topic: topic, 
         }
     }).done(function( msg ) {
@@ -449,7 +383,7 @@
       if(conversation_id != '' && conversation_id!='0'){
              $.ajax({
           method: "POST",
-          url: "/apis/chatcontentwirtetimageAPI",
+          url: "/apis/chatfacebookcontentfiveAPI",
           data: {question: '',
             conversation_id: conversation_id, 
             number_question: i, 
@@ -476,7 +410,7 @@
       if(conversation_id != '' && question!=''){
              $.ajax({
           method: "POST",
-          url: "/apis/chatcontentwirtetimageAPI",
+          url: "/apis/chatfacebookcontentfiveAPI",
           data: {question: question,
             conversation_id: conversation_id,
             number_question: 0,
@@ -504,7 +438,7 @@
       if(conversation_id != '' && question!=''){
              $.ajax({
           method: "POST",
-          url: "/apis/savecontentimageAPI",
+          url: "/apis/savecontentfacebookfiveAPI",
           data: { conversation_id :conversation_id,
             title :title,
             result :result,
