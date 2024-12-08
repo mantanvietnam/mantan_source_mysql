@@ -393,7 +393,14 @@ table {
     display: flex;
     flex-direction: row;
     align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.main-wrap .showcase .overlay .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
 
 .main-wrap .showcase .overlay .info{
     text-align: center;
@@ -417,6 +424,8 @@ table {
     background-color: #007bff;
     border-radius: 220px;
     display: flex;
+    min-width: 123px;
+    justify-content: center;
 }
 
 .icon-on-text{
@@ -490,6 +499,7 @@ table {
 .main-wrap .showcase .overlay .user-info .contact-info .name{
     font-size: 20px;
     font-weight: 500;
+    margin-bottom: 10px;
 }
 
 .main-wrap .showcase .overlay .user-info .contact-info a{
@@ -520,6 +530,7 @@ table {
 .main-wrap .showcase .overlay .setting-home .text-primary {
     color: #6c63ff; /* Màu xanh tím */
     font-size: 22px;
+    padding-top: 15px;
 }
 
 .main-wrap .showcase .overlay .setting-home .btn-secondary {

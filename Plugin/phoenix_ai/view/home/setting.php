@@ -88,7 +88,7 @@
                                             </select>
                                         </div>
                                     </div> -->
-                                    <div class="d-flex justify-content-end">
+                                    <div class="d-flex justify-content-end py-3">
                                         <button type="button" class="btn btn-secondary me-2">Hủy</button>
                                         <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                                     </div>
