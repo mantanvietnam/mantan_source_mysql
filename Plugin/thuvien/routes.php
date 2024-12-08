@@ -1,4 +1,4 @@
-<?php
+	<?php
 	global $routesPlugin;
 
 	// tài khoản cá nhân
@@ -14,6 +14,7 @@
 	$routesPlugin['addPermission']= 'thuvien/view/home/member/addPermission.php';
 	$routesPlugin['listMember']= 'thuvien/view/home/member/listMember.php';
 	$routesPlugin['addMember']= 'thuvien/view/home/member/addMember.php';
+	$routesPlugin['listActivityHistory']= 'thuvien/view/home/member/listActivityHistory.php';
 
 
 	// quan ly sach

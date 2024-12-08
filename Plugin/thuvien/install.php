@@ -52,6 +52,8 @@ $sqlInstallDatabase .="CREATE TABLE `activity_historys` (
 
 
 
+
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE permissions; ";
 

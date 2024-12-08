@@ -22,7 +22,7 @@ function sendContentGooglAdsAPI($input){
 
        
 
-           $question ='Please answer me in Tiếng Việt language and also respond in Tiếng Việt language . As BlogPro, a seasoned blog writer with 10 years of experience, you are tasked with creating a detailed and comprehensive blog post outline based on the following content or tittle.\nThis outline should include 7 main headings (H2s), each broken down into relevant subheadings (H3s and H4s). Remember to strategically incorporate the primary and secondary keywords into the outline to optimize it for SEO. Heres an example of the structure you should follow:\nBlog Title: (in h1, suggest me a clickbait title too for this content/topic)\nIntroduction (with primary keyword)\nHeading 2\nSubheading 3\nSummary\n(repeat for all headings/subheadings)\n* Conclusion\n\nCONTENT/TITLE:\''.@$dataSend['topic'] ;
+           $question ='Please answer me in Tiếng Việt language and also respond in Tiếng Việt language . Đóng vai 1 chuyên gia Marketing với 10 năm kinh nghiệm, hãy giúp tôi lên một chiến lược quảng cáo Google ads hiệu quả để [FIELD1] cho sản phẩm/dịch vụ '.@$dataSend['topic'].' nhắm tới khách hàng mục tiêu tiềm năng,'.@$dataSend['target'];
 
            /* if(!empty($dataSend['topic'])){
                 $question .= 'chủ đề về '.$dataSend['topic'];
@@ -31,8 +31,8 @@ function sendContentGooglAdsAPI($input){
                 $question .=  'người tiếp cận '.$dataSend['customer_target'];
             }*/
             if(!empty($conversation_id)){
-                if(!empty($dataSend['content_blog'])){
-                    $question = $dataSend['content_blog'];
+                if(!empty($dataSend['content_google_ads'])){
+                    $question = $dataSend['content_google_ads'];
                 }
             }
               $reply_ai = callAIphoenixtech($question,$conversation_id);
@@ -41,7 +41,7 @@ function sendContentGooglAdsAPI($input){
               $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
 
 
-                $session->write('content_blog', $chat);
+                $session->write('content_google_ads', $chat);
 
              
                return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai);
@@ -79,28 +79,16 @@ function chatContentGooglAdsAPI($input){
             }    
 
             $chat = array();
-            if(!empty($session->read('content_blog'))){
-                $chat = $session->read('content_blog');
+            if(!empty($session->read('content_google_ads'))){
+                $chat = $session->read('content_google_ads');
             }
 
             
-            if(!empty($dataSend['number_question'])){
-                if($dataSend['number_question']==1){
-                    $question = "Based on the above outline, please create an engaging introduction paragraph, please ensure to:\nCreate a compelling hook that immediately grabs the reader's attention.\nConnect with the reader by addressing them directly or discussing a problem they might be facing.\nClearly convey the value the blog post will provide, demonstrating the benefit to the reader early on.\nUse powerful, emotional language that evokes curiosity and interest. \nJust give me the output, no explaination";
-                }elseif($dataSend['number_question']==2){
-                    $question = "Continue with writting the first main heading of the blog content based on the outline. Cover the initial sections and no more than 2-3 subsections as detailed in the outline, ensuring each section at least 2 long paragraphs using ngaging Language, Employs vivid, descriptive, or emotive language as if you talking with the reader. Ensure this part transitions smoothly to the next section\nJust give me the output, no explaination";
-                }elseif($dataSend['number_question']==3){
-                    $question = "Write the second part of the content based on the outline. Cover the initial sections and no more than 2-3 subsections as detailed in the outline, ensuring each section at least 2 long paragraphs using ngaging Language, Employs vivid, descriptive, or emotive language as if you talking with the reader. Ensure this part transitions smoothly to the next section.\nJust give me the output, no explaination";
-                }elseif($dataSend['number_question']==4){
-                    $question = "Write the third part of the content based on the outline. Cover the initial sections and no more than 2-3 subsections as detailed in the outline, ensuring each section at least 2 long paragraphs  in a natural voice as if you talk with the reader,  includes practical tips, examples or actionable advice. Ensure this part transitions smoothly to the next section.\nJust give me the output, no explaination";
-                }elseif($dataSend['number_question']==5){
-                    $question = "Write the fourth part of the content based on the outline. Continue covering the initial sections and no more than 3 subsections as detailed in the outline, ensuring each section at least 2 long paragraphs using ngaging Language, Employs vivid, descriptive, or emotive language as if you talking with the reader. Ensure this part transitions smoothly to the next section.\nJust give me the output, no explaination";
-                }elseif($dataSend['number_question']==6){
-                    $question = "Write the fifth part of the content based on the outline. Continue covering the initial sections and no more than 3 subsections as detailed in the outline, ensuring each section at least 2 long paragraphs using ngaging Language, Employs vivid, descriptive, or emotive language as if you talking with the reader. Ensure this part transitions smoothly to the next section.\nJust give me the output, no explaination";
-                }elseif($dataSend['number_question']==7){
-                    $question = "Write the sixth part of the content based on the outline. Continue covering the initial sections and no more than 3 subsections as detailed in the outline, ensuring each section at least 2 long paragraphs using ngaging Language, Employs vivid, descriptive, or emotive language as if you talking with the reader. Ensure this part transitions smoothly to the next section.\nJust give me the output, no explaination";
-                }elseif($dataSend['number_question']==8){
-                    $question = "Write the conclusion for a the post. Summarize the key points discussed in the blog, reinforce the importance of the topic, Create a sense of closure that provides a satisfying ending to the post, Ensure the conclusion is concise and impactful\nInclude a compelling Call to Action (CTA) that encourages reader engagement.\nJust give me the output, no explaination";
+            if(!empty($dataSend['type'])){
+                if($dataSend['type']=='title'){
+                    $question = "Please answer me in Tiếng Việt language and also respond in Tiếng Việt language Viết 5 tiêu đề 30 ký tự hấp dẫn cho 1 chiến dịch quảng cáo Google ads với sản phẩm/dịch vụ nói trên [FIELD]";
+                }elseif($dataSend['type']=='content'){
+                    $question = "Please answer me in Tiếng Việt language and also respond in Tiếng Việt language Envision yourself as a seasoned Google Ads professional, well-versed in the nuances of crafting compelling ad content. As I navigate the realm of Google ads for the above headlines, I invite you to infuse your expertise into generating riveting ad copy that seamlessly complements the captivating the above discussed headlines or the following headlines: the above headlines";
                 } 
             }
 
@@ -116,7 +104,7 @@ function chatContentGooglAdsAPI($input){
                 $chat['result'] .= $reply_ai['result'];
 
 
-                $session->write('content_blog', $chat);
+                $session->write('content_google_ads', $chat);
 
                 return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai);
             
@@ -145,8 +133,8 @@ function saveContentGooglAdsAPI($input){
             $dataSend = $input['request']->getData();
 
              $chat = array();
-            if(!empty($session->read('content_blog'))){
-                     $chat = $session->read('content_blog');
+            if(!empty($session->read('content_google_ads'))){
+                     $chat = $session->read('content_google_ads');
             }
 
 
@@ -154,13 +142,13 @@ function saveContentGooglAdsAPI($input){
                 return array('code'=> 0, 'mess'=>'lỗi hệ thống');  
             }
 
-            $checkContent = $modelContentFacebookAi->find()->where(['conversation_id'=>$dataSend['conversation_id'],'type'=>'content_blog'])->first();
+            $checkContent = $modelContentFacebookAi->find()->where(['conversation_id'=>$dataSend['conversation_id'],'type'=>'content_google_ads'])->first();
 
             if(empty($checkContent)){
                 $checkContent = $modelContentFacebookAi->newEmptyEntity();
                 $checkContent->conversation_id = $dataSend['conversation_id'];
                 $checkContent->created_at = time();
-                $checkContent->type = 'content_blog';
+                $checkContent->type = 'content_google_ads';
             }
             $title = 'Lên chiến dịch quảng cáo Google Ads';
 

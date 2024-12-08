@@ -1,13 +1,13 @@
 <?php 
 $menus= array();
 $menus[0]['title']= "Quản lý thư viện";
-//$menus[0]['sub'] = [];
+$menus[0]['sub'] = [];
 
-/*$menus[0]['sub'][]= array( 'title'=>'Khách hàng',
-                            'url'=>'/plugins/admin/vemoi-view-admin-member-listMemberAdmin',
+$menus[0]['sub'][]= array( 'title'=>'Tài khoản người dùng',
+                            'url'=>'/plugins/admin/thuvien-view-admin-member-listMemberAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listMemberAdmin'
-                        );*/
+                        );
 
 
 
@@ -92,9 +92,9 @@ function getListPermission()
        
    
     $permission[] = array( 'name'=>'Quản lý nhân viên ',
-                    'sub'=>array(   array('name'=>'Danh sách người dùng','permission'=>'listMembers'),
-                                    array('name'=>'Thêm và sửa thông tin người dùng','permission'=>'addMembers'),
-                                    array('name'=>'Xóa người dùng','permission'=>'deleteMembers'),
+                    'sub'=>array(   array('name'=>'Danh sách người dùng','permission'=>'listMember'),
+                                    array('name'=>'Thêm và sửa thông tin người dùng','permission'=>'addMember'),
+                                    array('name'=>'Xóa người dùng','permission'=>'deleteMember'),
                                     array('name'=>'Danh sách nhóm quyền người dùng','permission'=>'listPermission'),
                                     array('name'=>'Thêm và sửa nhóm quyền thông tin người dùng','permission'=>'addPermission'),
                                     array('name'=>'Xóa nhóm quyền người dùng','permission'=>'detelePermission'),

@@ -238,9 +238,10 @@
             </div>
             <div class="show-input-editor">
               <?php
+              debug($data['result']);
                $result =  htmlspecialchars(nl2br(@$data['result']));
-              // showEditorInput('result', 'result', @$result);?>
-               <textarea type="text" placeholder="Nhập chủ đề bạn muốn lên kế hoạch nội dung" class="form-control" id="result" name="result" rows="15" cols="30"><?php echo  @$result; ?></textarea>
+               showEditorInput('result', 'result', @$result);?>
+               
             </div>
             <div class="last-inputcontent">
               <div class="d-flex justify-content-between">
@@ -295,15 +296,9 @@
         }
     }).done(function( msg ) {
             if(msg.code==1){
-
-                document.getElementById("conversation_id").value = msg.data.conversation_id;
-                document.getElementById("result").value = msg.data.result;
-
-                document.getElementById('result').addEventListener('click', function () {
-
-                      // Chèn nội dung vào CKEditor
-                      CKEDITOR.instances.editor.setData(result);
-                  });
+              document.getElementById("conversation_id").value = msg.data.conversation_id;
+              document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
+              CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
             }
         })
 
@@ -332,9 +327,10 @@
         }).done(function( msg ) {
                 console.log(msg);
                 if(msg.code==1){
-                  result += msg.data.result
-                    document.getElementById("conversation_id").value = msg.data.conversation_id;
-                    document.getElementById("result").value = result;
+                  result += '/\n/g'+msg.data.result;
+                  document.getElementById("conversation_id").value = msg.data.conversation_id;
+                  document.getElementById("result").value = result(/\n/g, '<br>');
+                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
                 }
             })
         }
@@ -358,15 +354,10 @@
           }
         }).done(function( msg ) {
                 if(msg.code==1){
-                  result += '\n'+msg.data.result
-                    document.getElementById("conversation_id").value = msg.data.conversation_id;
-                    document.getElementById("result").value = result;
-
-                  //   document.getElementById('result').addEventListener('click', function () {
-
-                  //     // Chèn nội dung vào CKEditor
-                  //     CKEDITOR.instances.editor.setData(result);
-                  // });
+                  result += '/\n/g'+msg.data.result;
+                  document.getElementById("conversation_id").value = msg.data.conversation_id;
+                  document.getElementById("result").value = result(/\n/g, '<br>');
+                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
                 }
             })
         }
