@@ -13,7 +13,7 @@
                 <div class="col-md-3 left-setting" style="height: fit-content;">
                     <ul class="nav flex-column nav-pills my-3" id="componentTab" role="tablist">
                         <div class="user-info d-flex my-4">
-                            <img src="/plugins/phoenix_ai/view/home/asset/img/avatar.jpg" alt="Avatar">
+                            <img src="/plugins/phoenix_ai/view/home/assets/img/avatar.jpg" alt="Avatar">
                             <div class="contact-info mx-2">
                                 <div class="name"><?=$info->name?></div>
                                 <div class="email"><?=$info->email?></div>

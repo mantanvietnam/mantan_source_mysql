@@ -2,7 +2,7 @@
           
     <div class="aiva-home container-fluid">
         <div class="home-banner">
-            <img src="/plugins/phoenix_ai/view/home/asset/img/bgr-home.jpg" alt="">
+            <img src="/plugins/phoenix_ai/view/home/assets/img/bgr-home.jpg" alt="">
             <div class="text-home-banner">
                 <p>Hôm nay tôi có thể giúp gì cho bạn ?</p>
                 <div class="search-container">

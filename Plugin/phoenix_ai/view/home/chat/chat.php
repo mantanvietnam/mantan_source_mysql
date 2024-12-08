@@ -5,7 +5,7 @@ $info = $session->read('infoUser');
 ?>
                 <div class="chat-main container">
                     <div class="chat-header">
-                        <p><img src="/plugins/phoenix_ai/view/home/assets/img/aiphoenix.png" alt="">Welcome to <span>Phoenix</span></p>
+                        <p><img src="/plugins/phoenix_ai/view/home/assets/img/aipnix.svg" alt="">Welcome to <span>Phoenix</span></p>
                     </div>
                     <div class="search-box d-flex align-items-center justify-content-center">
                         <input type="text" class="form-control search-input search-chat" placeholder="Tìm kiếm trợ lý Phoenix">
@@ -50,7 +50,7 @@ $info = $session->read('infoUser');
                                     </div>
                                     <div class="MuiBox-root " id="result'.$i.'">
                                         <div class="d-flex left-quetion">
-                                            <img alt="avatar"  style="width: 50px;" src="/plugins/phoenix_ai/view/home/assets/img/aiphoenix.png">
+                                            <img alt="avatar"  style="width: 50px;" src="/plugins/phoenix_ai/view/home/assets/img/aipnix.svg">
                                             <div>
                                                 <p class="result-answer MuiTypography-root jss1624 MuiTypography-body1">'.@$item['result'].'</p>
                                                 
