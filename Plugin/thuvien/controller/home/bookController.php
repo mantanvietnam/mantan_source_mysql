@@ -281,4 +281,20 @@ function deleteCategorybook($input){
         return $controller->redirect('/login');
     }
 }
+function changequanlitybook($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Nhập và Hủy sách';
+
+
+
+}
+function historybook($Input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Lịch sử nhập và hủy sách';
+}
 ?>
