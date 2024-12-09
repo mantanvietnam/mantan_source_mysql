@@ -17,10 +17,11 @@ function listbook($input)
         $metaTitleMantan = 'Danh sách nhân viên';
 
         $modelMember = $controller->loadModel('Members');
+        $modelbooks = $controller->loadModel('books');
         
         $order = array('id'=>'desc');
 
-        $conditions = array('type'=>'staff');
+        $conditions = array();
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -33,31 +34,16 @@ function listbook($input)
         if(!empty($_GET['name'])){
             $conditions['name LIKE'] = '%'.$_GET['name'].'%';
         }
-
-        if(!empty($_GET['phone'])){
-            $conditions['phone'] = $_GET['phone'];
-        }
-
-       
-
-        if(!empty($_GET['status'])){
-            $conditions['status'] = $_GET['status'];
-        }
-
-        if(!empty($_GET['email'])){
-            $conditions['email'] = $_GET['email'];
-        }
-
         if(!empty($_GET['action']) && $_GET['action']=='Excel'){
-            $listData = $modelMember->find()->where($conditions)->order($order)->all()->toList();
+            $listData = $modelbooks->find()->where($conditions)->order($order)->all()->toList();
             
             $titleExcel =   [
-                ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
-                ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
-                ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
-                ['name'=>'Email', 'type'=>'text', 'width'=>25],
-                ['name'=>'Trạng thái', 'type'=>'text', 'width'=>25],
-                ['name'=>'Ngày sinh', 'type'=>'text', 'width'=>25], 
+                ['name'=>'Tên sách', 'type'=>'text', 'width'=>25],
+                ['name'=>'Tên tác giả', 'type'=>'text', 'width'=>25],
+                ['name'=>'số lượng sách', 'type'=>'text', 'width'=>25],
+                ['name'=>'giá sách', 'type'=>'text', 'width'=>25],
+                ['name'=>'Mô tả', 'type'=>'text', 'width'=>25],
+                
             ];
 
             $dataExcel = [];
@@ -74,8 +60,8 @@ function listbook($input)
                     }
 
                     $dataExcel[] = [
-                        $value->full,   
-                        $value->phone,   
+                        $value->name,   
+                        $value->author,   
                         $value->address,   
                         $value->email,  
                         $status,
@@ -85,11 +71,11 @@ function listbook($input)
             }
             export_excel($titleExcel,$dataExcel,'danh_sach_khach_hang');
         }else{
-            $listData = $modelMember->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            $listData = $modelbooks->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         }
 
         // phân trang
-        $totalData = $modelMember->find()->where($conditions)->all()->toList();
+        $totalData = $modelbooks->find()->where($conditions)->all()->toList();
         $totalData = count($totalData);
 
         $balance = $totalData % $limit;
@@ -139,6 +125,160 @@ function listbook($input)
         
         setVariable('listData', $listData);
        // / setVariable('listGroup', $listGroup);
+    }
+}
+function addbook($input){
+    global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Thêm sách';
+	$modelbooks = $controller->loadModel('books');
+
+    
+	$mess= '';
+	// lấy data edit
+    if(!empty($_GET['id'])){
+        $data = $modelbooks->get( (int) $_GET['id']);
+    }else{
+        $data = $modelbooks->newEmptyEntity();
+    }
+
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['name'])){
+            
+            $data->name = $dataSend['name'];
+            $data->author= $dataSend['author'];
+            $data->published_date = (new DateTime($dataSend['published_date']))->getTimestamp();
+            $data->image = $dataSend['image'];
+            $data->description = $dataSend['description'];
+            $data->price = $dataSend['price'];
+            $data->publisher_id = $dataSend['publisher_id'];
+            $data->quantity= $dataSend['quantity'];
+            $slug = createSlugMantan($dataSend['name']);
+            $slugNew = $slug;
+            $number = 0;
+            if(empty($data->slug) || $data->slug!=$slugNew){
+                do{
+                	$conditions = array('slug'=>$slugNew);
+        			$listData = $modelbooks->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        			if(!empty($listData)){
+        				$number++;
+        				$slugNew = $slug.'-'.$number;
+        			}
+                }while (!empty($listData));
+            }
+            $data->slug = $slugNew;
+            
+            $modelbooks->save($data);   
+
+          
+
+	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+	    }else{
+	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin</p>';
+	    }
+    }
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+
+
+function deletebook($input){
+	global $controller;
+	$modelbooks = $controller->loadModel('books');
+	if(!empty($_GET['id'])){
+		$data = $modelbooks->find()->where(['id'=>(int) $_GET['id']])->first();
+		if($data){
+         	$modelbooks->delete($data);
+        }
+	}
+	return $controller->redirect('/listbook');
+
+}
+function categorybook($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách danh mục sách';
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        
+        // tính ID category
+        if(!empty($dataSend['idCategoryEdit'])){
+            $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+        }else{
+            $infoCategory = $modelCategories->newEmptyEntity();
+        }
+
+        // tạo dữ liệu save
+        $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+        $infoCategory->parent = 0;
+        $infoCategory->image = @$dataSend['image'];
+        $infoCategory->status = @$dataSend['status'];
+        $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+        $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+        $infoCategory->type = 'category_book';
+
+        // tạo slug
+        $slug = createSlugMantan($infoCategory->name);
+        $slugNew = $slug;
+        $number = 0;
+        do{
+            $conditions = array('slug'=>$slugNew,'type'=>'category_book');
+            $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+            if(!empty($listData)){
+                $number++;
+                $slugNew = $slug.'-'.$number;
+            }
+        }while (!empty($listData));
+
+        $infoCategory->slug = $slugNew;
+
+        $modelCategories->save($infoCategory);
+
+    }
+
+    $conditions = array('type' => 'category_book');
+    $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+    setVariable('listData', $listData);
+}
+
+function deleteCategorybook($input){
+    global $controller;
+    global $session;
+
+    global $modelCategories;
+    $user = checklogin('listbook');   
+    if(!empty($user)){
+        if(empty($user->permission)){
+            return $controller->redirect('/Categorybook?mess=noPermissiondelete');
+        }
+
+
+        if(!empty($_GET['id'])){
+            $data = $modelCategories->get($_GET['id']);
+            
+            if($data){
+                $modelCategories->delete($data);
+                $note = $user->type.' '. $user->name.' xóa thông tin nhóm sản phẩm '.$data->name.' có id là:'.$data->id;
+            
+            addActivityHistory($user,$note,'deleteCategorybook',$data->id);
+                
+            }
+        }
+
+     return $controller->redirect('/categorybook');
+
+    }else{
+        return $controller->redirect('/login');
     }
 }
 ?>

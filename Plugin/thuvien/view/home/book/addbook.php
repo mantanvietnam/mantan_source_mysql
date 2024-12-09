@@ -1,0 +1,129 @@
+<?php include(__DIR__.'/../header.php'); ?>
+
+<!-- Helpers -->
+<div class="container-xxl flex-grow-1 container-p-y">
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"><a href="/listbook">Danh sách</a> /</span>
+    Thông tin sách
+  </h4>
+  <!-- Basic Layout -->
+    <div class="row">
+      <div class="col-xl">
+        <div class="card mb-12">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Thông tin sách</h5>
+          </div>
+          <div class="card-body">
+            <p><?php echo @$mess;?></p>
+            <form enctype="multipart/form-data" method="post" action="">
+              <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
+              <div class="row">
+                <div class="col-12">
+                  <div class=" mb-4">
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item">
+                        <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
+                         Thông tin sách
+                        </button>
+                      </li>
+                    </ul>
+                     <div class="tab-content">
+                      <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-phone">Tên quyển sách</label>
+                              <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Tác giả</label>
+                              <input type="text" required  class="form-control" placeholder="" name="author" id="author" value="<?php echo @$data->author;?>" />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Ảnh</label>
+                              <input type="text" class="form-control phone-mask" name="image" id="image" value=""/>
+                              <?php
+                              if(!empty($data->image)){
+                                echo '<br/><img src="'.$data->image.'" width="80" />';
+                              }
+                              ?>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Trạng thái</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="status" id="status">
+                                  <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
+                                  <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
+                                </select>
+                              </div>
+                            </div>
+
+                        
+                          </div>
+
+                          <div class="col-md-6">
+                            
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Giá sách</label>
+                              <input type="number" autocomplete="off" class="form-control" placeholder="" name="price" id="" value="" />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Số lượng</label>
+                              <input type="number" autocomplete="off" class="form-control" placeholder="" name="quantity" id="" value="" />
+                            </div>
+                             <div class="mb-3">
+                              <label class="form-label" for="basic-default-phone">Ngày xuất bản</label>
+                              <input autocomplete="off" type="text" class="form-control datepicker" name="published_date" id="name" value="<?php if(!empty($data->status)) echo  date('d/m/Y',@$data->published_date);?>" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Mô tả ngắn</label>
+                                <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-phone">Mã xuất bản</label>
+                              <input type="text" class="form-control phone-mask" name="publisher_id" id="name" value="<?php echo @$data->publisher_id;?>" />
+                            </div>
+                            
+
+                            
+                          </div>
+
+                        </div>
+                      </div>
+                 
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 70px;">Lưu</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    function downloadImageFromSrc(url, phone){
+      var fileName = 'QR_ICHAM_'+phone+'.jpg';
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url, true);
+      xhr.responseType = "blob";
+      xhr.onload = function(){
+          var urlCreator = window.URL || window.webkitURL;
+          var imageUrl = urlCreator.createObjectURL(this.response);
+          var tag = document.createElement('a');
+          tag.href = imageUrl;
+          tag.download = fileName;
+          document.body.appendChild(tag);
+          tag.click();
+          document.body.removeChild(tag);
+      }
+      xhr.send();
+  }
+</script>
+
+<?php include(__DIR__.'/../footer.php'); ?>

@@ -3,18 +3,18 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listbook"></a> /</span>
-    Danh sách 
+    <span class="text-muted fw-light"><a href="/listCategory">Chức vụ</a> /</span>
+    Danh sách chức vụ
   </h4>
 
-  <p><a href="/addbook" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
+  <p><a href="/addCategory" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
 
 </p>
 
 <!-- Form Search -->
 <form method="get" action="">
   <div class="card mb-4">
-    <h5 class="card-header">Tìm kiếm sách</h5>
+    <h5 class="card-header">Tìm kiếm chức vụ</h5>
     <div class="card-body">
       <div class="row gx-3 gy-2 align-items-center">
         <div class="col-md-1">
@@ -23,7 +23,7 @@
         </div>
 
         <div class="col-md-3">
-          <label class="form-label">Tên sách</label>
+          <label class="form-label">Tên chức vụ</label>
           <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
         </div>
 
@@ -53,16 +53,17 @@
 
 <!-- Responsive Table -->
 <div class="card row">
-  <h5 class="card-header">Danh sách  - <span class="text-danger"><?php echo number_format(@$totalData);?> </span></h5>
+  <h5 class="card-header">Danh sách chức vụ - <span class="text-danger"><?php echo number_format(@$totalData);?> chức vụ</span></h5>
   <?php echo @$mess;?>
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
         <tr class="">
           <th>ID</th>
-          <th>Tên sách</th>
+          <th>Tên chức vụ</th>
           <th>Mô tả</th>
-          <th>Tác giả</th>
+          <th>Loại</th>
+          <th>Slug</th>
           <th>Trạng thái</th>
           <th>Sửa</th>
           <th>Xóa</th>
@@ -81,15 +82,16 @@
             <td>'.$item->id.'</td>
             <td>'.$item->name.'</td>
             <td>'.$item->description.'</td>
-            <td>'.$item->author.'</td>
+            <td>'.$item->type.'</td>
+            <td>'.$item->slug.'</td>
             <td>'.$status.'</td>
             <td width="5%" align="center">
-              <a class="dropdown-item" href="/addbook/?id='.$item->id.'">
+              <a class="dropdown-item" href="/addCategory/?id='.$item->id.'">
                 <i class="bx bx-edit-alt me-1"></i>
               </a>
             </td>
             <td align="center">
-              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deletebook/?id='.$item->id.'">
+              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCategory/?id='.$item->id.'">
                 <i class="bx bx-trash me-1"></i>
               </a>
             </td>
