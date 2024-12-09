@@ -8,7 +8,7 @@
         <div class="container">                          
           <div class="header-title-flex">
             <div class="icon-title">
-              <img src="/plugins/phoenix_ai/view/home/asset/img/96cb94e74cb6a1cf50d8c2aa74763389.svg" alt="">
+              <img src="/plugins/phoenix_ai/view/home/assets/img/aipnix.svg" alt="">
             </div>
             <div class="name-title-page-writecontent">
               <a href="">Danh sách trợ lý > <span>Trợ lý > </span> <span><a href="" class="name-lili"><?php echo @$bostAi['name']; ?></a></span></a>
@@ -126,7 +126,7 @@
                       </div>
                       <div class="right-content-writetitle d-flex">
                         <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/asset/img/edit-tools-50x50.png" alt=""></p>
+                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/asset/img/aipnix.png" alt=""></p>
                         </div>
                         <div class="out-like-blogpro">
                           <div class="write-outline">

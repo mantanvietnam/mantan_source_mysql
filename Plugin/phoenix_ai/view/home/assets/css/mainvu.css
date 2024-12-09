@@ -385,6 +385,7 @@ table {
 }
 
 .main-wrap .showcase .overlay .card {
+    min-width: 610px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -396,36 +397,32 @@ table {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.main-wrap .showcase .overlay .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-
 .main-wrap .showcase .overlay .info{
+    height: 160px;
     text-align: center;
     width: 150px;
     background-color: #e9e7fd;
-    padding: 20px 10px;
+    padding: 7px 10px;
     border-radius: 25px;
 }
 
 .main-wrap .showcase .overlay .info p{
-    color: #007bff;
+    color: #5242f3;
     font-weight: 600;
     margin-bottom: 8px;
 }
 
 .main-wrap .showcase .overlay .info span{
-    font-size: 12px;
+    font-size: 10px;
     color: white;
     font-weight: 600;
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: #5242f3;
     border-radius: 220px;
     display: flex;
     min-width: 123px;
     justify-content: center;
+    flex-direction: row;
 }
 
 .icon-on-text{
@@ -444,10 +441,13 @@ table {
 }
 
 .main-wrap .showcase .overlay .card-content h3{
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 700;
 }
 
+.main-wrap .showcase .overlay .card-content p{
+    font-size: 15px;
+}
 .main-wrap .showcase .overlay .buttons {
     display: flex;
     justify-content: space-around;
@@ -466,6 +466,13 @@ table {
     color: black;
 }
 
+.main-wrap .showcase .overlay .buttons .play i {
+    transition: transform 0.5s ease-in-out; /* Thêm hiệu ứng mượt */
+}
+
+.main-wrap .showcase .overlay .buttons .play i:hover {
+    transform: rotate(360deg); /* Xoay 360 độ */
+}
 /* setting */
 
 .main-wrap .showcase .overlay .setting-home p{

@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3" style="    margin-top: 15px;    border-radius: 20px;">
             <div class="container-fluid">
                 <!-- Tab links -->
                 <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
@@ -75,8 +75,8 @@
                                     <h3>'. $item['title'].'</h3>
                                     <p>'. $item['district'].'</p>
                                     <div class="buttons">
-                                        <button class="like">👍 7</button>
-                                        <a class="play" href="/'.$item['url'].'"><i class="fa-regular fa-circle-play"></i> Thực hiện</a>
+                                        <button class="like"><i class="fa-regular fa-thumbs-up"></i> 7</button>
+                                        <a class="play" href="/'.$item['url'].'"><i class="fa-solid fa-play" style="color: #5242f3;"></i></i> Thực hiện</a>
                                     </div>
                                 </div>
                             </div>';
