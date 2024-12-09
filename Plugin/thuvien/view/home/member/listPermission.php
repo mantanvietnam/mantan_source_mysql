@@ -88,9 +88,11 @@
                   <span>'.$permissionMenu['name'].'</span>
                   <ul style="margin-left: 30px;">';
                   foreach ($permissionMenu['sub'] as $menu2) { 
-                    if (isset($item->permission) && in_array($menu2['permission'], $item->permission)) {
-                     $permission .= '<li>'.$menu2['name'].'</li>';
-                      $checkGroup= true;
+                    if(!empty($item->permission)){
+                      if (isset($item->permission) && in_array(@$menu2['permission'], $item->permission)) {
+                        $permission .= '<li>'.$menu2['name'].'</li>';
+                         $checkGroup= true;
+                       }
                     }
                   }
                   $permission .=  '  </ul>

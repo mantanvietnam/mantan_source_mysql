@@ -50,12 +50,27 @@ $sqlInstallDatabase .="CREATE TABLE `activity_historys` (
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `parent` int(11) NOT NULL DEFAULT 0,
+  `image` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `keyword` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` varchar(255) NOT NULL,
+  `slug` text NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `weighty` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;";
+
 
 
 
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE permissions; ";
+$sqlDeleteDatabase .= "DROP TABLE categories; ";
+
 
 
 $sqlUpdateDatabase['members']['name'] = "ALTER TABLE `members` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";
