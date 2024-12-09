@@ -324,6 +324,7 @@ table {
 
 .main-wrap .showcase .overlay .aiva-home .heading {
     font-size: 24px;
+    margin-left: 5px;
     font-weight: bold;
     color: #333;
 }
@@ -386,10 +387,10 @@ table {
 
 .main-wrap .showcase .overlay .card {
     min-width: 610px;
+    max-height: 180px;
     background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin: 10px;
+    border-radius: 30px;
+    margin: 10px 0;
     padding: 15px;
     display: flex;
     flex-direction: row;
@@ -442,11 +443,16 @@ table {
 
 .main-wrap .showcase .overlay .card-content h3{
     font-size: 17px;
+    margin-top: 20px;
     font-weight: 700;
 }
 
 .main-wrap .showcase .overlay .card-content p{
     font-size: 15px;
+    display: -webkit-box; /* Cần thiết để hỗ trợ multiline */
+    -webkit-box-orient: vertical; /* Thiết lập hướng */
+    overflow: hidden; /* Ẩn phần tràn */
+    -webkit-line-clamp: 2; /* Số dòng tối đa */
 }
 .main-wrap .showcase .overlay .buttons {
     display: flex;
@@ -466,11 +472,11 @@ table {
     color: black;
 }
 
-.main-wrap .showcase .overlay .buttons .play i {
+.main-wrap .showcase .overlay .buttons .play .playmasion {
     transition: transform 0.5s ease-in-out; /* Thêm hiệu ứng mượt */
 }
 
-.main-wrap .showcase .overlay .buttons .play i:hover {
+.main-wrap .showcase .overlay .buttons .play .playmasion:hover {
     transform: rotate(360deg); /* Xoay 360 độ */
 }
 /* setting */

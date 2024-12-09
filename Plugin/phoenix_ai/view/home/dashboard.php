@@ -62,21 +62,23 @@
                         <h1 class="heading">Trợ lý Phoenix</h1>
                         <button class="btn btn-light rounded-pill view-all">Xem tất cả</button>
                     </div>
-                    <div class="card-ai row d-flex justify-content-evenly">
+                    <div class="card-ai row justify-content-evenly">
                         <?php 
                             foreach(listBostAi() as $key => $item){
-                                echo '<div class="card col-lg-5">
-                                <div class="info">
-                                    <img src="'. $item['avatar'].'" alt="Profile Picture">
-                                    <p>'. $item['name'].'</p>
-                                    <span>'. $item['boot'].'</span>
-                                </div>
-                                <div class="card-content mx-2">
-                                    <h3>'. $item['title'].'</h3>
-                                    <p>'. $item['district'].'</p>
-                                    <div class="buttons">
-                                        <button class="like"><i class="fa-regular fa-thumbs-up"></i> 7</button>
-                                        <a class="play" href="/'.$item['url'].'"><i class="fa-solid fa-play" style="color: #5242f3;"></i></i> Thực hiện</a>
+                                echo '<div class="col-lg-6">
+                                <div class="card d-flex">
+                                    <div class="info">
+                                        <img src="'. $item['avatar'].'" alt="Profile Picture">
+                                        <p>'. $item['name'].'</p>
+                                        <span>'. $item['boot'].'</span>
+                                    </div>
+                                    <div class="card-content mx-2">
+                                        <h3>'. $item['title'].'</h3>
+                                        <p>'. $item['district'].'</p>
+                                        <div class="buttons">
+                                            <button class="like"><i class="fa-regular fa-thumbs-up"></i> 7</button>
+                                            <a class="play" href="/'.$item['url'].'"><i class="fa-solid fa-play playmasion" style="color: #5242f3;"></i></i> Thực hiện</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>';
