@@ -123,10 +123,19 @@ function getListPermission()
                     'sub'=>array(   array('name'=>'Danh sách','permission'=>'listbook'),
                                     array('name'=>'Thêm và sửa thông tin sách','permission'=>'addbook'),
                                     array('name'=>'Xóa sách','permission'=>'deletebook'),
+                                    array('name'=>'Thêm danh mục sách','permission'=>'categorybook'),
+                                 
                             )
                         
                     );
-
+    $permission[] = array( 'name'=>'Quản lý nhập sách',
+    
+                    'sub'=>array(   array('name'=>'Nhập sách','permission'=>'changequanlitybook'),
+                                    array('name'=>'Lịch sử nhập sách','permission'=>'historybook'),
+                                  
+                            )
+                        
+                    );
     $permission[] = array( 'name'=>'Quản kho ',
     
                     'sub'=>array(   array('name'=>'Danh toàn nhà','permission'=>'listBuilding'),

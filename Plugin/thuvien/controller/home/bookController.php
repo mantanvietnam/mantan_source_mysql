@@ -11,9 +11,7 @@ function listbook($input)
 
      $user = checklogin('listbook');   
     if(!empty($user)){
-        if(empty($user->grant_permission)){
-            return $controller->redirect('/');
-        }
+       
         $metaTitleMantan = 'Danh sách nhân viên';
 
         $modelMember = $controller->loadModel('Members');
@@ -134,8 +132,8 @@ function addbook($input){
     global $metaTitleMantan;
     $metaTitleMantan = 'Thêm sách';
 	$modelbooks = $controller->loadModel('books');
+    $listcategory = $modelCategories->find()->where(['type'=>'category_book'])->all()->toList();
 
-    
 	$mess= '';
 	// lấy data edit
     if(!empty($_GET['id'])){
@@ -143,45 +141,51 @@ function addbook($input){
     }else{
         $data = $modelbooks->newEmptyEntity();
     }
-
-	if ($isRequestPost) {
-        $dataSend = $input['request']->getData();
-
-        if(!empty($dataSend['name'])){
-            
-            $data->name = $dataSend['name'];
-            $data->author= $dataSend['author'];
-            $data->published_date = (new DateTime($dataSend['published_date']))->getTimestamp();
-            $data->image = $dataSend['image'];
-            $data->description = $dataSend['description'];
-            $data->price = $dataSend['price'];
-            $data->publisher_id = $dataSend['publisher_id'];
-            $data->quantity= $dataSend['quantity'];
-            $slug = createSlugMantan($dataSend['name']);
-            $slugNew = $slug;
-            $number = 0;
-            if(empty($data->slug) || $data->slug!=$slugNew){
-                do{
-                	$conditions = array('slug'=>$slugNew);
-        			$listData = $modelbooks->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-        			if(!empty($listData)){
-        				$number++;
-        				$slugNew = $slug.'-'.$number;
-        			}
-                }while (!empty($listData));
+    $user = checklogin('addbook');  
+	if(!empty($user)){
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+    
+            if(!empty($dataSend['name'])){
+                
+                $data->name = $dataSend['name'];
+                $data->author= $dataSend['author'];
+                $data->published_date = (new DateTime($dataSend['published_date']))->getTimestamp();
+                $data->image = $dataSend['image'];
+                $data->description = $dataSend['description'];
+                $data->price = $dataSend['price'];
+                $data->id_category = $dataSend['id_category'];
+                $data->publisher_id = $dataSend['publisher_id'];
+                $data->quantity= $dataSend['quantity'];
+                $slug = createSlugMantan($dataSend['name']);
+                $slugNew = $slug;
+                $number = 0;
+                if(empty($data->slug) || $data->slug!=$slugNew){
+                    do{
+                        $conditions = array('slug'=>$slugNew);
+                        $listData = $modelbooks->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+    
+                        if(!empty($listData)){
+                            $number++;
+                            $slugNew = $slug.'-'.$number;
+                        }
+                    }while (!empty($listData));
+                }
+                $data->slug = $slugNew;
+                
+                $modelbooks->save($data);   
+    
+              
+    
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }else{
+                $mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin</p>';
             }
-            $data->slug = $slugNew;
-            
-            $modelbooks->save($data);   
-
-          
-
-	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin</p>';
-	    }
+        }
+    }else{
+        return $controller->redirect('/login');
     }
+    setVariable('listcategory', $listcategory);
     setVariable('data', $data);
     setVariable('mess', $mess);
 }
@@ -190,12 +194,15 @@ function addbook($input){
 function deletebook($input){
 	global $controller;
 	$modelbooks = $controller->loadModel('books');
-	if(!empty($_GET['id'])){
-		$data = $modelbooks->find()->where(['id'=>(int) $_GET['id']])->first();
-		if($data){
-         	$modelbooks->delete($data);
+    $user = checklogin('deletebook');  
+	if(!empty($user)){
+        if(!empty($_GET['id'])){
+            $data = $modelbooks->find()->where(['id'=>(int) $_GET['id']])->first();
+            if($data){
+                 $modelbooks->delete($data);
+            }
         }
-	}
+    }
 	return $controller->redirect('/listbook');
 
 }
@@ -203,46 +210,51 @@ function categorybook($input){
     global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
-
+    global $controller;
     $metaTitleMantan = 'Danh sách danh mục sách';
 
-    if ($isRequestPost) {
-        $dataSend = $input['request']->getData();
-        
-        // tính ID category
-        if(!empty($dataSend['idCategoryEdit'])){
-            $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
-        }else{
-            $infoCategory = $modelCategories->newEmptyEntity();
-        }
-
-        // tạo dữ liệu save
-        $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-        $infoCategory->parent = 0;
-        $infoCategory->image = @$dataSend['image'];
-        $infoCategory->status = @$dataSend['status'];
-        $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
-        $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
-        $infoCategory->type = 'category_book';
-
-        // tạo slug
-        $slug = createSlugMantan($infoCategory->name);
-        $slugNew = $slug;
-        $number = 0;
-        do{
-            $conditions = array('slug'=>$slugNew,'type'=>'category_book');
-            $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-            if(!empty($listData)){
-                $number++;
-                $slugNew = $slug.'-'.$number;
+    $user = checklogin('categorybook');  
+    if(!empty($user)){
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            
+            // tính ID category
+            if(!empty($dataSend['idCategoryEdit'])){
+                $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+            }else{
+                $infoCategory = $modelCategories->newEmptyEntity();
             }
-        }while (!empty($listData));
-
-        $infoCategory->slug = $slugNew;
-
-        $modelCategories->save($infoCategory);
-
+    
+            // tạo dữ liệu save
+            $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $infoCategory->parent = 0;
+            $infoCategory->image = @$dataSend['image'];
+            $infoCategory->status = @$dataSend['status'];
+            $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+            $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+            $infoCategory->type = 'category_book';
+    
+            // tạo slug
+            $slug = createSlugMantan($infoCategory->name);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew,'type'=>'category_book');
+                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+    
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+    
+            $infoCategory->slug = $slugNew;
+    
+            $modelCategories->save($infoCategory);
+    
+        }
+    }else{
+        return $controller->redirect('/login');
     }
 
     $conditions = array('type' => 'category_book');
@@ -256,7 +268,7 @@ function deleteCategorybook($input){
     global $session;
 
     global $modelCategories;
-    $user = checklogin('listbook');   
+    $user = checklogin('categorybook');   
     if(!empty($user)){
         if(empty($user->permission)){
             return $controller->redirect('/Categorybook?mess=noPermissiondelete');
@@ -281,20 +293,154 @@ function deleteCategorybook($input){
         return $controller->redirect('/login');
     }
 }
-function changequanlitybook($input){
+function changequanlitybook($input) {
     global $isRequestPost;
-    global $modelCategories;
     global $metaTitleMantan;
-
+    global $controller;
+ 
     $metaTitleMantan = 'Nhập và Hủy sách';
+    $mess= '';
+    $user = checklogin('changequanlitybook');
+    if (!empty($user)) {
+        $modelbooks = $controller->loadModel('books');
+        $modelhistorybook = $controller->loadModel('historybook');
+        $listbook = $modelbooks->find()->all()->toList();
+        if ($isRequestPost) {
+            $data = $input['request']->getData();
+            $action = isset($data['action']) ? $data['action'] : '';
+            $idBook = isset($data['id_book']) ? (int)$data['id_book'] : 0;
+            $quantity = isset($data['quantity']) ? (int)$data['quantity'] : 0;
+            $day = isset($data['day']) ? strtotime($data['day']) : time();
+            $type = '';
+            if ($idBook > 0 && $quantity > 0) {
+                $book = $modelbooks->get($idBook);
+           
+                if ($action === 'add') {
+                    $book->quantity += $quantity; 
+                    $modelbooks->save($book);
+                    $historyBook = $modelhistorybook->newEmptyEntity();
+                    $historyBook->id_book = $idBook;
+                    $historyBook->number = $quantity;
+                    $historyBook->type = 'plus'; 
+                    $historyBook->day = $day;
+                    $modelhistorybook->save($historyBook);
+                    $mess = '<p class="text-success">Thêm sách thành công</p>';
+                
+                }
+                elseif ($action === 'remove') {
+                    if ($book->quantity >= $quantity) {
+                        $book->quantity -= $quantity; 
+                        $modelbooks->save($book);
+                        $historyBook = $modelhistorybook->newEmptyEntity();
+                        $historyBook->id_book = $idBook;
+                        $historyBook->number = $quantity;
+                        $historyBook->type = 'minus'; 
+                        $historyBook->day = $day;
+                        $modelhistorybook->save($historyBook);
 
-
-
+                        $mess = '<p class="text-danger">giảm lượng sách nhập thành công</p>';
+                       
+                    } else {
+                       $mess = '<p class="text-danger">Số lượng sách hiện tại nhập về hiện tại đã là 0</p>';
+                      
+                    }
+                } else {
+                    $mess = '<p class="text-danger">Hành động không hợp lệ</p>';
+                   
+                }
+            } else {
+                $mess = '<p class="text-danger">Hành động không hợp lệ</p>';
+               
+            }
+            return $controller->redirect('/changequanlitybook');
+        }
+        
+        setVariable('listbook', $listbook);
+        setVariable('mess', $mess);
+    } else {
+        setVariable('mess', $mess);
+        return $controller->redirect('/login');
+    }
 }
+
+
+
 function historybook($Input){
     global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
+    global $controller;
+    global $urlCurrent;
     $metaTitleMantan = 'Lịch sử nhập và hủy sách';
+    $user = checklogin('historybook'); 
+    if(!empty($user)){
+       $modelhistorybook = $controller->loadModel('historybook');
+       $modelbooks = $controller->loadModel('books');
+       $order = array('id'=>'desc');
+
+        $conditions = array();
+        $limit = 10;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+        $listhistorybook = $modelhistorybook->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+       $totalData = $modelhistorybook->find()->where($conditions)->all()->toList();
+       $totalData = count($totalData);
+
+       $balance = $totalData % $limit;
+       $totalPage = ($totalData - $balance) / $limit;
+       if ($balance > 0)
+           $totalPage+=1;
+
+       $back = $page - 1;
+       $next = $page + 1;
+       if ($back <= 0)
+           $back = 1;
+       if ($next >= $totalPage)
+           $next = $totalPage;
+
+       if (isset($_GET['page'])) {
+           $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+           $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+       } else {
+           $urlPage = $urlCurrent;
+       }
+       if (strpos($urlPage, '?') !== false) {
+           if (count($_GET) >= 1) {
+               $urlPage = $urlPage . '&page=';
+           } else {
+               $urlPage = $urlPage . 'page=';
+           }
+       } else {
+           $urlPage = $urlPage . '?page=';
+       }
+       setVariable('page', $page);
+       setVariable('totalPage', $totalPage);
+       setVariable('back', $back);
+       setVariable('next', $next);
+       setVariable('urlPage', $urlPage);
+       setVariable('totalData', $totalData);
+       setVariable('listhistorybook', $listhistorybook);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+function deletehistorybook($input){
+	global $controller;
+	$modelhistorybook = $controller->loadModel('historybook');
+    $user = checklogin('historybook');  
+	if(!empty($user)){
+        if(!empty($_GET['id'])){
+            $data = $modelhistorybook->find()->where(['id'=>(int) $_GET['id']])->first();
+            if($data){
+                 $modelhistorybook->delete($data);
+            }
+        }
+    }
+	return $controller->redirect('/historybook');
+
 }
 ?>

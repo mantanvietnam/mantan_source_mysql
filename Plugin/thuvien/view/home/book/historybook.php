@@ -3,7 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listbook"></a> /</span>
+    <span class="text-muted fw-light"><a href="/changequanlitybook">Nhập sách</a>/</span>
     Lịch sử nhập sách
   </h4>
 
@@ -47,18 +47,27 @@
         <tr class="">
           <th>ID</th>
           <th>Tên sách</th>
+          <th>số lượng</th>
           <th>Kiểu</th>
           <th>Xóa</th>
         </tr>
       </thead>
       <tbody>
         <?php 
-        if (!empty($listData)) {
-          foreach ($listData as $item) {
+        if (!empty($listhistorybook)) {
+          foreach ($listhistorybook as $item) {
+            global $controller;
+            $modelbooks = $controller->loadModel('books');
+            $book = $modelbooks->find()
+                               ->where(['id' => $item->id_book]) 
+                               ->first();
+    
+            $bookName = $book ? $book->name : 'Tên sách không tìm thấy';
             echo '<tr>
             <td>'.$item->id.'</td>
-            <td>'.$item->name.'</td>
-            <td>'.$item->name.'</td>
+            <td>'.$bookName.'</td>
+            <td>'.$item->number.'</td>
+            <td>'.$item->type.'</td>
             <td align="center">
               <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deletehistorybook/?id='.$item->id.'">
                 <i class="bx bx-trash me-1"></i>

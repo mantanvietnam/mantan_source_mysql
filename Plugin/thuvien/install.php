@@ -56,6 +56,7 @@ $sqlInstallDatabase .="CREATE TABLE `books` (
   `author` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) DEFAULT NULL,
   `quantity` int(10) DEFAULT NULL,
+  `id_category` int(11) DEFAULT NULL,
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` int(10) DEFAULT NULL,
   `published_date` int(10) DEFAULT NULL,
@@ -71,6 +72,13 @@ $sqlInstallDatabase .="CREATE TABLE `buildings` ( `id` INT NOT NULL AUTO_INCREME
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `historybook` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_book` int(11) NOT NULL,
+  `day` int(11) NOT NULL,
+  `number` int(10) DEFAULT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE permissions; ";
@@ -117,6 +125,7 @@ $sqlUpdateDatabase['books']['price'] = "ALTER TABLE `books` ADD `price` INT NOT 
 $sqlUpdateDatabase['books']['slug'] = "ALTER TABLE `books` ADD `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['books']['published_date'] = "ALTER TABLE `books` ADD `published_date` INT NOT NULL DEFAULT 0;";
 $sqlUpdateDatabase['books']['publisher_id'] = "ALTER TABLE `books` ADD `publisher_id` INT NOT NULL DEFAULT 0;";
+$sqlUpdateDatabase['books']['id_category'] = "ALTER TABLE `books` ADD `id_category` INT NOT NULL DEFAULT 0;";
 
 $sqlUpdateDatabase['buildings']['name'] = "ALTER TABLE `buildings` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['buildings']['phone'] = "ALTER TABLE `buildings` ADD `phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
@@ -124,4 +133,9 @@ $sqlUpdateDatabase['buildings']['address'] = "ALTER TABLE `buildings` ADD `addre
 $sqlUpdateDatabase['buildings']['created_at'] = "ALTER TABLE `buildings` ADD `created_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['buildings']['description'] = "ALTER TABLE `buildings` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
+
+$sqlUpdateDatabase['historybook']['number'] = "ALTER TABLE `historybook` ADD `number` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['historybook']['id_book'] = "ALTER TABLE `historybook` ADD `id_book` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['historybook']['day'] = "ALTER TABLE `historybook` ADD `day` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['historybook']['type'] = "ALTER TABLE `historybook` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 ?>

@@ -58,7 +58,19 @@
                                 </select>
                               </div>
                             </div>
-
+                            <div class="mb-3 form-group col-sm-6">
+                              <i>Danh mục sách</i>
+                              <select name="id_category" id="id_category" class="form-control">
+                                  <option value="">Chọn Danh mục sách</option>
+                                  <?php if (!empty($listcategory)): ?>
+                                      <?php foreach ($listcategory as $key => $value): ?>
+                                          <option value="<?php echo $value->id; ?>" <?php echo ($data->id_category == $value->id) ? 'selected' : ''; ?>>
+                                              <?php echo $value->name; ?>
+                                          </option>
+                                      <?php endforeach; ?>
+                                  <?php endif; ?>
+                              </select>
+                            </div>
                         
                           </div>
 

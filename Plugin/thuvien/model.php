@@ -5,4 +5,5 @@ include('model/activity_historys.php');
 include('model/categories.php');
 include('model/books.php');
 include('model/building.php');
+include('model/historybook.php');
 ?>
