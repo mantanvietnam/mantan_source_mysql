@@ -176,7 +176,9 @@ function savecontentimageAPI($input){
     return array('code'=> 0, 'mess'=>'chưa đăng nhập');
 
 }
-function wirefacebookcontentfiveAPI($input){
+
+function createcontentfacebookAPI($input){
+
     global $isRequestPost;
     global $controller;
     global $session;
@@ -200,8 +202,10 @@ function wirefacebookcontentfiveAPI($input){
                 $question .=  'người tiếp cận '.$dataSend['customer_target'];
             }*/
             if(!empty($conversation_id)){
-                if(!empty($dataSend['content_creativefacebook_ads'])){
-                    $question = $dataSend['content_creativefacebook_ads'];
+
+                if(!empty($dataSend['write_contentfacebook'])){
+                    $question = $dataSend['write_contentfacebook'];
+
                 }
             }
               $reply_ai = callAIphoenixtech($question,$conversation_id);
@@ -212,7 +216,9 @@ function wirefacebookcontentfiveAPI($input){
                             );
            
 
-                $session->write('content_creativefacebook_ads', $chat);
+
+                $session->write('write_contentfacebook', $chat);
+
 
              
                return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai,);
@@ -222,7 +228,9 @@ function wirefacebookcontentfiveAPI($input){
     }
       return array('code'=> 0, 'mess'=>'chưa đăng nhập');
 }
-function chatfacebookcontentfiveAPI($input){
+
+function chatcontentfacebookAPI($input){
+
     global $isRequestPost;
     global $controller;
     global $session;
@@ -272,8 +280,10 @@ function chatfacebookcontentfiveAPI($input){
                 $reply_ai = callAIphoenixtech($question,$conversation_id);
                 
                 $chat = array();
-                if(!empty($session->read('content_creativefacebook_ads'))){
-                     $chat = $session->read('content_creativefacebook_ads');
+
+                if(!empty($session->read('write_contentfacebook'))){
+                     $chat = $session->read('write_contentfacebook');
+
                 }
 
                 // $chat[] = array('question'=>$dataSend['question'],'result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'],'number'=>$number );
@@ -281,7 +291,9 @@ function chatfacebookcontentfiveAPI($input){
                 $chat['result'] .= $reply_ai['result'];
 
 
-                $session->write('content_creativefacebook_ads', $chat);
+
+                $session->write('write_contentfacebook', $chat);
+
 
                 return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai);
             
@@ -292,7 +304,9 @@ function chatfacebookcontentfiveAPI($input){
      return array('code'=> 0, 'mess'=>'chưa đăng nhập');
 }
 
-function savecontentfacebookfiveAPI($input){
+
+function savecontentfacebookAPI($input){
+
     global $isRequestPost;
     global $controller;
     global $session;
@@ -310,8 +324,10 @@ function savecontentfacebookfiveAPI($input){
             $dataSend = $input['request']->getData();
 
              $chat = array();
-            if(!empty($session->read('content_creativefacebook_ads'))){
-                     $chat = $session->read('content_creativefacebook_ads');
+
+            if(!empty($session->read('write_contentfacebook'))){
+                     $chat = $session->read('write_contentfacebook');
+
             }
 
 
@@ -319,15 +335,19 @@ function savecontentfacebookfiveAPI($input){
                 return array('code'=> 0, 'mess'=>'lỗi hệ thống');  
             }
 
-            $checkContent = $modelContentimage->find()->where(['conversation_id'=>$dataSend['conversation_id'],'type'=>'content_creativefacebook_ads'])->first();
+
+            $checkContent = $modelContentimage->find()->where(['conversation_id'=>$dataSend['conversation_id'],'type'=>'write_contentfacebook'])->first();
+
             
             if(empty($checkContent)){
                 $checkContent = $modelContentimage->newEmptyEntity();
                 $checkContent->conversation_id = $dataSend['conversation_id'];
                 $checkContent->created_at = time();
-                $checkContent->type = 'content_creativefacebook_ads';
+
+                $checkContent->type = 'write_contentfacebook';
             }
-            $title = 'Tạo 5 mẫu quảng cáo sáng tạo dựa trên mẫu cho trước';
+            $title = 'Tạo 6 bài viết từ nội dung bất kỳ';
+
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  
@@ -349,9 +369,8 @@ function savecontentfacebookfiveAPI($input){
     return array('code'=> 0, 'mess'=>'chưa đăng nhập');
 
 }
+function createsampleadsAPI($input){
 
-
-function wirefacebookcontentsixAPI($input){
     global $isRequestPost;
     global $controller;
     global $session;
@@ -375,8 +394,10 @@ function wirefacebookcontentsixAPI($input){
                 $question .=  'người tiếp cận '.$dataSend['customer_target'];
             }*/
             if(!empty($conversation_id)){
-                if(!empty($dataSend['content_facebooksix_ads'])){
-                    $question = $dataSend['content_facebooksix_ads'];
+
+                if(!empty($dataSend['write_sampleads'])){
+                    $question = $dataSend['write_sampleads'];
+
                 }
             }
               $reply_ai = callAIphoenixtech($question,$conversation_id);
@@ -387,7 +408,9 @@ function wirefacebookcontentsixAPI($input){
                             );
            
 
-                $session->write('content_facebooksix_ads', $chat);
+
+                $session->write('write_sampleads', $chat);
+
 
              
                return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai,);
@@ -397,7 +420,9 @@ function wirefacebookcontentsixAPI($input){
     }
       return array('code'=> 0, 'mess'=>'chưa đăng nhập');
 }
-function chatfacebookcontentsixAPI($input){
+
+function chatsampleadsAPI($input){
+
     global $isRequestPost;
     global $controller;
     global $session;
@@ -427,28 +452,19 @@ function chatfacebookcontentsixAPI($input){
                     $question = "Based on the above outline, please create an engaging introduction paragraph, please ensure to: Create a compelling hook that immediately grabs the reader's attention. Connect with the reader by addressing them directly or discussing a problem they might be facing. Clearly convey the value the blog post will provide, demonstrating the benefit to the reader early on. Use powerful, emotional language that evokes curiosity and interest. Just give me the output, no explaination";
                 }elseif($dataSend['number_question']==2){
                     $question = "Based on the above outline, please create an engaging introduction paragraph, please ensure to: Create a compelling hook that immediately grabs the reader's attention. Connect with the reader by addressing them directly or discussing a problem they might be facing. Clearly convey the value the blog post will provide, demonstrating the benefit to the reader early on. Use powerful, emotional language that evokes curiosity and interest. Just give me the output, no explaination";
-                }elseif($dataSend['number_question']==3){
-                    $question = "Based on the above outline, please create an engaging introduction paragraph, please ensure to: Create a compelling hook that immediately grabs the reader's attention. Connect with the reader by addressing them directly or discussing a problem they might be facing. Clearly convey the value the blog post will provide, demonstrating the benefit to the reader early on. Use powerful, emotional language that evokes curiosity and interest. Just give me the output, no explaination";
-                }elseif($dataSend['number_question']==4){
-                    $question = "Based on the above outline, please create an engaging introduction paragraph, please ensure to: Create a compelling hook that immediately grabs the reader's attention. Connect with the reader by addressing them directly or discussing a problem they might be facing. Clearly convey the value the blog post will provide, demonstrating the benefit to the reader early on. Use powerful, emotional language that evokes curiosity and interest. Just give me the output, no explaination";
-                }elseif($dataSend['number_question']==5){
-                    $question = "Based on the above outline, please create an engaging introduction paragraph, please ensure to: Create a compelling hook that immediately grabs the reader's attention. Connect with the reader by addressing them directly or discussing a problem they might be facing. Clearly convey the value the blog post will provide, demonstrating the benefit to the reader early on. Use powerful, emotional language that evokes curiosity and interest. Just give me the output, no explaination";
-                }elseif($dataSend['number_question']==6){
-                    $question = "Based on the above outline, please create an engaging introduction paragraph, please ensure to: Create a compelling hook that immediately grabs the reader's attention. Connect with the reader by addressing them directly or discussing a problem they might be facing. Clearly convey the value the blog post will provide, demonstrating the benefit to the reader early on. Use powerful, emotional language that evokes curiosity and interest. Just give me the output, no explaination";
+
                 }
-
-
-
             }
-
 
                 $conversation_id = @$dataSend['conversation_id'];
             
                 $reply_ai = callAIphoenixtech($question,$conversation_id);
                 
                 $chat = array();
-                if(!empty($session->read('content_facebooksix_ads'))){
-                     $chat = $session->read('content_facebooksix_ads');
+
+                if(!empty($session->read('write_sampleads'))){
+                     $chat = $session->read('write_sampleads');
+
                 }
 
                 // $chat[] = array('question'=>$dataSend['question'],'result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'],'number'=>$number );
@@ -456,7 +472,8 @@ function chatfacebookcontentsixAPI($input){
                 $chat['result'] .= $reply_ai['result'];
 
 
-                $session->write('content_facebooksix_ads', $chat);
+                $session->write('write_sampleads', $chat);
+
 
                 return array('code'=> 1, 'mess'=>'lấy dữ liệu thành công', 'data'=>$reply_ai);
             
@@ -467,7 +484,9 @@ function chatfacebookcontentsixAPI($input){
      return array('code'=> 0, 'mess'=>'chưa đăng nhập');
 }
 
-function savecontentfacebooksixAPI($input){
+
+function savesampleadsAPI($input){
+
     global $isRequestPost;
     global $controller;
     global $session;
@@ -485,8 +504,10 @@ function savecontentfacebooksixAPI($input){
             $dataSend = $input['request']->getData();
 
              $chat = array();
-            if(!empty($session->read('content_facebooksix_ads'))){
-                     $chat = $session->read('content_facebooksix_ads');
+
+            if(!empty($session->read('write_sampleads'))){
+                     $chat = $session->read('write_sampleads');
+
             }
 
 
@@ -494,15 +515,18 @@ function savecontentfacebooksixAPI($input){
                 return array('code'=> 0, 'mess'=>'lỗi hệ thống');  
             }
 
-            $checkContent = $modelContentimage->find()->where(['conversation_id'=>$dataSend['conversation_id'],'type'=>'content_facebooksix_ads'])->first();
+
+            $checkContent = $modelContentimage->find()->where(['conversation_id'=>$dataSend['conversation_id'],'type'=>'write_sampleads'])->first();
+
             
             if(empty($checkContent)){
                 $checkContent = $modelContentimage->newEmptyEntity();
                 $checkContent->conversation_id = $dataSend['conversation_id'];
                 $checkContent->created_at = time();
-                $checkContent->type = 'content_facebooksix_ads';
+
+                $checkContent->type = 'write_sampleads';
             }
-            $title = 'Tạo 5 mẫu quảng cáo sáng tạo dựa trên mẫu cho trước';
+            $title = 'Tạo 6 bài viết từ nội dung bất kỳ';
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  
