@@ -205,14 +205,11 @@ function listBostAi(){
            4 => array('id'=>4,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Tái chế nội dung đỉnh cao - VIP', 'district'=>'Biến 1 nội dung bất kỳ thành nội dung cho video Youtube, Tiktok và bài đăng Facebook, Instagram bạn muốn chỉ với 1 click' , 'type'=>'write_contentimage' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendContentVideo'),
            5 => array('id'=>5,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Viết mẫu quảng cáo Facebook ', 'district'=>'Giúp bạn tạo ra 1 quảng cáo facebook đỉnh cao và chuyên nghiệp cho sản phẩm của bạn' , 'type'=>'content_facebook_ads' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendContentFacebookAds'),
            6 => array('id'=>6,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Lên chiến dịch quảng cáo Google Ads ', 'district'=>'Giúp bạn lên kế hoạch chạy quảng cáo Google ads từ A-Z' , 'type'=>'content_google_ads' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendContentGoogleAds'),
-<<<<<<< Updated upstream
            7 => array('id'=>7,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Tạo 5 mẫu quảng cáo sáng tạo dựa trên mẫu cho trước ', 'district'=>'Giúp bạn tạo ra 5 mẫu quảng cáo sáng tạo' , 'type'=>'content_creativefacebook_ads' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'wirefacebookcontent'),
            8 => array('id'=>8,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Tạo 6 bài viết facebook từ nội dung bất kì ', 'district'=>'Giúp bạn tạo ra các bài viết thu hút người xem' , 'type'=>'content_facebooksix_ads' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'wirefacebookcontentsix'),
-=======
            7 => array('id'=>7,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Tạo 6 bài viết Facebook từ nội dung bất kì', 'district'=>'Giúp bạn tạo ra bài viét facebook đỉnh cao và chuyên nghiệp cho sản phẩm của bạn' , 'type'=>'write_contentfacebook' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendContentFacebookAds'),
            8 => array('id'=>8,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Lên chiến dịch quảng cáo Google Ads ', 'district'=>'Giúp bạn lên kế hoạch chạy quảng cáo Google ads từ A-Z' , 'type'=>'write_sampleads' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'createsampleADS'),
            
->>>>>>> Stashed changes
     );
 }
 

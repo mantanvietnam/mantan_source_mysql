@@ -389,7 +389,8 @@
               <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                 <?php if($user->type=='member'){
                     echo '<a class="dropdown-item" href="/changePass">Đổi mật khẩu</a>
-                <a class="dropdown-item" href="/account">Đổi thông tin</a>';
+                <a class="dropdown-item" href="/account">Đổi thông tin</a>
+                <a class="dropdown-item" href="/extendMember">Gia hạn</a>';
 
                 }elseif($user->type=='staff'){
                     echo '<a class="dropdown-item" href="/changePassStaff">Đổi mật khẩu</a>

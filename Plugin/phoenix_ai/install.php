@@ -81,12 +81,23 @@ $sqlInstallDatabase .= "CREATE TABLE `history_chat_ais` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `buildings` ( `id` INT NOT NULL AUTO_INCREMENT ,
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`created_at` INT NULL DEFAULT NULL ,
+`description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE data_ais; ";
 $sqlDeleteDatabase .= "DROP TABLE content_facebook_ais; ";
 $sqlDeleteDatabase .= "DROP TABLE history_chat_ais; ";
+$sqlDeleteDatabase .= "DROP TABLE $sqlDeleteDatabase .= "DROP TABLE history_chat_ais; ";
+; ";
 
 //$sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 

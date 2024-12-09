@@ -134,6 +134,14 @@
                 <a class="dropdown-item" href="/categorybook">Danh mục sách</a>
               </div>
             </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Quản lyys kho
+              </a>
+              <div class="dropdown-menu" aria-labelledby="member">
+                <a class="dropdown-item" href="/listBuilding">Tòa nhà</a>
+              </div>
+            </li>
            
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

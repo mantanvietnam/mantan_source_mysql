@@ -254,6 +254,8 @@ function getInfoMemberMyAPI($input)
 
 		if(!empty($dataSend['token'])){
 			$conditions['token'] = $dataSend['token'];
+		}elseif(!empty($dataSend['id'])){
+			$conditions['id'] = $dataSend['id'];
 		}else{
 			return  array('code'=>4,
 							'mess'=> 'Thiếu dữ liệu'

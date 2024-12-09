@@ -73,7 +73,7 @@ function login($input)
 					
 	    			$session->write('infoUser', $info_customer);
 	    			
-	    			return $controller->redirect('/ai-virtual-assistant/?statusLogin=loginCookie');
+	    			return $controller->redirect('/dashboard/?statusLogin=loginCookie');
 				}else{
 					$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 				}

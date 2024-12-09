@@ -24,13 +24,38 @@ function addMoneyPayOSBankAPI($input)
             $boss = $modelRequestDatacrms->find()->where(['boss_phone'=>$phoneboss])->first();
 
             if(!empty($boss->domain)){
-                $dataPost= array('total'=>$datas['amount'], 'id'=>$id);
-                $info = sendDataConnectMantan('https://'.$boss->domain.'/apis/addMoneyToIcham', $dataPost);
-                $info = str_replace('ï»¿', '', utf8_encode($info));
-                $info = json_decode($info, true);
-
+                $check_id = explode("Y", $id);
+                $check_total = count($check_id);
+                if($check_total==1){
+                    $dataPost= array('total'=>$datas['amount'], 'id'=>$check_id[0]);
+                    $info = sendDataConnectMantan('https://'.$boss->domain.'/apis/addMoneyToIcham', $dataPost);
+                    $info = str_replace('ï»¿', '', utf8_encode($info));
+                    $info = json_decode($info, true);
+                }elseif($check_total==2){
+                    $dataPost= array('id'=>$check_id[0]);
+                    $info = sendDataConnectMantan('https://'.$boss->domain.'/apis/getInfoMemberMyAPI', $dataPost);
+                    $info = str_replace('ï»¿', '', utf8_encode($info));
+                    $info = json_decode($info, true);
+                    if(!empty($check_id[1])){
+                        $year =0;
+                        if($check_id[1]==1 && $datas['amount']==1000000){
+                             $year =1;
+                        }elseif($check_id[1]==3 && $datas['amount']==5000000){
+                             $year =3;
+                        }elseif($check_id[1]==5 && $datas['amount']==7000000){
+                            $year =5;
+                        }
+                        if(!empty($year)){
+                            $deadline = strtotime('+'.$year.' years', $info['data']['deadline']);
+                            $date = date('d/m/Y',$deadline);
+                            $dataPost= array('phone'=> $info['data']['phone'],'deadline'=>$date);
+                            $info = sendDataConnectMantan('https://'.$boss->domain.'/apis/extendMemberAPI', $dataPost);
+                            $info = str_replace('ï»¿', '', utf8_encode($info));
+                            $info = json_decode($info, true);
+                        }
+                    }
+                }
                 return array('code'=>1, 'mess'=>'bạn giao dịch thành công');
-
             }
             return array('code'=>0, 'mess'=>'số điện thoạt không phải boss');
 

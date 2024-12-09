@@ -128,7 +128,7 @@
                         </div>
                         <div class="out-like-Googlepro">
                           <div class="write-outline">
-                            <h3>Phần đầu </h3>
+                            <h3>Viết mô tả quảng cáo </h3>
                             <!-- <p>GooglePro - lên outline cho Google dựa vào nội dung</p> -->
                           </div>
                         </div>

@@ -50,19 +50,6 @@ $sqlInstallDatabase .="CREATE TABLE `activity_historys` (
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
-$sqlInstallDatabase .="CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `parent` int(11) NOT NULL DEFAULT 0,
-  `image` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `keyword` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `type` varchar(255) NOT NULL,
-  `slug` text NOT NULL,
-  `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `weighty` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;";
-
 $sqlInstallDatabase .="CREATE TABLE `books` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -75,11 +62,21 @@ $sqlInstallDatabase .="CREATE TABLE `books` (
   `publisher_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
+$sqlInstallDatabase .="CREATE TABLE `buildings` ( `id` INT NOT NULL AUTO_INCREMENT ,
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`created_at` INT NULL DEFAULT NULL ,
+`description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
 
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE permissions; ";
-$sqlDeleteDatabase .= "DROP TABLE categories; ";
+$sqlDeleteDatabase .= "DROP TABLE books; ";
+$sqlDeleteDatabase .= "DROP TABLE buildings; ";
+
 
 
 
@@ -120,4 +117,11 @@ $sqlUpdateDatabase['books']['price'] = "ALTER TABLE `books` ADD `price` INT NOT 
 $sqlUpdateDatabase['books']['slug'] = "ALTER TABLE `books` ADD `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['books']['published_date'] = "ALTER TABLE `books` ADD `published_date` INT NOT NULL DEFAULT 0;";
 $sqlUpdateDatabase['books']['publisher_id'] = "ALTER TABLE `books` ADD `publisher_id` INT NOT NULL DEFAULT 0;";
+
+$sqlUpdateDatabase['buildings']['name'] = "ALTER TABLE `buildings` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['buildings']['phone'] = "ALTER TABLE `buildings` ADD `phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['buildings']['address'] = "ALTER TABLE `buildings` ADD `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['buildings']['created_at'] = "ALTER TABLE `buildings` ADD `created_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['buildings']['description'] = "ALTER TABLE `buildings` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
 ?>

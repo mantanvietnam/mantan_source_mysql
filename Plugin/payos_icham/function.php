@@ -129,7 +129,7 @@ function checkpayos($amount= 0,$description=''){
     }else{
         $response['code_bank'] = $code_bank;
     }
-    
+    $response['linkQR'] = 'https://img.vietqr.io/image/'.$response['bin'].'-'.$response['accountNumber'].'-compact2.png?amount='.(int) $response['amount'].'&addInfo='.$response['description'].'&accountName='.$response['accountName'];
 
     return  $response;
 }

@@ -56,6 +56,7 @@
 	$routesPlugin['addMember']= 'hethongdaily/view/home/member/addMember.php';
 	$routesPlugin['updateStatusMember']= 'hethongdaily/view/home/member/updateStatusMember.php';
 	$routesPlugin['verifyMember']= 'hethongdaily/view/home/member/verifyMember.php';
+	$routesPlugin['extendMember']= 'hethongdaily/view/home/member/extendMember.php';
 
 	// zalo oa
 	$routesPlugin['setttingZaloOA']= 'hethongdaily/view/home/zalo/setttingZaloOA.php';

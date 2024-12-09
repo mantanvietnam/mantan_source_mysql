@@ -65,7 +65,8 @@
                     <div class="card-ai row justify-content-evenly">
                         <?php 
                             foreach(listBostAi() as $key => $item){
-                                echo '<div class="col-lg-6">
+                                echo ' <div class="col-lg-6">
+                                <a class="play" href="/'.$item['url'].'">
                                 <div class="card d-flex">
                                     <div class="info">
                                         <img src="'. $item['avatar'].'" alt="Profile Picture">
@@ -81,6 +82,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </a>
                             </div>';
                             }
                          ?>

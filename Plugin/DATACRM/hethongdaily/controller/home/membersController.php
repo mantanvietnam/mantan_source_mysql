@@ -1008,4 +1008,64 @@ function editThemeinfo($input){
 		return $controller->redirect('/login');
 	}
 }
+
+function extendMember($input){
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $modelCategories;
+	global $urlHomes;
+	global $displayInfo;
+	global $priceExtend;
+
+	$metaTitleMantan = 'Đổi thông tin tài khoản';
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelSetingThemeInfo = $controller->loadModel('SetingThemeInfos');
+	$modelLinkInfo = $controller->loadModel('LinkInfos');
+
+	if(!empty($session->read('infoUser'))){
+		$mess = '';
+		$boss = $modelMembers->find()->where(['id_father'=>0])->first();
+		$user = $modelMembers->find()->where(['id'=>(int) $session->read('infoUser')->id])->first();
+		$description = $boss->phone.' '.$user->id;
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
+
+			
+			
+	        $dataPost= array('amount'=>@$_GET['money'],'description'=>$boss->phone.' '.$user->id);
+	        $listData= sendDataConnectMantan('https://icham.vn/apis/getinfobankAPI', $dataPost);
+	        $listData= str_replace('ï»¿', '', utf8_encode($listData));
+	        $return= json_decode($listData, true);
+	       
+
+	        if(!empty($return)){
+	            $data = array();
+	            $data['number_bank'] = $return['accountNumber'];
+	            $data['accountName'] = $return['accountName'];
+	            $data['code_bank'] = $return['bin'];
+	            $data['content'] = $return['description'];
+	            $data['amount'] = $return['amount'];
+	            $data['name_bank'] = $return['code_bank'];
+
+	            $data['linkQR'] = 'https://img.vietqr.io/image/'.$data['code_bank'].'-'.$data['number_bank'].'-compact2.png?amount='.(int) $data['amount'].'&addInfo='.$data['content'].'&accountName='.$data['accountName'];
+
+	            setVariable('data', $data);
+
+	        }
+    	}
+
+
+            setVariable('mess', $mess);
+            setVariable('description', $description);
+            setVariable('priceExtend', $priceExtend);
+       
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+
 ?>

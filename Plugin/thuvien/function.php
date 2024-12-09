@@ -118,6 +118,15 @@ function getListPermission()
                             )
                         
                     );
+
+    $permission[] = array( 'name'=>'Quản kho ',
+    
+                    'sub'=>array(   array('name'=>'Danh toàn nhà','permission'=>'listBuilding'),
+                                    array('name'=>'Thêm và sửa thông tin toàn nhà','permission'=>'addBuilding'),
+                                    array('name'=>'Xóa toàn nhà','permission'=>'deleteBuilding'),
+                            )
+                        
+                    );
     
     
     return $permission;
