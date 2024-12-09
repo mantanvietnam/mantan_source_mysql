@@ -139,8 +139,6 @@ function listbook($input)
         
         setVariable('listData', $listData);
        // / setVariable('listGroup', $listGroup);
-    }else{
-        return $controller->redirect('/login');
     }
 }
 ?>

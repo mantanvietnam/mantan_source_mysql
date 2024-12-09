@@ -103,7 +103,22 @@ function getListPermission()
                         
                     );
 
+    $permission[] = array( 'name'=>'Quản lý chức vụ ',
+                    'sub'=>array(   array('name'=>'Danh sách chức vụ','permission'=>'listCategory'),
+                                    array('name'=>'Thêm và sửa thông tin chức vụ','permission'=>'addCategory'),
+                                    array('name'=>'Xóa chức vụ','permission'=>'deleteCategory'),
+                            )
+                        
+                    );
 
+    $permission[] = array( 'name'=>'Quản lý sách ',
+    
+                    'sub'=>array(   array('name'=>'Danh sách','permission'=>'listbook'),
+                                    array('name'=>'Thêm và sửa thông tin sách','permission'=>'addbook'),
+                                    array('name'=>'Xóa sách','permission'=>'deletebook'),
+                            )
+                        
+                    );
     
     
     return $permission;

@@ -122,8 +122,8 @@
                  Quản lý sách
               </a>
               <div class="dropdown-menu" aria-labelledby="member">
-                <a class="dropdown-item" href="/listbook">Danh mục sách</a>
-                <a class="dropdown-item" href="/listPermission">Quản lý nhà xuất bản</a>
+                <a class="dropdown-item" href="/listbook">Quản lý sách</a>
+                <a class="dropdown-item" href="/listPermission">Danh mục sách</a>
               </div>
             </li>
            

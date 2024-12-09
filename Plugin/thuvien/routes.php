@@ -19,4 +19,10 @@
 
 	// quan ly sach
 	$routesPlugin['listbook']= 'thuvien/view/home/book/listbook.php';
+
+
+	//quản lý chức vụ
+	$routesPlugin['listCategory']= 'thuvien/view/home/category/listCategory.php';
+	$routesPlugin['addCategory']= 'thuvien/view/home/category/addCategory.php';
+
 	
