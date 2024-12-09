@@ -35,14 +35,14 @@ function listCategory($input) {
                 $infoCategory->status = $dataSend['status'];
                 $infoCategory->keyword = NULL;
                 $infoCategory->description =  str_replace(array('"', "'"), '’', $dataSend['description']);
-                $infoCategory->type = 'category-position';
+                $infoCategory->type = 'category_position';
                 
                 // tạo slug
                 $slug = createSlugMantan($infoCategory->name);
                 $slugNew = $slug;
                 $number = 0;
                 do{
-                    $conditions = array('slug'=>$slugNew,'type'=>'category-position');
+                    $conditions = array('slug'=>$slugNew,'type'=>'category_position');
                     $listData = $modelCategory->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
                     if(!empty($listData)){
@@ -69,7 +69,7 @@ function listCategory($input) {
         }
 
         // Lấy danh sách chức vụ
-        $conditions = ['type' => 'category-position'];
+        $conditions = ['type' => 'category_position'];
         $listData = $modelCategory->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);

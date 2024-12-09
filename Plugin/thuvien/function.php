@@ -109,6 +109,14 @@ function getListPermission()
                             )
                         
                     );
+    
+    $permission[] = array( 'name'=>'Quản lý nhà xuất bản',
+                    'sub'=>array(   array('name'=>'Danh sách nhà xuất bản','permission'=>'listPublisher'),
+                                    array('name'=>'Thêm và sửa nhà xuất bản','permission'=>'addPublisher'),
+                                    array('name'=>'Xóa nhà xuất bản','permission'=>'deletePublisher'),
+                            )
+                        
+                    );
 
     $permission[] = array( 'name'=>'Quản lý sách ',
     

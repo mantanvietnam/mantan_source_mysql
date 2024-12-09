@@ -21,8 +21,16 @@
 	$routesPlugin['listbook']= 'thuvien/view/home/book/listbook.php';
 	$routesPlugin['addbook']= 'thuvien/view/home/book/addbook.php';
 	$routesPlugin['categorybook']= 'thuvien/view/home/book/categorybook.php';
+	
 	//quản lý chức vụ
 	$routesPlugin['listCategory']= 'thuvien/view/home/category/listCategory.php';
+
 	$routesPlugin['listBuilding']= 'thuvien/view/home/building/listBuilding.php';
 	$routesPlugin['addBuilding']= 'thuvien/view/home/building/addBuilding.php';
+	
+	//quản lý nhà xuất bản
+	$routesPlugin['listPublisher']= 'thuvien/view/home/publisher/listPublisher.php';
+	$routesPlugin['addPublisher']= 'thuvien/view/home/publisher/addPublisher.php';
+
+
 	

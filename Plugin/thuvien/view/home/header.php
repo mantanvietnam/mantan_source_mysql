@@ -127,6 +127,15 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 Quản lý nhà xuất bản
+              </a>
+              <div class="dropdown-menu" aria-labelledby="publisher">
+                <a class="dropdown-item" href="/listPublisher">Quản lý nhà xuất bản</a>
+                <a class="dropdown-item" href="/addPublisher">Danh mục nhà xuất bản</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                  Quản lý sách
               </a>
               <div class="dropdown-menu" aria-labelledby="member">
