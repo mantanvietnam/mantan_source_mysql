@@ -119,6 +119,14 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 Chức vụ
+              </a>
+              <div class="dropdown-menu" aria-labelledby="category">
+                <a class="dropdown-item" href="/listCategory">Quản lý chức vụ</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                  Quản lý sách
               </a>
               <div class="dropdown-menu" aria-labelledby="member">

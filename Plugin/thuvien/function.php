@@ -105,7 +105,6 @@ function getListPermission()
 
     $permission[] = array( 'name'=>'Quản lý chức vụ ',
                     'sub'=>array(   array('name'=>'Danh sách chức vụ','permission'=>'listCategory'),
-                                    array('name'=>'Thêm và sửa thông tin chức vụ','permission'=>'addCategory'),
                                     array('name'=>'Xóa chức vụ','permission'=>'deleteCategory'),
                             )
                         

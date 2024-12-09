@@ -23,6 +23,5 @@
 	$routesPlugin['categorybook']= 'thuvien/view/home/book/categorybook.php';
 	//quản lý chức vụ
 	$routesPlugin['listCategory']= 'thuvien/view/home/category/listCategory.php';
-	$routesPlugin['addCategory']= 'thuvien/view/home/category/addCategory.php';
 
 	

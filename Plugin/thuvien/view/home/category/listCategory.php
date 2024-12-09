@@ -1,158 +1,119 @@
 <?php include(__DIR__.'/../header.php'); ?>
-
+<!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">Quản lý chức vụ</h4>
 
-  <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listCategory">Chức vụ</a> /</span>
-    Danh sách chức vụ
-  </h4>
-
-  <p><a href="/addCategory" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
-
-</p>
-
-<!-- Form Search -->
-<form method="get" action="">
-  <div class="card mb-4">
-    <h5 class="card-header">Tìm kiếm chức vụ</h5>
-    <div class="card-body">
-      <div class="row gx-3 gy-2 align-items-center">
-        <div class="col-md-1">
-          <label class="form-label">ID</label>
-          <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+    <!-- Basic Layout -->
+    <div class="row">
+        <div class="col-xl">
+            <div class="card mb-6">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Danh sách chức vụ</h5>
+                </div>
+                <div class="card-body">
+                    <?php echo @$mess; ?>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên chức vụ</th>
+                                    <th>Mô tả</th>
+                                    <th>Trạng thái</th>
+                                    <th class="text-center">Sửa</th>
+                                    <th class="text-center">Xóa</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                                <?php 
+                                if (!empty($listData)) {
+                                    foreach ($listData as $item) {
+                                        echo '<tr>
+                                            <td>' . $item->id . '</td>
+                                            <td>' . $item->name . '</td>
+                                            <td>' . $item->description . '</td>
+                                            <td>' . ($item->status == 'active' ? 'Kích hoạt' : 'Khóa') . '</td>
+                                            <td align="center">
+                                                <a class="dropdown-item" href="javascript:void(0);" onclick="editData(' . $item->id . ', \'' . $item->name . '\', \'' . $item->description . '\', \'' . $item->type . '\', \'' . $item->status . '\');">
+                                                    <i class="bx bx-edit-alt me-1"></i>
+                                                </a>
+                                            </td>
+                                            <td align="center">
+                                                <a class="dropdown-item" href="javascript:void(0);" onclick="deleteCategory(' . $item->id . ');">
+                                                    <i class="bx bx-trash me-1"></i>
+                                                </a>
+                                            </td>
+                                        </tr>';
+                                    }
+                                } else {
+                                    echo '<tr>
+                                        <td colspan="6" align="center">Chưa có chức vụ nào</td>
+                                    </tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-3">
-          <label class="form-label">Tên chức vụ</label>
-          <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+        <div class="col-xl">
+            <div class="card mb-6">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Thêm hoặc chỉnh sửa chức vụ</h5>
+                </div>
+                <div class="card-body">
+                    <?= $this->Form->create(); ?>
+                        <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Tên chức vụ</label>
+                            <input type="text" class="form-control" name="name" id="name" value="" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="description">Mô tả</label>
+                            <textarea class="form-control" name="description" id="description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="status">Trạng thái</label>
+                            <select class="form-select" name="status" id="status">
+                                <option value="active">Kích hoạt</option>
+                                <option value="lock">Khóa</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    <?= $this->Form->end() ?>
+                </div>
+            </div>
         </div>
-
-        <div class="col-md-2">
-          <label class="form-label">Loại</label>
-          <input type="text" class="form-control" name="type" value="<?php if(!empty($_GET['type'])) echo $_GET['type'];?>">
-        </div>
-
-        <div class="col-md-2">
-          <label class="form-label">Trạng thái</label>
-          <select name="status" class="form-select color-dropdown">
-            <option value="">Tất cả</option>
-            <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?>>Kích hoạt</option>
-            <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?>>Khóa</option>
-          </select>
-        </div>
-
-        <div class="col-md-2">
-          <label class="form-label">&nbsp;</label>
-          <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
-        </div>
-      </div>
     </div>
-  </div>
-</form>
-<!--/ Form Search -->
-
-<!-- Responsive Table -->
-<div class="card row">
-  <h5 class="card-header">Danh sách chức vụ - <span class="text-danger"><?php echo number_format(@$totalData);?> chức vụ</span></h5>
-  <?php echo @$mess;?>
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-        <tr class="">
-          <th>ID</th>
-          <th>Tên chức vụ</th>
-          <th>Mô tả</th>
-          <th>Loại</th>
-          <th>Slug</th>
-          <th>Trạng thái</th>
-          <th>Sửa</th>
-          <th>Xóa</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php 
-        if (!empty($listData)) {
-          foreach ($listData as $item) {
-            $status = '<span class="text-danger">Khóa</span>';
-            if ($item->status == 'active') { 
-              $status = '<span class="text-success">Kích hoạt</span>';
-            }
-
-            echo '<tr>
-            <td>'.$item->id.'</td>
-            <td>'.$item->name.'</td>
-            <td>'.$item->description.'</td>
-            <td>'.$item->type.'</td>
-            <td>'.$item->slug.'</td>
-            <td>'.$status.'</td>
-            <td width="5%" align="center">
-              <a class="dropdown-item" href="/addCategory/?id='.$item->id.'">
-                <i class="bx bx-edit-alt me-1"></i>
-              </a>
-            </td>
-            <td align="center">
-              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteCategory/?id='.$item->id.'">
-                <i class="bx bx-trash me-1"></i>
-              </a>
-            </td>
-            </tr>';
-          }
-        } else {
-          echo '<tr>
-          <td colspan="8" align="center">Chưa có dữ liệu</td>
-          </tr>';
-        }
-        ?>
-      </tbody>
-    </table>
-  </div>
 </div>
 
-<!-- Phân trang -->
-<div class="demo-inline-spacing">
-  <nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
-      <?php
-      if ($totalPage > 0) {
-        if ($page > 5) {
-          $startPage = $page - 5;
-        } else {
-          $startPage = 1;
+<script type="text/javascript">
+    function editData(id, name, description, type, status) {
+        $('#idCategoryEdit').val(id);
+        $('#name').val(name);
+        $('#description').val(description);
+        $('#type').val(type);
+        $('#status').val(status);
+    }
+
+    function deleteCategory(id) {
+        var check = confirm('Bạn có chắc chắn muốn xóa chức vụ này không?');
+
+        if (check) {
+            $.ajax({
+                method: "GET",
+                url: "/deleteCategory?id=" + id,
+                data: {}
+            })
+            .done(function(msg) {
+                window.location = '/listCategory';
+            })
+            .fail(function() {
+                alert('Có lỗi xảy ra. Vui lòng thử lại.');
+            });
         }
-
-        if ($totalPage > $page + 5) {
-          $endPage = $page + 5;
-        } else {
-          $endPage = $totalPage;
-        }
-
-        echo '<li class="page-item first">
-        <a class="page-link" href="'.$urlPage.'1">
-          <i class="tf-icon bx bx-chevrons-left"></i>
-        </a>
-        </li>';
-
-        for ($i = $startPage; $i <= $endPage; $i++) {
-          $active = ($page == $i) ? 'active' : '';
-
-          echo '<li class="page-item '.$active.'">
-          <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
-          </li>';
-        }
-
-        echo '<li class="page-item last">
-        <a class="page-link" href="'.$urlPage.$totalPage.'">
-          <i class="tf-icon bx bx-chevrons-right"></i>
-        </a>
-        </li>';
-      }
-      ?>
-    </ul>
-  </nav>
-</div>
-<!--/ Basic Pagination -->
-</div>
-<!--/ Responsive Table -->
-</div>
-
+    }
+</script>
 <?php include(__DIR__.'/../footer.php'); ?>
