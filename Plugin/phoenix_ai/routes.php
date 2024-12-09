@@ -34,5 +34,7 @@
 	$routesPlugin['listdocument']= 'phoenix_ai/view/home/listdocument.php';
 	$routesPlugin['sendContentVideo']= 'phoenix_ai/view/home/video/sendContentVideo.php';
 	$routesPlugin['dashboard']= 'phoenix_ai/view/home/dashboard.php';
+	$routesPlugin['sendContentFacebookAds']= 'phoenix_ai/view/home/facebook/sendContentFacebookAds.php';
+	$routesPlugin['createsampleADS']= 'phoenix_ai/view/home/writecontent/createsampleADS.php';
 	
 	
