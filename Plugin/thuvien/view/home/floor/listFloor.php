@@ -3,11 +3,11 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listBuilding">Tòa nhà</a> /</span>
-    Danh sách tòa nhà
+    <span class="text-muted fw-light"><a href="/listBuilding">Tòa nhà <?php echo @$data->name; ?> </a> / </span>
+    Danh sách tầng
   </h4>
 
-  <p><a href="/addBuilding" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
+  <p><a href="/addFloor?id_building=<?php echo $data->id; ?>" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
 
 </p>
 
@@ -20,16 +20,12 @@
           <div class="col-md-1">
             <label class="form-label">ID</label>
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+            <input type="hidden" class="form-control" name="id_building" value="<?php if(!empty($_GET['id_building'])) echo $_GET['id_building'];?>">
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên tòa nha</label>
+            <label class="form-label">Tên tầng </label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Điện thoại</label>
-            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
           </div>
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
@@ -47,17 +43,15 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách tòa nhà </h5>  <!-- - <span class="text-danger"><?php echo number_format(@$totalData);?> tòa nhà</span>-->
+    <h5 class="card-header">Danh sách tầng </h5><!-- - <span class="text-danger"><?php echo number_format(@$totalData);?> tòa nhà</span></h5> -->
     <?php echo @$mess;?>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>tên tòa nhà</th>
-            <th>số điện thoại</th>
-            <th>địa chỉ</th>
-            <th>Tầng</th>
+            <th>tên tầng</th>
+            <th>Phòng</th>
             <th>Sửa</th>
             <th>Xoá</th>
           </tr>
@@ -69,17 +63,15 @@
               echo '<tr>
               <td>'.$item->id.'</td>
               <td>'.$item->name.'</td>
-              <td>'.$item->phone.'</td>
-              <td>'.$item->address.'</td>
-              <td><a href="/listFloor?id_building='.$item->id.'">'.$item->total_floor.' tầng</a></td>
+              <td><a href="/listRoom?&id_floor='.$item->id.'">'.$item->total_room.' phòng</a></td>
               <td width="5%" align="center">
-              <a class="dropdown-item" href="/addBuilding/?id='.$item->id.'">
+              <a class="dropdown-item" href="/addFloor/?id='.$item->id.'&id_building='.$data->id.'">
               <i class="bx bx-edit-alt me-1"></i>
               </a>
               </td>
 
               <td align="center">
-              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteBuilding/?id='.$item->id.'">
+              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteFloor/?id='.$item->id.'&id_building='.$data->id.'">
               <i class="bx bx-trash me-1"></i>
               </a>
               </td>

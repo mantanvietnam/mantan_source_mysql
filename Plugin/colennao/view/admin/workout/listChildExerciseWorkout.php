@@ -57,6 +57,7 @@
               <th>Hình Ảnh</th>
               <th>tiêu đề động tác tập</th>
               <th>nhóm tập</th>
+              <th>video</th>
               <th>Hàng động</th> 
         </tr>
         </thead>
@@ -85,6 +86,7 @@
                   <td>'.$item->title . '  </td>
                  
                  <td>'.$group.'</td>
+                 <td>'.$item->youtube_code.'</td>
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 

@@ -110,6 +110,9 @@ function settingSystem($input){
                                     'point_expor_numerology'=>(int) @$dataSend['point_expor_numerology'],
                                     'point_deposit_money'=>(int) @$dataSend['point_deposit_money'],
                                     'point_complete_quiz'=>(int) @$dataSend['point_complete_quiz'],
+                                    'point_login'=>(int) @$dataSend['point_login'],
+                                    'point_like'=>(int) @$dataSend['point_like'],
+                                    'point_dislike'=>(int) @$dataSend['point_dislike'],
                                     );
                 $data->description = json_encode($description);
 
@@ -138,6 +141,9 @@ function settingSystem($input){
         $data->point_expor_numerology =(int) @$description['point_expor_numerology'];
         $data->point_deposit_money =(int) @$description['point_deposit_money'];
         $data->point_complete_quiz =(int) @$description['point_complete_quiz'];
+        $data->point_login =(int) @$description['point_login'];
+        $data->point_like =(int) @$description['point_like'];
+        $data->point_dislike =(int) @$description['point_dislike'];
         }
        
 

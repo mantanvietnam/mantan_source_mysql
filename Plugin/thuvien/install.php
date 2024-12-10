@@ -82,7 +82,7 @@ $sqlInstallDatabase .="CREATE TABLE `historybook` (
 
 
 $sqlInstallDatabase .="CREATE TABLE `customers` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL  AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `address` varchar(255) NOT NULL,
@@ -90,7 +90,38 @@ $sqlInstallDatabase .="CREATE TABLE `customers` (
   `birthday` date DEFAULT NULL,
   `status` varchar(50) NOT NULL DEFAULT 'active',
   `created_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `floors` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`id_building` INT NULL DEFAULT '0' , 
+`created_at` INT NULL DEFAULT NULL , 
+`description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `rooms` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`id_building` INT NULL DEFAULT 0 , 
+`id_floor` INT NULL DEFAULT 0 , 
+`created_at` INT NULL DEFAULT NULL , 
+`description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `shelfs` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`id_building` INT NULL DEFAULT 0 , 
+`id_floor` INT NULL DEFAULT 0 , 
+ `id_room` INT NULL DEFAULT 0 , 
+`created_at` INT NULL DEFAULT NULL , 
+`description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
 
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
@@ -99,6 +130,9 @@ $sqlDeleteDatabase .= "DROP TABLE books; ";
 $sqlDeleteDatabase .= "DROP TABLE buildings; ";
 $sqlDeleteDatabase .= "DROP TABLE customers; ";
 
+$sqlDeleteDatabase .= "DROP TABLE floors; ";
+$sqlDeleteDatabase .= "DROP TABLE rooms; ";
+$sqlDeleteDatabase .= "DROP TABLE shelfs; ";
 
 
 
@@ -153,4 +187,9 @@ $sqlUpdateDatabase['historybook']['number'] = "ALTER TABLE `historybook` ADD `nu
 $sqlUpdateDatabase['historybook']['id_book'] = "ALTER TABLE `historybook` ADD `id_book` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['historybook']['day'] = "ALTER TABLE `historybook` ADD `day` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['historybook']['type'] = "ALTER TABLE `historybook` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['floors']['name'] = "ALTER TABLE `floors` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['floors']['id_building'] = "ALTER TABLE `floors` ADD `id_building` INT NULL DEFAULT '0' ;";
+$sqlUpdateDatabase['floors']['created_at'] = "ALTER TABLE `floors` ADD `created_at` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['floors']['description'] = "ALTER TABLE `floors` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 ?>

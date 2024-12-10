@@ -10,7 +10,7 @@ function searchMemberAPI($input)
 
 	$dataSend = $_REQUEST;
 	
-    $conditions = [];
+    $conditions = ['status NOT IN'=>'delete'];
 
 	if(!empty($dataSend['term'])){
         $conditions['OR'] = ['name LIKE' => '%'.$dataSend['term'].'%', 'phone LIKE' => '%'.$dataSend['term'].'%'];
@@ -38,6 +38,8 @@ function searchMemberAPI($input)
     if(!empty($dataSend['id_father'])){
         $conditions['id_father'] = (int) $dataSend['id_father'];
     }
+
+
 
     $listData= $modelMembers->find()->where($conditions)->all()->toList();
     
@@ -93,7 +95,7 @@ function getInfoMemberAPI($input)
 	
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		$conditions = array();
+		$conditions = array('status NOT IN'=>'delete');
 
 		if(!empty($dataSend['id'])){
 			$conditions['id'] = $dataSend['id'];
@@ -250,7 +252,7 @@ function getInfoMemberMyAPI($input)
 	
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		$conditions = array();
+		$conditions = array('status NOT IN'=>'delete');
 
 		if(!empty($dataSend['token'])){
 			$conditions['token'] = $dataSend['token'];

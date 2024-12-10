@@ -116,7 +116,18 @@
                             <label class="form-label">Hoàn thành bài thi trắc nghiệm</label>
                             <input type="text" class="form-control phone-mask" name="point_complete_quiz" id="point_complete_quiz" value="<?php echo @$data->point_complete_quiz;?>"/>
                           </div>
-                          
+                           <div class="mb-3 col-md-6">
+                            <label class="form-label">Đăng nhập app hàng ngày</label>
+                            <input type="text" class="form-control phone-mask" name="point_login" id="point_login" value="<?php echo @$data->point_login;?>"/>
+                          </div>
+                           <div class="mb-3 col-md-6">
+                            <label class="form-label">like bài viết</label>
+                            <input type="text" class="form-control phone-mask" name="point_like" id="point_like" value="<?php echo @$data->point_like;?>"/>
+                          </div>
+                           <div class="mb-3 col-md-6">
+                            <label class="form-label">bỏ like</label>
+                            <input type="text" class="form-control phone-mask" name="point_dislike" id="point_dislike" value="<?php echo @$data->point_dislike;?>"/>
+                          </div>
                         </div>
                       </div>
                     </div>

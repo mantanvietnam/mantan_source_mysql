@@ -9,5 +9,7 @@ include_once('controller/home/categoriesController.php');
 include_once('controller/home/buildingController.php');
 include_once('controller/home/publishersController.php');
 include_once('controller/home/customersController.php');
+include_once('controller/home/floorController.php');
+include_once('controller/home/roomController.php');
 
 ?>

@@ -888,7 +888,7 @@ function deleteMember($input){
     global $session;
     global $urlHomes;
 
-    $user = checklogin('deleteStaff');   
+    $user = checklogin('deleteMember');   
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/listStaff');

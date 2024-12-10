@@ -28,8 +28,17 @@
 
 	$routesPlugin['listBuilding']= 'thuvien/view/home/building/listBuilding.php';
 	$routesPlugin['addBuilding']= 'thuvien/view/home/building/addBuilding.php';
+
+	$routesPlugin['listFloor']= 'thuvien/view/home/floor/listFloor.php';
+	$routesPlugin['addFloor']= 'thuvien/view/home/floor/addFloor.php';
+
+	$routesPlugin['listRoom']= 'thuvien/view/home/room/listRoom.php';
+	$routesPlugin['addRoom']= 'thuvien/view/home/room/addRoom.php';
+
+	$routesPlugin['listShelf']= 'thuvien/view/home/shelf/listShelf.php';
+	$routesPlugin['addShelf']= 'thuvien/view/home/shelf/addShelf.php';
 	
-	//quản lý nhà xuất bản
+	//quản lý nhà xuất bản list
 	$routesPlugin['listPublisher']= 'thuvien/view/home/publisher/listPublisher.php';
 	$routesPlugin['addPublisher']= 'thuvien/view/home/publisher/addPublisher.php';
 

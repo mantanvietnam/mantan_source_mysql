@@ -8,6 +8,7 @@ function addlikeApi($input){
     $modelLike = $controller->loadModel('Likes');
     $modelCustomer = $controller->loadModel('Customers');
     $modelWallPost = $controller->loadModel('WallPosts');
+    $listPonint = listPonint();
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -38,7 +39,7 @@ function addlikeApi($input){
         		   if($data->type=='like'){
                         if(!empty($checkWallPost) && $check ==1 && $checkWallPost->id_customer!=$user->id && function_exists('accumulatePoint')){
                             $note = 'Bạn được công 1 điểm cho người like bài viết của bạn ';
-                            accumulatePoint($checkWallPost->id_customer,1,$note);
+                            accumulatePoint($checkWallPost->id_customer,$listPonint['point_like'],$note);
                             $customer = $modelCustomer->find()->where(['id'=>$checkWallPost->id_customer])->first();
                             $dataSendNotification= array('title'=>"$user->full_name like bài viết của bạn",
                             'time'=>date('H:i d/m/Y'),
@@ -56,7 +57,7 @@ function addlikeApi($input){
                     }elseif($data->type=='dislike'){
                          if(!empty($checkWallPost)  && $check ==1 && $checkWallPost->id_customer!=$user->id && function_exists('minuAccumulatePointlike')){
                               $note = 'Bạn bị trừ 2 điểm cho người dislike bài viết của bạn ';
-                            minuAccumulatePointlike($checkWallPost->id_customer,2,$note);
+                            minuAccumulatePointlike($checkWallPost->id_customer,$listPonint['point_dislike'],$note);
                             $customer = $modelCustomer->find()->where(['id'=>$checkWallPost->id_customer])->first();
                             $dataSendNotification= array('title'=>"$user->full_name dislike bài viết của bạn",
                                 'time'=>date('H:i d/m/Y'),
@@ -96,6 +97,7 @@ function delelelikeApi($input){
     $modelCustomer = $controller->loadModel('Customers');
     $modelWallPost = $controller->loadModel('WallPosts');
 
+    $listPonint = listPonint();
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
@@ -114,12 +116,12 @@ function delelelikeApi($input){
                     if($data->type=='like'){
                         if(!empty($checkWallPost) && function_exists('minuAccumulatePointlike')){
                             $note = 'Bạn được công 1 điểm cho người like bài viết của bạn ';
-                            minuAccumulatePointlike($checkWallPost->id_customer,1,$note);
+                            minuAccumulatePointlike($checkWallPost->id_customer,$listPonint['point_like'],$note);
                         }
                     }elseif($data->type=='dislike'){
                          if(!empty($checkWallPost) && function_exists('accumulatePoint')){
                               $note = 'Bạn bị trừ 2 điểm cho người dislike bài viết của bạn ';
-                            accumulatePoint($checkWallPost->id_customer,2,$note);
+                            accumulatePoint($checkWallPost->id_customer,$listPonint['point_dislike'],$note);
                          }
                     }
             		$modelLike->delete($data);

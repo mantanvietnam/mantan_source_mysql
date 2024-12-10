@@ -7,4 +7,7 @@ include('model/books.php');
 include('model/building.php');
 include('model/historybook.php');
 include('model/customers.php');
+include('model/floors.php');
+include('model/rooms.php');
+include('model/shelfs.php');
 ?>

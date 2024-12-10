@@ -56,6 +56,7 @@
               <th>Hình Ảnh</th>
               <th>tiêu đề</th>
               <th>sô động tác tập</th>
+              <th>Vieo</th>
               <th>Trạng thái</th>
               <th>Hàng động</th> 
         </tr>
@@ -82,6 +83,7 @@
                   <td>'.$item->title . '  </td>
                   <td> <a href="/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout/?id_workout='.$item->id_workout.'&id_exercise='.$item->id.'">'.$item->total_child . '</a> </td>
                  
+                 <td>'.$item->youtube_code.'</td>
                  <td>'.$status.'</td>
                  <td> 
                  <p align="center">

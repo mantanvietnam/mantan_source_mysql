@@ -932,7 +932,7 @@ function getCustomerByToken($token='')
     $modelPointCustomer = $controller->loadModel('PointCustomers');
     $modelMember = $controller->loadModel('Members');
     $checkData = [];
-
+    $listPonint =  listPonint();
     if(!empty($token)){                
         $conditions = ['token'=>$token, 'status'=>'active'];
         $checkData = $modelCustomer->find()->where($conditions)->first();
@@ -941,7 +941,7 @@ function getCustomerByToken($token='')
             $checkPointCustomer = $modelPointCustomer->find()->where(['id_member'=>$member->id, 'id_customer'=>$checkData->id,'updated_at >'=>strtotime('today 00:00:00')])->first();
                 if(empty($checkPointCustomer)){
                     $note = 'bạn được cộng 5 điểm khi bạn dăng nhập đầu tiên trong ngày';
-                    accumulatePoint($checkData->id,5,$note);
+                    accumulatePoint($checkData->id,$listPonint['point_login'],$note);
                     $dataSendNotification= array('title'=>'Bạn được cộng điểm',
                                 'time'=>date('H:i d/m/Y'),
                                 'content'=>"Bạn được cộng 5 điểm khi bạn đăng nhập lần đâu tiên trong ngày ",

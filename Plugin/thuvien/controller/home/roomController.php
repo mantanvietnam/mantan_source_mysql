@@ -1,5 +1,5 @@
 <?php 
-function listBuilding($input)
+function listRoom($input)
 {
     global $controller;
     global $urlCurrent;
@@ -8,19 +8,39 @@ function listBuilding($input)
     global $session;
     global $modelCategoryConnects;
 
-     $user = checklogin('listBuilding');   
+     $user = checklogin('listRoom');   
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/');
         }
-        $metaTitleMantan = 'Danh sách nhân viên';
+        $metaTitleMantan = 'Danh sách phòng';
 
         $modelBuilding = $controller->loadModel('Buildings');
         $modelFloor = $controller->loadModel('Floors');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelShelf = $controller->loadModel('Shelfs');
+         $conditions = array();
+        if(!empty($_GET['id_floor'])) {
+            $conditions['id_floor'] =(int) $_GET['id_floor'];
+
+            $data = $modelFloor->find()->where(['id'=>$_GET['id_floor']])->first();
+
+            if(empty($data)){
+                return $controller->redirect('/');
+            }
+
+            $data->building =  $modelBuilding->find()->where(['id'=>$data->id_building])->first();
+             if(empty($data->building)){
+                return $controller->redirect('/');
+            }
+             $conditions['id_building'] =(int) $data->id_building;
+        }else{
+             return $controller->redirect('/');
+        }
         
         $order = array('id'=>'desc');
 
-        $conditions = array();
+       
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -33,13 +53,6 @@ function listBuilding($input)
         if(!empty($_GET['name'])){
             $conditions['name LIKE'] = '%'.$_GET['name'].'%';
         }
-
-        if(!empty($_GET['phone'])){
-            $conditions['phone'] = $_GET['phone'];
-        }
-
-       
-
 
        /* if(!empty($_GET['action']) && $_GET['action']=='Excel'){
             $listData = $modelBuilding->find()->where($conditions)->order($order)->all()->toList();
@@ -78,17 +91,17 @@ function listBuilding($input)
             }
             export_excel($titleExcel,$dataExcel,'danh_sach_t');
         }else{*/
-            $listData = $modelBuilding->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            $listData = $modelRoom->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         //}
 
         if(!empty($listData)){
             foreach($listData as $key => $item){
-                $listData[$key]->total_floor = $modelFloor->find()->where(['id_building'=>$item->id])->count();
+                $listData[$key]->total_shelf = $modelShelf->find()->where(['id_room'=>$item->id])->count();
             }
         }
 
         // phân trang
-        $totalData = $modelBuilding->find()->where($conditions)->all()->toList();
+        $totalData = $modelRoom->find()->where($conditions)->all()->toList();
         $totalData = count($totalData);
 
         $balance = $totalData % $limit;
@@ -132,18 +145,21 @@ function listBuilding($input)
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
+        setVariable('data', $data);
         setVariable('next', $next);
         setVariable('urlPage', $urlPage);
         setVariable('totalData', $totalData);
         
         setVariable('listData', $listData);
+
+        
        // / setVariable('listGroup', $listGroup);
     }else{
         return $controller->redirect('/login');
     }
 }
 
-function addBuilding($input)
+function addRoom($input)
 {
     global $controller;
     global $isRequestPost;
@@ -152,67 +168,69 @@ function addBuilding($input)
     global $session;
     global $urlHomes;
 
-     $user = checklogin('addBuilding');   
+     $user = checklogin('addRoom');   
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/');
         }
         $mess = '';
 
-        $metaTitleMantan = 'Thông tin nhân viên';
+        $metaTitleMantan = 'Thông tin phòng';
         $modelBuilding = $controller->loadModel('Buildings');
+        $modelFloor = $controller->loadModel('Floors');
+        $modelRoom = $controller->loadModel('Rooms');
 
         $mess= '';
+         if(!empty($_GET['id_floor'])) {
+            $conditions['id_floor'] =(int) $_GET['id_floor'];
 
+            $checkFloor = $modelFloor->find()->where(['id'=>$_GET['id_floor']])->first();
+
+            if(empty($checkFloor)){
+                return $controller->redirect('/');
+            }
+
+            $checkFloor->building =  $modelBuilding->find()->where(['id'=>$checkFloor->id_building])->first();
+             if(empty($checkFloor->building)){
+                return $controller->redirect('/');
+            }
+             $conditions['id_building'] =(int) $checkFloor->id_building;
+        }else{
+             return $controller->redirect('/');
+        }
         // lấy data edit
         if(!empty($_GET['id'])){
-            $data = $modelBuilding->find()->where(['id'=>(int) $_GET['id']])->first();
+            $data = $modelRoom->find()->where(['id'=>(int) $_GET['id'],'id_floor'=>$checkFloor->id])->first();
 
             if(empty($data)){
-                return $controller->redirect('/listBuilding');
+                return $controller->redirect('/');
             }
         }else{
-            $data = $modelBuilding->newEmptyEntity();
+            $data = $modelRoom->newEmptyEntity();
             $data->created_at = time();
+            $data->id_building = $checkFloor->id_building;
+            $data->id_floor = $checkFloor->id;
         }
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
 
-            if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
-                $dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
-                $dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-                $conditions = ['phone'=>$dataSend['phone']];
-                $checkPhone = $modelBuilding->find()->where($conditions)->first();
-
-                if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
-                  
-
-                  
-                    
+            if(!empty($dataSend['name'])){                  
                     $data->name = @$dataSend['name'];
-                    $data->address = @$dataSend['address'];
-                    $data->phone = @$dataSend['phone'];
                     $data->description = @$dataSend['description'];
                     
 
-                    $modelBuilding->save($data);
+                    $modelRoom->save($data);
 
                     if(!empty($_GET['id'])){
-                        $note = $user->name.' sửa thông tin tòa nhà '.$data->name.'('.$data->phone.') có id là:'.$data->id;
+                        $note = $user->name.' sửa thông tin phòng '.$data->name.' tầng '.$checkFloor->name.' tòa nhà '.$checkFloor->building->name.' có id phòng là:'.$data->id;
                     }else{
-                        $note = $user->name.' tạo tòa nhà '.$data->name.'('.$data->phone.') có id là:'.$data->id;
+                        $note = $user->name.' tạo  phòng '.$data->name.' tầng '.$checkFloor->name.' tòa nhà '.$checkFloor->building->name.' có id phòng là:'.$data->id;
                     }
 
+                    addActivityHistory($user,$note,'addRoom',$data->id);
 
-                    addActivityHistory($user,$note,'addBuilding',$data->id);
-
-                     return $controller->redirect('/listBuilding?mess=saveSuccess');
-                }else{
-                    $mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
-                }
-            
+                    return $controller->redirect('/listRoom?mess=saveSuccess&id_floor='.$checkFloor->id);
             }else{
                 $mess= '<p class="text-danger">Bạn nhập thiếu dữ liệu bắt buộc</p>';
             }
@@ -220,38 +238,59 @@ function addBuilding($input)
 
         setVariable('data', $data);
         setVariable('mess', $mess);
+        setVariable('checkFloor', $checkFloor);
     }else{
         return $controller->redirect('/login');
     }
 }
 
-function deleteBuilding($input){
-      global $controller;
+function deleteRoom($input){
+    global $controller;
     global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $urlHomes;
 
-    $user = checklogin('deleteBuilding');   
+    $user = checklogin('deleteRoom');   
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/');
         }
-         $modelBuilding = $controller->loadModel('Buildings');
+        
+        $modelBuilding = $controller->loadModel('Buildings');
+        $modelFloor = $controller->loadModel('Floors');
+        $modelRoom = $controller->loadModel('Rooms');
+        if(!empty($_GET['id_floor'])) {
+            $conditions['id_floor'] =(int) $_GET['id_floor'];
+
+            $checkFloor = $modelFloor->find()->where(['id'=>$_GET['id_floor']])->first();
+
+            if(empty($checkFloor)){
+                return $controller->redirect('/');
+            }
+
+            $checkFloor->building =  $modelBuilding->find()->where(['id'=>$checkFloor->id_building])->first();
+             if(empty($checkFloor->building)){
+                return $controller->redirect('/');
+            }
+             $conditions['id_building'] =(int) $checkFloor->id_building;
+        }else{
+             return $controller->redirect('/');
+        }
         if(!empty($_GET['id'])){
-            $data = $modelBuilding->find()->where([ 'id'=>(int) $_GET['id']])->first();
+            $data = $modelRoom->find()->where([ 'id'=>(int) $_GET['id'],'id_floor'=>$checkFloor->id])->first();
             
             if($data){
-                $note = $user->name.' xóa thông tin tòa nhà '.$data->name.' có id là:'.$data->id;
-                addActivityHistory($user,$note,'deleteBuilding',$data->id);
-                $modelBuilding->delete($data);
+                $note = $user->name.' xóa thông tin phòng '.$data->name.' tầng '.$checkFloor->name.' tòa nhà '.$checkFloor->building->name.' có id phòng là:'.$data->id;
+                addActivityHistory($user,$note,'deleteRoom',$data->id);
+                $modelRoom->delete($data);
 
                 
-                 return $controller->redirect('/listBuilding?mess=deleteSuccess');
+                 return $controller->redirect('/listRoom?mess=deleteSuccess&id_floor='.$checkFloor->id);
             }
         }
-         return $controller->redirect('/listBuilding?mess=deleteError');
+         return $controller->redirect('/listRoom?mess=deleteError&id_floor='.$checkFloor->id);
     }else{
         return $controller->redirect('/login');
     }
