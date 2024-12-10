@@ -144,6 +144,15 @@ function getListPermission()
                             )
                         
                     );
+
+    $permission[] = array( 'name'=>'Quản lý người mượn sách',
+    
+                    'sub'=>array(   array('name'=>'Danh sách người mượn','permission'=>'listCustomer'),
+                                    array('name'=>'Thêm và sửa thông tin người mượn','permission'=>'addCustomer'),
+                                    array('name'=>'Xóa thông tin người mượn sách','permission'=>'deleteCustomer'),
+                            )
+                        
+                    );
     
     
     return $permission;

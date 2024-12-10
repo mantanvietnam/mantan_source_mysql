@@ -33,5 +33,6 @@
 	$routesPlugin['listPublisher']= 'thuvien/view/home/publisher/listPublisher.php';
 	$routesPlugin['addPublisher']= 'thuvien/view/home/publisher/addPublisher.php';
 
-
-	
+	//Quản lý người mượn sách
+	$routesPlugin['listCustomer']= 'thuvien/view/home/customer/listCustomer.php';
+	$routesPlugin['addCustomer']= 'thuvien/view/home/customer/addCustomer.php';

@@ -34,14 +34,11 @@
                             <option value="lock" <?php echo (!empty($data->status) && $data->status == 'lock') ? 'selected' : ''; ?>>Khóa</option>
                           </select>
                         </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="mb-3">
+                      <div class="mb-3">
                           <label class="form-label" for="publisher-description">Mô tả</label>
-                          <?php showEditorInput('description', 'description', @$data->description); ?>
-                        </div>
+                          <input required type="text" class="form-control" name="description" id="description" value="<?php echo @$data->description; ?>" />
                       </div>
+                    </div>
                     </div>
                   </div>
                 </div>

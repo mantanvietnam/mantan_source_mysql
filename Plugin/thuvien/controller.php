@@ -8,5 +8,6 @@ include_once('controller/home/bookController.php');
 include_once('controller/home/categoriesController.php');
 include_once('controller/home/buildingController.php');
 include_once('controller/home/publishersController.php');
+include_once('controller/home/customersController.php');
 
 ?>

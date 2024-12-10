@@ -80,10 +80,25 @@ $sqlInstallDatabase .="CREATE TABLE `historybook` (
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
+
+$sqlInstallDatabase .="CREATE TABLE `customers` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'active',
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE permissions; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
 $sqlDeleteDatabase .= "DROP TABLE buildings; ";
+$sqlDeleteDatabase .= "DROP TABLE customers; ";
+
 
 
 

@@ -64,11 +64,9 @@ function listPublisher($input)
 
             export_excel($titleExcel, $dataExcel, 'danh_sach_nha_xuat_ban');
         } else {
-            // Lấy dữ liệu với phân trang
             $listData = $modelCategories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         }
 
-        // Tính tổng dữ liệu và phân trang
         $totalData = $modelCategories->find()->where($conditions)->count();
         $totalPage = ceil($totalData / $limit);
         $back = max(1, $page - 1);
