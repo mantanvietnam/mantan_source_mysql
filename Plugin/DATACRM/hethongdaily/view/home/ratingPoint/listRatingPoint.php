@@ -31,7 +31,7 @@
                             echo '<tr>
                                     <td>'.$item->id.'</td>
                                     <td>'.$item->name.'</td>
-                                    <td>'.$item->point_min.'</td>';
+                                    <td>'.number_format($item->point_min).'</td>';
                                      if(empty($user->id_father)){
                                     echo '<td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->point_min.'\');">

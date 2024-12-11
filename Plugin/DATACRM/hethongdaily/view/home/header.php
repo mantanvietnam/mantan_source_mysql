@@ -190,27 +190,6 @@
                 
               }
 
-              if(empty($user->id_father) && in_array('zalo_zns', $plugins_site_value)){
-                echo '  <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Gửi tin nhắn
-                          </a>
-
-                          <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                            <a class="dropdown-item" href="/sendSMS">Gửi tin SMS</a>
-                            <a class="dropdown-item" href="/sendFacebook">Gửi tin Facebook</a>
-                            <a class="dropdown-item" href="/sendMessZaloFollow">Gửi tin Zalo Follow</a>
-                            <a class="dropdown-item" href="/sendMessZaloZNS">Gửi tin Zalo ZNS</a>
-                            <a class="dropdown-item" href="/sendNotificationMobile">Gửi thông báo APP Mobile</a>
-                            <hr/>
-                            <a class="dropdown-item" href="/templateZaloZNS">Mẫu tin Zalo ZNS</a>
-                            <a class="dropdown-item" href="/setttingZaloOA">Cài đặt Zalo OA</a>
-                            <hr/>
-                            <a class="dropdown-item" href="/listTransactionHistories">Nạp tiền tài khoản</a>
-                          </div>
-                        </li>';
-              }
-
               if(in_array('training', $plugins_site_value)){
                 echo '<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -345,16 +324,36 @@
                       </li>';
               }
 
-              if(in_array('campaign', $plugins_site_value)){
+              if(in_array('campaign', $plugins_site_value) || in_array('zalo_zns', $plugins_site_value)){
                 echo '<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Chiến dịch
                         </a>
 
-                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                          <a class="dropdown-item" href="/listCampaign">Sự kiện</a>
-                          <a class="dropdown-item" href="/chooseUpLike">Tăng tương tác</a>
-                        </div>
+                        <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">';
+                          if(in_array('campaign', $plugins_site_value)){
+                            echo '<a class="dropdown-item" href="/listCampaign">Sự kiện</a>
+                                  <a class="dropdown-item" href="/chooseUpLike">Tăng tương tác</a>';
+                          }
+                          
+                          if(empty($user->id_father) && in_array('zalo_zns', $plugins_site_value)){
+                            echo '<div class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">Gửi tin nhắn</a>
+                                    <div class="dropdown-menu menuSub3">
+                                      <a class="dropdown-item" href="/sendSMS">Gửi tin SMS</a>
+                                      <a class="dropdown-item" href="/sendFacebook">Gửi tin Facebook</a>
+                                      <a class="dropdown-item" href="/sendMessZaloFollow">Gửi tin Zalo Follow</a>
+                                      <a class="dropdown-item" href="/sendMessZaloZNS">Gửi tin Zalo ZNS</a>
+                                      <a class="dropdown-item" href="/sendNotificationMobile">Gửi thông báo APP Mobile</a>
+                                      <hr/>
+                                      <a class="dropdown-item" href="/templateZaloZNS">Mẫu tin Zalo ZNS</a>
+                                      <a class="dropdown-item" href="/setttingZaloOA">Cài đặt Zalo OA</a>
+                                      <hr/>
+                                      <a class="dropdown-item" href="/listTransactionHistories">Nạp tiền tài khoản</a>
+                                    </div>
+                                  </div>';
+                          }
+                echo    '</div>
                       </li>';
               }
 
