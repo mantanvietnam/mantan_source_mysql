@@ -24,7 +24,7 @@ function sendinspirationalFacebook($input){
             $data = $session->read('content_inspirational');
         }
        
-          $bostAi =listBostAi()[1];
+          $bostAi =listBostAi()[10];
 
     
         setVariable('data', $data);
