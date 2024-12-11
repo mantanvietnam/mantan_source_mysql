@@ -76,6 +76,8 @@
             <th>số điện thoạt</th>
             <th>đia chỉ</th>
             <th>Email</th>
+            <th>Nhóm phân quyền</th>
+            <th>Chức vụ</th>
             <th>Sửa</th>
             <th>Xoá</th>
           </tr>
@@ -99,10 +101,12 @@
               echo '<tr>
               <td>'.$item->id.'</td>
               <td><img class="img_avatar" src="'.$item->avatar.'" width="80" height="80" /></td>
-              <td>'.$item->name.'</td>
-              <td>'.$item->phone.'</td>
-              <td>'.$item->address.'</td>
-              <td>'.$item->email.'</td>
+              <td>'.@$item->name.'</td>
+              <td>'.@$item->phone.'</td>
+              <td>'.@$item->address.'</td>
+              <td>'.@$item->email.'</td>
+              <td>'.@$item->permission.'</td>
+              <td>'.@$item->position.'</td>
 
 
               <td width="5%" align="center">
@@ -127,7 +131,6 @@
         </tbody>
       </table>
     </div>
-  </div>
 
   <!-- Phân trang -->
   <div class="demo-inline-spacing">

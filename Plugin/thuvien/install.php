@@ -124,6 +124,22 @@ $sqlInstallDatabase .="CREATE TABLE `shelfs` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `warehouse` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`id_building` INT NOT NULL DEFAULT '0' , 
+`id_floor` INT NOT NULL DEFAULT '0' , 
+`id_room` INT NOT NULL DEFAULT '0' , 
+`id_shelf` INT NOT NULL DEFAULT '0' , 
+`id_book` INT NULL DEFAULT '0' , 
+`quantity` INT NOT NULL DEFAULT '0' , 
+`quantity_borrow` INT NULL DEFAULT '0' , 
+`created_at` INT NOT NULL DEFAULT '0' , 
+`updated_at` INT NULL DEFAULT NULL , 
+`note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE permissions; ";
@@ -194,4 +210,30 @@ $sqlUpdateDatabase['floors']['name'] = "ALTER TABLE `floors` ADD `name` VARCHAR(
 $sqlUpdateDatabase['floors']['id_building'] = "ALTER TABLE `floors` ADD `id_building` INT NULL DEFAULT '0' ;";
 $sqlUpdateDatabase['floors']['created_at'] = "ALTER TABLE `floors` ADD `created_at` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['floors']['description'] = "ALTER TABLE `floors` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['rooms']['name'] = "ALTER TABLE `rooms` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['rooms']['id_building'] = "ALTER TABLE `rooms` ADD `id_building` INT NULL DEFAULT 0 ;";
+$sqlUpdateDatabase['rooms']['id_floor'] = "ALTER TABLE `rooms` ADD `id_floor` INT NULL DEFAULT 0 ;";
+$sqlUpdateDatabase['rooms']['created_at'] = "ALTER TABLE `rooms` ADD `created_at` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['rooms']['description'] = "ALTER TABLE `rooms` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+
+$sqlUpdateDatabase['shelfs']['name'] = "ALTER TABLE `shelfs` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['shelfs']['id_building'] = "ALTER TABLE `shelfs` ADD `id_building` INT NULL DEFAULT 0 ;";
+$sqlUpdateDatabase['shelfs']['id_floor'] = "ALTER TABLE `shelfs` ADD `id_floor` INT NULL DEFAULT 0 ;";
+$sqlUpdateDatabase['shelfs']['id_room'] = "ALTER TABLE `shelfs` ADD `id_room` INT NULL DEFAULT 0 ;";
+$sqlUpdateDatabase['shelfs']['created_at'] = "ALTER TABLE `shelfs` ADD `created_at` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['shelfs']['description'] = "ALTER TABLE `shelfs` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['warehouses']['id_building'] = "ALTER TABLE `warehouses` ADD `id_building` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouses']['id_floor'] = "ALTER TABLE `warehouses` ADD `id_floor` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouses']['id_room'] = "ALTER TABLE `warehouses` ADD `id_room` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouses']['id_shelf'] = "ALTER TABLE `warehouses` ADD `id_shelf` INT NOT NULL DEFAULT '0;"; 
+$sqlUpdateDatabase['warehouses']['id_book'] = "ALTER TABLE `warehouses` ADD `id_book` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouses']['quantity'] = "ALTER TABLE `warehouses` ADD `quantity` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouses']['quantity_borrow'] = "ALTER TABLE `warehouses` ADD `quantity_borrow` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouses']['created_at'] = "ALTER TABLE `warehouses` ADD `created_at` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouses']['updated_at'] = "ALTER TABLE `warehouses` ADD `updated_at` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['warehouses']['note'] = "ALTER TABLE `warehouses` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['warehouses']['status'] = "ALTER TABLE `warehouses` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 ?>

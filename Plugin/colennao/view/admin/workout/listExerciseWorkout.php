@@ -83,7 +83,7 @@
                   <td>'.$item->title . '  </td>
                   <td> <a href="/plugins/admin/colennao-view-admin-workout-listChildExerciseWorkout/?id_workout='.$item->id_workout.'&id_exercise='.$item->id.'">'.$item->total_child . '</a> </td>
                  
-                 <td>'.$item->youtube_code.'</td>
+                 <td align="center"><iframe width="200" height="120" src="https://www.youtube.com/embed/'.$item->youtube_code.'?si=emQRmJrVSmDkqipZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></td>
                  <td>'.$status.'</td>
                  <td> 
                  <p align="center">
@@ -160,3 +160,28 @@
   </div>
   <!--/ Responsive Table -->
 </div>
+<?php 
+  // if (!empty($listData)) {
+  //           foreach ($listData as $item) {
+                
+
+                
+
+  //             echo '  <div class="modal fade" id="basicModal'.$item->id.'"  name="id">
+                                
+  //                         <div class="modal-dialog" role="document">
+  //                           <div class="modal-content">
+  //                             <div class="modal-header form-label border-bottom">
+  //                               <h5 class="modal-title" id="exampleModalLabel1">video của bài '.$item->title.'</h5>
+  //                               <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"></button>
+  //                             </div>
+  //                              <div class="modal-footer">
+  //                               <iframe width="560" height="315" src="https://www.youtube.com/embed/'.$item->youtube_code.'?si=emQRmJrVSmDkqipZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  //                             </div>
+                              
+  //                           </div>
+  //                         </div>
+  //                       </div>';
+  //           }
+  //       }
+ ?>

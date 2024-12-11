@@ -605,6 +605,8 @@ function listMember($input)
         }
         $metaTitleMantan = 'Danh sách nhân viên';
 
+        $modelPermission = $controller->loadModel('Permissions');
+
         $modelMember = $controller->loadModel('Members');
         
         $order = array('id'=>'desc');
@@ -675,6 +677,13 @@ function listMember($input)
             export_excel($titleExcel,$dataExcel,'danh_sach_khach_hang');
         }else{
             $listData = $modelMember->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        }
+
+        if(!empty($listData)){
+        	foreach($listData as $key => $item){
+        		$listData[$key]->permission = @$modelPermission->find()->where(['id'=>$item->id_permission])->first()->name;
+        		$listData[$key]->position = @$modelCategories->find()->where(['id'=>$item->id_position, 'type'=>'category_position'])->first()->name;
+        	}
         }
 
         // phân trang
@@ -868,12 +877,16 @@ function addMember($input)
             $data->permission = json_decode($data->permission, true);
         }
 
+        $conditions = ['type' => 'category_position'];
+        $listPosition = $modelCategories->find()->where($conditions)->all()->toList();
+
 
         $listPermissionMenu = getListPermission();
         $dataGroupStaff = $modelPermission->find()->where([])->all()->toList();
         setVariable('data', $data);
         setVariable('listPermissionMenu', $listPermissionMenu);
         setVariable('dataGroupStaff', $dataGroupStaff);
+        setVariable('listPosition', $listPosition);
         setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
