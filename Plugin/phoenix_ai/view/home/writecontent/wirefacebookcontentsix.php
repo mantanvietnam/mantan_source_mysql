@@ -429,6 +429,7 @@
 
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
                 document.getElementById("result").value = msg.data.result;
+                CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
             }
         })
 
@@ -459,6 +460,7 @@
                   result += msg.data.result
                     document.getElementById("conversation_id").value = msg.data.conversation_id;
                     document.getElementById("result").value = result;
+                    CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
                 }
             })
         }
@@ -486,6 +488,7 @@
                   result += msg.data.result
                     document.getElementById("conversation_id").value = msg.data.conversation_id;
                     document.getElementById("result").value = result;
+                    CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
                 }
             })
         }
