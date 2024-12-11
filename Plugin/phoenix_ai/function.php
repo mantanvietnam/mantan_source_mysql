@@ -208,7 +208,7 @@ function listBostAi(){
            7 => array('id'=>7,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Tạo 5 mẫu quảng cáo sáng tạo dựa trên mẫu cho trước ', 'district'=>'Giúp bạn tạo ra 5 mẫu quảng cáo sáng tạo' , 'type'=>'content_creativefacebook_ads' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'wirefacebookcontent'),
            8 => array('id'=>8,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Tạo 6 bài viết facebook từ nội dung bất kì ', 'district'=>'Giúp bạn tạo ra các bài viết thu hút người xem' , 'type'=>'content_facebooksix_ads' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'wirefacebookcontentsix'),
            9 => array('id'=>9,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Lên ý tưởng không giới hạn', 'district'=>'Lên ý tưởng không giới hạn' , 'type'=>'content_tiktok' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendContenTiktok'),
-           10 => array('id'=>10,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Viết 10 bài đăng Facebook truyền cảm hứng (5)', 'district'=>'Viết 10 bài đăng Facebook truyền cảm hứng (5)' , 'type'=>'content_facebook_share' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendContenfacebookinspiration'),
+           10 => array('id'=>10,'name'=>'Phoenix Ai', 'boot'=>'copywriting', 'title'=>'Viết 10 bài đăng Facebook truyền cảm hứng (5)', 'district'=>'Viết 10 bài đăng Facebook truyền cảm hứng (5)' , 'type'=>'content_inspirational' ,'avatar'=>'/plugins/phoenix_ai/view/home/assets/img/ai1.jpg' , 'url'=>'sendinspirationalFacebook'),
            
            
     );
