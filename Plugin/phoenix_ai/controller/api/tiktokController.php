@@ -122,12 +122,12 @@ function chatConteTiktokAPI($input){
             
 
              if(!empty($dataSend['type'])){
-                if($dataSend['type']=='tiktok'){
-                    $question = 'Please answer me in Tiếng Việt language and also respond in Tiếng Việt language Bạn là một chuyên gia chiến lược truyền thông xã hội,  Nhiệm vụ của bạn là tạo ra 1 kế hoạch đăng bài với 30 ý tưởng nội dung với chủ đề như đề cập ở trên có khả năng lan truyền mạnh mẽ cho Facebook fanpage sao cho hấp dẫn, phù hợp, và hướng đến đối tượng khách hàng tiềm năng trong lĩnh vực này, [FIELD1]. \nMỗi ý tưởng nên bao gồm một chủ đề cụ thể liên quan đến lĩnh vực và xem xét các xu hướng nổi bật hoặc tính thời vụ để tối đa hóa sự tương tác. Đảm bảo rằng các ý tưởng phù hợp với sở thích đa dạng của khán giả trong lĩnh vực và được thay đổi phong phú để giữ cho nội dung luôn mới mẻ và thú vị.\nTrình bày dưới dạng bảng với các cột: Ý tưởng nội dung, Mô tả, Chủ đề, Tiêu đề hấp dẫn';
+                if($dataSend['type']=='facebook'){
+                    $question = 'Please answer me in Tiếng Việt language and also respond in Tiếng Việt language Bạn là một chuyên gia chiến lược truyền thông xã hội,  Nhiệm vụ của bạn là tạo ra 1 kế hoạch đăng bài với 30 ý tưởng nội dung với chủ đề như đề cập ở trên có khả năng lan truyền mạnh mẽ cho Facebook fanpage sao cho hấp dẫn, phù hợp, và hướng đến đối tượng khách hàng tiềm năng trong lĩnh vực này, [FIELD1]. \nMỗi ý tưởng nên bao gồm một chủ đề cụ thể liên quan đến lĩnh vực và xem xét các xu hướng nổi bật hoặc tính thời vụ để tối đa hóa sự tương tác. Đảm bảo rằng các ý tưởng phù hợp với sở thích đa dạng của khán giả trong lĩnh vực và được thay đổi phong phú để giữ cho nội dung luôn mới mẻ và thú vị.\nPlease arrange each video title in a nice bulleted order. Each day the content is different.';
                 }elseif($dataSend['type']=='facebook'){
-                    $question = 'Tạo bài đăng Facebook Dựa vào nội dung ở trên ';
-                }elseif($dataSend['type']=='instagram'){
-                    $question = "Tạo 1 bài đăng instagram cho nội dung nói trên nhé!";
+                    $question = 'Please answer me in Tiếng Việt language and also respond in Tiếng Việt language . Bạn là một chuyên gia chiến lược truyền thông xã hội,  Nhiệm vụ của bạn là tạo ra 1 kế hoạch đăng bài với 30 ý tưởng nội dung với chủ đề Đô chơi công nghệ có khả năng lan truyền mạnh mẽ cho Facebook fanpage sao cho hấp dẫn, phù hợp, và hướng đến đối tượng khách hàng tiềm năng trong lĩnh vực này, gới trẻ . \nMỗi ý tưởng nên bao gồm một chủ đề cụ thể liên quan đến lĩnh vực và xem xét các xu hướng nổi bật hoặc tính thời vụ để tối đa hóa sự tương tác. Đảm bảo rằng các ý tưởng phù hợp với sở thích đa dạng của khán giả trong lĩnh vực và được thay đổi phong phú để giữ cho nội dung luôn mới mẻ và thú vị.\nTrình bày dưới dạng bảng với các cột: Ý tưởng nội dung, Mô tả, Chủ đề, Tiêu đề hấp dẫn use $$ around mathematical formulas';
+                }elseif($dataSend['type']=='blog'){
+                    $question = "Please answer me in Tiếng Việt language and also respond in Tiếng Việt language . Bạn là một chuyên gia chiến lược truyền thông xã hội, Nhiệm vụ của bạn là tạo ra 1 bài blog đầy đủ không cần giải thích và lên cá tính năng ưu điểm và đặt điểm nổi bật của sản phẩn dịch vụ ở nội dung trên ";
                 }
             }
 
@@ -138,7 +138,7 @@ function chatConteTiktokAPI($input){
                 
                 $string =$reply_ai['result'];
 
-				$string = str_replace(['-', '*'], '', $string);
+				/*$string = str_replace(['-', '*'], '', $string);
 		            // Phần code HTML để trình bày bảng
 					$lines = explode("\n", $string);
 					$html = '<h1>' . htmlspecialchars(array_shift($lines)) . '</h1>'; // Lấy tiêu đề
@@ -162,9 +162,9 @@ function chatConteTiktokAPI($input){
 					    	}
 					    }
 					}
-					$html .= '</table>';
+					$html .= '</table>';*/
 
-				$reply_ai['result'] = $html;
+				//$reply_ai['result'] = $html;
 
                 $chat['result'] .= $reply_ai['result'];
 
@@ -215,7 +215,7 @@ function saveConteTiktokAPI($input){
                 $checkContent->created_at = time();
                 $checkContent->type = 'content_tiktok';
             }
-            $title = 'Tái chế nội dung đỉnh cao - VIP';
+            $title = 'Lên ý tưởng không giới hạn';
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  

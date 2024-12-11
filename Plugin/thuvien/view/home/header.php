@@ -115,15 +115,16 @@
               <div class="dropdown-menu" aria-labelledby="member">
                 <a class="dropdown-item" href="/listMember">Quản lý người dùng</a>
                 <a class="dropdown-item" href="/listPermission">Quản lý phân quyền</a>
-                <a class="dropdown-item" href="/listCustomer">Quản lý người mượn sách</a>
+                <a class="dropdown-item" href="/listCategory">Quản lý chức vụ</a>
+                <a class="dropdown-item" href="/listActivityHistory">lịch sử hàng động</a>
               </div>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 Chức vụ
+                 Khách hàng
               </a>
               <div class="dropdown-menu" aria-labelledby="category">
-                <a class="dropdown-item" href="/listCategory">Quản lý chức vụ</a>
+                <a class="dropdown-item" href="/listCustomer">Quản lý khách hàng</a>
               </div>
             </li>
             <li class="nav-item dropdown">

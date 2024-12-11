@@ -914,7 +914,14 @@ function getPointCustomerAPI($input){
                 if(!empty($data)){
                     if(!empty($data->id_rating)){
                         $membership = $modelRatingPointCustomer->find()->where(['id'=>$data->id_rating])->first()->name;
-                    }
+                    }else{
+
+                        $pointCustomer = $modelRatingPointCustomer->find()->where(['point_min <=' => $data->point])->order(['point_min' => 'DESC'])->first();
+                        if(!empty($pointCustomer)){
+                            $membership = $pointCustomer->name;
+                        }
+
+                    }  
                     $point = $data->point;
                 }
 
@@ -925,6 +932,7 @@ function getPointCustomerAPI($input){
                     foreach ($allPoint as $key => $value) {
                         if($point_max < $value->point_min){
                             $point_max = $value->point_min;
+
                         }
                     }
                 }

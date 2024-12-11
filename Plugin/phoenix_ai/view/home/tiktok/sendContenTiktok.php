@@ -137,7 +137,7 @@
                         </div>
                         <div class="out-like-blogpro">
                           <div class="write-outline">
-                            <h3>Viết kịch bản Tiktok</h3>
+                            <h3>Kết hoạt nội dung Facebook</h3>
                             <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
                           </div>
                         </div>
@@ -152,7 +152,7 @@
                         <h3>GPT Model</h3>
                       </div> -->
                      
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet('tiktok')">Thực hiện</button>
+                      <button type="button" class="button-arcordian" onclick="sendquestionNet('facebook')">Thực hiện</button>
                     </form>
                   </div>
                 </div>
@@ -170,7 +170,7 @@
                         </div>
                         <div class="out-like-blogpro">
                           <div class="write-outline">
-                            <h3>Tạo bài đăng Facebook</h3>
+                            <h3>Kế hoạch nội dung Blog</h3>
                             <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
                           </div>
                         </div>
@@ -185,44 +185,12 @@
                         <h3>GPT Model</h3>
                       </div> -->
                      
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet('facebook')">Thực hiện</button>
+                      <button type="button" class="button-arcordian" onclick="sendquestionNet('blog')">Thực hiện</button>
                     </form>
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo3" aria-expanded="false" aria-controls="collapseTwo3">
-                    <div class="parent-button-div d-flex">
-                      <div class="left-content">
-                        <p class="number-count">3</p>
-                      </div>
-                      <div class="right-content-writetitle d-flex">
-                        <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/asset/img/edit-tools-50x50.png" alt=""></p>
-                        </div>
-                        <div class="out-like-blogpro">
-                          <div class="write-outline">
-                            <h3>Bài đăng Instagram</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTwo3" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
-                     
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet('instagram')">Thực hiện</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
+             
             </div>
           </div>
         </div>
@@ -247,7 +215,7 @@
               <input type="text" name="" placeholder="tag" id="target" name="target" value="<?php echo @$dataContent->customer_target ?>">
             </div>
             <div class="show-input-editor">
-               <?php $result =  htmlspecialchars(@$data['result']);
+               <?php $result =  nl2br(@$data['result']);
                showEditorInput('result', 'result', @$result);?>
             </div>
             <div class="last-inputcontent">
@@ -314,7 +282,7 @@
       if(conversation_id != '' && conversation_id!='0'){
              $.ajax({
           method: "POST",
-          url: "/apis/chatContentVideoAPI",
+          url: "/apis/chatConteTiktokAPI",
           data: {question: '',
             conversation_id: conversation_id, 
             type: i, 
@@ -324,7 +292,7 @@
                 if(msg.code==1){
                   result += '/\n/g'+msg.data.result;
                   document.getElementById("conversation_id").value = msg.data.conversation_id;
-                  document.getElementById("result").value = result(/\n/g, '<br>');
+                  document.getElementById("result").value = result.replace(/\n/g, '<br>');
                   CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>'));
                 }
             })
@@ -372,7 +340,7 @@
       if(conversation_id != '' && question!=''){
              $.ajax({
           method: "POST",
-          url: "/apis/saveContentVideoAPI",
+          url: "/apis/saveConteTiktokAPI",
           data: { conversation_id :conversation_id,
             title :title,
             result :result,

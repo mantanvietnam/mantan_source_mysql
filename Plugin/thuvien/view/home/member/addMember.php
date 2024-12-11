@@ -103,15 +103,23 @@
                               <label class="form-label" for="basic-default-phone">Địa chỉ</label>
                               <input type="text" class="form-control phone-mask" name="address" id="name" value="<?php echo @$data->address;?>" />
                             </div>
-                            
+                            <div class="mb-3">
+                                <label class="form-label">chức vụ</label>
+                                <select class="form-control" name="id_position" id="id_position" required>
+                                    <option value="" >Chọn chức vụ</option>
+                                    <?php foreach ($listPosition as $key => $item){
+                                      $selected = '';
+                                      if(!empty($data->id_position) && $data->id_position==$item->id){
+                                        $selected = 'selected';
+                                      }
 
-                            
-                          </div>
-
-                          <div class="col-md-12">
+                                      echo '<option value="'.$item->id.'" '.$selected.'>'.$item->name.'</option>';
+                                    } ?>
+                                </select>
+                            </div>
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-phone">Giới thiệu bản thân</label>
-                              <?php showEditorInput('description', 'description', @$data->description);?>
+                              <textarea class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
                           </div>
                         </div>

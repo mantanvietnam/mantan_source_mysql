@@ -153,6 +153,27 @@ function getListPermission()
                             )
                         
                     );
+
+     $permission[] = array( 'name'=>'Quản lý Kho',
+    
+                    'sub'=>array(   array('name'=>'Danh sách tòa nhà','permission'=>'listBuilding'),
+                                    array('name'=>'Thêm và sửa thông tin tòa nhà','permission'=>'addBuilding'),
+                                    array('name'=>'Xóa thông tin tòa nhà','permission'=>'deleteBuilding'),
+
+                                    array('name'=>'Danh sách tầng','permission'=>'listFloor'),
+                                    array('name'=>'Thêm và sửa thông tin tầng','permission'=>'addFloor'),
+                                    array('name'=>'Xóa thông tin tầng','permission'=>'deleteFloor'),
+
+                                    array('name'=>'Danh sách phòng','permission'=>'listRoom'),
+                                    array('name'=>'Thêm và sửa thông tin phòng','permission'=>'addRoom'),
+                                    array('name'=>'Xóa thông tin phòng','permission'=>'deleteRoom'),
+
+                                    array('name'=>'Danh sách kệ','permission'=>'listShelf'),
+                                    array('name'=>'Thêm và sửa thông tin kệ','permission'=>'addShelf'),
+                                    array('name'=>'Xóa thông tin kệ','permission'=>'deleteShelf'),
+                            )
+                        
+                    );
     
     
     return $permission;

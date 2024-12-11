@@ -3,11 +3,11 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listBuilding">Tòa nhà <?php echo @$data->checkFloor->name; ?> </a> / <a href="/listFloor?id_building=<?php echo $data->id_building; ?>">Tầng <?php echo @$data->name; ?></a> / </span>
-    Danh sách phòng
+    <span class="text-muted fw-light"><a href="/listBuilding">Tòa nhà <?php echo @$data->building->name; ?> </a> / <a href="/listFloor?id_building=<?php echo $data->id_building; ?>">Tầng <?php echo @$data->floor->name; ?></a> / <a href="/listRoom?id_floor=<?php echo $data->id_floor; ?>">Phòng <?php echo @$data->floor->name; ?></a> / <a href="/listShelf?id_room=<?php echo $checkRoom->id; ?>">Kệ</a> / </span>
+    Danh sách kệ
   </h4>
 
-  <p><a href="/addRoom?id_floor=<?php echo $data->id; ?>" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
+  <p><a href="/addShelf?id_room=<?php echo $data->id; ?>" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
 
 </p>
 
@@ -20,11 +20,11 @@
           <div class="col-md-1">
             <label class="form-label">ID</label>
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
-            <input type="hidden" class="form-control" name="id_floor" value="<?php if(!empty($_GET['id_floor'])) echo $_GET['id_floor'];?>">
+            <input type="hidden" class="form-control" name="id_room" value="<?php if(!empty($_GET['id_room'])) echo $_GET['id_room'];?>">
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên phòng</label>
+            <label class="form-label">Tên kệ</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
           <div class="col-md-2">
@@ -43,15 +43,15 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách phòng </h5><!-- - <span class="text-danger"><?php echo number_format(@$totalData);?> tòa nhà</span></h5> -->
+    <h5 class="card-header">Danh sách kệ </h5><!-- - <span class="text-danger"><?php echo number_format(@$totalData);?> tòa nhà</span></h5> -->
     <?php echo @$mess;?>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>tên phòng</th>
-            <th>Kệ</th>
+            <th>tên Kệ</th>
+            <!-- <th>Kệ</th> -->
             <th>Sửa</th>
             <th>Xoá</th>
           </tr>
@@ -63,15 +63,15 @@
               echo '<tr>
               <td>'.$item->id.'</td>
               <td>'.$item->name.'</td>
-              <td><a href="/listShelf?&id_room='.$item->id.'">'.$item->total_shelf.' kệ</a></td>
+             
               <td width="5%" align="center">
-              <a class="dropdown-item" href="/addRoom/?id='.$item->id.'&id_floor='.$data->id.'">
+              <a class="dropdown-item" href="/addShelf/?id='.$item->id.'&id_room='.$data->id.'">
               <i class="bx bx-edit-alt me-1"></i>
               </a>
               </td>
 
               <td align="center">
-              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteRoom/?id='.$item->id.'&id_floor='.$data->id.'">
+              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteShelf/?id='.$item->id.'&id_room='.$data->id.'">
               <i class="bx bx-trash me-1"></i>
               </a>
               </td>

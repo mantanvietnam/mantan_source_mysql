@@ -55,10 +55,10 @@
                     <input required type="text" class="form-control phone-mask" name="email" id="email" value="<?php echo @$user->email;?>"/>
                   </div>
 
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label">Số dư tài khoản</label>
                     <input disabled type="text" class="form-control phone-mask" name="" id="" value="<?php echo number_format(@$user->coin);?>"/>
-                  </div>
+                  </div> -->
                 </div>
 
 
