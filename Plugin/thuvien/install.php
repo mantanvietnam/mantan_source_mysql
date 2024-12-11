@@ -59,6 +59,7 @@ $sqlInstallDatabase .="CREATE TABLE `books` (
   `id_category` int(11) DEFAULT NULL,
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` int(10) DEFAULT NULL,
+  `book_code` int(10) DEFAULT NULL,
   `published_date` int(10) DEFAULT NULL,
   `publisher_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
@@ -175,6 +176,7 @@ $sqlUpdateDatabase['books']['slug'] = "ALTER TABLE `books` ADD `slug` VARCHAR(25
 $sqlUpdateDatabase['books']['published_date'] = "ALTER TABLE `books` ADD `published_date` INT NOT NULL DEFAULT 0;";
 $sqlUpdateDatabase['books']['publisher_id'] = "ALTER TABLE `books` ADD `publisher_id` INT NOT NULL DEFAULT 0;";
 $sqlUpdateDatabase['books']['id_category'] = "ALTER TABLE `books` ADD `id_category` INT NOT NULL DEFAULT 0;";
+$sqlUpdateDatabase['books']['book_code'] = "ALTER TABLE `books` ADD `book_code` INT NOT NULL DEFAULT 0;";
 
 $sqlUpdateDatabase['buildings']['name'] = "ALTER TABLE `buildings` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['buildings']['phone'] = "ALTER TABLE `buildings` ADD `phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
