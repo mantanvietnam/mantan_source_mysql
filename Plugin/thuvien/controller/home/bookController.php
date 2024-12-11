@@ -133,7 +133,7 @@ function addbook($input){
     $metaTitleMantan = 'Thêm sách';
 	$modelbooks = $controller->loadModel('books');
     $listcategory = $modelCategories->find()->where(['type'=>'category_book'])->all()->toList();
-
+    $listcategorypublishers = $modelCategories->find()->where(['type'=>'category_publisher'])->all()->toList();
 	$mess= '';
 	// lấy data edit
     if(!empty($_GET['id'])){
@@ -154,6 +154,7 @@ function addbook($input){
                 $data->image = $dataSend['image'];
                 $data->description = $dataSend['description'];
                 $data->price = $dataSend['price'];
+                $data->book_code = $dataSend['book_code'];
                 $data->id_category = $dataSend['id_category'];
                 $data->publisher_id = $dataSend['publisher_id'];
                 $data->quantity= $dataSend['quantity'];
@@ -185,6 +186,7 @@ function addbook($input){
     }else{
         return $controller->redirect('/login');
     }
+    setVariable('listcategorypublishers', $listcategorypublishers);
     setVariable('listcategory', $listcategory);
     setVariable('data', $data);
     setVariable('mess', $mess);

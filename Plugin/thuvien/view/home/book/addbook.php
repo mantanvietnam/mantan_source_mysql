@@ -71,7 +71,19 @@
                                   <?php endif; ?>
                               </select>
                             </div>
-                        
+                            <div class="mb-3 form-group col-sm-6">
+                              <i>Nhà xuất bản</i>
+                              <select name="book_code" id="book_code" class="form-control">
+                                  <option value="">Chọn Nhà xuất bản</option>
+                                  <?php if (!empty($listcategorypublishers)): ?>
+                                      <?php foreach ($listcategorypublishers as $key => $value): ?>
+                                          <option value="<?php echo $value->id; ?>" <?php echo ($data->id_category == $value->id) ? 'selected' : ''; ?>>
+                                              <?php echo $value->name; ?>
+                                          </option>
+                                      <?php endforeach; ?>
+                                  <?php endif; ?>
+                              </select>
+                            </div>
                           </div>
 
                           <div class="col-md-6">

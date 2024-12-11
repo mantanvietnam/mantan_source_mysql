@@ -63,6 +63,7 @@
           <th>Tên sách</th>
           <th>Mô tả</th>
           <th>Tác giả</th>
+          <th>Nhà xuất bản</th>
           <th>Trạng thái</th>
           <th>Sửa</th>
           <th>Xóa</th>
@@ -81,6 +82,7 @@
             <td>'.$item->id.'</td>
             <td>'.$item->name.'</td>
             <td>'.$item->description.'</td>
+            <td>'.$item->book_code.'</td>
             <td>'.$item->author.'</td>
             <td>'.$status.'</td>
             <td width="5%" align="center">
