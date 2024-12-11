@@ -37,6 +37,8 @@
 
 	$routesPlugin['listShelf']= 'thuvien/view/home/shelf/listShelf.php';
 	$routesPlugin['addShelf']= 'thuvien/view/home/shelf/addShelf.php';
+	$routesPlugin['listWarehouse']= 'thuvien/view/home/warehouse/listWarehouse.php';
+	$routesPlugin['addWarehouse']= 'thuvien/view/home/warehouse/addWarehouse.php';
 	
 	//quản lý nhà xuất bản list
 	$routesPlugin['listPublisher']= 'thuvien/view/home/publisher/listPublisher.php';

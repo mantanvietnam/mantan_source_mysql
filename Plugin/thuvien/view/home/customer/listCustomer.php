@@ -99,7 +99,6 @@
       </tbody>
     </table>
   </div>
-</div>
 
 <!-- Phân trang -->
 <div class="demo-inline-spacing">

@@ -37,7 +37,7 @@ function addWallPostApi($input){
 
                     $total = count(@$_FILES['listImage']['name']);
                 }
-                if($total<3){
+                if($total>3){
                      return array('code'=>0, 'messages'=>'tối đa ba ảnh');
                 }
                 if(!empty($total)){

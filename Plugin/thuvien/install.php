@@ -211,6 +211,7 @@ $sqlUpdateDatabase['floors']['id_building'] = "ALTER TABLE `floors` ADD `id_buil
 $sqlUpdateDatabase['floors']['created_at'] = "ALTER TABLE `floors` ADD `created_at` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['floors']['description'] = "ALTER TABLE `floors` ADD `description` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
+
 $sqlUpdateDatabase['rooms']['name'] = "ALTER TABLE `rooms` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['rooms']['id_building'] = "ALTER TABLE `rooms` ADD `id_building` INT NULL DEFAULT 0 ;";
 $sqlUpdateDatabase['rooms']['id_floor'] = "ALTER TABLE `rooms` ADD `id_floor` INT NULL DEFAULT 0 ;";
@@ -236,4 +237,10 @@ $sqlUpdateDatabase['warehouses']['created_at'] = "ALTER TABLE `warehouses` ADD `
 $sqlUpdateDatabase['warehouses']['updated_at'] = "ALTER TABLE `warehouses` ADD `updated_at` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['warehouses']['note'] = "ALTER TABLE `warehouses` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['warehouses']['status'] = "ALTER TABLE `warehouses` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['customers']['type'] = "ALTER TABLE `customers` CHANGE `name` `name` VARCHAR(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['type'] = "ALTER TABLE `customers` CHANGE `address` `address` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['type'] = "ALTER TABLE `customers` CHANGE `email` `email` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL;";
+
+
 ?>

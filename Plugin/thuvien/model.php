@@ -10,4 +10,5 @@ include('model/customers.php');
 include('model/floors.php');
 include('model/rooms.php');
 include('model/shelfs.php');
+include('model/warehouses.php');
 ?>
