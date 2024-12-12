@@ -24,6 +24,15 @@
     margin-top: 25px;
 
 }
+.left-button-title a {
+    text-decoration: none !important;
+}
+.tag-input-header {
+    display: none !important;
+}
+.header-form {
+    margin-bottom: 15px;
+}
 .aiva-document p {
     margin: 0;
 } 

@@ -65,14 +65,20 @@
                         <input class="form-check-input" type="checkbox" id="toggleSwitch">
                         <label class="form-check-label" for="toggleSwitch">Giọng điệu thương hiệu</label>
                       </div> -->
-                     
-                      <div>
-                        <div class="mb-3">
-                          <label for="text" class="form-label">Hướng dẫn</label>
-                          <textarea type="text" placeholder="Dán vào nội dung hoặc tiêu đề bạn muốn tạo blog" class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
+                  
+                        <div>
+                          <div class="mb-3">
+                            <label for="text" class="form-label">Chủ đề bạn muốn tạo </label>
+                            <textarea type="text" placeholder="Dán vào nội dung hoặc tiêu đề bạn muốn tạo blog" class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
 
-                        <input class="form-check-input"  type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
+                          <input class="form-check-input"  type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
+                          </div>
                         </div>
+                        <div>
+                          <div class="mb-3">
+                            <label for="text" class="form-label">hướng dẫn</label>
+                            <textarea type="text" placeholder="nhập mẫu quảng cáo bạn muốn sao chép" class="form-control" id="customer_target" name="customer_target" rows="2" cols="30"></textarea>
+                          </div>
                       </div>
                       <button type="button" class="button-arcordian" onclick="sendquestion()">Thực hiện</button>
                     </form>
@@ -354,7 +360,7 @@
         console.log(topic);
         $.ajax({
           method: "POST",
-          url: "/apis/wirefacebookcontentfiveAPI",
+          url: "/apis/createsampleadsAPI",
           data: {topic: topic, 
         }
     }).done(function( msg ) {
@@ -384,7 +390,7 @@
       if(conversation_id != '' && conversation_id!='0'){
              $.ajax({
           method: "POST",
-          url: "/apis/chatfacebookcontentfiveAPI",
+          url: "/apis/chatsampleadsAPI",
           data: {question: '',
             conversation_id: conversation_id, 
             number_question: i, 
@@ -412,7 +418,7 @@
       if(conversation_id != '' && question!=''){
              $.ajax({
           method: "POST",
-          url: "/apis/chatfacebookcontentfiveAPI",
+          url: "/apis/chatsampleadsAPI",
           data: {question: question,
             conversation_id: conversation_id,
             number_question: 0,
@@ -441,7 +447,7 @@
       if(conversation_id != '' && question!=''){
              $.ajax({
           method: "POST",
-          url: "/apis/savecontentfacebookfiveAPI",
+          url: "/apis/savesampleadsAPI",
           data: { conversation_id :conversation_id,
             title :title,
             result :result,

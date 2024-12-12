@@ -63,29 +63,31 @@
                         <button class="btn btn-light rounded-pill view-all">Xem tất cả</button>
                     </div>
                     <div class="card-ai row justify-content-evenly">
-                        <?php 
-                            foreach(listBostAi() as $key => $item){
-                                echo ' <div class="col-lg-6">
-                                <a class="play" href="/'.$item['url'].'">
+                    <?php foreach (listBostAi() as $key => $item): ?>
+                        <div class="col-lg-6">
+                            <a class="play" href="/<?= $item['url'] ?>" style="text-decoration:none">
                                 <div class="card d-flex">
                                     <div class="info">
-                                        <img src="'. $item['avatar'].'" alt="Profile Picture">
-                                        <p>'. $item['name'].'</p>
-                                        <span>'. $item['boot'].'</span>
+                                        <img src="<?= $item['avatar'] ?>" alt="Profile Picture">
+                                        <p><?= $item['name'] ?></p>
+                                        <span><?= $item['boot'] ?></span>
                                     </div>
                                     <div class="card-content mx-2">
-                                        <h3>'. $item['title'].'</h3>
-                                        <p>'. $item['district'].'</p>
+                                        <h3><?= $item['title']?></h3>
+                                        <p><?= $item['district'] ?></p>
                                         <div class="buttons">
                                             <button class="like"><i class="fa-regular fa-thumbs-up"></i> 7</button>
-                                            <a class="play" href="/'.$item['url'].'"><i class="fa-solid fa-play playmasion" style="color: #5242f3;"></i></i> Thực hiện</a>
+                                            <div class="d-flex">
+                                                <div><i class="fa-solid fa-play playmasion" style="color: #5242f3;"></i></div>
+                                                <div>Thực hiện</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                </a>
-                            </div>';
-                            }
-                         ?>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+
                             
                         
                     </div>
