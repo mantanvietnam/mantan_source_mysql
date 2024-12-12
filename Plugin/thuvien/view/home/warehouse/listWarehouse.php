@@ -115,10 +115,11 @@
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>tên tòa nhà</th>
-            <th>số điện thoại</th>
-            <th>địa chỉ</th>
-            <th>Tầng</th>
+            <th>Sách</th>
+            <th>vị trí </th>
+            <th>Tổng số lượng</th>
+            <th>Số lượng đang cho mượn</th>
+            <th>số lượng trong kho</th>
             <th>Sửa</th>
             <th>Xoá</th>
           </tr>
@@ -129,12 +130,16 @@
             foreach ($listData as $item) {
               echo '<tr>
               <td>'.$item->id.'</td>
-              <td>'.$item->name.'</td>
-              <td>'.$item->phone.'</td>
-              <td>'.$item->address.'</td>
-              <td><a href="/listFloor?id_building='.$item->id.'">'.$item->total_floor.' tầng</a></td>
+              <td>'.$item->book->name.'</td>
+              <td>Tòa nhà: '.$item->building->name.'</br>
+              Tầng: '.$item->floor->name.'</br>
+              Phòng: '.$item->room->name.'</br>
+              kệ: '.$item->shelf->name.'</td>
+              <td>'.$item->quantity.'</td>
+              <td>'.$item->quantity_borrow.'</td>
+              <td>'.$item->quantity_warehous.'</td>
               <td width="5%" align="center">
-              <a class="dropdown-item" href="/addBuilding/?id='.$item->id.'">
+              <a class="dropdown-item" href="/addWarehouse/?id='.$item->id.'">
               <i class="bx bx-edit-alt me-1"></i>
               </a>
               </td>
