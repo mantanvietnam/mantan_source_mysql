@@ -64,25 +64,68 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($listdatacontent as $data):?>
-                                  <tr>
-                                    <td>
-                                        <a href=""><?=$data->title?></a>
-                                        <p class="set-widthcontent"><?=$data->content_ai?></p>
-                                    </td>
-                                    <!-- <td>Jacob</td> -->
-                                    <td><?= date('d-m-Y', $data->created_at) ?></td>
+                                <?php if(!empty($info)):?>
+                                    <?php foreach ($listdatacontent as $data):?>
+                                    <tr>
+                                        <td>
+                                            <a href=""><?=$data->title?></a>
+                                            <p class="set-widthcontent"><?=$data->content_ai?></p>
+                                        </td>
+                                        <!-- <td>Jacob</td> -->
+                                        <td><?= date('d-m-Y', $data->created_at) ?></td>
 
-                                    <td><?= date('d-m-Y', $data->updated_at) ?></td>
-                                    <td><i class='bx bx-signal-4'></i><?=str_word_count($data->content_ai)?></td>
-                                    <td>
-                                        <!-- <a href=""><i class="fa-solid fa-cloud-arrow-down"></i></a> -->
-                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/plugins/admin/phoenix_ai-controller-admin-deletecontent/?id=<?php echo $data->id?>"><i class="fa-regular fa-trash-can"></i></a>  
-                                    </td>
-                                  </tr>
-                                <?php endforeach;?>
+                                        <td><?= date('d-m-Y', $data->updated_at) ?></td>
+                                        <td><i class='bx bx-signal-4'></i><?=str_word_count($data->content_ai)?></td>
+                                        <td>
+                                            <!-- <a href=""><i class="fa-solid fa-cloud-arrow-down"></i></a> -->
+                                            <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/plugins/admin/phoenix_ai-controller-admin-deletecontent/?id=<?php echo $data->id?>"><i class="fa-regular fa-trash-can"></i></a>  
+                                        </td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                <?php endif;?>
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <div class="demo-inline-spacing">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                        <?php
+                        if ($totalPage > 0) {
+                            if ($page > 5) {
+                            $startPage = $page - 5;
+                            } else {
+                            $startPage = 1;
+                            }
+
+                            if ($totalPage > $page + 5) {
+                            $endPage = $page + 5;
+                            } else {
+                            $endPage = $totalPage;
+                            }
+
+                            echo '<li class="page-item first">
+                            <a class="page-link" href="'.$urlPage.'1">
+                            <i class="tf-icon bx bx-chevrons-left"></i>
+                            </a>
+                            </li>';
+
+                            for ($i = $startPage; $i <= $endPage; $i++) {
+                            $active = ($page == $i) ? 'active' : '';
+
+                            echo '<li class="page-item '.$active.'">
+                            <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                            </li>';
+                            }
+
+                            echo '<li class="page-item last">
+                            <a class="page-link" href="'.$urlPage.$totalPage.'">
+                            <i class="tf-icon bx bx-chevrons-right"></i>
+                            </a>
+                            </li>';
+                        }
+                        ?>
+                        </ul>
+                    </nav>
+                    </div>
 <?php include('footer.php'); ?>
