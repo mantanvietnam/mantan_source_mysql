@@ -62,7 +62,7 @@
                         <?php 
                             foreach(listBostAi() as $key => $item){
                                 echo ' <div class="col-lg-6">
-                                <a class="play" href="/'.$item['url'].'">
+                                <a class="play" href="/'.$item['url'].'" style="text-decoration:none">
                                 <div class="card d-flex">
                                     <div class="info">
                                         <img src="'.$item['avatar'].'" alt="Profile Picture">

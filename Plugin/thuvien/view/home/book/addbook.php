@@ -58,32 +58,13 @@
                                 </select>
                               </div>
                             </div>
-                            <div class="mb-3 form-group col-sm-6">
-                              <i>Danh mục sách</i>
-                              <select name="id_category" id="id_category" class="form-control">
-                                  <option value="">Chọn Danh mục sách</option>
-                                  <?php if (!empty($listcategory)): ?>
-                                      <?php foreach ($listcategory as $key => $value): ?>
-                                          <option value="<?php echo $value->id; ?>" <?php echo ($data->id_category == $value->id) ? 'selected' : ''; ?>>
-                                              <?php echo $value->name; ?>
-                                          </option>
-                                      <?php endforeach; ?>
-                                  <?php endif; ?>
-                              </select>
+                           
+                            <div class="mb-3">
+                                <label class="form-label">Mô tả ngắn</label>
+                                <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
-                            <div class="mb-3 form-group col-sm-6">
-                              <i>Nhà xuất bản</i>
-                              <select name="book_code" id="book_code" class="form-control">
-                                  <option value="">Chọn Nhà xuất bản</option>
-                                  <?php if (!empty($listcategorypublishers)): ?>
-                                      <?php foreach ($listcategorypublishers as $key => $value): ?>
-                                          <option value="<?php echo $value->id; ?>" <?php echo ($data->id_category == $value->id) ? 'selected' : ''; ?>>
-                                              <?php echo $value->name; ?>
-                                          </option>
-                                      <?php endforeach; ?>
-                                  <?php endif; ?>
-                              </select>
-                            </div>
+
+                         
                           </div>
 
                           <div class="col-md-6">
@@ -102,15 +83,37 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Mô tả ngắn</label>
-                                <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
-                            </div>
-
-                            <div class="mb-3">
                               <label class="form-label" for="basic-default-phone">Mã xuất bản</label>
-                              <input type="text" class="form-control phone-mask" name="publisher_id" id="name" value="<?php echo @$data->publisher_id;?>" />
+                              <input type="text" class="form-control phone-mask" name="id_publisher" id="name" value="<?php echo @$data->id_publisher;?>" />
                             </div>
-                            
+                              <div class="row ">
+                                <div class="mb-3 form-group col-6">
+                                  <i>Danh mục sách</i>
+                                  <select name="id_category" id="id_category" class="form-control">
+                                      <option value="">Chọn Danh mục sách</option>
+                                      <?php if (!empty($listcategory)): ?>
+                                          <?php foreach ($listcategory as $key => $value): ?>
+                                              <option value="<?php echo $value->id; ?>" <?php echo ($data->id_category == $value->id) ? 'selected' : ''; ?>>
+                                                  <?php echo $value->name; ?>
+                                              </option>
+                                          <?php endforeach; ?>
+                                      <?php endif; ?>
+                                  </select>
+                                </div>
+                                <div class="mb-3 form-group col-6">
+                                  <i>Nhà xuất bản</i>
+                                  <select name="book_code" id="book_code" class="form-control">
+                                      <option value="">Chọn Nhà xuất bản</option>
+                                      <?php if (!empty($listcategorypublishers)): ?>
+                                          <?php foreach ($listcategorypublishers as $key => $value): ?>
+                                              <option value="<?php echo $value->id; ?>" <?php echo ($data->id_category == $value->id) ? 'selected' : ''; ?>>
+                                                  <?php echo $value->name; ?>
+                                              </option>
+                                          <?php endforeach; ?>
+                                      <?php endif; ?>
+                                  </select>
+                                </div>
+                              </div>
 
                             
                           </div>

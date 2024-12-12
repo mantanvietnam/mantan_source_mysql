@@ -61,7 +61,7 @@ $sqlInstallDatabase .="CREATE TABLE `books` (
   `price` int(10) DEFAULT NULL,
   `book_code` int(10) DEFAULT NULL,
   `published_date` int(10) DEFAULT NULL,
-  `publisher_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `id_publisher` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 $sqlInstallDatabase .="CREATE TABLE `buildings` ( `id` INT NOT NULL AUTO_INCREMENT ,
@@ -190,7 +190,7 @@ $sqlUpdateDatabase['books']['quantity'] = "ALTER TABLE `books` ADD `quantity` IN
 $sqlUpdateDatabase['books']['price'] = "ALTER TABLE `books` ADD `price` INT NOT NULL DEFAULT 0;";
 $sqlUpdateDatabase['books']['slug'] = "ALTER TABLE `books` ADD `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['books']['published_date'] = "ALTER TABLE `books` ADD `published_date` INT NOT NULL DEFAULT 0;";
-$sqlUpdateDatabase['books']['publisher_id'] = "ALTER TABLE `books` ADD `publisher_id` INT NOT NULL DEFAULT 0;";
+$sqlUpdateDatabase['books']['id_publisher'] = "ALTER TABLE `books` ADD `id_publisher` INT NOT NULL DEFAULT 0;";
 $sqlUpdateDatabase['books']['id_category'] = "ALTER TABLE `books` ADD `id_category` INT NOT NULL DEFAULT 0;";
 $sqlUpdateDatabase['books']['book_code'] = "ALTER TABLE `books` ADD `book_code` INT NOT NULL DEFAULT 0;";
 
