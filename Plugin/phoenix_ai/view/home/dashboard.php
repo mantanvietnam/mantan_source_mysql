@@ -103,7 +103,7 @@
                 let item = Object.values(msg).filter(item => item.title.toLowerCase().includes(searchInput));
                 for (let i = 0; i < item.length; i++) {
                   html +='<div class="col-lg-6">\
-                                <a class="play" href="/'+item[i].url+'">\
+                                <a class="play" href="/'+item[i].url+'" style="text-decoration:none">\
                                 <div class="card d-flex">\
                                     <div class="info">\
                                         <img src="'+item[i].avatar+'" alt="Profile Picture">\
@@ -115,12 +115,15 @@
                                         <p>'+item[i].district+'</p>\
                                         <div class="buttons">\
                                             <button class="like"><i class="fa-regular fa-thumbs-up"></i> 7</button>\
-                                            <a class="play" href="/'+item[i].url+'"><i class="fa-solid fa-play playmasion" style="color: #5242f3;"></i></i> Thực hiện</a>\
+                                            <div class="d-flex">\
+                                                <div><i class="fa-solid fa-play playmasion" style="color: #5242f3;"></i></div>\
+                                                <div>Thực hiện</div>\
+                                            </div>\
                                         </div>\
                                     </div>\
                                 </div>\
-                                </a>\
-                            </div>';
+                            </a>\
+                        </div>';
                 }
                     
              $('#bost_ai').html(html);

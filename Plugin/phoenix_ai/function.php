@@ -110,46 +110,27 @@ function checklogin($permission=''){
 function callAIphoenixtech($query,$conversation_id=''){
     global $keyDify;
 
-    // $header = array('Authorization'=>'Bearer app-4yYewPLJhBWuYUbDMXGuLxQi', 'Content-Type'=>'application/json');
-   // $dataPost= array('query'=>$query,'response_mode'=>'streaming','conversation_id'=>'','user'=>'Dify');
-
-   // $dataPost = '{
-   //  "inputs": {},
-   //  "query": "'.$query.'",
-   //  "response_mode": "streaming",
-   //  "conversation_id": "",
-   //  "user": "abc-123"
-   //  }';
-
-    // debug($header);
-    // debug($dataPost);
-    //$data= sendDataConnectMantan('https://dify.phoenixtech.vn/v1/chat-messages', $dataPost,$header,'raw');
-    // $data= str_replace('ï»¿', '', utf8_encode($data));
-    // $data= json_decode($data, true);
-
-    // debug($data);
-    // die;
-
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://dify.phoenixtech.vn/v1/chat-messages',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => '',
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'POST',
-    CURLOPT_POSTFIELDS =>'{
+      CURLOPT_URL => 'https://dify.phoenixtech.vn/v1/chat-messages',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS =>'{
         "inputs": {},
         "query": "'.$query.'",
         "response_mode": "streaming",
         "conversation_id": "'.$conversation_id.'",
-        "user": "abc-123"
-        }',
+        "user": "abc-123",
+        "files": [ ]
+    }',
       CURLOPT_HTTPHEADER => array(
-        'Authorization: Bearer app-4yYewPLJhBWuYUbDMXGuLxQi',
+        'Authorization: Bearer app-iBtfEJ0Pv5XOMI7IYMHKxrQE',
         'Content-Type: application/json'
       ),
     ));
@@ -157,11 +138,7 @@ function callAIphoenixtech($query,$conversation_id=''){
     $response = curl_exec($curl);
 
     curl_close($curl);
-   // echo $response;
-
-    
-
-    // Chuỗi đầy đủ từ input
+   
 
     // Tách chuỗi thành từng phần tử dữ liệu JSON
     $pattern = '/data: (.+?)(?=\ndata: |$)/s';
