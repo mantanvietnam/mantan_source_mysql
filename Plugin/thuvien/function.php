@@ -171,6 +171,10 @@ function getListPermission()
                                     array('name'=>'Danh sách kệ','permission'=>'listShelf'),
                                     array('name'=>'Thêm và sửa thông tin kệ','permission'=>'addShelf'),
                                     array('name'=>'Xóa thông tin kệ','permission'=>'deleteShelf'),
+
+                                    array('name'=>'Danh sách kho','permission'=>'listWarehouse'),
+                                    array('name'=>'Xuất và hủy kho','permission'=>'addWarehouse'),
+                                    array('name'=>'Xem lịch sử xuất hủy sách trong kho','permission'=>'historyWarehouse'),
                             )
                         
                     );
