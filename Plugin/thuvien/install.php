@@ -161,6 +161,19 @@ $sqlInstallDatabase .="CREATE TABLE `orderdetails` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `warehouse_historys` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`id_book` INT NOT NULL DEFAULT 0 , 
+`id_warehouse` INT NOT NULL DEFAULT 0 , 
+`id_member` INT NOT NULL DEFAULT 0 , 
+`quantity` INT NULL DEFAULT 0 , 
+`type` VARCHAR(100) NULL DEFAULT NULL , 
+`created_at` INT NOT NULL DEFAULT 0 , 
+`note` VARCHAR(255) NULL DEFAULT NULL , 
+`id_building` INT NULL DEFAULT 0 , 
+PRIMARY KEY (`id`)
+ ) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE permissions; ";
@@ -174,6 +187,8 @@ $sqlDeleteDatabase .= "DROP TABLE shelfs; ";
 
 $sqlDeleteDatabase .= "DROP TABLE orders; ";
 $sqlDeleteDatabase .= "DROP TABLE orderdetails; ";
+$sqlDeleteDatabase .= "DROP TABLE warehouse; ";
+$sqlDeleteDatabase .= "DROP TABLE warehouse_historys; ";
 
 
 
@@ -270,5 +285,12 @@ $sqlUpdateDatabase['orders']['shelf_id'] = "ALTER TABLE `orders` DROP COLUMN `sh
 $sqlUpdateDatabase['orders']['order_id'] = "ALTER TABLE `orders` DROP COLUMN `order_id`;";
 $sqlUpdateDatabase['orders']['building_id'] = "ALTER TABLE `orders` ADD COLUMN `building_id` INT NOT NULL AFTER `customer_id`;";
 
-
+$sqlUpdateDatabase['warehouse_historys']['id_book'] = "ALTER TABLE `warehouse_historys` ADD `id_book` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouse_historys']['id_warehouse'] = "ALTER TABLE `warehouse_historys` ADD `id_warehouse` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouse_historys']['id_member'] = "ALTER TABLE `warehouse_historys` ADD `id_member` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouse_historys']['quantity'] = "ALTER TABLE `warehouse_historys` ADD `quantity` INT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouse_historys']['type'] = "ALTER TABLE `warehouse_historys` ADD `type` VARCHAR(100) NULL DEFAULT NULL;";
+$sqlUpdateDatabase['warehouse_historys']['created_at'] = "ALTER TABLE `warehouse_historys` ADD `created_at` INT NOT NULL DEFAULT '0';";
+$sqlUpdateDatabase['warehouse_historys']['note'] = "ALTER TABLE `warehouse_historys` ADD `note` VARCHAR(255) NULL DEFAULT NULL;";
+$sqlUpdateDatabase['warehouse_historys']['id_building'] = "ALTER TABLE `warehouse_historys` ADD `id_building` INT NULL DEFAULT '0';";
 ?>

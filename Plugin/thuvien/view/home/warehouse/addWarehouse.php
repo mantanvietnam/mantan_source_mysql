@@ -20,12 +20,12 @@
             <div class="row">
               <div class="col-md-6 mb-4">
               <label class="form-label">Tên tòa nhà</label>
-              <select class="form-select" name="id_building" id="id_building" onclick="getfloor()">
+              <select class="form-select" name="id_building" id="id_building" onclick="getfloor()" <?php echo $disabled ?>>
                 <option value="" >Chọn tòa nhà</option>
                 <?php if(!empty($dataBuilding)){
                   foreach ($dataBuilding as $key => $item){
                     $selected = '';
-                    if(!empty($_GET['id_building']) && $_GET['id_building']==$item->id){
+                    if(!empty($data->id_building) && $data->id_building==$item->id){
                       $selected = 'selected';
                     }
 
@@ -36,12 +36,12 @@
             </div>
             <div class="col-md-6 mb-4">
               <label class="form-label">Tên tầng</label>
-              <select class="form-select" name="id_floor" id="id_floor" onclick="getRoom()">
+              <select class="form-select" name="id_floor" id="id_floor" onclick="getRoom()"  <?php echo $disabled ?>>
                 <option value="" >Chọn tầng</option>
                 <?php if(!empty($dataFloor)){
                   foreach ($dataFloor as $key => $item){
                     $selected = '';
-                    if(!empty($_GET['id_floor']) && $_GET['id_floor']==$item->id){
+                    if(!empty($data->id_floor) && $data->id_floor==$item->id){
                       $selected = 'selected';
                     }
 
@@ -52,12 +52,12 @@
             </div>
             <div class="col-md-6 mb-4">
               <label class="form-label">Tên phòng</label>
-              <select class="form-select" name="id_room" id="id_room" onclick="getShelf()">
+              <select class="form-select" name="id_room" id="id_room" onclick="getShelf()"  <?php echo $disabled ?>>
                 <option value="" >Chọn phòng</option>
                 <?php if(!empty($dataRoom)){
                   foreach ($dataRoom as $key => $item){
                     $selected = '';
-                    if(!empty($_GET['id_room']) && $_GET['id_room']==$item->id){
+                    if(!empty($data->id_room) && $data->id_room==$item->id){
                       $selected = 'selected';
                     }
 
@@ -68,12 +68,12 @@
             </div>
             <div class="col-md-6 mb-4">
               <label class="form-label">Tên kệ</label>
-              <select class="form-select" name="id_shelf" id="id_shelf" >
+              <select class="form-select" name="id_shelf" id="id_shelf"  <?php echo $disabled ?> >
                 <option value="" >Chọn kệ</option>
                 <?php if(!empty($dataShelf)){
                   foreach ($dataShelf as $key => $item){
                     $selected = '';
-                    if(!empty($_GET['id_shelf']) && $_GET['id_shelf']==$item->id){
+                    if(!empty($data->id_shelf) && $data->id_shelf==$item->id){
                       $selected = 'selected';
                     }
 
@@ -85,8 +85,12 @@
 
             <div class="col-md-6 mb-4">
               <label class="form-label">tên sách</label>
-              <input type="text" class="form-control" name="name_book" id="name_book" value="<?php if(!empty($_GET['name_book'])) echo $_GET['name_book'];?>">
-              <input type="hidden" class="form-control" name="id_book" id="id_book" value="<?php if(!empty($_GET['id_book'])) echo $_GET['id_book'];?>">
+              <input type="text" class="form-control" name="name_book" id="name_book" value="<?php if(!empty($data->book->name)) echo $data->book->name;?>"  <?php echo @$disabled ?>>
+              <input type="hidden" class="form-control" name="id_book" id="id_book" value="<?php if(!empty($data->id_book)) echo $data->id_book;?>">
+            </div>
+            <div class="col-md-6 mb-4">
+              <label class="form-label">Số lượng</label>
+              <input type="text" class="form-control" name="quantity" id="quantity" value="0" required="">
             </div>
           </div>
 
