@@ -47,3 +47,8 @@
 	//Quản lý người mượn sách
 	$routesPlugin['listCustomer']= 'thuvien/view/home/customer/listCustomer.php';
 	$routesPlugin['addCustomer']= 'thuvien/view/home/customer/addCustomer.php';
+
+	//Quản lý mượn sách
+	$routesPlugin['listOrder']= 'thuvien/view/home/order/listOrder.php';
+	$routesPlugin['addOrder']= 'thuvien/view/home/order/addOrder.php';
+	$routesPlugin['listOrderDetail']= 'thuvien/view/home/order/listOrderDetail.php';

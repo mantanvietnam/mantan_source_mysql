@@ -139,6 +139,15 @@
                 <a class="dropdown-item" href="/listPublisher">Quản lý nhà xuất bản</a>
               </div>
             </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Quản lý cho mượn - trả
+              </a>
+              <div class="dropdown-menu" aria-labelledby="order">
+                <a class="dropdown-item" href="/listOrder">Danh sách cho mượn sách</a>
+              </div>
+            </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Quản lý kho

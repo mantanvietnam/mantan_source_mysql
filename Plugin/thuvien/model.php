@@ -11,4 +11,6 @@ include('model/floors.php');
 include('model/rooms.php');
 include('model/shelfs.php');
 include('model/warehouses.php');
+include('model/orders.php');
+include('model/order_details.php');
 ?>

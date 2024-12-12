@@ -140,6 +140,27 @@ $sqlInstallDatabase .="CREATE TABLE `warehouse` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `orders` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `order_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    `member_id` INT NOT NULL,
+    `customer_id` INT NOT NULL,
+    `shelf_id` INT NOT NULL,
+    `status` INT NOT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `orderdetails` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `order_id` INT NOT NULL,
+  `book_id` INT NOT NULL,
+  `quantity` INT NOT NULL,
+  `shelf_id` INT NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE permissions; ";
@@ -150,6 +171,9 @@ $sqlDeleteDatabase .= "DROP TABLE customers; ";
 $sqlDeleteDatabase .= "DROP TABLE floors; ";
 $sqlDeleteDatabase .= "DROP TABLE rooms; ";
 $sqlDeleteDatabase .= "DROP TABLE shelfs; ";
+
+$sqlDeleteDatabase .= "DROP TABLE orders; ";
+$sqlDeleteDatabase .= "DROP TABLE orderdetails; ";
 
 
 
@@ -238,9 +262,13 @@ $sqlUpdateDatabase['warehouses']['updated_at'] = "ALTER TABLE `warehouses` ADD `
 $sqlUpdateDatabase['warehouses']['note'] = "ALTER TABLE `warehouses` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['warehouses']['status'] = "ALTER TABLE `warehouses` ADD `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 
-$sqlUpdateDatabase['customers']['type'] = "ALTER TABLE `customers` CHANGE `name` `name` VARCHAR(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['customers']['type'] = "ALTER TABLE `customers` CHANGE `address` `address` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
-$sqlUpdateDatabase['customers']['type'] = "ALTER TABLE `customers` CHANGE `email` `email` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['customers']['name'] = "ALTER TABLE `customers` CHANGE `name` `name` VARCHAR(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['address'] = "ALTER TABLE `customers` CHANGE `address` `address` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL;";
+$sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` CHANGE `email` `email` VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['orders']['shelf_id'] = "ALTER TABLE `orders` DROP COLUMN `shelf_id`;";
+$sqlUpdateDatabase['orders']['order_id'] = "ALTER TABLE `orders` DROP COLUMN `order_id`;";
+$sqlUpdateDatabase['orders']['building_id'] = "ALTER TABLE `orders` ADD COLUMN `building_id` INT NOT NULL AFTER `customer_id`;";
 
 
 ?>

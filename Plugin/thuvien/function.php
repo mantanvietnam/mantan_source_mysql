@@ -174,6 +174,19 @@ function getListPermission()
                             )
                         
                     );
+
+        $permission[] = array( 'name'=>'Quản lý mượn sách',
+    
+                    'sub'=>array(   array('name'=>'Danh sách mượn sách','permission'=>'listOrder'),
+                                    array('name'=>'Thêm và sửa thông tin mượn sách','permission'=>'addOrder'),
+                                    array('name'=>'Xóa thông tin mượn sách','permission'=>'deleteOrder'),
+                                    array('name'=>'Chi tiết thông tin danh sách mượn sách','permission'=>'listOrderDetail'),
+                                    array('name'=>'Thêm và sửa chi tiết thông tin mượn sách','permission'=>'addOrderDetail'),
+                                    array('name'=>'Xóa thông tin chi tiết mượn sách','permission'=>'deleteOrderDetail'),
+
+                            )
+                        
+                    );
     
     
     return $permission;
