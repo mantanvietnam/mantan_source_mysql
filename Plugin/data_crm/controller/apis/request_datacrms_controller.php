@@ -18,6 +18,16 @@ function saveRequestCreateDataCRMAPI($input)
 			$system_slug_old = $system_slug;
 
 			$checkSlug = $modelRequestDatacrms->find()->where(['system_slug'=>$system_slug])->first();
+
+			if(!empty($dataSend['password']) && !empty($dataSend['password_again'])){
+				if($dataSend['password']==$dataSend['password_again']){
+					$password = md5($dataSend['password']);
+				}else{
+					return ['messages' => array(array('text'=>'Mật khẩu nhập lại chưa đúng!'))];
+				}
+			}else{
+				$password = 'e10adc3949ba59abbe56e057f20f883e';
+			}
 			
 
 			if(!empty($checkSlug)){
@@ -36,6 +46,7 @@ function saveRequestCreateDataCRMAPI($input)
 			$data->status = 'new';
 			$data->system_name = trim($dataSend['system_name']);
 			$data->system_slug = $system_slug;
+			$data->password = $password;
 			$data->system_logo = 'https://crm.phoenixcamp.vn/upload/admin/files/Logo.png';
 			$data->boss_name = $dataSend['boss_name'];
 			$data->boss_phone = $dataSend['boss_phone'];
@@ -47,6 +58,7 @@ function saveRequestCreateDataCRMAPI($input)
 			$data->deadline = $data->create_at + 30*24*60*60;
 			$data->user_db = 'datacrm_'.$data->system_slug;
 			$data->pass_db = createPass(15);
+			
 
 			$modelRequestDatacrms->save($data);
 

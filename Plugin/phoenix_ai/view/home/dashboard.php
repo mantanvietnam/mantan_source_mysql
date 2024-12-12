@@ -9,12 +9,7 @@
                     <div class="search-wrapper">
                         <form id="searchForm" class="search-form">
                             <div class="input-wrapper">
-                                <input 
-                                    type="text" 
-                                    class="search-input" 
-                                    placeholder="Tìm kiếm trợ lý hoặc bấm / để chat với Phoenix"
-                                    id="searchInput"
-                                >
+                                <input type="text" class="search-input" placeholder="Tìm kiếm trợ lý hoặc bấm / để chat với Phoenix"id="searchInput" onkeydown="getbos();" >
                                 <div class="search-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <circle cx="11" cy="11" r="8"></circle>
@@ -32,7 +27,7 @@
                 <!-- Tab links -->
                 <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="assistant-tab" data-bs-toggle="tab" data-bs-target="#assistant" type="button">Trợ lý Phoenix</button>
+                        <button class="nav-link active" id="assistant-tab" onclick="getbos();" data-bs-toggle="tab" data-bs-target="#assistant" type="button">Trợ lý Phoenix </button>
                     </li>
                 </ul>
             </div>
@@ -63,18 +58,20 @@
                         <button class="btn btn-light rounded-pill view-all">Xem tất cả</button>
                     </div>
                     <div class="card-ai row justify-content-evenly">
-                    <?php foreach (listBostAi() as $key => $item): ?>
-                        <div class="col-lg-6">
-                            <a class="play" href="/<?= $item['url'] ?>" style="text-decoration:none">
+                    <div class="card-ai row justify-content-evenly" id='bost_ai'>
+                        <?php 
+                            foreach(listBostAi() as $key => $item){
+                                echo ' <div class="col-lg-6">
+                                <a class="play" href="/'.$item['url'].'">
                                 <div class="card d-flex">
                                     <div class="info">
-                                        <img src="<?= $item['avatar'] ?>" alt="Profile Picture">
-                                        <p><?= $item['name'] ?></p>
-                                        <span><?= $item['boot'] ?></span>
+                                        <img src="'.$item['avatar'].'" alt="Profile Picture">
+                                        <p>'.$item['name'].'</p>
+                                        <span>'.$item['boot'].'</span>
                                     </div>
                                     <div class="card-content mx-2">
-                                        <h3><?= $item['title']?></h3>
-                                        <p><?= $item['district'] ?></p>
+                                        <h3>'.$item['title'].'</h3>
+                                        <p>'.$item['district'].'</p>
                                         <div class="buttons">
                                             <button class="like"><i class="fa-regular fa-thumbs-up"></i> 7</button>
                                             <div class="d-flex">
@@ -85,15 +82,52 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
-                    <?php endforeach; ?>
-
-                            
-                        
+                        </div>';
+                    } ?>
                     </div>
                 </div>
                 
             </div>
         </div>
     </div>
+
+<script type="text/javascript">
+    function getbos(){
+        var searchInput = $('#searchInput').val();
+        $.ajax({
+              method: "POST",
+              url: "/apis/getbosAPI",
+              
+            }).done(function( msg ) {
+                var html = '';
+                let item = Object.values(msg).filter(item => item.title.toLowerCase().includes(searchInput));
+                for (let i = 0; i < item.length; i++) {
+                  html +='<div class="col-lg-6">\
+                                <a class="play" href="/'+item[i].url+'">\
+                                <div class="card d-flex">\
+                                    <div class="info">\
+                                        <img src="'+item[i].avatar+'" alt="Profile Picture">\
+                                        <p>'+item[i].name+'</p>\
+                                        <span>'+item[i].boot+'</span>\
+                                    </div>\
+                                    <div class="card-content mx-2">\
+                                        <h3>'+item[i].title+'</h3>\
+                                        <p>'+item[i].district+'</p>\
+                                        <div class="buttons">\
+                                            <button class="like"><i class="fa-regular fa-thumbs-up"></i> 7</button>\
+                                            <a class="play" href="/'+item[i].url+'"><i class="fa-solid fa-play playmasion" style="color: #5242f3;"></i></i> Thực hiện</a>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                                </a>\
+                            </div>';
+                }
+                    
+             $('#bost_ai').html(html);
+                   
+            });
+    }
+
+    
+</script>
 <?php include(__DIR__.'/footer.php'); ?>

@@ -165,7 +165,9 @@ function  editWallPostApi($input){
 
                         $total = count($_FILES['listImage']['name']);
                     }
-                    
+                    if($total>3){
+                     return array('code'=>0, 'messages'=>'tối đa ba ảnh');
+                }
                     if(!empty($total)){
                         for($i=0;$i<=$total;$i++){
                             if(isset($_FILES['listImages'.$i]) && empty($_FILES['listImages'.$i]["error"])){
@@ -308,7 +310,7 @@ function listWallPostApi($input){
                 $limit = 10;
                 $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
                 if($page<1) $page = 1;
-                $order = array('pin'=>'asc','id'=>'desc');
+                $order = array('pin'=>'asc','updated_at'=>'desc');
 
                 $listData = $modelWallPost->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 

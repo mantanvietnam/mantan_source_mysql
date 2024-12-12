@@ -382,4 +382,9 @@ function savecontentFacebookAdsAPI($input){
 
 }
 
- ?>
+
+function getbosAPI(){
+    return listBostAi();
+ 
+}
+?>

@@ -464,9 +464,13 @@ function importData($domain='', $db_name='', $db_password='', $dataInsert=[])
 			$time = time();
 			$deadline = time() + 30*24*60*60;
 
+			if(empty($dataInsert['password'])){
+				$dataInsert['password'] = 'e10adc3949ba59abbe56e057f20f883e';
+			}
+
 			$sql .= "INSERT INTO `categories` (`id`, `name`, `parent`, `image`, `keyword`, `description`, `type`, `slug`, `status`, `weighty`) VALUES (NULL, '".$dataInsert['system_name']."', '0', '".$dataInsert['system_logo']."', '', '', 'system_sales', '".$dataInsert['system_slug']."', 'active', '0');";
 
-			$sql .= "INSERT INTO `members` (`id`, `name`, `avatar`, `phone`, `id_father`, `email`, `password`, `status`, `created_at`, `id_system`, `otp`, `address`, `deadline`, `verify`, `birthday`, `facebook`, `id_position`, `create_agency`, `coin`, `twitter`, `tiktok`, `youtube`, `web`, `linkedin`, `description`, `zalo`, `view`, `banner`, `instagram`, `token_device`, `token`, `last_login`, `portrait`, `create_order_agency`, `img_card_member`, `img_logo`, `noti_new_order`, `noti_new_customer`, `noti_checkin_campaign`, `noti_reg_campaign`, `noti_product_warehouse`) VALUES (NULL, '".$dataInsert['boss_name']."', '".$dataInsert['boss_avatar']."', '".$dataInsert['boss_phone']."', '0', '".$dataInsert['boss_email']."', 'e10adc3949ba59abbe56e057f20f883e', 'active', '".$time."', '1', NULL, 'HN', '".$deadline."', 'active', NULL, NULL, '0', 'active', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, NULL, '0', NULL, '1', NULL, NULL, '1', '1', '1', '1', '1');";
+			$sql .= "INSERT INTO `members` (`id`, `name`, `avatar`, `phone`, `id_father`, `email`, `password`, `status`, `created_at`, `id_system`, `otp`, `address`, `deadline`, `verify`, `birthday`, `facebook`, `id_position`, `create_agency`, `coin`, `twitter`, `tiktok`, `youtube`, `web`, `linkedin`, `description`, `zalo`, `view`, `banner`, `instagram`, `token_device`, `token`, `last_login`, `portrait`, `create_order_agency`, `img_card_member`, `img_logo`, `noti_new_order`, `noti_new_customer`, `noti_checkin_campaign`, `noti_reg_campaign`, `noti_product_warehouse`) VALUES (NULL, '".$dataInsert['boss_name']."', '".$dataInsert['boss_avatar']."', '".$dataInsert['boss_phone']."', '0', '".$dataInsert['boss_email']."', '".$dataInsert['password']."', 'active', '".$time."', '1', NULL, 'HN', '".$deadline."', 'active', NULL, NULL, '0', 'active', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, NULL, '0', NULL, '1', NULL, NULL, '1', '1', '1', '1', '1');";
 
 			// Thực hiện truy vấn SQL
 			if (mysqli_multi_query($conn, $sql)) {
