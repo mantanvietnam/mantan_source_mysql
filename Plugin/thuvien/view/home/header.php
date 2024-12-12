@@ -154,6 +154,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="member">
                 <a class="dropdown-item" href="/listBuilding">Tòa nhà</a>
+                <a class="dropdown-item" href="/listWarehouse">Quản lý kho sách</a>
               </div>
             </li>
            
