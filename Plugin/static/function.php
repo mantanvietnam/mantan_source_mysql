@@ -75,12 +75,14 @@ function getStatic(){
         return $static;
 }
     
-function showStatic()
+function showStatic($show=1)
 {
     $today= getdate();
     global $modelOptions;
     global $infoSite;
     global $urlHomes;
+
+    if(isset($_GET['show'])) $show = (int) $_GET['show'];
     
     $conditions = array('key_word' => 'Static');
     $data = $modelOptions->find()->where($conditions)->first();
@@ -120,28 +122,33 @@ function showStatic()
 
         $modelOptions->save($data);
     }
-        
-    echo '<ul>
-              <li>
-                
-                Đang truy cập : <strong>'.rand(1,$static['mday']).'</strong>
-              </li>
-          
-              <li>
-                Hôm nay : <strong>'.number_format($static['mday']).'</strong>
-              </li>
-        
-              <li>
-                Tháng hiện tại : <strong>'.number_format($static['mon']).'</strong>
-              </li>
-        
-              <li>
-                Tổng lượt truy cập : <strong>'.number_format($static['total']).'</strong>
-              </li>
+    
+    if($show){ 
+        echo '<ul>
+                  <li>
+                    
+                    Đang truy cập : <strong>'.rand(1,$static['mday']).'</strong>
+                  </li>
+              
+                  <li>
+                    Hôm nay : <strong>'.number_format($static['mday']).'</strong>
+                  </li>
+            
+                  <li>
+                    Tháng hiện tại : <strong>'.number_format($static['mon']).'</strong>
+                  </li>
+            
+                  <li>
+                    Tổng lượt truy cập : <strong>'.number_format($static['total']).'</strong>
+                  </li>
 
-        </ul>';
+            </ul>';
+    }else{
+        return $static;
+    }
 }
 
+/*
 function toStatic(){
     global $modelOptions;
     global $metaTitleMantan;
@@ -164,5 +171,4 @@ function toStatic(){
 
    return $data->value;
 }
-
- ?>
+*/

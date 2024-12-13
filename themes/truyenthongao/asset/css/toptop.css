@@ -1647,6 +1647,10 @@ header .nav-item a{
     font-weight: bold;
 }
 
+.news-detail ul,.news-detail ol{
+    list-style: revert;
+}
+
 /* Mobile */
 @media (max-width: 767px) {
     .brand img {
