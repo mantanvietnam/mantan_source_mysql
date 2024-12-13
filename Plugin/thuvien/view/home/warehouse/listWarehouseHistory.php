@@ -4,10 +4,10 @@
 
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listWarehouse">Kho</a> /</span>
-    Danh sách kho
+    Lịch sử nhập và hủy sách
   </h4>
 
-  <p><a href="/addWarehouse" class="btn btn-primary"><i class="bx bx-plus"></i> Nhập sách vào kho </a></p>
+  <!-- <p><a href="/addWarehouse" class="btn btn-primary"><i class="bx bx-plus"></i> Nhập sách vào kho </a></p> -->
 
 </p>
 
@@ -108,26 +108,29 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách tòa nhà </h5>  <!-- - <span class="text-danger"><?php echo number_format(@$totalData);?> tòa nhà</span>-->
+    <h5 class="card-header">Danh sách lịch sử nhập và hủy sách </h5>  <!-- - <span class="text-danger"><?php echo number_format(@$totalData);?> tòa nhà</span>-->
     <?php echo @$mess;?>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
-          <tr align="center">
+          <tr class="" align="center">
             <th>ID</th>
             <th>Sách</th>
             <th>vị trí </th>
-            <th>Tổng số lượng</th>
-            <th>Số lượng đang cho mượn</th>
-            <th>số lượng trong kho</th>
-            <th>Nhập sách</th>
-            <th>hủy sách</th>
+            <th>số lượng</th>
+            <th>ngày</th>
+            <th>trạng thái</th>
           </tr>
         </thead>
         <tbody>
           <?php 
           if(!empty($listData)){
             foreach ($listData as $item) {
+              $status = '<p class="text-success">Nhập</p>';
+              if($item->type=='minus'){
+                $status = '<p class="text-danger">Hủy</p>';
+
+              }
               echo '<tr>
               <td>'.$item->id.'</td>
               <td>'.$item->book->name.'</td>
@@ -136,19 +139,8 @@
               Phòng: '.$item->room->name.'</br>
               kệ: '.$item->shelf->name.'</td>
               <td align="center">'.$item->quantity.'</td>
-              <td align="center">'.$item->quantity_borrow.'</td>
-              <td align="center">'.$item->quantity_warehous.'</td>
-              <td width="5%" align="center">
-              <a class="dropdown-item" href="/addWarehouse?id='.$item->id.'&type=plus">
-                <i class="bx bxs-plus-circle"></i>
-              </a>
-              </td>
-
-              <td align="center">
-              <a class="dropdown-item" href="/addWarehouse?id='.$item->id.'&type=minus">
-              <i class="bx bxs-minus-circle"></i>
-              </a>
-              </td>
+              <td align="center">'.date('H:i d/m/Y',$item->created_at).'</td>
+              <td align="center">'.$status.'</td>
               </tr>';
             }
           }else{

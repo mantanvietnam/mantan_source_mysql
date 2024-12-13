@@ -4,21 +4,21 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listWarehouse">Kho sách</a> /</span>
-    nhập sánh vào kho 
+       <?php echo $type ?>
   </h4>
   <!-- Basic Layout -->
   <div class="row">
     <div class="col-xl">
       <div class="card mb-12">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">Thông tin tòa nhà</h5>
+          <h5 class="mb-0">Thông tin <?php echo $to ?> sách</h5>
         </div>
         <div class="card-body">
           <p><?php echo @$mess;?></p>
           <form enctype="multipart/form-data" method="post" action="">
             <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
             <div class="row">
-              <div class="col-md-6 mb-4">
+              <div class="col-md-3 mb-4">
               <label class="form-label">Tên tòa nhà</label>
               <select class="form-select" name="id_building" id="id_building" onclick="getfloor()" <?php echo $disabled ?>>
                 <option value="" >Chọn tòa nhà</option>
@@ -34,7 +34,7 @@
                 } ?>
               </select>
             </div>
-            <div class="col-md-6 mb-4">
+            <div class="col-md-3 mb-4">
               <label class="form-label">Tên tầng</label>
               <select class="form-select" name="id_floor" id="id_floor" onclick="getRoom()"  <?php echo $disabled ?>>
                 <option value="" >Chọn tầng</option>
@@ -50,7 +50,7 @@
                 } ?>
               </select>
             </div>
-            <div class="col-md-6 mb-4">
+            <div class="col-md-3 mb-4">
               <label class="form-label">Tên phòng</label>
               <select class="form-select" name="id_room" id="id_room" onclick="getShelf()"  <?php echo $disabled ?>>
                 <option value="" >Chọn phòng</option>
@@ -66,7 +66,7 @@
                 } ?>
               </select>
             </div>
-            <div class="col-md-6 mb-4">
+            <div class="col-md-3 mb-4">
               <label class="form-label">Tên kệ</label>
               <select class="form-select" name="id_shelf" id="id_shelf"  <?php echo $disabled ?> >
                 <option value="" >Chọn kệ</option>
@@ -88,9 +88,23 @@
               <input type="text" class="form-control" name="name_book" id="name_book" value="<?php if(!empty($data->book->name)) echo $data->book->name;?>"  <?php echo @$disabled ?>>
               <input type="hidden" class="form-control" name="id_book" id="id_book" value="<?php if(!empty($data->id_book)) echo $data->id_book;?>">
             </div>
-            <div class="col-md-6 mb-4">
-              <label class="form-label">Số lượng</label>
-              <input type="text" class="form-control" name="quantity" id="quantity" value="0" required="">
+            <?php if(!empty($_GET['id'])){ ?>
+            <div class="col-md-3 mb-4">
+              <label class="form-label">Tổng số lượng</label>
+              <input type="number" class="form-control" name="" id="" value="<?php echo @$data->quantity;?>" disabled="">
+            </div>
+            <div class="col-md-3 mb-4">
+              <label class="form-label">Số lượng đang cho mượn</label>
+              <input type="number" class="form-control" name="quantity_borrow" id="quantity_borrow" value="<?php echo @$data->quantity_borrow;?>" disabled="">
+            </div>
+            <div class="col-md-3 mb-4">
+              <label class="form-label">Số lượng còn trong kho</label>
+              <input type="number" class="form-control" name="quantity_warehous" id="quantity_warehous" value="<?php echo @$data->quantity_warehous;?>" disabled="">
+            </div>
+          <?php } ?>
+            <div class="col-md-3 mb-4">
+              <label class="form-label">Số lượng <?php echo $type ?></label>
+              <input type="number" class="form-control" name="quantity" id="quantity" value="0" required="">
             </div>
           </div>
 

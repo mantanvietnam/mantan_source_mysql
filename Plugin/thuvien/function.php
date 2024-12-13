@@ -174,7 +174,7 @@ function getListPermission()
 
                                     array('name'=>'Danh sách kho','permission'=>'listWarehouse'),
                                     array('name'=>'Xuất và hủy kho','permission'=>'addWarehouse'),
-                                    array('name'=>'Xem lịch sử xuất hủy sách trong kho','permission'=>'historyWarehouse'),
+                                    array('name'=>'Xem lịch sử xuất hủy sách trong kho','permission'=>'listWarehouseHistory'),
                             )
                         
                     );

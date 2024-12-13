@@ -180,7 +180,7 @@ function addWarehouse($input)
     global $session;
     global $modelCategoryConnects;
 
-     $user = checklogin('listWarehouse');   
+     $user = checklogin('addWarehouse');   
     if(!empty($user)){
         if(empty($user->grant_permission)){
             return $controller->redirect('/');
@@ -206,6 +206,7 @@ function addWarehouse($input)
                 return $controller->redirect('/listWarehouse');
             }
             $disabled='disabled';
+            $data->quantity_warehous = $data->quantity - $data->quantity_borrow;
         }else{
             $data = $modelWarehouse->newEmptyEntity();
             $data->quantity = 0;
@@ -239,7 +240,7 @@ function addWarehouse($input)
 
                         $note = $user->name.' thêm '.$dataSend['quantity'].' quyển sách '.$book->name.' mới vào kệ '.$shelf->name.' trong phòng '.$room->name.' tầng '.$floor->name.' của tòa nhà '.$building->name.'  id là:'.$data->id;
                 
-                        addActivityHistory($user,$note,'deleteCategorybook',$data->id);
+                        addActivityHistory($user,$note,'addWarehouse',$data->id);
 
                         $history = $modelWarehouseHistory->newEmptyEntity();
                         $history->id_book = $data->id_book;
@@ -263,31 +264,62 @@ function addWarehouse($input)
                 
             }else{
                 if(!empty($dataSend['quantity'])){
-                    $data->quantity +=  (int)$dataSend['quantity'];
-                    $data->updated_at = time();
-                    $modelWarehouse->save($data);
+                    if(@$_GET['type']=='plus'){
+                        $data->quantity +=  (int)$dataSend['quantity'];
+                        $data->updated_at = time();
+                        $modelWarehouse->save($data);
 
-                    $building = $modelBuilding->find()->where(['id'=>$data->id_building])->first();
-                    $book = $modelBook->find()->where(['id'=>$data->id_book])->first();
-                    $room = $modelRoom->find()->where(['id'=>$data->id_room])->first();
-                    $floor = $modelFloor->find()->where(['id'=>$data->id_floor])->first();
-                    $shelf = $modelShelf->find()->where(['id'=>$data->id_shelf])->first();
+                        $building = $modelBuilding->find()->where(['id'=>$data->id_building])->first();
+                        $book = $modelBook->find()->where(['id'=>$data->id_book])->first();
+                        $room = $modelRoom->find()->where(['id'=>$data->id_room])->first();
+                        $floor = $modelFloor->find()->where(['id'=>$data->id_floor])->first();
+                        $shelf = $modelShelf->find()->where(['id'=>$data->id_shelf])->first();
 
-                    $note = $user->name.' thêm '.$dataSend['quantity'].' quyển sách '.$book->name.' mới vào kệ '.$shelf->name.' trong phòng '.$room->name.' tầng '.$floor->name.' của tòa nhà '.$building->name.'  id là:'.$data->id;
-                
-                    addActivityHistory($user,$note,'deleteCategorybook',$data->id);    
-                    $history = $modelWarehouseHistory->newEmptyEntity();
-                    $history->id_book = $data->id_book;
-                    $history->id_warehouse = $data->id;
-                    $history->id_member = $user->id;
-                    $history->quantity = $dataSend['quantity'];
-                    $history->type = 'plus';
-                    $history->created_at = time();
-                    $history->note =$note;
-                    $history->id_building = $data->id_building;
-                    $modelWarehouseHistory->save($history);
-                    return $controller->redirect('/listWarehouse?id_building='.$data->id_building.'&id_book='.$data->id_book);
+                        $note = $user->name.' thêm '.$dataSend['quantity'].' quyển sách '.$book->name.' mới vào kệ '.$shelf->name.' trong phòng '.$room->name.' tầng '.$floor->name.' của tòa nhà '.$building->name.'  id là:'.$data->id;
+                    
+                        addActivityHistory($user,$note,'addWarehouse',$data->id);    
+                        $history = $modelWarehouseHistory->newEmptyEntity();
+                        $history->id_book = $data->id_book;
+                        $history->id_warehouse = $data->id;
+                        $history->id_member = $user->id;
+                        $history->quantity = $dataSend['quantity'];
+                        $history->type = 'plus';
+                        $history->created_at = time();
+                        $history->note =$note;
+                        $history->id_building = $data->id_building;
+                        $modelWarehouseHistory->save($history);
+                        return $controller->redirect('/listWarehouse?id_building='.$data->id_building.'&id_book='.$data->id_book);
+                    }elseif(@$_GET['type']=='minus'){
+                        if($data->quantity_warehous>=(int)@$dataSend['quantity']){
+                            $data->quantity -=  (int)$dataSend['quantity'];
+                            $data->updated_at = time();
+                            $modelWarehouse->save($data);
 
+                            $building = $modelBuilding->find()->where(['id'=>$data->id_building])->first();
+                            $book = $modelBook->find()->where(['id'=>$data->id_book])->first();
+                            $room = $modelRoom->find()->where(['id'=>$data->id_room])->first();
+                            $floor = $modelFloor->find()->where(['id'=>$data->id_floor])->first();
+                            $shelf = $modelShelf->find()->where(['id'=>$data->id_shelf])->first();
+
+                            $note = $user->name.' hủy '.$dataSend['quantity'].' quyển sách '.$book->name.' mới vào kệ '.$shelf->name.' trong phòng '.$room->name.' tầng '.$floor->name.' của tòa nhà '.$building->name.'  id là:'.$data->id;
+                        
+                            addActivityHistory($user,$note,'addWarehouse',$data->id);    
+                            $history = $modelWarehouseHistory->newEmptyEntity();
+                            $history->id_book = $data->id_book;
+                            $history->id_warehouse = $data->id;
+                            $history->id_member = $user->id;
+                            $history->quantity = $dataSend['quantity'];
+                            $history->type = 'minus';
+                            $history->created_at = time();
+                            $history->note =$note;
+                            $history->id_building = $data->id_building;
+                            $modelWarehouseHistory->save($history);
+                            return $controller->redirect('/listWarehouse?id_building='.$data->id_building.'&id_book='.$data->id_book);
+                        }else{
+                            $mess = 3;
+                        }
+
+                    }
                 }else{
                      $mess = 2;
                 }
@@ -315,8 +347,16 @@ function addWarehouse($input)
             $mess = '<p class="text-danger" style="padding: 0px 1.5em;">quyển sách '.$data->book->name.' đã có trong tòa nhà '.$data->building->name.' rồi </p>'; 
         }elseif($mess==2){
             $mess = '<p class="text-danger" style="padding: 0px 1.5em;">Thiếu dữ liệu</p>'; 
+        }elseif($mess==3){
+            $mess = '<p class="text-danger" style="padding: 0px 1.5em;">Số lượng hủy phải nhỏ hơn hoặc bằng số lượng sách trong kho</p>'; 
         }
         $dataBuilding = $modelBuilding->find()->where()->all()->toList();
+        $type = 'Nhập sách vào kho';
+        $to = 'nhập';
+        if(@$_GET['type']=='minus'){
+           $type = 'hủy sách trong kho';
+           $to = 'hủy';
+        }
 
         setVariable('dataBuilding', @$dataBuilding);
         setVariable('dataFloor', @$dataFloor);
@@ -324,7 +364,193 @@ function addWarehouse($input)
         setVariable('dataShelf', @$dataShelf);
         setVariable('mess', $mess);
         setVariable('data', $data);
+        setVariable('type', $type);
+        setVariable('to', $to);
         setVariable('disabled', $disabled);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function listWarehouseHistory($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $modelCategoryConnects;
+
+     $user = checklogin('listWarehouseHistory');   
+    if(!empty($user)){
+        if(empty($user->grant_permission)){
+            return $controller->redirect('/');
+        }
+        $metaTitleMantan = 'Lịch sử nhập và hủy sách';
+
+        $modelBuilding = $controller->loadModel('Buildings');
+        $modelFloor = $controller->loadModel('Floors');
+        $modelWarehouse = $controller->loadModel('Warehouses');
+        $modelBook = $controller->loadModel('Books');
+        $modelFloor = $controller->loadModel('Floors');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelShelf = $controller->loadModel('Shelfs');
+        $modelWarehouseHistory = $controller->loadModel('WarehouseHistorys');
+        
+        $order = array('id'=>'desc');
+
+        $conditions = array();
+        $conditionsWarehouse = array();
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+
+
+
+        if(!empty($_GET['id_book'])){
+            $conditionsWarehouse['id_book'] = (int) $_GET['id_book'];
+        }
+        if(!empty($_GET['id_building'])){
+            $conditionsWarehouse['id_building'] = (int) $_GET['id_building'];
+            $dataFloor= $modelFloor->find()->where(['id_building'=>(int)$_GET['id_building']])->all()->toList();
+        }
+        if(!empty($_GET['id_floor'])){
+            $conditionsWarehouse['id_floor'] = (int) $_GET['id_floor'];
+            $dataRoom= $modelRoom->find()->where(['id_floor'=>(int) $_GET['id_floor']])->all()->toList();
+        }
+        if(!empty($_GET['id_room'])){
+            $conditionsWarehouse['id_room'] = (int) $_GET['id_room'];
+            $dataShelf= $modelShelf->find()->where(['id_room'=>(int) $_GET['id_room']])->all()->toList();
+        }
+        if(!empty($_GET['id_shelf'])){
+            $conditionsWarehouse['id_shelf'] = (int) $_GET['id_shelf'];
+        }
+        if(!empty($conditionsWarehouse)){
+            $warehouses = $modelWarehouse->find()->where($conditionsWarehouse)->all()->toList();
+            if(!empty($warehouses)){
+                $id_warehouse = array();
+                foreach($warehouses as $k => $value){
+                    $id_warehouse[] = $value->id;
+                }
+                $conditions['id_warehouse IN'] =$id_warehouse;    
+            }else{
+                $conditions['id_warehouse'] = 0;
+            }
+        }
+
+       /* if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+            $listData = $modelBuilding->find()->where($conditions)->order($order)->all()->toList();
+            
+            $titleExcel =   [
+                ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
+                ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+                ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
+                ['name'=>'Email', 'type'=>'text', 'width'=>25],
+                ['name'=>'Trạng thái', 'type'=>'text', 'width'=>25],
+                ['name'=>'Ngày sinh', 'type'=>'text', 'width'=>25], 
+            ];
+
+            $dataExcel = [];
+            if(!empty($listData)){
+                foreach ($listData as $key => $value) {
+                    $status= 'Khóa';
+                    if($value->status=='active'){ 
+                        $status= 'Kích hoạt';
+                    }
+
+                    $birthday = '';
+                    if(!empty($value->birthday)){
+                        $birthday = date('d/m/Y',$value->birthday);
+                    }
+
+                    $dataExcel[] = [
+                        $value->full,   
+                        $value->phone,   
+                        $value->address,   
+                        $value->email,  
+                        $status,
+                        $birthday
+                    ];
+                }
+            }
+            export_excel($titleExcel,$dataExcel,'danh_sach_t');
+        }else{*/
+            $listData = $modelWarehouseHistory->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        //}
+
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                $warehouse = $modelWarehouse->find()->where(['id'=>$item->id_warehouse])->first();
+                $listData[$key]->building = $modelBuilding->find()->where(['id'=>$warehouse->id_building])->first();
+                $listData[$key]->book = $modelBook->find()->where(['id'=>$warehouse->id_book])->first();
+                $listData[$key]->room = $modelRoom->find()->where(['id'=>$warehouse->id_room])->first();
+                $listData[$key]->floor = $modelFloor->find()->where(['id'=>$warehouse->id_floor])->first();
+                $listData[$key]->shelf = $modelShelf->find()->where(['id'=>$warehouse->id_shelf])->first();
+                $listData[$key]->warehouse = $warehouse;
+            }
+        }
+
+        // phân trang
+        $totalData = $modelWarehouseHistory->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        $mess ='';
+        if(@$_GET['mess']=='saveSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Lưu dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteSuccess'){
+            $mess= '<p class="text-success" style="padding: 0px 1.5em;">Xóa dữ liệu thành công</p>';
+        }elseif(@$_GET['mess']=='deleteError'){
+            $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
+        }
+
+        $dataBuilding = $modelBuilding->find()->where()->all()->toList();
+
+        setVariable('mess', $mess);
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('totalData', @$totalData);
+        setVariable('dataBuilding', @$dataBuilding);
+        setVariable('dataFloor', @$dataFloor);
+        setVariable('dataRoom', @$dataRoom);
+        setVariable('dataShelf', @$dataShelf);
+        
+        setVariable('listData', $listData);
+       // / setVariable('listGroup', $listGroup);
     }else{
         return $controller->redirect('/login');
     }
