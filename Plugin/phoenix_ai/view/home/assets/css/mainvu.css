@@ -211,6 +211,11 @@ table {
     margin: 0 auto;
     padding: 0 1rem;
 }
+.css-resultitem {
+    border-radius: 5px;
+
+    background: #FAFAFA;
+}
 
 .main-wrap .showcase .overlay .aiva-home .home-banner .search-wrapper {
     position: relative;

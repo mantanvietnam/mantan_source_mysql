@@ -5,7 +5,7 @@ $info = $session->read('infoUser');
 ?>
                 <div class="chat-main container">
                     <div class="chat-header">
-                        <p><img src="/plugins/phoenix_ai/view/home/assets/img/aipnix.svg" alt="">Welcome to <span>Phoenix</span></p>
+                        <p><img src="plugins/phoenix_ai/view/home/assets/img/96cb94e74cb6a1cf50d8c2aa74763389.svg" alt="">Welcome to <span>Phoenix</span></p>
                     </div>
                     <div class="search-box d-flex align-items-center justify-content-center">
                         <input type="text" class="form-control search-input search-chat" placeholder="Tìm kiếm trợ lý Phoenix">
@@ -49,11 +49,11 @@ $info = $session->read('infoUser');
                                      
                                     </div>
                                     <div class="MuiBox-root " id="result'.$i.'">
-                                        <div class="d-flex left-quetion">
-                                            <img alt="avatar"  style="width: 50px;" src="/plugins/phoenix_ai/view/home/assets/img/aipnix.svg">
-                                            <div>
+                                        <div class=" left-quetion mt-3 mb-3">
+                                            
+                                            <div class=" d-flex css-resultitem">
+                                                <img alt="avatar"  style="width: 50px; height:50px" src="plugins/phoenix_ai/view/home/assets/img/96cb94e74cb6a1cf50d8c2aa74763389.svg">
                                                 <p class="result-answer MuiTypography-root jss1624 MuiTypography-body1">'.@$item['result'].'</p>
-                                                
                                             </div>
                                         </div>
                                     </div>';
@@ -127,9 +127,9 @@ $info = $session->read('infoUser');
         .done(function( msg ) {
             if(msg.code==1){
                      $('#listchat div:first').append('<div class="MuiBox-root " id="result'+row+'">\
-                           <div class="d-flex left-quetion">\
-                           <img alt="avatar" style="width: 50px;" src="/plugins/phoenix_ai/view/home/assets/img/robot.svg">\
-                               <div class="">\
+                           <div class="mt-3 mb-3 left-quetion">\
+                               <div class="d-flex css-resultitem">\
+                                   <img alt="avatar" style="width: 50px; height:50px" src="plugins/phoenix_ai/view/home/assets/img/96cb94e74cb6a1cf50d8c2aa74763389.svg">\
                                    <p class="result-answer MuiTypography-root jss1624 MuiTypography-body1">'+msg.data.result+'.</p>\
                                </div>\
                            </div>\
