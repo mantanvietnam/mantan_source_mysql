@@ -37,18 +37,37 @@
             <th>ID</th>
             <th>image</th>
             <th>Tên</th>
+            <th>Nhóm thức ăn</th>
+            <th>Ngày</th>
             <th>sửa</th>
             <th>xóa</th>
           </tr>
         </thead>
         <tbody>
             <?php foreach ($listData as $item): ?>
+                <?php 
+                    global $controller;
+                    $modelfood = $controller->loadModel('food');
+
+                    if ($item->id_food !== null) {
+                   
+                        $foodGroup = $modelfood->find()
+                            ->where(['id' => $item->id_food]) 
+                            ->first();
+                        $foodGroupName = $foodGroup ? $foodGroup->name : 'Không xác định';
+                    } else {
+                   
+                        $foodGroupName = 'Không xác định';
+                    }
+                ?>
                 <tr>
                     <td><?php echo $item->id; ?></td>
                     <td><img src="<?=$item->image?>" alt="" style="width:100px"></td>
                     <td>
                         <a target="_blank" href="/product/<?php echo $item->slug; ?>.html"><?php echo $item->name; ?></a>
                     </td>
+                    <td><?= $foodGroupName ?></td>
+                    <td><?=$item->time?></td>
                     <td align="center">
                         <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-lunchfood-addlunchfood/?id=<?php echo urlencode($item->id); ?>">
                             <i class="bx bx-edit-alt me-1"></i>

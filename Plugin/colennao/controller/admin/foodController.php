@@ -91,9 +91,6 @@ function addgroupfood($input){
             $data->contenten = $dataSend['contenten'];
             $data->month = $dataSend['month'];
             $data->icon = $dataSend['icon'];
-            $data->timestart = (new DateTime($dataSend['timestart']))->getTimestamp();
-            $data->timenow = (new DateTime($dataSend['timenow']))->getTimestamp();
-
 
             $modelfood->save($data);   
 
@@ -212,7 +209,7 @@ function addbreakfastfood($input){
             $data->content= $dataSend['content'];
             $data->image = $dataSend['image'];
             $data->Ingredients = $dataSend['Ingredients'];
-            $data->eatformat = $dataSend['eatformat'];
+            // $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
             $data->timeeat = $dataSend['timeeat'];
             $data->time = $dataSend['time'];
@@ -283,7 +280,7 @@ function listlunchfood($input){
     global $metaTitleMantan;
     global $modelCategories;
 
-    $metaTitleMantan = 'Danh sách bữa sáng';
+    $metaTitleMantan = 'Danh sách bữa trưa';
 
     $modelfood = $controller->loadModel('food');
     $modellunch = $controller->loadModel('lunch');
@@ -346,7 +343,7 @@ function addlunchfood($input){
 	global $isRequestPost;
 	global $modelCategories;
     global $metaTitleMantan;
-    $metaTitleMantan = 'Thêm bữa sáng';
+    $metaTitleMantan = 'Thêm bữa trưatrưa';
 	$modelfood = $controller->loadModel('food');
     $modellunch = $controller->loadModel('lunch');
 	$mess= '';
@@ -366,7 +363,7 @@ function addlunchfood($input){
             $data->content= $dataSend['content'];
             $data->image = $dataSend['image'];
             $data->Ingredients = $dataSend['Ingredients'];
-            $data->eatformat = $dataSend['eatformat'];
+            // $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
             $data->timeeat = $dataSend['timeeat'];
             $data->time = $dataSend['time'];
@@ -436,7 +433,7 @@ function listdinnerfood($input){
     global $metaTitleMantan;
     global $modelCategories;
 
-    $metaTitleMantan = 'Danh sách bữa sáng';
+    $metaTitleMantan = 'Danh sách bữa tốitối';
 
     $modelfood = $controller->loadModel('food');
     $modeldinner = $controller->loadModel('dinner');
@@ -499,7 +496,7 @@ function adddinnerfood($input){
 	global $isRequestPost;
 	global $modelCategories;
     global $metaTitleMantan;
-    $metaTitleMantan = 'Thêm bữa sáng';
+    $metaTitleMantan = 'Thêm bữa tối';
 	$modelfood = $controller->loadModel('food');
     $modeldinner = $controller->loadModel('dinner');
 	$mess= '';
@@ -519,7 +516,7 @@ function adddinnerfood($input){
             $data->content= $dataSend['content'];
             $data->image = $dataSend['image'];
             $data->Ingredients = $dataSend['Ingredients'];
-            $data->eatformat = $dataSend['eatformat'];
+            // $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
             $data->timeeat = $dataSend['timeeat'];
             $data->time = $dataSend['time'];
@@ -588,7 +585,7 @@ function listsnacksfood($input){
     global $metaTitleMantan;
     global $modelCategories;
 
-    $metaTitleMantan = 'Danh sách bữa sáng';
+    $metaTitleMantan = 'Danh sách bữa ăn nhẹ';
 
     $modelfood = $controller->loadModel('food');
     $modelsnacks = $controller->loadModel('snacks');
@@ -671,7 +668,7 @@ function addsnacksfood($input){
             $data->content= $dataSend['content'];
             $data->image = $dataSend['image'];
             $data->Ingredients = $dataSend['Ingredients'];
-            $data->eatformat = $dataSend['eatformat'];
+            // $data->eatformat = $dataSend['eatformat'];
             $data->id_food = $dataSend['id_food'];
             $data->timeeat = $dataSend['timeeat'];
             $data->time = $dataSend['time'];
