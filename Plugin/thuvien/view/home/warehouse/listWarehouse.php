@@ -120,8 +120,8 @@
             <th>Tổng số lượng</th>
             <th>Số lượng đang cho mượn</th>
             <th>số lượng trong kho</th>
-            <th>Sửa</th>
-            <th>Xoá</th>
+            <th>Nhập sách</th>
+            <th>hủy sách</th>
           </tr>
         </thead>
         <tbody>
@@ -139,14 +139,14 @@
               <td>'.$item->quantity_borrow.'</td>
               <td>'.$item->quantity_warehous.'</td>
               <td width="5%" align="center">
-              <a class="dropdown-item" href="/addWarehouse/?id='.$item->id.'">
-              <i class="bx bx-edit-alt me-1"></i>
+              <a class="dropdown-item" href="/addWarehouse?id='.$item->id.'&type=plus">
+                <i class="bx bxs-plus-circle"></i>
               </a>
               </td>
 
               <td align="center">
-              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteBuilding/?id='.$item->id.'">
-              <i class="bx bx-trash me-1"></i>
+              <a class="dropdown-item" href="/addWarehouse?id='.$item->id.'&type=minus">
+              <i class="bx bxs-minus-circle"></i>
               </a>
               </td>
               </tr>';
