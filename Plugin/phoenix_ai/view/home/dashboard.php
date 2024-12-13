@@ -27,7 +27,7 @@
                 <!-- Tab links -->
                 <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="assistant-tab" onclick="getbos();" data-bs-toggle="tab" data-bs-target="#assistant" type="button">Trợ lý Phoenix </button>
+                        <button class="nav-link active" id="assistant-tab"  data-bs-toggle="tab" data-bs-target="#assistant" type="button">Trợ lý Phoenix </button>
                     </li>
                 </ul>
             </div>
