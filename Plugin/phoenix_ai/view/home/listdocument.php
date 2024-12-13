@@ -68,7 +68,7 @@
                                     <?php foreach ($listdatacontent as $data):?>
                                     <tr>
                                         <td>
-                                            <a href=""><?=$data->title?></a>
+                                            <a href="<?=$data->link?>?id=<?php echo $data->id?>"><?=$data->title?></a>
                                             <p class="set-widthcontent"><?=$data->content_ai?></p>
                                         </td>
                                         <!-- <td>Jacob</td> -->
