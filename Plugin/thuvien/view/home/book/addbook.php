@@ -84,7 +84,7 @@
 
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-phone">Mã xuất bản</label>
-                              <input type="text" class="form-control phone-mask" name="id_publisher" id="name" value="<?php echo @$data->id_publisher;?>" />
+                              <input type="text" class="form-control phone-mask" name="code_book" id="name" value="<?php echo @$data->code_book;?>" />
                             </div>
                               <div class="row ">
                                 <div class="mb-3 form-group col-6">
