@@ -170,7 +170,7 @@ function callAIphoenixtech($query,$conversation_id=''){
     }
 
 
-    return array('result'=>$result,'conversation_id'=>$conversation_id);
+    return array('result'=>str_replace('*', '', $result),'conversation_id'=>$conversation_id);
 
 }
 

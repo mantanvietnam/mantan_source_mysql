@@ -105,10 +105,10 @@ function listOrder($input)
                 ->all()
                 ->toList();
 
-            foreach ($listData as $order) {
-                $order->customer = $modelCustomers->get($order->customer_id);
-                $order->building = $modelBuildings->get($order->building_id);
-                $order->member = $modelMembers->get($order->member_id);
+            foreach ($listData as $key => $order) {
+                $listData[$key]->customer = $modelCustomers->get($order->customer_id);
+                $listData[$key]->building = $modelBuildings->get($order->building_id);
+                $listData[$key]->member = $modelMembers->get($order->member_id);
             }
         }
 

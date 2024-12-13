@@ -1,5 +1,5 @@
 <?php 
-function sendContenTiktok($input){
+function sendContenLanding($input){
     global $isRequestPost;
     global $controller;
     global $session;

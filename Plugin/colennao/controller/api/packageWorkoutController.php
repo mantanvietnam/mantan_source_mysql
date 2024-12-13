@@ -829,12 +829,15 @@ function getUserChildExerciseWorkoutAPI($input){
 
                   if(!empty($data->device)){
             			$device = json_decode($data->device, true);
-
+            			if(!empty($device)){
             			foreach($device as $k => $value){
 								$value =  $modelDevices->find()->where(['id'=>$value])->first();
 								$device[$k] = $value;
                     	}
-                    	$data->device = $device;
+                    		$data->device = $device;
+        				}else{
+        					$data->device = [];
+        				}
         			}
 
 

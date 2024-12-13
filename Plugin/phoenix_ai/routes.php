@@ -39,5 +39,6 @@
 	$routesPlugin['createsampleADS']= 'phoenix_ai/view/home/writecontent/createsampleADS.php';
 	$routesPlugin['sendContenTiktok']= 'phoenix_ai/view/home/tiktok/sendContenTiktok.php';
 	$routesPlugin['sendinspirationalFacebook']= 'phoenix_ai/view/home/facebook/sendinspirationalFacebook.php';
+	$routesPlugin['sendContenLanding']= 'phoenix_ai/view/home/landing/sendContenLanding.php';
 	
 ?>
