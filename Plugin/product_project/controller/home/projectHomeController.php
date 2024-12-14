@@ -133,8 +133,15 @@ function projectDetail($input)
         
         $project->images = json_decode($project->images, true);
 
-        // DANH MỤC Thể loại
-        $listKind = $modelCategories->find()->where(['id'=>$project->id_kind])->first();
+
+        if (!empty($project->id_kind)) {
+            $listKind = $modelCategories->find()
+                ->where(['id' => $project->id_kind])
+                ->first();
+        } else {
+            $listKind = null; 
+        }
+        
    
         if(!empty($project->id_kind)){
             $infoKind = $modelCategories->find()->where(['id'=> $project->id_kind])->first();
