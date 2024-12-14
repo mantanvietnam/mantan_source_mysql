@@ -1,6 +1,6 @@
 <?php
 
-function listOrder($input)
+function listOrder($input) 
 {
     global $controller;
     global $urlCurrent;
@@ -145,3 +145,187 @@ function listOrder($input)
         return $controller->redirect('/login');
     }
 }
+
+function updateOrderStatus($input) {  
+    global $modelOrders;
+    global $controller;
+
+    $user = checklogin('updateOrderStatus');   
+    if (empty($user)) {
+        echo json_encode(['success' => false, 'message' => 'Bạn cần đăng nhập để thực hiện thao tác này.']);
+        exit;
+    }
+
+    if (!empty($_POST['id']) && isset($_POST['status'])) {
+        $orderId = $_POST['id'];
+        $newStatus = $_POST['status'];
+
+        $modelOrder = $controller->loadModel('Orders');
+        $order = $modelOrder->find()->where(['id' => $orderId])->first();
+
+        if (!empty($order)) {
+            $order->status = $newStatus;
+
+            if ($modelOrder->save($order)) {
+                $note = $user->name . ' cập nhật trạng thái đơn hàng ID ' . $orderId . ' thành ' . $newStatus;
+                addActivityHistory($user, $note, 'updateOrderStatus', $orderId);
+
+                echo json_encode(['success' => true, 'message' => 'Cập nhật trạng thái thành công!']);
+                exit;
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Lỗi khi lưu dữ liệu!']);
+                exit;
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Không tìm thấy đơn hàng!']);
+            exit;
+        }
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Dữ liệu không hợp lệ!']);
+        exit;
+    }
+}
+
+function addOrder($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Thêm hoặc Chỉnh sửa Đơn hàng';
+    $modelOrders = $controller->loadModel('Orders'); 
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
+    $modelbuilding = $controller->loadModel('Buildings');
+    $buildings = $modelbuilding->find()->all()->toList();
+
+    $user = checklogin('addOrder');
+    if (!empty($user)) {
+        if (empty($user->grant_permission)) {
+            return $controller->redirect('/');
+        }
+
+        // Lấy thông tin đơn hàng nếu có ID
+        if (!empty($_GET['id'])) {
+            $order = $modelOrders->find()->where(['id' => (int)$_GET['id']])->first();
+            if (empty($order)) {
+                return $controller->redirect('/listOrders');
+            }
+        } else {
+            $order = $modelOrders->newEmptyEntity();
+            $order->created_at = time();
+        }
+
+        $mess = '';
+        // Xử lý khi có request POST
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            // Kiểm tra đầu vào
+            if (
+                isset($dataSend['customer_id'], $dataSend['building_id'], $dataSend['return_deadline']) &&
+                is_numeric($dataSend['customer_id']) && 
+                is_numeric($dataSend['building_id'])
+            ) {
+                $order->member_id = (int)$user->id;
+                $order->customer_id = (int)$dataSend['customer_id'];
+                $order->building_id = (int)$dataSend['building_id'];
+                $order->status = 1; // Trạng thái mặc định
+                $order->return_deadline = strtotime($dataSend['return_deadline']);
+                $order->updated_at = time();
+
+                // Lưu đơn hàng
+                if ($modelOrders->save($order)) {
+                    // Thêm hoặc cập nhật chi tiết đơn hàng
+                    if (!empty($dataSend['order_details'])) {
+                        foreach ($dataSend['order_details'] as $detail) {
+                            addOrderDetail([
+                                'request' => (object)[
+                                    'getData' => function () use ($detail, $order) {
+                                        return array_merge($detail, ['order_id' => $order->id]);
+                                    },
+                                ],
+                            ]);
+                        }
+                    }
+                    return $controller->redirect('/listOrders?mess=saveSuccess');
+                } else {
+                    $mess = '<p class="text-danger">Lưu đơn hàng không thành công</p>';
+                }
+            } else {
+                $mess = '<p class="text-danger">Vui lòng nhập đầy đủ thông tin bắt buộc</p>';
+            }
+        }
+
+        setVariable('mess', $mess);
+        setVariable('buildings', $buildings);
+        setVariable('mess', $mess);
+    } else {
+        return $controller->redirect('/login');
+    }
+}
+
+function addOrderDetail($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Thêm hoặc Chỉnh sửa Chi tiết Đơn hàng';
+    $modelOrderDetails = $controller->loadModel('OrderDetails'); 
+
+    $user = checklogin('addOrderDetail');
+    if (!empty($user)) {
+        if (empty($user->grant_permission)) {
+            return $controller->redirect('/');
+        }
+
+        // Tạo hoặc chỉnh sửa dữ liệu
+        if (!empty($_GET['id'])) {
+            $data = $modelOrderDetails->find()->where(['id' => (int)$_GET['id']])->first();
+            if (empty($data)) {
+                return $controller->redirect('/listOrder');
+            }
+        } else {
+            $data = $modelOrderDetails->newEmptyEntity();
+            $data->created_at = time();
+        }
+
+        $mess = '';
+        // Xử lý khi có request POST
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            // Kiểm tra đầu vào
+            if (
+                isset($dataSend['order_id'], $dataSend['book_id'], $dataSend['quantity'], $dataSend['warehouse_id']) &&
+                is_numeric($dataSend['order_id']) &&
+                is_numeric($dataSend['book_id']) &&
+                is_numeric($dataSend['quantity']) &&
+                is_numeric($dataSend['warehouse_id'])
+            ) {
+                $data->order_id = (int)$dataSend['order_id'];
+                $data->book_id = (int)$dataSend['book_id'];
+                $data->quantity = (int)$dataSend['quantity'];
+                $data->warehouse_id = (int)$dataSend['warehouse_id'];
+                $data->updated_at = time();
+
+                // Lưu dữ liệu
+                if ($modelOrderDetails->save($data)) {
+                    return $controller->redirect('/listOrder?mess=saveSuccess');
+                } else {
+                    $mess = '<p class="text-danger">Lưu dữ liệu không thành công</p>';
+                }
+            } else {
+                $mess = '<p class="text-danger">Tất cả các trường là bắt buộc</p>';
+            }
+        }
+
+        setVariable('data', $data);
+        setVariable('mess', $mess);
+    } else {
+        return $controller->redirect('/login');
+    }
+}
+

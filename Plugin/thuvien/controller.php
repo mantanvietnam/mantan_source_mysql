@@ -22,5 +22,6 @@ include_once('controller/api/floorController.php');
 include_once('controller/api/roomController.php');
 include_once('controller/api/shelfController.php');
 include_once('controller/api/bookController.php');
+include_once('controller/api/customerController.php');
 
 ?>

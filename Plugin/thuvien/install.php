@@ -284,6 +284,11 @@ $sqlUpdateDatabase['customers']['email'] = "ALTER TABLE `customers` CHANGE `emai
 $sqlUpdateDatabase['orders']['shelf_id'] = "ALTER TABLE `orders` DROP COLUMN `shelf_id`;";
 $sqlUpdateDatabase['orders']['order_id'] = "ALTER TABLE `orders` DROP COLUMN `order_id`;";
 $sqlUpdateDatabase['orders']['building_id'] = "ALTER TABLE `orders` ADD COLUMN `building_id` INT NOT NULL AFTER `customer_id`;";
+$sqlUpdateDatabase['orders']['created_at'] = "ALTER TABLE `orders` CHANGE `created_at` `created_at` INT NOT NULL;";
+$sqlUpdateDatabase['orders']['return_deadline'] = "ALTER TABLE `orders` CHANGE `return_deadline` `return_deadline` INT NOT NULL;";
+$sqlUpdateDatabase['orders']['updated_at'] = "ALTER TABLE `orders` CHANGE `updated_at` `updated_at` INT NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['order_details']['shelf_id'] = "ALTER TABLE `order_details` CHANGE `shelf_id` `warehouse_id` INT(11) NOT NULL;";
 
 $sqlUpdateDatabase['warehouse_historys']['id_book'] = "ALTER TABLE `warehouse_historys` ADD `id_book` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['warehouse_historys']['id_warehouse'] = "ALTER TABLE `warehouse_historys` ADD `id_warehouse` INT NOT NULL DEFAULT '0';";
