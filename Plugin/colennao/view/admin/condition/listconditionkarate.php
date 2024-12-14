@@ -88,7 +88,7 @@
                   <td align="center">
                       <a class="dropdown-item" 
                         onclick="return confirm('Bạn có chắc chắn muốn xóa tất cả bản ghi trong nhóm này không?');" 
-                        href="/plugins/admin/colennao-view-admin-deletecondition/?id=<?php echo urlencode($idGroupFiledetail); ?>">
+                        href="/plugins/admin/colennao-view-admin-deleteconditionkarate/?id=<?php echo urlencode($idGroupFiledetail); ?>">
                           <i class="bx bx-trash me-1"></i> Xóa nhóm
                       </a>
                   </td>

@@ -192,14 +192,44 @@ function deletecondition($input) {
             return $controller->redirect('/plugins/admin/colennao-view-admin-condition-listcondition');
         } else {
          
-            return $controller->redirect('/plugins/admin/colennao-view-admin-tbcondition-listcondition?error=invalid_id');
+            return $controller->redirect('/plugins/admin/colennao-view-admin-condition-listcondition?error=invalid_id');
         }
     } else {
   
-        return $controller->redirect('/plugins/admin/colennao-view-admin-tbcondition-listcondition?error=no_id');
+        return $controller->redirect('/plugins/admin/colennao-view-admin-condition-listcondition?error=no_id');
     }
 }
+function deleteconditionkarate($input) {
+    global $controller;
 
+    $modeltbcondition = $controller->loadModel('tbcondition');
+    
+   
+    if (!empty($_GET['id'])) {
+        $idGroupFile = $_GET['id'];  
+
+     
+        if (is_numeric($idGroupFile)) {
+         
+            $conditions = ['id_groupfile' => $idGroupFile];
+            $records = $modeltbcondition->find('all', ['conditions' => $conditions]);
+
+     
+            foreach ($records as $record) {
+                $modeltbcondition->delete($record);
+            }
+
+         
+            return $controller->redirect('/plugins/admin/colennao-view-admin-condition-listconditionkarate');
+        } else {
+         
+            return $controller->redirect('/plugins/admin/colennao-view-admin-condition-listconditionkarate?error=invalid_id');
+        }
+    } else {
+  
+        return $controller->redirect('/plugins/admin/colennao-view-admin-condition-listconditionkarate?error=no_id');
+    }
+}
 
 function listconditionkarate($input){
     global $controller;
