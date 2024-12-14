@@ -3,8 +3,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listOrder">Đơn hàng</a> /</span>
-    Quản lý đơn hàng
+    <span class="text-muted fw-light"><a href="/listOrder">Mượn sách</a> /</span>
+  Thông tin mượn sách
   </h4>
 
   <p><a href="/addOrder" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
@@ -71,65 +71,57 @@
         </tr>
       </thead>
       <tbody>
-            <?php 
-            if (!empty($listData)) {
-                foreach ($listData as $order) {
-                    $statusText = '';
-                    switch ($order->status) {
-                        case 1:
-                            $statusText = '<span class="text-warning">Đang mượn</span>';
-                            break;
-                        case 2: 
-                            $statusText = '<span class="text-success">Đã trả</span>';
-                            break;
-                        case 3:
-                            $statusText = '<span class="text-muted">Không xác định</span>';
-                            break;
-                        default:
-                            $statusText = '<span class="text-secondary">Chưa xác định</span>';
-                            break;
-                    }
+      <tbody>
+    <?php 
+    if (!empty($listData)) {
+        foreach ($listData as $order) {
+            $disabled = ($order->status == 2) ? 'disabled' : '';
+            $statusId = $order->status;
 
-                    $disabled = ($order->status == 2) ? 'disabled' : '';
-                    $statusId = $order->status;
-                    echo '<tr>
-                    <td>' . $order->id . '</td>
-                    <td>' . ($order->customer->name ?? 'N/A') . '</td>
-                    <td>' . ($order->customer->phone ?? 'N/A') . '</td>
-                    <td>' . ($order->building->name ?? 'N/A') . '</td>
-                    <td>' . date('d-m-Y H:i:s', strtotime($order->created_at)) . '</td>
-                    <td>' . date('d-m-Y', strtotime($order->return_deadline)) . '</td>
-                    <td>
-                        <select class="status-dropdown ' . ($order->status == 1 ? 'status-active' : ($order->status == 2 ? 'status-completed' : 'status-unknown')) . '" data-order-id="' . $order->id . '" ' . $disabled . '>
-                            <option value="1" ' . ($statusId == 1 ? 'selected' : '') . '>Đang mượn</option>
-                            <option value="2" ' . ($statusId == 2 ? 'selected' : '') . '>Đã trả</option>
-                            <option value="3" ' . ($statusId == 3 ? 'selected' : '') . '>Không xác định</option>
-                        </select>
-                    </td>
-                    <td width="5%" align="center">
-                        <a class="dropdown-item" href="/orderDetail/?id=' . $order->id . '">
-                            <i class="bx bx-show me-1"></i>
-                        </a>
-                    </td>
-                    <td width="5%" align="center">
-                        <a class="dropdown-item" href="/editOrder/?id=' . $order->id . '">
-                            <i class="bx bx-edit-alt me-1"></i>
-                        </a>
-                    </td>
-                    <td align="center">
-                        <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteOrder/?id=' . $order->id . '">
-                            <i class="bx bx-trash me-1"></i>
-                        </a>
-                    </td>
-                    </tr>';
-                }
-            } else {
-                echo '<tr>
-                <td colspan="8" align="center">Chưa có dữ liệu</td>
-                </tr>';
-            }
-            ?>
-        </tbody>
+            echo '<tr>
+                <td>' . $order->id . '</td>
+                <td>' . ($order->customer->name ?? 'N/A') . '</td>
+                <td>' . ($order->customer->phone ?? 'N/A') . '</td>
+                <td>' . ($order->building->name ?? 'N/A') . '</td>
+                <td>' . date('d-m-Y H:i:s', strtotime($order->created_at)) . '</td>
+                <td>' . date('d-m-Y', strtotime($order->return_deadline)) . '</td>
+                <td>
+                    <select class="status-dropdown" onchange="updateOrderStatus(' . $order->id . ', this.value)" ' . $disabled . '>';
+                      if (!empty($order->return_deadline) && strtotime($order->return_deadline) < time() && $order->status == 1) {
+                          echo '<option value="1" class="status-late" selected>Trễ hẹn</option>';
+                      } elseif ($order->status == 1) {
+                          echo '<option value="1" class="status-borrowing" selected>Đang mượn</option>';
+                      }
+
+                      echo '<option value="2" class="status-returned" ' . ($order->status == 2 ? 'selected' : '') . '>Đã trả</option>';
+                      echo '</select>
+                </td>
+                <td width="5%" align="center">
+                    <a class="dropdown-item" href="/orderDetail/?id=' . $order->id . '">
+                        <i class="bx bx-show me-1"></i>
+                    </a>
+                </td>
+                <td width="5%" align="center">
+                    <a class="dropdown-item" href="/editOrder/?id=' . $order->id . '">
+                        <i class="bx bx-edit-alt me-1"></i>
+                    </a>
+                </td>
+                <td align="center">
+                    <a class="dropdown-item" onclick="deleteOrder(' . $order->id . ')">
+                        <i class="bx bx-trash me-1"></i>
+                    </a>
+                </td>
+            </tr>';
+        }
+    } else {
+        echo '<tr>
+            <td colspan="10" align="center">Chưa có dữ liệu</td>
+        </tr>';
+    }
+    ?>
+</tbody>
+
+
     </table>
   </div>
 
@@ -180,7 +172,81 @@
 <!--/ Responsive Table -->
 </div>
 
+<style>
+.status-dropdown {
+    font-weight: bold;
+    color: black;
+}
+
+.status-late {
+    color: red;
+    background-color: #ffe6e6;
+}
+
+.status-borrowing {
+    color: orange;
+    background-color: #fff5e6;
+}
+
+.status-returned {
+    color: green;
+    background-color: #e6ffe6;
+}
+</style>
+
+
+
 <script>
+  $(document).ready(function () {
+    $('.status-dropdown').each(function () {
+        updateDropdownColor($(this));
+    });
+
+    $('.status-dropdown').change(function () {
+        updateDropdownColor($(this));
+    });
+
+    function updateDropdownColor(selectElement) {
+        var selectedOption = selectElement.find(':selected');
+        selectElement.removeClass('status-late status-borrowing status-returned');
+        if (selectedOption.hasClass('status-late')) {
+            selectElement.addClass('status-late');
+        } else if (selectedOption.hasClass('status-borrowing')) {
+            selectElement.addClass('status-borrowing');
+        } else if (selectedOption.hasClass('status-returned')) {
+            selectElement.addClass('status-returned');
+        }
+    }
+});
+
+
+// function updateOrderStatus(orderId, newStatus) {
+//     var confirmation = confirm('Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng này không?');
+
+//     if (confirmation) {
+//         $.ajax({
+//             method: "POST",
+//             url: "/updateOrderStatus",
+//             data: {
+//                 id: orderId,
+//                 status: newStatus
+//             }
+//         })
+//         .done(function(response) {
+//             if (response.success) {
+//                 alert('Cập nhật trạng thái thành công!');
+//                 location.reload(); // Tải lại trang để hiển thị thay đổi
+//             } else {
+//                 alert(response.message || 'Cập nhật không thành công.');
+//             }
+//         })
+//         .fail(function() {
+//             alert('Có lỗi xảy ra. Vui lòng thử lại.');
+//         });
+//     }
+// }
+
+
 </script>
 
 <?php include(__DIR__.'/../footer.php'); ?>
