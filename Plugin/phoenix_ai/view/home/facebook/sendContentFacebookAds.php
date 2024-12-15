@@ -8,7 +8,7 @@
         <div class="container">                          
           <div class="header-title-flex">
             <div class="icon-title">
-              <img src="/plugins/phoenix_ai/view/home/asset/img/96cb94e74cb6a1cf50d8c2aa74763389.svg" alt="">
+              <img src="/plugins/phoenix_ai/view/home/assets/img/96cb94e74cb6a1cf50d8c2aa74763389.svg" alt="">
             </div>
             <div class="name-title-page-writecontent">
               <a href="">Danh sách trợ lý > <span>Trợ lý > </span> <span><a href="" class="name-lili"><?php echo @$bostAi['name']; ?></a></span></a>
@@ -68,13 +68,13 @@
                      
                       <div>
                         <div class="mb-3">
-                          <label for="text" class="form-label">Hướng dẫn</label>
-                          <textarea type="text" placeholder="Nhập vào sản phẩm/dịch vụ của bạn" class="form-control" id="product_servce" name="product_servce" rows="2" cols="30"></textarea>
+                          <label for="text" class="form-label">Nhập chân dung khách hàng của bạn</label>
+                          <textarea type="text" placeholder="VD:mắt sáng...." class="form-control" id="product_servce" name="product_servce" rows="2" cols="30"></textarea>
 
                         <input class="form-check-input" type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
                         </div>
                       </div>
-                      <button type="button" class="button-arcordian" onclick="sendquestion()">Thực hiện</button>
+                      <button type="button" class="button-arcordian" onclick="sendquestion()" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
                 </div>
@@ -88,7 +88,7 @@
                       </div>
                       <div class="right-content-writetitle d-flex">
                         <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/asset/img/edit-tools-50x50.png" alt=""></p>
+                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
                         </div>
                         <div class="out-like-blogpro">
                           <div class="write-outline">
@@ -107,7 +107,7 @@
                         <h3>GPT Model</h3>
                       </div> -->
                      
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet('ads')">Thực hiện</button>
+                      <button type="button" class="button-arcordian" onclick="sendquestionNet('ads')" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
                 </div>
@@ -121,7 +121,7 @@
                       </div>
                       <div class="right-content-writetitle d-flex">
                         <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/asset/img/edit-tools-50x50.png" alt=""></p>
+                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
                         </div>
                         <div class="out-like-blogpro">
                           <div class="write-outline">
@@ -140,7 +140,7 @@
                         <h3>GPT Model</h3>
                       </div> -->
                      
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet('pas')">Thực hiện</button>
+                      <button type="button" class="button-arcordian" onclick="sendquestionNet('pas')" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
                 </div>
@@ -154,7 +154,7 @@
                       </div>
                       <div class="right-content-writetitle d-flex">
                         <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/asset/img/edit-tools-50x50.png" alt=""></p>
+                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
                         </div>
                         <div class="out-like-blogpro">
                           <div class="write-outline">
@@ -173,7 +173,7 @@
                         <h3>GPT Model</h3>
                       </div> -->
                      
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet('hook')">Thực hiện</button>
+                      <button type="button" class="button-arcordian" onclick="sendquestionNet('hook')" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
                 </div>
@@ -187,7 +187,7 @@
                       </div>
                       <div class="right-content-writetitle d-flex">
                         <div class="icon-writecontent">
-                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/asset/img/edit-tools-50x50.png" alt=""></p>
+                          <p class="set-width-imagedocument"><img src="/plugins/phoenix_ai/view/home/assets/img/edit-tools-50x50.png" alt=""></p>
                         </div>
                         <div class="out-like-blogpro">
                           <div class="write-outline">
@@ -206,7 +206,7 @@
                         <h3>GPT Model</h3>
                       </div> ->
                      
-                      <button type="button" class="button-arcordian" onclick="sendquestionNet(4)">Thực hiện</button>
+                      <button type="button" class="button-arcordian" onclick="sendquestionNet(4)" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
                 </div>
@@ -243,6 +243,37 @@
                showEditorInput('result', 'result', @$result);?>
                
             </div>
+            <div class="ai-thinking d-none" id="aiThinking">
+              <div class="content-thinking" style=" display: flex;align-items: center;position: absolute;right: 27%;transform: translate(-50%, -50%); border-radius: 10px; background-color: #ffffff; ">
+                  <div style="width: 50px; height:50px;">      
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgb(255, 255, 255); display: block; shape-rendering: auto;" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                      <g>
+                          <circle cx="60" cy="50" r="4" fill="#e15b64">
+                              <animate attributeName="cx" repeatCount="indefinite" dur="1s" values="95;35" keyTimes="0;1" begin="-0.67s"/>
+                              <animate attributeName="fill-opacity" repeatCount="indefinite" dur="1s" values="0;1;1" keyTimes="0;0.2;1" begin="-0.67s"/>
+                          </circle>
+                          <circle cx="60" cy="50" r="4" fill="#e15b64">
+                              <animate attributeName="cx" repeatCount="indefinite" dur="1s" values="95;35" keyTimes="0;1" begin="-0.33s"/>
+                              <animate attributeName="fill-opacity" repeatCount="indefinite" dur="1s" values="0;1;1" keyTimes="0;0.2;1" begin="-0.33s"/>
+                          </circle>
+                          <circle cx="60" cy="50" r="4" fill="#e15b64">
+                              <animate attributeName="cx" repeatCount="indefinite" dur="1s" values="95;35" keyTimes="0;1" begin="0s"/>
+                              <animate attributeName="fill-opacity" repeatCount="indefinite" dur="1s" values="0;1;1" keyTimes="0;0.2;1" begin="0s"/>
+                          </circle>
+                      </g><g transform="translate(-15 0)">
+                      <path d="M50 50L20 50A30 30 0 0 0 80 50Z" fill="#f8b26a" transform="rotate(90 50 50)"/>
+                      <path d="M50 50L20 50A30 30 0 0 0 80 50Z" fill="#f8b26a">
+                          <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;45 50 50;0 50 50" keyTimes="0;0.5;1"/>
+                      </path>
+                      <path d="M50 50L20 50A30 30 0 0 1 80 50Z" fill="#f8b26a">
+                          <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;-45 50 50;0 50 50" keyTimes="0;0.5;1"/>
+                      </path>
+                    </g>
+                  </svg>
+                  </div>
+                  <div style="font-size: 13px;font-weight: 600;">PHOENIX AI đang suy nghĩ ...</div>
+              </div>
+            </div>
             <div class="last-inputcontent">
               <div class="d-flex justify-content-between">
                 <input class="input-chat-aiva" type="text" name="question" id="question" placeholder="Chat với Aiva">
@@ -258,7 +289,18 @@
     </div>
   </div>
 </div>
+<script>
+const aiThinking = document.getElementById('aiThinking');
+const showAiThinking = document.getElementById('showAiThinking');
 
+
+showAiThinking.addEventListener('click', () => {
+  aiThinking.classList.remove('d-none'); 
+  setTimeout(() => {
+    aiThinking.classList.add('d-none'); 
+  }, 15000); 
+});
+</script>
 <script type="text/javascript">
 
     function sendquestion(){
@@ -376,7 +418,7 @@
                     myElement.style.display = 'none';
                 }
 
-                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                // Đặt hẹn giờ để id="showAiThinking" Tạo nội dung thay đổi sau 10 giây
                 setTimeout(changeCSS, 10000);
                 }
             })

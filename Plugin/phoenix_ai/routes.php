@@ -24,7 +24,7 @@
 	$routesPlugin['infoContentFacebook']= 'phoenix_ai/view/home/facebook/infoContentFacebook.php';
 	$routesPlugin['sendContentFacebookAds']= 'phoenix_ai/view/home/facebook/sendContentFacebookAds.php';
 	
-	$routesPlugin['sendContentBlog']= 'phoenix_ai/view/home/blog/sendContentBlog.php';
+	$routesPlugin['sendcontentBlog']= 'phoenix_ai/view/home/blog/sendContentBlog.php';
 	$routesPlugin['sendContentGoogleAds']= 'phoenix_ai/view/home/google/sendContentGoogleAds.php';
 	$routesPlugin['chat']= 'phoenix_ai/view/home/chat/chat.php';
 	$routesPlugin['writecontentimage']= 'phoenix_ai/view/home/writecontent/writecontentimage.php';

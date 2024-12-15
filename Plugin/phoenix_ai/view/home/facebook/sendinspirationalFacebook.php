@@ -170,7 +170,7 @@
                     </g>
                   </svg>
                   </div>
-                  <div style="font-size: 13px;font-weight: 600;">PHOEENIX AI đang suy nghĩ ...</div>
+                  <div style="font-size: 13px;font-weight: 600;">PHOENIX AI đang suy nghĩ ...</div>
               </div>
             </div>
             <div class="last-inputcontent">
@@ -212,7 +212,6 @@
   </div>
 </div>
 <script>
-
 const aiThinking = document.getElementById('aiThinking');
 const showAiThinking = document.getElementById('showAiThinking');
 
@@ -221,9 +220,8 @@ showAiThinking.addEventListener('click', () => {
   aiThinking.classList.remove('d-none'); 
   setTimeout(() => {
     aiThinking.classList.add('d-none'); 
-  }, 5000); // 5000ms = 5 giây
+  }, 15000); 
 });
-
 </script>
 <script type="text/javascript">
 

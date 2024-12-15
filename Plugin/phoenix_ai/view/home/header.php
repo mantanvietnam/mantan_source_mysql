@@ -157,7 +157,7 @@
                     </div>
                     <!-- Thanh tìm kiếm -->
                     <div class="search-box d-flex align-items-center">
-                            <input type="text" class="form-control search-input" placeholder="Tìm kiếm trợ lý Aiva">
+                            <input type="text" class="form-control search-input" placeholder="Tìm kiếm trợ lý Phoenix">
                             <button class="btn search-btn">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
