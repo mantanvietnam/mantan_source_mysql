@@ -22,6 +22,7 @@
 }
 .document-search {
     margin-top: 25px;
+    margin-bottom: 20px;
 
 }
 .left-button-title a {
@@ -171,7 +172,7 @@
     box-shadow: 0px 0px 87.4576px rgba(41, 72, 152, 0.05), 0px 0px 51.2194px rgba(41, 72, 152, 0.037963), 0px 42.1092px 27.8569px rgba(41, 72, 152, 0.0303704), 0px 21.8644px 14.2119px rgba(41, 72, 152, 0.025), 0px 8.90772px 7.12618px rgba(41, 72, 152, 0.0196296), 0px 2.02448px 3.44162px rgba(41, 72, 152, 0.012037);
     overflow-x: auto;
     border-radius: 8px;
-    margin-bottom: 30px;
+  
 }
 .table-create-document {
     border-collapse: separate;
@@ -181,7 +182,7 @@
     border-spacing: 0;
 }
 .table-aiva-document {
-    margin-top: 20px;
+  
     color: #424242;
     background-color: #ffffff;
 }
@@ -984,4 +985,43 @@
 .Link-forgot-register a{
     text-decoration: none;
     color: #5242F3;
+}
+.form-default {
+    margin-top: 130px;
+    
+}
+.border-form-default {
+    height: 600px;
+}
+.border-form-default h2{
+    margin-top: 30px;
+}
+
+.set-between-default {
+    border: 1px solid #5242F3;
+    background-color: #fff;
+    border-radius: 20px;
+    text-align: center;
+    align-items: center; 
+    padding: 20px;
+    box-sizing: border-box;
+    width: 60%;
+    margin: auto;
+}
+
+.set-between-default h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.set-between-default p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.set-between-default img {
+    width: 150px; 
+    height: auto;
 }

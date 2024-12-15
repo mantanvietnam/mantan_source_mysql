@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/all.min.css">
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/style.css?index=921">
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainvu.css?index=2711111">
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainhoang.css?index=122112">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainhoang.css?index=1221124">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -74,7 +74,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="/plugins/phoenix_ai/view/home/asset/aiva-chat.html" class="nav-link">
+                                <a href="/announcement" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-user"></i></div>
                                         <div><span class="link-text">Trợ lý Phoenix</span></div>
@@ -90,7 +90,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="#" class="nav-link">
+                                <a href="/announcement" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-link"></i></div>
                                         <div><span class="link-text">Phoenix Hình ảnh</span></div>
@@ -98,7 +98,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="#" class="nav-link">
+                                <a href="/announcement" class="nav-link">
                                    <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-brands fa-steam"></i></div>
                                         <div><span class="link-text">Text to speech</span></div>
@@ -106,7 +106,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="#" class="nav-link">
+                                <a href="/announcement" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-calendar-days"></i></div>
                                         <div><span class="link-text">Hướng dẫn</span></div>
@@ -114,7 +114,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="#" class="nav-link">
+                                <a href="/announcement" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-circle-info"></i></div>
                                         <div><span class="link-text">Cộng tác viên Phoenix</span></div>
@@ -122,7 +122,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="#" class="nav-link">
+                                <a href="/announcement" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-brands fa-servicestack"></i></div>
                                         <div><span class="link-text">Cài đặt</span></div>
@@ -130,7 +130,7 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
-                                <a href="#" class="nav-link">
+                                <a href="/announcement" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-envelope-circle-check"></i></div>
                                         <div><span class="link-text">Dữ liệu mẫu</span></div>

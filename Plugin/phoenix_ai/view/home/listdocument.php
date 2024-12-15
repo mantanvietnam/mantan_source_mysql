@@ -1,33 +1,33 @@
 <?php include('header.php'); ?>
-  <div class="aiva-document container-fluid">
-                    <div class="document-search">
+            <div class="aiva-document container-fluid">
+                    <div class="document-search" style="width:98%">
                         <div class="title-aiva-document"><h2>Phoenix Tài liệu</h2></div>
                         <div class="list-document-search row">
                             <div class="left-document col-md-2 col-12">
                                 <div class="tag">
-                                    <p>Tag</p>
+                                    <p>Danh sách tài liệu của bạn</p>
                                 </div>
-                                <div class="select">
+                                <!-- <div class="select">
                                     <select class="form-select" aria-label="Default select example">
                                         <option selected>Tất cả</option>
                                         <option value="">tag1</option>
                                         <option value="">tag2</option>
                                         <option value="">tag3</option>
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="right-document col-md-8 col-12">
                                 <a href="/dashboard">
                                     <div class="creat-document">
                                         <i class="fa-regular fa-folder"></i>
-                                        <div class="name-button-document">
+                                        <div class="name-button-document ms-1">
                                             Tạo tài liệu mới
                                         </div>
                                     </div>
                                 </a>
-                                <div class="filter" onclick="toggleSearchForm()">
+                                <!-- <div class="filter" onclick="toggleSearchForm()">
                                     <i class="fa-regular fa-folder"></i>
-                                    <div class="name-two">
+                                    <div class="name-two ms-1">
                                         Filters
                                     </div>
                                     <div id="formSearchDate" class="form-search-date" style="display: none;">
@@ -38,7 +38,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="name-input-search">
                                     <div class="detail-input-search">
                                         <div class="icon-input-search">
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-aiva-document">
+                    <div class="table-aiva-document" style="width: 97%;margin: auto;">
                         <table class=" table-create-document">
                             <thead class="colum-header">
                                 <tr>
@@ -78,7 +78,7 @@
                                         <td><i class='bx bx-signal-4'></i><?=str_word_count($data->content_ai)?></td>
                                         <td>
                                             <!-- <a href=""><i class="fa-solid fa-cloud-arrow-down"></i></a> -->
-                                            <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/plugins/admin/phoenix_ai-controller-admin-deletecontent/?id=<?php echo $data->id?>"><i class="fa-regular fa-trash-can"></i></a>  
+                                            <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="deletecontent/?id=<?php echo $data->id?>"><i class="fa-regular fa-trash-can"></i></a>  
                                         </td>
                                     </tr>
                                     <?php endforeach;?>

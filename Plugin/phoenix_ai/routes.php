@@ -41,5 +41,6 @@
 	$routesPlugin['sendinspirationalFacebook']= 'phoenix_ai/view/home/facebook/sendinspirationalFacebook.php';
 	$routesPlugin['sendContenLanding']= 'phoenix_ai/view/home/landing/sendContenLanding.php';
 	$routesPlugin['sendContentInspire']= 'phoenix_ai/view/home/inspire/sendContentInspire.php';
+	$routesPlugin['announcement']= 'phoenix_ai/view/home/announcement.php';
 	
 ?>

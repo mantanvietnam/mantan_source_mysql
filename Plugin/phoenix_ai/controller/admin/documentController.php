@@ -12,10 +12,11 @@ function listdocument($input){
 		$modelContent = $controller->loadModel('ContentFacebookAis');
 	    $modelHistoryChatAis = $controller->loadModel('HistoryChatAis');
 		$conditions = array(['id_member'=>$info->id]);
+		$order = array('id' => 'desc');
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if(!empty($info->id)){
-			$listdatacontent = $modelContent->find()->limit($limit)->page($page)->where(['id_member'=>$info->id])->all()->toList();
+			$listdatacontent = $modelContent->find()->limit($limit)->page($page)->where(['id_member'=>$info->id])->order($order)->all()->toList();
 		}
 
 		if(!empty($listdatacontent)){

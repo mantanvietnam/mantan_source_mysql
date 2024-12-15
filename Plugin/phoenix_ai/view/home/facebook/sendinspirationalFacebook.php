@@ -67,24 +67,24 @@
                       </div> -->
                       <div>
                         <div class="mb-3">
-                          <label for="text" class="form-label">Đối tượng khách hàng của tôi là</label>
-                          <textarea type="text" placeholder="Dán vào dối tượng khách hàng của bạn" class="form-control" id="customer_target" name="customer_target" rows="2" cols="30"></textarea>
+                          <label for="text" class="form-label">Đối tượng khách hàng của bạn là ai ?</label>
+                          <textarea type="text" placeholder="VD: Sinh viên, giảng viên" class="form-control" id="customer_target" name="customer_target" rows="2" cols="30"></textarea>
                         </div>
                       </div>
                       <div>
                         <div class="mb-3">
-                          <label for="text" class="form-label">Hướng dẫn</label>
-                          <textarea type="text" placeholder="Nhập chủ đề bạn muốn lên kế hoạch nội dung ví dụ:truyền,động lực,cuộc sống......" class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
+                          <label for="text" class="form-label">Chủ đề bài viết </label>
+                          <textarea type="text" placeholder="VD: Truyền động lực" class="form-control" id="topic" name="topic" rows="2" cols="30"></textarea>
 
                           <input class="form-check-input" type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
                         </div>
                       </div>
-                      <button type="button" class="button-arcordian" onclick="sendquestion()" id="showAiThinking">Thực hiện</button>
+                      <button type="button" class="button-arcordian" onclick="sendquestion()" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
+              <!-- <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo1">
                     <div class="parent-button-div d-flex">
@@ -98,7 +98,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Tiếp tục</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                          
                           </div>
                         </div>
                       </div>
@@ -108,15 +108,13 @@
                 <div id="collapseTwo1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
+                     
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(1)">Thực hiện</button>
                     </form>
                   </div>
                 </div>
-              </div>              
+              </div>               -->
             </div>
           </div>
         </div>
@@ -129,10 +127,10 @@
           <form action="" method="post">
             <div class="header-form d-flex">
               <div class="title-input-header-left">
-                <input type="text" id="title" name="title"  placeholder="Tiêu đề" value="<?php echo @$dataContent->title ?>">
+                <input type="text" id="title" name="title" readonly placeholder="Tiêu đề" value="<?php echo @$dataContent->title ?>">
               </div>
               <div class="left-button-title">
-                <a type="submit" href="/" class="comback-writecontent">Quay lại</a>
+                <!-- <a type="submit" href="/" class="comback-writecontent">Quay lại</a> -->
                 <button type="button" onclick="savecontentFacebook()" class="save-writecontent">Lưu</button>
               </div>
               
@@ -172,7 +170,7 @@
                     </g>
                   </svg>
                   </div>
-                  <div style="font-size: 13px;font-weight: 600;">AI-thinking...</div>
+                  <div style="font-size: 13px;font-weight: 600;">PHOEENIX AI đang suy nghĩ ...</div>
               </div>
             </div>
             <div class="last-inputcontent">

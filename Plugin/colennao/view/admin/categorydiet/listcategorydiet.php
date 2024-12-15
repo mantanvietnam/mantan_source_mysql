@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Danh mục đồ ăn</h4>
+  <h4 class="fw-bold py-3 mb-4">Danh mục chế độ giảm cân</h4>
   <p><a href="/plugins/admin/colennao-view-admin-categorydiet-addcategorydiet" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
@@ -14,7 +14,7 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tiêu đề danh mục đồ ăn</label>
+            <label class="form-label">Tiêu đề danh mục chế độ giảm cân</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>          
           <div class="col-md-2">
@@ -29,7 +29,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách danh mục đồ ăn</h5>
+    <h5 class="card-header">Danh sách danh mục chế độ đồ ăn </h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
