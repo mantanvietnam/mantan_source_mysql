@@ -16,6 +16,7 @@ include_once('controller/home/googleController.php');
 include_once('controller/home/tiktokController.php');
 include_once('controller/home/inspirationalController.php');
 include_once('controller/home/landingController.php');
+include_once('controller/home/inspireController.php');
 
 include_once('controller/home/blogimageController.php');
 include_once('controller/api/connentFacebookControll.php');
@@ -27,4 +28,5 @@ include_once('controller/api/videoController.php');
 include_once('controller/api/googleController.php');
 include_once('controller/api/tiktokController.php');
 include_once('controller/api/landingController.php');
+include_once('controller/api/inspireController.php');
 ?>

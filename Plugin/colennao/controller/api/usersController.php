@@ -49,6 +49,7 @@ function registerUserApi($input): array
                     if(!empty($affsource)){
                         $affsource->total_coin +=(int)$getBankAccount['referral_commission'];
                         $user->id_affsource =$affsource->id;
+                        $user->rose =(int)$getBankAccount['referral_commission'];
                     }
                 }
 
