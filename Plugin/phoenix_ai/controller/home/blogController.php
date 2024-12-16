@@ -5,9 +5,10 @@ function sendContentBlog($input){
     global $session;
     global $modelCategoryConnects;
     global $modelCategories;
+    global $metaTitleMantan;
 
     if(!empty($session->read('infoUser'))){
-       
+        $metaTitleMantan = 'Viết bài blog dựa trên nội dung/tiêu đề';
         $modelContentFacebookAi = $controller->loadModel('ContentFacebookAis');
         $member =$session->read('infoUser');
         if(!empty($_GET['id'])){

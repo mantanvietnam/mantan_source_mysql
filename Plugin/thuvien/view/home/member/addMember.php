@@ -3,15 +3,15 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listMember">Hệ thống người dùng</a> /</span>
-    Thông tin người dùng
+    <span class="text-muted fw-light"><a href="/listMember">Hệ thống nhân viên</a> /</span>
+    Thông tin nhân viên
   </h4>
   <!-- Basic Layout -->
     <div class="row">
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin người dùng</h5>
+            <h5 class="mb-0">Thông tin nhân viên</h5>
           </div>
           <div class="card-body">
             <p><?php echo @$mess;?></p>
@@ -23,7 +23,7 @@
                     <ul class="nav nav-tabs" role="tablist">
                       <li class="nav-item">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                         Thông tin người dùng
+                         Thông tin nhân viên
                         </button>
                       </li>
                       <li class="nav-item">
@@ -126,81 +126,107 @@
                       </div>
                       <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
                         <div class="row">
-                          <div class="col-md-12">
+                          <div class="col-md-6">
                             <div class="mb-3">
-                    <label class="form-label" for="basic-default-email">Phân quyền chức năng</label>
+                              <label class="form-label" for="basic-default-email">Phân quyền chức năng</label>
 
-                    <label class="col-sm-12 control-label">
+                              <label class="col-sm-12 control-label">
 
-                      <input type="checkbox" id="selectAll" onclick="checkboxAll(this,'checkAll');"> <label for="selectAll">Tất cả</label>
+                                <input type="checkbox" id="selectAll" onclick="checkboxAll(this,'checkAll');"> <label for="selectAll">Tất cả</label>
 
-                    </label>
-                      
-                      <div class="col-sm-12" style="margin-left: 20px;">
-                          <div class="form-group" id="checkAll">
-                              <div class="col-sm-12">
-                                  <script type="text/javascript">
+                              </label>
+
+                              <div class="col-sm-12" style="margin-left: 20px;">
+                                <div class="form-group" id="checkAll">
+                                  <div class="col-sm-12">
+                                    <script type="text/javascript">
                                       function addCheck(idCheckbox)
                                       {
-                                          $('#'+idCheckbox).attr( 'checked', true );
+                                        $('#'+idCheckbox).attr( 'checked', true );
                                       }
 
                                       function checkboxAll(source, className) {
-                                          const checkboxes = document.getElementsByClassName(className);
-                                          for(let i = 0; i < checkboxes.length; i++) {
-                                              checkboxes[i].checked = source.checked;
-                                          }
+                                        const checkboxes = document.getElementsByClassName(className);
+                                        for(let i = 0; i < checkboxes.length; i++) {
+                                          checkboxes[i].checked = source.checked;
+                                        }
                                       }
-                                  </script>
-                                  <ul class="list-unstyled list_addPer">
+                                    </script>
+                                    <ul class="list-unstyled list_addPer">
                                       <?php 
                                       foreach ($listPermissionMenu as $keyGroup=>$permissionMenu) { 
-                                          $checkGroup= false;
-                                          echo '<li class="has_sub_staff">
-                                          <span><input type="checkbox" class="checkAll" id="check'.$keyGroup.'"> <label for="">'.$permissionMenu['name'].'</label></span>
-                                          <ul class="list-unstyled sub_staff" style="margin-left: 20px;">';
-                                          foreach ($permissionMenu['sub'] as $key=>$menu2) { 
-                                              $check= '';
-                                              if (isset($data->permission) && in_array($menu2['permission'], $data->permission)) {
-                                                  $check= 'checked';
-                                                  $checkGroup= true;
-                                              }
-                                              if($menu2['permission']=='managerLogout'){
-                                                  $check= 'checked';
-                                                  $checkGroup= true;
-                                              }
-                                              echo '<li><input '.$check.' class="checkAll" name="check_list_permission[]" value="'.$menu2['permission'].'" type="checkbox" id="check'.$keyGroup.'_'.$key.'"> <label for="check'.$keyGroup.'_'.$key.'">'.$menu2['name'].'</label></li>';
+                                        $checkGroup= false;
+                                        echo '<li class="has_sub_staff">
+                                        <span><input type="checkbox" class="checkAll" id="check'.$keyGroup.'"> <label for="">'.$permissionMenu['name'].'</label></span>
+                                        <ul class="list-unstyled sub_staff" style="margin-left: 20px;">';
+                                        foreach ($permissionMenu['sub'] as $key=>$menu2) { 
+                                          $check= '';
+                                          if (isset($data->permission) && in_array($menu2['permission'], $data->permission)) {
+                                            $check= 'checked';
+                                            $checkGroup= true;
                                           }
-                                          echo '  </ul>
-                                          </li>';
+                                          if($menu2['permission']=='managerLogout'){
+                                            $check= 'checked';
+                                            $checkGroup= true;
+                                          }
+                                          echo '<li><input '.$check.' class="checkAll" name="check_list_permission[]" value="'.$menu2['permission'].'" type="checkbox" id="check'.$keyGroup.'_'.$key.'"> <label for="check'.$keyGroup.'_'.$key.'">'.$menu2['name'].'</label></li>';
+                                        }
+                                        echo '  </ul>
+                                        </li>';
 
-                                          if($checkGroup){
-                                              echo '<script type="text/javascript">addCheck("check'.$keyGroup.'");</script>';
-                                          }
+                                        if($checkGroup){
+                                          echo '<script type="text/javascript">addCheck("check'.$keyGroup.'");</script>';
+                                        }
                                       }
                                       ?>
-                                  </ul>
-                                  <script>
+                                    </ul>
+                                    <script>
                                       $(document).ready(function() {
-                                          $('.list_addPer ul').hide();
-                                          $('.has_sub_staff span label').click(function(){
-                                              if($(this).parent().next('.sub_staff').hasClass('show')){
-                                                  $(this).parent().next('.sub_staff').slideUp();
-                                                  $(this).parent().next('.sub_staff').removeClass('show');
-                                              } else{
-                                                  $(this).parent().next('.sub_staff').slideDown();
-                                                  $(this).parent().next('.sub_staff').addClass('show');
-                                              }
-                                          });
-                                          $(".has_sub_staff span input").click(function(){
-                                              $(this).parent().parent().find('input').prop('checked', this.checked);    
-                                          });
+                                        $('.list_addPer ul').hide();
+                                        $('.has_sub_staff span label').click(function(){
+                                          if($(this).parent().next('.sub_staff').hasClass('show')){
+                                            $(this).parent().next('.sub_staff').slideUp();
+                                            $(this).parent().next('.sub_staff').removeClass('show');
+                                          } else{
+                                            $(this).parent().next('.sub_staff').slideDown();
+                                            $(this).parent().next('.sub_staff').addClass('show');
+                                          }
+                                        });
+                                        $(".has_sub_staff span input").click(function(){
+                                          $(this).parent().parent().find('input').prop('checked', this.checked);    
+                                        });
                                       });
-                                  </script>
+                                    </script>
+                                  </div>
+                                </div> 
                               </div>
-                          </div> 
-                      </div>
-                  </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-email">Phân tòa nhà </label>
+
+                              <div class="col-sm-12" style="margin-left: 20px;">
+                                <div class="form-group" id="">
+                                  <div class="col-sm-12">
+                                   
+                                    <ul class="list-unstyled list_addPer">
+                                      <?php 
+                                     foreach ($dataBuilding as $key=> $item) { 
+                                          $check= '';
+                                          if (!empty($data->id_building)){
+                                          if (in_array($item->id, $data->id_building, true)) { 
+                                                $check= 'checked';
+                                              }
+                                            }
+                                          echo '<li><input '.$check.' class="" name="id_building[]" value="'.$item->id.'" type="checkbox" id="check'.$item->id.'"> <label for="check'.$item->id.'">'.$item->id.'</label></li>';
+                                        }
+                                      ?>
+                                    </ul>
+                                  </div>
+                                </div> 
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

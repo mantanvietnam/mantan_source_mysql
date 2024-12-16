@@ -21,7 +21,6 @@
               <div class="col-md-3 mb-4">
               <label class="form-label">Tên tòa nhà</label>
               <select class="form-select" name="id_building" id="id_building" onclick="getfloor()" <?php echo $disabled ?>>
-                <option value="" >Chọn tòa nhà</option>
                 <?php if(!empty($dataBuilding)){
                   foreach ($dataBuilding as $key => $item){
                     $selected = '';

@@ -543,6 +543,7 @@ showAiThinking.addEventListener('click', () => {
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
                 document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
                 CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
+                savecontentFacebook();
             }
         })
 
@@ -573,6 +574,7 @@ showAiThinking.addEventListener('click', () => {
                     document.getElementById("conversation_id").value = msg.data.conversation_id;
                     document.getElementById("result").value = result(/\n/g, '<br>');
                     CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
+
                 }
             })
         }
@@ -581,28 +583,29 @@ showAiThinking.addEventListener('click', () => {
     }
 
     function chatquestion(){
-        var conversation_id = $('#conversation_id').val();
-        var result = $('#result').val();
+      location.href = "/chat";
+      //   var conversation_id = $('#conversation_id').val();
+      //   var result = $('#result').val();
       
-        var question = $('#question').val();
+      //   var question = $('#question').val();
       
-         document.getElementById("question").value = '';
-      if(conversation_id != '' && question!=''){
-             $.ajax({
-          method: "POST",
-          url: "/apis/chatcontentFacebookAPI",
-          data: {question: question,
-            conversation_id: conversation_id, 
-          }
-        }).done(function( msg ) {
-                if(msg.code==1){
-                  result += '/\n/g'+msg.data.result;
-                  document.getElementById("conversation_id").value = msg.data.conversation_id;
-                  document.getElementById("result").value = result(/\n/g, '<br>');
-                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
-                }
-            })
-        }
+      //    document.getElementById("question").value = '';
+      // if(conversation_id != '' && question!=''){
+      //        $.ajax({
+      //     method: "POST",
+      //     url: "/apis/chatcontentFacebookAPI",
+      //     data: {question: question,
+      //       conversation_id: conversation_id, 
+      //     }
+      //   }).done(function( msg ) {
+      //           if(msg.code==1){
+      //             result += '/\n/g'+msg.data.result;
+      //             document.getElementById("conversation_id").value = msg.data.conversation_id;
+      //             document.getElementById("result").value = result(/\n/g, '<br>');
+      //             CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
+      //           }
+      //       })
+      //   }
        
 
     }

@@ -163,6 +163,9 @@ function saveContentBlogAPI($input){
                 $checkContent->type = 'content_blog';
             }
             $title = 'Viết bài blog dựa trên nội dung-tiêu đề';
+            if(!empty($chat['topic'])){
+                $title .=' nội dung muốn viết là '.$chat['topic'];
+            }
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  

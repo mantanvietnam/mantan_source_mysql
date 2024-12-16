@@ -186,6 +186,9 @@ function savecontentFacebookAPI($input){
                 $checkContent->type = 'content_facebook';
             }
             $title = 'Viết 10 chủ đề bài viết đăng Facebook';
+            if(!empty($chat['topic'])){
+                $title .=' nội dung muốn viết là '.$chat['topic'];
+            }
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  
@@ -360,7 +363,9 @@ function savecontentFacebookAdsAPI($input){
                 $checkContent->type = 'content_facebook_ads';
             }
             $title = 'Viết  mẫu quảng cáo Facebook ';
-
+            if(!empty($chat['topic'])){
+                $title .=' nội dung muốn viết là '.$chat['topic'];
+            }
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  
             }

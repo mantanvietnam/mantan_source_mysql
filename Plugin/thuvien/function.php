@@ -92,13 +92,13 @@ function getListPermission()
        
    
     $permission[] = array( 'name'=>'Quản lý nhân viên ',
-                    'sub'=>array(   array('name'=>'Danh sách người dùng','permission'=>'listMember'),
-                                    array('name'=>'Thêm và sửa thông tin người dùng','permission'=>'addMember'),
+                    'sub'=>array(   array('name'=>'Danh sách nhân viên','permission'=>'listMember'),
+                                    array('name'=>'Thêm và sửa thông tin nhân viên','permission'=>'addMember'),
                                     array('name'=>'Xóa người dùng','permission'=>'deleteMember'),
-                                    array('name'=>'Danh sách nhóm quyền người dùng','permission'=>'listPermission'),
-                                    array('name'=>'Thêm và sửa nhóm quyền thông tin người dùng','permission'=>'addPermission'),
+                                    array('name'=>'Danh sách nhóm quyền nhân viên','permission'=>'listPermission'),
+                                    array('name'=>'Thêm và sửa nhóm quyền thông tin nhân viên','permission'=>'addPermission'),
                                     array('name'=>'Xóa nhóm quyền người dùng','permission'=>'detelePermission'),
-                                    array('name'=>'Xem băng lịch sử hành dộng người dùng','permission'=>'listActivityHistory'),
+                                    array('name'=>'Xem băng lịch sử hành dộng nhân viên','permission'=>'listActivityHistory'),
                             )
                         
                     );
@@ -199,11 +199,16 @@ function getListPermission()
 function checklogin($permission=''){
     global $session;
     global $controller;
+    global $urlHomes;
 
     $modelMember = $controller->loadModel('Members');
      $user = '';
    if(!empty($session->read('infoUser'))){
         $user = $session->read('infoUser');
+        if(empty($user->idbuilding)){
+            return $controller->redirect('/managerSelectBuilding');
+
+        }
         if($user->type=='boss'){
              $user->grant_permission = 1;
 
@@ -212,6 +217,13 @@ function checklogin($permission=''){
             if(!empty($info_member)){
                 $user->permission = $info_member->permission;
             }
+            if(!empty($info_member->id_building)){
+                $id_building = json_decode($info_member->id_building, true);
+                if (!in_array($user->idbuilding, $id_building, true)) { // Sử dụng phủ định để kiểm tra giá trị không tồn tại
+                        return $controller->redirect('/managerSelectBuilding');
+                }
+            }
+
             if(!empty($permission)){
                 if(!empty($user->permission) && in_array($permission, json_decode($user->permission, true))){
                         $user->grant_permission = 1;

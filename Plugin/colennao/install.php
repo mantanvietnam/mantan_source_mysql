@@ -15,7 +15,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
 `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 `birthday` INT NULL DEFAULT NULL ,
 `avatar` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
-`type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT "Default", 
 `created_at` INT NOT NULL ,
 `updated_at` INT NOT NULL ,
 `password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
@@ -438,7 +438,7 @@ $sqlUpdateDatabase['users']['email'] = "ALTER TABLE `users` ADD `email` VARCHAR(
 $sqlUpdateDatabase['users']['address'] = "ALTER TABLE `users` ADD `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['users']['birthday'] = "ALTER TABLE `users` ADD `birthday` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['users']['avatar'] = "ALTER TABLE `users` ADD `avatar` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
-$sqlUpdateDatabase['users']['type'] = "ALTER TABLE `users` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['users']['type'] = "ALTER TABLE `users` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'Default';";
 $sqlUpdateDatabase['users']['created_at'] = "ALTER TABLE `users` ADD `created_at` INT NOT NULL;";
 $sqlUpdateDatabase['users']['updated_at'] = "ALTER TABLE `users` ADD `updated_at` INT NOT NULL;";
 $sqlUpdateDatabase['users']['password'] = "ALTER TABLE `users` ADD `password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;";

@@ -90,6 +90,15 @@
                             <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>
                             <img src="<?php echo @$data->avatar ?>" width="80px" height="80px" class="mb-3">
                         </div>
+                        <div class="col-md-6 mb-3 ">
+                            <label class="form-label">Kiểu thành viên</label>
+                            <div class="input-group input-group-merge">
+                                <select class="form-select" name="type" id="type">
+                                    <option value="default" <?php if (!empty($data->type) && $data->type == 'default') echo 'selected'; ?> >bình thường</option>
+                                    <option value="ambassador" <?php if (!empty($data->type) && $data->type == 'ambassador') echo 'selected'; ?> >Đại sứ</option>
+                                </select>
+                            </div>
+                        </div>
                         
                     </div>
 

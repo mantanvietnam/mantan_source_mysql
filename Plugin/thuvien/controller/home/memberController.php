@@ -48,7 +48,7 @@ function login($input)
 		    			
 	    				setcookie('id_member',$info_customer->id,time()+365*24*60*60, "/");
 						
-						return $controller->redirect('/dashboard/?statusLogin=loginAccount');
+						return $controller->redirect('/managerSelectBuilding/?statusLogin=loginAccount');
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 					}
@@ -73,7 +73,7 @@ function login($input)
 					
 	    			$session->write('infoUser', $info_customer);
 	    			
-	    			return $controller->redirect('/dashboard/?statusLogin=loginCookie');
+	    			return $controller->redirect('/managerSelectBuilding/?statusLogin=loginCookie');
 				}else{
 					$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 				}
@@ -82,7 +82,7 @@ function login($input)
 
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/dashboard');
+		return $controller->redirect('/managerSelectBuilding');
 	}
 }
 
@@ -389,7 +389,7 @@ function addPermission($input){
     global $controller;
     global $urlCurrent;
 
-    $metaTitleMantan = 'Thông tin Nhóm nhân viên';
+    $metaTitleMantan = 'Thông tin Nhóm phân quyền';
 
     $modelMembers = $controller->loadModel('Members');
     $modelPermission = $controller->loadModel('Permissions');
@@ -761,6 +761,7 @@ function addMember($input)
         $metaTitleMantan = 'Thông tin nhân viên';
         $modelMember = $controller->loadModel('Members');
         $modelPermission = $controller->loadModel('Permissions');
+        $modelBuilding = $controller->loadModel('Buildings');
 
         $mess= '';
 
@@ -819,10 +820,10 @@ function addMember($input)
                     $data->phone = $dataSend['phone'];
                     $data->email = $dataSend['email'];
                     $data->id_permission = (int) $dataSend['id_permission'];
-                    $data->id_position = (int) @$dataSend['id_position'];
+                    $data->id_position = (int) $dataSend['id_position'];
 
-                    if(!empty($dataSend['check_list_permission'])){
-                        $data->permission = json_encode(@$dataSend['check_list_permission']);
+                    if(!empty($dataSend['permission'])){
+                        $data->permission = json_encode($permission);
                     }else{
                         if(!empty($data->id_permission)){ 
                             $data->permission = $modelPermission->find()->where(['id'=>$data->id_permission])->first()->permission;
@@ -831,6 +832,13 @@ function addMember($input)
                         }
                     }
                     
+                    $id_building = array();
+                    if(!empty($dataSend['id_building'])){
+                    	foreach ($dataSend['id_building'] as $key => $value) {
+                    		$id_building[] = (int)$value;
+                    	}
+                    }
+                    $data->id_building = json_encode($id_building);
 
                     if(!empty($dataSend['birthday'])){
                         $birthday = explode('/', $dataSend['birthday']);
@@ -851,13 +859,12 @@ function addMember($input)
                             $data->pass = md5($dataSend['password']);
                         }
                     }
-
                     $modelMember->save($data);
 
                     if(!empty($_GET['id'])){
-                        $note = $user->name.' sửa thông tin người dùng là '.$data->name.'('.$data->phone.') có id đơn là:'.$data->id;
+                        $note = $user->name.' sửa thông tin nhân viên là '.$data->name.'('.$data->phone.') có id đơn là:'.$data->id;
                     }else{
-                        $note = $user->name.' tạo người dùng là '.$data->name.'('.$data->phone.') có id đơn là:'.$data->id;
+                        $note = $user->name.' tạo nhân viên là '.$data->name.'('.$data->phone.') có id đơn là:'.$data->id;
                     }
 
 
@@ -876,6 +883,9 @@ function addMember($input)
         if(!empty($data->permission)){
             $data->permission = json_decode($data->permission, true);
         }
+        if(!empty($data->id_building)){
+            $data->id_building = json_decode($data->id_building, true);
+        }
 
         $conditions = ['type' => 'category_position'];
         $listPosition = $modelCategories->find()->where($conditions)->all()->toList();
@@ -883,10 +893,24 @@ function addMember($input)
 
         $listPermissionMenu = getListPermission();
         $dataGroupStaff = $modelPermission->find()->where([])->all()->toList();
+
+        $conditions = array();
+        if($user->type=='staff'){
+        	if($user->id_building){
+        		$conditions['id IN'] =  json_decode($user->id_building, true);
+        	}else{
+        		$conditions['id'] =  0;
+        	}
+        	
+        }
+       
+        $dataBuilding = $modelBuilding->find()->where($conditions)->all()->toList();
+
         setVariable('data', $data);
         setVariable('listPermissionMenu', $listPermissionMenu);
         setVariable('dataGroupStaff', $dataGroupStaff);
         setVariable('listPosition', $listPosition);
+        setVariable('dataBuilding', $dataBuilding);
         setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
@@ -914,7 +938,7 @@ function deleteMember($input){
                 $data->status = 'delete';
                 $modelMember->save($data);
 
-                $note = $user->name.' xóa thông tin người dùng là '.$data->name.' có id là:'.$data->id;
+                $note = $user->name.' xóa thông tin nhân viên là '.$data->name.' có id là:'.$data->id;
                 addActivityHistory($user,$note,'deleteMember',$data->id);
                  return $controller->redirect('/listMember?mess=deleteSuccess');
             }
@@ -923,6 +947,70 @@ function deleteMember($input){
     }else{
         return $controller->redirect('/login');
     }
+}
+
+
+function managerSelectBuilding() {
+	global $controller;
+	global $isRequestPost;
+	global $urlHomes;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+    $modelBuilding = $controller->loadModel('Buildings');
+
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+		$mess= '';
+
+		 $conditions = array();
+        if($infoUser->type=='staff'){
+        	$id_building = json_decode($infoUser->id_building, true);
+        	if(!empty($id_building)){
+        		$conditions['id IN'] =  $id_building;
+        	}else{
+        		$conditions['id'] =  0;
+        	}
+        	
+        }
+       
+        $dataList = $modelBuilding->find()->where($conditions)->all()->toList();
+
+		if(!empty($dataList)){
+			$totalData = count($dataList);
+			if($totalData > 1){
+				if ($isRequestPost) {
+					if (!empty($_POST['id_building'])) {
+						$hotel= $modelBuilding->get($_POST['id_building']);
+
+						if(!empty($hotel)){
+							$infoUser->idbuilding = $_POST['id_building'];
+
+							$session->write('infoUser', @$infoUser);
+							$session->write('id_building', $_POST['id_building']);
+
+							return $controller->redirect('/dashboard');
+						}
+					}
+				} 
+
+				setVariable('mess', $mess);
+				setVariable('dataList', $dataList);
+			}else{
+				$data = $modelBuilding->find()->where($conditions)->first();
+
+				$infoUser->idbuilding = $data->id;
+				$session->write('infoUser', @$infoUser);
+				$session->write('id_building', $data->id);
+
+				return $controller->redirect('/dashboard');
+			}
+		}else{
+			return $controller->redirect('/logout');
+		}
+	}else{
+		return $controller->redirect('/logout');
+	}
 }
 
 

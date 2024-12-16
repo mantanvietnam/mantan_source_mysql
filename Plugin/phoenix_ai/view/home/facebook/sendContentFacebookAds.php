@@ -318,6 +318,7 @@ showAiThinking.addEventListener('click', () => {
               document.getElementById("conversation_id").value = msg.data.conversation_id;
               document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
               CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
+              savecontentFacebook();
             }
         })
 
@@ -358,7 +359,8 @@ showAiThinking.addEventListener('click', () => {
     }
 
     function chatquestion(){
-        var conversation_id = $('#conversation_id').val();
+        location.href = "/chat";
+       /* var conversation_id = $('#conversation_id').val();
         var result = $('#result').val();
       
         var question = $('#question').val();
@@ -379,9 +381,7 @@ showAiThinking.addEventListener('click', () => {
                   CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
                 }
             })
-        }
-       
-
+        }*/
     }
 
 

@@ -69,8 +69,8 @@
               <th>Họ và tên</th>
               <th>Thông tin</th>
               <th>Nhóm luyện tập</th>
-              <th>Sửa</th> 
-              <th>xóa</th> 
+              <th>hoa hồng</th>
+              <th>Sửa/xóa</th> 
               <th>Trạng thái</th>
         </tr>
         </thead>
@@ -81,7 +81,10 @@
         
         if (!empty($listData)) {
             foreach ($listData as $item) {
-
+                $type = 'bình thường';
+                if($item->type=='ambassador'){
+                    @$type = 'Đại sứ';
+                }
                 if ($item->status == 'active') {
                     $status = '
                   <a class="btn btn-success"  title="Khóa tài khoản" 
@@ -123,6 +126,8 @@
                   </td>
                  <td>'.@$item->name_people->name.'
                   '.$historyResult.'</td>
+                  <td> kiểu người dùng: '.@$type.'</br>
+                  hoa hồng: '.number_format($item->total_coin).'đ</td>
                  <td> 
                  <p align="center">
                  <a class="btn btn-primary" 
@@ -131,10 +136,8 @@
                  <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                  </a>
                  </p>
-                 </td>
-                 <td> 
                  <p align="center">
-                 <a class="btn btn-primary" 
+                 <a class="btn btn-danger" 
                  href="/plugins/admin/colennao-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=delete"
                   onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');">
                  <i class="bx bx-trash me-1" style="font-size: 22px;"></i>

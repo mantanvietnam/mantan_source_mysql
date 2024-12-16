@@ -5,9 +5,10 @@ function sendContentFacebook($input){
     global $session;
     global $modelCategoryConnects;
     global $modelCategories;
+    global $metaTitleMantan;
 
     if(!empty($session->read('infoUser'))){
-       
+        $metaTitleMantan = 'Viết 10 chủ đề bài viết đăng Facebook';
         $modelContentFacebookAi = $controller->loadModel('ContentFacebookAis');
         $member =$session->read('infoUser');
         if(!empty($_GET['id'])){
@@ -82,8 +83,10 @@ function sendContentFacebookAds($input){
     global $session;
     global $modelCategoryConnects;
     global $modelCategories;
+    global $metaTitleMantan;
 
     if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Viết mẫu quảng cáo Facebook';
        
         $modelContentFacebookAi = $controller->loadModel('ContentFacebookAis');
         $member =$session->read('infoUser');

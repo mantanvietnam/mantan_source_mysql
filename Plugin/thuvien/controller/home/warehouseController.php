@@ -40,6 +40,10 @@ function listWarehouse($input)
         if(!empty($_GET['id_building'])){
             $conditions['id_building'] = (int) $_GET['id_building'];
             $dataFloor= $modelFloor->find()->where(['id_building'=>(int)$_GET['id_building']])->all()->toList();
+        }else{
+            $conditions['id_building'] = (int) $user->idbuilding;
+            $dataFloor= $modelFloor->find()->where(['id_building'=>(int)$user->idbuilding])->all()->toList();
+            $_GET['id_building'] = $user->idbuilding;
         }
         if(!empty($_GET['id_floor'])){
             $conditions['id_floor'] = (int) $_GET['id_floor'];
@@ -149,7 +153,17 @@ function listWarehouse($input)
             $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
         }
 
-        $dataBuilding = $modelBuilding->find()->where()->all()->toList();
+        $conditions = array();
+        if($user->type=='staff'){
+            if($user->id_building){
+                $conditions['id IN'] =  json_decode($user->id_building, true);
+            }else{
+                $conditions['id'] =  0;
+            }
+            
+        }
+
+        $dataBuilding = $modelBuilding->find()->where($conditions)->all()->toList();
 
         setVariable('mess', $mess);
         setVariable('page', $page);
@@ -342,6 +356,12 @@ function addWarehouse($input)
             $dataRoom= $modelRoom->find()->where(['id_floor'=>(int) $data->id_floor])->all()->toList();
 
             $dataShelf= $modelShelf->find()->where(['id_room'=>(int) $data->id_room])->all()->toList();
+
+            
+            $dataBuilding = $modelBuilding->find()->where()->all()->toList();
+        }else{
+            $dataBuilding = $modelBuilding->find()->where(['id'=>$user->idbuilding])->all()->toList();
+            $dataFloor= $modelFloor->find()->where(['id_building'=>(int)$user->idbuilding])->all()->toList();
         }
         if($mess==1){
             $mess = '<p class="text-danger" style="padding: 0px 1.5em;">quyển sách '.$data->book->name.' đã có trong tòa nhà '.$data->building->name.' rồi </p>'; 
@@ -349,8 +369,8 @@ function addWarehouse($input)
             $mess = '<p class="text-danger" style="padding: 0px 1.5em;">Thiếu dữ liệu</p>'; 
         }elseif($mess==3){
             $mess = '<p class="text-danger" style="padding: 0px 1.5em;">Số lượng hủy phải nhỏ hơn hoặc bằng số lượng sách trong kho</p>'; 
-        }
-        $dataBuilding = $modelBuilding->find()->where()->all()->toList();
+        }       
+       
         $type = 'Nhập sách vào kho';
         $to = 'nhập';
         if(@$_GET['type']=='minus'){

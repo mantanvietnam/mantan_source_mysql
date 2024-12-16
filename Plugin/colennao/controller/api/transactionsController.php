@@ -83,7 +83,10 @@ function listTransactionApi($input)
         $dataSend = $input['request']->getData();   
          if(!empty($dataSend['token'])){
             $user = getUserByToken($dataSend['token']);
-
+            $modelChallenge = $controller->loadModel('Challenges');
+            $modelCourse = $controller->loadModel('Courses');
+            $modelPackageWorkout = $controller->loadModel('PackageWorkouts');
+            $modelPriceList = $controller->loadModel('PriceLists');
             if (!empty($user)) {
                 $dataSend = $input['request']->getData();
                 $conditions = array('id_user'=>$user->id);
@@ -108,6 +111,35 @@ function listTransactionApi($input)
                 if(!empty($listData)){
                     foreach($listData as $key => $item){
                         $listData[$key]->email = $user->email;
+
+
+                        if($item->type==2){
+                           $data =  $modelChallenge->find()->where(['id'=>$item->id_challenge])->first();
+                           if(!empty($data)){
+                                $listData[$key]->name_en = $data->title_en;
+                                $listData[$key]->name = $data->title;
+                            }
+                        }elseif($item->type==1){
+                            $data = $modelCourse->find()->where(['id'=>$item->id_course])->first();
+                            if(!empty($data)){
+                                $listData[$key]->name_en = $data->titleen;
+                                $listData[$key]->name = $data->title;
+                            }
+                        }elseif($item->type==3){
+                            $data = $modelPackageWorkout->find()->where(['id'=>$item->id_package])->first();
+                            if(!empty($data)){
+                                $listData[$key]->name_en = $data->title_en;
+                                $listData[$key]->name = $data->title;
+                            }
+                        }elseif($item->type==4){
+                           $data =  $modelPriceList->find()->where(['id'=>$item->id_price])->first();
+                           if(!empty($data)){
+                                $listData[$key]->name_en = $data->name_en;
+                                $listData[$key]->name = $data->name;
+                            }
+                        }
+
+
                     }
                 }
                

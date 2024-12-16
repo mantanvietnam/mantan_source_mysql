@@ -28,6 +28,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `id_permission` INT NOT NULL DEFAULT '0',
   `id_position` INT NOT NULL DEFAULT '0',
   `permission` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]',
+  `id_building` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]',
   PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ";
 
@@ -208,6 +209,7 @@ $sqlUpdateDatabase['members']['coin'] = "ALTER TABLE `members` ADD `coin` INT NO
 $sqlUpdateDatabase['members']['id_permission'] = "ALTER TABLE `members` ADD `id_permission` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['members']['id_position'] = "ALTER TABLE `members` ADD `id_position` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['members']['permission'] = "ALTER TABLE `members` ADD `permission` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]';";
+$sqlUpdateDatabase['members']['id_building'] = "ALTER TABLE `members` ADD `id_building` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]' ;";
 
 $sqlUpdateDatabase['permissions']['name'] = "ALTER TABLE `permissions` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['permissions']['created_at'] = "ALTER TABLE `permissions` ADD `created_at` INT NOT NULL;";

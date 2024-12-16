@@ -143,13 +143,13 @@ function viewUserDetailAdmin($input)
         $del_str=str_replace($domain, '', $dataSend['avatar']);
         debug($del_str);
         die;*/
-        $domain = 'https://apis.exc-go.vn/';
 
 
         if (!empty($dataSend['full_name'])) {
             $data->full_name = $dataSend['full_name'];
             $data->avatar = @$dataSend['avatar'];
             $data->phone = @$dataSend['phone'];
+            $data->type = @$dataSend['type'];
             if(!empty($dataSend['password'])){
                 $data->password = md5($dataSend['password']);
             }

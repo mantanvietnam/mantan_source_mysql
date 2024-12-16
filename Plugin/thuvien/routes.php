@@ -15,9 +15,10 @@
 	$routesPlugin['listMember']= 'thuvien/view/home/member/listMember.php';
 	$routesPlugin['addMember']= 'thuvien/view/home/member/addMember.php';
 	$routesPlugin['listActivityHistory']= 'thuvien/view/home/member/listActivityHistory.php';
+	$routesPlugin['managerSelectBuilding']= 'thuvien/view/home/member/managerSelectBuilding.php';
 
 
-	// quan ly sach
+	// quan ly sach 
 	$routesPlugin['listbook']= 'thuvien/view/home/book/listbook.php';
 	$routesPlugin['addbook']= 'thuvien/view/home/book/addbook.php';
 	$routesPlugin['categorybook']= 'thuvien/view/home/book/categorybook.php';
