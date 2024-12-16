@@ -54,4 +54,3 @@
 	$routesPlugin['listOrder']= 'thuvien/view/home/order/listOrder.php';
 	$routesPlugin['addOrder']= 'thuvien/view/home/order/addOrder.php';
 	$routesPlugin['listOrderDetail']= 'thuvien/view/home/order/listOrderDetail.php';
-	$routesPlugin['updateOrderStatus']= 'thuvien/view/home/order/listOrder.php';

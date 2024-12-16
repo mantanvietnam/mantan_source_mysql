@@ -146,46 +146,6 @@ function listOrder($input)
     }
 }
 
-function updateOrderStatus($input) {  
-    global $modelOrders;
-    global $controller;
-
-    $user = checklogin('updateOrderStatus');   
-    if (empty($user)) {
-        echo json_encode(['success' => false, 'message' => 'Bạn cần đăng nhập để thực hiện thao tác này.']);
-        exit;
-    }
-
-    if (!empty($_POST['id']) && isset($_POST['status'])) {
-        $orderId = $_POST['id'];
-        $newStatus = $_POST['status'];
-
-        $modelOrder = $controller->loadModel('Orders');
-        $order = $modelOrder->find()->where(['id' => $orderId])->first();
-
-        if (!empty($order)) {
-            $order->status = $newStatus;
-
-            if ($modelOrder->save($order)) {
-                $note = $user->name . ' cập nhật trạng thái đơn hàng ID ' . $orderId . ' thành ' . $newStatus;
-                addActivityHistory($user, $note, 'updateOrderStatus', $orderId);
-
-                echo json_encode(['success' => true, 'message' => 'Cập nhật trạng thái thành công!']);
-                exit;
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Lỗi khi lưu dữ liệu!']);
-                exit;
-            }
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Không tìm thấy đơn hàng!']);
-            exit;
-        }
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Dữ liệu không hợp lệ!']);
-        exit;
-    }
-}
-
 function addOrder($input)
 {
     global $controller;
@@ -198,14 +158,19 @@ function addOrder($input)
     $modelOrderDetails = $controller->loadModel('OrderDetails');
     $modelBuilding = $controller->loadModel('Buildings');
     $modelCustomers = $controller->loadModel('Customers');
+    $modelBooks = $controller->loadModel('Books');
+    $modelWarehouses = $controller->loadModel('Warehouses');
+
     $buildings = $modelBuilding->find()->all()->toList();
     $customer = $modelCustomers->find()->all()->toList();
+    $books = $modelBooks->find()->all()->toList();
 
     $user = checklogin('addOrder');
     if (empty($user) || empty($user->grant_permission)) {
         return $controller->redirect('/');
     }
 
+    $orderDetails = [];
     $mess = '';
     $order = !empty($_GET['id']) 
         ? $modelOrders->find()->where(['id' => (int)$_GET['id']])->first() 
@@ -213,6 +178,10 @@ function addOrder($input)
 
     if (!$order) {
         return $controller->redirect('/listOrder');
+    }
+
+    if (!empty($order->id)) {
+        $orderDetails = $modelOrderDetails->find()->where(['order_id' => $order->id])->all()->toList();
     }
 
     if ($isRequestPost) {
@@ -227,18 +196,43 @@ function addOrder($input)
         $order->updated_at = time();
 
         if ($modelOrders->save($order)) {
-            $modelOrderDetails->deleteAll(['order_id' => $order->id]);
 
             if (isset($dataSend['order_books']) && is_array($dataSend['order_books'])) {
                 foreach ($dataSend['order_books'] as $detail) {
                     if (!empty($detail['book_id']) && !empty($detail['quantity']) && !empty($detail['warehouse_id'])) {
-                        $orderDetail = $modelOrderDetails->newEmptyEntity();
-                        $orderDetail->order_id = $order->id;
-                        $orderDetail->book_id = (int)$detail['book_id'];
-                        $orderDetail->quantity = (int)$detail['quantity'];
-                        $orderDetail->warehouse_id = (int)$detail['warehouse_id'];
+                        $orderDetail = $modelOrderDetails->find()->where(['order_id' => $order->id, 'book_id' => $detail['book_id']])->first();
+                        $oldQuantity = $orderDetail ? $orderDetail->quantity : 0;
 
-                        $modelOrderDetails->save($orderDetail);
+                        if ($orderDetail) {
+                            $orderDetail->quantity = (int)$detail['quantity'];
+                            $orderDetail->warehouse_id = (int)$detail['warehouse_id'];
+                            $modelOrderDetails->save($orderDetail);
+                        } else {
+                            $orderDetail = $modelOrderDetails->newEmptyEntity();
+                            $orderDetail->order_id = $order->id;
+                            $orderDetail->book_id = (int)$detail['book_id'];
+                            $orderDetail->quantity = (int)$detail['quantity'];
+                            $orderDetail->warehouse_id = (int)$detail['warehouse_id'];
+
+                            $modelOrderDetails->save($orderDetail);
+                        }
+
+                        $warehouse = $modelWarehouses->find()->where(['id' => $detail['warehouse_id']])->first();
+                        if ($warehouse) {
+                            $quantityDiff = $detail['quantity'] - $oldQuantity;
+
+                            if ($order->status == 1) {
+                                $warehouse->quantity_borrow += $quantityDiff;
+                            } elseif ($order->status == 2) {
+                                $warehouse->quantity_borrow -= $quantityDiff;
+                            }
+
+                            if ($warehouse->quantity_borrow < 0) {
+                                $warehouse->quantity_borrow = 0;
+                            }
+
+                            $modelWarehouses->save($warehouse);
+                        }
                     }
                 }
             } else {
@@ -256,5 +250,7 @@ function addOrder($input)
     setVariable('buildings', $buildings);
     setVariable('customer', $customer);
     setVariable('order', $order);
+    setVariable('books', $books);
+    setVariable('orderDetails', $orderDetails);
 }
 

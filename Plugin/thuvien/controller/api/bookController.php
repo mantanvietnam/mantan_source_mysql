@@ -31,12 +31,19 @@ function searchBookAPI() {
 
     if ($listData) {
         foreach ($listData as $data) {
+            $warehouseConditions = ['id_book' => $data->id];
+
+            if (!empty($dataSend['id_building'])) {
+                $warehouseConditions['id_building'] = (int) $dataSend['id_building'];
+            }
+
             $warehouseData = $modelWarehouse->find()
-                ->where(['id_book' => $data->id])
+                ->where($warehouseConditions)
                 ->first();
 
             $quantity = $warehouseData ? $warehouseData->quantity : 0;
             $quantity_borrow = $warehouseData ? $warehouseData->quantity_borrow : 0;
+            $id_shelf = $warehouseData->id;
 
             $return[] = array(
                 'label' => $data->name . ' (' . $data->book_code . ')',
@@ -47,6 +54,7 @@ function searchBookAPI() {
                 'slug' => $data->slug,
                 'quantity' => $quantity,
                 'quantity_borrow' => $quantity_borrow,
+                'id_shelf' => $id_shelf,
                 'description' => $data->description,
                 'price' => $data->price,
                 'published_date' => $data->published_date,
