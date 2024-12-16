@@ -83,18 +83,18 @@
                 <td>' . ($order->customer->name ?? 'N/A') . '</td>
                 <td>' . ($order->customer->phone ?? 'N/A') . '</td>
                 <td>' . ($order->building->name ?? 'N/A') . '</td>
-                <td>' . date('d-m-Y H:i:s', strtotime($order->created_at)) . '</td>
-                <td>' . date('d-m-Y', strtotime($order->return_deadline)) . '</td>
+                <td>' . date('d-m-Y H:i:s', $order->created_at) . '</td>
+                <td>' . date('d-m-Y H:i:s', $order->return_deadline) . '</td>
                 <td>
                     <select class="status-dropdown" onchange="updateOrderStatus(' . $order->id . ', this.value)" ' . $disabled . '>';
-                      if (!empty($order->return_deadline) && strtotime($order->return_deadline) < time() && $order->status == 1) {
-                          echo '<option value="1" class="status-late" selected>Trễ hẹn</option>';
-                      } elseif ($order->status == 1) {
-                          echo '<option value="1" class="status-borrowing" selected>Đang mượn</option>';
-                      }
+                        if (!empty($order->return_deadline) && $order->return_deadline < time() && $order->status == 1) {
+                            echo '<option value="1" class="status-late" selected>Trễ hẹn</option>';
+                        } elseif ($order->status == 1) {
+                            echo '<option value="1" class="status-borrowing" selected>Đang mượn</option>';
+                        }
 
-                      echo '<option value="2" class="status-returned" ' . ($order->status == 2 ? 'selected' : '') . '>Đã trả</option>';
-                      echo '</select>
+                        echo '<option value="2" class="status-returned" ' . ($order->status == 2 ? 'selected' : '') . '>Đã trả</option>';
+                    echo '</select>
                 </td>
                 <td width="5%" align="center">
                     <a class="dropdown-item" href="/orderDetail/?id=' . $order->id . '">
@@ -102,7 +102,7 @@
                     </a>
                 </td>
                 <td width="5%" align="center">
-                    <a class="dropdown-item" href="/editOrder/?id=' . $order->id . '">
+                    <a class="dropdown-item" href="/addOrder/?id=' . $order->id . '">
                         <i class="bx bx-edit-alt me-1"></i>
                     </a>
                 </td>

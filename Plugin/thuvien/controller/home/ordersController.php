@@ -191,141 +191,70 @@ function addOrder($input)
     global $controller;
     global $isRequestPost;
     global $metaTitleMantan;
-    global $session;
 
-    $metaTitleMantan = 'Thêm hoặc Chỉnh sửa Đơn hàng';
-    $modelOrders = $controller->loadModel('Orders'); 
+    $metaTitleMantan = 'Tạo hoặc Chỉnh sửa Đơn hàng';
+
+    $modelOrders = $controller->loadModel('Orders');
     $modelOrderDetails = $controller->loadModel('OrderDetails');
-    $modelbuilding = $controller->loadModel('Buildings');
-    $buildings = $modelbuilding->find()->all()->toList();
+    $modelBuilding = $controller->loadModel('Buildings');
+    $modelCustomers = $controller->loadModel('Customers');
+    $buildings = $modelBuilding->find()->all()->toList();
+    $customer = $modelCustomers->find()->all()->toList();
 
     $user = checklogin('addOrder');
-    if (!empty($user)) {
-        if (empty($user->grant_permission)) {
-            return $controller->redirect('/');
-        }
+    if (empty($user) || empty($user->grant_permission)) {
+        return $controller->redirect('/');
+    }
 
-        // Lấy thông tin đơn hàng nếu có ID
-        if (!empty($_GET['id'])) {
-            $order = $modelOrders->find()->where(['id' => (int)$_GET['id']])->first();
-            if (empty($order)) {
-                return $controller->redirect('/listOrders');
-            }
-        } else {
-            $order = $modelOrders->newEmptyEntity();
-            $order->created_at = time();
-        }
+    $mess = '';
+    $order = !empty($_GET['id']) 
+        ? $modelOrders->find()->where(['id' => (int)$_GET['id']])->first() 
+        : $modelOrders->newEmptyEntity();
 
-        $mess = '';
-        // Xử lý khi có request POST
-        if ($isRequestPost) {
-            $dataSend = $input['request']->getData();
+    if (!$order) {
+        return $controller->redirect('/listOrder');
+    }
 
-            // Kiểm tra đầu vào
-            if (
-                isset($dataSend['customer_id'], $dataSend['building_id'], $dataSend['return_deadline']) &&
-                is_numeric($dataSend['customer_id']) && 
-                is_numeric($dataSend['building_id'])
-            ) {
-                $order->member_id = (int)$user->id;
-                $order->customer_id = (int)$dataSend['customer_id'];
-                $order->building_id = (int)$dataSend['building_id'];
-                $order->status = 1; // Trạng thái mặc định
-                $order->return_deadline = strtotime($dataSend['return_deadline']);
-                $order->updated_at = time();
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
 
-                // Lưu đơn hàng
-                if ($modelOrders->save($order)) {
-                    // Thêm hoặc cập nhật chi tiết đơn hàng
-                    if (!empty($dataSend['order_details'])) {
-                        foreach ($dataSend['order_details'] as $detail) {
-                            addOrderDetail([
-                                'request' => (object)[
-                                    'getData' => function () use ($detail, $order) {
-                                        return array_merge($detail, ['order_id' => $order->id]);
-                                    },
-                                ],
-                            ]);
-                        }
+        $order->member_id = (int)$user->id;
+        $order->customer_id = (int)$dataSend['customer_id'];
+        $order->building_id = (int)$dataSend['building_id'];
+        $order->status = (int)$dataSend['status'];
+        $order->created_at = !empty($order->id) ? $order->created_at : time();
+        $order->return_deadline = strtotime(str_replace('/', '-', $dataSend['return_deadline']));
+        $order->updated_at = time();
+
+        if ($modelOrders->save($order)) {
+            $modelOrderDetails->deleteAll(['order_id' => $order->id]);
+
+            if (isset($dataSend['order_books']) && is_array($dataSend['order_books'])) {
+                foreach ($dataSend['order_books'] as $detail) {
+                    if (!empty($detail['book_id']) && !empty($detail['quantity']) && !empty($detail['warehouse_id'])) {
+                        $orderDetail = $modelOrderDetails->newEmptyEntity();
+                        $orderDetail->order_id = $order->id;
+                        $orderDetail->book_id = (int)$detail['book_id'];
+                        $orderDetail->quantity = (int)$detail['quantity'];
+                        $orderDetail->warehouse_id = (int)$detail['warehouse_id'];
+
+                        $modelOrderDetails->save($orderDetail);
                     }
-                    return $controller->redirect('/listOrders?mess=saveSuccess');
-                } else {
-                    $mess = '<p class="text-danger">Lưu đơn hàng không thành công</p>';
                 }
             } else {
-                $mess = '<p class="text-danger">Vui lòng nhập đầy đủ thông tin bắt buộc</p>';
+                $mess = '<p class="text-warning">Không có chi tiết đơn hàng nào được thêm.</p>';
             }
-        }
 
-        setVariable('mess', $mess);
-        setVariable('buildings', $buildings);
-        setVariable('mess', $mess);
-    } else {
-        return $controller->redirect('/login');
-    }
-}
-
-function addOrderDetail($input)
-{
-    global $controller;
-    global $isRequestPost;
-    global $metaTitleMantan;
-    global $session;
-
-    $metaTitleMantan = 'Thêm hoặc Chỉnh sửa Chi tiết Đơn hàng';
-    $modelOrderDetails = $controller->loadModel('OrderDetails'); 
-
-    $user = checklogin('addOrderDetail');
-    if (!empty($user)) {
-        if (empty($user->grant_permission)) {
-            return $controller->redirect('/');
-        }
-
-        // Tạo hoặc chỉnh sửa dữ liệu
-        if (!empty($_GET['id'])) {
-            $data = $modelOrderDetails->find()->where(['id' => (int)$_GET['id']])->first();
-            if (empty($data)) {
-                return $controller->redirect('/listOrder');
-            }
+            $mess = '<p class="text-success">Tạo hoặc cập nhật đơn hàng thành công.</p>';
+            return $controller->redirect('/listOrder?mess=saveSuccess');
         } else {
-            $data = $modelOrderDetails->newEmptyEntity();
-            $data->created_at = time();
+            $mess = '<p class="text-danger">Lưu đơn hàng không thành công.</p>';
         }
-
-        $mess = '';
-        // Xử lý khi có request POST
-        if ($isRequestPost) {
-            $dataSend = $input['request']->getData();
-
-            // Kiểm tra đầu vào
-            if (
-                isset($dataSend['order_id'], $dataSend['book_id'], $dataSend['quantity'], $dataSend['warehouse_id']) &&
-                is_numeric($dataSend['order_id']) &&
-                is_numeric($dataSend['book_id']) &&
-                is_numeric($dataSend['quantity']) &&
-                is_numeric($dataSend['warehouse_id'])
-            ) {
-                $data->order_id = (int)$dataSend['order_id'];
-                $data->book_id = (int)$dataSend['book_id'];
-                $data->quantity = (int)$dataSend['quantity'];
-                $data->warehouse_id = (int)$dataSend['warehouse_id'];
-                $data->updated_at = time();
-
-                // Lưu dữ liệu
-                if ($modelOrderDetails->save($data)) {
-                    return $controller->redirect('/listOrder?mess=saveSuccess');
-                } else {
-                    $mess = '<p class="text-danger">Lưu dữ liệu không thành công</p>';
-                }
-            } else {
-                $mess = '<p class="text-danger">Tất cả các trường là bắt buộc</p>';
-            }
-        }
-
-        setVariable('data', $data);
-        setVariable('mess', $mess);
-    } else {
-        return $controller->redirect('/login');
     }
+
+    setVariable('mess', $mess);
+    setVariable('buildings', $buildings);
+    setVariable('customer', $customer);
+    setVariable('order', $order);
 }
 
