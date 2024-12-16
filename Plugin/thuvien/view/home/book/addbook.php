@@ -42,12 +42,7 @@
                             </div>
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">Ảnh</label>
-                              <input type="text" class="form-control phone-mask" name="image" id="image" value=""/>
-                              <?php
-                              if(!empty($data->image)){
-                                echo '<br/><img src="'.$data->image.'" width="80" />';
-                              }
-                              ?>
+                              <?php showUploadFile('image','image',@$data->image,0);?>
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Trạng thái</label>
@@ -71,20 +66,20 @@
                             
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">Giá sách</label>
-                              <input type="number" autocomplete="off" class="form-control" placeholder="" name="price" id="" value="" />
+                              <input type="number" class="form-control" placeholder="" name="price" id="" value="<?php echo @$data->price;?>" />
                             </div>
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">Số lượng</label>
-                              <input type="number" autocomplete="off" class="form-control" placeholder="" name="quantity" id="" value="" />
+                              <input type="number" class="form-control" placeholder="" name="quantity" id="" value="<?php echo @$data->quantity;?>" readonly/>
                             </div>
                              <div class="mb-3">
                               <label class="form-label" for="basic-default-phone">Ngày xuất bản</label>
-                              <input autocomplete="off" type="text" class="form-control datepicker" name="published_date" id="name" value="<?php if(!empty($data->status)) echo  date('d/m/Y',@$data->published_date);?>" />
+                              <input  type="datetime-local" class="form-control" name="published_date" id="name" value="<?php echo isset($data->published_date) ? date('Y-m-d\TH:i', $data->published_date) : ''; ?>" />
                             </div>
 
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-phone">Mã xuất bản</label>
-                              <input type="text" class="form-control phone-mask" name="code_book" id="name" value="<?php echo @$data->code_book;?>" />
+                              <input type="text" class="form-control phone-mask" name="book_code" id="name" value="<?php echo @$data->book_code;?>" required/>
                             </div>
                               <div class="row ">
                                 <div class="mb-3 form-group col-6">
@@ -102,7 +97,7 @@
                                 </div>
                                 <div class="mb-3 form-group col-6">
                                   <i>Nhà xuất bản</i>
-                                  <select name="book_code" id="book_code" class="form-control">
+                                  <select name="publishing_id" id="publishing_id" class="form-control">
                                       <option value="">Chọn Nhà xuất bản</option>
                                       <?php if (!empty($listcategorypublishers)): ?>
                                           <?php foreach ($listcategorypublishers as $key => $value): ?>

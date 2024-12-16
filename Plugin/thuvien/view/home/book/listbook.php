@@ -29,7 +29,7 @@
 
         <div class="col-md-2">
           <label class="form-label">Loại</label>
-          <input type="text" class="form-control" name="type" value="<?php if(!empty($_GET['type'])) echo $_GET['type'];?>">
+          <input type="date" class="form-control" name="published_date" value="<?php if(!empty($_GET['published_date'])) echo $_GET['published_date'];?>">
         </div>
 
         <div class="col-md-2">
@@ -61,48 +61,59 @@
         <tr class="">
           <th>ID</th>
           <th>Tên sách</th>
-          <th>Mô tả</th>
           <th>Tác giả</th>
           <th>Nhà xuất bản</th>
+          <th>Danh mục sách</th>
           <th>Trạng thái</th>
           <th>Sửa</th>
           <th>Xóa</th>
         </tr>
       </thead>
       <tbody>
-        <?php 
-        if (!empty($listData)) {
-          foreach ($listData as $item) {
-            $status = '<span class="text-danger">Khóa</span>';
-            if ($item->status == 'active') { 
-              $status = '<span class="text-success">Kích hoạt</span>';
-            }
+      <?php
+        $categories = $modelCategories->find()->all()->toArray();
+        $categoryNames = array_column($categories, 'name', 'id');
 
-            echo '<tr>
-            <td>'.$item->id.'</td>
-            <td>'.$item->name.'</td>
-            <td>'.$item->description.'</td>
-            <td>'.$item->book_code.'</td>
-            <td>'.$item->author.'</td>
-            <td>'.$status.'</td>
-            <td width="5%" align="center">
-              <a class="dropdown-item" href="/addbook/?id='.$item->id.'">
-                <i class="bx bx-edit-alt me-1"></i>
-              </a>
-            </td>
-            <td align="center">
-              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deletebook/?id='.$item->id.'">
-                <i class="bx bx-trash me-1"></i>
-              </a>
-            </td>
-            </tr>';
-          }
-        } else {
-          echo '<tr>
-          <td colspan="8" align="center">Chưa có dữ liệu</td>
-          </tr>';
-        }
+        $publishers = $modelCategories->find()->all()->toArray();
+        $publisherNames = array_column($publishers, 'name', 'id');
         ?>
+        <?php 
+          if (!empty($listData)) {
+              foreach ($listData as $item) {
+                  // Tra cứu tên danh mục và nhà xuất bản từ mảng
+                  $categoryName = isset($categoryNames[$item->id_category]) ? $categoryNames[$item->id_category] : 'Chưa có danh mục';
+                  $publisherName = isset($publisherNames[$item->publishing_id]) ? $publisherNames[$item->publishing_id] : 'Chưa có nhà xuất bản';
+                  
+                  $status = '<span class="text-danger">Khóa</span>';
+                  if ($item->status == 'active') { 
+                      $status = '<span class="text-success">Kích hoạt</span>';
+                  }
+
+                  echo '<tr>
+                      <td>'.$item->id.'</td>
+                      <td>'.$item->name.'</td>
+                      <td>'.$item->author.'</td>
+                      <td>'.$categoryName.'</td>
+                      <td>'.$publisherName.'</td>
+                      <td>'.$status.'</td>
+                      <td width="5%" align="center">
+                          <a class="dropdown-item" href="/addbook/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                          </a>
+                      </td>
+                      <td align="center">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deletebook/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                          </a>
+                      </td>
+                  </tr>';
+              }
+          } else {
+              echo '<tr>
+                  <td colspan="8" align="center">Chưa có dữ liệu</td>
+              </tr>';
+          }
+      ?>
       </tbody>
     </table>
   </div>

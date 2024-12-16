@@ -12,7 +12,7 @@ function listbook($input)
      $user = checklogin('listbook');   
     if(!empty($user)){
        
-        $metaTitleMantan = 'Danh sách nhân viên';
+        $metaTitleMantan = 'Danh sách books';
 
         $modelMember = $controller->loadModel('Members');
         $modelbooks = $controller->loadModel('books');
@@ -27,11 +27,15 @@ function listbook($input)
         if(!empty($_GET['id'])){
             $conditions['id'] = (int) $_GET['id'];
         }
-
-
-        if(!empty($_GET['name'])){
-            $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+        if(!empty($_GET['status'])){
+            $conditions['status'] = (int) $_GET['status'];
         }
+
+        if (!empty($_GET['published_date'])) {
+            $publishedDateTimestamp = strtotime($_GET['published_date']);
+            $conditions['published_date'] = $publishedDateTimestamp;
+        }
+        
         if(!empty($_GET['action']) && $_GET['action']=='Excel'){
             $listData = $modelbooks->find()->where($conditions)->order($order)->all()->toList();
             
@@ -125,34 +129,39 @@ function listbook($input)
        // / setVariable('listGroup', $listGroup);
     }
 }
-function addbook($input){
+function addbook($input) {
     global $controller;
-	global $isRequestPost;
-	global $modelCategories;
+    global $isRequestPost;
+    global $modelCategories;
     global $metaTitleMantan;
     $metaTitleMantan = 'Thêm sách';
-	$modelbooks = $controller->loadModel('books');
-    $listcategory = $modelCategories->find()->where(['type'=>'category_book'])->all()->toList();
-    $listcategorypublishers = $modelCategories->find()->where(['type'=>'category_publisher'])->all()->toList();
-	$mess= '';
-	// lấy data edit
-    if(!empty($_GET['id'])){
-        $data = $modelbooks->get( (int) $_GET['id']);
-    }else{
+    $modelbooks = $controller->loadModel('books');
+    $listcategory = $modelCategories->find()->where(['type' => 'category_book'])->all()->toList();
+    $listcategorypublishers = $modelCategories->find()->where(['type' => 'category_publisher'])->all()->toList();
+    $mess = '';
+
+    // Lấy data edit
+    if (!empty($_GET['id'])) {
+        $data = $modelbooks->get((int) $_GET['id']);
+    } else {
         $data = $modelbooks->newEmptyEntity();
     }
+
     $user = checklogin('addbook');  
-	if(!empty($user)){
+
+    if (!empty($user)) {
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
+            
+            $idCondition = isset($data->id) ? ['id !=' => $data->id] : [];
+
             $existingPublisher = $modelbooks->find()
-            ->where(['id_publisher' => $dataSend['id_publisher'], 'id !=' => @$data->id])
-            ->first();
+                ->where(['book_code' => $dataSend['book_code']] + $idCondition)
+                ->first();
+
             if (!empty($existingPublisher)) {
-           
                 $mess = '<p class="text-danger">Mã xuất bản đã tồn tại. Vui lòng nhập mã khác.</p>';
             } else {
-           
                 $data->name = $dataSend['name'];
                 $data->author = $dataSend['author'];
                 $data->published_date = (new DateTime($dataSend['published_date']))->getTimestamp();
@@ -161,17 +170,18 @@ function addbook($input){
                 $data->price = $dataSend['price'];
                 $data->book_code = $dataSend['book_code'];
                 $data->id_category = $dataSend['id_category'];
-                $data->id_publisher = $dataSend['id_publisher'];
+                $data->publishing_id = $dataSend['publishing_id'];
                 $data->quantity = $dataSend['quantity'];
+
                 $slug = createSlugMantan($dataSend['name']);
                 $slugNew = $slug;
                 $number = 0;
-    
+
                 if (empty($data->slug) || $data->slug != $slugNew) {
                     do {
-                        $conditions = array('slug' => $slugNew);
+                        $conditions = ['slug' => $slugNew];
                         $listData = $modelbooks->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-    
+
                         if (!empty($listData)) {
                             $number++;
                             $slugNew = $slug . '-' . $number;
@@ -179,27 +189,29 @@ function addbook($input){
                     } while (!empty($listData));
                 }
                 $data->slug = $slugNew;
-    
+
                 $modelbooks->save($data);
+
                 if (!empty($_GET['id'])) {
                     $note = $user->name . ' sửa ' . $data->name . '(' . $data->book_code . ') có id là:' . $data->id;
                 } else {
                     $note = $user->name . ' Thêm sách ' . $data->name . '(' . $data->book_code . ') có id là:' . $data->id;
                 }
                 addActivityHistory($user, $note, 'addBuilding', $data->id);
-    
+
                 $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
             }
         }   
-        
-    }else{
+    } else {
         return $controller->redirect('/login');
     }
+
     setVariable('listcategorypublishers', $listcategorypublishers);
     setVariable('listcategory', $listcategory);
     setVariable('data', $data);
     setVariable('mess', $mess);
 }
+
 
 
 function deletebook($input){
