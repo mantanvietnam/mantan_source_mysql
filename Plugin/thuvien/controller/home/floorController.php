@@ -18,18 +18,41 @@ function listFloor($input)
         $modelBuilding = $controller->loadModel('Buildings');
         $modelFloor = $controller->loadModel('Floors');
         $modelRoom = $controller->loadModel('Rooms');
-         $conditions = array();
+        $conditions = array();
+        
+     
         if(!empty($_GET['id_building'])) {
-            $conditions['id_building'] =(int) $_GET['id_building'];
+            if($user->type=='staff'){
+                $id_building = json_decode($user->id_building, true);
+                if(!empty($id_building) && in_array((int)$_GET['id_building'], $id_building, true)){
 
-            $data = $modelBuilding->find()->where(['id'=>$_GET['id_building']])->first();
+                    $conditions['id_building'] =(int) $_GET['id_building'];
 
-            if(empty($data)){
-                return $controller->redirect('/');
+                    $data = $modelBuilding->find()->where(['id'=>$_GET['id_building']])->first();
+
+                    if(empty($data)){
+                        return $controller->redirect('/');
+                    }
+                }else{
+                    return $controller->redirect('/');
+                }
+            }else{
+                $conditions['id_building'] =(int) $_GET['id_building'];
+
+                $data = $modelBuilding->find()->where(['id'=>$_GET['id_building']])->first();
+
+                if(empty($data)){
+                    return $controller->redirect('/');
+                }
             }
         }else{
-             return $controller->redirect('/');
+             $conditions['id_building'] = $user->idbuilding;
+             $data = $modelBuilding->find()->where(['id'=>$user->idbuilding])->first();
+            
         }
+
+
+        
         
         $order = array('id'=>'desc');
 
@@ -41,6 +64,8 @@ function listFloor($input)
         if(!empty($_GET['id'])){
             $conditions['id'] = (int) $_GET['id'];
         }
+
+        
 
 
         if(!empty($_GET['name'])){

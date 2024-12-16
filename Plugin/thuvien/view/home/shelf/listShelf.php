@@ -3,8 +3,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listBuilding">Tòa nhà <?php echo @$data->building->name; ?> </a> / <a href="/listFloor?id_building=<?php echo $data->id_building; ?>">Tầng <?php echo @$data->floor->name; ?></a> / <a href="/listRoom?id_floor=<?php echo $data->id_floor; ?>">Phòng <?php echo @$data->floor->name; ?></a> / <a href="/listShelf?id_room=<?php echo $data->id; ?>">Kệ</a> / </span>
-    Danh sách kệ
+    <span class="text-muted fw-light"><a href="/listBuilding">Tòa nhà <?php echo @$data->building->name; ?> </a> / <a href="/listFloor?id_building=<?php echo $data->id_building; ?>">Tầng <?php echo @$data->floor->name; ?></a> / <a href="/listRoom?id_floor=<?php echo $data->id_floor; ?>">Phòng <?php echo @$data->floor->name; ?></a> / <a href="/listShelf?id_room=<?php echo $data->id; ?>">Kệ sách</a> / </span>
+    Danh sách kệ sách
   </h4>
 
   <p><a href="/addShelf?id_room=<?php echo $data->id; ?>" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
@@ -24,7 +24,7 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên kệ</label>
+            <label class="form-label">Tên kệ sách</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
           <div class="col-md-2">
@@ -43,15 +43,15 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách kệ </h5><!-- - <span class="text-danger"><?php echo number_format(@$totalData);?> tòa nhà</span></h5> -->
+    <h5 class="card-header">Danh sách kệ sách </h5><!-- - <span class="text-danger"><?php echo number_format(@$totalData);?> tòa nhà</span></h5> -->
     <?php echo @$mess;?>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>tên Kệ</th>
-            <!-- <th>Kệ</th> -->
+            <th>tên Kệ sách</th>
+            <!-- <th>Kệ sách</th> -->
             <th>Sửa</th>
             <th>Xoá</th>
           </tr>

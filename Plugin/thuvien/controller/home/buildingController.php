@@ -25,10 +25,21 @@ function listBuilding($input)
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
         
-        if(!empty($_GET['id'])){
-            $conditions['id'] = (int) $_GET['id'];
-        }
 
+
+
+        if($user->type=='staff'){
+            if($user->id_building){
+                $conditions['id IN'] =  json_decode($user->id_building, true);
+            }else{
+                $conditions['id'] =  0;
+            }
+            
+        }else{
+            if(!empty($_GET['id'])){
+                $conditions['id'] = (int) $_GET['id'];
+            }
+        }
 
         if(!empty($_GET['name'])){
             $conditions['name LIKE'] = '%'.$_GET['name'].'%';

@@ -13,7 +13,7 @@ function searcRoomAPI(){
     	
         $conditions = [];
 
-    	if(!empty($dataSend['term'])){
+        if(!empty($dataSend['term'])){
             $conditions['name LIKE'] ='%'.$dataSend['term'].'%';
         }
 
@@ -29,40 +29,47 @@ function searcRoomAPI(){
             $conditions['id_floor'] = (int) $dataSend['id_floor'];
         }
 
-       
+
         $listData= $modelRoom->find()->where($conditions)->all()->toList();
         
         if($user->type=='staff'){
             if($user->id_building){
                 $conditions['id_building IN'] =  json_decode($user->id_building, true);
             }else{
-                $conditions['id'] =  0;
+                $conditions['id_building'] =  0;
             }
             
         }
-       
+
 
         if($listData){
             foreach($listData as $data){
             	
                 $return[]= array(   'id'=>$data->id,
-                                    'label'=>$data->name,
-                                    'value'=>$data->id,
-                                    'id_building'=>$data->id_building,
-                                    'id_floor'=>$data->id_floor,
-                                    'name'=>$data->name,
-                                    'description'=>@$data->description,
-                                );
+                    'label'=>$data->name,
+                    'value'=>$data->id,
+                    'id_building'=>$data->id_building,
+                    'id_floor'=>$data->id_floor,
+                    'name'=>$data->name,
+                    'description'=>@$data->description,
+                );
             }
         }else{
             $return= array(array(   'id'=>0, 
-                                    'label'=>'Không tìm thấy dữ liệu', 
-                                    'value'=>'', 
-                                )
-                    );
+                'label'=>'Không tìm thấy dữ liệu', 
+                'value'=>'', 
+            )
+        );
         }
 
-	return $return;
+        return $return;
+    }else{
+        return array(array(   'id'=>0, 
+            'label'=>'Không tìm thấy dữ liệu', 
+            'value'=>'', 
+            )
+        );
+    }
 
 }
- ?>
+?>

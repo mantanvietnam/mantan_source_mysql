@@ -67,7 +67,7 @@ function searcShelfAPI(){
         }
 
         return $return;
-    else{
+    }else{
         return array(array(   'id'=>0, 
             'label'=>'Không tìm thấy dữ liệu', 
             'value'=>'', 

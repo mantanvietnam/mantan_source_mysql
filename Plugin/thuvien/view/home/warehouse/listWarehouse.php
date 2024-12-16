@@ -134,7 +134,7 @@
               <td>Tòa nhà: '.$item->building->name.'</br>
               Tầng: '.$item->floor->name.'</br>
               Phòng: '.$item->room->name.'</br>
-              kệ: '.$item->shelf->name.'</td>
+              Kệ sách: '.$item->shelf->name.'</td>
               <td align="center">'.$item->quantity.'</td>
               <td align="center">'.$item->quantity_borrow.'</td>
               <td align="center">'.$item->quantity_warehous.'</td>

@@ -9,7 +9,7 @@
                     <div class="search-wrapper">
                         <form id="searchForm" class="search-form">
                             <div class="input-wrapper">
-                                <input type="text" class="search-input" placeholder="Tìm kiếm trợ lý hoặc bấm / để chat với Phoenix"id="searchInput" onkeydown="getbos();" >
+                                <input type="text" class="search-input" placeholder="Tìm kiếm trợ lý hoặc bấm / để chat với Phoenix"id="searchInput" onchange="getbos();" >
                                 <div class="search-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <circle cx="11" cy="11" r="8"></circle>
@@ -38,7 +38,7 @@
             <!-- Trợ lý Aiva content -->
             <div class="tab-pane fade show active" id="assistant" role="tabpanel">
                 <!-- Category navigation -->
-                <div class="container-fluid mt-3">
+              <!--   <div class="container-fluid mt-3">
                     <div class="d-flex align-items-center gap-3 category-nav">
                         <a href="#" class="category-link">Viết lách</a>
                         <a href="#" class="category-link">Marketing</a>
@@ -50,12 +50,12 @@
                         <a href="#" class="category-link">HR</a>
                         <a href="#" class="category-link">Giáo dục</a>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="container-fluid mt-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h1 class="heading">Trợ lý Phoenix</h1>
-                        <button class="btn btn-light rounded-pill view-all">Xem tất cả</button>
+                        <!-- <button class="btn btn-light rounded-pill view-all">Xem tất cả</button> -->
                     </div>
                     <div class="card-ai row justify-content-evenly">
                     <div class="card-ai row justify-content-evenly" id='bost_ai'>
@@ -93,8 +93,8 @@
 
 <script type="text/javascript">
     function getbos(){
-        var searchInput = $('#searchInput').val();
-        $.ajax({
+        var question = $('#searchInput').val();
+       /* $.ajax({
               method: "POST",
               url: "/apis/getbosAPI",
               
@@ -128,7 +128,20 @@
                     
              $('#bost_ai').html(html);
                    
-            });
+            });*/
+
+         // var question = $('#question').val();
+      $.ajax({
+          method: "POST",
+          url: "/apis/chatAPI",
+          data: {question: question,
+            number: 0,
+            conversation_id: '', 
+        }
+    })
+        .done(function( msg ) {
+            location.href = "/chat";
+        });
     }
 
     
