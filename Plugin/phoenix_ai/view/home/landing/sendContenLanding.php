@@ -63,7 +63,7 @@
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
+              <!--   <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo1">
                     <div class="parent-button-div d-flex">
@@ -77,7 +77,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Section 1</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -87,9 +87,9 @@
                 <div id="collapseTwo1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                      <!- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(1)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -110,7 +110,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>__________</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -120,9 +120,9 @@
                 <div id="collapseTwo2" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                      <!- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(2)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -143,7 +143,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Section 2</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-<p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -153,9 +153,9 @@
                 <div id="collapseTwo3" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                      <!- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(3)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -176,7 +176,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Section 3</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -186,9 +186,9 @@
                 <div id="collapseTwo4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                      <!- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(4)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -209,7 +209,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>----</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-<p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -219,9 +219,9 @@
                 <div id="collapseTwo5" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                      <!- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(5)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -242,7 +242,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Section 5</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -252,9 +252,9 @@
                 <div id="collapseTwo6" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                      <!- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(6)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -275,7 +275,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Quà tặng</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -285,9 +285,9 @@
                 <div id="collapseTwo7" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                      <!- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(7)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -308,7 +308,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Testimonial</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -318,15 +318,15 @@
                 <div id="collapseTwo8" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                      <!- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(8)" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -428,6 +428,7 @@ showAiThinking.addEventListener('click', () => {
               document.getElementById("conversation_id").value = msg.data.conversation_id;
               document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
               CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
+              saveContentBlog();
             }
         })
       
@@ -471,31 +472,18 @@ showAiThinking.addEventListener('click', () => {
     }
 
     function chatquestion(){
-        var conversation_id = $('#conversation_id').val();
-        var result = $('#result').val();
-      
         var question = $('#question').val();
-      
-         document.getElementById("question").value = '';
-      if(conversation_id != '' && question!=''){
-             $.ajax({
+      $.ajax({
           method: "POST",
-          url: "/apis/chatContentlandingAPI",
+          url: "/apis/chatAPI",
           data: {question: question,
-            conversation_id: conversation_id,
-            type: 0,
-          }
-        }).done(function( msg ) {
-                if(msg.code==1){
-                  result += '/\n/g'+msg.data.result;
-                  document.getElementById("conversation_id").value = msg.data.conversation_id;
-                  document.getElementById("result").value = result(/\n/g, '<br>');
-                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>'));
-                }
-            })
+            number: 0,
+            conversation_id: '', 
         }
-       
-
+    })
+        .done(function( msg ) {
+            location.href = "/chat";
+        });
     }
 
 

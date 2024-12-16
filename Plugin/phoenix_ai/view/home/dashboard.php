@@ -73,10 +73,10 @@
                                         <h3>'.$item['title'].'</h3>
                                         <p>'.$item['district'].'</p>
                                         <div class="buttons">
-                                            <button class="like"><i class="fa-regular fa-thumbs-up"></i> 7</button>
+                                            <button class="like"><i class="fa-regular fa-thumbs-up"></i>&nbsp;7</button>
                                             <div class="d-flex">
-                                                <div><i class="fa-solid fa-play playmasion" style="color: #5242f3;"></i></div>
-                                                <div>Thực hiện</div>
+                                                <div><i class="fa-solid fa-play playmasion" style="color: #5242f3;"></i>&nbsp;</div>
+                                                <div>&nbsp;Thực hiện</div>
                                             </div>
                                         </div>
                                     </div>

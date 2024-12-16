@@ -169,7 +169,7 @@ function saveContentlandingAPI($input){
                 $checkContent->created_at = time();
                 $checkContent->type = 'content_landing';
             }
-            $title = 'Tạo landing page đỉnh cao';
+            $title = 'Tạo landing page đỉnh cao cho chủ đề '.$chat['topic'];
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  
