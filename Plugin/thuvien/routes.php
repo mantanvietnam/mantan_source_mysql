@@ -21,6 +21,8 @@
 	// quan ly sach 
 	$routesPlugin['listbook']= 'thuvien/view/home/book/listbook.php';
 	$routesPlugin['addbook']= 'thuvien/view/home/book/addbook.php';
+	$routesPlugin['statisticalnumberbook']= 'thuvien/view/home/statistical/statisticalnumberbook.php';
+	$routesPlugin['statisticalorderbook']= 'thuvien/view/home/statistical/statisticalorderbook.php';
 	$routesPlugin['categorybook']= 'thuvien/view/home/book/categorybook.php';
 	$routesPlugin['historybook']= 'thuvien/view/home/book/historybook.php';
 	$routesPlugin['changequanlitybook']= 'thuvien/view/home/book/changequanlitybook.php';

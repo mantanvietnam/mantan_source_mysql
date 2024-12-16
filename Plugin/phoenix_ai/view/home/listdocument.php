@@ -1,9 +1,9 @@
 <?php include('header.php'); ?>
             <div class="aiva-document container-fluid">
                     <div class="document-search" style="width:98%">
-                        <div class="title-aiva-document"><h2>Phoenix Tài liệu</h2></div>
-                        <div class="list-document-search row">
-                            <div class="left-document col-md-2 col-12">
+                        <div class="title-aiva-document" style="text-align: center;"><h2>Phoenix Tài liệu</h2></div>
+                        <div class="list-document-search row" style="width:97%; margin:auto;">
+                            <div class="left-document col-md-3 col-12">
                                 <div class="tag">
                                     <p>Danh sách tài liệu của bạn</p>
                                 </div>
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-aiva-document" style="width: 97%;margin: auto;">
+                    <div class="table-aiva-document" style="width: 97%;margin: auto; max-height:510px">
                         <table class=" table-create-document">
                             <thead class="colum-header">
                                 <tr>

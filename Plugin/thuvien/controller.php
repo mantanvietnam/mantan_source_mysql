@@ -14,7 +14,7 @@ include_once('controller/home/roomController.php');
 include_once('controller/home/shelfController.php');
 include_once('controller/home/warehouseController.php');
 include_once('controller/home/ordersController.php');
-
+include_once('controller/home/statisticalController.php');
 
 include_once('controller/api/memberController.php');
 include_once('controller/api/buildingController.php');

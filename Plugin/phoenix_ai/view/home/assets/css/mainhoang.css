@@ -594,14 +594,14 @@
    outline: 0;
 }
 .scroll-container {
-    max-height: 600px; /* Giới hạn chiều cao */
-    max-width: 500px; /* Giới hạn chiều rộng */
-    overflow-x: auto; /* Thanh cuộn ngang */
-    overflow-y: auto; /* Thanh cuộn dọc */
-    border: 1px solid #ccc; /* Viền để dễ thấy */
+    max-height: 500px;
+    max-width: 500px;
+    overflow-x: auto; 
+    overflow-y: auto; 
+    border: 1px solid #ccc; 
 }
 .set-height-writecontent {
-    height: 800px;
+    height: 700px;
     background-color: #fff;
     border-radius: 20px;
     padding: 10px;
@@ -1024,4 +1024,15 @@
 .set-between-default img {
     width: 150px; 
     height: auto;
+}
+
+.content-thinking {
+    top:37% !important;
+    right: 17% !important;
+}
+.show-input-editor {
+    height: 535px;
+}
+#cke_1_contents{
+    height: 347px !important;
 }

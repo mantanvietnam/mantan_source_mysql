@@ -136,6 +136,12 @@ function getListPermission()
                             )
                         
                     );
+    $permission[] = array( 'name'=>'Quản lý thống kê số lượng',
+                    'sub'=>array(   array('name'=>'Số lượng sách','permission'=>'statisticalnumberbook'),
+                                    array('name'=>'Số lượng mượn sách','permission'=>'statisticalorderbook'),
+                            )
+                        
+                    );
     $permission[] = array( 'name'=>'Quản kho ',
     
                     'sub'=>array(   array('name'=>'Danh toàn nhà','permission'=>'listBuilding'),
