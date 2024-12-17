@@ -79,7 +79,7 @@
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
+             <!--  <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo1">
                     <div class="parent-button-div d-flex">
@@ -93,7 +93,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Phần mở đầu</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -103,9 +103,9 @@
                 <div id="collapseTwo1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                      <!- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(1)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -126,7 +126,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Phần đầu </h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -138,7 +138,7 @@
                     <form action="" method="post">
                       <!-- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(2)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -159,7 +159,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Phần 2</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -171,7 +171,7 @@
                     <form action="" method="post">
                       <!-- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(3)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -192,7 +192,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Phần 3</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -204,7 +204,7 @@
                     <form action="" method="post">
                       <!-- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(4)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -225,7 +225,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Phần 4</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -237,7 +237,7 @@
                     <form action="" method="post">
                       <!-- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(5)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -258,7 +258,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Phần 5</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -270,7 +270,7 @@
                     <form action="" method="post">
                       <!-- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(6)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -291,7 +291,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Phần 6</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -303,7 +303,7 @@
                     <form action="" method="post">
                       <!-- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(7)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -324,7 +324,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Phần kết </h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -336,17 +336,13 @@
                     <form action="" method="post">
                       <!-- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(8)" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
                 </div>
-              </div>
-             
-             
-
-              
+              </div> -->              
             </div>
           </div>
         </div>
@@ -371,7 +367,7 @@
               <input type="text" name="" placeholder="tag" id="target" name="target" value="<?php echo @$dataContent->customer_target ?>">
             </div>
             <div class="show-input-editor">
-               <?php $result =  htmlspecialchars(nl2br(@$data['result']));
+               <?php $result =  nl2br(@$data['result']);
                showEditorInput('result', 'result', @$result);?>
             </div>
             <div class="ai-thinking d-none" id="aiThinking">

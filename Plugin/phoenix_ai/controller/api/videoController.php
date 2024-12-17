@@ -36,9 +36,11 @@ function sendContentVideoAPI($input){
                 }
             }
               $reply_ai = callAIphoenixtech($question,$conversation_id);
-         
+        
+            $reply = '<h1>Tạo kịch bản Youtube</h1>'.$reply_ai['result'];
+            $reply_ai['result'] = $reply;
 
-              $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
+              $chat = array('result'=>$reply,'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
 
 
                 $session->write('content_video', $chat);
@@ -103,10 +105,25 @@ function chatContentVideoAPI($input){
                 $conversation_id = @$dataSend['conversation_id'];
             
                 $reply_ai = callAIphoenixtech($question,$conversation_id);
+
+                if(!empty($dataSend['type'])){
+                    if($dataSend['type']=='tiktok'){
+                        $reply = '<h1>Viết kịch bản Tiktok</h1>'.$reply_ai['result'];
+                        $reply_ai['result'] = $reply;
+                    }elseif($dataSend['type']=='facebook'){
+                        $reply = '<h1>Tạo bài đăng Facebook</h1>'.$reply_ai['result'];
+                        $reply_ai['result'] = $reply;
+                    }elseif($dataSend['type']=='instagram'){
+                        $reply = '<h1>Bài đăng Instagram</h1>'.$reply_ai['result'];
+                        $reply_ai['result'] = $reply;
+                    }
+                }
                 
                 
 
                 // $chat[] = array('question'=>$dataSend['question'],'result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'],'number'=>$number );
+
+
 
                 $chat['result'] .= $reply_ai['result'];
 
@@ -157,7 +174,7 @@ function saveContentVideoAPI($input){
                 $checkContent->created_at = time();
                 $checkContent->type = 'content_video';
             }
-            $title = 'Tái chế nội dung đỉnh cao - VIP';
+            $title = 'Tái chế nội dung đỉnh cao - VIP cho nội dung '.$chat['topic'];
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  

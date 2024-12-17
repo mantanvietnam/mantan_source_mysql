@@ -193,7 +193,6 @@
                 <input type="text" id="title" name="title"  placeholder="Tiêu đề" value="<?php echo @$dataContent->title ?>">
               </div>
               <div class="left-button-title">
-                <a type="submit" href="/" class="comback-writecontent">Quay lại</a>
                 <button type="button" onclick="saveContentBlog()" class="save-writecontent">Lưu</button>
               </div>
               
@@ -202,7 +201,7 @@
               <input type="text" name="" placeholder="tag" id="target" name="target" value="<?php echo @$dataContent->customer_target ?>">
             </div>
             <div class="show-input-editor">
-               <?php $result =  htmlspecialchars(@$data['result']);
+               <?php $result =  nl2br(@$data['result']);
                showEditorInput('result', 'result', @$result);?>
             </div>
             <div class="ai-thinking d-none" id="aiThinking">
@@ -310,8 +309,9 @@ showAiThinking.addEventListener('click', () => {
                 if(msg.code==1){
                   result += '/\n/g'+msg.data.result;
                   document.getElementById("conversation_id").value = msg.data.conversation_id;
-                  document.getElementById("result").value = result(/\n/g, '<br>');
+                  document.getElementById("result").value = result.replace(/\n/g, '<br>');
                   CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>'));
+                  saveContentBlog();
                 }
             })
         }
@@ -320,31 +320,18 @@ showAiThinking.addEventListener('click', () => {
     }
 
     function chatquestion(){
-        var conversation_id = $('#conversation_id').val();
-        var result = $('#result').val();
-      
         var question = $('#question').val();
-      
-         document.getElementById("question").value = '';
-      if(conversation_id != '' && question!=''){
-             $.ajax({
+      $.ajax({
           method: "POST",
-          url: "/apis/chatContentVideoAPI",
+          url: "/apis/chatAPI",
           data: {question: question,
-            conversation_id: conversation_id,
-            type: 0,
-          }
-        }).done(function( msg ) {
-                if(msg.code==1){
-                  result += '/\n/g'+msg.data.result;
-                  document.getElementById("conversation_id").value = msg.data.conversation_id;
-                  document.getElementById("result").value = result(/\n/g, '<br>');
-                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>'));
-                }
-            })
+            number: 0,
+            conversation_id: '', 
         }
-       
-
+    })
+        .done(function( msg ) {
+            location.href = "/chat";
+        });
     }
 
 

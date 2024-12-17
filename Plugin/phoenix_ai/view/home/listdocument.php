@@ -69,7 +69,7 @@
                                     <tr>
                                         <td>
                                             <a href="<?=$data->link?>?id=<?php echo $data->id?>"><?=$data->title?></a>
-                                            <p class="set-widthcontent"><?=$data->content_ai?></p>
+                                            <div class="set-widthcontent"><?= htmlspecialchars($data->content_ai); ?></div>
                                         </td>
                                         <!-- <td>Jacob</td> -->
                                         <td><?= date('d-m-Y', $data->created_at) ?></td>
