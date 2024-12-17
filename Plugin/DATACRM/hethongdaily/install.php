@@ -117,6 +117,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `id_friend_block` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `max_export_mmtc` INT NOT NULL DEFAULT '0',
   `id_affsource` INT NULL DEFAULT 0 COMMENT 'id người giới thiệu' ,
+  `status_phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'public',
   `blue_check` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; ";
@@ -616,6 +617,7 @@ $sqlUpdateDatabase['customers']['id_friend_block'] = "ALTER TABLE `customers` AD
 $sqlUpdateDatabase['customers']['max_export_mmtc'] = "ALTER TABLE `customers` ADD `max_export_mmtc` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['customers']['id_affsource'] = "ALTER TABLE `customers` ADD `id_affsource` INT NULL DEFAULT '0' COMMENT 'id người giới thiệu';";
 $sqlUpdateDatabase['customers']['blue_check'] = "ALTER TABLE `customers` ADD `blue_check` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock';";
+$sqlUpdateDatabase['customers']['status_phone'] = "ALTER TABLE `customers` ADD `status_phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'public';";
 // bảng customer_histories
 $sqlUpdateDatabase['customer_histories']['id_customer'] = "ALTER TABLE `customer_histories` ADD `id_customer` INT NOT NULL;";
 $sqlUpdateDatabase['customer_histories']['time_now'] = "ALTER TABLE `customer_histories` ADD `time_now` INT NOT NULL;";

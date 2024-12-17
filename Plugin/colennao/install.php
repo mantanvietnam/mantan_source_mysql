@@ -60,7 +60,10 @@ $sqlInstallDatabase .="CREATE TABLE `coach` (
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `ifcontact` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+`code_bank` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`account_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`account_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 $sqlInstallDatabase .="CREATE TABLE `usersquanlity` (
@@ -406,6 +409,19 @@ $sqlInstallDatabase .="CREATE TABLE `history_result_users` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `transaction_roses` ( `id` INT NOT NULL,
+`id_user` INT NULL DEFAULT NULL,
+`account_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`code_bank` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`total` INT NOT NULL,
+`phone` VARCHAR(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`status` VARCHAR CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
+`account_number` VARCHAR CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+`created_at` INT NULL DEFAULT NULL,
+`updated_at` INT NULL DEFAULT NULL,
+) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `tests`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `questions`;';
@@ -472,6 +488,11 @@ $sqlUpdateDatabase['users']['id_mealtime'] = "ALTER TABLE `users` ADD `id_mealti
 $sqlUpdateDatabase['users']['time_fast_end'] = "ALTER TABLE `users` ADD `time_fast_end` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['users']['id_fitness_level'] = "ALTER TABLE `users` ADD `id_fitness_level` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['users']['id_area'] = "ALTER TABLE `users` ADD `id_area` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['users']['code_bank'] = "ALTER TABLE `users` ADD `code_bank` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['users']['account_name'] = "ALTER TABLE `users` ADD `account_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['users']['account_number'] = "ALTER TABLE `users` ADD `account_number` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+
 
  $sqlUpdateDatabase['price_lists']['name'] = "ALTER TABLE `price_lists` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
  $sqlUpdateDatabase['price_lists']['price'] = "ALTER TABLE `price_lists` ADD `price` INT NULL DEFAULT NULL;";

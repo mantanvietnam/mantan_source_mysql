@@ -1,41 +1,23 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Cài đặt tài khoản ngân hàng</h4>
+  <h4 class="fw-bold py-3 mb-4">Cài đặt hoa hồng</h4>
 
   <!-- Basic Layout -->
   <p><?php echo @$mess;?></p>
   <?= $this->Form->create(); ?>
   <div class="card mb-4">
     <div class="card-body row">
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <div class="mb-3">
-          <label class="form-label">Họ tên chủ thẻ(*)</label>
-          <input type="text" class="form-control phone-mask" name="bank_name" id="bank_name" value="<?php echo @$setting['bank_name'];?>"/>
+          <label class="form-label">Cài đặt % hoa hông cho người giới thiệu của thành viên bình thường </label>
+          <input type="text" class="form-control phone-mask" name="rose_default" id="rose_default" value="<?php echo @$setting['rose_default'];?>"/>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Số tài khoản ngân hàng</label>
-          <input type="text" class="form-control phone-mask" name="bank_number" id="bank_number" value="<?php echo @$setting['bank_number'];?>"/>
-        </div>
-      </div>
+      </div> -->
 
       <div class="col-md-6">
-       <div class="mb-3">
-        <label class="form-label" for="basic-default-phones">Ngân hàng </label>
-        <select class="form-select" name="bank_code" id="bank_code">
-          <option value="">Chọn ngân hàng</option>
-          <?php
-          $listBank = listBank();
-          foreach($listBank as $key => $item){
-            $selected = '';
-            if(@$setting['bank_code']==$item['code']){ 
-              $selected = 'selected';
-            }
-            echo'<option value="'.$item['code'].'" '.$selected.' >'.$item['name'].' ('.$item['code'].')</option>';
-          } ?>
-        </select>
-      </div>
+       
       <div class="mb-3">
-          <label class="form-label">Cài đặt tiền hoa hông cho người giới thiệu </label>
-          <input type="text" class="form-control phone-mask" name="referral_commission" id="referral_commission" value="<?php echo @$setting['referral_commission'];?>"/>
+          <label class="form-label">Cài đặt % hoa hồng cho người giới thiệu </label>
+          <input type="text" class="form-control phone-mask" name="rose_ambassador" id="rose_ambassador" value="<?php echo @$setting['rose_ambassador'];?>"/>
         </div>
     </div>
 

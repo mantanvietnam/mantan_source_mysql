@@ -21,7 +21,7 @@ $menus[0]['sub'][0] = array(
                             'classIcon' => 'bx bx-cog',
                             'permission' => 'listUserAdmin',
                     );
-$menus[0]['sub'][]= array( 'title'=>'Cài đặt ngân hàng  ',
+$menus[0]['sub'][]= array( 'title'=>'Cài đặt hoa hồng',
                             'url'=>'/plugins/admin/colennao-view-admin-seting-setingBankAccount',
                             'classIcon'=>'bx bxs-bank',
                             'permission'=>'setingBankAccount'
@@ -483,8 +483,17 @@ function processAddMoney($money, $id_ransaction= 0): string
 
             if(!empty($transactions)){
                     if($transactions->total<= $money){
-                       
 
+                        $user = $modelUser->find()->where(['id'=>$transactions->id_user])->first();
+                        if(!empty($id_user->id_affsource)){
+                            $getBankAccount =getBankAccount();
+                            $affsource = $modelUser->find()->where(['id'=>$user->id_affsource])->first();
+                            if(!empty($affsource)){
+                                $total_coin =  ((int)$getBankAccount['rose_ambassador'] / 100) * $transactions->total;
+                                $affsource->total_coin += $total_coin;
+                                $modelUser->save($affsource);
+                            }
+                        }
                         if($transactions->type==2){
                             createChallengeUser($transactions->id_user, $transactions->id_challenge, $transactions->id);
                         }elseif($transactions->type==1){

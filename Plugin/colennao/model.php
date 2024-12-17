@@ -42,4 +42,5 @@ include('model/reminder.php');
 include('model/categorydiet.php');
 include('model/usersquanlity.php');
 include('model/history_result_user.php');
+include('model/transaction_roses.php');
 ?>

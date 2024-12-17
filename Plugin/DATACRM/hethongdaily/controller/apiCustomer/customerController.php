@@ -111,6 +111,9 @@ function saveRegisterCustomerAPI($input)
                     $data->token_device = @$dataSend['token_device'];
                     $data->created_at = time();
 
+                    $code = rand(100000, 999999);
+                    $data->reset_password_code = $code;
+
                     if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
                     $birthday_date = 0;
                     $birthday_month = 0;
@@ -132,7 +135,7 @@ function saveRegisterCustomerAPI($input)
                     if(!empty($id_parent)){
                         saveCustomerMember($data->id, $id_parent);
                     }
-
+                    sendEmailCodeForgotPassword($data->email, $data->name, $code);
                     $return = array('code'=>1,
                                     'infoUser'=> $data,
                                     'messages'=>'Đăng ký thành công',
@@ -197,6 +200,46 @@ function saveRegisterCustomerAPI($input)
     
 
     return $return;
+}
+
+function confirmotpcodeApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelCustomer = $controller->loadModel('Customers');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['phone']) && isset($dataSend['code'])  && isset($dataSend['device_token'])) {
+            $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
+            $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);
+            $user = $modelCustomer->find()->where(['phone' => $dataSend['phone'],])->first();
+
+            if (empty($user)) {
+                return apiResponse(3, 'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
+            }
+
+            if ($user->reset_password_code !== $dataSend['code']) {
+                return apiResponse(4, 'Mã xác nhận không chính xác');
+            }
+
+            $user->reset_password_code = null;
+            $user->token = createToken();
+            $user->last_login = time();
+            $user->status = 'active';
+            $user->device_token = @$dataSend['device_token'];
+            $modelCustomermodelCustomer->save($user);
+
+
+            return apiResponse(0, 'xác nhận thành công', $user);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
 // API đăng nhập khách hàng
@@ -457,6 +500,9 @@ function editInfoCustomerApi($input){
                     $user->sex = (int) @$dataSend['sex'];
                 }
 
+                if(isset($dataSend['status_phone'])){
+                    $user->status_phone = @$dataSend['status_phone'];
+                }
                 if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
                     $avatars = uploadImage($user->id, 'avatar', 'avatar_customer'.$user->id);
                 }

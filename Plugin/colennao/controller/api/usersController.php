@@ -47,9 +47,10 @@ function registerUserApi($input): array
                 if(!empty($dataSend['affsource'])){
                     $affsource = $modelUser->find()->where(array('phone'=>$dataSend['affsource']))->first();
                     if(!empty($affsource)){
-                        $affsource->total_coin +=(int)$getBankAccount['referral_commission'];
                         $user->id_affsource =$affsource->id;
-                        $user->rose =(int)$getBankAccount['referral_commission'];
+                        
+                        $user->rose =(int)$getBankAccount['rose_ambassador'];
+                        
                     }
                 }
 
@@ -1274,4 +1275,83 @@ function checkReminderUsreAPI($input){
         
 }
 
+function saveRequestWithdrawAPI($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+
+    $modelUser = $controller->loadModel('Users');
+    $modeTransactionRoses = $controller->loadModel('TransactionRoses');
+    $return = array('code'=>1);
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['token']) && !empty($dataSend['money'])){
+            if($dataSend['money']>=10000){
+                $infoUser = getUserByToken($dataSend['token']);
+
+                if(!empty($infoUser)){
+                    if($infoUser->total_coin >= $dataSend['money']){
+                        $user = $modelUser->find()->where()->first();
+                        if(!empty($user)){
+                            if(!empty($dataSend['account_name'])){
+                                $user->account_name = @$dataSend['account_name'];
+                            }
+                            
+                            if(!empty($dataSend['code_bank'])){
+                                $user->code_bank = @$dataSend['code_bank'];
+                            }
+                            if(!empty($dataSend['account_number'])){
+                                $user->account_number=  @$dataSend['account_number'];
+                            }
+                        }
+
+                        $order = $modeTransactionRoses->newEmptyEntity();
+
+                        $order->id_user =$infoUser->id;
+                        $order->account_name = $user->account_name;
+                        $order->code_bank = $user->code_bank;
+                        $order->account_number = $user->account_number;
+                        $order->phone =$user->phone;
+                        $order->note =@$dataSend['note'];
+                        $order->status = 'new';
+                        $order->total = @$dataSend['money'];
+                        $order->created_at =time();
+                        $order->updated_at =time();
+                        
+                        $modeTransactionRoses->save($order);
+
+                        $return = array('code'=>0,
+                                        'messages'=>'Tạo yêu cầu rút tiền thành công'
+                                    );
+                    }else{
+                        $return = array('code'=>4,
+                                    'messages'=>'Số tiền muốn rút vượt quá số dư tài khoản'
+                                );
+                    }
+                }else{
+                    $return = array('code'=>3,
+                                    'messages'=>'Tài khoản không tồn tại hoặc sai mã token'
+                                );
+                }
+            }else{
+                $return = array('code'=>5,
+                                    'messages'=>'Số tiền rút phải tối thiểu là 10.000đ'
+                                );
+            }
+        }else{
+            $return = array('code'=>2,
+                                'messages'=>'Gửi thiếu dữ liệu'
+                            );
+        }
+    }
+
+    return  $return;
+}
+
+function listBankAPI(){
+    return listBank();
+}
 ?>

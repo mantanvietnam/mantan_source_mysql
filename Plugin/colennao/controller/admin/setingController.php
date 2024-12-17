@@ -16,10 +16,7 @@ function setingBankAccount($input){
     if($isRequestPost){
         $dataSend = $input['request']->getData();
 
-        $value = array( 'bank_name' => @$dataSend['bank_name'],
-                        'bank_number' => @$dataSend['bank_number'],
-                        'bank_code' => @$dataSend['bank_code'],
-                        'referral_commission' => @$dataSend['referral_commission'],
+        $value = array('rose_ambassador' => @$dataSend['rose_ambassador'], 
                        
                     );
         $data->key_word = 'setingBankAccount';

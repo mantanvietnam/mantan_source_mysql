@@ -973,6 +973,10 @@ function managerSelectBuilding() {
         	}
         	
         }
+
+        if(!empty($session->read('id_building'))){
+        	return $controller->redirect('/dashboard');
+        }
        
         $dataList = $modelBuilding->find()->where($conditions)->all()->toList();
 
@@ -1012,6 +1016,14 @@ function managerSelectBuilding() {
 		return $controller->redirect('/logout');
 	}
 }
+
+function SelectBuilding(){
+	global $session;
+	global $controller;
+	$session->write('id_building', 0);
+	return $controller->redirect('/managerSelectBuilding');
+	
+} 
 
 
 
