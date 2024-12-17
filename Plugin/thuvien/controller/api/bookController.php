@@ -43,7 +43,7 @@ function searchBookAPI() {
 
             $quantity = $warehouseData ? $warehouseData->quantity : 0;
             $quantity_borrow = $warehouseData ? $warehouseData->quantity_borrow : 0;
-            $id_shelf = $warehouseData->id;
+            $id_shelf = $warehouseData ? @$warehouseData->id : 0 ;
 
             $return[] = array(
                 'label' => $data->name . ' (' . $data->book_code . ')',

@@ -132,7 +132,7 @@
 
                               <label class="col-sm-12 control-label">
 
-                                <input type="checkbox" id="selectAll" onclick="checkboxAll(this,'checkAll');"> <label for="selectAll">Tất cả</label>
+                                <input type="checkbox" id="selectAll" onclick="checkboxAll(this,'checkAll');"> <label for="selectAll">&nbsp;Tất cả</label>
 
                               </label>
 
@@ -157,7 +157,7 @@
                                       foreach ($listPermissionMenu as $keyGroup=>$permissionMenu) { 
                                         $checkGroup= false;
                                         echo '<li class="has_sub_staff">
-                                        <span><input type="checkbox" class="checkAll" id="check'.$keyGroup.'"> <label for="">'.$permissionMenu['name'].'</label></span>
+                                        <span><input type="checkbox" class="checkAll" id="check'.$keyGroup.'"> <label for="">&nbsp;'.$permissionMenu['name'].'</label></span>
                                         <ul class="list-unstyled sub_staff" style="margin-left: 20px;">';
                                         foreach ($permissionMenu['sub'] as $key=>$menu2) { 
                                           $check= '';
@@ -169,7 +169,7 @@
                                             $check= 'checked';
                                             $checkGroup= true;
                                           }
-                                          echo '<li><input '.$check.' class="checkAll" name="check_list_permission[]" value="'.$menu2['permission'].'" type="checkbox" id="check'.$keyGroup.'_'.$key.'"> <label for="check'.$keyGroup.'_'.$key.'">'.$menu2['name'].'</label></li>';
+                                          echo '<li><input '.$check.' class="checkAll" name="check_list_permission[]" value="'.$menu2['permission'].'" type="checkbox" id="check'.$keyGroup.'_'.$key.'"> <label for="check'.$keyGroup.'_'.$key.'">&nbsp;'.$menu2['name'].'</label></li>';
                                         }
                                         echo '  </ul>
                                         </li>';
@@ -219,7 +219,7 @@
                                                 $check= 'checked';
                                               }
                                             }
-                                          echo '<li><input '.$check.' class="" name="id_building[]" value="'.$item->id.'" type="checkbox" id="check'.$item->id.'"> <label for="check'.$item->id.'">'.$item->id.'</label></li>';
+                                          echo '<li><input '.$check.' class="" name="id_building[]" value="'.$item->id.'" type="checkbox" id="check'.$item->id.'"> <label for="check'.$item->id.'">&nbsp;'.$item->name.'</label></li>';
                                         }
                                       ?>
                                     </ul>

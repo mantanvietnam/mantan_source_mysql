@@ -84,8 +84,11 @@
 
             <div class="col-md-6 mb-4">
               <label class="form-label">tên sách</label>
-              <input type="text" class="form-control" name="name_book" id="name_book" value="<?php if(!empty($data->book->name)) echo $data->book->name;?>"  <?php echo @$disabled ?>>
+              <input type="text" class="form-control book-search" name="name_book" id="name_book" value="<?php if(!empty($data->book->name)) echo $data->book->name;?>"  <?php echo @$disabled ?>>
               <input type="hidden" class="form-control" name="id_book" id="id_book" value="<?php if(!empty($data->id_book)) echo $data->id_book;?>">
+               <div id="customer-search-results" class="search-results" 
+                                style="position: absolute; z-index: 1000; width: 37%; background: white; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; display: none;">
+                                </div>
             </div>
             <?php if(!empty($_GET['id'])){ ?>
             <div class="col-md-3 mb-4">
@@ -198,58 +201,108 @@
 
 <script type="text/javascript">
     // tìm sản phẩm
-    $(function() {
-        function split( val ) {
-          return val.split( /,\s*/ );
-        }
+    // $(function() {
+    //     function split( val ) {
+    //       return val.split( /,\s*/ );
+    //     }
 
-        function extractLast( term ) {
-          return split( term ).pop();
-        }
+    //     function extractLast( term ) {
+    //       return split( term ).pop();
+    //     }
 
         
 
-        $( "#name_book" )
-        // don't navigate away from the field on tab when selecting an item
-        .bind( "keydown", function( event ) {
-            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
-                event.preventDefault();
+    //     $( "#name_book" )
+    //     // don't navigate away from the field on tab when selecting an item
+    //     .bind( "keydown", function( event ) {
+    //         if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+    //             event.preventDefault();
+    //         }
+    //     })
+    //     .autocomplete({
+    //         source: function( request, response ) {
+    //             $.getJSON( "/apis/searchBookAPI", {
+    //                 term: extractLast( request.term )
+    //             }, response );
+    //         },
+    //         search: function() {
+    //             // custom minLength
+    //             var term = extractLast( this.value );
+
+    //             if ( term.length < 2 ) {
+    //                 return false;
+    //             }
+    //         },
+    //         focus: function() {
+    //             // prevent value inserted on focus
+    //             return false;
+    //         },
+    //         select: function( event, ui ) {
+    //             var terms = split( this.value );
+    //             // remove the current input
+    //             terms.pop();
+    //             // add the selected item
+    //             terms.push( ui.item.label );
+                
+    //             $( "#name_book" ).val(ui.item.label);
+    //             $( "#id_book" ).val(ui.item.id);
+    //             //$( "#promotion" ).val(ui.item.discount);
+                
+
+    //             return false;
+    //         }
+    //     });
+    // });
+
+     $(document).on("input", ".book-search", function () {
+            let searchInput = $(this);
+            let searchQuery = searchInput.val();
+            let resultBox = searchInput.siblings(".search-results");
+            let id_building = $("#id_building").val();
+
+            if (!id_building) {
+                alert("Vui lòng chọn tòa nhà trước khi tìm sách.");
+                return;
             }
-        })
-        .autocomplete({
-            source: function( request, response ) {
-                $.getJSON( "/apis/searchBookAPI", {
-                    term: extractLast( request.term )
-                }, response );
-            },
-            search: function() {
-                // custom minLength
-                var term = extractLast( this.value );
 
-                if ( term.length < 2 ) {
-                    return false;
-                }
-            },
-            focus: function() {
-                // prevent value inserted on focus
-                return false;
-            },
-            select: function( event, ui ) {
-                var terms = split( this.value );
-                // remove the current input
-                terms.pop();
-                // add the selected item
-                terms.push( ui.item.label );
-                
-                $( "#name_book" ).val(ui.item.label);
-                $( "#id_book" ).val(ui.item.id);
-                //$( "#promotion" ).val(ui.item.discount);
-                
-
-                return false;
+            if (searchQuery.length >= 2) {
+                $.ajax({
+                    url: "/apis/searchBookAPI",
+                    method: "GET",
+                    data: { term: searchQuery, id_building: id_building },
+                    success: function (response) {
+                      console.log(response);
+                        let resultHTML = "";
+                        if (response && response.length > 0) {
+                            response.forEach(function (book) {
+                               if(book.id_shelf ==0){
+                                  resultHTML += `
+                                      <div class="search-item book-item" 
+                                          data-id="${book.id}" 
+                                          data-name="${book.name}">
+                                          ${book.label}
+                                      </div>`;
+                                  }
+                            });
+                        } else {
+                            resultHTML = '<div class="search-item disabled">Không tìm thấy sách</div>';
+                        }
+                        resultBox.html(resultHTML).show();
+                    },
+                    error: function () {
+                        resultBox.html('<div class="search-item disabled">Lỗi khi tìm kiếm</div>').show();
+                    },
+                });
+            } else {
+                resultBox.hide();
             }
         });
-    });
+
+     $(document).on("click", ".book-item:not(.disabled)", function () {
+            $( "#name_book" ).val($(this).data("name"));
+            $( "#id_book" ).val($(this).data("id"));
+            document.getElementById("customer-search-results").style.display = "none";
+        });
 </script>
 
 
