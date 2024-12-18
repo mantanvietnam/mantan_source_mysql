@@ -5,10 +5,10 @@ $menus= array();
 $menus[0]['title']= "Mạng xã hội";
 $menus[0]['sub'] = [];
 
-$menus[0]['sub'][]= array( 'title'=>'',
-                            'url'=>'',
+$menus[0]['sub'][]= array( 'title'=>'Cài đặt keyword nhạy cảm',
+                            'url'=>'/plugins/admin/mangxahoi-view-admin-keyword-listkeywordAdmin',
                             'classIcon'=>'bx bxs-data',
-                            'permission'=>'listCustomerAdmin'
+                            'permission'=>'listkeywordAdmin'
                         );
 
 
@@ -48,6 +48,18 @@ function deleteCommentIdObject($id_object, $keyword){
     $conditions = ['id_object IN'=>$id_object,'keyword'=>$keyword];
     $modelComment->deleteAll($conditions);
     return 'ok';
+}
+
+function checkKeyword($keyword){
+    global $controller;
+     $modelKeyword = $controller->loadModel('Keywords');
+     $listData = $modelKeyword->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
+     if(!empty($listData) && !empty($keyword)){
+        foreach($listData as $key => $item){
+            $keyword =  str_replace($item->keyword, $item->replacement, $keyword);
+        }
+     }
+    return $keyword;
 }
 
 ?>

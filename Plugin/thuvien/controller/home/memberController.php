@@ -1,6 +1,4 @@
 <?php 
-
-
 function login($input)
 {
 	global $metaTitleMantan;
@@ -93,6 +91,7 @@ function logout($input)
 
 	$session->destroy();
 	setcookie('id_member','',time()+365*24*60*60, "/");
+	setcookie('id_building','',time()+365*24*60*60, "/");
 
 	return $controller->redirect('/login');
 }
@@ -992,11 +991,20 @@ function managerSelectBuilding() {
 
 							$session->write('infoUser', @$infoUser);
 							$session->write('id_building', $_POST['id_building']);
+							setcookie('id_building',$_POST['id_building'],time()+365*24*60*60, "/");
 
 							return $controller->redirect('/dashboard');
 						}
 					}
-				} 
+				}elseif(!empty($_COOKIE['id_building'])){
+		    		$infoUser->idbuilding = $_COOKIE['id_building'];
+
+							$session->write('infoUser', @$infoUser);
+							$session->write('id_building', $_COOKIE['id_building']);
+							setcookie('id_building',$_COOKIE['id_building'],time()+365*24*60*60, "/");
+
+							return $controller->redirect('/dashboard');
+		    	}
 
 				setVariable('mess', $mess);
 				setVariable('dataList', $dataList);
@@ -1006,6 +1014,7 @@ function managerSelectBuilding() {
 				$infoUser->idbuilding = $data->id;
 				$session->write('infoUser', @$infoUser);
 				$session->write('id_building', $data->id);
+				setcookie('id_building',$data->id,time()+365*24*60*60, "/");
 
 				return $controller->redirect('/dashboard');
 			}
@@ -1017,7 +1026,7 @@ function managerSelectBuilding() {
 	}
 }
 
-function SelectBuilding(){
+function selectBuilding(){
 	global $session;
 	global $controller;
 	$session->write('id_building', 0);

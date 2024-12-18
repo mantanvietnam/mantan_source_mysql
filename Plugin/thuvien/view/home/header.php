@@ -139,15 +139,7 @@
                 <a class="dropdown-item" href="/listPublisher">Quản lý nhà xuất bản</a>
               </div>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Thống kê
-              </a>
-              <div class="dropdown-menu" aria-labelledby="order">
-                <a class="dropdown-item" href="/statisticalnumberbook">Số lượng sách</a>
-                <a class="dropdown-item" href="/statisticalorderbook">Số lượng mượn sách</a>
-              </div>
-            </li>
+
             <li class="nav-item dropdown">
               <a class="nav-link " href="/listOrder" >
                   Quản lý cho mượn - trả
@@ -162,12 +154,20 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="member">
                 <a class="dropdown-item" href="/listBuilding">Tòa nhà</a>
-                <a class="dropdown-item" href="/listWarehouse">Quản lý kho sách</a>
                 <a class="dropdown-item" href="/listFloor">Quản lý tầng</a>
+                <a class="dropdown-item" href="/listWarehouse">Quản lý kho sách</a>               
                 <a class="dropdown-item" href="/listWarehouseHistory">Lịch sử nhập và hủy kho</a>
               </div>
             </li>
-           
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Thống kê
+              </a>
+              <div class="dropdown-menu" aria-labelledby="order">
+                <a class="dropdown-item" href="/statisticalnumberbook">Số lượng sách</a>
+                <a class="dropdown-item" href="/statisticalorderbook">Số lượng mượn sách</a>
+              </div>
+            </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                  Tài khoản
@@ -175,6 +175,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                 <a class="dropdown-item" href="/changePass">Đổi mật khẩu</a>
                 <a class="dropdown-item" href="/account">Đổi thông tin</a>
+                <a class="dropdown-item" href="/selectBuilding">Đổi tòa nhà</a>
                 <a class="dropdown-item" href="/logout">Đăng xuất</a>
               </div>
             </li>

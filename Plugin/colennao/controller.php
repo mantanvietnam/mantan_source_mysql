@@ -23,6 +23,7 @@ include_once('controller/admin/userpeopleController.php');
 include_once('controller/admin/myplaneController.php');
 include_once('controller/admin/notificationControlle.php');
 include_once('controller/admin/categorydietController.php');
+include_once('controller/admin/albumController.php');
 // Api 
 include_once('controller/api/usersController.php'); 
 include_once('controller/api/coursesController.php');
@@ -43,4 +44,5 @@ include_once('controller/api/notificationController.php');
 include_once('controller/api/likeController.php');
 include_once('controller/api/mealtimeController.php');
 include_once('controller/api/usersquanlityController.php');
+include_once('controller/api/setingController.php');
 ?>

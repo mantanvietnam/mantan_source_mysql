@@ -68,11 +68,20 @@ $sqlInstallDatabase .="CREATE TABLE `report_wall_posts` ( `id` INT NOT NULL AUTO
   `id_post` INT NOT NULL , 
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `keywords` ( 
+`id` INT NOT NULL AUTO_INCREMENT , 
+`keyword` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+`replacement` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= "DROP TABLE comments; ";
 $sqlDeleteDatabase .= "DROP TABLE likes; ";
 $sqlDeleteDatabase .= "DROP TABLE social_networks; ";
 $sqlDeleteDatabase .= "DROP TABLE make_friends; ";
 $sqlDeleteDatabase .= "DROP TABLE report_wall_posts; ";
+$sqlDeleteDatabase .= "DROP TABLE keywords; ";
 
 
 
@@ -115,4 +124,7 @@ $sqlUpdateDatabase['image_customers']['link_local'] = "ALTER TABLE `image_custom
 $sqlUpdateDatabase['report_wall_posts']['id_customer'] = "ALTER TABLE `report_wall_posts` ADD `id_customer` INT NOT NULL;";
 $sqlUpdateDatabase['report_wall_posts']['created_at'] = "ALTER TABLE `report_wall_posts` ADD `created_at` INT NOT NULL;";
 $sqlUpdateDatabase['report_wall_posts']['id_post'] = "ALTER TABLE `report_wall_posts` ADD `id_post` INT NOT NULL;";
+
+$sqlUpdateDatabase['keywords']['keyword'] = "ALTER TABLE `keywords` ADD `keyword` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;"
+$sqlUpdateDatabase['keywords']['replacement'] = "ALTER TABLE `keywords` ADD `replacement` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
 ?>

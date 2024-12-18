@@ -19,7 +19,7 @@ function addWallPostApi($input){
             	$data = $modelWallPost->newEmptyEntity();
 
             	$data->id_customer = $user->id;
-            	$data->connent = $dataSend['connent'];
+            	$data->connent = checkKeyword($dataSend['connent']);
             	$data->created_at = time();
                 $data->updated_at = time();
             	$data->public = @$dataSend['public'];
@@ -137,7 +137,7 @@ function  editWallPostApi($input){
                 $data = $modelWallPost->find()->where(['id'=>$dataSend['id'],'id_customer'=>$user->id ])->first();
                 if(!empty($data)){
                     if(!empty($dataSend['connent'])){
-                        $data->connent = $dataSend['connent'];
+                        $data->connent =checkKeyword($dataSend['connent']);
                     }
                     $data->updated_at = time();
                     if(!empty($dataSend['public'])){

@@ -22,6 +22,10 @@ function addFeedbackApi($input){
             if (!empty($user)) {
             	// tạo dữ liệu save
             	$data = $modelFeedback->newEmptyEntity();
+                 if(function_exists('checkKeyword')){
+                    $dataSend['feedback'] = checkKeyword($dataSend['feedback']);
+                }
+               
             	$data->feedback = @$dataSend['feedback'];
                 $data->id_customer = $user->id;
                 $data->star = (int) @$dataSend['star'];

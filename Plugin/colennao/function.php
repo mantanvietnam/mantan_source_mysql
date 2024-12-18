@@ -156,6 +156,11 @@ $menus[4]['sub'][]= array('title'=>'Cài đặt',
                                 'classIcon'=>'bx bxs-data',
                                 'permission'=>'listcategorypost'
                                 ),
+                        array(  'title'=>'Cài đặt trang về chúng tôi',
+                                'url'=>'/plugins/admin/colennao-view-admin-seting-setingabout',
+                                'classIcon'=>'bx bxs-data',
+                                'permission'=>'setingabout'
+                                ),
         )
 
     );
@@ -485,13 +490,16 @@ function processAddMoney($money, $id_ransaction= 0): string
                     if($transactions->total<= $money){
 
                         $user = $modelUser->find()->where(['id'=>$transactions->id_user])->first();
-                        if(!empty($id_user->id_affsource)){
+                        if(!empty($user->id_affsource)){
                             $getBankAccount =getBankAccount();
                             $affsource = $modelUser->find()->where(['id'=>$user->id_affsource])->first();
                             if(!empty($affsource)){
                                 $total_coin =  ((int)$getBankAccount['rose_ambassador'] / 100) * $transactions->total;
                                 $affsource->total_coin += $total_coin;
                                 $modelUser->save($affsource);
+
+                                $user->rose += $total_coin;
+                                $modelUser->save($user);
                             }
                         }
                         if($transactions->type==2){

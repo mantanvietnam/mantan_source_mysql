@@ -87,7 +87,7 @@
               <input type="text" class="form-control book-search" name="name_book" id="name_book" value="<?php if(!empty($data->book->name)) echo $data->book->name;?>"  <?php echo @$disabled ?>>
               <input type="hidden" class="form-control" name="id_book" id="id_book" value="<?php if(!empty($data->id_book)) echo $data->id_book;?>">
                <div id="customer-search-results" class="search-results" 
-                                style="position: absolute; z-index: 1000; width: 37%; background: white; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; display: none;">
+                                style=" z-index: 1000; width: 100%; background: white; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; display: none;">
                                 </div>
             </div>
             <?php if(!empty($_GET['id'])){ ?>
@@ -271,7 +271,6 @@
                     method: "GET",
                     data: { term: searchQuery, id_building: id_building },
                     success: function (response) {
-                      console.log(response);
                         let resultHTML = "";
                         if (response && response.length > 0) {
                             response.forEach(function (book) {

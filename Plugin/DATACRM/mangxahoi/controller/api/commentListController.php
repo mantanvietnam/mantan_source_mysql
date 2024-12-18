@@ -209,7 +209,7 @@ function addCommentApi($input){
                 $data->keyword=@$dataSend['keyword'];
                 $data->id_father=(int)@$dataSend['id_father'];
                 $data->id_customer=$user->id;
-                $data->comment=$dataSend['comment'];
+                $data->comment=checkKeyword($dataSend['comment']);
 
                 $modelComment->save($data);
 

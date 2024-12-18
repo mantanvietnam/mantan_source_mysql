@@ -49,7 +49,7 @@ function registerUserApi($input): array
                     if(!empty($affsource)){
                         $user->id_affsource =$affsource->id;
                         
-                        $user->rose =(int)$getBankAccount['rose_ambassador'];
+                        $user->rose =0;
                         
                     }
                 }
