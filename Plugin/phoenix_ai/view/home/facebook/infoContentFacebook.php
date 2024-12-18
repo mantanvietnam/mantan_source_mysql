@@ -1,7 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <section class="showcase ">
             <div class="overlay">
-               
                 <div class="assistant-aiva container-fluid">
                     <div class="assistant-header">
                         <p><img src="/plugins/phoenix_ai/view/home/asset/img/assistant.svg" alt="">Trợ lý AI Tự động</p>

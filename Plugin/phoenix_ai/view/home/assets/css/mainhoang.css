@@ -1034,9 +1034,21 @@
     height: 347px !important;
 }
 #myElement {
-    text-align: center;
-    padding-top:10px;
+    border: 1px solid;
+    padding-left: 6px;
+    padding-right: 6px;
+    background: rgb(232, 245, 233);
+    color: #fff;
+    position: absolute;
+    right: 56%;
+    z-index: 999;
+    top: 10%;
+
+}
+#myElement p{
+    margin: 0;
+    padding: 8px;
 }
 .aiva-writecontent {
-    margin-top: 45px;
+    margin-top: 60px;
 }
