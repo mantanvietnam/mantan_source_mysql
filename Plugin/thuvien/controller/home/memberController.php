@@ -1030,10 +1030,64 @@ function selectBuilding(){
 	global $session;
 	global $controller;
 	$session->write('id_building', 0);
+	setcookie('id_building','',time()+365*24*60*60, "/");
 	return $controller->redirect('/managerSelectBuilding');
 	
 } 
 
+function dashboard($input)
+{	
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
 
+	$metaTitleMantan = 'Thống kê tài khoản';
+	$user = checklogin();
+
+    $modelOrders = $controller->loadModel('Orders');
+    $modelMembers = $controller->loadModel('Members');
+    $modelCustomers = $controller->loadModel('Customers');
+    $modelBuildings = $controller->loadModel('Buildings');
+
+	
+	if(!empty($user)){
+    	$modelOrders = $controller->loadModel('Orders');
+    	// Thời gian đầu ngày
+        $startOfDay = strtotime("today 00:00:00");
+        // Thời gian cuối ngày
+        $endOfDay = strtotime("tomorrow 00:00:00") - 1;
+                    
+
+        $conditions = array('building_id'=>(int)$user->id_building,  'created_at >='=>$startOfDay,'created_at <='=>$endOfDay);
+
+    	$dataCreated = $modelOrders->find()->where($conditions)->all()->toList();
+    	if(!empty($dataCreated)){
+    		foreach ($dataCreated as $key => $order) {
+                $dataCreated[$key]->customer = $modelCustomers->get($order->customer_id);
+                $dataCreated[$key]->building = $modelBuildings->get($order->building_id);
+                $dataCreated[$key]->member = $modelMembers->get($order->member_id);
+            }
+    	}
+    	
+
+    	$conditions = array('building_id'=>(int)$user->id_building,  'return_deadline >='=>$startOfDay,'return_deadline <='=>$endOfDay);
+
+    	$dataDeadline = $modelOrders->find()->where($conditions)->all()->toList();
+    	if(!empty($dataDeadline)){
+    		foreach ($dataDeadline as $key => $order) {
+                $dataDeadline[$key]->customer = $modelCustomers->get($order->customer_id);
+                $dataDeadline[$key]->building = $modelBuildings->get($order->building_id);
+                $dataDeadline[$key]->member = $modelMembers->get($order->member_id);
+            }
+    	}
+
+
+	    setVariable('dataCreated', $dataCreated);
+	    setVariable('dataDeadline', $dataDeadline);
+
+	}else{
+		return $controller->redirect('/login');
+	}
+}
 
 ?>

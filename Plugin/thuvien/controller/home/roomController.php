@@ -289,8 +289,6 @@ function deleteRoom($input){
                 $check = $modelWarehouse->find()->where(['id_room'=>$data->id])->first();
                 $checkShelf = $modeShelf->find()->where(['id_room'=>$data->id])->first();
                  if(empty($check) && empty($checkShelf)){
-                    debug($check);
-                    die();
                     $note = $user->name.' xóa thông tin phòng '.$data->name.' tầng '.$checkFloor->name.' tòa nhà '.$checkFloor->building->name.' có id phòng là:'.$data->id;
                     addActivityHistory($user,$note,'deleteRoom',$data->id);
                     $modelRoom->delete($data);

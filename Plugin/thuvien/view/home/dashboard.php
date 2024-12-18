@@ -23,7 +23,89 @@
         </div>
       </div>
     </div>
-  </div>
+    <div class="col-lg-5 mb-4 order-0">
+      <div class="card">
+        <div class="card-body">
+          <p class="mb-4">danh sách mượn sách hôm này </p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Tên khách hàng</th>
+                <th>Ngày mượn</th>
+                <th>Ngày trả</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tbody>
+                <?php 
+                if (!empty($dataCreated)) {
+                  foreach ($dataCreated as $order) {
+                    $status = 'đang mượn';
+                    if($order->status==2){
+                      $status = 'đã trả';
+                    }
+                    echo '<tr>
+                    <td>' . ($order->customer->name ?? 'N/A') . '</br>
+                    ' . ($order->customer->phone ?? 'N/A') . '</td>
+                    <td>' . date('d-m-Y H:i:s', $order->created_at) . '</td>
+                    <td>' . date('d-m-Y H:i:s', $order->return_deadline) . '</td>
+                    <td>' .$status. '</td>
+
+
+                    </tr>';
+                  }
+                } else {
+                  echo '<tr>
+                  <td colspan="4" align="center">Chưa có dữ liệu</td>
+                  </tr>';
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-body">
+          <p class="mb-4">danh sách đến hạn trả sách</p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Tên khách hàng</th>
+                <th>Ngày mượn</th>
+                <th>Ngày trả</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tbody>
+                <?php 
+                if (!empty($dataDeadline)) {
+                  foreach ($dataDeadline as $order) {
+                    $status = 'đang mượn';
+                    if($order->status==2){
+                      $status = 'đã trả';
+                    }
+                    echo '<tr>
+                    <td>' . ($order->customer->name ?? 'N/A') . '</br>
+                    ' . ($order->customer->phone ?? 'N/A') . '</td>
+                    <td>' . date('d-m-Y H:i:s', $order->created_at) . '</td>
+                    <td>' . date('d-m-Y H:i:s', $order->return_deadline) . '</td>
+                    <td>' .$status. '</td>
+
+
+                    </tr>';
+                  }
+                } else {
+                  echo '<tr>
+                  <td colspan="4" align="center">Chưa có dữ liệu</td>
+                  </tr>';
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
