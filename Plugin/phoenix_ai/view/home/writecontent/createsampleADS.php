@@ -227,6 +227,7 @@
 
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
                 document.getElementById("result").value = msg.data.result;
+                 savesampleads();
             }
         })
 
@@ -257,6 +258,7 @@
                   result += msg.data.result
                     document.getElementById("conversation_id").value = msg.data.conversation_id;
                     document.getElementById("result").value = result;
+
                 }
             })
         }
@@ -265,29 +267,17 @@
     }
 
     function chatquestion(){
-        var conversation_id = $('#conversation_id').val();
-        var result = $('#result').val();
-      
-        var question = $('#question').val();
-      
-         document.getElementById("question").value = '';
-      if(conversation_id != '' && question!=''){
-             $.ajax({
+         var question = $('#question').val();
+      $.ajax({
           method: "POST",
-          url: "/apis/chatsampleadsAPI",
+          url: "/apis/chatAPI",
           data: {question: question,
-            conversation_id: conversation_id,
-            number_question: 0,
-          }
-        }).done(function( msg ) {
-                if(msg.code==1){
-                  result += msg.data.result
-                    document.getElementById("conversation_id").value = msg.data.conversation_id;
-                    document.getElementById("result").value = result;
-                }
-            })
+            number: 0,
+            conversation_id: '', 
         }
-       
+    }).done(function( msg ) {
+            location.href = "/chat";
+        });
 
     }
 
