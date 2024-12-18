@@ -11,7 +11,7 @@
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
-      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+      <h5 class="card-header" style="display: none;">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-1">
@@ -47,146 +47,101 @@
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách sự kiện</h5>
+
+    <!-- Giao diện Desktop -->
     <div id="desktop_view">
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-            <tr class="">
-              <th>ID</th>
-              <th>Tên sự kiện</th>
-              <th>Link drive ảnh</th>
-              <th>Trạng thái</th>
-              <th>Link AI</th>
-              <th>Sửa</th>
-              <th>Xóa</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                $status = '<span class="text-danger">Khóa</span>';
-                $linkAI = '';
-                $showLinkAI = 'Hệ thống đang tạo AI tìm ảnh cho bạn';
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sự kiện</th>
+                        <th>Link drive ảnh</th>
+                        <th>Trạng thái</th>
+                        <th>Link AI</th>
+                        <th>Sửa</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($listData)): ?>
+                        <?php foreach ($listData as $item): ?>
+                            <?php
+                                $status = '<span class="text-danger">Khóa</span>';
+                                $linkAI = '';
+                                $showLinkAI = 'Hệ thống đang tạo AI tìm ảnh cho bạn';
 
-                if($item->status=='active'){ 
-                  $status= '<span class="text-success">Kích hoạt</span>';
-                  $linkAI = 'https://ai.phoenixtech.vn/ai-search-image/?idCollection='.$item->collection_ai.'&idDrive='.$item->id_drive;
-                  $showLinkAI = '<a class="mb-3" href="'.$linkAI.'" target="_blank">'.$linkAI.'</a>
-                    <p><img id="" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.urldecode($linkAI).'" width="100"></p>';
-                }
+                                if ($item->status == 'active'):
+                                    $status = '<span class="text-success">Kích hoạt</span>';
+                                    $linkAI = 'https://ai.phoenixtech.vn/ai-search-image/?idCollection=' . $item->collection_ai . '&idDrive=' . $item->id_drive;
+                                    $showLinkAI = '<a class="mb-3" href="' . $linkAI . '" target="_blank">' . $linkAI . '</a>
+                                        <p><img id="" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=' . urlencode($linkAI) . '" width="100"></p>';
+                                endif;
 
-                $linkDrive = 'https://drive.google.com/drive/folders/'.$item->id_drive.'?usp=drive_link';
-                
-                echo '<tr>
-                  <td>'.$item->id.'</td>
-                  <td width="300">'.$item->name.'</td>
-                  <td><a href="'.$linkDrive.'" target="_blank">Xem ảnh</a></td>
-                  <td>'.$status.'</td>
-                  <td>'.$showLinkAI.'</td>
-
-                  <td width="5%" align="center">
-                    <a class="dropdown-item" href="javascript: void(0);" data-bs-toggle="modal" data-bs-target="#addNewData" onclick="edit('.$item->id.', \''.$item->name.'\', \''.$item->id_drive.'\');">
-                    <i class="bx bx-edit-alt me-1"></i>
-                    </a>
-                  </td>
-
-                  <td align="center">
-                    <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteSearchImageEvent/?id='.$item->id.'">
-                    <i class="bx bx-trash me-1"></i>
-                    </a>
-                  </td>
-                </tr>';
-              }
-            }else{
-              echo '<tr>
-              <td colspan="10" align="center">Chưa có dữ liệu</td>
-              </tr>';
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
+                                $linkDrive = 'https://drive.google.com/drive/folders/' . $item->id_drive . '?usp=drive_link';
+                            ?>
+                            <tr>
+                                <td><?= $item->id ?></td>
+                                <td width="300"><?= $item->name ?></td>
+                                <td><a href="<?= $linkDrive ?>" target="_blank">Xem ảnh</a></td>
+                                <td><?= $status ?></td>
+                                <td><?= $showLinkAI ?></td>
+                                <td width="5%" align="center">
+                                    <a class="dropdown-item" href="javascript: void(0);" data-bs-toggle="modal" data-bs-target="#addNewData" onclick="edit(<?= $item->id ?>, '<?= addslashes($item->name) ?>', '<?= $item->id_drive ?>');">
+                                        <i class="bx bx-edit-alt me-1"></i>
+                                    </a>
+                                </td>
+                                <td align="center">
+                                    <a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/deleteSearchImageEvent/?id=<?= $item->id ?>">
+                                        <i class="bx bx-trash me-1"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="7" align="center">Chưa có dữ liệu</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+    <!-- Giao diện Mobile -->
     <div id="mobile_view">
-      <?php 
-         if(!empty($listData)){
-              foreach ($listData as $item) {
-                $status= '<span class="text-danger">Khóa</span>';
-                if($item->status=='active'){ 
-                  $status= '<span class="text-success">Kích hoạt</span>';
-                }
-
-                echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                        <p><strong> ID: </strong>'.$item->id.'</p>
-                        <p><strong> Tên sự kiện: </strong>'.$item->name.'</p>
-                        <p><strong> Link drive: </strong></p>
-                        <p><strong> Trạng thái: </strong>'.$status.'</p>
-                        <p><strong> Link AI: </strong></p>
-                        <p  class="text-center mt-3">
-                          <a title="Sửa" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addNewData" href="javascript: void();" onclick="edit('.$item->id.', \''.$item->name.'\', \''.$item->collection_ai.'\');">
+        <?php if (!empty($listData)): ?>
+            <?php foreach ($listData as $item): ?>
+                <?php
+                    $status = '<span class="text-danger">Khóa</span>';
+                    if ($item->status == 'active'):
+                        $status = '<span class="text-success">Kích hoạt</span>';
+                    endif;
+                ?>
+                <div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                    <p><strong>ID:</strong> <?= $item->id ?></p>
+                    <p><strong>Tên sự kiện:</strong> <?= $item->name ?></p>
+                    <p><strong>Link drive:</strong> <a href="https://drive.google.com/drive/folders/<?= $item->id_drive ?>?usp=drive_link" target="_blank">Xem ảnh</a></p>
+                    <p><strong>Trạng thái:</strong> <?= $status ?></p>
+                    <p><strong>Link AI:</strong></p>
+                    <p class="text-center mt-3">
+                        <a title="Sửa" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addNewData" href="javascript: void();" onclick="edit(<?= $item->id ?>, '<?= addslashes($item->name) ?>', '<?= $item->collection_ai ?>');">
                             <i class="bx bx-edit-alt me-1"></i>
-                          </a> 
-
-                          <a title="Xóa" class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteSearchImageEvent/?id='.$item->id.'">
+                        </a>
+                        <a title="Xóa" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/deleteSearchImageEvent/?id=<?= $item->id ?>">
                             <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </p>
-                        </div>';
-          }
-         
-        }else{
-          echo '<div class="col-sm-12 item">
-                  <p class="text-danger">Chưa có dữ liệu</p>
-                </div>';
-        }
-      ?>
+                        </a>
+                    </p>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="col-sm-12 item">
+                <p class="text-danger">Chưa có dữ liệu</p>
+            </div>
+        <?php endif; ?>
     </div>
-
-  <!-- Phân trang -->
-  <div class="demo-inline-spacing">
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center">
-        <?php
-        if($totalPage>0){
-          if ($page > 5) {
-            $startPage = $page - 5;
-          } else {
-            $startPage = 1;
-          }
-
-          if ($totalPage > $page + 5) {
-            $endPage = $page + 5;
-          } else {
-            $endPage = $totalPage;
-          }
-
-          echo '<li class="page-item first">
-          <a class="page-link" href="'.$urlPage.'1"
-          ><i class="tf-icon bx bx-chevrons-left"></i
-          ></a>
-          </li>';
-
-          for ($i = $startPage; $i <= $endPage; $i++) {
-            $active= ($page==$i)?'active':'';
-
-            echo '<li class="page-item '.$active.'">
-            <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
-            </li>';
-          }
-
-          echo '<li class="page-item last">
-          <a class="page-link" href="'.$urlPage.$totalPage.'"
-          ><i class="tf-icon bx bx-chevrons-right"></i
-          ></a>
-          </li>';
-        }
-        ?>
-      </ul>
-    </nav>
-  </div>
-  <!--/ Basic Pagination -->
 </div>
+
 <!--/ Responsive Table -->
 </div>
 
@@ -224,6 +179,26 @@
     </div>
   </div>
 </div>
+<script>
+    function toggleView() {
+        const desktopView = document.getElementById('desktop_view');
+        const mobileView = document.getElementById('mobile_view');
+        
+        if (window.innerWidth <= 800) {
+            desktopView.style.display = 'none';
+            mobileView.style.display = 'block';
+        } else {
+            desktopView.style.display = 'block';
+            mobileView.style.display = 'none';
+        }
+    }
+
+    // Kiểm tra khi tải trang
+    window.addEventListener('load', toggleView);
+
+    // Kiểm tra khi thay đổi kích thước màn hình
+    window.addEventListener('resize', toggleView);
+</script>
 
 <script type="text/javascript">
   function add()

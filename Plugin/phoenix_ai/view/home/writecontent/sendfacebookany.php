@@ -79,7 +79,7 @@
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
+              <!-- <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo1">
                     <div class="parent-button-div d-flex">
@@ -93,7 +93,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Nội dung tiếp theo</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                          
                           </div>
                         </div>
                       </div>
@@ -103,15 +103,13 @@
                 <div id="collapseTwo1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div> -->
+                  
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(1)" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
 
              

@@ -396,7 +396,7 @@ table {
 
 .main-wrap .showcase .overlay .card {
     min-width: 590px;
-    max-height: 180px;
+    /* max-height: 180px; */
     background: white;
     border-radius: 30px;
     margin: 10px 0;

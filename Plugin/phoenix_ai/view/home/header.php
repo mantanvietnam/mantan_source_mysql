@@ -11,7 +11,7 @@
     ?>
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/all.min.css">
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/style.css?index=921">
-    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainvu.css?index=2711113">
+    <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainvu.css?index=2711114">
     <link rel="stylesheet" href="/plugins/phoenix_ai/view/home/assets/css/mainhoang.css?index=1221127">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -74,6 +74,14 @@
                                 </a>
                             </li>
                             <li class="nav-list-item">
+                                <a href="/ai-search-image-event" class="nav-link">
+                                    <div class="set-header-distance">
+                                        <div class="set-distent-icon"><i class="fa-solid fa-link"></i></div>
+                                        <div><span class="link-text">Tìm kiếm ảnh</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-list-item">
                                 <a href="/announcement" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-user"></i></div>
@@ -89,14 +97,14 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-list-item">
+                            <!-- <li class="nav-list-item">
                                 <a href="/announcement" class="nav-link">
                                     <div class="set-header-distance">
                                         <div class="set-distent-icon"><i class="fa-solid fa-link"></i></div>
                                         <div><span class="link-text">Phoenix Hình ảnh</span></div>
                                     </div>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-list-item">
                                 <a href="/announcement" class="nav-link">
                                    <div class="set-header-distance">
@@ -146,7 +154,7 @@
         <section class="showcase ">
             <div class="overlay">
                 <div class="head container-fluid d-flex">
-                    <div class="dropdown mx-4">
+                    <!-- <div class="dropdown mx-4">
                         <button class="btn btn-custom dropdown-toggle " type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             Trợ lý
                         </button>
@@ -154,7 +162,7 @@
                             <li><a class="dropdown-item" href="#">Trợ lý</a></li>
                             <li><a class="dropdown-item" href="#">Tài liệu</a></li>
                         </ul>
-                    </div>
+                    </div> -->
                     <!-- Thanh tìm kiếm -->
                     <div class="search-box d-flex align-items-center">
                             <input type="text" class="form-control search-input" placeholder="Tìm kiếm trợ lý Phoenix">
