@@ -251,6 +251,8 @@ function sendcontentFacebookAdsAPI($input){
 
               $reply_ai = callAIphoenixtech($question,$conversation_id);
 
+               $reply = '<h1>Phân tích chân dung khách hàng</h1>'.$reply_ai['result'];
+            $reply_ai['result'] = $reply;
 
               $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['product_servce']);
 
@@ -309,9 +311,22 @@ function chatcontentFacebookAdsAPI($input){
             
                 $reply_ai = callAIphoenixtech($question,$conversation_id);
                 
-                
+                 
 
                 // $chat[] = array('question'=>$dataSend['question'],'result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'],'number'=>$number );
+
+                 if(!empty($dataSend['type'])){
+                    if($dataSend['type']=='ads'){
+                        $reply = '<h1>Viết mẫu quảng cáo Facebook</h1>'.$reply_ai['result'];
+                        $reply_ai['result'] = $reply;
+                    }elseif($dataSend['type']=='pas'){
+                        $reply = '<h1>Viết mẫu quảng cáo PAS</h1>'.$reply_ai['result'];
+                        $reply_ai['result'] = $reply;
+                    }elseif($dataSend['type']=='hook'){
+                        $reply = '<h1>Viết mẫu quảng cáo thú đẩy</h1>'.$reply_ai['result'];
+                        $reply_ai['result'] = $reply;
+                    }
+                }
 
                 $chat['result'] .= $reply_ai['result'];
 

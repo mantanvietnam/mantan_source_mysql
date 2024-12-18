@@ -68,7 +68,7 @@
                      
                       <div>
                         <div class="mb-3">
-                          <label for="text" class="form-label">Nhập chân dung khách hàng của bạn</label>
+                          <label for="text" class="form-label">Nhập sản phần chủ đề của bạn</label>
                           <textarea type="text" placeholder="VD:mắt sáng...." class="form-control" id="product_servce" name="product_servce" rows="2" cols="30"></textarea>
 
                         <input class="form-check-input" type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
@@ -228,7 +228,6 @@
                 <input type="text" id="title" name="title"  placeholder="Tiêu đề" value="<?php echo @$dataContent->title ?>">
               </div>
               <div class="left-button-title">
-                <a type="submit" href="/" class="comback-writecontent">Quay lại</a>
                 <button type="button" onclick="savecontentFacebook()" class="save-writecontent">Lưu</button>
               </div>
               
@@ -349,7 +348,7 @@ showAiThinking.addEventListener('click', () => {
                 if(msg.code==1){
                   result += '/\n/g'+msg.data.result;
                   document.getElementById("conversation_id").value = msg.data.conversation_id;
-                  document.getElementById("result").value = result(/\n/g, '<br>');
+                  document.getElementById("result").value = result.replace(/\n/g, '<br>');
                   CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
                 }
             })
@@ -359,29 +358,17 @@ showAiThinking.addEventListener('click', () => {
     }
 
     function chatquestion(){
-        location.href = "/chat";
-       /* var conversation_id = $('#conversation_id').val();
-        var result = $('#result').val();
-      
         var question = $('#question').val();
-      
-         document.getElementById("question").value = '';
-      if(conversation_id != '' && question!=''){
-             $.ajax({
+      $.ajax({
           method: "POST",
-          url: "/apis/chatcontentFacebookAPI",
+          url: "/apis/chatAPI",
           data: {question: question,
-            conversation_id: conversation_id, 
-          }
-        }).done(function( msg ) {
-                if(msg.code==1){
-                  result += '/\n/g'+msg.data.result;
-                  document.getElementById("conversation_id").value = msg.data.conversation_id;
-                  document.getElementById("result").value = result(/\n/g, '<br>');
-                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
-                }
-            })
-        }*/
+            number: 0,
+            conversation_id: '', 
+        }
+    }).done(function( msg ) {
+            location.href = "/chat";
+        });
     }
 
 
