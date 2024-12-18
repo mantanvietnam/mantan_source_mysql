@@ -58,6 +58,7 @@
             <th>số điện thoại</th>
             <th>địa chỉ</th>
             <th>Tầng</th>
+            <th>Sách</th>
             <th>Sửa</th>
             <th>Xoá</th>
           </tr>
@@ -72,6 +73,7 @@
               <td>'.$item->phone.'</td>
               <td>'.$item->address.'</td>
               <td><a href="/listFloor?id_building='.$item->id.'">'.$item->total_floor.' tầng</a></td>
+              <td><a href="/listWarehouse?id_building='.$item->id.'">'.$item->total_book.' đầu sách</a></td>
               <td width="5%" align="center">
               <a class="dropdown-item" href="/addBuilding/?id='.$item->id.'">
               <i class="bx bx-edit-alt me-1"></i>

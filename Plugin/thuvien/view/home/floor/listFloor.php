@@ -52,6 +52,7 @@
             <th>ID</th>
             <th>tên tầng</th>
             <th>Phòng</th>
+            <th>Sách</th>
             <th>Sửa</th>
             <th>Xoá</th>
           </tr>
@@ -64,6 +65,7 @@
               <td>'.$item->id.'</td>
               <td>'.$item->name.'</td>
               <td><a href="/listRoom?&id_floor='.$item->id.'">'.$item->total_room.' phòng</a></td>
+              <td><a href="/listWarehouse?id_building='.$item->id_building.'&id_floor='.$item->id.'">'.$item->total_book.' đầu sách</a></td>
               <td width="5%" align="center">
               <a class="dropdown-item" href="/addFloor/?id='.$item->id.'&id_building='.$data->id.'">
               <i class="bx bx-edit-alt me-1"></i>

@@ -51,7 +51,7 @@
           <tr class="">
             <th>ID</th>
             <th>tên Kệ sách</th>
-            <!-- <th>Kệ sách</th> -->
+            <th>sách</th> 
             <th>Sửa</th>
             <th>Xoá</th>
           </tr>
@@ -63,7 +63,7 @@
               echo '<tr>
               <td>'.$item->id.'</td>
               <td>'.$item->name.'</td>
-             
+              <td><a href="/listWarehouse?id_building='.$item->id_building.'&id_floor='.$item->id_floor.'&id_room='.$item->id_room.'&id_shelf='.$item->id.'">'.$item->total_book.' đầu sách</a></td>             
               <td width="5%" align="center">
               <a class="dropdown-item" href="/addShelf/?id='.$item->id.'&id_room='.$data->id.'">
               <i class="bx bx-edit-alt me-1"></i>

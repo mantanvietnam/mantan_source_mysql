@@ -56,67 +56,67 @@
                       </div>
                       <div class="select-gpt-model row">
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Tạo động lực">🌟Tạo động lực
+                          <input type="checkbox" name="" id="type[]" value="Tạo động lực"> 🌟Tạo động lực
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Truyền cảm hứng">💡Truyền cảm hứng
+                          <input type="checkbox" name="" id="type[]" value="Truyền cảm hứng"> 💡Truyền cảm hứng
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Thành công">🏆Thành công
+                          <input type="checkbox" name="" id="type[]" value="Thành công"> 🏆Thành công
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Cuộc sống">🌍Cuộc sống
+                          <input type="checkbox" name="" id="type[]" value="Cuộc sống"> 🌍Cuộc sống
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Hạnh phúc">😊Hạnh phúc
+                          <input type="checkbox" name="" id="type[]" value="Hạnh phúc"> 😊Hạnh phúc
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Sự kiên trì">💪Sự kiên trì
+                          <input type="checkbox" name="" id="type[]" value="Sự kiên trì"> 💪Sự kiên trì
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Ước mơ">🌈Ước mơ
+                          <input type="checkbox" name="" id="type[]" value="Ước mơ"> 🌈Ước mơ
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Kinh doanh">📈Kinh doanh
+                          <input type="checkbox" name="" id="type[]" value="Kinh doanh"> 📈Kinh doanh
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Lãnh đạo">🚀Lãnh đạo
+                          <input type="checkbox" name="" id="type[]" value="Lãnh đạo"> 🚀Lãnh đạo
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Kỷ luật">📏Kỷ luật
+                          <input type="checkbox" name="" id="type[]" value="Kỷ luật"> 📏Kỷ luật
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Tiền bạc">💰Tiền bạc
+                          <input type="checkbox" name="" id="type[]" value="Tiền bạc"> 💰Tiền bạc
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Bán hàng">🛍️Bán hàng
+                          <input type="checkbox" name="" id="type[]" value="Bán hàng"> 🛍️Bán hàng
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Marketing">📣Marketing
+                          <input type="checkbox" name="" id="type[]" value="Marketing">  📣Marketing
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Sự thay đổi">🔄Sự thay đổi
+                          <input type="checkbox" name="" id="type[]" value="Sự thay đổi">  🔄Sự thay đổi
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Kiến thức">📚Kiến thức
+                          <input type="checkbox" name="" id="type[]" value="Kiến thức">  📚Kiến thức
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Học tập">🎓Học tập
+                          <input type="checkbox" name="" id="type[]" value="Học tập">  🎓Học tập
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Biết ơn">🙏Biết ơn
+                          <input type="checkbox" name="" id="type[]" value="Biết ơn">  🙏Biết ơn
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Can đảm">🦁Can đảm
+                          <input type="checkbox" name="" id="type[]" value="Can đảm">  🦁Can đảm
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Sự lạc quan">🌞Sự lạc quan
+                          <input type="checkbox" name="" id="type[]" value="Sự lạc quan">  🌞Sự lạc quan
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Mối quan hệ">❤️Mối quan hệ
+                          <input type="checkbox" name="" id="type[]" value="Mối quan hệ">  ❤️Mối quan hệ
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Tình yêu">💞Tình yêu
+                          <input type="checkbox" name="" id="type[]" value="Tình yêu">  💞Tình yêu
                         </div>
                       </div>
                         <div class="mb-3">
@@ -164,7 +164,7 @@
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
+             <!--  <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
                     <div class="parent-button-div d-flex">
@@ -178,7 +178,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>----</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-<p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -188,9 +188,9 @@
                 <div id="collapseTwo2" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
+                      <!- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(2)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -211,7 +211,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>---</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -223,7 +223,7 @@
                     <form action="" method="post">
                       <!-- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(3)" id="showAiThinking">Tạo nội dung</button>
                     </form>
@@ -244,7 +244,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>----</h3>
-                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> -->
+                            <!-- <p>BlogPro - lên outline cho Blog dựa vào nội dung</p> ->
                           </div>
                         </div>
                       </div>
@@ -256,13 +256,13 @@
                     <form action="" method="post">
                       <!-- <div class="title-write">
                         <h3>GPT Model</h3>
-                      </div> -->
+                      </div> ->
                      
                       <button type="button" class="button-arcordian" onclick="sendquestionNet(4)" id="showAiThinking">Tạo nội dung</button>
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -364,6 +364,7 @@ showAiThinking.addEventListener('click', () => {
               document.getElementById("conversation_id").value = msg.data.conversation_id;
               document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
               CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
+              saveContentBlog();
             }
         })
       
@@ -380,10 +381,6 @@ showAiThinking.addEventListener('click', () => {
         var conversation_id = $('#conversation_id').val();
         var result = $('#result').val();
       
-        
-           console.log(i);
-           console.log(result);
-      
       if(conversation_id != '' && conversation_id!='0'){
              $.ajax({
           method: "POST",
@@ -393,12 +390,12 @@ showAiThinking.addEventListener('click', () => {
             type: i, 
           }
         }).done(function( msg ) {
-           console.log(msg);
                 if(msg.code==1){
                   result += '/\n/g'+msg.data.result;
                   document.getElementById("conversation_id").value = msg.data.conversation_id;
                   document.getElementById("result").value = result.replace(/\n/g, '<br>');
                   CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>'));
+                  saveContentBlog();
                 }
             })
         }
@@ -407,31 +404,18 @@ showAiThinking.addEventListener('click', () => {
     }
 
     function chatquestion(){
-        var conversation_id = $('#conversation_id').val();
-        var result = $('#result').val();
-      
         var question = $('#question').val();
-      
-         document.getElementById("question").value = '';
-      if(conversation_id != '' && question!=''){
-             $.ajax({
+      $.ajax({
           method: "POST",
-          url: "/apis/chatContentInspireAPI",
+          url: "/apis/chatAPI",
           data: {question: question,
-            conversation_id: conversation_id,
-            type: 0,
-          }
-        }).done(function( msg ) {
-                if(msg.code==1){
-                  result += '/\n/g'+msg.data.result;
-                  document.getElementById("conversation_id").value = msg.data.conversation_id;
-                  document.getElementById("result").value = result.replace(/\n/g, '<br>');
-                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>'));
-                }
-            })
+            number: 0,
+            conversation_id: '', 
         }
-       
-
+    })
+        .done(function( msg ) {
+            location.href = "/chat";
+        });
     }
 
 
@@ -452,7 +436,6 @@ showAiThinking.addEventListener('click', () => {
             target :target,
           }
         }).done(function( msg ) {
-                console.log(msg);
                 if(msg.code==1){
                     document.getElementById("conversation_id").value = msg.data.conversation_id;
                     document.getElementById("result").value =  msg.data.content_ai;

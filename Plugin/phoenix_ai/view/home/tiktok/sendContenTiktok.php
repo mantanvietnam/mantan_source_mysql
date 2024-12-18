@@ -57,55 +57,55 @@
                       </div>
                       <div class="select-gpt-model row">
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Education/Sharing">Giáo dục/Chia sẻ
+                          <input type="checkbox" name="" id="type[]" value="Education/Sharing"> Giáo dục/Chia sẻ
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Guides">Hướng dẫn
+                          <input type="checkbox" name="" id="type[]" value="Guides"> Hướng dẫn
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Product/Service Introductions">Giới thiệu sản phẩm/dịch vụ
+                          <input type="checkbox" name="" id="type[]" value="Product/Service Introductions">  thiệu sản phẩm/dịch vụ
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Vlogs">Vlog
+                          <input type="checkbox" name="" id="type[]" value="Vlogs"> Vlog
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Reviews">Đánh giá
+                          <input type="checkbox" name="" id="type[]" value="Reviews"> Đánh giá
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Talk Shows">Talk Show
+                          <input type="checkbox" name="" id="type[]" value="Talk Shows"> Talk Show
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Interviews">Phỏng vấn
+                          <input type="checkbox" name="" id="type[]" value="Interviews"> Phỏng vấn
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Podcasts">Podcast
+                          <input type="checkbox" name="" id="type[]" value="Podcasts"> Podcast
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Challenges">Thử thách
+                          <input type="checkbox" name="" id="type[]" value="Challenges"> Thử thách
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Reactions">Phản ứng
+                          <input type="checkbox" name="" id="type[]" value="Reactions"> Phản ứng
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Comedy">Hài kịch
+                          <input type="checkbox" name="" id="type[]" value="Comedy"> Hài kịch
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Unboxing/Hands-On">Mở hộp/Trên tay
+                          <input type="checkbox" name="" id="type[]" value="Unboxing/Hands-On"> Mở hộp/Trên tay
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Related News & Events">Tin tức và Sự kiện liên quan
+                          <input type="checkbox" name="" id="type[]" value="Related News & Events"> Tin tức và Sự kiện liên quan
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Storytelling">Kể chuyện
+                          <input type="checkbox" name="" id="type[]" value="Storytelling"> Kể chuyện
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Behind the Scenes">Hậu trường
+                          <input type="checkbox" name="" id="type[]" value="Behind the Scenes"> Hậu trường
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="Inspirational/Motivation">Truyền cảm hứng/Động lực
+                          <input type="checkbox" name="" id="type[]" value="Inspirational/Motivation"> Truyền cảm hứng/Động lực
                         </div>
                         <div class="col-md-6">
-                          <input type="checkbox" name="" id="type[]" value="DIY">DIY
+                          <input type="checkbox" name="" id="type[]" value="DIY"> DIY
                         </div>
                       </div>
                        <div class="mb-3">
@@ -302,6 +302,7 @@ showAiThinking.addEventListener('click', () => {
               document.getElementById("conversation_id").value = msg.data.conversation_id;
               document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
               CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
+              saveContentBlog();
             }
         })
       
@@ -345,31 +346,17 @@ showAiThinking.addEventListener('click', () => {
     }
 
     function chatquestion(){
-        var conversation_id = $('#conversation_id').val();
-        var result = $('#result').val();
-      
-        var question = $('#question').val();
-      
-         document.getElementById("question").value = '';
-      if(conversation_id != '' && question!=''){
-             $.ajax({
+       var question = $('#question').val();
+      $.ajax({
           method: "POST",
-          url: "/apis/chatContentVideoAPI",
+          url: "/apis/chatAPI",
           data: {question: question,
-            conversation_id: conversation_id,
-            type: 0,
-          }
-        }).done(function( msg ) {
-                if(msg.code==1){
-                  result += '/\n/g'+msg.data.result;
-                  document.getElementById("conversation_id").value = msg.data.conversation_id;
-                  document.getElementById("result").value = result.replace(/\n/g, '<br>');
-                  CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>'));
-                }
-            })
+            number: 0,
+            conversation_id: '', 
         }
-       
-
+    }).done(function( msg ) {
+            location.href = "/chat";
+        });
     }
 
 

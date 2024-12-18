@@ -13,9 +13,10 @@ function listBuilding($input)
         if(empty($user->grant_permission)){
             return $controller->redirect('/');
         }
-        $metaTitleMantan = 'Danh sách nhân viên';
+        $metaTitleMantan = 'Danh sách tòa nhà';
 
         $modelBuilding = $controller->loadModel('Buildings');
+        $modelWarehouse = $controller->loadModel('Warehouses');
         $modelFloor = $controller->loadModel('Floors');
         
         $order = array('id'=>'desc');
@@ -95,6 +96,7 @@ function listBuilding($input)
         if(!empty($listData)){
             foreach($listData as $key => $item){
                 $listData[$key]->total_floor = $modelFloor->find()->where(['id_building'=>$item->id])->count();
+                $listData[$key]->total_book = $modelWarehouse->find()->where(['id_building'=>$item->id])->count();
             }
         }
 
@@ -170,7 +172,7 @@ function addBuilding($input)
         }
         $mess = '';
 
-        $metaTitleMantan = 'Thông tin nhân viên';
+        $metaTitleMantan = 'Thông tin tòa nhà';
         $modelBuilding = $controller->loadModel('Buildings');
 
         $mess= '';
@@ -250,16 +252,24 @@ function deleteBuilding($input){
             return $controller->redirect('/');
         }
          $modelBuilding = $controller->loadModel('Buildings');
+        $modelFloor = $controller->loadModel('Floors');
+        $modeShelf = $controller->loadModel('Shelfs');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelWarehouse = $controller->loadModel('Warehouses');
         if(!empty($_GET['id'])){
             $data = $modelBuilding->find()->where([ 'id'=>(int) $_GET['id']])->first();
             
-            if($data){
-                $note = $user->name.' xóa thông tin tòa nhà '.$data->name.' có id là:'.$data->id;
-                addActivityHistory($user,$note,'deleteBuilding',$data->id);
-                $modelBuilding->delete($data);
-
-                
-                 return $controller->redirect('/listBuilding?mess=deleteSuccess');
+            if($data){ 
+                $check = $modelWarehouse->find()->where(['id_building'=>$data->id])->first();
+                $checkShelf = $modeShelf->find()->where(['id_building'=>$data->id])->first();
+                $checkRoom = $modelRoom->find()->where(['id_building'=>$data->id])->first();
+                $checkFloor = $modelFloor->find()->where(['id_building'=>$data->id])->first();
+                if(empty($check) && empty($checkShelf) && empty($checkRoom) && empty($checkFloor)){
+                    $note = $user->name.' xóa thông tin tòa nhà '.$data->name.' có id là:'.$data->id;
+                    addActivityHistory($user,$note,'deleteBuilding',$data->id);
+                    $modelBuilding->delete($data);
+                    return $controller->redirect('/listBuilding?mess=deleteSuccess');
+                }
             }
         }
          return $controller->redirect('/listBuilding?mess=deleteError');

@@ -19,6 +19,7 @@ function listRoom($input)
         $modelFloor = $controller->loadModel('Floors');
         $modelRoom = $controller->loadModel('Rooms');
         $modelShelf = $controller->loadModel('Shelfs');
+        $modelWarehouse = $controller->loadModel('Warehouses');
          $conditions = array();
         if(!empty($_GET['id_floor'])) {
             $conditions['id_floor'] =(int) $_GET['id_floor'];
@@ -97,6 +98,7 @@ function listRoom($input)
         if(!empty($listData)){
             foreach($listData as $key => $item){
                 $listData[$key]->total_shelf = $modelShelf->find()->where(['id_room'=>$item->id])->count();
+                $listData[$key]->total_book = $modelWarehouse->find()->where(['id_room'=>$item->id])->count();
             }
         }
 
@@ -260,7 +262,9 @@ function deleteRoom($input){
         
         $modelBuilding = $controller->loadModel('Buildings');
         $modelFloor = $controller->loadModel('Floors');
+        $modeShelf = $controller->loadModel('Shelfs');
         $modelRoom = $controller->loadModel('Rooms');
+        $modelWarehouse = $controller->loadModel('Warehouses');
         if(!empty($_GET['id_floor'])) {
             $conditions['id_floor'] =(int) $_GET['id_floor'];
 
@@ -282,12 +286,16 @@ function deleteRoom($input){
             $data = $modelRoom->find()->where([ 'id'=>(int) $_GET['id'],'id_floor'=>$checkFloor->id])->first();
             
             if($data){
-                $note = $user->name.' xóa thông tin phòng '.$data->name.' tầng '.$checkFloor->name.' tòa nhà '.$checkFloor->building->name.' có id phòng là:'.$data->id;
-                addActivityHistory($user,$note,'deleteRoom',$data->id);
-                $modelRoom->delete($data);
-
-                
-                 return $controller->redirect('/listRoom?mess=deleteSuccess&id_floor='.$checkFloor->id);
+                $check = $modelWarehouse->find()->where(['id_room'=>$data->id])->first();
+                $checkShelf = $modeShelf->find()->where(['id_room'=>$data->id])->first();
+                 if(empty($check) && empty($checkShelf)){
+                    debug($check);
+                    die();
+                    $note = $user->name.' xóa thông tin phòng '.$data->name.' tầng '.$checkFloor->name.' tòa nhà '.$checkFloor->building->name.' có id phòng là:'.$data->id;
+                    addActivityHistory($user,$note,'deleteRoom',$data->id);
+                    $modelRoom->delete($data);
+                    return $controller->redirect('/listRoom?mess=deleteSuccess&id_floor='.$checkFloor->id);
+                }
             }
         }
          return $controller->redirect('/listRoom?mess=deleteError&id_floor='.$checkFloor->id);

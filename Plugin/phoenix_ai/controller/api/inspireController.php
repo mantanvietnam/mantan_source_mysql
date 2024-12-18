@@ -44,9 +44,12 @@ function sendContentInspireAPI($input){
                 }
             }
               $reply_ai = callAIphoenixtech($question,$conversation_id);
+
+              $reply = '<h1>Viết 10 bài đăng facebook truyền cảm hứng </h1>'.$reply_ai['result'];
+            $reply_ai['result'] = $reply;
          
 
-              $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
+              $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$type);
 
 
                 $session->write('content_inspire', $chat);
@@ -167,7 +170,7 @@ function saveContentInspireAPI($input){
                 $checkContent->created_at = time();
                 $checkContent->type = 'content_inspire';
             }
-            $title = 'Viết 10 bài đăng Facebook truyền cảm hứng';
+            $title = 'Viết 10 bài đăng Facebook truyền cảm hứng ,'.$chat['topic'];
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  
