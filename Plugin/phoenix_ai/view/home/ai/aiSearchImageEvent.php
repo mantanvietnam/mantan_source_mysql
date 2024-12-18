@@ -46,7 +46,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách sự kiện</h5>
+    <h5 class="card-header" style="background: #fff;border: none;">Danh sách sự kiện</h5>
 
     <!-- Giao diện Desktop -->
     <div id="desktop_view">
