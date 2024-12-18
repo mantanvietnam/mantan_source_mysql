@@ -11,12 +11,15 @@ function listdocument($input){
 		$modelpersons = $controller->loadModel('persons');
 		$modelContent = $controller->loadModel('ContentFacebookAis');
 	    $modelHistoryChatAis = $controller->loadModel('HistoryChatAis');
-		$conditions = array(['id_member'=>$info->id]);
+		if (!empty($_GET['title'])) {
+			$conditions['title LIKE'] = '%' . $_GET['title'] . '%';
+		}
+		$conditions['id_member'] = $info->id;
 		$order = array('id' => 'desc');
-		$limit = 20;
+		$limit = 10;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if(!empty($info->id)){
-			$listdatacontent = $modelContent->find()->limit($limit)->page($page)->where(['id_member'=>$info->id])->order($order)->all()->toList();
+			$listdatacontent = $modelContent->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 		}
 
 		if(!empty($listdatacontent)){

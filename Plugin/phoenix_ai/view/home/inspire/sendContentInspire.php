@@ -1,5 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="aiva-writecontent container-fluid container-set">
+<div id="myElement" style=" display: none; align-items: center;" ><div style="display: flex; flex-direction: column; justify-content: left;"><p class="MuiTypography-root MuiTypography-body1" style="font-size: 14px; color: rgb(80, 210, 62);"><i class='bx bx-check-circle'></i>Cập nhật văn bản thành công</p></div></div>
+
   <div class="row">
     <div class="col-md-4 ">
       <div class="set-height-writecontent">

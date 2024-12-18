@@ -39,14 +39,17 @@
                                         </form>
                                     </div>
                                 </div> -->
+                              <form action="" method="post">
                                 <div class="name-input-search">
                                     <div class="detail-input-search">
-                                        <div class="icon-input-search">
+                                        <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
+                                        <button type="submit" class="icon-input-search" style="border: none;background: none;">
                                             <i class="fa-solid fa-magnifying-glass"></i>
-                                        </div>
-                                        <input placeholder="Nhập từ khóa tìm kiếm" type="text" aria-label="search" class="" value="">
+                                        </button>
+                                        <input placeholder="Nhập từ khóa tìm kiếm" type="text" name="title" id="title" class="" value="<?php if(!empty($_GET['title'])) echo $_GET['title'];?>">
                                     </div>
                                 </div>
+                              </form>
                                 
                             </div>
                         </div>

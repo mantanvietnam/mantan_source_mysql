@@ -1,14 +1,14 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="aiva-document container-fluid">
-    <div class="document-search" style="width:98%">
+    <div class="document-search" style="width:98%;margin-bottom:0px">
         <div class="title-aiva-document" style="text-align: center;">
             <h2>AI tìm ảnh sự kiện</h2>
         </div>
-        <div class="list-document-search row" style="width:97%; margin:auto;">
-         
+        <div class="" style="width: 96%;margin: auto;"><p><a href="javascript:void(0);" class="btn btn-primary" onclick="add();" data-bs-toggle="modal" data-bs-target="#addNewData"><i class='bx bx-plus'></i> Thêm mới</a></p></div>
+        <div class="list-document-search row" style="width:100%; margin:0 13px;">
             <div class=" col-md-12 col-12">
                 <form method="get" action="">
-                    <div class="card mb-4">
+                    <div class="card mb-4" style="padding:0;border-radius:10px">
                         <h5 class="card-header" style="display: none;">Tìm kiếm dữ liệu</h5>
                         <div class="card-body">
                             <div class="row gx-3 gy-2 align-items-center">
@@ -24,7 +24,7 @@
 
                             <div class="col-md-4">
                                 <label class="form-label">Trạng thái</label>
-                                <select name="status" class="form-select color-dropdown">
+                                <select name="status" class="form-select color-dropdown" style="padding: 0.375rem 0.75rem;">
                                   <option value="">Tất cả</option>
                                   <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
                                   <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
@@ -35,7 +35,6 @@
                             <label class="form-label">&nbsp;</label>
                             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
                         </div>
-                        <p><a href="javascript:void(0);" class="btn btn-primary" onclick="add();" data-bs-toggle="modal" data-bs-target="#addNewData"><i class='bx bx-plus'></i> Thêm mới</a></p>
                     </div>
                 </div>
             </div>
@@ -44,8 +43,8 @@
 </div>
 </div>
 
-<div class="table-aiva-document" style="width: 97%;margin: auto; max-height:510px">
-    <table class=" table-create-document">
+<div class="table-aiva-document" style="width: 98%;margin: auto; max-height:510px">
+    <table class="table-create-document" style="padding:20px">
         <thead class="colum-header">
             <tr>
                 <th class="table-column" scope="col">ID</th>

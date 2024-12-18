@@ -154,7 +154,7 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 1.43;
-    border-right: none !important;
+   
     padding-left: 10px;
     border-bottom: 1px solid #8282824D;
     padding-right: 10px;
@@ -671,9 +671,6 @@
     background-color: rgb(245,244,255);
     width: 45% !important;
 }
-.aiva-writecontent {
-    margin-top: 60px;
-}
 .aiva-writecontent .form-switch .form-check-input{
     height: 18px;
 }
@@ -1035,4 +1032,11 @@
 }
 #cke_1_contents{
     height: 347px !important;
+}
+#myElement {
+    text-align: center;
+    padding-top:10px;
+}
+.aiva-writecontent {
+    margin-top: 45px;
 }
