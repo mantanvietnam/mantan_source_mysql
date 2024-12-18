@@ -160,7 +160,7 @@
               <label class="form-label">id ảnh giả thưởng</label>
               <input type="text" class="form-control phone-mask" name="id_album" id="id_album" value="<?php echo @$setting['id_album'];?>"/>
             </div>
-            <
+            
         </div>
       </div>
       <div class="card-body">
