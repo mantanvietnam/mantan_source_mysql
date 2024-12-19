@@ -26,7 +26,7 @@
     <div class="col-lg-5 mb-4 order-0">
       <div class="card">
         <div class="card-body">
-          <p class="mb-4">danh sách mượn sách hôm này </p>
+          <p class="mb-4">Danh sách mượn sách hôm này </p>
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -65,7 +65,7 @@
             </table>
           </div>
           <div class="card-body">
-          <p class="mb-4">danh sách đến hạn trả sách</p>
+          <p class="mb-4">Danh sách đến hạn trả sách</p>
           <table class="table table-bordered">
             <thead>
               <tr>

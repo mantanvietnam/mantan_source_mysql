@@ -49,6 +49,7 @@ function addlikeApi($input){
 
                             if(!empty($customer->token_device)){
                                  sendNotification($dataSendNotification, $customer->token_device);
+                                 saveNotification($dataSendNotification, $customer->id, $data->id_object);
                             }
                         }
                         return array('code'=>1,'messages'=>'bạn đã like  thành công ');
@@ -67,6 +68,7 @@ function addlikeApi($input){
 
                             if(!empty($customer->token_device)){
                                  sendNotification($dataSendNotification, $customer->token_device);
+                                 saveNotification($dataSendNotification, $customer->id, $data->id_object);
                             }
                          }
                         return array('code'=>4,'messages'=>'bạn đã dislike  thành công ');
@@ -226,6 +228,7 @@ function addCommentApi($input){
 
                         if(!empty($customer->token_device)){
                            sendNotification($dataSendNotification, $customer->token_device);
+                           saveNotification($dataSendNotification, $customer->id, $data->id_object);
                        }
                    }
                 }
@@ -310,6 +313,42 @@ function listCommentAPI($input){
 
     return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
         
+}
+
+function listNotificationApi($input){
+    global $isRequestPost;
+    global $modelUser;
+    global $urlHomes;
+    global $controller;
+    global $session;
+    $modelNotification = $controller->loadModel('Notifications');
+    $listPonint = listPonint();
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['token'])) {
+            if(function_exists('getCustomerByToken')){
+                $user =  getCustomerByToken($dataSend['token']);
+            }
+            if (!empty($user)) {
+                $limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+                $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+                if($page<1) $page = 1;
+                $order = array('pin'=>'asc','updated_at'=>'desc');
+
+                $listData = $modelNotification->find()->limit($limit)->page($page)->where(['id_user like'=>'%"'.$user->id.'"%'])->order(['created_at'=>'DESC'])->all()->toList();
+                $totalData = $modelNotification->find()->where(['id_user like'=>'%"'.$user->id.'"%'])->order(['created_at'=>'DESC'])->count();
+                return array('code'=>1, 'messages'=> 'lấy dữ liệu thành công','listData'=>$listData,'totalData'=>$totalData); 
+            }
+
+            return array('code'=>3,'messages'=>'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        }
+
+        return array('code'=>2,'messages'=>'Gửi thiếu dữ liệu');
+    }
+
+    return array('code'=>0,'messages'=>'Gửi sai kiểu POST');
 }
 
  ?>

@@ -146,6 +146,11 @@ function getProductsWarehousesAPI($input){
 		$tota = count($totalData);
 
 		if(!empty($listData)){
+			foreach($listData as $key => $item){
+				if(empty($item->thumbnail)){
+					$listData[$key]->thumbnail = $item->image;
+				}
+			}
 			if(!empty($dataSend['page'])){
 				$return = array('code'=>1,
 							'data'=> $listData,

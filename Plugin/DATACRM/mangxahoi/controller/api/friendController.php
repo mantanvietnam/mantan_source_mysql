@@ -46,6 +46,7 @@ function sendFriendRequestApi($input){
 
         				if(!empty($friend->token_device)){
                         	sendNotification($dataSendNotification, $friend->token_device);
+                            saveNotification($dataSendNotification, $friend->id, $user->id);
                     	}
         				return array('code'=>1, 'messages'=>'bạn gửi yêu cầu kết bạn thành công', 'notification'=>$dataSendNotification);
         			}
@@ -301,6 +302,7 @@ function sendFriendConfirmApi($input){
 
                         if(!empty($friend->token_device)){
                             sendNotification($dataSendNotification, $friend->token_device);
+                            saveNotification($dataSendNotification, $friend->id,  $user->id);
                         }
                         return array('code'=>1, 'messages'=>'bạn đã đồng ý thành công', 'notification'=>$dataSendNotification);
                     }

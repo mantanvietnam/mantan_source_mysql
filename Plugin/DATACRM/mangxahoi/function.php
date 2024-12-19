@@ -62,4 +62,25 @@ function checkKeyword($keyword){
     return $keyword;
 }
 
+
+function saveNotification($notification, $id_user, $id=null){
+    global $controller;
+    if(is_array($id_user)){
+        foreach($id_user as $key => $item){
+            $id_user[$key] ='"'.$item.'"';
+        }
+    }else{
+         $id_user = ['"'.$id_user.'"'];
+    }
+    $modelNotification = $controller->loadModel('Notifications');
+    $data = $modelNotification->newEmptyEntity();
+    $data->id_user = implode(',', $id_user);
+    $data->title = $notification['title'];
+    $data->created_at = time();
+    $data->action = $notification['action'];
+    $data->content = $notification['content'];
+    $data->id_object = $id;
+    $modelNotification->save($data);
+    return $data;
+}
 ?>

@@ -946,10 +946,10 @@ function getCustomerByToken($token='')
                                 'time'=>date('H:i d/m/Y'),
                                 'content'=>"Bạn được cộng 5 điểm khi bạn đăng nhập lần đâu tiên trong ngày ",
                                 'id_friend'=>"$checkData->id",
-                                'action'=>'sendRegisterCustomer');
-
+                                'action'=>'plusPoint');
                     if(!empty($checkData->token_device)){
                         sendNotification($dataSendNotification, $checkData->token_device);
+                        saveNotification($dataSendNotification, $checkData->id);
                     }
                 }
         }

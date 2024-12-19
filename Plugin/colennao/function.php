@@ -36,6 +36,11 @@ $menus[0]['sub'][]= array( 'title'=>'Giao dịch thanh toán',
                             'classIcon'=>'bx bx-history',
                             'permission'=>'listTransactionAdmin'
                 );
+$menus[0]['sub'][]= array( 'title'=>'Giao dịch hoa hồng',
+                            'url'=>'/plugins/admin/colennao-view-admin-transaction-listTransactionRoseAdmin',
+                            'classIcon'=>'bx bx-history',
+                            'permission'=>'listTransactionRoseAdmin'
+                );
 $menus[0]['sub'][]= array( 'title'=>'Bảng giá ',
                             'url'=>'/plugins/admin/colennao-view-admin-pricelist-listPriceList',
                             'classIcon'=>'bx bx-money',

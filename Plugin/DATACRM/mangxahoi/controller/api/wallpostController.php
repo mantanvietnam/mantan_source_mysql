@@ -78,17 +78,20 @@ function addWallPostApi($input){
                 ];
                 $checkFriend = $modelMakeFriend->find()->where($conditions)->all()->toList();
                 $token_device = array();
+                $id_user = array();
                 if(!empty($checkFriend)){
                     foreach($checkFriend as $key => $item){
                         if($item->id_customer_request!=$user->id){
                           $friend = $modelCustomer->find()->where(['id'=>$item->id_customer_request])->first();
                           if(!empty($friend->token_device)){
-                            $token_device = $friend->token_device;
+                            $token_device[] = $friend->token_device;
+                            $id_user[] = $friend->id; 
                           }
                         }elseif($item->id_customer_confirm!=$user->id){
                           $friend = $modelCustomer->find()->where(['id'=>$item->id_customer_confirm])->first();
                           if(!empty($friend->token_device)){
-                            $token_device = $friend->token_device;
+                            $token_device[] = $friend->token_device;
+                            $id_user[] = $friend->id; 
                           }
                         }
                     }
@@ -96,6 +99,7 @@ function addWallPostApi($input){
 
                 if(!empty($token_device)){
                     sendNotification($dataSendNotification, $token_device);
+                    saveNotification($dataSendNotification, $id_user, $data->id);
                 }
 
                

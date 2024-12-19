@@ -1,7 +1,7 @@
 <script language="javascript" type="text/javascript" src="/plugins/ezpics_admin/view/admin/js/ezpics_admin.js"></script>
 <link rel="stylesheet" href="/plugins/ezpics_admin/view/admin/css/ezpics_admin.css" />
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Giao dịch</h4>
+  <h4 class="fw-bold py-3 mb-4">Giao dịch thanh toán cho cộng tác viên</h4>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -9,11 +9,6 @@
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
-          <div class="col-md-2">
-            <label class="form-label">Mã giao dịch</label>
-            <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
-          </div>
-
           <div class="col-md-2">
             <label class="form-label">SĐT người dùng</label>
             <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
@@ -23,20 +18,12 @@
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="">Tất cả</option>
-              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Chưa Thanh toán</option>
-              <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Đã Thanh toán</option>
+              <option value="new" <?php if(!empty($_GET['status']) && $_GET['status']=='new') echo 'selected';?> >Chưa Thanh toán</option>
+              <option value="done" <?php if(!empty($_GET['status']) && $_GET['status']=='done') echo 'selected';?> >Đã Thanh toán</option>
             </select>
           </div>
 
-          <div class="col-md-2">
-            <label class="form-label">Loại dịch vụ</label>
-            <select name="type" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="1" <?php if(!empty($_GET['type']) && $_GET['type']=='1') echo 'selected';?> >Khóa học</option>
-              <option value="2" <?php if(!empty($_GET['type']) && $_GET['type']=='2') echo 'selected';?> >Thử thách</option>
-              <option value="3" <?php if(!empty($_GET['type']) && $_GET['type']=='3') echo 'selected';?> >Gói tập luyện</option>
-            </select>
-          </div>
+          
 
           <div class="col-md-2">
             <label class="form-label">Tạo từ ngày</label>
@@ -74,11 +61,9 @@
             <tr class="">
               <th>ID</th>
               <th>Thời gian</th>
-              <th>Mã giao dịch</th>
               <th>Số tiền</th>
               <th>Người dùng</th>
-              <th>tên dich vụ</th>
-              <th>Kiểu dịch vụ </th>
+              <th>tài khoản ngân hàng</th>
               <th>Trạng thái</th>
             </tr>
           </thead>
@@ -88,23 +73,14 @@
                 foreach ($listData as $item) {
                   $status = '<span class="text-danger">Chưa xử lý</span><br/><a class="btn rounded-pill btn-icon btn-outline-secondary" title="chưa thanh toán" data-bs-toggle="modal"
                             data-bs-target="#basicModal'.$item->id.'" ><i class="bx bxs-message-square-check"></i></a>';
-                  if($item->status==2){
+                  if($item->status=='done'){
                     $status = '<span class="text-success">Đã thanh toán</span>';
                   }
 
-                  $type = '';
-                  if (@$item->type==1) {
-                     $type = 'Khóa học';
-                  }elseif(@$item->type==2) {
-                     $type = 'Thử thách';
-                  }elseif(@$item->type==1) {
-                     $type = 'Gói tập luyện';
-                  }
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.date('H:i d/m/Y', $item->created_at).'</td>
-                          <td>'.$item->code.'</td>
                           <td>'.number_format($item->total).'đ</td>
                           
                           <td>
@@ -112,8 +88,10 @@
                             '.$item->user->phone.'<br/>
                             '.$item->user->email.'
                           </td>
-                          <td>'.$item->name.'</td>
-                          <td>'.$type.'</td>
+                          <td>Chủ tk: '.$item->account_name.'<br/>
+                            Ngân hàng: '.$item->code_bank.'<br/>
+                            Số tk: '.$item->account_number.'
+                          </td>
                           <td>'.$status.'</td>
                           
                           
@@ -199,11 +177,14 @@
                               <p><label>Tên:</label> <?php echo $items->user->full_name ?></p>
                               <p><label>Điện thoại:</label> <?php echo $items->user->phone ?></p>
                               <p><label>Email:</label> <?php echo $items->user->email ?></p>
+                              <p><label>Chủ tk: </label> <?php echo $items->account_name ?></p>
+                              <p><label>Ngân hàng: </label> <?php echo $items->code_bank ?></p>
+                              <p><label>Số tk: </label> <?php echo $items->account_number ?></p>
                               <p><?php echo $items->note; ?></p>
-                              <p><label>dịch vụ :</label> <?php echo $items->name; ?></p>
-                              <p><label>tiền :</label> <?php echo number_format($items->total); ?>  VNĐ</p>
+                              <p><label>số tiền dư trong tk  :</label> <?php echo number_format($items->user->total_coin); ?> VND</p>
+                              <p><label>tiền rút :</label> <?php echo number_format($items->total); ?>  VNĐ</p>
                               
-                                <a class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn muốn sử lý giao dịch này không?');" href="/plugins/admin/ezpics_admin-view-admin-transaction-confirmReceiptMoney/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển tiền  ">Xác nhận cho khách</a>
+                                <a class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn muốn sử lý giao dịch này không?');" href="/transactioncMoneyAdmin?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển tiền  ">Xác nhận cho khách</a>
                             </div>
                              
                               

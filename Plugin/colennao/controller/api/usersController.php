@@ -1294,38 +1294,45 @@ function saveRequestWithdrawAPI($input)
 
                 if(!empty($infoUser)){
                     if($infoUser->total_coin >= $dataSend['money']){
-                        $user = $modelUser->find()->where()->first();
-                        if(!empty($user)){
-                            if(!empty($dataSend['account_name'])){
-                                $user->account_name = @$dataSend['account_name'];
+                        $check = $modeTransactionRoses->find()->where(['id_user'=>$inforuser,'status'=>'new'])->first();
+                        if(empty($check)){
+                            $user = $modelUser->find()->where()->first();
+                            if(!empty($user)){
+                                if(!empty($dataSend['account_name'])){
+                                    $user->account_name = @$dataSend['account_name'];
+                                }
+                                
+                                if(!empty($dataSend['code_bank'])){
+                                    $user->code_bank = @$dataSend['code_bank'];
+                                }
+                                if(!empty($dataSend['account_number'])){
+                                    $user->account_number=  @$dataSend['account_number'];
+                                }
                             }
+
+                            $order = $modeTransactionRoses->newEmptyEntity();
+
+                            $order->id_user =$infoUser->id;
+                            $order->account_name = $user->account_name;
+                            $order->code_bank = $user->code_bank;
+                            $order->account_number = $user->account_number;
+                            $order->phone =$user->phone;
+                            $order->note =@$dataSend['note'];
+                            $order->status = 'new';
+                            $order->total = @$dataSend['money'];
+                            $order->created_at =time();
+                            $order->updated_at =time();
                             
-                            if(!empty($dataSend['code_bank'])){
-                                $user->code_bank = @$dataSend['code_bank'];
-                            }
-                            if(!empty($dataSend['account_number'])){
-                                $user->account_number=  @$dataSend['account_number'];
-                            }
+                            $modeTransactionRoses->save($order);
+
+                            $return = array('code'=>0,
+                                            'messages'=>'Tạo yêu cầu rút tiền thành công'
+                                        );
+                        }else{
+                            $return = array('code'=>4,
+                                    'messages'=>'bạn đang có giao dịch chưa được sử lý'
+                                );
                         }
-
-                        $order = $modeTransactionRoses->newEmptyEntity();
-
-                        $order->id_user =$infoUser->id;
-                        $order->account_name = $user->account_name;
-                        $order->code_bank = $user->code_bank;
-                        $order->account_number = $user->account_number;
-                        $order->phone =$user->phone;
-                        $order->note =@$dataSend['note'];
-                        $order->status = 'new';
-                        $order->total = @$dataSend['money'];
-                        $order->created_at =time();
-                        $order->updated_at =time();
-                        
-                        $modeTransactionRoses->save($order);
-
-                        $return = array('code'=>0,
-                                        'messages'=>'Tạo yêu cầu rút tiền thành công'
-                                    );
                     }else{
                         $return = array('code'=>4,
                                     'messages'=>'Số tiền muốn rút vượt quá số dư tài khoản'
@@ -1353,5 +1360,38 @@ function saveRequestWithdrawAPI($input)
 
 function listBankAPI(){
     return listBank();
+}
+
+function transactioncMoneyAPI($input){
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Danh sách thách thức';
+    $modeTransactionRoses = $controller->loadModel('TransactionRoses');
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();   
+         if(!empty($dataSend['token'])){
+            $user = getUserByToken($dataSend['token']);
+            if (!empty($user)) {
+                $dataSend = $input['request']->getData();
+                $conditions = array('id_user'=>$user->id);
+                $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
+                $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
+                if ($page < 1) $page = 1;
+
+                $condition = array('id_user'=> $user->id);
+                
+                $listData = $modeTransactionRoses->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'desc'])->all()->toList();        
+               
+                $totalData = count($modeTransactionRoses->find()->where($conditions)->all()->toList());
+                    
+                return apiResponse(0, 'lấy dữ liệu thành công', $listData, $totalData);
+            }
+             return apiResponse(3, 'Tài khoản không tồn tại hoặc chưa đăng nhập');
+        } 
+        return apiResponse(2, 'Gửi thiếu dữ liệu');  
+    }
+     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 ?>
