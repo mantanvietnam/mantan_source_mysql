@@ -53,7 +53,7 @@ function deleteCommentIdObject($id_object, $keyword){
 function checkKeyword($keyword){
     global $controller;
      $modelKeyword = $controller->loadModel('Keywords');
-     $listData = $modelKeyword->find()->where($conditions)->order(['id'=>'desc'])->all()->toList();
+     $listData = $modelKeyword->find()->where(array())->order(['id'=>'desc'])->all()->toList();
      if(!empty($listData) && !empty($keyword)){
         foreach($listData as $key => $item){
             $keyword =  str_replace($item->keyword, $item->replacement, $keyword);
