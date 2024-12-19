@@ -71,7 +71,194 @@ function statisticalnumberbook($input) {
         setVariable('urlPage', $urlPage);
     }
 }
-function statisticalorderbook($input) {
+function statisticalorderbookborrow($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+
+    $user = checklogin('statisticalorderbook');
+    if (!empty($user)) {
+        $metaTitleMantan = 'Thống kê số lượng sách mượn theo tháng';
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelOrders = $controller->loadModel('Orders');
+        $year = isset($_GET['year']) ? (int)$_GET['year'] : (int)date('Y');
+
+        $month = isset($_GET['month']) ? (int)$_GET['month'] : (int)date('m');
+        $limit = 10; 
+
+        $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
+        if ($page < 1) $page = 1;
+
+        $startDate = strtotime("$year-$month-01 00:00:00"); 
+        $today = strtotime('today 23:59:59'); 
+        
+        $endDate = min($today, strtotime("$year-$month-" . date('t', $startDate) . " 23:59:59")); 
+        $orders = $modelOrders->find()
+            ->where(['Orders.created_at >=' => $startDate, 'Orders.created_at <=' => $endDate])
+            ->page($page)
+            ->limit($limit)
+            ->toArray();
+        $orderIds = array_map(function ($order) {
+            return $order->id;
+        }, $orders);
+
+
+        if (!empty($orderIds)) {
+        
+            $orderDetails = $modelOrderDetails->find()
+                ->where(['OrderDetails.order_id IN' => $orderIds])
+                ->toArray();
+        } else {
+
+            $orderDetails = [];
+        }
+
+        $orderDateMap = [];
+        foreach ($orders as $order) {
+            $orderDateMap[$order->id] = $order->created_at;
+        }
+
+        $listDataWithCreatedAt = [];
+        $dateCounts = [];
+        $currentDate = $startDate;
+        while ($currentDate <= $endDate) {
+            $date = date('Y-m-d', $currentDate);
+            $dateCounts[$date] = 0; 
+            $currentDate = strtotime("+1 day", $currentDate);
+        }
+        foreach ($orderDetails as $detail) {
+           
+            $createdAt = isset($orderDateMap[$detail->order_id])
+                ? date('Y-m-d', $orderDateMap[$detail->order_id])
+                : 'Không xác định';
+            if (isset($dateCounts[$createdAt])) {
+                $dateCounts[$createdAt]++;
+            }
+            $listDataWithCreatedAt[] = [
+                'book_id' => $detail->book_id,
+                'created_at' => $createdAt,
+            ];
+        }
+        $totalData = $modelOrders->find()
+            ->where(['Orders.created_at >=' => $startDate, 'Orders.created_at <=' => $endDate])
+            ->count();
+        $totalPage = ceil($totalData / $limit);
+        $back = ($page > 1) ? $page - 1 : 1;
+        $next = ($page < $totalPage) ? $page + 1 : $totalPage;
+        $urlPage = preg_replace('/([&?])page=\d+/', '', $urlCurrent);
+        $urlPage = strpos($urlPage, '?') !== false ? $urlPage . '&page=' : $urlPage . '?page=';
+        setVariable('listDataWithCreatedAt', $listDataWithCreatedAt);
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('chartDates', array_keys($dateCounts));
+        setVariable('chartCounts', array_values($dateCounts));
+        setVariable('year', $year);
+        setVariable('month', $month);
+    }
+}
+function statisticalorderbookpay($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+
+    $user = checklogin('statisticalorderbook');
+    if (!empty($user)) {
+        $metaTitleMantan = 'Thống kê số lượng sách trả theo tháng';
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelOrders = $controller->loadModel('Orders');
+        $year = isset($_GET['year']) ? (int)$_GET['year'] : (int)date('Y');
+        $month = isset($_GET['month']) ? (int)$_GET['month'] : (int)date('m');
+        $limit = 10;
+
+        $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
+        if ($page < 1) $page = 1;
+
+    
+        $startDate = strtotime("$year-$month-01 00:00:00");
+
+       
+        $orders = $modelOrders->find()
+            ->where(['Orders.updated_at >=' => $startDate, 'Orders.status' => 2])
+            ->page($page)
+            ->limit($limit)
+            ->toArray();
+
+        $orderIds = array_map(function ($order) {
+            return $order->id;
+        }, $orders);
+
+        if (!empty($orderIds)) {
+           
+            $orderDetails = $modelOrderDetails->find()
+                ->where(['OrderDetails.order_id IN' => $orderIds])
+                ->toArray();
+        } else {
+            $orderDetails = [];
+        }
+
+        $orderDateMap = [];
+        foreach ($orders as $order) {
+            $orderDateMap[$order->id] = $order->updated_at; 
+        }
+
+    
+        $listDataWithUpdatedAt = [];
+        $dateCounts = [];
+        $currentDate = $startDate;
+
+       
+        while (date('Y-m', $currentDate) == "$year-$month") {
+            $date = date('Y-m-d', $currentDate);
+            $dateCounts[$date] = 0;
+            $currentDate = strtotime("+1 day", $currentDate);
+        }
+
+ 
+        foreach ($orderDetails as $detail) {
+            $updatedAt = isset($orderDateMap[$detail->order_id])
+                ? date('Y-m-d', $orderDateMap[$detail->order_id])
+                : 'Không xác định';
+            if (isset($dateCounts[$updatedAt])) {
+                $dateCounts[$updatedAt]++;
+            }
+            $listDataWithUpdatedAt[] = [
+                'book_id' => $detail->book_id,
+                'updated_at' => $updatedAt,
+            ];
+        }
+
+
+        $totalData = $modelOrders->find()
+            ->where(['Orders.updated_at >=' => $startDate, 'Orders.status' => 2])
+            ->count();
+
+        $totalPage = ceil($totalData / $limit);
+        $back = ($page > 1) ? $page - 1 : 1;
+        $next = ($page < $totalPage) ? $page + 1 : $totalPage;
+        $urlPage = preg_replace('/([&?])page=\d+/', '', $urlCurrent);
+        $urlPage = strpos($urlPage, '?') !== false ? $urlPage . '&page=' : $urlPage . '?page=';
+
+    
+        setVariable('listDataWithUpdatedAt', $listDataWithUpdatedAt);
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('chartDates', array_keys($dateCounts));
+        setVariable('chartCounts', array_values($dateCounts));
+        setVariable('year', $year);
+        setVariable('month', $month);
+    }
+}
+
+function statisticalorderbookborrowten($input)
+{
     global $controller;
     global $urlCurrent;
     global $metaTitleMantan;
@@ -79,87 +266,94 @@ function statisticalorderbook($input) {
     $user = checklogin('statisticalorderbook');
     if (!empty($user)) {
         $metaTitleMantan = 'Thống kê số lượng sách mượn nhiều nhất';
-        $modelmembers = $controller->loadModel('members');
-        $modelwarehouses = $controller->loadModel('warehouses');
-        $modelbooks = $controller->loadModel('books');
-        $modelbuiding = $controller->loadModel('buildings');
-        $modelOrders = $controller->loadModel('Orders');
+
+ 
         $modelOrderDetails = $controller->loadModel('OrderDetails');
-        
-        $conditions = array();
-        if (!empty($_GET['id'])) {
-            $conditions['book_id'] = (int)$_GET['id'];
-        }
+        $modelOrders = $controller->loadModel('Orders');
+        $modelBooks = $controller->loadModel('Books');  
 
-        // Cập nhật truy vấn phân trang
-        $limit = 8;
-        $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
-        if ($page < 1) $page = 1;
-        
-        // Sử dụng phương thức page() và limit() của CakePHP
-        $query = $modelOrderDetails->find();
-        $query->select(['book_id', 'count' => $query->func()->count('book_id')])
-              ->where($conditions)
-              ->group('book_id')
-              ->order(['count' => 'desc'])
-              ->limit($limit)
-              ->page($page);
+       
+        $orders = $modelOrders->find()
+            ->where()  
+            ->toArray();
 
-        $listData = $query->all()->toList();
-        
-        // Tính toán tổng số bản ghi và tổng số trang
-        $totalData = count($modelOrderDetails->find()->where($conditions)->group('book_id')->all()->toList());
-        $totalPage = ceil($totalData / $limit);
-        $back = ($page > 1) ? $page - 1 : 1;
-        $next = ($page < $totalPage) ? $page + 1 : $totalPage;
 
-        if (isset($_GET['page'])) {
-            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
-            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
-        } else {
-            $urlPage = $urlCurrent;
-        }
-        if (strpos($urlPage, '?') !== false) {
-            $urlPage = $urlPage . '&page=';
-        } else {
-            $urlPage = $urlPage . '?page=';
-        }
+        $bookBorrowCount = [];
 
-        $building = $modelbuiding->find()->where(['id' => $user->idbuilding])->first();
-        $listDataWithBookNames = [];
-        $maxQuantity = 0;
-        $maxBookName = '';
 
-        foreach ($listData as $data) {
-            $book = $modelbooks->find()->where(['id' => $data->book_id])->first();
-            $bookName = $book ? $book->name : 'Không tên';  
-            $quantity = $data->count;
+        foreach ($orders as $order) {
+            $orderDetails = $modelOrderDetails->find()
+                ->where(['OrderDetails.order_id' => $order->id])
+                ->toArray();
 
-            // Cập nhật quyển sách mượn nhiều nhất
-            if ($quantity > $maxQuantity) {
-                $maxQuantity = $quantity;
-                $maxBookName = $bookName;
+            foreach ($orderDetails as $detail) {
+                $bookId = $detail->book_id;
+                if (!isset($bookBorrowCount[$bookId])) {
+                    $bookBorrowCount[$bookId] = 0;
+                }
+                $bookBorrowCount[$bookId]++;
             }
-
-            $listDataWithBookNames[] = [
-                'book_name' => $bookName,  
-                'quantity' => $quantity,
-            ];
         }
 
-        // Truyền biến vào view
-        setVariable('maxBookName', $maxBookName);
-        setVariable('maxQuantity', $maxQuantity);
-        setVariable('listDataWithBookNames', $listDataWithBookNames);
-        setVariable('building', $building);
-        setVariable('listData', $listData);
-        setVariable('page', $page);
-        setVariable('totalPage', $totalPage);
-        setVariable('back', $back);
-        setVariable('next', $next);
-        setVariable('urlPage', $urlPage);
+
+        arsort($bookBorrowCount);
+
+   
+        $topBooks = array_slice($bookBorrowCount, 0, 10, true);
+
+
+        $bookNames = [];
+        foreach (array_keys($topBooks) as $bookId) {
+            $book = $modelBooks->find()->where(['Books.id' => $bookId])->first();
+            if ($book) {
+                $bookNames[$bookId] = $book->name; 
+            }
+        }
+
+ 
+        setVariable('topBooks', $topBooks);
+        setVariable('urlCurrent', $urlCurrent);
+
+      
+        $bookNamesArray = array_values($bookNames);  
+        $borrowCounts = array_values($topBooks);  
+
+        setVariable('chartBookNames', json_encode($bookNamesArray)); 
+        setVariable('chartBorrowCounts', json_encode($borrowCounts));  
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

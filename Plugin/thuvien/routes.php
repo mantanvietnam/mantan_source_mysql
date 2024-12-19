@@ -22,7 +22,11 @@
 	$routesPlugin['listbook']= 'thuvien/view/home/book/listbook.php';
 	$routesPlugin['addbook']= 'thuvien/view/home/book/addbook.php';
 	$routesPlugin['statisticalnumberbook']= 'thuvien/view/home/statistical/statisticalnumberbook.php';
-	$routesPlugin['statisticalorderbook']= 'thuvien/view/home/statistical/statisticalorderbook.php';
+	$routesPlugin['statisticalorderbookborrow']= 'thuvien/view/home/statistical/statisticalorderbookborrow.php';
+	$routesPlugin['statisticalorderbookpay']= 'thuvien/view/home/statistical/statisticalorderbookpay.php';
+	$routesPlugin['statisticalorderbookborrowten']= 'thuvien/view/home/statistical/statisticalorderbookborrowten.php';
+
+
 	$routesPlugin['categorybook']= 'thuvien/view/home/book/categorybook.php';
 	$routesPlugin['historybook']= 'thuvien/view/home/book/historybook.php';
 	$routesPlugin['changequanlitybook']= 'thuvien/view/home/book/changequanlitybook.php';

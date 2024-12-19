@@ -165,7 +165,9 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="order">
                 <a class="dropdown-item" href="/statisticalnumberbook">Số lượng sách</a>
-                <a class="dropdown-item" href="/statisticalorderbook">Số lượng mượn sách</a>
+                <a class="dropdown-item" href="/statisticalorderbookborrow">Số lượng mượn sách theo ngày</a>
+                <a class="dropdown-item" href="/statisticalorderbookpay">Số lượng trả sách theo ngày</a>
+                <a class="dropdown-item" href="/statisticalorderbookborrowten">10 quyển sách được mượn nhiều nhất</a>
               </div>
             </li>
             <li class="nav-item dropdown">
