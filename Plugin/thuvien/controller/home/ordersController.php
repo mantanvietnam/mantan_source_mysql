@@ -65,7 +65,6 @@ function listOrder($input)
 
             $titleExcel = [
                 ['name' => 'ID', 'type' => 'text', 'width' => 10],
-                ['name' => 'Mã đơn hàng', 'type' => 'text', 'width' => 20],
                 ['name' => 'Tên khách hàng', 'type' => 'text', 'width' => 25],
                 ['name' => 'Số điện thoại', 'type' => 'text', 'width' => 15],
                 ['name' => 'Tòa nhà', 'type' => 'text', 'width' => 20],
@@ -152,7 +151,7 @@ function addOrder($input)
     global $isRequestPost;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Tạo hoặc Chỉnh sửa Đơn hàng';
+    $metaTitleMantan = 'Tạo hoặc sửa đơn mượn';
 
     $modelOrders = $controller->loadModel('Orders');
     $modelOrderDetails = $controller->loadModel('OrderDetails');
@@ -236,13 +235,13 @@ function addOrder($input)
                     }
                 }
             } else {
-                $mess = '<p class="text-warning">Không có chi tiết đơn hàng nào được thêm.</p>';
+                $mess = '<p class="text-warning">Không có chi tiết đơn mượn nào được thêm.</p>';
             }
 
-            $mess = '<p class="text-success">Tạo hoặc cập nhật đơn hàng thành công.</p>';
+            $mess = '<p class="text-success">Tạo hoặc cập nhật đơn mượn thành công.</p>';
             return $controller->redirect('/listOrder?mess=saveSuccess');
         } else {
-            $mess = '<p class="text-danger">Lưu đơn hàng không thành công.</p>';
+            $mess = '<p class="text-danger">Lưu đơn mượn không thành công.</p>';
         }
     }
 
@@ -253,4 +252,60 @@ function addOrder($input)
     setVariable('books', $books);
     setVariable('orderDetails', $orderDetails);
 }
+
+function deleteOrder($input){  
+    global $isRequestPost;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Xóa đơn mượn';
+    
+    $user = checklogin('deleteOrder');   
+    if (!empty($user)) {
+        if (empty($user->grant_permission)) {
+            return $controller->redirect('/');
+        }
+
+        $modelOrders = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+
+        if (!empty($_GET['id'])) {
+            $orderId = (int)$_GET['id'];
+
+            $order = $modelOrders->find()->where(['id' => $orderId])->first();
+
+            if (!empty($order)) {
+                $orderDetails = $modelOrderDetails->find()->where(['order_id' => $orderId])->all()->toList();
+
+                foreach ($orderDetails as $detail) {
+                    $warehouse = $modelWarehouses->find()->where(['id' => $detail->warehouse_id])->first();
+
+                    if ($warehouse) {
+                        $warehouse->quantity_borrow -= $detail->quantity;
+
+                        if ($warehouse->quantity_borrow < 0) {
+                            $warehouse->quantity_borrow = 0;
+                        }
+
+                        $modelWarehouses->save($warehouse);
+                    }
+
+                    $modelOrderDetails->delete($detail);
+                }
+
+                $note = $user->name . ' xóa đơn mượn có ID là: ' . $order->id;
+                addActivityHistory($user, $note, 'deleteOrder', $order->id);
+
+                $modelOrders->delete($order);
+
+                return $controller->redirect('/listOrder?error=requestDeleteSuccess');
+            }
+        }
+    } else {
+        return $controller->redirect('/');
+    }
+}
+
 

@@ -161,6 +161,16 @@ $menus[4]['sub'][]= array('title'=>'Cài đặt',
                                 'classIcon'=>'bx bxs-data',
                                 'permission'=>'setingabout'
                                 ),
+                        array(  'title'=>'Cài đặt trang về sản phẩm',
+                                'url'=>'/plugins/admin/colennao-view-admin-seting-settingproduct',
+                                'classIcon'=>'bx bxs-data',
+                                'permission'=>'settingproduct'
+                                ),
+                        array(  'title'=>'Cài đặt trang về business',
+                                'url'=>'/plugins/admin/colennao-view-admin-seting-settingbusiness',
+                                'classIcon'=>'bx bxs-data',
+                                'permission'=>'settingbusiness'
+                                ),
         )
 
     );

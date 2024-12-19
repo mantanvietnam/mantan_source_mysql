@@ -16,7 +16,10 @@
 	$routesPlugin['ai-create-image']= 'phoenix_ai/view/home/ai/aiCreateImage.php';
 	$routesPlugin['ai-create-marketing']= 'phoenix_ai/view/home/ai/aiCreateMarketing.php';
 	$routesPlugin['ai-create-content']= 'phoenix_ai/view/home/ai/aiCreateContent.php';
+	
 	$routesPlugin['ai-search-image-event']= 'phoenix_ai/view/home/ai/aiSearchImageEvent.php';
+	$routesPlugin['addSearchImageEvent']= 'phoenix_ai/view/home/ai/addSearchImageEvent.php';
+	$routesPlugin['deleteSearchImageEvent']= 'phoenix_ai/view/home/ai/deleteSearchImageEvent.php';
 
 
 	$routesPlugin['ai-search-image']= 'phoenix_ai/view/home/ai/aiSearchImage.php';
