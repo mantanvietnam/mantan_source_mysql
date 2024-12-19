@@ -119,3 +119,64 @@ function updateOrderStatus() {
 
     return $return;
 }
+
+
+function getOrderDetailsByOrderIdAPI() {
+    global $controller;
+
+    $return = array();
+
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelBooks = $controller->loadModel('Books');
+    $modelCustomers = $controller->loadModel('Customers');
+
+    $dataSend = $_REQUEST;
+    $orderId = !empty($dataSend['order_id']) ? (int) $dataSend['order_id'] : null;
+
+        if (empty($orderId) || !is_numeric($orderId)) {
+            $return[] = array(
+                'id' => 0,
+                'label' => 'ID đơn hàng không hợp lệ.',
+                'value' => ''
+            );
+            return $return;
+        }
+
+        $order = $modelOrders->find()->where(['id' => $orderId])->first();
+        if (empty($order)) {
+            $return[] = array(
+                'id' => 0,
+                'label' => 'Không tìm thấy đơn hàng.',
+                'value' => ''
+            );
+            return $return;
+        }
+
+        $customer = $modelCustomers->find()->where(['id' => $order->customer_id])->first();
+        $return[] = array(
+            'order_id' => $order->id,
+            'customer_name' => $customer->name,
+            'customer_phone' => $customer->phone,
+            'customer_email' => $customer->email,
+            'return_deadline' => date('d-m-Y H:i:s', strtotime($order->return_deadline))
+        );
+
+        $orderDetails = $modelOrderDetails->find()->where(['order_id' => $orderId])->all()->toList();
+
+        $orderDetailData = [];
+        foreach ($orderDetails as $detail) {
+            $book = $modelBooks->find()->where(['id' => $detail->book_id])->first();
+            $orderDetailData[] = array(
+                'id' => $detail->id,
+                'book_name' => $book ? $book->name : 'N/A',
+                'quantity' => $detail->quantity
+            );
+        }
+
+        return array(
+            'order_info' => $return,
+            'order_details' => $orderDetailData
+        );
+}
+

@@ -1,0 +1,402 @@
+.font-plus {
+  font-family: "Plus Jakarta Sans", sans-serif; /* Dùng font Plus Jakarta Sans */
+}
+
+.font-roboto {
+  font-family: "Roboto", sans-serif; /* Dùng font Roboto thay cho SVN-Gilroy */
+}
+
+.font-inter {
+  font-family: "Inter", sans-serif; /* Dùng font Inter */
+}
+
+body {
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* index */
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Hiển thị trên hình nền */
+  background-image: url("/image/index/bgOverlay.png"); /* Đường dẫn tới ảnh overlay */
+  background-size: cover; /* Đảm bảo ảnh phủ toàn bộ phần tử */
+  background-position: center; /* Căn giữa ảnh */
+  opacity: 0.8; /* Độ mờ của ảnh overlay (có thể điều chỉnh từ 0 đến 1) */
+}
+
+.background-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Đảm bảo overlay không che mất các nội dung khác */
+}
+
+/* Reset mặc định */
+.nav-sectionpage a {
+  position: relative;
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Hiệu ứng hover */
+.nav-sectionpage a:hover::after {
+  width: 100%;
+}
+
+.nav-sectionpage a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 0;
+  height: 1.5px;
+  background-color: white;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Reset mặc định */
+.nav-projectpage a {
+  position: relative;
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Hiệu ứng hover */
+.nav-projectpage a:hover::after {
+  width: 100%;
+}
+
+.nav-projectpage a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 0;
+  height: 1.5px;
+  background-color: #142a72;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Thanh điều hướng dọc khi hiển thị */
+#sideNav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #fff;
+  color: black;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1;
+}
+
+#sideNav.open {
+  transform: translateX(0);
+}
+
+/* Hiệu ứng mờ khi mở thanh nav */
+#overlay {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#overlay.active {
+  display: block;
+}
+
+/* Kiểu chung cho các nút nhóm property-button */
+.property-button {
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
+  background-color: rgba(255, 255, 255, 0.6); /* Nền hơi trong suốt mặc định */
+  color: #6b7280; /* Màu chữ xám mặc định */
+  padding: 12px;
+}
+
+/* Kiểu cho nút active */
+.property-button.active {
+  background-color: white;
+  color: black;
+}
+
+/* Kiểu cho nút không active */
+.property-button:not(.active) {
+  background-color: rgba(255, 255, 255, 0.6); /* Nền hơi trong suốt */
+  color: #6b7280; /* Màu chữ xám */
+}
+
+/* Đảm bảo đoạn mô tả cố định chiều cao và thêm dấu "..." nếu vượt quá */
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Hiển thị tối đa 3 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 4.5rem; /* Điều chỉnh chiều cao phù hợp với số dòng */
+  line-height: 1.5rem; /* Dòng cách nhau */
+}
+
+/* Đảm bảo đoạn mô tả cố định chiều cao và thêm dấu "..." nếu vượt quá */
+.description-news {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Hiển thị tối đa 3 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5rem; /* Dòng cách nhau */
+}
+
+/* Reset mặc định */
+.heroSection-project-select a {
+  position: relative;
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+
+.heroSection-project-select .active {
+  color: #8ba2ff;
+}
+
+.heroSection-project-select .active::after,
+.heroSection-project-select a:hover::after {
+  width: 100%;
+}
+
+.heroSection-project-select a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -16px;
+  width: 0;
+  height: 1.5px;
+  background-color: #8ba2ff;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Reset mặc định */
+.heroSection-news-select a {
+  position: relative;
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease-in-out;
+}
+
+.heroSection-news-select .active {
+  color: #142a72;
+}
+
+.heroSection-news-select .active::after,
+.heroSection-news-select a:hover::after {
+  width: 100%;
+}
+
+.heroSection-news-select a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -16px;
+  width: 0;
+  height: 1.5px;
+  background-color: #142a72;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Reset mặc định */
+.news-select a {
+  position: relative;
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease-in-out;
+}
+
+.news-select .active {
+  color: #142a72;
+}
+
+.news-select .active::after,
+.news-select a:hover::after {
+  width: 100%;
+}
+
+.news-select a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -16px;
+  width: 0;
+  height: 1.5px;
+  background-color: #142a72;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Reset mặc định */
+.heroSection-location-select a {
+  position: relative;
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease-in-out;
+}
+
+.heroSection-location-select .active {
+  color: #142a72;
+}
+
+.heroSection-location-select .active::after,
+.heroSection-location-select a:hover::after {
+  width: 100%;
+}
+
+.heroSection-location-select a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -16px;
+  width: 0;
+  height: 1.5px;
+  background-color: #142a72;
+  transition: width 0.3s ease-in-out;
+}
+
+.buttonActive {
+  background: linear-gradient(90deg, #182c77 0%, #6274bb 100%);
+  color: white;
+}
+
+.mySwiper-image {
+  width: 100%; /* Giới hạn chiều rộng */
+  max-width: 800px; /* Tùy chọn: giới hạn chiều rộng tối đa */
+  height: 400px; /* Điều chỉnh chiều cao */
+}
+/* Media query cho màn hình nhỏ */
+@media (max-width: 768px) {
+  .mySwiper-image {
+    height: 330px; /* Chiều cao cho màn hình nhỏ hơn */
+  }
+}
+
+@media (max-width: 480px) {
+  .mySwiper-image {
+    height: 230px; /* Chiều cao cho màn hình rất nhỏ */
+  }
+}
+.mySwiper-image .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mySwiper-image .swiper-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.mySwiper-image .swiper-button-prev::after,
+.mySwiper-image .swiper-button-next::after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+.mySwiper-Projects {
+  width: 100%; /* Giới hạn chiều rộng */
+  max-width: 100%; /* Tùy chọn: giới hạn chiều rộng tối đa */
+  height: 100%; /* Điều chỉnh chiều cao */
+}
+
+.mySwiper-Projects .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mySwiper-Projects .swiper-slide a {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Tùy chỉnh nút Next và Prev */
+.mySwiper-Projects .swiper-button-next,
+.mySwiper-Projects .swiper-button-prev {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white; /* Nền trắng */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  z-index: 10;
+  cursor: pointer;
+}
+
+.mySwiper-Projects .swiper-button-next {
+  right: 10px;
+}
+
+.mySwiper-Projects .swiper-button-prev {
+  left: 10px;
+}
+
+/* Mũi tên trong nút */
+.mySwiper-Projects .swiper-button-next::after,
+.mySwiper-Projects .swiper-button-prev::after {
+  font-size: 16px;
+  color: #182c77; /* Màu mũi tên */
+  font-weight: bold;
+}
+
+/* Chỉnh sửa cho các nút khi hover */
+.mySwiper-Projects .swiper-button-next:hover,
+.mySwiper-Projects .swiper-button-prev:hover {
+  background-color: #6274bb; /* Màu nền khi hover */
+}
+
+.mySwiper-Projects .swiper-button-next:hover::after,
+.mySwiper-Projects .swiper-button-prev:hover::after {
+  color: white; /* Màu mũi tên khi hover */
+}
+
+.bgNumber {
+  background: linear-gradient(
+    90deg,
+    rgba(186, 130, 58, 0.2) 0%,
+    rgba(233, 168, 34, 0.2) 100%
+  );
+}
+
+#tab-content {
+  display: block;
+}
+
+/* Styling for the tab content */
+.tab-content-news {
+  display: none;
+}
+
+.tab-content-news.active {
+  display: block;
+}
+
+/* Styling for the active tab */
+.tab-link.active {
+  color: #182c77; /* Active tab color */
+}

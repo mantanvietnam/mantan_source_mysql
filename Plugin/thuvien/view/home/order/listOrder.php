@@ -2,6 +2,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 
+
 <div class="container-xxl flex-grow-1 container-p-y">
 
   <h4 class="fw-bold py-3 mb-4">
@@ -14,7 +15,7 @@
 <!-- Form Search -->
 <form method="get" action="">
   <div class="card mb-4">
-    <h5 class="card-header">Tìm kiếm đơn hàng</h5>
+    <h5 class="card-header">Tìm kiếm đơn mượn</h5>
     <div class="card-body">
       <div class="row gx-3 gy-2 align-items-center">
         <div class="col-md-2">
@@ -54,7 +55,7 @@
 
 <!-- Responsive Table -->
 <div class="card row">
-  <h5 class="card-header">Danh sách đơn hàng - <span class="text-danger"><?php echo number_format(@$totalData); ?> đơn</span></h5>
+  <h5 class="card-header">Danh sách đơn mượn - <span class="text-danger"><?php echo number_format(@$totalData); ?> đơn</span></h5>
   <?php echo @$mess; ?>
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -74,60 +75,66 @@
       </thead>
       <tbody>
       <tbody>
-          <?php 
-          if (!empty($listData)) {
-              foreach ($listData as $order) {
-                  $disabled = ($order->status == 2) ? 'disabled' : '';
-                  $statusId = $order->status;
+    <?php 
+    if (!empty($listData)) {
+        foreach ($listData as $order) {
+            $disabled = ($order->status == 2) ? 'disabled' : '';
+            $statusId = $order->status;
 
-                  echo '<tr>
-                      <td>' . $order->id . '</td>
-                      <td>' . ($order->customer->name ?? 'N/A') . '</td>
-                      <td>' . ($order->customer->phone ?? 'N/A') . '</td>
-                      <td>' . ($order->building->name ?? 'N/A') . '</td>
-                      <td>' . date('d-m-Y H:i:s', $order->created_at) . '</td>
-                      <td>' . date('d-m-Y H:i:s', $order->return_deadline) . '</td>
-                      <td>
-                          <select class="status-dropdown" onchange="updateOrderStatus(' . $order->id . ', this.value)" ' . $disabled . '>';
-                              if (!empty($order->return_deadline) && $order->return_deadline < time() && $order->status == 1) {
-                                  echo '<option value="1" class="status-late" selected>Trễ hẹn</option>';
-                              } elseif ($order->status == 1) {
-                                  echo '<option value="1" class="status-borrowing" selected>Đang mượn</option>';
-                              }
+            $customerName = !empty($order->customer) ? htmlspecialchars($order->customer->name, ENT_QUOTES) : 'N/A';
+            $customerPhone = !empty($order->customer) ? htmlspecialchars($order->customer->phone, ENT_QUOTES) : 'N/A';
+            $buildingName = !empty($order->building) ? htmlspecialchars($order->building->name, ENT_QUOTES) : 'N/A';
+            $createdAt = !empty($order->created_at) ? date('d-m-Y H:i:s', $order->created_at) : 'N/A';
+            $returnDeadline = !empty($order->return_deadline) ? date('d-m-Y H:i:s', $order->return_deadline) : 'N/A';
 
-                              echo '<option value="2" class="status-returned" ' . ($order->status == 2 ? 'selected' : '') . '>Đã trả</option>';
-                          echo '</select>
-                      </td>
-                      <td width="5%" align="center">
-                          <a class="dropdown-item" href="/orderDetail/?id=' . $order->id . '">
-                              <i class="bx bx-show me-1"></i>
-                          </a>
-                      </td>
-                      <td width="5%" align="center">';
-                          if ($order->status != 2) {
-                              echo '<a class="dropdown-item" href="/addOrder/?id=' . $order->id . '">
-                                      <i class="bx bx-edit-alt me-1"></i>
-                                    </a>';
-                          } else {
-                              echo '<span class="dropdown-item">
-                                      <i class="fa-solid fa-ban "></i>
-                                    </span>';
-                          }
-                      echo '</td>
-                      <td align="center">
-                          <a class="dropdown-item" onclick="deleteOrder(' . $order->id . ')">
-                              <i class="bx bx-trash me-1"></i>
-                          </a>
-                      </td>
-                  </tr>';
-              }
-          } else {
-              echo '<tr>
-                  <td colspan="10" align="center">Chưa có dữ liệu</td>
-              </tr>';
-          }
-          ?>
-        </tbody>
+            echo '<tr>
+                <td>' . htmlspecialchars($order->id, ENT_QUOTES) . '</td>
+                <td>' . $customerName . '</td>
+                <td>' . $customerPhone . '</td>
+                <td>' . $buildingName . '</td>
+                <td>' . $createdAt . '</td>
+                <td>' . $returnDeadline . '</td>
+                <td>
+                    <select class="status-dropdown" onchange="updateOrderStatus(' . htmlspecialchars($order->id, ENT_QUOTES) . ', this.value)" ' . $disabled . '>';
+                        if (!empty($order->return_deadline) && is_numeric($order->return_deadline) && $order->return_deadline < time() && $order->status == 1) {
+                            echo '<option value="1" class="status-late" selected>Trễ hẹn</option>';
+                        } elseif ($order->status == 1) {
+                            echo '<option value="1" class="status-borrowing" selected>Đang mượn</option>';
+                        }
+                        echo '<option value="2" class="status-returned" ' . ($order->status == 2 ? 'selected' : '') . '>Đã trả</option>';
+                    echo '</select>
+                </td>
+                <td width="5%" align="center">
+                    <a class="dropdown-item" href="javascript:void(0);" onclick="fetchOrderDetails(' . htmlspecialchars($order->id, ENT_QUOTES) . ')">
+                        <i class="bx bx-show me-1"></i>
+                    </a>
+                </td>
+                <td width="5%" align="center">';
+                    if ($order->status != 2) {
+                        echo '<a class="dropdown-item" href="/addOrder/?id=' . htmlspecialchars($order->id, ENT_QUOTES) . '">
+                                <i class="bx bx-edit-alt me-1"></i>
+                              </a>';
+                    } else {
+                        echo '<span class="dropdown-item">
+                                <i class="fa-solid fa-ban"></i>
+                              </span>';
+                    }
+                echo '</td>
+                <td align="center">
+                    <a class="dropdown-item" onclick="deleteOrder(' . htmlspecialchars($order->id, ENT_QUOTES) . ')">
+                        <i class="bx bx-trash me-1"></i>
+                    </a>
+                </td>
+            </tr>';
+        }
+    } else {
+        echo '<tr>
+            <td colspan="10" align="center"><em class="text-muted">Chưa có dữ liệu</em></td>
+        </tr>';
+    }
+    ?>
+</tbody>
+
     </table>
   </div>
 
@@ -177,6 +184,26 @@
 </div>
 <!--/ Responsive Table -->
 </div>
+
+<!-- Dialog -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">Chi tiết đơn hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <style>
 .status-dropdown {
@@ -228,40 +255,23 @@
 
 
 function updateOrderStatus(orderId, newStatus) {
-    // Log chi tiết thông tin đầu vào
-    console.log('Cập nhật trạng thái đơn hàng');
-    console.log('Order ID:', orderId);
-    console.log('New Status:', newStatus);
-
-    // Hiển thị hộp thoại xác nhận
-    var confirmation = confirm('Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng này không?');
-
-    if (confirmation) {
-        console.log('Xác nhận đã được đồng ý. Gửi yêu cầu AJAX để cập nhật trạng thái...');
-
-        // Gửi AJAX request
+    var confirmation = confirm('Bạn có chắc chắn muốn cập nhật trạng thái đơn mượn này không?');
         $.ajax({
             method: "POST",
-            url: "/apis/updateOrderStatus", // Đường dẫn đến API
+            url: "/apis/updateOrderStatus",
             data: {
                 id: orderId,
                 status: newStatus
             },
             success: function(response) {
-                console.log('Response từ server:', response);
-
                 try {
-                    // Nếu phản hồi từ server là chuỗi, parse thành JSON
                     response = typeof response === 'string' ? JSON.parse(response) : response;
 
-                    // Log phản hồi thành công hoặc thất bại
                     if (response.success === true) {
-                        console.log('Cập nhật trạng thái thành công:', response.message);
-                        alert(response.message); // Hiển thị thông báo thành công
-                        location.reload(); // Tải lại trang để cập nhật dữ liệu
+                        alert(response.message);
+                        location.reload();
                     } else {
-                        console.log('Cập nhật không thành công:', response.message || 'Không có thông báo chi tiết.');
-                        alert(response.message || 'Cập nhật không thành công.'); // Thông báo lỗi từ server
+                        alert(response.message || 'Cập nhật không thành công.');
                     }
                 } catch (error) {
                     console.error('Lỗi khi xử lý phản hồi JSON:', error);
@@ -269,15 +279,91 @@ function updateOrderStatus(orderId, newStatus) {
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                // Log lỗi xảy ra trong quá trình gửi request
                 console.error('Có lỗi xảy ra khi gửi yêu cầu AJAX:', textStatus, errorThrown);
                 alert('Có lỗi xảy ra khi kết nối đến server. Vui lòng thử lại.');
             }
         });
-    } else {
-        console.log('Người dùng hủy bỏ hành động cập nhật trạng thái.');
+}
+
+function deleteOrder(id) {
+    var check = confirm('Bạn có chắc chắn muốn xóa đơn mượn này không?');
+
+    if (check) {
+        $.ajax({
+            method: "GET",
+            url: "/deleteOrder?id=" + id,
+            data: {}
+        })
+        .done(function( msg ) {
+            window.location = '/listOrder';
+          })
+          .fail(function() {
+            window.location = '/listOrder';
+          });
     }
 }
+
+
+
+function fetchOrderDetails(orderId) {
+    $.ajax({
+        url: `/apis/getOrderDetailsByOrderIdAPI`,
+        method: 'GET',
+        data: { order_id: orderId },
+        beforeSend: function() {
+        },
+        success: function(response) {
+
+            if (response.order_info.length > 0) {
+                let orderInfo = response.order_info[0]; 
+                let orderDetails = response.order_details;
+
+                let customerName = orderInfo.customer_name || 'N/A';
+                let customerPhone = orderInfo.customer_phone || 'N/A';
+                let customerEmail = orderInfo.customer_email || '';
+                let returnDeadline = orderInfo.return_deadline || 'N/A';
+
+                let orderInfoHtml = `
+                    <p><strong>ID:</strong> ${orderInfo.order_id}</p>
+                    <p><strong>Tên khách hàng:</strong> ${customerName}</p>
+                    <p><strong>Điện thoại:</strong> ${customerPhone}</p>
+                    <p><strong>Email:</strong> ${customerEmail}</p>
+                    <p><strong>Hạn trả:</strong> ${returnDeadline}</p>
+                `;
+
+                let detailsHtml = '<table class="table"><thead><tr><th>Sản phẩm</th><th>Số lượng</th></tr></thead><tbody>';
+                
+                orderDetails.forEach(detail => {
+                    detailsHtml += `
+                        <tr>
+                            <td>${detail.book_name}</td>
+                            <td>${detail.quantity}</td>
+                        </tr>
+                    `;
+                });
+
+                detailsHtml += '</tbody></table>';
+                $('#orderDetailsModal .modal-body').html(orderInfoHtml + detailsHtml);
+                $('#orderDetailsModal').modal('show');
+            } else {
+                alert('Không tìm thấy chi tiết đơn hàng.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error occurred:', {
+                status: status,
+                error: error,
+                responseText: xhr.responseText
+            });
+            alert('Đã xảy ra lỗi khi gọi API.');
+        },
+        complete: function() {
+        }
+    });
+}
+
+$('#orderDetailsModal').on('hidden.bs.modal', function () {
+});
 
 </script>
 
