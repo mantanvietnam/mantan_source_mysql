@@ -24,7 +24,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Background</label>
-                        <?php showUploadFile('background_image', 'background_image', @$setting['background_image']); ?>
+                        <?php showUploadFile('background_image', 'background_image', @$setting['background_image'],6); ?>
                     </div>
                     <button type="submit" class="btn btn-primary">Lưu</button>
                 </div>
@@ -122,11 +122,11 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Logo khối</label>
-                            <?php showUploadFile('logo_introduce', 'logo_introduce', @$setting['logo_introduce'], 1); ?>
+                            <?php showUploadFile('logo_introduce', 'logo_introduce', @$setting['logo_introduce'], 2); ?>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Ảnh khối</label>
-                            <?php showUploadFile('image_introduce', 'image_introduce', @$setting['image_introduce'], 1); ?>
+                            <?php showUploadFile('image_introduce', 'image_introduce', @$setting['image_introduce'], 3); ?>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
@@ -188,11 +188,11 @@
                     </div>
                     <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ảnh mục 1</label>
-                    <?php showUploadFile('image1_news_hot','image1_news_hot', @$setting['image1_news_hot'],15);?>
+                    <?php showUploadFile('image1_news_hot','image1_news_hot', @$setting['image1_news_hot'],4);?>
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ảnh mục 2</label>
-                    <?php showUploadFile('image2_news_hot','image2_news_hot', @$setting['image2_news_hot'],15);?>
+                    <?php showUploadFile('image2_news_hot','image2_news_hot', @$setting['image2_news_hot'],5);?>
                   </div>
                 </div>
             </div>

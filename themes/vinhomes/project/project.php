@@ -10,6 +10,12 @@
         .nav-projectpage a{
           color: black !important;
         }
+        .setcolor {
+          color: #333 !important;
+        }
+        .setcolor a{
+          color: #333 !important;
+        }
     </style>
 
     <!-- Bộ lọc tìm kiếm -->

@@ -8,7 +8,12 @@ getHeader();
         .background-header{
           background-image: none !important;
         }
-       
+        .setcolor {
+          color: #333 !important;
+        }
+        .setcolor a{
+          color: #333 !important;
+        }
     </style>
   <div
       class="relative bg-center bg-cover font-plus slide-bottom"

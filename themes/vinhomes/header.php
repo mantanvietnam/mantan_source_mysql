@@ -54,7 +54,7 @@ $setting = setting();
                 "                
                 width="30"
               />
-              <span class="text-lg font-bold text-white">
+              <span class="text-lg font-bold text-white setcolor">
               <?php echo $setting['text_logo'] ?>
               </span>
             </a>
@@ -62,7 +62,7 @@ $setting = setting();
               class="items-center hidden space-x-2 lg:flex md:property-button lg:space-x-6 xl:space-x-16"
             >
               <nav
-                class="flex space-x-2 text-white nav-sectionpage lg:space-x-6 xl:space-x-16">
+                class="flex space-x-2 text-white nav-sectionpage lg:space-x-6 xl:space-x-16 setcolor">
                 <?php  
                       $menus = getMenusDefault();  
                
