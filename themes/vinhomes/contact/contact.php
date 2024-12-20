@@ -4,8 +4,13 @@ global $isHome;
 $setting = setting();
 getHeader();
 ?>
-<section id="lien-he">
-<div
+   <style>
+        .background-header{
+          background-image: none !important;
+        }
+       
+    </style>
+  <div
       class="relative bg-center bg-cover font-plus slide-bottom"
       style="background-image: url('<?= $urlThemeActive ?>image/contact/bgContact.jpg')"
     >
@@ -15,24 +20,22 @@ getHeader();
       >
         <div class="w-auto">
           <h1 class="mb-4 text-4xl font-bold">
-          <?php echo @$setting['nameContact']; ?>
+            MinhTuanVinhomes - Chung tay xây dựng cộng đồng Vinhomes
           </h1>
           <p class="mb-8 text-lg">
-          <?php echo @$setting['contentContact']; ?>
+            Hãy để chúng tôi trở thành cầu nối giúp bạn đến gần hơn với cuộc
+            sống thượng lưu tại các quần thể đô thị Vinhomes.
           </p>
         </div>
-        <form action="" method = "post"
+        <form
           class="grid w-full grid-cols-1 gap-4 text-gray-800 sm:grid-cols-2"
         >
-        <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
-        <div class="contact-form">
           <!-- Họ và tên -->
           <div class="relative col-span-2 sm:col-span-1">
             <input
               class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Họ và tên *"
               type="text"
-              value="" name="name"
             />
           </div>
 
@@ -42,7 +45,6 @@ getHeader();
               class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Mục đích sử dụng BĐS"
               type="text"
-              value="" name="subject"
             />
           </div>
 
@@ -52,7 +54,6 @@ getHeader();
               class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Số điện thoại *"
               type="text"
-              value="" name="phone_number"
             />
           </div>
 
@@ -62,7 +63,6 @@ getHeader();
               class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Địa chỉ Email"
               type="email"
-              value="" name="email"
             />
           </div>
 
@@ -71,7 +71,6 @@ getHeader();
             <textarea
               class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Lời nhắn của bạn *"
-              value="" name="content"
             ></textarea>
           </div>
 
@@ -88,20 +87,19 @@ getHeader();
             Bằng việc gửi yêu cầu tư vấn, bạn đồng ý với Chính sách bảo mật của
             chúng tôi và đồng ý được MinhTuanVinhomes liên hệ hỗ trợ.
           </p>
-        </div>
         </form>
       </div>
-    </div>
-
-    <!-- thông tin liên hệ -->
-    <div
+  </div>
+  <div
       class="max-w-4xl px-4 py-16 mx-auto text-center sm:px-6 lg:px-8 slide-bottom"
     >
       <h2 class="text-lg font-semibold text-[#142a72]">
-      <?php echo @$setting['nameContactFooter']; ?> <span class="text-yellow-500">Vinhomes</span>
+        Liên hệ ngay với MinhTuan <span class="text-yellow-500">Vinhomes</span>
       </h2>
       <p class="mt-4 text-[#64748B]">
-        <?php echo @$setting['contentContactFooter']; ?>
+        Với hơn 100 nhân viên tư vấn trên mọi phương diện, không chỉ là hướng
+        dẫn và xử lý các vấn đề về Bất động sản, chúng tôi luôn mong cùng chia
+        sẻ các kinh nghiệm giúp bạn chạm tới những giá trị sống của tương lai.
       </p>
 
       <div class="flex justify-center">
@@ -117,23 +115,22 @@ getHeader();
         <div class="mt-4">
           <p class="font-bold">
             Hotline tư vấn dịch vụ:
-            <span class="font-medium text-[#64748B]"><?php echo $contactSite['phone'];?></span>
+            <span class="font-medium text-[#64748B]">(123) 456-7890</span>
           </p>
           <p class="font-bold">
             Email tư vấn dịch vụ:
             <span class="font-medium text-[#64748B]"
-              ><?php echo $contactSite['email'];?></span
+              >info@minhtuanvinhomes.com</span
             >
           </p>
           <p class="font-bold">
             Địa chỉ văn phòng:
             <span class="font-medium text-[#64748B]"
-              ><?php echo $contactSite['address'];?></span
+              >123 Serenity Street, Suburbia, TX 75001</span
             >
           </p>
         </div>
       </div>
     </div>
-    </section>
     <?php
 getFooter();
