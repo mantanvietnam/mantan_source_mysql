@@ -208,9 +208,12 @@ function createcontentfacebookanyAPI($input){
 
                 }
             }
-              $reply_ai = callAIphoenixtech($question,$conversation_id);
+            $reply_ai = callAIphoenixtech($question,$conversation_id);
 
-              $chat = array('result'=>$reply_ai['result'],
+            $reply = '<h1>Tạo bài viết facebook từ nội dung bất kì</h1>'.$reply_ai['result'];
+            $reply_ai['result'] = $reply;
+
+            $chat = array('result'=>$reply_ai['result'],
                             'conversation_id'=>$reply_ai['conversation_id'],
                             'topic'=>@$dataSend['topic'],
                             );
@@ -336,7 +339,7 @@ function savecontentfacebookanyAPI($input){
 
                 $checkContent->type = 'write_contentfacebook';
             }
-            $title = 'Tạo 6 bài viết từ nội dung bất kỳ';
+            $title = 'Tạo bài viết từ nội dung bất kỳ về chủ đề '.$chat['topic'];
 
 
             if(!empty($dataSend['title'])){

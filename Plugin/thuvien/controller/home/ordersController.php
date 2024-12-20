@@ -13,6 +13,7 @@ function listOrder($input)
     $modelMembers = $controller->loadModel('Members');
     $modelCustomers = $controller->loadModel('Customers');
     $modelBuildings = $controller->loadModel('Buildings');
+    $modelBook = $controller->loadModel('Books');
 
     if (!empty($user)) {
         if (empty($user->grant_permission)) {
@@ -21,7 +22,7 @@ function listOrder($input)
 
         $metaTitleMantan = 'Danh sách cho mượn sách';
 
-        $order = ['id' => 'desc'];
+        $order = ['Orders.id' => 'desc'];
         $limit = 20;
         $conditions = [];
 
@@ -29,7 +30,7 @@ function listOrder($input)
         if ($page < 1) $page = 1;
 
         if(!empty($_GET['id'])){
-            $conditions['id'] = (int)$_GET['id'];
+            $conditions['Orders.id'] = (int)$_GET['id'];
         }
 
         if (!empty($_GET['name']) || !empty($_GET['phone'])) {
@@ -51,26 +52,37 @@ function listOrder($input)
                 $customerIds = array_map(function ($customer) {
                     return $customer->id;
                 }, $matchingCustomers);
-                $conditions['customer_id IN'] = $customerIds;
+                $conditions['Orders.customer_id IN'] = $customerIds;
             } else {
-                $conditions['customer_id'] = -1;
+                $conditions['Orders.customer_id'] = -1;
             }
         }
 
+        if(!empty($_GET['id_book'])){
+            $conditions['od.id_book'] = (int)$_GET['id_book'];
+        }
+
+        $join = [
+            'table' => 'order_details',
+            'alias' => 'od',
+            'type' => 'INNER',
+            'conditions' => 'od.order_id = Orders.id',
+        ];
+
         if (!empty($_GET['status'])) {
-            $conditions['status'] = $_GET['status'];
+            $conditions['Orders.status'] = $_GET['status'];
         }
         if (!empty($_GET['start_date']) && !empty($_GET['end_date'])) {
             $startDate = $_GET['start_date'];
             $endDate = $_GET['end_date'];
-            $conditions['created_at >='] = date('Y-m-d 00:00:00', strtotime($startDate));
-            $conditions['created_at <='] = date('Y-m-d 23:59:59', strtotime($endDate));
+            $conditions['Orders.created_at >='] = date('Y-m-d 00:00:00', strtotime($startDate));
+            $conditions['Orders.created_at <='] = date('Y-m-d 23:59:59', strtotime($endDate));
         } elseif (!empty($_GET['start_date'])) {
             $startDate = $_GET['start_date'];
-            $conditions['created_at >='] = date('Y-m-d 00:00:00', strtotime($startDate));
+            $conditions['Orders.created_at >='] = date('Y-m-d 00:00:00', strtotime($startDate));
         } elseif (!empty($_GET['end_date'])) {
             $endDate = $_GET['end_date'];
-            $conditions['created_at <='] = date('Y-m-d 23:59:59', strtotime($endDate));
+            $conditions['Orders.created_at <='] = date('Y-m-d 23:59:59', strtotime($endDate));
         }
 
         if (!empty($_GET['action']) && $_GET['action'] == 'Excel') {
@@ -115,10 +127,11 @@ function listOrder($input)
 
             export_excel($titleExcel, $dataExcel, 'danh_sach_đơn mượnmượn');
         } else {
-            $listData = $modelOrders->find()
+            $listData = $modelOrders->find()->join($join)
                 ->limit($limit)
                 ->page($page)
                 ->where($conditions)
+                ->group(['Orders.id'])
                 ->order($order)
                 ->all()
                 ->toList();
@@ -127,10 +140,18 @@ function listOrder($input)
                 $listData[$key]->customer = $modelCustomers->get($order->customer_id);
                 $listData[$key]->building = $modelBuildings->get($order->building_id);
                 $listData[$key]->member = $modelMembers->get($order->member_id);
+                $OrderDetail = $modelOrderDetails->find()->where(['order_id'=>$order->id])->all()->toList();
+                if(!empty($OrderDetail)){
+                    foreach($OrderDetail as $k => $item){
+                        $OrderDetail[$k]->book = $modelBook->find()->where(['id'=>$item->book_id])->first();
+                    }
+                }
+                $listData[$key]->orderDetail = $OrderDetail;
+
             }
         }
 
-        $totalData = $modelOrders->find()->where($conditions)->count();
+        $totalData = $modelOrders->find()->join($join)->where($conditions)->count();
         $totalPage = ceil($totalData / $limit);
         $back = max(1, $page - 1);
         $next = min($totalPage, $page + 1);
@@ -190,11 +211,13 @@ function addOrder($input)
     $conditions = [];
     $orderDetails = [];
     $mess = '';
-    $order = !empty($_GET['id']) 
-        ? $modelOrders->find()->where(['id' => (int)$_GET['id']])->first() 
-        : $modelOrders->newEmptyEntity();
+    if(!empty($_GET['id']) ){
+        $order = $modelOrders->find()->where(['id' => (int)$_GET['id']])->first();
+    }else{
+        $order = $modelOrders->newEmptyEntity();
+    }
 
-    if (!$order) {
+    if (empty($order)){
         return $controller->redirect('/listOrder');
     }
 
@@ -204,63 +227,68 @@ function addOrder($input)
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
+        if(!empty($dataSend['customer_id']) && !empty($dataSend['building_id']) && !empty($dataSend['return_deadline'])  && !empty($dataSend['order_books'])  && is_array($dataSend['order_books'])){
 
-        $order->member_id = (int)$user->id;
-        $order->customer_id = (int)$dataSend['customer_id'];
-        $order->building_id = (int)$dataSend['building_id'];
-        $order->status = (int)$dataSend['status'];
-        $order->created_at = !empty($order->id) ? $order->created_at : time();
-        $order->return_deadline = strtotime(str_replace('/', '-', $dataSend['return_deadline']));
-        $order->updated_at = time();
 
-        if ($modelOrders->save($order)) {
+            $order->member_id = (int)$user->id;
+            $order->customer_id = (int)$dataSend['customer_id'];
+            $order->building_id = (int)$dataSend['building_id'];
+            $order->status = (int)$dataSend['status'];
+            $order->created_at = !empty($order->id) ? $order->created_at : time();
+            $order->return_deadline = strtotime(str_replace('/', '-', $dataSend['return_deadline']));
+            $order->updated_at = time();
 
-            if (isset($dataSend['order_books']) && is_array($dataSend['order_books'])) {
-                foreach ($dataSend['order_books'] as $detail) {
-                    if (!empty($detail['book_id']) && !empty($detail['quantity']) && !empty($detail['warehouse_id'])) {
-                        $orderDetail = $modelOrderDetails->find()->where(['order_id' => $order->id, 'book_id' => $detail['book_id']])->first();
-                        $oldQuantity = $orderDetail ? $orderDetail->quantity : 0;
+            if ($modelOrders->save($order)) {
 
-                        if ($orderDetail) {
-                            $orderDetail->quantity = (int)$detail['quantity'];
-                            $orderDetail->warehouse_id = (int)$detail['warehouse_id'];
-                            $modelOrderDetails->save($orderDetail);
-                        } else {
-                            $orderDetail = $modelOrderDetails->newEmptyEntity();
-                            $orderDetail->order_id = $order->id;
-                            $orderDetail->book_id = (int)$detail['book_id'];
-                            $orderDetail->quantity = (int)$detail['quantity'];
-                            $orderDetail->warehouse_id = (int)$detail['warehouse_id'];
+                if (isset($dataSend['order_books']) && is_array($dataSend['order_books'])) {
+                    foreach ($dataSend['order_books'] as $detail) {
+                        if (!empty($detail['book_id']) && !empty($detail['quantity']) && !empty($detail['warehouse_id'])) {
+                            $orderDetail = $modelOrderDetails->find()->where(['order_id' => $order->id, 'book_id' => $detail['book_id']])->first();
+                            $oldQuantity = $orderDetail ? $orderDetail->quantity : 0;
 
-                            $modelOrderDetails->save($orderDetail);
-                        }
+                            if ($orderDetail) {
+                                $orderDetail->quantity = (int)$detail['quantity'];
+                                $orderDetail->warehouse_id = (int)$detail['warehouse_id'];
+                                $modelOrderDetails->save($orderDetail);
+                            } else {
+                                $orderDetail = $modelOrderDetails->newEmptyEntity();
+                                $orderDetail->order_id = $order->id;
+                                $orderDetail->book_id = (int)$detail['book_id'];
+                                $orderDetail->quantity = (int)$detail['quantity'];
+                                $orderDetail->warehouse_id = (int)$detail['warehouse_id'];
 
-                        $warehouse = $modelWarehouses->find()->where(['id' => $detail['warehouse_id']])->first();
-                        if ($warehouse) {
-                            $quantityDiff = $detail['quantity'] - $oldQuantity;
-
-                            if ($order->status == 1) {
-                                $warehouse->quantity_borrow += $quantityDiff;
-                            } elseif ($order->status == 2) {
-                                $warehouse->quantity_borrow -= $quantityDiff;
+                                $modelOrderDetails->save($orderDetail);
                             }
 
-                            if ($warehouse->quantity_borrow < 0) {
-                                $warehouse->quantity_borrow = 0;
-                            }
+                            $warehouse = $modelWarehouses->find()->where(['id' => $detail['warehouse_id']])->first();
+                            if ($warehouse) {
+                                $quantityDiff = $detail['quantity'] - $oldQuantity;
 
-                            $modelWarehouses->save($warehouse);
+                                if ($order->status == 1) {
+                                    $warehouse->quantity_borrow += $quantityDiff;
+                                } elseif ($order->status == 2) {
+                                    $warehouse->quantity_borrow -= $quantityDiff;
+                                }
+
+                                if ($warehouse->quantity_borrow < 0) {
+                                    $warehouse->quantity_borrow = 0;
+                                }
+
+                                $modelWarehouses->save($warehouse);
+                            }
                         }
                     }
+                } else {
+                    $mess = '<p class="text-warning">Không có chi tiết đơn mượn nào được thêm.</p>';
                 }
-            } else {
-                $mess = '<p class="text-warning">Không có chi tiết đơn mượn nào được thêm.</p>';
-            }
 
-            $mess = '<p class="text-success">Tạo hoặc cập nhật đơn mượn thành công.</p>';
-            return $controller->redirect('/listOrder?mess=saveSuccess');
-        } else {
-            $mess = '<p class="text-danger">Lưu đơn mượn không thành công.</p>';
+                $mess = '<p class="text-success">Tạo hoặc cập nhật đơn mượn thành công.</p>';
+                return $controller->redirect('/listOrder?mess=saveSuccess');
+            } else {
+                $mess = '<p class="text-danger">Lưu đơn mượn không thành công.</p>';
+            }
+        }else{
+            $mess = '<p class="text-danger">Bạn thiếu dữ liệu.</p>';
         }
     }
     
@@ -302,17 +330,17 @@ function deleteOrder($input){
 
                 foreach ($orderDetails as $detail) {
                     $warehouse = $modelWarehouses->find()->where(['id' => $detail->warehouse_id])->first();
+                    if(@$order==1){
+                        if ($warehouse) {
+                            $warehouse->quantity_borrow -= $detail->quantity;
 
-                    if ($warehouse) {
-                        $warehouse->quantity_borrow -= $detail->quantity;
+                            if ($warehouse->quantity_borrow < 0) {
+                                $warehouse->quantity_borrow = 0;
+                            }
 
-                        if ($warehouse->quantity_borrow < 0) {
-                            $warehouse->quantity_borrow = 0;
+                            $modelWarehouses->save($warehouse);
                         }
-
-                        $modelWarehouses->save($warehouse);
                     }
-
                     $modelOrderDetails->delete($detail);
                 }
 

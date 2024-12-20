@@ -42,7 +42,6 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3><?php echo @$bostAi['title']; ?></h3>
-                            <p><?php echo @$bostAi['district']; ?></p>
                           </div>
                         </div>
                       </div>
@@ -218,16 +217,17 @@ const aiThinking = document.getElementById('aiThinking');
 const showAiThinking = document.getElementById('showAiThinking');
 
 
-showAiThinking.addEventListener('click', () => {
+/*showAiThinking.addEventListener('click', () => {
   aiThinking.classList.remove('d-none'); 
   setTimeout(() => {
     aiThinking.classList.add('d-none'); 
   }, 15000); 
-});
+});*/
 </script>
 <script type="text/javascript">
 
     function sendquestion(){
+      aiThinking.classList.remove('d-none');
         var topic = $('#topic').val();
         console.log(topic);
         $.ajax({
@@ -236,12 +236,14 @@ showAiThinking.addEventListener('click', () => {
           data: {topic: topic, 
         }
     }).done(function( msg ) {
+      aiThinking.classList.add('d-none'); 
            console.log(msg);
             if(msg.code==1){
 
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
                 document.getElementById("result").value = msg.data.result;
                 CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
+                saveContentimageBlog();
             }
         })
 
@@ -260,6 +262,7 @@ showAiThinking.addEventListener('click', () => {
         
       
       if(conversation_id != '' && conversation_id!='0'){
+        aiThinking.classList.remove('d-none');
              $.ajax({
           method: "POST",
           url: "/apis/chatcontentfacebookanyAPI",
@@ -268,6 +271,7 @@ showAiThinking.addEventListener('click', () => {
             number_question: i, 
           }
         }).done(function( msg ) {
+          aiThinking.classList.add('d-none'); 
                 if(msg.code==1){
                   result += msg.data.result
                     document.getElementById("conversation_id").value = msg.data.conversation_id;

@@ -42,7 +42,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Tạo kịch bản Youtube</h3>
-                            <p><?php echo @$bostAi['district']; ?></p>
+                            <!-- <p><?php echo @$bostAi['district']; ?></p> -->
                           </div>
                         </div>
                       </div>
@@ -256,16 +256,17 @@ const aiThinking = document.getElementById('aiThinking');
 const showAiThinking = document.getElementById('showAiThinking');
 
 
-showAiThinking.addEventListener('click', () => {
-  aiThinking.classList.remove('d-none'); 
+/*showAiThinking.addEventListener('click', () => {
+  
   setTimeout(() => {
     aiThinking.classList.add('d-none'); 
   }, 15000); 
-});
+});*/
 </script>
 <script type="text/javascript">
 
     function sendquestion(){
+      aiThinking.classList.remove('d-none'); 
         var topic = $('#topic').val();
         $.ajax({
           method: "POST",
@@ -274,9 +275,11 @@ showAiThinking.addEventListener('click', () => {
         }
     }).done(function( msg ) {
             if(msg.code==1){
+               aiThinking.classList.add('d-none'); 
               document.getElementById("conversation_id").value = msg.data.conversation_id;
               document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
               CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
+              saveContentBlog();
             }
         })
 
@@ -290,13 +293,9 @@ showAiThinking.addEventListener('click', () => {
 <script type="text/javascript">
 
     function sendquestionNet(i){
+      aiThinking.classList.remove('d-none'); 
         var conversation_id = $('#conversation_id').val();
         var result = $('#result').val();
-      
-        
-           console.log(i);
-           console.log(result);
-      
       if(conversation_id != '' && conversation_id!='0'){
              $.ajax({
           method: "POST",
@@ -306,7 +305,7 @@ showAiThinking.addEventListener('click', () => {
             type: i, 
           }
         }).done(function( msg ) {
-           console.log(msg);
+           aiThinking.classList.add('d-none'); 
                 if(msg.code==1){
                   result += '/\n/g'+msg.data.result;
                   document.getElementById("conversation_id").value = msg.data.conversation_id;

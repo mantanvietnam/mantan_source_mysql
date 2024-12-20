@@ -217,18 +217,18 @@ const aiThinking = document.getElementById('aiThinking');
 const showAiThinking = document.getElementById('showAiThinking');
 
 
-showAiThinking.addEventListener('click', () => {
-  aiThinking.classList.remove('d-none'); 
+/*showAiThinking.addEventListener('click', () => {
+  
   setTimeout(() => {
-    aiThinking.classList.add('d-none'); 
+  
   }, 15000); 
-});
+});*/
 </script>
 <script type="text/javascript">
 
     function sendquestion(){
         var customer_target = $('#customer_target').val();
-      
+        aiThinking.classList.remove('d-none'); 
         var topic = $('#topic').val();
       
         $.ajax({
@@ -239,10 +239,11 @@ showAiThinking.addEventListener('click', () => {
         }
     }).done(function( msg ) {
             if(msg.code==1){
-
+                aiThinking.classList.add('d-none'); 
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
                 document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
                 CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
+                savecontentFacebook();
             }
         })
 

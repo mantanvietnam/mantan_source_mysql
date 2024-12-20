@@ -218,7 +218,8 @@ function addCommentApi($input){
                  if($dataSend['keyword']=='wall_post'){
                         $checkWallPost = $modelWallPost->find()->where(['id'=>(int)$dataSend['id_object']])->first();
                     if(!empty($checkWallPost)){
-
+                        $checkWallPost->updated_at = time();
+                        $modelWallPost->save($checkWallPost);
                         $customer = $modelCustomer->find()->where(['id'=>$checkWallPost->id_customer])->first();
                         $dataSendNotification= array('title'=>"$user->full_name bình luận bài viết của bạn",
                             'time'=>date('H:i d/m/Y'),

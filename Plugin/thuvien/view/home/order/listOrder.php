@@ -75,9 +75,18 @@
       <thead>
         <tr>
           <th>ID </th>
-          <th>Tên khách hàng</th>
-          <th>Số điện thoại</th>
-          <th>Tòa nhà</th>
+          <th>Thông tin khách hàng</th>
+          <th width="30%" style=" padding: 0; ">
+                  <table  class="table table-borderless" >
+                    <thead>
+                      <th colspan="4" class="text-center">Thông tin đơn hàng</th> 
+                      <tr>
+                        <th width="40%">sách</th>
+                        <th width="20%">Số lượng </th>
+                      </tr>
+                    </thead>
+                  </table>
+                </th>
           <th>Ngày mượn</th>
           <th>Hạn trả</th>
           <th>Trạng thái</th>
@@ -91,7 +100,7 @@
     <?php 
     if (!empty($listData)) {
         foreach ($listData as $order) {
-            $disabled = ($order->status == 2) ? 'disabled' : '';
+            $disabled = ($order->status == 2) ? '<p class="text-success">Đã trả</p>' : '<p class="text-danger">Đang mượn</p>';
             $statusId = $order->status;
 
             $customerName = !empty($order->customer) ? htmlspecialchars($order->customer->name, ENT_QUOTES) : 'N/A';
@@ -102,21 +111,25 @@
 
             echo '<tr>
                 <td>' . htmlspecialchars($order->id, ENT_QUOTES) . '</td>
-                <td>' . $customerName . '</td>
-                <td>' . $customerPhone . '</td>
-                <td>' . $buildingName . '</td>
+                <td>' . $customerName . '</br>
+                    ' . $customerPhone . '</td>
+                    <td style=" padding: 0;display: contents; ">
+                <table  class="table table-borderless">
+                <tbody>';
+                if(!empty($order->orderDetail)){ 
+                  foreach($order->orderDetail as $k => $value){
+                        echo '<tr> 
+                                <td  width="40%">'.$value->book->name.'</td>
+                                <td  width="20%" align="center">'.number_format($value->quantity).'</td>
+                              </tr>';
+                  }
+                } 
+                echo '  </tbody>
+                </table>
+                </td>
                 <td>' . $createdAt . '</td>
                 <td>' . $returnDeadline . '</td>
-                <td>
-                    <select class="status-dropdown" onchange="updateOrderStatus(' . htmlspecialchars($order->id, ENT_QUOTES) . ', this.value)" ' . $disabled . '>';
-                        if (!empty($order->return_deadline) && is_numeric($order->return_deadline) && $order->return_deadline < time() && $order->status == 1) {
-                            echo '<option value="1" class="status-late" selected>Trễ hẹn</option>';
-                        } elseif ($order->status == 1) {
-                            echo '<option value="1" class="status-borrowing" selected>Đang mượn</option>';
-                        }
-                        echo '<option value="2" class="status-returned" ' . ($order->status == 2 ? 'selected' : '') . '>Đã trả</option>';
-                    echo '</select>
-                </td>
+                <td>'. $disabled.' </td>
                 <td width="5%" align="center">
                     <a class="dropdown-item" href="javascript:void(0);" onclick="fetchOrderDetails(' . htmlspecialchars($order->id, ENT_QUOTES) . ')">
                         <i class="bx bx-show me-1"></i>

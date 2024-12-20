@@ -41,7 +41,6 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3>Phân tích chân dung khách hàng</h3>
-                            <p>Phân tích chân dung khách hàng cơ bản</p>
                           </div>
                         </div>
                       </div>
@@ -51,27 +50,12 @@
                 <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                      <!-- <div class="title-write">
-                        <h3>GPT Model</h3>
-                      </div>
-                      <div class="select-gpt-model">
-                        <select class="form-select" aria-label="Default select example">
-                          <option value="">GPT-4o-Mini</option>
-                          <option value="">GPT-4o</option>
-                          <option value="">Aiva image</option>
-                          <option value="">Gemini</option>
-                        </select>
-                      </div> -->
-                      <!-- <div class="form-check form-switch mt-2 mb-2">
-                        <input class="form-check-input" type="checkbox" id="toggleSwitch">
-                        <label class="form-check-label" for="toggleSwitch">Giọng điệu thương hiệu</label>
-                      </div> -->
+                     
                      
                       <div>
                         <div class="mb-3">
                           <label for="text" class="form-label">Nhập sản phần chủ đề của bạn</label>
                           <textarea type="text" placeholder="VD:mắt sáng...." class="form-control" id="product_servce" name="product_servce" rows="2" cols="30"></textarea>
-
                         <input class="form-check-input" type="hidden" id="conversation_id" value="<?php echo @$data['conversation_id'] ?>">
                         </div>
                       </div>
@@ -294,15 +278,14 @@ const showAiThinking = document.getElementById('showAiThinking');
 
 
 showAiThinking.addEventListener('click', () => {
-  aiThinking.classList.remove('d-none'); 
-  setTimeout(() => {
-    aiThinking.classList.add('d-none'); 
+  setTimeout(() => { 
   }, 15000); 
 });
 </script>
 <script type="text/javascript">
 
     function sendquestion(){
+        aiThinking.classList.remove('d-none'); 
         var customer_target = $('#customer_target').val();
       
         var product_servce = $('#product_servce').val();
@@ -313,6 +296,8 @@ showAiThinking.addEventListener('click', () => {
             product_servce: product_servce, 
         }
     }).done(function( msg ) {
+
+    aiThinking.classList.add('d-none');
             if(msg.code==1){
               document.getElementById("conversation_id").value = msg.data.conversation_id;
               document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
@@ -330,6 +315,7 @@ showAiThinking.addEventListener('click', () => {
 <script type="text/javascript">
 
     function sendquestionNet(i){
+        aiThinking.classList.remove('d-none'); 
         var conversation_id = $('#conversation_id').val();
         var result = $('#result').val();
       
@@ -346,6 +332,7 @@ showAiThinking.addEventListener('click', () => {
         }).done(function( msg ) {
                 console.log(msg);
                 if(msg.code==1){
+                  aiThinking.classList.add('d-none');
                   result += '/\n/g'+msg.data.result;
                   document.getElementById("conversation_id").value = msg.data.conversation_id;
                   document.getElementById("result").value = result.replace(/\n/g, '<br>');

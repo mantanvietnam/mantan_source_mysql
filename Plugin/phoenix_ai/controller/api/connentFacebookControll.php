@@ -37,8 +37,10 @@ function sendcontentFacebookAPI($input){
                 }
             }
 
-              $reply_ai = callAIphoenixtech($question,$conversation_id);
+            $reply_ai = callAIphoenixtech($question,$conversation_id);
 
+            $reply = '<h1>Viết 10 bài viết đăng Facebook</h1>'.$reply_ai['result'];
+            $reply_ai['result'] = $reply;
 
               $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
 
@@ -251,7 +253,7 @@ function sendcontentFacebookAdsAPI($input){
 
               $reply_ai = callAIphoenixtech($question,$conversation_id);
 
-               $reply = '<h1>Phân tích chân dung khách hàng</h1>'.$reply_ai['result'];
+             $reply = '<h1>Phân tích chân dung khách hàng</h1>'.$reply_ai['result'];
             $reply_ai['result'] = $reply;
 
               $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['product_servce']);
