@@ -176,6 +176,11 @@ $menus[4]['sub'][]= array('title'=>'Cài đặt',
                                 'classIcon'=>'bx bxs-data',
                                 'permission'=>'settingbusiness'
                                 ),
+                        array(  'title'=>'Cài đặt slide trang chủ',
+                                'url'=>'/plugins/admin/colennao-view-admin-seting-settinghome',
+                                'classIcon'=>'bx bxs-data',
+                                'permission'=>'settinghome'
+                                ),
         )
 
     );
@@ -197,7 +202,7 @@ $menus[5]['sub'][]= array( 'title'=>'Huấn luyện viên',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listcoach'
                     );
-$menus[5]['sub'][]= array(	'title'=>'Giảm cân',
+$menus[5]['sub'][]= array(	'title'=>'tin tức giảm cân',
                             'url'=>'/plugins/admin/colennao-view-admin-fasting-listfastingadmin',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listfastingadmin'

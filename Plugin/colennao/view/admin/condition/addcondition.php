@@ -79,7 +79,14 @@
                                             ?>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="answer[<?php echo $questionData['id']; ?>][]" value="<?php echo $valueMap[$i - 1]; ?>" id="<?php echo $answerKey . '-' . $questionData['id']; ?>">
-                                                    <label class="form-check-label" for="<?php echo $answerKey . '-' . $questionData['id']; ?>"><?php echo $questionData[$answerKey]; ?></label>
+                                                    <!-- <label class="form-check-label" for="<?php echo $answerKey . '-' . $questionData['id']; ?>"><?php echo $questionData[$answerKey]; ?></label> -->
+                                                    <label class="form-check-label" for="<?php echo $answerKey . '-' . $questionData['id']; ?>">
+                                                        <?php 
+                                                        $data = $questionData[$answerKey];
+                                                        $decodedData = json_decode($data, true);
+                                                        echo isset($decodedData['vi']) ? $decodedData['vi'] : $data; 
+                                                        ?>
+                                                    </label>
                                                 </div>
                                             <?php 
                                                 endif; 

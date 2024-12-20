@@ -18,12 +18,17 @@
       </li>
       <li class="nav-item">
         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-rule" aria-controls="navs-top-info" aria-selected="false">
-            section giới thiệu
+            Nội dung độc quyền
+        </button>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home2" aria-controls="navs-top-info" aria-selected="false">
+            nội dung giới thiệu 2
         </button>
       </li>
       <li class="nav-item">
         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-founder" aria-controls="navs-top-info" aria-selected="false">
-            Nội dung độc quyền
+            Sider
         </button>
       </li>
       <li class="nav-item">
@@ -133,6 +138,11 @@
             </div>
           </div>
         </div>
+        <div class="tab-pane fade" id="navs-top-home2" role="tabpanel">
+          <div class="card-body row ">
+            aaa
+          </div>
+        </div>
         <div class="tab-pane fade" id="navs-top-rule" role="tabpanel">
           <div class="card-body row ">
             <div class="col-md-6 mb-3">
@@ -239,7 +249,7 @@
               <input type="text" class="form-control phone-mask" name="title_coaching1" id="title_coaching1" value="<?php echo @$setting['title_coaching1'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
-              <label class="form-label">Tiêu đề tiếng annh</label>
+              <label class="form-label">Tiêu đề tiếng anh</label>
               <input type="text" class="form-control phone-mask" name="title_coaching1_en" id="title_coaching1_en" value="<?php echo @$setting['title_coaching1_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
@@ -247,30 +257,57 @@
               <input type="text" class="form-control phone-mask" name="text_description_coaching1" id="text_description_coaching1" value="<?php echo @$setting['text_description_coaching1'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 1 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description_coaching1_en" id="text_description_coaching1_en" value="<?php echo @$setting['text_description_coaching1_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 2</label>
               <input type="text" class="form-control phone-mask" name="text_description_coaching2" id="text_description_coaching2" value="<?php echo @$setting['text_description_coaching2'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 2 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description_coaching2_en" id="text_description_coaching2_en" value="<?php echo @$setting['text_description_coaching2_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 3</label>
               <input type="text" class="form-control phone-mask" name="text_description_coaching3" id="text_description_coaching3" value="<?php echo @$setting['text_description_coaching3'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 3 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description_coaching3_en" id="text_description_coaching3_en" value="<?php echo @$setting['text_description_coaching3_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 4</label>
               <input type="text" class="form-control phone-mask" name="text_description_coaching4" id="text_description_coaching4" value="<?php echo @$setting['text_description_coaching4'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 4 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description_coaching4_en" id="text_description_coaching4_en" value="<?php echo @$setting['text_description_coaching4_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 5</label>
               <input type="text" class="form-control phone-mask" name="text_description_coaching5" id="text_description_coaching5" value="<?php echo @$setting['text_description_coaching5'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 5 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description_coaching5_en" id="text_description_coaching5_en" value="<?php echo @$setting['text_description_coaching5_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 6</label>
               <input type="text" class="form-control phone-mask" name="text_description_coaching6" id="text_description_coaching6" value="<?php echo @$setting['text_description_coaching6'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 6 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description_coaching6_en" id="text_description_coaching6_en" value="<?php echo @$setting['text_description_coaching6_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 7</label>
               <input type="text" class="form-control phone-mask" name="text_description_coaching7" id="text_description_coaching7" value="<?php echo @$setting['text_description_coaching7'];?>"/>
             </div>
-
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 7 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description_coaching7_en" id="text_description_coaching7_en" value="<?php echo @$setting['text_description_coaching7_en'];?>"/>
+            </div>
 
             <div class="col-md-6 mb-3">
               <label class="form-label">Link video coaching</label>
@@ -289,30 +326,57 @@
               <input type="text" class="form-control phone-mask" name="text_description1_coaching1" id="text_description1_coaching1" value="<?php echo @$setting['text_description1_coaching1'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 1 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description1_coaching1_en" id="text_description1_coaching1_en" value="<?php echo @$setting['text_description1_coaching1_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 2</label>
               <input type="text" class="form-control phone-mask" name="text_description1_coaching2" id="text_description1_coaching2" value="<?php echo @$setting['text_description1_coaching2'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 2 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description2_coaching2_en" id="text_description2_coaching2_en" value="<?php echo @$setting['text_description2_coaching2_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 3</label>
               <input type="text" class="form-control phone-mask" name="text_description1_coaching3" id="text_description1_coaching3" value="<?php echo @$setting['text_description1_coaching3'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 1 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description3_coaching3_en" id="text_description3_coaching3_en" value="<?php echo @$setting['text_description3_coaching3_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 4</label>
               <input type="text" class="form-control phone-mask" name="text_description1_coaching4" id="text_description1_coaching4" value="<?php echo @$setting['text_description1_coaching4'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 4 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description4_coaching4_en" id="text_description4_coaching4_en" value="<?php echo @$setting['text_description4_coaching4_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 5</label>
               <input type="text" class="form-control phone-mask" name="text_description1_coaching5" id="text_description1_coaching5" value="<?php echo @$setting['text_description1_coaching5'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 5 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description5_coaching5_en" id="text_description5_coaching5_en" value="<?php echo @$setting['text_description5_coaching5_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 6</label>
               <input type="text" class="form-control phone-mask" name="text_description1_coaching6" id="text_description1_coaching6" value="<?php echo @$setting['text_description1_coaching6'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 6 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description6_coaching6_en" id="text_description6_coaching6_en" value="<?php echo @$setting['text_description6_coaching6_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 7</label>
               <input type="text" class="form-control phone-mask" name="text_description1_coaching7" id="text_description1_coaching7" value="<?php echo @$setting['text_description1_coaching7'];?>"/>
             </div>
-
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 7 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description7_coaching7_en" id="text_description7_coaching7_en" value="<?php echo @$setting['text_description7_coaching7_en'];?>"/>
+            </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">image</label>
                <?php showUploadFile('image_coaching','image_coaching', @$setting['image_coaching'],8);?>
@@ -330,28 +394,56 @@
               <input type="text" class="form-control phone-mask" name="text_description2_coaching1" id="text_description2_coaching1" value="<?php echo @$setting['text_description2_coaching1'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 1 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description2_coaching1_en" id="text_description2_coaching1_en" value="<?php echo @$setting['text_description2_coaching1_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 2</label>
               <input type="text" class="form-control phone-mask" name="text_description2_coaching2" id="text_description2_coaching2" value="<?php echo @$setting['text_description2_coaching2'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 2 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description1_coaching2_en" id="text_description1_coaching2_en" value="<?php echo @$setting['text_description1_coaching2_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 3</label>
               <input type="text" class="form-control phone-mask" name="text_description2_coaching3" id="text_description2_coaching3" value="<?php echo @$setting['text_description2_coaching3'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 3 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description2_coaching3_en" id="text_description2_coaching3_en" value="<?php echo @$setting['text_description2_coaching3_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 4</label>
               <input type="text" class="form-control phone-mask" name="text_description2_coaching4" id="text_description2_coaching4" value="<?php echo @$setting['text_description2_coaching4'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 4 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description2_coaching4_en" id="text_description2_coaching4_en" value="<?php echo @$setting['text_description2_coaching4_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 5</label>
               <input type="text" class="form-control phone-mask" name="text_description2_coaching5" id="text_description2_coaching5" value="<?php echo @$setting['text_description2_coaching5'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 5 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description2_coaching5_en" id="text_description2_coaching5_en" value="<?php echo @$setting['text_description2_coaching5_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 6</label>
               <input type="text" class="form-control phone-mask" name="text_description2_coaching6" id="text_description2_coaching6" value="<?php echo @$setting['text_description2_coaching6'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 6 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description2_coaching6_en" id="text_description2_coaching6_en" value="<?php echo @$setting['text_description2_coaching6_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
               <label class="form-label">text mô tả 7</label>
               <input type="text" class="form-control phone-mask" name="text_description2_coaching7" id="text_description2_coaching7" value="<?php echo @$setting['text_description2_coaching7'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">text mô tả 7 tiếng anh</label>
+              <input type="text" class="form-control phone-mask" name="text_description2_coaching7_en" id="text_description2_coaching7_en" value="<?php echo @$setting['text_description2_coaching7_en'];?>"/>
             </div>
 
 
@@ -359,7 +451,10 @@
         </div>
         <div class="tab-pane fade" id="navs-top-prize" role="tabpanel">
           <div class="card-body row ">
-
+          <div class="col-md-6 mb-3">
+              <label class="form-label">Slide giải thưởng và doanh nghiệp</label>
+              <input type="text" class="form-control phone-mask" name="id_slide_price" id="id_slide_price" value="<?php echo @$setting['id_slide_price'];?>"/>
+            </div>
           </div>
         </div>
       <div class="card-body">

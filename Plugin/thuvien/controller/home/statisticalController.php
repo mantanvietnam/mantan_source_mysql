@@ -92,14 +92,16 @@ function statisticalorderbookborrow($input)
 
         $startDate = strtotime("$year-$month-01 00:00:00"); 
         $today = strtotime('today 23:59:59'); 
-        
+        if(!empty($user->idbuilding)){
+            $idbuiding = $user->idbuilding;
+        }
+
         $endDate = min($today, strtotime("$year-$month-" . date('t', $startDate) . " 23:59:59")); 
         $orders = $modelOrders->find()
-            ->where(['Orders.created_at >=' => $startDate, 'Orders.created_at <=' => $endDate])
+            ->where(['Orders.created_at >=' => $startDate, 'Orders.created_at <=' => $endDate,'Orders.building_id' => $idbuiding])
             ->page($page)
             ->limit($limit)
             ->toArray();
-          
         $orderIds = array_map(function ($order) {
             return $order->id;
         }, $orders);
@@ -185,9 +187,11 @@ function statisticalorderbookpay($input)
     
         $startDate = strtotime("$year-$month-01 00:00:00");
 
-       
+        if(!empty($user->idbuilding)){
+            $idbuiding = $user->idbuilding;
+        }
         $orders = $modelOrders->find()
-            ->where(['Orders.updated_at >=' => $startDate, 'Orders.status' => 2])
+            ->where(['Orders.updated_at >=' => $startDate, 'Orders.status' => 2,'Orders.building_id' => $idbuiding])
             ->page($page)
             ->limit($limit)
             ->toArray();
@@ -275,10 +279,12 @@ function statisticalorderbookborrowten($input)
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelOrders = $controller->loadModel('Orders');
         $modelBooks = $controller->loadModel('Books');  
-
+        if(!empty($user->idbuilding)){
+            $idbuiding = $user->idbuilding;
+        }
        
         $orders = $modelOrders->find()
-            ->where()  
+            ->where(['Orders.building_id' => $idbuiding])  
             ->toArray();
 
 

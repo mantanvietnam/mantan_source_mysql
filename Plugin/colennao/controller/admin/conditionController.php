@@ -364,7 +364,6 @@ function addconditionkarate($input){
                 $existingData = $modeltbcondition->find()
                     ->where(['id_groupfile' => $dataSend['id_groupfile'], 'id_question' => $questionId])
                     ->first();
-    
                 if ($existingData) {
                     $existingData->answer = isset($dataSend['answer'][$questionId]) 
                         ? implode('', $dataSend['answer'][$questionId]) 

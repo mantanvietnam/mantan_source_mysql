@@ -9,7 +9,7 @@ function listfastingAPI($input)
     global $urlCurrent;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách các kiểu giảm cân';
+    $metaTitleMantan = 'Danh sách tin tức giảm cân';
     $modelfasting = $controller->loadModel('fasting');
     if($isRequestPost){
 		$dataSend = $input['request']->getData();
@@ -29,24 +29,33 @@ function listfastingAPI($input)
                 'vi' => [
                     'id' => $item->id,
                     'image' => $item->image,
-                    'name' => $item->name,
+                    'imageauthor' => $item->imageauthor,
+                    'title' => $item->title,
                     'description' => $item->description,
-                    'time_start' => $item->time_start,
-					'time_end' => $item->time_end,
-					'complete' => $item->complete,
-					'method' => $item->method,
+                    'author' => $item->author,
+                    'textsource1' => $item->textsource1,
+                    'textsource2' => $item->textsource2,
+                    'linksource1' => $item->linksource1,
+                    'linksource2' => $item->linksource2,
+                  
+					
                     'slug' => $item->slug,
                 ],
 
                 'en' => [
-                    'id' => $item->id,
+                    'titleen' => $item->titleen,
                     'image' => $item->image,
+                    'imageauthor' => $item->imageauthor,
                     'nameen' => $item->nameen,
                     'descriptionen' => $item->descriptionen,
-                    'time_start' => $item->time_start,
-					'time_end' => $item->time_end,
-					'complete' => $item->complete,
-					'method' => $item->method,
+                    'authoren' => $item->authoren,
+                    'textsource1' => $item->textsource1,
+                    'textsource2' => $item->textsource2,
+                    'linksource1' => $item->linksource1,
+                    'linksource2' => $item->linksource2,
+					
+					
+					
                     'slug' => $item->slug,
 
                 ]
@@ -82,27 +91,32 @@ function getfastingAPI($input)
             if (!empty($data)) { 
                 $formattedData[] = [
 					'vi' => [
-						'id' => $data->id,
-						'image' => $data->image,
-						'name' => $data->name,
-						'description' => $data->description,
-						'time_start' => $data->time_start,
-						'time_end' => $data->time_end,
-						'complete' => $data->complete,
-						'method' => $data->method,
-						'slug' => $data->slug,
+                        'id' => $data->id,
+                        'image' => $data->image,
+                        'imageauthor' => $data->imageauthor,
+                        'title' => $data->title,
+                        'description' => $data->description,
+                        'author' => $data->author,
+                        'textsource1' => $data->textsource1,
+                        'textsource2' => $data->textsource2,
+                        'linksource1' => $data->linksource1,
+                        'linksource2' => $data->linksource2,
+                        'slug' => $data->slug,
 					],
 	
 					'en' => [
-						'id' => $data->id,
-						'image' => $data->image,
-						'nameen' => $data->nameen,
-						'descriptionen' => $data->descriptionen,
-						'time_start' => $data->time_start,
-						'time_end' => $data->time_end,
-						'complete' => $data->complete,
-						'method' => $data->method,
-						'slug' => $data->slug,
+                        'id' => $data->id,
+                        'titleen' => $data->titleen,
+                        'image' => $data->image,
+                        'imageauthor' => $data->imageauthor,
+                        'nameen' => $data->nameen,
+                        'descriptionen' => $data->descriptionen,
+                        'authoren' => $data->authoren,
+                        'textsource1' => $data->textsource1,
+                        'textsource2' => $data->textsource2,
+                        'linksource1' => $data->linksource1,
+                        'linksource2' => $data->linksource2,
+                        'slug' => $data->slug,
 	
 					]
 			

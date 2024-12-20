@@ -51,16 +51,20 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// Dữ liệu cho biểu đồ (tháng và số lượng sách mượn)
-var months = <?php echo json_encode($chartDates); ?>;
-var bookCounts = <?php echo json_encode($chartCounts); ?>;
 
-// Kiểm tra và thay thế giá trị âm bằng 0 trong bookCounts
-bookCounts = bookCounts.map(function(count) {
-    return count < 0 ? 0 : count; // Thay giá trị âm bằng 0
+var months = <?php echo json_encode($chartDates); ?>;
+
+// Chỉ lấy phần ngày (giả sử định dạng là "YYYY-MM-DD")
+months = months.map(function(date) {
+    return date.split('-')[2]; // Lấy ngày (phần thứ 3 trong định dạng YYYY-MM-DD)
 });
 
-// Tạo biểu đồ
+var bookCounts = <?php echo json_encode($chartCounts); ?>;
+
+bookCounts = bookCounts.map(function(count) {
+    return count < 0 ? 0 : count; 
+});
+
 var ctx = document.getElementById('growthChart').getContext('2d');
 var growthChart = new Chart(ctx, {
     type: 'line',
@@ -81,7 +85,7 @@ var growthChart = new Chart(ctx, {
             x: {
                 title: {
                     display: true,
-                    text: 'Tháng'
+                    text: 'Ngày'
                 }
             },
             y: {
@@ -89,10 +93,11 @@ var growthChart = new Chart(ctx, {
                     display: true,
                     text: 'Số lượng sách mượn'
                 },
-                min: 0  // Đảm bảo trục Y không có giá trị âm
+                min: 0  
             }
         }
     }
 });
+
 </script>
 

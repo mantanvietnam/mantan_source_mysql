@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <!-- <h4 class="fw-bold py-3 mb-4">Giảm cân</h4> -->
-  <p><a href="/plugins/admin/colennao-view-admin-fasting-addtypefasting" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Thông tin Dự án</h4> 
+  <p><a href="/plugins/admin/home_project-view-admin-product_project-addProductProjectAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -14,9 +14,19 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên kiểu giảm cân</label>
+            <label class="form-label">Tên dự án</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
-          </div>          
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
+              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
+            </select>
+          </div>
+
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
@@ -29,37 +39,57 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách tin tức giảm cân</h5>
+    <h5 class="card-header">Danh sách Dự án</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Tên</th>
-            <th>sửa</th>
-            <th>xóa</th>
+            <th>Ảnh minh họa</th>
+            <th>Tên dự án</th>
+            <th>Mô tả</th>
+            <th>Trạng thái</th>
+            <th>Sửa</th>
+            <th>Xóa</th>
+
           </tr>
         </thead>
         <tbody>
-            <?php foreach ($listData as $item): ?>
-                <tr>
-                    <td><?php echo $item->id; ?></td>
-                    <td>
-                        <a target="_blank" href="/product/<?php echo $item->slug; ?>.html"><?php echo $item->title; ?></a>
-                        
-                    </td>
-                    <td align="center">
-                        <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-fasting-addtypefasting/?id=<?php echo urlencode($item->id); ?>">
+          <?php 
+            if(!empty($listData)){
+              foreach ($listData as $project_item) {
+                if($project_item->status == 'active'){
+                  $status ='<span class="text-success">Kích hoạt</span>';
+                }else{
+                  $status ='<span class="text-danger">Khóa</span>';
+                }
+                echo '<tr>
+                        <td>'.$project_item->id.'</td>
+                        <td><img src="'.$project_item->image.'" width="100" /></td>
+                        <td><a target="_blank" href="/project/'.$project_item->slug.'.html">'.$project_item->name.'</a></td>
+                        <td>'.$project_item->description.'</td>
+                        <td>'.$status.'</td>
+
+
+                        <td align="center">
+                          <a class="dropdown-item" href="/plugins/admin/home_project-view-admin-product_project-addProductProjectAdmin/?id='.$project_item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
-                        </a>
-                    </td>
-                    <td align="center">
-                        <a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/plugins/admin/colennao-view-admin-fasting-deletefasting/?id=<?php echo urlencode($item->id); ?>">
+                          </a>
+                        </td>
+                        <td align="center">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteProductProjectAdmin/?id='.$project_item->id.'">
                             <i class="bx bx-trash me-1"></i>
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+                          </a>
+                        </td>
+                        
+                      </tr>';
+              }
+            }else{
+              echo '<tr>
+                      <td colspan="10" align="center">Chưa có dữ liệu</td>
+                    </tr>';
+            }
+          ?>
         </tbody>
       </table>
     </div>

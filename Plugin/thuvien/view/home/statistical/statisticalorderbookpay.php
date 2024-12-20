@@ -51,15 +51,17 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-
 var days = <?php echo json_encode($chartDates); ?>;  
 var bookCounts = <?php echo json_encode($chartCounts); ?>;  
+
+days = days.map(function(date) {
+    return date.split('-')[2];
+});
 
 
 bookCounts = bookCounts.map(function(count) {
     return count < 0 ? 0 : count; 
 });
-
 
 var ctx = document.getElementById('growthChart').getContext('2d');
 var growthChart = new Chart(ctx, {
@@ -95,3 +97,4 @@ var growthChart = new Chart(ctx, {
     }
 });
 </script>
+

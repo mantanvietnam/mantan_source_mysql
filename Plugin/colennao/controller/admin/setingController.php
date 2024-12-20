@@ -35,7 +35,42 @@ function setingBankAccount($input){
     setVariable('setting', $data_value);
     setVariable('mess', $mess);
 }
+function settinghome($input){
+	global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
 
+    $metaTitleMantan = 'Cài đặt';
+    $mess= '';
+
+    $conditions = array('key_word' => 'setinghomepage');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $value = array('slide_home_page' => @$dataSend['slide_home_page'], 
+                       
+                    );
+        $data->key_word = 'setinghomepage';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
 function setingAbout($input){
     global $modelOptions;
     global $metaTitleMantan;
@@ -130,6 +165,14 @@ function settingproduct($input){
                         'text1_popular_en' => @$dataSend['text1_popular_en'],
                         'text2' => @$dataSend['text2'],
                         'text2_en' => @$dataSend['text2_en'],
+                        'desctv' => @$dataSend['desctv'],
+                        'descen' => @$dataSend['descen'],
+                        'desctv2' => @$dataSend['desctv2'],
+                        'descen2' => @$dataSend['descen2'],
+                        'text_description_banner_2' => @$dataSend['text_description_banner_2'],
+                        'text_description_banner2_en' => @$dataSend['text_description_banner2_en'],
+                        'image_banner_3' => @$dataSend['image_banner_3'],
+                       
                         'image_popular_1' => @$dataSend['image_popular_1'],
                         'image_popular_2' => @$dataSend['image_popular_2'],
                         'text_banner_1' => @$dataSend['text_banner_1'],
@@ -147,12 +190,10 @@ function settingproduct($input){
                         'link_dowload_banner' => @$dataSend['link_dowload_banner'],
 
 
-                        'title_slide_product' => @$dataSend['title_slide_product'],
-                        'title_slide_product_en' => @$dataSend['title_slide_product_en'],
-                        'slide_number_data' => @$dataSend['slide_number_data'],
-                        'slide_number_data_en' => @$dataSend['slide_number_data_en'],
-                        'description_data' => @$dataSend['description_data'],
-                        'description_data_en' => @$dataSend['description_data_en'],
+                        'id_slide_product' => @$dataSend['id_slide_product'],
+          
+
+
                         'discover_text_title1' => @$dataSend['discover_text_title1'],
                         'discover_text_title1_en' => @$dataSend['discover_text_title1_en'],
                         'discover_description_title1' => @$dataSend['discover_description_title1'],
@@ -278,6 +319,30 @@ function settingbusiness($input){
                         'text_description2_coaching5' => @$dataSend['text_description2_coaching5'],
                         'text_description2_coaching6' => @$dataSend['text_description2_coaching6'],
                         'text_description2_coaching7' => @$dataSend['text_description2_coaching7'],
+                        'text_description_coaching1_en' => @$dataSend['text_description_coaching1_en'],
+                        'text_description_coaching2_en' => @$dataSend['text_description_coaching2_en'],
+                        'text_description_coaching3_en' => @$dataSend['text_description_coaching3_en'],
+                        'text_description_coaching4_en' => @$dataSend['text_description_coaching4_en'],
+                        'text_description_coaching5_en' => @$dataSend['text_description_coaching5_en'],
+                        'text_description_coaching6_en' => @$dataSend['text_description_coaching6_en'],
+                        'text_description_coaching7_en' => @$dataSend['text_description_coaching7_en'],
+                        'text_description7_coaching7_en' => @$dataSend['text_description7_coaching7_en'],
+                        'text_description6_coaching6_en' => @$dataSend['text_description6_coaching6_en'],
+                        'text_description5_coaching5_en' => @$dataSend['text_description5_coaching5_en'],
+                        'text_description4_coaching4_en' => @$dataSend['text_description4_coaching4_en'],
+                        'text_description3_coaching3_en' => @$dataSend['text_description3_coaching3_en'],
+                        'text_description2_coaching2_en' => @$dataSend['text_description2_coaching2_en'],
+                        'text_description1_coaching1_en' => @$dataSend['text_description1_coaching1_en'],
+
+                        'text_description2_coaching1_en' => @$dataSend['text_description2_coaching1_en'],
+                        'text_description1_coaching2_en' => @$dataSend['text_description1_coaching2_en'],
+                        'text_description2_coaching3_en' => @$dataSend['text_description2_coaching3_en'],
+                        'text_description2_coaching4_en' => @$dataSend['text_description2_coaching4_en'],
+                        'text_description2_coaching5_en' => @$dataSend['text_description2_coaching5_en'],
+                        'text_description2_coaching6_en' => @$dataSend['text_description2_coaching6_en'],
+                        'text_description2_coaching7_en' => @$dataSend['text_description2_coaching7_en'],
+
+                        'id_slide_price' => @$dataSend['id_slide_price'],
 
                        
                     );

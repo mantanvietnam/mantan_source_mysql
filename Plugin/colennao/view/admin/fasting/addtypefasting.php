@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-fasting-listfastingadmin">Kế hoạch giảm cân</a> /</span>
-    Thông tin kế hoạch giảm cân
+    <span class="text-muted fw-light"><a href="/plugins/admin/colennao-view-admin-fasting-listfastingadmin">Tin tức giảm cân</a> /</span>
+    Thông tin tin tức giảm cân
   </h4>
 
   <!-- Basic Layout -->
@@ -10,7 +10,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin kế hoạch giảm cân</h5>
+            <h5 class="mb-0">Thông tin tin tức giảm cân</h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
@@ -18,24 +18,32 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Tên kế hoạch giảm cân (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
+                    <label class="form-label">Tên  tin tức giảm cân (*)</label>
+                    <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" required />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Tên kế hoạch giảm cân tiếng anh</label>
-                    <input  type="text" class="form-control phone-mask" name="nameen" id="nameen" value="<?php echo @$data->nameen;?>" />
+                    <label class="form-label">Tên  tin tức giảm cân tiếng anh</label>
+                    <input  type="text" class="form-control phone-mask" name="titleen" id="titleen" value="<?php echo @$data->titleen;?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Thời gian kết thúc</label>
-                    <input type="datetime-local" class="form-control" name="time_start" id="time_start" value="<?php echo isset($data->time_start) ? date('Y-m-d\TH:i', $data->time_start) : ''; ?>" />
+                    <label class="form-label">Tên tác giả</label>
+                    <input  type="text" class="form-control phone-mask" name="author" id="author" value="<?php echo @$data->author;?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Thời gian kết thúc</label>
-                    <input type="datetime-local" class="form-control" name="time_end" id="time_end" value="<?php echo isset($data->time_end) ? date('Y-m-d\TH:i', $data->time_end) : ''; ?>" />
+                    <label class="form-label">Tên tác giả tiếng anh</label>
+                    <input  type="text" class="form-control phone-mask" name="authoren" id="authoren" value="<?php echo @$data->authoren;?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">complete</label>
-                    <input type="text" class="form-control phone-mask" name="complete" id="complete" value="<?php echo @$data->complete;?>" />
+                    <label class="form-label">text source 1</label>
+                    <input  type="text" class="form-control phone-mask" name="textsource1" id="textsource1" value="<?php echo @$data->textsource1;?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">text source 2 tiếng anh</label>
+                    <input  type="text" class="form-control phone-mask" name="textsource2" id="textsource2" value="<?php echo @$data->textsource2;?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">link source 1</label>
+                    <input  type="text" class="form-control phone-mask" name="linksource1" id="linksource1" value="<?php echo @$data->linksource1;?>" />
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -44,31 +52,24 @@
                     <?php showUploadFile('image','image',@$data->image,0);?>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Mô tả ngắn</label>
+                    <label class="form-label">Ảnh tác giả</label>
+                    <?php showUploadFile('imageauthor','imageauthor',@$data->imageauthor,11);?>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Mô tả </label>
                     <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Mô tả ngắn tiếng anh</label>
+                    <label class="form-label">Mô tả tiếng anh</label>
                     <textarea maxlength="160" rows="5" class="form-control" name="descriptionen" id="descriptionen"><?php echo @$data->descriptionen;?></textarea>
                   </div>
-                  <!-- <div class="mb-3">
-                    <label class="form-label">phương pháp</label>
-                    <input  type="text" class="form-control phone-mask" name="method" id="method" value="<?php echo @$data->method;?>" />
-                  </div> -->
-
-                  <div class="mb-3 form-group col-sm-6">
-                    <i>Phương pháp</i>
-                    <select name="method" id="method" class="form-control">
-                        <option value="">Chọn phương pháp</option>
-                        <?php if (!empty($listlosingweight)): ?>
-                            <?php foreach ($listlosingweight as $key => $value): ?>
-                                <option value="<?php echo $value->id; ?>" <?php echo ($data->method == $value->id) ? 'selected' : ''; ?>>
-                                    <?php echo $value->name; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
+               
+                  <div class="mb-3">
+                    <label class="form-label">link source 2 </label>
+                    <input  type="text" class="form-control phone-mask" name="linksource2" id="linksource2" value="<?php echo @$data->linksource2;?>" />
                   </div>
+
+      
                 </div>
               </div>
 

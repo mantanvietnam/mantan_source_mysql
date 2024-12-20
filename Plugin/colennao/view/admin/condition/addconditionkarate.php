@@ -63,7 +63,6 @@
                                         <div class="mb-2">
                                             <label class="form-label">Câu hỏi: <?php echo $questionData['name']; ?></label>
                                             <input type="hidden" name="id_question[]" value="<?php echo $questionData['id']; ?>" />
-                                            
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -72,14 +71,21 @@
                                             $hasAnswer = false; 
                                             for ($i = 1; $i <= 8; $i++): 
                                                 $answerKey = 'answer' . $i; 
-                                                if (isset($questionData[$answerKey]) && $questionData[$answerKey] !== null && $questionData[$answerKey] !== ''): // Kiểm tra đáp án không phải là null và không rỗng
+                                                if (isset($questionData[$answerKey]) && $questionData[$answerKey] !== null && $questionData[$answerKey] !== ''): 
                                                     $hasAnswer = true; 
                                   
                                                     $valueMap = ['a', 'b', 'c', 'd','e','f','g','h']; 
                                             ?>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="answer[<?php echo $questionData['id']; ?>][]" value="<?php echo $valueMap[$i - 1]; ?>" id="<?php echo $answerKey . '-' . $questionData['id']; ?>">
-                                                    <label class="form-check-label" for="<?php echo $answerKey . '-' . $questionData['id']; ?>"><?php echo $questionData[$answerKey]; ?></label>
+                                                    <label class="form-check-label" for="<?php echo $answerKey . '-' . $questionData['id']; ?>">
+                                                        <?php 
+                                                        $data = $questionData[$answerKey];
+                                                        $decodedData = json_decode($data, true);
+                                                        echo isset($decodedData['vi']) ? $decodedData['vi'] : $data; 
+                                                        ?>
+                                                    </label>
+
                                                 </div>
                                             <?php 
                                                 endif; 

@@ -1041,6 +1041,8 @@ function dashboard($input)
 	global $controller;
 	global $metaTitleMantan;
 
+    global $urlCurrent;
+   
 	$metaTitleMantan = 'Thống kê tài khoản';
 	$user = checklogin();
 
@@ -1096,7 +1098,57 @@ function dashboard($input)
                 $dataDeadline[$key]->orderDetail = $OrderDetail;
             }
     	}
+        if(!empty($user->idbuilding)){
+            $idbuiding = $user->idbuilding;
+        }
+       
+        $orders = $modelOrders->find()
+            ->where(['Orders.building_id' => $idbuiding])  
+            ->toArray();
 
+
+        $bookBorrowCount = [];
+
+
+        foreach ($orders as $order) {
+            $orderDetails = $modelOrderDetails->find()
+                ->where(['OrderDetails.order_id' => $order->id])
+                ->toArray();
+
+            foreach ($orderDetails as $detail) {
+                $bookId = $detail->book_id;
+                if (!isset($bookBorrowCount[$bookId])) {
+                    $bookBorrowCount[$bookId] = 0;
+                }
+                $bookBorrowCount[$bookId]++;
+            }
+        }
+
+
+        arsort($bookBorrowCount);
+
+   
+        $topBooks = array_slice($bookBorrowCount, 0, 10, true);
+
+
+        $bookNames = [];
+        foreach (array_keys($topBooks) as $bookId) {
+            $book = $modelBook->find()->where(['Books.id' => $bookId])->first();
+            if ($book) {
+                $bookNames[$bookId] = $book->name; 
+            }
+        }
+
+ 
+        setVariable('topBooks', $topBooks);
+        setVariable('urlCurrent', $urlCurrent);
+
+      
+        $bookNamesArray = array_values($bookNames);  
+        $borrowCounts = array_values($topBooks);  
+
+        setVariable('chartBookNames', json_encode($bookNamesArray)); 
+        setVariable('chartBorrowCounts', json_encode($borrowCounts)); 
     	
 	    setVariable('dataCreated', $dataCreated);
 	    setVariable('dataDeadline', $dataDeadline);

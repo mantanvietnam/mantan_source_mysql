@@ -79,17 +79,40 @@
               <label class="form-label">Tiêu đề tiếng anh</label>
               <input type="text" class="form-control phone-mask" name="title_popular_product_en" id="title_popular_product_en" value="<?php echo @$setting['title_popular_product_en'];?>"/>
             </div>
-            <div class="col-md-6">
-              <div class="mb-3">
+            <div class="col-md-6 mb-3">
                 <label class="form-label">Text 1 tiếng việt</label>
                 <input type="text" class="form-control phone-mask" name="text1_popular" id="text1_popular" value="<?php echo @$setting['text1_popular'];?>"/>
-              </div>
-              <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
                 <div class="mb-3">
                     <label class="form-label">Text 1 tiếng anh</label>
                     <input type="text" class="form-control phone-mask" name="text1_popular_en" id="text1_popular_en" value="<?php echo @$setting['text1_popular_en'];?>"/>
                 </div>
-              </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Desc 1 tiếng việt</label>
+                    <input type="text" class="form-control phone-mask" name="desctv" id="desctv" value="<?php echo @$setting['desctv'];?>"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Desc 1 tiếng anh</label>
+                    <input type="text" class="form-control phone-mask" name="descen" id="descen" value="<?php echo @$setting['descen'];?>"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Desc 2 tiếng việt</label>
+                    <input type="text" class="form-control phone-mask" name="desctv2" id="desctv2" value="<?php echo @$setting['desctv2'];?>"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Desc 2 tiếng anh</label>
+                    <input type="text" class="form-control phone-mask" name="descen2" id="descen2" value="<?php echo @$setting['descen2'];?>"/>
+                </div>
+            </div>
             <div class="col-md-6">
                 <div class="mb-3">
                     <label class="form-label">Text 2 tiếng việt</label>
@@ -114,8 +137,6 @@
                     <?php showUploadFile('image_popular_2','image_popular_2', @$setting['image_popular_2'],4);?>
                 </div>
             </div> 
-            </div>
-
           </div>
         </div>
         <div class="tab-pane fade" id="navs-top-rule" role="tabpanel">
@@ -125,7 +146,7 @@
               <input type="text" class="form-control phone-mask" name="text_banner_1" id="text_banner_1" value="<?php echo @$setting['text_banner_1'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
-              <label class="form-label">>Text banner 1 tiếng anh</label>
+              <label class="form-label">Text banner 1 tiếng anh</label>
               <input type="text" class="form-control phone-mask" name="text_banner_1_en" id="text_banner_1_en" value="<?php echo @$setting['text_banner_1_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
@@ -145,16 +166,20 @@
               <input type="text" class="form-control phone-mask" name="text_banner_3_en" id="text_banner_3_en" value="<?php echo @$setting['text_banner_3_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
-              <label class="form-label">ảnh</label>
-              <?php showUploadFile('image_banner_1','image_banner_1', @$setting['image_banner_1'],6);?>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Text mô tả phần 2  </label>
+              <label class="form-label">Text mô tả phần 1 </label>
               <input type="text" class="form-control phone-mask" name="text_description_banner_1" id="text_description_banner_1" value="<?php echo @$setting['text_description_banner_1'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
-              <label class="form-label">Text mô tả phần 2 tiếng anh </label>
+              <label class="form-label">Text mô tả phần 1 tiếng anh </label>
               <input type="text" class="form-control phone-mask" name="text_description_banner1_en" id="text_description_banner1_en" value="<?php echo @$setting['text_description_banner1_en'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Text mô tả phần 2  </label>
+              <input type="text" class="form-control phone-mask" name="text_description_banner_2" id="text_description_banner_2" value="<?php echo @$setting['text_description_banner_2'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Text mô tả phần 2 tiếng anh </label>
+              <input type="text" class="form-control phone-mask" name="text_description_banner2_en" id="text_description_banner2_en" value="<?php echo @$setting['text_description_banner2_en'];?>"/>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">Text mô tả phần 3 </label>
@@ -164,42 +189,32 @@
               <label class="form-label">Text mô tả phần 3 tiếng anh </label>
               <input type="text" class="form-control phone-mask" name="text_description_banner3_en" id="text_description_banner3_en" value="<?php echo @$setting['text_description_banner3_en'];?>"/>
             </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">ảnh</label>
-              <?php showUploadFile('image_banner_2','image_banner_2', @$setting['image_banner_2'],7);?>
-            </div>
+            
             <div class="col-md-6 mb-3">
               <label class="form-label">link dowload </label>
               <input type="text" class="form-control phone-mask" name="link_dowload_banner" id="link_dowload_banner" value="<?php echo @$setting['link_dowload_banner'];?>"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">ảnh phần tử 1</label>
+              <?php showUploadFile('image_banner_1','image_banner_1', @$setting['image_banner_1'],6);?>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">ảnh phần tử 2</label>
+              <?php showUploadFile('image_banner_2','image_banner_2', @$setting['image_banner_2'],7);?>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">ảnh phần tử 3</label>
+              <?php showUploadFile('image_banner_3','image_banner_3', @$setting['image_banner_3'],20);?>
             </div>
           </div>
         </div>
         <div class="tab-pane fade" id="navs-top-founder" role="tabpanel">
           <div class="card-body row ">
             <div class="col-md-6 mb-3">
-              <label class="form-label">Tiêu đề tiếng việt</label>
-              <input type="text" class="form-control phone-mask" name="title_slide_product" id="title_slide_product" value="<?php echo @$setting['title_slide_product'];?>"/>
+              <label class="form-label">id_slide</label>
+              <input type="text" class="form-control phone-mask" name="id_slide_product" id="id_slide_product" value="<?php echo @$setting['id_slide_product'];?>"/>
             </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Tiêu đề tiếng anh</label>
-              <input type="text" class="form-control phone-mask" name="title_slide_product_en" id="title_slide_product_en" value="<?php echo @$setting['title_slide_product_en'];?>"/>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Số liệu</label>
-              <input type="text" class="form-control phone-mask" name="slide_number_data" id="slide_number_data" value="<?php echo @$setting['slide_number_data'];?>"/>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Số liệu tiếng anh</label>
-              <input type="text" class="form-control phone-mask" name="slide_number_data_en" id="slide_number_data_en" value="<?php echo @$setting['slide_number_data_en'];?>"/>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Mô tả</label>
-              <input type="text" class="form-control phone-mask" name="description_data" id="description_data" value="<?php echo @$setting['description_data'];?>"/>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Mô tả tiếng anh</label>
-              <input type="text" class="form-control phone-mask" name="description_data_en" id="description_data_en" value="<?php echo @$setting['description_data_en'];?>"/>
-            </div>
+
       
           </div>
         </div>

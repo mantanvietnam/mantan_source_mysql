@@ -84,19 +84,24 @@ function addtypefasting($input){
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['name'])){
+        if(!empty($dataSend['title'])){
             
-            $data->name = $dataSend['name'];
+            $data->title = $dataSend['title'];
+            $data->titleen = $dataSend['titleen'];
             $data->description= $dataSend['description'];
-            $data->time_end = (new DateTime($dataSend['time_end']))->getTimestamp();
-            $data->time_start = (new DateTime($dataSend['time_start']))->getTimestamp();
-            $data->image = $dataSend['image'];
-            $data->method = $dataSend['method'];
-            $data->complete = $dataSend['complete'];
-            $data->nameen = $dataSend['nameen'];
             $data->descriptionen = $dataSend['descriptionen'];
+            $data->author = $dataSend['author'];
+            $data->authoren = $dataSend['authoren'];
+            $data->imageauthor = $dataSend['imageauthor'];
+            $data->textsource1 = $dataSend['textsource1'];
+            $data->textsource2 = $dataSend['textsource2'];
+            $data->linksource1 = $dataSend['linksource1'];
+            $data->linksource2 = $dataSend['linksource2'];
+            $data->image = $dataSend['image'];
+           
+           
             // tạo slug
-            $slug = createSlugMantan($dataSend['name']);
+            $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;
             $number = 0;
 
@@ -119,7 +124,7 @@ function addtypefasting($input){
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin/p>';
+	    	$mess= '<p class="text-danger">Bạn chưa nhập đầy đủ thông tin</p>';
 	    }
     }
     setVariable('listlosingweight', $listlosingweight);
