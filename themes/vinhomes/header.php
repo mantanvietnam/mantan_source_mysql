@@ -32,19 +32,19 @@ $setting = setting();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>bds/css/styles.css" />
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>bds/css/styles.css?index=1" />
   </head>
   <body>
     <!-----Header ----->
     <div
-      class="relative min-h-screen bg-center bg-cover fade-in"
+      class="relative min-h-screen bg-center bg-cover fade-in background-header"
       style="background-image: url('<?php echo $setting['background_image']; ?>')"
       >
       <div class="background-overlay"></div>
       <div class="relative z-20">
         <header class="py-4 mx-4 bg-transparent sm:mx-6 lg:mx-20 font-plus">
           <div class="flex items-center justify-between font-bold">
-            <a href="index.html" class="flex items-center">
+            <a href="/" class="flex items-center">
               <img
                 alt="Logo"
                 class="mr-2"
@@ -63,12 +63,21 @@ $setting = setting();
             >
               <nav
                 class="flex space-x-2 text-white nav-sectionpage lg:space-x-6 xl:space-x-16">
-                <a href="index.html" class="active">Trang chủ</a>
-                <a href="#">Giới thiệu</a>
-                <a href="list-project.html">Danh sách dự án</a>
-                <a href="news.html">Vinhomes</a>
+                <?php  
+                      $menus = getMenusDefault();  
+               
+                      if (!empty($menus)):  
+                          foreach ($menus as $categoryMenu):       
+                      ?>
+                                  <a href="<?php echo $categoryMenu['link']; ?>" class="active"><?php echo $categoryMenu['name']; ?></a>
+                                  <!-- <a href="#">Giới thiệu</a>
+                                  <a href="list-project.html">Danh sách dự án</a>
+                                  <a href="news.html">Vinhomes</a> -->
+                      <?php  
+                          endforeach;  
+                      endif;  
+                      ?>
 
- 
               </nav>
               <a
                 href="/contact"

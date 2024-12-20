@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MinhTuanVinhomes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="relative z-20 text-black fade-in">
+      <header class="py-4 mx-4 bg-transparent sm:mx-6 lg:mx-20 font-plus">
+        <div class="flex items-center justify-between">
+          <a href="index.html" class="flex items-center">
+            <img
+              alt="Logo"
+              class="mr-2"
+              height="32"
+              src="./image/icons/iconLogo.png"
+              width="30"
+            />
+            <span class="text-lg font-bold"> MinhTuanVinhomes </span>
+          </a>
+          <div
+            class="items-center hidden space-x-2 font-bold lg:flex md:property-button lg:space-x-6 xl:space-x-16"
+          >
+            <nav
+              class="flex space-x-2 lg:space-x-6 xl:space-x-16 nav-projectpage"
+            >
+              <a href="index.html" class="active">Trang chủ</a>
+              <a href="#">Giới thiệu</a>
+              <a href="list-project.html">Danh sách dự án</a>
+              <a href="news.html">Vinhomes</a>
+            </nav>
+
+            <a
+              href="contact.html"
+              class="px-4 py-2 border border-white rounded-xl text-white transition duration-300 bg-gradient-to-r from-[#182c77] to-[#6274bb] hover:from-[#6274bb] hover:to-[#182c77]"
+            >
+              Liên hệ tư vấn
+            </a>
+          </div>
+          <!-- Nút Dashboard để hiển thị thanh Nav -->
+          <div class="flex lg:hidden">
+            <button id="dashboardButton" class="text-black">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Thanh Nav dọc (ẩn trên màn nhỏ) -->
+      <div
+        id="sideNav"
+        class="fixed top-0 right-0 w-64 h-full transition-transform duration-300 transform translate-x-full"
+      >
+        <div class="p-6">
+          <ul class="flex flex-col space-y-4">
+            <a href="#" class="active">Trang chủ</a>
+            <a href="#">Giới thiệu</a>
+            <a href="#">Danh sách dự án</a>
+            <a href="#">Vinhomes</a>
+            <a href="#">Liên hệ tư vấn</a>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mờ vùng ngoài khi thanh Nav dọc mở -->
+      <div id="overlay" class="fixed inset-0 hidden bg-black opacity-50"></div>
+    </div>
+
+    <!-- Bộ lọc tìm kiếm -->
+    <div
+      class="slide-top flex flex-col md:flex-row items-center p-4 mx-4 bg-[#E2E8F0] rounded-xl shadow-md sm:mx-6 lg:mx-20 font-plus justify-between"
+    >
+      <div class="w-full md:w-[30%]">
+        <input
+          type="text"
+          placeholder="Tìm kiếm tại đây"
+          class="flex-grow w-full p-2 text-gray-600 form-field rounded-xl focus:outline-none"
+        />
+      </div>
+      <div
+        class="flex items-center w-full space-x-2 md:w-[30%] bg-white rounded-xl mt-4 md:mt-0 px-4"
+      >
+        <img
+          src="./image/icons/iconLocationBlack.png"
+          alt="icon"
+          class="h-6 ml-2"
+        />
+        <select class="w-full p-2 text-gray-600 form-field focus:outline-none">
+          <option value="" selected>Khu vực</option>
+          <option value="hanoi">Hà Nội</option>
+          <option value="hcm">TP. Hồ Chí Minh</option>
+          <option value="danang">Đà Nẵng</option>
+        </select>
+      </div>
+      <div
+        class="flex items-center w-full space-x-2 md:w-[30%] bg-white rounded-xl mt-4 md:mt-0 px-4"
+      >
+        <img src="./image/icons/iconBds.png" alt="icon" class="h-6 ml-2" />
+        <select class="w-full p-2 text-gray-600 form-field focus:outline-none">
+          <option value="" selected>Loại BĐS</option>
+          <option value="apartment">Căn hộ</option>
+          <option value="house">Nhà đất</option>
+          <option value="land">Đất nền</option>
+        </select>
+      </div>
+      <button
+        id="searchButtonProject"
+        class="p-2 w-full text-white rounded-xl md:w-[50px] flex items-center justify-center mt-4 md:mt-0"
+        style="
+          background: linear-gradient(90deg, #182c77 0%, #6274bb 100%);
+          color: white;
+        "
+      >
+        <img src="./image/icons/iconSearchWhite.png" alt="icon" class="h-6" />
+      </button>
+    </div>
+
+    <!-- Danh sách dự án -->
+    <div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus slide-top">
+      <div class="flex flex-col justify-between mt-4 sm:flex-row">
+        <div class="flex items-center">
+          <p>Số dự án hiển thị:</p>
+          <p class="ml-2 text-[#142a72] font-bold">111 dự án</p>
+        </div>
+        <div class="flex items-center mt-4 sm:mt-0">
+          <p>Sắp xếp theo:</p>
+          <select class="ml-2 font-bold text-gray-600 focus:outline-none">
+            <option value="" selected>Phổ biến nhất</option>
+            <option value="apartment">Mới nhất</option>
+            <option value="house">Cũ nhất</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3">
+        <a href="detailProject.html" class="rounded-lg">
+          <div class="relative overflow-hidden rounded-lg">
+            <img
+              alt="Modern house with large windows and landscaped garden"
+              class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+              src="./image/index/imageQS1.png"
+            />
+            <div
+              class="absolute text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+            >
+              Đang mở bánQ1/2024: Sắp bán khu căn hộ
+            </div>
+          </div>
+
+          <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
+          <div class="flex items-center mt-2 text-[#142A72] font-bold">
+            <img
+              src="./image/icons/iconLocationBlack.png"
+              alt="icon"
+              class="h-6 mr-2"
+            />
+            Huyện Đông Anh, Thành Phố Hà Nội
+          </div>
+          <div class="flex items-center mt-2 font-bold">
+            <p class="mr-2">Tổng diện tích:</p>
+            <p class="text-[#142A72]">385 ha</p>
+          </div>
+          <p class="mt-2 text-gray-400 description">
+            Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động và
+            đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối, phong
+            cách sống toàn cầu
+          </p>
+        </a>
+        <a href="detailProject.html" class="rounded-lg">
+          <div class="relative overflow-hidden rounded-lg">
+            <img
+              alt="Modern house with large windows and landscaped garden"
+              class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+              src="./image/index/imageQS2.png"
+            />
+            <div
+              class="absolute text-white bg-[#E04444] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+            >
+              Sắp mở bán
+            </div>
+          </div>
+
+          <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
+          <div class="flex items-center mt-2 text-[#142A72] font-bold">
+            <img
+              src="./image/icons/iconLocationBlack.png"
+              alt="icon"
+              class="h-6 mr-2"
+            />
+            Huyện Đông Anh, Thành Phố Hà Nội
+          </div>
+          <div class="flex items-center mt-2 font-bold">
+            <p class="mr-2">Tổng diện tích:</p>
+            <p class="text-[#142A72]">385 ha</p>
+          </div>
+          <p class="mt-2 text-gray-400 description">
+            Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động và
+            đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối, phong
+            cách sống toàn cầu
+          </p>
+        </a>
+        <a href="detailProject.html" class="rounded-lg">
+          <div class="relative overflow-hidden rounded-lg">
+            <img
+              alt="Modern house with large windows and landscaped garden"
+              class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+              src="./image/index/imageQS3.png"
+            />
+            <div
+              class="absolute text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+            >
+              Đang mở bánQ1/2024: Sắp bán khu căn hộ
+            </div>
+          </div>
+
+          <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
+          <div class="flex items-center mt-2 text-[#142A72] font-bold">
+            <img
+              src="./image/icons/iconLocationBlack.png"
+              alt="icon"
+              class="h-6 mr-2"
+            />
+            Huyện Đông Anh, Thành Phố Hà Nội
+          </div>
+          <div class="flex items-center mt-2 font-bold">
+            <p class="mr-2">Tổng diện tích:</p>
+            <p class="text-[#142A72]">385 ha</p>
+          </div>
+          <p class="mt-2 text-gray-400 description">
+            Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động và
+            đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối, phong
+            cách sống toàn cầu
+          </p>
+        </a>
+        <a href="detailProject.html" class="rounded-lg">
+          <div class="relative overflow-hidden rounded-lg">
+            <img
+              alt="Modern house with large windows and landscaped garden"
+              class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+              src="./image/index/imageQS2.png"
+            />
+            <div
+              class="absolute text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+            >
+              Đang mở bánQ1/2024: Sắp bán khu căn hộ
+            </div>
+          </div>
+
+          <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
+          <div class="flex items-center mt-2 text-[#142A72] font-bold">
+            <img
+              src="./image/icons/iconLocationBlack.png"
+              alt="icon"
+              class="h-6 mr-2"
+            />
+            Huyện Đông Anh, Thành Phố Hà Nội
+          </div>
+          <div class="flex items-center mt-2 font-bold">
+            <p class="mr-2">Tổng diện tích:</p>
+            <p class="text-[#142A72]">385 ha</p>
+          </div>
+          <p class="mt-2 text-gray-400 description">
+            Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động và
+            đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối, phong
+            cách sống toàn cầu
+          </p>
+        </a>
+        <a href="detailProject.html" class="rounded-lg">
+          <div class="relative overflow-hidden rounded-lg">
+            <img
+              alt="Modern house with large windows and landscaped garden"
+              class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+              src="./image/index/imageQS1.png"
+            />
+            <div
+              class="absolute text-white bg-[#E04444] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+            >
+              Sắp mở bán
+            </div>
+          </div>
+
+          <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
+          <div class="flex items-center mt-2 text-[#142A72] font-bold">
+            <img
+              src="./image/icons/iconLocationBlack.png"
+              alt="icon"
+              class="h-6 mr-2"
+            />
+            Huyện Đông Anh, Thành Phố Hà Nội
+          </div>
+          <div class="flex items-center mt-2 font-bold">
+            <p class="mr-2">Tổng diện tích:</p>
+            <p class="text-[#142A72]">385 ha</p>
+          </div>
+          <p class="mt-2 text-gray-400 description">
+            Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động và
+            đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối, phong
+            cách sống toàn cầu
+          </p>
+        </a>
+        <a href="detailProject.html" class="rounded-lg">
+          <div class="relative overflow-hidden rounded-lg">
+            <img
+              alt="Modern house with large windows and landscaped garden"
+              class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+              src="./image/index/imageQS3.png"
+            />
+            <div
+              class="absolute text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+            >
+              Đang mở bánQ1/2024: Sắp bán khu căn hộ
+            </div>
+          </div>
+
+          <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
+          <div class="flex items-center mt-2 text-[#142A72] font-bold">
+            <img
+              src="./image/icons/iconLocationBlack.png"
+              alt="icon"
+              class="h-6 mr-2"
+            />
+            Huyện Đông Anh, Thành Phố Hà Nội
+          </div>
+          <div class="flex items-center mt-2 font-bold">
+            <p class="mr-2">Tổng diện tích:</p>
+            <p class="text-[#142A72]">385 ha</p>
+          </div>
+          <p class="mt-2 text-gray-400 description">
+            Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động và
+            đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối, phong
+            cách sống toàn cầu
+          </p>
+        </a>
+      </div>
+
+      <div class="flex justify-center my-10 space-x-2">
+        <div
+          class="flex items-center justify-center w-10 h-10 rounded-md cursor-pointer buttonActive"
+        >
+          1
+        </div>
+        <div
+          class="flex items-center justify-center w-10 h-10 text-black bg-gray-100 rounded-md cursor-pointer"
+        >
+          2
+        </div>
+        <div
+          class="flex items-center justify-center w-10 h-10 text-black bg-gray-100 rounded-md cursor-pointer"
+        >
+          3
+        </div>
+        <div
+          class="flex items-center justify-center w-10 h-10 text-black bg-gray-100 rounded-md cursor-pointer"
+        >
+          ...
+        </div>
+      </div>
+    </div>
+
+    <!-- Liên hệ -->
+    <div
+      class="relative bg-center bg-cover font-plus slide-top"
+      style="background-image: url('./image/index/imageQS2.png')"
+    >
+      <div class="absolute inset-0 bg-gray-900 bg-opacity-50"></div>
+      <div
+        class="relative z-10 flex flex-col justify-between px-4 py-10 text-white md:flex-row md:py-20 sm:px-6 xl:px-20"
+      >
+        <div class="md:w-[45%]">
+          <h1 class="mb-4 text-4xl font-bold">
+            MinhTuanVinhomes - Chung tay xây dựng cộng đồng Vinhomes
+          </h1>
+          <p class="mb-8 text-lg">
+            Hãy để chúng tôi trở thành cầu nối giúp bạn đến gần hơn với cuộc
+            sống thượng lưu tại các quần thể đô thị Vinhomes.
+          </p>
+        </div>
+        <form
+          class="p-8 text-gray-800 bg-white rounded-lg shadow-lg md:w-[50%]"
+        >
+          <div class="mb-4">
+            <input
+              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Họ và tên"
+              type="text"
+            />
+          </div>
+          <div class="mb-4">
+            <input
+              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Số điện thoại"
+              type="text"
+            />
+          </div>
+          <div class="mb-4">
+            <input
+              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Địa chỉ Email"
+              type="email"
+            />
+          </div>
+          <div class="mb-4">
+            <textarea
+              class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Lời nhắn của bạn"
+            ></textarea>
+          </div>
+          <button
+            class="w-full p-4 text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-700 hover:scale-105 hover:shadow-lg"
+            type="submit"
+            style="background: linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-[#FAF7F4] text-black font-plus overflow-hidden fade-in">
+      <footer class="px-4 py-10 mx-auto md:py-20 sm:px-6 md:container xl:px-20">
+        <div class="flex flex-col justify-between md:flex-row">
+          <div class="mb-8 md:mb-0">
+            <h2 class="flex items-center mb-4 text-lg font-bold">
+              <img
+                src="./image/icons/iconLogo.png"
+                alt="icon"
+                class="h-8 mr-4"
+              />
+              MinhTuanVinhomes
+            </h2>
+            <div class="flex mb-4 space-x-4">
+              <a href="#"
+                ><img src="./image/icons/instagram.svg" alt="icon"
+              /></a>
+              <a href="#"
+                ><img src="./image/icons/facebook.svg" alt="icon"
+              /></a>
+              <a href="#"
+                ><img src="./image/icons/linkedin.svg" alt="icon"
+              /></a>
+              <a href="#"><img src="./image/icons/youtube.svg" alt="icon" /></a>
+            </div>
+            <address class="mb-4 space-y-2 not-italic">
+              <p>123 Main Street, Hometown, USA</p>
+              <p>0789373568</p>
+              <p>minhtuanvinhomes@gmail.comp</p>
+            </address>
+            <p>© 2024 Minhtuanvinhomes. All rights reserved.</p>
+          </div>
+          <div class="flex flex-col md:w-[50%]">
+            <div>
+              <h3 class="mb-4 text-xl font-bold sm:text-3xl text-[#142A72]">
+                Xây dựng giấc mơ, giải pháp bất động sản
+              </h3>
+            </div>
+            <div class="flex flex-col justify-between sm:flex-row md:w-[70%]">
+              <div>
+                <ul class="space-y-4">
+                  <li>
+                    <a href="#" class="hover:underline">Trang chủ</a>
+                  </li>
+                  <li>
+                    <a href="#" class="hover:underline">Về MinhTuanVinhomes</a>
+                  </li>
+                  <li>
+                    <a href="#" class="hover:underline">Danh sách dự án</a>
+                  </li>
+                  <li><a href="#" class="hover:underline">Liên hệ</a></li>
+                </ul>
+              </div>
+              <div>
+                <ul class="mt-4 space-y-4 sm:mt-0">
+                  <li>
+                    <a href="#" class="hover:underline"
+                      >Lợi ích của khách hàng</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" class="hover:underline">Văn phòng làm việc</a>
+                  </li>
+                  <li>
+                    <a href="#" class="hover:underline">Dịch vụ</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
