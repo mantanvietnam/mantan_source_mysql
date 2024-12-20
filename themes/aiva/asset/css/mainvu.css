@@ -721,3 +721,10 @@ table {
     font-size: 14px;
     color: #555;
 }
+
+.save-writecontent{
+    display: flex;
+    padding: 20px 0;
+    align-items: center;
+    justify-content: center;
+}
