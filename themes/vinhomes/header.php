@@ -38,8 +38,8 @@ $setting = setting();
     <!-----Header ----->
     <div
       class="relative min-h-screen bg-center bg-cover fade-in"
-      style="background-image: url"
-    >
+      style="background-image: url('<?php echo $setting['background_image']; ?>')"
+      >
       <div class="background-overlay"></div>
       <div class="relative z-20">
         <header class="py-4 mx-4 bg-transparent sm:mx-6 lg:mx-20 font-plus">
