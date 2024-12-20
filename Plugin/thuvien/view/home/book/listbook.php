@@ -4,7 +4,7 @@
 
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listbook"></a></span>
-    Danh sách 
+    Danh sách đầu sách
   </h4>
 
   <p><a href="/addbook" class="btn btn-primary"><i class="bx bx-plus"></i> Thêm mới</a></p>
@@ -26,12 +26,23 @@
           <label class="form-label">Tên sách</label>
           <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
         </div>
-
-        <div class="col-md-2">
-          <label class="form-label">Loại</label>
-          <input type="date" class="form-control" name="published_date" value="<?php if(!empty($_GET['published_date'])) echo $_GET['published_date'];?>">
+        <div class="col-md-3">
+          <label class="form-label">Mã xuất bản</label>
+          <input type="text" class="form-control" name="book_code" value="<?php if(!empty($_GET['book_code'])) echo $_GET['book_code'];?>">
         </div>
 
+        <div class="col-md-3">
+          <label class="form-label">Tác giả</label>
+          <input type="text" class="form-control" name="author" value="<?php if(!empty($_GET['author'])) echo $_GET['author'];?>">
+        </div>
+        <!-- <div class="col-md-2">
+          <label class="form-label">Ngày thêm sách</label>
+          <input type="date" class="form-control" name="published_date" value="<?php if(!empty($_GET['published_date'])) echo $_GET['published_date'];?>">
+        </div> -->
+        <div class="col-md-2">
+            <label class="form-label">Ngày thêm</label>
+            <input  type="text" class="form-control datepicker" name="published_date" id="published_date" value="<?php if(!empty($_GET['published_date'])) echo $_GET['published_date']; ?>" placeholder="dd/mm/yyyy">
+        </div>
         <div class="col-md-2">
           <label class="form-label">Trạng thái</label>
           <select name="status" class="form-select color-dropdown">

@@ -27,14 +27,36 @@ function listbook($input)
         if(!empty($_GET['id'])){
             $conditions['id'] = (int) $_GET['id'];
         }
+         if(!empty($_GET['name'])){
+            $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+        }
+        
         if(!empty($_GET['status'])){
-            $conditions['status'] = (int) $_GET['status'];
+            $conditions['status'] =  $_GET['status'];
+        }
+        if(!empty($_GET['book_code'])){
+            $conditions['book_code'] =  $_GET['book_code'];
+        }
+        if(!empty($_GET['author'])){
+            $conditions['author'] =  $_GET['author'];
         }
 
         if (!empty($_GET['published_date'])) {
-            $publishedDateTimestamp = strtotime($_GET['published_date']);
-            $conditions['published_date'] = $publishedDateTimestamp;
+            $publishedDate = $_GET['published_date'];
+            $dateParts = explode('/', $publishedDate);
+            if (count($dateParts) === 3) {
+                $formattedDate = $dateParts[2] . '-' . $dateParts[1] . '-' . $dateParts[0];
+                $publishedDateTimestamp = strtotime($formattedDate);
+                if ($publishedDateTimestamp) {
+                    $conditions['published_date'] = $publishedDateTimestamp;
+                } else {
+                    echo "Ngày tháng không hợp lệ.";
+                }
+            } else {
+                echo "Định dạng ngày tháng không đúng (dd/mm/yyyy).";
+            }
         }
+        
         
         if(!empty($_GET['action']) && $_GET['action']=='Excel'){
             $listData = $modelbooks->find()->where($conditions)->order($order)->all()->toList();

@@ -99,11 +99,12 @@ function statisticalorderbookborrow($input)
             ->page($page)
             ->limit($limit)
             ->toArray();
+          
         $orderIds = array_map(function ($order) {
             return $order->id;
         }, $orders);
 
-
+    
         if (!empty($orderIds)) {
         
             $orderDetails = $modelOrderDetails->find()
@@ -118,7 +119,7 @@ function statisticalorderbookborrow($input)
         foreach ($orders as $order) {
             $orderDateMap[$order->id] = $order->created_at;
         }
-
+  
         $listDataWithCreatedAt = [];
         $dateCounts = [];
         $currentDate = $startDate;
@@ -127,6 +128,7 @@ function statisticalorderbookborrow($input)
             $dateCounts[$date] = 0; 
             $currentDate = strtotime("+1 day", $currentDate);
         }
+     
         foreach ($orderDetails as $detail) {
            
             $createdAt = isset($orderDateMap[$detail->order_id])
@@ -143,12 +145,14 @@ function statisticalorderbookborrow($input)
         $totalData = $modelOrders->find()
             ->where(['Orders.created_at >=' => $startDate, 'Orders.created_at <=' => $endDate])
             ->count();
+
         $totalPage = ceil($totalData / $limit);
         $back = ($page > 1) ? $page - 1 : 1;
         $next = ($page < $totalPage) ? $page + 1 : $totalPage;
         $urlPage = preg_replace('/([&?])page=\d+/', '', $urlCurrent);
         $urlPage = strpos($urlPage, '?') !== false ? $urlPage . '&page=' : $urlPage . '?page=';
         setVariable('listDataWithCreatedAt', $listDataWithCreatedAt);
+      
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
