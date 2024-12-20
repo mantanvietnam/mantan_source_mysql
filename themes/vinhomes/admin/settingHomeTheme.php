@@ -100,9 +100,101 @@
           </div>
         </div>
 
+<!-- Khối giới thiệu -->
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Khối giới thiệu</h5>
+            </div>
+            <div class="card-body row">
+                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề khối dòng 1</label>
+                    <input type="text" class="form-control" name="title_introduce_1" value="<?php echo @$setting['title_introduce_1'];?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề khối dòng 2</label>
+                    <input type="text" class="form-control" name="title_introduce_2" value="<?php echo @$setting['title_introduce_2'];?>" />
+                  </div>
+                </div>
+                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Logo khối</label>
+                    <?php showUploadFile('logo_introduce','logo_introduce', @$setting['logo_introduce'],1);?>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ảnh khối</label>
+                    <?php showUploadFile('image_introduce','image_introduce', @$setting['image_introduce'],1);?>
+                  </div>
+                </div>
+
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nội dung dòng 1</label>
+                    <input type="text" class="form-control" name="content1_introduce" value="<?php echo @$setting['content2_introduce'];?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nội dung dòng 2</label>
+                    <input type="text" class="form-control" name="content2_introduce" value="<?php echo @$setting['content2_introduce'];?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nội dung dòng 3</label>
+                    <input type="text" class="form-control" name="content3_introduce" value="<?php echo @$setting['content3_introduce'];?>" />
+                  </div>
+                </div>
+                  <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>    
+            </div>
+          </div>
+
+<!-- Khối lý do chọn -->
+          <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Khối lý do chọn</h5>
+            </div>
+            <div class="card-body row">
+                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề khối</label>
+                    <input type="text" class="form-control" name="title_why_choose" value="<?php echo @$setting['title_why_choose'];?>" />
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 1</label>
+                    <input type="text" class="form-control" name="content1_why_choose" value="<?php echo @$setting['content1_why_choose'];?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 2</label>
+                    <input type="text" class="form-control" name="content2_why_choose" value="<?php echo @$setting['content2_why_choose'];?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 3</label>
+                    <input type="text" class="form-control" name="content3_why_choose" value="<?php echo @$setting['content3_why_choose'];?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 4</label>
+                    <input type="text" class="form-control" name="content4_why_choose" value="<?php echo @$setting['content4_why_choose'];?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 5</label>
+                    <input type="text" class="form-control" name="content5_why_choose" value="<?php echo @$setting['content5_why_choose'];?>" />
+                  </div>
+                </div>
+                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+          </div>
+        </div>
+          
+        </div>
+
        
       </div>
     <?= $this->Form->end() ?>
   </div>
 
-  text-welcome

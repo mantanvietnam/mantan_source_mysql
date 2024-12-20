@@ -32,6 +32,7 @@ html {
   opacity: 0.8; /* Độ mờ của ảnh overlay (có thể điều chỉnh từ 0 đến 1) */
 }
 
+
 .background-overlay::before {
   content: "";
   position: absolute;

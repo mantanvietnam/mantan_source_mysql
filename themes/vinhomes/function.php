@@ -40,5 +40,11 @@ function setting(){
     return $data_value;
 }
 
+function listCategoryBytype($type){
+    global $modelCategories;
+    $categories = $modelCategories->find()->where(['type'=>$type])->all()->toList();
+    return $categories;
+}
+
 
 ?>
