@@ -31,8 +31,7 @@
             <thead>
               <tr>
                 <th>Tên khách hàng</th>
-                <th>Ngày mượn</th>
-                <th>Ngày trả</th>
+                <th>sach</th>
                 <th>Trạng thái</th>
               </tr>
             </thead>
@@ -45,11 +44,16 @@
                     if($order->status==2){
                       $status = 'đã trả';
                     }
+                    $book = '';
+                    if(!empty($order->orderDetail)){ 
+                        foreach($order->orderDetail as $k => $value){
+                              $book .= $value->book->name.'('.number_format($value->quantity).'), &nbsp';
+                        }
+                      } 
                     echo '<tr>
                     <td>' . ($order->customer->name ?? 'N/A') . '</br>
                     ' . ($order->customer->phone ?? 'N/A') . '</td>
-                    <td>' . date('d-m-Y H:i:s', $order->created_at) . '</td>
-                    <td>' . date('d-m-Y H:i:s', $order->return_deadline) . '</td>
+                    <td>' . $book. '</td>
                     <td>' .$status. '</td>
 
 

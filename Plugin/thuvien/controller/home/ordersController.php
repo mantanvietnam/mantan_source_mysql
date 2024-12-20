@@ -24,7 +24,7 @@ function listOrder($input)
 
         $order = ['Orders.id' => 'desc'];
         $limit = 20;
-        $conditions = [];
+        $conditions = ['Orders.building_id'=>$user->idbuilding];
 
         $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
         if ($page < 1) $page = 1;
@@ -33,33 +33,17 @@ function listOrder($input)
             $conditions['Orders.id'] = (int)$_GET['id'];
         }
 
-        if (!empty($_GET['name']) || !empty($_GET['phone'])) {
-            $customerConditions = [];
-            if (!empty($_GET['name'])) {
-                $customerConditions['name LIKE'] = '%' . $_GET['name'] . '%';
-            }
-            if (!empty($_GET['phone'])) {
-                $customerConditions['phone LIKE'] = '%' . $_GET['phone'] . '%';
-            }
+         if(!empty($_GET['id_building'])){
+            $conditions['Orders.building_id'] = (int)$_GET['id_building'];
+        }
 
-            $matchingCustomers = $modelCustomers->find()
-                ->where($customerConditions)
-                ->select(['id'])
-                ->all()
-                ->toList();
+        if (!empty($_GET['id_customer'])) {
+            $conditions['Orders.customer_id'] = $_GET['id_customer'];
 
-            if (!empty($matchingCustomers)) {
-                $customerIds = array_map(function ($customer) {
-                    return $customer->id;
-                }, $matchingCustomers);
-                $conditions['Orders.customer_id IN'] = $customerIds;
-            } else {
-                $conditions['Orders.customer_id'] = -1;
-            }
         }
 
         if(!empty($_GET['id_book'])){
-            $conditions['od.id_book'] = (int)$_GET['id_book'];
+            $conditions['od.book_id'] = (int)$_GET['id_book'];
         }
 
         $join = [
@@ -140,7 +124,11 @@ function listOrder($input)
                 $listData[$key]->customer = $modelCustomers->get($order->customer_id);
                 $listData[$key]->building = $modelBuildings->get($order->building_id);
                 $listData[$key]->member = $modelMembers->get($order->member_id);
-                $OrderDetail = $modelOrderDetails->find()->where(['order_id'=>$order->id])->all()->toList();
+                $whereOrder = ['order_id'=>$order->id];
+                if(!empty($_GET['id_book'])){
+                    $whereOrder['book_id']=(int)$_GET['id_book'];
+                }
+                $OrderDetail = $modelOrderDetails->find()->where($whereOrder)->all()->toList();
                 if(!empty($OrderDetail)){
                     foreach($OrderDetail as $k => $item){
                         $OrderDetail[$k]->book = $modelBook->find()->where(['id'=>$item->book_id])->first();
@@ -239,8 +227,6 @@ function addOrder($input)
             $order->updated_at = time();
 
             if ($modelOrders->save($order)) {
-
-                if (isset($dataSend['order_books']) && is_array($dataSend['order_books'])) {
                     foreach ($dataSend['order_books'] as $detail) {
                         if (!empty($detail['book_id']) && !empty($detail['quantity']) && !empty($detail['warehouse_id'])) {
                             $orderDetail = $modelOrderDetails->find()->where(['order_id' => $order->id, 'book_id' => $detail['book_id']])->first();
@@ -278,9 +264,9 @@ function addOrder($input)
                             }
                         }
                     }
-                } else {
-                    $mess = '<p class="text-warning">Không có chi tiết đơn mượn nào được thêm.</p>';
-                }
+
+
+                
 
                 $mess = '<p class="text-success">Tạo hoặc cập nhật đơn mượn thành công.</p>';
                 return $controller->redirect('/listOrder?mess=saveSuccess');

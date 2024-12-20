@@ -1343,6 +1343,7 @@ function statisticalAPI($input){
 	$conditionProduct['type'] = 'user_create';
 
 	$totalDataProduct = $modelProduct->find()->where($conditionProduct)->all()->toList();
+	$totalByOrder = $modelOrder->find()->where(['type'=>0,'created_at >='=>date('Y-m-d').' 00:00:00','created_at <='=>date('Y-m-d H:i:s')])->count();
     $totalDataProduct = count($totalDataProduct);
 
     $totalDataMember = $modelMember->find()->where()->all()->toList();
@@ -1354,6 +1355,7 @@ function statisticalAPI($input){
 				'static_luong_dang_nhap' => (int) @$totalDatalastlogin,
 				'static_doanh_thu' => (int) @$Order,
 				'static_mau_duyet' => (int) @$totalDataProduct,
+				'static_mau_mua' => (int) @$totalDataProduct,
 				'static_today' => date('H:i d/m/Y'),
 				'static_member' => $totalDataMember
 			];

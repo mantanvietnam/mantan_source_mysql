@@ -159,7 +159,9 @@ function getOrderDetailsByOrderIdAPI() {
             'customer_name' => $customer->name,
             'customer_phone' => $customer->phone,
             'customer_email' => $customer->email,
-            'return_deadline' => date('d-m-Y H:i:s', date($order->return_deadline))
+            'status' => $order->status,
+            'return_deadline' => date('d-m-Y H:i:s', date($order->return_deadline)),
+            'return_created' => date('d-m-Y H:i:s', date($order->created_at))
         );
 
         $orderDetails = $modelOrderDetails->find()->where(['order_id' => $orderId])->all()->toList();

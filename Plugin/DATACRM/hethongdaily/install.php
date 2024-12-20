@@ -116,6 +116,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customers` (
   `link_download_mmtc` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `id_friend_block` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `max_export_mmtc` INT NOT NULL DEFAULT '0',
+  `total_coin` INT NULL DEFAULT '0';
   `id_affsource` INT NULL DEFAULT 0 COMMENT 'id người giới thiệu' ,
   `status_phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'public',
   `blue_check` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock',
@@ -463,6 +464,17 @@ $sqlInstallDatabase .="CREATE TABLE `historie_point_customers`(
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `datacrm_phoenixcamp`.`transaction_customers` ( 
+`id` INT NOT NULL AUTO_INCREMENT ,
+`id__customer` INT NULL DEFAULT NULL ,
+`coin` INT NULL DEFAULT NULL ,
+`type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`create_at` INT NULL DEFAULT NULL ,
+`id_system` INT NULL DEFAULT NULL , 
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
@@ -617,6 +629,7 @@ $sqlUpdateDatabase['customers']['id_friend_block'] = "ALTER TABLE `customers` AD
 $sqlUpdateDatabase['customers']['max_export_mmtc'] = "ALTER TABLE `customers` ADD `max_export_mmtc` INT NOT NULL DEFAULT '0';";
 $sqlUpdateDatabase['customers']['id_affsource'] = "ALTER TABLE `customers` ADD `id_affsource` INT NULL DEFAULT '0' COMMENT 'id người giới thiệu';";
 $sqlUpdateDatabase['customers']['blue_check'] = "ALTER TABLE `customers` ADD `blue_check` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'lock';";
+$sqlUpdateDatabase['customers']['total_coin'] = "ALTER TABLE `customers` ADD `total_coin` INT NULL DEFAULT '0';";
 $sqlUpdateDatabase['customers']['status_phone'] = "ALTER TABLE `customers` ADD `status_phone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT 'public';";
 // bảng customer_histories
 $sqlUpdateDatabase['customer_histories']['id_customer'] = "ALTER TABLE `customer_histories` ADD `id_customer` INT NOT NULL;";
@@ -865,4 +878,12 @@ $sqlUpdateDatabase['historie_point_customers']['id_customer'] = "ALTER TABLE `hi
 $sqlUpdateDatabase['historie_point_customers']['point'] = "ALTER TABLE `historie_point_customers` ADD `point` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['historie_point_customers']['created_at'] = "ALTER TABLE `historie_point_customers` ADD `created_at` INT NULL DEFAULT NULL ;";
 $sqlUpdateDatabase['historie_point_customers']['note'] = "ALTER TABLE `historie_point_customers` ADD `note`  VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+
+$sqlUpdateDatabase['transaction_customers']['id__customer'] = "ALTER TABLE `transaction_customers` ADD `id__customer` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['transaction_customers']['coin'] = "ALTER TABLE `transaction_customers` ADD `coin` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['transaction_customers']['type'] = "ALTER TABLE `transaction_customers` ADD `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['transaction_customers']['note'] = "ALTER TABLE `transaction_customers` ADD `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['transaction_customers']['create_at'] = "ALTER TABLE `transaction_customers` ADD `create_at` INT NULL DEFAULT NULL ;";
+$sqlUpdateDatabase['transaction_customers']['id_system'] = "ALTER TABLE `transaction_customers` ADD `id_system` INT NULL DEFAULT NULL;";
+
 ?>

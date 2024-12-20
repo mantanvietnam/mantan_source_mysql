@@ -136,7 +136,7 @@
               Phòng: '.$item->room->name.'</br>
               Kệ sách: '.$item->shelf->name.'</td>
               <td align="center">'.$item->quantity.'</td>
-              <td align="center">'.$item->quantity_borrow.'</td>
+              <td align="center"><a href="/listOrder?id_building='.$item->id_building.'&status=1&id_book='.$item->id_book.'">'.$item->quantity_borrow.'</a></td>
               <td align="center">'.$item->quantity_warehous.'</td>
               <td width="5%" align="center">
               <a class="dropdown-item" href="/addWarehouse?id='.$item->id.'&type=plus">

@@ -11,12 +11,15 @@ function addMoneyPayOSBankAPI($input)
 		$id_ransaction = explode(" ", $datas['description']);
         $total = count($id_ransaction);
         $ransaction = 0;
+        $type = '';
         if($total==2){
             $ransaction = $id_ransaction[0];
+            $type = $id_ransaction[1];
         }elseif($total==3){
             $ransaction = $id_ransaction[1];
+            $type = $id_ransaction[3];
         }
-		processAddMoney($datas['amount'], $ransaction);
+		processAddMoney($datas['amount'], $ransaction ,$type);
 		return array('code'=>1, 'mess'=>'bạn giao dịch thành công');
 	}
 	return array('code'=>0, 'mess'=>'giao dịch không thành công');

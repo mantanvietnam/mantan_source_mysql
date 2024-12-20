@@ -1294,7 +1294,7 @@ function saveRequestWithdrawAPI($input)
 
                 if(!empty($infoUser)){
                     if($infoUser->total_coin >= $dataSend['money']){
-                        $check = $modeTransactionRoses->find()->where(['id_user'=>$inforuser,'status'=>'new'])->first();
+                        $check = $modeTransactionRoses->find()->where(['id_user'=>$infoUser->id,'status'=>'new'])->first();
                         if(empty($check)){
                             $user = $modelUser->find()->where()->first();
                             if(!empty($user)){

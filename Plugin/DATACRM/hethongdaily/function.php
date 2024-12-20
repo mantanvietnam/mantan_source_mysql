@@ -1671,15 +1671,17 @@ function addActivityHistory($user=array(),$note='',$keyword='',$id_key=0){
 }
 
 
-function processAddMoney($money = 0, $phone=''){
+function processAddMoney($money = 0, $phone='', $type=''){
     global $controller;
     
     $modelCustomer = $controller->loadModel('Customers');
     $modelBill = $controller->loadModel('Bills');
+    $modelTransactionCustomers = $controller->loadModel('TransactionCustomers');
 
     $infoUser = $modelCustomer->find()->where(['phone'=>$phone])->first();
 
     if(!empty($infoUser)){
+        if($type=='MMTC'){
         $data = getMemberById($infoUser->id_parent);
         $quantity = $money/$data->infosystem->price_export_mmtc;
 
@@ -1700,7 +1702,7 @@ function processAddMoney($money = 0, $phone=''){
         $bill->id_debt = 0;
         $bill->type_collection_bill =  'chuyen_khoan';
         $bill->id_customer = $infoUser->id;
-        $bill->note = 'Thanh toán mua bản thần sô học của khách '.@$customer->full_name.' '.@$customer->phone;
+        $bill->note = 'Thanh toán mua bản thần sô học của khách '.@$infoUser->full_name.' '.@$infoUser->phone;
         $modelBill->save($bill);
 
         $point = listPonint();
@@ -1712,7 +1714,30 @@ function processAddMoney($money = 0, $phone=''){
             sendNotification($dataSendNotification, $infoUser->token_device);
         }
 
+        }elseif($type=='MMTC'){
+            $data = getMemberById($infoUser->id_parent);
+            $quantity = $money/$data->infosystem->price_export_mmtc;
 
+       
+            $infoUser->total_coin +=(int) $money;
+            $modelCustomer->save($infoUser);
+
+
+            $histories = $modelTransactionCustomers->newEmptyEntity();
+
+                $histories->id_customer = $infoUser->id;
+                $histories->id_system = $data->id_system;
+                $histories->coin = (int) $money;
+                $histories->type = 'plus';
+                $histories->note = 'Nạp số tiền là : '.number_format($histories->coin).'đ vào tài khoản, số dư tài khoản sau giao dịch là '.number_format($infoUser->total_coin).'đ';
+                $histories->create_at = time();
+
+                $modelTransactionCustomers->save($histories);
+
+
+
+                return ['code'=> 1, 'mess'=>'<p class="text-success">Tài khoản này nạp tiền thành công</p>', 'data'=> $user];
+        }   
         
         return array('code'=>1,'mess'=>'ok');
     }else{

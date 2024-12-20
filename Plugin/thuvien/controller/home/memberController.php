@@ -1048,6 +1048,8 @@ function dashboard($input)
     $modelMembers = $controller->loadModel('Members');
     $modelCustomers = $controller->loadModel('Customers');
     $modelBuildings = $controller->loadModel('Buildings');
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
+    $modelBook = $controller->loadModel('Books');
 
 	
 	if(!empty($user)){
@@ -1058,7 +1060,7 @@ function dashboard($input)
         $endOfDay = strtotime("tomorrow 00:00:00") - 1;
                     
 
-        $conditions = array('building_id'=>(int)$user->id_building,  'created_at >='=>$startOfDay,'created_at <='=>$endOfDay);
+        $conditions = array('building_id'=>(int)$user->idbuilding,  'created_at >='=>$startOfDay,'created_at <='=>$endOfDay);
 
     	$dataCreated = $modelOrders->find()->where($conditions)->all()->toList();
     	if(!empty($dataCreated)){
@@ -1066,11 +1068,18 @@ function dashboard($input)
                 $dataCreated[$key]->customer = $modelCustomers->get($order->customer_id);
                 $dataCreated[$key]->building = $modelBuildings->get($order->building_id);
                 $dataCreated[$key]->member = $modelMembers->get($order->member_id);
+                $OrderDetail = $modelOrderDetails->find()->where(['order_id'=>$order->id])->all()->toList();
+                if(!empty($OrderDetail)){
+                    foreach($OrderDetail as $k => $item){
+                        $OrderDetail[$k]->book = $modelBook->find()->where(['id'=>$item->book_id])->first();
+                    }
+                }
+                $dataCreated[$key]->orderDetail = $OrderDetail;
             }
     	}
     	
 
-    	$conditions = array('building_id'=>(int)$user->id_building,  'return_deadline >='=>$startOfDay,'return_deadline <='=>$endOfDay);
+    	$conditions = array('building_id'=>(int)$user->idbuilding,  'return_deadline >='=>$startOfDay,'return_deadline <='=>$endOfDay);
 
     	$dataDeadline = $modelOrders->find()->where($conditions)->all()->toList();
     	if(!empty($dataDeadline)){
@@ -1078,10 +1087,17 @@ function dashboard($input)
                 $dataDeadline[$key]->customer = $modelCustomers->get($order->customer_id);
                 $dataDeadline[$key]->building = $modelBuildings->get($order->building_id);
                 $dataDeadline[$key]->member = $modelMembers->get($order->member_id);
+                $OrderDetail = $modelOrderDetails->find()->where(['order_id'=>$order->id])->all()->toList();
+                if(!empty($OrderDetail)){
+                    foreach($OrderDetail as $k => $item){
+                        $OrderDetail[$k]->book = $modelBook->find()->where(['id'=>$item->book_id])->first();
+                    }
+                }
+                $dataDeadline[$key]->orderDetail = $OrderDetail;
             }
     	}
 
-
+    	
 	    setVariable('dataCreated', $dataCreated);
 	    setVariable('dataDeadline', $dataDeadline);
 

@@ -25,12 +25,8 @@
 
         <div class="col-md-2">
           <label class="form-label">Tên khách hàng</label>
-          <input type="text" class="form-control" name="customer_name" value="<?php if(!empty($_GET['customer_name'])) echo $_GET['customer_name']; ?>">
-        </div>
-
-        <div class="col-md-2">
-          <label class="form-label">Số điện thoại</label>
-          <input type="text" class="form-control" name="customer_phone" value="<?php if(!empty($_GET['customer_phone'])) echo $_GET['customer_phone']; ?>">
+          <input type="text" class="form-control" name="customer_name" id="customer_name" value="<?php if(!empty($_GET['customer_name'])) echo $_GET['customer_name']; ?>">
+          <input type="hidden" class="form-control" name="id_customer" id="id_customer" value="<?php if(!empty($_GET['id_customer'])) echo $_GET['id_customer']; ?>">
         </div>
 
         <div class="col-md-2">
@@ -282,33 +278,35 @@
 
 function updateOrderStatus(orderId, newStatus) {
     var confirmation = confirm('Bạn có chắc chắn muốn cập nhật trạng thái đơn mượn này không?');
-        $.ajax({
-            method: "POST",
-            url: "/apis/updateOrderStatus",
-            data: {
-                id: orderId,
-                status: newStatus
-            },
-            success: function(response) {
-                try {
-                    response = typeof response === 'string' ? JSON.parse(response) : response;
+        if(confirmation == true){
+            $.ajax({
+                method: "POST",
+                url: "/apis/updateOrderStatus",
+                data: {
+                    id: orderId,
+                    status: newStatus
+                },
+                success: function(response) {
+                    try {
+                        response = typeof response === 'string' ? JSON.parse(response) : response;
 
-                    if (response.success === true) {
-                        alert(response.message);
-                        location.reload();
-                    } else {
-                        alert(response.message || 'Cập nhật không thành công.');
+                        if (response.success === true) {
+                            alert(response.message);
+                            location.reload();
+                        } else {
+                            alert(response.message || 'Cập nhật không thành công.');
+                        }
+                    } catch (error) {
+                        console.error('Lỗi khi xử lý phản hồi JSON:', error);
+                        alert('Phản hồi không hợp lệ từ server.');
                     }
-                } catch (error) {
-                    console.error('Lỗi khi xử lý phản hồi JSON:', error);
-                    alert('Phản hồi không hợp lệ từ server.');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Có lỗi xảy ra khi gửi yêu cầu AJAX:', textStatus, errorThrown);
+                    alert('Có lỗi xảy ra khi kết nối đến server. Vui lòng thử lại.');
                 }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Có lỗi xảy ra khi gửi yêu cầu AJAX:', textStatus, errorThrown);
-                alert('Có lỗi xảy ra khi kết nối đến server. Vui lòng thử lại.');
-            }
-        });
+            });
+        }
 }
 
 function deleteOrder(id) {
@@ -339,7 +337,7 @@ function fetchOrderDetails(orderId) {
         beforeSend: function() {
         },
         success: function(response) {
-
+               console.log(response);
             if (response.order_info.length > 0) {
                 let orderInfo = response.order_info[0]; 
                 let orderDetails = response.order_details;
@@ -348,12 +346,16 @@ function fetchOrderDetails(orderId) {
                 let customerPhone = orderInfo.customer_phone || 'N/A';
                 let customerEmail = orderInfo.customer_email || '';
                 let returnDeadline = orderInfo.return_deadline || 'N/A';
+                let returncreated = orderInfo.return_created || 'N/A';
+                let status = orderInfo.status;
+                let id_order = orderInfo.order_id;
 
                 let orderInfoHtml = `
                     <p><strong>ID:</strong> ${orderInfo.order_id}</p>
                     <p><strong>Tên khách hàng:</strong> ${customerName}</p>
                     <p><strong>Điện thoại:</strong> ${customerPhone}</p>
                     <p><strong>Email:</strong> ${customerEmail}</p>
+                    <p><strong>Ngày mượn:</strong> ${returncreated}</p>
                     <p><strong>Hạn trả:</strong> ${returnDeadline}</p>
                 `;
 
@@ -369,6 +371,12 @@ function fetchOrderDetails(orderId) {
                 });
 
                 detailsHtml += '</tbody></table>';
+
+                if(status==1){
+                     detailsHtml += '<button type="submit" class="btn btn-primary " onclick="updateOrderStatus('+id_order+',2)">trả sách</button>';
+                }
+
+
                 $('#orderDetailsModal .modal-body').html(orderInfoHtml + detailsHtml);
                 $('#orderDetailsModal').modal('show');
             } else {
@@ -391,6 +399,59 @@ function fetchOrderDetails(orderId) {
 $('#orderDetailsModal').on('hidden.bs.modal', function () {
 });
 
+
+ $(function() {
+        function split( val ) {
+          return val.split( /,\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+        
+
+        $( "#customer_name" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchCustomerAPI", {
+                    term: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+                
+                $( "#customer_name" ).val(ui.item.label);
+                $( "#id_customer" ).val(ui.item.id);
+                //$( "#promotion" ).val(ui.item.discount);
+                
+
+                return false;
+            }
+        });
+    });
 </script>
 
 <?php include(__DIR__.'/../footer.php'); ?>
