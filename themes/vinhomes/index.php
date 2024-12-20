@@ -1,5 +1,7 @@
 <?php 
-    global $settingThemes;
+    global $urlThemeActive;
+    global $isHome;
+    $setting = setting();
     getHeader();
 ?>
       <!-- Nội dung chính -->
@@ -131,32 +133,25 @@
     >
       <div class="flex flex-col items-center lg:flex-row slide-right">
         <div class="lg:w-1/2">
-          <h1 class="text-2xl font-bold text-blue-900">MinhTuanVinhomes:</h1>
+          <h1 class="text-2xl font-bold text-blue-900"><?php echo @$setting['title_introduce_1']; ?></h1>
           <h2 class="flex items-center text-2xl font-bold text-blue-900">
-            Phân phối bất động sản
+          <?php echo @$setting['title_introduce_2']; ?>
             <img
               alt="Vinhomes logo"
               class="ml-2"
               height="40"
-              src="<?= $urlThemeActive ?>image/heroSection/logoVin.png"
+              src="<?php echo @$setting['logo_introduce']; ?>"
               width="100"
             />
           </h2>
           <p class="mt-4 text-lg text-blue-900">
-            Hân hạnh là cầu nối giúp khách hàng chạm tới những giá trị sống của
-            tương lai
+          <?php echo @$setting['content1_introduce']; ?>
           </p>
           <p class="mt-4 text-gray-700">
-            Tôi là một chuyên viên bất động sản đầy nhiệt huyết và giàu kinh
-            nghiệm, hiện đang làm việc tại Vinhomes, một trong những thương hiệu
-            bất động sản hàng đầu tại Việt Nam. Với vốn am hiểu về thị trường
-            bất động sản cùng khả năng tư duy chiến lược sắc bén, tôi sẽ giúp
-            khách hàng của mình đưa ra quyết định đầu tư sáng suốt.
+          <?php echo @$setting['content2_introduce']; ?>
           </p>
           <p class="mt-4 text-gray-700">
-            Cùng tôn chỉ luôn đặt lợi ích của khách hàng lên hàng đầu, tôi cam
-            kết mang lại sự hài lòng tối đa thông qua dịch vụ chuyên nghiệp và
-            tận tâm.
+          <?php echo @$setting['content3_introduce']; ?>
           </p>
           <button
             class="px-6 py-2 mt-6 text-white transition duration-300 bg-blue-900 rounded-full shadow-lg hover:bg-blue-700"
@@ -169,7 +164,7 @@
             <img
               alt="Person standing in front of a building"
               class="w-[60%] md:w-auto"
-              src="<?= $urlThemeActive ?>image/heroSection/bgInfo.png"
+              src="<?php echo @$setting['image_introduce']; ?>"
             />
           </div>
         </div>
@@ -387,14 +382,14 @@
               alt="Children playing in a park with high-rise buildings in the background"
               class="rounded-lg"
               height="300"
-              src="<?= $urlThemeActive ?>image/heroSection/bgBenefit1.png"
+              src="<?php echo @$setting['image1_news_hot']; ?>"
               width="400"
             />
             <img
               alt="High-rise residential building with a scenic view"
               class="rounded-lg mt-[-40px] ml-[80px]"
               height="300"
-              src="<?= $urlThemeActive ?>image/heroSection/bgBenefit2.png"
+              src="<?php echo @$setting['image2_news_hot']; ?>"
               width="400"
             />
           </div>
@@ -403,7 +398,7 @@
           <h2
             class="mb-2 text-lg font-bold text-gray-800 sm:text-4xl text-[#142A72]"
           >
-            Những lý do nên tìm đến MinhTuanVinhomes
+          <?php echo @$setting['title_why_choose']; ?>
             <span class="text-yellow-500">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
@@ -414,24 +409,19 @@
           </h2>
           <ul class="space-y-2 text-gray-700">
             <li>
-              <i class="text-yellow-500 fas fa-check"></i> Tiếp cận thông tin
-              minh bạch, đầy đủ
+              <i class="text-yellow-500 fas fa-check"></i> <?php echo @$setting['content1_why_choose']; ?>
             </li>
             <li>
-              <i class="text-yellow-500 fas fa-check"></i> Mua nhà mọi lúc, mọi
-              nơi 24/7
+              <i class="text-yellow-500 fas fa-check"></i> <?php echo @$setting['content2_why_choose']; ?>
             </li>
             <li>
-              <i class="text-yellow-500 fas fa-check"></i> Được tư vấn chuyên
-              nghiệp, miễn phí
+              <i class="text-yellow-500 fas fa-check"></i> <?php echo @$setting['content3_why_choose']; ?>
             </li>
             <li>
-              <i class="text-yellow-500 fas fa-check"></i> Tiếp kiệm chi phí và
-              thời gian
+              <i class="text-yellow-500 fas fa-check"></i> <?php echo @$setting['content4_why_choose']; ?>
             </li>
             <li>
-              <i class="text-yellow-500 fas fa-check"></i> Tìm mua nhà Vinhomes
-              từ quỹ căn đủ nhất với giá tốt nhất
+              <i class="text-yellow-500 fas fa-check"></i><?php echo @$setting['content55_why_choose']; ?>
             </li>
           </ul>
           <button

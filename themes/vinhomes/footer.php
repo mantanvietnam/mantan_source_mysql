@@ -45,12 +45,12 @@ $setting = setting();
                     <a href="#" class="hover:underline">Trang chủ</a>
                   </li>
                   <li>
-                    <a href="#" class="hover:underline">Về MinhTuanVinhomes</a>
+                    <a href="/posts" class="hover:underline">Về MinhTuanVinhomes</a>
                   </li>
                   <li>
-                    <a href="#" class="hover:underline">Danh sách dự án</a>
+                    <a href="/projects" class="hover:underline">Danh sách dự án</a>
                   </li>
-                  <li><a href="#" class="hover:underline">Liên hệ</a></li>
+                  <li><a href="/contact" class="hover:underline">Liên hệ</a></li>
                 </ul>
               </div>
               <div>

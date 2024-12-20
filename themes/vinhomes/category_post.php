@@ -1,6 +1,7 @@
 <?php 
 getHeader();
 $categories = listCategoryBytype('post'); 
+?>
 ?> 
 <div class="py-4 mx-4 my-10 sm:mx-6 lg:mx-20 font-plus fade-in">
       <h1 class="text-2xl font-bold md:text-4xl">
@@ -17,14 +18,13 @@ $categories = listCategoryBytype('post');
       class="flex flex-col justify-between py-4 mx-4 xl:flex-row sm:mx-6 lg:mx-20 font-plus"
     >
         <div class="w-auto xl:w-[60%] slide-right">
-            <div
-            class="tab-navigation flex mb-8 space-x-8 heroSection-news-select font-bold pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap"
-            >
-                <?php foreach ($categories as $key => $category): ?>
+            <div class="tab-navigation flex mb-8 space-x-8 heroSection-news-select font-bold pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap">
+                <?php foreach ($categories as $category): ?>
                     <a 
-                    class="tab-link <?php echo $key === 0 ? 'active' : ''; ?>" 
+                    class="tab-link <?php echo $category->id === $categories[0]->id ? 'active' : ''; ?>" 
                     href="#" 
-                    data-tab="<?php echo 'tab-' . $category->slug; ?>"
+                    data-tab="<?php echo 'tab-' . $category->slug; ?>" 
+                    data-id-category="<?php echo $category->id; ?>" 
                     >
                         <?php echo $category->name; ?>
                     </a>
@@ -33,14 +33,14 @@ $categories = listCategoryBytype('post');
 
             <!-- Tab Content Section -->
             <?php foreach ($categories as $key => $category): ?>
-                <div 
-                id="<?php echo 'tab-' . $category->slug; ?>" 
-                class="tab-content-news <?php echo $key === 0 ? 'active' : ''; ?>"
-                >
-                <!-- Nội dung của <?php echo $category->name; ?> sẽ ở đây -->
-                </div>
-            <?php endforeach; ?>
-        </div>
+                  <div 
+                  id="<?php echo 'tab-' . $category->slug; ?>" 
+                  class="tab-content-news <?php echo $key === 0 ? 'active' : ''; ?>"
+                  >
+                  <!-- Nội dung của <?php echo $category->name; ?> sẽ ở đây -->
+                  </div>
+              <?php endforeach; ?>
+          </div>
         <!-- Right -->
         <div
             class="w-auto flex justify-between xl:justify-start flex-col lg:flex-row xl:flex-col xl:w-[30%] mt-8 xl:mt-0 slide-left"
@@ -373,6 +373,101 @@ $categories = listCategoryBytype('post');
       </div>
     </div>
 
-   
+    <script>
+const tabData = <?php
+    $groupedPosts = [];
+    foreach ($categories as $category) {
+        // Lọc các bài viết của mỗi category theo ID, vẫn sử dụng slug trong JavaScript
+        $groupedPosts[$category->slug] = isset($posts) && is_array($posts) ? array_filter($posts, function ($post) use ($category) {
+            return $post->idCategory === $category->id; // Lọc theo ID
+        }) : [];
+    }
+    echo json_encode($groupedPosts, JSON_UNESCAPED_UNICODE);
+?>;
+
+// Log giá trị của tabData ra console để kiểm tra
+console.log(tabData);
+
+// Event listener cho các tab
+document.querySelectorAll('.tab-link').forEach(tab => {
+    tab.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Lấy slug từ data-tab
+        const tabSlug = this.getAttribute('data-tab').split('-')[1];
+        
+        // Lấy ID của category (được lưu trong data-id-category)
+        const categoryId = this.getAttribute('data-id-category');
+
+        // Log ID category để kiểm tra
+        console.log("Selected Category ID:", categoryId);
+
+        // Ẩn tất cả tab content
+        document.querySelectorAll('.tab-content-news').forEach(content => {
+            content.classList.remove('active');
+        });
+
+        // Hiển thị tab content tương ứng với slug
+        const contentToShow = document.getElementById('tab-' + tabSlug);
+        if (contentToShow) {
+            contentToShow.classList.add('active');
+        }
+
+        // Gọi hàm hiển thị bài viết tương ứng
+        generateTabContent(tabSlug);
+    });
+});
+
+// Hàm hiển thị bài viết trong các tab
+function generateTabContent(tabSlug) {
+    const contentArea = document.getElementById('tab-' + tabSlug);
+    const articles = tabData[tabSlug];
+
+    contentArea.innerHTML = ""; // Clear existing content
+
+    if (articles && articles.length > 0) {
+      articles.forEach((article) => {
+        const articleHTML = `
+            <a href="detailProject.html" class="rounded-lg">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img
+                        alt="Modern house with large windows and landscaped garden"
+                        class="object-cover w-full h-[340px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                        src="./image/news/bgNews.png"
+                    />
+                    <div
+                        class="absolute text-sm text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+                    >
+                        Đang mở bánQ1/2024: Sắp bán khu căn hộ
+                    </div>
+                </div>
+
+                <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
+                <div class="flex flex-col justify-between sm:items-center sm:flex-row">
+                    <div class="flex items-center mt-2 text-[#142A72] font-bold">
+                        <img
+                            src="./image/icons/iconLocationBlack.png"
+                            alt="icon"
+                            class="h-6 mr-2"
+                        />
+                        Huyện Đông Anh, Thành Phố Hà Nội
+                    </div>
+                    <div class="flex items-center mt-2 font-bold">
+                        <p class="mr-2">Tổng diện tích:</p>
+                        <p class="text-[#142A72]">385 ha</p>
+                    </div>
+                </div>
+                <p class="mt-2 text-gray-400 description">
+                    Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động và đẳng cấp Thế giới.
+                </p>
+            </a>
+        `;
+        contentArea.insertAdjacentHTML("beforeend", articleHTML);
+      });
+    } else {
+        contentArea.innerHTML = `<p class="text-gray-500">Không có tin tức</p>`;
+    }
+}
+</script>
 
 <?php getFooter();?>
