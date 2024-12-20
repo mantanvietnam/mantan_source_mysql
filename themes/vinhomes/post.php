@@ -1,1 +1,4 @@
-day la trnag <?php echo $post->title ?>
+ <?php 
+ debug($post);
+ die;
+ ?>

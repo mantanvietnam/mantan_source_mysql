@@ -32,6 +32,20 @@ function settingHomeTheme($input){
                         'tiktok' => @$dataSend['tiktok'],
                         'zalo' => @$dataSend['zalo'],
                         'facebook' => @$dataSend['facebook'],       
+                        'title_introduce_1' => @$dataSend['title_introduce_1'],       
+                        'title_introduce_2' => @$dataSend['title_introduce_2'],       
+                        'logo_introduce' => @$dataSend['logo_introduce'],       
+                        'image_introduce' => @$dataSend['image_introduce'],       
+                        'content1_introduce' => @$dataSend['content1_introduce'],       
+                        'content2_introduce' => @$dataSend['content2_introduce'],       
+                        'content3_introduce' => @$dataSend['content3_introduce'],       
+                        'title_why_choose' => @$dataSend['title_why_choose'],       
+                        'content1_why_choose' => @$dataSend['content1_why_choose'],       
+                        'content2_why_choose' => @$dataSend['content2_why_choose'],       
+                        'content3_why_choose' => @$dataSend['content3_why_choose'],       
+                        'content4_why_choose' => @$dataSend['content5_why_choose'],       
+                        'image1_news_hot' => @$dataSend['image1_news_hot'],       
+                        'image2_news_hot' => @$dataSend['image2_news_hot'],       
                     );
 
     

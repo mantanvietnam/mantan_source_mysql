@@ -1,5 +1,7 @@
 <?php
-session_start();
+global $urlThemeActive;
+global $isHome;
+$setting = setting();
 getHeader();
 ?>
 <section id="lien-he">
