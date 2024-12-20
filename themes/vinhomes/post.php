@@ -1,0 +1,1 @@
+day la trnag <?php echo $post->title ?>

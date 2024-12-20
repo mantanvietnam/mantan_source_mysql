@@ -17,6 +17,7 @@ function settingHomeTheme($input){
         $dataSend = $input['request']->getData();
 
         $value = array( 'image_logo' => @$dataSend['image_logo'],
+                        'text_logo' => @$dataSend['text_logo'],
                         'background_image' => @$dataSend['background_image'],
                         'title_footer' => @$dataSend['title_footer'],
                         'agency' => @$dataSend['agency'],

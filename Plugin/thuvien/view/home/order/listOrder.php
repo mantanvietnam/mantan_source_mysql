@@ -18,17 +18,17 @@
     <h5 class="card-header">Tìm kiếm đơn mượn</h5>
     <div class="card-body">
       <div class="row gx-3 gy-2 align-items-center">
-        <div class="col-md-2">
+        <div class="col-md-1">
           <label class="form-label">ID</label>
           <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id']; ?>">
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label class="form-label">Tên khách hàng</label>
           <input type="text" class="form-control" name="customer_name" value="<?php if(!empty($_GET['customer_name'])) echo $_GET['customer_name']; ?>">
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label class="form-label">Số điện thoại</label>
           <input type="text" class="form-control" name="customer_phone" value="<?php if(!empty($_GET['customer_phone'])) echo $_GET['customer_phone']; ?>">
         </div>
@@ -37,16 +37,29 @@
           <label class="form-label">Trạng thái</label>
           <select name="status" class="form-select color-dropdown">
             <option value="">Tất cả</option>
-            <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected'; ?>>Đang hoạt động</option>
-            <option value="completed" <?php if(!empty($_GET['status']) && $_GET['status']=='completed') echo 'selected'; ?>>Hoàn thành</option>
-            <option value="cancelled" <?php if(!empty($_GET['status']) && $_GET['status']=='cancelled') echo 'selected'; ?>>Hủy</option>
+            <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected'; ?>>Đang mượn</option>
+            <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected'; ?>>Đã trả</option>
           </select>
+        </div>
+
+        <div class="col-md-2">
+                <label class="form-label">Ngày mượn từ</label>
+                <input autocomplete="off" type="text" class="form-control datepicker" name="borrow_date_from" id="borrow_date_from" value="<?php if(!empty($_GET['borrow_date_from'])) echo $_GET['borrow_date_from']; ?>" placeholder="dd/mm/yyyy">
+        </div>
+
+        <div class="col-md-2">
+                <label class="form-label">Ngày mượn đến</label>
+                <input autocomplete="off" type="text" class="form-control datepicker" name="borrow_date_to" id="borrow_date_to" value="<?php if(!empty($_GET['borrow_date_to'])) echo $_GET['borrow_date_to']; ?>" placeholder="dd/mm/yyyy">
         </div>
 
         <div class="col-md-2">
           <label class="form-label">&nbsp;</label>
           <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
         </div>
+
+          <div class="col-md-1">
+            <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
+          </div>
       </div>
     </div>
   </div>
@@ -191,15 +204,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="orderDetailsModalLabel">Chi tiết đơn hàng</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+                    <!-- <span aria-hidden="true">&times;</span> -->
+                <!-- </button> -->
             </div>
             <div class="modal-body">
             </div>
-            <div class="modal-footer">
+            <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

@@ -8,18 +8,39 @@ global $urlThemeActive;
     }
 </style>
   <main>
-       <!--  Phần Banner 360  -->
-    <section id="banner360">
-        <div class="iframe-360">
-            <iframe src="<?php echo $setting['link_image360'] ?>" frameborder="0"></iframe>
+    <!-- Section: Banner 360 -->
+<section id="banner-360">
+    <iframe class='iframe-import' src="<?php echo $setting['link_image360'] ?>" frameborder="0"></iframe>
+    <div class='header-back-container container flex-lg-row'>
+        <!-- Title -->
+        <div class='header-back-title-container'>
+            <span>Toàn cảnh</span>
+            <span>Thanh Hóa 360</span>
         </div>
+        <!-- Buttons -->
+        <div class='header-group-btn'>
+            <span class='header-slogant'>Join the revolution of electric biking. Elektra bikes offer unmatched performance and eco-friendly commuting options.</span>
+            <div class='btn-header-container flex-lg-row'>
+                <div class='header-btn header-btn-1' href="javascript:void(0)">
+                    <span>Xem toàn cảnh 360</span>
+                    <div>
+                        <img src="<?= $urlThemeActive ?>images/arr-red.png" alt="">
+                    </div>
+                </div>
+                <a class='header-btn header-btn-2' href='<?php echo $setting['link_image360'] ?>'>
+                    <span>Truy cập link 360</span>
+                    <div>
+                        <img src="<?= $urlThemeActive ?>images/arr-white.png" alt="">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class='btn-stop-watch' href="javascript:void(0)">
+        <span>Dừng xem 360</span>
+    </div>
+</section>
 
-        <div class="iframe-360-layer">
-            <a href="javascript:void(0)" class="banner360-1 banner360">Xem toàn cảnh 360</a>
-            <a href="https://maichau360.vn/data360/tour-tong/index.html" class="banner360-3 banner360">Truy cập link 360</a>
-        </div>
-        <a href="javascript:void(0)" class="banner360-2 banner360" style="display: none;">Dừng xem 360</a>
-    </section>
 
     <!--  Phần Places  -->
     <section id="places">

@@ -1,8 +1,7 @@
-<?php
-getHeader();
-global $urlThemeActive;
+<?php 
+    global $settingThemes;
+    getHeader();
 ?>
-
       <!-- Nội dung chính -->
       <div class="absolute bottom-[-22%] z-10 w-full">
         <div
@@ -170,7 +169,7 @@ global $urlThemeActive;
             <img
               alt="Person standing in front of a building"
               class="w-[60%] md:w-auto"
-              src="./image/heroSection/bgInfo.png"
+              src="<?= $urlThemeActive ?>image/heroSection/bgInfo.png"
             />
           </div>
         </div>
@@ -180,7 +179,7 @@ global $urlThemeActive;
     <!-- Các dự án bất động sản -->
     <div
       class="relative min-h-screen text-white bg-center bg-cover font-plus lg:bg-left lg:bg-left-top slide-top"
-      style="background-image: url('./image/index/bgQuickSearch.png')"
+      style="background-image: url('<?= $urlThemeActive ?>image/index/bgQuickSearch.png')"
     >
       <div class="px-4 py-10 mx-auto md:py-20 sm:px-6 md:container xl:px-20">
         <div class="flex items-center justify-between mb-8">
@@ -513,7 +512,7 @@ global $urlThemeActive;
     <!-- Liên hệ -->
     <div
       class="relative bg-center bg-cover font-plus slide-top"
-      style="background-image: url('./image/index/imageQS2.png')"
+      style="background-image: url('<?= $urlThemeActive ?>image/index/imageQS2.png')"
     >
       <div class="absolute inset-0 bg-gray-900 bg-opacity-50"></div>
       <div
@@ -568,7 +567,4 @@ global $urlThemeActive;
         </form>
       </div>
     </div>
-
-<?php
-getFooter();
-?>
+    <?php getFooter();?>

@@ -9,6 +9,7 @@ function listOrder($input)
 
     $user = checklogin('listOrder');
     $modelOrders = $controller->loadModel('Orders');
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
     $modelMembers = $controller->loadModel('Members');
     $modelCustomers = $controller->loadModel('Customers');
     $modelBuildings = $controller->loadModel('Buildings');
@@ -59,6 +60,18 @@ function listOrder($input)
         if (!empty($_GET['status'])) {
             $conditions['status'] = $_GET['status'];
         }
+        if (!empty($_GET['start_date']) && !empty($_GET['end_date'])) {
+            $startDate = $_GET['start_date'];
+            $endDate = $_GET['end_date'];
+            $conditions['created_at >='] = date('Y-m-d 00:00:00', strtotime($startDate));
+            $conditions['created_at <='] = date('Y-m-d 23:59:59', strtotime($endDate));
+        } elseif (!empty($_GET['start_date'])) {
+            $startDate = $_GET['start_date'];
+            $conditions['created_at >='] = date('Y-m-d 00:00:00', strtotime($startDate));
+        } elseif (!empty($_GET['end_date'])) {
+            $endDate = $_GET['end_date'];
+            $conditions['created_at <='] = date('Y-m-d 23:59:59', strtotime($endDate));
+        }
 
         if (!empty($_GET['action']) && $_GET['action'] == 'Excel') {
             $listData = $modelOrders->find()->where($conditions)->order($order)->all()->toList();
@@ -71,16 +84,21 @@ function listOrder($input)
                 ['name' => 'Người phụ trách', 'type' => 'text', 'width' => 20],
                 ['name' => 'Trạng thái', 'type' => 'text', 'width' => 15],
                 ['name' => 'Ngày tạo', 'type' => 'text', 'width' => 20],
+                ['name' => 'Chi tiết đơn hàng', 'type' => 'text', 'width' => 50] 
             ];
 
             $dataExcel = [];
             foreach ($listData as $value) {
-                // Fetch related data
                 $customer = $modelCustomers->get($value->customer_id);
                 $building = $modelBuildings->get($value->building_id);
                 $member = $modelMembers->get($value->member_id);
+                $orderDetails = $modelOrderDetails->find()->where(['order_id' => $value->id])->all()->toList();
 
-                $statusText = ($value->status == 'active') ? 'Hoạt động' : 'Đã khóa';
+                $statusText = ($value->status == '1') ? 'Đang mượn' : 'Đã trả';
+                 $orderDetailsText = '';
+                 foreach ($orderDetails as $detail) {
+                     $orderDetailsText .= $detail->book_name . ' (Số lượng: ' . $detail->quantity . '); ';
+                 }
 
                 $dataExcel[] = [
                     $value->id,
@@ -91,10 +109,11 @@ function listOrder($input)
                     $member->name ?? 'N/A',
                     $statusText,
                     date('d-m-Y H:i:s', strtotime($value->created_at)),
+                    $orderDetailsText
                 ];
             }
 
-            export_excel($titleExcel, $dataExcel, 'danh_sach_don_hang');
+            export_excel($titleExcel, $dataExcel, 'danh_sach_đơn mượnmượn');
         } else {
             $listData = $modelOrders->find()
                 ->limit($limit)
@@ -160,7 +179,6 @@ function addOrder($input)
     $modelBooks = $controller->loadModel('Books');
     $modelWarehouses = $controller->loadModel('Warehouses');
 
-    $buildings = $modelBuilding->find()->all()->toList();
     $customer = $modelCustomers->find()->all()->toList();
     $books = $modelBooks->find()->all()->toList();
 
@@ -168,7 +186,8 @@ function addOrder($input)
     if (empty($user) || empty($user->grant_permission)) {
         return $controller->redirect('/');
     }
-
+    
+    $conditions = [];
     $orderDetails = [];
     $mess = '';
     $order = !empty($_GET['id']) 
@@ -244,6 +263,8 @@ function addOrder($input)
             $mess = '<p class="text-danger">Lưu đơn mượn không thành công.</p>';
         }
     }
+    
+    $buildings = $modelBuilding->find()->where(['id'=>$user->idbuilding])->all()->toList();
 
     setVariable('mess', $mess);
     setVariable('buildings', $buildings);

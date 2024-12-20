@@ -12,6 +12,10 @@
               <h5 class="mb-0">Khối banner</h5>
             </div>
             <div class="card-body">
+            <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Tên thương hiệu</label>
+                  <input type="text" class="form-control" name="text_logo" value="<?php echo @$setting['text_logo'];?>" />
+                </div>
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Logo</label>
                    <?php showUploadFile('image_logo','image_logo', @$setting['image_logo'],1);?>

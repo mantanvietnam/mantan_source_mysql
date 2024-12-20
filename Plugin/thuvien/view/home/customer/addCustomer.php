@@ -41,8 +41,9 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label" for="customer-birthday">Ngày Sinh</label>
-                  <input type="date" class="form-control" name="birthday" id="birthday" value="<?php echo @$data->birthday; ?>" />
+                  <input autocomplete="off" type="text" class="form-control datepicker" name="birthday" id="birthday" value="<?php echo @$data->birthday ? date('d/m/Y', @$data->birthday) : ''; ?>" placeholder="dd/mm/yyyy"/>
                 </div>
+
                 <div class="mb-3">
                   <label class="form-label">Trạng thái</label>
                   <select class="form-select" name="status" id="status">

@@ -1,0 +1,705 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 400;
+  min-width: 100vw;
+  overflow-x: hidden;
+}
+
+.text-header {
+  color: #252525;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* header */
+.header-container {
+  width: 100%; /* Đặt chiều rộng */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  z-index: 10;
+  background-color: #F8F9FA;
+}
+
+.iframe-import {
+  position: absolute; /* Đảm bảo iframe luôn ở vị trí cố định */
+  top: 100px; /* Có thể thay đổi vị trí theo nhu cầu */
+  width: 100%;
+  height: calc(100vh - 100px);
+  left: 0;
+  z-index: 0;
+}
+
+.header-container::before {
+  content: ""; /* Bắt buộc để pseudo-element hiển thị */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Lớp phủ tối với màu đen và độ trong suốt 50% */
+  z-index: 2; /* Lớp phủ nằm trên ảnh nền */
+}
+
+.header-container.no-overlay::before {
+  display: none; /* Ẩn lớp phủ khi có lớp "no-overlay" */
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  position: relative; /* Nội dung nằm trên lớp phủ */
+  z-index: 10; /* Đảm bảo nội dung hiển thị trên lớp phủ */
+  background-color: rgb(100, 66, 66);
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-link {
+  position: relative; /* Để có thể dùng pseudo-element */
+  display: inline-block; /* Đảm bảo phần tử có thể nhận sự kiện hover */
+}
+
+.nav-link a {
+  text-decoration: none; /* Loại bỏ underline mặc định */
+  color: black; /* Màu chữ mặc định */
+}
+
+.nav-link a::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 2px; /* Độ dày của đường gạch chân */
+  background-color: white;
+  transform: scaleX(0); /* Bắt đầu từ 0% chiều rộng */
+  transform-origin: bottom left; /* Hiệu ứng bắt đầu từ góc trái dưới */
+  transition: transform 0.6s ease; /* Hiệu ứng mở rộng */
+}
+
+.nav-link a:hover::after {
+  transform: scaleX(1); /* Khi hover, đường gạch chân sẽ mở rộng */
+}
+
+.city-name {
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.dropdown-list-location {
+  color: #FFFFFF;
+  border: none;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.dropdown-list-location:hover {
+  color: #FFFFFF;
+  border: none;
+  opacity: 0.8;
+}
+
+.btn.dropdown-toggle.show {
+  color: #FFFFFF;
+  border: none;
+}
+
+.nav-items a {
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.btn-language {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-back-container.hidden {
+  display: none; /* Hoặc visibility: hidden nếu bạn muốn nó vẫn chiếm không gian trong layout */
+}
+
+
+/* <!-- thanh nav responsive mobile --> */
+.nav-res {
+  position: relative;
+  z-index: 2; /* Đảm bảo nội dung hiển thị trên lớp phủ */
+}
+
+.city-name-res {
+  color: #252525;
+}
+
+.btn-language-res {
+  background-color: #F8F9FA;
+  color: #252525;
+  border: none;
+}
+
+/* header back */
+.header-back-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 80px;
+}
+
+.header-back-title-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-back-title-container span {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 68px;
+}
+
+.header-group-btn {
+  display: flex;
+  flex-direction: column;
+  max-width: 504px;
+  gap: 24px;
+}
+
+.header-btn {
+  display: flex;
+  align-items: center;
+  width: 250px;
+  height: 60px;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 32px;
+  cursor: pointer;
+  transition: 0.5s ease, color 0.3s ease
+}
+
+.header-btn-1:hover {
+  opacity: 0.8;
+}
+
+.header-btn-1 {
+  color: #252525;
+  background-color: #FFFFFF;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.header-btn-2 {
+  color: #FFFFFF;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #FFFFFF;
+  text-decoration: none;
+}
+
+.header-btn-2:hover {
+  background-color: white;
+  color: #252525;
+}
+
+.header-slogant {
+  color: #FFFFFF;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.btn-header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.btn-stop-watch {
+  width: 200px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  height: 60px;
+  background-color: #FFFFFF;
+  z-index: 2;
+  border-radius: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Đảm bảo rằng class hidden ẩn thẻ */
+.hidden {
+  display: none;
+}
+
+
+.btn-stop-watch:hover {
+  opacity: 0.8;
+}
+
+.btn-stop-watch span {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* địa điểm */
+.location-container {
+  opacity: 0;
+  transform: translateY(50px); /* Di chuyển xuống dưới một chút */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.location-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.location-des-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.locations-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.locations-title span {
+  color: #252525;
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 56px;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.location-info h2 {
+  font-weight: 600;
+  font-size: 32px;
+  font-weight: 40px;
+  color: #DB2728;
+}
+
+.location-info span {
+  font-size: 20px;
+  line-height: 32px;
+}
+
+.btn-more {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 60px;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 32px;
+  cursor: pointer;
+  color: #252525;
+  background-color: #FFFFFF;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #252525;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-more:hover {
+  transform: scale(1.1); /* Phóng to 1.5 lần */
+}
+
+.location-image-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+@media (min-width: 992px) {
+  .location-des-container {
+    width: 45%;
+  }
+
+  .location-image-container {
+    width: 589px;
+    height: 616px;
+  }
+}
+
+.location-container-rev {
+  flex-direction: column-reverse;
+}
+
+/* tin tức */
+
+.row {
+  flex-wrap: wrap;
+}
+
+.news-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.new-container {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.new-container h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  display: -webkit-box; /* Kích hoạt chế độ khung cho văn bản */
+  -webkit-box-orient: vertical; /* Thiết lập hướng khung dọc */
+  overflow: hidden; /* Ẩn phần nội dung thừa */
+  text-overflow: ellipsis; /* Thêm dấu "..." cho nội dung bị cắt */
+  -webkit-line-clamp: 2; /* Hiển thị tối đa 2 dòng */
+}
+
+.new-container span {
+  font-size: 16px;
+  line-height: 24px;
+  display: -webkit-box; /* Kích hoạt chế độ khung cho văn bản */
+  -webkit-box-orient: vertical; /* Thiết lập hướng khung dọc */
+  overflow: hidden; /* Ẩn phần nội dung thừa */
+  text-overflow: ellipsis; /* Thêm dấu "..." cho nội dung bị cắt */
+  -webkit-line-clamp: 2; /* Hiển thị tối đa 2 dòng */
+}
+
+
+.new-img {
+  width: 298px;
+  height: 380px;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.news-header {
+}
+
+.news-header h2 {
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 56px;
+}
+
+/* tin tức của tháng */
+.newmonth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.newmonth-header button{
+  border: none;
+  background-color: #FFFFFF;
+}
+
+ .setmoth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+#btn-back {
+  transform: 0.5s ease;
+}
+
+#btn-back:hover {
+  transform: scale(1.1);
+}
+
+#btn-next {
+  transform: 0.5s ease;
+}
+
+#btn-next:hover {
+  transform: scale(1.1);
+}
+
+.setmoth span{
+  color: #DB2728;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
+.best-new-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.best-new-img {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  height: 380px;
+}
+
+.best-new-container h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  display: -webkit-box; /* Kích hoạt chế độ khung cho văn bản */
+  -webkit-box-orient: vertical; /* Thiết lập hướng khung dọc */
+  overflow: hidden; /* Ẩn phần nội dung thừa */
+  text-overflow: ellipsis; /* Thêm dấu "..." cho nội dung bị cắt */
+  -webkit-line-clamp: 1; /* Hiển thị tối đa 2 dòng */
+}
+
+.bestnew-info {
+  display: flex;
+}
+
+.bestnew-des {
+  width: 50%;
+  font-size: 16px;
+  line-height: 24px;
+  display: -webkit-box; /* Kích hoạt chế độ khung cho văn bản */
+  -webkit-box-orient: vertical; /* Thiết lập hướng khung dọc */
+  overflow: hidden; /* Ẩn phần nội dung thừa */
+  text-overflow: ellipsis; /* Thêm dấu "..." cho nội dung bị cắt */
+  -webkit-line-clamp: 3; /* Hiển thị tối đa 2 dòng */
+}
+
+.bn-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bn-contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bn-contact span {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+/* map */
+.map-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-image: url("./assets/images/map-bg1.png");
+  padding: 12px;
+}
+
+.map-container h2 {
+  font-size: 52px;
+  line-height: 56px;
+  font-weight: 600;
+}
+
+.map-container span {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+#map {
+  width: 100%;
+  height: 572px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.filter-container {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: auto;
+}
+
+.filter-container h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.filter-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-options label {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter-options input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: #DB2728; /* Đổi màu dấu check mặc định trên trình duyệt hỗ trợ */
+}
+
+/* Tùy chỉnh màu của label khi checkbox được check */
+.filter-options input[type="checkbox"]:checked + label {
+  color: #DB2728; /* Đổi màu chữ của label */
+}
+
+.location-name {
+  color: #000; /* Màu chữ */
+  font-size: 12px; /* Kích thước chữ */
+  text-align: center;
+  white-space: nowrap; /* Không xuống dòng */
+}
+
+.slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider-header h2 {
+  font-weight: 600;
+  font-size: 52px;
+  line-height: 56px;
+}
+
+.slider-header span{
+  width: 50%;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* footer */
+.footer-container {
+  width: 100%;
+  background-color: #0C0C0C;
+}
+
+.footer-frist-container {
+  color: #FFFFFF;
+}
+
+.footer-frist-container h2 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.footer-frist-container span {
+  font-size: 16px;
+  line-height: 22.4px;
+}
+
+.footer-mid h2 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.footer-mid span {
+  font-size: 16px;
+  line-height: 22.4px;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper {
+  width: 100%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+.mySwiper2 {
+  height: 80%;
+  width: 100%;
+}
+
+.mySwiper {
+  height: 20%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.mySwiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.4;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

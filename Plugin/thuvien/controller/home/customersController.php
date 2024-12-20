@@ -123,7 +123,7 @@ function addCustomer($input)
     global $metaTitleMantan;
     global $session;
     $metaTitleMantan = 'Thêm người mượn sách';
-    $modelCustomer = $controller->loadModel('Customers'); 
+    $modelCustomers = $controller->loadModel('Customers'); 
 
     $user = checklogin('addCustomer');
     if (!empty($user)) {
@@ -132,13 +132,13 @@ function addCustomer($input)
         }
 
         if (!empty($_GET['id'])) {
-            $data = $modelCustomer->find()->where(['id' => (int)$_GET['id']])->first();
+            $data = $modelCustomers->find()->where(['id' => (int)$_GET['id']])->first();
 
             if (empty($data)) {
                 return $controller->redirect('/listCustomer');
             }
         } else {
-            $data = $modelCustomer->newEmptyEntity();
+            $data = $modelCustomers->newEmptyEntity();
             $data->created_at = time();
         }
         $mess = '';
@@ -151,10 +151,10 @@ function addCustomer($input)
                 $data->phone = $dataSend['phone'];
                 $data->address = str_replace(array('"', "'"), '’', $dataSend['address']);
                 $data->email = $dataSend['email'];
-                $data->birthday = $dataSend['birthday'];
+                $data->birthday = strtotime(str_replace("/", "-", $dataSend['birthday']));
                 $data->status = $dataSend['status'];
 
-                if ($modelCustomer->save($data)) {
+                if ($modelCustomers->save($data)) {
                     return $controller->redirect('/listCustomer?mess=saveSuccess');
                 } else {
                     $mess = '<p class="text-danger">Lưu dữ liệu không thành công</p>';
@@ -187,12 +187,13 @@ function deleteCustomer($input){
             return $controller->redirect('/');
         }
 
-        $modelCustomer = $controller->loadModel('Customers');
+        $modelCustomers = $controller->loadModel('Customers');
+
 
         if (!empty($_GET['id'])) {
             $conditions = array('id' => $_GET['id']);
             
-            $customer = $modelCustomer->find()->where($conditions)->first();
+            $customer = $modelCustomers->find()->where($conditions)->first();
 
             if (!empty($customer)) {
                 $note = $user->name . ' đã xóa thông tin người mượn ' . $customer->name . ' có ID là: ' . $customer->id;

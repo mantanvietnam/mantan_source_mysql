@@ -25,8 +25,8 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                         <label class="form-label" for="customer-search">Khách Hàng (*)</label>
-                            <div class="position-relative">
-                                <input type="text" class="form-control" id="customer-search" placeholder="Tìm kiếm khách hàng..." 
+                            <div class="position-relative d-flex align-items-center">
+                                <input type="text" class="form-control me-2" id="customer-search" placeholder="Tìm kiếm khách hàng..." 
                                 value="<?php 
                                     if (!empty($order->customer_id)) {
                                         foreach ($customer as $cust) {
@@ -36,7 +36,10 @@
                                             }
                                         }
                                     } 
-                                ?>" />                                
+                                ?>" />
+                                 <a href="javascript:void(0);" onclick="showAddCustom();" title="Thêm khách hàng mới" class="btn btn-primary">
+                                    <i class="bx bx-plus"></i>
+                                </a>                                
                                 <input type="hidden" name="customer_id" id="customer-id" value="<?php echo @$order->customer_id; ?>" />
                                 <div id="customer-search-results" class="search-results" 
                                 style="position: absolute; z-index: 1000; background: white; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; display: none;">
@@ -51,7 +54,6 @@
                             class="form-select" 
                             name="building_id" 
                             id="building-id">
-                            <option value="">-- Chọn Tòa Nhà --</option>
                             <?php foreach ($buildings as $building): ?>
                             <option value="<?php echo $building->id; ?>" 
                                 <?php echo (!empty($order->building_id) && $order->building_id == $building->id) ? 'selected' : ''; ?>>
@@ -171,6 +173,63 @@
   </div>
 </div>
 
+
+<div id="addCustomer" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm thông tin khách hàng mới</h4>
+            </div>
+            <div class="data-content card-body">
+                <div id="messAddCustom"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="full_name">Họ tên (*)</label>
+                            <input required type="text" class="form-control phone-mask" name="full_name" id="full_name" value="" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-phone">Ngày sinh</label>
+                            <input autocomplete="off" type="text" class="form-control datepicker" name="birthday" id="birthday" value="<?php echo isset($data->birthday) ? date('d/m/Y', @$data->birthday) : ''; ?>" placeholder="dd/mm/yyyy" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="phone">Số điện thoại (*)</label>
+                            <input type="text" class="form-control" name="phone" id="phone" value="" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" value="" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label class="form-label" for="address">Địa chỉ</label>
+                                <input type="text" class="form-control" name="address" id="address" value="" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="text-center col-sm-12" style="padding-bottom: 30px;">
+                        <button type="button" class="btn btn-primary" onclick="addCustomer();">Lưu thông tin</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
 .search-results {
     width: 100%;
@@ -191,6 +250,27 @@
 .search-item.disabled {
     color: #999;
     cursor: default;
+}
+/* Căn chỉnh phần chọn ngày sinh */
+.d-flex {
+    display: flex;
+    justify-content: center; /* Căn giữa các phần tử */
+    align-items: center; /* Căn dọc nếu cần */
+}
+
+.form-group {
+    margin: 0 10px; /* Khoảng cách giữa các phần chọn */
+}
+
+/* Điều chỉnh chiều rộng cho các select */
+.select-dropdown {
+    width: 100px; /* Hoặc tùy chỉnh theo yêu cầu */
+}
+
+/* Thiết kế thêm cho các label */
+.form-label {
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 </style>
 
@@ -408,6 +488,63 @@
             }
         });
     });
+
+    function showAddCustom()
+    {
+        $('#addCustomer').modal('show');
+    }
+
+    function addCustomer() {
+    var full_name = $('#full_name').val();
+    var email = $('#email').val();
+    var phone = $('#phone').val();
+    var address = $('#address').val();
+    var birthday = $('#birthday').val();
+
+    var data = {
+        full_name: full_name,
+        email: email,
+        phone: phone,
+        address: address,
+        birthday: birthday
+    };
+
+    console.log("Dữ liệu gửi đi:", data);
+
+    $.ajax({
+        method: "POST",
+        url: "/apis/saveCustomerAPI",
+        data: data,
+        success: function(response) {
+            console.log("Phản hồi từ server:", response);
+
+            if (response.success === true) {
+                var customer = response.customer;
+
+                $('#customer-search').val(customer.full_name);
+                $('#customer-id').val(customer.id);
+
+                var resultHtml = `
+                    <div class="search-item" data-id="${customer.id}">
+                        <strong>${customer.full_name}</strong> - ${customer.phone}
+                    </div>
+                `;
+                $('#customer-search-results').html(resultHtml).show();
+
+                alert('Thông tin khách hàng đã được lưu thành công!');
+                $('#addCustomer').modal('hide');
+            } else {
+                alert('Lỗi: ' + response.message);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Có lỗi xảy ra:', textStatus, errorThrown);
+
+            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+        }
+    });
+    
+}
 
 </script>
 
