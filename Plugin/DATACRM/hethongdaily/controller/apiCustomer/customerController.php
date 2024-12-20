@@ -94,7 +94,7 @@ function saveRegisterCustomerAPI($input)
 
                 if(empty($checkCustomer)){
                     // tạo dữ liệu save
-                    $data->full_name = $dataSend['full_name'];
+                    $data->full_name = checkKeyword($dataSend['full_name']);
                     $data->phone = $dataSend['phone'];
                     $data->email = @$dataSend['email'];
                     $data->address = (!empty($dataSend['address']))?$dataSend['address']:'';
@@ -142,7 +142,7 @@ function saveRegisterCustomerAPI($input)
                                 );
                 }else{
                     
-                    $checkCustomer->full_name = $dataSend['full_name'];
+                    $checkCustomer->full_name = checkKeyword($dataSend['full_name']);
                     $checkCustomer->email = (!empty($dataSend['email']))?$dataSend['email']:$checkCustomer->email;
                     $checkCustomer->address = (!empty($dataSend['address']))?$dataSend['address']:$checkCustomer->address;
                     $checkCustomer->pass = (!empty($dataSend['pass']))?md5($dataSend['pass']):$checkCustomer->pass;
@@ -487,7 +487,7 @@ function editInfoCustomerApi($input){
             if (!empty($user)) {
                 $user = $modelCustomer->find()->where(['id'=>$user->id])->first();
                 if(!empty($dataSend['full_name'])){
-                    $user->full_name = $dataSend['full_name'];
+                    $user->full_name =  checkKeyword($dataSend['full_name']);
                 }
 
                 if(!empty($dataSend['email'])){

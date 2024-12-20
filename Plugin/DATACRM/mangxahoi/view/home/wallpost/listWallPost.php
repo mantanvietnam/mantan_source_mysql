@@ -104,7 +104,7 @@
                     } 
                   }
                    $image .= '</div>';
-                  echo '<div>
+                  echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
                           <p>'.$item->id.'</p>
                           <p>'.$item->infoCustomer->full_name.'<br/>
                               '.$item->infoCustomer->phone.'<br/>
@@ -118,12 +118,12 @@
                               Comment: '.$item->comment.'</br>
                           </p>
                           <p align="center">
-                            <a class="dropdown-item" href="/addWallPost/?id='.$item->id.'">
+                            <a class="btn btn-primary" href="/addWallPost/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </p>
                           <p align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteWallPost?id='.$item->id.'">
+                            <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteWallPost?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </p>

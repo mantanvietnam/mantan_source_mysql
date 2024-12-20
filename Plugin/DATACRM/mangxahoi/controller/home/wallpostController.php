@@ -25,8 +25,8 @@ function listWallPost($input){
           return $controller->redirect('/');
         }
         $conditions = array();
-        $limit = 10;
-        $page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
         $order = array('id'=>'desc');
 
