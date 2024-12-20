@@ -64,7 +64,7 @@
 
 <!-- Responsive Table -->
 <div class="card row">
-  <h5 class="card-header">Danh sách  - <span class="text-danger"><?php echo number_format(@$totalData);?> </span></h5>
+  <h5 class="card-header">Danh sách đầu sách - <span class="text-danger"><?php echo number_format(@$totalData);?> </span></h5>
   <?php echo @$mess;?>
   <div class="table-responsive">
     <table class="table table-bordered">
