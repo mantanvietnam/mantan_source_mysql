@@ -41,7 +41,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3><?php echo @$bostAi['title']; ?></h3>
-                            <p><?php echo @$bostAi['district']; ?></p>
+                            <!-- <p><?php echo @$bostAi['district']; ?></p> -->
                           </div>
                         </div>
                       </div>

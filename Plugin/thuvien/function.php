@@ -192,6 +192,7 @@ function getListPermission()
                                     array('name'=>'Xóa thông tin mượn sách','permission'=>'deleteOrder'),
                                     array('name'=>'Chi tiết thông tin danh sách mượn sách','permission'=>'listOrderDetail'),
                                     array('name'=>'Thêm và sửa chi tiết thông tin mượn sách','permission'=>'addOrderDetail'),
+                                    array('name'=>'Trả sách ','permission'=>'updateOrderStatus'),
                                     array('name'=>'Xóa thông tin chi tiết mượn sách','permission'=>'deleteOrderDetail'),
 
                             )

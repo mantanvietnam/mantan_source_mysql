@@ -22,7 +22,15 @@
             <input type="text" class="form-control" name="name_member" id="name_member" value="<?php if(!empty($_GET['name_member'])) echo $_GET['name_member'];?>">
             <input type="hidden" class="form-control" name="id_member" id="id_member" value="<?php if(!empty($_GET['id_member'])) echo $_GET['id_member'];?>">
           </div>
-                   
+          <div class="col-md-3">
+            <label class="form-label">Từ ngày</label>
+            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Đến ngày</label>
+            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
+          </div>   
           <div class="col-md-2">
           <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
@@ -170,7 +178,7 @@
 
         
 
-        $( "#name_staff" )
+        $( "#name_member" )
         // don't navigate away from the field on tab when selecting an item
         .bind( "keydown", function( event ) {
             if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
@@ -179,7 +187,7 @@
         })
         .autocomplete({
             source: function( request, response ) {
-                $.getJSON( "/apis/searchMemberAPI  ", {
+                $.getJSON( "/apis/searchMemberAPI", {
                     term: extractLast( request.term )
                 }, response );
             },

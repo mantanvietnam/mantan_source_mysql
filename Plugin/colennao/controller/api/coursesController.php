@@ -305,10 +305,16 @@ function paymentCourseAPI($input){
             if(!empty($data)){
                 $checkTransaction = $modelTransactions->find()->where(['id_course'=>$data->id,'id_user'=>$user->id])->first();
                 if(empty($checkTransaction)){
+                    $page= 0;
+                    if(!empty($data->price)){
+                        $page = $data->price;
+                    }elseif(!empty($data->price_old)){
+                        $page = $data->price_old;
+                    }
                     $checkTransaction = $modelTransactions->newEmptyEntity();
                     $checkTransaction->id_user = $user->id;
                     $checkTransaction->name = $data->title;
-                    $checkTransaction->total = $data->price;
+                    $checkTransaction->total = $page;
                     $checkTransaction->id_course = $data->id;
                     $checkTransaction->id_challenge = 0;
                     $checkTransaction->status = 1;
@@ -325,7 +331,7 @@ function paymentCourseAPI($input){
                 $sms = $checkTransaction->id.' '.$transactionKey;
 
                 if(function_exists('checkpayos')){
-                    $infobank =  checkpayos($data->price,$sms);
+                    $infobank =  checkpayos($price,$sms);
                     if(!empty($infobank)){
                         $data->infobank = $infobank;
                         $bank['bank_code'] = $infobank['bin'];

@@ -42,7 +42,7 @@
                         <div class="out-like-blogpro">
                           <div class="write-outline">
                             <h3><?php echo @$bostAi['title']; ?></h3>
-                            <p><?php echo @$bostAi['district']; ?></p>
+                            <!-- s<p><?php echo @$bostAi['district']; ?></p> -->
                           </div>
                         </div>
                       </div>
@@ -347,7 +347,6 @@
                 <input type="text" id="title" name="title"  placeholder="Tiêu đề" value="<?php echo @$dataContent->title ?>">
               </div>
               <div class="left-button-title">
-                <a type="submit" href="/" class="comback-writecontent">Quay lại</a>
                 <button type="button" onclick="saveContentimageBlog()" class="save-writecontent">Lưu</button>
               </div>
               

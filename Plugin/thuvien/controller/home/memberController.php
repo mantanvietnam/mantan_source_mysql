@@ -518,6 +518,17 @@ function listActivityHistory(){
             $conditions['id_member'] = (int) $_GET['id_member'];
         }
 
+        if(!empty($_GET['date_start'])){
+            $date_start = explode('/', $_GET['date_start']);
+            $conditions['time >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+        }
+
+        if(!empty($_GET['date_end'])){
+            $date_end = explode('/', $_GET['date_end']);
+            $conditions['time <='] = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+                
+        }
+
 
         $listData = $modelActivityHistory->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         if(!empty($listData)){

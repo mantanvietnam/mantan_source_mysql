@@ -180,3 +180,11 @@ a{
 .main-head .main-nav .navbar-nav .nav-list .nav-list-item span{
     font-size: 10px;
 }
+
+.title-input-header-left{
+    width: 90%;
+}
+
+.title-input-header-left input{
+    width: 100% !important;
+}

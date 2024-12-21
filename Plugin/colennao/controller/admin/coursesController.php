@@ -100,6 +100,7 @@ function addCourse($input)
             $data->content = $dataSend['content'];
             $data->achieved = $dataSend['achieved'];
             $data->price = $dataSend['price'];
+            $data->price_old = $dataSend['price_old'];
             $data->trycourse = $dataSend['trycourse'];
 
             $data->titleen = $dataSend['titleen'];

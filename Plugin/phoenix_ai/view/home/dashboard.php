@@ -22,9 +22,9 @@
                 </div>
             </div>
         </div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3" style="    margin-top: 15px;    border-radius: 20px;">
+      <!--   <nav class="navbar navbar-expand-lg navbar-light bg-white py-3" style="    margin-top: 15px;    border-radius: 20px;">
             <div class="container-fluid">
-                <!-- Tab links -->
+                <!- Tab links s->
                 <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="assistant-tab"  data-bs-toggle="tab" data-bs-target="#assistant" type="button">Trợ lý Phoenix </button>
@@ -32,7 +32,7 @@
                 </ul>
             </div>
         </nav>
-    
+     -->
         <!-- Tab contents -->
         <div class="tab-content" id="myTabContent">
             <!-- Trợ lý Aiva content -->

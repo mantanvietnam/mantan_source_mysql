@@ -264,7 +264,13 @@ function addOrder($input)
                             }
                         }
                     }
-
+                    if(!empty($_GET['id'])){
+                        $note = $user->name . ' sửa đơn mượn có ID là: ' . $order->id;
+                    }else{
+                        $note = $user->name . ' tạo đơn mượn có ID là: ' . $order->id;
+                    }
+                    
+                    addActivityHistory($user, $note, 'addOrder', $order->id);
 
                 
 

@@ -85,8 +85,8 @@
                                 <input type="text" class="form-control phone-mask" name="colortext" id="colortext" value="<?php echo @$data->colortext;?>" />
                               </div>
                               <div class="mb-3">
-                                <label class="form-label">Giá</label>
-                                <input  type="number" class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price;?>" />
+                                <label class="form-label">Giá cũ</label>
+                                <input  type="number" class="form-control phone-mask" name="price_old" id="price_old" value="<?php echo @$data->price_old;?>" />
                               </div>
                               <!-- <div class="mb-3">
                                 <label class="form-label">Hiển thị</label>
@@ -116,6 +116,10 @@
                               <div class="mb-3">
                                 <label class="form-label">Số lượt xem</label>
                                 <input disabled type="number" class="form-control phone-mask" name="view" id="view" value="<?php echo (int) @$data->view;?>" />
+                              </div>
+                               <div class="mb-3">
+                                <label class="form-label">Giá mới</label>
+                                <input  type="number" class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price;?>" />
                               </div>
                             </div>
                             <div class="col-md-6">
