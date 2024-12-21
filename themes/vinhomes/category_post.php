@@ -2,6 +2,17 @@
 getHeader();
 $categories = listCategoryBytype('post'); 
 ?>
+  <style>
+        .background-header{
+          background-image: none !important;
+        }
+        .setcolor {
+          color: #333 !important;
+        }
+        .setcolor a{
+          color: #333 !important;
+        }
+    </style>
 <div class="py-4 mx-4 my-10 sm:mx-6 lg:mx-20 font-plus fade-in">
       <h1 class="text-2xl font-bold md:text-4xl">
         Tin tức bất động sản mới nhất
