@@ -4,7 +4,21 @@
  global $urlThemeActive;
  $categories = listCategoryBytype('post'); 
  ?>
-
+   <style>
+        .background-header{
+          background-image: none !important;
+        }
+        .setcolor {
+          color: #333 !important;
+        }
+        .setcolor a{
+          color: #333 !important;
+        }
+        .set-backgroundcontact{
+          background-color: #182c77;
+          
+        }
+    </style>
      <!-- Thông tin điều hướng , tên dự án -->
      <div class="py-4 mx-4 sm:mx-6 lg:mx-20 font-plus slide-right">
       <!-- Breadcrumb -->
@@ -122,7 +136,7 @@
     <!-- Liên hệ -->
     <div
       class="relative bg-center bg-cover font-plus slide-top"
-      style="background-image: url('./image/index/imageQS2.png')"
+      style="background-image: url('<?=$urlThemeActive?>image/index/imageQS2.png')"
     >
       <div class="absolute inset-0 bg-gray-900 bg-opacity-50"></div>
       <div

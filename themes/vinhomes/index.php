@@ -11,7 +11,7 @@
         >
           <div class="w-full max-w-4xl">
             <div class="flex font-plus">
-              <button
+              <!-- <button
                 id="realEstateSaleButton"
                 class="py-2 mr-2 text-gray-600 transition-transform duration-300 ease-in-out bg-white rounded-t-lg active x-2 sm:px-8 property-button active:scale-95 hover:bg-gray-100 hover:shadow-md"
               >
@@ -28,7 +28,7 @@
                 class="px-2 py-2 text-gray-600 transition-transform duration-300 ease-in-out bg-white rounded-t-lg sm:px-8 property-button hover:bg-gray-100 hover:shadow-md active:scale-95"
               >
                 Dự án
-              </button>
+              </button> -->
             </div>
 
             <div
@@ -156,7 +156,7 @@
           <button
             class="px-6 py-2 mt-6 text-white transition duration-300 bg-blue-900 rounded-full shadow-lg hover:bg-blue-700"
           >
-            Liên hệ tư vấn
+            <a href="/contact">Liên hệ tư vấn</a>
           </button>
         </div>
         <div class="relative mt-6 lg:w-1/2 lg:mt-0 lg:ml-6 slide-left">
@@ -190,11 +190,11 @@
           <button
             class="flex items-center px-6 py-4 text-gray-900 transition duration-300 ease-in-out transform bg-white rounded-xl hover:bg-gray-100 hover:scale-105 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50"
           >
-            Xem tất cả
+            <a href="/projects">Xem tất cả</a>
             <i class="ml-2 fas fa-arrow-right"></i>
           </button>
         </div>
-        <div
+        <!-- <div
           class="flex mb-8 space-x-8 heroSection-project-select pb-4 border-b-[0.5px] border-[#fff] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap"
         >
           <a class="active" href="#" data-tab="house">Nhà ở</a>
@@ -204,15 +204,41 @@
           <a href="#" data-tab="office">Văn phòng</a>
           <a href="#" data-tab="hotel">Khách sạn</a>
           <a href="#" data-tab="land">Khu đất dự án</a>
-        </div>
+        </div> -->
 
+      
         <div class="swiper mySwiper mySwiper-Projects">
-          <div class="swiper-wrapper" id="swiper-wrapper-project">
-            <!-- Thẻ swiper sẽ được chèn ở đây -->
-          </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
+        <div class="swiper-wrapper" id="swiper-wrapper">
+   
+          <!-- Slide 1 -->
+            <?php if(!empty($listDataproject)){
+              foreach($listDataproject as $item){ ?>
+                <div class="swiper-slide" data-tab="<?= $item->id_kind ?>">
+                  <a href="<?php echo @$item->slug ?>.html">
+                    <div class="relative">
+                      <img alt="Modern house with large windows and landscaped garden" class="object-cover w-full h-[440px] rounded-lg" src="<?= $item->image?>">
+                      <div class="absolute text-white py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4" style="background: linear-gradient(90deg, #182c77 0%, #6274bb 100%);">
+                        <?= $item->info ?>
+                      </div>
+                    </div>
+                    <h2 class="mt-4 text-xl font-bold"><?= $item->name ?></h2>
+                    <div class="flex items-center mt-2 text-[#fff] font-bold">
+                      <img
+                        src="<?= $urlThemeActive ?>image/icons/iconLocation.png"
+                        alt="icon"
+                        class="h-6 mr-2"
+                      />
+                      <?php echo $item->address; ?>
+                    </div>
+         
+                    <p class="mt-2 text-gray-400 description"><?= $item->description ?></p>
+                  </a>
+                </div>
+            <?php }} ?>
         </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
       </div>
     </div>
 
@@ -449,7 +475,7 @@
           <button
             class="flex items-center px-6 py-4 rounded-xl bg-[#E2E8F0] text-[#142A72] transition-all duration-300 ease-in-out hover:bg-[#6274bb] hover:text-white hover:scale-105 hover:shadow-lg"
           >
-            Xem tất cả
+            <a href="/posts">Xem tất cả</a>
             <i class="ml-2 fas fa-arrow-right"> </i>
           </button>
         </div>
@@ -517,43 +543,43 @@
             sống thượng lưu tại các quần thể đô thị Vinhomes.
           </p>
         </div>
-        <form
-          class="p-8 text-gray-800 bg-white rounded-lg shadow-lg md:w-[50%]"
-        >
-          <div class="mb-4">
-            <input
-              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Họ và tên"
-              type="text"
-            />
-          </div>
-          <div class="mb-4">
-            <input
-              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Số điện thoại"
-              type="text"
-            />
-          </div>
-          <div class="mb-4">
-            <input
-              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Địa chỉ Email"
-              type="email"
-            />
-          </div>
-          <div class="mb-4">
-            <textarea
-              class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Lời nhắn của bạn"
-            ></textarea>
-          </div>
-          <button
-            class="w-full p-4 text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-700 hover:scale-105 hover:shadow-lg"
-            type="submit"
-            style="background: linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
-          >
-            Submit
-          </button>
+        <form method="post" action="/contact" class="p-8 text-gray-800 bg-white rounded-lg shadow-lg md:w-[50%]">
+            <div class="mb-4">
+              <input
+                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Họ và tên" name="name" required
+                type="text"
+              />
+              <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+            </div>
+            <div class="mb-4">
+              <input
+                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Số điện thoại" name="phone" required
+                type="text"
+              />
+            </div>
+            <div class="mb-4">
+              <input
+                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Địa chỉ Email" name="email" required
+                type="email"
+              />
+              <input type="hidden" placeholder="" name="subject" value=" ">
+            </div>
+            <div class="mb-4">
+              <textarea
+                class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Lời nhắn của bạn" name="content" required
+              ></textarea>
+            </div>
+            <button
+              class="w-full p-4 text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-700 hover:scale-105 hover:shadow-lg"
+              type="submit"
+              style="background: linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
+            >
+              Submit
+            </button>
         </form>
       </div>
     </div>

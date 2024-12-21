@@ -14,6 +14,10 @@ getHeader();
         .setcolor a{
           color: #333 !important;
         }
+        .set-backgroundcontact{
+          background-color: #182c77;
+          
+        }
     </style>
   <div
       class="relative bg-center bg-cover font-plus slide-bottom"
@@ -32,23 +36,25 @@ getHeader();
             sống thượng lưu tại các quần thể đô thị Vinhomes.
           </p>
         </div>
+        <?= $mess; ?>
         <form
-          class="grid w-full grid-cols-1 gap-4 text-gray-800 sm:grid-cols-2"
+          class="grid w-full grid-cols-1 gap-4 text-gray-800 sm:grid-cols-2" method="post"
         >
+        <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
           <!-- Họ và tên -->
           <div class="relative col-span-2 sm:col-span-1">
             <input
               class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Họ và tên *"
+              placeholder="Họ và tên *" name="name" required
               type="text"
-            />
+            />  
           </div>
 
           <!-- Mục đích sử dụng BĐS -->
           <div class="relative col-span-2 sm:col-span-1">
             <input
               class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Mục đích sử dụng BĐS"
+              placeholder="Mục đích sử dụng BĐS" name="subject"
               type="text"
             />
           </div>
@@ -57,7 +63,7 @@ getHeader();
           <div class="relative col-span-2 sm:col-span-1">
             <input
               class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Số điện thoại *"
+              placeholder="Số điện thoại *" name="phone" required
               type="text"
             />
           </div>
@@ -66,17 +72,14 @@ getHeader();
           <div class="relative col-span-2 sm:col-span-1">
             <input
               class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Địa chỉ Email"
+              placeholder="Địa chỉ Email" name="email" required
               type="email"
             />
           </div>
 
           <!-- Lời nhắn -->
           <div class="relative col-span-2">
-            <textarea
-              class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Lời nhắn của bạn *"
-            ></textarea>
+            <textarea class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"placeholder="Lời nhắn của bạn *" name="content"></textarea>
           </div>
 
           <!-- Gửi yêu cầu -->

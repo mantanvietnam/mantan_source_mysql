@@ -269,249 +269,249 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //thanh tab các dự án nổi bật trang chủ
-document.addEventListener("DOMContentLoaded", () => {
-  // Giả lập dữ liệu trả về từ API
-  const apiData = {
-    house: [
-      {
-        id: 1,
-        title: "Vinhomes Ocean Park 2, ĐD6-91",
-        location: "Huyện Đông Anh, Thành Phố Hà Nội",
-        description:
-          "ĐD6-93, Shophouse/Liền kề/Biệt thự để ở, Hoàn thiện cơ bản (có nội thất), Vinhomes Ocean Park 2",
-        image: "./image/index/imageQS1.png",
-        status: "Đang cho đặt cọc",
-        people: 4,
-        bathrooms: 3,
-        area: "70,00m2",
-      },
-      {
-        id: 2,
-        title: "Vinhomes Ocean Park 2, ĐD6-92",
-        location: "Huyện Đông Anh, Thành Phố Hà Nội",
-        description:
-          "ĐD6-92, Shophouse/Liền kề/Biệt thự để ở, Hoàn thiện cơ bản (có nội thất), Vinhomes Ocean Park 2",
-        image: "./image/index/imageQS2.png",
-        status: "Sắp mở bán",
-        people: 5,
-        bathrooms: 4,
-        area: "85,00m2",
-      },
-      {
-        id: 3,
-        title: "Vinhomes Ocean Park 2, ĐD6-92",
-        location: "Huyện Đông Anh, Thành Phố Hà Nội",
-        description:
-          "ĐD6-92, Shophouse/Liền kề/Biệt thự để ở, Hoàn thiện cơ bản (có nội thất), Vinhomes Ocean Park 2",
-        image: "./image/index/imageQS2.png",
-        status: "Sắp mở bán",
-        people: 5,
-        bathrooms: 4,
-        area: "85,00m2",
-      },
-      {
-        id: 4,
-        title: "Vinhomes Ocean Park 2, ĐD6-91",
-        location: "Huyện Đông Anh, Thành Phố Hà Nội",
-        description:
-          "ĐD6-93, Shophouse/Liền kề/Biệt thự để ở, Hoàn thiện cơ bản (có nội thất), Vinhomes Ocean Park 2",
-        image: "./image/index/imageQS1.png",
-        status: "Đang cho đặt cọc",
-        people: 5,
-        bathrooms: 4,
-        area: "70,00m2",
-      },
-    ],
-    villa: [
-      {
-        id: 21,
-        title: "Vinhomes Gardenia Villa, ĐA-01",
-        location: "Quận Cầu Giấy, Thành phố Hà Nội",
-        description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
-        image: "./image/index/imageQS3.png",
-        status: "Sắp mở bán",
-        people: 6,
-        bathrooms: 5,
-        area: "120,00m2",
-      },
-    ],
-    apartment: [
-      {
-        id: 31,
-        title: "Vinhomes Gardenia Villa, ĐA-01",
-        location: "Quận Cầu Giấy, Thành phố Hà Nội",
-        description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
-        image: "./image/index/imageQS3.png",
-        status: "Sắp mở bán",
-        people: 6,
-        bathrooms: 5,
-        area: "120,00m2",
-      },
-    ],
-    room: [
-      {
-        id: 41,
-        title: "Vinhomes Gardenia Villa, ĐA-01",
-        location: "Quận Cầu Giấy, Thành phố Hà Nội",
-        description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
-        image: "./image/index/imageQS3.png",
-        status: "Sắp mở bán",
-        people: 6,
-        bathrooms: 5,
-        area: "120,00m2",
-      },
-    ],
-    office: [
-      {
-        id: 51,
-        title: "Vinhomes Gardenia Villa, ĐA-01",
-        location: "Quận Cầu Giấy, Thành phố Hà Nội",
-        description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
-        image: "./image/index/imageQS3.png",
-        status: "Sắp mở bán",
-        people: 6,
-        bathrooms: 5,
-        area: "120,00m2",
-      },
-    ],
-    hotel: [
-      {
-        id: 61,
-        title: "Vinhomes Gardenia Villa, ĐA-01",
-        location: "Quận Cầu Giấy, Thành phố Hà Nội",
-        description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
-        image: "./image/index/imageQS3.png",
-        status: "Sắp mở bán",
-        people: 6,
-        bathrooms: 5,
-        area: "120,00m2",
-      },
-    ],
-    land: [
-      {
-        id: 71,
-        title: "Vinhomes Gardenia Villa, ĐA-01",
-        location: "Quận Cầu Giấy, Thành phố Hà Nội",
-        description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
-        image: "./image/index/imageQS3.png",
-        status: "Sắp mở bán",
-        people: 6,
-        bathrooms: 5,
-        area: "120,00m2",
-      },
-    ],
-    // Các tab khác tương tự...
-  };
+// document.addEventListener("DOMContentLoaded", () => {
+//   // Giả lập dữ liệu trả về từ API
+//   const apiData = {
+//     house: [
+//       {
+//         id: 1,
+//         title: "Vinhomes Ocean Park 2, ĐD6-91",
+//         location: "Huyện Đông Anh, Thành Phố Hà Nội",
+//         description:
+//           "ĐD6-93, Shophouse/Liền kề/Biệt thự để ở, Hoàn thiện cơ bản (có nội thất), Vinhomes Ocean Park 2",
+//         image: "./image/index/imageQS1.png",
+//         status: "Đang cho đặt cọc",
+//         people: 4,
+//         bathrooms: 3,
+//         area: "70,00m2",
+//       },
+//       {
+//         id: 2,
+//         title: "Vinhomes Ocean Park 2, ĐD6-92",
+//         location: "Huyện Đông Anh, Thành Phố Hà Nội",
+//         description:
+//           "ĐD6-92, Shophouse/Liền kề/Biệt thự để ở, Hoàn thiện cơ bản (có nội thất), Vinhomes Ocean Park 2",
+//         image: "./image/index/imageQS2.png",
+//         status: "Sắp mở bán",
+//         people: 5,
+//         bathrooms: 4,
+//         area: "85,00m2",
+//       },
+//       {
+//         id: 3,
+//         title: "Vinhomes Ocean Park 2, ĐD6-92",
+//         location: "Huyện Đông Anh, Thành Phố Hà Nội",
+//         description:
+//           "ĐD6-92, Shophouse/Liền kề/Biệt thự để ở, Hoàn thiện cơ bản (có nội thất), Vinhomes Ocean Park 2",
+//         image: "./image/index/imageQS2.png",
+//         status: "Sắp mở bán",
+//         people: 5,
+//         bathrooms: 4,
+//         area: "85,00m2",
+//       },
+//       {
+//         id: 4,
+//         title: "Vinhomes Ocean Park 2, ĐD6-91",
+//         location: "Huyện Đông Anh, Thành Phố Hà Nội",
+//         description:
+//           "ĐD6-93, Shophouse/Liền kề/Biệt thự để ở, Hoàn thiện cơ bản (có nội thất), Vinhomes Ocean Park 2",
+//         image: "./image/index/imageQS1.png",
+//         status: "Đang cho đặt cọc",
+//         people: 5,
+//         bathrooms: 4,
+//         area: "70,00m2",
+//       },
+//     ],
+//     villa: [
+//       {
+//         id: 21,
+//         title: "Vinhomes Gardenia Villa, ĐA-01",
+//         location: "Quận Cầu Giấy, Thành phố Hà Nội",
+//         description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
+//         image: "./image/index/imageQS3.png",
+//         status: "Sắp mở bán",
+//         people: 6,
+//         bathrooms: 5,
+//         area: "120,00m2",
+//       },
+//     ],
+//     apartment: [
+//       {
+//         id: 31,
+//         title: "Vinhomes Gardenia Villa, ĐA-01",
+//         location: "Quận Cầu Giấy, Thành phố Hà Nội",
+//         description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
+//         image: "./image/index/imageQS3.png",
+//         status: "Sắp mở bán",
+//         people: 6,
+//         bathrooms: 5,
+//         area: "120,00m2",
+//       },
+//     ],
+//     room: [
+//       {
+//         id: 41,
+//         title: "Vinhomes Gardenia Villa, ĐA-01",
+//         location: "Quận Cầu Giấy, Thành phố Hà Nội",
+//         description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
+//         image: "./image/index/imageQS3.png",
+//         status: "Sắp mở bán",
+//         people: 6,
+//         bathrooms: 5,
+//         area: "120,00m2",
+//       },
+//     ],
+//     office: [
+//       {
+//         id: 51,
+//         title: "Vinhomes Gardenia Villa, ĐA-01",
+//         location: "Quận Cầu Giấy, Thành phố Hà Nội",
+//         description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
+//         image: "./image/index/imageQS3.png",
+//         status: "Sắp mở bán",
+//         people: 6,
+//         bathrooms: 5,
+//         area: "120,00m2",
+//       },
+//     ],
+//     hotel: [
+//       {
+//         id: 61,
+//         title: "Vinhomes Gardenia Villa, ĐA-01",
+//         location: "Quận Cầu Giấy, Thành phố Hà Nội",
+//         description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
+//         image: "./image/index/imageQS3.png",
+//         status: "Sắp mở bán",
+//         people: 6,
+//         bathrooms: 5,
+//         area: "120,00m2",
+//       },
+//     ],
+//     land: [
+//       {
+//         id: 71,
+//         title: "Vinhomes Gardenia Villa, ĐA-01",
+//         location: "Quận Cầu Giấy, Thành phố Hà Nội",
+//         description: "Biệt thự cao cấp, hoàn thiện nội thất, đầy đủ tiện nghi.",
+//         image: "./image/index/imageQS3.png",
+//         status: "Sắp mở bán",
+//         people: 6,
+//         bathrooms: 5,
+//         area: "120,00m2",
+//       },
+//     ],
+//     // Các tab khác tương tự...
+//   };
 
-  const swiperWrapper = document.getElementById("swiper-wrapper-project");
+//   const swiperWrapper = document.getElementById("swiper-wrapper-project");
 
-  // Hàm tạo slide cho dữ liệu
-  function createSlides(data) {
-    swiperWrapper.innerHTML = ""; // Xóa các slide cũ
-    data.forEach((item) => {
-      const slide = document.createElement("div");
-      slide.classList.add("swiper-slide");
+//   // Hàm tạo slide cho dữ liệu
+//   function createSlides(data) {
+//     swiperWrapper.innerHTML = ""; // Xóa các slide cũ
+//     data.forEach((item) => {
+//       const slide = document.createElement("div");
+//       slide.classList.add("swiper-slide");
 
-      // Thêm nội dung vào slide
-      slide.innerHTML = `
-        <a href="detailProject.html">
-          <div class="relative overflow-hidden rounded-lg">
-            <img
-              alt="${item.title}"
-              class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
-              src="${item.image}"
-            />
-           <div
-              class="absolute px-4 py-2 text-sm text-white rounded-xl bottom-4 right-4"
-              style="background: ${
-                item.status === "Sắp mở bán"
-                  ? "#e04444"
-                  : "linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
-              };"
+//       // Thêm nội dung vào slide
+//       slide.innerHTML = `
+//         <a href="detailProject.html">
+//           <div class="relative overflow-hidden rounded-lg">
+//             <img
+//               alt="${item.title}"
+//               class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+//               src="${item.image}"
+//             />
+//            <div
+//               class="absolute px-4 py-2 text-sm text-white rounded-xl bottom-4 right-4"
+//               style="background: ${
+//                 item.status === "Sắp mở bán"
+//                   ? "#e04444"
+//                   : "linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
+//               };"
 
-            >
-              ${item.status}
-            </div>
-          </div>
-          <h2 class="mt-4 text-xl font-bold">${item.title}</h2>
-          <div class="flex items-center mt-2">
-            <img src="./image/icons/iconLocation.png" alt="icon" class="h-6 mr-2" />
-            ${item.location}
-          </div>
-          <p class="mt-2 text-gray-400 description">${item.description}</p>
-          <div class="flex items-center mt-4 text-gray-400">
-            <img src="./image/icons/iconBed.png" alt="icon" width="24" class="mr-2" />
-            ${item.people} người
-            <div class="w-[0.5px] h-6 bg-white mx-4"></div>
-            <img src="./image/icons/iconBath.png" alt="icon" width="24" class="mr-2" />
-            ${item.bathrooms} tắm
-            <div class="w-[0.5px] h-6 bg-white mx-4"></div>
-            <img src="./image/icons/iconExpand.png" alt="icon" width="24" class="mr-2" />
-            ${item.area}
-          </div>
-        </a>
-      `;
+//             >
+//               ${item.status}
+//             </div>
+//           </div>
+//           <h2 class="mt-4 text-xl font-bold">${item.title}</h2>
+//           <div class="flex items-center mt-2">
+//             <img src="./image/icons/iconLocation.png" alt="icon" class="h-6 mr-2" />
+//             ${item.location}
+//           </div>
+//           <p class="mt-2 text-gray-400 description">${item.description}</p>
+//           <div class="flex items-center mt-4 text-gray-400">
+//             <img src="./image/icons/iconBed.png" alt="icon" width="24" class="mr-2" />
+//             ${item.people} người
+//             <div class="w-[0.5px] h-6 bg-white mx-4"></div>
+//             <img src="./image/icons/iconBath.png" alt="icon" width="24" class="mr-2" />
+//             ${item.bathrooms} tắm
+//             <div class="w-[0.5px] h-6 bg-white mx-4"></div>
+//             <img src="./image/icons/iconExpand.png" alt="icon" width="24" class="mr-2" />
+//             ${item.area}
+//           </div>
+//         </a>
+//       `;
 
-      // Thêm slide vào swiper-wrapper
-      swiperWrapper.appendChild(slide);
-    });
-  }
+//       // Thêm slide vào swiper-wrapper
+//       swiperWrapper.appendChild(slide);
+//     });
+//   }
 
-  // Hàm khởi tạo lại Swiper
-  function initSwiper() {
-    return new Swiper(".mySwiper-Projects", {
-      slidesPerView: 1, // Mặc định cho màn hình nhỏ
-      spaceBetween: 30,
-      loop: true, // Bật loop
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 2, // 2 slides cho các thiết bị từ 640px
-        },
-        1024: {
-          slidesPerView: 3, // 3 slides cho các thiết bị từ 1024px
-        },
-      },
-    });
-  }
+//   // Hàm khởi tạo lại Swiper
+//   function initSwiper() {
+//     return new Swiper(".mySwiper-Projects", {
+//       slidesPerView: 1, // Mặc định cho màn hình nhỏ
+//       spaceBetween: 30,
+//       loop: true, // Bật loop
+//       pagination: {
+//         el: ".swiper-pagination",
+//         clickable: true,
+//       },
+//       navigation: {
+//         nextEl: ".swiper-button-next",
+//         prevEl: ".swiper-button-prev",
+//       },
+//       breakpoints: {
+//         640: {
+//           slidesPerView: 2, // 2 slides cho các thiết bị từ 640px
+//         },
+//         1024: {
+//           slidesPerView: 3, // 3 slides cho các thiết bị từ 1024px
+//         },
+//       },
+//     });
+//   }
 
-  let swiper = initSwiper(); // Khởi tạo Swiper lần đầu
+//   let swiper = initSwiper(); // Khởi tạo Swiper lần đầu
 
-  // Lắng nghe sự kiện click trên các tab
-  document.querySelectorAll(".heroSection-project-select a").forEach((tab) => {
-    tab.addEventListener("click", function (e) {
-      e.preventDefault();
+//   // Lắng nghe sự kiện click trên các tab
+//   document.querySelectorAll(".heroSection-project-select a").forEach((tab) => {
+//     tab.addEventListener("click", function (e) {
+//       e.preventDefault();
 
-      // Gỡ bỏ class "active" từ tất cả các tab
-      document
-        .querySelectorAll(".heroSection-project-select a")
-        .forEach((t) => t.classList.remove("active"));
+//       // Gỡ bỏ class "active" từ tất cả các tab
+//       document
+//         .querySelectorAll(".heroSection-project-select a")
+//         .forEach((t) => t.classList.remove("active"));
 
-      // Thêm class "active" cho tab đã nhấn
-      this.classList.add("active");
+//       // Thêm class "active" cho tab đã nhấn
+//       this.classList.add("active");
 
-      // Lấy tên tab đã chọn
-      const tabId = this.getAttribute("data-tab");
+//       // Lấy tên tab đã chọn
+//       const tabId = this.getAttribute("data-tab");
 
-      // Tạo các slide cho tab đã chọn
-      createSlides(apiData[tabId]);
+//       // Tạo các slide cho tab đã chọn
+//       createSlides(apiData[tabId]);
 
-      // Hủy Swiper cũ và khởi tạo lại Swiper mới
-      swiper.destroy(true, true); // Hủy Swiper cũ
-      swiper = initSwiper(); // Khởi tạo lại Swiper mới
-    });
-  });
+//       // Hủy Swiper cũ và khởi tạo lại Swiper mới
+//       swiper.destroy(true, true); // Hủy Swiper cũ
+//       swiper = initSwiper(); // Khởi tạo lại Swiper mới
+//     });
+//   });
 
-  // Tải dữ liệu ban đầu cho tab "Nhà ở"
-  createSlides(apiData.house);
-});
+//   // Tải dữ liệu ban đầu cho tab "Nhà ở"
+//   createSlides(apiData.house);
+// });
 
 //thanh tab tin tuc o trna chu
 document.addEventListener("DOMContentLoaded", () => {
@@ -1005,55 +1005,55 @@ document.addEventListener("DOMContentLoaded", () => {
   const swiperWrapper = document.getElementById("swiper-wrapper");
 
   // Hàm tạo slide cho dữ liệu
-  function createSlides(data) {
-    swiperWrapper.innerHTML = ""; // Xóa các slide cũ
-    data.forEach((item) => {
-      const slide = document.createElement("div");
-      slide.classList.add("swiper-slide");
+  // function createSlides(data) {
+  //   swiperWrapper.innerHTML = ""; // Xóa các slide cũ
+  //   data.forEach((item) => {
+  //     const slide = document.createElement("div");
+  //     slide.classList.add("swiper-slide");
 
-      // Thêm nội dung vào slide
-      slide.innerHTML = `
-        <a href="detailProject.html">
-          <div class="relative">
-              <img
-                alt="Modern house with large windows and landscaped garden"
-                class="object-cover w-full h-[440px] rounded-lg"
-                src="./image/index/imageQS1.png"
-              />
-              <div
-                class="absolute text-white  py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
-                style="background: ${
-                  item.active === false
-                    ? "#e04444"
-                    : "linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
-                };"
-              >
-               ${item.status}
-              </div>
-            </div>
-          <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
-            <div class="flex items-center mt-2 font-bold">
-              <p class="mr-2">Phân khu:</p>
-              <p class="underline underline-offset-4 text-[#142A72]">
-                The Rainbow
-              </p>
-            </div>
-            <div class="flex items-center mt-2 font-bold">
-              <p class="mr-2">Tổng diện tích:</p>
-              <p class="underline underline-offset-4 text-[#142A72]">385 ha</p>
-            </div>
-            <p class="mt-2 text-gray-400 description">
-              Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động
-              và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối,
-              phong cách sống toàn cầu
-            </p>
-        </a>
-      `;
+  //     // Thêm nội dung vào slide
+  //     slide.innerHTML = `
+  //       <a href="detailProject.html">
+  //         <div class="relative">
+  //             <img
+  //               alt="Modern house with large windows and landscaped garden"
+  //               class="object-cover w-full h-[440px] rounded-lg"
+  //               src="./image/index/imageQS1.png"
+  //             />
+  //             <div
+  //               class="absolute text-white  py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+  //               style="background: ${
+  //                 item.active === false
+  //                   ? "#e04444"
+  //                   : "linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
+  //               };"
+  //             >
+  //              ${item.status}
+  //             </div>
+  //           </div>
+  //         <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
+  //           <div class="flex items-center mt-2 font-bold">
+  //             <p class="mr-2">Phân khu:</p>
+  //             <p class="underline underline-offset-4 text-[#142A72]">
+  //               The Rainbow
+  //             </p>
+  //           </div>
+  //           <div class="flex items-center mt-2 font-bold">
+  //             <p class="mr-2">Tổng diện tích:</p>
+  //             <p class="underline underline-offset-4 text-[#142A72]">385 ha</p>
+  //           </div>
+  //           <p class="mt-2 text-gray-400 description">
+  //             Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động
+  //             và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối,
+  //             phong cách sống toàn cầu
+  //           </p>
+  //       </a>
+  //     `;
 
-      // Thêm slide vào swiper-wrapper
-      swiperWrapper.appendChild(slide);
-    });
-  }
+  //     // Thêm slide vào swiper-wrapper
+  //     swiperWrapper.appendChild(slide);
+  //   });
+  // }
 
   // Hàm khởi tạo lại Swiper
   function initSwiper() {

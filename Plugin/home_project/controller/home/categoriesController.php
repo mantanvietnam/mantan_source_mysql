@@ -14,7 +14,7 @@ function categoryProject($input)
     $metaTitleMantan = 'Danh mục dự án';
 
     $modelProductProjects = $controller->loadModel('ProductProjects');
-    $modelProduct = $controller->loadModel('Products');
+
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -41,18 +41,7 @@ function categoryProject($input)
             
             $list_project = $modelProductProjects->find()->where($conditions)->order($order)->all()->toList();
 
-            if(!empty($list_project)){
-                foreach ($list_project as $key => $value) {
-                    $list_project[$key]->infoProduct = [];
-
-                    if(!empty($value->id_product)){
-                        $id_products = explode(',', $value->id_product);
-                        foreach ($id_products as $id_product) {
-                            $list_project[$key]->infoProduct[] = $modelProduct->find()->where(['id'=>(int) $id_product])->first();
-                        }
-                    }
-                }
-            }
+            
             // phân trang
             $totalData = $modelProductProjects->find()->where($conditions)->all()->toList();
             $totalData = count($totalData);

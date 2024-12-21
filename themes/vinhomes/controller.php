@@ -69,40 +69,136 @@ function settingHomeTheme($input){
 
 function indexTheme($input){
     global $controller; 
-    global $modelCategories;
     global $modelOptions;
+    global $metaTitleMantan;
+    global $modelpublication;
+    global $urlCurrent;
+    global $categories;
+    $limit = 6;
+    $conditions = array();
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+    if(!empty($_GET['id_kind'])){
+        $conditions['id_kind'] = (int) $_GET['id_kind'];
+    }
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    $modelproject = $controller->loadModel('ProductProjects');
+    $modelcategory = $controller->loadModel('categories');
+    $listDatacategory = $modelcategory->find()->where(['type'=>'category_kind'])->all()->toList();
 
-    // $conditions = array('key_word' => 'settingHomeTheme');
-    // $data = $modelOptions->find()->where($conditions)->first();
-    // $modelEvent = $controller->loadModel('Events');
-    // $modelPosts = $controller->loadModel('Posts');
-    // $modelTour = $controller->loadModel('Tours');
-    // $modelImage = $controller->loadModel('Images');
 
-    // $month = getdate()['mon'];
-    // $year = getdate()['year'];
-    // $order = array('id'=>'desc');
-
-
-    // $conditionsmonth = array('month' => $month, 'year' => $year , 'status' => '1' );
-
-    // $conditionsTour =array('status' => '1');
+  
+    $order = array('id' => 'desc');
+    $listDataproject= $modelproject->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
     
-    // $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order(['id'=>'desc','pin'=>'desc', 'outstanding' =>'desc'])->all()->toList();
-    // $listDataPost= $modelPosts->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
-    // $listDataTour= $modelTour->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
-    // $listDataImage = $modelImage ->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
+    $totalData = $modelproject->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    $numberOfProjects = count($listDataproject);
+    setVariable('listDatacategory', $listDatacategory);
+    setVariable('numberOfProjects', $numberOfProjects);
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('listDataproject', $listDataproject);
+}
+function project($input){
+    global $controller; 
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $modelpublication;
+    global $urlCurrent;
+    global $categories;
+    $limit = 6;
+    $conditions = array();
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+    if(!empty($_GET['id_kind'])){
+        $conditions['id_kind'] = (int) $_GET['id_kind'];
+    }
+    if(!empty($_GET['name'])){
+        $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    $modelproject = $controller->loadModel('ProductProjects');
+    $modelcategory = $controller->loadModel('categories');
+    $listDatacategory = $modelcategory->find()->where(['type'=>'category_kind'])->all()->toList();
 
 
-    // $data_value = array();
-    // if(!empty($data->value)){
-    //     $data_value = json_decode($data->value, true);
-    // }
+  
+    $order = array('id' => 'desc');
+    $listDataproject= $modelproject->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
+    
+    $totalData = $modelproject->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
 
-    // setVariable('setting', $data_value);
-    // setVariable('listDataEvent', $listDataEvent);
-    // setVariable('listDataPost', $listDataPost);
-    // setVariable('listDataTour', $listDataTour);
-    // setVariable('listDataImage', $listDataImage);
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    $numberOfProjects = count($listDataproject);
+    setVariable('listDatacategory', $listDatacategory);
+    setVariable('numberOfProjects', $numberOfProjects);
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('listDataproject', $listDataproject);
 }
 ?>

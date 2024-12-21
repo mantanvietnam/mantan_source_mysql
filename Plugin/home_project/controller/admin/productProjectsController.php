@@ -116,31 +116,19 @@ function addProductProjectAdmin($input)
 
         if(!empty($dataSend['name'])){
 	        // tạo dữ liệu save
-            $data->year = $dataSend['year'];
-            $data->donor = $dataSend['donor'];
 	        $data->name = $dataSend['name'];
             $data->address = $dataSend['address'];
-            $data->company_design = $dataSend['company_design'];
-            $data->designer = $dataSend['designer'];
-            $data->company_build= $dataSend['company_build'];
             $data->description= $dataSend['description'];
-            $data->city= $dataSend['city'];
-            $data->id_product= $dataSend['id_product'];
             $data->status= $dataSend['status'];
             $data->images = json_encode($dataSend['images']);
             $data->image = $dataSend['image'];
             $data->id_kind = $dataSend['id_kind'];
             $data->info = $dataSend['info'];
-
-
-
-            // if(!empty($dataSend['id_kind'])){
-            //     $data->id_kind = implode(',', $dataSend['id_kind']);
-            // }
-
-            
-
-            
+            $data->map = $dataSend['map'];
+            $data->acreage = $dataSend['acreage'];
+            $data->subdivision = $dataSend['subdivision'];
+            $data->premises = $dataSend['premises'];
+            $data->landscape = $dataSend['landscape'];            
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;

@@ -24,11 +24,11 @@
                           Mô tả dự án
                         </button>
                       </li>
-                      <li class="nav-item">
+                      <!-- <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
                           Thông tin dự án
                         </button>
-                      </li>
+                      </li> -->
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-image" aria-controls="navs-top-image" aria-selected="false">
                           Hình ảnh
@@ -44,12 +44,6 @@
                               <label class="form-label">Tên dự án (*)</label>
                               <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                             </div>
-
-                            <div class="mb-3">
-                              <label class="form-label">Mã sản phẩm</label>
-                              <input  type="text" class="form-control phone-mask" name="id_product" id="id_product" value="<?php echo @$data['id_product'];?>" />
-                            </div>
-
                             <div class="mb-3">
                               <label class="form-label">Địa chỉ (*)</label>
                               <input  type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address;?>" />
@@ -57,7 +51,7 @@
 
                             <div class="mb-3">
                               <label class="form-label">Mô tả ngắn</label>
-                              <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
+                              <textarea  rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Trạng thái</label>
@@ -68,61 +62,58 @@
                                 </select>
                               </div>
                             </div>
+                            <div class="mb-3">
+                              <label class="form-label">Tiện ích cảnh quan</label>
+                              <textarea  rows="5" class="form-control" name="landscape" id="landscape"><?php echo @$data->landscape;?></textarea>
+                            </div>
                           </div>
 
                           <div class="col-md-6">
-                              <div class="mb-3">
-                                <label class="form-label">Thành phố</label>
-                                <input  type="text" class="form-control phone-mask" name="city" id="city" value="<?php echo @$data->city;?>" />
-                              </div>
-
-                              <div class="mb-3">
-                                <label class="form-label">Công ty thiết kế</label>
-                                <input  type="text" class="form-control phone-mask" name="company_design" id="company_design" value="<?php echo @$data->company_design;?>" />
-                              </div>
-
-                              <div class="mb-3">
-                                <label class="form-label">Công ty thi công</label>
-                                <input  type="text" class="form-control phone-mask" name="company_build" id="company_build" value="<?php echo @$data->company_build;?>" />
-                              </div>
-
-                              <div class="mb-3">
-                                <label class="form-label">Nhà thiết kế</label>
-                                <input  type="text" class="form-control phone-mask" name="designer" id="designer" value="<?php echo @$data->designer;?>" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label">Thời gian</label>
-                                <input  type="text" class="form-control phone-mask" name="year" id="year" value="<?php echo @$data->year;?>" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label">Cơ quan tài trợ</label>
-                                <input  type="text" class="form-control phone-mask" name="donor" id="donor" value="<?php echo @$data->donor;?>" />
-                              </div>
-                              <div class="mb-3">
-                              <label class="form-label">Danh mục (*)</label>
-                              <div class="input-group input-group-merge">
-                                <select class="form-select" name="id_kind" id="id_kind" >
-                                  <option value="">Chọn danh mục</option>
-                                  <?php 
-                                  if(!empty($listKind)){
-                                    foreach ($listKind as $key => $item) {
-                                      if(empty($data->id_kind) || $data->id_kind!=$item->id){
-                                        echo '<option value="'.$item->id.'">'.$item->name.'</option>';
-                                      }else{
-                                        echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
-                                      }
-                                    }}
-                                
-                                  ?>
-                                </select>
-                              </div>
+                            <div class="mb-3">
+                              <label class="form-label">Diện tích</label>
+                              <input  type="text" class="form-control phone-mask" name="acreage" id="acreage" value="<?php echo @$data->acreage;?>" />
                             </div>
+                            <div class="mb-3">
+                              <label class="form-label">Hiện trạng</label>
+                              <input  type="text" class="form-control phone-mask" name="info" id="info" value="<?php echo @$data->info;?>" />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Mặt bằng</label>
+                              <textarea  rows="5" class="form-control" name="premises" id="premises"><?php echo @$data->premises;?></textarea>
+                            </div>
+                         
+                            <div class="mb-3">
+                            <label class="form-label">Danh mục (*)</label>
+                            <div class="input-group input-group-merge">
+                              <select class="form-select" name="id_kind" id="id_kind" >
+                                <option value="">Chọn danh mục</option>
+                                <?php 
+                                if(!empty($listKind)){
+                                  foreach ($listKind as $key => $item) {
+                                    if(empty($data->id_kind) || $data->id_kind!=$item->id){
+                                      echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                                    }else{
+                                      echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                                    }
+                                  }}
                               
+                                ?>
+                              </select>
+                            </div>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Tổng quan phân khu</label>
+                              <textarea  rows="5" class="form-control" name="subdivision" id="subdivision"><?php echo @$data->subdivision;?></textarea>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Map</label>
+                              <input  type="text" class="form-control phone-mask" name="map" id="map" value="<?php echo @$data->map;?>" />
+                            </div>
                           </div>
                         </div>
                       </div>
 
-                      <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
+                      <!-- <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
@@ -131,7 +122,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
 
                       <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
                         <div class="row">

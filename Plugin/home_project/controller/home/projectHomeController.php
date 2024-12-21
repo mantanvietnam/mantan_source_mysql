@@ -20,7 +20,7 @@ function projectDetail($input)
 
 	$modelProductProjects = $controller->loadModel('ProductProjects');
     $order = array('id'=>'desc');
-    $modelProduct = $controller->loadModel('Products');
+  
    
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -31,8 +31,6 @@ function projectDetail($input)
         }
     }
     
-
-
     $conditions['status'] = 'active';
     
     $project = $modelProductProjects->find()->where($conditions)->first();
@@ -60,15 +58,6 @@ function projectDetail($input)
         }    
      
     
-
-            if(!empty($project->id_product)){
-                $arrProductID = explode(',', $project->id_product);
-                $project->infoProduct = [];
-                foreach($arrProductID as $item){
-                    $infoProduct = $modelProduct->find()->where(['id'=> (int)$item])->first();
-                    $project->infoProduct[(int)$item] = $infoProduct;                  
-                }
-            }       
 
         $listDataproduct_projects= $modelProductProjects->find()->limit(3)->order($order)->all()->toList();
         setVariable('listDataproduct_projects', $listDataproduct_projects);

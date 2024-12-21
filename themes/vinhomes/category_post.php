@@ -12,6 +12,10 @@ $categories = listCategoryBytype('post');
         .setcolor a{
           color: #333 !important;
         }
+        .set-backgroundcontact{
+          background-color: #182c77;
+          
+        }
     </style>
 <div class="py-4 mx-4 my-10 sm:mx-6 lg:mx-20 font-plus fade-in">
       <h1 class="text-2xl font-bold md:text-4xl">
@@ -114,7 +118,7 @@ $categories = listCategoryBytype('post');
           ->toList();
     ?> 
 
-    <div class="relative py-4 mx-4 lg:min-h-screen font-plus sm:mx-6 lg:mx-20 slide-top">
+    <!-- <div class="relative py-4 mx-4 lg:min-h-screen font-plus sm:mx-6 lg:mx-20 slide-top">
       <div class="mt-10">
         <div class="flex items-center justify-between mb-8">
           <div class="w-[60%] md:w-auto">
@@ -184,12 +188,12 @@ $categories = listCategoryBytype('post');
           <?php endforeach; ?>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Liên hệ -->
     <div
       class="relative bg-center bg-cover font-plus slide-top"
-      style="background-image: url('./image/index/imageQS2.png')"
+      style="background-image: url('<?=$urlThemeActive?>image/index/imageQS2.png')"
     >
       <div class="absolute inset-0 bg-gray-900 bg-opacity-50"></div>
       <div
@@ -204,43 +208,43 @@ $categories = listCategoryBytype('post');
             sống thượng lưu tại các quần thể đô thị Vinhomes.
           </p>
         </div>
-        <form
-          class="p-8 text-gray-800 bg-white rounded-lg shadow-lg md:w-[50%]"
-        >
-          <div class="mb-4">
-            <input
-              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Họ và tên"
-              type="text"
-            />
-          </div>
-          <div class="mb-4">
-            <input
-              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Số điện thoại"
-              type="text"
-            />
-          </div>
-          <div class="mb-4">
-            <input
-              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Địa chỉ Email"
-              type="email"
-            />
-          </div>
-          <div class="mb-4">
-            <textarea
-              class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Lời nhắn của bạn"
-            ></textarea>
-          </div>
-          <button
-            class="w-full p-4 text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-700 hover:scale-105 hover:shadow-lg"
-            type="submit"
-            style="background: linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
-          >
-            Submit
-          </button>
+        <form method="post" action="/contact" class="p-8 text-gray-800 bg-white rounded-lg shadow-lg md:w-[50%]">
+            <div class="mb-4">
+              <input
+                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Họ và tên" name="name" required
+                type="text"
+              />
+              <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+            </div>
+            <div class="mb-4">
+              <input
+                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Số điện thoại" name="phone" required
+                type="text"
+              />
+            </div>
+            <div class="mb-4">
+              <input
+                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Địa chỉ Email" name="email" required
+                type="email"
+              />
+              <input type="hidden" placeholder="" name="subject" value=" ">
+            </div>
+            <div class="mb-4">
+              <textarea
+                class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Lời nhắn của bạn" name="content" required
+              ></textarea>
+            </div>
+            <button
+              class="w-full p-4 text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-700 hover:scale-105 hover:shadow-lg"
+              type="submit"
+              style="background: linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
+            >
+              Submit
+            </button>
         </form>
       </div>
     </div>
