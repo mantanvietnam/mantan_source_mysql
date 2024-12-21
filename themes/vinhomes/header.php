@@ -27,6 +27,9 @@ $setting = setting();
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
     />
+    <link rel="icon" sizes="16x16" href="<?= $urlThemeActive?>image/icons/iconLogo.png" type="image/png">
+    <link rel="icon" sizes="32x32" href="<?= $urlThemeActive?>image/icons/iconLogo.png" type="image/png">
+    <link rel="icon" sizes="48x48" href="<?= $urlThemeActive?>image/icons/iconLogo.png" type="image/png">
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
