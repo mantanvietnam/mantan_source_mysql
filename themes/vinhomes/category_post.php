@@ -2,7 +2,6 @@
 getHeader();
 $categories = listCategoryBytype('post'); 
 ?>
-?> 
 <div class="py-4 mx-4 my-10 sm:mx-6 lg:mx-20 font-plus fade-in">
       <h1 class="text-2xl font-bold md:text-4xl">
         Tin tức bất động sản mới nhất
@@ -17,30 +16,50 @@ $categories = listCategoryBytype('post');
     <div
       class="flex flex-col justify-between py-4 mx-4 xl:flex-row sm:mx-6 lg:mx-20 font-plus"
     >
-        <div class="w-auto xl:w-[60%] slide-right">
-            <div class="tab-navigation flex mb-8 space-x-8 heroSection-news-select font-bold pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap">
-                <?php foreach ($categories as $category): ?>
-                    <a 
-                    class="tab-link <?php echo $category->id === $categories[0]->id ? 'active' : ''; ?>" 
-                    href="#" 
-                    data-tab="<?php echo 'tab-' . $category->slug; ?>" 
-                    data-id-category="<?php echo $category->id; ?>" 
-                    >
-                        <?php echo $category->name; ?>
-                    </a>
-                <?php endforeach; ?>
-            </div>
+    <?php
+    $order = array('id' => 'desc');
+    $listDataPost = [];
+    foreach ($categories as $category) {
+        $listDataPost[$category->slug] = $modelPosts->find()
+            ->limit(4)
+            ->page(1)
+            ->where(['idCategory' => $category->id])
+            ->order($order)
+            ->all()
+            ->toList();
+    }
+    ?>
 
-            <!-- Tab Content Section -->
-            <?php foreach ($categories as $key => $category): ?>
-                  <div 
-                  id="<?php echo 'tab-' . $category->slug; ?>" 
-                  class="tab-content-news <?php echo $key === 0 ? 'active' : ''; ?>"
-                  >
-                  <!-- Nội dung của <?php echo $category->name; ?> sẽ ở đây -->
-                  </div>
-              <?php endforeach; ?>
-          </div>
+<div class="w-auto xl:w-[60%] slide-right">
+    <!-- Tab Navigation -->
+    <div class="tab-navigation flex mb-8 space-x-8 heroSection-news-select font-bold pb-4 border-b-[0.5px] border-[#ccc] overflow-x-auto md:overflow-visible scroll-smooth whitespace-nowrap">
+        <?php foreach ($categories as $category): ?>
+            <a 
+                class="tab-link <?php echo $category->id === $categories[0]->id ? 'active' : ''; ?>" 
+                href="#" 
+                data-tab="tab-<?php echo $category->id; ?>" 
+                data-id-category="<?php echo $category->id; ?>"
+                data-posts='<?php echo json_encode($listDataPost[$category->slug]); ?>'
+            >
+                <?php echo $category->name; ?>
+            </a>
+        <?php endforeach; ?>
+    </div>
+
+    <!-- Tab Content Section -->
+    <div class="tab-content-container">
+        <?php foreach ($categories as $key => $category): ?>
+            <div 
+                id="tab-<?php echo $category->id; ?>" 
+                class="tab-content-news <?php echo $key === 0 ? 'active' : ''; ?>"
+            >
+                <!-- Nội dung bài viết sẽ được chèn ở đây -->
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+
         <!-- Right -->
         <div
             class="w-auto flex justify-between xl:justify-start flex-col lg:flex-row xl:flex-col xl:w-[30%] mt-8 xl:mt-0 slide-left"
@@ -70,114 +89,21 @@ $categories = listCategoryBytype('post');
                     ?>
                 </ul>
             </div>
-
-            <div
-            class="w-full p-6 mt-4 bg-white rounded-lg shadow lg:max-w-md lg:mt-0 xl:mt-4"
-            >
-            <h2 class="mb-4 text-lg font-semibold">
-                Thị trường BĐS tại các tỉnh / thành
-            </h2>
-            <div class="space-y-4">
-                <a
-                href="#"
-                class="flex items-center space-x-4 transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:rounded-lg"
-                >
-                <img
-                    alt="Image of Hà Nội"
-                    class="object-cover w-16 h-10 rounded-lg"
-                    src="https://storage.googleapis.com/a1aa/image/MJxVtbebl1xe6U9a2n6oXQsZwPlGlE6n2KVfLfZxg7w9DKgPB.jpg"
-                />
-                <span class="transition duration-300 hover:text-blue-800">
-                    Hà Nội
-                </span>
-                </a>
-                <a
-                href="#"
-                class="flex items-center space-x-4 transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:rounded-lg"
-                >
-                <img
-                    alt="Image of Hà Nội"
-                    class="object-cover w-16 h-10 rounded-lg"
-                    src="https://storage.googleapis.com/a1aa/image/MJxVtbebl1xe6U9a2n6oXQsZwPlGlE6n2KVfLfZxg7w9DKgPB.jpg"
-                />
-                <span class="transition duration-300 hover:text-blue-800">
-                    Hải Phòng
-                </span>
-                </a>
-                <a
-                href="#"
-                class="flex items-center space-x-4 transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:rounded-lg"
-                >
-                <img
-                    alt="Image of Hà Nội"
-                    class="object-cover w-16 h-10 rounded-lg"
-                    src="https://storage.googleapis.com/a1aa/image/MJxVtbebl1xe6U9a2n6oXQsZwPlGlE6n2KVfLfZxg7w9DKgPB.jpg"
-                />
-                <span class="transition duration-300 hover:text-blue-800">
-                    Đà Nẵng
-                </span>
-                </a>
-                <a
-                href="#"
-                class="flex items-center space-x-4 transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:rounded-lg"
-                >
-                <img
-                    alt="Image of Hà Nội"
-                    class="object-cover w-16 h-10 rounded-lg"
-                    src="https://storage.googleapis.com/a1aa/image/MJxVtbebl1xe6U9a2n6oXQsZwPlGlE6n2KVfLfZxg7w9DKgPB.jpg"
-                />
-                <span class="transition duration-300 hover:text-blue-800">
-                    TP. Hồ Chí Minh
-                </span>
-                </a>
-                <a
-                href="#"
-                class="flex items-center space-x-4 transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:rounded-lg"
-                >
-                <img
-                    alt="Image of Hà Nội"
-                    class="object-cover w-16 h-10 rounded-lg"
-                    src="https://storage.googleapis.com/a1aa/image/MJxVtbebl1xe6U9a2n6oXQsZwPlGlE6n2KVfLfZxg7w9DKgPB.jpg"
-                />
-                <span class="transition duration-300 hover:text-blue-800">
-                    Bà Rịa - Vũng Tàu
-                </span>
-                </a>
-                <a
-                href="#"
-                class="flex items-center space-x-4 transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:rounded-lg"
-                >
-                <img
-                    alt="Image of Hà Nội"
-                    class="object-cover w-16 h-10 rounded-lg"
-                    src="https://storage.googleapis.com/a1aa/image/MJxVtbebl1xe6U9a2n6oXQsZwPlGlE6n2KVfLfZxg7w9DKgPB.jpg"
-                />
-                <span class="transition duration-300 hover:text-blue-800">
-                    Huế
-                </span>
-                </a>
-                <a
-                href="#"
-                class="flex items-center space-x-4 transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:rounded-lg"
-                >
-                <img
-                    alt="Image of Hà Nội"
-                    class="object-cover w-16 h-10 rounded-lg"
-                    src="https://storage.googleapis.com/a1aa/image/MJxVtbebl1xe6U9a2n6oXQsZwPlGlE6n2KVfLfZxg7w9DKgPB.jpg"
-                />
-                <span class="transition duration-300 hover:text-blue-800">
-                    Hưng Yên
-                </span>
-                </a>
-            </div>
-            </div>
         </div>
     </div>
 
     <!-- Được quan tâm nhiều nhất -->
-    <div
-      class="relative py-4 mx-4 lg:min-h-screen font-plus sm:mx-6 lg:mx-20 slide-top"
-    >
+    <?php
+      $order = array('view' => 'desc');
+      $mostViewedPosts = $modelPosts->find()
+          ->limit(4)
+          ->page(1)
+          ->order($order)
+          ->all()
+          ->toList();
+    ?> 
+
+    <div class="relative py-4 mx-4 lg:min-h-screen font-plus sm:mx-6 lg:mx-20 slide-top">
       <div class="mt-10">
         <div class="flex items-center justify-between mb-8">
           <div class="w-[60%] md:w-auto">
@@ -197,277 +123,220 @@ $categories = listCategoryBytype('post');
         </div>
 
         <div class="flex-col hidden lg:flex lg:flex-row">
-          <a href="#" class="mr-6 overflow-hidden">
-            <div class="relative overflow-hidden rounded-lg">
-              <img
-                alt="A spacious and modern home with an open floor plan, large windows, and a beautifully landscaped garden."
-                class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-96 hover:scale-105"
-                src="https://storage.googleapis.com/a1aa/image/rrAJYKuOgBrAMtxI692ZkUDveurAM0aG86f5eJEl9oFJSxunA.jpg"
-              />
-            </div>
-            <div class="pt-2">
-              <h2 class="mb-2 text-2xl font-bold">
-                Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao dịch
-                bất động sản từ trực tuyến đến
-              </h2>
-              <p class="mb-4 text-gray-600">
-                A spacious and modern home with an open floor plan, large
-                windows, and a beautifully landscaped garden. Perfect for those
-                seeking peace and tranquility.
-              </p>
-              <div class="flex items-center">
-                <img
-                  alt="Author's profile picture"
-                  class="w-10 h-10 mr-4 rounded-full"
-                  height="100"
-                  src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
-                  width="100"
-                />
-                <div class="text-sm">
-                  <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
-                </div>
-              </div>
-            </div>
-          </a>
-          <div class="flex flex-col space-y-4">
-            <a href="#" class="flex overflow-hidden">
-              <div class="relative w-full overflow-hidden rounded-lg">
-                <img
-                  alt="A spacious and modern home with an open floor plan, large windows, and a beautifully landscaped garden."
-                  class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-44 hover:scale-105"
-                  src="https://storage.googleapis.com/a1aa/image/rrAJYKuOgBrAMtxI692ZkUDveurAM0aG86f5eJEl9oFJSxunA.jpg"
-                />
-              </div>
-              <div class="pl-4 w-[90%]">
-                <h3 class="mb-2 text-lg font-bold description-news">
-                  Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao
-                  dịch bất động sản từ trực...
-                </h3>
-                <div class="flex items-center">
+          <?php foreach ($mostViewedPosts as $index => $post): ?>
+            <?php if ($index == 0): ?>
+              <a href="/<?php echo $post->slug; ?>.html" class="mr-6 overflow-hidden">
+                <div class="relative overflow-hidden rounded-lg">
                   <img
-                    alt="Author's profile picture"
-                    class="w-8 h-8 mr-2 rounded-full"
-                    height="100"
-                    src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
-                    width="100"
+                    alt="<?php echo $post->title; ?>"
+                    class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-96 hover:scale-105"
+                    src="<?php echo $post->image; ?>"
                   />
-                  <div class="text-sm">
-                    <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
+                </div>
+                <div class="pt-2">
+                  <h2 class="mb-2 text-2xl font-bold">
+                    <?php echo $post->title; ?>
+                  </h2>
+                  <p class="mb-4 text-gray-600">
+                    <?php echo $post->description; ?>
+                  </p>
+                  <div class="flex items-center">
+                    <div class="text-sm">
+                      <p class="text-gray-600"><?php echo $post->author; ?> - <?php echo date("d/m/Y", $post->time); ?></p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
-            <a href="#" class="flex overflow-hidden">
-              <div class="relative w-full overflow-hidden rounded-lg">
-                <img
-                  alt="A spacious and modern home with an open floor plan, large windows, and a beautifully landscaped garden."
-                  class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-44 hover:scale-105"
-                  src="https://storage.googleapis.com/a1aa/image/rrAJYKuOgBrAMtxI692ZkUDveurAM0aG86f5eJEl9oFJSxunA.jpg"
-                />
-              </div>
-              <div class="pl-4 w-[90%]">
-                <h3 class="mb-2 text-lg font-bold description-news">
-                  Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao
-                  dịch bất động sản từ trực...
-                </h3>
-                <div class="flex items-center">
-                  <img
-                    alt="Author's profile picture"
-                    class="w-8 h-8 mr-2 rounded-full"
-                    height="100"
-                    src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
-                    width="100"
-                  />
-                  <div class="text-sm">
-                    <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
+              </a>
+            <?php else: ?>
+              <div class="flex flex-col space-y-4">
+                <a href="/<?php echo $post->slug; ?>.html" class="flex overflow-hidden">
+                  <div class="relative w-full overflow-hidden rounded-lg">
+                    <img
+                      alt="<?php echo $post->title; ?>"
+                      class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-44 hover:scale-105"
+                      src="<?php echo $post->image; ?>"
+                    />
                   </div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="flex overflow-hidden">
-              <div class="relative w-full overflow-hidden rounded-lg">
-                <img
-                  alt="A spacious and modern home with an open floor plan, large windows, and a beautifully landscaped garden."
-                  class="object-cover w-full transition-all duration-300 ease-in-out transform rounded-lg h-44 hover:scale-105"
-                  src="https://storage.googleapis.com/a1aa/image/rrAJYKuOgBrAMtxI692ZkUDveurAM0aG86f5eJEl9oFJSxunA.jpg"
-                />
-              </div>
-              <div class="pl-4 w-[90%]">
-                <h3 class="mb-2 text-lg font-bold description-news">
-                  Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao
-                  dịch bất động sản từ trực...
-                </h3>
-                <div class="flex items-center">
-                  <img
-                    alt="Author's profile picture"
-                    class="w-8 h-8 mr-2 rounded-full"
-                    height="100"
-                    src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
-                    width="100"
-                  />
-                  <div class="text-sm">
-                    <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
+                  <div class="pl-4 w-[90%]">
+                    <h3 class="mb-2 text-lg font-bold description-news">
+                      <?php echo $post->title; ?>
+                    </h3>
+                    <div class="flex items-center">
+                      <div class="text-sm">
+                        <p class="text-gray-600"><?php echo $post->author; ?> - <?php echo date("d/m/Y", $post->time); ?></p>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </a>
               </div>
-            </a>
-          </div>
-        </div>
-
-        <div
-          class="grid grid-cols-1 space-y-4 sm:grid-cols-2 lg:hidden sm:space-y-0"
-        >
-          <a href="#" class="mr-6 overflow-hidden">
-            <img
-              alt="A spacious and modern home with an open floor plan, large windows, and a beautifully landscaped garden."
-              class="object-cover w-full rounded-lg h-44"
-              src="https://storage.googleapis.com/a1aa/image/rrAJYKuOgBrAMtxI692ZkUDveurAM0aG86f5eJEl9oFJSxunA.jpg"
-            />
-            <div class="pt-2">
-              <h2 class="mb-2 text-2xl font-bold description-news">
-                Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao dịch
-                bất động sản từ trực tuyến đến
-              </h2>
-
-              <div class="flex items-center">
-                <img
-                  alt="Author's profile picture"
-                  class="w-10 h-10 mr-4 rounded-full"
-                  height="100"
-                  src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
-                  width="100"
-                />
-                <div class="text-sm">
-                  <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="#" class="mr-6 overflow-hidden">
-            <img
-              alt="A spacious and modern home with an open floor plan, large windows, and a beautifully landscaped garden."
-              class="object-cover w-full rounded-lg h-44"
-              src="https://storage.googleapis.com/a1aa/image/rrAJYKuOgBrAMtxI692ZkUDveurAM0aG86f5eJEl9oFJSxunA.jpg"
-            />
-            <div class="pt-2">
-              <h2 class="mb-2 text-2xl font-bold description-news">
-                Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao dịch
-                bất động sản từ trực tuyến đến
-              </h2>
-
-              <div class="flex items-center">
-                <img
-                  alt="Author's profile picture"
-                  class="w-10 h-10 mr-4 rounded-full"
-                  height="100"
-                  src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
-                  width="100"
-                />
-                <div class="text-sm">
-                  <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
-                </div>
-              </div>
-            </div>
-          </a>
+            <?php endif; ?>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
 
-    <script>
-const tabData = <?php
-    $groupedPosts = [];
-    foreach ($categories as $category) {
-        // Lọc các bài viết của mỗi category theo ID, vẫn sử dụng slug trong JavaScript
-        $groupedPosts[$category->slug] = isset($posts) && is_array($posts) ? array_filter($posts, function ($post) use ($category) {
-            return $post->idCategory === $category->id; // Lọc theo ID
-        }) : [];
-    }
-    echo json_encode($groupedPosts, JSON_UNESCAPED_UNICODE);
-?>;
+    <!-- Liên hệ -->
+    <div
+      class="relative bg-center bg-cover font-plus slide-top"
+      style="background-image: url('./image/index/imageQS2.png')"
+    >
+      <div class="absolute inset-0 bg-gray-900 bg-opacity-50"></div>
+      <div
+        class="relative z-10 flex flex-col justify-between px-4 py-10 text-white md:flex-row md:py-20 sm:px-6 xl:px-20"
+      >
+        <div class="md:w-[45%]">
+          <h1 class="mb-4 text-4xl font-bold">
+            MinhTuanVinhomes - Chung tay xây dựng cộng đồng Vinhomes
+          </h1>
+          <p class="mb-8 text-lg">
+            Hãy để chúng tôi trở thành cầu nối giúp bạn đến gần hơn với cuộc
+            sống thượng lưu tại các quần thể đô thị Vinhomes.
+          </p>
+        </div>
+        <form
+          class="p-8 text-gray-800 bg-white rounded-lg shadow-lg md:w-[50%]"
+        >
+          <div class="mb-4">
+            <input
+              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Họ và tên"
+              type="text"
+            />
+          </div>
+          <div class="mb-4">
+            <input
+              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Số điện thoại"
+              type="text"
+            />
+          </div>
+          <div class="mb-4">
+            <input
+              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Địa chỉ Email"
+              type="email"
+            />
+          </div>
+          <div class="mb-4">
+            <textarea
+              class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Lời nhắn của bạn"
+            ></textarea>
+          </div>
+          <button
+            class="w-full p-4 text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-700 hover:scale-105 hover:shadow-lg"
+            type="submit"
+            style="background: linear-gradient(90deg, #182c77 0%, #6274bb 100%)"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
 
-// Log giá trị của tabData ra console để kiểm tra
-console.log(tabData);
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".tab-link").forEach((tab) => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
 
-// Event listener cho các tab
-document.querySelectorAll('.tab-link').forEach(tab => {
-    tab.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        // Lấy slug từ data-tab
-        const tabSlug = this.getAttribute('data-tab').split('-')[1];
-        
-        // Lấy ID của category (được lưu trong data-id-category)
-        const categoryId = this.getAttribute('data-id-category');
+      document
+        .querySelectorAll(".tab-link")
+        .forEach((link) => link.classList.remove("active"));
+      document
+        .querySelectorAll(".tab-content-news")
+        .forEach((content) => content.classList.remove("active"));
 
-        // Log ID category để kiểm tra
-        console.log("Selected Category ID:", categoryId);
+      const tabId = tab.getAttribute("data-tab");
+      tab.classList.add("active");
+      const tabContent = document.getElementById(tabId);
+      tabContent.classList.add("active");
 
-        // Ẩn tất cả tab content
-        document.querySelectorAll('.tab-content-news').forEach(content => {
-            content.classList.remove('active');
-        });
-
-        // Hiển thị tab content tương ứng với slug
-        const contentToShow = document.getElementById('tab-' + tabSlug);
-        if (contentToShow) {
-            contentToShow.classList.add('active');
-        }
-
-        // Gọi hàm hiển thị bài viết tương ứng
-        generateTabContent(tabSlug);
+      const postsData = JSON.parse(tab.getAttribute("data-posts"));
+      generateTabContent(tabContent, postsData);
     });
-});
+  });
 
-// Hàm hiển thị bài viết trong các tab
-function generateTabContent(tabSlug) {
-    const contentArea = document.getElementById('tab-' + tabSlug);
-    const articles = tabData[tabSlug];
+  function generateTabContent(contentArea, postsData) {
 
-    contentArea.innerHTML = ""; // Clear existing content
+    if (!contentArea) {
+      console.log("Không tìm thấy phần tử tab content để chèn nội dung");
+      return;
+    }
 
-    if (articles && articles.length > 0) {
-      articles.forEach((article) => {
-        const articleHTML = `
-            <a href="detailProject.html" class="rounded-lg">
-                <div class="relative overflow-hidden rounded-lg">
-                    <img
-                        alt="Modern house with large windows and landscaped garden"
-                        class="object-cover w-full h-[340px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
-                        src="./image/news/bgNews.png"
-                    />
-                    <div
-                        class="absolute text-sm text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
-                    >
-                        Đang mở bánQ1/2024: Sắp bán khu căn hộ
-                    </div>
+    contentArea.innerHTML = "";
+
+    if (postsData && postsData.length > 0) {
+      postsData.forEach((article, index) => {
+        let articleHTML;
+        const formattedTime = new Date(article.time * 1000).toLocaleDateString("vi-VN");
+        if (index === 0) {
+          articleHTML = `
+            <a href="/${article.slug}.html" class="rounded-lg block mb-4">
+              <div class="relative overflow-hidden rounded-lg">
+                <img
+                  alt="${article.title}"
+                  class="object-cover w-full h-[340px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                  src="${article.image}"
+                />
+                <div class="absolute text-sm text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4">
+                 ${article.keyword}
                 </div>
+              </div>
 
-                <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
-                <div class="flex flex-col justify-between sm:items-center sm:flex-row">
-                    <div class="flex items-center mt-2 text-[#142A72] font-bold">
-                        <img
-                            src="./image/icons/iconLocationBlack.png"
-                            alt="icon"
-                            class="h-6 mr-2"
-                        />
-                        Huyện Đông Anh, Thành Phố Hà Nội
-                    </div>
-                    <div class="flex items-center mt-2 font-bold">
-                        <p class="mr-2">Tổng diện tích:</p>
-                        <p class="text-[#142A72]">385 ha</p>
-                    </div>
+              <h2 class="mt-4 text-xl font-bold">${article.title}</h2>
+              <div class="flex flex-col justify-between sm:items-center sm:flex-row">
+                <div class="flex items-center mt-2 text-[#142A72] font-bold">
+                  ${article.author} - ${formattedTime}
                 </div>
-                <p class="mt-2 text-gray-400 description">
-                    Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động và đẳng cấp Thế giới.
-                </p>
+              </div>
+              <p class="mt-2 text-gray-400 description">
+                ${article.description}
+              </p>
             </a>
-        `;
+          `;
+        } else {
+          articleHTML = `
+            <div class="flex flex-col mt-4 space-y-4">
+              <a href="/${article.slug}.html" class="flex flex-col overflow-hidden md:flex-row">
+                <div class="relative overflow-hidden rounded-lg w-auto md:w-[64%] h-44">
+                  <img
+                    alt="${article.title}"
+                    class="object-cover rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                    src="${article.image}"
+                  />
+                </div>
+                <div class="pl-0 md:pl-4 w-auto md:w-[90%] mt-2 md:mt-0">
+                  <h3 class="mb-2 text-lg font-bold description-news">
+                    ${article.title}
+                  </h3>
+                  <p class="mt-2 text-gray-400 description">
+                    ${article.description}
+                  </p>
+                  <div class="flex items-center mt-2">
+                    <div class="text-sm">
+                      <p class="text-gray-600">${article.author} - ${formattedTime}</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+        }
         contentArea.insertAdjacentHTML("beforeend", articleHTML);
       });
     } else {
-        contentArea.innerHTML = `<p class="text-gray-500">Không có tin tức</p>`;
+      contentArea.innerHTML = `<p class="text-gray-500">Không có tin tức</p>`;
     }
-}
-</script>
+  }
 
+  const firstTab = document.querySelector(".tab-link.active");
+  if (firstTab) {
+    const firstTabId = firstTab.getAttribute("data-tab");
+    const firstTabContent = document.getElementById(firstTabId);
+    const firstPostsData = JSON.parse(firstTab.getAttribute("data-posts"));
+    generateTabContent(firstTabContent, firstPostsData);
+  }
+});
+</script>
 <?php getFooter();?>

@@ -768,201 +768,201 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //thanh tab trang tin tuc
-document.addEventListener("DOMContentLoaded", () => {
-  // Fake data for each tab
-  const tabData = {
-    "all-posts": [""],
-    projects: [""],
-    "market-analysis": [],
-    "financial-solutions": [],
-    "real-estate": [],
-    // Add similar objects for other tabs (market-analysis, financial-solutions, real-estate)
-  };
+// document.addEventListener("DOMContentLoaded", () => {
+//   // Fake data for each tab
+//   const tabData = {
+//     "all-posts": [""],
+//     projects: [""],
+//     "market-analysis": [],
+//     "financial-solutions": [],
+//     "real-estate": [],
+//     // Add similar objects for other tabs (market-analysis, financial-solutions, real-estate)
+//   };
 
-  // Generate content for each tab
-  function generateTabContent(tabId) {
-    const contentArea = document.getElementById(tabId);
-    const articles = tabData[tabId];
+//   // Generate content for each tab
+//   function generateTabContent(tabId) {
+//     const contentArea = document.getElementById(tabId);
+//     const articles = tabData[tabId];
 
-    contentArea.innerHTML = ""; // Clear existing content
+//     contentArea.innerHTML = ""; // Clear existing content
 
-    if (articles && articles.length > 0) {
-      articles.forEach((article) => {
-        const articleHTML = `
-           <a href="detailProject.html" class="rounded-lg">
-          <div class="relative overflow-hidden rounded-lg">
-            <img
-              alt="Modern house with large windows and landscaped garden"
-              class="object-cover w-full h-[340px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
-              src="./image/news/bgNews.png"
-            />
-            <div
-              class="absolute text-sm text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
-            >
-              Đang mở bánQ1/2024: Sắp bán khu căn hộ
-            </div>
-          </div>
+//     if (articles && articles.length > 0) {
+//       articles.forEach((article) => {
+//         const articleHTML = `
+//            <a href="detailProject.html" class="rounded-lg">
+//           <div class="relative overflow-hidden rounded-lg">
+//             <img
+//               alt="Modern house with large windows and landscaped garden"
+//               class="object-cover w-full h-[340px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+//               src="./image/news/bgNews.png"
+//             />
+//             <div
+//               class="absolute text-sm text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
+//             >
+//               Đang mở bánQ1/2024: Sắp bán khu căn hộ
+//             </div>
+//           </div>
 
-          <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
-          <div
-            class="flex flex-col justify-between sm:items-center sm:flex-row"
-          >
-            <div class="flex items-center mt-2 text-[#142A72] font-bold">
-              <img
-                src="./image/icons/iconLocationBlack.png"
-                alt="icon"
-                class="h-6 mr-2"
-              />
-              Huyện Đông Anh, Thành Phố Hà Nội
-            </div>
-            <div class="flex items-center mt-2 font-bold">
-              <p class="mr-2">Tổng diện tích:</p>
-              <p class="text-[#142A72]">385 ha</p>
-            </div>
-          </div>
-          <p class="mt-2 text-gray-400 description">
-            Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động và
-            đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối, phong
-            cách sống toàn cầu
-          </p>
-        </a>
+//           <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
+//           <div
+//             class="flex flex-col justify-between sm:items-center sm:flex-row"
+//           >
+//             <div class="flex items-center mt-2 text-[#142A72] font-bold">
+//               <img
+//                 src="./image/icons/iconLocationBlack.png"
+//                 alt="icon"
+//                 class="h-6 mr-2"
+//               />
+//               Huyện Đông Anh, Thành Phố Hà Nội
+//             </div>
+//             <div class="flex items-center mt-2 font-bold">
+//               <p class="mr-2">Tổng diện tích:</p>
+//               <p class="text-[#142A72]">385 ha</p>
+//             </div>
+//           </div>
+//           <p class="mt-2 text-gray-400 description">
+//             Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động và
+//             đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối, phong
+//             cách sống toàn cầu
+//           </p>
+//         </a>
 
-         <div class="flex flex-col mt-4 space-y-4">
-          <a href="#" class="flex flex-col overflow-hidden md:flex-row">
-            <div class="relative overflow-hidden rounded-lg w-auto md:w-[64%] h-44">
-            <img
-              alt="Modern house with large windows and landscaped garden"
-              class="object-cover rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
-              src="./image/news/bgNews.png"
-            />
-            </div>
-            <div class="pl-0 md:pl-4 w-auto md:w-[90%] mt-2 md:mt-0">
-              <h3 class="mb-2 text-lg font-bold description-news">
-                Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao dịch
-                bất động sản từ trực...
-              </h3>
-              <p class="mt-2 text-gray-400 description">
-                Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi
-                động và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết
-                nối, phong cách sống toàn cầu, Vinhomes Global Gate là một Thành
-                phố Thương mại Quốc tế sôi động và đẳng cấp Thế giới
-              </p>
-              <div class="flex items-center mt-2">
-                <img
-                  alt="Author's profile picture"
-                  class="w-8 h-8 mr-2 rounded-full"
-                  height="100"
-                  src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
-                  width="100"
-                />
-                <div class="text-sm">
-                  <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="#" class="flex flex-col overflow-hidden md:flex-row">
-            <div class="relative overflow-hidden rounded-lg w-auto md:w-[64%] h-44">
-            <img
-              alt="Modern house with large windows and landscaped garden"
-              class="object-cover rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
-              src="./image/news/bgNews.png"
-            />
-            </div>
-            <div class="pl-0 md:pl-4 w-auto md:w-[90%] mt-2 md:mt-0">
-              <h3 class="mb-2 text-lg font-bold description-news">
-                Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao dịch
-                bất động sản từ trực...
-              </h3>
-              <p class="mt-2 text-gray-400 description">
-                Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi
-                động và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết
-                nối, phong cách sống toàn cầu, Vinhomes Global Gate là một Thành
-                phố Thương mại Quốc tế sôi động và đẳng cấp Thế giới
-              </p>
-              <div class="flex items-center mt-2">
-                <img
-                  alt="Author's profile picture"
-                  class="w-8 h-8 mr-2 rounded-full"
-                  height="100"
-                  src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
-                  width="100"
-                />
-                <div class="text-sm">
-                  <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="#" class="flex flex-col overflow-hidden md:flex-row">
-             <div class="relative overflow-hidden rounded-lg w-auto md:w-[64%] h-44">
-            <img
-              alt="Modern house with large windows and landscaped garden"
-              class="object-cover rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
-              src="./image/news/bgNews.png"
-            />
-            </div>
-            <div class="pl-0 md:pl-4 w-auto md:w-[90%] mt-2 md:mt-0">
-              <h3 class="mb-2 text-lg font-bold description-news">
-                Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao dịch
-                bất động sản từ trực...
-              </h3>
-              <p class="mt-2 text-gray-400 description">
-                Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi
-                động và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết
-                nối, phong cách sống toàn cầu, Vinhomes Global Gate là một Thành
-                phố Thương mại Quốc tế sôi động và đẳng cấp Thế giới
-              </p>
-              <div class="flex items-center mt-2">
-                <img
-                  alt="Author's profile picture"
-                  class="w-8 h-8 mr-2 rounded-full"
-                  height="100"
-                  src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
-                  width="100"
-                />
-                <div class="text-sm">
-                  <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        `;
-        contentArea.insertAdjacentHTML("beforeend", articleHTML);
-      });
-    } else {
-      contentArea.innerHTML = `<p class="text-gray-500">Không có tin tức</p>`;
-    }
-  }
+//          <div class="flex flex-col mt-4 space-y-4">
+//           <a href="#" class="flex flex-col overflow-hidden md:flex-row">
+//             <div class="relative overflow-hidden rounded-lg w-auto md:w-[64%] h-44">
+//             <img
+//               alt="Modern house with large windows and landscaped garden"
+//               class="object-cover rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+//               src="./image/news/bgNews.png"
+//             />
+//             </div>
+//             <div class="pl-0 md:pl-4 w-auto md:w-[90%] mt-2 md:mt-0">
+//               <h3 class="mb-2 text-lg font-bold description-news">
+//                 Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao dịch
+//                 bất động sản từ trực...
+//               </h3>
+//               <p class="mt-2 text-gray-400 description">
+//                 Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi
+//                 động và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết
+//                 nối, phong cách sống toàn cầu, Vinhomes Global Gate là một Thành
+//                 phố Thương mại Quốc tế sôi động và đẳng cấp Thế giới
+//               </p>
+//               <div class="flex items-center mt-2">
+//                 <img
+//                   alt="Author's profile picture"
+//                   class="w-8 h-8 mr-2 rounded-full"
+//                   height="100"
+//                   src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
+//                   width="100"
+//                 />
+//                 <div class="text-sm">
+//                   <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
+//                 </div>
+//               </div>
+//             </div>
+//           </a>
+//           <a href="#" class="flex flex-col overflow-hidden md:flex-row">
+//             <div class="relative overflow-hidden rounded-lg w-auto md:w-[64%] h-44">
+//             <img
+//               alt="Modern house with large windows and landscaped garden"
+//               class="object-cover rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+//               src="./image/news/bgNews.png"
+//             />
+//             </div>
+//             <div class="pl-0 md:pl-4 w-auto md:w-[90%] mt-2 md:mt-0">
+//               <h3 class="mb-2 text-lg font-bold description-news">
+//                 Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao dịch
+//                 bất động sản từ trực...
+//               </h3>
+//               <p class="mt-2 text-gray-400 description">
+//                 Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi
+//                 động và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết
+//                 nối, phong cách sống toàn cầu, Vinhomes Global Gate là một Thành
+//                 phố Thương mại Quốc tế sôi động và đẳng cấp Thế giới
+//               </p>
+//               <div class="flex items-center mt-2">
+//                 <img
+//                   alt="Author's profile picture"
+//                   class="w-8 h-8 mr-2 rounded-full"
+//                   height="100"
+//                   src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
+//                   width="100"
+//                 />
+//                 <div class="text-sm">
+//                   <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
+//                 </div>
+//               </div>
+//             </div>
+//           </a>
+//           <a href="#" class="flex flex-col overflow-hidden md:flex-row">
+//              <div class="relative overflow-hidden rounded-lg w-auto md:w-[64%] h-44">
+//             <img
+//               alt="Modern house with large windows and landscaped garden"
+//               class="object-cover rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+//               src="./image/news/bgNews.png"
+//             />
+//             </div>
+//             <div class="pl-0 md:pl-4 w-auto md:w-[90%] mt-2 md:mt-0">
+//               <h3 class="mb-2 text-lg font-bold description-news">
+//                 Vinhomes chính thức ra mắt Vinhomes Market - Giải pháp giao dịch
+//                 bất động sản từ trực...
+//               </h3>
+//               <p class="mt-2 text-gray-400 description">
+//                 Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi
+//                 động và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết
+//                 nối, phong cách sống toàn cầu, Vinhomes Global Gate là một Thành
+//                 phố Thương mại Quốc tế sôi động và đẳng cấp Thế giới
+//               </p>
+//               <div class="flex items-center mt-2">
+//                 <img
+//                   alt="Author's profile picture"
+//                   class="w-8 h-8 mr-2 rounded-full"
+//                   height="100"
+//                   src="https://storage.googleapis.com/a1aa/image/lyRUGiAJOW5eFKcvOqGjuz4EjssvW0hfzMzO5YGISHnFpY3TA.jpg"
+//                   width="100"
+//                 />
+//                 <div class="text-sm">
+//                   <p class="text-gray-600">Minh Tuấn - 20/11/2024</p>
+//                 </div>
+//               </div>
+//             </div>
+//           </a>
+//         </div>
+//         `;
+//         contentArea.insertAdjacentHTML("beforeend", articleHTML);
+//       });
+//     } else {
+//       contentArea.innerHTML = `<p class="text-gray-500">Không có tin tức</p>`;
+//     }
+//   }
 
-  // Handle tab clicks
-  document.querySelectorAll(".tab-link").forEach((tab) => {
-    tab.addEventListener("click", (e) => {
-      e.preventDefault();
+//   // Handle tab clicks
+//   document.querySelectorAll(".tab-link").forEach((tab) => {
+//     tab.addEventListener("click", (e) => {
+//       e.preventDefault();
 
-      // Remove active class from all tabs and contents
-      document
-        .querySelectorAll(".tab-link")
-        .forEach((link) => link.classList.remove("active"));
-      document
-        .querySelectorAll(".tab-content-news")
-        .forEach((content) => content.classList.remove("active"));
+//       // Remove active class from all tabs and contents
+//       document
+//         .querySelectorAll(".tab-link")
+//         .forEach((link) => link.classList.remove("active"));
+//       document
+//         .querySelectorAll(".tab-content-news")
+//         .forEach((content) => content.classList.remove("active"));
 
-      // Add active class to the clicked tab and its corresponding content
-      const tabId = tab.getAttribute("data-tab");
-      tab.classList.add("active");
-      const tabContent = document.getElementById(tabId);
-      tabContent.classList.add("active");
+//       // Add active class to the clicked tab and its corresponding content
+//       const tabId = tab.getAttribute("data-tab");
+//       tab.classList.add("active");
+//       const tabContent = document.getElementById(tabId);
+//       tabContent.classList.add("active");
 
-      // Generate fake content for the selected tab
-      generateTabContent(tabId);
-    });
-  });
+//       // Generate fake content for the selected tab
+//       generateTabContent(tabId);
+//     });
+//   });
 
-  // Load default tab content (all-posts)
-  generateTabContent("all-posts");
-});
+//   // Load default tab content (all-posts)
+//   generateTabContent("all-posts");
+// });
 
 //thanh tab các dự án liên quan trang chi tiết dự án
 document.addEventListener("DOMContentLoaded", () => {
