@@ -73,5 +73,6 @@ $setting = setting();
         </div>
       </footer>
     </div>
+    <script src="<?= $urlThemeActive ?>bds/js/script.js"></script>
   </body>
 </html>
