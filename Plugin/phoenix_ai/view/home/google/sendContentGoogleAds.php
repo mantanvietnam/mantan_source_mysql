@@ -166,7 +166,6 @@
                 <input type="text" id="title" name="title"  placeholder="Tiêu đề" value="<?php echo @$dataContent->title ?>">
               </div>
               <div class="left-button-title">
-                <a type="submit" href="/" class="comback-writecontent">Quay lại</a>
                 <button type="button" onclick="saveContentGoogleAds()" class="save-writecontent">Lưu</button>
               </div>
               
