@@ -3,6 +3,7 @@ include_once('controller/admin/members_controller.php');
 include_once('controller/admin/data_ais_controller.php');
 include_once('controller/admin/setting_controller.php');
 include_once('controller/admin/documentController.php');
+include_once('controller/admin/search_image_events_controller.php');
 // home
 include_once('controller/home/members_controller.php');
 include_once('controller/home/data_ais_controller.php');
