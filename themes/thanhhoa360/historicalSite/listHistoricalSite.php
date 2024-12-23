@@ -1,53 +1,15 @@
 <?php
-getHeader();
+getFileTheme('header_tayho.php');
 global $urlThemeActive;
 ?>
 
     <main>
-        <section id="page-banner-img">
-            <div class="banner-img">
-                <img src="<?= $urlThemeActive ?>images/asdf.png" alt="">
-            </div>
-        </section>
+        
 
-        <section id="section-background-index">
-            <form action="" method="GET">
-                <div class="container-fluid background-index">
-                    <img src="<?= $urlThemeActive ?>images/background-index.jpg" alt="">
-                </div>
-
-                <!-- Bộ lọc -->
-                <div class="container container-box-filter-search">
-                    <div class="filter-option-box">
-                        <div class="filter-option-title">
-                            <p>Danh mục</p>
-                        </div>
-
-                        <!-- <div class="filter-option">
-                            <select class="form-select-filter">
-                                <option selected>Di tích văn hoá, lịch sử</option>
-                            
-                            </select>
-                        </div> -->
-                         <?php include __DIR__.'/../select.php' ;?>
-                    </div>
-
-                    <div class="box-search">
-                        <div class="input-search">
-                            <label for="search-place" class="col-form-label"><i
-                                    class="fa-solid fa-magnifying-glass"></i></label>
-                                <input type="text" name="name" id="search-place" value="<?php echo @$_GET['name']; ?>" placeholder="Tìm kiếm">
-                                <button class="mt-3 btn button-submit-custom" style="display: none;" >Lưu</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </section>
-
-        <section id="place-category">
+        <section id="place-category" class="mt-5">
             <div class="category-title">
                 <h1>DI TÍCH VĂN HÓA LỊCH SỬ</h1>
-                <p>Hãy khám phá những điểm đến di tích lịch sử ở Mai Châu</p>
+                <p>Hãy khám phá những điểm đến di tích lịch sử ở Thanh Hóa</p>
             </div>
 
             <div class="container">
@@ -116,5 +78,4 @@ global $urlThemeActive;
         </section>
 
     </main>
-<?php
-getFooter();?>
+<?php getFileTheme('footer_tayho.php');?>

@@ -1,5 +1,5 @@
 <?php
-getHeader();
+getFileTheme('header_tayho.php');
 global $urlThemeActive;
 
 ?>
@@ -12,5 +12,4 @@ global $urlThemeActive;
            
             <?php include("findnear_openstreet_map.php"); ?>
         </div>
-<?php
-getFooter(); ?>
+<?php getFileTheme('footer_tayho.php');?>

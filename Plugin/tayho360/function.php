@@ -105,6 +105,48 @@ $menus[0]['sub'][14]= array( 'title'=>'Thông báo',
 
 addMenuAdminMantan($menus);
 
+$category[1]['title'] = 'Điểm đến';
+$category[1]['sub'] = array(array ( 'url' => '/su_kien',
+                                    'name' => 'Sự kiện'
+                                    ),
+                            
+                            array ( 'url' => '/nha_hang',
+                                    'name' => 'Nhà hàng'
+                                    ),
+                            array ( 'url' => '/khach_san',
+                                    'name' => 'Khách sạn'
+                                    ),
+                            array ( 'url' => '/di_tich_lich_su',
+                                    'name' => 'Di tích lịch sử'
+                                    ),
+                            array ( 'url' => '/danh_lam',
+                                    'name' => 'Danh lam thắng cảnh'
+                                    ),
+                            array ( 'url' => '/le_hoi',
+                                    'name' => 'Lễ hội'
+                                    ),
+                            array ( 'url' => '/lang_nghe',
+                                    'name' => 'Làng nghề'
+                                    ),
+                            array ( 'url' => '/co_quan_hanh_chinh',
+                                    'name' => 'Cơ quan hành chính'
+                                    ),
+                            array ( 'url' => '/trung_tam_hoi_nghi_su_kien',
+                                    'name' => 'Trung tâm hội nghị'
+                                    ),
+                            
+                            array ( 'url' => '/su_kien',
+                                    'name' => 'Sự kiện'
+                                    ),
+                            array ( 'url' => '/dich_vu_ho_tro_du_lich',
+                                    'name' => 'Dịch vụ hỗ trợ du lịch'
+                                    ),
+
+                        );
+
+
+addMenusAppearance($category);
+
 
 function getmonth(){ 
     return array(
