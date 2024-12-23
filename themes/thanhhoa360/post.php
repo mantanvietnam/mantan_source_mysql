@@ -1,7 +1,7 @@
 <?php
 
+getFileTheme('header_tayho.php');
 
-getHeader();
 if (!isset($post)) $post = [];
 if (!isset($otherPosts)) $otherPosts = [];
 ?>
@@ -102,5 +102,4 @@ if (!isset($otherPosts)) $otherPosts = [];
             </div>
         </section>
     </main>
-<?php
-getFooter();
+<?php getFileTheme('footer_tayho.php');?>

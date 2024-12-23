@@ -487,6 +487,8 @@ body {
 }
 
 .bestnew-info {
+  margin-top: 20px;
+  justify-content: space-around;
   display: flex;
 }
 
@@ -658,7 +660,7 @@ body {
 
 .swiper-slide img {
   display: block;
-  width: 100%;
+  width: 35% !important;
   height: 100%;
   object-fit: cover;
 }

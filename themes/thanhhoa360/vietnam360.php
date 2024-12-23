@@ -1,5 +1,5 @@
 <?php
-getHeader();
+getFileTheme('header_tayho.php');
 ?>
 
 <main>
@@ -78,5 +78,4 @@ getHeader();
                 </section>
 </main>
 
-<?php
-getFooter();
+<?php getFileTheme('footer_tayho.php');?>

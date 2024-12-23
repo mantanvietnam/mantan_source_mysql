@@ -24,6 +24,15 @@ $menus[0]['sub'][3]= array(	'title'=>'Danh mục hiện vật',
 						);
 addMenuAdminMantan($menus);
 
+$category[1]['title'] = 'Di tích';
+$category[1]['sub'] = array(array (	'url' => '/di_tich_lich_su',
+                                    'name' => 'Di tích lịch sử'
+                                    ),
+                        );
+
+
+addMenusAppearance($category);
+
 
 function getHistoricalSite($id){
     global $modelOption;
