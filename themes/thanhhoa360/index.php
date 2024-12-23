@@ -30,6 +30,7 @@ opacity:1;
  text-decoration: none !important;
  color: black;
 }
+<<<<<<< Updated upstream
 .location-info{
   display: flex;
   flex-direction: column;
@@ -45,6 +46,7 @@ opacity:1;
 .location-container{
   margin: 0 100px;
 }
+
 
 </style>
 <iframe class='iframe-import' src="<?php echo $setting['link_image360'] ?>" frameborder="0"></iframe>
@@ -81,7 +83,9 @@ opacity:1;
     <div class='container-fluid'>
     <?php foreach ($listHistorie as $key => $value): ?>
       <!----lỗi location-container ở js -->
+
       <div class='location-container <?php echo $key % 2 === 1 ? "location-container-rev" : ""; ?> flex-lg-row mt-5 '>
+
         <div class='location-des-container'>
         <?php if ($key === 0): ?>
           <div class='locations-title mb-5'>
@@ -95,6 +99,7 @@ opacity:1;
             <h2><?php echo @$value->name ?></h2>
             <span class='fw-bold'><?php echo @$value->address ?></span>
             <span><?php echo @$value->introductory ?></span>
+
             </div>
             <div class='btn-more mb-5 mt-2'>
               <a  href="/chi_tiet_di_tich_lich_su/<?php echo @$value->slug ?>.html" >
@@ -250,84 +255,6 @@ opacity:1;
 
     <script type="text/javascript">
 
-      // Hàm load sự kiện của tháng khi người dùng nhấn vào tháng
-function loadEvent(e) {
-  var month = $(e).attr('data-month');
-  console.log('Đang tải sự kiện của tháng:', month);
-  
-  // Thực hiện yêu cầu AJAX để lấy sự kiện theo tháng
-  $.ajax({
-    type: "GET",
-    url: '/apis/ajax_event',
-    data: { month: month }
-  }).done(function(msg) {
-    // Cập nhật các sự kiện vào trong box sự kiện
-    $('.in-box-event-home').html(msg.text);
-    eventhome();  // Khởi động lại slick slider
-  });
-}
-
-// Hàm cấu hình slider cho sự kiện
-function eventhome() {
-  $('.in-box-event-home_1').slick({
-    dots: false,
-    infinite: true,
-    arrows: true,
-    speed: 500,
-    fade: true,
-    cssEase: 'linear',
-    prevArrow: `<button type='button' class='slick-prev pull-left'><i class="fa-solid fa-angle-left"></i></button>`,
-    nextArrow: `<button type='button' class='slick-next pull-right'><i class="fa-solid fa-angle-right"></i></button>`
-  });
-}
-
-// Hàm load sự kiện khi chuyển tháng (prev/next)
-function loadEventNextPrev(direction) {
-  // Lấy tháng hiện tại từ phần tử đang hiển thị
-  var currentMonth = $('.slick-center').attr('data-month');
-  console.log('Tháng hiện tại:', currentMonth);
-
-  // Xử lý chuyển tháng
-  if (direction === 1) {
-    currentMonth = (currentMonth == 12) ? 1 : Number(currentMonth) + 1;
-  } else {
-    currentMonth = (currentMonth == 1) ? 12 : Number(currentMonth) - 1;
-  }
-
-  // Thực hiện yêu cầu AJAX để tải sự kiện theo tháng
-  $.ajax({
-    type: "GET",
-    url: '/apis/ajax_event',
-    data: { month: currentMonth }
-  }).done(function(msg) {
-    console.log('Sự kiện tháng ' + currentMonth, msg);
-    // Cập nhật sự kiện vào trong box
-    $('.in-box-event-home').html(msg.text);
-    eventhome();  // Khởi động lại slick slider
-  });
-}
-
-// Cấu hình sự kiện khi trang được load
-$(document).ready(function() {
-  // Gán sự kiện cho nút "prev" (quay lại tháng trước)
-  $(".mon-pull-left").click(function() {
-    loadEventNextPrev(2); // Gọi hàm với tham số 2 (quay lại tháng trước)
-  });
-
-  // Gán sự kiện cho nút "next" (chuyển đến tháng sau)
-  $(".mon-pull-right").click(function() {
-    loadEventNextPrev(1); // Gọi hàm với tham số 1 (chuyển đến tháng sau)
-  });
-
-  // Gán sự kiện cho từng tháng để load sự kiện tương ứng
-  $("#current-month").click(function() {
-    loadEvent(this); // Gọi hàm loadEvent khi nhấn vào tháng
-  });
-
-  // Gọi sự kiện cho tháng đầu tiên khi trang tải
-  loadEvent($('.mon-pull-right').first());
-});
-
 
 
 function handleView360() {
@@ -383,7 +310,6 @@ function stop360View() {
 
   console.log('Đã dừng xem toàn cảnh 360');
 }
-
 
 </script>
 
