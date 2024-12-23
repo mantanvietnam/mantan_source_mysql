@@ -1,5 +1,5 @@
 <?php
-getHeader();
+getFileTheme('header_tayho.php');
 global $urlThemeActive;
 ?>
  <main>
@@ -208,5 +208,4 @@ global $urlThemeActive;
         </section> 
         <?php } ?>
     </main>
-<?php
-getFooter();?>
+<?php getFileTheme('footer_tayho.php');?>
