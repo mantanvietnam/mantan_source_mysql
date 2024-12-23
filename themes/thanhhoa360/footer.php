@@ -37,7 +37,7 @@ $setting = setting();
               </div>
             </div>
           </div>
-          <div class="bestnewss-info">
+          <div class="bestnewss-info col-lg-6">
             <div class="col-lg-3 col-6 d-flex flex-column text-white gap-3 footer-mid">
               <h2>Về chúng tôi</h2>
                   <?php
