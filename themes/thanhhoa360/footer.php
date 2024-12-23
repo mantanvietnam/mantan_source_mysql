@@ -4,7 +4,7 @@ global $urlThemeActive;
 $setting = setting();
 ?>
 <div class='mt-5 footer-container'>
-      <div class='container pt-5 pb-5'>
+      <div class='container-fluid pt-5 pb-5'>
         <div class='row'>
           <div class="col-lg-6 col-12 footer-frist-container d-flex flex-column">
             <div class='d-flex align-items-center gap-3'>

@@ -41,10 +41,10 @@ global $urlThemeActive;
 
     </div>
     <!-- điểm đến tiêu biểu -->
-    <div class='container'>
+    <div class='container-fluid'>
     <?php foreach ($listHistorie as $key => $value): ?>
       <!----lỗi location-container ở js -->
-      <div class='location-contain <?php echo $key % 2 === 1 ? "location-container-rev" : ""; ?> flex-lg-row mt-5'>
+      <div class='location-contain <?php echo $key % 2 === 1 ? "location-container-rev" : ""; ?> flex-lg-row mt-5 mx-5'>
         <div class='location-des-container'>
         <?php if ($key === 0): ?>
           <div class='locations-title mb-5'>
