@@ -43,13 +43,6 @@
                   <input type="text" class="form-control" name="link_image360" value="<?php echo @$setting['link_image360'];?>" />
 
                 </div>
-
-
-
-                 
-
-
-
                 <button type="submit" class="btn btn-primary">Lưu</button>
 
             </div>
@@ -59,6 +52,29 @@
         </div>
 
 
+        <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Tiêu đề ở ảnh 360</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề 1</label>
+                  <input type="text" class="form-control" name="welcome1" value="<?php echo @$setting['welcome1'];?>" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề 2</label>
+                  <input type="text" class="form-control" name="welcome2" value="<?php echo @$setting['welcome2'];?>" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Content</label>
+                  <input type="text" class="form-control" name="content_welcome" value="<?php echo @$setting['content_welcome'];?>" />
+                </div>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+          </div>
+        </div>
 
         
 

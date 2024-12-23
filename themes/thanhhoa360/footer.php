@@ -3,8 +3,6 @@ global $urlThemeActive;
 
 $setting = setting();
 ?>
-<footer>
-<section id="footer">
 <div class='mt-5 footer-container'>
       <div class='container pt-5 pb-5'>
         <div class='row'>
@@ -60,8 +58,13 @@ $setting = setting();
         </div>
       </div>
     </div>
-    </section>
-</footer>
+  </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="<?= $urlThemeActive ?>thanhhoa/js/index.js"></script>
 </html>
 
