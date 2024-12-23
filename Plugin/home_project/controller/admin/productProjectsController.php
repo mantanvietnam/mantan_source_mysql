@@ -128,7 +128,10 @@ function addProductProjectAdmin($input)
             $data->acreage = $dataSend['acreage'];
             $data->subdivision = $dataSend['subdivision'];
             $data->premises = $dataSend['premises'];
-            $data->landscape = $dataSend['landscape'];            
+            $data->landscape = $dataSend['landscape']; 
+            $data->color = $dataSend['color'];
+            $data->outstanding = isset($dataSend['outstanding']) && $dataSend['outstanding'] == '1' ? 1 : 0;    
+            $data->keypoint = isset($dataSend['keypoint']) && $dataSend['keypoint'] == '1' ? 1 : 0;          
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
             $slugNew = $slug;

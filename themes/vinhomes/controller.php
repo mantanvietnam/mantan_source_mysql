@@ -94,7 +94,8 @@ function indexTheme($input){
   
     $order = array('id' => 'desc');
     $listDataproject= $modelproject->find()->limit($limit)->where($conditions)->page($page)->order($order)->all()->toList();
-    
+    $listDataprojectkeypoint = $modelproject->find()->where(['keypoint'=>1])->order($order)->all()->toList();
+
     $totalData = $modelproject->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
     $balance = $totalData % $limit;
@@ -125,6 +126,7 @@ function indexTheme($input){
     }
 
     $numberOfProjects = count($listDataproject);
+    setVariable('listDataprojectkeypoint', $listDataprojectkeypoint);
     setVariable('listDatacategory', $listDatacategory);
     setVariable('numberOfProjects', $numberOfProjects);
     setVariable('page', $page);

@@ -66,6 +66,26 @@
                               <label class="form-label">Tiện ích cảnh quan</label>
                               <textarea  rows="5" class="form-control" name="landscape" id="landscape"><?php echo @$data->landscape;?></textarea>
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="color">Màu sắc</label>
+                                <select class="form-control" name="color" id="color">
+                                    <option value="" <?= empty($data->color) ? 'selected' : '' ?>>Chọn màu</option>
+                                    <option value="rgb(224 68 68 / var(--tw-bg-opacity, 1))" <?= @$data->color == 'rgb(224 68 68 / var(--tw-bg-opacity, 1))' ? 'selected' : '' ?>>Đỏ</option>
+                                    <option value="linear-gradient(90deg, #182c77 0%, #6274bb 100%);" <?= @$data->color == 'linear-gradient(90deg, #182c77 0%, #6274bb 100%);' ? 'selected' : '' ?>>Xanh đậm</option>
+                                    <option value="rgb(35 154 61 / var(--tw-bg-opacity, 1))" <?= @$data->color == 'rgb(35 154 61 / var(--tw-bg-opacity, 1))' ? 'selected' : '' ?>>Xanh lá</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="outstanding">Dự án nổi bật</label>
+                                <input type="checkbox" class="form-check-input" name="outstanding" id="outstanding" value="1" 
+                                    <?= !empty($data->outstanding) ? 'checked' : '' ?>>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="keypoint">Dự án trọng điểm</label>
+                                <input type="checkbox" class="form-check-input" name="keypoint" id="keypoint" value="1" 
+                                    <?= !empty($data->keypoint) ? 'checked' : '' ?>>
+                            </div>
+
                           </div>
 
                           <div class="col-md-6">
