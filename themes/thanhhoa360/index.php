@@ -108,7 +108,7 @@ opacity:1;
         <?php if ($key === 0): ?>
           <div class='locations-title mb-5'>
             <span>Điểm đến</span>
-            <span>Di tích lịch sửsử </span>
+            <span>Di tích lịch sử ,văn hóa </span>
             <span>Văn hóahóa</span>
           </div>
         <?php endif; ?>
