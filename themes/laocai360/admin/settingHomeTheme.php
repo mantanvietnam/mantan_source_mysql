@@ -284,6 +284,8 @@
 
                   </div> -->
 
+
+
                 </div>
 
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -305,15 +307,14 @@
                   <input type="text" class="form-control" name="phone" value="<?php echo @$setting['phone'];?>" />
 
                 </div>
-
-                  <div class="mb-3 ">
+                 <div class="mb-3 ">
 
                     <label class="form-label" for="basic-default-fullname">Email</label>
 
                     <input type="text" class="form-control" name="responsibilityemail" value="<?php echo @$setting['responsibilityemail'];?>" />
 
                   </div>
-
+                  
                   <!-- <div class="mb-3 ">
 
                     <label class="form-label" for="basic-default-fullname">Theo dõi chúng tôi qua</label>
@@ -324,16 +325,13 @@
 
                 
                   
-<!-- 
                   <div class="mb-3 ">
 
-                    <label class="form-label" for="basic-default-fullname">Tiktok</label>
+                    <label class="form-label" for="basic-default-fullname">chữ dưới cùng</label>
 
-                    <input type="text" class="form-control" name="tiktok" value="<?php echo @$setting['tiktok'];?>" />
+                    <input type="text" class="form-control" name="text_footer" value="<?php echo @$setting['text_footer'];?>" />
 
-                  </div>
- -->
-                  
+                  </div>                  
 
                 </div>
 

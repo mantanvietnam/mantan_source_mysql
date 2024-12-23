@@ -52,7 +52,7 @@ $setting = setting();
         </div>
         <div class="footer-bottom">
           <div class="container">
-            <p>&copy; 2024 Lào Cai Province. All rights reserved.</p>
+            <p><?php echo @$setting['text_footer'] ?></p>
           </div>
         </div>
       </footer>

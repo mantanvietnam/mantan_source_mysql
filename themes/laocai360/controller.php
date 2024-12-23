@@ -51,7 +51,7 @@ function settingHomeTheme($input){
                         'follow' => @$dataSend['follow'],
                         'idlink' => @$dataSend['idlink'],
                         'youtube' => @$dataSend['youtube'],
-                        'tiktok' => @$dataSend['tiktok'],
+                        'text_footer' => @$dataSend['text_footer'],
                         'zalo' => @$dataSend['zalo'],
                         'facebook' => @$dataSend['facebook'],
                         
