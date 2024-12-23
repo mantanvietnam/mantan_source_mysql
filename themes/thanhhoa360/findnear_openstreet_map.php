@@ -1,5 +1,7 @@
 <?php 
 $listdestination = destination_ward();
+// debug($listdestination);
+// die;
 ?>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
@@ -48,74 +50,85 @@ $listdestination = destination_ward();
     </div>
 
     <script>
+// Tạo bản đồ Leaflet
 const map = L.map('map').setView([19.806692, 105.776869], 10);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
 }).addTo(map);
 
-var locations = [<?php
-$findNear = getFindnear();
+// Dữ liệu vị trí từ PHP (biến "locations")
+var locations = [
+    <?php
+    $findNear = getFindnear();
 
-if (!empty($findNear)) {
-    $listShowMap = array();
+    if (!empty($findNear)) {
+        $listShowMap = array();
 
-    foreach ($findNear as $data) {
-        if (!empty($data['lat']) && !empty($data['long'])) {
-            $content = '<img src="' . $data['image'] . '" style="width:200px;height:156px;" /><br/><a href="' . $data['urlSlug'] . '">' . $data['name'] . '</a>';
-            $content .= '<br/>Điện thoại: ' . @$data['phone'];
-            $content .= '<br/>Địa chỉ: ' . $data['address'];
+        foreach ($findNear as $data) {
+            if (!empty($data['lat']) && !empty($data['long'])) {
+                $content = '<img src="' . $data['image'] . '" style="width:200px;height:156px;" /><br/><a href="' . $data['urlSlug'] . '">' . $data['name'] . '</a>';
+                $content .= '<br/>Điện thoại: ' . @$data['phone'];
+                $content .= '<br/>Địa chỉ: ' . $data['address'];
 
-            $listShowMap[] = json_encode([
-                'content' => $content,
-                'lat' => $data['lat'],
-                'lng' => $data['long'],
-                'icon' => $data['icon'],
-                'type' => $data['type'],
-                'idward' => $data['idward'],
-            ]);
+                $listShowMap[] = json_encode([
+                    'content' => $content,
+                    'lat' => $data['lat'],
+                    'lng' => $data['long'],
+                    'icon' => $data['icon'],
+                    'type' => $data['type'],
+                    'idward' => $data['idward'],
+                ]);
+            }
         }
+
+        echo implode(',', $listShowMap);
     }
+    ?>
+];
 
-    echo implode(',', $listShowMap);
-}
-?>];
-
+// Lớp chứa các marker
 const markersLayer = L.layerGroup().addTo(map);
 
+// Hàm thêm marker vào bản đồ
 function addMarkers(filteredLocations) {
+    // Xóa các marker cũ
     markersLayer.clearLayers();
 
+    // Thêm các marker mới
     filteredLocations.forEach((location) => {
         const marker = L.marker([location.lat, location.lng], {
             icon: L.icon({
                 iconUrl: location.icon,
-                iconSize: [30, 30],
+                iconSize: [30, 30], // Kích thước icon
             }),
-        }).bindPopup(location.content);
+        }).bindPopup(location.content); // Popup hiển thị thông tin
 
-        markersLayer.addLayer(marker);
+        markersLayer.addLayer(marker); // Thêm marker vào layer
     });
 }
 
+// Hàm lọc vị trí dựa trên checkbox được chọn
 function filterLocations() {
-    const checkedValues = [];
-    document.querySelectorAll('.filter-options input[type="checkbox"]:checked').forEach((checkbox) => {
-        checkedValues.push(checkbox.value);
-    });
+    // Lấy danh sách các giá trị checkbox được chọn
+    const checkedValues = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
+        .map((checkbox) => checkbox.value);
 
+    // Lọc các vị trí dựa trên checkbox được chọn
     const filteredLocations = locations.filter((location) =>
         checkedValues.includes(location.idward)
     );
 
+    // Thêm các marker đã lọc vào bản đồ
     addMarkers(filteredLocations);
 }
 
+// Gắn sự kiện thay đổi cho các checkbox
 document.querySelectorAll('.filter-options input[type="checkbox"]').forEach((checkbox) => {
-    checkbox.addEventListener('change', () => {
-        filterLocations();
-    });
+    checkbox.addEventListener('change', filterLocations); // Gọi hàm filterLocations khi checkbox thay đổi
 });
 
+// Thêm tất cả các vị trí vào bản đồ khi tải trang
 addMarkers(locations);
+
 </script>

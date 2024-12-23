@@ -482,7 +482,6 @@ $sqlUpdateDatabase['historicalsites']['urlSlug'] = "ALTER TABLE `historicalsites
 $sqlUpdateDatabase['historicalsites']['created'] = "ALTER TABLE `historicalsites` ADD `created` INT NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['historicalsites']['status'] = "ALTER TABLE `historicalsites` ADD `status` BOOLEAN NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['historicalsites']['like'] = "ALTER TABLE `historicalsites` ADD `like` INT NULL DEFAULT NULL; ";
-
 // Bang governanceagencys
 $sqlUpdateDatabase['governanceagencys']['name'] = "ALTER TABLE `governanceagencys` ADD `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL; ";
 $sqlUpdateDatabase['governanceagencys']['address'] = "ALTER TABLE `governanceagencys` ADD `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL; ";

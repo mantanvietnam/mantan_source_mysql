@@ -117,6 +117,7 @@ function addHistoricalSitesAdmin($input)
 
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
+        $dataSend['id_ward'] = intval($dataSend['idward']);
 
         if(!empty($dataSend['name'])){
 	        // tạo dữ liệu save
@@ -140,9 +141,8 @@ function addHistoricalSitesAdmin($input)
             $data->image360 = @$dataSend['image360'];
             $data->content = @$dataSend['content'];
             $data->status = @$dataSend['status'];
-            $data->idward = @$dataSend['idward'];
+            $data->idward = @$dataSend['id_ward'];
             $data->rating = @$dataSend['rating'];
-            $data->address = @$dataSend['address'];
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
 
