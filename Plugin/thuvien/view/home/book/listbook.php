@@ -48,8 +48,20 @@
         </div>
 
         <div class="col-md-3">
-          <label class="form-label">Loại sách</label>
-          <input type="text" class="form-control" name="typebook" value="<?php if(!empty($_GET['typebook'])) echo $_GET['typebook'];?>">
+            <label class="form-label">Loại sách</label>
+            <select name="id_category" class="form-control">
+                <option value="">Chọn loại sách</option>
+                <?php if (!empty($listcategorybooks)): ?>
+                    <?php foreach ($listcategorybooks as $category): ?>
+                        <option value="<?= $category->id; ?>" 
+                            <?= (!empty($_GET['id_category']) && $_GET['id_category'] == $category->id) ? 'selected' : ''; ?>>
+                            <?= htmlspecialchars($category->name); ?>
+                        </option>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <option value="">Không có nhà xuất bản nào</option>
+                <?php endif; ?>
+            </select>
         </div>
         <div class="col-md-3">
           <label class="form-label">Tác giả</label>
@@ -93,8 +105,8 @@
           <th>ID</th>
           <th>Tên sách</th>
           <th>Tác giả</th>
-          <th>Nhà xuất bản</th>
           <th>Danh mục sách</th>
+          <th>Nhà xuất bản</th>
           <th>Trạng thái</th>
           <th>Sửa</th>
           <th>Xóa</th>
