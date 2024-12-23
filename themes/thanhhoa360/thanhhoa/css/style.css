@@ -487,6 +487,8 @@ body {
 }
 
 .bestnew-info {
+  margin-top: 20px;
+  justify-content: space-around;
   display: flex;
 }
 
