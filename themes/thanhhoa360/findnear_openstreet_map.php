@@ -1,5 +1,5 @@
 <?php 
-$listdestination = destination();
+$listdestination = destination_ward();
 ?>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
@@ -72,6 +72,7 @@ if (!empty($findNear)) {
                 'lng' => $data['long'],
                 'icon' => $data['icon'],
                 'type' => $data['type'],
+                'idward' => $data['idward'],
             ]);
         }
     }
@@ -104,7 +105,7 @@ function filterLocations() {
     });
 
     const filteredLocations = locations.filter((location) =>
-        checkedValues.includes(location.type)
+        checkedValues.includes(location.idward)
     );
 
     addMarkers(filteredLocations);
