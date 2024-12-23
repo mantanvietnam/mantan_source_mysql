@@ -73,13 +73,13 @@
         </div>
 
 
-          <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 
           <div class="card mb-4">
 
             <div class="card-header d-flex justify-content-between align-items-center">
 
-              <h5 class="mb-0">Khối Điểm đến Văn hóa</h5>
+              <h5 class="mb-0">Khối điểm đến Văn hóa</h5>
 
             </div>
 
@@ -94,7 +94,7 @@
 
                 <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 
-                  <label class="form-label" for="basic-default-fullname">tiêu đền bannar</label>
+                  <label class="form-label" for="basic-default-fullname">chữ nhỏ</label>
 
                   <input type="text" class="form-control" name="text_2" value="<?php echo @$setting['text_2'];?>" />
 
@@ -108,8 +108,109 @@
         </div>
         
 
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+          <div class="card mb-4">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+              <h5 class="mb-0">Khối tin tức</h5>
+
+            </div>
+
+            <div class="card-body row">
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                  <label class="form-label" for="basic-default-fullname">tiêu đề</label>
+
+                  <input type="text" class="form-control" name="title3" value="<?php echo @$setting['title3'];?>" />
+
+                </div>
+
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                  <label class="form-label" for="basic-default-fullname">chữ nhỏ</label>
+
+                  <input type="text" class="form-control" name="text_3" value="<?php echo @$setting['text_3'];?>" />
+
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
+
+            </div>
+
+          </div>
+
+        </div>
         
 
+         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+          <div class="card mb-4">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+              <h5 class="mb-0">Khối Bào đồ</h5>
+
+            </div>
+
+            <div class="card-body row">
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                  <label class="form-label" for="basic-default-fullname">tiêu đề</label>
+
+                  <input type="text" class="form-control" name="title4" value="<?php echo @$setting['title4'];?>" />
+
+                </div>
+
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                  <label class="form-label" for="basic-default-fullname">chữ nhỏ</label>
+
+                  <input type="text" class="form-control" name="text_4" value="<?php echo @$setting['text_4'];?>" />
+
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+          <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+          <div class="card mb-4">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+              <h5 class="mb-0">Khối  ảnh 360</h5>
+
+            </div>
+
+            <div class="card-body row">
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                  <label class="form-label" for="basic-default-fullname">tiêu đề</label>
+
+                  <input type="text" class="form-control" name="title5" value="<?php echo @$setting['title5'];?>" />
+
+                </div>
+
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                  <label class="form-label" for="basic-default-fullname">chữ nhỏ</label>
+
+                  <input type="text" class="form-control" name="text_5" value="<?php echo @$setting['text_5'];?>" />
+
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
+
+            </div>
+
+          </div>
+
+        </div>
+        
 
 
         <div class="col-12 col-xs-12 ">
@@ -134,14 +235,14 @@
 
                 </div>
 
-                <div class="mb-3 ">
+              <!--   <div class="mb-3 ">
 
                   <label class="form-label" for="basic-default-fullname">Cơ quan chủ quản:</label>
 
                   <input type="text" class="form-control" name="agency" value="<?php echo @$setting['agency'];?>" />
 
                 </div>
-
+ -->
                 <div class="mb-3 ">
 
                   <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
@@ -150,15 +251,24 @@
 
                 </div>
 
-                <div class="mb-3 ">
+                   <div class="mb-3 ">
+
+                    <label class="form-label" for="basic-default-fullname">Id nhóm link liên kết chân trang</label>
+
+                    <input type="text" class="form-control" name="idlink" value="<?php echo @$setting['idlink'];?>" />
+
+                  </div>
+
+
+              <!--   <div class="mb-3 ">
 
                     <label class="form-label" for="basic-default-fullname">Instagram</label>
 
                     <input type="text" class="form-control" name="zalo" value="<?php echo @$setting['zalo'];?>" />
 
-                  </div>
+                  </div> -->
 
-                  <div class="mb-3 ">
+                 <!--  <div class="mb-3 ">
 
                     <label class="form-label" for="basic-default-fullname">Facebook</label>
 
@@ -172,13 +282,13 @@
 
                     <input type="text" class="form-control" name="youtube" value="<?php echo @$setting['youtube'];?>" />
 
-                  </div>
+                  </div> -->
 
                 </div>
 
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
 
-                  <div class="mb-3 ">
+                <!--   <div class="mb-3 ">
 
                   
 
@@ -186,7 +296,7 @@
 
                     <input type="text" class="form-control" name="responsibility" value="<?php echo @$setting['responsibility'];?>" />
 
-                  </div>
+                  </div> -->
 
                   <div class="mb-3 ">
 
@@ -204,24 +314,17 @@
 
                   </div>
 
-                  <div class="mb-3 ">
+                  <!-- <div class="mb-3 ">
 
                     <label class="form-label" for="basic-default-fullname">Theo dõi chúng tôi qua</label>
 
                     <input type="text" class="form-control" name="follow" value="<?php echo @$setting['follow'];?>" />
 
-                  </div>
+                  </div> -->
 
-                   <div class="mb-3 ">
-
-                    <label class="form-label" for="basic-default-fullname">Id nhóm link liên kết chân trang</label>
-
-                    <input type="text" class="form-control" name="idlink" value="<?php echo @$setting['idlink'];?>" />
-
-                  </div>
-
+                
                   
-
+<!-- 
                   <div class="mb-3 ">
 
                     <label class="form-label" for="basic-default-fullname">Tiktok</label>
@@ -229,7 +332,7 @@
                     <input type="text" class="form-control" name="tiktok" value="<?php echo @$setting['tiktok'];?>" />
 
                   </div>
-
+ -->
                   
 
                 </div>

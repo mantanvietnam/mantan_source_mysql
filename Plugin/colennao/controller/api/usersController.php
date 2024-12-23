@@ -216,7 +216,7 @@ function loginUserApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (!empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['type'])) {
+        if (!empty($dataSend['phone']) && !empty($dataSend['password'])) {
 
             $dataSend['phone'] = str_replace([' ', '.', '-'], '', $dataSend['phone']);
             $dataSend['phone'] = str_replace('+84', '0', $dataSend['phone']);

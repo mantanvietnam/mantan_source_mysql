@@ -30,7 +30,7 @@ if (!isset($otherPosts)) $otherPosts = [];
                             <div class="head">
                                 <h1 class="mb-1"><?= $post->title ?></h1>
                                 <span
-                                    class="author"><?= $post->author ?> - <?= convert_timestamp($post->time) ?></span>
+                                    class="author"><?= $post->author ?> - <?= date('d/m/Y',$post->time) ?></span>
                             </div>
                             <div class="body">
                                 <div class="content">

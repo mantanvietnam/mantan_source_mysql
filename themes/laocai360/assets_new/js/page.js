@@ -84,3 +84,21 @@ $(document).ready(function () {
         ],
     });
 });
+
+function loadEvent(e) {
+  var month = $(e).attr('data-month');
+  console.log(month);
+  //var url = 'su_kien?month='+month;
+  $.ajax({
+      type: "GET",
+      url: '/apis/ajax_event',
+      data:{ month:month }
+    }).done(function( msg ) {
+        console.log(msg);
+      /*var msg = JSON.parse(msg);
+      console.log(msg);*/
+      $('.in-box-event-home').html(msg.text);
+    });
+     eventhome();
+    
+    }

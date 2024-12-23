@@ -290,7 +290,7 @@ function getUserByToken($accessToken, $checkActive = true)
     $modelUser = $controller->loadModel('Users');
     $conditions = [];
     $conditions['token'] =$accessToken;
-    $conditions['deadline <='] =time();
+    $conditions['deadline >='] =time();
 
     if ($checkActive) {
         $conditions['status'] = 'active';

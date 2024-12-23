@@ -132,6 +132,9 @@
       top: 180px;
     }
   }
+  .clsFlex-wrap{
+        height: 430px;
+  }
 </style>
 <div class="container-fluid wr-map page-section" id="bando">
   <div class="row">
@@ -222,7 +225,7 @@
     ?>];
 
   const map = L.map('map_HS', {
-    center: [20.668785542548076, 105.00060413875005],
+    center: [22.377049234901232, 104.1732533408398],
     zoom: 13,
   });
 
