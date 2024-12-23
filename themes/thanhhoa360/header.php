@@ -5,6 +5,11 @@ global $isHome;
 $setting = setting();
 ?>
 
+<style>
+  .header-container{
+    background-color: brown;
+  }
+</style>
 <!DOCTYPE html>
 <html lang="vn">
 <head>
@@ -22,6 +27,9 @@ $setting = setting();
   <!-- Mapbox CSS (nếu muốn tùy biến thêm) -->
   <link rel="stylesheet" href="https://unpkg.com/mapbox-gl/dist/mapbox-gl.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 </head>
 <body>
   <div>

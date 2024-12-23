@@ -1,5 +1,5 @@
 <?php
-// debug($listDataEvent);
+// debug($listDataImage);
 // die;
 
 getHeader();
@@ -30,7 +30,6 @@ opacity:1;
  text-decoration: none !important;
  color: black;
 }
-<<<<<<< Updated upstream
 .location-info{
   display: flex;
   flex-direction: column;
@@ -40,11 +39,30 @@ opacity:1;
 }
 
 .bestnew-info{
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .location-container{
   margin: 0 100px;
+}
+
+.location-info {
+  height: 100%;
+  justify-content: space-between;
+}
+
+.container-fluid {
+    --bs-gutter-x: 0rem;
+}
+
+.swiper-slide img{
+  height: auto;
+  width :100%;
+}
+
+.mySwiper2 {
+    height: 40%;
+    width: 100%;
 }
 
 
@@ -90,14 +108,16 @@ opacity:1;
         <?php if ($key === 0): ?>
           <div class='locations-title mb-5'>
             <span>Điểm đến</span>
-            <span>Văn hóa - Du lịch</span>
-            <span>Tiêu biểu</span>
+            <span>Di tích lịch sửsử </span>
+            <span>Văn hóahóa</span>
           </div>
         <?php endif; ?>
           <div class='location-info'>
             <div class= "locations">
             <h2><?php echo @$value->name ?></h2>
+            <img src="<?= $urlThemeActive ?>images/location.png" alt="address">
             <span class='fw-bold'><?php echo @$value->address ?></span>
+<br></br>
             <span><?php echo @$value->introductory ?></span>
 
             </div>
@@ -185,7 +205,7 @@ opacity:1;
             </div>
             <div class="bn-contact">
               <img src="<?= $urlThemeActive ?>images/location.png" alt="address">
-              <span id="event-address"><?php echo @$valueEvent->address; ?></span>
+              <span id="event-address">Ủy ban nhân dân tỉnh Thanh Hóa</span>
             </div>
           </div>
         </div>
@@ -211,24 +231,30 @@ opacity:1;
   
   <!-- Swiper lớn -->
   <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
-    <div class="swiper-wrapper">
-      <?php if (!empty($listDataImage)) { 
-        foreach ($listDataImage as $key => $item) { ?>
-          <div class="swiper-slide">
-            <a href="<?php echo @$item->image360; ?>">
-              <img src="<?php echo @$item->image; ?>" alt="Vietnam 360 Image <?php echo $key + 1; ?>" />
-            </a>
-          </div>
-      <?php } 
-      } else { ?>
+  <div class="swiper-wrapper">
+    <?php if (!empty($listDataImage)) { 
+      foreach ($listDataImage as $key => $item) { ?>
         <div class="swiper-slide">
-          <p>Không có hình ảnh để hiển thị.</p>
+          <a href="<?php echo @$item->image360; ?>">
+            <img src="<?php echo @$item->image; ?>" alt="Vietnam 360 Image <?php echo $key + 1; ?>" />
+          </a>
         </div>
-      <?php } ?>
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
+    <?php } 
+    } else { ?>
+      <div class="swiper-slide">
+        <p>Không có hình ảnh để hiển thị.</p>
+      </div>
+    <?php } ?>
   </div>
+  
+  <!-- Pagination nếu cần -->
+  <div class="swiper-pagination"></div>
+
+  <!-- Các nút điều hướng -->
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+</div>
+
   
   <!-- Swiper nhỏ (thumbnail) -->
   <!-- <div thumbsSlider="" class="swiper mySwiper mt-4">
@@ -255,6 +281,18 @@ opacity:1;
 
     <script type="text/javascript">
 
+var swiper = new Swiper('.mySwiper2', {
+  slidesPerView: 3, // Hiển thị 3 ảnh mỗi lần
+  spaceBetween: 5,
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev'
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+});
 
 
 function handleView360() {
