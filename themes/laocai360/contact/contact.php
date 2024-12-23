@@ -1,6 +1,5 @@
 <?php
-// session_start();
-getHeader();
+getFileTheme('header_tayho.php');
 ?>
     <main class="bg-pt py-4">
         <?php if (isset($_SESSION['contactSubmit'])): ?>
@@ -165,7 +164,6 @@ getHeader();
         }
     </script>
 
-<?php
-getFooter();
+<?php getFileTheme('footer_tayho.php');?>
 
 
