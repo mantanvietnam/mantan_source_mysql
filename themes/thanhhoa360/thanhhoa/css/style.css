@@ -471,7 +471,7 @@ body {
   flex-direction: column;
 }
 
-.best-new-img {
+.best-new-container .best-new-img {
   width: 100%;
   display: flex;
   align-items: center;
@@ -491,7 +491,7 @@ body {
   -webkit-line-clamp: 1; /* Hiển thị tối đa 2 dòng */
 }
 
-.bestnew-info {
+.best-new-container.bestnew-info {
   margin-top: 20px;
   justify-content: space-around;
   display: flex;
@@ -721,7 +721,7 @@ body {
   height: 220px !important;
 }
 .test{
-  display: block;
+  display: block !important;
 }
 .news-header h2 {
   font-size: 35px;
