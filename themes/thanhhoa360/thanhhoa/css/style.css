@@ -707,3 +707,32 @@ body {
   height: 100%;
   object-fit: cover;
 }
+
+@media (max-width: 480px) {
+  /* Cho màn hình điện thoại */
+  .location-container {
+    margin: 0px 9px !important;
+}
+.location-container-rev {
+  display: none;
+}
+.location-image-container img{
+  height: 220px !important;
+}
+.test{
+  display: block;
+}
+.news-header h2 {
+  font-size: 35px;
+
+}
+.swiper-slide{
+  width: 100% !important;
+} 
+.locations-title {
+  margin-top: 20px;
+
+}
+
+
+}
