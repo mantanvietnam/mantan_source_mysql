@@ -84,8 +84,10 @@ function listAffiliaterAgency($input)
             }
         }*/
 
-        $listData = $modelAffiliaters->find()->where(['id_father'=>0 , 'id_member'=>$user->id])->all()->toList();
-         $percent = getPercentAffiliate();
+        //$listData = $modelAffiliaters->find()->where(['id_father'=>0 , 'id_member'=>$user->id])->all()->toList();
+        $listData = $modelAffiliaters->find()->where($conditions)->all()->toList();
+        $percent = getPercentAffiliate();
+       
         if(!empty($listData)){
             foreach ($listData as $key => $value) {
                 $listData[$key]->Affiliater = getTreeAffiliater($value->id, 1);
