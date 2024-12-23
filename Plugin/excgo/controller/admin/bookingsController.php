@@ -147,26 +147,35 @@ function viewBookingDetailAdmin($input)
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (isset($dataSend['name'])
-            && isset($dataSend['start_time'])
-            && isset($dataSend['finish_time'])
-            && isset($dataSend['departure'])
-            && isset($dataSend['destination'])
-            && isset($dataSend['departure_province_id'])
-            && isset($dataSend['destination_province_id'])
-            && isset($dataSend['introduce_fee'])
-            && isset($dataSend['price'])
-        ) {
+        if (!empty($dataSend['name'])){
             $data->name = $dataSend['name'];
+        }
+        if(!empty($dataSend['start_time'])){
             $data->start_time = date('Y-m-d H:i:s', strtotime($dataSend['start_time']));
+        }
+        if(!empty($dataSend['finish_time'])){
             $data->finish_time = date('Y-m-d H:i:s', strtotime($dataSend['finish_time']));
+        }
+        if(!empty($dataSend['departure'])){
             $data->departure = $dataSend['departure'];
+        }
+        if(!empty($dataSend['destination'])){
             $data->destination = $dataSend['destination'];
+        }
+        if(!empty($dataSend['departure_province_id'])){
             $data->departure_province_id = $dataSend['departure_province_id'];
+        }
+        if(!empty($dataSend['destination_province_id'])){
             $data->destination_province_id = $dataSend['destination_province_id'];
+        }
+        if(!empty($dataSend['introduce_fee'])){
             $data->introduce_fee = $dataSend['introduce_fee'];
+        }
+        if(!empty($dataSend['price'])){
             $data->price = $dataSend['price'];
-            $data->description = $dataSend['description'];
+        }
+        
+            
             $data->status = $dataSend['status'];
             if (isset($dataSend['posted_by'])) {
                 $data->posted_by = $dataSend['posted_by'];
@@ -177,9 +186,7 @@ function viewBookingDetailAdmin($input)
 
             $bookingModel->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
-        } else {
-            $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
-        }
+       
     }
 
     setVariable('data', $data);

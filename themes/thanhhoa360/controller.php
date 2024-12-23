@@ -70,7 +70,7 @@ function indexTheme($input){
 
     $month = getdate()['mon'];
     $year = getdate()['year'];
-    $order = array('id'=>'asc');
+    $order = array('id'=>'desc');
 
      $data_value = array();
     if(!empty($data->value)){

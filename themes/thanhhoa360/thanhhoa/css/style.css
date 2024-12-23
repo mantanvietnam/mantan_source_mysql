@@ -343,6 +343,7 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+
   overflow: hidden;
   border-radius: 20px !important;
 }

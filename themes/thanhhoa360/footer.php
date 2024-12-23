@@ -3,6 +3,11 @@ global $urlThemeActive;
 
 $setting = setting();
 ?>
+<style>
+  .footer-container{
+    background-color: brown;
+  }
+  </style>
 <div class='mt-5 footer-container'>
       <div class='container-fluid pt-5 pb-5'>
         <div class='row'>

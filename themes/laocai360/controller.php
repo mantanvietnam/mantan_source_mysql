@@ -22,6 +22,12 @@ function settingHomeTheme($input){
                         'text_1' => @$dataSend['text_1'],
                         'title2' => @$dataSend['title2'],
                         'text_2' => @$dataSend['text_2'],
+                        'title3' => @$dataSend['title3'],
+                        'text_3' => @$dataSend['text_3'],
+                         'title4' => @$dataSend['title4'],
+                        'text_4' => @$dataSend['text_4'],
+                         'title5' => @$dataSend['title5'],
+                        'text_5' => @$dataSend['text_5'],
                         'title_travel1' => @$dataSend['title_travel1'],
                         'image_travel1' => @$dataSend['image_travel1'],
                         'link_travel1' => @$dataSend['link_travel1'],
@@ -45,7 +51,7 @@ function settingHomeTheme($input){
                         'follow' => @$dataSend['follow'],
                         'idlink' => @$dataSend['idlink'],
                         'youtube' => @$dataSend['youtube'],
-                        'tiktok' => @$dataSend['tiktok'],
+                        'text_footer' => @$dataSend['text_footer'],
                         'zalo' => @$dataSend['zalo'],
                         'facebook' => @$dataSend['facebook'],
                         
@@ -74,6 +80,7 @@ function indexTheme($input){
     global $controller; 
     global $modelCategories;
     global $modelOptions;
+    global $modelPosts;
 
     $conditions = array('key_word' => 'settingHomeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
@@ -99,11 +106,13 @@ function indexTheme($input){
     
     $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order(['id'=>'desc','pin'=>'desc', 'outstanding' =>'desc'])->all()->toList();
     $listDataImage = $modelImage->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
-   /* $listDataPost= $modelPosts->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
-    $listDataTour= $modelTour->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
+    $listDataPost= $modelPosts->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
+     /*  $listDataTour= $modelTour->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
     
-    setVariable('listDataPost', $listDataPost);
+    
     setVariable('listDataTour', $listDataTour);*/
+    setVariable('month', $month);
+    setVariable('listDataPost', $listDataPost);
     setVariable('setting', $data_value);
     setVariable('listPlace', $listPlace);
     setVariable('listDataEvent', $listDataEvent);
