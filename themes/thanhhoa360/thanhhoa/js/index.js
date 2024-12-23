@@ -1,4 +1,5 @@
 document.querySelector('.header-btn-1').addEventListener('click', function() {
+  console.log(aaaaaaaaa)
     // Lấy thẻ .header-container để toggle class no-overlay
     const headerContainer = document.querySelector('.header-container');
     headerContainer.classList.toggle('no-overlay');

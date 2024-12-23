@@ -1,4 +1,7 @@
 <?php
+// debug($listDataEvent);
+// die;
+
 getHeader();
 global $urlThemeActive;
 ?>
@@ -7,8 +10,42 @@ global $urlThemeActive;
             transform: translate3d(0px, 0px, 0px)!important;
     }
     .location-container {
-  display: block;
+opacity:1;
+
 }
+
+.location-container-rev{
+    flex-direction: row-reverse !important;
+}
+.test{
+  flex-wrap: no-wrap !important;
+  display: flex;
+
+}
+.dropdown-item{
+  color: black !important;
+}
+
+.btn-more a{
+ text-decoration: none !important;
+ color: black;
+}
+.location-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+}
+
+.bestnew-info{
+  justify-content: space-between;
+}
+
+.location-container{
+  margin: 0 100px;
+}
+
 </style>
 <iframe class='iframe-import' src="<?php echo $setting['link_image360'] ?>" frameborder="0"></iframe>
       <div class='header-back-container container flex-lg-row'>
@@ -20,7 +57,7 @@ global $urlThemeActive;
          <div class='header-group-btn'>
           <span class='header-slogant'><?php echo $setting['content_welcome'] ?></span>
           <div class='btn-header-container flex-lg-row'>
-            <div class='header-btn header-btn-1'>
+            <div class='header-btn header-btn-1' onclick="handleView360()">
               <span>Xem toàn cảnh 360</span>
               <div>
                 <img src="<?= $urlThemeActive ?>images/arr-red.png" alt="">
@@ -35,7 +72,7 @@ global $urlThemeActive;
           </div>
          </div>
       </div>
-     <div class='btn-stop-watch'>
+     <div class='btn-stop-watch'  onclick="stop360View()">
       <span>Dừng xem 360</span>
      </div>
 
@@ -44,7 +81,7 @@ global $urlThemeActive;
     <div class='container-fluid'>
     <?php foreach ($listHistorie as $key => $value): ?>
       <!----lỗi location-container ở js -->
-      <div class='location-contain <?php echo $key % 2 === 1 ? "location-container-rev" : ""; ?> flex-lg-row mt-5 mx-5'>
+      <div class='location-container <?php echo $key % 2 === 1 ? "location-container-rev" : ""; ?> flex-lg-row mt-5 '>
         <div class='location-des-container'>
         <?php if ($key === 0): ?>
           <div class='locations-title mb-5'>
@@ -54,11 +91,14 @@ global $urlThemeActive;
           </div>
         <?php endif; ?>
           <div class='location-info'>
+            <div class= "locations">
             <h2><?php echo @$value->name ?></h2>
             <span class='fw-bold'><?php echo @$value->address ?></span>
             <span><?php echo @$value->introductory ?></span>
-            <div href="/chi_tiet_di_tich_lich_su/<?php echo @$value->urlSlug ?>.html" class='btn-more mb-5 mt-2'>
-              <span>Xem chi tiết</span>
+            </div>
+            <div class='btn-more mb-5 mt-2'>
+              <a  href="/chi_tiet_di_tich_lich_su/<?php echo @$value->slug ?>.html" >
+              <span>Xem chi tiết</span> </a>
               <div>
                 <img src="<?= $urlThemeActive ?>images/arr-red.png" alt="">
               </div>
@@ -85,13 +125,14 @@ global $urlThemeActive;
       <div class='news-header'>
         <h2>Tin tức mới nhất</h2>
       </div>
-      <div class="row align-items-center justify-content-center gap-2">
+      <div class="test align-items-center justify-content-center gap-2">
         <!-- tin tức -->
         <?php if (!empty($mostViewedPosts)): ?>
             <?php foreach ($mostViewedPosts as $post): ?>
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 new-container">
           <div class='new-img'>
-            <img src="<?php echo $post['image']; ?>" alt="">
+            <a href="/chi_tiet_su_kien/<?php echo @$post->slug; ?>.html">
+            <img src="<?php echo $post['image']; ?>" alt=""></a>
           </div>
           <h3><?php echo $post['title']; ?></h3>
           <span><?php echo $post['description']; ?></span>
@@ -114,17 +155,18 @@ global $urlThemeActive;
             <button id="btn-back"><img src="<?= $urlThemeActive ?>images/back-btn.png" alt="back"></button>
             <button id="btn-next"><img src="<?= $urlThemeActive ?>images/next-btn.png" alt="next"></button>
           </div>
-          <?php include('mon.php'); ?>
+          <span id="current-month">Tháng 12</span>
         </div>
       </div>
       <?php if(!empty($listDataEvent)) {
         foreach ($listDataEvent as $keyEvent => $valueEvent) {
         ?>
       <div class="best-new-container mt-4">
-        <div class="best-new-img">
-          <img id="best-new-img" src="<?php echo $valueEvent->image; ?>" alt="best">
+        <div  class="best-new-img">
+          <a style="width : 100%" href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">
+          <img id="best-new-img" style="width : 100%" src="<?php echo @$valueEvent->image; ?>" alt="best"></a>
         </div>
-        <h3 href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html" id="event-title" class="mt-3">
+        <h3 id="event-title" class="mt-3">
         <?php echo @$valueEvent->name; ?>
         </h3>
         <div class="bestnew-info">
@@ -133,12 +175,12 @@ global $urlThemeActive;
           </div>
           <div class="bn-contacts">
             <div class="bn-contact">
-              <img href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html" src="<?= $urlThemeActive ?>images/date.png" alt="date">
-              <span id="event-date">Ngày<?php echo date("d/m/Y",@$valueEvent->datestart); ?> - Ngày <?php echo date("d/m/Y",@$valueEvent->dateEnd); ?></span>
+              <img  src="<?= $urlThemeActive ?>images/date.png" alt="date">
+              <span id="event-date"><?php echo date("d/m/Y",@$valueEvent->datestart); ?> - <?php echo date("d/m/Y",@$valueEvent->dateEnd); ?></span>
             </div>
             <div class="bn-contact">
-              <img src="<?= $urlThemeActive ?>images/phone.png" alt="phone">
-              <span id="event-phone"><?php echo @$valueEvent->phone; ?></span>
+              <img src="<?= $urlThemeActive ?>images/location.png" alt="address">
+              <span id="event-address"><?php echo @$valueEvent->address; ?></span>
             </div>
           </div>
         </div>
@@ -184,7 +226,7 @@ global $urlThemeActive;
   </div>
   
   <!-- Swiper nhỏ (thumbnail) -->
-  <div thumbsSlider="" class="swiper mySwiper mt-4">
+  <!-- <div thumbsSlider="" class="swiper mySwiper mt-4">
     <div class="swiper-wrapper">
       <?php if (!empty($listDataImage)) { 
         foreach ($listDataImage as $key => $item) { ?>
@@ -200,94 +242,151 @@ global $urlThemeActive;
         </div>
       <?php } ?>
     </div>
-  </div>
+  </div> -->
 </div>
 
 
     <!-- Swiper -->
 
     <script type="text/javascript">
-// Hàm tải sự kiện theo tháng
-function loadEvent(month) {
-    console.log(`[loadEvent] Bắt đầu tải sự kiện cho tháng: ${month}`);
 
-    $.ajax({
-        type: "GET",
-        url: '/apis/ajax_event',
-        data: { month: month },
-        beforeSend: function() {
-            console.log(`[loadEvent] Đang gửi yêu cầu AJAX với month=${month}`);
-        }
-    }).done(function(response) {
-        console.log(`[loadEvent] Yêu cầu AJAX thành công. Dữ liệu trả về:`, response);
-
-        // Cập nhật giao diện sự kiện
-        $('.in-box-event-home').html(response.text);
-
-        // Khởi chạy lại slick slider sau khi cập nhật sự kiện
-        eventhome();
-    }).fail(function(error) {
-        console.error(`[loadEvent] Yêu cầu AJAX thất bại. Lỗi:`, error);
-    }).always(function() {
-        console.log(`[loadEvent] Kết thúc quá trình tải sự kiện cho tháng: ${month}`);
-    });
+      // Hàm load sự kiện của tháng khi người dùng nhấn vào tháng
+function loadEvent(e) {
+  var month = $(e).attr('data-month');
+  console.log('Đang tải sự kiện của tháng:', month);
+  
+  // Thực hiện yêu cầu AJAX để lấy sự kiện theo tháng
+  $.ajax({
+    type: "GET",
+    url: '/apis/ajax_event',
+    data: { month: month }
+  }).done(function(msg) {
+    // Cập nhật các sự kiện vào trong box sự kiện
+    $('.in-box-event-home').html(msg.text);
+    eventhome();  // Khởi động lại slick slider
+  });
 }
 
-// Hàm khởi chạy lại slick slider
+// Hàm cấu hình slider cho sự kiện
 function eventhome() {
-    console.log(`[eventhome] Khởi chạy slick slider.`);
-
-    $('.in-box-event-home_1').slick({
-        dots: false,
-        infinite: true,
-        arrows: true,
-        speed: 500,
-        fade: true,
-        cssEase: 'linear',
-        prevArrow: `<button type='button' class='slick-prev pull-left'><i class="fa-solid fa-angle-left"></i></button>`,
-        nextArrow: `<button type='button' class='slick-next pull-right'><i class="fa-solid fa-angle-right"></i></button>`
-    });
-
-    console.log(`[eventhome] Slick slider đã được khởi chạy.`);
+  $('.in-box-event-home_1').slick({
+    dots: false,
+    infinite: true,
+    arrows: true,
+    speed: 500,
+    fade: true,
+    cssEase: 'linear',
+    prevArrow: `<button type='button' class='slick-prev pull-left'><i class="fa-solid fa-angle-left"></i></button>`,
+    nextArrow: `<button type='button' class='slick-next pull-right'><i class="fa-solid fa-angle-right"></i></button>`
+  });
 }
 
-// Hàm xử lý khi nhấn nút chuyển tháng
-function handleMonthChange(direction) {
-    console.log(`[handleMonthChange] Đã nhấn nút: ${direction}`);
+// Hàm load sự kiện khi chuyển tháng (prev/next)
+function loadEventNextPrev(direction) {
+  // Lấy tháng hiện tại từ phần tử đang hiển thị
+  var currentMonth = $('.slick-center').attr('data-month');
+  console.log('Tháng hiện tại:', currentMonth);
 
-    let currentMonth = parseInt($('.slick-center').attr('data-month')) || new Date().getMonth() + 1;
-    console.log(`[handleMonthChange] Tháng hiện tại: ${currentMonth}`);
+  // Xử lý chuyển tháng
+  if (direction === 1) {
+    currentMonth = (currentMonth == 12) ? 1 : Number(currentMonth) + 1;
+  } else {
+    currentMonth = (currentMonth == 1) ? 12 : Number(currentMonth) - 1;
+  }
 
-    // Tính toán tháng mới
-    let newMonth = direction === "next" ? currentMonth + 1 : currentMonth - 1;
-
-    // Xử lý vòng lặp tháng (1-12)
-    if (newMonth > 12) newMonth = 1;
-    if (newMonth < 1) newMonth = 12;
-
-    console.log(`[handleMonthChange] Tháng mới sau khi tính toán: ${newMonth}`);
-
-    // Gọi hàm tải sự kiện với tháng mới
-    loadEvent(newMonth);
+  // Thực hiện yêu cầu AJAX để tải sự kiện theo tháng
+  $.ajax({
+    type: "GET",
+    url: '/apis/ajax_event',
+    data: { month: currentMonth }
+  }).done(function(msg) {
+    console.log('Sự kiện tháng ' + currentMonth, msg);
+    // Cập nhật sự kiện vào trong box
+    $('.in-box-event-home').html(msg.text);
+    eventhome();  // Khởi động lại slick slider
+  });
 }
 
-// Gắn sự kiện cho các nút điều hướng
-$('#btn-next').on('click', function() {
-    console.log(`[Event] Đã nhấn nút Next.`);
-    handleMonthChange("next");
-});
-
-$('#btn-back').on('click', function() {
-    console.log(`[Event] Đã nhấn nút Back.`);
-    handleMonthChange("back");
-});
-
-// Gọi lần đầu để khởi chạy slider và tải sự kiện ban đầu
+// Cấu hình sự kiện khi trang được load
 $(document).ready(function() {
-    const initialMonth = new Date().getMonth() + 1;
-    console.log(`[Document Ready] Tải sự kiện ban đầu cho tháng: ${initialMonth}`);
-    loadEvent(initialMonth); // Tải sự kiện cho tháng hiện tại
+  // Gán sự kiện cho nút "prev" (quay lại tháng trước)
+  $(".mon-pull-left").click(function() {
+    loadEventNextPrev(2); // Gọi hàm với tham số 2 (quay lại tháng trước)
+  });
+
+  // Gán sự kiện cho nút "next" (chuyển đến tháng sau)
+  $(".mon-pull-right").click(function() {
+    loadEventNextPrev(1); // Gọi hàm với tham số 1 (chuyển đến tháng sau)
+  });
+
+  // Gán sự kiện cho từng tháng để load sự kiện tương ứng
+  $("#current-month").click(function() {
+    loadEvent(this); // Gọi hàm loadEvent khi nhấn vào tháng
+  });
+
+  // Gọi sự kiện cho tháng đầu tiên khi trang tải
+  loadEvent($('.mon-pull-right').first());
 });
+
+
+
+function handleView360() {
+  // Lấy thẻ .header-container và toggle class no-overlay
+  const headerContainer = document.querySelector('.header-container');
+  if (headerContainer) {
+    headerContainer.classList.toggle('no-overlay');
+  } else {
+    console.error('Element .header-container không tồn tại.');
+  }
+
+  // Hiển thị nút .btn-stop-watch
+  const stopWatchBtn = document.querySelector('.btn-stop-watch');
+  if (stopWatchBtn) {
+    stopWatchBtn.style.display = 'flex';
+  } else {
+    console.error('Element .btn-stop-watch không tồn tại.');
+  }
+
+  // Ẩn thẻ .header-back-container
+  const headerBackContainer = document.querySelector('.header-back-container');
+  if (headerBackContainer) {
+    headerBackContainer.classList.add('hidden');
+  } else {
+    console.error('Element .header-back-container không tồn tại.');
+  }
+}
+
+function stop360View() {
+  // Bỏ class no-overlay khỏi .header-container
+  const headerContainer = document.querySelector('.header-container');
+  if (headerContainer) {
+    headerContainer.classList.remove('no-overlay');
+  } else {
+    console.error('Không tìm thấy .header-container');
+  }
+
+  // Ẩn nút .btn-stop-watch
+  const stopWatchBtn = document.querySelector('.btn-stop-watch');
+  if (stopWatchBtn) {
+    stopWatchBtn.style.display = 'none'; // Ẩn nút
+  } else {
+    console.error('Không tìm thấy .btn-stop-watch');
+  }
+
+  // Hiển thị lại thẻ .header-back-container
+  const headerBackContainer = document.querySelector('.header-back-container');
+  if (headerBackContainer) {
+    headerBackContainer.classList.remove('hidden'); // Loại bỏ class 'hidden'
+  } else {
+    console.error('Không tìm thấy .header-back-container');
+  }
+
+  console.log('Đã dừng xem toàn cảnh 360');
+}
+
+
 </script>
+
+
 
 <?php getFooter();?>
