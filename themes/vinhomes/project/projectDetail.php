@@ -61,46 +61,57 @@
           Xem tất cả ảnh
         </button>
         <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <?php if(!empty($project['images'][1])):?>
           <div class="col-span-1 row-span-2 md:col-span-2 max-h-[30rem]">
             <img
-              src="<?= $urlThemeActive ?>image/project/imgProject1.png"
+              src="<?= $project['images'][1] ?>"
               alt="Image 1"
               class="object-cover w-full h-full rounded-lg"
             />
           </div>
+        <?php endif;?>
+        <?php if(!empty($project['images'][2])):?>
           <div class="col-span-1 row-span-1 md:col-span-1">
             <img
-              src="<?= $urlThemeActive ?>image/project/imgProject2.png"
+              src="<?= $project['images'][2] ?>"
               alt="Image 2"
               class="object-cover w-full h-full rounded-lg"
             />
           </div>
+        <?php endif;?>
+        <?php if(!empty($project['images'][3])):?>
           <div class="col-span-1 row-span-1 md:col-span-1">
             <img
-              src="<?= $urlThemeActive ?>image/project/imgProject3.png"
+              src="<?= $project['images'][3] ?>"
               alt="Image 3"
               class="object-cover w-full h-full rounded-lg"
             />
           </div>
+          <?php endif;?>
+          <?php if(!empty($project['images'][4] )):?>
           <div class="col-span-2 row-span-1 md:col-span-2 max-h-[19rem]">
             <img
-              src="<?= $urlThemeActive ?>image/project/imgProject4.png"
+              src="<?= $project['images'][4] ?>"
               alt="Image 4"
               class="object-cover w-full h-full rounded-lg"
             />
           </div>
+          <?php endif;?>
         </div>
       </div>
 
       <div class="block swiper mySwiper-image sm:hidden">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img
-              src="<?= $urlThemeActive ?>image/project/imgProject1.png"
-              alt="Image 1"
-              class="rounded-lg"
-            />
-          </div>
+          <?php foreach ($project['images'] as $image): ?>
+            <div class="swiper-slide"> 
+              <img
+                src="<?= htmlspecialchars($image, ENT_QUOTES, 'UTF-8') ?>"
+                alt="Project Image"
+                class="rounded-lg"
+              />
+            </div>
+          <?php endforeach; ?>
+<!-- 
           <div class="swiper-slide">
             <img
               src="<?= $urlThemeActive ?>image/project/imgProject2.png"
@@ -121,7 +132,7 @@
               alt="Image 1"
               class="rounded-lg"
             />
-          </div>
+          </div> -->
         </div>
 
         <div class="swiper-button-prev"></div>
@@ -384,19 +395,30 @@
                 <span> Giải đáp mọi thắc mắc của khách hàng </span>
               </li>
             </ul>
-            <form id="consultation-form" class="space-y-4">
+            <form action="/contact"  class="space-y-4" method="post">
               <input
                 id="full-name"
                 class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Họ và tên"
+                placeholder="Họ và tên" name="name"required
                 type="text"
               />
+              <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+              <input
+                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Địa chỉ Email" name="email" value=" " 
+                type="hidden"
+              />
+              <input type="hidden" placeholder="" name="subject" value="Người liên hệ">
               <input
                 id="phone-number"
                 class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Số điện thoại"
+                placeholder="Số điện thoại" name="phone"required
                 type="text"
               />
+              <input
+                class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Lời nhắn của bạn" name="content" value = "Đăng ký tư vấn bật động sản <?=$project['name']?>" type="hidden"
+              ></input>
               <button class="w-full py-2 rounded-lg buttonActive" type="submit">
                 Đăng ký tư vấn
               </button>

@@ -217,7 +217,7 @@
                   <a href="<?php echo @$item->slug ?>.html">
                     <div class="relative">
                       <img alt="Modern house with large windows and landscaped garden" class="object-cover w-full h-[440px] rounded-lg" src="<?= $item->image?>">
-                      <div class="absolute text-white py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4" style="background: linear-gradient(90deg, #182c77 0%, #6274bb 100%);">
+                      <div class="absolute text-white py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4" style="background: <?= $item->color ?>">
                         <?= $item->info ?>
                       </div>
                     </div>
@@ -260,42 +260,43 @@
           <button
             class="flex items-center px-6 py-4 text-white rounded-xl bg-gradient-to-r from-[#182c77] to-[#6274bb] transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
           >
-            Xem tất cả
+            <a href="/projects">Xem tất cả</a>
             <i class="ml-2 fas fa-arrow-right"></i>
           </button>
         </div>
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <a href="detailProject.html" class="rounded-lg">
+        <?php if (!empty($listDataprojectkeypoint[0])): ?>
+          <a href="<?=$listDataprojectkeypoint[0]->slug?>.html" class="rounded-lg">
             <div class="relative overflow-hidden rounded-lg">
               <img
                 alt="Modern house with large windows and landscaped garden"
                 class="object-cover w-full h-[440px] rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
-                src="<?= $urlThemeActive ?>image/index/imageQS1.png"
+                src="<?=$listDataprojectkeypoint[0]->image?>"
               />
               <div
                 class="absolute text-sm text-white bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
               >
-                Đang mở bánQ1/2024: Sắp bán khu căn hộ
+                <?=$listDataprojectkeypoint[0]->info?>
               </div>
             </div>
 
-            <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
-            <div class="flex items-center mt-2 font-bold">
+            <h2 class="mt-4 text-xl font-bold"> <?=$listDataprojectkeypoint[0]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
               <p class="mr-2">Phân khu:</p>
               <p class="underline underline-offset-4 text-[#142A72]">
                 The Rainbow
               </p>
-            </div>
+            </div> -->
             <div class="flex items-center mt-2 font-bold">
               <p class="mr-2">Tổng diện tích:</p>
-              <p class="underline underline-offset-4 text-[#142A72]">385 ha</p>
+              <p class="underline underline-offset-4 text-[#142A72]"> <?=$listDataprojectkeypoint[0]->acreage?></p>
             </div>
             <p class="mt-2 text-gray-400 description">
-              Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động
-              và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối,
-              phong cách sống toàn cầu
+              <?=$listDataprojectkeypoint[0]->description?>
             </p>
           </a>
+        <?php endif; ?>
+        <?php if (!empty($listDataprojectkeypoint[1])): ?>
           <a href="detailProject.html" class="rounded-lg">
             <div class="relative overflow-hidden rounded-lg">
               <img
@@ -306,27 +307,27 @@
               <div
                 class="absolute text-sm text-white bg-[#E04444] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
               >
-                Sắp mở bán
+                <?=$listDataprojectkeypoint[1]->info?>
               </div>
             </div>
 
-            <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
-            <div class="flex items-center mt-2 font-bold">
+            <h2 class="mt-4 text-xl font-bold"><?=$listDataprojectkeypoint[1]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
               <p class="mr-2">Phân khu:</p>
               <p class="underline underline-offset-4 text-[#142A72]">
                 The Rainbow
               </p>
-            </div>
+            </div> -->
             <div class="flex items-center mt-2 font-bold">
               <p class="mr-2">Tổng diện tích:</p>
-              <p class="underline underline-offset-4 text-[#142A72]">385 ha</p>
+              <p class="underline underline-offset-4 text-[#142A72]"><?=$listDataprojectkeypoint[1]->acreage?></p>
             </div>
             <p class="mt-2 text-gray-400 description">
-              Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động
-              và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối,
-              phong cách sống toàn cầu
+              <?=$listDataprojectkeypoint[1]->description?>
             </p>
           </a>
+          <?php endif; ?>
+          <?php if (!empty($listDataprojectkeypoint[2])): ?>
           <a href="detailProject.html" class="rounded-lg">
             <div class="relative overflow-hidden rounded-lg">
               <img
@@ -337,27 +338,26 @@
               <div
                 class="absolute text-white text-sm bg-[#239A3D] py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4"
               >
-                Đang mở bánQ1/2024: Sắp bán khu căn hộ
+                <?=$listDataprojectkeypoint[2]->info?>
               </div>
             </div>
 
-            <h2 class="mt-4 text-xl font-bold">Vinhomes Global Gate</h2>
-            <div class="flex items-center mt-2 font-bold">
+            <h2 class="mt-4 text-xl font-bold"><?=$listDataprojectkeypoint[2]->name?></h2>
+            <!-- <div class="flex items-center mt-2 font-bold">
               <p class="mr-2">Phân khu:</p>
               <p class="underline underline-offset-4 text-[#142A72]">
                 The Rainbow
               </p>
-            </div>
+            </div> -->
             <div class="flex items-center mt-2 font-bold">
               <p class="mr-2">Tổng diện tích:</p>
-              <p class="underline underline-offset-4 text-[#142A72]">385 ha</p>
+              <p class="underline underline-offset-4 text-[#142A72]"><?=$listDataprojectkeypoint[2]->acreage?></p>
             </div>
             <p class="mt-2 text-gray-400 description">
-              Vinhomes Global Gate là một Thành phố Thương mại Quốc tế sôi động
-              và đẳng cấp Thế giới, sở hữu 5 thế mạnh tuyệt đối: siêu kết nối,
-              phong cách sống toàn cầu
+              <?=$listDataprojectkeypoint[2]->description?>
             </p>
           </a>
+          <?php endif; ?>
         </div>
 
         <div class="h-[1px] bg-[#DADADA] my-10"></div>
@@ -390,7 +390,7 @@
               Vinhomes Royal Island
             </div>
           </div>
-          <a href="#" class="hidden md:flex">
+          <a href="/projects" class="hidden md:flex">
             <img src="<?= $urlThemeActive ?>image/icons/iconAll.png" alt="icon" class="h-10" />
           </a>
         </div>
