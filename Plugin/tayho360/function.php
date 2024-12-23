@@ -224,8 +224,8 @@ function destination_ward(){
     global $urlHomes;
 
 
-    return array(  '4'=>array('id'=>4,'name'=>'Huyện Ngọc Lặc','class'=>'fa-print','image'=>'/themes/tayho360/assets/icon/iconditich.png','urlSlug'=>'huyen_ngoc_lac'),
-                    '5'=>array('id'=>5,'name'=>'Huyện Lang Chánh','class'=>'fa-print','image'=>'/themes/tayho360/assets/icon/iconditich.png','urlSlug'=>'huyen_lang_chanh'),
+    return array(  '4'=>array('id'=>4,'name'=>'Huyện Ngọc Lặc','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icondanhlam.png','urlSlug'=>'huyen_ngoc_lac'),
+                    '5'=>array('id'=>5,'name'=>'Huyện Lang Chánh','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icondanhlam.png','urlSlug'=>'huyen_lang_chanh'),
          
     ); 
 
