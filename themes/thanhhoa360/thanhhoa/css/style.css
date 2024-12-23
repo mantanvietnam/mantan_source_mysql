@@ -708,6 +708,11 @@ body {
   height: 100%;
   object-fit: cover;
 }
+.bestnewss-info{
+  display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 
 @media (max-width: 480px) {
   /* Cho màn hình điện thoại */
@@ -746,7 +751,7 @@ body {
 }
 .bestnewss-info{
   display: flex;
-  flex-direction: row;
+  flex-direction: column !important;
 }
 
 
