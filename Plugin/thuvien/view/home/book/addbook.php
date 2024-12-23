@@ -94,17 +94,23 @@
                                   </select>
                                 </div>
                                 <div class="mb-3 form-group col-6">
-                                  <i>Nhà xuất bản</i>
-                                  <select name="publishing_id" id="publishing_id" class="form-control">
-                                      <option value="">Chọn Nhà xuất bản</option>
-                                      <?php if (!empty($listcategorypublishers)): ?>
-                                          <?php foreach ($listcategorypublishers as $key => $value): ?>
-                                              <option value="<?php echo $value->id; ?>" <?php echo ($data->id_category == $value->id) ? 'selected' : ''; ?>>
-                                                  <?php echo $value->name; ?>
-                                              </option>
-                                          <?php endforeach; ?>
-                                      <?php endif; ?>
-                                  </select>
+                                    <i>Nhà xuất bản</i>
+                                    <select name="publishing_id" id="publishing_id" class="form-control">
+                                        <option value="">Chọn Nhà xuất bản</option>
+                                        <?php if (!empty($listcategorypublishers)): ?>
+                                            <?php foreach ($listcategorypublishers as $publisher): ?>
+                                                <option value="<?php echo $publisher->id; ?>" 
+                                                    <?php echo (!empty($data->publishing_id) && $data->publishing_id == $publisher->id) ? 'selected' : ''; ?>>
+                                                    <?php echo htmlspecialchars($publisher->name); ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                  <label class="form-label" for="basic-default-fullname">Loại sách</label>
+                                  <input type="text"  class="form-control" placeholder="" name="typebook" id="typebook" value="<?php echo @$data->typebook;?>" />
                                 </div>
                               </div>
 

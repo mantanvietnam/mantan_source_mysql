@@ -11,7 +11,7 @@
         >
           <div class="w-full max-w-4xl">
             <div class="flex font-plus">
-              <!-- <button
+              <button
                 id="realEstateSaleButton"
                 class="py-2 mr-2 text-gray-600 transition-transform duration-300 ease-in-out bg-white rounded-t-lg active x-2 sm:px-8 property-button active:scale-95 hover:bg-gray-100 hover:shadow-md"
               >
@@ -28,7 +28,7 @@
                 class="px-2 py-2 text-gray-600 transition-transform duration-300 ease-in-out bg-white rounded-t-lg sm:px-8 property-button hover:bg-gray-100 hover:shadow-md active:scale-95"
               >
                 Dự án
-              </button> -->
+              </button>
             </div>
 
             <div

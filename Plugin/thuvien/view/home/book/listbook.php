@@ -30,7 +30,27 @@
           <label class="form-label">Mã xuất bản</label>
           <input type="text" class="form-control" name="book_code" value="<?php if(!empty($_GET['book_code'])) echo $_GET['book_code'];?>">
         </div>
+        <div class="col-md-3">
+            <label class="form-label">Nhà xuất bản</label>
+            <select name="publishing_id" class="form-control">
+                <option value="">Chọn Nhà xuất bản</option>
+                <?php if (!empty($listcategorypublishers)): ?>
+                    <?php foreach ($listcategorypublishers as $publisher): ?>
+                        <option value="<?= $publisher->id; ?>" 
+                            <?= (!empty($_GET['publishing_id']) && $_GET['publishing_id'] == $publisher->id) ? 'selected' : ''; ?>>
+                            <?= htmlspecialchars($publisher->name); ?>
+                        </option>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <option value="">Không có nhà xuất bản nào</option>
+                <?php endif; ?>
+            </select>
+        </div>
 
+        <div class="col-md-3">
+          <label class="form-label">Loại sách</label>
+          <input type="text" class="form-control" name="typebook" value="<?php if(!empty($_GET['typebook'])) echo $_GET['typebook'];?>">
+        </div>
         <div class="col-md-3">
           <label class="form-label">Tác giả</label>
           <input type="text" class="form-control" name="author" value="<?php if(!empty($_GET['author'])) echo $_GET['author'];?>">

@@ -8,7 +8,8 @@ function listbook($input)
     global $metaTitleMantan;
     global $session;
     global $modelCategoryConnects;
-
+    $listcategorypublishers = $modelCategories->find()->where(['type' => 'category_publisher'])->all()->toList();
+    
      $user = checklogin('listbook');   
     if(!empty($user)){
        
@@ -30,7 +31,9 @@ function listbook($input)
          if(!empty($_GET['name'])){
             $conditions['name LIKE'] = '%'.$_GET['name'].'%';
         }
-        
+        if(!empty($_GET['typebook'])){
+            $conditions['typebook LIKE'] = '%'.$_GET['typebook'].'%';
+        }
         if(!empty($_GET['status'])){
             $conditions['status'] =  $_GET['status'];
         }
@@ -40,7 +43,9 @@ function listbook($input)
         if(!empty($_GET['author'])){
             $conditions['author'] =  $_GET['author'];
         }
-
+        if(!empty($_GET['publishing_id'])){
+            $conditions['publishing_id'] = (int) $_GET['publishing_id'];
+        }
         if (!empty($_GET['published_date'])) {
             $publishedDate = $_GET['published_date'];
             $dateParts = explode('/', $publishedDate);
@@ -138,7 +143,7 @@ function listbook($input)
         }elseif(@$_GET['mess']=='deleteError'){
             $mess= '<p class="text-danger" style="padding: 0px 1.5em;">Xóa dữ liệu không thành công</p>';
         }
-
+        setVariable('listcategorypublishers', $listcategorypublishers);
         setVariable('mess', $mess);
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
@@ -188,6 +193,7 @@ function addbook($input) {
                 $data->author = $dataSend['author'];
                 $data->published_date = (new DateTime($dataSend['published_date']))->getTimestamp();
                 $data->image = $dataSend['image'];
+                $data->typebook = $dataSend['typebook'];
                 $data->description = $dataSend['description'];
                 $data->price = $dataSend['price'];
                 $data->book_code = $dataSend['book_code'];
