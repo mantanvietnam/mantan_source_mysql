@@ -87,7 +87,7 @@
                     </div>
                     <div class="form-section mb-4">
                         <label for="datetime-picker" class="form-label">Thời gian bắt đầu</label>
-                        <input type="text" id="datetime-picker" placeholder="Chọn ngày và giờ">
+                        <input type="text" id="datetime-picker" class="form-control" placeholder="Chọn ngày và giờ">
                     </div>
                     <div class="form-section mb-4">
                         <label for="event-description" class="form-label">Lịch trình</label>

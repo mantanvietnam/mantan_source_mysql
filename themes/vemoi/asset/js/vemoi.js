@@ -151,9 +151,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-$(document).ready(function() {
-    $('#datetime-picker').datetimepicker({
-        dateFormat: 'yy-mm-dd',
-        timeFormat: 'HH:mm:ss'
+var $j = jQuery.noConflict();
+$j(document).ready(function() {
+    $j("#datetime-picker").datepicker({
+        dateFormat: "dd-mm-yy"
     });
 });
