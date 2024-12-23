@@ -194,7 +194,7 @@ opacity:1;
         <h3 id="event-title" class="mt-3">
         <?php echo @$valueEvent->name; ?>
         </h3>
-        <div class="bestnew-info">
+        <div class="bestnew-info d-flex">
           <div id="event-description" class="bestnew-des">
           <?php echo @$valueEvent->introductory; ?>
           </div>

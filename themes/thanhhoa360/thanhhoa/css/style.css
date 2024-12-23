@@ -721,7 +721,8 @@ body {
   height: 220px !important;
 }
 .test{
-  display: block !important;
+  display: flex !important;
+  flex-direction: column;
 }
 .news-header h2 {
   font-size: 30px;
@@ -733,6 +734,19 @@ body {
 .locations-title {
   margin-top: 20px;
 
+}
+.bestnew-des{
+  width: 100% !important;
+}
+.slider-header {
+  flex-direction: column;
+}
+.bestnew-info{
+  flex-direction: column !important;
+}
+.bestnewss-info{
+  display: flex;
+  flex-direction: row;
 }
 
 

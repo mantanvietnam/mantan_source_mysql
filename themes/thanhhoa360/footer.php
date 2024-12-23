@@ -37,27 +37,29 @@ $setting = setting();
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-6 d-flex flex-column text-white gap-3 footer-mid">
-            <h2>Về chúng tôi</h2>
-                <?php
-                if (!empty(getListLinkWeb(@$setting['idlink']))) {
-                    foreach (getListLinkWeb(@$setting['idlink']) as $key => $ListLink) { ?>
-                        <li>
-                            <a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a>
-                        </li>
-                <?php }
-                } ?>
-          </div>
-          <div class="col-lg-3 col-6 d-flex flex-column text-white gap-3 footer-mid">
-            <h2>Truy cập hiện tại</h2>
-            <span> <?php 
-                            if(function_exists('showStatic')){
-                                showStatic();
-                            }
-                            ?></span>
-            <div class='d-flex gap-2'>
-              <a href=""><img src="<?= $urlThemeActive ?>images/fb.png" alt=""></a>
-              <a href=""><img src="<?= $urlThemeActive ?>images/tw.png" alt=""></a>
+          <div class="bestnewss-info col-lg-6">
+            <div class="col-lg-3 col-6 d-flex flex-column text-white gap-3 footer-mid">
+              <h2>Về chúng tôi</h2>
+                  <?php
+                  if (!empty(getListLinkWeb(@$setting['idlink']))) {
+                      foreach (getListLinkWeb(@$setting['idlink']) as $key => $ListLink) { ?>
+                          <li>
+                              <a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a>
+                          </li>
+                  <?php }
+                  } ?>
+            </div>
+            <div class="col-lg-3 col-6 d-flex flex-column text-white gap-3 footer-mid">
+              <h2>Truy cập hiện tại</h2>
+              <span> <?php 
+                              if(function_exists('showStatic')){
+                                  showStatic();
+                              }
+                              ?></span>
+              <div class='d-flex gap-2'>
+                <a href=""><img src="<?= $urlThemeActive ?>images/fb.png" alt=""></a>
+                <a href=""><img src="<?= $urlThemeActive ?>images/tw.png" alt=""></a>
+              </div>
             </div>
           </div>
         </div>
