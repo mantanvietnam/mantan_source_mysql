@@ -56,8 +56,8 @@ opacity:1;
 }
 
 .swiper-slide img{
-  height: auto;
-  width :100%;
+  height: auto !important;
+  width :100% !important;
 }
 
 .mySwiper2 {
@@ -83,7 +83,7 @@ opacity:1;
                 <img src="<?= $urlThemeActive ?>images/arr-red.png" alt="">
               </div>
             </div>
-            <a class='header-btn header-btn-2' href='<?php echo $setting['link_image360'] ?>'>
+            <a class='header-btn header-btn-2' href='<?php echo $setting['link_image360'] ?>'  target="_blank">
               <span>Truy cập link 360</span>
               <div>
                 <img src="<?= $urlThemeActive ?>images/arr-white.png" alt="">
@@ -107,9 +107,9 @@ opacity:1;
         <div class='location-des-container'>
         <?php if ($key === 0): ?>
           <div class='locations-title mb-5'>
-            <span>Điểm đến</span>
-            <span>Di tích lịch sử ,văn hóa </span>
-            <span>Văn hóahóa</span>
+            <!-- <span>Điểm đến</span> -->
+            <span>Di tích Lịch sử </span>
+            <span>Văn hóa</span>
           </div>
         <?php endif; ?>
           <div class='location-info'>
@@ -122,7 +122,7 @@ opacity:1;
 
             </div>
             <div class='btn-more mb-5 mt-2'>
-              <a  href="/chi_tiet_di_tich_lich_su/<?php echo @$value->slug ?>.html" >
+              <a  href="/chi_tiet_di_tich_lich_su/<?php echo @$value->urlSlug ?>.html" >
               <span>Xem chi tiết</span> </a>
               <div>
                 <img src="<?= $urlThemeActive ?>images/arr-red.png" alt="">
@@ -156,7 +156,7 @@ opacity:1;
             <?php foreach ($mostViewedPosts as $post): ?>
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 new-container">
           <div class='new-img'>
-            <a href="/chi_tiet_su_kien/<?php echo @$post->slug; ?>.html">
+            <a href="/<?php echo @$post->slug; ?>.html">
             <img src="<?php echo $post['image']; ?>" alt=""></a>
           </div>
           <h3><?php echo $post['title']; ?></h3>
@@ -235,7 +235,7 @@ opacity:1;
     <?php if (!empty($listDataImage)) { 
       foreach ($listDataImage as $key => $item) { ?>
         <div class="swiper-slide">
-          <a href="<?php echo @$item->image360; ?>">
+          <a href="<?php echo @$item->image360; ?>" target="_blank">
             <img src="<?php echo @$item->image; ?>" alt="Vietnam 360 Image <?php echo $key + 1; ?>" />
           </a>
         </div>
