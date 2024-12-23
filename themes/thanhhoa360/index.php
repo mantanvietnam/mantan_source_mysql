@@ -80,7 +80,7 @@ opacity:1;
 
     </div>
     <!-- điểm đến tiêu biểu -->
-    <div class='container-fluid'>
+    <div class='container-fluid' style="margin:0;">
     <?php foreach ($listHistorie as $key => $value): ?>
       <!----lỗi location-container ở js -->
 
