@@ -35,8 +35,9 @@ function sendContentGooglAdsAPI($input){
                     $question = $dataSend['content_google_ads'];
                 }
             }
-              $reply_ai = callAIphoenixtech($question,$conversation_id);
-         
+            $reply_ai = callAIphoenixtech($question,$conversation_id);
+            $reply = '<h1>Lên chiến dịch quảng cáo Google Ads</h1>'.$reply_ai['result'];
+            $reply_ai['result'] = $reply;
 
               $chat = array('result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'], 'topic'=>@$dataSend['topic']);
 
@@ -97,7 +98,15 @@ function chatContentGooglAdsAPI($input){
             
                 $reply_ai = callAIphoenixtech($question,$conversation_id);
                 
-               
+               if(!empty($dataSend['type'])){
+                    if($dataSend['type']=='title'){
+                        $reply = '<h1>Viết tiêu đề quảng cáo</h1>'.$reply_ai['result'];
+                        $reply_ai['result'] = $reply;
+                    }elseif($dataSend['type']=='content'){
+                        $reply = '<h1>Viết mô tả quảng cáo </h1>'.$reply_ai['result'];
+                        $reply_ai['result'] = $reply;
+                    }
+                }
 
                 // $chat[] = array('question'=>$dataSend['question'],'result'=>$reply_ai['result'],'conversation_id'=>$reply_ai['conversation_id'],'number'=>$number );
 
@@ -150,7 +159,7 @@ function saveContentGooglAdsAPI($input){
                 $checkContent->created_at = time();
                 $checkContent->type = 'content_google_ads';
             }
-            $title = 'Lên chiến dịch quảng cáo Google Ads';
+            $title = 'Lên chiến dịch quảng cáo Google Ads chủ đề là '.$chat['topic'];
 
             if(!empty($dataSend['title'])){
                 $title = $dataSend['title'];  

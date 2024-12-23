@@ -64,7 +64,14 @@ function updateOrderStatus() {
     
     $return = array();
     $dataSend = $_REQUEST;
-
+    $user = checklogin('updateOrderStatus');
+     if(!empty($user)) {
+        if (empty($user->grant_permission)) {
+            return array(
+                'success' => false,
+                'message' => 'Bạn không có quyền.'
+            );
+        }
     if (!empty($dataSend['id']) && isset($dataSend['status'])) {
         $orderId = (int)$dataSend['id'];
         $newStatus = (int)$dataSend['status'];
@@ -94,6 +101,9 @@ function updateOrderStatus() {
                     }
                 }
 
+                 $note = $user->name . ' đã nhận sách khách trả của đơn mượn có ID là: ' . $order->id;
+                addActivityHistory($user, $note, 'Order', $order->id);
+
                 $return = array(
                     'success' => true,
                     'message' => 'Cập nhật trạng thái đơn hàng thành công.'
@@ -110,11 +120,17 @@ function updateOrderStatus() {
                 'message' => 'Đơn hàng không tồn tại.'
             );
         }
-    } else {
-        $return = array(
-            'success' => false,
-            'message' => 'Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.'
-        );
+        } else {
+            $return = array(
+                'success' => false,
+                'message' => 'Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.'
+            );
+        }
+    }else{
+        array(
+                'success' => false,
+                'message' => 'chưa đăng nhập.'
+            );
     }
 
     return $return;

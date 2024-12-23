@@ -18,8 +18,10 @@ function settingHomeTheme($input){
 
         $value = array( 'image_logo' => @$dataSend['image_logo'],
                         'link_image360' => @$dataSend['link_image360'],
-                        'welcome1' => @$dataSend['welcome1'],
-                        'welcome2' => @$dataSend['welcome2'],
+                        'title1' => @$dataSend['title1'],
+                        'text_1' => @$dataSend['text_1'],
+                        'title2' => @$dataSend['title2'],
+                        'text_2' => @$dataSend['text_2'],
                         'title_travel1' => @$dataSend['title_travel1'],
                         'image_travel1' => @$dataSend['image_travel1'],
                         'link_travel1' => @$dataSend['link_travel1'],
@@ -76,7 +78,7 @@ function indexTheme($input){
     $conditions = array('key_word' => 'settingHomeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
     $modelEvent = $controller->loadModel('Events');
-    $modelHistoricalSite = $controller->loadModel('HistoricalSites');
+    $modelPlace = $controller->loadModel('Places');
     $modelImage = $controller->loadModel('Images');
 
     $month = getdate()['mon'];
@@ -93,7 +95,7 @@ function indexTheme($input){
 
     $conditionsTour =array('status' => '1');
 
-    $listHistorie = $modelHistoricalSite->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
+    $listPlace = $modelPlace->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
     
     $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order(['id'=>'desc','pin'=>'desc', 'outstanding' =>'desc'])->all()->toList();
     $listDataImage = $modelImage->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
@@ -103,7 +105,7 @@ function indexTheme($input){
     setVariable('listDataPost', $listDataPost);
     setVariable('listDataTour', $listDataTour);*/
     setVariable('setting', $data_value);
-    setVariable('listHistorie', $listHistorie);
+    setVariable('listPlace', $listPlace);
     setVariable('listDataEvent', $listDataEvent);
     setVariable('listDataImage', $listDataImage);
 }

@@ -12,7 +12,7 @@ $setting = setting();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/thaianh.css">
 
-    <?php  if(@$isHome==false){ ?>
+    <?php  //if(@$isHome==false){ ?>
      <!-- FONTAWESOME 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -45,21 +45,18 @@ $setting = setting();
     <script src="<?= $urlThemeActive ?>tayho/assets/js/main.js"></script>
     <script src="<?= $urlThemeActive ?>tayho/js/slick.js"></script>
 
-<?php }else{ ?>
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>maichau/css/main.css?time=100021">
+<?php //}else{ ?>
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>assets_new/css/page.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-    <link rel="shortcut icon" type="image/png" href="../images/logo.png" />
-    <!-- SLick -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <!-- font -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Boostrap -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Fonawesome -->
-    <script src="https://kit.fontawesome.com/9163bded0f.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-
-<?php } ?>
+<?php //} ?>
    
     <!-- FILE INCLUDE JS END -->
     <?php mantan_header(); ?>
@@ -117,42 +114,8 @@ $setting = setting();
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNav">
-                               <!--  <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Danh mục điểm đến
-                                            
-                                        </a>
-                                        <ul class="dropdown-menu relics-drop ">
-                                            <li><a class="dropdown-item" href="#">Danh lam thắng cảnh</a></li>
-                                            <li><a class="dropdown-item" href="#">Điểm du lịch cộng đồng</a></li>
-                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Tin tức - Sự kiện</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Bản đồ số</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Liên hệ</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-
-                                        </a>
-                                        <ul class="dropdown-menu language-drop">
-                                            <li><a class="dropdown-item" href="#">Tiếng Việt</a></li>
-                                            <li><a class="dropdown-item" href="#">Tiếng Anh</a></li>
-                                        </ul>
-                                    </li>
-                                </ul> -->
+                             
+                             
                                 <ul class="navbar-nav">
                                     <?php
                                     $menu = getMenusDefault();

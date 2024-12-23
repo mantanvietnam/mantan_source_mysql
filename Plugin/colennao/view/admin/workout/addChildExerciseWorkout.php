@@ -60,6 +60,10 @@
                               <input type="number" class="form-control phone-mask" name="time" id="time" value="<?php echo @$data->time;?>" required placeholder="thời gian tính thành giây"/>
                             </div>
                             <div class="mb-3">
+                              <label class="form-label">Thời gian đếm ngược tính thành giây</label>
+                              <input type="number" class="form-control phone-mask" name="time_reverse" id="time_reverse" value="<?php echo @$data->time_reverse;?>" required placeholder="thời gian tính thành giây"/>
+                            </div>
+                            <div class="mb-3">
                               <label class="form-label">Hình minh họa (*)</label>
                                <input type="file" class="form-control phone-mask" name="image" id="image" value=""/>
                               <?php

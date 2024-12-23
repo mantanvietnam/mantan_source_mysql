@@ -9,128 +9,388 @@ global $urlThemeActive;
 </style>
   <main>
        <!--  Phần Banner 360  -->
-    <section id="banner360">
-        <div class="iframe-360">
-            <iframe src="<?php echo $setting['link_image360'] ?>" frameborder="0"></iframe>
-        </div>
 
-        <div class="iframe-360-layer">
-            <a href="javascript:void(0)" class="banner360-1 banner360">Xem toàn cảnh 360</a>
-            <a href="https://maichau360.vn/data360/tour-tong/index.html" class="banner360-3 banner360">Truy cập link 360</a>
-        </div>
-        <a href="javascript:void(0)" class="banner360-2 banner360" style="display: none;">Dừng xem 360</a>
+    <section class="hero" id="banner360">
+      <div class="container-fluid p-0">
+          <div class="hero-image">
+              <!-- Lớp phủ phía trước iframe -->
+              <div class="iframe-cover" id="iframeCover"></div>
+  
+              <div class="iframe-360">
+                  <iframe
+                      style="width: 100%; height: calc(100vh - 80px);"
+                      src="<?php echo $setting['link_image360'] ?>"
+                      frameborder="0"
+                  ></iframe>
+              </div>
+  
+              <!-- Nội dung hero overlay -->
+              <div class="hero-overlay" id="heroOverlay">
+                  <h1 class="hero-title"><?php echo @$setting['title1'] ?></h1>
+                  <p class="hero-description"><?php echo @$setting['text_1'] ?></p>
+                  <a href="<?php echo $setting['link_image360'] ?>" target="_blank" class="btn btn-primary" id="view360Btn">Xem toàn cảnh 360</a>
+              </div>
+          </div>
+      </div>
     </section>
 
-    <!--  Phần Places  -->
-    <section id="places">
-        <div class="row">
-            <div class="places-title">
-                <h2>Điểm đến Văn hóa - Du lịch tiêu biểu</h2>
-                <p>Khám phá Điểm đến Văn hóa - Du lịch tiêu biểu huyện Mai Châu</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="container-fluid">
-                <div class="places-slide">
-                    <?php if(!empty($listHistorie)){ 
-                        foreach ($listHistorie as $key => $value){ ?>
-                    <div class="item-slide">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="item-slide-img">
-                                    <img src="<?php echo @$value->image ?>" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="item-slide-content">
-                                    <h3><?php echo @$value->name ?></h3>
-                                    <p><?php echo @$value->address ?></p>
-                                    <span><?php echo @$value->introductory ?></span>
-                                </div>
-                                <div class="item-slide-btn">
-                                    <a href="/chi_tiet_di_tich_lich_su/<?php echo @$value->urlSlug ?>.html">Xem chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php }} ?>
-                   
 
+     <!-- Destinations Section -->
+    <section class="destinations py-5 mx-5">
+        <div class="container-fluid">
+            <h2 class=" mb-4">Điểm đến Văn hóa - Du lịch tiêu biểu</h2>
+            <p class="text-muted mb-5">Khám phá Điểm đến Văn hóa - Du lịch tiêu biểu huyện Mai Châu</p>
+
+            <div class="row g-4">
+                <div class="row align-items-center mb-4">
+                    <div class="col-md-7">
+                        <img src="./img/dt1 (2).png" class="img-fluid rounded img-desti" alt="Đền Mẫu">
+                    </div>
+                    <div class="col-md-5 text-end text-representative">
+                      <div class="infomation">
+                        <p class="text-primary">Đền Mẫu</p>
+                        <h2 class="address">Đường Bãi Sậy, thành phố Hưng Yên</h2>
+                        <h3 class="text-muted">Nằm ở đường Bãi Sậy, thành phố Hưng Yên, đền Mẫu tọa lạc bên hồ bán nguyệt chứa đựng những giá trị văn hóa vật thể và phi vật thể có giá trị độc đáo của phố Hiến.</h3>
+                      </div>
+                        <a href="#" class=" btn-edit mb-4">Xem chi tiết<i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="row align-items-center mb-4">
+                    <div class="col-md-5 text-representative">
+                      <div class="infomation">
+                        <p class="text-primary">Đền Mẫu</p>
+                        <h2 class="address">Đường Bãi Sậy, thành phố Hưng Yên</h2>
+                        <h3 class="text-muted">Nằm ở đường Bãi Sậy, thành phố Hưng Yên, đền Mẫu tọa lạc bên hồ bán nguyệt chứa đựng những giá trị văn hóa vật thể và phi vật thể có giá trị độc đáo của phố Hiến.</h3>
+                      </div>
+                        <a href="#" class=" btn-edit mb-4">Xem chi tiết<i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="col-md-7">
+                        <img src="./img/dt1 (2).png" class="img-fluid rounded img-desti" alt="Chợ Cốc Lếu">
+                    </div>
+                    
+                </div>
+
+                <div class="row align-items-center mb-4">
+                    <div class="col-md-7 text-end">
+                        <img src="./img/dt1 (2).png" class="img-fluid rounded img-desti" alt="Công viên Hồ Chí Minh">
+                    </div>
+                    <div class="col-md-5 text-end text-representative">
+                      <div class="infomation">
+                        <p class="text-primary">Đền Mẫu</p>
+                        <h2 class="address">Đường Bãi Sậy, thành phố Hưng Yên</h2>
+                        <h3 class="text-muted">Nằm ở đường Bãi Sậy, thành phố Hưng Yên, đền Mẫu tọa lạc bên hồ bán nguyệt chứa đựng những giá trị văn hóa vật thể và phi vật thể có giá trị độc đáo của phố Hiến.</h3>
+                      </div>
+                        <a href="#" class=" btn-edit mb-4">Xem chi tiết<i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!--  Phần Event  -->
-    <section id="events">
-        <div class="row">
-            <div class="events-title">
-                <h2>Tin tức - sự kiện</h2>
-                <p>Những Tin tức - Sự kiện Văn hoá, Du lịch tiêu biểu</p>
+    <section class="news container py-5">
+      <div class="news-text d-flex">
+          <p class="left-text col-md-7">We're a community dedicated to empowering lives through fitness. Our experienced trainers, state-of-the-art facilities, and diverse range of classes create an environment</p>
+          <h2 class="text-end col-md-5 mb-4 right-text">Tin tức mới nhất</h2>
+      </div>
+      <div class="swiper-container">
+          <div class="swiper-wrapper d-flex">
+              <div class="swiper-slide col-lg-4">
+                  <div class="card bg-dark text-white card-news card-hover" >
+                      <img src="./img/dt1 (2).png" class="card-img" alt="...">
+                      <div class="card-img-overlay d-flex flex-column justify-content-end overlay-content">
+                          <h5 class="card-title">Lào Cai tổ chức chuỗi sự kiện chào đón năm 2024</h5>
+                          <p class="card-text">Ngày 20/09/2024</p>
+                          <div class="card-content hidden">
+                              <button class="btn mt-2 but-hou">Xem chi tiết</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide col-lg-4">
+                  <div class="card bg-dark text-white card-news card-hover" >
+                      <img src="./img/dt1 (2).png" class="card-img" alt="...">
+                      <div class="card-img-overlay d-flex flex-column justify-content-end overlay-content">
+                          <h5 class="card-title">Lào Cai: Nhiều sự kiện hấp dẫn du khách</h5>
+                          <p class="card-text">Ngày 20/09/2024</p>
+                          <div class="card-content hidden">
+                              <button class="btn mt-2 but-hou">Xem chi tiết</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide col-lg-4">
+                  <div class="card bg-dark text-white card-news card-hover" >
+                      <img src="./img/dt1 (2).png" class="card-img" alt="...">
+                      <div class="card-img-overlay d-flex flex-column justify-content-end overlay-content">
+                          <h5 class="card-title">10 sự kiện tiêu biểu Lào Cai năm 2022</h5>
+                          <p class="card-text">Ngày 20/09/2024</p>
+                          <div class="card-content hidden">
+                              <button class="btn mt-2 but-hou">Xem chi tiết</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide">
+                  <div class="card bg-dark text-white card-news card-hover" >
+                      <img src="./img/dt1 (2).png" class="card-img" alt="...">
+                      <div class="card-img-overlay d-flex flex-column justify-content-end overlay-content">
+                          <h5 class="card-title">10 sự kiện tiêu biểu Lào Cai năm 2022</h5>
+                          <p class="card-text">Ngày 20/09/2024</p>
+                          <div class="card-content hidden">
+                              <button class="btn mt-2 but-hou">Xem chi tiết</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide">
+                  <div class="card bg-dark text-white card-news card-hover">
+                      <img src="./img/dt1 (2).png" class="card-img" alt="...">
+                      <div class="card-img-overlay d-flex flex-column justify-content-end overlay-content">
+                          <h5 class="card-title">10 sự kiện tiêu biểu Lào Cai năm 2022</h5>
+                          <p class="card-text">Ngày 20/09/2024</p>
+                          <div class="card-content hidden">
+                              <button class="btn mt-2 but-hou">Xem chi tiết</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+      </div>
+  </section>
+   <!-- Slider Section -->
+   <section id="event-section">
+    <div class="event-container container-fluid">
+        <p class="event-head">Sự kiện của tháng</p>
+        <!-- Month Slider -->
+        <div class="event-slider-container">
+            <div class="slider-buttons">
+                <button class="prev-button"><i class="fa-solid fa-arrow-left"></i></button>
             </div>
-        </div>
-
-        <div class="container-fluid combo-slide-1">
-            <?php include('mon.php') ?>
-        </div>
-
-        <div class="container-fluid combo-slide-2">
-            <div class="events-slide in-box-event-home">
-                <?php if(!empty($tmpVariable['listDataEvent'])) {
-                            foreach ($tmpVariable['listDataEvent'] as $keyEvent => $valueEvent) {
-
-                         ?>
-                        <div class="item-events-slide">
-                            <div class="events-slide-img">
-                                <img src="<?php echo $valueEvent->image; ?>" alt="">
-                            </div>
-                            <div class="events-slide-content">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-7 col-sm-12">
-                                        <div class="events-slide-content-box">
-                                            <div class="events-slide-detail">
-                                                <a href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">
-                                                    <h3><?php echo @$valueEvent->name; ?> </h3>
-                                                </a>
-                                                <p>Ngày<?php echo date("d/m/Y",@$valueEvent->datestart); ?> - Ngày <?php echo date("d/m/Y",@$valueEvent->dateEnd); ?></p>
-                                            </div>
-                                            <div class="events-slide-btn">
-                                                <a href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">Xem chi tiết</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php } }else { ?>
-                        <div class="item-events-slide">
-                            <div class="events-slide-img">
-                                <img src="<?= $urlThemeActive ?>/images/1fe55f76625bca05934a.jpg" alt="">
-                            </div>
-                            <div class="events-slide-content">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-7 col-sm-12">
-                                        <div class="events-slide-content-box">
-                                            <div class="events-slide-detail">
-                                                    <h3>Chưa có sự kiện nào đang diễn ra.</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php
-                        } ?>
+            <div class="month-slider">
+              <div class="month-item" data-month="1">Tháng 1</div>
+                <div class="month-item" data-month="2">Tháng 2</div>
+                <div class="month-item" data-month="3">Tháng 3</div>
+                <div class="month-item" data-month="4">Tháng 4</div>
+                <div class="month-item" data-month="5">Tháng 5</div>
+                <div class="month-item" data-month="6">Tháng 6</div>
+                <div class="month-item" data-month="7">Tháng 7</div>
+                <div class="month-item" data-month="8">Tháng 8</div>
+                <div class="month-item" data-month="9">Tháng 9</div>
+                <div class="month-item" data-month="10">Tháng 10</div>
+                <div class="month-item" data-month="11">Tháng 11</div>
+                <div class="month-item" data-month="12">Tháng 12</div>
                 
             </div>
+            <div class="slider-buttons">
+                <button class="next-button"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
         </div>
 
-        <!-- <div class="event-bg">
-            <img src="../images/bg3.png" alt="">
-        </div> -->
+        <!-- Event Content -->
+        <div class="event-content">
+            <!-- Tháng 11 -->
+            <div class="event-details" data-month="11">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
 
-    </section>
+            <!-- Tháng 12 -->
+            <div class="event-details" data-month="12" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
 
+            <!-- Tháng 1 -->
+            <div class="event-details" data-month="1" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tháng 2 -->
+            <div class="event-details" data-month="2" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-details" data-month="3" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-details" data-month="4" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-details" data-month="5" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-details" data-month="6" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-details" data-month="7" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-details" data-month="8" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-details" data-month="9" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-details" data-month="10" style="display: none;">
+              <div class="event-details-flex">
+                <img src="./img/dt1 (2).png" alt="Tháng 11">
+                <div class="event-text">
+                    <h3>LỄ HỘI HOA TAM GIÁC MẠCH</h3>
+                    <p class="my-3">Giới Thiệu</p>
+                    <p>Lễ hội lớn diễn ra tại Hà Giang trong tháng 11.</p>
+                    <ul>
+                      <li><i class="fa fa-map-marker my-1"></i> Hà Giang</li>
+                      <li><i class="fa fa-calendar my-1"></i> 15/11/2024</li>
+                      <li><i class="fa fa-phone my-1"></i> 0123 456 111</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+    <section
     <section id="map">
         <div class="row">
             <div class="map-title">

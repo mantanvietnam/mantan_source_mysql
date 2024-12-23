@@ -5,9 +5,10 @@ function sendContentInspire($input){
     global $session;
     global $modelCategoryConnects;
     global $modelCategories;
-
+    global $metaTitleMantan;
     if(!empty($session->read('infoUser'))){
-        $metaTitleMantan ='Tái chế nội dung đỉnh cao - VIP';
+        $metaTitleMantan ='Viết 10 bài đăng Facebook truyền cảm hứng';
+
         $modelContentFacebookAi = $controller->loadModel('ContentFacebookAis');
         $member =$session->read('infoUser');
         if(!empty($_GET['id'])){

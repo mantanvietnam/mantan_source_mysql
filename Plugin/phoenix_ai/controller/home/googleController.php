@@ -5,9 +5,9 @@ function sendContentGoogleAds($input){
     global $session;
     global $modelCategoryConnects;
     global $modelCategories;
-
+    global $metaTitleMantan;
     if(!empty($session->read('infoUser'))){
-       
+        $metaTitleMantan ='Lên chiến dịch quảng cáo Google Ads';
         $modelContentFacebookAi = $controller->loadModel('ContentFacebookAis');
         $member =$session->read('infoUser');
         if(!empty($_GET['id'])){

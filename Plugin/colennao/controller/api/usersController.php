@@ -225,14 +225,12 @@ function loginUserApi($input): array
                 'phone' => $dataSend['phone'],
                 'password' => md5($dataSend['password']),
             ])->first();
-
+            $token = createToken();
             if (!empty($user)) {
-                if($dataSend['type']=='web'){
-                    $user->token = 'web'.createToken();
-                }elseif($dataSend['type']=='app'){
-                    $user->token_app = 'app'.createToken();   
-                    $user->device_token = $dataSend['device_token'];
-                }
+                $user->token = $token;
+                $user->token_app = $token;   
+                $user->device_token = $dataSend['device_token'];
+            
                 
                 $user->last_login = time();
                 $modelUser->save($user);

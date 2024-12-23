@@ -269,7 +269,7 @@ const showAiThinking = document.getElementById('showAiThinking');
           }
         }).done(function( msg ) {
                 if(msg.code==1){
-                  result += '/\n/g'+msg.data.result;
+                  result += msg.data.result;
                     document.getElementById("conversation_id").value = msg.data.conversation_id;
                     document.getElementById("result").value = result.replace(/\n/g, '<br>');
                     CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 

@@ -42,7 +42,7 @@
                         <div class="out-like-Googlepro">
                           <div class="write-outline">
                             <h3><?php echo @$bostAi['title']; ?></h3>
-                            <p><?php echo @$bostAi['district']; ?></p>
+                            <!-- <p><?php echo @$bostAi['district']; ?></p> -->
                           </div>
                         </div>
                       </div>
@@ -52,10 +52,10 @@
                 <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form action="" method="post">
-                       <div class="title-write">
-                        <h3>GPT Model</h3>
+                      <div class="title-write">
+                        <h3>Mục tiêu bạn mong muốn là gì?</h3>
                       </div>
-                      <div class="select-gpt-model">
+                      <div class="mb-3">
                         <select class="form-select" name="target_ads" id="target_ads" aria-label="Default select example">
                           <option value="Tăng doanh số bán hàng">Tăng doanh số bán hàng</option>
                           <option value="Tăng số lượng khách hàng mới">Tăng số lượng khách hàng mới</option>
@@ -230,16 +230,17 @@ const aiThinking = document.getElementById('aiThinking');
 const showAiThinking = document.getElementById('showAiThinking');
 
 
-showAiThinking.addEventListener('click', () => {
+/*showAiThinking.addEventListener('click', () => {
   aiThinking.classList.remove('d-none'); 
   setTimeout(() => {
     aiThinking.classList.add('d-none'); 
   }, 15000); 
-});
+});*/
 </script>
 <script type="text/javascript">
 
     function sendquestion(){
+       aiThinking.classList.remove('d-none');
         var topic = $('#topic').val();
         var target = $('#target_ads').val();
                
@@ -250,13 +251,14 @@ showAiThinking.addEventListener('click', () => {
                 target:target, 
         }
     }).done(function( msg ) {
+         aiThinking.classList.add('d-none');
            console.log(msg);
             if(msg.code==1){
 
                 document.getElementById("conversation_id").value = msg.data.conversation_id;
                 document.getElementById("result").value = msg.data.result.replace(/\n/g, '<br>');
                 CKEDITOR.instances['result'].setData(msg.data.result.replace(/\n/g, '<br>'));
-                
+                saveContentGoogleAds()                
             }
         })
 
@@ -269,6 +271,7 @@ showAiThinking.addEventListener('click', () => {
 <script type="text/javascript">
 
     function sendquestionNet(i){
+       aiThinking.classList.remove('d-none');
         var conversation_id = $('#conversation_id').val();
         var result = $('#result').val();
       
@@ -283,8 +286,10 @@ showAiThinking.addEventListener('click', () => {
             type: i, 
           }
         }).done(function( msg ) {
+             aiThinking.classList.add('d-none');
+             console.log(msg);
                 if(msg.code==1){
-                  result += '/\n/g'+msg.data.result;
+                  result +=msg.data.result;
                   document.getElementById("conversation_id").value = msg.data.conversation_id;
                   document.getElementById("result").value = result.replace(/\n/g, '<br>');
                   CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 
@@ -312,7 +317,7 @@ showAiThinking.addEventListener('click', () => {
           }
         }).done(function( msg ) {
                 if(msg.code==1){
-                  result += '/\n/g'+msg.data.result;
+                  result += msg.data.result;
                   document.getElementById("conversation_id").value = msg.data.conversation_id;
                   document.getElementById("result").value = result.replace(/\n/g, '<br>');
                   CKEDITOR.instances['result'].setData(result.replace(/\n/g, '<br>')); 

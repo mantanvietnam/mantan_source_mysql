@@ -14,7 +14,7 @@
 
       <div class="row">
 
-        <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 
           <div class="card mb-4">
 
@@ -24,9 +24,9 @@
 
             </div>
 
-            <div class="card-body">
+            <div class="card-body row">
 
-                <div class="mb-3">
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 
                   <label class="form-label" for="basic-default-fullname">Logo</label>
 
@@ -36,7 +36,7 @@
 
 
 
-                <div class="mb-3">
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 
                   <label class="form-label" for="basic-default-fullname">Link ảnh 360</label>
 
@@ -44,13 +44,27 @@
 
                 </div>
 
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 
+                  <label class="form-label" for="basic-default-fullname">tiêu đền bannar</label>
+
+                  <input type="text" class="form-control" name="title1" value="<?php echo @$setting['title1'];?>" />
+
+                </div>
+
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                  <label class="form-label" for="basic-default-fullname">chữ nhỏ bannar</label>
+
+                  <input type="text" class="form-control" name="text_1" value="<?php echo @$setting['text_1'];?>" />
+
+                </div>
 
                  
 
 
 
-                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
 
             </div>
 
@@ -59,7 +73,39 @@
         </div>
 
 
+          <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 
+          <div class="card mb-4">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+              <h5 class="mb-0">Khối Điểm đến Văn hóa</h5>
+
+            </div>
+
+            <div class="card-body row">
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                  <label class="form-label" for="basic-default-fullname">tiêu đề</label>
+
+                  <input type="text" class="form-control" name="title2" value="<?php echo @$setting['title2'];?>" />
+
+                </div>
+
+                <div class="mb-3 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                  <label class="form-label" for="basic-default-fullname">tiêu đền bannar</label>
+
+                  <input type="text" class="form-control" name="text_2" value="<?php echo @$setting['text_2'];?>" />
+
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
+
+            </div>
+
+          </div>
+
+        </div>
         
 
         

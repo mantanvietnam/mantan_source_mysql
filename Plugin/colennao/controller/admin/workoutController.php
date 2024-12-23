@@ -322,6 +322,7 @@ function addExerciseWorkout($input){
                 $data->time =(int) @$dataSend['time'];
                 $data->level = @$dataSend['level'];
                 $data->kcal =(int)@$dataSend['kcal'];
+                $data->time_reverse =(int)@$dataSend['time_reverse'];
                 $data->device = json_encode(@$dataSend['device']);
                 $data->area = json_encode(@$dataSend['area']);
 
@@ -560,7 +561,7 @@ function addChildExerciseWorkout($input){
                 $data->content_en = @$dataSend['content_en'];
                 $data->id_group =(int) @$dataSend['id_group'];
                 $data->device = json_encode(@$dataSend['device']);
-               
+                $data->time_reverse =(int)@$dataSend['time_reverse'];
                 $data->group_exercise = json_encode(@$group_exercise);
                 $data->id_exercise = @$dataExercise->id;  
 

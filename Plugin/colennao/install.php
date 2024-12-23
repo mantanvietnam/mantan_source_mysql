@@ -297,6 +297,7 @@ $sqlInstallDatabase .="CREATE TABLE `exercise_workouts` (
 `group` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[]' ,
 `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
 `sound` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL, 
+`time_reverse` INT NOT NULL DEFAULT 0, 
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
@@ -312,6 +313,7 @@ $sqlInstallDatabase .="CREATE TABLE `child_exercise_workouts` (
 `description_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
 `content_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+`time_reverse` INT NOT NULL DEFAULT 0, 
 `id_exercise` INT NULL DEFAULT NULL,
 `id_group` INT NULL DEFAULT NULL,
 `youtube_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
@@ -613,6 +615,7 @@ $sqlUpdateDatabase['exercise_workouts']['group'] = "ALTER TABLE `exercise_workou
 $sqlUpdateDatabase['exercise_workouts']['description'] = "ALTER TABLE `exercise_workouts` ADD `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['exercise_workouts']['description_en'] = "ALTER TABLE `exercise_workouts` ADD `description_en` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['exercise_workouts']['sound'] = "ALTER TABLE `exercise_workouts` ADD `sound` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
+$sqlUpdateDatabase['exercise_workouts']['time_reverse'] = "ALTER TABLE `exercise_workouts` ADD `time_reverse` INT NOT NULL DEFAULT '0';";
 
 $sqlUpdateDatabase['child_exercise_workouts']['title'] = "ALTER TABLE `child_exercise_workouts` ADD `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['child_exercise_workouts']['title_en'] = "ALTER TABLE `child_exercise_workouts` ADD `title_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
@@ -627,6 +630,7 @@ $sqlUpdateDatabase['child_exercise_workouts']['content_en'] = "ALTER TABLE `chil
 $sqlUpdateDatabase['child_exercise_workouts']['youtube_code'] = "ALTER TABLE `child_exercise_workouts` ADD `youtube_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['child_exercise_workouts']['id_exercise'] = "ALTER TABLE `child_exercise_workouts` ADD `id_exercise` INT NULL DEFAULT NULL;";
 $sqlUpdateDatabase['child_exercise_workouts']['id_group'] = "ALTER TABLE `child_exercise_workouts` ADD `id_group` INT NULL DEFAULT NULL;";
+$sqlUpdateDatabase['child_exercise_workouts']['time_reverse'] = "ALTER TABLE `child_exercise_workouts` ADD `time_reverse` INT NOT NULL DEFAULT '0';";
 
 $sqlUpdateDatabase['devices']['name'] = "ALTER TABLE `devices` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
 $sqlUpdateDatabase['devices']['name_en'] = "ALTER TABLE `devices` ADD `name_en` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;";
