@@ -40,7 +40,7 @@ $setting = setting();
         <!-- logo -->
         <div class='d-flex align-items-center gap-3'>
           <img src="<?php echo $setting['image_logo'] ?>" alt="logo">
-          <span class='city-name'>Thanh Hóa</span>
+          <span class='city-name'>Thanh Hóa 360°</span>
         </div>
 
         <!-- navigation -->
@@ -99,7 +99,7 @@ $setting = setting();
           <!-- <a class="navbar-brand" href="#">Navbar</a> -->
           <div class='d-flex align-items-center gap-3'>
             <img src="<?php echo $setting['image_logo'] ?>" alt="logo">
-            <span class='city-name city-name-res'>Thanh Hóa</span>
+            <span class='city-name city-name-res'>Thanh Hóa 360°</span>
             <!-- Ngôn ngữ -->
           </div>
             

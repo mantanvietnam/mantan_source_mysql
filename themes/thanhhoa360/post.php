@@ -29,8 +29,9 @@ if (!isset($otherPosts)) $otherPosts = [];
                         <article class="pe-0 pe-lg-5">
                             <div class="head">
                                 <h1 class="mb-1"><?= $post->title ?></h1>
-                                <span
-                                    class="author"><?= $post->author ?> - <?= convert_timestamp($post->time) ?></span>
+                                <span 
+                                    class="author"><?= $post->author ?> - <?= date('d/m/Y H:i:s', strtotime($post->time)) ?></span>
+
                             </div>
                             <div class="body">
                                 <div class="content">
@@ -55,10 +56,10 @@ if (!isset($otherPosts)) $otherPosts = [];
                                                      alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title mb-3">
-                                                        <?= limit_words($post->title) ?>
+                                                        <?= ($post->title) ?>
                                                     </h5>
                                                     <p class="card-time">
-                                                        <?= distance_from_now($post->time) ?>
+                                                        <?= ($post->time) ?>
                                                     </p>
                                                 </div>
                                             </div>
@@ -86,10 +87,10 @@ if (!isset($otherPosts)) $otherPosts = [];
                                     <img class="card-img-top" src="<?= $oPost->image ?>" alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title mb-3">
-                                            <?= limit_words($oPost->title) ?>
+                                            <?= ($oPost->title) ?>
                                         </h5>
                                         <p class="card-time">
-                                            <?= distance_from_now($oPost->time) ?>
+                                            <?= ($oPost->time) ?>
                                         </p>
                                     </div>
                                 </div>
