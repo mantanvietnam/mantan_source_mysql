@@ -195,7 +195,7 @@ function addbook($input) {
                 $data->author = $dataSend['author'];
                 $data->published_date = (new DateTime($dataSend['published_date']))->getTimestamp();
                 $data->image = $dataSend['image'];
-                $data->typebook = $dataSend['typebook'];
+                // $data->typebook = $dataSend['typebook'];
                 $data->description = $dataSend['description'];
                 $data->price = $dataSend['price'];
                 $data->book_code = $dataSend['book_code'];

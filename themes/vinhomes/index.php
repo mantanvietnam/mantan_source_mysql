@@ -214,7 +214,7 @@
             <?php if(!empty($listDataproject)){
               foreach($listDataproject as $item){ ?>
                 <div class="swiper-slide" data-tab="<?= $item->id_kind ?>">
-                  <a href="<?php echo @$item->slug ?>.html">
+                  <a href="/project/<?php echo @$item->slug ?>.html">
                     <div class="relative">
                       <img alt="Modern house with large windows and landscaped garden" class="object-cover w-full h-[440px] rounded-lg" src="<?= $item->image?>">
                       <div class="absolute text-white py-2 px-4 rounded-xl mt-4 w-fit bottom-4 right-4" style="background: <?= $item->color ?>">
@@ -266,7 +266,7 @@
         </div>
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         <?php if (!empty($listDataprojectkeypoint[0])): ?>
-          <a href="<?=$listDataprojectkeypoint[0]->slug?>.html" class="rounded-lg">
+          <a href="/project/<?=$listDataprojectkeypoint[0]->slug?>.html" class="rounded-lg">
             <div class="relative overflow-hidden rounded-lg">
               <img
                 alt="Modern house with large windows and landscaped garden"
