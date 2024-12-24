@@ -753,6 +753,17 @@ body {
   display: flex;
   flex-direction: column !important;
 }
+.slider-header span {
+  width: auto;
 
-
+}
+.ft-row{
+  flex-direction: column !important;
+}
+.ft-row img{
+  min-width: 100px;
+}
+.al-cen{
+  align-items: center;
+}
 }
