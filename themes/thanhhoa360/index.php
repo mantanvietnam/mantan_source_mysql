@@ -248,8 +248,8 @@ color: black;
     <span>Khám phá những điểm đến tuyệt vời không thể bỏ lỡ ở Việt Nam</span>
   </div>
   
-  <!-- Swiper lớn -->
-  <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+  <!-- Swiper -->
+<div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
   <div class="swiper-wrapper">
     <?php if (!empty($listDataImage)) { 
       foreach ($listDataImage as $key => $item) { ?>
@@ -270,46 +270,40 @@ color: black;
   <div class="swiper-pagination"></div>
 
   <!-- Các nút điều hướng -->
-  <div class="swiper-button-next"></div>
-  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next custom-next"></div>
+  <div class="swiper-button-prev custom-prev"></div>
+</div>
 </div>
 
-  
-  <!-- Swiper nhỏ (thumbnail) -->
-  <!-- <div thumbsSlider="" class="swiper mySwiper mt-4">
-    <div class="swiper-wrapper">
-      <?php if (!empty($listDataImage)) { 
-        foreach ($listDataImage as $key => $item) { ?>
-          <div class="swiper-slide">
-            <a href="<?php echo @$item->image360; ?>">
-              <img src="<?php echo @$item->image360; ?>" alt="Vietnam 360 Thumbnail <?php echo $key + 1; ?>" />
-            </a>
-          </div>
-      <?php } 
-      } else { ?>
-        <div class="swiper-slide">
-          <p>Không có hình ảnh thu nhỏ.</p>
-        </div>
-      <?php } ?>
-    </div>
-  </div> -->
-</div>
+<!-- Swiper -->
 
-
-    <!-- Swiper -->
-
-    <script type="text/javascript">
-
+<script type="text/javascript">
+// Khởi tạo Swiper
 var swiper = new Swiper('.mySwiper2', {
-  slidesPerView: 3, // Hiển thị 3 ảnh mỗi lần
-  spaceBetween: 5,
+  slidesPerView: 3, // Số slide hiển thị cùng lúc
+  spaceBetween: 10, // Khoảng cách giữa các slide
   navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev'
+    nextEl: '.custom-next', // Tùy chỉnh nút "Next"
+    prevEl: '.custom-prev'  // Tùy chỉnh nút "Prev"
   },
   pagination: {
     el: '.swiper-pagination',
-    clickable: true,
+    clickable: true, // Cho phép người dùng nhấp vào để chuyển slide
+  },
+  breakpoints: {
+    // Responsive tùy theo kích thước màn hình
+    640: {
+      slidesPerView: 1,
+      spaceBetween: 5,
+    },
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 10,
+    },
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 15,
+    }
   },
 });
 

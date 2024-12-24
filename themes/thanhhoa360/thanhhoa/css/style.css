@@ -620,7 +620,7 @@ body {
 /* footer */
 .footer-container {
   width: 100%;
-  background-color: brown;
+  background-color: #644242 !important;
 }
 
 .footer-frist-container {

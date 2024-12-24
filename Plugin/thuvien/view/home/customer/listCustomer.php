@@ -63,6 +63,8 @@
           <th>Địa chỉ</th>
           <th>Email</th>
           <th>Trạng thái</th>
+          <th>Đang mượn</th>
+          <th>Đã mượn</th>
           <th>Sửa</th>
           <th>Xóa</th>
         </tr>
@@ -83,6 +85,8 @@
             <td>'.$item->address.'</td>
             <td>'.$item->email.'</td>
             <td>'.$status.'</td>
+            <td align="center">'.$item->borrowedCount.'</td>
+            <td align="center">'.$item->returnedCount.'</td>
             <td width="5%" align="center">
               <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
                 <i class="bx bx-edit-alt me-1"></i>
