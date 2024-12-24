@@ -7,6 +7,19 @@ $setting = setting();
   .footer-container{
     background-color: brown;
   }
+  .ft-row{
+  flex-direction: column !important;
+}
+.ft-row img{
+  min-width: 100px;
+}
+.al-cen{
+  align-items: center;
+}
+.bestnewss-info{
+  display: none !important;
+  flex-direction: column !important;
+}
   </style>
 <div class='mt-5 footer-container'>
       <div class='container-fluid pt-5 pb-5'>

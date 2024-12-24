@@ -749,10 +749,7 @@ body {
 .bestnew-info{
   flex-direction: column !important;
 }
-.bestnewss-info{
-  display: none !important;
-  flex-direction: column !important;
-}
+
 .slider-header span {
   width: auto;
 

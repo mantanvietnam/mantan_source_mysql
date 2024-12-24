@@ -63,6 +63,23 @@ opacity:1;
     height: 40%;
     width: 100%;
 }
+.locations a{ 
+text-decoration:none !important;
+color: black;
+}
+.new-container a{
+  text-decoration:none !important;
+  color: black;
+}
+.best-new-container a{
+  text-decoration:none !important;
+  color: black;
+}
+.slider-header span {
+  width: auto;
+
+}
+
 
 
 </style>
@@ -116,7 +133,7 @@ opacity:1;
             <a  href="/chi_tiet_di_tich_lich_su/<?php echo @$value->urlSlug ?>.html" >
             <h2><?php echo @$value->name ?></h2>
             <img src="<?= $urlThemeActive ?>images/location.png" alt="address"> </a>
-            <span class='fw-bold'><?php echo @$value->address ?></span>
+            <span class='fw-bold'><?php echo @$value->address ?></span> </a>
 <br></br>
             <span><?php echo @$value->introductory ?></span>
 
@@ -155,11 +172,12 @@ opacity:1;
         <?php if (!empty($mostViewedPosts)): ?>
             <?php foreach ($mostViewedPosts as $post): ?>
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 new-container">
+        <a href="/<?php echo @$post->slug; ?>.html">
           <div class='new-img'>
-            <a href="/<?php echo @$post->slug; ?>.html">
-            <img src="<?php echo $post['image']; ?>" alt=""></a>
+           
+            <img src="<?php echo $post['image']; ?>" alt="">
           </div>
-          <h3><?php echo $post['title']; ?></h3>
+          <h3><?php echo $post['title']; ?></h3></a>
           <span><?php echo $post['description']; ?></span>
         </div>
         <?php endforeach; ?>
@@ -187,12 +205,13 @@ opacity:1;
         foreach ($listDataEvent as $keyEvent => $valueEvent) {
         ?>
       <div class="best-new-container mt-4">
+      <a style="width : 100%" href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">
         <div  class="best-new-img">
-          <a style="width : 100%" href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">
-          <img id="best-new-img" style="width : 100%" src="<?php echo @$valueEvent->image; ?>" alt="best"></a>
+          
+          <img id="best-new-img" style="width : 100%" src="<?php echo @$valueEvent->image; ?>" alt="best">
         </div>
         <h3 id="event-title" class="mt-3">
-        <?php echo @$valueEvent->name; ?>
+        <?php echo @$valueEvent->name; ?></a>
         </h3>
         <div class="bestnew-info d-flex">
           <div id="event-description" class="bestnew-des">
