@@ -115,11 +115,11 @@ opacity:1;
             <div class= "locations">
             <a  href="/chi_tiet_di_tich_lich_su/<?php echo @$value->urlSlug ?>.html" >
             <h2><?php echo @$value->name ?></h2>
-            <img src="<?= $urlThemeActive ?>images/location.png" alt="address">
+            <img src="<?= $urlThemeActive ?>images/location.png" alt="address"> </a>
             <span class='fw-bold'><?php echo @$value->address ?></span>
 <br></br>
             <span><?php echo @$value->introductory ?></span>
-</a>
+
             </div>
             <div class='btn-more mb-5 mt-2'>
               <a  href="/chi_tiet_di_tich_lich_su/<?php echo @$value->urlSlug ?>.html" >
