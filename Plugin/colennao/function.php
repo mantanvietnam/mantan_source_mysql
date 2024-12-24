@@ -73,11 +73,12 @@ $menus[2]['sub'][]= array( 'title'=>'Điều kiện yoga',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listcondition'
                             );
-$menus[2]['sub'][]= array( 'title'=>'Điều kiện karate',
+$menus[2]['sub'][]= array( 'title'=>'Điều kiện karate ',
                             'url'=>'/plugins/admin/colennao-view-admin-condition-listconditionkarate',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listconditionkarate'
                             );
+
 $menus[2]['sub'][]= array( 'title'=>'Kế hoạch luyện tập',
                             'url'=>'/plugins/admin/colennao-view-admin-listuserpeople-listuserpeople',
                             'classIcon'=>'bx bx-extension',
@@ -93,50 +94,73 @@ $menus[2]['sub'][]= array( 'title'=>'Bài luyện tập  ',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listContactAdmin'
                     );
-$menus[3]['title'] = 'Đồ ăn';
-$menus[3]['sub'][]= array( 'title'=>'Cài đặt chế độ ăn',
+$menus[3]['title'] = 'Câu hỏi và điều kiện lập kế hoạch mới';
+                            // newnew
+$menus[3]['sub'][]= array(	'title'=>'Câu hỏi thay đổi sở thích yoga',
+							'url'=>'/plugins/admin/colennao-view-admin-newquetion-listnewquetionsyoga',
+							'classIcon'=>'bx bx-question-mark',
+							'permission'=>'listnewquetionsyoga'
+						);
+$menus[3]['sub'][]= array(	'title'=>'Câu hỏi thay đổi sở thích karate',
+                            'url'=>'/plugins/admin/colennao-view-admin-newquetion-listnewquestionkarate',
+                            'classIcon'=>'bx bx-question-mark',
+                            'permission'=>'listnewquestionkarate'
+                    );
+$menus[3]['sub'][]= array( 'title'=>'Điều kiện thay đổi sở thích yoga',
+                            'url'=>'/plugins/admin/colennao-view-admin-condition-listcondition',
+                            'classIcon'=>'bx bx-extension',
+                            'permission'=>'listcondition'
+                            );
+$menus[3]['sub'][]= array( 'title'=>'Điều kiện thay đổi sở thích karate',
+                            'url'=>'/plugins/admin/colennao-view-admin-condition-listconditionkarate',
+                            'classIcon'=>'bx bx-extension',
+                            'permission'=>'listconditionkarate'
+                            );
+                            // 
+$menus[4]['title'] = 'Đồ ăn';
+$menus[4]['sub'][]= array( 'title'=>'Cài đặt chế độ ăn',
                             'url'=>'/plugins/admin/colennao-view-admin-mealtime-listmealtime',
                             'classIcon'=>'bx bx-history',
                             'permission'=>'listmealtime'
             );
-$menus[3]['sub'][]= array( 'title'=>'Cài đặt danh mục chế độ giảm cân',
+$menus[4]['sub'][]= array( 'title'=>'Cài đặt danh mục chế độ giảm cân',
                             'url'=>'/plugins/admin/colennao-view-admin-categorydiet-listcategorydiet',
                             'classIcon'=>'bx bx-history',
                             'permission'=>'listcategorydiet'
             );
-$menus[3]['sub'][]= array( 'title'=>'Nhóm đồ ăn',
+$menus[4]['sub'][]= array( 'title'=>'Nhóm đồ ăn',
                             'url'=>'/plugins/admin/colennao-view-admin-food-listgroupfood',
                             'classIcon'=>'bx bx-bowl-rice',
                             'permission'=>'listgroupfood'
                         );
-$menus[3]['sub'][]= array( 'title'=>'Bữa sáng',
+$menus[4]['sub'][]= array( 'title'=>'Bữa sáng',
                             'url'=>'/plugins/admin/colennao-view-admin-breakfastfood-listbreakfastfood',
                             'classIcon'=>'bx bx-bowl-rice',
                             'permission'=>'listbreakfastfood'
                         );
-$menus[3]['sub'][]= array( 'title'=>'Bữa trưa',
+$menus[4]['sub'][]= array( 'title'=>'Bữa trưa',
                             'url'=>'/plugins/admin/colennao-view-admin-lunchfood-listlunchfood',
                             'classIcon'=>'bx bx-bowl-rice',
                             'permission'=>'listlunchfood'
                         );
 
-$menus[3]['sub'][]= array( 'title'=>'Bữa tối',
+$menus[4]['sub'][]= array( 'title'=>'Bữa tối',
                             'url'=>'/plugins/admin/colennao-view-admin-dinnerfood-listdinnerfood',
                             'classIcon'=>'bx bx-bowl-rice',
                             'permission'=>'listdinnerfood'
                         );
-$menus[3]['sub'][]= array( 'title'=>'Bữa ăn nhẹ',
+$menus[4]['sub'][]= array( 'title'=>'Bữa ăn nhẹ',
                             'url'=>'/plugins/admin/colennao-view-admin-snackfood-listsnacksfood',
                             'classIcon'=>'bx bx-bowl-rice',
                             'permission'=>'listsnacksfood'
                         );
-$menus[4]['title'] = 'Tin tức và chuyên mục';
-$menus[4]['sub'][]= array( 'title'=>'Tin tức',
+$menus[5]['title'] = 'Tin tức và chuyên mục';
+$menus[5]['sub'][]= array( 'title'=>'Tin tức',
                             'url'=>'/plugins/admin/colennao-view-admin-post-listtablepost',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listtablepost'
                             );
-$menus[4]['sub'][]= array('title'=>'Cài đặt',
+$menus[5]['sub'][]= array('title'=>'Cài đặt',
         'url'=>'/',
         'classIcon'=>'bx bx-cog',
         'permission'=>'settings',
@@ -184,25 +208,25 @@ $menus[4]['sub'][]= array('title'=>'Cài đặt',
         )
 
     );
-$menus[5]['title'] = 'Giảm cân,Thử thách và Huấn Luyện Viên';
+$menus[6]['title'] = 'Giảm cân,Thử thách và Huấn Luyện Viên';
 // $menus[0]['sub'][]= array(	'title'=>'Câu hỏi khảo sát tiếng anh',
 // 							'url'=>'/plugins/admin/colennao-view-admin-questions-listQuestionenglish',
 // 							'classIcon'=>'bx bx-question-mark',
 // 							'permission'=>'listQuestionenglish'
 // 						);
-$menus[5]['sub'][]= array( 'title'=>'Thử thách  ',
+$menus[6]['sub'][]= array( 'title'=>'Thử thách  ',
                             'url'=>'/plugins/admin/colennao-view-admin-challenge-listChallenge',
                             'classIcon'=>'bx bxs-bolt',
                             'permission'=>'listChallenge'
                     );
 
 
-$menus[5]['sub'][]= array( 'title'=>'Huấn luyện viên',
+$menus[6]['sub'][]= array( 'title'=>'Huấn luyện viên',
                             'url'=>'/plugins/admin/colennao-view-admin-coach-listcoach',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listcoach'
                     );
-$menus[5]['sub'][]= array(	'title'=>'tin tức giảm cân',
+$menus[6]['sub'][]= array(	'title'=>'tin tức giảm cân',
                             'url'=>'/plugins/admin/colennao-view-admin-fasting-listfastingadmin',
                             'classIcon'=>'bx bx-extension',
                             'permission'=>'listfastingadmin'

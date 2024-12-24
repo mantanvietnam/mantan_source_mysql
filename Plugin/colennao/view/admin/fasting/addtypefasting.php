@@ -37,14 +37,8 @@
                     <label class="form-label">text source 1</label>
                     <input  type="text" class="form-control phone-mask" name="textsource1" id="textsource1" value="<?php echo @$data->textsource1;?>" />
                   </div>
-                  <div class="mb-3">
-                    <label class="form-label">text source 2 tiếng anh</label>
-                    <input  type="text" class="form-control phone-mask" name="textsource2" id="textsource2" value="<?php echo @$data->textsource2;?>" />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">link source 1</label>
-                    <input  type="text" class="form-control phone-mask" name="linksource1" id="linksource1" value="<?php echo @$data->linksource1;?>" />
-                  </div>
+             
+            
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -55,21 +49,33 @@
                     <label class="form-label">Ảnh tác giả</label>
                     <?php showUploadFile('imageauthor','imageauthor',@$data->imageauthor,11);?>
                   </div>
+                 
                   <div class="mb-3">
-                    <label class="form-label">Mô tả </label>
-                    <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Mô tả tiếng anh</label>
-                    <textarea maxlength="160" rows="5" class="form-control" name="descriptionen" id="descriptionen"><?php echo @$data->descriptionen;?></textarea>
+                    <label class="form-label">link source 1</label>
+                    <input  type="text" class="form-control phone-mask" name="linksource1" id="linksource1" value="<?php echo @$data->linksource1;?>" />
                   </div>
                
                   <div class="mb-3">
                     <label class="form-label">link source 2 </label>
                     <input  type="text" class="form-control phone-mask" name="linksource2" id="linksource2" value="<?php echo @$data->linksource2;?>" />
                   </div>
-
-      
+                  <div class="mb-3">
+                    <label class="form-label">text source 2 </label>
+                    <input  type="text" class="form-control phone-mask" name="textsource2" id="textsource2" value="<?php echo @$data->textsource2;?>" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Mô tả </label>
+                    <?php showEditorInput('description', 'description', @$data->description);?>
+                  </div>
+                
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Mô tả tiếng anh</label>
+                    <?php showEditorInput('descriptionen', 'descriptionen', @$data->descriptionen);?>
+                  </div>
                 </div>
               </div>
 

@@ -5,6 +5,7 @@ include_once('controller/admin/usersController.php');
 include_once('controller/admin/coursesController.php'); 
 include_once('controller/admin/lessonsController.php'); 
 include_once('controller/admin/questionsController.php'); 
+include_once('controller/admin/newquestionController.php'); 
 include_once('controller/admin/fastingController.php'); 
 include_once('controller/admin/categoryController.php');
 include_once('controller/admin/challengeController.php');

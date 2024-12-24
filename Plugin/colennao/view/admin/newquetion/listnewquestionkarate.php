@@ -1,15 +1,15 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Câu hỏi khảo sát karate</h4>
-  <p><a href="/plugins/admin/colennao-view-admin-questions-addquestionkarate" class="btn btn-primary"><i class='bx bx-plus'></i>ADD</a></p>
+  <h4 class="fw-bold py-3 mb-4">CÂU HỎI THAY ĐỔI SỞ THÍCH KARATE</h4>
+  <p><a href="/plugins/admin/colennao-view-admin-newquestion-addnewquetionkarate" class="btn btn-primary"><i class='bx bx-plus'></i>Thêm mới</a></p>
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Câu hỏi khảo sát karate</h5>
+    <h5 class="card-header">CÂU HỎI THAY ĐỔI SỞ THÍCH KARATE</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Câu hỏi</th>
+            <th>QUESTION</th>
             <th>Trạng thái</th>
             <th>Dạng câu hỏi</th>
             <th>Sửa</th>
@@ -27,12 +27,12 @@
                         <td>'.$item->status.'</td>
                         <td>'.$item->type.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-questions-addQuestion/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/colennao-view-admin-newquestion-addnewquetionkarate/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/colennao-view-admin-questions-deleteQuestion/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/colennao-view-admin-newquestion-deleteQuestion/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
