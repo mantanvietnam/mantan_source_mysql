@@ -55,7 +55,7 @@ $locations = $matchingLocations;
     </style>
     <div class='map-container' id='map-page'>
         <div class='container map-container'>
-            <h2>Bản đồ số Thanh Hóa 360</h2>
+            <h2>Bản đồ số Di tích Thanh Hóa 360</h2>
             <span>Trải nghiệm tham quan ảo thông minh và tiện ích qua Bản đồ số di tích</span>
             <div id="map">
             <div class="filter-container">

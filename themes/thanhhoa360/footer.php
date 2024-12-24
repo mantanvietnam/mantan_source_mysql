@@ -20,6 +20,7 @@ $setting = setting();
   display: none !important;
   flex-direction: column !important;
 }
+
   </style>
 <div class='mt-5 footer-container'>
       <div class='container-fluid pt-5 pb-5'>
