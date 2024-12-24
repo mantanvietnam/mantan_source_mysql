@@ -13,6 +13,7 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
   />
+  <?php mantan_header()?>
 </head>
 <body>
   <div>
